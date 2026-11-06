@@ -40,7 +40,7 @@ Python 3.10以降、Verilator 5.052、C++コンパイラなどのビルド環境
 
 `pass`は指定した検査の一致、`fail`は検査条件の相違、`known`は固定版での確認タグがないVerilatorケースの差分を記録します。`unsupported`は、実行スクリプトがkirimasimの未対応機能の診断を認識した状態です。後ろ2つは成功を表しません。[判定の定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)を参照してください。
 
-このリポジトリの`elaboration`ケースは、不正な設計をコンパイラが拒否することを期待し、実行時のseedは使いません。`simulation`ケースはモデルを実行します。両seedの一致だけでは、X／Zを含む4-stateへの対応を示しません。[seedとコンパイル検査の件数](faq.ja.md#q201-全2400テストを2-seedで実行しましたか)を参照してください。
+このリポジトリの`elaboration`ケースは、不正な設計をコンパイラが拒否することを期待し、実行時のseedは使いません。`simulation`ケースはモデルを実行します。両seedの一致だけでは、X／Zを含む4-stateへの対応を示しません。[seedとコンパイル検査の件数](faq.ja.md#q201-全2420テストを2-seedで実行しましたか)を参照してください。
 
 `--all`ではknown差分だけでVerilatorコマンドを失敗にしないため、終了コードと個々の判定を併せて確認します。[終了コードが0になる理由](faq.ja.md#q6-knownがあるのにverilatorコマンドが成功するのはなぜですか)を説明しています。
 
@@ -90,7 +90,7 @@ Issueでは[投稿方針](faq.ja.md#商用シミュレータとissueの投稿方
 
 - [テストを実行する](testing.ja.md#スイートの実行)
 - [用語を調べる](glossary.ja.md)
-- [個別の疑問を調べる](faq.ja.md)
+- [個別の疑問を調べる](faq.ja.md#疑問に合う説明を探す)
 - [現在の測定結果を読む](results.ja.md)
 - [要求への対応付けを確認する](requirements.ja.md)
 - [開発を再開する](handoff.ja.md)

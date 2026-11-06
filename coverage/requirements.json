@@ -146569,6 +146569,959 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-PRE-WRITE-DATA-86",
+      "clause": "18.9.1.4.1",
+      "statement": {
+        "en": "A virtual-register pre_write method can replace the value subsequently deposited by that write.",
+        "ja": "virtual registerのpre_write methodで変更した値を、後続のwriteがdepositする。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "A virtual-register pre_write method can replace the value subsequently deposited by that write.",
+        "ja": "virtual registerのpre_write methodで変更した値を、後続のwriteがdepositする。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_reg_pre_write_data_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 reg_pre_write_data idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 reg_pre_write_data idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-PRE-WRITE-PATH-86",
+      "clause": "18.9.1.4.1",
+      "statement": {
+        "en": "A virtual-register pre_write method can select the backdoor instead of the initially requested frontdoor.",
+        "ja": "virtual registerのpre_write methodが、最初に指定したfrontdoorからbackdoorへ変更できる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "A virtual-register pre_write method can select the backdoor instead of the initially requested frontdoor.",
+        "ja": "virtual registerのpre_write methodが、最初に指定したfrontdoorからbackdoorへ変更できる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_reg_pre_write_path_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 reg_pre_write_path idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 reg_pre_write_path idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-PRE-WRITE-ORDER-86",
+      "clause": "18.9.1.4.1",
+      "statement": {
+        "en": "Virtual-register pre-write ordering places field hooks first, each method before its registered callback, and all virtual hooks before memory pre-write hooks.",
+        "ja": "virtual registerのpre-write順序はfield hookを先にし、各methodを自身の登録callbackより前、全virtual hookをmemory pre-writeより前にする。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "Virtual-register pre-write ordering places field hooks first, each method before its registered callback, and all virtual hooks before memory pre-write hooks.",
+        "ja": "virtual registerのpre-write順序はfield hookを先にし、各methodを自身の登録callbackより前、全virtual hookをmemory pre-writeより前にする。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_write_order_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 write_order idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 present 1 pre_order 1 post_order 1",
+            "UT: vcb86 write_order idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-POST-WRITE-STATUS-86",
+      "clause": "18.9.1.4.2",
+      "statement": {
+        "en": "A virtual-register post_write method changes the returned status after the modeled write has occurred.",
+        "ja": "virtual registerのpost_write methodは、modelのwrite後に返却statusを変更できる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "A virtual-register post_write method changes the returned status after the modeled write has occurred.",
+        "ja": "virtual registerのpost_write methodは、modelのwrite後に返却statusを変更できる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_reg_post_write_status_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 reg_post_write_status idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 reg_post_write_status idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-POST-WRITE-ORDER-86",
+      "clause": "18.9.1.4.2",
+      "statement": {
+        "en": "Virtual-register post-write hooks follow memory post-write hooks, execute registered callbacks before their method, and precede field post-write hooks.",
+        "ja": "virtual registerのpost-write hookはmemory post-writeの後、自身の登録callbackをmethodより前、field post-writeより前に実行する。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "Virtual-register post-write hooks follow memory post-write hooks, execute registered callbacks before their method, and precede field post-write hooks.",
+        "ja": "virtual registerのpost-write hookはmemory post-writeの後、自身の登録callbackをmethodより前、field post-writeより前に実行する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_write_order_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 write_order idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 present 1 pre_order 1 post_order 1",
+            "UT: vcb86 write_order idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-PRE-READ-MAP-86",
+      "clause": "18.9.1.4.3",
+      "statement": {
+        "en": "A virtual-register pre_read method changes the map used for the actual frontdoor read.",
+        "ja": "virtual registerのpre_read methodが、実frontdoor readで使うmapを変更できる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "A virtual-register pre_read method changes the map used for the actual frontdoor read.",
+        "ja": "virtual registerのpre_read methodが、実frontdoor readで使うmapを変更できる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_reg_pre_read_map_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 reg_pre_read_map idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 reg_pre_read_map idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-PRE-READ-PATH-86",
+      "clause": "18.9.1.4.3",
+      "statement": {
+        "en": "A virtual-register pre_read method changes the route used for the actual read.",
+        "ja": "virtual registerのpre_read methodが、実readで使う経路を変更できる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "A virtual-register pre_read method changes the route used for the actual read.",
+        "ja": "virtual registerのpre_read methodが、実readで使う経路を変更できる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_reg_pre_read_path_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 reg_pre_read_path idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 reg_pre_read_path idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-PRE-READ-ORDER-LITERAL-86",
+      "clause": "18.9.1.4.3",
+      "statement": {
+        "en": "Under the literal register-group ordering, field pre-read hooks precede register hooks, each method precedes its registered callback, and virtual hooks precede memory pre-read.",
+        "ja": "字義的なregister側の整理では、field pre-read hookをregisterより前、各methodを自身の登録callbackより前、virtual hookをmemory pre-readより前にする。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "Under the literal register-group ordering, field pre-read hooks precede register hooks, each method precedes its registered callback, and virtual hooks precede memory pre-read.",
+        "ja": "字義的なregister側の整理では、field pre-read hookをregisterより前、各methodを自身の登録callbackより前、virtual hookをmemory pre-readより前にする。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_reg_pre_read_order_literal_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 reg_pre_read_order_literal idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 present 1 pre_order 1 post_order 1",
+            "UT: vcb86 reg_pre_read_order_literal idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-POST-READ-DATA-86",
+      "clause": "18.9.1.4.4",
+      "statement": {
+        "en": "The data edited by a virtual-register post_read method is returned to the read caller.",
+        "ja": "virtual registerのpost_read methodで変更したdataをreadの呼出し元へ返す。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "The data edited by a virtual-register post_read method is returned to the read caller.",
+        "ja": "virtual registerのpost_read methodで変更したdataをreadの呼出し元へ返す。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_reg_post_read_data_status_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 reg_post_read_data_status idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 reg_post_read_data_status idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-POST-READ-STATUS-86",
+      "clause": "18.9.1.4.4",
+      "statement": {
+        "en": "The status edited by a virtual-register post_read method is returned to the read caller.",
+        "ja": "virtual registerのpost_read methodで変更したstatusをreadの呼出し元へ返す。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "The status edited by a virtual-register post_read method is returned to the read caller.",
+        "ja": "virtual registerのpost_read methodで変更したstatusをreadの呼出し元へ返す。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_reg_post_read_data_status_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 reg_post_read_data_status idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 reg_post_read_data_status idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-POST-READ-ORDER-86",
+      "clause": "18.9.1.4.4",
+      "statement": {
+        "en": "Virtual-register post-read hooks follow memory post-read, run registered callbacks before their method, and precede field post-read hooks.",
+        "ja": "virtual registerのpost-read hookはmemory post-readの後、自身の登録callbackをmethodより前、field post-readより前に実行する。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "Virtual-register post-read hooks follow memory post-read, run registered callbacks before their method, and precede field post-read hooks.",
+        "ja": "virtual registerのpost-read hookはmemory post-readの後、自身の登録callbackをmethodより前、field post-readより前に実行する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_reg_pre_read_order_literal_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 reg_pre_read_order_literal idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 present 1 pre_order 1 post_order 1",
+            "UT: vcb86 reg_pre_read_order_literal idx 2 controls 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_callback_field_pre_read_method_order_literal_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_pre_read_method_order_literal idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 present 1 pre_order 1 post_order 1",
+            "UT: vcb86 field_pre_read_method_order_literal idx 2 controls 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_callback_field_pre_read_cb_order_literal_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_pre_read_cb_order_literal idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 present 1 pre_order 1 post_order 1",
+            "UT: vcb86 field_pre_read_cb_order_literal idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-FIELD-POST-WRITE-STATUS-86",
+      "clause": "18.10.5.2",
+      "statement": {
+        "en": "A virtual-field post_write method can change the returned status through parent-register and standalone-field write calls.",
+        "ja": "virtual fieldのpost_write methodは、親registerとfield単独のwriteで返却statusを変更できる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved. The standalone partial-write input explicitly installs a user backdoor aliased to its selected frontdoor bank after separate route controls; this keeps read-modify-write state coherent. Its initial independent-bank inputs and diagnostic/control logs are archived and excluded.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。 field単独の部分writeは、別の経路controlの後に、選択frontdoor bankと同じ記憶域を使うuser backdoorを明示設定し、read-modify-writeの状態を整合させる。初期の独立bank入力と診断／control記録は保管して除外する。"
+      },
+      "expected": {
+        "en": "A virtual-field post_write method can change the returned status through parent-register and standalone-field write calls.",
+        "ja": "virtual fieldのpost_write methodは、親registerとfield単独のwriteで返却statusを変更できる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_field_post_write_parent_status_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_post_write_parent_status idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 field_post_write_parent_status idx 2 controls 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_callback_field_post_write_standalone_status_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_post_write_standalone_status idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 field_post_write_standalone_status idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-FIELD-PRE-READ-MAP-86",
+      "clause": "18.10.5.3",
+      "statement": {
+        "en": "A virtual-field pre_read method can change the map used for the containing virtual-register read.",
+        "ja": "virtual fieldのpre_read methodは、親virtual registerのreadで使うmapを変更できる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "A virtual-field pre_read method can change the map used for the containing virtual-register read.",
+        "ja": "virtual fieldのpre_read methodは、親virtual registerのreadで使うmapを変更できる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_field_pre_read_map_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_pre_read_map idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 field_pre_read_map idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-FIELD-PRE-READ-ORDER-LITERAL-86",
+      "clause": "18.10.5.3",
+      "statement": {
+        "en": "Under the literal field-method grouping, the field pre_read method follows containing-register hooks and precedes its registered field callback and memory pre-read.",
+        "ja": "字義的なfield method側の整理では、field pre_read methodは親register hookの後、自身の登録field callbackとmemory pre-readより前になる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "Under the literal field-method grouping, the field pre_read method follows containing-register hooks and precedes its registered field callback and memory pre-read.",
+        "ja": "字義的なfield method側の整理では、field pre_read methodは親register hookの後、自身の登録field callbackとmemory pre-readより前になる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_field_pre_read_method_order_literal_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_pre_read_method_order_literal idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 present 1 pre_order 1 post_order 1",
+            "UT: vcb86 field_pre_read_method_order_literal idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-FIELD-POST-READ-SLICE-86",
+      "clause": "18.10.5.4",
+      "statement": {
+        "en": "A virtual-field post_read method replaces its returned field value or its selected slice of the parent result.",
+        "ja": "virtual fieldのpost_read methodは、返すfield値または親結果内の選択sliceを置換できる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "A virtual-field post_read method replaces its returned field value or its selected slice of the parent result.",
+        "ja": "virtual fieldのpost_read methodは、返すfield値または親結果内の選択sliceを置換できる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_field_post_read_parent_slice_status_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_post_read_parent_slice_status idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 field_post_read_parent_slice_status idx 2 controls 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_callback_field_post_read_standalone_slice_status_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_post_read_standalone_slice_status idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 field_post_read_standalone_slice_status idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-FIELD-POST-READ-STATUS-86",
+      "clause": "18.10.5.4",
+      "statement": {
+        "en": "A virtual-field post_read method changes the status returned through parent-register and standalone-field read calls.",
+        "ja": "virtual fieldのpost_read methodは、親registerとfield単独のreadで返すstatusを変更できる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "A virtual-field post_read method changes the status returned through parent-register and standalone-field read calls.",
+        "ja": "virtual fieldのpost_read methodは、親registerとfield単独のreadで返すstatusを変更できる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_field_post_read_parent_slice_status_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_post_read_parent_slice_status idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 field_post_read_parent_slice_status idx 2 controls 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_callback_field_post_read_standalone_slice_status_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_post_read_standalone_slice_status idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 field_post_read_standalone_slice_status idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-CB-PRE-READ-MAP-86",
+      "clause": "18.9.2.2.3",
+      "statement": {
+        "en": "A registered virtual-register pre_read callback can change the map used for the actual read.",
+        "ja": "登録したvirtual registerのpre_read callbackは、実readで使うmapを変更できる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "A registered virtual-register pre_read callback can change the map used for the actual read.",
+        "ja": "登録したvirtual registerのpre_read callbackは、実readで使うmapを変更できる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_reg_cb_pre_read_map_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 reg_cb_pre_read_map idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 reg_cb_pre_read_map idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-FIELD-CB-PRE-READ-PATH-86",
+      "clause": "18.10.6.2.3",
+      "statement": {
+        "en": "A registered virtual-field pre_read callback can change the path used for the actual containing-register read.",
+        "ja": "登録したvirtual fieldのpre_read callbackは、親registerの実readで使うpathを変更できる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "A registered virtual-field pre_read callback can change the path used for the actual containing-register read.",
+        "ja": "登録したvirtual fieldのpre_read callbackは、親registerの実readで使うpathを変更できる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_field_cb_pre_read_path_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_cb_pre_read_path idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 field_cb_pre_read_path idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-FIELD-CB-PRE-READ-ORDER-LITERAL-86",
+      "clause": "18.10.6.2.3",
+      "statement": {
+        "en": "Under the literal field-facade grouping, a registered field pre_read callback follows containing-register hooks and its own field method, before memory pre-read.",
+        "ja": "字義的なfield facade側の整理では、登録field pre_read callbackは親register hookと自身のfield methodより後、memory pre-readより前になる。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。"
+      },
+      "expected": {
+        "en": "Under the literal field-facade grouping, a registered field pre_read callback follows containing-register hooks and its own field method, before memory pre-read.",
+        "ja": "字義的なfield facade側の整理では、登録field pre_read callbackは親register hookと自身のfield methodより後、memory pre-readより前になる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_field_pre_read_cb_order_literal_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 field_pre_read_cb_order_literal idx 0 controls 1",
+            "UT: vcb86 status 1 data 1 storage 1",
+            "UT: vcb86 hook 1 indices 1",
+            "UT: vcb86 present 1 pre_order 1 post_order 1",
+            "UT: vcb86 field_pre_read_cb_order_literal idx 2 controls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-FACADE-CONCRETE-86",
+      "clause": "18.9.2.1",
+      "statement": {
+        "en": "The listed nonvirtual virtual-register callback facade permits direct construction.",
+        "ja": "記載された非virtualのvirtual register callback facadeは直接構築できる。"
+      },
+      "conditions": {
+        "en": "Use the exact listed facade type or minimal original concrete subtype, without extra method bodies. The register facade is printed class; the field facade is printed virtual class. Static widening verifies callback-base compatibility. Direct virtual construction has only a compile-diagnostic oracle and no runtime seed.",
+        "ja": "記載されたfacade型または追加method bodyのない最小の独自具象派生型を使う。register facadeはclass、field facadeはvirtual classと記載され、静的な基底viewでcallbackとの型互換を確認する。virtualの直接構築はcompile診断の期待だけを持ち、runtime seedはない。"
+      },
+      "expected": {
+        "en": "The listed nonvirtual virtual-register callback facade permits direct construction.",
+        "ja": "記載された非virtualのvirtual register callback facadeは直接構築できる。"
+      },
+      "limitations": {
+        "en": "The legal subtype is a control for direct construction/rejection, not a substitute for that declaration. No default callback body, constructor name, factory registration or arbitrary subtype behavior is certified. Classification and decomposition stay AI and partial; no scope/denominator approval is implied.",
+        "ja": "合法派生型は直接構築／拒否のcontrolで、その宣言の代替にはしない。既定callback body、constructor名、factory登録、任意の派生動作は認定しない。分類と分解はAIで部分的なままとし、範囲／分母承認を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_decl_register_concrete_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 concrete nonnull 1 callback_view 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_callback_decl_derived_views_86",
+          "role": "control",
+          "expected_observations": [
+            "UT: vcb86 derived register 1 field 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-REG-FACADE-BASE-86",
+      "clause": "18.9.2.1",
+      "statement": {
+        "en": "The virtual-register callback facade and its legal subtype preserve a uvm_callback base view.",
+        "ja": "virtual register callback facadeと合法な派生型はuvm_callback基底viewを保持する。"
+      },
+      "conditions": {
+        "en": "Use the exact listed facade type or minimal original concrete subtype, without extra method bodies. The register facade is printed class; the field facade is printed virtual class. Static widening verifies callback-base compatibility. Direct virtual construction has only a compile-diagnostic oracle and no runtime seed.",
+        "ja": "記載されたfacade型または追加method bodyのない最小の独自具象派生型を使う。register facadeはclass、field facadeはvirtual classと記載され、静的な基底viewでcallbackとの型互換を確認する。virtualの直接構築はcompile診断の期待だけを持ち、runtime seedはない。"
+      },
+      "expected": {
+        "en": "The virtual-register callback facade and its legal subtype preserve a uvm_callback base view.",
+        "ja": "virtual register callback facadeと合法な派生型はuvm_callback基底viewを保持する。"
+      },
+      "limitations": {
+        "en": "The legal subtype is a control for direct construction/rejection, not a substitute for that declaration. No default callback body, constructor name, factory registration or arbitrary subtype behavior is certified. Classification and decomposition stay AI and partial; no scope/denominator approval is implied.",
+        "ja": "合法派生型は直接構築／拒否のcontrolで、その宣言の代替にはしない。既定callback body、constructor名、factory登録、任意の派生動作は認定しない。分類と分解はAIで部分的なままとし、範囲／分母承認を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_decl_register_concrete_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 concrete nonnull 1 callback_view 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_callback_decl_derived_views_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 derived register 1 field 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-FIELD-FACADE-VIRTUAL-86",
+      "clause": "18.10.6.1",
+      "statement": {
+        "en": "The listed virtual field-callback facade cannot be constructed directly.",
+        "ja": "記載されたvirtualのfield callback facadeは直接構築できない。"
+      },
+      "conditions": {
+        "en": "Use the exact listed facade type or minimal original concrete subtype, without extra method bodies. The register facade is printed class; the field facade is printed virtual class. Static widening verifies callback-base compatibility. Direct virtual construction has only a compile-diagnostic oracle and no runtime seed.",
+        "ja": "記載されたfacade型または追加method bodyのない最小の独自具象派生型を使う。register facadeはclass、field facadeはvirtual classと記載され、静的な基底viewでcallbackとの型互換を確認する。virtualの直接構築はcompile診断の期待だけを持ち、runtime seedはない。"
+      },
+      "expected": {
+        "en": "The listed virtual field-callback facade cannot be constructed directly.",
+        "ja": "記載されたvirtualのfield callback facadeは直接構築できない。"
+      },
+      "limitations": {
+        "en": "The legal subtype is a control for direct construction/rejection, not a substitute for that declaration. No default callback body, constructor name, factory registration or arbitrary subtype behavior is certified. Classification and decomposition stay AI and partial; no scope/denominator approval is implied.",
+        "ja": "合法派生型は直接構築／拒否のcontrolで、その宣言の代替にはしない。既定callback body、constructor名、factory登録、任意の派生動作は認定しない。分類と分解はAIで部分的なままとし、範囲／分母承認を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_decl_field_virtual_86",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_vreg_callback_decl_field_virtual_86\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_vreg_field_cbs\\b).*error"
+          }
+        },
+        {
+          "test": "u18/test_vreg_callback_decl_derived_views_86",
+          "role": "control",
+          "expected_observations": [
+            "UT: vcb86 derived register 1 field 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-FIELD-FACADE-BASE-86",
+      "clause": "18.10.6.1",
+      "statement": {
+        "en": "A concrete subtype of the virtual-field callback facade preserves a uvm_callback base view.",
+        "ja": "virtual field callback facadeの具象派生型はuvm_callback基底viewを保持する。"
+      },
+      "conditions": {
+        "en": "Use the exact listed facade type or minimal original concrete subtype, without extra method bodies. The register facade is printed class; the field facade is printed virtual class. Static widening verifies callback-base compatibility. Direct virtual construction has only a compile-diagnostic oracle and no runtime seed.",
+        "ja": "記載されたfacade型または追加method bodyのない最小の独自具象派生型を使う。register facadeはclass、field facadeはvirtual classと記載され、静的な基底viewでcallbackとの型互換を確認する。virtualの直接構築はcompile診断の期待だけを持ち、runtime seedはない。"
+      },
+      "expected": {
+        "en": "A concrete subtype of the virtual-field callback facade preserves a uvm_callback base view.",
+        "ja": "virtual field callback facadeの具象派生型はuvm_callback基底viewを保持する。"
+      },
+      "limitations": {
+        "en": "The legal subtype is a control for direct construction/rejection, not a substitute for that declaration. No default callback body, constructor name, factory registration or arbitrary subtype behavior is certified. Classification and decomposition stay AI and partial; no scope/denominator approval is implied.",
+        "ja": "合法派生型は直接構築／拒否のcontrolで、その宣言の代替にはしない。既定callback body、constructor名、factory登録、任意の派生動作は認定しない。分類と分解はAIで部分的なままとし、範囲／分母承認を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_decl_derived_views_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 derived register 1 field 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-CALLBACK-FIELD-POST-WRITE-AFTER-MEMORY-86",
+      "clause": "18.10.5.2",
+      "statement": {
+        "en": "A standalone virtual-field post_write method executes after the corresponding memory post-write hook.",
+        "ja": "field単独のvirtual field post_write methodは、対応するmemory post-write hookの後に実行する。"
+      },
+      "conditions": {
+        "en": "Original 16-bit memory-backed virtual registers have one 4-bit field at LSB4 and selected indices0/2 of a static three-element array. Two healthy map-specific original frontdoors and one original user backdoor contain different independently seeded16-bit words. Each index first reads all three routes with edits disabled. Actual virtual/registered callbacks then edit one selected data/path/map/status or record first/last events for the selected read/write kind. Memory callbacks of the other kind are outside those ordering predicates. Parent-register and standalone-field calls are distinct inputs. No real HDL, bus driver or protocol implementation is involved. The standalone partial-write input explicitly installs a user backdoor aliased to its selected frontdoor bank after separate route controls; this keeps read-modify-write state coherent. Its initial independent-bank inputs and diagnostic/control logs are archived and excluded.",
+        "ja": "独自の16-bit memory上のvirtual registerへLSB4の4-bit fieldを1つ設定し、静的3要素配列のindex0／2を選ぶ。正常なmap別の独自frontdoor 2系統とuser backdoor 1系統に異なる16-bit wordを独立に初期化し、各indexで変更を無効にした3経路のreadを先に確認する。その後、実virtual／登録callbackが選択したdata／path／map／statusを変更するか、選択read／write種別の最初／最後のeventを記録する。他種別のmemory callbackをその順序判定へ混ぜず、親registerとfield単独の呼出しは別入力にする。実HDL、bus driver、protocol実装は扱わない。 field単独の部分writeは、別の経路controlの後に、選択frontdoor bankと同じ記憶域を使うuser backdoorを明示設定し、read-modify-writeの状態を整合させる。初期の独立bank入力と診断／control記録は保管して除外する。"
+      },
+      "expected": {
+        "en": "A standalone virtual-field post_write method executes after the corresponding memory post-write hook.",
+        "ja": "field単独のvirtual field post_write methodは、対応するmemory post-write hookの後に実行する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows contain multiple predicates and do not independently assign per-duty execution status. Ordering is checked through first/last relationships without exact internal transfer/callback counts or order between independent fields. The qualified pre-read probes keep incompatible grouping readings separate: register hooks after all field hooks versus field method/facade after containing-register hooks. The latter reading includes both the containing virtual method and registered facade, with explicit interpretation review still open. No erratum, root cause or independent-defect count follows from a mismatch. Failure-origin callbacks, competing edits, disabled/multiple callbacks, concurrency, killed-access reset recovery, other policies/maps/widths, complete declaration/default-body coverage and original milestone targets remain open. Modified post-read data/status do not change the raw modeled banks. No implementation source or commercial result supplies the oracle.",
+        "ja": "AIによる部分分解のみ。期待行は複数の判定を含み、義務ごとの実行statusを独立に認定しない。内部transfer／callbackの正確な回数や独立field間の順序を固定せず、最初／最後の関係を検査する。限定したpre-read入力は、register hookが全field hookより後という解釈と、field method／facadeが親register hookより後という両立しない整理の解釈を分ける。後者は親のvirtual methodと登録facadeの両方を含む読みで、解釈の照合は未完。不一致から訂正、根本原因、独立した欠陥件数を認定しない。失敗を起点とするcallback、競合する変更、無効／複数callback、並行処理、kill中accessのreset回復、他のpolicy／map／幅、宣言／既定body全体、元のmilestone目標は未完。post-readのdata／status変更でraw model bankは変わらない。実装sourceや商用結果をoracleにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_callback_field_post_write_standalone_status_86",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vcb86 standalone_post_after_memory 1"
+          ]
+        }
+      ]
     }
   ]
 }

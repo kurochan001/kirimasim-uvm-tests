@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の85回目の拡充（全2400件：simulation 2303・elaboration 97）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の86回目の拡充（全2420件：simulation 2322・elaboration 98）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3226,3 +3226,34 @@ debug引数省略、正の行番号、負の行番号が同じ独立した判定
 全2400件（simulation 2303／elaboration 97）、M1 1020（940／80）、M2 568（561／7）、M3 812（802／10）です。
 通常2026 pass（runtime 1934／compiler拒否92）、374 known（runtime 249／build 120／不正受理5）、別HDLは38件中37 pass・1 failです。
 goal第57反復で未評価99から93へ減らし、開始時1463からの減少は1370です。全体の完了は未立証でgoalを継続します。
+
+## 薄い領域の86回目の拡充：virtual registerのcallback契約
+
+新規M3 20入力はcallback 17条件、合法宣言2条件、不正なvirtual直接構築1条件を追加します。
+runtime 16入力はseed 1／73に一致し、compiler拒否1件はruntimeなしで一致します。
+限定したfield pre-read順序2入力はexit 0のseed 1差分を保持してseed 73結果はなく、印刷上は具象のregister callback facadeはabstractとして拒否されruntimeがありません。
+method、facade、構築の条件の違いは[callbackのFAQ](faq.ja.md#virtual-registerのcallback契約)で説明しています。
+
+map別の独自frontdoorとuser backdoorは、変更前に3経路の正常性を確認します。実hookがpre-writeのdata／path、pre-readのmap／path、post-readのdata／status、post-writeのstatusを変更します。
+親registerとfield単独の呼出しは別条件にします。最初／最後の観測は選択したread／write種別に限定し、内部transfer／callback回数を固定しません。
+register側のpre-read整理は一致し、field method／facadeをregisterより後にする解釈は、存在、値／status、post順序の行が一致しても差分を保持します。
+限定した解釈から訂正、根本原因、独立した欠陥件数を認定しません。
+
+初期のfield単独部分writeはfrontdoor／backdoorの内容が不整合で、変更を無効にしたcontrolにも同じ非選択bit差分が出たため、post-statusの欠陥の証拠にはしません。
+修正した新入力は使用するfrontdoor／backdoorを同じ記憶域へ明示的に結び、元の期待6行を保持し、変更なしcontrolとmemory postより後のfield postを確認して両seedに一致します。
+初期／診断入力とlogは保管して除外し、指紋を付け替えません。実測に基づくtag 17件は最終入力を新たに測定し、helper、他の本体19件、他の期待値file 18件は未変更です。
+
+規格に基づく構築期待の固定後に、固定Apacheライブラリのsrc/reg/uvm_vreg.svhの宣言を確認し、register callback facadeはvirtualでbuild拒否と整合します。
+印刷されたIEEEのclass期待は保持します。合法派生型は別のcontrolで、拒否した直接構築入力を成功扱いにしません。simulatorの実装sourceや商用結果は使いません。
+
+日英AI義務24件がcallback／宣言の11 leafを部分分解し、個別に読んだ本文のない見出し4件とfacadeの説明的導入2件を構造／文脈分類します。
+以前の3923義務、413分類、範囲案は全objectを保持します。全体は部分2012／分類419／未評価76、第18章は383／61／12、義務898件、主引用570テスト（simulation 567／elaboration 3）です。
+全3947義務は2388テストへ直接対応し、他の32テストはcontrol専用、control linkあり124です。
+
+以前の通常2400記録、compiler 97記録、HDL 38記録、command-line 18記録、互換guest 1082記録は内容を保持し、新しいguest実行／filterやrunner／backend／tool／workflowの変更はありません。
+guest未測定1338入力は追加1335件と修正した元入力3件（simulation 1240／elaboration 98）です。
+部分適用条件、失敗起点／競合／無効callback、blocking、並行処理、reset回復、限定解釈、元のmilestone目標、人のレビュー、範囲／分母承認は未完です。
+
+全2420件（simulation 2322／elaboration 98）、M1 1020（940／80）、M2 568（561／7）、M3 832（821／11）です。
+通常2043 pass（runtime 1950／compiler拒否93）、377 known（runtime 251／build 121／不正受理5）です。
+goal第58反復で未評価93から76へ減らし、開始時1463からの減少は1387です。部分義務と元の目標の完了は未立証でgoalを継続します。

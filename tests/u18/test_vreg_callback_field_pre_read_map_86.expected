@@ -1,0 +1,6 @@
+UT: vcb86 field_pre_read_map idx 0 controls 1
+UT: vcb86 status 1 data 1 storage 1
+UT: vcb86 hook 1 indices 1
+UT: vcb86 field_pre_read_map idx 2 controls 1
+UT: vcb86 status 1 data 1 storage 1
+UT: vcb86 hook 1 indices 1

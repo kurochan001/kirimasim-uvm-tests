@@ -287,6 +287,16 @@ access algorithm as the oracle. Original user storage and actual HDL through the
 unchanged VPI backend are measured separately, without new implementation-source
 reading or commercial results; see [the backdoor FAQ](faq.md#virtual-register-backdoor-observations).
 
+Callback expectations are independently derived before measurement from supplied
+IEEE 18.9.1.4, 18.9.2, 18.10.5/.6, preserving incompatible pre-read groupings as
+separate qualified inputs. After freezing construction expectations and observing
+the refusal, the public declaration in the pinned Apache src/reg/uvm_vreg.svh is
+inspected: uvm_vreg_cbs is virtual. That declaration does not replace the printed
+IEEE class expectation; a legal subtype remains a separate control. The new
+standalone RMW fixture is corrected to shared storage while preserving its original
+expectations, archiving/excluding prior versions and freshly measuring every changed
+input. No simulator implementation source or commercial result is used; see [the callback FAQ](faq.md#virtual-register-callback-contracts).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

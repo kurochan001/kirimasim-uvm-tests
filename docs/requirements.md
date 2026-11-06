@@ -10,17 +10,17 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 3923 AI-drafted requirements, all with direct links to 2368 tests.
-Thirty-two tests have only control links. All 2400 tests have a requirement link.
+contains 3947 AI-drafted requirements, all with direct links to 2388 tests.
+Thirty-two tests have only control links. All 2420 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
 
 A control-only test checks a supporting premise, and [the HDL-view example](faq.md#q308-why-keep-standard-views-and-member-view-controls-separate) shows why its match cannot establish a missing standard API contract.
 
-The clause catalog has 2,507 identifiers. 2001 have a partial
-requirement decomposition; 413 have explicit AI assessments (286 structural,
-127 contextual), and 99 remain unassessed. No state certifies completion.
+The clause catalog has 2,507 identifiers. 2012 have a partial
+requirement decomposition; 419 have explicit AI assessments (290 structural,
+129 contextual), and 99 remain unassessed. No state certifies completion.
 Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
@@ -35,7 +35,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 3923 draft entries span several areas,
+a heading is not an obligation. The 3947 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -71,14 +71,14 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1247
-have a primary-focus test and 2,038 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 1258
+have a primary-focus test and 2,046 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,235 with zero primary-focus tests, 767 with one,
-and 480 with at least two. It measures test placement only. It does not
+census currently shows 1,224 with zero primary-focus tests, 771 with one,
+and 487 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -105,7 +105,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2400-test
+known difference. It is not a pass or a conformance claim. The current 2420-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -143,7 +143,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2400 reviewed requirement mappings.
+  index is an inventory, not 2420 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -257,7 +257,7 @@ Each row counts requirements by their own clause and tests by their primary cita
 | 6 | 170 | 68 | 0 | 19 | 0 |
 | 7 | 91 | 35 | 0 | 20 | 0 |
 | 8 | 83 | 65 | 0 | 12 | 0 |
-| 9 | 139 | 63 | 0 | 22 | 0 |
+| 9 | 140 | 63 | 0 | 22 | 0 |
 | 10 | 160 | 114 | 0 | 29 | 0 |
 | 11 | 35 | 20 | 0 | 4 | 0 |
 | 12 | 324 | 194 | 0 | 45 | 0 |
@@ -266,7 +266,7 @@ Each row counts requirements by their own clause and tests by their primary cita
 | 15 | 131 | 116 | 0 | 18 | 0 |
 | 16 | 279 | 186 | 0 | 32 | 1 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
-| 18 | 874 | 550 | 0 | 55 | 29 |
+| 18 | 898 | 570 | 0 | 61 | 12 |
 | 19 | 198 | 157 | 0 | 24 | 1 |
 | B | 239 | 183 | 0 | 7 | 19 |
 | C | 98 | 69 | 0 | 13 | 0 |
@@ -276,52 +276,59 @@ Each row counts requirements by their own clause and tests by their primary cita
 | G | 45 | 20 | 0 | 4 | 0 |
 
 Zero unmapped tests and zero drafts without direct tests do not establish
-complete requirement coverage. The remaining 93 identifiers still need
-assessment/decomposition. Scope is proposed, all 3923 reviews are `ai` and
+complete requirement coverage. The remaining 76 identifiers still need
+assessment/decomposition. Scope is proposed, all 3947 reviews are `ai` and
 the denominator remains unapproved.
 
-Sixteen new M3 runtime fixtures check virtual-register and virtual-field poke/peek.
-Twelve original user-backdoor fixtures match seeds 1/73. Four actual public
-16-bit HDL-array fixtures also match both seeds under the separate VPI condition;
-their ordinary executions retain spec-only unlinked-DPI build differences.
-See [the virtual-register FAQ](faq.md#virtual-register-backdoor-observations)
-for the distinction between modeled storage and actual HDL access.
+Twenty new M3 inputs add seventeen callback scenarios, two legal declaration
+inputs and one illegal virtual construction. Sixteen runtime inputs match seeds
+1/73 and one compiler rejection matches without runtime. Two qualified field
+pre-read order inputs differ at seed 1 with exit 0 and no seed 73; the printed
+concrete register-callback facade is rejected as abstract without runtime.
+[The callback FAQ](faq.md#virtual-register-callback-contracts) explains the distinct
+method, facade and construction conditions.
 
-Two selected array indices, independent memory contents and full raw-word
-snapshots check indexed values, field slices, preserved bits, peer elements and
-stride padding. Omitted debug arguments, positive line numbers and negative line
-numbers satisfy the same independent predicates. Singleword profiles use 8/16-bit
-memory/registers and 4/9-bit fields. A 32-bit whole-register profile uses equal
-16-bit halves; a 16-bit field spanning two words at LSB 8 accepts either order of its
-independently derived result pair. These are necessary order-independent checks,
-not a unique multiword layout contract. Internal access counts/order, unused upper
-output bits, failure results, concurrency, callbacks and reset-semaphore recovery
-remain open.
+Original map-specific frontdoors and a user backdoor establish three healthy
+routes before edits. Actual hooks change pre-write data/path, pre-read map/path,
+post-read data/status and post-write status. Parent-register and standalone-field
+calls retain separate contexts. First/last observations filter the selected
+read/write kind, without fixing internal transfer/callback counts. The register
+pre-read grouping matches; field-method/facade-after-register readings retain
+their differences while all presence, value/status and post-order rows match.
+These qualified interpretations do not certify an erratum, root cause or defect count.
 
-Twelve bilingual AI duties partially decompose 18.9.1.3.3/.4 and 18.10.4.3/.4.
-The individually read bodyless headings 18.9.1.3 and 18.10.4 gain structural
-assessments. All 3911 earlier requirements and 411 earlier assessments retain
-their exact objects; proposed scope is unchanged. Global state is 2001 partial,
-413 assessed and 93 unassessed. Chapter 18 is 372/55/29 with 874 duties and
-550 primary tests (548 simulation/2 elaboration). All 3923 duties link directly
-to 2368 tests; thirty-two other tests remain control-only, and 123 have control links.
+The initial standalone partial-write fixture used inconsistent frontdoor/backdoor
+contents. Its no-edit control produced the same outside-bit difference, so that
+input is not evidence of a post-status defect. The corrected new input explicitly
+aliases its active frontdoor/backdoor storage, preserves all six original expected
+rows, and adds a no-edit control and memory-post-before-field-post check. Both
+seeds match. Initial and diagnostic input/log versions are archived and excluded,
+without relabeling their fingerprints. Seventeen proof-based tags have fresh
+final measurements; the helper, nineteen other bodies and eighteen other
+expectation files remain unchanged.
 
-The initial missing-include setup is corrected and archived before any native
-runtime, and an internal access-membership restriction is removed during oracle
-review without using measured runtime output. Final expectations are frozen
-before execution. Twelve reproduced ordinary headers gain tags and are freshly
-measured. A later oracle review narrows the original user storage to the declared
-memory word width through one helper and twelve constructor arguments. All sixteen
-ordinary and four HDL inputs are freshly measured under their current hashes;
-unmasked records stay archived and excluded. Four physical source blank-line trims
-after staged whitespace review are freshly measured under both ordinary and HDL
-conditions, with prior records retained under their old hashes. Expected files stay unchanged. All
-2384 earlier ordinary records, 97 compiler records, 34 earlier HDL records,
-18 command-line records and 1082 compatible guest records retain their content.
-No guest rerun/filter, implementation-source reading or runner/backend change
-is claimed. Guest unmeasured inputs increase to 1318: 1315 additions and three
-revised originals (1221 simulation/97 elaboration). Partial obligations, original
-milestone targets, human review and scope/denominator approval remain open.
+After the standard-derived construction expectation was frozen, the pinned
+Apache declaration in src/reg/uvm_vreg.svh was inspected: it declares the register
+callback facade virtual, consistent with the build refusal. The printed IEEE
+class expectation remains unchanged. A legal subtype is a separate control;
+it does not pass the rejected direct-construction input. No simulator
+implementation source or commercial result is used.
+
+Twenty-four bilingual AI duties partially decompose eleven callback/declaration
+leaves. Four individually read bodyless headings and two descriptive facade
+introductions receive structural/contextual assessments. All 3923 earlier duties,
+413 earlier assessments and proposed scope retain their objects. Global state is
+2012 partial/419 assessed/76 unassessed. Chapter 18 is 383/61/12, with 898 duties
+and 570 primary tests (567 simulation/3 elaboration). All 3947 duties link directly
+to 2388 tests; thirty-two others are control-only and 124 have control links.
+
+All 2400 prior ordinary and 97 compiler records, 38 HDL, 18 command-line and
+1082 compatible guest records retain their content. No guest rerun/filter or
+runner/backend/tool/workflow change is claimed. Guest unmeasured inputs are
+1338: 1335 additions and three revised originals (1240 simulation/98 elaboration).
+All partial applicability, failure-origin/competing/disabled callbacks, blocking,
+concurrency, reset recovery, qualified interpretations, original milestone targets,
+human review and scope/denominator approval remain open.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -583,7 +590,7 @@ Port drafts add resource-controlled hierarchy checks, illegal outgoing roles
 and cardinality diagnostics. Memory-policy drafts observe address-unit length,
 bounds, constrained/procedural starts, default selection and exact in-use handles.
 
-413 individually read identifier assessments preserve rationale and AI status
+419 individually read identifier assessments preserve rationale and AI status
 in [the classification file](../coverage/assessments.json). Chapter 11 has no
 unassessed identifiers, while every behavior clause remains partially decomposed;
 this is not completed coverage. No automatic classification, parent rollup or
@@ -732,4 +739,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 3923 AI drafts and their direct links do not satisfy that gate.
+The current 3947 AI drafts and their direct links do not satisfy that gate.

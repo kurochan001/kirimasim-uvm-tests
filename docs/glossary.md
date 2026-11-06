@@ -487,7 +487,7 @@ is not necessarily one distinct simulator bug.
 validation, including a build failure / kirimasim explicitly reports a
 construct as unsupported.
 Neither is a pass. Ghost uses `pass`/`fail`; it does not relabel bundled-library
-differences as `known`. See the [FAQ](faq.md) for command exit behavior.
+differences as `known`. [FAQ Q6](faq.md#q6-why-can-verilator-exit-successfully-with-known-results) explains why Verilator may exit successfully with known differences.
 
 **Seed / two-state / four-state** — An input controlling randomized execution
 conditions / values without X and Z / values including X and Z. The fixed
@@ -495,8 +495,8 @@ Verilator oracle uses seeds 1 and 73 for X/Z-independent tests. Two passing
 seeds do not prove correctness for every seed.
 
 **DPI / `UVM_NO_DPI`** — The SystemVerilog interface to external code / a macro
-disabling UVM's DPI-dependent implementation paths. Current tests use it.
-Removing the macro does not itself provide or link the required C/C++ code.
+disabling UVM's DPI-dependent implementation paths. The ordinary runner uses it for tests that do not request DPI.
+Removing the macro does not itself provide or link the required C/C++ code; [the library setup](testing.md#the-uvm-library) explains the ordinary, HDL and command-line conditions.
 
 **Pinned library / lock / bundled library** — The exact library identified by
 `third_party/uvm.lock` / its version, commit, file count and content digest /
@@ -1619,3 +1619,17 @@ memory words before and after access, including nonselected bits, peers and padd
 **Debug-argument invariance** — The same functional predicates hold with
 omitted and different explicit filename/line-number arguments.
 [Q328](faq.md#q328-what-do-the-debug-argument-variants-establish) records the selected successful-access scope.
+
+## Virtual-register callback premises
+
+**Read/write ordering window** — First/last callback observations restricted
+to the selected operation kind, so internal RMW reads are not treated as write hooks.
+[Q329](faq.md#q329-why-do-the-pre-read-ordering-probes-keep-different-expectations) explains the qualified ordering groups.
+
+**Facade declaration / concrete subtype** — The listed interface-class form /
+a constructible derived type used as a separate compatibility control.
+[Q330](faq.md#q330-why-does-a-legal-facade-construction-input-stop-as-abstract) separates those declaration observations.
+
+**Coherent frontdoor/backdoor storage** — Two active access paths refer to
+the same modeled words when a partial write may read through either route.
+[Q331](faq.md#q331-why-was-the-standalone-partial-write-fixture-corrected) explains the corrected RMW fixture.

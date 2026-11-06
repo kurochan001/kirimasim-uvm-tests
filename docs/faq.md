@@ -14,6 +14,9 @@ The questions are grouped by topic, so use the entry matching your task and foll
 
 - Preparing a first run: [getting started](#getting-started) and [runner commands](testing.md#running-the-suite).
 - Interpreting output or an exit code: [result labels](#understanding-a-result) and [measurement conditions](results.md#interpretation).
+- Reports and display policies: [report routing and printer state](#report-routing-and-printer-state) and [related terms](glossary.md#uvm-building-blocks).
+- Waiting and synchronization: [event, barrier and transport questions](#eventbarrier-synchronization-and-timed-transport-histories) and [related terms](glossary.md#synchronization-and-transport-histories).
+- Configuration lookup: [resource selection and sorting](#resource-collection-sorting-and-config-aliases) and [related terms](glossary.md#resource-and-sequence-ordering).
 - Interpreting compiler diagnostics: [rejection and legal controls](#compiler-rejection-and-legal-controls) and [test metadata](testing.md#metadata).
 - Understanding sequences and communication: [locking and transport](#locking-and-nonblocking-transport) and [TLM terms](glossary.md#transaction-level-communication).
 - Understanding register tests: [model basics](#register-model-basics) and [register terms](glossary.md#register-model).
@@ -135,6 +138,8 @@ stays local unless deliberately shared; pushing tests does not publish it.
 
 ## Execution conditions
 
+The runner selects the library and linked backend, so check [the execution setup](testing.md#the-uvm-library) before comparing results from different execution modes.
+
 ### Q11. What does the Ghost result cover, and why an alias?
 
 Ghost is an unreleased simulator participating under an alias. Its executable
@@ -155,7 +160,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2344 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2364 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -202,7 +207,7 @@ Execution success and requirement review are separate records, so use [Read cove
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 812
+M1 and M2 still have open clause targets. M3 now has 832
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -550,6 +555,8 @@ review. The case retains `spec_check: ai` like the rest of the current suite.
 
 ## Library construction, item completion and extension identity
 
+Static membership belongs to a sequence-library type, while an instance addition belongs to one library object; [the UVM glossary](glossary.md#uvm-building-blocks) explains the type and object roles used below.
+
 ### Q42. Why test static library membership immediately after construction?
 
 The standard's library-subtype pattern uses the utilities macro and a
@@ -778,6 +785,8 @@ the memory, update/mirror, error-status and access-hook additions.
 
 ## Memory transfers and register access hooks
 
+A bus beat transfers at most one bus-width portion of an access, so use [the register-model terms](glossary.md#register-model) to distinguish a beat from a complete memory location.
+
 ### Q54. Which memory transfers are now tested?
 
 Eight frontdoor cases check byte-wide reads/writes at nonzero location
@@ -824,6 +833,8 @@ registered callbacks; redirection, field/register ordering with registered
 callbacks and further post-hook combinations remain separate work.
 
 ## Custom frontdoors, registered callbacks and virtual registers
+
+A custom frontdoor supplies an access sequence and a registered callback observes or changes access processing; [the register glossary](glossary.md#register-model) explains where each participates.
 
 ### Q57. How are the custom frontdoor cases different from the built-in path?
 
@@ -882,6 +893,8 @@ that case retains its required result as spec-only; see
 [known differences](known-differences.md).
 
 ## Virtual-register transfers and memory regions
+
+A virtual-register element occupies memory locations and its stride can leave padding, with index and address units explained in [the register-model glossary](glossary.md#register-model).
 
 ### Q60. Which virtual-register and region transfers are now exercised?
 
@@ -993,6 +1006,8 @@ If prohibited material appears, do not reproduce, summarize or incorporate it;
 ask its author or a maintainer to handle it.
 
 ## Virtual allocation, callbacks and user backdoors
+
+Allocation reserves a memory region for a virtual-register array, and release returns that reservation; [the register glossary](glossary.md#register-model) distinguishes the region from a physical bus address.
 
 ### Q65. What does virtual-register allocation establish?
 
@@ -1132,6 +1147,8 @@ do not establish human review, four-state correctness or full coverage.
 
 ## Memory access, shared maps and test selection
 
+Cross-path value checks require the selected frontdoor and backdoor handlers to refer to the same storage, and [the register glossary](glossary.md#register-model) explains how those routes differ from a model mirror.
+
 ### Q72. What do the memory frontdoor/backdoor access sequences check?
 
 Six cases cover four locations through both paths, read-data disagreement,
@@ -1200,9 +1217,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 3923 AI drafts cover only a partial decomposition: 3923 requirements link
-directly to 2368 tests; all drafts have direct tests, and thirty-two separate tests have only control links.
-All 2400 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 3947 AI drafts cover only a partial decomposition: 3947 requirements link
+directly to 2388 tests; all drafts have direct tests, and thirty-two separate tests have only control links.
+All 2420 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2313,7 +2330,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-413 classifications currently exist, with no denominator approval or new pass.
+419 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -3009,7 +3026,7 @@ Three original inputs have new fingerprints: the command enum citation, the
 Boolean rerandomization observation and the virtual-field configuration citation.
 All three were remeasured on Verilator; their stale guest records are excluded.
 The historical 1085-record source files remain intact. Current reuse covers
-1082 inputs, with 1318 unmeasured: 1315 additions and three revised originals.
+1082 inputs, with 1338 unmeasured: 1335 additions and three revised originals.
 This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
@@ -3080,12 +3097,12 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2400 tests run at two seeds?
+### Q201. Did all 2420 tests run at two seeds?
 
-No. There are 2303 simulation and 97 elaboration fixtures. Ordinary evidence
-has 1934 two-seed runtime matches, 92 expected compiler rejections, 369 known
+No. There are 2322 simulation and 98 elaboration fixtures. Ordinary evidence
+has 1950 two-seed runtime matches, 93 expected compiler rejections, 372 known
 simulation differences and five known illegal compile acceptances. None of the
-97 illegal designs executes a runtime seed, even when compilation accepts it.
+98 illegal designs executes a runtime seed, even when compilation accepts it.
 
 ### Q202. What do the older legal controls establish?
 
@@ -3154,7 +3171,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 93 identifiers remain
+do not finish its remaining conditions. Overall 76 identifiers remain
 unassessed. Printer subclause 16.2 retains the table-format overview; chapter 16
 has 1 unassessed identifier after individually assessing introduction 16 as contextual. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3316,7 +3333,7 @@ live in uD. Their functional subject is the register layer, so the six named
 access fixtures count as M3. Chapter-based census and milestone grouping are
 different views of the same tests. Annex D has zero unassessed identifiers but
 39 partial ones. Its conditions and the original M1–M4 targets remain open;
-overall, 93 identifiers remain unassessed.
+overall, 76 identifiers remain unassessed.
 
 ## Block and register query boundaries
 
@@ -3545,7 +3562,7 @@ The derived accessors are fixture helpers, not new UVM APIs. See [testing](testi
 
 No. It has 74 partial and 20 assessed identifiers, with 114 AI drafts. Physical
 reset/access, historical walking-ones interpretation and further skip/error/
-abort/concurrency conditions remain. Overall 93 identifiers are unassessed;
+abort/concurrency conditions remain. Overall 76 identifiers are unassessed;
 all original M1–M4 targets remain open. See [requirements](requirements.md).
 
 ## Base classes, recording and canonical time
@@ -3578,9 +3595,11 @@ decomposed identifiers and zero unassessed ones. Four active-policy probes are
 still blocked by missing methods in the measured library. Initiator printing/recording, complete
 transaction links/ordering, pure-method/default-body conflicts, older override
 formal names and broader lifecycle/error conditions remain audit work. Overall
-93 identifiers remain unassessed; original M1–M4 targets are still open.
+76 identifiers remain unassessed; original M1–M4 targets are still open.
 
 ## Resource collection, sorting and config aliases
+
+Precedence affects resource selection while sorting orders a candidate queue, and [the resource terms](glossary.md#resource-and-sequence-ordering) explain why those observations are kept separate.
 
 ### Q252. Is first-maximum selection the same as equal-precedence sorting?
 
@@ -3604,11 +3623,13 @@ No. Named/anonymous scope sets, literal names, four config aliases and selected
 virtual-interface values match under their measured conditions. Regex alternation
 and base virtual dispatch retain runtime differences. The original override
 probe certifies no builtin collection algorithm. Annex C is 71 partial,
-13 assessed and zero unassessed with 98 drafts; overall 93 identifiers remain
+13 assessed and zero unassessed with 98 drafts; overall 76 identifiers remain
 unassessed. Broader types, queue/error/lifecycle conditions, automatic component
 configuration and original milestone targets remain open.
 
 ## Memory-map diagnostics and FIFO initialization controls
+
+A control can add setup to examine later behavior while the original input retains its result, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains why that control does not replace the direct test.
 
 ### Q255. Why retain constructor-only FIFO failures after a build control matches?
 
@@ -3633,12 +3654,14 @@ independent defect count. The original normal-register control matches.
 ### Q257. Does zero unassessed in 18.6–18.8 complete the goal?
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
-track chapter 18's remaining review. Overall 93 identifiers remain unassessed.
-The suite has 2368 directly linked tests and thirty-two
+track chapter 18's remaining review. Overall 76 identifiers remain unassessed.
+The suite has 2388 directly linked tests and thirty-two
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
 ## Core-service declarations and global effects
+
+A derived class must implement required pure virtual methods before it can be instantiated, and [the compiler-check terms](glossary.md#declaration-defaults-and-compiler-checks) explain how a rejection probe isolates one missing method.
 
 ### Q258. Why explicitly implement an unlisted hook in negative declaration tests?
 
@@ -3661,6 +3684,8 @@ phase graphs and live configuration histories stay partial.
 
 ## Field-macro type arguments and paired operation flags
 
+The macro type argument selects how a property is interpreted and operation flags select what is enabled, with the alternate control premises explained in [the field-macro terms](glossary.md#field-macro-and-callback-controls).
+
 ### Q260. Why keep collection-typedef enum inputs after element-enum controls match?
 
 The static/dynamic/queue enum prose describes T as a collection type. The
@@ -3678,9 +3703,11 @@ control adds UNPACK and matches the unchanged expectation. Both remain indexed.
 The suppressed target sentinel also remains unchanged, but compatible roundtrip
 does not independently establish all one-way packing suppression or a layout.
 Print, record, configuration, empty/null/alias and wider flag conditions remain
-partial; the overall unassessed count is 93.
+partial; the overall unassessed count is 76.
 
 ## Field access order, map changes and physical neighbors
+
+A partial field write can read and rewrite a containing word, so [the field-access terms](glossary.md#field-macro-and-callback-controls) explain why neighboring storage values and model values are initialized separately.
 
 ### Q262. Do matching field post hooks close a complete callback-order check?
 
@@ -3705,9 +3732,11 @@ The whole-word expectation is a qualified best-effort interpretation, not an
 unconditional guarantee. Poke after an explicit B75D reset and a standalone
 read-only poke deposit B39D. The corrected fixture is remeasured; a superseded
 seed-73 log stays archived under its old input fingerprint and is excluded.
-The overall backlog remains 93 unassessed identifiers and partial contracts.
+The overall backlog remains 76 unassessed identifiers and partial contracts.
 
 ## Predefined protection and prediction callbacks
+
+A protection callback can reject an access independently of the configured field policy, and [the callback terms](glossary.md#field-macro-and-callback-controls) distinguish callback membership from that policy.
 
 ### Q265. Are protection callbacks equivalent to a field access policy?
 
@@ -3731,7 +3760,7 @@ The selected successful read/write predictions supply exact field, previous/
 latest data, kind, path and map context, and callback replacement changes the
 mirror. Explicit and omitted direct kinds update as supplied without read/write
 callback delivery. Disable/delete histories stop a later mutation. These probes
-perform no physical storage transfer. The backlog still has 93 unassessed
+perform no physical storage transfer. The backlog still has 76 unassessed
 identifiers; callback 18.11 remains partial despite zero unassessed identifiers.
 
 ## CI shards and execution time
@@ -3740,12 +3769,12 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 2026 tagged checks form 8 disjoint shards with at most 4 concurrent
+No. The current 2043 tagged checks form 8 disjoint shards with at most 4 concurrent
 jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
-92 expected compiler rejections keep their original judgment. Partition
+93 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the README badge
-for the current workflow result. The 374 known cases remain outside the ordinary default CI selection.
+for the current workflow result. The 377 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -3823,7 +3852,7 @@ No. Four headings were individually read as structural and three overviews
 linked to explicit declaration/method duties. Fourteen other identifiers gained
 partial decompositions. Selected names, type defaults, empty hooks and acyclic
 trees leave graph/alias/null/concurrency conditions and wording conflicts open.
-Overall 93 identifiers remain unassessed; [review states](requirements.md#review-work-queue-and-root-totals)
+Overall 76 identifiers remain unassessed; [review states](requirements.md#review-work-queue-and-root-totals)
 explain why classification and links do not certify the original M1–M4 goal.
 
 ## Virtual-register queries and declaration boundaries
@@ -3901,8 +3930,8 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 The corrected citation changes the exact input hash despite an unchanged body
 and oracle. Its old guest record is excluded: 1083 compatible records become
 1082, leaving Ghost 206 matches/876 failures per seed and kirimasim 1073
-unsupported/nine failures. No guest was rerun. The 1318 unmeasured inputs are
-1315 additions and three revised originals. This filter is not evidence of
+unsupported/nine failures. No guest was rerun. The 1338 unmeasured inputs are
+1335 additions and three revised originals. This filter is not evidence of
 guest improvement or regression; see [the evidence assembly](results.md#evidence-assembly).
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
@@ -4145,8 +4174,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 3923 duties link directly
-to 2368 tests, with 2001 partial and 93 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 3947 duties link directly
+to 2388 tests, with 2012 partial and 76 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -4375,3 +4404,40 @@ All satisfy the same status, value and raw-storage predicates. This checks the
 required lack of functional effect without prescribing how debug text is stored
 or forwarded. Failure paths, concurrency, callback behavior and recovery after
 killed access remain open; see [the fixture notes](testing.md#example).
+
+## Virtual-register callback contracts
+
+A virtual callback method belongs to the model, while a registered facade object supplies extension methods; [the callback terms](glossary.md#virtual-register-callback-premises) explain the observations and controls used here.
+
+### Q329. Why do the pre-read ordering probes keep different expectations?
+
+The register-group text in 18.9.1.4.3/18.9.2.2.3 places register hooks after
+field hooks. Field-method text in 18.10.5.3 places its method after containing-register
+hooks, and 18.10.6.2.3 places its registered facade after register hooks and its
+field method. The qualified latter probes include the containing method and
+registered facade in that group. The register reading matches both seeds; the two
+field readings retain seed-1 order differences while presence, data/status and
+post-order observations match. This does not certify an erratum or independent
+defect count; see [the retained differences](known-differences.md#pinned-library-limitations).
+
+### Q330. Why does a legal facade-construction input stop as abstract?
+
+Virtual register names a memory-overlay model; virtual class describes a type
+used through concrete subtypes. The supplied 18.9.2.1 prints the register callback
+facade as class, while 18.10.6.1 prints the field facade as virtual class. The pinned
+Apache declaration makes the register facade virtual too, consistent with its
+direct-construction refusal. The printed standard expectation remains; legal
+derived views and the field virtual-construction rejection match separately.
+Those controls do not pass the differing declaration; see [source attribution](provenance.md#library-and-standards).
+
+### Q331. Why was the standalone partial-write fixture corrected?
+
+Its initial independent frontdoor/backdoor words gave different sources for
+read-modify-write preservation. A no-edit control showed the same outside-bit
+difference, so that input did not isolate a post-status defect. The corrected
+input explicitly shares storage across its active frontdoor and backdoor,
+retains the original six expected rows, and adds a no-edit control and the
+memory-post-before-field-post observation. Both seeds match under the corrected
+input; earlier inputs/logs stay archived and excluded. Matching method values/status
+does not pass the older standalone registered-callback-before-method difference.
+See [the fixture notes](testing.md#example) and [evidence selection](results.md#evidence-assembly).

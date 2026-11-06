@@ -6299,6 +6299,104 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.9.1.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read virtual-register method callbacks entry contains only a grouping heading, followed immediately by its first numbered task, with no independent body. Child task contracts remain partial requirements, including qualified conflicting pre-read interpretations. The heading adds no separate observable duty and does not certify its children complete or exclude scope.",
+        "ja": "個別に読んだvirtual register methodのcallbackの項目は整理見出しのみで、独立本文なしに最初の番号付きtaskへ直結する。子のtask契約は、限定したpre-read解釈の矛盾も含め、部分要求として保持する。見出し自体に別の観測義務はなく、子の完了や範囲除外を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.9.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read virtual-register facade callbacks entry contains only a grouping heading, followed immediately by its first numbered task, with no independent body. Child task contracts remain partial requirements, including qualified conflicting pre-read interpretations. The heading adds no separate observable duty and does not certify its children complete or exclude scope.",
+        "ja": "個別に読んだvirtual register facadeのcallbackの項目は整理見出しのみで、独立本文なしに最初の番号付きtaskへ直結する。子のtask契約は、限定したpre-read解釈の矛盾も含め、部分要求として保持する。見出し自体に別の観測義務はなく、子の完了や範囲除外を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.10.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read virtual-field method callbacks entry contains only a grouping heading, followed immediately by its first numbered task, with no independent body. Child task contracts remain partial requirements, including qualified conflicting pre-read interpretations. The heading adds no separate observable duty and does not certify its children complete or exclude scope.",
+        "ja": "個別に読んだvirtual field methodのcallbackの項目は整理見出しのみで、独立本文なしに最初の番号付きtaskへ直結する。子のtask契約は、限定したpre-read解釈の矛盾も含め、部分要求として保持する。見出し自体に別の観測義務はなく、子の完了や範囲除外を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.10.6.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read virtual-field facade callbacks entry contains only a grouping heading, followed immediately by its first numbered task, with no independent body. Child task contracts remain partial requirements, including qualified conflicting pre-read interpretations. The heading adds no separate observable duty and does not certify its children complete or exclude scope.",
+        "ja": "個別に読んだvirtual field facadeのcallbackの項目は整理見出しのみで、独立本文なしに最初の番号付きtaskへ直結する。子のtask契約は、限定したpre-read解釈の矛盾も含め、部分要求として保持する。見出し自体に別の観測義務はなく、子の完了や範囲除外を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.9.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read virtual register facade introduction identifies the pre/post read/write callback role in one descriptive sentence, then introduces the separately declared class and task contracts. Its identity/base and read/write callback roles are linked below; all child applicability, declaration differences and qualified ordering questions remain partial. This description adds no independent access algorithm or exclusion.",
+        "ja": "個別に読んだvirtual register facadeの導入は、pre／post read／write callbackの役割を1文で説明した後、別のclass宣言とtask契約へ進む。型の同一性／基底とread／write callbackの役割を以下の要求へ対応付け、子の適用条件、宣言差分、限定した順序解釈はすべて部分的に残す。この説明は独立access algorithmや除外を追加しない。"
+      },
+      "related_requirements": [
+        "UVM-VREG-CALLBACK-REG-FACADE-BASE-86",
+        "UVM-VREG-CALLBACK-REG-FACADE-CONCRETE-86",
+        "UVM-VREG-CALLBACK-REG-CB-PRE-READ-MAP-86",
+        "UVM-VREG-PRE-WRITE-CALLBACK-VALUE",
+        "UVM-VREG-POST-WRITE-CALLBACK-STATUS",
+        "UVM-VREG-POST-READ-CALLBACK-VALUE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.10.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read virtual field facade introduction identifies the pre/post read/write callback role in one descriptive sentence, then introduces the separately declared class and task contracts. Its identity/base and read/write callback roles are linked below; all child applicability, declaration differences and qualified ordering questions remain partial. This description adds no independent access algorithm or exclusion.",
+        "ja": "個別に読んだvirtual field facadeの導入は、pre／post read／write callbackの役割を1文で説明した後、別のclass宣言とtask契約へ進む。型の同一性／基底とread／write callbackの役割を以下の要求へ対応付け、子の適用条件、宣言差分、限定した順序解釈はすべて部分的に残す。この説明は独立access algorithmや除外を追加しない。"
+      },
+      "related_requirements": [
+        "UVM-VREG-CALLBACK-FIELD-FACADE-BASE-86",
+        "UVM-VREG-CALLBACK-FIELD-FACADE-VIRTUAL-86",
+        "UVM-VREG-CALLBACK-FIELD-CB-PRE-READ-PATH-86",
+        "UVM-VREG-FIELD-PRE-WRITE-SLICE",
+        "UVM-VREG-FIELD-POST-WRITE-ORDER",
+        "UVM-VREG-FIELD-POST-READ-SLICE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

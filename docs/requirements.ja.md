@@ -7,14 +7,14 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案3923件は、すべて2368テストへ直接対応し、
-追加の32テストはcontrol専用です。全2400テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案3947件は、すべて2388テストへ直接対応し、
+追加の32テストはcontrol専用です。全2420テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
 control専用テストは補助的な前提を検査するもので、その一致が欠落する標準APIの契約を立証しない理由は[HDL viewの例](faq.ja.md#q308-標準viewとmember-view-controlを分ける理由は)で確認できます。
 
-条項catalogの番号は2,507件です。2001件は要求を一部分解し、413件はAIで明示的に分類（構造286件・文脈127件）、残る93件は未評価です。
+条項catalogの番号は2,507件です。2012件は要求を一部分解し、419件はAIで明示的に分類（構造290件・文脈129件）、残る76件は未評価です。
 いずれも完了を示しません。M4の開始は、範囲や分母の承認、M1〜M3の完了を意味しません。
 `approved_denominator`と`coverage_percentage`は`null`のままです。
 
@@ -28,7 +28,7 @@ control専用テストは補助的な前提を検査するもので、その一�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-3923件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+3947件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -58,10 +58,10 @@ directとcontrolは、義務を直接検査するか、準備や条件の評価�
 ![条項の引用、明示的な要求の対応付け、別途測定する実行の証拠の関係。](images/requirement-evidence.ja.svg)
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は1247件、どちらかの引用がある番号は2,038件です。
+catalogのうち主引用がある番号は1258件、どちらかの引用がある番号は2,046件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,235、1件が767、2件以上が480です。
+対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,224、1件が771、2件以上が487です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -80,7 +80,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2400件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2420件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -104,7 +104,7 @@ schemaの版はJSONの項目構成を識別するもので、UVMライブラリ�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2400件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2420件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -197,7 +197,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 6 | 170 | 68 | 0 | 19 | 0 |
 | 7 | 91 | 35 | 0 | 20 | 0 |
 | 8 | 83 | 65 | 0 | 12 | 0 |
-| 9 | 139 | 63 | 0 | 22 | 0 |
+| 9 | 140 | 63 | 0 | 22 | 0 |
 | 10 | 160 | 114 | 0 | 29 | 0 |
 | 11 | 35 | 20 | 0 | 4 | 0 |
 | 12 | 324 | 194 | 0 | 45 | 0 |
@@ -206,7 +206,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 15 | 131 | 116 | 0 | 18 | 0 |
 | 16 | 279 | 186 | 0 | 32 | 1 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
-| 18 | 874 | 550 | 0 | 55 | 29 |
+| 18 | 898 | 570 | 0 | 61 | 12 |
 | 19 | 198 | 157 | 0 | 24 | 1 |
 | B | 239 | 183 | 0 | 7 | 19 |
 | C | 98 | 69 | 0 | 13 | 0 |
@@ -216,30 +216,32 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | G | 45 | 20 | 0 | 4 | 0 |
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
-残る識別子93件は評価／分解が必要です。範囲は提案、3923件のレビューはすべて`ai`、分母は未承認です。
+残る識別子76件は評価／分解が必要です。範囲は提案、3947件のレビューはすべて`ai`、分母は未承認です。
 
-新規M3 runtime 16検査系はvirtual register／fieldのpoke／peekを検査します。独自user backdoorの12件はseed 1／73に一致します。
-実公開16-bit HDL arrayの4件も別VPI条件で両seedに一致し、通常実行はspec-onlyのDPI未linkによるbuild差分を保持します。
-model記憶域と実HDL accessの違いは[virtual registerのFAQ](faq.ja.md#virtual-registerのbackdoor観測)で説明しています。
+新規M3 20入力はcallback 17条件、合法宣言2条件、不正なvirtual直接構築1条件を追加します。
+runtime 16入力はseed 1／73に一致し、compiler拒否1件はruntimeなしで一致します。
+限定したfield pre-read順序2入力はexit 0のseed 1差分を保持してseed 73結果はなく、印刷上は具象のregister callback facadeはabstractとして拒否されruntimeがありません。
+method、facade、構築の条件の違いは[callbackのFAQ](faq.ja.md#virtual-registerのcallback契約)で説明しています。
 
-配列indexを2つ選び、独立したmemory内容と全raw wordのsnapshotで、index値、field slice、bit保持、peer要素、strideの隙間を検査します。
-debug引数省略、正の行番号、負の行番号が同じ独立した判定を満たします。単一word条件は8／16-bit memory／registerと4／9-bit fieldです。
-32-bit全register条件は同じ16-bitの両半分を使い、LSB 8の16-bit境界跨ぎfieldは独立に導いた結果pairのどちらの順序も許します。
-これは配置順に依存しない必要な検査で、複数wordの一意な配置契約ではありません。内部access回数／順序、未使用の上位出力bit、
-失敗時結果、並行処理、callback、resetによるsemaphore回復は未完です。
+map別の独自frontdoorとuser backdoorは、変更前に3経路の正常性を確認します。実hookがpre-writeのdata／path、pre-readのmap／path、post-readのdata／status、post-writeのstatusを変更します。
+親registerとfield単独の呼出しは別条件にします。最初／最後の観測は選択したread／write種別に限定し、内部transfer／callback回数を固定しません。
+register側のpre-read整理は一致し、field method／facadeをregisterより後にする解釈は、存在、値／status、post順序の行が一致しても差分を保持します。
+限定した解釈から訂正、根本原因、独立した欠陥件数を認定しません。
 
-日英AI義務12件が18.9.1.3.3／.4と18.10.4.3／.4を部分分解し、個別に読んだ本文のない見出し18.9.1.3と18.10.4を構造分類します。
-以前の3911要求と411分類は全objectをそのまま保持し、範囲案は未変更です。全体は部分2001／分類413／未評価93です。
-第18章は372／55／29、義務874件、主引用550テスト（simulation 548／elaboration 2）です。
-全3923義務は2368テストへ直接対応し、他の32テストはcontrol専用、control linkあり123です。
+初期のfield単独部分writeはfrontdoor／backdoorの内容が不整合で、変更を無効にしたcontrolにも同じ非選択bit差分が出たため、post-statusの欠陥の証拠にはしません。
+修正した新入力は使用するfrontdoor／backdoorを同じ記憶域へ明示的に結び、元の期待6行を保持し、変更なしcontrolとmemory postより後のfield postを確認して両seedに一致します。
+初期／診断入力とlogは保管して除外し、指紋を付け替えません。実測に基づくtag 17件は最終入力を新たに測定し、helper、他の本体19件、他の期待値file 18件は未変更です。
 
-初期のinclude不足をnative runtime前に修正して保管し、実測runtime出力を使わずoracle照合で内部access所属の制限を外します。
-最終期待値は実行前に固定します。再現した通常header 12件へtagを加えて新たに測定し、後のoracle照合で独自user記憶域を宣言memory word幅へ揃えるため、helper 1件とconstructor引数12件を変更します。
-通常16件とHDL 4件は現在の指紋で全件を新たに測定し、幅制限前の記録は保管して除外します。
-ステージ後の空白検査で物理source 4件の空行を整形し、通常／HDLの両条件で新たに測定して以前の指紋の記録を保持します。期待値fileは未変更です。
-以前の通常2384記録、compiler 97記録、以前のHDL 34記録、command-line 18記録、互換guest 1082記録は内容を保持します。
-新しいguest実行／filter、実装sourceの読取り、runner／backend変更はありません。guest未測定は1318入力へ増え、追加1315件と修正した元入力3件（simulation 1221／elaboration 97）です。
-部分義務、元のmilestone目標、人のレビュー、範囲／分母承認は未完です。
+規格に基づく構築期待の固定後に、固定Apacheライブラリのsrc/reg/uvm_vreg.svhの宣言を確認し、register callback facadeはvirtualでbuild拒否と整合します。
+印刷されたIEEEのclass期待は保持します。合法派生型は別のcontrolで、拒否した直接構築入力を成功扱いにしません。simulatorの実装sourceや商用結果は使いません。
+
+日英AI義務24件がcallback／宣言の11 leafを部分分解し、個別に読んだ本文のない見出し4件とfacadeの説明的導入2件を構造／文脈分類します。
+以前の3923義務、413分類、範囲案は全objectを保持します。全体は部分2012／分類419／未評価76、第18章は383／61／12、義務898件、主引用570テスト（simulation 567／elaboration 3）です。
+全3947義務は2388テストへ直接対応し、他の32テストはcontrol専用、control linkあり124です。
+
+以前の通常2400記録、compiler 97記録、HDL 38記録、command-line 18記録、互換guest 1082記録は内容を保持し、新しいguest実行／filterやrunner／backend／tool／workflowの変更はありません。
+guest未測定1338入力は追加1335件と修正した元入力3件（simulation 1240／elaboration 98）です。
+部分適用条件、失敗起点／競合／無効callback、blocking、並行処理、reset回復、限定解釈、元のmilestone目標、人のレビュー、範囲／分母承認は未完です。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。
@@ -491,4 +493,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる3923要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる3947要求案と直接の対応は、その条件を満たしていません。

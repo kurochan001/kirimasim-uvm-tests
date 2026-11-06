@@ -9601,6 +9601,86 @@
     "u18/test_vreg_backdoor_hdl_field_peek_word16_85": {
       "primary_clause": "18.10.4.4",
       "inputs_sha256": "b4e3c7f86e2b4e828c14f490e445d10ba1c78c589a4475ad70ec4b3bea4a8da3"
+    },
+    "u18/test_vreg_callback_reg_pre_write_data_86": {
+      "primary_clause": "18.9.1.4.1",
+      "inputs_sha256": "0dea9e52048ead9e7fdcfb056ae58a0570441eeb91ee4dbdd4d9dbd8b41c549e"
+    },
+    "u18/test_vreg_callback_reg_pre_write_path_86": {
+      "primary_clause": "18.9.1.4.1",
+      "inputs_sha256": "69d095324a3810021bfeb8e727944974c48dd3b0896d3d42ec0ab8348e36ea7d"
+    },
+    "u18/test_vreg_callback_reg_pre_read_map_86": {
+      "primary_clause": "18.9.1.4.3",
+      "inputs_sha256": "9c140454c82dde257b7c2796f8714eb267cb3b9a7dfe79b6223082f997e918ae"
+    },
+    "u18/test_vreg_callback_reg_pre_read_path_86": {
+      "primary_clause": "18.9.1.4.3",
+      "inputs_sha256": "bab02b0a8d28bc4d76f447cacc97d6f64b512ffb5735212f3f761f7a8eb40d0b"
+    },
+    "u18/test_vreg_callback_reg_post_write_status_86": {
+      "primary_clause": "18.9.1.4.2",
+      "inputs_sha256": "fc35ff2b25b94322bc15f984339e17f0abfaf9f0a22382afbb5af8f6b27f0a26"
+    },
+    "u18/test_vreg_callback_reg_post_read_data_status_86": {
+      "primary_clause": "18.9.1.4.4",
+      "inputs_sha256": "c8ecac7813767a7803536643edca115032a3ac7163751f4941b025fbf7425b54"
+    },
+    "u18/test_vreg_callback_field_post_write_parent_status_86": {
+      "primary_clause": "18.10.5.2",
+      "inputs_sha256": "9ddab31d382c655c19b73aaf8d64b84b09c4d308b14fce2a470c57cc869e851a"
+    },
+    "u18/test_vreg_callback_field_post_read_parent_slice_status_86": {
+      "primary_clause": "18.10.5.4",
+      "inputs_sha256": "447f794afb92bb7040166a1a83aeed0dcc3d86b9217cd519df4505e7252ed55d"
+    },
+    "u18/test_vreg_callback_field_pre_read_map_86": {
+      "primary_clause": "18.10.5.3",
+      "inputs_sha256": "56a2f57a381b45d35ecf77a045d141a9872f4599c36e07d6b2e4c255554cff91"
+    },
+    "u18/test_vreg_callback_reg_cb_pre_read_map_86": {
+      "primary_clause": "18.9.2.2.3",
+      "inputs_sha256": "4a9bcd1e25ed67ac270dd7d22eb71cac1d7364cfd847ec2580f10196acc58d1e"
+    },
+    "u18/test_vreg_callback_field_cb_pre_read_path_86": {
+      "primary_clause": "18.10.6.2.3",
+      "inputs_sha256": "5fac340a128e7cb79a51cb100acbc6ad693c0ddefbda8a06f908e19cf391143c"
+    },
+    "u18/test_vreg_callback_write_order_86": {
+      "primary_clause": "18.9.1.4.1",
+      "inputs_sha256": "eb0c2eb272fdacf450bad25dc0f9c86522e9e7c010abc43cb915714c1e3d34dc"
+    },
+    "u18/test_vreg_callback_reg_pre_read_order_literal_86": {
+      "primary_clause": "18.9.1.4.3",
+      "inputs_sha256": "4083f45bb9c314bcdd529c6e82429ee0daa9b16a2f91dc7d8dfd511cc368b2b8"
+    },
+    "u18/test_vreg_callback_field_pre_read_method_order_literal_86": {
+      "primary_clause": "18.10.5.3",
+      "inputs_sha256": "14f4585af396880f40afbebc60c369b15b33b5470b8da4a0bc8081b17e50b1a3"
+    },
+    "u18/test_vreg_callback_field_pre_read_cb_order_literal_86": {
+      "primary_clause": "18.10.6.2.3",
+      "inputs_sha256": "b061a3614d7252aee2d1bb3e552376c47114b26e40d944e0b44335bdc15dbaf4"
+    },
+    "u18/test_vreg_callback_field_post_write_standalone_status_86": {
+      "primary_clause": "18.10.5.2",
+      "inputs_sha256": "9d05609e3348981b23c500c33b5497ac0274eed926c77c33e061d1cb66e76ac7"
+    },
+    "u18/test_vreg_callback_field_post_read_standalone_slice_status_86": {
+      "primary_clause": "18.10.5.4",
+      "inputs_sha256": "16c0a26566c040156f0b5e9e40a4f479c55d3854890e5a29818073ed2421b3b6"
+    },
+    "u18/test_vreg_callback_decl_register_concrete_86": {
+      "primary_clause": "18.9.2.1",
+      "inputs_sha256": "448e64022c46975cf9dcbf3cb33d5e4c386e1e487873b002d49887b6eb0fd526"
+    },
+    "u18/test_vreg_callback_decl_derived_views_86": {
+      "primary_clause": "18.10.6.1",
+      "inputs_sha256": "cea0bd68c5774f146a2ca5c9e3f4f3a7cb96f8fc5562a2bf9e1c7307175be6ca"
+    },
+    "u18/test_vreg_callback_decl_field_virtual_86": {
+      "primary_clause": "18.10.6.1",
+      "inputs_sha256": "95578709957a105f365f85049e28d9bbe1fa3d2520029416c17e78699f3051f5"
     }
   }
 }

@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighty-five cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2400 tests: 2303 simulation and 97 elaboration). The earlier 349-test checkpoint is
+three M4 increments and eighty-six cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2420 tests: 2322 simulation and 98 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5028,3 +5028,61 @@ and 374 known (249 runtime/120 build/5 illegal acceptance). Separate HDL is
 37 pass/1 fail in 38 inputs. Goal iteration 57 reduces unassessed from 99 to 93,
 a decrease of 1370 from activation count1463. Full completion remains unproven;
 the goal stays active.
+
+## Eighty-sixth thin-area expansion: virtual-register callback contracts
+
+Twenty new M3 inputs add seventeen callback scenarios, two legal declaration
+inputs and one illegal virtual construction. Sixteen runtime inputs match seeds
+1/73 and one compiler rejection matches without runtime. Two qualified field
+pre-read order inputs differ at seed 1 with exit 0 and no seed 73; the printed
+concrete register-callback facade is rejected as abstract without runtime.
+[The callback FAQ](faq.md#virtual-register-callback-contracts) explains the distinct
+method, facade and construction conditions.
+
+Original map-specific frontdoors and a user backdoor establish three healthy
+routes before edits. Actual hooks change pre-write data/path, pre-read map/path,
+post-read data/status and post-write status. Parent-register and standalone-field
+calls retain separate contexts. First/last observations filter the selected
+read/write kind, without fixing internal transfer/callback counts. The register
+pre-read grouping matches; field-method/facade-after-register readings retain
+their differences while all presence, value/status and post-order rows match.
+These qualified interpretations do not certify an erratum, root cause or defect count.
+
+The initial standalone partial-write fixture used inconsistent frontdoor/backdoor
+contents. Its no-edit control produced the same outside-bit difference, so that
+input is not evidence of a post-status defect. The corrected new input explicitly
+aliases its active frontdoor/backdoor storage, preserves all six original expected
+rows, and adds a no-edit control and memory-post-before-field-post check. Both
+seeds match. Initial and diagnostic input/log versions are archived and excluded,
+without relabeling their fingerprints. Seventeen proof-based tags have fresh
+final measurements; the helper, nineteen other bodies and eighteen other
+expectation files remain unchanged.
+
+After the standard-derived construction expectation was frozen, the pinned
+Apache declaration in src/reg/uvm_vreg.svh was inspected: it declares the register
+callback facade virtual, consistent with the build refusal. The printed IEEE
+class expectation remains unchanged. A legal subtype is a separate control;
+it does not pass the rejected direct-construction input. No simulator
+implementation source or commercial result is used.
+
+Twenty-four bilingual AI duties partially decompose eleven callback/declaration
+leaves. Four individually read bodyless headings and two descriptive facade
+introductions receive structural/contextual assessments. All 3923 earlier duties,
+413 earlier assessments and proposed scope retain their objects. Global state is
+2012 partial/419 assessed/76 unassessed. Chapter 18 is 383/61/12, with 898 duties
+and 570 primary tests (567 simulation/3 elaboration). All 3947 duties link directly
+to 2388 tests; thirty-two others are control-only and 124 have control links.
+
+All 2400 prior ordinary and 97 compiler records, 38 HDL, 18 command-line and
+1082 compatible guest records retain their content. No guest rerun/filter or
+runner/backend/tool/workflow change is claimed. Guest unmeasured inputs are
+1338: 1335 additions and three revised originals (1240 simulation/98 elaboration).
+All partial applicability, failure-origin/competing/disabled callbacks, blocking,
+concurrency, reset recovery, qualified interpretations, original milestone targets,
+human review and scope/denominator approval remain open.
+
+Totals are 2420 (2322 simulation/98 elaboration): M1 1020 (940/80), M2 568
+(561/7), M3 832 (821/11). Ordinary evidence is 2043 pass (1950 runtime/93 compiler)
+and 377 known (251 runtime/121 build/5 illegal acceptance). Goal iteration 58
+reduces unassessed from 93 to 76, a decrease of 1387 from activation count1463.
+Completion of partial duties and original targets remains unproven; the goal stays active.

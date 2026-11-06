@@ -6,7 +6,7 @@ When a linked source is unfamiliar, [Trace a difference](reading-guide.md#trace-
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2400-test suite and the pinned Accellera UVM
+This describes the current 2420-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -172,11 +172,11 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 - [Small integer macro with omitted radix](../tests/uB/test_record_macro_int_default_radix_uses_the_declared_default_recorder_route.sv).
 - [Printed one-argument enum unpack](../tests/uB/test_unpack_macro_enum_interoperates_with_an_independent_scalar_api.sv).
 
-97 elaboration fixtures expect rejection: 35 direct abstract constructions and
+98 elaboration fixtures expect rejection: 36 direct abstract constructions and
 62 pure-interface/const-reference/forbidden-member/type-context violations.
-92 match. Subscriber/visitor/proxy/adapter omissions and direct construction
+93 match. Subscriber/visitor/proxy/adapter omissions and direct construction
 of the printed virtual builtin dispatcher remain accepted and spec-only without
-runtime. These five compiler acceptances are separate from 369 known simulation
+runtime. These five compiler acceptances are separate from 372 known simulation
 differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
@@ -413,6 +413,18 @@ The twelve model matches do not pass those unlinked inputs; see [the backdoor FA
 - [vreg_peek_word16](../tests/u18/test_vreg_backdoor_hdl_vreg_peek_word16_85.sv).
 - [field_poke_word16](../tests/u18/test_vreg_backdoor_hdl_field_poke_word16_85.sv).
 - [field_peek_word16](../tests/u18/test_vreg_backdoor_hdl_field_peek_word16_85.sv).
+
+Two new qualified pre-read inputs retain seed-1 pre-order differences while
+presence, data/status and post-order observations match; neither has seed 73.
+The printed concrete register callback facade is rejected as abstract under the
+pinned virtual declaration, without runtime; its legal subtype control matches.
+The corrected standalone field input matches both seeds with coherent storage.
+The initial independent-bank version is excluded as evidence of a post-status
+defect, as explained in [the callback FAQ](faq.md#virtual-register-callback-contracts).
+
+- [field_pre_read_method_order_literal](../tests/u18/test_vreg_callback_field_pre_read_method_order_literal_86.sv).
+- [field_pre_read_cb_order_literal](../tests/u18/test_vreg_callback_field_pre_read_cb_order_literal_86.sv).
+- [decl_register_concrete](../tests/u18/test_vreg_callback_decl_register_concrete_86.sv).
 
 ## Pinned-library limitations
 
@@ -1025,7 +1037,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2026 tests have the `verilator@5.052` oracle tag and 374
+Across the suite, 2043 tests have the `verilator@5.052` oracle tag and 377
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -1037,12 +1049,12 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 374 spec-only cases retain standard-derived expected output or compiler diagnostics.
-Default Verilator runs and CI select 2026 tagged checks (1934 runtime, 92 compile rejection). `--all` includes
+The 377 spec-only cases retain standard-derived expected output or compiler diagnostics.
+Default Verilator runs and CI select 2043 tagged checks (1950 runtime, 93 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 249 cases establish their first difference
+The ordinary runtime records for 251 cases establish their first difference
 at seed 1, without seed 73 results.
-The 120 simulation builds have no ordinary runtime, including 56 unlinked DPI
+The 121 simulation builds have no ordinary runtime, including 56 unlinked DPI
 inputs (38 HDL and 18 command-line); [the measured breakdown](results.md#interpretation)
 records the complete categories. Five illegal compiler acceptances remain a
 separate no-runtime condition.
@@ -1090,6 +1102,8 @@ callback paths and other exact aliases remain separate observations.
 
 ## Component lifetime and convenience interface observations
 
+Dispatching a callback and completing a thread it starts are different observations; [the lifetime terms](glossary.md#component-lifetime-and-convenience-hooks) explain the processes whose survival is checked at phase boundaries.
+
 Two lifetime probes retain writes and ticking descendants after common/runtime
 phase end. The callback probe observes all three callback dispatches, but its
 ready-to-end thread does not complete while start/end threads do. The exact
@@ -1122,9 +1136,13 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 374 current spec-only cases are linked in the explanatory notes and the
+The 377 current spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
+
+- [field_pre_read_method_order_literal](../tests/u18/test_vreg_callback_field_pre_read_method_order_literal_86.sv).
+- [field_pre_read_cb_order_literal](../tests/u18/test_vreg_callback_field_pre_read_cb_order_literal_86.sv).
+- [decl_register_concrete](../tests/u18/test_vreg_callback_decl_register_concrete_86.sv).
 
 - [vreg_poke_word16](../tests/u18/test_vreg_backdoor_hdl_vreg_poke_word16_85.sv).
 - [vreg_peek_word16](../tests/u18/test_vreg_backdoor_hdl_vreg_peek_word16_85.sv).
@@ -1429,7 +1447,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1082 records and 1318 inputs
+records are excluded. The compatible subset has 1082 records and 1338 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1470,8 +1488,8 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The latest guest filter excludes the corrected field-configuration citation input: 1083 prior compatible records become 1082, with no new guest execution. [The evidence guide](results.md#evidence-assembly) records the exact exclusion and resulting counts.
 
-The suite has 2400 cases, but the kirimasim/Ghost records below cover only
-1082 unchanged current-input cases. The 1318 inputs are unmeasured
+The suite has 2420 cases, but the kirimasim/Ghost records below cover only
+1082 unchanged current-input cases. The 1338 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

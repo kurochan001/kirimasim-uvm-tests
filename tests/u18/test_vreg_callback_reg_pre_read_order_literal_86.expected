@@ -1,0 +1,8 @@
+UT: vcb86 reg_pre_read_order_literal idx 0 controls 1
+UT: vcb86 status 1 data 1 storage 1
+UT: vcb86 hook 1 indices 1
+UT: vcb86 present 1 pre_order 1 post_order 1
+UT: vcb86 reg_pre_read_order_literal idx 2 controls 1
+UT: vcb86 status 1 data 1 storage 1
+UT: vcb86 hook 1 indices 1
+UT: vcb86 present 1 pre_order 1 post_order 1

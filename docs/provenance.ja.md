@@ -193,6 +193,11 @@ virtual register／fieldのpoke／peek期待値は、提供IEEE 18.9.1.3.3／.4�
 単一wordのmask／shift literal、同じ両半分、順序を問わない結果pairで、実装のword順序や内部access algorithmをoracleにしません。
 独自user記憶域と未変更VPI backendによる実HDLは別に実測し、実装sourceや商用結果を新たに使わない範囲は[backdoorのFAQ](faq.ja.md#virtual-registerのbackdoor観測)にあります。
 
+callback期待は提供IEEE 18.9.1.4、18.9.2、18.10.5／.6から測定前に導き、pre-readの両立しない整理を別の限定入力に保持します。
+構築期待の固定と拒否の観測後に、固定Apacheのsrc/reg/uvm_vreg.svhのpublic宣言を確認するとuvm_vreg_cbsはvirtualです。
+その宣言で印刷IEEEのclass期待を変更せず、合法派生型を別controlにします。新規field単独入力の不整合なRMW記憶域は、元の期待を保持して共有する記憶域へ修正し、旧版を保管／除外して全変更入力を新たに測定します。
+simulator実装sourceや商用結果は使わず、[callbackのFAQ](faq.ja.md#virtual-registerのcallback契約)で範囲を説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

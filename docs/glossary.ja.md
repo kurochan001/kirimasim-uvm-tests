@@ -369,14 +369,15 @@ frontdoorでのwriteとbackdoorでのreadを比較し、次に経路を逆にし
 **`known`／`unsupported`** — このVerilatorランナーでoracleタグのないテストが判定に合わない結果（ビルド失敗も含む）／
 kirimasimが未対応と明示した構文などの結果です。どちらも成功には数えません。
 Ghostは`pass`・`fail`で記録し、同梱ライブラリの差を`known`へ変更しません。
-コマンドの終了条件は[FAQ](faq.ja.md)で説明します。
+Verilatorがknown差分だけでは失敗終了しない理由は[FAQ Q6](faq.ja.md#q6-knownがあるのにverilatorコマンドが成功するのはなぜですか)で説明しています。
 
 **seed／2値／4値** — 乱数を使う実行条件の入力／X・Zを含まない値／X・Zを含む値です。
 固定版Verilatorのoracleでは、X・Zに依存しないテストをseed 1・73で確認します。
 2つのseedで成功しても、すべてのseedの正しさを証明したとは扱いません。
 
 **DPI／`UVM_NO_DPI`** — SystemVerilogから外部コードを使う仕組み／UVMのDPIに依存する実装経路を無効にするマクロです。
-現在のテストはこのマクロを使います。マクロを外すだけでは、必要なC/C++実装の供給やリンクは行われません。
+通常runnerはDPIを要求しないテストでこのマクロを使います。
+マクロを外すだけでは必要なC/C++実装の供給やリンクは行われず、通常・HDL・command-lineの条件は[ライブラリの準備](testing.ja.md#uvmライブラリ)で説明しています。
 
 **固定版ライブラリ／lock／同梱ライブラリ** — `third_party/uvm.lock`で指定した正確なライブラリ／
 その版・コミット・ファイル数・内容の指紋／シミュレータやprofileが供給するライブラリです。
@@ -1241,3 +1242,14 @@ modelと実HDL記憶域の違いは[Q326](faq.ja.md#q326-user-backdoorの一致�
 
 **debug引数による機能不変性（debug-argument invariance）** — file名／行番号の引数省略や異なる明示値でも、同じ機能の判定を満たすことです。
 選択した成功accessの範囲は[Q328](faq.ja.md#q328-debug引数の違いから何を立証しますか)に記録しています。
+
+## Virtual registerのcallback前提
+
+**read／writeの順序観測区間** — 選択した操作種別に限定したcallbackの最初／最後の観測で、内部RMW readをwrite hookとして扱わないものです。
+限定した順序groupは[Q329](faq.ja.md#q329-pre-read順序の期待を別々に保持する理由は)で説明しています。
+
+**facade宣言／具象派生型** — 記載されたinterface classの形式／別の型互換controlとして生成できる派生型です。
+宣言の観測との違いは[Q330](faq.ja.md#q330-合法なfacade構築がabstractとして停止する理由は)で説明しています。
+
+**整合したfrontdoor／backdoor記憶域** — 部分writeがどちらからもreadし得るとき、使用する2経路が同じmodel wordを参照することです。
+修正したRMW検査系は[Q331](faq.ja.md#q331-field単独の部分writeの検査系を修正した理由は)で説明しています。
