@@ -65,6 +65,8 @@ catalogのうち主引用がある番号は1232件、どちらかの引用があ
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
+検査系を辿るには[要求台帳](../coverage/requirements.json)の`test_links`でテストIDを探し、その要求の条件と限界を読み、対応付けと照合するソースの条項引用は[ヘッダーの案内](testing.ja.md#メタデータ)で確認してください。
+
 `UVM-CLONE-DISTINCT`などの要求IDは、テストのfilenameとは独立した安定した名前です。
 5.3.5.2の2つの要求は同じ条項を使い、別handleの生成と、後続のscalar変更の独立性を別々に検査できます。
 callbackの要求`UVM-VREG-FIELD-POST-WRITE-ORDER`は、field単独のテストを直接、親virtual registerのwriteをcontrolとして対応付けます。

@@ -225,6 +225,8 @@ The JSON output is a local record of a selected run, and [Q10](faq.md#q10-where-
 
 Historical `out/` files may be absent in a fresh clone, so [the local-material guide](handoff.md#files-and-local-material) distinguishes reproducible tracked commands from optional measurement artifacts.
 
+A result test ID is the path below `tests/` without `.sv`, so [the layout guide](testing.md#layout) helps locate the source and its declared expected file from a JSON entry.
+
 The [testing guide](testing.md#running-the-suite) documents the commands,
 profile modes and library settings. Request `--json out/<name>.json` to retain
 statuses, reasons, configuration and fingerprints. `out/` is ignored by Git,

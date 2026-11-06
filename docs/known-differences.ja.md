@@ -292,6 +292,8 @@ WARNINGの不在や根本原因は認定せず、[観測の限界](faq.ja.md#q31
 
 ## 固定版ライブラリの制約
 
+固定版とはlock fileで版と内容を指定したライブラリで、これらの制約を再現するときに同じ実装を用意する方法は[ライブラリの案内](testing.ja.md#uvmライブラリ)にあります。
+
 DPIはSystemVerilogと外部コードをつなぎ、有効化flagだけではbackendを供給しないため、DPI欠落の項目を読む際は[コンパイル](testing.ja.md#コンパイル)を参照してください。
 
 「限定した解釈」などの注記はレビューが残る読み方を示し、別の解釈を条項の根拠とともに提案する方法は[Q18](faq.ja.md#q18-期待値の誤りはどう報告修正しますか)で説明しています。
@@ -744,6 +746,8 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [名前による便宜replace 0](../tests/uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace.sv)
 
 ## specのみのテスト
+
+明示したソースのパスで一覧の検査系を1件選べるため、両runtime seedを指定する方法は[1件を実行するコマンド](faq.ja.md#q3-まず1件だけ動かすにはどうしますか)を参照してください。
 
 複数の入力が同じAPIの欠落で停止する場合があるため、一覧の件数は独立した不具合数ではなく、build時の障害とruntimeの観測は[実測の内訳](results.ja.md#結果の解釈)で区別しています。
 

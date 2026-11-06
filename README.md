@@ -48,10 +48,10 @@ Built-in frontdoors use testbench adapter/sequencer/driver connections.
 Custom frontdoors model storage in their sequence bodies; passive predictor
 fixtures supply observations separately. User backdoors model storage through
 `uvm_reg_backdoor` extensions. Thirty-four separate HDL fixtures use actual public
-variables through an original VPI backend; see the testing guide.
+variables through an original VPI backend; [HDL setup](docs/testing.md#verilator-vpi-hdl-subset) explains the linked implementation needed to reach that storage.
 Eighteen command-line fixtures opt into a separate VPI argument bridge and
 pinned UVM regex DPI; seventeen match both seeds and one retains a diagnostic
-severity difference. Their ordinary runs do not link that backend.
+severity difference. The [command-line runner](docs/testing.md#verilator-command-line-subset) supplies that bridge; ordinary runs leave it unlinked.
 
 Expected results follow the cited standard, and normative expectations remain
 when a simulator/library combination differs. The SystemVerilog language

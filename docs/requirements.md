@@ -83,6 +83,8 @@ establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
 
+To trace a fixture, search its test ID in the [ledger](../coverage/requirements.json)'s `test_links` and read the enclosing requirement's conditions and limitations; [the test-header guide](testing.md#metadata) explains the source citations to compare with that mapping.
+
 Requirement IDs such as `UVM-CLONE-DISTINCT` are stable names independent of
 test filenames. Two clone requirements can share clause 5.3.5.2 while checking
 distinct-handle creation and subsequent scalar independence separately.

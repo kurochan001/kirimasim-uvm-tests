@@ -348,6 +348,8 @@ tests likewise leave integer positions opaque and restart through public APIs.
 
 ### Q27. What completes an item sent through a push sequencer?
 
+A push sequencer delivers a request by calling the driver, and [the TLM terms](glossary.md#transaction-level-communication) introduce this path before the completion rule below.
+
 IEEE 1800.2-2020 15.6.3.3 requires the sequence's optional item-completion
 wait to return after the driver's blocking `put` returns. The push driver
 does not use a pull port's `item_done`. A positive-delay test checks that
@@ -367,6 +369,8 @@ running `body`. The tests use singleton constraints and callback counts, so
 their expected values do not depend on which legal random value is selected.
 
 ### Q29. What is included when a generic payload is packed?
+
+Packing serializes selected payload fields into a stream, and [the payload terms](glossary.md#transaction-level-communication) explain why a backing array and its active length can differ.
 
 The standard specifies an ordered set of scalar fields and the active data
 and byte-enable prefixes. Backing-array bytes beyond the declared lengths
@@ -417,6 +421,8 @@ the subtype member; it does not assume an automatic initialization policy.
 
 ### Q33. How are grant, submission and item completion ordered?
 
+A grant authorizes submission, while completion acknowledges a request; [the sequence terms](glossary.md#uvm-building-blocks) distinguish both from delivering a separate response.
+
 After establishing the item's context, a sequence calls `wait_for_grant`,
 then `send_request` without a simulation-time delay. It may then wait for
 completion. The default send does not rerandomize; setting its rerandomize
@@ -457,6 +463,8 @@ phase or timing combination.
 ## FIFO notifications and explicit execution contexts
 
 ### Q36. Does peeking at a FIFO publish a get_ap notification?
+
+Peek observes a FIFO head without removing it, and [the FIFO terms](glossary.md#transaction-level-communication) distinguish observation from consumption before the notification rule below.
 
 Yes. IEEE 1800.2-2020 12.2.8.1.6 includes `peek` and successful `try_peek`,
 as well as get operations. Peeking retains the item; notification does not
@@ -572,6 +580,8 @@ it; no post-fatal continuation policy is prescribed.
 
 ### Q44. Is an extension type key the same as its instance name?
 
+An extension attaches additional typed data to a payload, and [the extension terms](glossary.md#uvm-building-blocks) distinguish its type identity from the name of one object.
+
 The type key returned through `uvm_tlm_extension_base::get_type_handle`
 identifies the extension type. Same-type instances share the key, including
 after an instance is renamed; different types retain different keys even if
@@ -647,6 +657,8 @@ this is not a reviewed register-layer requirement-coverage inventory.
 ## Memory, prediction and map controls
 
 ### Q48. Are memories mirrored like registers, and what do their offsets mean?
+
+A location index selects one memory word, while its external address depends on the map; [the register-model terms](glossary.md#register-model) explain these units before the examples below.
 
 `uvm_mem` describes contiguous locations without storing a mirror for every
 location. Construction records the number and bit width of locations; each
@@ -1035,6 +1047,8 @@ automatic backdoor update threads or every backdoor callback combination.
 ## Annex E built-in test sequences
 
 ### Q68. Which built-in register and memory test sequences are covered?
+
+A built-in register sequence drives a configured register model, and [the register-model terms](glossary.md#register-model) explain what storage the suite uses before interpreting an access result.
 
 Eighty-eight cases in `tests/uE/` cover the following families, with
 constructor/declaration, target/protected-slot and live child-routing probes.

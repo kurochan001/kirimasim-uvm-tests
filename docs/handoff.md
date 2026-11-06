@@ -527,6 +527,8 @@ The `sync` command above writes an index proposal for mapping review; [the updat
 
 ## Suggested restart message
 
+The message below summarizes the work to resume, and [Resume and verify](#resume-and-verify) gives the commands for establishing the current state before using its priorities.
+
 > Read README and the bilingual handoff, verify the working tree and latest
 > Check status, and regenerate the requirement backlog. Continue strengthening
 > thin areas across M1–M4 using the supplied IEEE standards. Consider the

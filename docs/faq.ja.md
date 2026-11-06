@@ -301,6 +301,8 @@ callback iteratorも、位置の整数値を決めつけず、公開APIで走査
 
 ### Q27. push sequencerのitemはいつ完了しますか
 
+push sequencerはdriverを呼び出して要求を渡す仕組みで、完了規則の前提となる転送経路は[TLMの用語](glossary.ja.md#transaction単位の通信)で説明しています。
+
 IEEE 1800.2-2020の15.6.3.3では、driverのblocking `put`から戻った後に、sequenceの
 item完了待ちが戻ります。push driverはpull portの`item_done`を使いません。
 正の遅延を使うテストでは、`put`が処理中の間は`finish_item`が戻らないことを確認します。
@@ -317,6 +319,8 @@ item完了待ちが戻ります。push driverはpull portの`item_done`を使い
 テストでは解が1つの制約とcallback回数を使い、乱数の選択による期待値の変化を避けています。
 
 ### Q29. generic payloadのpackには何が含まれますか
+
+packは選択したpayload fieldをstreamへ直列化する処理で、確保した配列と有効長が異なり得る理由は[payloadの用語](glossary.ja.md#transaction単位の通信)で説明しています。
 
 規格で順序を定めたscalarフィールドと、data・byte-enableの有効長までのbyteを含みます。
 配列の余分なbyteやextensionは、既定のpack対象ではありません。
@@ -359,6 +363,8 @@ fieldの`rand_mode(0)`はその変数の値を維持しますが、itemの`rando
 
 ### Q33. grant・送信・item完了はどの順に行いますか
 
+grantは送信の許可、completionは要求の完了通知を表し、それぞれと別responseの配送との違いは[sequenceの用語](glossary.ja.md#uvmの構成要素)で確認できます。
+
 itemのcontextを設定した後、`wait_for_grant`を呼び、シミュレーション時間を進めずに
 `send_request`を呼びます。その後、必要なら完了を待ちます。既定の送信は乱数化せず、
 rerandomize引数を1にした場合はdriverへ渡す前に乱数化します。
@@ -391,6 +397,8 @@ base protocolとして合法であることを示すものではありません�
 ## FIFOの通知と実行対象の指定
 
 ### Q36. FIFOをpeekしたときもget_apへ通知しますか
+
+peekはFIFO先頭を取り出さずに観測する操作で、通知規則の前提となる観測と消費の違いは[FIFOの用語](glossary.ja.md#transaction単位の通信)で確認できます。
 
 IEEE 1800.2-2020の12.2.8.1.6はget操作だけでなく、`peek`と成功した`try_peek`も含めています。
 peekはitemを残すため、通知は取り除いたことを意味しません。2つのpeekケースは、消費する前に2回の
@@ -484,6 +492,8 @@ catcherは重大度を書き換えずに数え、fatal後の継続の方針は�
 
 ### Q44. extensionのtype keyはinstance名と同じですか
 
+extensionはpayloadに追加の型付きdataを結び付ける仕組みで、型の識別と個々のobjectの名前との違いは[extensionの用語](glossary.ja.md#uvmの構成要素)で説明しています。
+
 `uvm_tlm_extension_base::get_type_handle`が返すkeyはextensionの型を識別します。
 同じ型のinstanceは改名後もkeyを共有し、異なる型はinstance名が同じでも別のkeyを持ちます。
 type-handle名は特定の修飾形式を要求せず、同じ型での安定性と別の型との相違を比較します。
@@ -547,6 +557,8 @@ registerとmemoryのmap問い合わせは引数を明示します。
 ## memory・prediction・mapの制御
 
 ### Q48. memoryもregisterのようにmirrorを持ちますか。offsetは何を表しますか
+
+location indexはmemory内の1 wordを選び、外部addressはmapにも依存するため、以下の例で使う単位は[レジスタモデルの用語](glossary.ja.md#レジスタモデル)で確認できます。
 
 `uvm_mem`は連続したlocationを表しますが、全locationのmirror値は保持しません。
 構築時にlocationの数とbit幅を記録し、1 locationのbyte幅は端数を切り上げます。
@@ -841,6 +853,8 @@ ROはbitを保持し、W1Cはmaskを適用し、RCはsampleした値を返して
 ## 付録Eの組み込みテストsequence
 
 ### Q68. どの組み込みregister／memoryテストsequenceを検査していますか
+
+組み込みregister sequenceは設定済みのregister modelを操作するもので、access結果を読む前に、このスイートが使う記憶域は[レジスタモデルの用語](glossary.ja.md#レジスタモデル)で確認できます。
 
 `tests/uE/`の88件で、次の系統に加えconstructor／宣言、target／protected slot、実行中child経路を検査します。統合wrapperはalgorithm検査系3件、bit bashとregister accessは
 ユーザー定義の未知policy、register accessはblock除外も検査します。

@@ -43,9 +43,9 @@ specのみの意味は[用語集の「規格と期待値」](docs/glossary.ja.md
 frontdoorとbackdoorはアクセス経路の名前で、それぞれの役割と実際のHDLアクセスとの違いは[レジスタの用語](docs/glossary.ja.md#レジスタモデル)で説明しています。
 組み込みfrontdoorはテストベンチのadapter／sequencer／driverを接続します。
 custom frontdoorはsequence本体で記憶域をモデル化し、passive predictorは別の検査系から観測値を入力します。
-ユーザー定義backdoorは`uvm_reg_backdoor`の派生クラスでモデル化します。別のHDL検査系34件は、独自VPI backendを通じて実際の公開変数を使います。
+ユーザー定義backdoorは`uvm_reg_backdoor`の派生クラスでモデル化します。別のHDL検査系34件は独自VPI backendを通じて実際の公開変数を使い、必要な実装のlinkは[HDLの準備](docs/testing.ja.md#verilatorのvpi-hdl部分集合)で説明しています。
 command-line 18検査系は、別のVPI引数bridgeと固定UVM regex DPIを明示選択します。
-17件が両seed一致、1件は診断severityの差分を保持し、通常runnerはそのbackendをlinkしません。
+17件が両seed一致、1件は診断severityの差分を保持し、bridgeを供給する[command-line runner](docs/testing.ja.md#verilatorのcommand-line部分集合)と、linkしない通常runnerは別の条件です。
 
 期待値は引用した規格に基づき、シミュレータとライブラリの組み合わせで差があっても、
 規格の期待値を保持します。SystemVerilog言語そのものの検査はkirimasim-testsで扱います。

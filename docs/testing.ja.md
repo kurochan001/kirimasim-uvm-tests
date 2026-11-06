@@ -195,6 +195,8 @@ kirimasim-testsと同じです。共通実装の取得元は[ソースの出典]
 
 ここでの`elaboration`はUVMのphaseを実行しないcompiler拒否テストの分類であり、拒否だけでなく意図した診断も必要な理由は[Q199](faq.ja.md#q199-compile拒否を一致に数える理由は)で説明しています。
 
+診断のregex（正規表現）は期待するコンパイルエラーを選ぶ照合パターンであり、別の理由による拒否でそのoracleを満たせない理由は[compiler検査の用語](glossary.ja.md#宣言の既定値とcompiler検査)で説明しています。
+
 既定sequencerなしの所有API検査系は、元のUVM_FATAL severityをcatchした後、検査系自身のfatalで意図的に終了します。
 `:expected_exit: nonzero`と`:expected_stderr_regex:`は検査系固有のsentinelを要求し、library診断やlibrary fatalの終了コードを固定しません。
 signalは引き続き失敗とし、nonzero終了だけでは必要な観測を満たしません。
@@ -301,6 +303,8 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
 Verilatorは5.052固定で、34検査系は`:uvm_dpi: yes`、`:uvm_hdl_backend: vpi`、宣言した`:dpi_c:`を設定します。
 `UVM_REGEX_NO_DPI`と`UVM_CMDLINE_NO_DPI`で無関係なimportを無効にし、runnerはどちらのdefines fieldでもHDL無効化macroと既定1024-bit UVM DPI ABIの変更を拒否します。
 
+ABIはSystemVerilogとCが値を受け渡す形式で、その容器は1024 bitに固定され、このbackendが現在accessするpacked objectは64 bitまでなので、宣言上の幅と実access能力の区別は[Q182](faq.ja.md#q182-hdl幅parameterの検査はforcerelease対応も示しますか)で確認できます。
+
 ```sh
 python3 tools/run_verilator_hdl.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-hdl.json
@@ -392,6 +396,8 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 seedの一覧は複数の値を受け取るため、[1件を実行する例](faq.ja.md#q3-まず1件だけ動かすにはどうしますか)のように`--seeds 1 73`とソースのパスの間へ`--build-jobs`などのoptionを置いてください。
 
 runtimeの不一致は、選択したテストのヘッダーにある`:expected_stdout:`のパスを辿り、[結果の読み方](reading-guide.ja.md#結果を読む)に沿って`UT: `行を比較すると調べられます。
+
+JSONは`tests`内の各ケースに`status`、記録がある場合は`reason`、入力の指紋を保存し、コマンドの終了コードと併せた読み方は[結果のガイド](reading-guide.ja.md#結果を読む)で確認できます。
 
 各実行は一時的なビルドディレクトリを使います。`out/`はGitの対象外で、CheckはそのJSONを公開しません。
 結果の分類・終了コード・指紋の読み方は[FAQ](faq.ja.md)を参照してください。

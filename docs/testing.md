@@ -261,6 +261,8 @@ diagnostic form records that declared oracle separately from measurements.
 
 Here `elaboration` labels a compiler-rejection test that runs no UVM phases; [Q199](faq.md#q199-why-does-a-compiler-rejection-count-as-a-match) explains why the intended diagnostic, as well as rejection, is required.
 
+A diagnostic regex is a pattern selecting the expected compiler error, and [the compiler-check glossary](glossary.md#declaration-defaults-and-compiler-checks) explains why an unrelated rejection cannot satisfy that oracle.
+
 Missing-default ownership fixtures deliberately end through a testbench fatal
 after catching original UVM_FATAL severity. Their `:expected_exit: nonzero`
 and `:expected_stderr_regex:` require a unique fixture sentinel. They do not
@@ -396,6 +398,8 @@ The separate [HDL runner](../tools/run_verilator_hdl.py) links the original
 The runner rejects HDL-disabling macros and changes to the default 1024-bit
 UVM DPI ABI in either defines field.
 
+The ABI defines the SystemVerilog/C call format with a 1024-bit value container, while this backend currently accesses packed objects up to 64 bits; [Q182](faq.md#q182-do-hdl-width-parameter-checks-establish-forcerelease-support) separates width declarations from actual access capability.
+
 ```sh
 python3 tools/run_verilator_hdl.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-hdl.json
@@ -518,6 +522,8 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 The seed list accepts several values, so keep an option such as `--build-jobs` between `--seeds 1 73` and a source path as shown in [the single-test example](faq.md#q3-how-can-i-run-one-test-first).
 
 For a runtime mismatch, follow the selected test header's `:expected_stdout:` path and compare its `UT: ` lines using [the result-reading guide](reading-guide.md#read-a-result).
+
+The JSON records each case under `tests`, including its `status`, any `reason` and its input fingerprint; [the result-reading guide](reading-guide.md#read-a-result) explains how to use those fields alongside the command exit code.
 
 Each run uses a temporary build directory. `out/` is ignored by Git; Check
 does not publish these JSON files. See the [FAQ](faq.md) for result

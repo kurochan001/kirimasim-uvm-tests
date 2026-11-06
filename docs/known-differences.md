@@ -388,6 +388,8 @@ diagnostic and exit 1 at seed 1 before its post-call UT observation, without see
 
 ## Pinned-library limitations
 
+Pinned means the library version and content fixed by the lock file, and [the library guide](testing.md#the-uvm-library) explains how to obtain that same implementation when reproducing these limitations.
+
 DPI connects SystemVerilog to external code, and enabling its flag does not supply a backend; see [Compiling](testing.md#compiling) when reading the missing-DPI entries.
 
 A note marked qualified records an interpretation that still needs review; [Q18](faq.md#q18-how-should-i-report-or-correct-a-wrong-expectation) explains how to propose another reading with its clause basis.
@@ -1083,6 +1085,8 @@ The printed create_object equivalent call's extra this argument remains partial.
 - [Named convenience replace zero](../tests/uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace.sv)
 
 ## Spec-only tests
+
+An explicit source path selects one listed fixture for investigation, and [the single-test command](faq.md#q3-how-can-i-run-one-test-first) shows how to request both runtime seeds.
 
 Several listed inputs can stop at the same missing API, so their count is not a count of independent defects; [the measured breakdown](results.md#interpretation) separates build blockers from runtime observations.
 
