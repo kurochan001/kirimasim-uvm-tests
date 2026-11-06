@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の82回目の拡充（全2359件：simulation 2263・elaboration 94）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の83回目の拡充（全2371件：simulation 2274・elaboration 97）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3136,3 +3136,29 @@ private登録bit、factory utilityの前提、反復中の変更、未指定のq
 全2359件（simulation 2263／elaboration 96）、M1 1000（921／79）、M2 563（556／7）、M3 796（786／10）です。
 通常は1993 pass（runtime 1902／compiler拒否91）、366 known（runtime 247／build 114／不正受理5）です。
 goal第54反復で未評価114から112へ減らし、開始時1463からの減少は1351です。全体の完了は未立証でgoalを継続します。
+
+## 薄い領域の83回目の拡充：サイズ定義とversion識別
+
+M1の新規size／version 12検査系はruntime入力11件と不正parameter代入1件に分かれます。
+runtime 9件はseed 1／73に一致し、代入は選択したsource／parameter診断で拒否されruntimeを実行しません。
+合法simulation buildの2件はruntimeなしのknownで、reserved＋129のflag拡張は64 bitを超えるenum methodの未対応を報告し、UVM_PACKER_MIN_BITSは未定義です。
+
+既定flag幅、正確な符号なしbit-vector refへの互換性、reserved flagの和、reserved＋17拡張は一致します。
+reserved数と下位bit配置は実装依存に残します。別の未変更packerは非一様8／64-bit fieldで32768 bitを保持し、
+opaque encoding、割当方式、最大容量は規定せず、その一致でmacro存在を成功扱いにしません。
+標準2020 version macro、非空の定数implementation string、POST_2017の存在は一致し、vendor textや記載外の過去macroは固定しません。
+
+日英AI義務12件はleaf識別子7件を部分分解し、個別に読んだ本文のないB.6／B.7の整理見出しだけを構造分類します。
+以前の全3887義務、以前の409分類、範囲案は未変更です。全体は部分1993／分類411／未評価103です。
+付録Bは118／7／19、義務239件、主引用183検査系（simulation 179／elaboration 4）で、付録Fは92／23／22、義務211件、主引用124検査系（simulation 91／elaboration 33）です。
+全3899義務は2339テストへ直接対応し、他の32テストはcontrol専用、control linkあり122です。全ての部分義務と元のM1〜M4目標は未完です。
+
+初回の104桁commentは測定終了後に折り返し、初回source／expectedの23 blobを保管します。
+測定で一致した10件に再現tagを付け、変更した最終12入力を全て新たに測定し、本体と期待値file 11件は未変更です。
+以前の通常2359記録、以前のcompiler 96記録、HDL 34記録、command-line 18記録、互換guest 1082記録の内容は保持します。
+新しいguest実行／filter、実装sourceの閲覧、backend／runner変更はありません。guest未測定1289入力は追加1286件と修正した元入力3件（simulation 1192／elaboration 97）です。
+人のレビューと範囲／分母承認は未完です。
+
+全2371件（simulation 2274／elaboration 97）、M1 1012（932／80）、M2 563（556／7）、M3 796（786／10）です。
+通常は2003 pass（runtime 1911／compiler拒否92）、368 known（runtime 247／build 116／不正受理5）です。
+goal第55反復で未評価103へ減らし、開始時1463から1360の減少です。全体の完了は未立証でgoalを継続します。

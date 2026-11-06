@@ -1571,3 +1571,17 @@ macro use; registration legality is distinct from queue membership or dispatch.
 **Implicit callback caller** — The current object whose applicable callbacks the
 macro dispatches, distinguished from an explicit object argument.
 [Q319](faq.md#q319-what-do-the-dispatch-traces-and-method-negatives-prove) describes the observations.
+
+## Size and version premises
+
+**Reserved flag region** — The implementation's lower field-flag bits, counted
+by its public parameter; selected user tags start above that region.
+[Q320](faq.md#q320-does-the-flag-test-prescribe-a-reserved-bit-count-or-layout) explains the legal extension premises.
+
+**Packer minimum capacity** — The least bit storage required of the default
+implementation, distinct from its maximum or opaque stream representation.
+[Q321](faq.md#q321-does-retaining-32768-bits-pass-the-missing-packer-minimum-macro) separates retention and macro presence.
+
+**Standard versus implementation version** — A standard-revision macro versus
+the package's implementation-identifying string parameter.
+[Q322](faq.md#q322-are-the-standard-version-and-implementation-version-the-same-value) explains the separate presence ladder.

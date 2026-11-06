@@ -260,6 +260,14 @@ affine hooks expose order/reference arguments rather than defining UVM algorithm
 no private bit or factory utility is assumed. No new implementation source or
 commercial result is used; [the callback FAQ](faq.md#callback-registration-and-dispatch-macros) records the early termination and unresolved B.4 overview.
 
+Size/version expectations are derived before measurement from supplied IEEE
+B.6/B.7, F.2.1.1/.2 and public packer, parameter and type contracts. Original
+patterns supply stored data rather than UVM algorithms; reserved values/layout,
+vendor version text and opaque encoding remain unfixed. After comment wrapping
+and reproduction tags, all twelve final inputs are freshly measured with bodies
+and expectations retained. No new implementation source or commercial result is
+used; [the size FAQ](faq.md#size-defines-and-version-identification) records the observation limits.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

@@ -178,6 +178,10 @@ callback macroの期待値は提供IEEE B.4.1／.3、callback登録／iterator�
 独自affine hookは順序と参照引数を示すだけでUVM algorithmにはせず、private bitやfactory utilityを前提にしません。
 実装sourceや商用結果は新たに利用せず、観測前に終了する差分と未解決B.4概要は[callbackのFAQ](faq.ja.md#callback登録とdispatch-macro)で説明しています。
 
+size／version期待値は提供IEEE B.6／B.7、F.2.1.1／.2と公開packer／parameter／型契約から測定前に導きます。
+独自patternは保持dataでありUVM algorithmではなく、reservedの数値、下位配置、vendor version text、opaque encodingを固定しません。
+初回commentの折返しと再現tag後に全12入力を再測定し、期待値／本体は保持します。実装sourceや商用結果を新たに利用せず、[サイズのFAQ](faq.ja.md#サイズ定義とversion識別)で観測の限界を説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighty-two cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2359 tests: 2263 simulation and 94 elaboration). The earlier 349-test checkpoint is
+three M4 increments and eighty-three cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2371 tests: 2274 simulation and 94 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4878,3 +4878,44 @@ Totals are 2359 (2263 simulation/96 elaboration): M1 1000 (921/79), M2 563
 and 366 known (247 runtime/114 build/5 illegal acceptance). Goal iteration 54
 reduces unassessed from 114 to 112, a decrease of 1351 from the activation count
 1463. Full completion remains unproven and the goal stays active.
+
+## Eighty-third thin-area expansion: size defines and version identification
+
+Twelve new M1 size/version fixtures add eleven runtime inputs and one illegal
+parameter assignment. Nine runtime cases match seeds 1/73, and the assignment
+rejects with the selected source/parameter diagnostic without runtime. Two legal
+simulation builds remain known without runtime: the reserved+129 flag extension
+reports unsupported enum methods over 64 bits, and UVM_PACKER_MIN_BITS is undefined.
+
+The default flag extent, exact unsigned bit-vector ref compatibility, reserved
+flag union and reserved+17 extension match. The reserved count and lower-bit
+layout stay implementation dependent. Separate unmodified packers retain 32768
+bits through nonuniform 8/64-bit fields, without prescribing opaque encoding,
+allocation or maximum capacity; those matches do not pass macro presence.
+The standard 2020 version macro, nonempty constant implementation string and
+POST_2017 presence match without fixing vendor text or inventing predecessor macros.
+
+Twelve new bilingual AI duties partially decompose seven leaf identifiers.
+Only individually read bodyless B.6 and B.7 grouping headings are structural.
+All 3887 earlier duties, 409 earlier assessments and proposed scope are unchanged.
+Global state is 1993 partial/411 assessed/103 unassessed. Annex B is 118/7/19,
+with 239 duties and 183 primary fixtures (179 simulation/4 elaboration); annex F
+is 92/23/22, with 211 duties and 124 primary fixtures (91 simulation/33 elaboration).
+All 3899 duties link directly to 2339 tests; 32 others are control-only and
+122 have control links. All partial obligations and original M1–M4 targets remain open.
+
+The initial 104-column comments are wrapped after terminal measurement, and
+23 initial source/expected blobs are archived. Ten measured matches receive
+reproduction tags; all twelve changed final inputs are freshly measured.
+Bodies and eleven expected files are unchanged. All 2359 earlier ordinary,
+96 earlier compiler, 34 HDL, 18 command-line and 1082 compatible guest records
+retain their exact content. No new guest execution/filter, implementation-source
+reading or backend/runner change is claimed. The 1289 unmeasured guest inputs
+are 1286 additions and three revised originals (1192 simulation/97 elaboration).
+Human review and scope/denominator approval remain open.
+
+Totals are 2371 (2274 simulation/97 elaboration): M1 1012 (932/80), M2 563
+(556/7), M3 796 (786/10). Ordinary evidence is 2003 pass (1911 runtime/92 compiler)
+and 368 known (247 runtime/116 build/5 illegal acceptance). Goal iteration 55
+reduces unassessed from 112 to 103, a decrease of 1360 from activation count1463.
+Full completion remains unproven and the goal stays active.

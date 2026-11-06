@@ -6243,6 +6243,34 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "B.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Size defines entry contains only the grouping heading and is followed immediately by its numbered definitions,with no independent body. Its child macro/parameter contracts remain requirements with partial decomposition;the heading adds no separate observable duty. This does not exclude scope or certify the children complete.",
+        "ja": "個別に読んだSize defines項目は整理見出しだけで、独立した本文なしに番号付き定義へ直結する。子のmacro／parameter契約は部分分解の要求として保持し、見出し自体に別の観測義務はない。範囲の除外や子の完了を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "B.7",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read UVM version globals entry contains only the grouping heading and is followed immediately by its numbered definitions,with no independent body. Its child macro/parameter contracts remain requirements with partial decomposition;the heading adds no separate observable duty. This does not exclude scope or certify the children complete.",
+        "ja": "個別に読んだUVM version globals項目は整理見出しだけで、独立した本文なしに番号付き定義へ直結する。子のmacro／parameter契約は部分分解の要求として保持し、見出し自体に別の観測義務はない。範囲の除外や子の完了を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

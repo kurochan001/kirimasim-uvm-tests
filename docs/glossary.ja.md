@@ -1202,3 +1202,14 @@ severityの区別は[Q316](faq.ja.md#q316-すべてのseverityで抑制時のmsg
 
 **暗黙のcallback caller（implicit callback caller）** — macroが適用対象のcallbackを呼び出す現在のobjectで、明示object引数と区別します。
 観測は[Q319](faq.ja.md#q319-dispatch-traceとmethod不正入力は何を証明しますか)で説明しています。
+
+## サイズとversionの前提
+
+**reserved flag領域（reserved flag region）** — 公開parameterで数える実装用の下位field-flag bitで、選択したuser tagはその上から始めます。
+合法な拡張の前提は[Q320](faq.ja.md#q320-flag検査はreserved-bit数や配置を固定しますか)で説明しています。
+
+**packerの最小容量（packer minimum capacity）** — 既定実装に必要な最低bit保持容量で、最大値やopaque stream表現とは区別します。
+保持とmacro存在の違いは[Q321](faq.ja.md#q321-32768-bitの保持で欠落したpacker最小値macroも成功になりますか)で確認できます。
+
+**標準versionと実装version（standard versus implementation version）** — 標準revisionのmacroと、packageが実装を識別するstring parameterです。
+別の存在ladderとの関係は[Q322](faq.ja.md#q322-標準versionと実装versionは同じ値ですか)で説明しています。

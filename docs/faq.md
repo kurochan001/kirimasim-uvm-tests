@@ -155,7 +155,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2307 `UVM_NO_DPI` cases and thirty-four explicit HDL-DPI cases.
+sources. There are 2319 `UVM_NO_DPI` cases and thirty-four explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1198,9 +1198,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 3887 AI drafts cover only a partial decomposition: 3887 requirements link
-directly to 2327 tests; all drafts have direct tests, and thirty-two separate tests have only control links.
-All 2359 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 3899 AI drafts cover only a partial decomposition: 3899 requirements link
+directly to 2339 tests; all drafts have direct tests, and thirty-two separate tests have only control links.
+All 2371 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2207,7 +2207,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 112
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 103
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2311,7 +2311,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-409 classifications currently exist, with no denominator approval or new pass.
+411 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -3007,7 +3007,7 @@ Three original inputs have new fingerprints: the command enum citation, the
 Boolean rerandomization observation and the virtual-field configuration citation.
 All three were remeasured on Verilator; their stale guest records are excluded.
 The historical 1085-record source files remain intact. Current reuse covers
-1082 inputs, with 1277 unmeasured: 1274 additions and three revised originals.
+1082 inputs, with 1289 unmeasured: 1286 additions and three revised originals.
 This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
@@ -3063,7 +3063,7 @@ An illegal-design check expects rejection before simulation; [negative-test meta
 Thirty-five selected abstract-construction fixtures deliberately instantiate classes
 that the standard declares virtual. The required result is rejection with an
 error identifying the fixture and class. A matching rejection is a successful
-negative check without runtime seeds, distinct from the 114 unexpected builds
+negative check without runtime seeds, distinct from the 116 unexpected builds
 among simulation cases. Pure-method and const-reference checks are additional
 negative conditions, each judged by its own declared oracle.
 
@@ -3078,12 +3078,12 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2359 tests run at two seeds?
+### Q201. Did all 2371 tests run at two seeds?
 
-No. There are 2263 simulation and 96 elaboration fixtures. Ordinary evidence
-has 1902 two-seed runtime matches, 91 expected compiler rejections, 361 known
+No. There are 2274 simulation and 97 elaboration fixtures. Ordinary evidence
+has 1911 two-seed runtime matches, 92 expected compiler rejections, 363 known
 simulation differences and five known illegal compile acceptances. None of the
-96 illegal designs executes a runtime seed, even when compilation accepts it.
+97 illegal designs executes a runtime seed, even when compilation accepts it.
 
 ### Q202. What do the older legal controls establish?
 
@@ -3152,7 +3152,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 112 identifiers remain
+do not finish its remaining conditions. Overall 103 identifiers remain
 unassessed. Printer subclause 16.2 retains the table-format overview; chapter 16
 has 1 unassessed identifier after individually assessing introduction 16 as contextual. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3314,7 +3314,7 @@ live in uD. Their functional subject is the register layer, so the six named
 access fixtures count as M3. Chapter-based census and milestone grouping are
 different views of the same tests. Annex D has zero unassessed identifiers but
 39 partial ones. Its conditions and the original M1–M4 targets remain open;
-overall, 112 identifiers remain unassessed.
+overall, 103 identifiers remain unassessed.
 
 ## Block and register query boundaries
 
@@ -3393,7 +3393,7 @@ new direct-delegate matrices have eight function and thirteen task rows, but
 are two shared fixtures. Timing, traversal and domain controls add selected
 conditions; all graph shapes, active synchronization mutation, invalid jumps,
 inheritance variants and task cleanup remain audits. Existing signature/prose
-conflicts and known lifetime differences are retained. Overall 112 identifiers
+conflicts and known lifetime differences are retained. Overall 103 identifiers
 remain unassessed and the original M1–M4 goal remains active.
 
 ### Q233. Which timeout clause is used when the run-phase cross-reference differs?
@@ -3543,7 +3543,7 @@ The derived accessors are fixture helpers, not new UVM APIs. See [testing](testi
 
 No. It has 74 partial and 20 assessed identifiers, with 114 AI drafts. Physical
 reset/access, historical walking-ones interpretation and further skip/error/
-abort/concurrency conditions remain. Overall 112 identifiers are unassessed;
+abort/concurrency conditions remain. Overall 103 identifiers are unassessed;
 all original M1–M4 targets remain open. See [requirements](requirements.md).
 
 ## Base classes, recording and canonical time
@@ -3576,7 +3576,7 @@ decomposed identifiers and zero unassessed ones. Four active-policy probes are
 still blocked by missing methods in the measured library. Initiator printing/recording, complete
 transaction links/ordering, pure-method/default-body conflicts, older override
 formal names and broader lifecycle/error conditions remain audit work. Overall
-112 identifiers remain unassessed; original M1–M4 targets are still open.
+103 identifiers remain unassessed; original M1–M4 targets are still open.
 
 ## Resource collection, sorting and config aliases
 
@@ -3602,7 +3602,7 @@ No. Named/anonymous scope sets, literal names, four config aliases and selected
 virtual-interface values match under their measured conditions. Regex alternation
 and base virtual dispatch retain runtime differences. The original override
 probe certifies no builtin collection algorithm. Annex C is 71 partial,
-13 assessed and zero unassessed with 98 drafts; overall 112 identifiers remain
+13 assessed and zero unassessed with 98 drafts; overall 103 identifiers remain
 unassessed. Broader types, queue/error/lifecycle conditions, automatic component
 configuration and original milestone targets remain open.
 
@@ -3631,8 +3631,8 @@ independent defect count. The original normal-register control matches.
 ### Q257. Does zero unassessed in 18.6–18.8 complete the goal?
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
-track chapter 18's remaining review. Overall 112 identifiers remain unassessed.
-The suite has 2327 directly linked tests and thirty-two
+track chapter 18's remaining review. Overall 103 identifiers remain unassessed.
+The suite has 2339 directly linked tests and thirty-two
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3676,7 +3676,7 @@ control adds UNPACK and matches the unchanged expectation. Both remain indexed.
 The suppressed target sentinel also remains unchanged, but compatible roundtrip
 does not independently establish all one-way packing suppression or a layout.
 Print, record, configuration, empty/null/alias and wider flag conditions remain
-partial; the overall unassessed count is 112.
+partial; the overall unassessed count is 103.
 
 ## Field access order, map changes and physical neighbors
 
@@ -3703,7 +3703,7 @@ The whole-word expectation is a qualified best-effort interpretation, not an
 unconditional guarantee. Poke after an explicit B75D reset and a standalone
 read-only poke deposit B39D. The corrected fixture is remeasured; a superseded
 seed-73 log stays archived under its old input fingerprint and is excluded.
-The overall backlog remains 112 unassessed identifiers and partial contracts.
+The overall backlog remains 103 unassessed identifiers and partial contracts.
 
 ## Predefined protection and prediction callbacks
 
@@ -3729,7 +3729,7 @@ The selected successful read/write predictions supply exact field, previous/
 latest data, kind, path and map context, and callback replacement changes the
 mirror. Explicit and omitted direct kinds update as supplied without read/write
 callback delivery. Disable/delete histories stop a later mutation. These probes
-perform no physical storage transfer. The backlog still has 112 unassessed
+perform no physical storage transfer. The backlog still has 103 unassessed
 identifiers; callback 18.11 remains partial despite zero unassessed identifiers.
 
 ## CI shards and execution time
@@ -3738,12 +3738,12 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 1993 tagged checks form 8 disjoint shards with at most 4 concurrent
+No. The current 2003 tagged checks form 8 disjoint shards with at most 4 concurrent
 jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
-91 expected compiler rejections keep their original judgment. Partition
+92 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the README badge
-for the current workflow result. The 366 known cases remain outside the ordinary default CI selection.
+for the current workflow result. The 368 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -3821,7 +3821,7 @@ No. Four headings were individually read as structural and three overviews
 linked to explicit declaration/method duties. Fourteen other identifiers gained
 partial decompositions. Selected names, type defaults, empty hooks and acyclic
 trees leave graph/alias/null/concurrency conditions and wording conflicts open.
-Overall 112 identifiers remain unassessed; [review states](requirements.md#review-work-queue-and-root-totals)
+Overall 103 identifiers remain unassessed; [review states](requirements.md#review-work-queue-and-root-totals)
 explain why classification and links do not certify the original M1–M4 goal.
 
 ## Virtual-register queries and declaration boundaries
@@ -3899,8 +3899,8 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 The corrected citation changes the exact input hash despite an unchanged body
 and oracle. Its old guest record is excluded: 1083 compatible records become
 1082, leaving Ghost 206 matches/876 failures per seed and kirimasim 1073
-unsupported/nine failures. No guest was rerun. The 1277 unmeasured inputs are
-1274 additions and three revised originals. This filter is not evidence of
+unsupported/nine failures. No guest was rerun. The 1289 unmeasured inputs are
+1286 additions and three revised originals. This filter is not evidence of
 guest improvement or regression; see [the evidence assembly](results.md#evidence-assembly).
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
@@ -4143,8 +4143,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 3887 duties link directly
-to 2327 tests, with 1986 partial and 112 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 3899 duties link directly
+to 2339 tests, with 1993 partial and 103 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -4276,3 +4276,33 @@ completed-call registration changes and isolated peers retain their own premises
 No active-iteration mutation or unspecified cross-queue ordering is asserted.
 Missing/wrong-arity METHOD inputs must reject with the selected hook diagnostic
 and execute no runtime seed; see [the helper and oracle notes](testing.md#example).
+
+## Size defines and version identification
+
+A reserved region belongs to implementation-defined flags, and [the size/version terms](glossary.md#size-and-version-premises) explain how user extensions and version identifiers are observed separately.
+
+### Q320. Does the flag test prescribe a reserved bit count or layout?
+
+No. The public parameter supplies the reserved count, and the union test
+zero-extends the declared radix/recursion values and listed field-operation flags.
+Selected extents use that count plus 17 or 129, keeping user tags above it.
+The smaller extension matches; the larger build reports unsupported enum methods
+over 64 bits and has no runtime result. Neither outcome fixes lower-bit encoding
+or certifies every field operation; see [the known differences](known-differences.md#pinned-library-limitations).
+
+### Q321. Does retaining 32768 bits pass the missing packer minimum macro?
+
+No. Separate unmodified packers retain the default minimum through nonuniform
+8/64-bit fields, matching all decoded values and remaining-bit counts. They
+prescribe no opaque state-array encoding, allocation or maximum capacity.
+The macro-presence input independently stops because UVM_PACKER_MIN_BITS is
+undefined; its standard-derived expectation stays unchanged. See [the evidence scope](results.md#evidence-assembly).
+
+### Q322. Are the standard version and implementation version the same value?
+
+The standard macro supplies 2020, the package string identifies an implementation,
+and POST_2017 is a presence indicator rather than a numeric version value.
+The string tests require a nonempty constant and reject procedural assignment
+with the selected parameter diagnostic; they do not prescribe vendor text or
+prove its complete accuracy. Other historical ladder conditions remain open;
+see [the observation notes](testing.md#example).

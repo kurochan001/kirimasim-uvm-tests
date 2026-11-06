@@ -9437,6 +9437,54 @@
     "uB/test_callback_macro_method_signature_arity_82": {
       "primary_clause": "B.4.3",
       "inputs_sha256": "47eb2f10b6efd98b40b365ce8191a99bc14601716324b710c41952e78ff301a3"
+    },
+    "uB/test_size_version_field_flag_default_extent_83": {
+      "primary_clause": "B.6.1",
+      "inputs_sha256": "0a12710d38b1c3934a9512007e128e4d430405304bf827624f8cff04de2cfb44"
+    },
+    "uF/test_size_version_field_flag_declared_bit_type_83": {
+      "primary_clause": "F.2.1.2",
+      "inputs_sha256": "c0732647f07585dd4a05e0658688b6e77423d2de79590abd8c200e78dcb0dbec"
+    },
+    "uB/test_size_version_field_flag_user_extension_17_83": {
+      "primary_clause": "B.6.1",
+      "inputs_sha256": "9eedea05cd8e552f414c3a537877c6b1e8674aca81127e7b53f1370e0c55cf6c"
+    },
+    "uB/test_size_version_field_flag_user_extension_129_83": {
+      "primary_clause": "B.6.1",
+      "inputs_sha256": "b8177c65d359a8252a09e164515b6fdd9317afac688a4c396f8971da7d4a3560"
+    },
+    "uF/test_size_version_reserved_flag_union_capacity_83": {
+      "primary_clause": "F.2.1.1",
+      "inputs_sha256": "08b614d97c4298c5ca94aff145806141703ae7a5d7c624cfb58d70a3576f1b04"
+    },
+    "uB/test_size_version_packer_minimum_define_83": {
+      "primary_clause": "B.6.3",
+      "inputs_sha256": "d43e67a97953dd77a861d352e7680087f0f76c968f3de6ae47f995f258014f04"
+    },
+    "uB/test_size_version_packer_minimum_capacity_8_83": {
+      "primary_clause": "B.6.3",
+      "inputs_sha256": "14e6a3c09222966a0044195453c7d5fcdf894d5d168f2b7409cf6b953df7f997"
+    },
+    "uB/test_size_version_packer_minimum_capacity_64_83": {
+      "primary_clause": "B.6.3",
+      "inputs_sha256": "934243eea5b89987de31ba0311f0687e9f50161e78f345277aa9d00be301890e"
+    },
+    "uB/test_size_version_standard_version_define_83": {
+      "primary_clause": "B.7.1",
+      "inputs_sha256": "395e760c7537293117e3338fdc8ae0fc01bd056ea3a13fea0c1b49a7d3ebaa7c"
+    },
+    "uB/test_size_version_implementation_version_string_83": {
+      "primary_clause": "B.7.2",
+      "inputs_sha256": "29e41ae6d0b7ef624484358ffe37a50d49f68513babb1f45a4977cf36b092827"
+    },
+    "uB/test_size_version_implementation_version_parameter_assignment_83": {
+      "primary_clause": "B.7.2",
+      "inputs_sha256": "c4c70d408b63b0117ac0c016e2786d5496a6fb5f74d94623c688704d4443c62c"
+    },
+    "uB/test_size_version_prior_standard_version_ladder_83": {
+      "primary_clause": "B.7.3",
+      "inputs_sha256": "561cfe279096f2129147588885b162722933aa961eafa3c69dc2637d0118d904"
     }
   }
 }
