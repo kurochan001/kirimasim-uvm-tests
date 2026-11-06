@@ -1,0 +1,14 @@
+UT: radix93 record_1 UVM_BIN wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_DEC wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_UNSIGNED wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_UNFORMAT2 wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_UNFORMAT4 wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_OCT wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_HEX wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_STRING wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_TIME wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_ENUM wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_REAL wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_REAL_DEC wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_REAL_EXP wide 1 int 1 calls 1 default 1 peer 1
+UT: radix93 record_1 UVM_NORADIX wide 1 int 1 calls 1 default 1 peer 1

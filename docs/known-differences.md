@@ -6,7 +6,7 @@ To locate a result's source, search this page for the filename portion of its te
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2527-test suite and the pinned Accellera UVM
+This describes the current 2541-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -178,7 +178,7 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 63 pure-interface/const-reference/forbidden-member/type-context/non-public-constructor violations.
 94 match. Subscriber/visitor/proxy/adapter omissions and direct construction
 of the printed virtual builtin dispatcher remain accepted and spec-only without
-runtime. These five compiler acceptances are separate from 407 known simulation
+runtime. These five compiler acceptances are separate from 411 known simulation
 differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
@@ -508,6 +508,16 @@ All four runtime differences use exit0 at seed1 and have no seed73 record; [the 
 - [test_library_standard_randc_1_92](../tests/uF/test_library_standard_randc_1_92.sv).
 - [test_library_standard_user_0_92](../tests/uF/test_library_standard_user_0_92.sv).
 - [test_library_standard_user_1_92](../tests/uF/test_library_standard_user_1_92.sv).
+
+Two typed real inputs retain seed-1 notation differences:the exponential fields lack an exponent, and the selected large general field also lacks it;their numeric-value predicates match.
+Two separate literal-%u controls differ while the textual unsigned-decimal inputs match. This preserves both readings of the conflicting wording without passing an alternative input or assigning a confirmed defect.
+All four exit 0 at seed 1 and have no seed 73 record. The original variable-format parser builds and wide-scanf false difference were observer/language conditions;current UVM inputs have fresh compatible records after neutral observer corrections, not relabeled failures.
+[The radix/observer FAQ](faq.md#radix-meanings-and-observer-limits) explains those corrections and the raw-format/time/table limits.
+
+- [test_radix_real_0_93](../tests/uF/test_radix_real_0_93.sv).
+- [test_radix_real_1_93](../tests/uF/test_radix_real_1_93.sv).
+- [test_radix_unsigned_literal_0_93](../tests/uF/test_radix_unsigned_literal_0_93.sv).
+- [test_radix_unsigned_literal_1_93](../tests/uF/test_radix_unsigned_literal_1_93.sv).
 
 ## Pinned-library limitations
 
@@ -1120,7 +1130,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2115 tests have the `verilator@5.052` oracle tag and 412
+Across the suite, 2125 tests have the `verilator@5.052` oracle tag and 416
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -1132,10 +1142,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 412 spec-only cases retain standard-derived expected output or compiler diagnostics.
-Default Verilator runs and CI select 2115 tagged checks (2021 runtime, 94 compile rejection). `--all` includes
+The 416 spec-only cases retain standard-derived expected output or compiler diagnostics.
+Default Verilator runs and CI select 2125 tagged checks (2031 runtime, 94 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 274 cases establish their first difference
+The ordinary runtime records for 278 cases establish their first difference
 at seed 1, without seed 73 results.
 The 133 simulation builds have no ordinary runtime, including 56 unlinked DPI
 inputs (38 HDL and 18 command-line); [the measured breakdown](results.md#interpretation)
@@ -1219,9 +1229,14 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 412 current spec-only cases are linked in the explanatory notes and the
+The 416 current spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
+
+- [test_radix_real_0_93](../tests/uF/test_radix_real_0_93.sv).
+- [test_radix_real_1_93](../tests/uF/test_radix_real_1_93.sv).
+- [test_radix_unsigned_literal_0_93](../tests/uF/test_radix_unsigned_literal_0_93.sv).
+- [test_radix_unsigned_literal_1_93](../tests/uF/test_radix_unsigned_literal_1_93.sv).
 
 - [test_heartbeat_no_hb_mode_0_92](../tests/uF/test_heartbeat_no_hb_mode_0_92.sv).
 - [test_heartbeat_no_hb_mode_1_92](../tests/uF/test_heartbeat_no_hb_mode_1_92.sv).
@@ -1571,7 +1586,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1082 records and 1445 inputs
+records are excluded. The compatible subset has 1082 records and 1459 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1612,8 +1627,8 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The earlier guest filter excludes the corrected field-configuration citation input: 1083 prior compatible records become 1082, with no new guest execution. [The evidence guide](results.md#evidence-assembly) records the exact exclusion and resulting counts.
 
-The suite has 2527 cases, but the kirimasim/Ghost records below cover only
-1082 unchanged current-input cases. The 1445 inputs are unmeasured
+The suite has 2541 cases, but the kirimasim/Ghost records below cover only
+1082 unchanged current-input cases. The 1459 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

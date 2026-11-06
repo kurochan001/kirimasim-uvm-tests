@@ -10,15 +10,15 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4019 AI-drafted requirements, all with direct links to 2475 tests.
-Forty-four tests have only control links. All 2527 tests have a requirement link.
+contains 4035 AI-drafted requirements, all with direct links to 2487 tests.
+Forty-four tests have only control links. All 2541 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
 
 A control-only test checks a supporting premise, and [the HDL-view example](faq.md#q308-why-keep-standard-views-and-member-view-controls-separate) shows why its match cannot establish a missing standard API contract.
 
-The clause catalog has 2,507 identifiers. 2036 have a partial
+The clause catalog has 2,507 identifiers. 2038 have a partial
 requirement decomposition; 420 have explicit AI assessments (291 structural,
 129 contextual), and 62 remain unassessed. No state certifies completion.
 Starting M4 does not approve the scope or denominator, or complete
@@ -35,7 +35,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4019 draft entries span several areas,
+a heading is not an obligation. The 4035 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -71,14 +71,14 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1281
-have a primary-focus test and 2,068 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 1283
+have a primary-focus test and 2,071 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,201 with zero primary-focus tests, 771 with one,
-and 510 with at least two. It measures test placement only. It does not
+census currently shows 1,199 with zero primary-focus tests, 771 with one,
+and 512 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -107,7 +107,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2527-test
+known difference. It is not a pass or a conformance claim. The current 2541-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -145,7 +145,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2527 reviewed requirement mappings.
+  index is an inventory, not 2541 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -266,82 +266,89 @@ Each row counts requirements by their own clause and tests by their primary cita
 | 13 | 152 | 58 | 0 | 21 | 0 |
 | 14 | 229 | 146 | 0 | 17 | 0 |
 | 15 | 131 | 116 | 0 | 18 | 0 |
-| 16 | 279 | 186 | 0 | 32 | 1 |
+| 16 | 280 | 188 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 928 | 614 | 0 | 62 | 1 |
 | 19 | 199 | 165 | 0 | 24 | 0 |
-| B | 239 | 183 | 0 | 7 | 19 |
+| B | 240 | 183 | 0 | 7 | 19 |
 | C | 98 | 69 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
 | E | 114 | 88 | 0 | 20 | 0 |
-| F | 261 | 192 | 0 | 23 | 5 |
+| F | 275 | 204 | 0 | 23 | 4 |
 | G | 45 | 20 | 0 | 4 | 0 |
 
 This table includes roots with primary-focus tests, while the global unassessed total also includes context and deferred roots, whose treatment is explained in [the scope glossary](glossary.md#scope-and-coverage).
 
 Zero unmapped tests and zero drafts without direct tests do not establish
-complete requirement coverage. The remaining 51 identifiers still need
-assessment/decomposition. Scope is proposed, all 4019 reviews are `ai` and
+complete requirement coverage. The remaining 49 identifiers still need
+assessment/decomposition. Scope is proposed, all 4035 reviews are `ai` and
 the denominator remains unapproved.
 
-Twenty-eight new runtime inputs add sixteen M2 sequence-library cases and
-twelve M1 heartbeat cases. Sixteen match seeds 1/73. Eight standard mode-API
-inputs stop at the missing setter/getter before runtime. Four keep exit-0
-seed-1 differences without seed 73: two ONE_ACTIVE inputs with activity from
-an untracked outsider, and two explicitly selected NO_HB_MODE inputs under
-the qualified literal-disabled reading. [The mode/window FAQ](faq.md#sequence-library-modes-and-heartbeat-windows)
-explains these distinct conditions.
+Fourteen new M1 runtime inputs inspect numeric radix flags, packed/native
+strings, three typed real notations, time and enumeration fields, recording
+metadata/data and short table rows. Ten match seeds 1/73. Four retain exit-0
+seed-1 differences without seed 73: two real-notation cases and two qualified
+literal-%u controls. [The radix/observer FAQ](faq.md#radix-meanings-and-observer-limits)
+explains which conclusions belong to each input.
 
-The four standard library modes retain their printed setter/getter calls and
-actual execution predicates. Two default RAND inputs constrain opposite valid
-indices and execute opposite child types. Six separate legacy-field controls
-observe two-type cyclic selection, real item-driver handshakes without child
-execution, or an original USER selection hook. The controls never pass the
-standard API inputs. There is no fixed numeric enum encoding, arbitrary
-random trace, unspecified registration order, count-accessor substitution or
-complete sequence-library claim.
+Numeric BIN/OCT/HEX/DEC and the textual unsigned-decimal reading preserve
+32/65-bit unsigned values. Explicit and omitted NORADIX use the selected
+HEX/BIN default. The unsigned-decimal prose conflicts with the printed %u,
+which SystemVerilog defines as raw two-value output; separate literal controls
+retain that alternative without passing or rewriting the textual inputs.
+Packed ASCII/native strings and enum names match. Time matches a public
+print_time control in the same UVM package context and an explicit global
+format suffix; absolute units, cross-scope conversion and rounding remain open.
 
-Heartbeat ALL windows have both tracked actors; ANY windows alternate one or
-both. Original ONE windows have exactly one tracked actor, repeated balanced
-raises/drops and an active untracked outsider. Separate controls remove only
-the outsider activity and match, while the originals keep their first-window
-report differences. Public report witnesses identify those reports without
-fixing severity, text or multiplicity as the oracle. An original catcher requests termination
-on a nonINFO report and assumes no continuation or recovery.
+Typed real flags retain their independent general/decimal/exponential
+expectations. Numeric values match, but exponential notation is absent in
+both cases and the selected large general value also lacks the expected
+exponent. These are selected notation observations, not a complete precision,
+rounding or confirmed-defect attribution. The recording cases deliver all
+fourteen named selections, values, widths and per-operation counts to actual
+original live-recorder hooks, with an idle peer. NORADIX may remain unspecified
+or resolve to the configured default at the unspecified hook boundary; only
+those two forms were allowed before measurement. UNFORMAT2/4 are checked at
+that metadata/data boundary; binary DB layout, endianness and X/Z rendering
+remain unverified, and no impossible NUL-containing string oracle is invented.
 
-The two NO_HB_MODE inputs first complete a healthy ALL or ONE window, then
-pass that explicit value and expect quiet empty windows. The selected value
-does not read back as disabled and a later window reports. F.2.11 calls this
-value disabled while 10.6.2.2 uses it as the query default; configuration through
-that API remains a qualified interpretation question, not a confirmed defect
-attribution. Two separate stop controls use the printed stop method and match;
-they do not pass the literal mode inputs or rewrite older query tests.
+The original numeric observer used a legal variable scanf format that the
+compiler rejected. Four constant-format branches retain the same predicates.
+A separate tiny language diagnostic then printed decimal 18446744073709574711
+but scanned 7fffffffffffffff with count 1, isolating a width-limited observer.
+A separate original positional-arithmetic observer for the 65-bit case matches
+both seeds. Earlier parser builds and the false wide observation are archived
+and excluded from current UVM evidence. All fourteen source bodies and expected
+rows remain unchanged; ten proven tags and one helper declaration change have
+fresh compatible measurements. The language diagnostics add no canonical test,
+original seed result or implementation-derived expectation.
 
-Before the final proof, the original library fixture was strengthened so the
-two RAND variants exercise different child types, and the original heartbeat
-catcher gained nonUT public report diagnostics. Expectations remain unchanged.
-All dependent inputs were freshly measured; earlier input records are archived
-and excluded from current evidence. A further independence review gave the
-second ALL case a separate helper with reversed watch-list/participation order
-and counts A1/B3 instead of A2/B1; its unchanged expected rows were freshly
-proved at both seeds before tagging and freshly measured again after tagging.
-Sixteen current proven tags have compatible final measurements; no input
-fingerprint is relabeled.
+Actual table printers keep the supplied name/type/size/value cells associated
+in two/three short rows, with opposite insertion order and a disjoint peer.
+The physical-row reading is qualified for these cells: no exact header, column
+order, width, padding, punctuation or universal wrapping/multiline layout is fixed.
+Sixteen new bilingual AI duties add fourteen radix selections, one scalar-flag
+entry and one qualified table entry. Two existing recording duties gain new
+links without duplicating their name/value/metadata forwarding obligations. F.2.1.5 and
+16.2.10 gain partial decomposition, not classification or completion.
 
-Ten bilingual AI duties add eight annex-F entries, a mode-API execution entry
-and an explicit-stop entry. F.2.4.3 and F.2.11 gain partial decomposition, with
-no classification. All 4009 prior duties, 420 assessments and 2499 ordinary
-records retain content. Totals are 4019 duties, 2475 directly linked tests,
-fifty-two control-only tests and 150 control-linked tests. Inventory is
-2036 partial/420 assessed/51 unassessed. Annex F is 109/23/5 with 261 duties and
-192 primary tests (158 simulation/34 elaboration). All partial applicability
-and original milestone targets remain open.
+All 4019 prior statements, conditions, expectations and review records remain;
+only two existing test-link lists are extended. The 420 assessments and 2527
+ordinary records retain content.
+Totals are 4035 duties, 2487 directly linked tests, fifty-four control-only tests
+and 154 control-linked tests. Inventory is 2038 partial/420 assessed/49 unassessed.
+Annex F is 110/23/4 with 275 duties and 204 primary tests (170 simulation/34
+elaboration). Chapter 16 is 176/32/0 with 280 duties and 188 primary tests
+(179 simulation/nine elaboration);zero unassessed does not complete it.
+Primary identifiers are 1283. The actual old inventory already had 2071 cited
+identifiers, so current prose is corrected from 2068 to 2071 without claiming
+three new citations. All partial contracts and original milestone targets remain open.
 
-The 99 compiler, 38 HDL, 18 command-line and 1082 compatible guest records are
-retained unchanged. Guests have 1445 unmeasured inputs: 1442 additions and
-three revised originals (1346 simulation/99 elaboration). There is no guest
-rerun/filter, scope/catalog, runner/backend/tool/workflow change, commercial
-result, implementation-derived oracle, human review or scope/denominator approval.
+The 99 compiler, 38 HDL, 18 command-line and 1082 compatible guest records remain
+unchanged. Guests have 1459 unmeasured inputs: 1456 additions and three revised
+originals (1360 simulation/99 elaboration). There is no guest rerun/filter,
+scope/catalog, runner/backend/tool/workflow change, commercial result, human
+review or scope/denominator approval.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -752,4 +759,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4019 AI drafts and their direct links do not satisfy that gate.
+The current 4035 AI drafts and their direct links do not satisfy that gate.

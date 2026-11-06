@@ -1708,3 +1708,15 @@ A comparison setup can differ from the standard API premise, so [the mode/window
 **Tracked participant / outsider activity** — A component in the heartbeat watch list / a component outside that list using the same synchronizing objection; several raises/drops from one actor are still one participating component.
 
 **NO_HB_MODE interpretation** — The qualified relationship between the enum's disabled description and the API's default query argument; a quiet explicit-stop control does not resolve that configuration question.
+
+## Format selection and observer boundaries
+
+A successful data path need not validate a final file format, so [the radix/observer FAQ](faq.md#radix-meanings-and-observer-limits) identifies the boundary of each result.
+
+**Format selection / observed representation** — A named radix or macro flag / the actual public printer element value;typed metadata arriving at an application-specific recorder does not itself validate a binary renderer.
+
+**Raw data / NUL-free string** — Unformatted binary output / SystemVerilog string storage, which cannot contain NUL;raw4 backend coverage cannot be inferred from a two-state text observer.
+
+**Width-limited observer / positional parser** — A measurement helper that saturates while reading a wide correct value / original digit arithmetic used to avoid that unrelated scanner limit without changing the expected value.
+
+**Tabular row association** — The qualified short-cell relation between a field's supplied name, type, size and value;it fixes neither a universal physical layout nor all wrapping rules.

@@ -223,6 +223,10 @@ mode／windowの期待は、実行前に提供IEEE条項から独立に定めま
 独自child／driver／hookのobserverと正時間のobjection刺激はスイートのcodeです。期待値を変えずにRAND検査系を強めて非UTのreport診断を加え、全依存入力を新たに測定します。別の強めたALL helperは宣言した1入力だけを変え、tag前の独立した両seed確認とtag後の新たな測定を行い、そのケースの以前の記録は除きます。
 NO_HB_MODEとAPIの文言は限定した解釈に残し、商用結果、シミュレータ実装source、人の承認は使いません。
 
+radix／row期待は実行前に提供IEEE条項から定めました。独立したobserver用の言語診断で合法な可変formatの拒否とwide 10進scanfの上限打切りを切り分け、シミュレータ実装sourceやネイティブ出力でUVM oracleを定めません。
+定数formatと独自桁算術observerはsource本体、値、期待predicateを保持し、影響する入力を新たに測定します。
+unsignedの%u文言、raw backend、短rowへの適用は明示的に限定し、商用結果や架空の照合／承認はありません。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

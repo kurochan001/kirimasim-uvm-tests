@@ -10109,6 +10109,62 @@
     "uF/test_library_standard_user_1_92": {
       "primary_clause": "F.2.4.3",
       "inputs_sha256": "4177b02be0c9df5d8fbacff068151519021295c53006ad87cccc4b38cf0bf297"
+    },
+    "u16/test_table_rows_0_93": {
+      "primary_clause": "16.2.10",
+      "inputs_sha256": "6d37afc2a5365699dc74f5b945620d5909829071f50f16a459e53f9e66597d2d"
+    },
+    "u16/test_table_rows_1_93": {
+      "primary_clause": "16.2.10",
+      "inputs_sha256": "c5188735795ce744dacf4a1bf857280a0ee13371a592af5a6f174a72c47dfce2"
+    },
+    "uF/test_radix_numeric_0_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "2c96270044a57572939e10fc6c98448a6743fb9a01fd9af6114caab69c3c076e"
+    },
+    "uF/test_radix_numeric_1_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "4e8de55260e0673b37dacedd140f430af701c0f93fe37789060c6b73f9506514"
+    },
+    "uF/test_radix_real_0_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "8d5f17dbf4880de0d72cee2453f976995d46ac7077051babf0b1bc401384506e"
+    },
+    "uF/test_radix_real_1_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "ba4360ef17efee92c2060ad04364e37563d2b2f325b29beb1136853a00a07046"
+    },
+    "uF/test_radix_record_0_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "e55ca0837b061af8ea7d9f7e5326c099c026a5dca0e21f1eba371f112810e5e0"
+    },
+    "uF/test_radix_record_1_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "e9caace429a4b2991bf3d8783ecfb1a41a6c36dfc4c5ea573b74b4650ca4a425"
+    },
+    "uF/test_radix_string_0_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "0e920ccc01d56e0d4c346ef968add48b2d709132daef59ec25b6f5f84a7e59f3"
+    },
+    "uF/test_radix_string_1_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "619a946d9ed7a67131e76b96937a73313eb865a93825d511fe988e10b6775b74"
+    },
+    "uF/test_radix_time_enum_0_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "512bce09e74b4f2cfbffedbf02a82e69676e54b64a5077630f8f7206f96e4045"
+    },
+    "uF/test_radix_time_enum_1_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "3ef29a36c6793278b729dd7abc577fd3cd5c2e28509ebae43bc1a0179cb2628c"
+    },
+    "uF/test_radix_unsigned_literal_0_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "fe37b27e4023d9118d60ccba7123a58abb53bf9d5f1f92e077bcf8159a897ccb"
+    },
+    "uF/test_radix_unsigned_literal_1_93": {
+      "primary_clause": "F.2.1.5",
+      "inputs_sha256": "4f1a9bbc9ea2a9aae4c3d2d8737599d6afb02efc75a582112907607e6e76161d"
     }
   }
 }

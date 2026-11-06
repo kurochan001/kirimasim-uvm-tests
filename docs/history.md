@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and ninety-two cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2527 tests: 2428 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and ninety-three cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2541 tests: 2442 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5399,3 +5399,71 @@ retained unchanged. Guests have 1445 unmeasured inputs: 1442 additions and
 three revised originals (1346 simulation/99 elaboration). There is no guest
 rerun/filter, scope/catalog, runner/backend/tool/workflow change, commercial
 result, implementation-derived oracle, human review or scope/denominator approval.
+
+## Ninety-third thin-area expansion: radix meanings and table rows
+
+Fourteen new M1 runtime inputs inspect numeric radix flags, packed/native
+strings, three typed real notations, time and enumeration fields, recording
+metadata/data and short table rows. Ten match seeds 1/73. Four retain exit-0
+seed-1 differences without seed 73: two real-notation cases and two qualified
+literal-%u controls. [The radix/observer FAQ](faq.md#radix-meanings-and-observer-limits)
+explains which conclusions belong to each input.
+
+Numeric BIN/OCT/HEX/DEC and the textual unsigned-decimal reading preserve
+32/65-bit unsigned values. Explicit and omitted NORADIX use the selected
+HEX/BIN default. The unsigned-decimal prose conflicts with the printed %u,
+which SystemVerilog defines as raw two-value output; separate literal controls
+retain that alternative without passing or rewriting the textual inputs.
+Packed ASCII/native strings and enum names match. Time matches a public
+print_time control in the same UVM package context and an explicit global
+format suffix; absolute units, cross-scope conversion and rounding remain open.
+
+Typed real flags retain their independent general/decimal/exponential
+expectations. Numeric values match, but exponential notation is absent in
+both cases and the selected large general value also lacks the expected
+exponent. These are selected notation observations, not a complete precision,
+rounding or confirmed-defect attribution. The recording cases deliver all
+fourteen named selections, values, widths and per-operation counts to actual
+original live-recorder hooks, with an idle peer. NORADIX may remain unspecified
+or resolve to the configured default at the unspecified hook boundary; only
+those two forms were allowed before measurement. UNFORMAT2/4 are checked at
+that metadata/data boundary; binary DB layout, endianness and X/Z rendering
+remain unverified, and no impossible NUL-containing string oracle is invented.
+
+The original numeric observer used a legal variable scanf format that the
+compiler rejected. Four constant-format branches retain the same predicates.
+A separate tiny language diagnostic then printed decimal 18446744073709574711
+but scanned 7fffffffffffffff with count 1, isolating a width-limited observer.
+A separate original positional-arithmetic observer for the 65-bit case matches
+both seeds. Earlier parser builds and the false wide observation are archived
+and excluded from current UVM evidence. All fourteen source bodies and expected
+rows remain unchanged; ten proven tags and one helper declaration change have
+fresh compatible measurements. The language diagnostics add no canonical test,
+original seed result or implementation-derived expectation.
+
+Actual table printers keep the supplied name/type/size/value cells associated
+in two/three short rows, with opposite insertion order and a disjoint peer.
+The physical-row reading is qualified for these cells: no exact header, column
+order, width, padding, punctuation or universal wrapping/multiline layout is fixed.
+Sixteen new bilingual AI duties add fourteen radix selections, one scalar-flag
+entry and one qualified table entry. Two existing recording duties gain new
+links without duplicating their name/value/metadata forwarding obligations. F.2.1.5 and
+16.2.10 gain partial decomposition, not classification or completion.
+
+All 4019 prior statements, conditions, expectations and review records remain;
+only two existing test-link lists are extended. The 420 assessments and 2527
+ordinary records retain content.
+Totals are 4035 duties, 2487 directly linked tests, fifty-four control-only tests
+and 154 control-linked tests. Inventory is 2038 partial/420 assessed/49 unassessed.
+Annex F is 110/23/4 with 275 duties and 204 primary tests (170 simulation/34
+elaboration). Chapter 16 is 176/32/0 with 280 duties and 188 primary tests
+(179 simulation/nine elaboration);zero unassessed does not complete it.
+Primary identifiers are 1283. The actual old inventory already had 2071 cited
+identifiers, so current prose is corrected from 2068 to 2071 without claiming
+three new citations. All partial contracts and original milestone targets remain open.
+
+The 99 compiler, 38 HDL, 18 command-line and 1082 compatible guest records remain
+unchanged. Guests have 1459 unmeasured inputs: 1456 additions and three revised
+originals (1360 simulation/99 elaboration). There is no guest rerun/filter,
+scope/catalog, runner/backend/tool/workflow change, commercial result, human
+review or scope/denominator approval.

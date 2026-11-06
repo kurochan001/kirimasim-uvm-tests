@@ -350,6 +350,11 @@ After already recorded accessor failures, only the pinned Apache public selectio
 Original child/driver/hook observers and positive-time objection stimulus remain suite code. The RAND fixture strength and nonUT report witness were changed without editing expectations, followed by fresh measurements of every dependent input. A separate stronger ALL helper changes only its declared input, with an independent both-seed proof before tagging and a fresh tagged measurement; older records of that case are excluded.
 The NO_HB_MODE/API wording remains qualified; no commercial result, simulator implementation source or human approval is used.
 
+Radix/row expectations were frozen from the supplied IEEE clauses before execution.
+The independent observer-language diagnostics isolate a rejected legal variable format and a wide-decimal scanf saturation;no simulator implementation source or native output defines the UVM oracle.
+Constant-format and original positional-arithmetic observers keep the source bodies, values and expected predicates, with fresh affected-input measurements.
+Unsigned-%u wording, raw backend and short-row applicability remain explicitly limited;there is no commercial result or fabricated review/approval.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

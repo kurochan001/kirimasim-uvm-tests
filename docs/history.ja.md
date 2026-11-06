@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の92回目の拡充（全2527件：simulation 2428・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の93回目の拡充（全2541件：simulation 2442・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3418,3 +3418,35 @@ NO_HB_MODEの2入力は正常なALLまたはONE windowを先に完了し、そ�
 compiler 99記録、HDL 38記録、command-line 18記録、互換guest 1082記録を未変更で保持します。
 guest未測定1445入力は追加1442件と修正した元入力3件（simulation 1346／elaboration 99）です。
 新しいguest実行／filter、範囲／catalog、runner／backend／tool／workflow変更、商用結果、実装由来oracle、人の照合、範囲／分母承認はありません。
+
+## 薄い領域の93回目の拡充：radixの意味とtable row
+
+新規M1 runtime 14入力は、整数radix flag、packed／native文字列、型付きrealの3表記、time／enum field、recording metadata／data、短いtable rowを調べます。
+10件はseed 1／73に一致し、4件はexit 0のseed 1差分を保持してseed 73結果はありません。real表記2件と限定した字義%u control 2件で、入力ごとの結論は[radix／observerのFAQ](faq.ja.md#radixの意味とobserverの限界)で説明しています。
+
+整数のBIN／OCT／HEX／DECと、符号なし10進という文言の解釈は32／65-bitの符号なし値を保持します。明示NORADIXと省略は選択HEX／BIN既定値を使います。
+符号なし10進という文言と記載%uは食い違い、SystemVerilogの%uはraw 2-value出力なので、別の字義controlで代替解釈を保持し、元の文言入力をpassにせず書き換えません。
+packed ASCII／native文字列とenum名は一致します。timeは同UVM package文脈の公開print_time controlと明示したglobal format suffixに一致し、絶対単位、scope間変換、丸めは未完です。
+
+型付きreal flagは独立したgeneral／decimal／exponential期待を保持します。数値は一致しますが、両ケースで指数表記がなく、選択した大きいgeneral値も期待する指数を欠きます。
+選択した表記の観測であり、完全な精度／丸めや確定した欠陥の帰属ではありません。recordingケースは、名前付き14選択、値、幅、操作ごとの件数を実際の独自の開いたrecorder hookへ渡し、peerは待機したままです。
+NORADIXは未指定のままか、解決位置を指定しないhook境界で設定済みの既定値へ解決でき、測定前からその2形式だけを許します。
+UNFORMAT2／4はそのmetadata／data境界を検査するもので、binary DB配置、endianness、X／Z描画は未検証であり、NULを含む不可能なstring oracleは作りません。
+
+独自の整数observerは合法な可変scanf formatを使いましたが、コンパイラが拒否したため、同じpredicateを定数format 4分岐で保持します。
+別の小さな言語診断では10進18446744073709574711を表示してもcount 1で7fffffffffffffffと解析し、observerの幅制限を切り分けました。65-bitケースの別の独自桁算術observerは両seed一致です。
+以前のparser buildと誤ったwide観測は保存して、現在のUVM証拠から除きます。14 source本体と期待行は未変更で、実測したtag 10件とhelper宣言1件の変更に互換な新しい測定があります。
+言語診断で正規テスト、元入力のseed結果、実装由来期待値を追加しません。
+
+実table printerは、caller指定の名前／型／size／値のcellを短い2／3 rowに対応させ、挿入順を反転し、peerは別のcellを保持します。
+物理rowの読み方はこれらのcellへ限定し、正確なheader、列順、幅、padding、句読記号、全wrapping／複数行配置を固定しません。
+新規の日英AI義務16件はradix選択14件、scalar flag 1件、限定したtable 1件です。既存のrecording 2義務に新たなlinkを追加し、名前／値／metadata転送の義務を重複させません。F.2.1.5と16.2.10を部分分解し、分類や完了を記録しません。
+
+以前の4019義務の本文、条件、期待、照合は保持し、既存2件のtest link一覧だけを拡張します。420分類と通常2527記録は内容を保持します。現在は4035義務、直接対応2487テスト、control専用54テスト、control linkあり154です。
+棚卸しは部分2038／分類420／未評価49です。付録Fは110／23／4、義務275件、主引用204テスト（simulation 170／elaboration 34）です。
+第16章は176／32／0、義務280件、主引用188テスト（simulation 179／elaboration 9）で、未評価0は完了を意味しません。主引用のある番号は1283です。
+実際の以前の棚卸しでも引用された番号は既に2071だったため、新たな3引用を主張せず、現在の本文を2068から2071へ直します。部分的な全契約と元の段階目標は未完です。
+
+compiler 99記録、HDL 38記録、command-line 18記録、互換guest 1082記録は未変更です。
+guest未測定1459入力は追加1456件と修正した元入力3件（simulation 1360／elaboration 99）です。
+新しいguest実行／filter、範囲／catalog、runner／backend／tool／workflow変更、商用結果、人の照合、範囲／分母承認はありません。

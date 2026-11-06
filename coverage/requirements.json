@@ -29169,6 +29169,46 @@
           "expected_observations": [
             "UT: attributes field 1 int 1 real 1 string 1 time 1 generic 1"
           ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_BIN wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_DEC wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_UNSIGNED wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_UNFORMAT2 wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_UNFORMAT4 wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_OCT wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_HEX wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_STRING wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_TIME wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_ENUM wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_REAL wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_REAL_DEC wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_REAL_EXP wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_NORADIX wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_BIN wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_DEC wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_UNSIGNED wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_UNFORMAT2 wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_UNFORMAT4 wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_OCT wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_HEX wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_STRING wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_TIME wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_ENUM wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_REAL wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_REAL_DEC wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_REAL_EXP wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_NORADIX wide 1 int 1 calls 1 default 1 peer 1"
+          ]
         }
       ]
     },
@@ -29202,6 +29242,46 @@
           "role": "direct",
           "expected_observations": [
             "UT: attributes field 1 int 1 real 1 string 1 time 1 generic 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_BIN wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_DEC wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_UNSIGNED wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_UNFORMAT2 wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_UNFORMAT4 wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_OCT wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_HEX wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_STRING wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_TIME wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_ENUM wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_REAL wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_REAL_DEC wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_REAL_EXP wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_0 UVM_NORADIX wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_BIN wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_DEC wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_UNSIGNED wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_UNFORMAT2 wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_UNFORMAT4 wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_OCT wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_HEX wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_STRING wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_TIME wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_ENUM wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_REAL wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_REAL_DEC wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_REAL_EXP wide 1 int 1 calls 1 default 1 peer 1",
+            "UT: radix93 record_1 UVM_NORADIX wide 1 int 1 calls 1 default 1 peer 1"
           ]
         }
       ]
@@ -151441,6 +151521,902 @@
             "UT: heartbeat92 heartbeat_stop_1 idle_window 0 quiet 1 counts_zero 1",
             "UT: heartbeat92 heartbeat_stop_1 idle_window 1 quiet 1 counts_zero 1",
             "UT: heartbeat92 peer_mode 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-BIN-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_BIN selects binary integral formatting.",
+        "ja": "UVM_BINは整数の2進表示を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "The selected binary text parses to the original unsigned value.",
+        "ja": "選択した2進表記を解析すると元の符号なし値に一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_numeric_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_0 bin format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_numeric_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_1 bin format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_BIN wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_BIN wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-OCT-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_OCT selects octal integral formatting.",
+        "ja": "UVM_OCTは整数の8進表示を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "The selected octal text parses to the original unsigned value.",
+        "ja": "選択した8進表記を解析すると元の符号なし値に一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_numeric_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_0 oct format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_numeric_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_1 oct format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_OCT wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_OCT wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-HEX-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_HEX selects hexadecimal integral formatting.",
+        "ja": "UVM_HEXは整数の16進表示を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "The selected hexadecimal text parses to the original unsigned value without fixing case or padding.",
+        "ja": "大小文字やpaddingを固定せず、選択した16進表記を解析すると元の符号なし値に一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_numeric_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_0 hex format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_numeric_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_1 hex format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_HEX wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_HEX wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-DEC-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_DEC selects decimal integral formatting under the selected unsigned-property reading.",
+        "ja": "UVM_DECは選択した符号なしpropertyの解釈での整数10進表示を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "The decimal text parses to the original declared-unsigned32/65bit value.",
+        "ja": "10進表記を解析すると宣言どおりの符号なし32／65-bit値に一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format. The declared-unsigned %d reading is qualified for high field-width bits;an implementation reading UVM_DEC as signed by field width remains a review question.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。 field幅上位bitに対する宣言unsignedの%d解釈は限定し、実装がUVM_DECをfield幅の符号付きとして扱う読み方はレビュー事項に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_numeric_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_0 dec format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_numeric_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_1 dec format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_DEC wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_DEC wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-UNSIGNED-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_UNSIGNED selects unsigned-decimal integral formatting under the textual reading.",
+        "ja": "UVM_UNSIGNEDは文言を採る解釈での符号なし整数10進表示を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "The decimal text preserves the selected high-bit unsigned value.",
+        "ja": "10進表記は選択した上位bitありの符号なし値を保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format. F.2.1.5 says unsigned decimal but prints %u,which IEEE1800defines as raw2value. The textual reading is qualified;separate nonzero-byte literal-%u controls preserve the alternative without passing the textual input or assigning a confirmed defect.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。 F.2.1.5は符号なし10進と書きながら%uを記し、IEEE1800の%uはraw 2-valueである。文言の解釈は限定し、別の非0 byteの字義%u controlで代替を保ち、元入力をpassにせず確定した欠陥を帰属しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_numeric_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_0 unsigned_text format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_numeric_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_1 unsigned_text format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_UNSIGNED wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_UNSIGNED wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_unsigned_literal_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 unsigned_literal_0 unsigned_literal format 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_unsigned_literal_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 unsigned_literal_1 unsigned_literal format 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-NORADIX-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_NORADIX selects the selected printer default when radix information is absent.",
+        "ja": "UVM_NORADIXはradix情報がない場合の選択printer既定値を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "Explicit NORADIX and omission use the selectedHEX/BIN default and leave the untouched peer atHEX.",
+        "ja": "明示NORADIXと省略で選択HEX／BIN既定値を使い、未変更peerはHEXのままとなる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_numeric_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_0 default explicit 1 omitted 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_numeric_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_1 default explicit 1 omitted 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_NORADIX wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_NORADIX wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-STRING-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_STRING selects string representation of compatible packed ASCII and native string fields.",
+        "ja": "UVM_STRINGは適合するpacked ASCIIとnative string fieldの文字列表現を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "Both representations preserve the original nonNUL text in the selected fields.",
+        "ja": "両表現が選択fieldの元の非NUL textを保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_string_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 string_0 string packed 1 native 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_string_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 string_1 string packed 1 native 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_STRING wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_STRING wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-REAL-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_REAL selects the selected general real notation.",
+        "ja": "UVM_REALは選択した一般の実数表記を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "Selected small/large values parse correctly and use the shorter decimal/exponential notation for these chosen values.",
+        "ja": "選択した小値／大値が正しく解析でき、これらの値では短いdecimal／exponential表記を使う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_real_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 real_0 real_general value 1 notation 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_real_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 real_1 real_general value 1 notation 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_REAL wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_REAL wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-REAL-DEC-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_REAL_DEC selects decimal notation for the selected typed real macro fields.",
+        "ja": "UVM_REAL_DECは選択した型付きreal macro fieldのdecimal表記を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "The chosen large exact integer-valued reals remain numerically correct and contain no exponential marker.",
+        "ja": "選択した大きい正確な整数値realは数値を保ち、指数markerを含まない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_real_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 real_0 real_decimal value 1 notation 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_real_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 real_1 real_decimal value 1 notation 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_REAL_DEC wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_REAL_DEC wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-REAL-EXP-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_REAL_EXP selects exponential notation for the selected typed real macro fields.",
+        "ja": "UVM_REAL_EXPは選択した型付きreal macro fieldの指数表記を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "The selected binary-exact small values remain numerically correct and contain an exponent marker.",
+        "ja": "選択した2進で正確な小値は数値を保ち、指数markerを含む。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_real_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 real_0 real_exponential value 1 notation 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_real_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 real_1 real_exponential value 1 notation 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_REAL_EXP wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_REAL_EXP wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-TIME-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_TIME selects the same-package time representation of the selected typed macro field.",
+        "ja": "UVM_TIMEは選択した型付きmacro fieldの同package内のtime表現を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "The macro value equals the publicprint_time control for the same input and includes the explicit globaltimeformat suffix.",
+        "ja": "macro値が同じ入力の公開print_time controlに一致し、明示したglobal timeformat suffixを含む。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format. UVM package time units are not fixed by1.4.5. The same-package control avoids an invented absolute multiplier and does not establish cross-scope scaling or rounding.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。 UVM packageの時間単位は1.4.5で固定しない。同package controlで架空の絶対倍率を置かず、scope間のscaleや丸めは立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_time_enum_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 time_enum_0 time representation 1 suffix 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_time_enum_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 time_enum_1 time representation 1 suffix 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_TIME wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_TIME wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-ENUM-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_ENUM selects the name representation of the selected typed enumeration property.",
+        "ja": "UVM_ENUMは選択した型付きenum propertyの名前表現を選ぶ。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "Opposite declared enum values print their actual names rather than a fixed numeric encoding.",
+        "ja": "反対の宣言enum値が、固定数値encodingではなく実際の名前を表示する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_time_enum_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 time_enum_0 enum name 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_time_enum_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 time_enum_1 enum name 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_ENUM wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "control",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_ENUM wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-UNFORMAT2-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_UNFORMAT2 designates the selected unformatted two-value recording representation.",
+        "ja": "UVM_UNFORMAT2は選択した非整形の2値記録表現を指定する。"
+      },
+      "conditions": {
+        "en": "Original live recorder subtypes receive explicit named format parameters through actualrecord_field and record_field_int. Two inputs use128/192bit wide values and32/64bit integral values,with an untouched recorder peer.",
+        "ja": "独自の開いているrecorder subtypeが実record_fieldとrecord_field_intを通じて明示した名前付きformat引数を受ける。2入力は128／192-bitのwide値と32／64-bitのintegral値、未変更recorder peerを使う。"
+      },
+      "expected": {
+        "en": "The selected format designator reaches both implementation hooks together with the unmodified name,value and width,and exactly one call per requested operation.",
+        "ja": "選択formatの指定が未変更の名前、値、幅とともに両実装hookへ届き、要求した操作ごとにちょうど1呼出しとなる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. This directly checks the supported metadata/data boundary only. The backend is application-specific;binary file layout,endianness,NUL storage,X/Z preservation and actual renderer conformance remain open. A SystemVerilog string cannot containNUL,so no raw4 string oracle is invented.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 対応するmetadata／data境界だけの直接検査である。backendはapplication固有で、binary file配置、endianness、NUL格納、X／Z保持、実描画の適合は未完。SystemVerilog stringはNULを含められないため、raw4文字列oracleを作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_UNFORMAT2 wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_UNFORMAT2 wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RADIX-UNFORMAT4-93",
+      "clause": "F.2.1.5",
+      "statement": {
+        "en": "UVM_UNFORMAT4 designates the selected unformatted four-value recording representation.",
+        "ja": "UVM_UNFORMAT4は選択した非整形の4値記録表現を指定する。"
+      },
+      "conditions": {
+        "en": "Original live recorder subtypes receive explicit named format parameters through actualrecord_field and record_field_int. Two inputs use128/192bit wide values and32/64bit integral values,with an untouched recorder peer.",
+        "ja": "独自の開いているrecorder subtypeが実record_fieldとrecord_field_intを通じて明示した名前付きformat引数を受ける。2入力は128／192-bitのwide値と32／64-bitのintegral値、未変更recorder peerを使う。"
+      },
+      "expected": {
+        "en": "The selected format designator reaches both implementation hooks together with the unmodified name,value and width,and exactly one call per requested operation.",
+        "ja": "選択formatの指定が未変更の名前、値、幅とともに両実装hookへ届き、要求した操作ごとにちょうど1呼出しとなる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. This directly checks the supported metadata/data boundary only. The backend is application-specific;binary file layout,endianness,NUL storage,X/Z preservation and actual renderer conformance remain open. A SystemVerilog string cannot containNUL,so no raw4 string oracle is invented.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 対応するmetadata／data境界だけの直接検査である。backendはapplication固有で、binary file配置、endianness、NUL格納、X／Z保持、実描画の適合は未完。SystemVerilog stringはNULを含められないため、raw4文字列oracleを作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_record_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 record_0 UVM_UNFORMAT4 wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_record_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 record_1 UVM_UNFORMAT4 wide 1 int 1 calls 1 default 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SCALAR-MACRO-TYPED-RADIX-SELECTION-93",
+      "clause": "B.2.2",
+      "statement": {
+        "en": "One named radix flag combined with UVM_PRINT governs the selected compatible scalar property operation.",
+        "ja": "UVM_PRINTと組み合わせた1つの名前付きradix flagが、選択した適合scalar propertyの操作を制御する。"
+      },
+      "conditions": {
+        "en": "Original scalar field macros use one named radix with UVM_PRINT and mutable properties of the appropriate type. A derived printer observes public element values through push_element and get_top_element,after explicitly setting empty radix prefixes. Two inputs choose different values,widths or format histories;no complete emitted layout is fixed.",
+        "ja": "独自scalar field macroは適切な型の可変propertyへ、UVM_PRINTと1つの名前付きradixを使う。派生printerはradix prefixを明示的に空へ設定し、push_elementとget_top_elementを通じて公開element値を観測する。2入力は値、幅、format履歴を分け、完全な出力配置は固定しない。"
+      },
+      "expected": {
+        "en": "The selected integer,string,real,time and enumeration properties produce the expected named-format observations;omission is equivalent toNORADIX for the selected defaults.",
+        "ja": "選択した整数、文字列、実数、time、enumのpropertyが期待する名前付きformat観測を示し、省略は選択既定値でNORADIXと等価になる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric enum encoding,universal field applicability,binary DB rendering,all signedness/width rules,precision/rounding,locale or complete printer/macro conformance is certified. Recording controls observe metadata/data routing rather than proving the displayed format.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 enum数値encoding、全fieldへの適用、binary DBの描画、符号／幅の全規則、精度／丸め、locale、printer／macro全体の適合は認定しない。recording controlはmetadata／dataのroutingを観測するもので、表示formatの証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_radix_numeric_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_0 bin format 1",
+            "UT: radix93 numeric_0 oct format 1",
+            "UT: radix93 numeric_0 hex format 1",
+            "UT: radix93 numeric_0 dec format 1",
+            "UT: radix93 numeric_0 unsigned_text format 1",
+            "UT: radix93 numeric_0 default explicit 1 omitted 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_numeric_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 numeric_1 bin format 1",
+            "UT: radix93 numeric_1 oct format 1",
+            "UT: radix93 numeric_1 hex format 1",
+            "UT: radix93 numeric_1 dec format 1",
+            "UT: radix93 numeric_1 unsigned_text format 1",
+            "UT: radix93 numeric_1 default explicit 1 omitted 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_string_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 string_0 string packed 1 native 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_string_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 string_1 string packed 1 native 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_real_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 real_0 real_general value 1 notation 1",
+            "UT: radix93 real_0 real_decimal value 1 notation 1",
+            "UT: radix93 real_0 real_exponential value 1 notation 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_real_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 real_1 real_general value 1 notation 1",
+            "UT: radix93 real_1 real_decimal value 1 notation 1",
+            "UT: radix93 real_1 real_exponential value 1 notation 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_time_enum_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 time_enum_0 time representation 1 suffix 1",
+            "UT: radix93 time_enum_0 enum name 1"
+          ]
+        },
+        {
+          "test": "uF/test_radix_time_enum_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix93 time_enum_1 time representation 1 suffix 1",
+            "UT: radix93 time_enum_1 enum name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TABLE-PRINTER-SHORT-ROW-ASSOCIATION-93",
+      "clause": "16.2.10",
+      "statement": {
+        "en": "Under the selected short-cell tabular reading,each field retains its four caller-supplied attributes in one output row.",
+        "ja": "選択した短cellの表形式の解釈では、各fieldがcaller指定の4属性を1出力rowに保持する。"
+      },
+      "conditions": {
+        "en": "Actual uvm_table_printer instances print original objects containing two or three fields with unequal-length unique name,type,size,value strings. Inputs reverse the insertion order;an independent peer prints disjoint cells.",
+        "ja": "実uvm_table_printer instanceが長さの異なる固有の名前、型、size、値の文字列を持つfield 2つまたは3つの独自objectを印字する。入力では挿入順を反転し、独立peerは重ならないcellを印字する。"
+      },
+      "expected": {
+        "en": "Each selected name appears once in a row containing its own type,size and value,without another field name/value in that row;the independent peer retains only its own cells.",
+        "ja": "選択した各名前が固有の型、size、値を持つrowに1回現れ、そのrowに他fieldの名前／値を混在させず、独立peerは固有cellだけを保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Declared anchors do not establish measured success for every duty;another premise cannot pass a differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. The physical-row interpretation is explicitly qualified for these short text cells. No exact header,column order,width,padding,punctuation,indentation,universal wrapping/multiline layout or full table conformance is certified. Alternate legitimate tabular layouts remain a review question.",
+        "ja": "AIによる部分分解のみ。宣言anchorは各義務の実測成功を立証せず、別の前提で差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 物理rowの解釈はこれらの短text cellへ明示的に限定する。正確なheader、列順、幅、padding、句読記号、indentation、全wrapping／複数行配置、表全体の適合は認定しない。別の正当な表形式はレビュー事項に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_table_rows_0_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: table93 table_0 rows 2 associated 1 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_table_rows_1_93",
+          "role": "direct",
+          "expected_observations": [
+            "UT: table93 table_1 rows 3 associated 1 peer 1"
           ]
         }
       ]

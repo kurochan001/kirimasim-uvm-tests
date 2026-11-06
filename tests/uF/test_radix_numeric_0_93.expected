@@ -1,0 +1,6 @@
+UT: radix93 numeric_0 bin format 1
+UT: radix93 numeric_0 oct format 1
+UT: radix93 numeric_0 hex format 1
+UT: radix93 numeric_0 dec format 1
+UT: radix93 numeric_0 unsigned_text format 1
+UT: radix93 numeric_0 default explicit 1 omitted 1 peer 1

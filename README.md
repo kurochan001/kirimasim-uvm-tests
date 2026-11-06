@@ -14,12 +14,12 @@ A simulator conformance test suite for IEEE 1800.2-2020, the Universal Verificat
 An oracle records the expectation's basis: `spec` cites the standard and `verilator@5.052` adds reproduction;
 [Standards and expectations](docs/glossary.md#standards-and-expectations) explains spec-only cases.
 
-> **Status: M4 in progress.** 2527 tests: 2428 simulation and 99 elaboration,
-> in 21 chapter/annex directories; 2115 tagged oracles and 412 spec-only cases.
+> **Status: M4 in progress.** 2541 tests: 2442 simulation and 99 elaboration,
+> in 21 chapter/annex directories; 2125 tagged oracles and 416 spec-only cases.
 > All use `:spec_check: ai`, recording AI review as explained in [review terms](docs/glossary.md#standards-and-expectations); none records human review. M1–M3 targets remain open.
-> M4 has 4019 AI drafts, 2475 directly linked tests and an index of all 2527.
+> M4 has 4035 AI drafts, 2487 directly linked tests and an index of all 2541.
 > 0 tests lack requirement links and 0 drafts lack direct tests; the historical
-> memory-walk interpretation requires review. 51 identifiers remain unassessed;
+> memory-walk interpretation requires review. 49 identifiers remain unassessed;
 > 420 have explicit AI classifications. Scope and denominator remain unapproved.
 
 ## Contents
@@ -34,7 +34,7 @@ Test counts, execution matches and review status measure different things; [the 
 
 ## Current scope
 
-- **M1: 1057 tests (976 simulation, 81 elaboration).** Objects and policies,
+- **M1: 1071 tests (990 simulation, 81 elaboration).** Objects and policies,
   reporting, factory, hierarchy, phases, synchronization, configuration,
   recording, core services and typed utilities.
 - **M2: 586 tests (579 simulation, 7 elaboration).** Sequences and sequencers,
@@ -76,14 +76,14 @@ The fetcher checks the pinned Accellera UVM 2020.3.1 library. The smoke command 
 To see what that case checks, [follow the worked example](docs/reading-guide.md#follow-one-test-through-the-files) from its source to its expected output and requirement.
 If it reports a difference, [Trace a difference](docs/reading-guide.md#trace-a-difference) shows how to locate the checked expectation and execution conditions.
 
-To run all 2115 tagged checks (2021 runtime, 94 compile rejection):
+To run all 2125 tagged checks (2031 runtime, 94 compile rejection):
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-Add `--all` to include all two-state cases, including the 412 spec-only cases.
+Add `--all` to include all two-state cases, including the 416 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls concurrent tests and `--build-jobs` controls C++ jobs within each build; [Q13](docs/faq.md#q13-why-is-compilation-heavy-and-what-do-the-two-job-options-control) explains the build cost.
 Each runtime model is built once and run in a fresh process for each seed.
 
@@ -103,19 +103,19 @@ by Git; results are not automatically published.
 
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
-The Verilator snapshot assembled on 2026-11-07 covers all 2527 current cases.
-Guest records retain 1082 compatible inputs; 1445 inputs are unmeasured, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly).
+The Verilator snapshot assembled on 2026-11-07 covers all 2541 current cases.
+Guest records retain 1082 compatible inputs; 1459 inputs are unmeasured, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly).
 These results are separate from the Check badge.
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, ordinary runner | 2021 runtime matches at seeds 1/73; 94 expected compile rejections; 412 known differences |
+| Verilator 5.052, pinned UVM, ordinary runner | 2031 runtime matches at seeds 1/73; 94 expected compile rejections; 416 known differences |
 | Verilator 5.052, original VPI HDL backend | Separate 38-case subset: 37 match both seeds; 1 differs |
 | Verilator 5.052, VPI command-line bridge and pinned regex DPI | Separate 18-case subset: 17 match both seeds; 1 known difference |
-| kirimasim, pinned UVM | 1073 `unsupported`; nine missing-API `fail` in 1082 cases; 1445 unmeasured |
-| Ghost, bundled UVM | 206 match and 876 fail at each seed in 1082 cases; 1445 unmeasured |
+| kirimasim, pinned UVM | 1073 `unsupported`; nine missing-API `fail` in 1082 cases; 1459 unmeasured |
+| Ghost, bundled UVM | 206 match and 876 fail at each seed in 1082 cases; 1459 unmeasured |
 
-The ordinary runner records 274 runtime differences at seed 1, 133 simulation build failures
+The ordinary runner records 278 runtime differences at seed 1, 133 simulation build failures
 and five accepted illegal designs without runtime; [the detailed breakdown](docs/results.md#interpretation) explains API/declaration, macro and DPI categories and qualified premises.
 The two VPI subsets are separate conditions.
 
@@ -152,10 +152,10 @@ its counterpart; commands and API identifiers retain their original spelling.
 | Stage | Scope | Current state / target |
 | --- | --- | --- |
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
-| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 1057 tests; reviewed two-tests-per-clause target open |
+| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 1071 tests; reviewed two-tests-per-clause target open |
 | M2 | Sequences, sequencers, TLM and callbacks | 586 tests; target open |
 | M3 | Register layer (17–19, D.3, annex E) | 884 tests across chapters 17–19, D.3 and annex E; target open |
-| M4 | Requirement ledger and coverage | In progress: 4019 AI drafts; 4019 requirements link to 2475 tests; denominator unapproved |
+| M4 | Requirement ledger and coverage | In progress: 4035 AI drafts; 4035 requirements link to 2487 tests; denominator unapproved |
 
 The primary-citation census tracks the two-tests-per-clause target; [the counting explanation](docs/requirements.md#citations-requirements-and-execution-evidence) describes the additional review needed to establish independent checks of required behavior.
 

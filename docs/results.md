@@ -6,14 +6,14 @@
 
 Runtime matches, compiler rejections and unmeasured inputs describe different execution conditions; [Read a result](reading-guide.md#read-a-result) explains how to read the counts together.
 
-The Verilator snapshot assembled on 2026-11-07 covers all 2527 current tests.
-Guest records retain 1082 compatible current inputs; 1445 inputs are
+The Verilator snapshot assembled on 2026-11-07 covers all 2541 current tests.
+Guest records retain 1082 compatible current inputs; 1459 inputs are
 unmeasured, including three revised old inputs. Each record
 fingerprints its inputs and conditions.
-The suite has 2527 fixtures in 21 directories: 2428 simulation and 99
-elaboration. Milestone totals are M1 1057 (976/81), M2 586 (579/7) and M3 884
+The suite has 2541 fixtures in 21 directories: 2442 simulation and 99
+elaboration. Milestone totals are M1 1071 (990/81), M2 586 (579/7) and M3 884
 (873/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
-none records human review. Of 2471 no-DPI fixtures, 99 are illegal elaboration
+none records human review. Of 2485 no-DPI fixtures, 99 are illegal elaboration
 checks. The thirty-eight HDL-DPI and eighteen command-line/regex-DPI runtime fixtures
 remain separate.
 
@@ -23,11 +23,11 @@ Backend rows revisit inputs already included in the ordinary row under different
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 2115 `pass`: 2021 runtime + 94 compile rejection; 412 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
+| Verilator 5.052, pinned UVM | 2125 `pass`: 2031 runtime + 94 compile rejection; 416 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
 | Verilator 5.052, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 17 `pass`; 1 `known` | Separate overlapping 18-case condition; matches at seeds 1/73, difference at seed 1 |
-| kirimasim, pinned UVM | 1073 `unsupported`; nine `fail` | 1082 unchanged inputs; 1445 inputs unmeasured |
-| Ghost, bundled UVM | 206 `pass`; 876 `fail` | 1082 unchanged inputs at each seed; identical failing sets; 1445 inputs unmeasured |
+| kirimasim, pinned UVM | 1073 `unsupported`; nine `fail` | 1082 unchanged inputs; 1459 inputs unmeasured |
+| Ghost, bundled UVM | 206 `pass`; 876 `fail` | 1082 unchanged inputs at each seed; identical failing sets; 1459 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -56,9 +56,9 @@ printed virtual builtin dispatcher. They retain the rejection oracle as known
 differences without runtime, even when accepted. The 133 unexpected simulation
 builds remain separate. A pass requires the declared expectation.
 
-The 412 spec-only cases retain standard-derived output or compile-diagnostic
-expectations. Five are illegal compiler acceptances; 407 are simulation cases.
-Of these, 274 first differ at runtime seed 1 without seed 73. Forty-three cannot build
+The 416 spec-only cases retain standard-derived output or compile-diagnostic
+expectations. Five are illegal compiler acceptances; 411 are simulation cases.
+Of these, 278 first differ at runtime seed 1 without seed 73. Forty-three cannot build
 because of missing APIs/type names: one time API, fourteen sequence-library APIs,
 twelve HDL slice-view cases, one named-concat constructor, five object active-policy API cases,
 three catcher message-handle cases, the printed base recording-state getter,
@@ -136,69 +136,76 @@ A fingerprint identifies the exact inputs behind a reused record, so [Execution 
 
 Here an unmeasured input has no compatible current record, even if an older version was run; [Q15](faq.md#q15-how-do-i-know-whether-an-old-result-still-applies) explains the checks needed before reusing it.
 
-The snapshot starts from [cd31c1b](https://github.com/kurochan001/kirimasim-uvm-tests/commit/cd31c1b9110c89b06597f6b48fb1dca9fcd34184), retains all 2499 ordinary records,
-and adds twenty-eight runtime inputs on 2026-11-07 JST.
+The snapshot starts from [5eb92e3](https://github.com/kurochan001/kirimasim-uvm-tests/commit/5eb92e3624f27078cc6106881707a9f3f6b4098f), retains all 2527 ordinary records,
+and adds fourteen runtime inputs on 2026-11-07 JST.
 
 The control inputs below deliberately use different premises, so their matches cannot replace a differing original; [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains the direct/control distinction.
 
-Twenty-eight new runtime inputs add sixteen M2 sequence-library cases and
-twelve M1 heartbeat cases. Sixteen match seeds 1/73. Eight standard mode-API
-inputs stop at the missing setter/getter before runtime. Four keep exit-0
-seed-1 differences without seed 73: two ONE_ACTIVE inputs with activity from
-an untracked outsider, and two explicitly selected NO_HB_MODE inputs under
-the qualified literal-disabled reading. [The mode/window FAQ](faq.md#sequence-library-modes-and-heartbeat-windows)
-explains these distinct conditions.
+Fourteen new M1 runtime inputs inspect numeric radix flags, packed/native
+strings, three typed real notations, time and enumeration fields, recording
+metadata/data and short table rows. Ten match seeds 1/73. Four retain exit-0
+seed-1 differences without seed 73: two real-notation cases and two qualified
+literal-%u controls. [The radix/observer FAQ](faq.md#radix-meanings-and-observer-limits)
+explains which conclusions belong to each input.
 
-The four standard library modes retain their printed setter/getter calls and
-actual execution predicates. Two default RAND inputs constrain opposite valid
-indices and execute opposite child types. Six separate legacy-field controls
-observe two-type cyclic selection, real item-driver handshakes without child
-execution, or an original USER selection hook. The controls never pass the
-standard API inputs. There is no fixed numeric enum encoding, arbitrary
-random trace, unspecified registration order, count-accessor substitution or
-complete sequence-library claim.
+Numeric BIN/OCT/HEX/DEC and the textual unsigned-decimal reading preserve
+32/65-bit unsigned values. Explicit and omitted NORADIX use the selected
+HEX/BIN default. The unsigned-decimal prose conflicts with the printed %u,
+which SystemVerilog defines as raw two-value output; separate literal controls
+retain that alternative without passing or rewriting the textual inputs.
+Packed ASCII/native strings and enum names match. Time matches a public
+print_time control in the same UVM package context and an explicit global
+format suffix; absolute units, cross-scope conversion and rounding remain open.
 
-Heartbeat ALL windows have both tracked actors; ANY windows alternate one or
-both. Original ONE windows have exactly one tracked actor, repeated balanced
-raises/drops and an active untracked outsider. Separate controls remove only
-the outsider activity and match, while the originals keep their first-window
-report differences. Public report witnesses identify those reports without
-fixing severity, text or multiplicity as the oracle. An original catcher requests termination
-on a nonINFO report and assumes no continuation or recovery.
+Typed real flags retain their independent general/decimal/exponential
+expectations. Numeric values match, but exponential notation is absent in
+both cases and the selected large general value also lacks the expected
+exponent. These are selected notation observations, not a complete precision,
+rounding or confirmed-defect attribution. The recording cases deliver all
+fourteen named selections, values, widths and per-operation counts to actual
+original live-recorder hooks, with an idle peer. NORADIX may remain unspecified
+or resolve to the configured default at the unspecified hook boundary; only
+those two forms were allowed before measurement. UNFORMAT2/4 are checked at
+that metadata/data boundary; binary DB layout, endianness and X/Z rendering
+remain unverified, and no impossible NUL-containing string oracle is invented.
 
-The two NO_HB_MODE inputs first complete a healthy ALL or ONE window, then
-pass that explicit value and expect quiet empty windows. The selected value
-does not read back as disabled and a later window reports. F.2.11 calls this
-value disabled while 10.6.2.2 uses it as the query default; configuration through
-that API remains a qualified interpretation question, not a confirmed defect
-attribution. Two separate stop controls use the printed stop method and match;
-they do not pass the literal mode inputs or rewrite older query tests.
+The original numeric observer used a legal variable scanf format that the
+compiler rejected. Four constant-format branches retain the same predicates.
+A separate tiny language diagnostic then printed decimal 18446744073709574711
+but scanned 7fffffffffffffff with count 1, isolating a width-limited observer.
+A separate original positional-arithmetic observer for the 65-bit case matches
+both seeds. Earlier parser builds and the false wide observation are archived
+and excluded from current UVM evidence. All fourteen source bodies and expected
+rows remain unchanged; ten proven tags and one helper declaration change have
+fresh compatible measurements. The language diagnostics add no canonical test,
+original seed result or implementation-derived expectation.
 
-Before the final proof, the original library fixture was strengthened so the
-two RAND variants exercise different child types, and the original heartbeat
-catcher gained nonUT public report diagnostics. Expectations remain unchanged.
-All dependent inputs were freshly measured; earlier input records are archived
-and excluded from current evidence. A further independence review gave the
-second ALL case a separate helper with reversed watch-list/participation order
-and counts A1/B3 instead of A2/B1; its unchanged expected rows were freshly
-proved at both seeds before tagging and freshly measured again after tagging.
-Sixteen current proven tags have compatible final measurements; no input
-fingerprint is relabeled.
+Actual table printers keep the supplied name/type/size/value cells associated
+in two/three short rows, with opposite insertion order and a disjoint peer.
+The physical-row reading is qualified for these cells: no exact header, column
+order, width, padding, punctuation or universal wrapping/multiline layout is fixed.
+Sixteen new bilingual AI duties add fourteen radix selections, one scalar-flag
+entry and one qualified table entry. Two existing recording duties gain new
+links without duplicating their name/value/metadata forwarding obligations. F.2.1.5 and
+16.2.10 gain partial decomposition, not classification or completion.
 
-Ten bilingual AI duties add eight annex-F entries, a mode-API execution entry
-and an explicit-stop entry. F.2.4.3 and F.2.11 gain partial decomposition, with
-no classification. All 4009 prior duties, 420 assessments and 2499 ordinary
-records retain content. Totals are 4019 duties, 2475 directly linked tests,
-fifty-two control-only tests and 150 control-linked tests. Inventory is
-2036 partial/420 assessed/51 unassessed. Annex F is 109/23/5 with 261 duties and
-192 primary tests (158 simulation/34 elaboration). All partial applicability
-and original milestone targets remain open.
+All 4019 prior statements, conditions, expectations and review records remain;
+only two existing test-link lists are extended. The 420 assessments and 2527
+ordinary records retain content.
+Totals are 4035 duties, 2487 directly linked tests, fifty-four control-only tests
+and 154 control-linked tests. Inventory is 2038 partial/420 assessed/49 unassessed.
+Annex F is 110/23/4 with 275 duties and 204 primary tests (170 simulation/34
+elaboration). Chapter 16 is 176/32/0 with 280 duties and 188 primary tests
+(179 simulation/nine elaboration);zero unassessed does not complete it.
+Primary identifiers are 1283. The actual old inventory already had 2071 cited
+identifiers, so current prose is corrected from 2068 to 2071 without claiming
+three new citations. All partial contracts and original milestone targets remain open.
 
-The 99 compiler, 38 HDL, 18 command-line and 1082 compatible guest records are
-retained unchanged. Guests have 1445 unmeasured inputs: 1442 additions and
-three revised originals (1346 simulation/99 elaboration). There is no guest
-rerun/filter, scope/catalog, runner/backend/tool/workflow change, commercial
-result, implementation-derived oracle, human review or scope/denominator approval.
+The 99 compiler, 38 HDL, 18 command-line and 1082 compatible guest records remain
+unchanged. Guests have 1459 unmeasured inputs: 1456 additions and three revised
+originals (1360 simulation/99 elaboration). There is no guest rerun/filter,
+scope/catalog, runner/backend/tool/workflow change, commercial result, human
+review or scope/denominator approval.
 
 Retained kirimasim/Ghost records were collected with fixed executable
 snapshots and Ghost's seed-specific private profiles.
@@ -211,12 +218,12 @@ longer available, so no guest rerun is claimed. Historical source files retain
 1085 records; earlier filters exclude three revised original inputs: command-enum
 citation, Boolean rerandomization and virtual-field configuration citation.
 This increment retains the same 1082 compatible records byte-for-byte and adds
-twenty-eight unmeasured inputs. Ghost remains 206 pass/876 fail per seed; kirimasim
-remains 1073 unsupported/nine missing-API failures. The 1445 unmeasured inputs
-are 1442 additions and three revised originals. No guest improvement or regression
+fourteen unmeasured inputs. Ghost remains 206 pass/876 fail per seed; kirimasim
+remains 1073 unsupported/nine missing-API failures. The 1459 unmeasured inputs
+are 1456 additions and three revised originals. No guest improvement or regression
 is measured. Earlier filter provenance remains in
 `out/thin-seventy-first-guest-exclusions.json`; the current input scope is in
-`out/thin-ninety-second-evidence-scope.json`.
+`out/thin-ninety-third-evidence-scope.json`.
 
 The fingerprints identify different inputs:
 
@@ -237,7 +244,7 @@ simulator, configuration and library identities before reusing execution records
 Before combining records, check that:
 
 - Verilator IDs cover the current suite exactly. Retained guest IDs match
-  their declared 1082-case subset; 1445 input IDs remain unmeasured.
+  their declared 1082-case subset; 1459 input IDs remain unmeasured.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -252,11 +259,11 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-The [draft ledger](requirements.md) has 4019 AI duties and 51 unassessed
-identifiers: 2036 partial/420 assessed. Chapter 10 is 87/29/0; chapter 18 is
+The [draft ledger](requirements.md) has 4035 AI duties and 49 unassessed
+identifiers: 2038 partial/420 assessed. Chapter 10 is 87/29/0; chapter 18 is
 393/62/1. Their partial contracts and original targets remain open. Direct
-links cover 2475 tests; 52 others have only controls. Guests retain 1082
-compatible inputs; 1445 (1346 simulation/99 elaboration), including three
+links cover 2487 tests; 54 others have only controls. Guests retain 1082
+compatible inputs; 1459 (1360 simulation/99 elaboration), including three
 revised originals, are unmeasured. Scope and denominator remain unapproved.
 
 ## Reproducing and retaining results
@@ -281,13 +288,13 @@ CI shards divide the existing test set without changing its expectations; [Q268.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
 and manual dispatch. It checks pinned-library integrity, 110 tool unit tests,
-2527 metadata records and the draft ledger/index. Its 2115 tagged ordinary
-Verilator checks comprise 2021 runtime cases at seeds 1/73 and 94 compiler
+2541 metadata records and the draft ledger/index. Its 2125 tagged ordinary
+Verilator checks comprise 2031 runtime cases at seeds 1/73 and 94 compiler
 rejections without runtime seeds, plus seventeen
 explicit command-line checks under their separate condition.
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2115 tagged checks into 8 disjoint shards (265/265/265/264/264/264/264/264),
+the current 2125 tagged checks into 8 disjoint shards (266/266/266/266/266/265/265/265),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies

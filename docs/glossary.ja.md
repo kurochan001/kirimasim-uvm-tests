@@ -1326,3 +1326,15 @@ modelと実HDL記憶域の違いは[Q326](faq.ja.md#q326-user-backdoorの一致�
 **Tracked participant／outsider activity（監視参加者と監視外の活動）** — heartbeatの監視list内のcomponent／list外で同じ同期objectionを使うcomponentで、1 actorの複数raise／dropでも参加componentは1つのまま。
 
 **NO_HB_MODE interpretation（NO_HB_MODEの解釈）** — enumの無効という説明とAPIの照会用既定引数との限定した関係で、静かな明示stop controlでは設定の疑問を解決しない。
+
+## Format選択とobserverの境界
+
+data経路の成功だけでは最終file形式の検証にならないため、各結果の境界は[radix／observerのFAQ](faq.ja.md#radixの意味とobserverの限界)で説明しています。
+
+**Format selection／observed representation（format選択と観測表現）** — 名前付きradixやmacro flag／実際の公開printer element値で、application固有のrecorderへ型付きmetadataが届いてもbinary rendererを検証した意味にはならない。
+
+**Raw data／NUL-free string（raw dataとNULを含まないstring）** — 非整形のbinary出力／NULを含められないSystemVerilog string格納で、2値text observerからraw4 backendのcoverageは推論できない。
+
+**Width-limited observer／positional parser（幅制限のあるobserverと桁parser）** — 正しいwide値を読んでも上限で打ち切る測定helper／期待値を変えず無関係なscanner制限を避ける独自の桁算術。
+
+**Tabular row association（表のrow対応）** — fieldのcaller指定の名前、型、size、値の間の限定した短cellの対応で、普遍的な物理配置や全wrapping規則を固定しない。
