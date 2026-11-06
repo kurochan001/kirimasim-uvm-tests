@@ -1288,3 +1288,15 @@ modelと実HDL記憶域の違いは[Q326](faq.ja.md#q326-user-backdoorの一致�
 
 **反対値からのrandomization観測** — 反対値を先に代入し、不変peerとともに成功した制約付き変更を要求することです。
 選択rand fieldへの証拠の限界は[Q341](faq.ja.md#q341-rand-field入力は代入の検査とどう違いますか)で説明しています。
+
+## managerの文脈と有効regionの説明
+
+**選択したallocation policy** — regionの開始位置を選ぶ、requestの明示引数または現在のdefault_alloc objectで、正確なretry規則を課さないcallbackの観測は[Q342](faq.ja.md#q342-policy-callbackの回数でretry-algorithmも証明できますか)にあります。
+
+**randomization前の文脈** — 求解前の選択policyが持つlocation数、設定最小／最大位置、順序によらない割り当て済みhandleで、独自observerと独立peerは[検査系のガイド](testing.ja.md#例)で説明しています。
+
+**占有状態の説明比較** — 文面を規定せず、割り当て範囲の変化で選択した非空の説明が変わることを確かめる限定的な検査で、部分的な証拠である理由は[Q343](faq.ja.md#q343-説明の書式を固定せずに検査できますか)にあります。
+
+**有効region descriptor** — 現在の割り当て範囲を記述するmanager由来のhandleで、同時の独立性と解放後のobject再利用は[Q344](faq.ja.md#q344-解放した範囲の再予約は新objectを生成すべきですか)で区別しています。
+
+**印刷register backdoor task** — 独自overrideを通じて検査する、規格の基底virtual write／watch interfaceで、宣言／dispatchと既定実装の動作の違いは[Q345](faq.ja.md#q345-独自register-backdoor-taskで既定dpiやwatch対応も証明できますか)にあります。

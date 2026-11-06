@@ -148918,6 +148918,887 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-MAM-DEFAULT-POLICY-REPEATED-90",
+      "clause": "18.12.3",
+      "statement": {
+        "en": "The selected default allocation-policy object is randomized for successive requests with no explicit policy.",
+        "ja": "明示policyのない連続requestで、選択した既定allocation-policy objectをrandomizeする。"
+      },
+      "conditions": {
+        "en": "Use original constrained policies on two layouts:64 locations at base0/64 with1/2bytes per location. A live reservation remains while three requests observe selected pre/post randomization hooks without an exact retry count. Hook snapshots compare rounded request length,configured bounds and unordered prior-region membership. Fixed starts remove sampling assumptions;previous endpoints and an independent peer are checked.",
+        "ja": "独自の制約policyを、base 0／64の64 locationと1／2-byte locationの2配置で使う。有効な予約を保持して3 requestを行い、正確なretry回数を要求せず選択したpre／post randomization hookを観測する。hookで丸めた要求長、設定境界、順序によらない以前のregion所属を比べる。固定開始位置でsampling仮定を除き、以前の端点と独立peerも検査する。"
+      },
+      "expected": {
+        "en": "Each constrained request observes another pre/post callback on the same selected object and returns its selected valid region.",
+        "ja": "制約した各requestで同じ選択objectのpre／post callbackを再び観測し、選択した有効regionを返す。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No retry count,all solver failures,sampling distribution,shared-policy concurrency,arbitrary fragmentation or unlisted setup is prescribed. The unsatisfiable branch checks null and later repair without fixing severity,text or recovery internals. A callback body supplies original observers rather than an allocation algorithm.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 retry回数、全solver失敗、乱数分布、共有policyの並行性、任意の断片化、記載外の準備を規定しない。矛盾分岐はseverity・文面・回復内部を固定せずnullと後の修復を検査する。callback本体は独自observerでありallocation algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_policy_default_repeated_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_repeated_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_repeated_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_repeated_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-DEFAULT-POLICY-REPLACEMENT-90",
+      "clause": "18.12.3",
+      "statement": {
+        "en": "Replacing default_alloc selects the replacement policy for subsequent omitted-policy requests.",
+        "ja": "default_allocを差し替えると、後のpolicy省略requestで置換後のpolicyを選ぶ。"
+      },
+      "conditions": {
+        "en": "Use original constrained policies on two layouts:64 locations at base0/64 with1/2bytes per location. A live reservation remains while three requests observe selected pre/post randomization hooks without an exact retry count. Hook snapshots compare rounded request length,configured bounds and unordered prior-region membership. Fixed starts remove sampling assumptions;previous endpoints and an independent peer are checked.",
+        "ja": "独自の制約policyを、base 0／64の64 locationと1／2-byte locationの2配置で使う。有効な予約を保持して3 requestを行い、正確なretry回数を要求せず選択したpre／post randomization hookを観測する。hookで丸めた要求長、設定境界、順序によらない以前のregion所属を比べる。固定開始位置でsampling仮定を除き、以前の端点と独立peerも検査する。"
+      },
+      "expected": {
+        "en": "Every replacement receives the selected request context and is randomized to its fixed start while earlier reservations remain available.",
+        "ja": "置換後の各policyが選択requestの文脈を受け取り固定開始位置へrandomizeされ、以前の予約は保持される。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No retry count,all solver failures,sampling distribution,shared-policy concurrency,arbitrary fragmentation or unlisted setup is prescribed. The unsatisfiable branch checks null and later repair without fixing severity,text or recovery internals. A callback body supplies original observers rather than an allocation algorithm.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 retry回数、全solver失敗、乱数分布、共有policyの並行性、任意の断片化、記載外の準備を規定しない。矛盾分岐はseverity・文面・回復内部を固定せずnullと後の修復を検査する。callback本体は独自observerでありallocation algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_policy_default_replaced_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_replaced_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_replaced_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_replaced_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-EXPLICIT-POLICY-PRECEDENCE-90",
+      "clause": "18.12.5.2",
+      "statement": {
+        "en": "An explicit allocation policy selects the requested region instead of an incompatible default policy.",
+        "ja": "明示allocation policyは、非互換な既定policyに代わって要求regionを選択する。"
+      },
+      "conditions": {
+        "en": "Use original constrained policies on two layouts:64 locations at base0/64 with1/2bytes per location. A live reservation remains while three requests observe selected pre/post randomization hooks without an exact retry count. Hook snapshots compare rounded request length,configured bounds and unordered prior-region membership. Fixed starts remove sampling assumptions;previous endpoints and an independent peer are checked.",
+        "ja": "独自の制約policyを、base 0／64の64 locationと1／2-byte locationの2配置で使う。有効な予約を保持して3 requestを行い、正確なretry回数を要求せず選択したpre／post randomization hookを観測する。hookで丸めた要求長、設定境界、順序によらない以前のregion所属を比べる。固定開始位置でsampling仮定を除き、以前の端点と独立peerも検査する。"
+      },
+      "expected": {
+        "en": "Three explicit-policy requests succeed at their constrained valid starts despite a default whose chosen start cannot fit the request.",
+        "ja": "既定policyの選択位置にrequestが収まらなくても、明示policyの3 requestは制約した有効位置で成功する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No retry count,all solver failures,sampling distribution,shared-policy concurrency,arbitrary fragmentation or unlisted setup is prescribed. The unsatisfiable branch checks null and later repair without fixing severity,text or recovery internals. A callback body supplies original observers rather than an allocation algorithm.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 retry回数、全solver失敗、乱数分布、共有policyの並行性、任意の断片化、記載外の準備を規定しない。矛盾分岐はseverity・文面・回復内部を固定せずnullと後の修復を検査する。callback本体は独自observerでありallocation algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-OMITTED-POLICY-AFTER-EXPLICIT-90",
+      "clause": "18.12.5.2",
+      "statement": {
+        "en": "An omitted policy after explicit-policy calls uses the current default_alloc object.",
+        "ja": "明示policy呼び出し後にpolicyを省略すると、現在のdefault_alloc objectを使う。"
+      },
+      "conditions": {
+        "en": "Use original constrained policies on two layouts:64 locations at base0/64 with1/2bytes per location. A live reservation remains while three requests observe selected pre/post randomization hooks without an exact retry count. Hook snapshots compare rounded request length,configured bounds and unordered prior-region membership. Fixed starts remove sampling assumptions;previous endpoints and an independent peer are checked.",
+        "ja": "独自の制約policyを、base 0／64の64 locationと1／2-byte locationの2配置で使う。有効な予約を保持して3 requestを行い、正確なretry回数を要求せず選択したpre／post randomization hookを観測する。hookで丸めた要求長、設定境界、順序によらない以前のregion所属を比べる。固定開始位置でsampling仮定を除き、以前の端点と独立peerも検査する。"
+      },
+      "expected": {
+        "en": "A later newly installed default is randomized and returns its selected region without losing earlier descriptors.",
+        "ja": "後で新しく設定した既定policyをrandomizeし、以前のdescriptorを失わず選択regionを返す。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No retry count,all solver failures,sampling distribution,shared-policy concurrency,arbitrary fragmentation or unlisted setup is prescribed. The unsatisfiable branch checks null and later repair without fixing severity,text or recovery internals. A callback body supplies original observers rather than an allocation algorithm.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 retry回数、全solver失敗、乱数分布、共有policyの並行性、任意の断片化、記載外の準備を規定しない。矛盾分岐はseverity・文面・回復内部を固定せずnullと後の修復を検査する。callback本体は独自observerでありallocation algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 fallback selected 1 randomized 1 context 1 membership 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 fallback selected 1 randomized 1 context 1 membership 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-CONTRADICTORY-POLICY-NULL-90",
+      "clause": "18.12.5.2",
+      "statement": {
+        "en": "A request with contradictory allocation-policy constraints returns null.",
+        "ja": "allocation-policy制約が矛盾するrequestはnullを返す。"
+      },
+      "conditions": {
+        "en": "Use original constrained policies on two layouts:64 locations at base0/64 with1/2bytes per location. A live reservation remains while three requests observe selected pre/post randomization hooks without an exact retry count. Hook snapshots compare rounded request length,configured bounds and unordered prior-region membership. Fixed starts remove sampling assumptions;previous endpoints and an independent peer are checked.",
+        "ja": "独自の制約policyを、base 0／64の64 locationと1／2-byte locationの2配置で使う。有効な予約を保持して3 requestを行い、正確なretry回数を要求せず選択したpre／post randomization hookを観測する。hookで丸めた要求長、設定境界、順序によらない以前のregion所属を比べる。固定開始位置でsampling仮定を除き、以前の端点と独立peerも検査する。"
+      },
+      "expected": {
+        "en": "The middle request cannot satisfy both its valid fixed start and the below-minimum constraint,returns no region and preserves the existing reservation set.",
+        "ja": "中間requestは有効な固定開始位置と最小位置未満の制約を同時に満たせず、regionを返さず既存の予約集合を保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No retry count,all solver failures,sampling distribution,shared-policy concurrency,arbitrary fragmentation or unlisted setup is prescribed. The unsatisfiable branch checks null and later repair without fixing severity,text or recovery internals. A callback body supplies original observers rather than an allocation algorithm.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 retry回数、全solver失敗、乱数分布、共有policyの並行性、任意の断片化、記載外の準備を規定しない。矛盾分岐はseverity・文面・回復内部を固定せずnullと後の修復を検査する。callback本体は独自observerでありallocation algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-REQUEST-AFTER-POLICY-REPAIR-90",
+      "clause": "18.12.5.2",
+      "statement": {
+        "en": "A later request can allocate a valid region after the original policy contradiction is removed.",
+        "ja": "元のpolicy矛盾を除いた後のrequestは有効regionを割り当てられる。"
+      },
+      "conditions": {
+        "en": "Use original constrained policies on two layouts:64 locations at base0/64 with1/2bytes per location. A live reservation remains while three requests observe selected pre/post randomization hooks without an exact retry count. Hook snapshots compare rounded request length,configured bounds and unordered prior-region membership. Fixed starts remove sampling assumptions;previous endpoints and an independent peer are checked.",
+        "ja": "独自の制約policyを、base 0／64の64 locationと1／2-byte locationの2配置で使う。有効な予約を保持して3 requestを行い、正確なretry回数を要求せず選択したpre／post randomization hookを観測する。hookで丸めた要求長、設定境界、順序によらない以前のregion所属を比べる。固定開始位置でsampling仮定を除き、以前の端点と独立peerも検査する。"
+      },
+      "expected": {
+        "en": "The first and repaired third requests return their distinct constrained spans;the failed middle request adds no descriptor.",
+        "ja": "最初と修復した3回目のrequestは制約した異なる範囲を返し、失敗した中間requestはdescriptorを追加しない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No retry count,all solver failures,sampling distribution,shared-policy concurrency,arbitrary fragmentation or unlisted setup is prescribed. The unsatisfiable branch checks null and later repair without fixing severity,text or recovery internals. A callback body supplies original observers rather than an allocation algorithm.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 retry回数、全solver失敗、乱数分布、共有policyの並行性、任意の断片化、記載外の準備を規定しない。矛盾分岐はseverity・文面・回復内部を固定せずnullと後の修復を検査する。callback本体は独自observerでありallocation algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-POLICY-ROUNDED-LEN-90",
+      "clause": "18.12.8.2.1",
+      "statement": {
+        "en": "The selected policy receives the request length in complete memory locations.",
+        "ja": "選択したpolicyは完全なmemory location単位でrequest長を受け取る。"
+      },
+      "conditions": {
+        "en": "Use original constrained policies on two layouts:64 locations at base0/64 with1/2bytes per location. A live reservation remains while three requests observe selected pre/post randomization hooks without an exact retry count. Hook snapshots compare rounded request length,configured bounds and unordered prior-region membership. Fixed starts remove sampling assumptions;previous endpoints and an independent peer are checked.",
+        "ja": "独自の制約policyを、base 0／64の64 locationと1／2-byte locationの2配置で使う。有効な予約を保持して3 requestを行い、正確なretry回数を要求せず選択したpre／post randomization hookを観測する。hookで丸めた要求長、設定境界、順序によらない以前のregion所属を比べる。固定開始位置でsampling仮定を除き、以前の端点と独立peerも検査する。"
+      },
+      "expected": {
+        "en": "Pre-randomize snapshots see three locations for three bytes on one-byte locations and five requested bytes on two-byte locations.",
+        "ja": "pre_randomizeのsnapshotは、1-byte locationへの3-byte要求と2-byte locationへの5-byte要求の両方で3 locationを観測する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No retry count,all solver failures,sampling distribution,shared-policy concurrency,arbitrary fragmentation or unlisted setup is prescribed. The unsatisfiable branch checks null and later repair without fixing severity,text or recovery internals. A callback body supplies original observers rather than an allocation algorithm.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 retry回数、全solver失敗、乱数分布、共有policyの並行性、任意の断片化、記載外の準備を規定しない。矛盾分岐はseverity・文面・回復内部を固定せずnullと後の修復を検査する。callback本体は独自observerでありallocation algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_policy_default_repeated_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_repeated_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_repeated_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_repeated_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_replaced_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_replaced_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_replaced_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_replaced_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-POLICY-MINIMUM-CONTEXT-90",
+      "clause": "18.12.8.2.3",
+      "statement": {
+        "en": "The policy minimum offset describes the configured managed-space minimum before randomization.",
+        "ja": "policyの最小offsetはrandomization前に設定済み管理領域の最小位置を表す。"
+      },
+      "conditions": {
+        "en": "Use original constrained policies on two layouts:64 locations at base0/64 with1/2bytes per location. A live reservation remains while three requests observe selected pre/post randomization hooks without an exact retry count. Hook snapshots compare rounded request length,configured bounds and unordered prior-region membership. Fixed starts remove sampling assumptions;previous endpoints and an independent peer are checked.",
+        "ja": "独自の制約policyを、base 0／64の64 locationと1／2-byte locationの2配置で使う。有効な予約を保持して3 requestを行い、正確なretry回数を要求せず選択したpre／post randomization hookを観測する。hookで丸めた要求長、設定境界、順序によらない以前のregion所属を比べる。固定開始位置でsampling仮定を除き、以前の端点と独立peerも検査する。"
+      },
+      "expected": {
+        "en": "Each selected callback sees the layout minimum0 or64,including repeated,replaced,explicit and contradictory-policy requests.",
+        "ja": "反復・置換・明示・矛盾policyの各requestで、選択callbackは配置の最小位置0または64を観測する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No retry count,all solver failures,sampling distribution,shared-policy concurrency,arbitrary fragmentation or unlisted setup is prescribed. The unsatisfiable branch checks null and later repair without fixing severity,text or recovery internals. A callback body supplies original observers rather than an allocation algorithm.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 retry回数、全solver失敗、乱数分布、共有policyの並行性、任意の断片化、記載外の準備を規定しない。矛盾分岐はseverity・文面・回復内部を固定せずnullと後の修復を検査する。callback本体は独自observerでありallocation algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_policy_default_repeated_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_repeated_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_repeated_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_repeated_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_replaced_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_replaced_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_replaced_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_replaced_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-POLICY-MAXIMUM-CONTEXT-90",
+      "clause": "18.12.8.2.4",
+      "statement": {
+        "en": "The policy maximum offset describes the configured managed-space maximum before randomization.",
+        "ja": "policyの最大offsetはrandomization前に設定済み管理領域の最大位置を表す。"
+      },
+      "conditions": {
+        "en": "Use original constrained policies on two layouts:64 locations at base0/64 with1/2bytes per location. A live reservation remains while three requests observe selected pre/post randomization hooks without an exact retry count. Hook snapshots compare rounded request length,configured bounds and unordered prior-region membership. Fixed starts remove sampling assumptions;previous endpoints and an independent peer are checked.",
+        "ja": "独自の制約policyを、base 0／64の64 locationと1／2-byte locationの2配置で使う。有効な予約を保持して3 requestを行い、正確なretry回数を要求せず選択したpre／post randomization hookを観測する。hookで丸めた要求長、設定境界、順序によらない以前のregion所属を比べる。固定開始位置でsampling仮定を除き、以前の端点と独立peerも検査する。"
+      },
+      "expected": {
+        "en": "Each selected callback sees base+63 rather than an unrelated peer range or a stale configuration.",
+        "ja": "選択した各callbackは無関係なpeer範囲や古いconfigurationではなくbase+63を観測する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No retry count,all solver failures,sampling distribution,shared-policy concurrency,arbitrary fragmentation or unlisted setup is prescribed. The unsatisfiable branch checks null and later repair without fixing severity,text or recovery internals. A callback body supplies original observers rather than an allocation algorithm.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 retry回数、全solver失敗、乱数分布、共有policyの並行性、任意の断片化、記載外の準備を規定しない。矛盾分岐はseverity・文面・回復内部を固定せずnullと後の修復を検査する。callback本体は独自observerでありallocation algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_policy_default_repeated_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_repeated_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_repeated_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_repeated_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_replaced_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_replaced_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_replaced_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_replaced_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-POLICY-IN-USE-CONTEXT-90",
+      "clause": "18.12.8.2.5",
+      "statement": {
+        "en": "The policy in_use queue identifies the regions already allocated when that request is randomized.",
+        "ja": "policyのin_use queueは、そのrequestをrandomizeする際の割り当て済みregionを識別する。"
+      },
+      "conditions": {
+        "en": "Use original constrained policies on two layouts:64 locations at base0/64 with1/2bytes per location. A live reservation remains while three requests observe selected pre/post randomization hooks without an exact retry count. Hook snapshots compare rounded request length,configured bounds and unordered prior-region membership. Fixed starts remove sampling assumptions;previous endpoints and an independent peer are checked.",
+        "ja": "独自の制約policyを、base 0／64の64 locationと1／2-byte locationの2配置で使う。有効な予約を保持して3 requestを行い、正確なretry回数を要求せず選択したpre／post randomization hookを観測する。hookで丸めた要求長、設定境界、順序によらない以前のregion所属を比べる。固定開始位置でsampling仮定を除き、以前の端点と独立peerも検査する。"
+      },
+      "expected": {
+        "en": "Pre-randomize snapshots match prior live handles by membership and cardinality without fixing queue order,and failed allocation adds no live handle.",
+        "ja": "pre_randomizeのsnapshotはqueue順序を固定せず以前の有効handleの所属と件数を照合し、失敗した割り当ては有効handleを追加しない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No retry count,all solver failures,sampling distribution,shared-policy concurrency,arbitrary fragmentation or unlisted setup is prescribed. The unsatisfiable branch checks null and later repair without fixing severity,text or recovery internals. A callback body supplies original observers rather than an allocation algorithm.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 retry回数、全solver失敗、乱数分布、共有policyの並行性、任意の断片化、記載外の準備を規定しない。矛盾分岐はseverity・文面・回復内部を固定せずnullと後の修復を検査する。callback本体は独自observerでありallocation algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_policy_default_repeated_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_repeated_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_repeated_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_repeated_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_repeated_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_replaced_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_replaced_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_default_replaced_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_default_replaced_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_default_replaced_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_explicit_overrides_default_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 1 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_explicit_overrides_default_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_0 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_policy_contradiction_then_repair_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 0 success 1 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 1 success 0 randomized 1 context 1 valid 1 retained 1",
+            "UT: policy90 mam_policy_contradiction_then_repair_1 round 2 success 1 randomized 1 context 1 valid 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-DESCRIPTION-STRING-RESULT-90",
+      "clause": "18.12.6.1",
+      "statement": {
+        "en": "The manager description method exposes the declared string result.",
+        "ja": "managerの説明methodは宣言されたstring結果を供給する。"
+      },
+      "conditions": {
+        "en": "Two original managers use one/two-byte locations and selected one-region,two-region and remaining-region occupied states. Inspect the declared string result and compare nonempty/different snapshots,while checking exact live endpoints and membership before cleanup.",
+        "ja": "独自manager 2入力は1／2-byte locationを使い、1 region・2 region・残るregionの占有状態を選ぶ。宣言されたstring結果と、非空で異なるsnapshotを比べ、cleanupまで有効端点と所属の正確さも検査する。"
+      },
+      "expected": {
+        "en": "The declared return type is string at the selected public call site.",
+        "ja": "選択した公開呼び出し位置で宣言返却型がstringである。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. The state-dependent description test is an explicitly qualified partial interpretation,not a complete human-readability certificate. No exact spelling,layout,address grammar,empty-state text or same-state repeat determinism is assumed. String equality differences alone cannot prove all described facts;manual interpretation and other states remain open.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 状態に応じた説明の検査は明示的に限定した部分解釈で、人に読めることの完全な認定ではない。正確な文面、配置、address文法、空状態の文面、同状態の反復決定性は仮定しない。文字列の相違だけで記載した全事実を証明できず、人による解釈と他状態は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_description_states_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: description90 mam_description_states_0 string_type 1 nonempty_and_changed 1 reservations 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_description_states_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: description90 mam_description_states_1 string_type 1 nonempty_and_changed 1 reservations 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-DESCRIPTION-OCCUPIED-STATES-90",
+      "clause": "18.12.6.1",
+      "statement": {
+        "en": "A description represents the selected current occupied-region states.",
+        "ja": "説明は選択した現在のregion占有状態を表す。"
+      },
+      "conditions": {
+        "en": "Two original managers use one/two-byte locations and selected one-region,two-region and remaining-region occupied states. Inspect the declared string result and compare nonempty/different snapshots,while checking exact live endpoints and membership before cleanup.",
+        "ja": "独自manager 2入力は1／2-byte locationを使い、1 region・2 region・残るregionの占有状態を選ぶ。宣言されたstring結果と、非空で異なるsnapshotを比べ、cleanupまで有効端点と所属の正確さも検査する。"
+      },
+      "expected": {
+        "en": "Descriptions of selected occupied states are nonempty and differ after adding/removing a disjoint region,with live reservations unchanged by observation.",
+        "ja": "選択した占有状態の説明は非空で、離れたregionの追加／削除後に異なり、観測で有効な予約を変えない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. The state-dependent description test is an explicitly qualified partial interpretation,not a complete human-readability certificate. No exact spelling,layout,address grammar,empty-state text or same-state repeat determinism is assumed. String equality differences alone cannot prove all described facts;manual interpretation and other states remain open.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 状態に応じた説明の検査は明示的に限定した部分解釈で、人に読めることの完全な認定ではない。正確な文面、配置、address文法、空状態の文面、同状態の反復決定性は仮定しない。文字列の相違だけで記載した全事実を証明できず、人による解釈と他状態は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_description_states_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: description90 mam_description_states_0 string_type 1 nonempty_and_changed 1 reservations 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_description_states_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: description90 mam_description_states_1 string_type 1 nonempty_and_changed 1 reservations 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-LIVE-REGION-DESCRIPTORS-90",
+      "clause": "18.12.7",
+      "statement": {
+        "en": "Manager-produced live region instances describe their selected reserved or requested spans independently.",
+        "ja": "managerが生成した有効region instanceは、選択した予約／要求範囲を独立に記述する。"
+      },
+      "conditions": {
+        "en": "On two layouts,obtain simultaneous reserve/request descriptors from an attached-memory manager and a detached peer;then release and reserve one span again.",
+        "ja": "2配置で、memory付きmanagerとmemoryなしpeerから同時に有効なreserve／request descriptorを取得し、1範囲を解放して再予約する。"
+      },
+      "expected": {
+        "en": "Live descriptors have independent handles,exact spans/lengths/byte extents and selected memory identities;release/re-reserve preserves the other manager and region.",
+        "ja": "有効descriptorは独立handle、正確な範囲／長さ／byte幅、選択memoryの同一性を持ち、解放／再予約で他managerとregionを保つ。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. No ban on direct language construction,post-release object validity or identity difference after reuse is inferred. Broader ownership,virtual mappings,transfers and lifetime conditions remain open.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 言語上の直接構築の禁止、解放後のobject有効性、再利用後の同一性の相違は推論しない。広い所有関係、virtual mapping、転送、lifetime条件は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_region_live_descriptors_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region90 mam_region_live_descriptors_0 identity 1 descriptors 1 virtual 1",
+            "UT: region90 release_preserves 1 available_again 1 peer 1",
+            "UT: region90 cleanup 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_region_live_descriptors_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region90 mam_region_live_descriptors_1 identity 1 descriptors 1 virtual 1",
+            "UT: region90 release_preserves 1 available_again 1 peer 1",
+            "UT: region90 cleanup 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-BACKDOOR-WRITE-VIRTUAL-DISPATCH-90",
+      "clause": "18.4.6.11",
+      "statement": {
+        "en": "The printed register backdoor_write virtual task accepts a generic descriptor through a register base receiver and dispatches an override.",
+        "ja": "印刷されたregisterのbackdoor_write virtual taskはregister基底receiverから汎用descriptorを受け取り、overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "Use two original concrete register subtypes through exact uvm_reg base receivers. Write inputs alternate descriptor values/receivers;watch inputs monitor two original testbench variables with positive-time changes in opposite orders and an unrelated-variable control.",
+        "ja": "独自の具象register subtype 2instanceを正確なuvm_reg基底receiverから使う。write入力はdescriptor値／receiverを交替し、watch入力は独自testbench変数2つを反対順の正時間変化で監視し、無関係な変数をcontrolにする。"
+      },
+      "expected": {
+        "en": "Selected original task bodies execute with preserved descriptor/receiver identity;write observations check original storage/status and watch observations check selected blocking/return times.",
+        "ja": "選択した独自task本体をdescriptor／receiverの同一性を保って実行し、writeは独自記憶域／status、watchは選択したblocking／return時刻を観測する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. Bodies supply original declaration/dispatch controls,not default UVM implementation algorithms. No built-in DPI,register write routing,mirror effects,default watch implementation,all changes or general concurrency is certified. Any missing printed base member remains a build difference without runtime evidence.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 本体は独自の宣言／dispatch controlで、既定UVM実装algorithmではない。組み込みDPI、register writeの経路、mirror効果、既定watch実装、全変化、一般的な並行性は認定しない。印刷された基底memberの欠落はruntime evidenceのないbuild差分として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_backdoor_write_dispatch_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reg_write90 reg_backdoor_write_dispatch_0 step 0 dispatched 1 descriptor 1 state 1 status 1",
+            "UT: reg_write90 reg_backdoor_write_dispatch_0 step 1 dispatched 1 descriptor 1 state 1 status 1",
+            "UT: reg_write90 reg_backdoor_write_dispatch_0 step 2 dispatched 1 descriptor 1 state 1 status 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_backdoor_write_dispatch_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reg_write90 reg_backdoor_write_dispatch_1 step 0 dispatched 1 descriptor 1 state 1 status 1",
+            "UT: reg_write90 reg_backdoor_write_dispatch_1 step 1 dispatched 1 descriptor 1 state 1 status 1",
+            "UT: reg_write90 reg_backdoor_write_dispatch_1 step 2 dispatched 1 descriptor 1 state 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-BACKDOOR-WATCH-VIRTUAL-DISPATCH-90",
+      "clause": "18.4.6.12",
+      "statement": {
+        "en": "The printed register backdoor_watch virtual task is callable through register base receivers and dispatches the selected monitoring override.",
+        "ja": "印刷されたregisterのbackdoor_watch virtual taskはregister基底receiverから呼べ、選択した監視overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "Use two original concrete register subtypes through exact uvm_reg base receivers. Write inputs alternate descriptor values/receivers;watch inputs monitor two original testbench variables with positive-time changes in opposite orders and an unrelated-variable control.",
+        "ja": "独自の具象register subtype 2instanceを正確なuvm_reg基底receiverから使う。write入力はdescriptor値／receiverを交替し、watch入力は独自testbench変数2つを反対順の正時間変化で監視し、無関係な変数をcontrolにする。"
+      },
+      "expected": {
+        "en": "Selected original task bodies execute with preserved descriptor/receiver identity;write observations check original storage/status and watch observations check selected blocking/return times.",
+        "ja": "選択した独自task本体をdescriptor／receiverの同一性を保って実行し、writeは独自記憶域／status、watchは選択したblocking／return時刻を観測する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A linked expected row is not a measured pass for each anchored duty. Preserve independent expectations,known differences,unmeasured guests and all original milestone targets. No human review,scope approval or denominator approval is recorded. Bodies supply original declaration/dispatch controls,not default UVM implementation algorithms. No built-in DPI,register write routing,mirror effects,default watch implementation,all changes or general concurrency is certified. Any missing printed base member remains a build difference without runtime evidence.",
+        "ja": "AIによる部分分解のみ。対応する期待行はanchorした義務ごとの実測passではない。独立期待値、既知差分、未測定guest、元の全段階目標を保持する。人の照合、範囲承認、分母承認は記録しない。 本体は独自の宣言／dispatch controlで、既定UVM実装algorithmではない。組み込みDPI、register writeの経路、mirror効果、既定watch実装、全変化、一般的な並行性は認定しない。印刷された基底memberの欠落はruntime evidenceのないbuild差分として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_backdoor_watch_dispatch_0_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reg_watch90 reg_backdoor_watch_dispatch_0 entered 1 blocked 1",
+            "UT: reg_watch90 unrelated_ignored 1",
+            "UT: reg_watch90 first 1 other_blocked 1 timestamp 1",
+            "UT: reg_watch90 second 1 timestamp 1 calls 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_backdoor_watch_dispatch_1_90",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reg_watch90 reg_backdoor_watch_dispatch_1 entered 1 blocked 1",
+            "UT: reg_watch90 unrelated_ignored 1",
+            "UT: reg_watch90 first 1 other_blocked 1 timestamp 1",
+            "UT: reg_watch90 second 1 timestamp 1 calls 1"
+          ]
+        }
+      ]
     }
   ]
 }

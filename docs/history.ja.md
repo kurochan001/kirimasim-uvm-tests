@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の89回目の拡充（全2470件：simulation 2371・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の90回目の拡充（全2486件：simulation 2387・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3338,3 +3338,28 @@ guest未測定1388入力は追加1385件と修正した元入力3件（simulatio
 全2470件（simulation 2371／elaboration 99）、M1 1034（953／81）、M2 568（561／7）、M3 868（857／11）です。
 通常2075 pass（runtime 1981／compiler拒否94）、395 known（runtime 265／build 125／不正受理5）です。
 goal第61反復で未評価68から62へ減らし、開始時1463からの減少は1401です。部分義務と元の目標の完了は未立証でgoalを継続します。
+
+## 薄い領域の90回目の拡充：manager policyと印刷backdoor task
+
+新規M3 runtime 16入力はpolicy履歴8件、manager説明2件、有効region descriptor履歴2件、印刷されたregister backdoor taskのdispatch 4件です。
+14件はseed 1／73に一致します。矛盾／修復の2入力はexit 0のseed 1で差分を保持し、seed 73結果はありません。
+失敗requestのpost-hook predicateが異なる一方、null、文脈、保持region、後の修復済み割り当ては一致します。他条件の一致で全入力をpassにしない範囲は[manager文脈のFAQ](faq.ja.md#manager-policyの文脈と印刷backdoor-task)で説明しています。
+
+policyのpre／post observerは正確なretry回数ではなく発生を数え、丸めた長さ、設定境界、順序によらない以前の割り当てhandleを検査します。
+既定policyの反復／置換、非互換な既定値に対する明示policy、現在の既定値への復帰、矛盾／修復を2つのlocation幅で扱い、保持端点と独立peerも別に確認します。
+
+説明ケースはstring返却と、非空で異なる選択占有状態のsnapshotを検査し、配置やaddress文法を固定しません。これは限定した部分解釈で、人に読めることの完全な証拠ではありません。
+region descriptorは割り当て中に比較し、直接構築の禁止や解放後のobject同一性は推論しません。独自backdoor本体は印刷された基底taskの宣言／dispatchを検査し、既定UVM algorithm、DPI、register accessの経路、任意の監視動作を認定しません。
+
+現行測定の前にpolicy helperの予約語だったlocal識別子を改名し、SystemVerilog 18.6.2が要求する基底randomization hook呼び出しを追加しました。
+以前の構文／observer版は保管して除外し、影響する8入力を新たに測定します。16 source本体と期待値は実測由来tag 14件以外を変えず、指紋を読み替えません。
+必要な基底呼び出しを備えた別のignored診断では、独自plain class、policy、MAM requestでrandomizeがfalseを返した後のpost-hook増加を両seedで観測します。
+空UTのharnessを動作のpassとせず、元のknown 2入力のseed 73 evidenceも追加しません。実装sourceで期待値を定義せず、既定MAMの欠陥を認定しません。
+
+日英AI義務15件が以前に未評価だった4 leafを部分分解し、新しい分類は追加しません。以前の3973義務と420分類のobjectは保持します。
+現在は部分2029／分類420／未評価58です。第18章は393／62／1、義務928件、主引用614テスト（simulation 611／elaboration 3）で、付録Fは102／23／12のままです。
+全3988義務は2442テストへ直接対応し、他の44テストはcontrol専用、control linkあり136です。元の段階目標と全ての部分適用条件は未完です。
+
+以前の通常2470記録、compiler 99記録、HDL 38記録、command-line 18記録、互換guest 1082記録は内容を保持します。
+guest未測定1404入力は追加1401件と修正した元入力3件（simulation 1305／elaboration 99）です。
+新しいguest実行／filter、runner／backend／tool／workflow変更、商用結果、人の照合、範囲／分母承認はありません。

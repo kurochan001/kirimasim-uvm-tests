@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighty-nine cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2470 tests: 2371 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and ninety cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2486 tests: 2387 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5239,3 +5239,52 @@ Totals are 2470 (2371 simulation/99 elaboration): M1 1034 (953/81), M2 568
 and 395 known (265 runtime/125 build/5 illegal acceptance). Goal iteration 61
 reduces unassessed from 68 to 62, a decrease of 1401 from activation count 1463.
 Partial duties and original targets remain unproven; the goal stays active.
+
+## Ninetieth thin-area expansion: manager policies and printed backdoor tasks
+
+Sixteen new M3 runtime inputs inspect eight policy histories, two manager
+descriptions, two live-region descriptor histories and four printed register
+backdoor-task dispatch conditions. Fourteen match seeds 1/73. The two
+contradiction/repair cases retain seed-1 exit-0 differences without seed 73:
+the failed-request post-hook predicate differs, while null, context, retained
+regions and the later repaired allocation match. Another condition's match
+does not pass these complete inputs; [the manager-context FAQ](faq.md#manager-policy-context-and-printed-backdoor-tasks) explains their scope.
+
+Policy pre/post observers count occurrence rather than exact retries and check
+rounded length, configured bounds and unordered previously allocated handles.
+Repeated/replaced defaults, explicit policies against an incompatible default,
+return to the current default and contradiction/repair use two location widths.
+Exact held endpoints and an independent peer remain separate controls.
+
+The description cases check a string return and selected nonempty/different
+occupied-state snapshots without fixing layout or address grammar. This is a
+qualified partial reading, not complete human-readability evidence. Live region
+descriptors are compared while allocated; no direct-construction prohibition
+or object-identity promise after release is inferred. Original backdoor bodies
+check printed base-task declarations and dispatch, not default UVM algorithms,
+DPI, register-access routing or arbitrary monitoring behavior.
+
+Before current measurement, the policy helper's reserved local identifier was
+renamed and the superclass randomization-hook calls required by SystemVerilog
+18.6.2 were added. Earlier syntax/observer versions are archived and excluded.
+All eight affected inputs are freshly measured; the sixteen source bodies and
+expected files remain unchanged except fourteen proven tags. A separate ignored
+diagnostic with the required base calls observes post-hook advancement after a
+false randomize result in an original plain class, a policy and MAM requests
+at both seeds. Its empty-UT harness is not a behavioral pass, nor does it add
+seed-73 evidence to the two original known cases. No implementation source
+defines the expectation or assigns a default-MAM defect.
+
+Fifteen bilingual AI duties partially decompose four previously unassessed
+leaves; no new classification is added. All 3973 previous duties and 420
+assessments retain their objects. The current state is 2029 partial/420
+assessed/58 unassessed. Chapter 18 is 393/62/1 with 928 duties and 614 primary
+tests (611 simulation/3 elaboration); annex F remains 102/23/12. All 3988 duties
+directly link 2442 tests; forty-four others are control-only and 136 have
+control links. Original milestone targets and all partial applicability remain open.
+
+All 2470 prior ordinary, 99 compiler, 38 HDL, 18 command-line and 1082
+compatible guest records retain their content. Guests have 1404 unmeasured
+inputs: 1401 additions and three revised originals (1305 simulation/99
+elaboration). No guest rerun/filter, runner/backend/tool/workflow change,
+commercial result, human review or scope/denominator approval is added.

@@ -1,0 +1,4 @@
+UT: reg_watch90 reg_backdoor_watch_dispatch_1 entered 1 blocked 1
+UT: reg_watch90 unrelated_ignored 1
+UT: reg_watch90 first 1 other_blocked 1 timestamp 1
+UT: reg_watch90 second 1 timestamp 1 calls 1

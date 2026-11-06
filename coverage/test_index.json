@@ -9881,6 +9881,70 @@
     "u18/test_mam_cfg_rand_locality_89": {
       "primary_clause": "18.12.9.2.5",
       "inputs_sha256": "89ca22f81c8b3e365bd0a6a45cdf205508541f24f60bcb26a01b589ad7575936"
+    },
+    "u18/test_mam_policy_default_repeated_0_90": {
+      "primary_clause": "18.12.3",
+      "inputs_sha256": "a80b21fa139cdfed790de62db2edbecd82a4e2f913bc46236c625029bf223f1a"
+    },
+    "u18/test_mam_policy_default_repeated_1_90": {
+      "primary_clause": "18.12.3",
+      "inputs_sha256": "23d4d40e57d938023638efab12138ad7471e9eed2d9890b8fda923bc72942a98"
+    },
+    "u18/test_mam_policy_default_replaced_0_90": {
+      "primary_clause": "18.12.3",
+      "inputs_sha256": "e784a5733465b4a210a00e743c23dfd8200138683a200dbc2d408f0fac787516"
+    },
+    "u18/test_mam_policy_default_replaced_1_90": {
+      "primary_clause": "18.12.3",
+      "inputs_sha256": "33c78a2d8fab8a7d2c734e6117e11bd9a295401675fe6fcd357944f469644a2c"
+    },
+    "u18/test_mam_policy_explicit_overrides_default_0_90": {
+      "primary_clause": "18.12.5.2",
+      "inputs_sha256": "f70a73b1d4d92796c86d2d6a0d1b527965abbeaa749827de78d91eaff3640fc6"
+    },
+    "u18/test_mam_policy_explicit_overrides_default_1_90": {
+      "primary_clause": "18.12.5.2",
+      "inputs_sha256": "47497e65c2f9ea662ceda900a85e294cf1d7bfcd02151e9ea6e05879165c4f29"
+    },
+    "u18/test_mam_policy_contradiction_then_repair_0_90": {
+      "primary_clause": "18.12.5.2",
+      "inputs_sha256": "0b16e2a08c51ec4a30501ffea472fced293070473de7716c316b3e74d01b31f1"
+    },
+    "u18/test_mam_policy_contradiction_then_repair_1_90": {
+      "primary_clause": "18.12.5.2",
+      "inputs_sha256": "07831f390bd086517a2674fe23ba3141a4bc4bba585fe03a05276de5ee8af903"
+    },
+    "u18/test_mam_description_states_0_90": {
+      "primary_clause": "18.12.6.1",
+      "inputs_sha256": "74c859636bb1e149fadfd16881c7bb9dce395d68d98d9935fb4134910ac7c8a9"
+    },
+    "u18/test_mam_description_states_1_90": {
+      "primary_clause": "18.12.6.1",
+      "inputs_sha256": "52f7bb4896d2d12553c3c00562052dc1f916bc0d88e86e9012aff29c8becd7c7"
+    },
+    "u18/test_mam_region_live_descriptors_0_90": {
+      "primary_clause": "18.12.7",
+      "inputs_sha256": "887d7683fa7fb21a895eae848523bd37bcbdd4aaed20e0f403b04d650986ded2"
+    },
+    "u18/test_mam_region_live_descriptors_1_90": {
+      "primary_clause": "18.12.7",
+      "inputs_sha256": "c06325de16d9e8d38b4586b75a7d5af9fe3e3510f7fff65d9960fcf3740027bd"
+    },
+    "u18/test_reg_backdoor_write_dispatch_0_90": {
+      "primary_clause": "18.4.6.11",
+      "inputs_sha256": "a1ea3c6fcddafad2ebaf14df8393d55736638ab3512e15001298b97f58a0cc88"
+    },
+    "u18/test_reg_backdoor_write_dispatch_1_90": {
+      "primary_clause": "18.4.6.11",
+      "inputs_sha256": "a59551a468dd176c42fd39f40d7d1a107de06bd39ea8ffeda5cef4d783995324"
+    },
+    "u18/test_reg_backdoor_watch_dispatch_0_90": {
+      "primary_clause": "18.4.6.12",
+      "inputs_sha256": "511a2ed4896eda60d0a96a3c9da0a4c683addb2d4aaa33e3330ac1baefbefd6f"
+    },
+    "u18/test_reg_backdoor_watch_dispatch_1_90": {
+      "primary_clause": "18.4.6.12",
+      "inputs_sha256": "d7ee327667b4d3f7e56205381644ad1eeb3a17742ab029fd27927476617d4128"
     }
   }
 }

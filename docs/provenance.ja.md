@@ -211,6 +211,10 @@ enum／manager期待は提供IEEE F.2.1.7、F.2.7、10.7.2.3.1、18.12の型／�
 callback期待列は独立に作り、既存agent 2入力は本体と実測同一性を保持して新linkだけを加えます。MAM helperだけへ保持端点snapshotを追加し、元の期待行を変えずに影響10入力を新たに測定します。
 別rand-field入力は反対値からの変更を制約し、履歴／locality解釈と証拠の限界は[enum／allocationのFAQ](faq.ja.md#列挙型の効果とallocationの選好)で説明しています。
 
+managerと印刷backdoorの期待値は提供IEEE本文から独立に導きます。独自policy helperは標準の基底randomization hookを呼び、以前の構文／observer版は期待行を変えず修正・新規測定して除外します。
+ignoredのplain-class診断ではMAM requestなしで失敗randomizationのpost-hook増加を観測しますが、空UTのharnessから動作のpassを主張しません。
+独自backdoor本体は宣言／dispatchのcontrolで実装algorithmではなく、限定した説明と証拠の境界は[manager文脈のFAQ](faq.ja.md#manager-policyの文脈と印刷backdoor-task)にあります。シミュレータ実装sourceや商用出力をoracleに使いません。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

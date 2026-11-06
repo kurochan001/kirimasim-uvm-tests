@@ -1,0 +1,3 @@
+UT: region90 mam_region_live_descriptors_0 identity 1 descriptors 1 virtual 1
+UT: region90 release_preserves 1 available_again 1 peer 1
+UT: region90 cleanup 1 peer 1

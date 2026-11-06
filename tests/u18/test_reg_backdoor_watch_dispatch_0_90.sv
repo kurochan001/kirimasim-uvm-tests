@@ -1,0 +1,29 @@
+/*
+:name: test_reg_backdoor_watch_dispatch_0_90
+:description: reg backdoor watch dispatch 0 checks independently derived manager or printed backdoor contracts
+:tags: u18 uvm
+:type: simulation
+:lrm: 1800.2-2020 18.4.6.12 18.4.1 1800-2023 6.21 8.20 9.2 9.4
+:uvm: 2020.3.1
+:files: helpers90_watch/watch_fixture90.svh
+:incdirs: helpers90_watch
+:oracle: spec verilator@5.052
+:spec_check: ai
+:fourstate: no
+:nondeterministic: no
+:expected_exit: 0
+:expected_stdout: @test_reg_backdoor_watch_dispatch_0_90.expected
+*/
+// Original override waits on testbench HDL variables through the printed base
+// task. Its body is setup; no default watch algorithm or complete change-
+// monitoring behavior is certified.
+module test_reg_backdoor_watch_dispatch_0_90;
+  timeunit 1ns;
+  timeprecision 1ps;
+  import uvm_pkg::*;
+  localparam int MODE=0;
+  localparam int LAYOUT=0;
+  localparam string CASE_NAME="reg_backdoor_watch_dispatch_0";
+  `include "watch_fixture90.svh"
+  initial begin #5000; $fatal(1,"manager/backdoor90 watchdog"); end
+endmodule

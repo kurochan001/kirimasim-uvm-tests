@@ -324,6 +324,17 @@ ten affected inputs are freshly measured without changing expected rows.
 Separate rand-field sources constrain opposite-value changes; [the enum/allocation FAQ](faq.md#enum-effects-and-allocation-preferences)
 records interpretation and evidence limits.
 
+Manager and printed-backdoor expectations are independently derived from
+the supplied IEEE texts. Original policy helpers use standard superclass
+randomization hooks; earlier syntax/observer versions are excluded after
+correction and fresh measurement without changing expected rows. An ignored
+plain-class diagnostic observes failed-randomization post-hook advancement
+without needing a MAM request. Its empty-UT harness supplies no behavioral-pass
+claim. Original backdoor bodies provide declaration/dispatch controls, not
+implementation algorithms; [the manager-context FAQ](faq.md#manager-policy-context-and-printed-backdoor-tasks)
+records the qualified description and evidence limits. No simulator
+implementation source or commercial output supplies an oracle.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

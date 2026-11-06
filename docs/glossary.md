@@ -1668,3 +1668,15 @@ the same modeled words when a partial write may read through either route.
 
 **Opposite-value randomization witness** — Preassigning the opposite value and requiring a successful constrained change, with an untouched peer.
 [Q341](faq.md#q341-how-do-the-random-field-inputs-differ-from-assignment-checks) limits this evidence to the selected rand fields.
+
+## Manager context and live-region descriptions
+
+**Selected allocation policy** — The explicit request argument or current default_alloc object that chooses the region start; [Q342](faq.md#q342-do-policy-callback-counts-establish-a-retry-algorithm) explains the callback observations without an exact retry rule.
+
+**Pre-randomization context** — The selected policy's location count, configured minimum/maximum and unordered already-allocated handles before solving; [the fixture guide](testing.md#example) explains the original observers and independent peer.
+
+**Occupied-state description comparison** — A qualified check that selected nonempty descriptions change when allocated spans change, without prescribing their text; [Q343](faq.md#q343-how-can-a-description-be-checked-without-fixing-its-format) explains why this is partial evidence.
+
+**Live-region descriptor** — A manager-produced handle describing a currently allocated span; [Q344](faq.md#q344-must-re-reserving-a-released-range-create-a-new-object) distinguishes simultaneous independence from object reuse after release.
+
+**Printed register backdoor task** — The standard's base virtual write/watch interface exercised through an original override; [Q345](faq.md#q345-do-custom-register-backdoor-tasks-prove-default-dpi-or-watch-support) separates declaration/dispatch from default implementation behavior.
