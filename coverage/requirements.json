@@ -148313,6 +148313,611 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-PKG-ACTIVE-PASSIVE-DESIGNATORS-89",
+      "clause": "F.2.1.7",
+      "statement": {
+        "en": "The active/passive enum supplies the named activity designators used by typed agent configuration and status.",
+        "ja": "active／passive enumは型付きagent設定と状態で使う名前付きactivityの識別子を供給する。"
+      },
+      "conditions": {
+        "en": "Reuse unchanged already-measured tests that explicitly cite F.2.1.7. One configures two independent agents using the enum type and opposite named values;the other observes active defaults in independent agents. Current source fingerprints and the pinned ordinary configuration remain compatible.",
+        "ja": "F.2.1.7を明示引用する未変更・実測済みテストを再利用する。一方はenum型と反対の名前付き値で独立agent 2つを設定し、他方は独立agentのactive既定状態を観測する。現行source指紋と固定の通常実行条件は互換である。"
+      },
+      "expected": {
+        "en": "The typed passive/active selections and separate active defaults retain their selected enum status.",
+        "ja": "型付きのpassive／active選択と別のactive既定値が、選択したenum状態を保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. No numeric encoding,driver/monitor construction,all agent behavior or new execution is inferred from the new link. A primary-focus count is not added for the annex by changing a ledger link.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 数値encoding、driver／monitor構築、全agent動作、新しい実行を新linkから推論しない。台帳linkの追加だけで付録の主引用件数を増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_agent_activity_uses_independent_enum_configuration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_passive 1 second_active 1"
+          ]
+        },
+        {
+          "test": "u13/test_agent_activity_defaults_to_active_for_independent_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: active 1 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-APPREPEND-APPEND-89",
+      "clause": "F.2.7",
+      "statement": {
+        "en": "UVM_APPEND places the new item at the back of the selected order-dependent sequence.",
+        "ja": "UVM_APPENDは選択した順序依存列の後ろへ新itemを置く。"
+      },
+      "conditions": {
+        "en": "Two independent source inputs use the actual registered enabled-callback dispatcher. Five typed insertions alternate append/prepend from opposite first modes; each exact dispatch trace is observed. An independent empty peer receives no instance callbacks. Expected traces are independently constructed from the enum front/back meaning before execution.",
+        "ja": "独立source 2入力で、登録済み有効callbackの実dispatcherを使う。反対の最初のmodeから型付き挿入5回でappend／prependを交互に行い、毎回の正確なdispatch列を観測する。独立した空peerへinstance callbackは届かない。期待列は実行前にenumの前／後の意味から独立に作る。"
+      },
+      "expected": {
+        "en": "Append adds the new callback after the existing sequence;prepend adds it before that sequence,without changing the empty peer or fixing numeric enum encodings.",
+        "ja": "appendは既存列の後、prependは既存列の前に新callbackを加え、空peerを変えずenum数値encodingも固定しない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. Instance-only enabled callbacks;no typewide/mixed-type,disable/delete/re-add,concurrent registration,all APIs or universal scheduling order is certified.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 instance単位の有効callbackだけを扱い、typewide／混合型、無効化／削除／再追加、並行登録、全API、普遍的なscheduler順序を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_apprepend_mixed_first_append_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: app89 pkg_apprepend_mixed_first_append step 0 10",
+            "UT: app89 pkg_apprepend_mixed_first_append step 1 11 10",
+            "UT: app89 pkg_apprepend_mixed_first_append step 2 11 10 12",
+            "UT: app89 pkg_apprepend_mixed_first_append step 3 13 11 10 12",
+            "UT: app89 pkg_apprepend_mixed_first_append step 4 13 11 10 12 14",
+            "UT: app89 peer 1 literals 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_apprepend_mixed_first_prepend_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: app89 pkg_apprepend_mixed_first_prepend step 0 10",
+            "UT: app89 pkg_apprepend_mixed_first_prepend step 1 10 11",
+            "UT: app89 pkg_apprepend_mixed_first_prepend step 2 12 10 11",
+            "UT: app89 pkg_apprepend_mixed_first_prepend step 3 12 10 11 13",
+            "UT: app89 pkg_apprepend_mixed_first_prepend step 4 14 12 10 11 13",
+            "UT: app89 peer 1 literals 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-APPREPEND-PREPEND-89",
+      "clause": "F.2.7",
+      "statement": {
+        "en": "UVM_PREPEND places the new item at the front of the selected order-dependent sequence.",
+        "ja": "UVM_PREPENDは選択した順序依存列の前へ新itemを置く。"
+      },
+      "conditions": {
+        "en": "Two independent source inputs use the actual registered enabled-callback dispatcher. Five typed insertions alternate append/prepend from opposite first modes; each exact dispatch trace is observed. An independent empty peer receives no instance callbacks. Expected traces are independently constructed from the enum front/back meaning before execution.",
+        "ja": "独立source 2入力で、登録済み有効callbackの実dispatcherを使う。反対の最初のmodeから型付き挿入5回でappend／prependを交互に行い、毎回の正確なdispatch列を観測する。独立した空peerへinstance callbackは届かない。期待列は実行前にenumの前／後の意味から独立に作る。"
+      },
+      "expected": {
+        "en": "Append adds the new callback after the existing sequence;prepend adds it before that sequence,without changing the empty peer or fixing numeric enum encodings.",
+        "ja": "appendは既存列の後、prependは既存列の前に新callbackを加え、空peerを変えずenum数値encodingも固定しない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. Instance-only enabled callbacks;no typewide/mixed-type,disable/delete/re-add,concurrent registration,all APIs or universal scheduling order is certified.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 instance単位の有効callbackだけを扱い、typewide／混合型、無効化／削除／再追加、並行登録、全API、普遍的なscheduler順序を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_apprepend_mixed_first_append_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: app89 pkg_apprepend_mixed_first_append step 0 10",
+            "UT: app89 pkg_apprepend_mixed_first_append step 1 11 10",
+            "UT: app89 pkg_apprepend_mixed_first_append step 2 11 10 12",
+            "UT: app89 pkg_apprepend_mixed_first_append step 3 13 11 10 12",
+            "UT: app89 pkg_apprepend_mixed_first_append step 4 13 11 10 12 14",
+            "UT: app89 peer 1 literals 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_apprepend_mixed_first_prepend_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: app89 pkg_apprepend_mixed_first_prepend step 0 10",
+            "UT: app89 pkg_apprepend_mixed_first_prepend step 1 10 11",
+            "UT: app89 pkg_apprepend_mixed_first_prepend step 2 12 10 11",
+            "UT: app89 pkg_apprepend_mixed_first_prepend step 3 12 10 11 13",
+            "UT: app89 pkg_apprepend_mixed_first_prepend step 4 14 12 10 11 13",
+            "UT: app89 peer 1 literals 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-ALLOC-MODE-DESIGNATORS-89",
+      "clause": "18.12.2.1",
+      "statement": {
+        "en": "The allocation-mode type supplies GREEDY and THRIFTY as distinct named selections.",
+        "ja": "allocation-mode型は異なる名前付き選択GREEDYとTHRIFTYを供給する。"
+      },
+      "conditions": {
+        "en": "Two configuration instances use typed allocation/locality fields and opposite GREEDY/BROAD versus THRIFTY/NEARBY starting pairs. Compatible reconfiguration keeps bounds and one-byte locations unchanged,returns previous/current handles and preserves the peer and the exact active-region endpoints. No mode/locality behavior is inferred from readback alone.",
+        "ja": "configuration 2instanceで型付きallocation／locality fieldを使い、GREEDY／BROADとTHRIFTY／NEARBYを反対の初期pairにする。互換reconfigureは境界と1-byte locationを変えず、以前／現在のhandleを返し、peerと有効regionの正確な端点を保持する。readbackだけでmode／localityの動作を推論しない。"
+      },
+      "expected": {
+        "en": "Both enum pairs are distinct named designators;typed selected/replaced values and original/peer configuration identities match,with the existing region unchanged.",
+        "ja": "両enum pairは異なる名前付き識別子であり、型付き選択／置換値、元／peer configurationの同一性、有効regionの不変が一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. No numeric enum encoding,randomized configuration distribution,all reconfiguration constraints or allocator algorithm is proved by this declaration/state observation.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 この宣言／状態観測でenum数値encoding、configuration乱数分布、全reconfigure制約、allocator algorithmを証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_cfg_modes_forward_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_cfg_modes_forward initial 1 previous 1 current 1 peer 1",
+            "UT: mam89 mode 1 locality 1 literals 1 region 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_cfg_modes_reverse_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_cfg_modes_reverse initial 1 previous 1 current 1 peer 1",
+            "UT: mam89 mode 1 locality 1 literals 1 region 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-LOCALITY-DESIGNATORS-89",
+      "clause": "18.12.2.2",
+      "statement": {
+        "en": "The locality type supplies BROAD and NEARBY as distinct named selections.",
+        "ja": "locality型は異なる名前付き選択BROADとNEARBYを供給する。"
+      },
+      "conditions": {
+        "en": "Two configuration instances use typed allocation/locality fields and opposite GREEDY/BROAD versus THRIFTY/NEARBY starting pairs. Compatible reconfiguration keeps bounds and one-byte locations unchanged,returns previous/current handles and preserves the peer and the exact active-region endpoints. No mode/locality behavior is inferred from readback alone.",
+        "ja": "configuration 2instanceで型付きallocation／locality fieldを使い、GREEDY／BROADとTHRIFTY／NEARBYを反対の初期pairにする。互換reconfigureは境界と1-byte locationを変えず、以前／現在のhandleを返し、peerと有効regionの正確な端点を保持する。readbackだけでmode／localityの動作を推論しない。"
+      },
+      "expected": {
+        "en": "Both enum pairs are distinct named designators;typed selected/replaced values and original/peer configuration identities match,with the existing region unchanged.",
+        "ja": "両enum pairは異なる名前付き識別子であり、型付き選択／置換値、元／peer configurationの同一性、有効regionの不変が一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. No numeric enum encoding,randomized configuration distribution,all reconfiguration constraints or allocator algorithm is proved by this declaration/state observation.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 この宣言／状態観測でenum数値encoding、configuration乱数分布、全reconfigure制約、allocator algorithmを証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_cfg_modes_forward_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_cfg_modes_forward initial 1 previous 1 current 1 peer 1",
+            "UT: mam89 mode 1 locality 1 literals 1 region 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_cfg_modes_reverse_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_cfg_modes_reverse initial 1 previous 1 current 1 peer 1",
+            "UT: mam89 mode 1 locality 1 literals 1 region 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-CONFIG-MODE-89",
+      "clause": "18.12.9.2.4",
+      "statement": {
+        "en": "The configuration mode field retains and replaces the selected typed allocation mode independently of its peer.",
+        "ja": "configurationのmode fieldはpeerと独立に、選択した型付きallocation modeを保持・置換する。"
+      },
+      "conditions": {
+        "en": "Two configuration instances use typed allocation/locality fields and opposite GREEDY/BROAD versus THRIFTY/NEARBY starting pairs. Compatible reconfiguration keeps bounds and one-byte locations unchanged,returns previous/current handles and preserves the peer and the exact active-region endpoints. No mode/locality behavior is inferred from readback alone.",
+        "ja": "configuration 2instanceで型付きallocation／locality fieldを使い、GREEDY／BROADとTHRIFTY／NEARBYを反対の初期pairにする。互換reconfigureは境界と1-byte locationを変えず、以前／現在のhandleを返し、peerと有効regionの正確な端点を保持する。readbackだけでmode／localityの動作を推論しない。"
+      },
+      "expected": {
+        "en": "Both enum pairs are distinct named designators;typed selected/replaced values and original/peer configuration identities match,with the existing region unchanged.",
+        "ja": "両enum pairは異なる名前付き識別子であり、型付き選択／置換値、元／peer configurationの同一性、有効regionの不変が一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. No numeric enum encoding,randomized configuration distribution,all reconfiguration constraints or allocator algorithm is proved by this declaration/state observation.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 この宣言／状態観測でenum数値encoding、configuration乱数分布、全reconfigure制約、allocator algorithmを証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_cfg_modes_forward_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_cfg_modes_forward initial 1 previous 1 current 1 peer 1",
+            "UT: mam89 mode 1 locality 1 literals 1 region 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_cfg_modes_reverse_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_cfg_modes_reverse initial 1 previous 1 current 1 peer 1",
+            "UT: mam89 mode 1 locality 1 literals 1 region 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-CONFIG-LOCALITY-89",
+      "clause": "18.12.9.2.5",
+      "statement": {
+        "en": "The configuration locality field retains and replaces the selected typed region-locality mode independently of its peer.",
+        "ja": "configurationのlocality fieldはpeerと独立に、選択した型付きregion-locality modeを保持・置換する。"
+      },
+      "conditions": {
+        "en": "Two configuration instances use typed allocation/locality fields and opposite GREEDY/BROAD versus THRIFTY/NEARBY starting pairs. Compatible reconfiguration keeps bounds and one-byte locations unchanged,returns previous/current handles and preserves the peer and the exact active-region endpoints. No mode/locality behavior is inferred from readback alone.",
+        "ja": "configuration 2instanceで型付きallocation／locality fieldを使い、GREEDY／BROADとTHRIFTY／NEARBYを反対の初期pairにする。互換reconfigureは境界と1-byte locationを変えず、以前／現在のhandleを返し、peerと有効regionの正確な端点を保持する。readbackだけでmode／localityの動作を推論しない。"
+      },
+      "expected": {
+        "en": "Both enum pairs are distinct named designators;typed selected/replaced values and original/peer configuration identities match,with the existing region unchanged.",
+        "ja": "両enum pairは異なる名前付き識別子であり、型付き選択／置換値、元／peer configurationの同一性、有効regionの不変が一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. No numeric enum encoding,randomized configuration distribution,all reconfiguration constraints or allocator algorithm is proved by this declaration/state observation.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 この宣言／状態観測でenum数値encoding、configuration乱数分布、全reconfigure制約、allocator algorithmを証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_cfg_modes_forward_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_cfg_modes_forward initial 1 previous 1 current 1 peer 1",
+            "UT: mam89 mode 1 locality 1 literals 1 region 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_cfg_modes_reverse_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_cfg_modes_reverse initial 1 previous 1 current 1 peer 1",
+            "UT: mam89 mode 1 locality 1 literals 1 region 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-GREEDY-FRESH-89",
+      "clause": "18.12.2.1",
+      "statement": {
+        "en": "Under the historical fresh-space reading,GREEDY avoids the released block while never-before-reserved space is available.",
+        "ja": "歴史的な新規領域の解釈で、GREEDYは予約歴のない空間が利用できる間は解放済みblockを避ける。"
+      },
+      "conditions": {
+        "en": "Explicit historical interpretation. In each of eight fresh32-location one-byte managers,a live4-location region remains reserved while another low/high4-location region is reserved and released. A default-policy4-location request follows. The qualified GREEDY reading consumes never-before-reserved space when available;the THRIFTY reading maximizes reuse of the released block. Per-request bounds,width,disjointness,held-region endpoints/membership and cleanup are checked without private history state.",
+        "ja": "歴史的な意味を明示解釈する。1-byte location 32個の新managerを8回作り、有効な4-location regionを予約したまま、下位／上位の別4-location regionを予約・解放する。続いて既定policyで4-locationを要求する。限定したGREEDY解釈は利用可能なら予約歴のない領域を使い、THRIFTY解釈は解放blockの再利用を最大にする。各requestの境界、幅、非重複、保持regionの端点／所属、cleanupをprivate履歴なしに確認する。"
+      },
+      "expected": {
+        "en": "Every selected request is valid and meets its stated fresh/reuse preference while held regions remain unchanged and allocated until explicitly released.",
+        "ja": "選択した全requestが有効で記載した新規／再利用の選好を満たし、保持regionは明示解放まで変更されず割り当てられたままである。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. The temporal meaning of previously unallocated and reserve/release history are explicitly qualified,not an unconditional defect claim. Eight trials are individual observed requests,not statistical confidence,exhaustive randomization or exact position selection for GREEDY. Other histories,fragmentation,exhaustion,fallback,policy conflict,byte widths and concurrency remain open.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 previously unallocatedと予約／解放履歴の時間的な意味は明示的に限定し、無条件の欠陥を主張しない。8 trialは個別の観測requestで、統計的信頼度、乱数全域、GREEDYの正確な位置指定ではない。他の履歴、断片化、枯渇、fallback、policy衝突、byte幅、並行性は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_greedy_fresh_low_history_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_greedy_fresh_low_history trial 0 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_low_history trial 1 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_low_history trial 2 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_low_history trial 3 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_low_history trial 4 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_low_history trial 5 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_low_history trial 6 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_low_history trial 7 controls 1 valid 1 preference 1 held 1 cleanup 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_greedy_fresh_high_history_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_greedy_fresh_high_history trial 0 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_high_history trial 1 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_high_history trial 2 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_high_history trial 3 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_high_history trial 4 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_high_history trial 5 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_high_history trial 6 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_greedy_fresh_high_history trial 7 controls 1 valid 1 preference 1 held 1 cleanup 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-THRIFTY-REUSE-89",
+      "clause": "18.12.2.1",
+      "statement": {
+        "en": "THRIFTY reuses the unique released block when it provides the maximal possible reuse for the selected request.",
+        "ja": "THRIFTYは選択requestで最大の再利用となる一意の解放blockを再利用する。"
+      },
+      "conditions": {
+        "en": "Explicit historical interpretation. In each of eight fresh32-location one-byte managers,a live4-location region remains reserved while another low/high4-location region is reserved and released. A default-policy4-location request follows. The qualified GREEDY reading consumes never-before-reserved space when available;the THRIFTY reading maximizes reuse of the released block. Per-request bounds,width,disjointness,held-region endpoints/membership and cleanup are checked without private history state.",
+        "ja": "歴史的な意味を明示解釈する。1-byte location 32個の新managerを8回作り、有効な4-location regionを予約したまま、下位／上位の別4-location regionを予約・解放する。続いて既定policyで4-locationを要求する。限定したGREEDY解釈は利用可能なら予約歴のない領域を使い、THRIFTY解釈は解放blockの再利用を最大にする。各requestの境界、幅、非重複、保持regionの端点／所属、cleanupをprivate履歴なしに確認する。"
+      },
+      "expected": {
+        "en": "Every selected request is valid and meets its stated fresh/reuse preference while held regions remain unchanged and allocated until explicitly released.",
+        "ja": "選択した全requestが有効で記載した新規／再利用の選好を満たし、保持regionは明示解放まで変更されず割り当てられたままである。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. The temporal meaning of previously unallocated and reserve/release history are explicitly qualified,not an unconditional defect claim. Eight trials are individual observed requests,not statistical confidence,exhaustive randomization or exact position selection for GREEDY. Other histories,fragmentation,exhaustion,fallback,policy conflict,byte widths and concurrency remain open.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 previously unallocatedと予約／解放履歴の時間的な意味は明示的に限定し、無条件の欠陥を主張しない。8 trialは個別の観測requestで、統計的信頼度、乱数全域、GREEDYの正確な位置指定ではない。他の履歴、断片化、枯渇、fallback、policy衝突、byte幅、並行性は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_thrifty_reuse_low_history_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_thrifty_reuse_low_history trial 0 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_low_history trial 1 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_low_history trial 2 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_low_history trial 3 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_low_history trial 4 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_low_history trial 5 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_low_history trial 6 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_low_history trial 7 controls 1 valid 1 preference 1 held 1 cleanup 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_thrifty_reuse_high_history_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_thrifty_reuse_high_history trial 0 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_high_history trial 1 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_high_history trial 2 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_high_history trial 3 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_high_history trial 4 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_high_history trial 5 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_high_history trial 6 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_thrifty_reuse_high_history trial 7 controls 1 valid 1 preference 1 held 1 cleanup 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-NEARBY-ADJACENCY-89",
+      "clause": "18.12.2.2",
+      "statement": {
+        "en": "NEARBY places the selected region adjacent to an existing region when a valid adjacent region is available.",
+        "ja": "NEARBYは有効な隣接領域がある場合、選択regionを既存regionに隣接して配置する。"
+      },
+      "conditions": {
+        "en": "Eight fresh managers per source use32 one-byte locations. NEARBY has one/two live4-location regions and available adjacent4-location candidates. BROAD has live edge regions and an original explicit policy constraining one of two nonadjacent interior starts. Actual descriptors,range,width,nonoverlap,held endpoints/membership and cleanup are observed.",
+        "ja": "sourceごとに1-byte location 32個の新managerを8回使う。NEARBYには1／2個の有効な4-location regionと隣接候補があり、BROADには有効な端のregionと、非隣接の内部位置2つの一方を制約する独自明示policyがある。実descriptor、範囲、幅、非重複、保持端点／所属、cleanupを観測する。"
+      },
+      "expected": {
+        "en": "The selected adjacency/interior predicate and all independent validity/preservation/cleanup controls match.",
+        "ja": "選択した隣接／内部predicateと、独立した有効性／保持／cleanupの全controlが一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. Either side or any eligible neighbor is accepted for NEARBY. BROAD demonstrates selected explicit nonadjacent-policy support,not sampling distribution or a promise that unconstrained draws visit specific positions. Precedence against conflicting policies,other layouts,full locality semantics and all allocator applicability remain open.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 NEARBYではどちら側／どの適格な隣接先も許す。BROADは選択した明示非隣接policyの受理を示すだけで、分布や非制約乱数が特定位置を訪れる保証ではない。衝突policyとの優先度、他配置、locality全意味、全allocator適用条件は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_nearby_one_existing_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_nearby_one_existing trial 0 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_one_existing trial 1 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_one_existing trial 2 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_one_existing trial 3 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_one_existing trial 4 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_one_existing trial 5 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_one_existing trial 6 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_one_existing trial 7 controls 1 valid 1 preference 1 held 1 cleanup 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_nearby_two_existing_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_nearby_two_existing trial 0 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_two_existing trial 1 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_two_existing trial 2 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_two_existing trial 3 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_two_existing trial 4 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_two_existing trial 5 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_two_existing trial 6 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_nearby_two_existing trial 7 controls 1 valid 1 preference 1 held 1 cleanup 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-BROAD-INTERIOR-POLICY-89",
+      "clause": "18.12.2.2",
+      "statement": {
+        "en": "BROAD permits a valid explicit allocation policy to choose a nonadjacent interior location.",
+        "ja": "BROADは有効な明示allocation policyによる非隣接の内部位置選択を許す。"
+      },
+      "conditions": {
+        "en": "Eight fresh managers per source use32 one-byte locations. NEARBY has one/two live4-location regions and available adjacent4-location candidates. BROAD has live edge regions and an original explicit policy constraining one of two nonadjacent interior starts. Actual descriptors,range,width,nonoverlap,held endpoints/membership and cleanup are observed.",
+        "ja": "sourceごとに1-byte location 32個の新managerを8回使う。NEARBYには1／2個の有効な4-location regionと隣接候補があり、BROADには有効な端のregionと、非隣接の内部位置2つの一方を制約する独自明示policyがある。実descriptor、範囲、幅、非重複、保持端点／所属、cleanupを観測する。"
+      },
+      "expected": {
+        "en": "The selected adjacency/interior predicate and all independent validity/preservation/cleanup controls match.",
+        "ja": "選択した隣接／内部predicateと、独立した有効性／保持／cleanupの全controlが一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Aggregate expected rows do not assign an independently measured status to every duty. No pass for another condition resolves an original differing input,an interpretation,all applicability or an independent defect count. Human review,scope/denominator approval and original milestone targets remain open. The expectation is independently derived from the supplied standard,not implementation source or commercial output. Either side or any eligible neighbor is accepted for NEARBY. BROAD demonstrates selected explicit nonadjacent-policy support,not sampling distribution or a promise that unconstrained draws visit specific positions. Precedence against conflicting policies,other layouts,full locality semantics and all allocator applicability remain open.",
+        "ja": "AIによる部分分解のみ。集約期待行は義務ごとの実測statusを独立には割り当てない。他条件のpassで元の差分入力、解釈、全適用条件、独立欠陥件数を解決しない。人の照合、範囲／分母承認、元の段階目標は未完。期待は提供規格から独立に導き、実装sourceや商用出力から導かない。 NEARBYではどちら側／どの適格な隣接先も許す。BROADは選択した明示非隣接policyの受理を示すだけで、分布や非制約乱数が特定位置を訪れる保証ではない。衝突policyとの優先度、他配置、locality全意味、全allocator適用条件は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_broad_explicit_interior_low_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_broad_explicit_interior_low trial 0 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_low trial 1 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_low trial 2 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_low trial 3 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_low trial 4 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_low trial 5 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_low trial 6 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_low trial 7 controls 1 valid 1 preference 1 held 1 cleanup 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_broad_explicit_interior_high_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mam89 mam_broad_explicit_interior_high trial 0 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_high trial 1 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_high trial 2 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_high trial 3 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_high trial 4 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_high trial 5 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_high trial 6 controls 1 valid 1 preference 1 held 1 cleanup 1",
+            "UT: mam89 mam_broad_explicit_interior_high trial 7 controls 1 valid 1 preference 1 held 1 cleanup 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-CONFIG-MODE-RAND-89",
+      "clause": "18.12.9.2.4",
+      "statement": {
+        "en": "The configuration mode field participates in randomization and can change from the opposite named enum value under a consistent constraint.",
+        "ja": "configurationのmode fieldはrandomizationに参加し、整合した制約の下で反対の名前付きenum値から変更できる。"
+      },
+      "conditions": {
+        "en": "Two transitions initialize the selected field to the opposite value before object.randomize() constrains it to the desired named literal. Other configuration fields are constrained to a consistent1-byte32-location range. An independent peer is never randomized. These are separate source inputs from assignment/reconfigure readback.",
+        "ja": "2つの遷移で選択fieldを反対値に初期化してからobject.randomize()で目的の名前付きliteralへ制約する。他のconfiguration fieldは整合する1-byte・32-location範囲に制約し、独立peerはrandomizeしない。明示代入／reconfigureのreadbackとは別source入力。"
+      },
+      "expected": {
+        "en": "Each initial opposite predicate,randomize success,selected literal/range and untouched peer predicate holds.",
+        "ja": "各初期反対値、randomize成功、選択literal／範囲、不変peerのpredicateが成立する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition. No numeric enum encoding,sampling distribution,randomness of other fields,allocation effect,all constraints or all seed coverage is inferred. A passing assignment/reconfigure test cannot replace this random-field obligation. No human review,scope/denominatorapproval,implementation-derived oracle or commercial result.",
+        "ja": "AIによる部分分解。enum数値encoding、分布、他fieldの乱数性、allocation効果、全制約、全seed coverageを推論しない。代入／reconfigure検査のpassはこのrand-field義務を置換しない。人の照合、範囲／分母承認、実装由来oracle、商用結果はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_cfg_rand_mode_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cfg_rand89 mam_cfg_rand_mode transition 0 opposite 1 accepted 1 selected 1 peer 1",
+            "UT: cfg_rand89 mam_cfg_rand_mode transition 1 opposite 1 accepted 1 selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-CONFIG-LOCALITY-RAND-89",
+      "clause": "18.12.9.2.5",
+      "statement": {
+        "en": "The configuration locality field participates in randomization and can change from the opposite named enum value under a consistent constraint.",
+        "ja": "configurationのlocality fieldはrandomizationに参加し、整合した制約の下で反対の名前付きenum値から変更できる。"
+      },
+      "conditions": {
+        "en": "Two transitions initialize the selected field to the opposite value before object.randomize() constrains it to the desired named literal. Other configuration fields are constrained to a consistent1-byte32-location range. An independent peer is never randomized. These are separate source inputs from assignment/reconfigure readback.",
+        "ja": "2つの遷移で選択fieldを反対値に初期化してからobject.randomize()で目的の名前付きliteralへ制約する。他のconfiguration fieldは整合する1-byte・32-location範囲に制約し、独立peerはrandomizeしない。明示代入／reconfigureのreadbackとは別source入力。"
+      },
+      "expected": {
+        "en": "Each initial opposite predicate,randomize success,selected literal/range and untouched peer predicate holds.",
+        "ja": "各初期反対値、randomize成功、選択literal／範囲、不変peerのpredicateが成立する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition. No numeric enum encoding,sampling distribution,randomness of other fields,allocation effect,all constraints or all seed coverage is inferred. A passing assignment/reconfigure test cannot replace this random-field obligation. No human review,scope/denominatorapproval,implementation-derived oracle or commercial result.",
+        "ja": "AIによる部分分解。enum数値encoding、分布、他fieldの乱数性、allocation効果、全制約、全seed coverageを推論しない。代入／reconfigure検査のpassはこのrand-field義務を置換しない。人の照合、範囲／分母承認、実装由来oracle、商用結果はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_cfg_rand_locality_89",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cfg_rand89 mam_cfg_rand_locality transition 0 opposite 1 accepted 1 selected 1 peer 1",
+            "UT: cfg_rand89 mam_cfg_rand_locality transition 1 opposite 1 accepted 1 selected 1 peer 1"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -9825,6 +9825,62 @@
     "u19/test_predictor_check_registered_pending_big_2_registers_88": {
       "primary_clause": "19.3.3.3",
       "inputs_sha256": "89f816bbe0d54fbc33093e2118cca79c66a8471fb56bc10a35535394a174ed41"
+    },
+    "uF/test_pkg_apprepend_mixed_first_append_89": {
+      "primary_clause": "F.2.7",
+      "inputs_sha256": "4d8c256a41fb8fe0b9f4b902d46d37aa416773c445cfbec0520f80736cd28a84"
+    },
+    "uF/test_pkg_apprepend_mixed_first_prepend_89": {
+      "primary_clause": "F.2.7",
+      "inputs_sha256": "ade462d6eb0b774841c972cf8d0c67ed2bae6b306bade1f672f567567bbe85e2"
+    },
+    "u18/test_mam_cfg_modes_forward_89": {
+      "primary_clause": "18.12.9.2.4",
+      "inputs_sha256": "ba897aedaa111beea1196d4797fc0488fb5747a504aab1e3477a455cc39f914a"
+    },
+    "u18/test_mam_cfg_modes_reverse_89": {
+      "primary_clause": "18.12.9.2.5",
+      "inputs_sha256": "d0075e25e8ff924e7c0dfb4360b5bfd0612a989c8b198ab7b7d271fd6f55c6f5"
+    },
+    "u18/test_mam_greedy_fresh_low_history_89": {
+      "primary_clause": "18.12.2.1",
+      "inputs_sha256": "85b0f398baa36de33707dcab84720e63f4069e8e4a0639fe2f63a654521a5478"
+    },
+    "u18/test_mam_greedy_fresh_high_history_89": {
+      "primary_clause": "18.12.2.1",
+      "inputs_sha256": "0a6cea40a39d582fc3481bb672a6e4988dd04e783371567f41e4889f237e2b3c"
+    },
+    "u18/test_mam_thrifty_reuse_low_history_89": {
+      "primary_clause": "18.12.2.1",
+      "inputs_sha256": "c0b659dbb8a9839bd115d46bcd406d4dd468e246186c35207c74184c4373e507"
+    },
+    "u18/test_mam_thrifty_reuse_high_history_89": {
+      "primary_clause": "18.12.2.1",
+      "inputs_sha256": "16f33ab670a6e66cb514b2e783c1cd8a3dc00d18bc44584169da64575d063bdc"
+    },
+    "u18/test_mam_nearby_one_existing_89": {
+      "primary_clause": "18.12.2.2",
+      "inputs_sha256": "abaf6e9360e10c88821798ec1bc4139b8831f7ecfe79c5f3bcb7e9f9bc73a93b"
+    },
+    "u18/test_mam_nearby_two_existing_89": {
+      "primary_clause": "18.12.2.2",
+      "inputs_sha256": "a85beff436a88db4acc317f84a9732fad62f5a5b79988d60d37eccc8994fbd6b"
+    },
+    "u18/test_mam_broad_explicit_interior_low_89": {
+      "primary_clause": "18.12.2.2",
+      "inputs_sha256": "041babc7fd6ddd3f4e1780822b77b3ade9ded65918c248d3c5539a63f9ecc3e2"
+    },
+    "u18/test_mam_broad_explicit_interior_high_89": {
+      "primary_clause": "18.12.2.2",
+      "inputs_sha256": "cc03920aa3ec81a9b96408265ad43b11e9ce5e85daee1b88ebc86fc0ff899cfe"
+    },
+    "u18/test_mam_cfg_rand_mode_89": {
+      "primary_clause": "18.12.9.2.4",
+      "inputs_sha256": "f44fbc8f91871f94b2232f04e5948f027ae00e6d5b21d52627c253b16354df9d"
+    },
+    "u18/test_mam_cfg_rand_locality_89": {
+      "primary_clause": "18.12.9.2.5",
+      "inputs_sha256": "89ca22f81c8b3e365bd0a6a45cdf205508541f24f60bcb26a01b589ad7575936"
     }
   }
 }

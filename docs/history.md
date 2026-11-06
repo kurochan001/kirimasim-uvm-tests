@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighty-eight cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2456 tests: 2357 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and eighty-nine cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2470 tests: 2371 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5187,3 +5187,55 @@ Totals are 2456 (2357 simulation/99 elaboration): M1 1032 (951/81), M2 568
 and 390 known (260 runtime/125 build/5 illegal acceptance). Goal iteration 60
 reduces unassessed from 73 to 68,a decrease of 1395 from activation count 1463.
 Partial duties and original targets remain unproven;the goal stays active.
+
+## Eighty-ninth thin-area expansion: enum effects and MAM preferences
+
+Fourteen new runtime inputs add two M1 callback-order cases and twelve M3
+manager/configuration cases. Nine match seeds 1/73. Five retain seed-1 exit-0
+preference differences without seed 73: GREEDY with high released history,
+THRIFTY with low/high history, and NEARBY with one/two live regions.
+Bounds, width, disjointness, held endpoints/membership and cleanup observations
+match in those differing inputs; another condition's pass does not pass them.
+[The enum/allocation FAQ](faq.md#enum-effects-and-allocation-preferences) explains the distinct premises.
+
+Actual enabled callback dispatch observes five alternating typed append/prepend
+insertions from either first mode and an independent empty peer. The unchanged
+typed/default agent tests already cite F.2.1.7 and retain compatible measured
+records; adding their new requirement link is neither new execution nor a new
+primary-focus count. No numeric enum encoding or full agent behavior is inferred.
+
+Manager configuration cycles observe typed modes/locality, previous/current
+handles, an independent peer and an existing region. Separate random-field
+inputs initialize the selected field to its opposite value, then constrain
+object randomization to change it. Readback alone does not prove randomness or
+allocation preference. The historical fresh/reuse reading is qualified; each
+trial is one observed request, not a statistical guarantee. NEARBY permits either
+side/any eligible neighbor; BROAD checks selected explicit nonadjacent policies,
+not unconstrained sampling distribution.
+
+Before final selection, only the MAM helper gained pre-request held-endpoint
+snapshots. All twelve initial source-file bodies and expected files, plus two
+later random-field bodies/expectations, remain unchanged apart from measured
+tags. Earlier MAM input/log versions are archived and excluded; every changed
+input is freshly measured without relabeling fingerprints. Thirteen bilingual
+AI duties partially decompose six enum/configuration leaves, with no new
+classification. All 3960 earlier duties, 420 assessments and proposed scope
+retain their objects. Global state is 2025 partial/420 assessed/62 unassessed.
+Annex F is 102/23/12 with 233 duties and 151 primary tests (117 simulation/34
+elaboration); chapter 18 is 389/62/5 with 913 duties and 598 primary tests (595/3).
+All 3973 duties directly link 2426 tests; forty-four others are control-only and
+136 have control links.
+
+All 2456 prior ordinary, 99 compiler, 38 HDL, 18 command-line and 1082 compatible
+guest records retain their content. Nine proof-based tags have fresh final
+measurements. Guest unmeasured inputs are 1388: 1385 additions and three revised
+originals (1289 simulation/99 elaboration). There is no guest rerun/filter,
+runner/backend/tool/workflow change, implementation-derived oracle, commercial
+result, human review or scope/denominator approval. All partial applicability,
+qualified histories/locality readings and original milestone targets remain open.
+
+Totals are 2470 (2371 simulation/99 elaboration): M1 1034 (953/81), M2 568
+(561/7), M3 868 (857/11). Ordinary evidence is 2075 pass (1981 runtime/94 compiler)
+and 395 known (265 runtime/125 build/5 illegal acceptance). Goal iteration 61
+reduces unassessed from 68 to 62, a decrease of 1401 from activation count 1463.
+Partial duties and original targets remain unproven; the goal stays active.

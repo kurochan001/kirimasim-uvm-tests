@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の88回目の拡充（全2456件：simulation 2357・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の89回目の拡充（全2470件：simulation 2371・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3310,3 +3310,31 @@ guest未測定1374入力は追加1371件と修正した元入力3件（simulatio
 全2456件（simulation 2357／elaboration 99）、M1 1032（951／81）、M2 568（561／7）、M3 856（845／11）です。
 通常2066 pass（runtime 1972／compiler拒否94）、390 known（runtime 260／build 125／不正受理5）です。
 goal第60反復で未評価73から68へ減らし、開始時1463からの減少は1395です。部分義務と元の目標の完了は未立証でgoalを継続します。
+
+## 薄い領域の89回目の拡充：enumの効果とMAMの選好
+
+新規runtime 14入力はM1のcallback順序2件とM3のmanager／configuration 12件です。9件はseed 1／73に一致します。
+5件はexit 0のseed 1で選好の差分を保持し、seed 73結果はありません。上位の解放履歴を持つGREEDY、下位／上位履歴のTHRIFTY、有効region 1／2個のNEARBYです。
+これらの入力でも境界、幅、非重複、保持端点／所属、cleanupは一致し、他条件のpassで全入力をpassにしません。異なる前提は[enum／allocationのFAQ](faq.ja.md#列挙型の効果とallocationの選好)で説明しています。
+
+実際の有効callback dispatchは、どちらのmodeからも始める型付きappend／prependの交互挿入5回と独立した空peerを観測します。
+未変更の型付き／既定agentテストは既にF.2.1.7を引用し、互換な実測記録を保持します。新しい要求linkは新しい実行でも主引用件数の追加でもありません。enum数値encodingや全agent動作も推論しません。
+
+manager configurationのcycleは、型付きmode／locality、以前／現在のhandle、独立peer、有効regionを観測します。別のrand-field入力は選択fieldを反対値へ初期化してから、object randomizationで変更するよう制約します。
+readbackだけで乱数性やallocation選好を証明しません。新規／再利用の歴史的解釈は限定し、各trialは1つの観測requestで統計的保証ではありません。
+NEARBYはどちら側／どの適格な隣接先も許し、BROADは選択した明示非隣接policyを検査して非制約の分布を要求しません。
+
+最終選択前にMAM helperだけへrequest前の保持端点snapshotを追加しました。初期12 source本体と期待値、および後のrand-field 2本体／期待値は実測由来tag以外を変更していません。
+以前のMAM入力／logは保管して除外し、全変更入力を新たに測定して指紋を読み替えません。日英AI義務13件がenum／configurationの6 leafを部分分解し、新しい分類は追加しません。
+以前の3960義務、420分類、範囲案のobjectは保持します。全体は部分2025／分類420／未評価62です。
+付録Fは102／23／12、義務233件、主引用151テスト（simulation 117／elaboration 34）で、第18章は389／62／5、義務913件、主引用598テスト（595／3）です。
+全3973義務は2426テストへ直接対応し、他の44テストはcontrol専用、control linkあり136です。
+
+以前の通常2456記録、compiler 99記録、HDL 38記録、command-line 18記録、互換guest 1082記録は内容を保持します。実測由来tag 9件は最終入力を新たに測定しました。
+guest未測定1388入力は追加1385件と修正した元入力3件（simulation 1289／elaboration 99）です。
+新しいguest実行／filter、runner／backend／tool／workflow変更、実装由来oracle、商用結果、人の照合、範囲／分母承認はありません。
+全ての部分適用条件、限定した履歴／locality解釈、元の段階目標は未完です。
+
+全2470件（simulation 2371／elaboration 99）、M1 1034（953／81）、M2 568（561／7）、M3 868（857／11）です。
+通常2075 pass（runtime 1981／compiler拒否94）、395 known（runtime 265／build 125／不正受理5）です。
+goal第61反復で未評価68から62へ減らし、開始時1463からの減少は1401です。部分義務と元の目標の完了は未立証でgoalを継続します。

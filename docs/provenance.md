@@ -315,6 +315,15 @@ controls; all twelve initial bodies/expectations are retained, and tagged inputs
 are freshly measured. No simulator implementation or commercial result is used;
 see [the root/predictor FAQ](faq.md#root-completion-guards-and-predictor-checks).
 
+Enum/manager expectations are derived before execution from supplied IEEE
+F.2.1.7, F.2.7, 10.7.2.3.1 and 18.12 type/variable/allocation contracts, without
+implementation bodies or commercial results. Callback traces are independently
+constructed; two existing agent inputs retain bodies and measured identities
+while gaining links. Only the MAM helper gains held-endpoint snapshots, and all
+ten affected inputs are freshly measured without changing expected rows.
+Separate rand-field sources constrain opposite-value changes; [the enum/allocation FAQ](faq.md#enum-effects-and-allocation-preferences)
+records interpretation and evidence limits.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

@@ -10,6 +10,8 @@ its expected result.
 
 The main groups explain [expectations](#standards-and-expectations), [UVM components](#uvm-building-blocks), [transaction-level communication](#transaction-level-communication), [register models](#register-model), [execution records](#execution-and-result-records) and [coverage counts](#scope-and-coverage), so you can start with the terms used on the page you are reading.
 
+API names retain their source spelling for in-page searches, and [the FAQ topic guide](faq.md#find-an-explanation) leads from a term to fixture conditions and examples.
+
 ## Standards and expectations
 
 When an expected-output file does not explain a result by itself, [the metadata fields](testing.md#metadata) show whether a diagnostic or exit condition is also required.
@@ -1652,3 +1654,17 @@ the same modeled words when a partial write may read through either route.
 
 **Registered-packet check control** — A separately indexed predictor fixture with explicit factory registration and real bottom-up check-phase observation.
 [Q337](faq.md#q337-why-keep-bare-and-registered-packet-inputs-separate) separates this setup from a mandatory IEEE BUSTYPE constraint.
+
+## Enum designators, history and random-field observations
+
+**Enum designator / selected effect** — A named typed selection / its behavior in an actual API or algorithm.
+[Q338](faq.md#q338-do-enum-names-and-configuration-readback-prove-the-algorithm) distinguishes state from behavior and new links from new executions.
+
+**Historical fresh/reuse reading** — A qualified interpretation comparing never-reserved locations with an explicitly reserved/released block.
+[Q339](faq.md#q339-what-historical-meaning-is-used-for-greedy-and-thrifty) records the selected history and remaining review.
+
+**Permitted interior / sampling distribution** — Acceptance of a valid constrained location / frequencies of unconstrained choices.
+[Q340](faq.md#q340-does-a-broad-explicit-policy-match-establish-a-random-distribution) explains why these are separate observations.
+
+**Opposite-value randomization witness** — Preassigning the opposite value and requiring a successful constrained change, with an untouched peer.
+[Q341](faq.md#q341-how-do-the-random-field-inputs-differ-from-assignment-checks) limits this evidence to the selected rand fields.

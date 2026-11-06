@@ -1,0 +1,2 @@
+UT: cfg_rand89 mam_cfg_rand_mode transition 0 opposite 1 accepted 1 selected 1 peer 1
+UT: cfg_rand89 mam_cfg_rand_mode transition 1 opposite 1 accepted 1 selected 1 peer 1
