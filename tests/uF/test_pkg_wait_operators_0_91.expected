@@ -1,0 +1,7 @@
+UT: wait_ops91 pkg_wait_operators_0 eq predicate 1 immediate 1
+UT: wait_ops91 pkg_wait_operators_0 ne predicate 1 immediate 1
+UT: wait_ops91 pkg_wait_operators_0 lt predicate 1 immediate 1
+UT: wait_ops91 pkg_wait_operators_0 lte predicate 1 immediate 1
+UT: wait_ops91 pkg_wait_operators_0 gt predicate 1 immediate 1
+UT: wait_ops91 pkg_wait_operators_0 gte predicate 1 immediate 1
+UT: wait_ops91 unchanged 1 peer 1

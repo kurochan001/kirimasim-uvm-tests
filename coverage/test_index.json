@@ -9945,6 +9945,58 @@
     "u18/test_reg_backdoor_watch_dispatch_1_90": {
       "primary_clause": "18.4.6.12",
       "inputs_sha256": "d7ee327667b4d3f7e56205381644ad1eeb3a17742ab029fd27927476617d4128"
+    },
+    "uF/test_pkg_port_roles_0_91": {
+      "primary_clause": "F.2.3",
+      "inputs_sha256": "9c9e633b675f8f5ba40442add2648d9f847bc4a80a37a3ee2a36c8394a3f0f73"
+    },
+    "uF/test_pkg_port_roles_1_91": {
+      "primary_clause": "F.2.3",
+      "inputs_sha256": "3ccf01ea4f6d05afb4bb71126e9d48d323191c6337b470bae054d6198bed24e0"
+    },
+    "uF/test_pkg_phase_kinds_0_91": {
+      "primary_clause": "F.2.5.1",
+      "inputs_sha256": "13bb7b9e9db168ab856a37c2dd7d38cecdef7e9c70429f83d5471dd4a7200abe"
+    },
+    "uF/test_pkg_phase_kinds_1_91": {
+      "primary_clause": "F.2.5.1",
+      "inputs_sha256": "5c87553d9e71cb3af49a15ac8966ae493b93ad7c3ff3bad2a2cc3c3c38fd259d"
+    },
+    "uF/test_pkg_wait_operators_0_91": {
+      "primary_clause": "F.2.5.3",
+      "inputs_sha256": "cd1efd697411086bf4985c4fd5c149331bd9f930b3c18d21efc12ec1c2bf4b1c"
+    },
+    "uF/test_pkg_wait_operators_1_91": {
+      "primary_clause": "F.2.5.3",
+      "inputs_sha256": "779c656caba04eaa6763bb69d506112d674b3212434d88d35cee11eea86c8aa8"
+    },
+    "uF/test_pkg_objection_events_0_91": {
+      "primary_clause": "F.2.6",
+      "inputs_sha256": "824de2c6b578dfa7538f6f4303f76a51648fc4eeda6657325f35987c9ce60100"
+    },
+    "uF/test_pkg_objection_events_1_91": {
+      "primary_clause": "F.2.6",
+      "inputs_sha256": "a6f1e5e062664b5bb23cf7762381e1a563f190aa04e1e04d427737aa3a0ead67"
+    },
+    "uF/test_root_topology_policy_0_91": {
+      "primary_clause": "F.7.4.2",
+      "inputs_sha256": "15868a8897cea7828692472df85a45c01a4775f2c325ea42849d0a9365d83ae5"
+    },
+    "uF/test_root_topology_policy_1_91": {
+      "primary_clause": "F.7.4.2",
+      "inputs_sha256": "09734012b9cde9164dc141cc3eb9f923285a5c97f8f4a7ada13159fcf275621a"
+    },
+    "uF/test_root_topology_policy_2_91": {
+      "primary_clause": "F.7.4.2",
+      "inputs_sha256": "44af733e57b72db586925a919d37a6198c52c40f041dc621da0ed6f866b39b49"
+    },
+    "uF/test_pkg_phase_kinds_prescoped_0_91": {
+      "primary_clause": "F.2.5.1",
+      "inputs_sha256": "2dfb4505d5a45fb3957b814625035c646698b55ea537404a938e81299b2ed1a5"
+    },
+    "uF/test_pkg_phase_kinds_prescoped_1_91": {
+      "primary_clause": "F.2.5.1",
+      "inputs_sha256": "201b62d59a59968445fb4114e61077d3c33b8abcb34bd4652b4c65e377e428eb"
     }
   }
 }

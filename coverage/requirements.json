@@ -149799,6 +149799,997 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-PKG-PORT-ROLE-PORT-91",
+      "clause": "F.2.3",
+      "statement": {
+        "en": "UVM_PORT designates a port requiring its typed interface.",
+        "ja": "UVM_PORTは型付きinterfaceを要求するportを示す。"
+      },
+      "conditions": {
+        "en": "Two original inputs pass all three typed role designators to a concrete port-base constructor probe and inspect role predicates. Original empty connection-query bodies only complete that subtype. Actual analysis port/export/imp objects separately forward two ordered integer values through opposite selected child providers,with an untouched peer and resolved size checks.",
+        "ja": "独自2入力は型付きの3役割を具象port-base constructor probeへ渡し、役割predicateを調べる。独自の空接続query本体はsubtypeを具象化するだけである。別の実analysis port／export／impは反対の選択child providerへ整数2値を順に転送し、未変更peerと解決後sizeも調べる。"
+      },
+      "expected": {
+        "en": "The typed constructor selection reports only is_port and the actual analysis port delivers both values to its connected provider.",
+        "ja": "型付きconstructor選択はis_portだけを真とし、実analysis portが接続providerへ両値を配送する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric encoding,generic type-name text,dummy-query algorithm,all cardinality/topology conditions or every TLM protocol is certified. These inputs belong to M2 by their functional TLM subject while their primary clause places them in uF.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 数値encoding、汎用type-name文面、dummy query algorithm、全cardinality／topology条件、全TLM protocolは認定しない。機能対象がTLMのためM2に属し、主引用条項によってuFへ配置する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_port_roles_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ports91 pkg_port_roles_0 named_roles 1 real_roles 1",
+            "UT: ports91 forwarded 1 peer 1 resolved 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_port_roles_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ports91 pkg_port_roles_1 named_roles 1 real_roles 1",
+            "UT: ports91 forwarded 1 peer 1 resolved 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-PORT-ROLE-EXPORT-91",
+      "clause": "F.2.3",
+      "statement": {
+        "en": "UVM_EXPORT designates interface provision through a connected export or implementation.",
+        "ja": "UVM_EXPORTは接続したexport／implementationを通じたinterface供給を示す。"
+      },
+      "conditions": {
+        "en": "Two original inputs pass all three typed role designators to a concrete port-base constructor probe and inspect role predicates. Original empty connection-query bodies only complete that subtype. Actual analysis port/export/imp objects separately forward two ordered integer values through opposite selected child providers,with an untouched peer and resolved size checks.",
+        "ja": "独自2入力は型付きの3役割を具象port-base constructor probeへ渡し、役割predicateを調べる。独自の空接続query本体はsubtypeを具象化するだけである。別の実analysis port／export／impは反対の選択child providerへ整数2値を順に転送し、未変更peerと解決後sizeも調べる。"
+      },
+      "expected": {
+        "en": "The typed constructor selection reports only is_export and the actual export forwards both values to its child implementation.",
+        "ja": "型付きconstructor選択はis_exportだけを真とし、実exportがchild implementationへ両値を転送する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric encoding,generic type-name text,dummy-query algorithm,all cardinality/topology conditions or every TLM protocol is certified. These inputs belong to M2 by their functional TLM subject while their primary clause places them in uF.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 数値encoding、汎用type-name文面、dummy query algorithm、全cardinality／topology条件、全TLM protocolは認定しない。機能対象がTLMのためM2に属し、主引用条項によってuFへ配置する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_port_roles_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ports91 pkg_port_roles_0 named_roles 1 real_roles 1",
+            "UT: ports91 forwarded 1 peer 1 resolved 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_port_roles_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ports91 pkg_port_roles_1 named_roles 1 real_roles 1",
+            "UT: ports91 forwarded 1 peer 1 resolved 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-PORT-ROLE-IMPLEMENTATION-91",
+      "clause": "F.2.3",
+      "statement": {
+        "en": "UVM_IMPLEMENTATION designates an interface bound to its implementing component.",
+        "ja": "UVM_IMPLEMENTATIONは実装componentに束縛したinterfaceを示す。"
+      },
+      "conditions": {
+        "en": "Two original inputs pass all three typed role designators to a concrete port-base constructor probe and inspect role predicates. Original empty connection-query bodies only complete that subtype. Actual analysis port/export/imp objects separately forward two ordered integer values through opposite selected child providers,with an untouched peer and resolved size checks.",
+        "ja": "独自2入力は型付きの3役割を具象port-base constructor probeへ渡し、役割predicateを調べる。独自の空接続query本体はsubtypeを具象化するだけである。別の実analysis port／export／impは反対の選択child providerへ整数2値を順に転送し、未変更peerと解決後sizeも調べる。"
+      },
+      "expected": {
+        "en": "The typed constructor selection reports only is_imp and the selected actual implementation calls its original component write method,leaving the peer unchanged.",
+        "ja": "型付きconstructor選択はis_impだけを真とし、選択した実implementationが独自componentのwrite methodを呼びpeerを変えない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric encoding,generic type-name text,dummy-query algorithm,all cardinality/topology conditions or every TLM protocol is certified. These inputs belong to M2 by their functional TLM subject while their primary clause places them in uF.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 数値encoding、汎用type-name文面、dummy query algorithm、全cardinality／topology条件、全TLM protocolは認定しない。機能対象がTLMのためM2に属し、主引用条項によってuFへ配置する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_port_roles_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ports91 pkg_port_roles_0 named_roles 1 real_roles 1",
+            "UT: ports91 forwarded 1 peer 1 resolved 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_port_roles_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ports91 pkg_port_roles_1 named_roles 1 real_roles 1",
+            "UT: ports91 forwarded 1 peer 1 resolved 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-PHASE-KIND-DESIGNATORS-91",
+      "clause": "F.2.5.1",
+      "statement": {
+        "en": "The phase-kind type supplies the named IMP,NODE,SCHEDULE and DOMAIN designators.",
+        "ja": "phase-kind型はIMP／NODE／SCHEDULE／DOMAINの名前付き識別子を供給する。"
+      },
+      "conditions": {
+        "en": "Two independent original inputs create topdown/bottomup IMP objects and nodes in two schedules. They capture each isolated schedule node before joining both schedules to the component domain,then check types,parent/domain identities and manual selected-subtree traversal. Original post-attachment lookup inputs remain separate controls for the stricter scope interpretation.",
+        "ja": "独立した独自2入力でtopdown／bottomupのIMP objectと、2 schedule内のnodeを作る。両scheduleをcomponent domainへ接続する前に各独立scheduleのnodeを取得し、その後の型、parent／domainの同一性、選択subtreeの手動走査を調べる。接続後lookupの元入力は、より厳しいscope解釈の別controlとして残す。"
+      },
+      "expected": {
+        "en": "Actual selected implementation,node,schedule and domain objects report their named kinds;the unchanged explicit-constructor input supplies a separate compatible type observation.",
+        "ja": "実際に選択した実装／node／schedule／domain objectが名前付きの種別を返し、未変更の明示constructor入力も別の互換な型観測を供給する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric encoding,exact sibling order,get_imp wording,automatic scheduling,all state transitions or parallel domain execution is certified. Repeated-IMP lookup within a shared domain remains a qualified separate duty. Only the type-designator duty reuses an unchanged constructor input;that link adds no execution or primary focus.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 数値encoding、正確な兄弟順序、get_impの文言、自動schedule、全状態遷移、domainの並列実行は認定しない。共有domain内の反復IMP lookupは限定した別義務として残す。型識別子の義務だけが未変更constructor入力を再利用し、そのlinkで実行や主引用を増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_prescoped_0 imp 1 node 1 schedule 1 domain 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_prescoped_1 imp 1 node 1 schedule 1 domain 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_0_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_0 imp 1 node 1 schedule 1 domain 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_1_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_1 imp 1 node 1 schedule 1 domain 1"
+          ]
+        },
+        {
+          "test": "u09/test_phase_constructor_retains_default_and_explicit_node_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit imp 1 node 1 schedule 1 domain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-PHASE-KIND-IMP-DISPATCH-91",
+      "clause": "F.2.5.1",
+      "statement": {
+        "en": "A phase implementation supplies behavior for traversing the selected component hierarchy.",
+        "ja": "phaseの実装は選択component階層を走査する動作を供給する。"
+      },
+      "conditions": {
+        "en": "Two independent original inputs create topdown/bottomup IMP objects and nodes in two schedules. They capture each isolated schedule node before joining both schedules to the component domain,then check types,parent/domain identities and manual selected-subtree traversal. Original post-attachment lookup inputs remain separate controls for the stricter scope interpretation.",
+        "ja": "独立した独自2入力でtopdown／bottomupのIMP objectと、2 schedule内のnodeを作る。両scheduleをcomponent domainへ接続する前に各独立scheduleのnodeを取得し、その後の型、parent／domainの同一性、選択subtreeの手動走査を調べる。接続後lookupの元入力は、より厳しいscope解釈の別controlとして残す。"
+      },
+      "expected": {
+        "en": "Actual topdown and bottomup implementation objects invoke the original callbacks over the selected subtree in ancestor-consistent order with the supplied node context.",
+        "ja": "実topdown／bottomupの実装objectが、指定nodeの文脈を保ち祖先関係に合う順序で選択subtreeの独自callbackを呼ぶ。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric encoding,exact sibling order,get_imp wording,automatic scheduling,all state transitions or parallel domain execution is certified. Repeated-IMP lookup within a shared domain remains a qualified separate duty. Only the type-designator duty reuses an unchanged constructor input;that link adds no execution or primary focus.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 数値encoding、正確な兄弟順序、get_impの文言、自動schedule、全状態遷移、domainの並列実行は認定しない。共有domain内の反復IMP lookupは限定した別義務として残す。型識別子の義務だけが未変更constructor入力を再利用し、そのlinkで実行や主引用を増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_prescoped_0 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_prescoped_1 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_0_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_0 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_1_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_1 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-PHASE-KIND-NODE-CONTEXT-91",
+      "clause": "F.2.5.1",
+      "statement": {
+        "en": "A phase node supplies a distinct instance context within its containing schedule.",
+        "ja": "phase nodeは所属schedule内で異なるinstance文脈を供給する。"
+      },
+      "conditions": {
+        "en": "Two independent original inputs create topdown/bottomup IMP objects and nodes in two schedules. They capture each isolated schedule node before joining both schedules to the component domain,then check types,parent/domain identities and manual selected-subtree traversal. Original post-attachment lookup inputs remain separate controls for the stricter scope interpretation.",
+        "ja": "独立した独自2入力でtopdown／bottomupのIMP objectと、2 schedule内のnodeを作る。両scheduleをcomponent domainへ接続する前に各独立scheduleのnodeを取得し、その後の型、parent／domainの同一性、選択subtreeの手動走査を調べる。接続後lookupの元入力は、より厳しいscope解釈の別controlとして残す。"
+      },
+      "expected": {
+        "en": "Prescoped nodes for the repeated implementation have distinct handles and selected parent schedules;manual dispatch receives the selected node handle.",
+        "ja": "反復する実装のprescoped nodeは異なるhandleと選択parent scheduleを持ち、手動dispatchは選択node handleを受け取る。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric encoding,exact sibling order,get_imp wording,automatic scheduling,all state transitions or parallel domain execution is certified. Repeated-IMP lookup within a shared domain remains a qualified separate duty. Only the type-designator duty reuses an unchanged constructor input;that link adds no execution or primary focus.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 数値encoding、正確な兄弟順序、get_impの文言、自動schedule、全状態遷移、domainの並列実行は認定しない。共有domain内の反復IMP lookupは限定した別義務として残す。型識別子の義務だけが未変更constructor入力を再利用し、そのlinkで実行や主引用を増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_prescoped_0 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_prescoped_1 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_0_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_0 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_1_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_1 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-PHASE-KIND-SCHEDULE-GROUP-91",
+      "clause": "F.2.5.1",
+      "statement": {
+        "en": "A schedule identifies the container of its selected phase nodes.",
+        "ja": "scheduleは選択phase nodeを含む容器を示す。"
+      },
+      "conditions": {
+        "en": "Two independent original inputs create topdown/bottomup IMP objects and nodes in two schedules. They capture each isolated schedule node before joining both schedules to the component domain,then check types,parent/domain identities and manual selected-subtree traversal. Original post-attachment lookup inputs remain separate controls for the stricter scope interpretation.",
+        "ja": "独立した独自2入力でtopdown／bottomupのIMP objectと、2 schedule内のnodeを作る。両scheduleをcomponent domainへ接続する前に各独立scheduleのnodeを取得し、その後の型、parent／domainの同一性、選択subtreeの手動走査を調べる。接続後lookupの元入力は、より厳しいscope解釈の別controlとして残す。"
+      },
+      "expected": {
+        "en": "Both named schedule objects retain SCHEDULE kind and the independently captured nodes identify the corresponding parent schedule.",
+        "ja": "両方の名前付きschedule objectがSCHEDULE種別を保持し、独立に取得したnodeが対応するparent scheduleを示す。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric encoding,exact sibling order,get_imp wording,automatic scheduling,all state transitions or parallel domain execution is certified. Repeated-IMP lookup within a shared domain remains a qualified separate duty. Only the type-designator duty reuses an unchanged constructor input;that link adds no execution or primary focus.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 数値encoding、正確な兄弟順序、get_impの文言、自動schedule、全状態遷移、domainの並列実行は認定しない。共有domain内の反復IMP lookupは限定した別義務として残す。型識別子の義務だけが未変更constructor入力を再利用し、そのlinkで実行や主引用を増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_prescoped_0 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_prescoped_1 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_0_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_0 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_1_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_1 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-PHASE-KIND-DOMAIN-OWNER-91",
+      "clause": "F.2.5.1",
+      "statement": {
+        "en": "A domain identifies the graph segment enclosing the selected schedules and nodes.",
+        "ja": "domainは選択scheduleとnodeを囲むgraph区間を示す。"
+      },
+      "conditions": {
+        "en": "Two independent original inputs create topdown/bottomup IMP objects and nodes in two schedules. They capture each isolated schedule node before joining both schedules to the component domain,then check types,parent/domain identities and manual selected-subtree traversal. Original post-attachment lookup inputs remain separate controls for the stricter scope interpretation.",
+        "ja": "独立した独自2入力でtopdown／bottomupのIMP objectと、2 schedule内のnodeを作る。両scheduleをcomponent domainへ接続する前に各独立scheduleのnodeを取得し、その後の型、parent／domainの同一性、選択subtreeの手動走査を調べる。接続後lookupの元入力は、より厳しいscope解釈の別controlとして残す。"
+      },
+      "expected": {
+        "en": "The component domain reports DOMAIN kind and both prescoped nodes report that enclosing owner after attachment.",
+        "ja": "component domainがDOMAIN種別を返し、両prescoped nodeは接続後に囲む所有者としてそのdomainを示す。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric encoding,exact sibling order,get_imp wording,automatic scheduling,all state transitions or parallel domain execution is certified. Repeated-IMP lookup within a shared domain remains a qualified separate duty. Only the type-designator duty reuses an unchanged constructor input;that link adds no execution or primary focus.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 数値encoding、正確な兄弟順序、get_impの文言、自動schedule、全状態遷移、domainの並列実行は認定しない。共有domain内の反復IMP lookupは限定した別義務として残す。型識別子の義務だけが未変更constructor入力を再利用し、そのlinkで実行や主引用を増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_prescoped_0 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_prescoped_1 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_0_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_0 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_1_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 pkg_phase_kinds_1 imp 1 node 1 schedule 1 domain 1",
+            "UT: phase_types91 local_nodes 1 owner 1",
+            "UT: phase_types91 topdown 1 node_context 1",
+            "UT: phase_types91 bottomup 1 node_context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-WAIT-OP-EQ-91",
+      "clause": "F.2.5.3",
+      "statement": {
+        "en": "UVM_EQ selects the equal relation for the selected phase-state wait.",
+        "ja": "UVM_EQは選択phase-state待機で「等しい」の関係を選ぶ。"
+      },
+      "conditions": {
+        "en": "A stable IMP retains its declared UNINITIALIZED state. One input compares against that same state;the other against DONE. Six typed waiters start before a positive-time sample. Expected predicates use ordinary relational operators on the actual named values,not hardcoded numeric encodings. Pending false waiters are canceled after observation.",
+        "ja": "安定したIMPは宣言どおりUNINITIALIZED状態を保持する。一方の入力は同じ状態、他方はDONEと比べ、6つの型付きwaiterを正時間の観測前に開始する。期待predicateは固定数値encodingではなく実際の名前付き値への通常の比較演算を使い、偽条件の待機は観測後に取り消す。"
+      },
+      "expected": {
+        "en": "The selected named operator returns immediately exactly for the selected true predicate;false predicates remain pending and the phase and peer states remain unchanged.",
+        "ja": "選択した名前付き演算子は選択predicateが真の場合だけ直ちに復帰し、偽条件は待機を続け、phaseとpeerの状態を変えない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. The literal EQ/NE interpretation for an unexecuted UNINITIALIZED IMP is qualified and remains an applicability review question;it is not a state-mask rule or a confirmed defect attribution. Other states,masks,live scheduling,jumps and complete wait histories remain open.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 未実行のUNINITIALIZED IMPに対する字義どおりのEQ／NE解釈は限定し、適用条件のレビュー事項として残す。状態mask規則や確定した欠陥の帰属ではない。他状態、mask、実schedule、jump、待機の全履歴は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_wait_operators_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_0 eq predicate 1 immediate 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_wait_operators_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_1 eq predicate 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-WAIT-OP-NE-91",
+      "clause": "F.2.5.3",
+      "statement": {
+        "en": "UVM_NE selects the not equal relation for the selected phase-state wait.",
+        "ja": "UVM_NEは選択phase-state待機で「等しくない」の関係を選ぶ。"
+      },
+      "conditions": {
+        "en": "A stable IMP retains its declared UNINITIALIZED state. One input compares against that same state;the other against DONE. Six typed waiters start before a positive-time sample. Expected predicates use ordinary relational operators on the actual named values,not hardcoded numeric encodings. Pending false waiters are canceled after observation.",
+        "ja": "安定したIMPは宣言どおりUNINITIALIZED状態を保持する。一方の入力は同じ状態、他方はDONEと比べ、6つの型付きwaiterを正時間の観測前に開始する。期待predicateは固定数値encodingではなく実際の名前付き値への通常の比較演算を使い、偽条件の待機は観測後に取り消す。"
+      },
+      "expected": {
+        "en": "The selected named operator returns immediately exactly for the selected true predicate;false predicates remain pending and the phase and peer states remain unchanged.",
+        "ja": "選択した名前付き演算子は選択predicateが真の場合だけ直ちに復帰し、偽条件は待機を続け、phaseとpeerの状態を変えない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. The literal EQ/NE interpretation for an unexecuted UNINITIALIZED IMP is qualified and remains an applicability review question;it is not a state-mask rule or a confirmed defect attribution. Other states,masks,live scheduling,jumps and complete wait histories remain open.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 未実行のUNINITIALIZED IMPに対する字義どおりのEQ／NE解釈は限定し、適用条件のレビュー事項として残す。状態mask規則や確定した欠陥の帰属ではない。他状態、mask、実schedule、jump、待機の全履歴は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_wait_operators_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_0 ne predicate 1 immediate 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_wait_operators_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_1 ne predicate 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-WAIT-OP-LT-91",
+      "clause": "F.2.5.3",
+      "statement": {
+        "en": "UVM_LT selects the less than relation for the selected phase-state wait.",
+        "ja": "UVM_LTは選択phase-state待機で「小さい」の関係を選ぶ。"
+      },
+      "conditions": {
+        "en": "A stable IMP retains its declared UNINITIALIZED state. One input compares against that same state;the other against DONE. Six typed waiters start before a positive-time sample. Expected predicates use ordinary relational operators on the actual named values,not hardcoded numeric encodings. Pending false waiters are canceled after observation.",
+        "ja": "安定したIMPは宣言どおりUNINITIALIZED状態を保持する。一方の入力は同じ状態、他方はDONEと比べ、6つの型付きwaiterを正時間の観測前に開始する。期待predicateは固定数値encodingではなく実際の名前付き値への通常の比較演算を使い、偽条件の待機は観測後に取り消す。"
+      },
+      "expected": {
+        "en": "The selected named operator returns immediately exactly for the selected true predicate;false predicates remain pending and the phase and peer states remain unchanged.",
+        "ja": "選択した名前付き演算子は選択predicateが真の場合だけ直ちに復帰し、偽条件は待機を続け、phaseとpeerの状態を変えない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. The literal EQ/NE interpretation for an unexecuted UNINITIALIZED IMP is qualified and remains an applicability review question;it is not a state-mask rule or a confirmed defect attribution. Other states,masks,live scheduling,jumps and complete wait histories remain open.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 未実行のUNINITIALIZED IMPに対する字義どおりのEQ／NE解釈は限定し、適用条件のレビュー事項として残す。状態mask規則や確定した欠陥の帰属ではない。他状態、mask、実schedule、jump、待機の全履歴は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_wait_operators_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_0 lt predicate 1 immediate 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_wait_operators_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_1 lt predicate 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-WAIT-OP-LTE-91",
+      "clause": "F.2.5.3",
+      "statement": {
+        "en": "UVM_LTE selects the less than or equal relation for the selected phase-state wait.",
+        "ja": "UVM_LTEは選択phase-state待機で「以下」の関係を選ぶ。"
+      },
+      "conditions": {
+        "en": "A stable IMP retains its declared UNINITIALIZED state. One input compares against that same state;the other against DONE. Six typed waiters start before a positive-time sample. Expected predicates use ordinary relational operators on the actual named values,not hardcoded numeric encodings. Pending false waiters are canceled after observation.",
+        "ja": "安定したIMPは宣言どおりUNINITIALIZED状態を保持する。一方の入力は同じ状態、他方はDONEと比べ、6つの型付きwaiterを正時間の観測前に開始する。期待predicateは固定数値encodingではなく実際の名前付き値への通常の比較演算を使い、偽条件の待機は観測後に取り消す。"
+      },
+      "expected": {
+        "en": "The selected named operator returns immediately exactly for the selected true predicate;false predicates remain pending and the phase and peer states remain unchanged.",
+        "ja": "選択した名前付き演算子は選択predicateが真の場合だけ直ちに復帰し、偽条件は待機を続け、phaseとpeerの状態を変えない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. The literal EQ/NE interpretation for an unexecuted UNINITIALIZED IMP is qualified and remains an applicability review question;it is not a state-mask rule or a confirmed defect attribution. Other states,masks,live scheduling,jumps and complete wait histories remain open.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 未実行のUNINITIALIZED IMPに対する字義どおりのEQ／NE解釈は限定し、適用条件のレビュー事項として残す。状態mask規則や確定した欠陥の帰属ではない。他状態、mask、実schedule、jump、待機の全履歴は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_wait_operators_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_0 lte predicate 1 immediate 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_wait_operators_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_1 lte predicate 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-WAIT-OP-GT-91",
+      "clause": "F.2.5.3",
+      "statement": {
+        "en": "UVM_GT selects the greater than relation for the selected phase-state wait.",
+        "ja": "UVM_GTは選択phase-state待機で「大きい」の関係を選ぶ。"
+      },
+      "conditions": {
+        "en": "A stable IMP retains its declared UNINITIALIZED state. One input compares against that same state;the other against DONE. Six typed waiters start before a positive-time sample. Expected predicates use ordinary relational operators on the actual named values,not hardcoded numeric encodings. Pending false waiters are canceled after observation.",
+        "ja": "安定したIMPは宣言どおりUNINITIALIZED状態を保持する。一方の入力は同じ状態、他方はDONEと比べ、6つの型付きwaiterを正時間の観測前に開始する。期待predicateは固定数値encodingではなく実際の名前付き値への通常の比較演算を使い、偽条件の待機は観測後に取り消す。"
+      },
+      "expected": {
+        "en": "The selected named operator returns immediately exactly for the selected true predicate;false predicates remain pending and the phase and peer states remain unchanged.",
+        "ja": "選択した名前付き演算子は選択predicateが真の場合だけ直ちに復帰し、偽条件は待機を続け、phaseとpeerの状態を変えない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. The literal EQ/NE interpretation for an unexecuted UNINITIALIZED IMP is qualified and remains an applicability review question;it is not a state-mask rule or a confirmed defect attribution. Other states,masks,live scheduling,jumps and complete wait histories remain open.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 未実行のUNINITIALIZED IMPに対する字義どおりのEQ／NE解釈は限定し、適用条件のレビュー事項として残す。状態mask規則や確定した欠陥の帰属ではない。他状態、mask、実schedule、jump、待機の全履歴は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_wait_operators_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_0 gt predicate 1 immediate 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_wait_operators_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_1 gt predicate 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-WAIT-OP-GTE-91",
+      "clause": "F.2.5.3",
+      "statement": {
+        "en": "UVM_GTE selects the greater than or equal relation for the selected phase-state wait.",
+        "ja": "UVM_GTEは選択phase-state待機で「以上」の関係を選ぶ。"
+      },
+      "conditions": {
+        "en": "A stable IMP retains its declared UNINITIALIZED state. One input compares against that same state;the other against DONE. Six typed waiters start before a positive-time sample. Expected predicates use ordinary relational operators on the actual named values,not hardcoded numeric encodings. Pending false waiters are canceled after observation.",
+        "ja": "安定したIMPは宣言どおりUNINITIALIZED状態を保持する。一方の入力は同じ状態、他方はDONEと比べ、6つの型付きwaiterを正時間の観測前に開始する。期待predicateは固定数値encodingではなく実際の名前付き値への通常の比較演算を使い、偽条件の待機は観測後に取り消す。"
+      },
+      "expected": {
+        "en": "The selected named operator returns immediately exactly for the selected true predicate;false predicates remain pending and the phase and peer states remain unchanged.",
+        "ja": "選択した名前付き演算子は選択predicateが真の場合だけ直ちに復帰し、偽条件は待機を続け、phaseとpeerの状態を変えない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. The literal EQ/NE interpretation for an unexecuted UNINITIALIZED IMP is qualified and remains an applicability review question;it is not a state-mask rule or a confirmed defect attribution. Other states,masks,live scheduling,jumps and complete wait histories remain open.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 未実行のUNINITIALIZED IMPに対する字義どおりのEQ／NE解釈は限定し、適用条件のレビュー事項として残す。状態mask規則や確定した欠陥の帰属ではない。他状態、mask、実schedule、jump、待機の全履歴は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_wait_operators_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_0 gte predicate 1 immediate 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_wait_operators_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_ops91 pkg_wait_operators_1 gte predicate 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-OBJECTION-EVENT-RAISED-91",
+      "clause": "F.2.6",
+      "statement": {
+        "en": "An objection RAISED event identifies a raise for the selected object.",
+        "ja": "objectionのRAISED eventは選択objectのraiseを示す。"
+      },
+      "conditions": {
+        "en": "Two inputs use opposite explicit noncomponent sources and positive counts2/3. Three typed waiters are armed before raise,partial drop and final drop. Drain is explicitly zero and the original all-dropped callback delays in the wrapper scope. The selected source and an independent objection/source peer are observed.",
+        "ja": "2入力は反対の明示noncomponent sourceと正のcount 2／3を使い、raise・部分drop・最終dropの前に型付きwaiter 3つを準備する。drainは明示0とし、独自all-dropped callbackはwrapper scope内で遅延する。選択sourceと独立したobjection／source peerを観測する。"
+      },
+      "expected": {
+        "en": "Only the corresponding event releases each selected waiter after its observed callback work;partial drop does not release all-dropped,and final completion sees count0 with the peer untouched.",
+        "ja": "対応するeventだけが観測したcallback処理の後に各選択waiterを解除し、部分dropでall-droppedは解除せず、最後の完了ではcount 0と未変更peerを観測する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric event encoding,nonzero-drain unit conversion,all component callback chains,clear/re-raise race or general concurrency completeness is certified. Positive-time probes distinguish selected event identities without fixing zero-time sibling ordering.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 eventの数値encoding、非0 drainの単位変換、全component callback連鎖、clear／再raiseの競合、一般的な並行性の完了は認定しない。正時間のprobeで選択eventの同一性を区別し、同時刻の兄弟順序は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_objection_events_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: objection_events91 pkg_objection_events_0 raised 1 callback 1 others_wait 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_objection_events_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: objection_events91 pkg_objection_events_1 raised 1 callback 1 others_wait 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-OBJECTION-EVENT-DROPPED-91",
+      "clause": "F.2.6",
+      "statement": {
+        "en": "An objection DROPPED event identifies a drop,including a partial drop.",
+        "ja": "objectionのDROPPED eventは部分dropも含むdropを示す。"
+      },
+      "conditions": {
+        "en": "Two inputs use opposite explicit noncomponent sources and positive counts2/3. Three typed waiters are armed before raise,partial drop and final drop. Drain is explicitly zero and the original all-dropped callback delays in the wrapper scope. The selected source and an independent objection/source peer are observed.",
+        "ja": "2入力は反対の明示noncomponent sourceと正のcount 2／3を使い、raise・部分drop・最終dropの前に型付きwaiter 3つを準備する。drainは明示0とし、独自all-dropped callbackはwrapper scope内で遅延する。選択sourceと独立したobjection／source peerを観測する。"
+      },
+      "expected": {
+        "en": "Only the corresponding event releases each selected waiter after its observed callback work;partial drop does not release all-dropped,and final completion sees count0 with the peer untouched.",
+        "ja": "対応するeventだけが観測したcallback処理の後に各選択waiterを解除し、部分dropでall-droppedは解除せず、最後の完了ではcount 0と未変更peerを観測する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric event encoding,nonzero-drain unit conversion,all component callback chains,clear/re-raise race or general concurrency completeness is certified. Positive-time probes distinguish selected event identities without fixing zero-time sibling ordering.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 eventの数値encoding、非0 drainの単位変換、全component callback連鎖、clear／再raiseの競合、一般的な並行性の完了は認定しない。正時間のprobeで選択eventの同一性を区別し、同時刻の兄弟順序は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_objection_events_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: objection_events91 dropped 1 callback 1 all_wait 1 remaining 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_objection_events_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: objection_events91 dropped 1 callback 1 all_wait 1 remaining 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-OBJECTION-EVENT-ALL-DROPPED-91",
+      "clause": "F.2.6",
+      "statement": {
+        "en": "An objection ALL_DROPPED event identifies completion after the selected count reaches zero.",
+        "ja": "objectionのALL_DROPPED eventは選択countが0になった後の完了を示す。"
+      },
+      "conditions": {
+        "en": "Two inputs use opposite explicit noncomponent sources and positive counts2/3. Three typed waiters are armed before raise,partial drop and final drop. Drain is explicitly zero and the original all-dropped callback delays in the wrapper scope. The selected source and an independent objection/source peer are observed.",
+        "ja": "2入力は反対の明示noncomponent sourceと正のcount 2／3を使い、raise・部分drop・最終dropの前に型付きwaiter 3つを準備する。drainは明示0とし、独自all-dropped callbackはwrapper scope内で遅延する。選択sourceと独立したobjection／source peerを観測する。"
+      },
+      "expected": {
+        "en": "Only the corresponding event releases each selected waiter after its observed callback work;partial drop does not release all-dropped,and final completion sees count0 with the peer untouched.",
+        "ja": "対応するeventだけが観測したcallback処理の後に各選択waiterを解除し、部分dropでall-droppedは解除せず、最後の完了ではcount 0と未変更peerを観測する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No numeric event encoding,nonzero-drain unit conversion,all component callback chains,clear/re-raise race or general concurrency completeness is certified. Positive-time probes distinguish selected event identities without fixing zero-time sibling ordering.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 eventの数値encoding、非0 drainの単位変換、全component callback連鎖、clear／再raiseの競合、一般的な並行性の完了は認定しない。正時間のprobeで選択eventの同一性を区別し、同時刻の兄弟順序は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_objection_events_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: objection_events91 all 1 callback 1 after_callback 1 zero 1 peer 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_objection_events_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: objection_events91 all 1 callback 1 after_callback 1 zero 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-TOPOLOGY-PRINTER-EXPLICIT-91",
+      "clause": "F.7.4.2",
+      "statement": {
+        "en": "An explicit root topology printer argument selects that policy over the current default.",
+        "ja": "root topologyの明示printer引数は現在の既定値よりそのpolicyを選ぶ。"
+      },
+      "conditions": {
+        "en": "Two original printers and five original components form two hierarchy branches. Across two calls,explicit selection opposes the default or omitted/null selection follows its replacement. Original do_print hooks record policy identity and membership;emitters only observe the selected sink. Restore the prior global default afterwards.",
+        "ja": "独自printer 2つと独自component 5つで階層2 branchを作る。2回の呼び出しで、明示選択は既定値と反対、または省略／null選択は既定値の置換に従わせる。独自do_print hookはpolicyの同一性と所属を記録し、emitterは選択sinkだけを観測する。後で元のglobal既定値へ戻す。"
+      },
+      "expected": {
+        "en": "Every selected user component is visited with the selected policy and only its emitter is used;the hierarchy and restored prior default remain intact.",
+        "ja": "選択した全user componentを選択policyで訪問し、そのemitterだけを使い、階層と復元した以前の既定値を保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No exact text,human-readable layout,sibling order,callback multiplicity,disabled-component rule,all printer kinds or complete topology data is certified. The original emitter newline only frames UT observations and never changes the normative predicate or runner selection.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 正確な文面、人に読める配置、兄弟順序、callback回数、無効component規則、全printer種別、topologyデータの完全性は認定しない。独自emitterの改行はUT観測を区切るだけで、規範predicateやrunnerの選択を変えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_topology_policy_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: topology91 root_topology_policy_0 round 0 visited 1 policy 1 selected_emit 1 unused 1",
+            "UT: topology91 root_topology_policy_0 round 1 visited 1 policy 1 selected_emit 1 unused 1",
+            "UT: topology91 restored 1 hierarchy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-TOPOLOGY-PRINTER-OMITTED-91",
+      "clause": "F.7.4.2",
+      "statement": {
+        "en": "An omitted root topology printer argument uses the current default printer policy.",
+        "ja": "root topologyのprinter引数を省略すると現在の既定printer policyを使う。"
+      },
+      "conditions": {
+        "en": "Two original printers and five original components form two hierarchy branches. Across two calls,explicit selection opposes the default or omitted/null selection follows its replacement. Original do_print hooks record policy identity and membership;emitters only observe the selected sink. Restore the prior global default afterwards.",
+        "ja": "独自printer 2つと独自component 5つで階層2 branchを作る。2回の呼び出しで、明示選択は既定値と反対、または省略／null選択は既定値の置換に従わせる。独自do_print hookはpolicyの同一性と所属を記録し、emitterは選択sinkだけを観測する。後で元のglobal既定値へ戻す。"
+      },
+      "expected": {
+        "en": "Every selected user component is visited with the selected policy and only its emitter is used;the hierarchy and restored prior default remain intact.",
+        "ja": "選択した全user componentを選択policyで訪問し、そのemitterだけを使い、階層と復元した以前の既定値を保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No exact text,human-readable layout,sibling order,callback multiplicity,disabled-component rule,all printer kinds or complete topology data is certified. The original emitter newline only frames UT observations and never changes the normative predicate or runner selection.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 正確な文面、人に読める配置、兄弟順序、callback回数、無効component規則、全printer種別、topologyデータの完全性は認定しない。独自emitterの改行はUT観測を区切るだけで、規範predicateやrunnerの選択を変えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_topology_policy_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: topology91 root_topology_policy_1 round 0 visited 1 policy 1 selected_emit 1 unused 1",
+            "UT: topology91 root_topology_policy_1 round 1 visited 1 policy 1 selected_emit 1 unused 1",
+            "UT: topology91 restored 1 hierarchy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-TOPOLOGY-PRINTER-NULL-91",
+      "clause": "F.7.4.2",
+      "statement": {
+        "en": "A null root topology printer argument uses the current default printer policy.",
+        "ja": "root topologyのprinter引数がnullなら現在の既定printer policyを使う。"
+      },
+      "conditions": {
+        "en": "Two original printers and five original components form two hierarchy branches. Across two calls,explicit selection opposes the default or omitted/null selection follows its replacement. Original do_print hooks record policy identity and membership;emitters only observe the selected sink. Restore the prior global default afterwards.",
+        "ja": "独自printer 2つと独自component 5つで階層2 branchを作る。2回の呼び出しで、明示選択は既定値と反対、または省略／null選択は既定値の置換に従わせる。独自do_print hookはpolicyの同一性と所属を記録し、emitterは選択sinkだけを観測する。後で元のglobal既定値へ戻す。"
+      },
+      "expected": {
+        "en": "Every selected user component is visited with the selected policy and only its emitter is used;the hierarchy and restored prior default remain intact.",
+        "ja": "選択した全user componentを選択policyで訪問し、そのemitterだけを使い、階層と復元した以前の既定値を保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. No exact text,human-readable layout,sibling order,callback multiplicity,disabled-component rule,all printer kinds or complete topology data is certified. The original emitter newline only frames UT observations and never changes the normative predicate or runner selection.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 正確な文面、人に読める配置、兄弟順序、callback回数、無効component規則、全printer種別、topologyデータの完全性は認定しない。独自emitterの改行はUT観測を区切るだけで、規範predicateやrunnerの選択を変えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_topology_policy_2_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: topology91 root_topology_policy_2 round 0 visited 1 policy 1 selected_emit 1 unused 1",
+            "UT: topology91 root_topology_policy_2 round 1 visited 1 policy 1 selected_emit 1 unused 1",
+            "UT: topology91 restored 1 hierarchy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-FIND-SHARED-DOMAIN-SCHEDULE-READING-91",
+      "clause": "9.3.1.4.4",
+      "statement": {
+        "en": "Under the strict schedule-local reading,a scoped lookup for a repeated IMP selects the node of that receiver schedule after domain attachment.",
+        "ja": "厳しいschedule内の解釈では、domain接続後に反復IMPをscope付きで検索するとreceiver scheduleのnodeを選ぶ。"
+      },
+      "conditions": {
+        "en": "Both schedules contain the same two implementation objects and are attached to one domain. Original inputs use the default stay_in_scope and compare returned node/parent identities. Separate prescoped sources capture nodes before attachment and only supply controls for this original lookup premise.",
+        "ja": "両scheduleに同じ実装object 2つを含め、1 domainへ接続する。元入力はstay_in_scopeの既定値を使い、返却node／parentの同一性を比べる。別のprescoped sourceは接続前にnodeを取得し、元のlookup前提に対するcontrolだけを供給する。"
+      },
+      "expected": {
+        "en": "Each original schedule lookup identifies its own distinct node and parent,while both retain the enclosing domain and actual traversal context.",
+        "ja": "元の各schedule lookupが固有のnodeとparentを識別し、両方が囲むdomainと実走査文脈を保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Expected anchors do not independently assign measured status to every duty. A separate control or another setup cannot pass an original differing whole input. Human review,scope/denominator approval,all applicability and original M1-M4 targets remain open. This interpretation is explicitly qualified:the scope wording mentions both schedule and domain and does not completely resolve duplicate-IMP selection. Do not infer a confirmed library/simulator defect or use a successful prescoped input to pass the original. Full lookup scope,duplicate selection and type-role applicability remain review questions.",
+        "ja": "AIによる部分分解のみ。期待anchorは各義務へ独立した実測statusを割り当てない。別controlや他の準備で元の差分入力全体をpassにしない。人の照合、範囲／分母承認、全適用条件、元のM1〜M4目標は未完。 この解釈は明示的に限定する。scopeの文言はscheduleとdomainの両方に言及し、重複IMPの選択を完全には解決しない。確定したlibrary／simulator欠陥を推論せず、prescoped入力の成功で元入力をpassにしない。lookup範囲、重複選択、型役割の適用条件全体はレビュー事項のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_pkg_phase_kinds_0_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 local_nodes 1 owner 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_1_91",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_types91 local_nodes 1 owner 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_0_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 local_nodes 1 owner 1"
+          ]
+        },
+        {
+          "test": "uF/test_pkg_phase_kinds_prescoped_1_91",
+          "role": "control",
+          "expected_observations": [
+            "UT: phase_types91 local_nodes 1 owner 1"
+          ]
+        }
+      ]
     }
   ]
 }

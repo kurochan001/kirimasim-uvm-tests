@@ -215,6 +215,10 @@ managerと印刷backdoorの期待値は提供IEEE本文から独立に導きま�
 ignoredのplain-class診断ではMAM requestなしで失敗randomizationのpost-hook増加を観測しますが、空UTのharnessから動作のpassを主張しません。
 独自backdoor本体は宣言／dispatchのcontrolで実装algorithmではなく、限定した説明と証拠の境界は[manager文脈のFAQ](faq.ja.md#manager-policyの文脈と印刷backdoor-task)にあります。シミュレータ実装sourceや商用出力をoracleに使いません。
 
+型付きの役割・演算・event・topologyの期待値は提供IEEE本文から独立に導きます。具象port-query本体は独自subtypeの準備だけで、実転送は標準analysis classを使います。
+公開同一性の診断で共有domainのnode選択を記録し、別prescoped入力によって元の解釈を隠しません。独自topology emitterは期待行を変えず改行を加え、新しく測定します。
+実装本体や商用出力をoracleにせず、適用条件と証拠の境界は[型付き役割のFAQ](faq.ja.md#名前付きの役割待機演算とtopology-policy)に記録しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

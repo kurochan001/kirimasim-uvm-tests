@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and ninety cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2486 tests: 2387 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and ninety-one cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2499 tests: 2400 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5288,3 +5288,53 @@ compatible guest records retain their content. Guests have 1404 unmeasured
 inputs: 1401 additions and three revised originals (1305 simulation/99
 elaboration). No guest rerun/filter, runner/backend/tool/workflow change,
 commercial result, human review or scope/denominator approval is added.
+
+## Ninety-first thin-area expansion: typed roles and topology policies
+
+Thirteen new runtime inputs add eleven M1 cases and two M2 port/analysis
+cases under the existing functional grouping. Ten match seeds 1/73. Three
+retain seed-1 exit-0 differences without seed 73: two shared-domain repeated-IMP
+lookups under a qualified strict schedule-local reading, and one literal EQ/NE
+comparison at a stable UNINITIALIZED IMP. Other type/traversal and relational
+observations match. [The typed-role FAQ](faq.md#named-roles-wait-operators-and-topology-policies) explains the different premises.
+
+Separate phase inputs capture nodes before attaching both schedules to the
+domain, then check distinct contexts and actual topdown/bottomup traversal.
+They do not pass the original post-attachment lookup cases. A public-identity
+diagnostic observes its two queries returning the first schedule's node;
+duplicate-IMP scope selection remains a review question. The UNINITIALIZED wait
+case retains literal equality/inequality expectations; state-mask semantics
+and applicability to unexecuted implementations remain qualified, with no
+confirmed defect attribution or complete live-phase claim.
+
+Typed constructor roles are checked alongside actual analysis forwarding to
+opposite child providers. Typed objection events distinguish raise, partial
+drop and all-dropped completion after original callback work, with zero drain
+and an untouched peer. Explicit, omitted and null topology printer calls check
+selected policy identity and visits over five original components. No enum
+numeric encoding, sibling order, exact print text or callback multiplicity is
+fixed. Only the original topology emitter gains a newline to keep UT lines
+separate from reporter text; earlier framing records are excluded and all
+three dependent inputs are freshly measured without changing expected rows.
+
+All thirteen source bodies and expectations remain unchanged except ten
+proven tags. Twenty-one bilingual AI duties add twenty annex-F entries and
+one qualified chapter-9 lookup entry. Five previously unassessed F leaves gain
+partial decomposition; no classification is added. One unchanged constructor
+source already cites F.2.5.1 and gains a direct designator link without new
+execution or primary focus. Original and prescoped phase inputs have explicit
+direct/control roles; another condition's pass never passes an original.
+
+All 3988 previous duties, 420 assessments and 2486 ordinary records retain
+their content. Current totals are 4009 AI duties, 2455 directly linked tests,
+forty-four control-only tests and 140 tests with control links. Inventory is
+2034 partial/420 assessed/53 unassessed. Annex F is 107/23/7 with 253 duties and
+164 primary tests (130 simulation/34 elaboration). Chapter 9 adds one duty
+without another primary input; all partial applicability and original targets
+remain open.
+
+The 99 compiler, 38 HDL, 18 command-line and 1082 compatible guest records are
+retained unchanged. Guests have 1417 unmeasured inputs: 1414 additions and
+three revised originals (1318 simulation/99 elaboration). There is no guest
+rerun/filter, scope/catalog, runner/backend/tool/workflow change, commercial
+result, implementation-derived oracle, human review or scope/denominator approval.

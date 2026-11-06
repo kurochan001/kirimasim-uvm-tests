@@ -968,7 +968,7 @@ wrapper algorithmを置換せず境界を検査し、targetの物理transportを
 成功bus read／更新は比較結果と別です。
 
 **Milestone grouping（milestone分類）**: 機能対象のmilestoneでテストを数え、主引用条項で章directoryを決めます。
-D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
+D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。F.2.3のport役割入力はfileをuFに置いても、TLMという機能対象からM2へ属します。
 
 ## blockとregisterの照会の境界
 
@@ -1300,3 +1300,15 @@ modelと実HDL記憶域の違いは[Q326](faq.ja.md#q326-user-backdoorの一致�
 **有効region descriptor** — 現在の割り当て範囲を記述するmanager由来のhandleで、同時の独立性と解放後のobject再利用は[Q344](faq.ja.md#q344-解放した範囲の再予約は新objectを生成すべきですか)で区別しています。
 
 **印刷register backdoor task** — 独自overrideを通じて検査する、規格の基底virtual write／watch interfaceで、宣言／dispatchと既定実装の動作の違いは[Q345](faq.ja.md#q345-独自register-backdoor-taskで既定dpiやwatch対応も証明できますか)にあります。
+
+## 型付きの役割・状態比較とtopology policy
+
+**型付きport役割** — 要求port・転送export・束縛されたimplementationを識別する名前付きconstructor選択で、役割query、実analysis配送、広いprotocolの違いは[Q346](faq.ja.md#q346-port役割の一致で全tlm-protocolを証明できますか)にあります。
+
+**phase種別とnode文脈** — implementation／node／schedule／domainの分類と、走査へ渡す特定graph nodeで、重複IMPのlookup選択との違いは[Q347](faq.ja.md#q347-phase種別の一致で反復impのlookupも解決しますか)にあります。
+
+**字義どおりのphase-state比較** — 数値encodingを規定せず実状態値へ名前付きの比較待機演算を適用することで、限定した0状態の境界と偽条件の待機は[Q348](faq.ja.md#q348-安定した未初期化phaseで待機演算を検査する理由は)で説明しています。
+
+**objection eventの完了** — 観測したcallback処理後に選択raise／drop／all-dropped waiterが戻ることで、部分dropと最終完了の違いは[Q349](faq.ja.md#q349-dropped-eventなら全objectionが終了していますか)にあります。
+
+**topology printerの選択** — 選択component階層の訪問で明示引数または現在の既定policyを使うことで、配置を固定しない独自hook／emitterの観測は[Q350](faq.ja.md#q350-文面を一致させずにtopology-printerを検査できますか)で説明しています。

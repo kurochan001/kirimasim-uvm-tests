@@ -1246,7 +1246,8 @@ bus read/refresh is distinct from the comparison outcome.
 
 **Milestone grouping**: Tests are counted by their functional milestone subject,
 while primary standard clauses govern chapter directories. D.3 named model
-access belongs to M3 even though its files reside in uD.
+access belongs to M3 even though its files reside in uD. The F.2.3 port-role
+inputs use M2 by their TLM subject even though their files reside in uF.
 
 ## Block and register query boundaries
 
@@ -1680,3 +1681,15 @@ the same modeled words when a partial write may read through either route.
 **Live-region descriptor** — A manager-produced handle describing a currently allocated span; [Q344](faq.md#q344-must-re-reserving-a-released-range-create-a-new-object) distinguishes simultaneous independence from object reuse after release.
 
 **Printed register backdoor task** — The standard's base virtual write/watch interface exercised through an original override; [Q345](faq.md#q345-do-custom-register-backdoor-tasks-prove-default-dpi-or-watch-support) separates declaration/dispatch from default implementation behavior.
+
+## Typed roles, state comparisons and topology policies
+
+**Typed port role** — A named constructor selection identifying a requiring port, forwarding export or bound implementation; [Q346](faq.md#q346-do-port-role-matches-prove-every-tlm-protocol) separates role queries from actual analysis delivery and broader protocols.
+
+**Phase kind and node context** — An implementation, node, schedule or domain category, and the particular graph node supplied to traversal; [Q347](faq.md#q347-do-phase-kind-matches-resolve-lookup-of-a-repeated-imp) distinguishes these observations from duplicate-IMP lookup selection.
+
+**Literal phase-state comparison** — Applying a named relational wait operator to actual state values without imposing numeric encodings; [Q348](faq.md#q348-why-check-wait-operators-on-a-stable-uninitialized-phase) explains the qualified uninitialized-state boundary and pending false waits.
+
+**Objection event completion** — Return of the selected raise, drop or all-dropped waiter after its observed callback work; [Q349](faq.md#q349-does-a-dropped-event-mean-all-objections-have-finished) distinguishes a partial drop from final completion.
+
+**Topology printer selection** — Choosing the explicit argument or current default policy while visiting the selected component hierarchy; [Q350](faq.md#q350-how-is-the-topology-printer-checked-without-matching-its-text) explains the original hook/emitter observations without fixing layout.

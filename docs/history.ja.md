@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の90回目の拡充（全2486件：simulation 2387・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の91回目の拡充（全2499件：simulation 2400・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3363,3 +3363,28 @@ region descriptorは割り当て中に比較し、直接構築の禁止や解放
 以前の通常2470記録、compiler 99記録、HDL 38記録、command-line 18記録、互換guest 1082記録は内容を保持します。
 guest未測定1404入力は追加1401件と修正した元入力3件（simulation 1305／elaboration 99）です。
 新しいguest実行／filter、runner／backend／tool／workflow変更、商用結果、人の照合、範囲／分母承認はありません。
+
+## 薄い領域の91回目の拡充：型付き役割とtopology policy
+
+新規runtime 13入力は、既存の機能対象の分類でM1が11件、M2のport／analysisが2件です。10件はseed 1／73に一致します。
+3入力はexit 0のseed 1で差分を保持し、seed 73結果はありません。共有domain内の反復IMP lookup 2件は厳しいschedule内の限定解釈、1件は安定したUNINITIALIZED IMPへの字義どおりのEQ／NE比較です。
+他の型／走査と大小比較の観測は一致し、異なる前提は[型付き役割のFAQ](faq.ja.md#名前付きの役割待機演算とtopology-policy)で説明しています。
+
+別phase入力は両scheduleをdomainへ接続する前にnodeを取得し、その後の独立文脈と実topdown／bottomup走査を検査します。
+これらで元の接続後lookup入力をpassにしません。公開同一性の診断では、その2 queryが最初のscheduleのnodeを返すことを観測し、重複IMPのscope選択はレビュー事項に残します。
+UNINITIALIZED状態の待機は字義どおりの等値／非等値期待を保持します。状態maskの意味と未実行implementationへの適用は限定し、確定した欠陥や実phase全体の完了を主張しません。
+
+型付きconstructor役割に加えて、反対のchild providerへの実analysis転送を検査します。型付きobjection eventはraise・部分drop・独自callback処理後のall-dropped完了を、drain 0と未変更peerで区別します。
+topology printerの明示・省略・null呼び出しは、選択policyの同一性と独自component 5つの訪問を検査します。enum数値encoding、兄弟順序、正確な表示文面、callback回数は固定しません。
+独自topology emitterにだけ改行を加えてUT行をreporter文面から分離し、以前の区切り不足の記録を除外して、期待行を変えず依存する3入力を新たに測定します。
+
+13 source本体と期待値は実測由来tag 10件以外を変えていません。日英AI義務21件は付録Fの20件と限定した第9章lookup 1件で、以前に未評価だったFの5 leafを部分分解し、新しい分類は追加しません。
+未変更constructor sourceは既にF.2.5.1を引用し、直接の識別子linkを加えても新しい実行や主引用を増やしません。元／prescoped phase入力にはdirect／controlの役割を明示し、他条件のpassで元入力をpassにしません。
+
+以前の3988義務、420分類、通常2486記録は内容を保持します。現在はAI義務4009件、直接対応2455テスト、control専用44テスト、control linkあり140です。
+棚卸しは部分2034／分類420／未評価53です。付録Fは107／23／7、義務253件、主引用164テスト（simulation 130／elaboration 34）です。
+第9章の1義務追加で主引用入力を増やさず、全ての部分適用条件と元の段階目標は未完です。
+
+compiler 99記録、HDL 38記録、command-line 18記録、互換guest 1082記録も未変更で保持します。
+guest未測定1417入力は追加1414件と修正した元入力3件（simulation 1318／elaboration 99）です。
+新しいguest実行／filter、範囲／catalog、runner／backend／tool／workflow変更、商用結果、実装由来oracle、人の照合、範囲／分母承認はありません。

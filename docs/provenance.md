@@ -335,6 +335,16 @@ implementation algorithms; [the manager-context FAQ](faq.md#manager-policy-conte
 records the qualified description and evidence limits. No simulator
 implementation source or commercial output supplies an oracle.
 
+Typed role, operator, event and topology expectations are independently
+derived from the supplied IEEE texts. Concrete port-query bodies only provide
+original subtype setup; actual traffic uses standard analysis classes. A
+public-identity diagnostic records shared-domain node selection, while separate
+prescoped inputs keep the original interpretation visible. The original
+topology emitter gains a newline and is freshly measured without altering any
+expected row. No implementation body or commercial output supplies an oracle;
+[the typed-role FAQ](faq.md#named-roles-wait-operators-and-topology-policies)
+records applicability and evidence limits.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.
