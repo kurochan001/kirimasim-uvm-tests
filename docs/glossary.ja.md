@@ -1261,3 +1261,14 @@ modelと実HDL記憶域の違いは[Q326](faq.ja.md#q326-user-backdoorの一致�
 
 **mapごとのfrontdoor handle** — あるregister／mapの組に現在関連付くuser-defined sequenceで、関連付けがなければnullです。
 単一mapでの省略と複数mapの明示選択は[Q333](faq.ja.md#q333-get_frontdoorにmapを明示するのはどの場合ですか)で説明しています。
+
+## rootの終了とpredictor checkの前提
+
+**finish要求／正時間の終了** — simulationのshutdownを要求すること／後の正時間activityへ進まないことの確認です。
+同時刻続行との区別は[Q335](faq.ja.md#q335-run_test後の文が実行されたらfinishは要求されていませんか)で説明しています。
+
+**早いguard／遅いchildのcheck配置** — 記録済みerrorのfatal処理／child EOE errorがrootのbottom-up checkより先になるという解釈です。
+異なる前提は[Q336](faq.ja.md#q336-rootの早いfatalよりchild-eoe-callbackが必ず先ですか)に記録しています。
+
+**登録packetのcheck control** — 明示factory登録と実bottom-up check-phase観測を持つ、別索引のpredictor検査系です。
+必須のIEEE BUSTYPE制約との区別は[Q337](faq.ja.md#q337-未登録packetと登録済みpacketの入力を分ける理由は)で説明しています。

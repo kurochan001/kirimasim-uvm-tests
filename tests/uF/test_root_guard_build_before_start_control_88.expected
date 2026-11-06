@@ -1,0 +1,3 @@
+UT: guard88 root_guard_build_before_start_control before_errors_zero 1
+UT: guard88 fatal injected 1 error_count 1 start_absent 1
+UT: guard88 final fatal 1 start 0

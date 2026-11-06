@@ -1,0 +1,3 @@
+UT: guard88 root_guard_error_in_end_of_elaboration before_errors_zero 1
+UT: guard88 fatal injected 1 eoe 1 error_count 1 start_absent 1
+UT: guard88 final fatal 1 eoe 1 start 0 returned 0

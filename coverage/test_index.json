@@ -9745,6 +9745,86 @@
     "u18/test_reg_frontdoor_get_multiple_replace_second_nonnull_control_87": {
       "primary_clause": "18.4.5.1",
       "inputs_sha256": "a871c2aeede4b68d096e98076778e70c61e091279f7226643e92ac6bca256b49"
+    },
+    "uF/test_root_finish_getter_history_88": {
+      "primary_clause": "F.7.3.5",
+      "inputs_sha256": "0ffe58ce443f173a054f5c32172419bdb81cde54e449fb3a28735cee9739840c"
+    },
+    "uF/test_root_finish_default_after_phases_88": {
+      "primary_clause": "F.7.3.4",
+      "inputs_sha256": "c0d910c08468f5741cc1334e7cd3054b01284b8bfc29a0da0225227212eac5d3"
+    },
+    "uF/test_root_finish_reenabled_after_phases_88": {
+      "primary_clause": "F.7.3.4",
+      "inputs_sha256": "128fd0093b4ecefc42b4fad374c2dd4ed50d8fc646e77071e47e0655d4d328cd"
+    },
+    "uF/test_root_finish_disabled_returns_to_caller_88": {
+      "primary_clause": "F.7.3.4",
+      "inputs_sha256": "df9c16e7d856014bb4311b594962ea4e43951783ab1f2fa6d42305773bc68ed9"
+    },
+    "uF/test_root_guard_error_in_build_88": {
+      "primary_clause": "F.7.3.6",
+      "inputs_sha256": "db83d596c93fd67854d1f516ddc101336a24479804a562af86b420e883e74442"
+    },
+    "uF/test_root_guard_error_in_end_of_elaboration_88": {
+      "primary_clause": "F.7.3.6",
+      "inputs_sha256": "8b0ceea55c8d8e5a15aa53b3608c7be74e7d09641cead91dd596bbb7dc4f1b8e"
+    },
+    "uF/test_root_direct_construction_is_nonpublic_88": {
+      "primary_clause": "F.7.2.1",
+      "inputs_sha256": "6c472c5f567f72b91274d573b3a80737c4302f37f03e5a010386118bdeaec518"
+    },
+    "uF/test_root_extension_construction_requires_fatal_88": {
+      "primary_clause": "F.7.2.1",
+      "inputs_sha256": "cfd29240e7c6e811741e7171f48693635c9e57564644d3e10b6302889fac83a4"
+    },
+    "u19/test_predictor_check_pending_little_1_registers_88": {
+      "primary_clause": "19.3.3.3",
+      "inputs_sha256": "d40da37b9d66e619d5c61f42d97857dc0e4059dc83fe4ed4b60d42925a5a4444"
+    },
+    "u19/test_predictor_check_pending_little_2_registers_88": {
+      "primary_clause": "19.3.3.3",
+      "inputs_sha256": "1c923844a5dc592252712a717069ab776c660b6bfe2b156905ad77b46e6b2a70"
+    },
+    "u19/test_predictor_check_pending_big_1_registers_88": {
+      "primary_clause": "19.3.3.3",
+      "inputs_sha256": "0437e7b78fd76135e76fe075f1cb6add2eee2fe363522491f2363c193fb88cc0"
+    },
+    "u19/test_predictor_check_pending_big_2_registers_88": {
+      "primary_clause": "19.3.3.3",
+      "inputs_sha256": "bba4db86e63fae96793974b7e4707783a425bdbc7042f46c725689ec7f4dbcbf"
+    },
+    "uF/test_root_finish_default_positive_time_control_88": {
+      "primary_clause": "F.7.3.4",
+      "inputs_sha256": "46319a518bc603626676670cbb0e77de060e2bfa100be270bc4b8890f076e51e"
+    },
+    "uF/test_root_finish_reenabled_positive_time_control_88": {
+      "primary_clause": "F.7.3.4",
+      "inputs_sha256": "b25a16d8366ccf47f03b681cce7906880b1e72c8def7b5ab94a638c0348b0fb6"
+    },
+    "uF/test_root_guard_build_before_start_control_88": {
+      "primary_clause": "F.7.3.6",
+      "inputs_sha256": "203fa6f422caccc6229889974e095a6f9040319f32ce70eee71d8650f6f4e7f0"
+    },
+    "uF/test_root_extension_fatal_positive_time_control_88": {
+      "primary_clause": "F.7.2.1",
+      "inputs_sha256": "7e8ba8c0a4540ad2c5e8c744a8fe6debdb0fb25ca329cee410d2763f4c3a85db"
+    },
+    "u19/test_predictor_check_registered_pending_little_1_registers_88": {
+      "primary_clause": "19.3.3.3",
+      "inputs_sha256": "71914011aaf2c9e13cf92d20caacfd98c651b41914cdb29fadebeb854d4ad3ca"
+    },
+    "u19/test_predictor_check_registered_pending_little_2_registers_88": {
+      "primary_clause": "19.3.3.3",
+      "inputs_sha256": "a07a800d7f738c904ed3334e2a851d5c19588ee0440ee92e8c5589b5bc7f62e4"
+    },
+    "u19/test_predictor_check_registered_pending_big_1_registers_88": {
+      "primary_clause": "19.3.3.3",
+      "inputs_sha256": "1a6553a09b6bee8baaca166125bc184cfc01d62eaa8b983eef91e529924938ef"
+    },
+    "u19/test_predictor_check_registered_pending_big_2_registers_88": {
+      "primary_clause": "19.3.3.3",
+      "inputs_sha256": "89f816bbe0d54fbc33093e2118cca79c66a8471fb56bc10a35535394a174ed41"
     }
   }
 }

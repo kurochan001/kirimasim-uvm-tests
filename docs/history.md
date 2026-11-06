@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighty-seven cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2436 tests: 2338 simulation and 98 elaboration). The earlier 349-test checkpoint is
+three M4 increments and eighty-eight cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2456 tests: 2357 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5138,3 +5138,52 @@ Totals are 2436 (2338 simulation/98 elaboration): M1 1020 (940/80), M2 568
 and 381 known (255 runtime/121 build/5 illegal acceptance). Goal iteration59
 reduces unassessed from76 to73, a decrease of1390 from activation count1463.
 Partial duties and original targets remain unproven; the goal stays active.
+
+## Eighty-eighth thin-area expansion: root completion guards and predictor checks
+
+Twenty new inputs add twelve M1 cases (eleven simulation/one elaboration) and
+eight M3 simulations. Ten runtime inputs match seeds 1/73 and one non-public
+constructor rejection matches without runtime. Five original inputs retain seed 1
+exit 0 observations without seed 73; four bare-packet inputs retain build refusals
+without runtime. [The root/predictor FAQ](faq.md#root-completion-guards-and-predictor-checks) separates these conditions.
+
+Getter histories and caller-owned finish match. Separate positive-time controls
+show default/reenabled completion before later activity, build-error fatal before
+start-of-simulation without requiring a child callback first, and root-extension
+fatal before later activity. The unchanged stricter inputs keep same-time return
+and early-guard ordering observations. The late-child error input directly retains
+its qualified bottom-up check-placement expectation and reaches start-of-simulation
+without the expected fatal. No unconditional root cause or defect count follows.
+
+Four explicitly registered packet controls use independent incomplete/completed
+models and the actual bottom-up check phase for one/two registers and little/big
+endian. Completed mirrors/publications match; pending transfers produce some report.
+Severity, ID, text and count are not fixed; CAUGHT observes production, not default
+fatal/abort behavior. After the original expectations and build refusals, one
+pinned Apache type-name function was inspected; its BUSTYPE factory creation is
+consistent with the unregistered-type diagnostic. Registration is an independent
+control premise, not a new IEEE prerequisite. All twelve original bodies and
+expectations remain unchanged; no control match passes an original whole input.
+
+Eight bilingual AI duties partially decompose five root/predictor leaves. No new
+classification or scope approval is added. All 3952 earlier duties and 420 earlier
+assessments retain their objects. Global state is 2019 partial/420 assessed/68
+unassessed. Annex F is 100/23/14 with 230 duties and 149 primary tests (115 simulation/
+34 elaboration); chapter 19 is 87/24/0 with 199 duties and 165 primary tests (160/5).
+All 3960 duties directly link 2412 tests; forty-four others are control-only and 136
+have control links. Zero unassessed in chapter 19 does not complete its 87 partial contracts.
+
+All 2436 prior ordinary and 98 compiler records, 38 HDL, 18 command-line and 1082
+compatible guest records retain their content. Eleven proof-based tags are freshly
+remeasured without body/helper/expectation changes. Guest unmeasured inputs are 1374:
+1371 additions and three revised originals (1275 simulation/99 elaboration).
+There is no guest rerun/filter, runner/backend/tool/workflow change, implementation-
+derived oracle, simulator-source reading, commercial result or human review.
+Qualified shutdown/guard/declaration/report interpretations, all partial applicability,
+original targets and scope/denominator approval remain open.
+
+Totals are 2456 (2357 simulation/99 elaboration): M1 1032 (951/81), M2 568
+(561/7), M3 856 (845/11). Ordinary evidence is 2066 pass (1972 runtime/94 compiler)
+and 390 known (260 runtime/125 build/5 illegal acceptance). Goal iteration 60
+reduces unassessed from 73 to 68,a decrease of 1395 from activation count 1463.
+Partial duties and original targets remain unproven;the goal stays active.

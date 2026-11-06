@@ -1641,3 +1641,14 @@ the same modeled words when a partial write may read through either route.
 
 **Map-scoped frontdoor handle** — The user-defined sequence currently associated with one register/map pair, or null when none is associated.
 [Q333](faq.md#q333-when-must-get_frontdoor-specify-a-map) explains single-map omission and explicit multiple-map selection.
+
+## Root termination and predictor-check premises
+
+**Finish request / positive-time termination** — Requesting simulation shutdown / checking that a later positive-time activity is not reached.
+[Q335](faq.md#q335-do-statements-after-run_test-prove-that-no-finish-was-requested) distinguishes these from same-time continuation.
+
+**Early guard / late-child check placement** — Fatal handling of an already-recorded error / the interpretation that a child EOE error precedes the root's bottom-up check.
+[Q336](faq.md#q336-does-an-early-root-fatal-require-the-child-eoe-callback-first) records the distinct premises.
+
+**Registered-packet check control** — A separately indexed predictor fixture with explicit factory registration and real bottom-up check-phase observation.
+[Q337](faq.md#q337-why-keep-bare-and-registered-packet-inputs-separate) separates this setup from a mandatory IEEE BUSTYPE constraint.

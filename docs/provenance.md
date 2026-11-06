@@ -305,6 +305,16 @@ not supply an oracle. Frozen bodies/expectations are retained when measured tags
 are added and the resulting inputs are freshly remeasured; [the access FAQ](faq.md#killed-access-recovery-and-frontdoor-selection)
 records applicability limits.
 
+Root/predictor expectations are independently derived before measurement from
+supplied IEEE F.7.2.1,F.7.3.4–.6,19.3.3.3 and SystemVerilog simulation control.
+Only after bare-type build refusals, the license and one type-name function in
+pinned Apache src/reg/uvm_reg_predictor.svh were inspected; BUSTYPE factory
+creation is consistent with the diagnostic. That source supplies no prediction
+algorithm or diagnostic-severity oracle. Registered packets remain separate
+controls; all twelve initial bodies/expectations are retained, and tagged inputs
+are freshly measured. No simulator implementation or commercial result is used;
+see [the root/predictor FAQ](faq.md#root-completion-guards-and-predictor-checks).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

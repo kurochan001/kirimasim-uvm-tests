@@ -147929,6 +147929,390 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-ROOT-FINISH-DEFAULT-GETTER-88",
+      "clause": "F.7.3.5",
+      "statement": {
+        "en": "The root finish-on-completion getter returns1 before any setter call.",
+        "ja": "rootのfinish-on-completion getterはsetter未呼出し時に1を返す。"
+      },
+      "conditions": {
+        "en": "Use the actual singleton root, default/latest getter histories and real run_test through a small component that raises an objection, waits positive time and reaches final_phase. Independent default/reenabled controls observe completion before a later positive-time marker while the watchdog still schedules future activity; caller-owned mode observes run_test return and an explicit later finish. The stricter original no-same-time-return probes are control-only, not the definition of the finish flag.",
+        "ja": "実singleton rootを使い、getterの既定／最新履歴と、objection、正時間待機、final_phaseを持つ小componentの実run_testを観測する。独立した既定／再有効化controlはwatchdogが将来のactivityを予定したまま後続の正時間markerへ進む前の終了を確認し、caller所有modeはrun_testの返却と後続の明示finishを観測する。元の「同時刻でも返却しない」という厳しいprobeはcontrol専用で、finish flag自体の定義にしない。"
+      },
+      "expected": {
+        "en": "The first default getter observation is true.",
+        "ja": "最初の既定getter観測が真である。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. An expected row may aggregate predicates and does not assign a separate measured status to every duty. No control match passes a stricter/original input, creates an IEEE factory-registration prerequisite, or establishes an unconditional library/simulator root cause or independent defect count. Original targets, all applicability, human review and scope/denominator approval remain open. No implementation source or commercial result supplies an oracle. Normal exit is a runner condition, not an independently required OS exit code. A final-phase marker belongs to the selected component, not an all-component topology audit. Positive-time controls do not resolve SystemVerilog same-time continuation after a finish request or certify all phases/timing/timeout conditions.",
+        "ja": "AIによる部分分解のみ。期待行は複数のpredicateを集約する場合があり、義務ごとの実測statusを独立に割り当てない。control一致で厳しい／元の入力をpassにせず、IEEEのfactory登録前提や無条件のlibrary／simulator根本原因、独立欠陥件数も作らない。元の目標、全適用条件、人の照合、範囲／分母承認は未完。実装sourceや商用結果からoracleを導かない。 正常exitはrunner条件で、OS終了codeの独立した規格要求ではない。final-phase markerは選択componentのもので、全component構造の監査ではない。正時間controlでfinish要求後のSystemVerilog同時刻続行や、全phase／timing／timeout条件を解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_finish_getter_history_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: finish88 default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-FINISH-LATEST-GETTER-88",
+      "clause": "F.7.3.5",
+      "statement": {
+        "en": "The root finish-on-completion getter follows the latest zero/one setter value, including repeated sets.",
+        "ja": "rootのfinish-on-completion getterは繰り返し設定も含め直近の0／1 setter値に従う。"
+      },
+      "conditions": {
+        "en": "Use the actual singleton root, default/latest getter histories and real run_test through a small component that raises an objection, waits positive time and reaches final_phase. Independent default/reenabled controls observe completion before a later positive-time marker while the watchdog still schedules future activity; caller-owned mode observes run_test return and an explicit later finish. The stricter original no-same-time-return probes are control-only, not the definition of the finish flag.",
+        "ja": "実singleton rootを使い、getterの既定／最新履歴と、objection、正時間待機、final_phaseを持つ小componentの実run_testを観測する。独立した既定／再有効化controlはwatchdogが将来のactivityを予定したまま後続の正時間markerへ進む前の終了を確認し、caller所有modeはrun_testの返却と後続の明示finishを観測する。元の「同時刻でも返却しない」という厳しいprobeはcontrol専用で、finish flag自体の定義にしない。"
+      },
+      "expected": {
+        "en": "Independent zero,one and repeated-zero observations match their selected values.",
+        "ja": "0、1、0の繰り返しを独立に照会し、選択値と一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. An expected row may aggregate predicates and does not assign a separate measured status to every duty. No control match passes a stricter/original input, creates an IEEE factory-registration prerequisite, or establishes an unconditional library/simulator root cause or independent defect count. Original targets, all applicability, human review and scope/denominator approval remain open. No implementation source or commercial result supplies an oracle. Normal exit is a runner condition, not an independently required OS exit code. A final-phase marker belongs to the selected component, not an all-component topology audit. Positive-time controls do not resolve SystemVerilog same-time continuation after a finish request or certify all phases/timing/timeout conditions.",
+        "ja": "AIによる部分分解のみ。期待行は複数のpredicateを集約する場合があり、義務ごとの実測statusを独立に割り当てない。control一致で厳しい／元の入力をpassにせず、IEEEのfactory登録前提や無条件のlibrary／simulator根本原因、独立欠陥件数も作らない。元の目標、全適用条件、人の照合、範囲／分母承認は未完。実装sourceや商用結果からoracleを導かない。 正常exitはrunner条件で、OS終了codeの独立した規格要求ではない。final-phase markerは選択componentのもので、全component構造の監査ではない。正時間controlでfinish要求後のSystemVerilog同時刻続行や、全phase／timing／timeout条件を解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_finish_getter_history_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: finish88 default 1",
+            "UT: finish88 latest_zero 1",
+            "UT: finish88 latest_one 1",
+            "UT: finish88 repeated_zero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-FINISH-AUTOMATIC-88",
+      "clause": "F.7.3.4",
+      "statement": {
+        "en": "Default or explicitly reenabled finish-on-completion terminates after the selected final phase before caller-owned positive-time activity.",
+        "ja": "既定または明示再有効化したfinish-on-completionは選択final phaseの後、caller所有の正時間activityへ進む前に終了する。"
+      },
+      "conditions": {
+        "en": "Use the actual singleton root, default/latest getter histories and real run_test through a small component that raises an objection, waits positive time and reaches final_phase. Independent default/reenabled controls observe completion before a later positive-time marker while the watchdog still schedules future activity; caller-owned mode observes run_test return and an explicit later finish. The stricter original no-same-time-return probes are control-only, not the definition of the finish flag.",
+        "ja": "実singleton rootを使い、getterの既定／最新履歴と、objection、正時間待機、final_phaseを持つ小componentの実run_testを観測する。独立した既定／再有効化controlはwatchdogが将来のactivityを予定したまま後続の正時間markerへ進む前の終了を確認し、caller所有modeはrun_testの返却と後続の明示finishを観測する。元の「同時刻でも返却しない」という厳しいprobeはcontrol専用で、finish flag自体の定義にしない。"
+      },
+      "expected": {
+        "en": "The final-phase marker is present; no new positive-time marker occurs and no error/fatal accounts for termination.",
+        "ja": "final-phase markerがあり、新しい正時間markerへは進まず、error／fatalによる終了でもない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. An expected row may aggregate predicates and does not assign a separate measured status to every duty. No control match passes a stricter/original input, creates an IEEE factory-registration prerequisite, or establishes an unconditional library/simulator root cause or independent defect count. Original targets, all applicability, human review and scope/denominator approval remain open. No implementation source or commercial result supplies an oracle. Normal exit is a runner condition, not an independently required OS exit code. A final-phase marker belongs to the selected component, not an all-component topology audit. Positive-time controls do not resolve SystemVerilog same-time continuation after a finish request or certify all phases/timing/timeout conditions.",
+        "ja": "AIによる部分分解のみ。期待行は複数のpredicateを集約する場合があり、義務ごとの実測statusを独立に割り当てない。control一致で厳しい／元の入力をpassにせず、IEEEのfactory登録前提や無条件のlibrary／simulator根本原因、独立欠陥件数も作らない。元の目標、全適用条件、人の照合、範囲／分母承認は未完。実装sourceや商用結果からoracleを導かない。 正常exitはrunner条件で、OS終了codeの独立した規格要求ではない。final-phase markerは選択componentのもので、全component構造の監査ではない。正時間controlでfinish要求後のSystemVerilog同時刻続行や、全phase／timing／timeout条件を解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_finish_default_positive_time_control_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: finish88 root_finish_default_positive_time_control selected 1",
+            "UT: finish88 final phase 1 positive_time 0 no_errors 1"
+          ]
+        },
+        {
+          "test": "uF/test_root_finish_reenabled_positive_time_control_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: finish88 root_finish_reenabled_positive_time_control selected 1",
+            "UT: finish88 final phase 1 positive_time 0 no_errors 1"
+          ]
+        },
+        {
+          "test": "uF/test_root_finish_default_after_phases_88",
+          "role": "control",
+          "expected_observations": [
+            "UT: finish88 root_finish_default_after_phases selected 1",
+            "UT: finish88 final phase 1 returned 0 user_finish 0"
+          ]
+        },
+        {
+          "test": "uF/test_root_finish_reenabled_after_phases_88",
+          "role": "control",
+          "expected_observations": [
+            "UT: finish88 root_finish_reenabled_after_phases selected 1",
+            "UT: finish88 final phase 1 returned 0 user_finish 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-FINISH-CALLER-OWNED-88",
+      "clause": "F.7.3.4",
+      "statement": {
+        "en": "Disabling finish-on-completion permits run_test to return after phasing and leaves positive-time termination to the caller.",
+        "ja": "finish-on-completionの無効化はphasing後のrun_test返却を許し、正時間の終了をcallerへ残す。"
+      },
+      "conditions": {
+        "en": "Use the actual singleton root, default/latest getter histories and real run_test through a small component that raises an objection, waits positive time and reaches final_phase. Independent default/reenabled controls observe completion before a later positive-time marker while the watchdog still schedules future activity; caller-owned mode observes run_test return and an explicit later finish. The stricter original no-same-time-return probes are control-only, not the definition of the finish flag.",
+        "ja": "実singleton rootを使い、getterの既定／最新履歴と、objection、正時間待機、final_phaseを持つ小componentの実run_testを観測する。独立した既定／再有効化controlはwatchdogが将来のactivityを予定したまま後続の正時間markerへ進む前の終了を確認し、caller所有modeはrun_testの返却と後続の明示finishを観測する。元の「同時刻でも返却しない」という厳しいprobeはcontrol専用で、finish flag自体の定義にしない。"
+      },
+      "expected": {
+        "en": "The caller observes final_phase,returns from run_test with the getter0,and later explicitly terminates.",
+        "ja": "callerはfinal_phaseを確認し、getter0のままrun_testから返却され、後で明示的に終了する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. An expected row may aggregate predicates and does not assign a separate measured status to every duty. No control match passes a stricter/original input, creates an IEEE factory-registration prerequisite, or establishes an unconditional library/simulator root cause or independent defect count. Original targets, all applicability, human review and scope/denominator approval remain open. No implementation source or commercial result supplies an oracle. Normal exit is a runner condition, not an independently required OS exit code. A final-phase marker belongs to the selected component, not an all-component topology audit. Positive-time controls do not resolve SystemVerilog same-time continuation after a finish request or certify all phases/timing/timeout conditions.",
+        "ja": "AIによる部分分解のみ。期待行は複数のpredicateを集約する場合があり、義務ごとの実測statusを独立に割り当てない。control一致で厳しい／元の入力をpassにせず、IEEEのfactory登録前提や無条件のlibrary／simulator根本原因、独立欠陥件数も作らない。元の目標、全適用条件、人の照合、範囲／分母承認は未完。実装sourceや商用結果からoracleを導かない。 正常exitはrunner条件で、OS終了codeの独立した規格要求ではない。final-phase markerは選択componentのもので、全component構造の監査ではない。正時間controlでfinish要求後のSystemVerilog同時刻続行や、全phase／timing／timeout条件を解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_finish_disabled_returns_to_caller_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: finish88 root_finish_disabled_returns_to_caller selected 1",
+            "UT: finish88 returned_after_final 1 selected_zero 1",
+            "UT: finish88 user_termination 1",
+            "UT: finish88 final phase 1 returned 1 user_finish 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-EOE-ERROR-GUARD-88",
+      "clause": "F.7.3.6",
+      "statement": {
+        "en": "The root end-of-elaboration error check generates a fatal for existing default-server errors before start-of-simulation.",
+        "ja": "rootのend-of-elaboration error検査は既定serverにあるerrorに対してstart-of-simulation前にfatalを発生させる。"
+      },
+      "conditions": {
+        "en": "Inject an original report error during build or child end-of-elaboration. The real root and default report server are used. A root-only fatal catcher observes severity and returns THROW without modifying the message/action. The build control only requires fatal before start-of-simulation; the late-child input directly tests the printed bottom-up end-of-elaboration/API grouping. The original build probe that additionally requires child EOE before fatal is control-only.",
+        "ja": "buildまたはchild end-of-elaborationで独自report errorを発生させる。実rootと既定report serverを使い、rootだけのfatal catcherはseverityを観測し、message／actionを変更せずTHROWを返す。build controlはstart-of-simulation前のfatalだけを要求し、遅いchild入力は印刷されたbottom-up end-of-elaboration／APIの整理を直接検査する。child EOEがfatalより先という追加要求を持つ元build probeはcontrol専用。"
+      },
+      "expected": {
+        "en": "An original error is recorded and a fatal is observed before start-of-simulation; the selected late-child grouping retains its separate expectation.",
+        "ja": "独自errorが記録され、start-of-simulation前にfatalを観測する。選択した遅いchildの整理は別の期待を保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. An expected row may aggregate predicates and does not assign a separate measured status to every duty. No control match passes a stricter/original input, creates an IEEE factory-registration prerequisite, or establishes an unconditional library/simulator root cause or independent defect count. Original targets, all applicability, human review and scope/denominator approval remain open. No implementation source or commercial result supplies an oracle. The late-child check placement remains an explicit interpretation for review. No exact error/fatal count,ID,text,child callback order for early abort,OS exit code or arbitrary concurrent report history is fixed. Same-time continuation and overall root/phase completeness remain separate.",
+        "ja": "AIによる部分分解のみ。期待行は複数のpredicateを集約する場合があり、義務ごとの実測statusを独立に割り当てない。control一致で厳しい／元の入力をpassにせず、IEEEのfactory登録前提や無条件のlibrary／simulator根本原因、独立欠陥件数も作らない。元の目標、全適用条件、人の照合、範囲／分母承認は未完。実装sourceや商用結果からoracleを導かない。 遅いchildでのcheck配置は照合が必要な明示解釈として残す。error／fatalの正確な件数、ID、本文、早期abort時のchild callback順序、OS終了code、任意の並行report履歴は固定しない。同時刻続行とroot／phase全体の完全性は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_guard_build_before_start_control_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: guard88 root_guard_build_before_start_control before_errors_zero 1",
+            "UT: guard88 fatal injected 1 error_count 1 start_absent 1",
+            "UT: guard88 final fatal 1 start 0"
+          ]
+        },
+        {
+          "test": "uF/test_root_guard_error_in_end_of_elaboration_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: guard88 root_guard_error_in_end_of_elaboration before_errors_zero 1",
+            "UT: guard88 fatal injected 1 eoe 1 error_count 1 start_absent 1",
+            "UT: guard88 final fatal 1 eoe 1 start 0 returned 0"
+          ]
+        },
+        {
+          "test": "uF/test_root_guard_error_in_build_88",
+          "role": "control",
+          "expected_observations": [
+            "UT: guard88 root_guard_error_in_build before_errors_zero 1",
+            "UT: guard88 fatal injected 1 eoe 1 error_count 1 start_absent 1",
+            "UT: guard88 final fatal 1 eoe 1 start 0 returned 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-CONSTRUCTOR-NONPUBLIC-88",
+      "clause": "F.7.2.1",
+      "statement": {
+        "en": "External direct construction through the non-public root constructor is rejected.",
+        "ja": "非公開root constructorを外部から直接呼ぶ生成は拒否される。"
+      },
+      "conditions": {
+        "en": "Use the supplied non-public root constructor from an external scope or from a minimal original subtype after obtaining the singleton. A global fatal observer returns THROW. A positive-time extension control observes fatal production/termination without requiring absence of same-time constructor return; the stricter original return probe is control-only.",
+        "ja": "外部scope、またはsingleton取得後の最小独自subtypeから、記載された非公開root constructorを使う。global fatal observerはTHROWを返す。正時間extension controlは同時刻のconstructor返却の不在を要求せずfatal生成／終了を観測し、厳しい元の返却probeはcontrol専用。"
+      },
+      "expected": {
+        "en": "The compiler rejects the selected source with a matching non-public constructor diagnostic and no runtime seed.",
+        "ja": "選択sourceは非公開constructorに対応する診断でcompile拒否され、runtime seedはない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. An expected row may aggregate predicates and does not assign a separate measured status to every duty. No control match passes a stricter/original input, creates an IEEE factory-registration prerequisite, or establishes an unconditional library/simulator root cause or independent defect count. Original targets, all applicability, human review and scope/denominator approval remain open. No implementation source or commercial result supplies an oracle. External rejection alone does not distinguish protected from local access. The extension source relies on the printed protected declaration; fatal observations do not certify all factory/multiple-root cases or same-time shutdown behavior. No unrelated compile rejection passes a runtime-fatal requirement.",
+        "ja": "AIによる部分分解のみ。期待行は複数のpredicateを集約する場合があり、義務ごとの実測statusを独立に割り当てない。control一致で厳しい／元の入力をpassにせず、IEEEのfactory登録前提や無条件のlibrary／simulator根本原因、独立欠陥件数も作らない。元の目標、全適用条件、人の照合、範囲／分母承認は未完。実装sourceや商用結果からoracleを導かない。 外部拒否だけではprotectedとlocalのaccessを区別しない。extension sourceは印刷されたprotected宣言に従い、fatal観測で全factory／複数root条件や同時刻shutdownを認定しない。無関係なcompile拒否でruntime-fatal義務をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_direct_construction_is_nonpublic_88",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_root_direct_construction_is_nonpublic_88\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:protected|local)\\b)(?=.*\\b(?:uvm_root|new)\\b).*error"
+          }
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-EXTENSION-FATAL-88",
+      "clause": "F.7.2.1",
+      "statement": {
+        "en": "Constructing a root extension after the singleton exists generates a fatal.",
+        "ja": "singletonが存在する後でroot extensionを生成するとfatalが発生する。"
+      },
+      "conditions": {
+        "en": "Use the supplied non-public root constructor from an external scope or from a minimal original subtype after obtaining the singleton. A global fatal observer returns THROW. A positive-time extension control observes fatal production/termination without requiring absence of same-time constructor return; the stricter original return probe is control-only.",
+        "ja": "外部scope、またはsingleton取得後の最小独自subtypeから、記載された非公開root constructorを使う。global fatal observerはTHROWを返す。正時間extension controlは同時刻のconstructor返却の不在を要求せずfatal生成／終了を観測し、厳しい元の返却probeはcontrol専用。"
+      },
+      "expected": {
+        "en": "An attempted extension produces fatal and does not reach later positive-time activity.",
+        "ja": "extension生成の試行はfatalを生成し、後の正時間activityへ進まない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. An expected row may aggregate predicates and does not assign a separate measured status to every duty. No control match passes a stricter/original input, creates an IEEE factory-registration prerequisite, or establishes an unconditional library/simulator root cause or independent defect count. Original targets, all applicability, human review and scope/denominator approval remain open. No implementation source or commercial result supplies an oracle. External rejection alone does not distinguish protected from local access. The extension source relies on the printed protected declaration; fatal observations do not certify all factory/multiple-root cases or same-time shutdown behavior. No unrelated compile rejection passes a runtime-fatal requirement.",
+        "ja": "AIによる部分分解のみ。期待行は複数のpredicateを集約する場合があり、義務ごとの実測statusを独立に割り当てない。control一致で厳しい／元の入力をpassにせず、IEEEのfactory登録前提や無条件のlibrary／simulator根本原因、独立欠陥件数も作らない。元の目標、全適用条件、人の照合、範囲／分母承認は未完。実装sourceや商用結果からoracleを導かない。 外部拒否だけではprotectedとlocalのaccessを区別しない。extension sourceは印刷されたprotected宣言に従い、fatal観測で全factory／複数root条件や同時刻shutdownを認定しない。無関係なcompile拒否でruntime-fatal義務をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_extension_fatal_positive_time_control_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor88 ready 1",
+            "UT: ctor88 extension_fatal attempted 1 existing_root 1",
+            "UT: ctor88 final fatal 1 positive_time 0"
+          ]
+        },
+        {
+          "test": "uF/test_root_extension_construction_requires_fatal_88",
+          "role": "control",
+          "expected_observations": [
+            "UT: ctor88 ready 1",
+            "UT: ctor88 extension_fatal attempted 1 existing_root 1",
+            "UT: ctor88 final fatal 1 returned 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREDICTOR-PENDING-CHECK-88",
+      "clause": "19.3.3.3",
+      "statement": {
+        "en": "Under the observable-check interpretation, predictor check_phase detects queued incomplete register transfers separately from a completed control.",
+        "ja": "観測できるcheckという解釈で、predictor check_phaseは完了controlと分けて未完了register転送の残存を検出する。"
+      },
+      "conditions": {
+        "en": "Original registered packet controls use two independent predictors,blocks,maps and 32-bit registers behind16-bit little/big-endian observations. One predictor completes both registers; the other receives only first beats for1/2registers. The actual bottom-up check phase runs before the parent check observer. All predictor reports are captured as CAUGHT without fixing severity/ID/text/count. Four bare unregistered packet inputs stay unchanged as build-level control-only probes of the library registration dependency, not IEEE-required registration.",
+        "ja": "独自の登録済みpacket controlは、16-bit little／big-endian観測で、独立したpredictor、block、map、32-bit registerを2系統使う。一方は両registerを完了させ、他方は1／2 registerの最初のbeatだけを受け取る。実bottom-up check phaseをparentのcheck observerより先に実行する。predictorの全reportはseverity／ID／本文／件数を固定せずCAUGHTで捕捉する。未登録packetの4入力はlibraryの登録依存を調べるbuild-level control専用として未変更で保持し、IEEEが登録を要求するとはしない。"
+      },
+      "expected": {
+        "en": "The completed model retains both full mirrors and two publications without new error/fatal; the incomplete model has no publication and produces some report during actual check phase.",
+        "ja": "完了modelは両方の全mirrorと2 publicationを保持し新しいerror／fatalがなく、未完了modelはpublicationなしで実check phase中に何らかのreportを生成する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. An expected row may aggregate predicates and does not assign a separate measured status to every duty. No control match passes a stricter/original input, creates an IEEE factory-registration prerequisite, or establishes an unconditional library/simulator root cause or independent defect count. Original targets, all applicability, human review and scope/denominator approval remain open. No implementation source or commercial result supplies an oracle. This is an explicit observable-report interpretation of the terse check contract, not a mandated diagnostic severity. Captured reports do not test default fatal/abort handling. The complete control requires correct mirrors/publications and no new error/fatal; benign informational output is allowed. No private pending state,register internal ordering,memory prediction,bus driver,arbitrary BUSTYPE,all failure/concurrency cases or whole chapter completion is certified. The initial unregistered explicit-call inputs never reach runtime.",
+        "ja": "AIによる部分分解のみ。期待行は複数のpredicateを集約する場合があり、義務ごとの実測statusを独立に割り当てない。control一致で厳しい／元の入力をpassにせず、IEEEのfactory登録前提や無条件のlibrary／simulator根本原因、独立欠陥件数も作らない。元の目標、全適用条件、人の照合、範囲／分母承認は未完。実装sourceや商用結果からoracleを導かない。 短いcheck契約をreportで観測する明示解釈で、診断severityの規定ではない。report捕捉で既定fatal／abort処理を検査しない。完了controlは正しいmirror／publicationと新しいerror／fatalの不在を要求し、良性の情報出力は許す。private pending状態、register内部順序、memory prediction、bus driver、任意BUSTYPE、全失敗／並行条件、章全体の完了を認定しない。初期の未登録型・明示呼出し入力はruntimeへ到達していない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_predictor_check_pending_little_1_registers_88",
+          "role": "control",
+          "expected_observations": [
+            "UT: predictor88 predictor_check_pending_little_1_registers clean 1 partial 1 pending_report 1"
+          ]
+        },
+        {
+          "test": "u19/test_predictor_check_pending_little_2_registers_88",
+          "role": "control",
+          "expected_observations": [
+            "UT: predictor88 predictor_check_pending_little_2_registers clean 1 partial 1 pending_report 1"
+          ]
+        },
+        {
+          "test": "u19/test_predictor_check_pending_big_1_registers_88",
+          "role": "control",
+          "expected_observations": [
+            "UT: predictor88 predictor_check_pending_big_1_registers clean 1 partial 1 pending_report 1"
+          ]
+        },
+        {
+          "test": "u19/test_predictor_check_pending_big_2_registers_88",
+          "role": "control",
+          "expected_observations": [
+            "UT: predictor88 predictor_check_pending_big_2_registers clean 1 partial 1 pending_report 1"
+          ]
+        },
+        {
+          "test": "u19/test_predictor_check_registered_pending_little_1_registers_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predictor88 predictor_check_registered_pending_little_1_registers clean 1 partial 1 pending_report 1"
+          ]
+        },
+        {
+          "test": "u19/test_predictor_check_registered_pending_little_2_registers_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predictor88 predictor_check_registered_pending_little_2_registers clean 1 partial 1 pending_report 1"
+          ]
+        },
+        {
+          "test": "u19/test_predictor_check_registered_pending_big_1_registers_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predictor88 predictor_check_registered_pending_big_1_registers clean 1 partial 1 pending_report 1"
+          ]
+        },
+        {
+          "test": "u19/test_predictor_check_registered_pending_big_2_registers_88",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predictor88 predictor_check_registered_pending_big_2_registers clean 1 partial 1 pending_report 1"
+          ]
+        }
+      ]
     }
   ]
 }

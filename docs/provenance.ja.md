@@ -202,6 +202,11 @@ kill後復旧とfrontdoor照会の期待は、提供IEEE 18.9.1.3.5、18.4.5.1�
 独自backdoorの明示待機と記憶域、独自frontdoor sequenceを使い、実装bodyや商用結果はoracleにしません。全期待値を先に固定し、実測からtagを加えた入力は本体と期待値を保持して新たに測定します。
 適用条件の限界は[accessのFAQ](faq.ja.md#killしたaccessの復旧とfrontdoorの選択)で説明しています。
 
+root／predictor期待は提供IEEE F.7.2.1、F.7.3.4〜.6、19.3.3.3とSystemVerilogのsimulation制御から測定前に導きます。
+未登録型のbuild拒否後だけに固定Apacheのsrc/reg/uvm_reg_predictor.svhのlicenseと型名生成function 1つを読み、BUSTYPEのfactory生成が診断と整合しました。
+そのsourceからpredictionや診断severityのoracleを導かず、登録済みpacketを別controlにします。初期12本体／期待値を保持し、helperは独立に用意して、tag追加後も新たに測定します。
+simulator実装や商用結果は使わず、[root／predictorのFAQ](faq.ja.md#rootの終了guardとpredictorのcheck)で限界を説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

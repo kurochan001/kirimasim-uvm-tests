@@ -1,0 +1,22 @@
+/*
+:name: test_root_direct_construction_is_nonpublic_88
+:description: root direct construction is nonpublic checks independently derived public observations
+:tags: uF uvm
+:type: elaboration
+:lrm: 1800.2-2020 F.7.2.1 F.7.2.2 1800-2023 6.21 8.18 8.20
+:uvm: 2020.3.1
+:oracle: spec verilator@5.052
+:spec_check: ai
+:fourstate: no
+:nondeterministic: no
+:should_fail_because: root constructor is non-public and cannot be called by an external scope
+:expected_stderr_regex: (?i)^(?=.*test_root_direct_construction_is_nonpublic_88\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:protected|local)\b)(?=.*\b(?:uvm_root|new)\b).*error
+*/
+module test_root_direct_construction_is_nonpublic_88;
+  timeunit 1ns; timeprecision 1ps;
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
+  localparam string CASE_NAME="root_direct_construction_is_nonpublic";
+  initial begin uvm_root forbidden; forbidden=new(); end
+  initial begin #5000; $fatal(1,"root or predictor88 watchdog"); end
+endmodule

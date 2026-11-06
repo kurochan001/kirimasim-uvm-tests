@@ -1,0 +1,4 @@
+UT: finish88 root_finish_disabled_returns_to_caller selected 1
+UT: finish88 returned_after_final 1 selected_zero 1
+UT: finish88 user_termination 1
+UT: finish88 final phase 1 returned 1 user_finish 1
