@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighty-four cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2384 tests: 2287 simulation and 97 elaboration). The earlier 349-test checkpoint is
+three M4 increments and eighty-five cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2400 tests: 2303 simulation and 97 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4976,3 +4976,55 @@ Totals are 2384 (2287 simulation/97 elaboration): M1 1020 (940/80), M2 568
 and 370 known (249 runtime/116 build/5 illegal acceptance). Goal iteration 56
 reduces unassessed from 103 to 99, a decrease of 1364 from activation count1463.
 Full completion remains unproven and the goal stays active.
+
+## Eighty-fifth thin-area expansion: virtual-register backdoor observations
+
+Sixteen new M3 runtime fixtures check virtual-register and virtual-field poke/peek.
+Twelve original user-backdoor fixtures match seeds 1/73. Four actual public
+16-bit HDL-array fixtures also match both seeds under the separate VPI condition;
+their ordinary executions retain spec-only unlinked-DPI build differences.
+See [the virtual-register FAQ](faq.md#virtual-register-backdoor-observations)
+for the distinction between modeled storage and actual HDL access.
+
+Two selected array indices, independent memory contents and full raw-word
+snapshots check indexed values, field slices, preserved bits, peer elements and
+stride padding. Omitted debug arguments, positive line numbers and negative line
+numbers satisfy the same independent predicates. Singleword profiles use 8/16-bit
+memory/registers and 4/9-bit fields. A 32-bit whole-register profile uses equal
+16-bit halves; a 16-bit field spanning two words at LSB 8 accepts either order of its
+independently derived result pair. These are necessary order-independent checks,
+not a unique multiword layout contract. Internal access counts/order, unused upper
+output bits, failure results, concurrency, callbacks and reset-semaphore recovery
+remain open.
+
+Twelve bilingual AI duties partially decompose 18.9.1.3.3/.4 and 18.10.4.3/.4.
+The individually read bodyless headings 18.9.1.3 and 18.10.4 gain structural
+assessments. All 3911 earlier requirements and 411 earlier assessments retain
+their exact objects; proposed scope is unchanged. Global state is 2001 partial,
+413 assessed and 93 unassessed. Chapter 18 is 372/55/29 with 874 duties and
+550 primary tests (548 simulation/2 elaboration). All 3923 duties link directly
+to 2368 tests; thirty-two other tests remain control-only, and 123 have control links.
+
+The initial missing-include setup is corrected and archived before any native
+runtime, and an internal access-membership restriction is removed during oracle
+review without using measured runtime output. Final expectations are frozen
+before execution. Twelve reproduced ordinary headers gain tags and are freshly
+measured. A later oracle review narrows the original user storage to the declared
+memory word width through one helper and twelve constructor arguments. All sixteen
+ordinary and four HDL inputs are freshly measured under their current hashes;
+unmasked records stay archived and excluded. Four physical source blank-line trims
+after staged whitespace review are freshly measured under both ordinary and HDL
+conditions, with prior records retained under their old hashes. Expected files stay unchanged. All
+2384 earlier ordinary records, 97 compiler records, 34 earlier HDL records,
+18 command-line records and 1082 compatible guest records retain their content.
+No guest rerun/filter, implementation-source reading or runner/backend change
+is claimed. Guest unmeasured inputs increase to 1318: 1315 additions and three
+revised originals (1221 simulation/97 elaboration). Partial obligations, original
+milestone targets, human review and scope/denominator approval remain open.
+
+Totals are 2400 (2303 simulation/97 elaboration): M1 1020 (940/80), M2 568
+(561/7), M3 812 (802/10). Ordinary evidence is 2026 pass (1934 runtime/92 compiler)
+and 374 known (249 runtime/120 build/5 illegal acceptance). Separate HDL is
+37 pass/1 fail in 38 inputs. Goal iteration 57 reduces unassessed from 99 to 93,
+a decrease of 1370 from activation count1463. Full completion remains unproven;
+the goal stays active.

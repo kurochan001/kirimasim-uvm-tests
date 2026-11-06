@@ -6,7 +6,7 @@
 
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
-現在の2384件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の2400件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 差分の件数は[実測の内訳](results.ja.md#結果の解釈)で確認し、個別の入力を調べるときは[ライブラリの注記](known-differences.ja.md#固定版ライブラリの制約)、[ソースの分類一覧](known-differences.ja.md#specのみのテスト)、[シミュレータとライブラリの条件](known-differences.ja.md#シミュレータとライブラリの組み合わせ)を使ってください。
@@ -152,7 +152,7 @@ enumのsignature／本文とTR_HANDLE／0引数accessorの境界は限定した�
 
 elaboration 97件は抽象class直接生成35件とpure interface／const参照／禁止member／型context違反62件で拒否を期待し、92件が一致します。
 subscriber／visitor／proxy／adapterの未実装と印字virtual builtin dispatcherの直接生成は受理され、runtimeなしでspec-onlyを保持します。
-compiler受理5件は既知simulation差分365件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+compiler受理5件は既知simulation差分369件と別です。合法な派生controlを必要な拒否の代わりにはしません。
 
 field-access監査はseed 73結果のないseed 1 runtime差分5件を保持します。
 register write／readのpre hookは保持するRCFD期待に対してFDRCを観測し、別のcrdf post観測が一致しても入力全体をpassにしません。
@@ -304,6 +304,14 @@ API境界と既存のkill差分を成功扱いにせず、根本原因や独立�
 
 - [none_negative_id_limit_literal](../tests/uF/test_enum_state_none_negative_id_limit_literal_84.sv).
 - [sequence_kill_post_hooks_literal](../tests/uF/test_enum_state_sequence_kill_post_hooks_literal_84.sv).
+
+新規の実virtual register／fieldのpoke／peek 4入力は、別HDL条件で両seedに一致し、通常runnerではDPI未linkのbuild差分を保持します。
+12 model入力の一致や補助条件で未link実行を成功扱いにしない範囲は[backdoorのFAQ](faq.ja.md#virtual-registerのbackdoor観測)にあります。
+
+- [vreg_poke_word16](../tests/u18/test_vreg_backdoor_hdl_vreg_poke_word16_85.sv).
+- [vreg_peek_word16](../tests/u18/test_vreg_backdoor_hdl_vreg_peek_word16_85.sv).
+- [field_poke_word16](../tests/u18/test_vreg_backdoor_hdl_field_poke_word16_85.sv).
+- [field_peek_word16](../tests/u18/test_vreg_backdoor_hdl_field_peek_word16_85.sv).
 
 ## 固定版ライブラリの制約
 
@@ -707,7 +715,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは2014件、specのみのテストは370件です。
+スイート全体では、`verilator@5.052`を付けたテストは2026件、specのみのテストは374件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -716,13 +724,13 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの370件も、規格から導いた出力またはcompiler診断の期待を保持します。通常のVerilator実行とCIはoracle付き2014件（runtime 1922・compile拒否92）を選びます。
+specのみの374件も、規格から導いた出力またはcompiler診断の期待を保持します。通常のVerilator実行とCIはoracle付き2026件（runtime 1934・compile拒否92）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時249件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
-simulation build 116件には通常runtimeがなく、DPI未linkの52入力（HDL 34／command-line 18）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
+simulation build 120件には通常runtimeがなく、DPI未linkの56入力（HDL 38／command-line 18）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
 不正compiler受理5件は別のruntimeなし条件です。
 
-別HDL条件は全34入力のうち、register 6件、正時間force_time 8件、primitive force／release 9件、実array memory 3件を含む33件が両seed一致し、保持するE.7 warning／転送なし差分1件はseed 1です。
+別HDL条件は全38入力のうち、virtual register／field 4件、register 6件、正時間force_time 8件、primitive force／release 9件、実array memory 3件を含む37件が両seed一致し、保持するE.7 warning／転送なし差分1件はseed 1です。
 別command-line条件は17一致とquit-warning差分1件を保持し、重複条件を合算しません。
 
 policy 7 fixtureはseed 1で最初に異なり、seed 73結果はありません。copierの省略名は空でなく、comparer threshold／copier recursion／recorder radixはflush後の規定既定値へ戻りません。
@@ -770,7 +778,12 @@ specのみのケースも固定版oracle tagなしに規格から導いた期待
 
 controlは差分を解釈するために前提を変えて実行する補助検査であり、元のケースの結果との関係は[要求への対応付けの役割](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
-現在のspecのみの370件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在のspecのみの374件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+
+- [vreg_poke_word16](../tests/u18/test_vreg_backdoor_hdl_vreg_poke_word16_85.sv).
+- [vreg_peek_word16](../tests/u18/test_vreg_backdoor_hdl_vreg_peek_word16_85.sv).
+- [field_poke_word16](../tests/u18/test_vreg_backdoor_hdl_field_poke_word16_85.sv).
+- [field_peek_word16](../tests/u18/test_vreg_backdoor_hdl_field_peek_word16_85.sv).
 
 - [uvm_infoの字義的なINFO境界](../tests/uB/test_report_macro_info_literal_info_boundary_81.sv).
 - [uvm_info_contextの字義的なINFO境界](../tests/uB/test_report_macro_info_context_literal_info_boundary_81.sv).
@@ -1069,7 +1082,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1082記録、未測定は修正2入力を含む1302件です。
+対応する歴史的guest記録を除外し、互換範囲は1082記録、未測定は修正2入力を含む1318件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -1109,8 +1122,8 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 
 今回のguest filterはfieldのconfigure引用を直した入力を除き、以前の互換1083記録を1082へ絞るもので、guestを新しく実行していません。正確な除外と件数は[証拠のガイド](results.ja.md#記録の合算)で説明しています。
 
-スイートは2384件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1082件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、1302入力は未測定です。
+スイートは2400件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1082件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、1318入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも206件一致・876件不一致で、不一致になるテストも同じです。

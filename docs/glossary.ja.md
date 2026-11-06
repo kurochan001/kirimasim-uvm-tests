@@ -1230,3 +1230,14 @@ mask表現と実行時刻の違いは[Q324](faq.ja.md#q324-state-mask-512通り�
 
 **STOPPEDとpost-callbackの証拠** — sequenceの強制停止を観測することと、必要なpost callbackを観測することです。
 分ける理由は[Q325](faq.ja.md#q325-stoppedと再利用の一致で必要なkill-post-hookも成功ですか)で説明しています。
+
+## Virtual register記憶域の前提
+
+**配置順に依存しない観測（layout-independent observation）** — 実装先memory wordの順序を一意に選ばず、必要な値／記憶域を検査することです。
+同じ両半分と順序を問わないpairの条件は[Q327](faq.ja.md#q327-同じ両半分と順序を問わない境界跨ぎ結果を使う理由は)で説明しています。
+
+**raw記憶域の保持（raw-storage preservation）** — accessの前後で独立に初期化したmemory wordを直接比べ、非選択bit、peer、隙間も確認することです。
+modelと実HDL記憶域の違いは[Q326](faq.ja.md#q326-user-backdoorの一致で実hdl転送も立証しますか)で説明しています。
+
+**debug引数による機能不変性（debug-argument invariance）** — file名／行番号の引数省略や異なる明示値でも、同じ機能の判定を満たすことです。
+選択した成功accessの範囲は[Q328](faq.ja.md#q328-debug引数の違いから何を立証しますか)に記録しています。

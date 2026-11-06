@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の84回目の拡充（全2384件：simulation 2287・elaboration 97）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の85回目の拡充（全2400件：simulation 2303・elaboration 97）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3197,3 +3197,32 @@ state専用の一致で字義的なkill post-callback義務を成功扱いにし
 全2384件（simulation 2287／elaboration 97）、M1 1020（940／80）、M2 568（561／7）、M3 796（786／10）です。
 通常は2014 pass（runtime 1922／compiler拒否92）、370 known（runtime 249／build 116／不正受理5）です。
 goal第56反復で未評価103から99へ減らし、開始時1463からの減少は1364です。全体の完了は未立証でgoalを継続します。
+
+## 薄い領域の85回目の拡充：virtual registerのbackdoor観測
+
+新規M3 runtime 16検査系はvirtual register／fieldのpoke／peekを検査します。独自user backdoorの12件はseed 1／73に一致します。
+実公開16-bit HDL arrayの4件も別VPI条件で両seedに一致し、通常実行はspec-onlyのDPI未linkによるbuild差分を保持します。
+model記憶域と実HDL accessの違いは[virtual registerのFAQ](faq.ja.md#virtual-registerのbackdoor観測)で説明しています。
+
+配列indexを2つ選び、独立したmemory内容と全raw wordのsnapshotで、index値、field slice、bit保持、peer要素、strideの隙間を検査します。
+debug引数省略、正の行番号、負の行番号が同じ独立した判定を満たします。単一word条件は8／16-bit memory／registerと4／9-bit fieldです。
+32-bit全register条件は同じ16-bitの両半分を使い、LSB 8の16-bit境界跨ぎfieldは独立に導いた結果pairのどちらの順序も許します。
+これは配置順に依存しない必要な検査で、複数wordの一意な配置契約ではありません。内部access回数／順序、未使用の上位出力bit、
+失敗時結果、並行処理、callback、resetによるsemaphore回復は未完です。
+
+日英AI義務12件が18.9.1.3.3／.4と18.10.4.3／.4を部分分解し、個別に読んだ本文のない見出し18.9.1.3と18.10.4を構造分類します。
+以前の3911要求と411分類は全objectをそのまま保持し、範囲案は未変更です。全体は部分2001／分類413／未評価93です。
+第18章は372／55／29、義務874件、主引用550テスト（simulation 548／elaboration 2）です。
+全3923義務は2368テストへ直接対応し、他の32テストはcontrol専用、control linkあり123です。
+
+初期のinclude不足をnative runtime前に修正して保管し、実測runtime出力を使わずoracle照合で内部access所属の制限を外します。
+最終期待値は実行前に固定します。再現した通常header 12件へtagを加えて新たに測定し、後のoracle照合で独自user記憶域を宣言memory word幅へ揃えるため、helper 1件とconstructor引数12件を変更します。
+通常16件とHDL 4件は現在の指紋で全件を新たに測定し、幅制限前の記録は保管して除外します。
+ステージ後の空白検査で物理source 4件の空行を整形し、通常／HDLの両条件で新たに測定して以前の指紋の記録を保持します。期待値fileは未変更です。
+以前の通常2384記録、compiler 97記録、以前のHDL 34記録、command-line 18記録、互換guest 1082記録は内容を保持します。
+新しいguest実行／filter、実装sourceの読取り、runner／backend変更はありません。guest未測定は1318入力へ増え、追加1315件と修正した元入力3件（simulation 1221／elaboration 97）です。
+部分義務、元のmilestone目標、人のレビュー、範囲／分母承認は未完です。
+
+全2400件（simulation 2303／elaboration 97）、M1 1020（940／80）、M2 568（561／7）、M3 812（802／10）です。
+通常2026 pass（runtime 1934／compiler拒否92）、374 known（runtime 249／build 120／不正受理5）、別HDLは38件中37 pass・1 failです。
+goal第57反復で未評価99から93へ減らし、開始時1463からの減少は1370です。全体の完了は未立証でgoalを継続します。

@@ -1605,3 +1605,17 @@ without requiring particular numeric positions.
 **Stopped state versus post-callback evidence** — Observing that a sequence
 was forcibly stopped versus observing its required post callbacks.
 [Q325](faq.md#q325-does-matching-stopped-and-reuse-pass-the-required-kill-post-hooks) explains why the observations stay separate.
+
+## Virtual-register storage premises
+
+**Layout-independent observation** — A necessary value/storage check that
+does not choose a unique order for the implementing memory words.
+[Q327](faq.md#q327-why-use-equal-halves-and-an-unordered-result-for-a-field-spanning-two-words) explains the equal-half and unordered-pair profiles.
+
+**Raw-storage preservation** — Direct comparison of independently seeded
+memory words before and after access, including nonselected bits, peers and padding.
+[Q326](faq.md#q326-do-user-backdoor-matches-establish-actual-hdl-transfers) distinguishes modeled and actual HDL storage.
+
+**Debug-argument invariance** — The same functional predicates hold with
+omitted and different explicit filename/line-number arguments.
+[Q328](faq.md#q328-what-do-the-debug-argument-variants-establish) records the selected successful-access scope.

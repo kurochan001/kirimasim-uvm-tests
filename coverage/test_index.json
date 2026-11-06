@@ -9537,6 +9537,70 @@
     "uF/test_enum_state_sequence_kill_post_hooks_literal_84": {
       "primary_clause": "F.2.4.2",
       "inputs_sha256": "ba26d99ef4b6576f0721f5c5b0cc9837f6d9cab82325807567b16c619737ac46"
+    },
+    "u18/test_vreg_backdoor_model_vreg_poke_word8_85": {
+      "primary_clause": "18.9.1.3.3",
+      "inputs_sha256": "acbb6a491134abff14715b7d630e9932f84806074dcb6a546ac16820d9f294f9"
+    },
+    "u18/test_vreg_backdoor_model_vreg_peek_word8_85": {
+      "primary_clause": "18.9.1.3.4",
+      "inputs_sha256": "9f977d94939b1f0685a1976510507673e82a1f845b2b36210f42a7e24462953b"
+    },
+    "u18/test_vreg_backdoor_model_field_poke_word8_85": {
+      "primary_clause": "18.10.4.3",
+      "inputs_sha256": "afbf4656a5afe413377f0476ca4c685443f9e21cf6d43777a8ba865748391605"
+    },
+    "u18/test_vreg_backdoor_model_field_peek_word8_85": {
+      "primary_clause": "18.10.4.4",
+      "inputs_sha256": "6e17ff1723ef1add2c8558872f13b49d877b8f178948ed00012c76eb17782548"
+    },
+    "u18/test_vreg_backdoor_model_vreg_poke_word16_85": {
+      "primary_clause": "18.9.1.3.3",
+      "inputs_sha256": "0b7409da891bf30fb7d2a7a9abf7d452b2ec35545444aa19cc316c2c6e75dad5"
+    },
+    "u18/test_vreg_backdoor_model_vreg_peek_word16_85": {
+      "primary_clause": "18.9.1.3.4",
+      "inputs_sha256": "a2c03e116dc1b4e9893bfb29523798d4784aff773a707d19025edae22b0e8433"
+    },
+    "u18/test_vreg_backdoor_model_field_poke_word16_85": {
+      "primary_clause": "18.10.4.3",
+      "inputs_sha256": "be74b94c146aa740a26fe79bd24f3c3d068b22fae3b19961d795e7521568b1b4"
+    },
+    "u18/test_vreg_backdoor_model_field_peek_word16_85": {
+      "primary_clause": "18.10.4.4",
+      "inputs_sha256": "78967e6e785dd1a468b6641d01def4af12b4926d740991168f3d95cb2a690e99"
+    },
+    "u18/test_vreg_backdoor_model_vreg_poke_pair32_85": {
+      "primary_clause": "18.9.1.3.3",
+      "inputs_sha256": "0438a119b4b636da0958e1a67c0090dca6e96ce75ed8a91ee5a71ac4e36653e1"
+    },
+    "u18/test_vreg_backdoor_model_vreg_peek_pair32_85": {
+      "primary_clause": "18.9.1.3.4",
+      "inputs_sha256": "f672f2722449f712fedb12593ae2853d6ee543d57f0b942c40fc93f913bef20f"
+    },
+    "u18/test_vreg_backdoor_model_field_poke_cross32_85": {
+      "primary_clause": "18.10.4.3",
+      "inputs_sha256": "901c023dce8b1644a4e6c8e946d7b054df65960bca2ae221d539e7d677e7f3d8"
+    },
+    "u18/test_vreg_backdoor_model_field_peek_cross32_85": {
+      "primary_clause": "18.10.4.4",
+      "inputs_sha256": "def1aef44f1119c5b52847dc392d93dfa62faaaa0ab7f004b45a6bcab8cb3c8e"
+    },
+    "u18/test_vreg_backdoor_hdl_vreg_poke_word16_85": {
+      "primary_clause": "18.9.1.3.3",
+      "inputs_sha256": "2991ae77e2a4b5058978d7b0e408f8cd88f7d891ec787c05422e822cbc1aebf8"
+    },
+    "u18/test_vreg_backdoor_hdl_vreg_peek_word16_85": {
+      "primary_clause": "18.9.1.3.4",
+      "inputs_sha256": "c21c23707b00e7a0d2e5ea9d2a9709fbc403f2d1a56b4fde1f38edde9952ced8"
+    },
+    "u18/test_vreg_backdoor_hdl_field_poke_word16_85": {
+      "primary_clause": "18.10.4.3",
+      "inputs_sha256": "d25c780c520e07e5b5599112bce6c02282b4a2db283cc397a3c7fe77c4ae80a1"
+    },
+    "u18/test_vreg_backdoor_hdl_field_peek_word16_85": {
+      "primary_clause": "18.10.4.4",
+      "inputs_sha256": "b4e3c7f86e2b4e828c14f490e445d10ba1c78c589a4475ad70ec4b3bea4a8da3"
     }
   }
 }

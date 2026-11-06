@@ -189,6 +189,10 @@ report／state期待値は提供IEEE F.2.2.1／.4、F.2.4.2、F.3.4と引用API�
 実装sourceや商用結果は新たに利用せず、11 header tagと補強したNONE observer／閾値0 controlを最終測定し、以前のobserver記録は保管して除外します。
 未変更の字義的killのpretag同一性を保持する範囲は[report／stateのFAQ](faq.ja.md#reportの列挙型とsequence-state)で説明しています。
 
+virtual register／fieldのpoke／peek期待値は、提供IEEE 18.9.1.3.3／.4、18.10.4.3／.4とmemoryのdeposit／sample契約から測定前に独立に導きます。
+単一wordのmask／shift literal、同じ両半分、順序を問わない結果pairで、実装のword順序や内部access algorithmをoracleにしません。
+独自user記憶域と未変更VPI backendによる実HDLは別に実測し、実装sourceや商用結果を新たに使わない範囲は[backdoorのFAQ](faq.ja.md#virtual-registerのbackdoor観測)にあります。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

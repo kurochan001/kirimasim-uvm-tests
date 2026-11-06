@@ -1,0 +1,12 @@
+UT: vreg85 model field_poke_word8 idx 0 debug 0
+UT: vreg85 status 1 value 1 isolated 1
+UT: vreg85 model field_poke_word8 idx 0 debug 1
+UT: vreg85 status 1 value 1 isolated 1
+UT: vreg85 model field_poke_word8 idx 0 debug 2
+UT: vreg85 status 1 value 1 isolated 1
+UT: vreg85 model field_poke_word8 idx 2 debug 0
+UT: vreg85 status 1 value 1 isolated 1
+UT: vreg85 model field_poke_word8 idx 2 debug 1
+UT: vreg85 status 1 value 1 isolated 1
+UT: vreg85 model field_poke_word8 idx 2 debug 2
+UT: vreg85 status 1 value 1 isolated 1

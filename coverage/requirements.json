@@ -145621,6 +145621,954 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-VIRTUAL-VREG-POKE-INDEXED-DATA-85",
+      "clause": "18.9.1.3.3",
+      "statement": {
+        "en": "Virtual-register poke deposits the supplied logical value into the memory locations implementing the selected array element.",
+        "ja": "virtual registerのpokeは、選んだ配列要素を実装するmemory locationへ指定した論理値をdepositする。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "The selected single memory word equals an independent literal; the two-word whole-register profile deposits both equal halves.",
+        "ja": "選択した単一memory wordが独立したliteralと一致し、2 wordの全register条件では同じ値の両半分をdepositする。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_poke_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_poke_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_poke_word8 idx 0 debug 1",
+            "UT: vreg85 model vreg_poke_word8 idx 0 debug 2",
+            "UT: vreg85 model vreg_poke_word8 idx 2 debug 0",
+            "UT: vreg85 model vreg_poke_word8 idx 2 debug 1",
+            "UT: vreg85 model vreg_poke_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_poke_word16 idx 0 debug 1",
+            "UT: vreg85 model vreg_poke_word16 idx 0 debug 2",
+            "UT: vreg85 model vreg_poke_word16 idx 2 debug 0",
+            "UT: vreg85 model vreg_poke_word16 idx 2 debug 1",
+            "UT: vreg85 model vreg_poke_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_poke_pair32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_poke_pair32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_poke_pair32 idx 0 debug 1",
+            "UT: vreg85 model vreg_poke_pair32 idx 0 debug 2",
+            "UT: vreg85 model vreg_poke_pair32 idx 2 debug 0",
+            "UT: vreg85 model vreg_poke_pair32 idx 2 debug 1",
+            "UT: vreg85 model vreg_poke_pair32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_vreg_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl vreg_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl vreg_poke_word16 idx 0 debug 1",
+            "UT: vreg85 hdl vreg_poke_word16 idx 0 debug 2",
+            "UT: vreg85 hdl vreg_poke_word16 idx 2 debug 0",
+            "UT: vreg85 hdl vreg_poke_word16 idx 2 debug 1",
+            "UT: vreg85 hdl vreg_poke_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-VREG-POKE-PEER-ISOLATION-85",
+      "clause": "18.9.1.3.3",
+      "statement": {
+        "en": "Poking one virtual-register array element preserves the raw memory words outside that element.",
+        "ja": "virtual register配列の1要素へのpokeは、その要素外のraw memory wordを保持する。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "All words outside the selected one- or two-word interval retain their independently seeded values, including peer elements and stride padding.",
+        "ja": "選択した1／2 word区間外は、peer要素やstrideの隙間を含め、独立に初期化した全wordの値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_poke_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_poke_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_poke_word8 idx 0 debug 1",
+            "UT: vreg85 model vreg_poke_word8 idx 0 debug 2",
+            "UT: vreg85 model vreg_poke_word8 idx 2 debug 0",
+            "UT: vreg85 model vreg_poke_word8 idx 2 debug 1",
+            "UT: vreg85 model vreg_poke_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_poke_word16 idx 0 debug 1",
+            "UT: vreg85 model vreg_poke_word16 idx 0 debug 2",
+            "UT: vreg85 model vreg_poke_word16 idx 2 debug 0",
+            "UT: vreg85 model vreg_poke_word16 idx 2 debug 1",
+            "UT: vreg85 model vreg_poke_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_poke_pair32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_poke_pair32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_poke_pair32 idx 0 debug 1",
+            "UT: vreg85 model vreg_poke_pair32 idx 0 debug 2",
+            "UT: vreg85 model vreg_poke_pair32 idx 2 debug 0",
+            "UT: vreg85 model vreg_poke_pair32 idx 2 debug 1",
+            "UT: vreg85 model vreg_poke_pair32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_vreg_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl vreg_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl vreg_poke_word16 idx 0 debug 1",
+            "UT: vreg85 hdl vreg_poke_word16 idx 0 debug 2",
+            "UT: vreg85 hdl vreg_poke_word16 idx 2 debug 0",
+            "UT: vreg85 hdl vreg_poke_word16 idx 2 debug 1",
+            "UT: vreg85 hdl vreg_poke_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-VREG-PEEK-SAMPLED-DATA-85",
+      "clause": "18.9.1.3.4",
+      "statement": {
+        "en": "Virtual-register peek returns the current logical value sampled from the selected element through its memory backdoor.",
+        "ja": "virtual registerのpeekは、選択要素のmemory backdoorから採取した現在の論理値を返す。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "Defined logical bits match independently seeded singleword values or the two equal halves of the multiword profile at both selected indices.",
+        "ja": "定義された論理bitは、両方の選択indexで、独立に初期化した単一word値または複数word条件の同じ両半分と一致する。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_peek_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_peek_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_peek_word8 idx 0 debug 1",
+            "UT: vreg85 model vreg_peek_word8 idx 0 debug 2",
+            "UT: vreg85 model vreg_peek_word8 idx 2 debug 0",
+            "UT: vreg85 model vreg_peek_word8 idx 2 debug 1",
+            "UT: vreg85 model vreg_peek_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_peek_word16 idx 0 debug 1",
+            "UT: vreg85 model vreg_peek_word16 idx 0 debug 2",
+            "UT: vreg85 model vreg_peek_word16 idx 2 debug 0",
+            "UT: vreg85 model vreg_peek_word16 idx 2 debug 1",
+            "UT: vreg85 model vreg_peek_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_peek_pair32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_peek_pair32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_peek_pair32 idx 0 debug 1",
+            "UT: vreg85 model vreg_peek_pair32 idx 0 debug 2",
+            "UT: vreg85 model vreg_peek_pair32 idx 2 debug 0",
+            "UT: vreg85 model vreg_peek_pair32 idx 2 debug 1",
+            "UT: vreg85 model vreg_peek_pair32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_vreg_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl vreg_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl vreg_peek_word16 idx 0 debug 1",
+            "UT: vreg85 hdl vreg_peek_word16 idx 0 debug 2",
+            "UT: vreg85 hdl vreg_peek_word16 idx 2 debug 0",
+            "UT: vreg85 hdl vreg_peek_word16 idx 2 debug 1",
+            "UT: vreg85 hdl vreg_peek_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-VREG-PEEK-STORAGE-PRESERVATION-85",
+      "clause": "18.9.1.3.4",
+      "statement": {
+        "en": "Virtual-register peek samples storage without modifying the selected element or other memory words.",
+        "ja": "virtual registerのpeekは、選択要素や他のmemory wordを変更せず記憶域を採取する。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "Every raw memory word remains equal to the pre-call independently seeded snapshot after each peek.",
+        "ja": "各peek後、全raw memory wordが呼出し前に独立に初期化したsnapshotと等しい。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_peek_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_peek_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_peek_word8 idx 0 debug 1",
+            "UT: vreg85 model vreg_peek_word8 idx 0 debug 2",
+            "UT: vreg85 model vreg_peek_word8 idx 2 debug 0",
+            "UT: vreg85 model vreg_peek_word8 idx 2 debug 1",
+            "UT: vreg85 model vreg_peek_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_peek_word16 idx 0 debug 1",
+            "UT: vreg85 model vreg_peek_word16 idx 0 debug 2",
+            "UT: vreg85 model vreg_peek_word16 idx 2 debug 0",
+            "UT: vreg85 model vreg_peek_word16 idx 2 debug 1",
+            "UT: vreg85 model vreg_peek_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_peek_pair32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_peek_pair32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_peek_pair32 idx 0 debug 1",
+            "UT: vreg85 model vreg_peek_pair32 idx 0 debug 2",
+            "UT: vreg85 model vreg_peek_pair32 idx 2 debug 0",
+            "UT: vreg85 model vreg_peek_pair32 idx 2 debug 1",
+            "UT: vreg85 model vreg_peek_pair32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_vreg_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl vreg_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl vreg_peek_word16 idx 0 debug 1",
+            "UT: vreg85 hdl vreg_peek_word16 idx 0 debug 2",
+            "UT: vreg85 hdl vreg_peek_word16 idx 2 debug 0",
+            "UT: vreg85 hdl vreg_peek_word16 idx 2 debug 1",
+            "UT: vreg85 hdl vreg_peek_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-FIELD-POKE-SELECTED-BITS-85",
+      "clause": "18.10.4.3",
+      "statement": {
+        "en": "Virtual-field poke deposits the supplied field value while preserving the unselected bits of its implementing memory locations.",
+        "ja": "virtual fieldのpokeは、実装先memory locationの非選択bitを保持しながら指定field値をdepositする。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "Singleword replacement matches independent mask/shift literals; the field spanning two words profile matches the independently derived unordered result pair and its retained outside-field bits.",
+        "ja": "単一wordの置換は独立したmask／shiftのliteralと一致し、境界をまたぐ条件は独立に導いた順序を問わない結果pairとfield外の保持bitに一致する。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_field_poke_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_poke_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_poke_word8 idx 0 debug 1",
+            "UT: vreg85 model field_poke_word8 idx 0 debug 2",
+            "UT: vreg85 model field_poke_word8 idx 2 debug 0",
+            "UT: vreg85 model field_poke_word8 idx 2 debug 1",
+            "UT: vreg85 model field_poke_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_poke_word16 idx 0 debug 1",
+            "UT: vreg85 model field_poke_word16 idx 0 debug 2",
+            "UT: vreg85 model field_poke_word16 idx 2 debug 0",
+            "UT: vreg85 model field_poke_word16 idx 2 debug 1",
+            "UT: vreg85 model field_poke_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_poke_cross32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_poke_cross32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_poke_cross32 idx 0 debug 1",
+            "UT: vreg85 model field_poke_cross32 idx 0 debug 2",
+            "UT: vreg85 model field_poke_cross32 idx 2 debug 0",
+            "UT: vreg85 model field_poke_cross32 idx 2 debug 1",
+            "UT: vreg85 model field_poke_cross32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_field_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl field_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl field_poke_word16 idx 0 debug 1",
+            "UT: vreg85 hdl field_poke_word16 idx 0 debug 2",
+            "UT: vreg85 hdl field_poke_word16 idx 2 debug 0",
+            "UT: vreg85 hdl field_poke_word16 idx 2 debug 1",
+            "UT: vreg85 hdl field_poke_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-FIELD-POKE-PEER-ISOLATION-85",
+      "clause": "18.10.4.3",
+      "statement": {
+        "en": "Poking one virtual field preserves the raw memory words outside the selected virtual-register element.",
+        "ja": "1つのvirtual fieldへのpokeは、選んだvirtual register要素外のraw memory wordを保持する。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "Peer elements and stride padding retain their pre-call values after the field deposits within one word and across two words.",
+        "ja": "単一wordと境界をまたぐfieldのdeposit後、peer要素とstrideの隙間が呼出し前の値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_field_poke_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_poke_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_poke_word8 idx 0 debug 1",
+            "UT: vreg85 model field_poke_word8 idx 0 debug 2",
+            "UT: vreg85 model field_poke_word8 idx 2 debug 0",
+            "UT: vreg85 model field_poke_word8 idx 2 debug 1",
+            "UT: vreg85 model field_poke_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_poke_word16 idx 0 debug 1",
+            "UT: vreg85 model field_poke_word16 idx 0 debug 2",
+            "UT: vreg85 model field_poke_word16 idx 2 debug 0",
+            "UT: vreg85 model field_poke_word16 idx 2 debug 1",
+            "UT: vreg85 model field_poke_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_poke_cross32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_poke_cross32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_poke_cross32 idx 0 debug 1",
+            "UT: vreg85 model field_poke_cross32 idx 0 debug 2",
+            "UT: vreg85 model field_poke_cross32 idx 2 debug 0",
+            "UT: vreg85 model field_poke_cross32 idx 2 debug 1",
+            "UT: vreg85 model field_poke_cross32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_field_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl field_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl field_poke_word16 idx 0 debug 1",
+            "UT: vreg85 hdl field_poke_word16 idx 0 debug 2",
+            "UT: vreg85 hdl field_poke_word16 idx 2 debug 0",
+            "UT: vreg85 hdl field_poke_word16 idx 2 debug 1",
+            "UT: vreg85 hdl field_poke_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-FIELD-PEEK-SAMPLED-SLICE-85",
+      "clause": "18.10.4.4",
+      "statement": {
+        "en": "Virtual-field peek returns the current field slice selected by the configured width and LSB within the selected virtual-register element.",
+        "ja": "virtual fieldのpeekは、選んだvirtual register要素内で設定した幅とLSBが選択する現在のfield sliceを返す。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "Defined output bits match independent 4-bit/9-bit singleword slices or the equal-half invariant for a field spanning two words, separately from raw storage preservation.",
+        "ja": "定義された出力bitは、raw記憶域の保持と別に、独立した4／9-bit単一word sliceまたは両半分が同じ境界跨ぎの不変条件と一致する。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_field_peek_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_peek_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_peek_word8 idx 0 debug 1",
+            "UT: vreg85 model field_peek_word8 idx 0 debug 2",
+            "UT: vreg85 model field_peek_word8 idx 2 debug 0",
+            "UT: vreg85 model field_peek_word8 idx 2 debug 1",
+            "UT: vreg85 model field_peek_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_peek_word16 idx 0 debug 1",
+            "UT: vreg85 model field_peek_word16 idx 0 debug 2",
+            "UT: vreg85 model field_peek_word16 idx 2 debug 0",
+            "UT: vreg85 model field_peek_word16 idx 2 debug 1",
+            "UT: vreg85 model field_peek_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_peek_cross32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_peek_cross32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_peek_cross32 idx 0 debug 1",
+            "UT: vreg85 model field_peek_cross32 idx 0 debug 2",
+            "UT: vreg85 model field_peek_cross32 idx 2 debug 0",
+            "UT: vreg85 model field_peek_cross32 idx 2 debug 1",
+            "UT: vreg85 model field_peek_cross32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_field_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl field_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl field_peek_word16 idx 0 debug 1",
+            "UT: vreg85 hdl field_peek_word16 idx 0 debug 2",
+            "UT: vreg85 hdl field_peek_word16 idx 2 debug 0",
+            "UT: vreg85 hdl field_peek_word16 idx 2 debug 1",
+            "UT: vreg85 hdl field_peek_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-FIELD-PEEK-STORAGE-PRESERVATION-85",
+      "clause": "18.10.4.4",
+      "statement": {
+        "en": "Virtual-field peek samples its field without modifying any underlying memory word.",
+        "ja": "virtual fieldのpeekは、基になるmemory wordを変更せずfieldを採取する。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "All independently initialized raw words remain unchanged after each selected field peek.",
+        "ja": "各選択fieldのpeek後、独立に初期化した全raw wordが変更されない。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_field_peek_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_peek_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_peek_word8 idx 0 debug 1",
+            "UT: vreg85 model field_peek_word8 idx 0 debug 2",
+            "UT: vreg85 model field_peek_word8 idx 2 debug 0",
+            "UT: vreg85 model field_peek_word8 idx 2 debug 1",
+            "UT: vreg85 model field_peek_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_peek_word16 idx 0 debug 1",
+            "UT: vreg85 model field_peek_word16 idx 0 debug 2",
+            "UT: vreg85 model field_peek_word16 idx 2 debug 0",
+            "UT: vreg85 model field_peek_word16 idx 2 debug 1",
+            "UT: vreg85 model field_peek_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_peek_cross32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_peek_cross32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_peek_cross32 idx 0 debug 1",
+            "UT: vreg85 model field_peek_cross32 idx 0 debug 2",
+            "UT: vreg85 model field_peek_cross32 idx 2 debug 0",
+            "UT: vreg85 model field_peek_cross32 idx 2 debug 1",
+            "UT: vreg85 model field_peek_cross32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_field_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl field_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl field_peek_word16 idx 0 debug 1",
+            "UT: vreg85 hdl field_peek_word16 idx 0 debug 2",
+            "UT: vreg85 hdl field_peek_word16 idx 2 debug 0",
+            "UT: vreg85 hdl field_peek_word16 idx 2 debug 1",
+            "UT: vreg85 hdl field_peek_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-VREG-POKE-DEBUG-INVARIANCE-85",
+      "clause": "18.9.1.3.3",
+      "statement": {
+        "en": "The filename and line-number debug arguments have no functional effect on virtual-vreg poke.",
+        "ja": "file名と行番号のdebug引数はvirtual vregのpokeの機能上の結果へ影響しない。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "Omitted/default debug arguments and two explicit file/line variants each satisfy the same independently derived status, data and storage-preservation predicates.",
+        "ja": "省略／default debug引数と2種類の明示file／行番号が、それぞれ同じ独立に導いたstatus、data、記憶域保持の判定を満たす。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_poke_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_poke_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_poke_word8 idx 0 debug 1",
+            "UT: vreg85 model vreg_poke_word8 idx 0 debug 2",
+            "UT: vreg85 model vreg_poke_word8 idx 2 debug 0",
+            "UT: vreg85 model vreg_poke_word8 idx 2 debug 1",
+            "UT: vreg85 model vreg_poke_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_poke_word16 idx 0 debug 1",
+            "UT: vreg85 model vreg_poke_word16 idx 0 debug 2",
+            "UT: vreg85 model vreg_poke_word16 idx 2 debug 0",
+            "UT: vreg85 model vreg_poke_word16 idx 2 debug 1",
+            "UT: vreg85 model vreg_poke_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_poke_pair32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_poke_pair32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_poke_pair32 idx 0 debug 1",
+            "UT: vreg85 model vreg_poke_pair32 idx 0 debug 2",
+            "UT: vreg85 model vreg_poke_pair32 idx 2 debug 0",
+            "UT: vreg85 model vreg_poke_pair32 idx 2 debug 1",
+            "UT: vreg85 model vreg_poke_pair32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_vreg_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl vreg_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl vreg_poke_word16 idx 0 debug 1",
+            "UT: vreg85 hdl vreg_poke_word16 idx 0 debug 2",
+            "UT: vreg85 hdl vreg_poke_word16 idx 2 debug 0",
+            "UT: vreg85 hdl vreg_poke_word16 idx 2 debug 1",
+            "UT: vreg85 hdl vreg_poke_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-VREG-PEEK-DEBUG-INVARIANCE-85",
+      "clause": "18.9.1.3.4",
+      "statement": {
+        "en": "The filename and line-number debug arguments have no functional effect on virtual-vreg peek.",
+        "ja": "file名と行番号のdebug引数はvirtual vregのpeekの機能上の結果へ影響しない。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "Omitted/default debug arguments and two explicit file/line variants each satisfy the same independently derived status, data and storage-preservation predicates.",
+        "ja": "省略／default debug引数と2種類の明示file／行番号が、それぞれ同じ独立に導いたstatus、data、記憶域保持の判定を満たす。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_peek_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_peek_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_peek_word8 idx 0 debug 1",
+            "UT: vreg85 model vreg_peek_word8 idx 0 debug 2",
+            "UT: vreg85 model vreg_peek_word8 idx 2 debug 0",
+            "UT: vreg85 model vreg_peek_word8 idx 2 debug 1",
+            "UT: vreg85 model vreg_peek_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_peek_word16 idx 0 debug 1",
+            "UT: vreg85 model vreg_peek_word16 idx 0 debug 2",
+            "UT: vreg85 model vreg_peek_word16 idx 2 debug 0",
+            "UT: vreg85 model vreg_peek_word16 idx 2 debug 1",
+            "UT: vreg85 model vreg_peek_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_vreg_peek_pair32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model vreg_peek_pair32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model vreg_peek_pair32 idx 0 debug 1",
+            "UT: vreg85 model vreg_peek_pair32 idx 0 debug 2",
+            "UT: vreg85 model vreg_peek_pair32 idx 2 debug 0",
+            "UT: vreg85 model vreg_peek_pair32 idx 2 debug 1",
+            "UT: vreg85 model vreg_peek_pair32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_vreg_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl vreg_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl vreg_peek_word16 idx 0 debug 1",
+            "UT: vreg85 hdl vreg_peek_word16 idx 0 debug 2",
+            "UT: vreg85 hdl vreg_peek_word16 idx 2 debug 0",
+            "UT: vreg85 hdl vreg_peek_word16 idx 2 debug 1",
+            "UT: vreg85 hdl vreg_peek_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-FIELD-POKE-DEBUG-INVARIANCE-85",
+      "clause": "18.10.4.3",
+      "statement": {
+        "en": "The filename and line-number debug arguments have no functional effect on virtual-field poke.",
+        "ja": "file名と行番号のdebug引数はvirtual fieldのpokeの機能上の結果へ影響しない。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "Omitted/default debug arguments and two explicit file/line variants each satisfy the same independently derived status, data and storage-preservation predicates.",
+        "ja": "省略／default debug引数と2種類の明示file／行番号が、それぞれ同じ独立に導いたstatus、data、記憶域保持の判定を満たす。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_field_poke_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_poke_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_poke_word8 idx 0 debug 1",
+            "UT: vreg85 model field_poke_word8 idx 0 debug 2",
+            "UT: vreg85 model field_poke_word8 idx 2 debug 0",
+            "UT: vreg85 model field_poke_word8 idx 2 debug 1",
+            "UT: vreg85 model field_poke_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_poke_word16 idx 0 debug 1",
+            "UT: vreg85 model field_poke_word16 idx 0 debug 2",
+            "UT: vreg85 model field_poke_word16 idx 2 debug 0",
+            "UT: vreg85 model field_poke_word16 idx 2 debug 1",
+            "UT: vreg85 model field_poke_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_poke_cross32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_poke_cross32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_poke_cross32 idx 0 debug 1",
+            "UT: vreg85 model field_poke_cross32 idx 0 debug 2",
+            "UT: vreg85 model field_poke_cross32 idx 2 debug 0",
+            "UT: vreg85 model field_poke_cross32 idx 2 debug 1",
+            "UT: vreg85 model field_poke_cross32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_field_poke_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl field_poke_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl field_poke_word16 idx 0 debug 1",
+            "UT: vreg85 hdl field_poke_word16 idx 0 debug 2",
+            "UT: vreg85 hdl field_poke_word16 idx 2 debug 0",
+            "UT: vreg85 hdl field_poke_word16 idx 2 debug 1",
+            "UT: vreg85 hdl field_poke_word16 idx 2 debug 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-FIELD-PEEK-DEBUG-INVARIANCE-85",
+      "clause": "18.10.4.4",
+      "statement": {
+        "en": "The filename and line-number debug arguments have no functional effect on virtual-field peek.",
+        "ja": "file名と行番号のdebug引数はvirtual fieldのpeekの機能上の結果へ影響しない。"
+      },
+      "conditions": {
+        "en": "Read-write memory and statically configured three-element virtual arrays use explicit memory-word offsets and strides. Each original fixture independently seeds all 32 words, selects indices 0 and 2, and repeats the operation with omitted debug arguments, a named file/positive line, and another file/negative line. Singleword profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB 8. Original user backdoor storage and actual public 16-bit HDL array storage are separate execution conditions. Fields are created through type_id::create.",
+        "ja": "read-write memoryと静的に設定した3要素のvirtual配列は、memory word単位のoffsetとstrideを明示する。独自検査系は全32 wordを独立に初期化し、index 0と2を選び、debug引数省略、file名と正の行番号、別file名と負の行番号で操作を繰り返す。単一word条件はmemory／register幅8／16 bitとfield幅4／9 bitを使い、16-bit wordを2つ使う条件は32-bit全registerまたはLSB 8の16-bit fieldを加える。独自user backdoor記憶域と実公開16-bit HDL array記憶域は別の実行条件にし、fieldはtype_id::createで生成する。"
+      },
+      "expected": {
+        "en": "Omitted/default debug arguments and two explicit file/line variants each satisfy the same independently derived status, data and storage-preservation predicates.",
+        "ja": "省略／default debug引数と2種類の明示file／行番号が、それぞれ同じ独立に導いたstatus、data、記憶域保持の判定を満たす。"
+      },
+      "limitations": {
+        "en": "Selected successful operations only; read-only/other policies, dynamic relocation, failed-access outputs, concurrency, callbacks, parent/extension forwarding and reset-semaphore recovery remain open. Exact field replacement is checked within a single word. Multiword whole values have equal halves; poke of a field spanning two words accepts either order of its independently derived two-word result, and peek of that field uses equal halves. These are necessary layout-independent observations, not a unique word-order contract or full software/hardware layout agreement. Untouched raw words are observed directly; no exact internal access count/order, selected-call membership restriction, unused upper output bits, four-state behavior or bus/DUT protocol is prescribed. Model storage matches do not prove physical HDL access, and HDL matches do not pass an unlinked ordinary condition. Expected lines can combine distinct predicates; ledger anchor membership alone does not certify repetitions or ordering. All reviews are AI, with no implementation-derived or commercial-result oracle.",
+        "ja": "選択した成功操作のみ。read-onlyなど他のpolicy、動的再配置、失敗時出力、並行処理、callback、parent／extension転送、resetによるsemaphore回復は未完。正確なfield置換は単一word内で検査する。複数wordの全register値は両半分を同じにし、境界をまたぐpokeは独立に導いた2 wordのどちらの順序も許し、peekは同じ半分を使う。これは配置順に依存しない必要な観測で、word順序の一意な契約やsoftware／hardware間の配置合意全体ではない。非対象raw wordを直接観測し、内部access回数／順序、選択呼出しの所属制限、未使用の上位出力bit、4-state、bus／DUT protocolは規定しない。model記憶域の一致で物理HDL accessを立証せず、HDL一致で通常の未link条件を成功扱いにしない。期待行は別の判定を合わせた場合があり、台帳anchorの所属確認だけでは繰返しや順序を認定しない。照合はすべてAIで、実装由来や商用結果のoracleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_backdoor_model_field_peek_word8_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_peek_word8 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_peek_word8 idx 0 debug 1",
+            "UT: vreg85 model field_peek_word8 idx 0 debug 2",
+            "UT: vreg85 model field_peek_word8 idx 2 debug 0",
+            "UT: vreg85 model field_peek_word8 idx 2 debug 1",
+            "UT: vreg85 model field_peek_word8 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_peek_word16 idx 0 debug 1",
+            "UT: vreg85 model field_peek_word16 idx 0 debug 2",
+            "UT: vreg85 model field_peek_word16 idx 2 debug 0",
+            "UT: vreg85 model field_peek_word16 idx 2 debug 1",
+            "UT: vreg85 model field_peek_word16 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_model_field_peek_cross32_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 model field_peek_cross32 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 model field_peek_cross32 idx 0 debug 1",
+            "UT: vreg85 model field_peek_cross32 idx 0 debug 2",
+            "UT: vreg85 model field_peek_cross32 idx 2 debug 0",
+            "UT: vreg85 model field_peek_cross32 idx 2 debug 1",
+            "UT: vreg85 model field_peek_cross32 idx 2 debug 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_backdoor_hdl_field_peek_word16_85",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg85 hdl field_peek_word16 idx 0 debug 0",
+            "UT: vreg85 status 1 value 1 isolated 1",
+            "UT: vreg85 hdl field_peek_word16 idx 0 debug 1",
+            "UT: vreg85 hdl field_peek_word16 idx 0 debug 2",
+            "UT: vreg85 hdl field_peek_word16 idx 2 debug 0",
+            "UT: vreg85 hdl field_peek_word16 idx 2 debug 1",
+            "UT: vreg85 hdl field_peek_word16 idx 2 debug 2"
+          ]
+        }
+      ]
     }
   ]
 }

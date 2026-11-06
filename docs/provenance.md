@@ -279,6 +279,14 @@ tags and the refined NONE observer/zero-limit control are freshly measured;
 earlier observer variants are archived/excluded and the unchanged literal kill
 pretag identity retained, as explained in [the report/state FAQ](faq.md#report-enums-and-sequence-state).
 
+Virtual-register/field poke/peek expectations are independently derived before
+measurement from supplied IEEE 18.9.1.3.3/.4, 18.10.4.3/.4 and the memory
+deposit/sample contracts. Singleword mask/shift literals, equal halves and an
+unordered result pair do not use an implementation's word order or internal
+access algorithm as the oracle. Original user storage and actual HDL through the
+unchanged VPI backend are measured separately, without new implementation-source
+reading or commercial results; see [the backdoor FAQ](faq.md#virtual-register-backdoor-observations).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

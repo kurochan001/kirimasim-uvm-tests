@@ -6271,6 +6271,34 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.9.1.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read virtual-register HDL-access entry contains only a grouping heading and is followed immediately by its numbered write task, without independent body text. Poke/peek child contracts now have partial requirements; read/write/reset and all remaining child applicability retain their own review work. This heading adds no separate observable duty and neither excludes scope nor certifies the children complete.",
+        "ja": "個別に読んだvirtual registerのHDL access項目は整理見出しのみで、独立した本文なしに番号付きwrite taskへ直結する。poke／peekの子契約は部分要求を持ち、read／write／resetと残る子の適用条件はそれぞれのレビュー作業を保持する。見出し自体に別の観測義務はなく、範囲の除外や子の完了を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.10.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read virtual-field HDL-access entry contains only a grouping heading and is followed immediately by its numbered write task, without independent body text. Poke/peek child contracts now have partial requirements; read/write and all remaining child applicability retain their own review work. This heading adds no separate observable duty and neither excludes scope nor certifies the children complete.",
+        "ja": "個別に読んだvirtual fieldのHDL access項目は整理見出しのみで、独立した本文なしに番号付きwrite taskへ直結する。poke／peekの子契約は部分要求を持ち、read／writeと残る子の適用条件はそれぞれのレビュー作業を保持する。見出し自体に別の観測義務はなく、範囲の除外や子の完了を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }
