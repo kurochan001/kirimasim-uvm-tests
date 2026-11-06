@@ -202,7 +202,7 @@ helper folderは未変更で、header tag 11件を新たに測定します。[�
 
 `:spec_check: ai`は期待値を誰が照合したかを記録し、`:oracle: spec verilator@5.052`は固定リリースでの再現も記録するもので、両項目が別の確認を表す理由は[期待値の用語集](glossary.ja.md#規格と期待値)で説明しています。
 
-kirimasim-testsとsv-testsの形式を引き継ぎ、次の点を変えます。
+kirimasim-testsとsv-testsの形式を引き継ぎ、UVMの設定と共通のビルド・判定設定を以下に説明します。
 
 | フィールド | 意味 |
 | --- | --- |
@@ -216,6 +216,12 @@ kirimasim-testsとsv-testsの形式を引き継ぎ、次の点を変えます。
 | `:uvm_hdl_backend:` | `vpi`は別のHDL runnerを明示選択する。他のrunnerはlinkしない |
 | `:dpi_c:` | `@../../tools/uvm_hdl_vpi.cpp`で独自backendを宣言し指紋へ含める |
 | `:args:` | `+UVM_TESTNAME=…`などの実行時引数 |
+| `:files:` | テスト基準の相対パスで、`.sv`／`.v`は指定順に先にコンパイルし、その他のファイルはincludeの探索先を追加するがヘッダーは明示的な読込が必要で、変更時は[入力の更新手順](requirements.ja.md#テストや対応付けの更新)を使う。 |
+| `:incdirs:` | テスト基準の相対パスで追加するincludeの探索先で、その内容は[入力指紋](results.ja.md#記録の合算)に影響する。 |
+| `:defines:` | `NAME`または`NAME=VALUE`でソースより前に渡すコンパイル時マクロで、追加のUVMマクロは[ライブラリのコンパイル](#コンパイル)で説明する。 |
+| `:top_module:` | 起点となるSystemVerilogのmoduleを指定し、省略時はシミュレータが選ぶもので、`+UVM_TESTNAME`が選ぶUVMクラスとの違いは[具体例](reading-guide.ja.md#1件のテストをファイルで辿る)で示す。 |
+| `:expected_exit:` | シミュレーションの終了コード、またはsignalによる終了を除く正のエラー終了を要求する`nonzero`で、別途行う出力の検査は[観測の規則](#何を観測するか)で説明する。 |
+| `:expected_stderr_regex:` | 診断を照合する正規表現で、意図した拒否に正しい診断も必要な理由は[compiler検査の用語](glossary.ja.md#宣言の既定値とcompiler検査)で説明する。 |
 
 `:expected_stdout:`の`@`で始まる値はテストのソースからの相対パスで期待値ファイルを指定し、そのファイルに記録する出力行は[Q7](faq.ja.md#q7-なぜuvmの全メッセージを比較せずut行だけを比べるのですか)で説明しています。
 
@@ -224,6 +230,8 @@ kirimasim-testsとsv-testsの形式を引き継ぎ、次の点を変えます。
 `:oracle:`・`:spec_check:`・`:fourstate:`・`:nondeterministic:`・`:should_fail_because:`・
 `:expected_stderr_regex:`・`:expected_exit:`・`:files:`・`:defines:`・`:incdirs:`・`:top_module:`の意味は
 kirimasim-testsと同じです。共通実装の取得元は[ソースの出典](provenance.ja.md)を参照してください。
+
+これらの指定と、選択するUVMクラス、期待値ファイルの関係は、[スモークテストをファイルで辿る例](reading-guide.ja.md#1件のテストをファイルで辿る)で確認できます。
 
 `:fourstate: no`は検査系がX/Zの値を必要としないという宣言で、得られる2値の証拠の限界は[Q14](faq.ja.md#q14-seedを2つ変えれば決定性や4値の動作も証明できますか)で説明しています。
 

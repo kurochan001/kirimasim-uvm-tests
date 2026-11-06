@@ -19,7 +19,10 @@ The questions are grouped by topic, so use the entry matching your task and foll
 - Configuration lookup: [resource selection and sorting](#resource-collection-sorting-and-config-aliases) and [related terms](glossary.md#resource-and-sequence-ordering).
 - Interpreting compiler diagnostics: [rejection and legal controls](#compiler-rejection-and-legal-controls) and [test metadata](testing.md#metadata).
 - Understanding sequences and communication: [locking and transport](#locking-and-nonblocking-transport) and [TLM terms](glossary.md#transaction-level-communication).
+- Understanding heartbeat monitoring: [activity-window questions](#heartbeats-payload-dispatch-and-abstract-fifos) and [heartbeat terms](glossary.md#heartbeats-virtual-accessors-and-fifo-models).
+- Understanding macro flags: [field-macro type and operation questions](#field-macro-type-arguments-and-paired-operation-flags) and [the control terms](glossary.md#field-macro-and-callback-controls).
 - Understanding register tests: [model basics](#register-model-basics) and [register terms](glossary.md#register-model).
+- Checking actual HDL access: [path and observation questions](#register-hdl-paths-and-observation-premises) and [the separate HDL runner](testing.md#verilator-vpi-hdl-subset).
 - Checking progress or changing a mapping: [M4 questions](#requirement-ledger-and-m4) and [the ledger update procedure](requirements.md#updating-a-test-or-mapping).
 - Reporting a problem: [posting policy](#commercial-simulator-and-issue-reporting-policy) and [source provenance](provenance.md#library-and-standards).
 
@@ -55,6 +58,8 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 Put an option such as `--build-jobs` after the seed list and before a test
 path, as shown: `--seeds` accepts multiple values. Explicit paths select only
 those tests. A smoke run checks one selected case; [Execution and result records](glossary.md#execution-and-result-records) explains its seed and result labels.
+
+The selected source and expected file are available before any run, so [the worked example](reading-guide.md#follow-one-test-through-the-files) can help you understand what this command will check.
 
 ### Q4. How do I include spec-only cases?
 

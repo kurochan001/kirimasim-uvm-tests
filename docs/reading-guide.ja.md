@@ -9,6 +9,7 @@ UVM、結果のラベル、進捗の数字に不慣れな場合は、知りた�
 - [実行条件を選ぶ](#実行条件を選ぶ)
 - [結果を読む](#結果を読む)
 - [差分を調べる](#差分を調べる)
+- [1件のテストをファイルで辿る](#1件のテストをファイルで辿る)
 - [対応状況と進捗を読む](#対応状況と進捗を読む)
 - [テストの変更や報告の前に](#テストの変更や報告の前に)
 - [次に読む資料を選ぶ](#次に読む資料を選ぶ)
@@ -72,6 +73,16 @@ runnerはビルドと実行の環境を供給するため、検査系のbackend�
 5. 報告や修正案にはテストのパス、スイートのコミット、ツールの版、コマンド、引用した条項に基づく期待動作を記録し、自作の再現例と受け入れる資料を[報告のガイド](provenance.ja.md#issueの投稿方針とフォーム)で確認します。
 
 ビルド失敗にはruntimeの観測がなく、不正設計が受理された場合もモデルを実行せずcompiler拒否の検査が失敗し、後者の判定は[Q199](faq.ja.md#q199-compile拒否を一致に数える理由は)で説明しています。
+
+## 1件のテストをファイルで辿る
+
+スモークテストの結果ID `u09/test_common_phases_run_in_order`から[ソース](../tests/u09/test_common_phases_run_in_order.sv)を開くと、最初のUVM引用は9.8.1であり、[配置の規則](testing.ja.md#ディレクトリ構成)に従って`u09`にあることが分かります。
+
+このソースでは`test_common_phases_run_in_order`は`initial`から`run_test()`を呼ぶSystemVerilogのmodule、`+UVM_TESTNAME=t`は登録済みUVMクラス`t`の選択であり、両者の指定は[メタデータのガイド](testing.ja.md#メタデータ)で区別できます。
+
+ヘッダーの`:expected_stdout:`が指す[期待出力ファイル](../tests/u09/test_common_phases_run_in_order.expected)では`UT: connect env`が`UT: connect test`に先行し、これはchildとparentのcallbackが出す観測で、全列をrunnerが比較する方法は[観測の規則](testing.ja.md#何を観測するか)で説明しています。
+
+[要求台帳](../coverage/requirements.json)で`UVM-PHASE-COMMON-ORDER`を検索すると条件、期待動作、制限、そのテストIDへの対応を確認でき、手元の結果JSONにある実測statusとの違いは[対応付けのガイド](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
 ## 対応状況と進捗を読む
 

@@ -18,7 +18,10 @@
 - configurationの検索：[resourceの選択とsort](#resource収集sortconfig-alias)と[関連用語](glossary.ja.md#resourceとsequenceの順序)。
 - compiler診断を読む：[拒否と合法control](#compiler拒否と合法control)と[テストのmetadata](testing.ja.md#メタデータ)。
 - sequenceや通信の理解：[lockとtransport](#lockとnonblocking-transport)と[TLMの用語](glossary.ja.md#transaction単位の通信)。
+- heartbeat監視の理解：[活動区間の質問](#heartbeatpayload-dispatchabstract-fifo)と[heartbeatの用語](glossary.ja.md#heartbeatvirtual-accessorfifoモデル)。
+- macro flagの理解：[field-macroの型と操作の質問](#field-macroの型引数と対応する操作flag)と[controlの用語](glossary.ja.md#field-macroとcallbackのcontrol)。
 - レジスタのテストの理解：[モデルの基本](#レジスタモデルの基本)と[レジスタの用語](glossary.ja.md#レジスタモデル)。
+- 実際のHDLアクセスの確認：[pathと観測の質問](#register-hdl-pathと観測の前提)と[別のHDL runner](testing.ja.md#verilatorのvpi-hdl部分集合)。
 - 進捗の確認や対応付けの変更：[M4の質問](#要求台帳とm4)と[台帳の更新手順](requirements.ja.md#テストや対応付けの更新)。
 - 問題の報告：[投稿方針](#商用シミュレータとissueの投稿方針)と[資料の出典](provenance.ja.md#ライブラリと規格)。
 
@@ -54,6 +57,8 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 `--seeds`は複数の値を受け取るため、例のようにseedの後、テストのパスより前に`--build-jobs`などの
 optionを置きます。パスを明示した場合は、そのテストだけが対象です。
 スモーク実行は選択した1件を確認するもので、seedと結果ラベルの意味は[実行と結果](glossary.ja.md#実行と結果)で説明しています。
+
+選択するソースと期待値ファイルは実行前から読めるため、このコマンドが何を確かめるかは[ファイルを辿る具体例](reading-guide.ja.md#1件のテストをファイルで辿る)で確認できます。
 
 ### Q4. specのみのテストも含めるにはどうしますか
 

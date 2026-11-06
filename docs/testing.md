@@ -299,7 +299,7 @@ The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does
 
 `:spec_check: ai` records who reviewed the expectation, while `:oracle: spec verilator@5.052` also records fixed-release reproduction; [the expectation glossary](glossary.md#standards-and-expectations) explains why those fields describe separate checks.
 
-The metadata follows kirimasim-tests and sv-tests, with these UVM-specific fields:
+The metadata follows kirimasim-tests and sv-tests; the fields below cover UVM settings and common build and judgment settings:
 
 | Field | Meaning |
 | --- | --- |
@@ -313,6 +313,12 @@ The metadata follows kirimasim-tests and sv-tests, with these UVM-specific field
 | `:uvm_hdl_backend:` | `vpi` opts into the separate HDL runner; other runners do not link it |
 | `:dpi_c:` | `@../../tools/uvm_hdl_vpi.cpp` declares and fingerprints the original backend |
 | `:args:` | run-time arguments such as `+UVM_TESTNAME=…` |
+| `:files:` | Test-relative paths: `.sv`/`.v` sources compile first in the listed order; other files supply include directories and headers need explicit inclusion, with changes handled by [the input update procedure](requirements.md#updating-a-test-or-mapping). |
+| `:incdirs:` | Additional include directories relative to the test, whose contents affect [input fingerprints](results.md#evidence-assembly). |
+| `:defines:` | Compile-time macros written as `NAME` or `NAME=VALUE`, passed before the sources; [library compilation](#compiling) explains the additional UVM macros. |
+| `:top_module:` | The SystemVerilog root module to elaborate; omission leaves root selection to the simulator, and [the worked example](reading-guide.md#follow-one-test-through-the-files) distinguishes a module from the UVM class selected by `+UVM_TESTNAME`. |
+| `:expected_exit:` | A simulation process exit code, or `nonzero` for a positive error exit rather than termination by a signal; [the observation rules](#what-is-observed) explain the separate output checks. |
+| `:expected_stderr_regex:` | A diagnostic-matching regular expression; [compiler-check terms](glossary.md#declaration-defaults-and-compiler-checks) explain why an intended rejection also needs the right diagnostic. |
 
 An `@` value in `:expected_stdout:` names a file relative to the test source, and [Q7](faq.md#q7-why-compare-ut-lines-rather-than-all-uvm-messages) explains which output lines belong in that file.
 
@@ -322,6 +328,8 @@ Options such as `--seeds` configure the Python runner, while `:args:` supplies a
 `:should_fail_because:`, `:expected_stderr_regex:`, `:expected_exit:`,
 `:files:`, `:defines:`, `:incdirs:` and `:top_module:` mean what they mean in
 kirimasim-tests; the [tool provenance](provenance.md) identifies the shared implementation.
+
+For a source-level example connecting these settings to the selected UVM class and expectation file, [follow the smoke test through its files](reading-guide.md#follow-one-test-through-the-files).
 
 The `:fourstate: no` declaration says the fixture does not require X/Z values; [Q14](faq.md#q14-do-two-seeds-prove-determinism-or-four-state-correctness) explains the limits of the resulting two-state evidence.
 

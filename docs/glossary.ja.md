@@ -678,6 +678,8 @@ flattenされたfileはscope名を加えず、親／localの代替成分から�
 **Heartbeat window（heartbeatのwindow）** — trigger eventで区切り、監視componentが同期objectionを通じて参加する区間。
 新しい正常windowの検査系はALL_ACTIVEを明示選択し、広いmode／失敗条件は別に残す。
 
+このwindowでの活動はobjectionへの参加を表し、選択modeと監視開始の条件は[heartbeatの質問](faq.ja.md#heartbeatpayload-dispatchabstract-fifo)で説明しています。
+
 **Virtual accessor dispatch（virtual accessorのdispatch）** — 基底型のpayload handleからvirtual accessorの派生overrideを呼ぶこと。
 counterと転送値で選択した公開呼出しを観測し、transport／pack動作とは分ける。
 

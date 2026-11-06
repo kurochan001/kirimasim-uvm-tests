@@ -14,6 +14,8 @@ For the size of a difference set, read [the measured breakdown](results.md#inter
 
 Individual source links appear in the topic explanations and [grouped list](#spec-only-tests); [the test format guide](testing.md#test-format) explains how to read their metadata, expected observations and execution conditions.
 
+The word `control` in a fixture name does not describe a runner status, so read [the direct/control distinction](requirements.md#citations-requirements-and-execution-evidence) before comparing its premise and result with the original case.
+
 Eight new standard register-path views stop at missing get_slices; explicit member-view controls have seven matches and one mixed-default difference. Six physical inputs match both seeds separately and remain ordinary DPI-link knowns; see [the path FAQ](faq.md#register-hdl-paths-and-observation-premises).
 
 - [test_reg_hdl_add_default_rtl_standard_view79](../tests/u18/test_reg_hdl_add_default_rtl_standard_view79.sv).

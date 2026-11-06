@@ -9,6 +9,7 @@ Start here if UVM, the result labels or the progress counts are unfamiliar; choo
 - [Choose an execution condition](#choose-an-execution-condition)
 - [Read a result](#read-a-result)
 - [Trace a difference](#trace-a-difference)
+- [Follow one test through the files](#follow-one-test-through-the-files)
 - [Read coverage and progress](#read-coverage-and-progress)
 - [Before changing or reporting a test](#before-changing-or-reporting-a-test)
 - [Choose the next document](#choose-the-next-document)
@@ -72,6 +73,16 @@ A difference is a starting point for investigation, and [the correction guide](f
 5. For a report or proposed correction, record the test path, suite commit, tool versions, command and expected behavior under its cited clause; [the reporting guide](provenance.md#issue-reporting-policy-and-form) explains the independent reproducer and accepted evidence.
 
 A build failure has no runtime observation, while an accepted illegal design fails its compiler-rejection check without running a model; [Q199](faq.md#q199-why-does-a-compiler-rejection-count-as-a-match) explains the latter case.
+
+## Follow one test through the files
+
+The smoke test's result ID, `u09/test_common_phases_run_in_order`, identifies [its source](../tests/u09/test_common_phases_run_in_order.sv); its first UVM citation is 9.8.1, which places it in `u09` under [the layout rule](testing.md#layout).
+
+In that source, `test_common_phases_run_in_order` is the SystemVerilog module whose `initial` block calls `run_test()`, while `+UVM_TESTNAME=t` selects the registered UVM class `t`, as distinguished in [the metadata guide](testing.md#metadata).
+
+The header's `:expected_stdout:` points to [the expected-output file](../tests/u09/test_common_phases_run_in_order.expected), where `UT: connect env` precedes `UT: connect test`; these are observations printed by the child and parent callbacks, and [the observation rules](testing.md#what-is-observed) explain how the runner compares the full sequence.
+
+Searching [the requirement ledger](../coverage/requirements.json) for `UVM-PHASE-COMMON-ORDER` shows its conditions, expected behavior, limitations and link to that test ID; [the mapping guide](requirements.md#citations-requirements-and-execution-evidence) explains how this differs from the measured status in your result JSON.
 
 ## Read coverage and progress
 

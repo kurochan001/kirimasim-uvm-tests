@@ -13,6 +13,8 @@
 
 個別のソースへのリンクは話題ごとの説明と[一覧](#specのみのテスト)にあり、メタデータから期待する観測と実行条件を確認する方法は[テスト形式の説明](testing.ja.md#テストの形式)で案内しています。
 
+検査系の名前にある`control`はrunnerのstatusを表さないため、元のケースと前提や結果を比較する前に[direct／controlの区別](requirements.ja.md#引用要求実行の証拠)を確認してください。
+
 register pathの標準view 8入力はget_slices欠落でbuild停止し、別のmember-view controlは7件一致と祖先ごとの既定kind差分1件です。物理6件は別HDL条件で両seed一致し、通常ではDPI未linkを保持し、[pathのFAQ](faq.ja.md#register-hdl-pathと観測の前提)で条件を説明しています。
 
 - [test_reg_hdl_add_default_rtl_standard_view79](../tests/u18/test_reg_hdl_add_default_rtl_standard_view79.sv).

@@ -92,6 +92,8 @@ The callback requirement `UVM-VREG-FIELD-POST-WRITE-ORDER` links the standalone
 field test directly and a parent-register write test as a control. A control
 helps assess the fixture but does not supply a direct link for the requirement.
 
+To try this lookup with a concrete ID, [the smoke-test walkthrough](reading-guide.md#follow-one-test-through-the-files) connects `UVM-PHASE-COMMON-ORDER` to its source and expected-output file.
+
 Runtime links name exact `UT: ` lines from the generic expected output. These
 **expected observations** bind the mapping to an oracle, not to an observed
 pass. An anchored line can also contain observations for other obligations;

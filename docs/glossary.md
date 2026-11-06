@@ -870,6 +870,8 @@ components participate through a synchronizing objection. The new healthy
 window fixture explicitly selects ALL_ACTIVE; broader mode/failure conditions
 remain separate.
 
+Activity in this window means objection participation, and [the heartbeat questions](faq.md#heartbeats-payload-dispatch-and-abstract-fifos) explain the selected mode and when monitoring begins.
+
 **Virtual accessor dispatch** — A base-typed payload handle invoking the
 derived override of a virtual accessor. Counters and forwarded values observe
 selected public calls, separately from transport or packing behavior.
