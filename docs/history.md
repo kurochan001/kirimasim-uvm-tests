@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and ninety-three cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2541 tests: 2442 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and ninety-four cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2551 tests: 2452 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5467,3 +5467,58 @@ unchanged. Guests have 1459 unmeasured inputs: 1456 additions and three revised
 originals (1360 simulation/99 elaboration). There is no guest rerun/filter,
 scope/catalog, runner/backend/tool/workflow change, commercial result, human
 review or scope/denominator approval.
+
+## Ninety-fourth thin-area expansion: package access, root views and low-level macros
+
+Ten new M1 runtime inputs inspect package access, implicit-root hierarchy and
+base views, low-level custom-string registration and bare event field copying.
+Eight final tagged inputs match seeds 1/73; two event inputs retain exit-0
+seed-1 differences with no seed-73 record. [The package/root/macro FAQ](faq.md#package-access-root-views-and-low-level-macros)
+explains the selected premises and interpretations.
+
+Two lexical packages exercise qualified references without a UVM wildcard
+import and imported references to selected classes, types, enum values and
+global methods. This does not certify every exported symbol or turn macros
+into package members. Two root histories construct a null-parent child before
+or after the first get, add two branches and a leaf, retain component/object
+base views and observe a later child. F.7.1 prints the combined identifier
+uvm_root_extends; intended component inheritance is explicitly qualified by
+the surrounding root description, not silently repaired or treated as a new
+mandatory class. Other phase, reporting and root conditions remain partial.
+
+Four registry inputs use only the low-level object/component macros and
+custom lookup strings different from class names. Witness construction
+precedes public factory lookup; reversed creation order, repeated aliases,
+actual concrete types, names, parents and independent state are observed.
+No full utils macro, explicit registration, type_id/get_type call or handwritten
+creation method supplies the effect. Earliest static registration is not claimed.
+
+Bare-event inputs arm original target waiters before actual macro copying
+and new waiters afterward, separated by positive time. COPY aliases the selected
+event; COPY|NOCOPY retains the independent target notification. The pre-copy
+enabled waiter nevertheless wakes, contrary to the event-merging queue reading.
+Other selected rows, including quiet before the selected trigger, match.
+An independent original language-only probe without UVM also observes old=1,
+fresh=1 instead of the prior expected old=0, fresh=1. It adds no canonical test,
+guest measurement or original seed-73 result and supports no library-only cause.
+The bare-event and copy-as-assignment readings remain explicit AI interpretations;
+compare, packing, recording and arbitrary concurrent replacement remain open.
+
+Initial null-ternary and event-setup compiler failures were helper/language
+dependencies. Equivalent Boolean root observations and assignment-free event
+setup have fresh records; initial failures are excluded from current UVM counts.
+All original event predicates remain, with an added pre-trigger quiet check.
+
+Six AI duties are appended without modifying the prior 4035 requirements.
+F and F.1 receive individually grounded structural/contextual assessments;
+1.4.5, F.7, F.7.1 and the three selected B macros gain partial duties.
+There are 4041 duties, 2497 directly linked tests, fifty-four control-only tests
+and 154 control-linked tests. Inventory is 2044 partial/422 assessed/41 unassessed.
+Annex F is 112/25/0 with 277 duties and 208 primary tests (174 simulation/34
+elaboration); zero unassessed does not complete it. Primary-focus identifiers
+are 1288 and identifiers with any citation are 2076. All 2541 prior ordinary
+records and index entries, 420 prior assessments, 99 compiler records, 38 HDL
+records, 18 command-line records and 1082 guest inputs are retained.
+Guests have 1469 unmeasured inputs: 1466 additions and three revised originals
+(1370 simulation/99 elaboration). No human review, scope/denominator approval
+or original milestone completion is recorded.

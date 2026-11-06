@@ -227,6 +227,8 @@ radix／row期待は実行前に提供IEEE条項から定めました。独立�
 定数formatと独自桁算術observerはsource本体、値、期待predicateを保持し、影響する入力を新たに測定します。
 unsignedの%u文言、raw backend、短rowへの適用は明示的に限定し、商用結果や架空の照合／承認はありません。
 
+package／root／registry／eventの期待値は実行前に提供IEEE条項から独立に導き、rootの結合した印字綴りと裸event copyの解釈は限定を保持します。中立なhelper修正とeventのtrigger前observer追加後は影響入力を新しく測定し、元のpredicateを保持します。UVMなしの独自言語診断でも元waiterの起床を再現し、simulator実装sourceを取り込まず、native出力からoracleを定めません。その限界は[解釈のFAQ](faq.ja.md#package公開root-view低水準macro)に記録しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

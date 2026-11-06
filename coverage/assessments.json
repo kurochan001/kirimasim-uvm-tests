@@ -6411,6 +6411,37 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "F",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read annex title names package-scope functionality and is followed by F.1; it supplies no independent operational rule. Its package types, globals and classes remain partially decomposed in their own clauses. This does not remove annex F from scope or certify its children.",
+        "ja": "個別に読んだ付録見出しはpackage scope機能を名付けてF.1へ続き、独立した操作規則を持たない。package型、global、classは各条項で部分分解を保持する。付録Fの範囲除外や子の完了を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read overview describes package-scope methods, enums, defines and classes and their broad uses; it does not enumerate a separate algorithm or member export contract. Namespace access is decomposed under 1.4.5 and selected types under their specific declarations. Macro preprocessing is not treated as package qualification, and no complete package inventory is claimed.",
+        "ja": "個別に読んだ概要はpackage scopeのmethod、enum、define、classと用途を説明し、別のalgorithmやmember公開契約を列挙しない。namespace accessは1.4.5、選択型は個別の宣言で分解する。macro前処理をpackage修飾と扱わず、package全体の棚卸し完了を主張しない。"
+      },
+      "related_requirements": [
+        "UVM-PACKAGE-IMPORTED-QUALIFIED-ACCESS-94",
+        "UVM-PACKAGE-AUDIT-BITSTREAM-TYPE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

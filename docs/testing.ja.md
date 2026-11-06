@@ -206,6 +206,10 @@ helper folderは未変更で、header tag 11件を新たに測定します。[�
 独自の[string](../tests/uF/helpers93_string/string_fixture93.svh)、[real](../tests/uF/helpers93_real/real_fixture93.svh)、[time／enum](../tests/uF/helpers93_time_enum/time_enum_fixture93.svh)検査系は、適切な型のscalar macroを使います。
 [開いたrecorder hook](../tests/uF/helpers93_record/record_fixture93.svh)は選択metadata／data、[table row](../tests/u16/helpers93_table/table_fixture93.svh)は固有のcaller指定cellを観測し、binary DB、絶対時間単位、全表示配置を認定しない理由は[radix／observerのFAQ](faq.ja.md#radixの意味とobserverの限界)で説明しています。
 
+[namespace helper](../tests/uF/helpers94_namespace/namespace_fixture94.sv)は別々にコンパイルする字句package 2つを供給し、[root helper](../tests/uF/helpers94_root/root_fixture94.svh)はrootを生成せず実際のsingleton／基底viewを照会します。
+[registry helper](../tests/uB/helpers94_registry/registry_fixture94.svh)は低水準登録とcustom名だけを使い、[event helper](../tests/uB/helpers94_event/event_fixture94.svh)は準備でevent代入をせずcopy前後にwaiterを待機させます。
+初期helper／compiler失敗の指紋は置き換わっており、保持するevent実行時差分は[明示した解釈の限界](faq.ja.md#package公開root-view低水準macro)と併せて読んでください。
+
 ### メタデータ
 
 ヘッダーは実行スクリプトにビルドと判定の条件を伝えるもので、条項の引用と要求への対応付けの関係は[Q76](faq.ja.md#q76-条項を引用すればその要求を検査したことになりますか)で説明しています。
@@ -344,7 +348,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の2485件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
+- 現在の2495件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -446,7 +450,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の2125件（runtime 2031・期待compiler拒否94）です。`--all`を付けるとspecのみの416件も含めます。
+Verilatorの既定の対象はoracle付き・2値の2133件（runtime 2039・期待compiler拒否94）です。`--all`を付けるとspecのみの418件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -509,7 +513,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト2541件（simulation 2442件・elaboration 99件）です。
+現在のツールの単体テストは110件、メタデータの対象はテスト2551件（simulation 2452件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
@@ -517,7 +521,7 @@ Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きの
 UVMの全要求や全シミュレータの成功を示すものではありません。
 
 以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
-現在のworkflowは現在のタグ付き2125検査を重複しない8 shard（266／266／266／266／266／265／265／265）へ分け、同時shard jobは最大4です。
+現在のworkflowは現在のタグ付き2133検査を重複しない8 shard（267／267／267／267／267／266／266／266）へ分け、同時shard jobは最大4です。
 和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
 seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
 

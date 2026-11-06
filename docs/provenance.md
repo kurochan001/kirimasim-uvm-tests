@@ -355,6 +355,8 @@ The independent observer-language diagnostics isolate a rejected legal variable 
 Constant-format and original positional-arithmetic observers keep the source bodies, values and expected predicates, with fresh affected-input measurements.
 Unsigned-%u wording, raw backend and short-row applicability remain explicitly limited;there is no commercial result or fabricated review/approval.
 
+Package/root/registry/event expectations were independently derived from the supplied IEEE clauses before execution. The root's combined printed spelling and bare-event copy interpretation remain qualified. Neutral helper corrections and an added event pre-trigger observer have fresh affected-input measurements; original predicates remain. An original no-UVM language diagnostic reproduces the retained old-waiter wake without importing simulator implementation source or defining an oracle from native output. [The interpretation FAQ](faq.md#package-access-root-views-and-low-level-macros) records those limits.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

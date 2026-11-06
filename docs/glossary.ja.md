@@ -1233,7 +1233,7 @@ severityの区別は[Q316](faq.ja.md#q316-すべてのseverityで抑制時のmsg
 限定したNONE境界は[Q323](faq.ja.md#q323-直接infoの一致でverbosityの全解釈を解決しますか)で説明しています。
 
 **one-hot sequence mask** — 特定の数値位置を要求せず、互いに異なるstate bitをbitwise ORで組み合わせたものです。
-mask表現と実行時刻の違いは[Q324](faq.ja.md#q324-state-mask-512通りの一致で全sequence時刻を認定しますか)で確認できます。
+mask表現と実行時刻の違いは[Q324](faq.ja.md#q324-state-mask-517通りの一致で全sequence時刻を認定しますか)で確認できます。
 
 **STOPPEDとpost-callbackの証拠** — sequenceの強制停止を観測することと、必要なpost callbackを観測することです。
 分ける理由は[Q325](faq.ja.md#q325-stoppedと再利用の一致で必要なkill-post-hookも成功ですか)で説明しています。
@@ -1340,3 +1340,15 @@ data経路の成功だけでは最終file形式の検証にならないため、
 **Width-limited observer／positional parser（幅制限のあるobserverと桁parser）** — 正しいwide値を読んでも上限で打ち切る測定helper／期待値を変えず無関係なscanner制限を避ける独自の桁算術。
 
 **Tabular row association（表のrow対応）** — fieldのcaller指定の名前、型、size、値の間の限定した短cellの対応で、普遍的な物理配置や全wrapping規則を固定しない。
+
+## package viewとevent copyの観測
+
+これらの用語は選択した検査系の条件を表し、その限界は[package／root／macroのFAQ](faq.ja.md#package公開root-view低水準macro)で説明しています。
+
+**修飾したpackage view** — importに頼らずpackage scopeを明示するaccessであり、選択した言語symbolと前処理macroの違いは[Q359](faq.ja.md#q359-package修飾はuvm-macroにも使えますか)で説明しています。
+
+**限定解釈によるroot基底view** — 文脈に沿う継承の読みで既存singletonへcomponent／objectとしてaccessすることで、印字した綴りの矛盾は[Q360](faq.ja.md#q360-rootの継承の読みを限定する理由は)に記録しています。
+
+**registryの照会文字列** — 低水準登録macroでclass Tへ対応させるcustom名Sであり、観測した登録と約束されない便利methodの違いは[Q361](faq.ja.md#q361-低水準registry-macroはすべての便利methodを供給しますか)で説明しています。
+
+**copy前のevent waiter** — event fieldのcopy前からtargetの元の同期queueで待機するprocessで、その保持する差分は[Q362](faq.ja.md#q362-aliasとflag行が一致してもevent-copyがknownの理由は)で説明しています。

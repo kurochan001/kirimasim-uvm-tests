@@ -1,0 +1,5 @@
+UT: event94 0 copy_alias 1 negative_flag 1
+UT: event94 0 selected_waiter_before_trigger 1
+UT: event94 0 copied_notification 1 old_quiet 1 muted_quiet 1
+UT: event94 0 retained_notification 1 source_independent 1 copied_once 1
+UT: event94 0 source_notification 1 retained_once 1

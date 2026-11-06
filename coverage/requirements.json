@@ -152420,6 +152420,274 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-PACKAGE-IMPORTED-QUALIFIED-ACCESS-94",
+      "clause": "1.4.5",
+      "statement": {
+        "en": "Selected public UVM classes, types, enum values and global methods are accessible through import and package qualification with the same identities.",
+        "ja": "選択した公開UVM class、型、enum値、global methodはimportとpackage修飾で同じ同一性のまま利用できる。"
+      },
+      "conditions": {
+        "en": "Use two separately compiled original packages; one has no UVM wildcard import and fully qualifies its UVM references, while the other imports uvm_pkg. Transfer original objects and typed words across both views, in opposite object directions.",
+        "ja": "別々にコンパイルする独自package 2つを使い、一方はUVM wildcard importなしでUVM参照を完全修飾し、他方はuvm_pkgをimportする。両view間で独自objectと型付きwordを渡し、objectの方向を反転する。"
+      },
+      "expected": {
+        "en": "Cross-view object access retains the same live handle and independent peer; a selected high bit/value and named radix agree; root and package report-object accessors agree.",
+        "ja": "view間のobject accessが同じlive handleと独立peerを保持し、選択した上位bit／値と名前付きradixが一致し、rootとpackage report-object accessorが一致する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition. Declared observations are expectations, not measured passes. Human review, scope/denominator approval, remaining applicability and original M1-M4 targets remain open. Only the enumerated surfaces are checked. No universal symbol export, macro-as-package-member, package time unit, or arbitrary extension namespace is certified.",
+        "ja": "AIによる部分分解。宣言した観測は期待値であり、実測passではない。人の照合、範囲／分母承認、残る適用条件と元のM1〜M4目標は未完。 列挙したsurfaceだけを検査する。全symbol公開、macroのpackage member扱い、package時刻単位、任意extension namespaceは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_namespace_0_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: namespace94 0 class_identity 1 mutation 1 peer 1",
+            "UT: namespace94 0 type_value 1 enum_name 1",
+            "UT: namespace94 0 root 1 global_method 1"
+          ]
+        },
+        {
+          "test": "uF/test_namespace_1_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: namespace94 1 class_identity 1 mutation 1 peer 1",
+            "UT: namespace94 1 type_value 1 enum_name 1",
+            "UT: namespace94 1 root 1 global_method 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-NULL-PARENT-LIVE-HIERARCHY-94",
+      "clause": "F.7",
+      "statement": {
+        "en": "Null-parent components become children of the implicit root, and nested components retain their live ancestry through that root.",
+        "ja": "null-parent componentは暗黙rootの子となり、入れ子componentはそのrootを通るliveな祖先関係を保持する。"
+      },
+      "conditions": {
+        "en": "Construct an original top child before or after the first public root get, add a distinct top branch and a nested leaf, retain the root component view, then add another null-parent child.",
+        "ja": "最初の公開root getの前または後に独自top childを生成し、別top branchと入れ子leafを追加し、rootのcomponent viewを保持してから別のnull-parent childを追加する。"
+      },
+      "expected": {
+        "en": "Both top parents are the root, the leaf parent chain reaches it, and a retained base view sees the later child without changing either original branch.",
+        "ja": "両topのparentがrootで、leafのparent chainがrootへ達し、保持したbase viewが後のchildを観測して元の両branchを変えない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition. Declared observations are expectations, not measured passes. Human review, scope/denominator approval, remaining applicability and original M1-M4 targets remain open. No assertion about all global components, child enumeration order, phase control, report configuration, construction of another root, or complete F.7 behavior.",
+        "ja": "AIによる部分分解。宣言した観測は期待値であり、実測passではない。人の照合、範囲／分母承認、残る適用条件と元のM1〜M4目標は未完。 全global component、子列挙順、phase制御、report設定、別rootの生成、F.7全体の動作は断定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_0_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root94 0 top_children 1 nested_parent 1",
+            "UT: root94 0 live_base_view 1 retained_branches 1"
+          ]
+        },
+        {
+          "test": "uF/test_root_1_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root94 1 top_children 1 nested_parent 1",
+            "UT: root94 1 live_base_view 1 retained_branches 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-QUALIFIED-COMPONENT-BASE-94",
+      "clause": "F.7.1",
+      "statement": {
+        "en": "Under the surrounding root description, the root singleton has live uvm_component and uvm_object base views.",
+        "ja": "周辺のroot説明に沿う解釈では、root singletonはliveなuvm_componentおよびuvm_object基底viewを持つ。"
+      },
+      "conditions": {
+        "en": "Obtain the public singleton without constructing or extending it; upcast to component and object, downcast to root, and query actual children through the retained component view.",
+        "ja": "生成や拡張をせず公開singletonを取得し、componentとobjectへupcastしてrootへdowncastし、保持したcomponent viewから実際のchildを照会する。"
+      },
+      "expected": {
+        "en": "All base/downcast views retain the singleton identity and expose the actual initial and later-added root children.",
+        "ja": "全base／downcast viewがsingleton同一性を保持し、最初のroot childと後に追加したchildを観測する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition. Declared observations are expectations, not measured passes. Human review, scope/denominator approval, remaining applicability and original M1-M4 targets remain open. The printed identifier uvm_root_extends conflicts with the surrounding uvm_root class description. Intended component inheritance is an explicit AI interpretation; no mandatory class with the combined spelling or literal malformed syntax is asserted.",
+        "ja": "AIによる部分分解。宣言した観測は期待値であり、実測passではない。人の照合、範囲／分母承認、残る適用条件と元のM1〜M4目標は未完。 印字識別子uvm_root_extendsは周辺のuvm_root class説明と食い違う。意図されたcomponent継承は明示したAI解釈であり、結合した綴りの必須classや不正な構文を要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_0_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root94 0 base_views 1 identity 1",
+            "UT: root94 0 live_base_view 1 retained_branches 1"
+          ]
+        },
+        {
+          "test": "uF/test_root_1_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root94 1 base_views 1 identity 1",
+            "UT: root94 1 live_base_view 1 retained_branches 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-LOWLEVEL-OBJECT-REGISTRY-LOOKUP-94",
+      "clause": "B.2.1.4",
+      "statement": {
+        "en": "The low-level object registration macro associates its T class with the supplied lookup string S for factory creation.",
+        "ja": "低水準object登録macroはT classを指定した照会文字列Sに対応させ、factory生成に使えるようにする。"
+      },
+      "conditions": {
+        "en": "Use two concrete original classes with lookup strings different from their class names and only low-level registration macros. Construct witnesses, then create by each custom alias and repeat one alias under opposite ordering histories; components receive explicit parents.",
+        "ja": "class名と異なる照会文字列を持つ具体的な独自class 2つで低水準登録macroだけを使う。witnessを生成してから各custom aliasによる生成と片方の再生成を逆順の履歴で行い、componentには明示parentを指定する。"
+      },
+      "expected": {
+        "en": "Each alias is registered and selects its actual concrete class, constructor marker and requested name; repeated results are fresh, with the selected component parent or independent object state.",
+        "ja": "各aliasが登録され、実際の具体class、constructor marker、要求名を選び、反復結果がfreshで、選択したcomponent parentまたは独立object状態を持つ。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition. Declared observations are expectations, not measured passes. Human review, scope/denominator approval, remaining applicability and original M1-M4 targets remain open. No full utils macro, explicit register call, type_id/get_type call or handwritten creation method supplies the registration. Witness construction precedes lookup; earliest static-registration timing and unpromised utility methods are not required. No override or parameterized registry matrix is certified.",
+        "ja": "AIによる部分分解。宣言した観測は期待値であり、実測passではない。人の照合、範囲／分母承認、残る適用条件と元のM1〜M4目標は未完。 full utils macro、明示register呼出し、type_id／get_type呼出し、手書き生成methodで登録を代行しない。witness生成後の照会であり、最早static登録時点や約束されない便利methodを要求しない。全overrideやparameterized registryの組合せは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_registry_0_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registry94 object 0 aliases 1 values 1",
+            "UT: registry94 object 0 names 1 fresh 1",
+            "UT: registry94 object 0 independent 1"
+          ]
+        },
+        {
+          "test": "uB/test_registry_1_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registry94 object 1 aliases 1 values 1",
+            "UT: registry94 object 1 names 1 fresh 1",
+            "UT: registry94 object 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-LOWLEVEL-COMPONENT-REGISTRY-LOOKUP-94",
+      "clause": "B.2.1.5",
+      "statement": {
+        "en": "The low-level component registration macro associates its T class with the supplied lookup string S for factory creation.",
+        "ja": "低水準component登録macroはT classを指定した照会文字列Sに対応させ、factory生成に使えるようにする。"
+      },
+      "conditions": {
+        "en": "Use two concrete original classes with lookup strings different from their class names and only low-level registration macros. Construct witnesses, then create by each custom alias and repeat one alias under opposite ordering histories; components receive explicit parents.",
+        "ja": "class名と異なる照会文字列を持つ具体的な独自class 2つで低水準登録macroだけを使う。witnessを生成してから各custom aliasによる生成と片方の再生成を逆順の履歴で行い、componentには明示parentを指定する。"
+      },
+      "expected": {
+        "en": "Each alias is registered and selects its actual concrete class, constructor marker and requested name; repeated results are fresh, with the selected component parent or independent object state.",
+        "ja": "各aliasが登録され、実際の具体class、constructor marker、要求名を選び、反復結果がfreshで、選択したcomponent parentまたは独立object状態を持つ。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition. Declared observations are expectations, not measured passes. Human review, scope/denominator approval, remaining applicability and original M1-M4 targets remain open. No full utils macro, explicit register call, type_id/get_type call or handwritten creation method supplies the registration. Witness construction precedes lookup; earliest static-registration timing and unpromised utility methods are not required. No override or parameterized registry matrix is certified.",
+        "ja": "AIによる部分分解。宣言した観測は期待値であり、実測passではない。人の照合、範囲／分母承認、残る適用条件と元のM1〜M4目標は未完。 full utils macro、明示register呼出し、type_id／get_type呼出し、手書き生成methodで登録を代行しない。witness生成後の照会であり、最早static登録時点や約束されない便利methodを要求しない。全overrideやparameterized registryの組合せは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_registry_component_0_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registry94 component 0 aliases 1 values 1",
+            "UT: registry94 component 0 names 1 parents 1 fresh 1"
+          ]
+        },
+        {
+          "test": "uB/test_registry_component_1_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registry94 component 1 aliases 1 values 1",
+            "UT: registry94 component 1 names 1 parents 1 fresh 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BARE-EVENT-MACRO-COPY-NOTIFICATION-94",
+      "clause": "B.2.2.1.6",
+      "statement": {
+        "en": "Under the bare SystemVerilog event reading, the event field macro copies an enabled synchronization handle while respecting a selected negative copy flag.",
+        "ja": "裸のSystemVerilog eventという解釈では、event field macroが有効な同期handleをcopyし、選択した負のcopy flagを守る。"
+      },
+      "conditions": {
+        "en": "Use original objects with default-created event properties, COPY and COPY|NOCOPY flags. Arm original target waiters before copying and new waiters after copying, with positive-time separation; one input replaces the enabled source a second time.",
+        "ja": "既定生成のevent propertyとCOPYおよびCOPY|NOCOPY flagを持つ独自objectを使う。copy前に元targetのwaiter、copy後に新waiterを、正時間を隔てて待機させ、一方の入力では有効なsourceを再置換する。"
+      },
+      "expected": {
+        "en": "The enabled event aliases the selected source and wakes its new waiter, while the pre-copy enabled waiter stays quiet. The excluded target retains its original notification queue independently of the source, with one notification each.",
+        "ja": "有効eventは選択sourceとaliasして新waiterを起こし、copy前の有効waiterは待機を保つ。除外targetはsourceとは独立に元の通知queueを保持し、それぞれ1回通知する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition. Declared observations are expectations, not measured passes. Human review, scope/denominator approval, remaining applicability and original M1-M4 targets remain open. Bare event typing and copy-as-event-assignment are explicit AI interpretations grounded in the scalar-event wording and SystemVerilog event merging, not an inferred uvm_event object clone. No compare, null-event, binary packing, recording representation or arbitrary concurrent replacement is prescribed. A build blocker supplies no runtime evidence and alone assigns no simulator/library cause.",
+        "ja": "AIによる部分分解。宣言した観測は期待値であり、実測passではない。人の照合、範囲／分母承認、残る適用条件と元のM1〜M4目標は未完。 裸event型とevent代入としてのcopyは、scalar eventの記述とSystemVerilogのevent合併に基づく明示AI解釈で、uvm_event object cloneとは推測しない。compare、null-event、binary packing、recording表現、任意の並行置換を規定しない。build停止は実行時の証拠を供給せず、それだけでsimulator／libraryの原因を決めない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_event_0_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event94 0 copy_alias 1 negative_flag 1",
+            "UT: event94 0 selected_waiter_before_trigger 1",
+            "UT: event94 0 copied_notification 1 old_quiet 1 muted_quiet 1",
+            "UT: event94 0 retained_notification 1 source_independent 1 copied_once 1",
+            "UT: event94 0 source_notification 1 retained_once 1"
+          ]
+        },
+        {
+          "test": "uB/test_event_1_94",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event94 1 copy_alias 1 negative_flag 1",
+            "UT: event94 1 selected_waiter_before_trigger 1",
+            "UT: event94 1 copied_notification 1 old_quiet 1 muted_quiet 1",
+            "UT: event94 1 retained_notification 1 source_independent 1 copied_once 1",
+            "UT: event94 1 source_notification 1 retained_once 1"
+          ]
+        }
+      ]
     }
   ]
 }

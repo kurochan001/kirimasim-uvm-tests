@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の93回目の拡充（全2541件：simulation 2442・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の94回目の拡充（全2551件：simulation 2452・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3450,3 +3450,35 @@ UNFORMAT2／4はそのmetadata／data境界を検査するもので、binary DB�
 compiler 99記録、HDL 38記録、command-line 18記録、互換guest 1082記録は未変更です。
 guest未測定1459入力は追加1456件と修正した元入力3件（simulation 1360／elaboration 99）です。
 新しいguest実行／filter、範囲／catalog、runner／backend／tool／workflow変更、商用結果、人の照合、範囲／分母承認はありません。
+
+## 薄い領域の94回目の拡充：package公開・root view・低水準macro
+
+M1のruntime 10入力で、package access、暗黙rootの階層と基底view、低水準のcustom文字列登録、裸event fieldのcopyを検査します。
+最終tag付き8入力はseed 1／73に一致し、event 2入力はexit 0のseed 1差分を保持してseed 73記録はありません。
+入力ごとの前提と解釈は[package／root／macroのFAQ](faq.ja.md#package公開root-view低水準macro)で説明しています。
+
+別々の字句scopeを持つ2 packageで、UVM wildcard importなしの修飾参照とimportした参照を使い、選択したclass、型、enum値、global methodを観測します。
+全公開symbolの認定やmacroのpackage member扱いはしません。root 2履歴は最初のgetの前または後にnull-parent childを生成し、2 branchとleafを追加してcomponent／object基底viewを保持し、後のchildを観測します。
+F.7.1には結合した識別子uvm_root_extendsが印字されており、周辺のroot説明から意図されたcomponent継承を明示的に限定解釈し、黙って修正したり新しい必須classとしたりしません。
+他のphase、reporting、root条件は部分的に残ります。
+
+registry 4入力は低水準object／component macroだけを使い、class名と異なるcustom照会文字列を指定します。
+witness生成後に公開factoryで照会し、生成順の反転、aliasの反復、実際の具体型、名前、parent、独立状態を観測します。
+full utils macro、明示登録、type_id／get_type呼出し、手書き生成methodで効果を代行せず、最早static登録時点は主張しません。
+
+裸event入力は、実際のmacro copy前に元targetのwaiter、後に新waiterを、正時間を隔てて待機させます。
+COPYは選択eventをaliasし、COPY|NOCOPYは独立したtarget通知を保持しますが、copy前の有効waiterも起き、event合併のqueue規則の解釈と異なります。
+選択trigger前の待機を含む他の選択行は一致します。UVMなしの独立した独自言語probeでも、先に定めたold=0、fresh=1に対しold=1、fresh=1を観測します。
+これは正規テスト、guest測定、元入力のseed 73結果を追加せず、libraryだけへの原因帰属を支持しません。
+裸eventと代入としてのcopyは明示AI解釈に残し、compare、packing、recording、任意の並行置換は未完です。
+
+最初のnull三項式とevent準備のcompiler失敗はhelper／言語の依存条件でした。
+同じ意味のBooleanによるroot観測と、event代入を使わない準備には新しい記録があり、元の失敗を現在のUVM件数から除外します。
+元のevent predicateはすべて保持し、選択trigger前の待機検査を追加します。
+
+以前の4035要求を変更せずAI義務6件を追記します。FとF.1には個別の根拠に基づく構造／文脈の分類を追加し、1.4.5、F.7、F.7.1、選択したBの3 macroを部分分解します。
+現在は4041義務、直接対応2497テスト、control専用54テスト、control linkあり154です。棚卸しは部分2044／分類422／未評価41です。
+付録Fは112／25／0、義務277件、主引用208テスト（simulation 174／elaboration 34）で、未評価0でも完了ではありません。
+主引用のある番号は1288件、引用がある番号は2076件です。以前の通常2541記録と索引、以前の420分類、compiler 99記録、HDL 38記録、command-line 18記録、guest 1082入力を保持します。
+guestの未測定は1469入力で、追加1466件と改訂済みの元3件（simulation 1370／elaboration 99）です。
+人の照合、範囲／分母承認、元の段階目標の完了は記録しません。

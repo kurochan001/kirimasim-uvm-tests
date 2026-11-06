@@ -6,8 +6,8 @@ This page supports resuming development; if you want to run or understand a firs
 
 ## Snapshot and objective
 
-Updated on 2026-11-07 for the ninety-third thin-area expansion, based on
-[5eb92e3](https://github.com/kurochan001/kirimasim-uvm-tests/commit/5eb92e3624f27078cc6106881707a9f3f6b4098f)
+Updated on 2026-11-07 for the ninety-fourth thin-area expansion, based on
+[6be3e5d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/6be3e5df8f3fb4769c9d58714d2fa4f6be0fc089)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -18,12 +18,12 @@ zero unlinked tests does not complete any milestone.
 
 | Area | Current snapshot |
 | --- | --- |
-| M1 | 1071 tests (990 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
+| M1 | 1081 tests (1000 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
 | M2 | 586 tests (579 runtime, 7 elaboration): sequences, sequencers, callbacks and TLM |
 | M3 | 884 tests (873 runtime, 11 elaboration): register/memory layer and annex E |
-| Entire suite | 2541 tests (2442 simulation, 99 elaboration) in 21 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 4035 AI requirement drafts; 4035 have direct links to 2487 tests; fifty-four control-only tests; zero tests without links |
-| Normative inventory | 2038 of 2,507 identifiers partially decomposed; 420 explicitly assessed; 49 unassessed; zero drafts without direct tests |
+| Entire suite | 2551 tests (2452 simulation, 99 elaboration) in 21 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 4041 AI requirement drafts; 4041 have direct links to 2497 tests; fifty-four control-only tests; zero tests without links |
+| Normative inventory | 2044 of 2,507 identifiers partially decomposed; 422 explicitly assessed; 41 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
 and `approved_denominator` / `coverage_percentage` remain null. All twenty-one
@@ -64,20 +64,20 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
 
 - [Testing guide](testing.md): metadata, compilation, runner options and
   contribution rules. [Results](results.md): evidence interpretation and
-  assembly. [Known differences](known-differences.md): all 416 spec-only cases.
+  assembly. [Known differences](known-differences.md): all 418 spec-only cases.
 - [Requirement guide](requirements.md), [scope](../coverage/scope.json),
   [ledger](../coverage/requirements.json), [assessments](../coverage/assessments.json) and [test index](../coverage/test_index.json):
   canonical M4 state. Generated inventories are review aids, not replacements
   for these versioned inputs.
 - [Library lock](../third_party/uvm.lock): Accellera UVM 2020.3.1 at
   `78c06547a2a0`, 326 files. Fetch with the tracked tool; the library itself
-  is not committed. 2485 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
+  is not committed. 2495 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
 - The user supplied `IEEE_Std_1800.2-2020.pdf` and
   `IEEE_Std_1800-2023_SystemVerilog.pdf` in the repository root. They are
   ignored local files, unavailable in a fresh clone, and must not be
   redistributed. Extracted text under `out/` is local and ignored; `/tmp` contents may disappear.
 - Results under `out/` are ignored and local. Temporary expansion helpers
-  under `out/thin-ninety-third-*.py` are optional local aids,
+  under `out/thin-ninety-fourth-*.py` are optional local aids,
   not maintained entry points. Some append drafts/history and must not be
   rerun blindly. Recreate missing helpers using the tracked tools.
 
@@ -102,11 +102,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 110 tool unit tests, metadata for all 2541 tests (2442 simulation, 99 elaboration),
+The snapshot passed 110 tool unit tests, metadata for all 2551 tests (2452 simulation, 99 elaboration),
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1082 unchanged inputs, with 1459 inputs unmeasured.
+cover 1082 unchanged inputs, with 1469 inputs unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -133,94 +133,81 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 2031 runtime passes at seeds 1/73; 94 expected compile rejections; 416 known |
+| Verilator 5.052 / pinned UVM | 2039 runtime passes at seeds 1/73; 94 expected compile rejections; 418 known |
 | Verilator 5.052 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
 | Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 18-case condition: 17 pass both seeds; 1 known at seed 1 |
-| kirimasim / pinned UVM | 1082 unchanged cases: 1073 unsupported and nine missing-API failures; 1459 inputs unmeasured |
-| Ghost / bundled UVM | 1082 unchanged cases: 206 pass and 876 fail at each seed; 1459 inputs unmeasured |
+| kirimasim / pinned UVM | 1082 unchanged cases: 1073 unsupported and nine missing-API failures; 1469 inputs unmeasured |
+| Ghost / bundled UVM | 1082 unchanged cases: 206 pass and 876 fail at each seed; 1469 inputs unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
-The ordinary condition retains 416 known cases: 278 runtime first differences,
+The ordinary condition retains 418 known cases: 280 runtime first differences,
 133 simulation builds and five illegal compiler acceptances. One legal printed-concrete callback-facade construction is rejected as abstract. Builds are 43 missing
 API/type names, one time-decrement argument default, two type-default declarations, three dependent visitor-default builds, two printed signature conflicts,
 two inherited type_id registry specializations, one protected-access build, two unlisted-pure-hook builds and 56 unlinked DPI cases. Two qualified virtual-abstraction overview-base builds and two printed dedicated-pool return-type builds also remain. Three additional legal builds retain the enum-collection T interpretation. Seven more builds retain strict attribute/enum-unpack arities. Separate HDL/command-line evidence is reported independently.
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
 
-Fourteen new M1 runtime inputs inspect numeric radix flags, packed/native
-strings, three typed real notations, time and enumeration fields, recording
-metadata/data and short table rows. Ten match seeds 1/73. Four retain exit-0
-seed-1 differences without seed 73: two real-notation cases and two qualified
-literal-%u controls. [The radix/observer FAQ](faq.md#radix-meanings-and-observer-limits)
-explains which conclusions belong to each input.
+Ten new M1 runtime inputs inspect package access, implicit-root hierarchy and
+base views, low-level custom-string registration and bare event field copying.
+Eight final tagged inputs match seeds 1/73; two event inputs retain exit-0
+seed-1 differences with no seed-73 record. [The package/root/macro FAQ](faq.md#package-access-root-views-and-low-level-macros)
+explains the selected premises and interpretations.
 
-Numeric BIN/OCT/HEX/DEC and the textual unsigned-decimal reading preserve
-32/65-bit unsigned values. Explicit and omitted NORADIX use the selected
-HEX/BIN default. The unsigned-decimal prose conflicts with the printed %u,
-which SystemVerilog defines as raw two-value output; separate literal controls
-retain that alternative without passing or rewriting the textual inputs.
-Packed ASCII/native strings and enum names match. Time matches a public
-print_time control in the same UVM package context and an explicit global
-format suffix; absolute units, cross-scope conversion and rounding remain open.
+Two lexical packages exercise qualified references without a UVM wildcard
+import and imported references to selected classes, types, enum values and
+global methods. This does not certify every exported symbol or turn macros
+into package members. Two root histories construct a null-parent child before
+or after the first get, add two branches and a leaf, retain component/object
+base views and observe a later child. F.7.1 prints the combined identifier
+uvm_root_extends; intended component inheritance is explicitly qualified by
+the surrounding root description, not silently repaired or treated as a new
+mandatory class. Other phase, reporting and root conditions remain partial.
 
-Typed real flags retain their independent general/decimal/exponential
-expectations. Numeric values match, but exponential notation is absent in
-both cases and the selected large general value also lacks the expected
-exponent. These are selected notation observations, not a complete precision,
-rounding or confirmed-defect attribution. The recording cases deliver all
-fourteen named selections, values, widths and per-operation counts to actual
-original live-recorder hooks, with an idle peer. NORADIX may remain unspecified
-or resolve to the configured default at the unspecified hook boundary; only
-those two forms were allowed before measurement. UNFORMAT2/4 are checked at
-that metadata/data boundary; binary DB layout, endianness and X/Z rendering
-remain unverified, and no impossible NUL-containing string oracle is invented.
+Four registry inputs use only the low-level object/component macros and
+custom lookup strings different from class names. Witness construction
+precedes public factory lookup; reversed creation order, repeated aliases,
+actual concrete types, names, parents and independent state are observed.
+No full utils macro, explicit registration, type_id/get_type call or handwritten
+creation method supplies the effect. Earliest static registration is not claimed.
 
-The original numeric observer used a legal variable scanf format that the
-compiler rejected. Four constant-format branches retain the same predicates.
-A separate tiny language diagnostic then printed decimal 18446744073709574711
-but scanned 7fffffffffffffff with count 1, isolating a width-limited observer.
-A separate original positional-arithmetic observer for the 65-bit case matches
-both seeds. Earlier parser builds and the false wide observation are archived
-and excluded from current UVM evidence. All fourteen source bodies and expected
-rows remain unchanged; ten proven tags and one helper declaration change have
-fresh compatible measurements. The language diagnostics add no canonical test,
-original seed result or implementation-derived expectation.
+Bare-event inputs arm original target waiters before actual macro copying
+and new waiters afterward, separated by positive time. COPY aliases the selected
+event; COPY|NOCOPY retains the independent target notification. The pre-copy
+enabled waiter nevertheless wakes, contrary to the event-merging queue reading.
+Other selected rows, including quiet before the selected trigger, match.
+An independent original language-only probe without UVM also observes old=1,
+fresh=1 instead of the prior expected old=0, fresh=1. It adds no canonical test,
+guest measurement or original seed-73 result and supports no library-only cause.
+The bare-event and copy-as-assignment readings remain explicit AI interpretations;
+compare, packing, recording and arbitrary concurrent replacement remain open.
 
-Actual table printers keep the supplied name/type/size/value cells associated
-in two/three short rows, with opposite insertion order and a disjoint peer.
-The physical-row reading is qualified for these cells: no exact header, column
-order, width, padding, punctuation or universal wrapping/multiline layout is fixed.
-Sixteen new bilingual AI duties add fourteen radix selections, one scalar-flag
-entry and one qualified table entry. Two existing recording duties gain new
-links without duplicating their name/value/metadata forwarding obligations. F.2.1.5 and
-16.2.10 gain partial decomposition, not classification or completion.
+Initial null-ternary and event-setup compiler failures were helper/language
+dependencies. Equivalent Boolean root observations and assignment-free event
+setup have fresh records; initial failures are excluded from current UVM counts.
+All original event predicates remain, with an added pre-trigger quiet check.
 
-All 4019 prior statements, conditions, expectations and review records remain;
-only two existing test-link lists are extended. The 420 assessments and 2527
-ordinary records retain content.
-Totals are 4035 duties, 2487 directly linked tests, fifty-four control-only tests
-and 154 control-linked tests. Inventory is 2038 partial/420 assessed/49 unassessed.
-Annex F is 110/23/4 with 275 duties and 204 primary tests (170 simulation/34
-elaboration). Chapter 16 is 176/32/0 with 280 duties and 188 primary tests
-(179 simulation/nine elaboration);zero unassessed does not complete it.
-Primary identifiers are 1283. The actual old inventory already had 2071 cited
-identifiers, so current prose is corrected from 2068 to 2071 without claiming
-three new citations. All partial contracts and original milestone targets remain open.
+Six AI duties are appended without modifying the prior 4035 requirements.
+F and F.1 receive individually grounded structural/contextual assessments;
+1.4.5, F.7, F.7.1 and the three selected B macros gain partial duties.
+There are 4041 duties, 2497 directly linked tests, fifty-four control-only tests
+and 154 control-linked tests. Inventory is 2044 partial/422 assessed/41 unassessed.
+Annex F is 112/25/0 with 277 duties and 208 primary tests (174 simulation/34
+elaboration); zero unassessed does not complete it. Primary-focus identifiers
+are 1288 and identifiers with any citation are 2076. All 2541 prior ordinary
+records and index entries, 420 prior assessments, 99 compiler records, 38 HDL
+records, 18 command-line records and 1082 guest inputs are retained.
+Guests have 1469 unmeasured inputs: 1466 additions and three revised originals
+(1370 simulation/99 elaboration). No human review, scope/denominator approval
+or original milestone completion is recorded.
 
-The 99 compiler, 38 HDL, 18 command-line and 1082 compatible guest records remain
-unchanged. Guests have 1459 unmeasured inputs: 1456 additions and three revised
-originals (1360 simulation/99 elaboration). There is no guest rerun/filter,
-scope/catalog, runner/backend/tool/workflow change, commercial result, human
-review or scope/denominator approval.
-
-Totals are 2541 (2442 simulation/99 elaboration): M1 1071 (990/81), M2 586
-(579/7), M3 884 (873/11). Ordinary pass is 2125 (2031 runtime/94 rejections),
-with 416 known (278 runtime/133 builds/5 illegal acceptances). Guests retain
-1082 compatible records; 1459 unmeasured inputs are 1456 additions and three revised originals.
+Totals are 2551 (2452 simulation/99 elaboration): M1 1081 (1000/81), M2 586
+(579/7), M3 884 (873/11). Ordinary pass is 2133 (2039 runtime/94 rejections),
+with 418 known (280 runtime/133 builds/5 illegal acceptances). Guests retain
+1082 compatible records; 1469 unmeasured inputs are 1466 additions and three revised originals.
 
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2125 tagged checks into 8 disjoint shards (266/266/266/266/266/265/265/265),
+the current 2133 tagged checks into 8 disjoint shards (267/267/267/267/267/266/266/266),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies
@@ -233,15 +220,15 @@ remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-ninety-third-verilator-combined.json
-out/thin-ninety-third-ghost-final-1.json
-out/thin-ninety-third-ghost-final-73.json
-out/thin-ninety-third-kirimasim-final.json
-out/thin-ninety-third-inventory.json
-out/thin-ninety-third-backlog-final.json
-out/thin-ninety-third-evidence-scope.json
-out/thin-ninety-third-hdl-combined.json
-out/thin-ninety-third-cmdline-final.json
+out/thin-ninety-fourth-verilator-combined.json
+out/thin-ninety-fourth-ghost-final-1.json
+out/thin-ninety-fourth-ghost-final-73.json
+out/thin-ninety-fourth-kirimasim-final.json
+out/thin-ninety-fourth-inventory.json
+out/thin-ninety-fourth-backlog-final.json
+out/thin-ninety-fourth-evidence-scope.json
+out/thin-ninety-fourth-hdl-combined.json
+out/thin-ninety-fourth-cmdline-final.json
 ```
 
 Before reuse, verify test-ID sets within each declared full/subset scope, current `inputs_sha256`, identical
@@ -258,13 +245,13 @@ Unassessed counts and partial obligations track different remaining work; [Read 
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.
 At activation there were 1,463 unassessed identifiers, zero unlinked tests and
-zero requirements without direct tests. 65 iterations reduce unassessed to 49, a decrease of 1414 since activation.
-F.2.1.5 and 16.2.10 gain partial duties without classifications. Four runtime
-inputs retain seed-1 differences: two real-notation inputs and two qualified
-literal-%u controls. Ten final inputs match both seeds after observer corrections;
-earlier parser/width-limited observer records are excluded,not relabeled.
-Annex F is 110/23/4. Chapter 16 has zero unassessed but 176 partial identifiers;
-all 2038 partial contracts, applicability and original milestone targets remain open.
+zero requirements without direct tests. 66 iterations reduce unassessed to 41, a decrease of 1422 since activation.
+F and F.1 have explicit individually grounded assessments. Namespace, root and
+three B macro declarations gain partial duties; annex F has no unassessed
+identifier but retains 112 partial ones. Eight final inputs match both seeds;
+two event inputs retain old-waiter differences at seed 1 without seed 73,
+also reproduced by an independent language-only probe. All 2044 partial
+contracts, applicability and original milestone targets remain open.
 
 The separate earlier 12.2.9.2 reassessment did not reduce unassessed. Keep the
 goal active. Zero unassessed in chapter 12 does not complete its 169 partial
@@ -283,7 +270,7 @@ An empty mapping queue can coexist with partially decomposed obligations, so use
 These are prioritization suggestions, not approved exclusions or a coverage
 percentage. Regenerate the backlog before choosing the next increment.
 
-The existing-test mapping queue is empty across all roots. Review the 49
+The existing-test mapping queue is empty across all roots. Review the 41
 unassessed identifiers against the standard, distinguishing headings from
 normative obligations and splitting conditions before selecting new tests.
 Prioritize meaningful defaults, failures, isolation, ordering and lifecycle
@@ -313,7 +300,7 @@ Sequencer follow-up: audit all 67 partial chapter-15 identifiers, including
 mid-burst relevance-limit changes with independently justified counter semantics,
 per-sequencer state, push/peek/get automatic-recording conditions and arbitrary
 pipeline cancellation. Preserve the positive-time bound interpretation and the
-15.2.1 ancestry conflict. Annex B still has 19 unassessed identifiers; read
+15.2.1 ancestry conflict. Annex B still has 16 unassessed identifiers; read
 report/object/field/pack macros individually, retaining static-library differences.
 
 Resource follow-up: audit all 71 partial annex-C identifiers, including
@@ -326,7 +313,7 @@ handles do not certify every type, automatic configuration or concurrent
 history. C has no unassessed identifier; its contracts remain partial.
 
 Package follow-up: use [the current root totals](requirements.md#review-work-queue-and-root-totals)
-to audit annex F’s remaining unassessed identifiers and all partial type, global
+to audit annex F’s 112 partial identifiers, including type, global
 service, callback mutation, initialization and run/abort duties.
 Keep return-value and actual delivery evidence separate; preserve the isolated
 PRE_RUN and report-default differences.

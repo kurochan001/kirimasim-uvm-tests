@@ -1608,7 +1608,7 @@ one report, independently of another reporter's settings.
 
 **One-hot sequence mask** — Distinct state bits combined with bitwise OR,
 without requiring particular numeric positions.
-[Q324](faq.md#q324-do-512-matching-state-masks-certify-all-sequence-timing) separates mask representation and live timing.
+[Q324](faq.md#q324-do-517-matching-state-masks-certify-all-sequence-timing) separates mask representation and live timing.
 
 **Stopped state versus post-callback evidence** — Observing that a sequence
 was forcibly stopped versus observing its required post callbacks.
@@ -1722,3 +1722,15 @@ A successful data path need not validate a final file format, so [the radix/obse
 **Width-limited observer / positional parser** — A measurement helper that saturates while reading a wide correct value / original digit arithmetic used to avoid that unrelated scanner limit without changing the expected value.
 
 **Tabular row association** — The qualified short-cell relation between a field's supplied name, type, size and value;it fixes neither a universal physical layout nor all wrapping rules.
+
+## Package views and event-copy observations
+
+These terms describe the selected fixture conditions, with their limits in [the package/root/macro FAQ](faq.md#package-access-root-views-and-low-level-macros).
+
+**Qualified package view** — Access through an explicit package scope rather than relying on an import; [Q359](faq.md#q359-does-package-qualification-also-apply-to-uvm-macros) distinguishes selected language symbols from preprocessing macros.
+
+**Qualified root base view** — Component/object access to the existing singleton under the contextual inheritance reading; [Q360](faq.md#q360-why-qualify-the-root-inheritance-reading) records the printed-spelling conflict.
+
+**Registry lookup string** — The custom name S associated with class T by a low-level registration macro; [Q361](faq.md#q361-do-low-level-registry-macros-supply-all-utility-methods) distinguishes the observed registration from unpromised utility methods.
+
+**Pre-copy event waiter** — A process already waiting on the target's original synchronization queue before an event field is copied; [Q362](faq.md#q362-why-do-event-copy-inputs-remain-known-when-alias-and-flag-rows-match) explains its retained difference.
