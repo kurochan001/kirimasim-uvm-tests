@@ -41,6 +41,8 @@ with these changes:
   `normalize_output.py`, which this suite does not use.
 - The module docstring identifies the source.
 
+The upstream commit identifies the exact source snapshot used for copied code, and [Rights and sources](testing.md#rights-and-sources) explains the contribution rules when modifying that material.
+
 ## Original suite tools
 
 A runner builds and judges a test, while a backend connects selected calls to external code; [the HDL setup guide](testing.md#verilator-vpi-hdl-subset) shows how they work together under a specific execution condition.

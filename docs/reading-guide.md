@@ -7,6 +7,7 @@ Start here if UVM, the result labels or the progress counts are unfamiliar; choo
 - [What this repository tests](#what-this-repository-tests)
 - [Before the first run](#before-the-first-run)
 - [Read a result](#read-a-result)
+- [Trace a difference](#trace-a-difference)
 - [Read coverage and progress](#read-coverage-and-progress)
 - [Before changing or reporting a test](#before-changing-or-reporting-a-test)
 - [Choose the next document](#choose-the-next-document)
@@ -48,6 +49,18 @@ In a result JSON, find the test ID under `tests` and read its `status` and any `
 A reused result is evidence only for its recorded inputs, runner and library. See [how compatible records are combined](results.md#evidence-assembly) before treating an old JSON file as a current result.
 
 When a case differs, inspect its cited rule, expected observation and setup before changing it; [Q18](faq.md#q18-how-should-i-report-or-correct-a-wrong-expectation) describes how to report or correct a suspected expectation error.
+
+## Trace a difference
+
+A difference is a starting point for investigation, and [the correction guide](faq.md#q18-how-should-i-report-or-correct-a-wrong-expectation) explains how to assess the expectation before proposing a change.
+
+1. Find the case under `tests` in the result JSON and read its `status` and any `reason`; [the result definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) distinguish an observed difference from an unsupported feature.
+2. Use the test ID as the path below `tests/`, adding `.sv`, then read `:type:`, `:lrm:` and `:expected_stdout:` or `:expected_stderr_regex:`; [the metadata guide](testing.md#metadata) explains which checks apply to runtime and compiler-rejection cases.
+3. Check the recorded library and runner before repeating the command, because the ordinary, HDL and command-line runners supply different implementations; [the execution setup](testing.md#the-uvm-library) describes those conditions.
+4. For a runtime difference, compare the selected `UT: ` lines with the declared expected file, including their order, and check any exit or diagnostic condition; [the observation rules](testing.md#what-is-observed) explain why the complete log is not compared.
+5. For a report or proposed correction, record the test path, suite commit, tool versions, command and expected behavior under its cited clause; [the reporting guide](provenance.md#issue-reporting-policy-and-form) explains the independent reproducer and accepted evidence.
+
+A build failure has no runtime observation, while an accepted illegal design fails its compiler-rejection check without running a model; [Q199](faq.md#q199-why-does-a-compiler-rejection-count-as-a-match) explains the latter case.
 
 ## Read coverage and progress
 

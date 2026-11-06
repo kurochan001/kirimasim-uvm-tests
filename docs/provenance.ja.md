@@ -38,6 +38,8 @@ UVMのテストが言語機能（クラス、パラメータ化クラス、制�
 - `runner_digest()`は、このスイートが使わない`normalize_output.py`の代わりに`tools/uvm_common.py`をhash対象にします。
 - moduleのdocstringに取得元を記載します。
 
+upstreamのコミットはコードを取り込んだ時点の正確な内容を識別し、そのコードを変更する際の規則は[権利と出典](testing.ja.md#権利と出典)で確認できます。
+
 ## このスイート独自のツール
 
 runnerはテストをビルドして判定し、backendは選択した呼出しを外部コードにつなぐ役割を持ち、特定の実行条件での組み合わせ方は[HDL実行環境の説明](testing.ja.md#verilatorのvpi-hdl部分集合)で確認できます。

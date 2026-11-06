@@ -6,7 +6,7 @@ Counts on this page belong to the time of each change, so use [the current snaps
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
 three M4 increments and eighty-four cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2384 tests: 2287 simulation and 94 elaboration). The earlier 349-test checkpoint is
+existing-test requirement-link backlog checkpoint (2384 tests: 2287 simulation and 97 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -24,6 +24,8 @@ Use these entry points to trace why an area was added, and [the handoff prioriti
 Historical `out/` paths identify local artifacts that may no longer exist; [the handoff file guide](handoff.md#files-and-local-material) points to maintained tools for resuming work without those files.
 
 An increment is a batch of development work rather than a completed milestone; [the current plan](../README.md#plan) shows which M1–M4 targets remain open.
+
+Before reusing a historical measurement for current files, apply [the evidence compatibility checks](results.md#evidence-assembly) to its recorded inputs and execution conditions.
 
 ## Ghost bundled-library measurements
 

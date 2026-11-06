@@ -68,6 +68,8 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 fetcherは固定したAccellera UVM 2020.3.1を取得して検査します。スモークのコマンドは1件だけを選びます。
+差分を報告した場合は、[差分を調べる](docs/reading-guide.ja.md#差分を調べる)の手順で、検査した期待値と実行条件を確認できます。
+
 oracle付き2014件（runtime 1922・compile拒否92）をすべて実行する場合は、次のコマンドを使います。
 
 ```sh

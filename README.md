@@ -53,9 +53,7 @@ Eighteen command-line fixtures opt into a separate VPI argument bridge and
 pinned UVM regex DPI; seventeen match both seeds and one retains a diagnostic
 severity difference. The [command-line runner](docs/testing.md#verilator-command-line-subset) supplies that bridge; ordinary runs leave it unlinked.
 
-Expected results follow the cited standard, and normative expectations remain
-when a simulator/library combination differs. The SystemVerilog language
-itself belongs to kirimasim-tests.
+Expected results follow the cited standard, and normative expectations remain when a simulator/library combination differs. The SystemVerilog language itself belongs to kirimasim-tests.
 
 Test counts and clause citations are not a reviewed requirement-coverage
 percentage. M4 provides a primary-citation census and explicit requirement links;
@@ -74,8 +72,10 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
 ```
 
-The fetcher checks the pinned Accellera UVM 2020.3.1 library. The smoke
-command selects one test. To run all 2014 tagged checks (1922 runtime, 92 compile rejection):
+The fetcher checks the pinned Accellera UVM 2020.3.1 library. The smoke command selects one test.
+If it reports a difference, [Trace a difference](docs/reading-guide.md#trace-a-difference) shows how to locate the checked expectation and execution conditions.
+
+To run all 2014 tagged checks (1922 runtime, 92 compile rejection):
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \

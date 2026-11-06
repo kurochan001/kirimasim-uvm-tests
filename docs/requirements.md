@@ -113,6 +113,8 @@ adds no new execution result for them.
 
 A schema version identifies a JSON data layout rather than a UVM library release; [the library setup](testing.md#the-uvm-library) describes the separate release lock used for execution.
 
+Within a requirement, `conditions` says when the duty applies, `expected` says what must be observed, and `limitations` bounds the current claim; [the counting unit](#counting-unit-and-scope-proposal) explains why one API may need several such entries.
+
 Canonical files are the maintained source data, while inventory and backlog files are generated views; [the handoff file guide](handoff.md#files-and-local-material) explains which material is available in a fresh clone.
 
 Canonical JSON uses UTF-8. Scope, assessments and test index remain schema 1;

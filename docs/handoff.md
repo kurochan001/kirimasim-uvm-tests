@@ -81,6 +81,8 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
   not maintained entry points. Some append drafts/history and must not be
   rerun blindly. Recreate missing helpers using the tracked tools.
 
+For a first run, [the smoke command](faq.md#q3-how-can-i-run-one-test-first) uses a tracked fixture and the fetched library; the local PDFs support standards review and Ghost settings support guest measurements.
+
 ## Resume and verify
 
 A nonempty working-tree status may include unfinished input changes, so review [the input and mapping update procedure](requirements.md#updating-a-test-or-mapping) before treating saved evidence as current.

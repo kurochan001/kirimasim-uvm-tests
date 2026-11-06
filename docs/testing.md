@@ -404,6 +404,8 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - `:uvm_defines:` can request `UVM_ENABLE_DEPRECATED_API`. There are currently
   no annex H tests or cases requesting this macro.
 
+Here the ordinary runner means `tools/run_verilator.py`; the [HDL runner](#verilator-vpi-hdl-subset) and [command-line runner](#verilator-command-line-subset) explicitly link the implementations required by their selected fixtures.
+
 ### Verilator VPI HDL subset
 
 This backend connects UVM's DPI calls to the simulator's public VPI interface; [HDL execution conditions](glossary.md#hdl-execution-conditions) explains the two interfaces and the scope of a backend result.
@@ -506,6 +508,8 @@ The Verilator exit code summarizes tagged regressions, so [Q6. Why can Verilator
 
 `--all` expands selection within the chosen runner; it does not link the [HDL backend](#verilator-vpi-hdl-subset) or [command-line bridge](#verilator-command-line-subset), which require their separate runners.
 
+After fetching UVM, choose the command for the simulator you installed; [the single-test example](faq.md#q3-how-can-i-run-one-test-first) is a smaller starting point than the full-suite commands below.
+
 ```sh
 python3 tools/fetch_uvm.py
 python3 tools/run_kirimasim.py --kirimasim /path/to/kirimasim -j 8 --json out/kirimasim.json
@@ -582,6 +586,8 @@ against the lock before executing.
 ## Checks
 
 These commands validate the library, tools and test descriptions; [Continuous integration](results.md#continuous-integration) describes the additional simulator checks performed by Check.
+
+The library check expects an existing fetched copy, so if that copy is absent, follow [Fetching](#fetching) before running these validation commands.
 
 ```sh
 python3 tools/fetch_uvm.py --check

@@ -2,6 +2,8 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
+リンク先のソースに不慣れな場合は、[差分を調べる](reading-guide.ja.md#差分を調べる)の手順で、メタデータと期待値ファイルが記録した失敗条件にどう対応するか確認できます。
+
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
 現在の2384件と、固定したAccellera UVM 2020.3.1についての記録です。

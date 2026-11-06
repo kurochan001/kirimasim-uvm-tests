@@ -303,6 +303,8 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
 - `:uvm_defines:`で`UVM_ENABLE_DEPRECATED_API`を指定できますが、現在は付録Hのテストも、
   このマクロを要求するテストもありません。
 
+ここで通常runnerとは`tools/run_verilator.py`を指し、[HDL runner](#verilatorのvpi-hdl部分集合)と[command-line runner](#verilatorのcommand-line部分集合)は、選択した検査系に必要な実装を明示的にlinkします。
+
 ### VerilatorのVPI HDL部分集合
 
 このbackendはUVMのDPI呼出しをシミュレータの公開VPI interfaceへ接続するもので、2つのinterfaceと測定範囲の関係は[HDLの実行条件](glossary.ja.md#hdlの実行条件)で説明しています。
@@ -374,6 +376,8 @@ Verilatorの終了コードはタグ付きの不一致を集計するため、sp
 
 `--all`は選んだrunner内の検査対象を広げる指定で、[HDL backend](#verilatorのvpi-hdl部分集合)や[command-line bridge](#verilatorのcommand-line部分集合)をlinkするものではなく、それぞれ別のrunnerを使います。
 
+UVM取得後は、インストールしたシミュレータのコマンドを選び、最初は以下の全件実行より小さい[1件の実行例](faq.ja.md#q3-まず1件だけ動かすにはどうしますか)から確認できます。
+
 ```sh
 python3 tools/fetch_uvm.py
 python3 tools/run_kirimasim.py --kirimasim /path/to/kirimasim -j 8 --json out/kirimasim.json
@@ -443,6 +447,8 @@ python3 tools/run_ghost.py --simulator /path/to/private/simulator \
 ## 検査
 
 以下のコマンドはライブラリ・ツール・テストの記述を検査し、Checkが追加で行うシミュレータの検査は[継続的インテグレーション](results.ja.md#継続的インテグレーション)で説明しています。
+
+ライブラリの検査には取得済みのコピーが必要なので、まだない場合は[取得](#取得)の手順を済ませてから、以下の検査コマンドを実行します。
 
 ```sh
 python3 tools/fetch_uvm.py --check

@@ -50,6 +50,8 @@ factoryを通してobjectやcomponentを登録・生成する補助です。型�
 **config_db／resource** — scopeとfield名で選ぶ型付き設定／その基になる設定値と検索の仕組みです。
 scope・型・優先度・更新を検査します。固定版のfield名globの制約は別に記録します。
 
+検索は指定したscope、field名、型に依存し、保持しているfield名globの差分は[ライブラリの制約](known-differences.ja.md#固定版ライブラリの制約)で説明しています。
+
 **policy／copier／comparer／printer／packer** — copy・比較・表示・packの動作を制御するobjectです。
 規定された値やhookを観測します。ライブラリ固有の表示形式やobjectのpack形式が、そのまま規格の要求になるわけではありません。
 
@@ -176,6 +178,8 @@ fatalを報告します。extensionは既定のpack対象に含まれません�
 **FIFO／blocking／nonblocking** — 到着順のキュー／データや空き容量を待てる操作／
 その待機をせずに利用可否や成否を返す操作です。失敗した読み出しの出力引数は、規格が定める場合だけ検査します。
 
+UVM TLM FIFOで成功したpeekは要素をキューに残したまま通知するため、記憶域と観測の違いは[Q36](faq.ja.md#q36-fifoをpeekしたときもget_apへ通知しますか)で確認できます。
+
 **analysis port／analysis FIFO** — 値をsubscriberへ配送するwriteの口／そのwriteを受けるFIFOです。
 objectはハンドルのまま配送される場合があり、必ずcloneされるとは限りません。
 subscriber同士の未規定の呼び出し順は仮定しません。
@@ -252,6 +256,8 @@ blockのresetは子blockへ再帰しますが、物理的なハードウェア�
 **Address map／local offset／物理アドレス** — interfaceのアドレス空間のモデル／
 その中のregisterの位置／rootのinterfaceから見えるアドレスです。単位はbyteかbus wordで、
 返される配列はデータの下位側から並びます。submapはoffsetとbus幅を組み合わせます。
+
+返された数値をbyteアドレスと解釈する前に、[Q46](faq.ja.md#q46-mapのアドレスはbyte単位ですか配列が逆順になるのはなぜですか)で設定したアドレス単位と返却wordの並び順を確認できます。
 
 **Frontdoor／backdoor／predictor** — モデル化したbus経路のアクセス／designの記憶域への直接のアクセス／
 観測したtransactionに基づくモデルの更新です。M3ではbusモデルのfrontdoorと観測packetによるpassive predictionを追加しました。ユーザー定義の記憶域backdoorも追加しました。別の[VPI HDL部分集合](testing.ja.md#verilatorのvpi-hdl部分集合)は実際の公開HDL記憶域へアクセスし、結果はそのbackend条件に適用します。

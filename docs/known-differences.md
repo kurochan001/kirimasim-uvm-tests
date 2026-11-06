@@ -2,6 +2,8 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
+When a linked source is unfamiliar, [Trace a difference](reading-guide.md#trace-a-difference) shows how its metadata and expected file relate to the recorded failure condition.
+
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
 This describes the current 2384-test suite and the pinned Accellera UVM

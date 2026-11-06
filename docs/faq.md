@@ -225,6 +225,8 @@ Preserve privacy for Ghost. After a correction, run metadata and tool checks,
 then reproduce any fixed-release oracle with both seeds. See
 [adding or correcting a test](testing.md#adding-or-correcting-a-test).
 
+If you have only a result label, start with [Trace a difference](reading-guide.md#trace-a-difference) to identify the test, failed check and execution condition before preparing a correction.
+
 The IEEE PDFs used for review remain local and ignored by Git; do not copy
 their text or examples into the suite. Describe behavior in your own words
 and cite clause numbers. The UVM library is fetched separately under Apache-2.0;

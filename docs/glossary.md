@@ -65,6 +65,8 @@ field name / the underlying configurable values and lookup mechanisms. The
 suite checks scope, type, precedence and updates, while recording the pinned
 library's field-name glob limitation.
 
+A lookup depends on the requested scope, field name and type, and [the library limitations](known-differences.md#pinned-library-limitations) explain the retained field-name glob difference.
+
 **Policy / copier / comparer / printer / packer** — Objects controlling copy,
 comparison, printing and packing operations. Tests inspect defined values and
 hooks; a library-specific printed layout or packed object encoding is not
@@ -234,6 +236,8 @@ that can wait for data or space / an operation that reports availability or
 success without that wait. A failed read's output argument is checked only
 when the standard specifies it.
 
+In a UVM TLM FIFO, a successful peek leaves the item queued while publishing a notification, and [Q36](faq.md#q36-does-peeking-at-a-fifo-publish-a-get_ap-notification) explains that distinction between storage and observation.
+
 **Analysis port / analysis FIFO** — A write interface distributing a value to
 subscribers / a FIFO accepting those writes. A write can distribute an object
 handle; it does not necessarily clone that object. Tests avoid assuming an
@@ -330,6 +334,8 @@ does not itself reset physical hardware.
 address space / a register's position within it / an address visible through
 the root interface. Address units can be bytes or bus words. Returned address
 arrays follow data significance; submaps combine offsets and bus widths.
+
+Before interpreting a returned number as a byte address, use [Q46](faq.md#q46-are-map-addresses-bytes-and-why-can-the-returned-list-run-backwards) to check the configured address unit and the ordering of the returned words.
 
 **Frontdoor / backdoor / predictor** — Access through a modeled bus path /
 direct access to the design's storage / model updates derived from observed

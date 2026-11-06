@@ -86,6 +86,8 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 schemaの版はJSONの項目構成を識別するもので、UVMライブラリの版とは別に管理し、実行用の版を固定するlockは[ライブラリの準備](testing.ja.md#uvmライブラリ)で説明しています。
 
+各要求の`conditions`は義務が適用される条件、`expected`は観測すべき結果、`limitations`は現在の主張の限界を示し、1つのAPIに複数の要求が必要な理由は[計数単位](#計数単位と対象範囲の案)で説明しています。
+
 正本は保守する元データ、inventoryとbacklogはそこから生成する表示であり、新規cloneで利用できる資料の範囲は[引継ぎ資料のファイル案内](handoff.ja.md#ファイルとローカル資料)で確認できます。
 
 正本JSONはUTF-8で、scope／分類／test indexはschema 1、要求台帳はschema 2です。checkerは出力対応だけのschema 1台帳も読めます。生成inventory／backlogはschema 2のまま、`ledger_schema_version`を別に記録します。未知のfield、重複key、重複する要求ID、未知の条項／テストを拒否します。
