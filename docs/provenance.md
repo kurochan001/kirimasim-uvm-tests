@@ -297,6 +297,14 @@ standalone RMW fixture is corrected to shared storage while preserving its origi
 expectations, archiving/excluding prior versions and freshly measuring every changed
 input. No simulator implementation source or commercial result is used; see [the callback FAQ](faq.md#virtual-register-callback-contracts).
 
+Killed-access recovery and frontdoor-query expectations are independently
+derived before measurement from supplied IEEE 18.9.1.3.5, 18.4.5.1/.2 and the
+SystemVerilog process-control rules. Original backdoor gates/storage and frontdoor
+sequences provide observations; implementation bodies and commercial results do
+not supply an oracle. Frozen bodies/expectations are retained when measured tags
+are added and the resulting inputs are freshly remeasured; [the access FAQ](faq.md#killed-access-recovery-and-frontdoor-selection)
+records applicability limits.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

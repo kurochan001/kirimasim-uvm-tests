@@ -198,6 +198,10 @@ callback期待は提供IEEE 18.9.1.4、18.9.2、18.10.5／.6から測定前に�
 その宣言で印刷IEEEのclass期待を変更せず、合法派生型を別controlにします。新規field単独入力の不整合なRMW記憶域は、元の期待を保持して共有する記憶域へ修正し、旧版を保管／除外して全変更入力を新たに測定します。
 simulator実装sourceや商用結果は使わず、[callbackのFAQ](faq.ja.md#virtual-registerのcallback契約)で範囲を説明しています。
 
+kill後復旧とfrontdoor照会の期待は、提供IEEE 18.9.1.3.5、18.4.5.1／.2とSystemVerilogのprocess制御から測定前に独自に導きます。
+独自backdoorの明示待機と記憶域、独自frontdoor sequenceを使い、実装bodyや商用結果はoracleにしません。全期待値を先に固定し、実測からtagを加えた入力は本体と期待値を保持して新たに測定します。
+適用条件の限界は[accessのFAQ](faq.ja.md#killしたaccessの復旧とfrontdoorの選択)で説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

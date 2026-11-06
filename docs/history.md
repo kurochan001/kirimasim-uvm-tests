@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighty-six cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2420 tests: 2322 simulation and 98 elaboration). The earlier 349-test checkpoint is
+three M4 increments and eighty-seven cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2436 tests: 2338 simulation and 98 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5086,3 +5086,55 @@ Totals are 2420 (2322 simulation/98 elaboration): M1 1020 (940/80), M2 568
 and 377 known (251 runtime/121 build/5 illegal acceptance). Goal iteration 58
 reduces unassessed from 93 to 76, a decrease of 1387 from activation count1463.
 Completion of partial duties and original targets remains unproven; the goal stays active.
+
+## Eighty-seventh thin-area expansion: killed-access recovery and frontdoor queries
+
+Sixteen new M3 runtime inputs add eight killed-access recovery variants and eight
+register-frontdoor queries. Twelve match seeds 1/73; four qualified null-setter
+inputs stop at seed1 with exit1 and have no seed73. [The access FAQ](faq.md#killed-access-recovery-and-frontdoor-selection)
+explains why a semaphore reset differs from a data reset and when a map is explicit.
+
+Each recovery input first proves both array indices and an independent peer work.
+A real virtual-register read or write then blocks in an original user backdoor
+before storage completion. Its calling process is killed after confirmed entry.
+The peer still operates on the same memory/provider; reset() or reset("HARD")
+precedes a fresh access to the other index and a read of the victim index.
+All thirty-two raw words are checked. The four victim/recovery operation pairs,
+two reset argument forms and two indices provide bounded recovery evidence.
+There is no assertion that an unreset killed access must remain locked, nor a
+standard timing deadline, queued-waiter ordering or automatic-cleanup claim.
+
+Frontdoor inputs use omitted/explicit single-map getters and explicit selections
+in a two-map register. Null/current handles, original provider read values,
+replacement, debug-argument invariance, a peer register, the other map and
+restoration are checked by four non-null variants. Four unchanged exploratory
+inputs additionally try null-as-clear: their first five rows match before a null
+dereference stops execution. The setter does not explicitly define clearing, so
+these inputs are control-only pending interpretation review, without an
+unconditional IEEE-defect claim. Their expected output remains unchanged; the
+non-null matches do not pass those whole inputs. Multiply mapped registers
+always supply a map. No physical bus or HDL is claimed.
+
+Five bilingual AI duties partially decompose reset and frontdoor getter/setter
+contracts. The individually read bodyless Front door heading receives one
+structural assessment. All 3947 earlier duties, 419 earlier assessments and scope
+objects remain intact. Global state is 2014 partial/420 assessed/73 unassessed;
+chapter 18 is 385/62/9, with 903 duties and 586 primary tests (583 simulation/3
+elaboration). All 3952 duties directly link 2400 tests; thirty-six others are
+control-only and 128 have control links.
+
+All 2420 prior ordinary records, 98 compiler records, 38 HDL, 18 command-line and
+1082 compatible guest records retain their content. New proof-based tags are
+freshly remeasured without body/helper/expectation changes. Guest unmeasured
+inputs are 1354: 1351 additions and three revised originals (1256 simulation/98
+elaboration). No guest rerun/filter, runner/backend/tool/workflow change,
+implementation-derived oracle or commercial result is used. Remaining partial
+applicability, surviving waiters, frontdoor cancellation, predictor check_phase,
+qualified callback readings, original targets, human review and scope/denominator
+approval remain open.
+
+Totals are 2436 (2338 simulation/98 elaboration): M1 1020 (940/80), M2 568
+(561/7), M3 848 (837/11). Ordinary evidence is 2055 pass (1962 runtime/93 compiler)
+and 381 known (255 runtime/121 build/5 illegal acceptance). Goal iteration59
+reduces unassessed from76 to73, a decrease of1390 from activation count1463.
+Partial duties and original targets remain unproven; the goal stays active.

@@ -147522,6 +147522,413 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-ACCESS-VREG-RESET-KILLED-RECOVERY-87",
+      "clause": "18.9.1.3.5",
+      "statement": {
+        "en": "Explicit virtual-register reset restores access after a thread is killed during an unfinished array read or write.",
+        "ja": "配列のreadまたはwriteが未完の間にthreadをkillした後、明示virtual-register resetはaccessを復旧させる。"
+      },
+      "conditions": {
+        "en": "An original 16-bit user-backdoor memory implements a three-element virtual array at offset3,stride4 and an independent peer array at offset20. Each round proves both selected indices0/2 and the peer work, blocks a real virtual-register read or write inside the provider before storage completion, captures and kills that calling process, and proves the peer still works on the same provider. Only then reset() or reset(\"HARD\") is called. A fresh read/write on the other array index must complete, followed by a read of the victim index and raw checks of all32 words. The four victim/recovery operation pairs and both argument forms are independent source inputs.",
+        "ja": "独自の16-bit user-backdoor memoryにoffset3・stride4の3要素virtual配列とoffset20の独立peer配列を実装する。各roundで選択index0／2とpeerの正常性を確認し、実virtual-register readまたはwriteを記憶域処理前のprovider内で待機させ、呼出しprocessを捕捉してkillし、同じprovider上のpeerが引き続き動作することを確認する。その後にreset()またはreset(\"HARD\")を呼ぶ。もう一方の配列indexへの新しいread／writeの完了、victim indexのread、全32 wordのraw保持を観測する。victim／復旧操作4組と引数2形式は独立したsource入力にする。"
+      },
+      "expected": {
+        "en": "The provider is entered and the victim has not returned before kill; the killed operation does not later commit or return. The independent peer remains usable, reset preserves the modeled words, and the fresh array access completes with its requested value/status while all unselected words remain unchanged.",
+        "ja": "kill前にproviderへ到達しvictimが未返却である。killした操作は後でcommitも返却もしない。独立peerは利用でき、resetはmodel wordを保持し、新しい配列accessは要求した値／statusで完了して非選択wordを保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Each aggregate row contains multiple observations and does not assign an independently measured status to each duty. All original milestone targets and remaining applicability stay open. No human review, scope approval, conformance percentage, simulator root cause or independent defect count is certified. No implementation source or commercial output supplies an expectation. The finite recovery guard bounds this fixture rather than imposing a standard timing deadline. Do not require an unreset killed access to remain locked or infer automatic cleanup, data-reset behavior, unsupported reset kinds, real HDL, frontdoor sequencer cancellation, concurrent resetters, or ordering of surviving queued waiters. Only the actual calling process is killed after confirmed provider entry.",
+        "ja": "AIによる部分分解のみ。集約行は複数の観測を含み、各義務の実測statusを独立には割り当てない。元の段階目標と残る適用条件は未完のまま。人の照合、範囲承認、適合率、シミュレータの根本原因や独立した欠陥件数を認定しない。実装sourceや商用出力から期待値を導かない。 有限の復旧guardは検査系の待機を制限し、規格の時間期限を定めない。reset前のkill済みaccessが必ずlockされたままとは要求せず、自動cleanup、data reset、他のreset種別、実HDL、frontdoor sequencer取消、同時reset、存続する待機者の順序を推論しない。provider到達を確認してから実際の呼出しprocessだけをkillする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_reset_killed_read_read_default_kind_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reset87 vreg_reset_killed_read_read_default_kind idx 0 controls 1 entered 1 pending 1",
+            "UT: reset87 killed 1 raw 1 peer 1 reset_storage 1",
+            "UT: reset87 recovery complete 1 status_data 1",
+            "UT: reset87 original_index 1 storage 1",
+            "UT: reset87 vreg_reset_killed_read_read_default_kind idx 2 controls 1 entered 1 pending 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_reset_killed_read_read_explicit_hard_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reset87 vreg_reset_killed_read_read_explicit_hard idx 0 controls 1 entered 1 pending 1",
+            "UT: reset87 killed 1 raw 1 peer 1 reset_storage 1",
+            "UT: reset87 recovery complete 1 status_data 1",
+            "UT: reset87 original_index 1 storage 1",
+            "UT: reset87 vreg_reset_killed_read_read_explicit_hard idx 2 controls 1 entered 1 pending 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_reset_killed_read_write_default_kind_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reset87 vreg_reset_killed_read_write_default_kind idx 0 controls 1 entered 1 pending 1",
+            "UT: reset87 killed 1 raw 1 peer 1 reset_storage 1",
+            "UT: reset87 recovery complete 1 status_data 1",
+            "UT: reset87 original_index 1 storage 1",
+            "UT: reset87 vreg_reset_killed_read_write_default_kind idx 2 controls 1 entered 1 pending 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_reset_killed_read_write_explicit_hard_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reset87 vreg_reset_killed_read_write_explicit_hard idx 0 controls 1 entered 1 pending 1",
+            "UT: reset87 killed 1 raw 1 peer 1 reset_storage 1",
+            "UT: reset87 recovery complete 1 status_data 1",
+            "UT: reset87 original_index 1 storage 1",
+            "UT: reset87 vreg_reset_killed_read_write_explicit_hard idx 2 controls 1 entered 1 pending 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_reset_killed_write_read_default_kind_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reset87 vreg_reset_killed_write_read_default_kind idx 0 controls 1 entered 1 pending 1",
+            "UT: reset87 killed 1 raw 1 peer 1 reset_storage 1",
+            "UT: reset87 recovery complete 1 status_data 1",
+            "UT: reset87 original_index 1 storage 1",
+            "UT: reset87 vreg_reset_killed_write_read_default_kind idx 2 controls 1 entered 1 pending 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_reset_killed_write_read_explicit_hard_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reset87 vreg_reset_killed_write_read_explicit_hard idx 0 controls 1 entered 1 pending 1",
+            "UT: reset87 killed 1 raw 1 peer 1 reset_storage 1",
+            "UT: reset87 recovery complete 1 status_data 1",
+            "UT: reset87 original_index 1 storage 1",
+            "UT: reset87 vreg_reset_killed_write_read_explicit_hard idx 2 controls 1 entered 1 pending 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_reset_killed_write_write_default_kind_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reset87 vreg_reset_killed_write_write_default_kind idx 0 controls 1 entered 1 pending 1",
+            "UT: reset87 killed 1 raw 1 peer 1 reset_storage 1",
+            "UT: reset87 recovery complete 1 status_data 1",
+            "UT: reset87 original_index 1 storage 1",
+            "UT: reset87 vreg_reset_killed_write_write_default_kind idx 2 controls 1 entered 1 pending 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_reset_killed_write_write_explicit_hard_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reset87 vreg_reset_killed_write_write_explicit_hard idx 0 controls 1 entered 1 pending 1",
+            "UT: reset87 killed 1 raw 1 peer 1 reset_storage 1",
+            "UT: reset87 recovery complete 1 status_data 1",
+            "UT: reset87 original_index 1 storage 1",
+            "UT: reset87 vreg_reset_killed_write_write_explicit_hard idx 2 controls 1 entered 1 pending 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ACCESS-REG-FRONTDOOR-NONE-87",
+      "clause": "18.4.5.1",
+      "statement": {
+        "en": "Register get_frontdoor returns null when no user-defined frontdoor is associated with the selected map.",
+        "ja": "選択mapにuser-defined frontdoorが関連付いていない場合、register get_frontdoorはnullを返す。"
+      },
+      "conditions": {
+        "en": "Independent16-bit register/frontdoor storage with single-map omitted/explicit getters and two-map explicit selections. Valid non-null variants check initial null getters, installation, replacement, debug arguments, independent peer/other map and restoration. Four separate original null-setter inputs use a disputed null-as-clear setup and are control-only, not direct evidence of a mandatory removal API.",
+        "ja": "独立した16-bit register／frontdoor記憶域で、単一mapの省略／明示getterと2つのmapの明示選択を使う。有効な非null variantは、初期nullのgetter、設定、置換、debug引数、独立peer／他map、復元を確認する。別の元入力4件は解釈が未確定のnull-as-clear設定を使うcontrol専用であり、必須の解除APIの直接証拠にしない。"
+      },
+      "expected": {
+        "en": "Initial unconfigured getter handles are null. Non-null installation/replacement/restoration selects the expected original provider; actual read values, map/peer isolation and debug-argument invariance are preserved. The disputed null-setter probe retains its separate expected null observation without deriving mandatory clearing from the getter alone.",
+        "ja": "未設定の初期getter handleはnullである。非nullの設定／置換／復元は期待した独自providerを選択し、実read値、map／peerの分離、debug引数の機能不変性を保持する。解釈が未確定のnull-setter probeは別の期待null観測を保持するが、getterだけから必須の解除を導かない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Each aggregate row contains multiple observations and does not assign an independently measured status to each duty. All original milestone targets and remaining applicability stay open. No human review, scope approval, conformance percentage, simulator root cause or independent defect count is certified. No implementation source or commercial output supplies an expectation. Custom sequence storage is an original model, not a physical bus or HDL. Null is queried without attempting an access that lacks a user frontdoor. No implicit choice for a multiply mapped register, default bus fallback, universal debug/log format, blocked frontdoor or complete map/topology applicability is certified. The setter does not explicitly state null-as-clear behavior. Original exploratory inputs stop at a null dereference after matching their first five rows; they stay control-only with unchanged expected output pending interpretation review. A non-null match does not pass those whole inputs or certify clearing, an unconditional IEEE defect, or an independent defect count.",
+        "ja": "AIによる部分分解のみ。集約行は複数の観測を含み、各義務の実測statusを独立には割り当てない。元の段階目標と残る適用条件は未完のまま。人の照合、範囲承認、適合率、シミュレータの根本原因や独立した欠陥件数を認定しない。実装sourceや商用出力から期待値を導かない。 custom sequenceの記憶域は独自modelで、物理busやHDLではない。nullはuser frontdoorなしのaccessを試みずに照会する。複数mapの暗黙選択、既定busへのfallback、全debug／log書式、待機中frontdoor、全map／接続構成の適用条件を認定しない。 setterはnull-as-clearを明記していない。元の探索入力は最初の5行が一致した後null参照で停止し、解釈照合待ちのcontrol専用として元の期待値を保持する。非null入力の一致で元入力全体、解除、無条件のIEEE不具合、独立した欠陥件数を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_frontdoor_get_single_omitted_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 reg_frontdoor_get_single_omitted_nonnull_control initial_none 1",
+            "UT: fd87 installed queries 1 access 1",
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 restored query 1 access 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_single_explicit_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 reg_frontdoor_get_single_explicit_nonnull_control initial_none 1",
+            "UT: fd87 installed queries 1 access 1",
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 restored query 1 access 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_multiple_replace_first_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 reg_frontdoor_get_multiple_replace_first_nonnull_control initial_none 1",
+            "UT: fd87 installed queries 1 access 1",
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 restored query 1 access 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_multiple_replace_second_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 reg_frontdoor_get_multiple_replace_second_nonnull_control initial_none 1",
+            "UT: fd87 installed queries 1 access 1",
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 restored query 1 access 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_single_omitted_87",
+          "role": "control",
+          "expected_observations": [
+            "UT: fd87 cleared selected_null_and_peers 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_single_explicit_87",
+          "role": "control",
+          "expected_observations": [
+            "UT: fd87 cleared selected_null_and_peers 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_multiple_replace_first_87",
+          "role": "control",
+          "expected_observations": [
+            "UT: fd87 cleared selected_null_and_peers 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_multiple_replace_second_87",
+          "role": "control",
+          "expected_observations": [
+            "UT: fd87 cleared selected_null_and_peers 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ACCESS-REG-FRONTDOOR-CURRENT-HANDLE-87",
+      "clause": "18.4.5.1",
+      "statement": {
+        "en": "Register get_frontdoor returns the currently associated user-defined frontdoor after installation, replacement and restoration.",
+        "ja": "register get_frontdoorは設定・置換・復元後の現在のuser-defined frontdoorを返す。"
+      },
+      "conditions": {
+        "en": "Independent16-bit register/frontdoor storage with single-map omitted/explicit getters and two-map explicit selections. Valid non-null variants check initial null getters, installation, replacement, debug arguments, independent peer/other map and restoration. Four separate original null-setter inputs use a disputed null-as-clear setup and are control-only, not direct evidence of a mandatory removal API.",
+        "ja": "独立した16-bit register／frontdoor記憶域で、単一mapの省略／明示getterと2つのmapの明示選択を使う。有効な非null variantは、初期nullのgetter、設定、置換、debug引数、独立peer／他map、復元を確認する。別の元入力4件は解釈が未確定のnull-as-clear設定を使うcontrol専用であり、必須の解除APIの直接証拠にしない。"
+      },
+      "expected": {
+        "en": "Initial unconfigured getter handles are null. Non-null installation/replacement/restoration selects the expected original provider; actual read values, map/peer isolation and debug-argument invariance are preserved. The disputed null-setter probe retains its separate expected null observation without deriving mandatory clearing from the getter alone.",
+        "ja": "未設定の初期getter handleはnullである。非nullの設定／置換／復元は期待した独自providerを選択し、実read値、map／peerの分離、debug引数の機能不変性を保持する。解釈が未確定のnull-setter probeは別の期待null観測を保持するが、getterだけから必須の解除を導かない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Each aggregate row contains multiple observations and does not assign an independently measured status to each duty. All original milestone targets and remaining applicability stay open. No human review, scope approval, conformance percentage, simulator root cause or independent defect count is certified. No implementation source or commercial output supplies an expectation. Custom sequence storage is an original model, not a physical bus or HDL. Null is queried without attempting an access that lacks a user frontdoor. No implicit choice for a multiply mapped register, default bus fallback, universal debug/log format, blocked frontdoor or complete map/topology applicability is certified. The setter does not explicitly state null-as-clear behavior. Original exploratory inputs stop at a null dereference after matching their first five rows; they stay control-only with unchanged expected output pending interpretation review. A non-null match does not pass those whole inputs or certify clearing, an unconditional IEEE defect, or an independent defect count.",
+        "ja": "AIによる部分分解のみ。集約行は複数の観測を含み、各義務の実測statusを独立には割り当てない。元の段階目標と残る適用条件は未完のまま。人の照合、範囲承認、適合率、シミュレータの根本原因や独立した欠陥件数を認定しない。実装sourceや商用出力から期待値を導かない。 custom sequenceの記憶域は独自modelで、物理busやHDLではない。nullはuser frontdoorなしのaccessを試みずに照会する。複数mapの暗黙選択、既定busへのfallback、全debug／log書式、待機中frontdoor、全map／接続構成の適用条件を認定しない。 setterはnull-as-clearを明記していない。元の探索入力は最初の5行が一致した後null参照で停止し、解釈照合待ちのcontrol専用として元の期待値を保持する。非null入力の一致で元入力全体、解除、無条件のIEEE不具合、独立した欠陥件数を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_frontdoor_get_single_omitted_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 reg_frontdoor_get_single_omitted_nonnull_control initial_none 1",
+            "UT: fd87 installed queries 1 access 1",
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 restored query 1 access 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_single_explicit_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 reg_frontdoor_get_single_explicit_nonnull_control initial_none 1",
+            "UT: fd87 installed queries 1 access 1",
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 restored query 1 access 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_multiple_replace_first_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 reg_frontdoor_get_multiple_replace_first_nonnull_control initial_none 1",
+            "UT: fd87 installed queries 1 access 1",
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 restored query 1 access 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_multiple_replace_second_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 reg_frontdoor_get_multiple_replace_second_nonnull_control initial_none 1",
+            "UT: fd87 installed queries 1 access 1",
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 restored query 1 access 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ACCESS-REG-FRONTDOOR-EXPLICIT-MAP-87",
+      "clause": "18.4.5.1",
+      "statement": {
+        "en": "An explicitly selected map identifies that register frontdoor association independently of the other map and peer register.",
+        "ja": "明示したmapは他のmapやpeer registerとは独立に、そのregisterのfrontdoor関連付けを識別する。"
+      },
+      "conditions": {
+        "en": "Independent16-bit register/frontdoor storage with single-map omitted/explicit getters and two-map explicit selections. Valid non-null variants check initial null getters, installation, replacement, debug arguments, independent peer/other map and restoration. Four separate original null-setter inputs use a disputed null-as-clear setup and are control-only, not direct evidence of a mandatory removal API.",
+        "ja": "独立した16-bit register／frontdoor記憶域で、単一mapの省略／明示getterと2つのmapの明示選択を使う。有効な非null variantは、初期nullのgetter、設定、置換、debug引数、独立peer／他map、復元を確認する。別の元入力4件は解釈が未確定のnull-as-clear設定を使うcontrol専用であり、必須の解除APIの直接証拠にしない。"
+      },
+      "expected": {
+        "en": "Initial unconfigured getter handles are null. Non-null installation/replacement/restoration selects the expected original provider; actual read values, map/peer isolation and debug-argument invariance are preserved. The disputed null-setter probe retains its separate expected null observation without deriving mandatory clearing from the getter alone.",
+        "ja": "未設定の初期getter handleはnullである。非nullの設定／置換／復元は期待した独自providerを選択し、実read値、map／peerの分離、debug引数の機能不変性を保持する。解釈が未確定のnull-setter probeは別の期待null観測を保持するが、getterだけから必須の解除を導かない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Each aggregate row contains multiple observations and does not assign an independently measured status to each duty. All original milestone targets and remaining applicability stay open. No human review, scope approval, conformance percentage, simulator root cause or independent defect count is certified. No implementation source or commercial output supplies an expectation. Custom sequence storage is an original model, not a physical bus or HDL. Null is queried without attempting an access that lacks a user frontdoor. No implicit choice for a multiply mapped register, default bus fallback, universal debug/log format, blocked frontdoor or complete map/topology applicability is certified. The setter does not explicitly state null-as-clear behavior. Original exploratory inputs stop at a null dereference after matching their first five rows; they stay control-only with unchanged expected output pending interpretation review. A non-null match does not pass those whole inputs or certify clearing, an unconditional IEEE defect, or an independent defect count.",
+        "ja": "AIによる部分分解のみ。集約行は複数の観測を含み、各義務の実測statusを独立には割り当てない。元の段階目標と残る適用条件は未完のまま。人の照合、範囲承認、適合率、シミュレータの根本原因や独立した欠陥件数を認定しない。実装sourceや商用出力から期待値を導かない。 custom sequenceの記憶域は独自modelで、物理busやHDLではない。nullはuser frontdoorなしのaccessを試みずに照会する。複数mapの暗黙選択、既定busへのfallback、全debug／log書式、待機中frontdoor、全map／接続構成の適用条件を認定しない。 setterはnull-as-clearを明記していない。元の探索入力は最初の5行が一致した後null参照で停止し、解釈照合待ちのcontrol専用として元の期待値を保持する。非null入力の一致で元入力全体、解除、無条件のIEEE不具合、独立した欠陥件数を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_frontdoor_get_multiple_replace_first_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 reg_frontdoor_get_multiple_replace_first_nonnull_control initial_none 1",
+            "UT: fd87 installed queries 1 access 1",
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 restored query 1 access 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_multiple_replace_second_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 reg_frontdoor_get_multiple_replace_second_nonnull_control initial_none 1",
+            "UT: fd87 installed queries 1 access 1",
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 restored query 1 access 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ACCESS-REG-FRONTDOOR-DEBUG-INVARIANCE-87",
+      "clause": "18.4.5.2",
+      "statement": {
+        "en": "The filename and line-number arguments of register set_frontdoor have no functional effect on the selected association or subsequent access.",
+        "ja": "register set_frontdoorのfilenameとline-number引数は、選択した関連付けや後続accessの機能に影響しない。"
+      },
+      "conditions": {
+        "en": "Independent16-bit register/frontdoor storage with single-map omitted/explicit getters and two-map explicit selections. Valid non-null variants check initial null getters, installation, replacement, debug arguments, independent peer/other map and restoration. Four separate original null-setter inputs use a disputed null-as-clear setup and are control-only, not direct evidence of a mandatory removal API.",
+        "ja": "独立した16-bit register／frontdoor記憶域で、単一mapの省略／明示getterと2つのmapの明示選択を使う。有効な非null variantは、初期nullのgetter、設定、置換、debug引数、独立peer／他map、復元を確認する。別の元入力4件は解釈が未確定のnull-as-clear設定を使うcontrol専用であり、必須の解除APIの直接証拠にしない。"
+      },
+      "expected": {
+        "en": "Initial unconfigured getter handles are null. Non-null installation/replacement/restoration selects the expected original provider; actual read values, map/peer isolation and debug-argument invariance are preserved. The disputed null-setter probe retains its separate expected null observation without deriving mandatory clearing from the getter alone.",
+        "ja": "未設定の初期getter handleはnullである。非nullの設定／置換／復元は期待した独自providerを選択し、実read値、map／peerの分離、debug引数の機能不変性を保持する。解釈が未確定のnull-setter probeは別の期待null観測を保持するが、getterだけから必須の解除を導かない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Each aggregate row contains multiple observations and does not assign an independently measured status to each duty. All original milestone targets and remaining applicability stay open. No human review, scope approval, conformance percentage, simulator root cause or independent defect count is certified. No implementation source or commercial output supplies an expectation. Custom sequence storage is an original model, not a physical bus or HDL. Null is queried without attempting an access that lacks a user frontdoor. No implicit choice for a multiply mapped register, default bus fallback, universal debug/log format, blocked frontdoor or complete map/topology applicability is certified. The setter does not explicitly state null-as-clear behavior. Original exploratory inputs stop at a null dereference after matching their first five rows; they stay control-only with unchanged expected output pending interpretation review. A non-null match does not pass those whole inputs or certify clearing, an unconditional IEEE defect, or an independent defect count.",
+        "ja": "AIによる部分分解のみ。集約行は複数の観測を含み、各義務の実測statusを独立には割り当てない。元の段階目標と残る適用条件は未完のまま。人の照合、範囲承認、適合率、シミュレータの根本原因や独立した欠陥件数を認定しない。実装sourceや商用出力から期待値を導かない。 custom sequenceの記憶域は独自modelで、物理busやHDLではない。nullはuser frontdoorなしのaccessを試みずに照会する。複数mapの暗黙選択、既定busへのfallback、全debug／log書式、待機中frontdoor、全map／接続構成の適用条件を認定しない。 setterはnull-as-clearを明記していない。元の探索入力は最初の5行が一致した後null参照で停止し、解釈照合待ちのcontrol専用として元の期待値を保持する。非null入力の一致で元入力全体、解除、無条件のIEEE不具合、独立した欠陥件数を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_frontdoor_get_single_omitted_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_single_explicit_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_multiple_replace_first_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_get_multiple_replace_second_nonnull_control_87",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fd87 debug 0 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 1 queries 1 access 1 isolated 1 peer 1",
+            "UT: fd87 debug 2 queries 1 access 1 isolated 1 peer 1"
+          ]
+        }
+      ]
     }
   ]
 }

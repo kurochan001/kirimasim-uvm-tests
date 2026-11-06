@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の86回目の拡充（全2420件：simulation 2322・elaboration 98）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の87回目の拡充（全2436件：simulation 2338・elaboration 98）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3257,3 +3257,30 @@ guest未測定1338入力は追加1335件と修正した元入力3件（simulatio
 全2420件（simulation 2322／elaboration 98）、M1 1020（940／80）、M2 568（561／7）、M3 832（821／11）です。
 通常2043 pass（runtime 1950／compiler拒否93）、377 known（runtime 251／build 121／不正受理5）です。
 goal第58反復で未評価93から76へ減らし、開始時1463からの減少は1387です。部分義務と元の目標の完了は未立証でgoalを継続します。
+
+## 薄い領域の87回目の拡充：kill後のaccess復旧とfrontdoor照会
+
+新規M3 runtime 16入力は、kill後のaccess復旧8条件とregister frontdoor照会8条件です。12件はseed 1／73に一致し、限定したnull-setter 4入力はseed 1でexit 1停止し、seed 73結果はありません。
+セマフォのresetとdata resetの違い、mapを明示する条件は[accessのFAQ](faq.ja.md#killしたaccessの復旧とfrontdoorの選択)で説明しています。
+
+復旧入力は、両配列indexと独立peerの正常性を先に確認します。実virtual-register readまたはwriteを独自user backdoor内の記憶域処理前で待機させ、到達確認後に呼出しprocessをkillします。
+同じmemory／providerのpeerが引き続き動作することを確認し、reset()またはreset("HARD")の後、別indexへの新accessとvictim indexのreadを実行します。
+全32 raw wordを照合します。victim／復旧操作4組、reset引数2形式、2つのindexで有限の復旧を観測します。
+reset前のkill済みaccessが必ずlockされたままとは要求せず、規格の時間期限、待機者順序、自動cleanupも主張しません。
+
+frontdoor入力は、単一mapの省略／明示getterと、2つのmapでの明示選択を使います。非nullの4 variantは、初期null／現在のhandle、独自providerのread値、置換、debug引数の機能不変性、peer register、他map、復元を確認します。
+未変更の探索入力4件はさらにnull-as-clearを試み、最初の5行が一致した後にnull参照で停止します。setterは解除を明記しないため、これらは解釈照合待ちのcontrol専用で、無条件のIEEE不具合を主張しません。元の期待出力を保持し、非nullの一致で元入力全体をpassにしません。
+複数mapのregisterでは必ずmapを指定し、物理busやHDLは主張しません。
+
+日英AI義務5件がresetとfrontdoor getter／setterを部分分解し、個別に読んだ本文のないFront door見出し1件を構造分類します。
+以前の3947義務、419分類、範囲のobjectは保持します。全体は部分2014／分類420／未評価73、第18章は385／62／9で、義務903件、主引用586テスト（simulation 583／elaboration 3）です。
+全3952義務は2400テストへ直接対応し、他の36テストはcontrol専用、control linkあり128です。
+
+以前の通常2420記録、compiler 98記録、HDL 38記録、command-line 18記録、互換guest 1082記録は内容を保持します。
+新しい実測由来tagは本体／helper／期待値を変えずに新たに測定します。guest未測定1354入力は追加1351件と修正した元入力3件（simulation 1256／elaboration 98）です。
+新しいguest実行／filter、runner／backend／tool／workflow変更、実装由来oracle、商用結果はありません。
+残る部分適用条件、存続待機者、frontdoor取消、predictor check_phase、限定callback解釈、元の目標、人のレビュー、範囲／分母承認は未完です。
+
+全2436件（simulation 2338／elaboration 98）、M1 1020（940／80）、M2 568（561／7）、M3 848（837／11）です。
+通常2055 pass（runtime 1962／compiler拒否93）、381 known（runtime 255／build 121／不正受理5）です。
+goal第59反復で未評価76から73へ減らし、開始時1463からの減少は1390です。部分義務と元の目標の完了は未立証でgoalを継続します。

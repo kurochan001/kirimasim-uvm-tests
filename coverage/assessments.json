@@ -6397,6 +6397,20 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.4.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Front door entry is only a grouping heading immediately followed by the numbered getter. It contains no independent body or access algorithm. The getter and setter contracts remain partially decomposed below, including selected map/debug conditions; this classification does not certify the children complete or remove them from scope.",
+        "ja": "個別に読んだFront doorの項目は整理見出しのみで、直後に番号付きgetterが続く。独立本文やaccess algorithmはない。getterとsetterの契約は選択map／debug条件も含め子の部分分解として保持し、この分類で子の完了や範囲除外を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

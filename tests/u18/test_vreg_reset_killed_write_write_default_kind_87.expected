@@ -1,0 +1,8 @@
+UT: reset87 vreg_reset_killed_write_write_default_kind idx 0 controls 1 entered 1 pending 1
+UT: reset87 killed 1 raw 1 peer 1 reset_storage 1
+UT: reset87 recovery complete 1 status_data 1
+UT: reset87 original_index 1 storage 1
+UT: reset87 vreg_reset_killed_write_write_default_kind idx 2 controls 1 entered 1 pending 1
+UT: reset87 killed 1 raw 1 peer 1 reset_storage 1
+UT: reset87 recovery complete 1 status_data 1
+UT: reset87 original_index 1 storage 1

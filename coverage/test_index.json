@@ -9681,6 +9681,70 @@
     "u18/test_vreg_callback_decl_field_virtual_86": {
       "primary_clause": "18.10.6.1",
       "inputs_sha256": "95578709957a105f365f85049e28d9bbe1fa3d2520029416c17e78699f3051f5"
+    },
+    "u18/test_vreg_reset_killed_read_read_default_kind_87": {
+      "primary_clause": "18.9.1.3.5",
+      "inputs_sha256": "6a97ceeac178b783303b746a5c8d05cc87484747ae0cc059c38c2149bcd46dda"
+    },
+    "u18/test_vreg_reset_killed_read_read_explicit_hard_87": {
+      "primary_clause": "18.9.1.3.5",
+      "inputs_sha256": "f82caa9bae6058bfa580529b9ec3c1586b5423d3d09fa18d193e1fbd825c366c"
+    },
+    "u18/test_vreg_reset_killed_read_write_default_kind_87": {
+      "primary_clause": "18.9.1.3.5",
+      "inputs_sha256": "0519f2bfc80439e6f7849dd89d73188f6d09ead353e71486a58d4f24a93b75e1"
+    },
+    "u18/test_vreg_reset_killed_read_write_explicit_hard_87": {
+      "primary_clause": "18.9.1.3.5",
+      "inputs_sha256": "85abab086b0bdbf0f36f256020a5dc66a4271e290bea11ad10861aeec22e4ade"
+    },
+    "u18/test_vreg_reset_killed_write_read_default_kind_87": {
+      "primary_clause": "18.9.1.3.5",
+      "inputs_sha256": "7a2e1af7286be9246db4d819976dc3e5cee6fd5a2d0e04f03d8fb6f645248f35"
+    },
+    "u18/test_vreg_reset_killed_write_read_explicit_hard_87": {
+      "primary_clause": "18.9.1.3.5",
+      "inputs_sha256": "446d552982b2c14e8e7b66abd008e08b44be12db43e86a17177ef63736e92bd7"
+    },
+    "u18/test_vreg_reset_killed_write_write_default_kind_87": {
+      "primary_clause": "18.9.1.3.5",
+      "inputs_sha256": "36aee36ac698839a01c837fbc58e25bf5ae0d6123efb4df76b579fb92fae4e4e"
+    },
+    "u18/test_vreg_reset_killed_write_write_explicit_hard_87": {
+      "primary_clause": "18.9.1.3.5",
+      "inputs_sha256": "dbac8c110a6ef25d05083555a367fd89cd5acbd6c4dcd378fd776a388c08bbe9"
+    },
+    "u18/test_reg_frontdoor_get_single_omitted_87": {
+      "primary_clause": "18.4.5.1",
+      "inputs_sha256": "6a8f975bf02b35d6b039f8713458fecf4921f3d4e76892d015790c80f1ec68cb"
+    },
+    "u18/test_reg_frontdoor_get_single_explicit_87": {
+      "primary_clause": "18.4.5.1",
+      "inputs_sha256": "a55840bd94f742ab4a76b67233aeffc710e136d4d66e5e339150ee364dde4853"
+    },
+    "u18/test_reg_frontdoor_get_multiple_replace_first_87": {
+      "primary_clause": "18.4.5.1",
+      "inputs_sha256": "543d6dbcf3ced1484aebef80c6c6a16aa8bbdd6f35ceeac36479cf9ec1ee3cc3"
+    },
+    "u18/test_reg_frontdoor_get_multiple_replace_second_87": {
+      "primary_clause": "18.4.5.1",
+      "inputs_sha256": "453d7bbcdebea7ce44d9cefd19fc669e9ed2e555485c6856f026b4e53521faba"
+    },
+    "u18/test_reg_frontdoor_get_single_omitted_nonnull_control_87": {
+      "primary_clause": "18.4.5.1",
+      "inputs_sha256": "836d9c6907941177431623008fb7df282c08dad5c246337604c30d5be5bb7d50"
+    },
+    "u18/test_reg_frontdoor_get_single_explicit_nonnull_control_87": {
+      "primary_clause": "18.4.5.1",
+      "inputs_sha256": "5a20137f946b8861e8021aca40ddc03cc2abc0ce9d16cf1da85f3907b02b7ddb"
+    },
+    "u18/test_reg_frontdoor_get_multiple_replace_first_nonnull_control_87": {
+      "primary_clause": "18.4.5.1",
+      "inputs_sha256": "005a5530e51461b32409acf5197cc73dde6536885a78d7691679e555a83b8517"
+    },
+    "u18/test_reg_frontdoor_get_multiple_replace_second_nonnull_control_87": {
+      "primary_clause": "18.4.5.1",
+      "inputs_sha256": "a871c2aeede4b68d096e98076778e70c61e091279f7226643e92ac6bca256b49"
     }
   }
 }

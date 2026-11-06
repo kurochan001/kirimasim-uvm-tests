@@ -14,13 +14,13 @@ A simulator conformance test suite for IEEE 1800.2-2020, the Universal Verificat
 An oracle records the expectation's basis: `spec` cites the standard and `verilator@5.052` adds reproduction;
 [Standards and expectations](docs/glossary.md#standards-and-expectations) explains spec-only cases.
 
-> **Status: M4 in progress.** 2420 tests: 2322 simulation and 98 elaboration,
-> in 21 chapter/annex directories; 2043 tagged oracles and 377 spec-only cases.
+> **Status: M4 in progress.** 2436 tests: 2338 simulation and 98 elaboration,
+> in 21 chapter/annex directories; 2055 tagged oracles and 381 spec-only cases.
 > All use `:spec_check: ai`, recording AI review as explained in [review terms](docs/glossary.md#standards-and-expectations); none records human review. M1–M3 targets remain open.
-> M4 has 3947 AI drafts, 2388 directly linked tests and an index of all 2420.
+> M4 has 3952 AI drafts, 2400 directly linked tests and an index of all 2436.
 > 0 tests lack requirement links and 0 drafts lack direct tests; the historical
-> memory-walk interpretation requires review. 76 identifiers remain unassessed;
-> 419 have explicit AI classifications. Scope and denominator remain unapproved.
+> memory-walk interpretation requires review. 73 identifiers remain unassessed;
+> 420 have explicit AI classifications. Scope and denominator remain unapproved.
 
 ## Contents
 
@@ -39,7 +39,7 @@ Test counts, execution matches and review status measure different things; [the 
   recording, core services and typed utilities.
 - **M2: 568 tests (561 simulation, 7 elaboration).** Sequences and sequencers,
   request/response lifecycle, callbacks, TLM 1 channels and selected TLM 2 transports; F.2.4.2 state fixtures in uF count as M2 under the [milestone grouping](docs/glossary.md#scope-and-coverage).
-- **M3: 832 tests (821 simulation, 11 elaboration).** Register, field, block,
+- **M3: 848 tests (837 simulation, 11 elaboration).** Register, field, block,
   memory and virtual-register models; access paths, prediction, callbacks,
   coverage, allocation and built-in test sequences; D.3 fixtures in uD count as M3.
 
@@ -75,14 +75,14 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 The fetcher checks the pinned Accellera UVM 2020.3.1 library. The smoke command selects one test.
 If it reports a difference, [Trace a difference](docs/reading-guide.md#trace-a-difference) shows how to locate the checked expectation and execution conditions.
 
-To run all 2043 tagged checks (1950 runtime, 93 compile rejection):
+To run all 2055 tagged checks (1962 runtime, 93 compile rejection):
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-Add `--all` to include all two-state cases, including the 377 spec-only cases.
+Add `--all` to include all two-state cases, including the 381 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls concurrent tests and `--build-jobs` controls C++ jobs within each build; [Q13](docs/faq.md#q13-why-is-compilation-heavy-and-what-do-the-two-job-options-control) explains the build cost.
 Each runtime model is built once and run in a fresh process for each seed.
 
@@ -102,19 +102,19 @@ by Git; results are not automatically published.
 
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
-The Verilator snapshot assembled on 2026-11-07 covers all 2420 current cases.
-Guest records retain 1082 compatible inputs; 1338 inputs are unmeasured.
+The Verilator snapshot assembled on 2026-11-07 covers all 2436 current cases.
+Guest records retain 1082 compatible inputs; 1354 inputs are unmeasured.
 These results are separate from the Check badge.
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, ordinary runner | 1950 runtime matches at seeds 1/73; 93 expected compile rejections; 377 known differences |
+| Verilator 5.052, pinned UVM, ordinary runner | 1962 runtime matches at seeds 1/73; 93 expected compile rejections; 381 known differences |
 | Verilator 5.052, original VPI HDL backend | Separate 38-case subset: 37 match both seeds; 1 differs |
 | Verilator 5.052, VPI command-line bridge and pinned regex DPI | Separate 18-case subset: 17 match both seeds; 1 known difference |
-| kirimasim, pinned UVM | 1073 `unsupported`; nine missing-API `fail` in 1082 cases; 1338 unmeasured |
-| Ghost, bundled UVM | 206 match and 876 fail at each seed in 1082 cases; 1338 unmeasured |
+| kirimasim, pinned UVM | 1073 `unsupported`; nine missing-API `fail` in 1082 cases; 1354 unmeasured |
+| Ghost, bundled UVM | 206 match and 876 fail at each seed in 1082 cases; 1354 unmeasured |
 
-The ordinary runner records 251 runtime differences at seed 1, 121 simulation build failures
+The ordinary runner records 255 runtime differences at seed 1, 121 simulation build failures
 and five accepted illegal designs without runtime; [the detailed breakdown](docs/results.md#interpretation) explains API/declaration, macro and DPI categories and qualified premises.
 The two VPI subsets are separate conditions.
 
@@ -153,8 +153,8 @@ its counterpart; commands and API identifiers retain their original spelling.
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
 | M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 1020 tests; reviewed two-tests-per-clause target open |
 | M2 | Sequences, sequencers, TLM and callbacks | 568 tests; target open |
-| M3 | Register layer (17–19, D.3, annex E) | 832 tests across chapters 17–19, D.3 and annex E; target open |
-| M4 | Requirement ledger and coverage | In progress: 3947 AI drafts; 3947 requirements link to 2388 tests; denominator unapproved |
+| M3 | Register layer (17–19, D.3, annex E) | 848 tests across chapters 17–19, D.3 and annex E; target open |
+| M4 | Requirement ledger and coverage | In progress: 3952 AI drafts; 3952 requirements link to 2400 tests; denominator unapproved |
 
 The primary-citation census tracks the two-tests-per-clause target; [the counting explanation](docs/requirements.md#citations-requirements-and-execution-evidence) describes the additional review needed to establish independent checks of required behavior.
 

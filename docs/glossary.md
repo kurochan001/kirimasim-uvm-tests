@@ -1633,3 +1633,11 @@ a constructible derived type used as a separate compatibility control.
 **Coherent frontdoor/backdoor storage** — Two active access paths refer to
 the same modeled words when a partial write may read through either route.
 [Q331](faq.md#q331-why-was-the-standalone-partial-write-fixture-corrected) explains the corrected RMW fixture.
+
+## Access recovery and selected frontdoors
+
+**Killed-access semaphore reset** — Explicitly restoring the virtual array's access serialization after its caller is killed unfinished.
+[Q332](faq.md#q332-does-reset-after-a-killed-access-reset-memory-data-too) distinguishes the bounded recovery observation from data reset and waiter ordering.
+
+**Map-scoped frontdoor handle** — The user-defined sequence currently associated with one register/map pair, or null when none is associated.
+[Q333](faq.md#q333-when-must-get_frontdoor-specify-a-map) explains single-map omission and explicit multiple-map selection.

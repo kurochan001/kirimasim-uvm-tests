@@ -1253,3 +1253,11 @@ modelと実HDL記憶域の違いは[Q326](faq.ja.md#q326-user-backdoorの一致�
 
 **整合したfrontdoor／backdoor記憶域** — 部分writeがどちらからもreadし得るとき、使用する2経路が同じmodel wordを参照することです。
 修正したRMW検査系は[Q331](faq.ja.md#q331-field単独の部分writeの検査系を修正した理由は)で説明しています。
+
+## access復旧と選択したfrontdoor
+
+**kill後のaccessセマフォreset** — callerを未完のままkillした後に、virtual配列のaccess直列化を明示的に復旧することです。
+有限の復旧観測とdata reset／待機者順序の違いは[Q332](faq.ja.md#q332-killしたaccessの後のresetはmemory-dataもresetしますか)で説明しています。
+
+**mapごとのfrontdoor handle** — あるregister／mapの組に現在関連付くuser-defined sequenceで、関連付けがなければnullです。
+単一mapでの省略と複数mapの明示選択は[Q333](faq.ja.md#q333-get_frontdoorにmapを明示するのはどの場合ですか)で説明しています。
