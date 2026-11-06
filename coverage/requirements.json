@@ -143110,6 +143110,1112 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-INFO-VERBOSITY-PREFILTER",
+      "clause": "B.1",
+      "statement": {
+        "en": "Filtered INFO macros test the configured verbosity before evaluating message formatting.",
+        "ja": "抑制されるINFO macroはmessageのformatを評価する前に設定verbosityを検査する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "An above-threshold message reaches no execution hook and leaves the MSG counter zero, before a valid lower-verbosity message demonstrates live delivery.",
+        "ja": "閾値より高いmessageは実行hookへ到達せずMSG counterを0に保ち、後の低いverbosityの有効messageで実配送を示す。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_info_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info verbosity quiet 1 cheap 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context verbosity quiet 1 cheap 1 time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-INFO-ACTION-PREFILTER",
+      "clause": "B.1",
+      "statement": {
+        "en": "INFO macros check the configured severity/ID action before evaluating message formatting.",
+        "ja": "INFO macroはmessageのformatを評価する前に設定したseverity／IDのactionを検査する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "A no-action ID leaves both execution and formatting counters zero, while a separately enabled ID routes the intended message.",
+        "ja": "NO_ACTIONのIDで実行／format counterを両方0に保ち、別に有効化したIDは意図したmessageを配送する。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_info_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info action quiet 1 time 1 cheap 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context action quiet 1 time 1 cheap 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-AUTOMATIC-SOURCE-LOCATION",
+      "clause": "B.1",
+      "statement": {
+        "en": "Reporting macros supply the source filename and line of the macro invocation.",
+        "ja": "reporting macroはmacro呼出し箇所のsource file名と行番号を供給する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "Executed messages match independently captured file and next-line tokens at the actual caller for basic and explicit-context macros.",
+        "ja": "基本／明示context macroの実行messageが、実callerで別に取得したfileと次行のtokenに一致する。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_info_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info delivery location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info routed_action location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning delivery location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning routed_action location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error delivery location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error routed_action location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal delivery location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal routed_action location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context delivery location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context routed_action location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning_context delivery location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning_context routed_action location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error_context delivery location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error_context routed_action location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal_context delivery location 1 format 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal_context routed_action location 1 format 1 time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-NONINFO-NONE-VERBOSITY",
+      "clause": "B.1",
+      "statement": {
+        "en": "Warning, error and fatal macros enforce UVM_NONE as their message verbosity.",
+        "ja": "warning／error／fatal macroはmessageのverbosityをUVM_NONEにする。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "All six ordinary/context severity forms deliver UVM_NONE under both uniform and ID-specific admission conditions.",
+        "ja": "通常／contextの6 severity形式が、一律とID別の配送条件の両方でUVM_NONEを渡す。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_warning_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning routed_action fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error routed_action fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal routed_action fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning_context delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning_context routed_action fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error_context delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error_context routed_action fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal_context delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal_context routed_action fields 1 level 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-COMPLETE-STATEMENT",
+      "clause": "B.1",
+      "statement": {
+        "en": "Each reporting macro expands to a complete SystemVerilog statement.",
+        "ja": "各reporting macroは完全なSystemVerilog文に展開される。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The macro compiles as an unbraced if branch paired with else; the false branch only increments else and the true branch delivers once.",
+        "ja": "括弧なしifの分岐でelseと組にしてcompileでき、偽分岐はelseだけを数え、真分岐は1回配送する。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_info_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_literal_info_boundary_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_literal_info_boundary_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-NO-TIME-CONSUMPTION",
+      "clause": "B.1",
+      "statement": {
+        "en": "Reporting macros introduce no time-consuming statement.",
+        "ja": "reporting macroは時間を消費する文を導入しない。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "Class-function use builds legally and all selected visible, filtered and statement-form calls retain the positive caller simulation time.",
+        "ja": "class function内の利用が合法にbuildでき、選択した可視／抑制／文形式の呼出しでcallerの正のsimulation時刻を保持する。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_info_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info delivery location 1 format 1 time 1",
+            "UT: macro81 uvm_info statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info verbosity quiet 1 cheap 1 time 1",
+            "UT: macro81 uvm_info action quiet 1 time 1 cheap 1",
+            "UT: macro81 uvm_info routed_action location 1 format 1 time 1",
+            "UT: macro81 uvm_info statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_literal_info_boundary_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info boundary quiet 1 cheap 1 time 1",
+            "UT: macro81 uvm_info statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning delivery location 1 format 1 time 1",
+            "UT: macro81 uvm_warning statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning action quiet 1 time 1",
+            "UT: macro81 uvm_warning routed_action location 1 format 1 time 1",
+            "UT: macro81 uvm_warning statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error delivery location 1 format 1 time 1",
+            "UT: macro81 uvm_error statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error action quiet 1 time 1",
+            "UT: macro81 uvm_error routed_action location 1 format 1 time 1",
+            "UT: macro81 uvm_error statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal delivery location 1 format 1 time 1",
+            "UT: macro81 uvm_fatal statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal action quiet 1 time 1",
+            "UT: macro81 uvm_fatal routed_action location 1 format 1 time 1",
+            "UT: macro81 uvm_fatal statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context delivery location 1 format 1 time 1",
+            "UT: macro81 uvm_info_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context verbosity quiet 1 cheap 1 time 1",
+            "UT: macro81 uvm_info_context action quiet 1 time 1 cheap 1",
+            "UT: macro81 uvm_info_context routed_action location 1 format 1 time 1",
+            "UT: macro81 uvm_info_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_literal_info_boundary_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context boundary quiet 1 cheap 1 time 1",
+            "UT: macro81 uvm_info_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning_context delivery location 1 format 1 time 1",
+            "UT: macro81 uvm_warning_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning_context action quiet 1 time 1",
+            "UT: macro81 uvm_warning_context routed_action location 1 format 1 time 1",
+            "UT: macro81 uvm_warning_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error_context delivery location 1 format 1 time 1",
+            "UT: macro81 uvm_error_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error_context action quiet 1 time 1",
+            "UT: macro81 uvm_error_context routed_action location 1 format 1 time 1",
+            "UT: macro81 uvm_error_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal_context delivery location 1 format 1 time 1",
+            "UT: macro81 uvm_fatal_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal_context action quiet 1 time 1",
+            "UT: macro81 uvm_fatal_context routed_action location 1 format 1 time 1",
+            "UT: macro81 uvm_fatal_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-UVM-INFO-DELEGATION",
+      "clause": "B.1.1.1",
+      "statement": {
+        "en": "uvm_info delegates its ID, message and severity to the associated reporting context.",
+        "ja": "uvm_infoはID／message／severityを対応するreporting contextへ委譲する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The actual execution hook receives one INFO message with the supplied ID/body and the calling report-object origin.",
+        "ja": "実行hookが指定ID／本文を持つINFO messageを1回受け、呼び出したreport-objectを発信元とする。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_info_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info routed_action fields 1 level 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-UVM-WARNING-DELEGATION",
+      "clause": "B.1.1.2",
+      "statement": {
+        "en": "uvm_warning delegates its ID, message and severity to the associated reporting context.",
+        "ja": "uvm_warningはID／message／severityを対応するreporting contextへ委譲する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The actual execution hook receives one WARNING message with the supplied ID/body and the calling report-object origin.",
+        "ja": "実行hookが指定ID／本文を持つWARNING messageを1回受け、呼び出したreport-objectを発信元とする。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_warning_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning routed_action fields 1 level 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-UVM-ERROR-DELEGATION",
+      "clause": "B.1.1.3",
+      "statement": {
+        "en": "uvm_error delegates its ID, message and severity to the associated reporting context.",
+        "ja": "uvm_errorはID／message／severityを対応するreporting contextへ委譲する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The actual execution hook receives one ERROR message with the supplied ID/body and the calling report-object origin.",
+        "ja": "実行hookが指定ID／本文を持つERROR messageを1回受け、呼び出したreport-objectを発信元とする。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_error_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error routed_action fields 1 level 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-UVM-FATAL-DELEGATION",
+      "clause": "B.1.1.4",
+      "statement": {
+        "en": "uvm_fatal delegates its ID, message and severity to the associated reporting context.",
+        "ja": "uvm_fatalはID／message／severityを対応するreporting contextへ委譲する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The actual execution hook receives one FATAL message with the supplied ID/body and the calling report-object origin.",
+        "ja": "実行hookが指定ID／本文を持つFATAL messageを1回受け、呼び出したreport-objectを発信元とする。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_fatal_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal routed_action fields 1 level 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-UVM-INFO-CONTEXT-DELEGATION",
+      "clause": "B.1.1.5",
+      "statement": {
+        "en": "uvm_info_context delegates its ID, message and severity to the associated reporting context.",
+        "ja": "uvm_info_contextはID／message／severityを対応するreporting contextへ委譲する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The actual execution hook receives one INFO message with the supplied ID/body and the explicitly supplied report-object origin.",
+        "ja": "実行hookが指定ID／本文を持つINFO messageを1回受け、明示指定したreport-objectを発信元とする。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_info_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context routed_action fields 1 level 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-UVM-WARNING-CONTEXT-DELEGATION",
+      "clause": "B.1.1.6",
+      "statement": {
+        "en": "uvm_warning_context delegates its ID, message and severity to the associated reporting context.",
+        "ja": "uvm_warning_contextはID／message／severityを対応するreporting contextへ委譲する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The actual execution hook receives one WARNING message with the supplied ID/body and the explicitly supplied report-object origin.",
+        "ja": "実行hookが指定ID／本文を持つWARNING messageを1回受け、明示指定したreport-objectを発信元とする。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_warning_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning_context delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_warning_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_warning_context routed_action fields 1 level 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-UVM-ERROR-CONTEXT-DELEGATION",
+      "clause": "B.1.1.7",
+      "statement": {
+        "en": "uvm_error_context delegates its ID, message and severity to the associated reporting context.",
+        "ja": "uvm_error_contextはID／message／severityを対応するreporting contextへ委譲する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The actual execution hook receives one ERROR message with the supplied ID/body and the explicitly supplied report-object origin.",
+        "ja": "実行hookが指定ID／本文を持つERROR messageを1回受け、明示指定したreport-objectを発信元とする。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_error_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error_context delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_error_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_error_context routed_action fields 1 level 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-UVM-FATAL-CONTEXT-DELEGATION",
+      "clause": "B.1.1.8",
+      "statement": {
+        "en": "uvm_fatal_context delegates its ID, message and severity to the associated reporting context.",
+        "ja": "uvm_fatal_contextはID／message／severityを対応するreporting contextへ委譲する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The actual execution hook receives one FATAL message with the supplied ID/body and the explicitly supplied report-object origin.",
+        "ja": "実行hookが指定ID／本文を持つFATAL messageを1回受け、明示指定したreport-objectを発信元とする。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_fatal_context_delivery_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal_context delivery fields 1 level 1 origin 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_fatal_context_routed_action_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_fatal_context routed_action fields 1 level 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-INFO-LITERAL-STRICT-BOUNDARY",
+      "clause": "B.1.1.1",
+      "statement": {
+        "en": "Under the qualified literal lower-than macro reading, equal INFO verbosity is filtered before formatting.",
+        "ja": "限定した字義的lower-thanのmacro解釈では、等しいINFO verbosityをformat前に抑制する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The equal boundary leaves execution/format counters zero; a separate strictly lower call still routes once to the selected context.",
+        "ja": "等値境界では実行／format counterを0に保ち、別の厳密に低い呼出しは選択contextへ1回配送する。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. The B.1.1.1 lower-than phrase is read literally as strict inequality, extended to the identical context macro;6.3.3.2/.3 allow equality. This AI interpretation is reviewable and does not establish an erratum or an implementation root cause. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 B.1.1.1のlower-thanを字義的な厳密不等号と読み、同じ動作のcontext macroにも適用する。6.3.3.2／.3は等値を許す。このAI解釈はレビュー可能なもので、訂正や実装の根本原因を認定しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_info_literal_info_boundary_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info boundary quiet 1 cheap 1 time 1",
+            "UT: macro81 uvm_info below entry 1 origin 1 level 1",
+            "UT: macro81 uvm_info statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_delivery_81",
+          "role": "control",
+          "expected_observations": [
+            "UT: macro81 uvm_info delivery fields 1 level 1 origin 1",
+            "UT: macro81 uvm_info delivery location 1 format 1 time 1",
+            "UT: macro81 uvm_info statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_routed_action_81",
+          "role": "control",
+          "expected_observations": [
+            "UT: macro81 uvm_info verbosity quiet 1 cheap 1 time 1",
+            "UT: macro81 uvm_info action quiet 1 time 1 cheap 1",
+            "UT: macro81 uvm_info routed_action fields 1 level 1 origin 1",
+            "UT: macro81 uvm_info routed_action location 1 format 1 time 1",
+            "UT: macro81 uvm_info statement else 1 entry 1 quiet 1 time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MACRO-CONTEXT-INFO-LITERAL-STRICT-BOUNDARY",
+      "clause": "B.1.1.5",
+      "statement": {
+        "en": "Under the qualified literal lower-than macro reading, equal INFO verbosity is filtered before formatting.",
+        "ja": "限定した字義的lower-thanのmacro解釈では、等しいINFO verbosityをformat前に抑制する。"
+      },
+      "conditions": {
+        "en": "Actual basic/context reporting macros run in original report-object functions. Explicit context objects have independent verbosity/action configuration. An original report-server execution hook snapshots scalar message fields and source identity without default DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs, true/false unbraced branches and a positive simulation time expose selected filtering, grammar and time behavior.",
+        "ja": "実際の基本／context reporting macroを独自report-object functionで実行する。明示context objectのverbosity／actionは独立に設定する。独自report-server実行hookが既定DISPLAY／COUNT／EXITを実行せず、messageのscalar項目と発信元を取得する。MSG functionでformatを数え、別ID、括弧なしの真／偽分岐、正のsimulation時刻から選択したfilter、文法、時間動作を観測する。"
+      },
+      "expected": {
+        "en": "The equal boundary leaves execution/format counters zero; a separate strictly lower call still routes once to the selected context.",
+        "ja": "等値境界では実行／format counterを0に保ち、別の厳密に低い呼出しは選択contextへ1回配送する。"
+      },
+      "limitations": {
+        "en": "Selected two-state class/report-object contexts only. No default report formatting, report counts, fatal termination, module/global contexts or complete severity/action/override combinations are certified. Explicit report-object RO arguments do not resolve the contradictory optional/report-message wording. Early MSG suppression is required here for INFO only; no ID-expression evaluation count or non-INFO formatting policy is prescribed. The two equal-verbosity INFO inputs are separately qualified interpretations and their controls cannot settle that boundary. The B.1.1.1 lower-than phrase is read literally as strict inequality, extended to the identical context macro;6.3.3.2/.3 allow equality. This AI interpretation is reviewable and does not establish an erratum or an implementation root cause. Visible MSG counters require only a positive evaluation count,not an exact count;filtered INFO still requires zero.",
+        "ja": "選択した2値class／report-object contextのみ。既定report書式、report件数、fatal終了、module／global context、全severity／action／override組合せは認定しない。明示report-object RO引数によって、optional／report-messageという矛盾する本文は解消しない。早期MSG抑制を要求するのはINFOだけで、ID式の評価回数や非INFOのformat方針は規定しない。等verbosityのINFO 2入力は別に限定した解釈とし、controlではその境界を解決しない。 B.1.1.1のlower-thanを字義的な厳密不等号と読み、同じ動作のcontext macroにも適用する。6.3.3.2／.3は等値を許す。このAI解釈はレビュー可能なもので、訂正や実装の根本原因を認定しない。 可視MSGのcounterには評価回数が正であることだけを要求し、正確な回数は固定しない。抑制INFOは引き続き0を要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_report_macro_info_context_literal_info_boundary_81",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context boundary quiet 1 cheap 1 time 1",
+            "UT: macro81 uvm_info_context below entry 1 origin 1 level 1",
+            "UT: macro81 uvm_info_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_delivery_81",
+          "role": "control",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context delivery fields 1 level 1 origin 1",
+            "UT: macro81 uvm_info_context delivery location 1 format 1 time 1",
+            "UT: macro81 uvm_info_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        },
+        {
+          "test": "uB/test_report_macro_info_context_routed_action_81",
+          "role": "control",
+          "expected_observations": [
+            "UT: macro81 uvm_info_context verbosity quiet 1 cheap 1 time 1",
+            "UT: macro81 uvm_info_context action quiet 1 time 1 cheap 1",
+            "UT: macro81 uvm_info_context routed_action fields 1 level 1 origin 1",
+            "UT: macro81 uvm_info_context routed_action location 1 format 1 time 1",
+            "UT: macro81 uvm_info_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        }
+      ]
     }
   ]
 }

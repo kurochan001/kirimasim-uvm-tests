@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighty cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2325 tests: 2231 simulation and 94 elaboration). The earlier 349-test checkpoint is
+three M4 increments and eighty-one cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2343 tests: 2249 simulation and 94 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4795,3 +4795,46 @@ targets, human review and scope/denominator approval remain open.
 The ledger has 3860 duties, 2293 directly linked tests, 32 control-only and115 control-linked tests. Ordinary evidence is1962pass(1873runtime/89compiler) and363known(244runtime/114build/5illegal acceptance).
 
 Goal iteration52 reduces unassessed from129 to124, a decrease of1339 from1463 at activation. Full completion remains unproven and the goal stays active.
+
+## Eighty-first thin-area expansion: reporting macros and INFO boundaries
+
+Eighteen new M1 runtime fixtures exercise the four basic reporting macros and
+their four explicit-context forms. Sixteen match seeds 1/73. Two qualified
+literal INFO boundaries differ at seed 1 without seed 73: equal verbosity
+reaches the execution hook and evaluates MSG, while the strict lower-than
+reading expects suppression. Separate below-threshold calls match; they do not
+resolve the difference between the macro wording and the API's inclusive bound.
+
+Actual report-server hooks capture severity, verbosity, ID, body, origin and
+automatic file/line fields without comparing default text or executing default
+DISPLAY/COUNT/EXIT actions. INFO verbosity/action suppression is observed before
+MSG evaluation. Unbraced if/else forms compile and selected calls retain the
+positive caller time. No default fatal termination or report-count claim is made.
+Explicit report-object RO arguments leave the optional/report-message wording open.
+
+The initial visible-MSG predicate unnecessarily required one evaluation. It was
+corrected to require a positive count, while filtered INFO still requires zero.
+All eighteen initial inputs and their blobs/logs are retained under their old identities and
+excluded from current evidence. All eighteen corrected inputs are freshly
+measured; sixteen proof-based tags then receive fresh final-input measurements.
+Expected files and the original helper remain unchanged through both steps.
+
+Sixteen new bilingual AI duties partially decompose normative B.1 and its eight
+macro clauses. Only the individually read B.1.1 grouping heading is structural;
+all 3860 earlier duties, 408 assessments and proposed scope are unchanged.
+Global state is 1984 partial/409 assessed/114 unassessed. Annex B is 111/5/28
+with 220 duties and 157 primary fixtures (156 simulation/1 elaboration).
+All 3876 duties link directly to 2311 tests; 32 others are control-only and
+119 have control links. All partial obligations and original M1–M4 targets remain open.
+
+All 2325 earlier ordinary records, 34 HDL records, 18 command-line records,
+94 compiler records and 1082 compatible guest records retain their exact content.
+No new guest execution/filter or backend/runner change is claimed. The 1261
+unmeasured guest inputs are 1258 additions and three revised originals
+(1167 simulation/94 elaboration). Human review and scope/denominator approval remain open.
+
+Totals are 2343 (2249 simulation/94 elaboration): M1 1000 (921/79), M2 547
+(542/5), M3 796 (786/10). Ordinary evidence is 1978 pass (1889 runtime/89 compiler)
+and 365 known (246 runtime/114 build/5 illegal acceptance). Goal iteration 53
+reduces unassessed from 124 to 114, a decrease of 1349 from the activation count
+1463. Full completion remains unproven and the goal stays active.

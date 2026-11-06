@@ -169,6 +169,11 @@ coverage構築／samplingの期待値は、提供IEEE 18.4.7.1〜.3／.8、18.1.
 独自helperとsampler本体はbin algorithmではなく、実継承block methodによるroutingの観測に使います。
 商用結果や新たなimplementation sourceの読取りは使わず、[coverageのFAQ](faq.ja.md#registerのcoverage構築とsampling)で部分契約を説明しています。
 
+report macroの期待値は、提供IEEE B.1と8基本／context条項、report object／message／server契約から測定前に導きます。
+独自observerは実macro配送を取得し、default report書式やfatal exitの実装にはしません。macroの厳密なINFO境界とAPIの等値を許す規則を明示して分けます。
+初回の未規定な可視MSG 1回制約は正の回数へ修正し、期待値file／helperを変えず全入力を測り直します。
+商用結果やsimulator実装sourceは使わず、[macroのFAQ](faq.ja.md#report-macroとinfoの境界)で旧入力の除外と解釈を説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

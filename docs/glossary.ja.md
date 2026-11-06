@@ -1186,3 +1186,11 @@ constructorのadd_coverage呼出しで搭載するmodelとは別で、maskはmet
 
 **field値sampling observer（Field-value sampling observer）** — dispatchを数え現在のmodel値を取得する独自sample_values overrideです。
 builtin covergroup algorithmを供給せず、userと実際の親blockの呼出しを区別し、routingの証拠は[Q313](faq.ja.md#q313-sample_valuesのobserverは何を示しますか)で説明しています。
+
+## Report macroの観測
+
+**reporting context／RO** — macro呼出しに対応するreport object／context形式で明示指定するreport-object引数です。
+設定が異なり得るため、選択objectに対してroutingとfilterを調べ、観測は[Q314](faq.ja.md#q314-reporting-macroのobserverは何を測定しますか)で説明します。
+
+**MSG評価flag（MSG evaluation flag）** — message式の評価／抑制を示すbooleanです。可視flagは正の回数、抑制INFOは0を要求しますが、正確な正の評価回数を規定しません。
+severityの区別は[Q316](faq.ja.md#q316-すべてのseverityで抑制時のmsg評価を省略しますか)で説明しています。

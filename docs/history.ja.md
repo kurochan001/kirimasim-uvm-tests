@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の80回目の拡充（全2325件：simulation 2231・elaboration 94）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の81回目の拡充（全2343件：simulation 2249・elaboration 94）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3085,3 +3085,29 @@ guest未測定1243入力は追加1240件と修正した元入力3件（simulatio
 要求は3860件、直接対応2293テスト、control専用32／control linkあり115です。通常は1962 pass（runtime 1873／compile拒否89）、363 known（runtime 244／build 114／不正受理5）です。
 
 goal第52反復で未評価を129から124へ減らし、有効化時1463からの減少は1339です。全体の完了は未立証でgoalを継続します。
+
+## 薄い領域の81回目の拡充：report macroとINFO境界
+
+M1の新規runtime 18検査系は、基本reporting macro 4種と明示context形式4種を実行します。16件はseed 1／73に一致します。
+限定した字義的INFO境界の2件はseed 1差分で、seed 73結果はありません。等しいverbosityで実行hookへ到達しMSGを評価しますが、厳密なlower-than解釈は抑制を期待します。
+別の閾値より低い呼出しは一致しても、macro本文とAPIの等値を含む境界の違いは解消しません。
+
+実report-server hookがseverity、verbosity、ID、本文、発信元、自動file／lineを取得し、既定textを比較せず、既定DISPLAY／COUNT／EXITを実行しません。
+INFOのverbosity／actionによる抑制はMSG評価前に観測します。括弧なしif／else形式がcompileでき、選択した呼出しはcallerの正の時刻を保持します。
+既定fatal終了やreport件数は認定せず、明示report-object RO引数によってoptional／report-message本文を解決しません。
+
+初回の可視MSG判定は不要に評価1回を要求していたため、正の回数を要求する形へ修正し、抑制INFOの0回は保持します。
+初回18入力のblob／logは旧同一性で保持して現在の証拠から除外し、修正後の全18入力を新たに測定します。
+その一致から16件に再現タグを付け、最終入力も新たに測定します。期待値fileと独自helperは両段階を通じて未変更です。
+
+日英AI義務16件は規範的なB.1と8 macro条項を部分分解します。個別に読んだB.1.1の整理見出しだけを構造分類し、以前の全3860義務、408分類、範囲案は未変更です。
+全体は部分1984／分類409／未評価114、付録Bは111／5／28、義務220件、主引用157検査系（simulation 156／elaboration 1）です。
+全3876義務は2311テストへ直接対応し、他の32テストはcontrol専用、control linkあり119です。全ての部分義務と元のM1〜M4目標は未完です。
+
+以前の通常2325記録、HDL 34記録、command-line 18記録、compiler 94記録、互換guest 1082記録の内容は保持します。
+新しいguest実行／filterやbackend／runner変更はありません。guest未測定1261入力は追加1258件と修正した元入力3件（simulation 1167／elaboration 94）です。
+人のレビューと範囲／分母承認は未完です。
+
+全2343件（simulation 2249／elaboration 94）、M1 1000（921／79）、M2 547（542／5）、M3 796（786／10）です。
+通常は1978 pass（runtime 1889／compiler拒否89）、365 known（runtime 246／build 114／不正受理5）です。
+goal第53反復で未評価124から114へ減らし、開始時1463からの減少は1349です。全体の完了は未立証でgoalを継続します。

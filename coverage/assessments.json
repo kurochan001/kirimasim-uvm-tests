@@ -6229,6 +6229,20 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "B.1.1",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Basic messaging macros entry is only a grouping heading followed directly by numbered macro definitions. It has no independent body. The normative parentB.1 remains partial with formatting/location/statement/timing duties, and all eight child macros gain partial delegation duties. Literal INFO equality and optional/context wording remain qualified/open; no clause is excluded or declared complete.",
+        "ja": "個別に読んだBasic messaging macros項目は、直後に番号付きmacro定義が続く整理見出しだけで、独立した本文はない。規範的な親B.1はformat／場所／文／時間の義務を持つ部分分解とし、8子macroにも部分的な委譲義務を加える。字義的INFO等値とoptional／context本文は限定解釈／未完を保ち、条項を除外したり完了とはしない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

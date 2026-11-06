@@ -245,6 +245,15 @@ define a bin algorithm; the actual inherited block method supplies routing.
 No commercial result or new implementation-source reading is used. [The coverage FAQ](faq.md#register-coverage-construction-and-sampling)
 records the partial contracts.
 
+Report-macro expectations are derived before measurement from supplied IEEE B.1,
+the eight basic/context clauses and report-object/message/server contracts.
+Original observers receive actual macro delivery without defining default text
+or fatal exit behavior. Strict INFO macro wording is kept distinct from API
+equality. The initial unspecified exact-one visible-MSG predicate is corrected
+to positivity; expected files/helper remain unchanged and all inputs are freshly
+measured. No commercial result or simulator implementation source is used.
+[The macro FAQ](faq.md#reporting-macros-and-info-boundaries) records excluded old inputs and interpretation limits.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

@@ -9301,6 +9301,78 @@
     "u18/test_reg_coverage_add_coverage_protected_external_80": {
       "primary_clause": "18.4.7.3",
       "inputs_sha256": "8afa3fac0a5dac48c8a9f19b788098a92bb6f7b22cdd8be3c800127b1e67ad13"
+    },
+    "uB/test_report_macro_info_delivery_81": {
+      "primary_clause": "B.1.1.1",
+      "inputs_sha256": "47f3af59b464fd2a79e830967e0c18734437f7ad5edc24bf3163c6d0a937d45b"
+    },
+    "uB/test_report_macro_info_routed_action_81": {
+      "primary_clause": "B.1.1.1",
+      "inputs_sha256": "4202b010f21e81f1017fb3803ac012f27bcfc7bca249a4eff2f7338cb98fd0a5"
+    },
+    "uB/test_report_macro_info_literal_info_boundary_81": {
+      "primary_clause": "B.1.1.1",
+      "inputs_sha256": "9e7b9cfa7e4280557a37a606565160dd9cda57837c071ed06f28a2e456dbdb36"
+    },
+    "uB/test_report_macro_warning_delivery_81": {
+      "primary_clause": "B.1.1.2",
+      "inputs_sha256": "2b051b6b9c85194df5c096dbcbf672b3de54ed835de9722ca9c197235f6fbc76"
+    },
+    "uB/test_report_macro_warning_routed_action_81": {
+      "primary_clause": "B.1.1.2",
+      "inputs_sha256": "137f87aa29f2e10f6dc618a26571b806a546e48f101124334509545134da58ee"
+    },
+    "uB/test_report_macro_error_delivery_81": {
+      "primary_clause": "B.1.1.3",
+      "inputs_sha256": "0011f77b1230ac25fd423202a6d35447a96fb0cad00a7014da274ed7d51d3a6b"
+    },
+    "uB/test_report_macro_error_routed_action_81": {
+      "primary_clause": "B.1.1.3",
+      "inputs_sha256": "8eaab2979b836b72bbe0f5f799b48e12d2ff24c8f0928e41c8876956d5cb2092"
+    },
+    "uB/test_report_macro_fatal_delivery_81": {
+      "primary_clause": "B.1.1.4",
+      "inputs_sha256": "654ceeedf5aab047d8eae6c7728219a2a6a85b8bed2fa332a4272ac3dadc02f3"
+    },
+    "uB/test_report_macro_fatal_routed_action_81": {
+      "primary_clause": "B.1.1.4",
+      "inputs_sha256": "c16d2d672716c944f4d486aab54a7465896de7b97d1bcee67ca604f2c7aedb21"
+    },
+    "uB/test_report_macro_info_context_delivery_81": {
+      "primary_clause": "B.1.1.5",
+      "inputs_sha256": "5ada520193b4a8194a010dc4fe3a3aba8bcea29537a2642abf7581c38725617a"
+    },
+    "uB/test_report_macro_info_context_routed_action_81": {
+      "primary_clause": "B.1.1.5",
+      "inputs_sha256": "2d73b108a2cbf9a82503395682e8efcc3e0cff7b752b811d8f46bcd75e9a4729"
+    },
+    "uB/test_report_macro_info_context_literal_info_boundary_81": {
+      "primary_clause": "B.1.1.5",
+      "inputs_sha256": "5a0f48908c92dd0938ea8e57e8bc4318e86a63b4a76fb3b07d13afd1fa14bcb0"
+    },
+    "uB/test_report_macro_warning_context_delivery_81": {
+      "primary_clause": "B.1.1.6",
+      "inputs_sha256": "15d9a9a429790d0afae9df79887c0ede7ccef7c75a1bc363a886c0039312b5e7"
+    },
+    "uB/test_report_macro_warning_context_routed_action_81": {
+      "primary_clause": "B.1.1.6",
+      "inputs_sha256": "f802b3d744d10998cbfc7064e79411f39c95746351a5427792cc6769aebd3297"
+    },
+    "uB/test_report_macro_error_context_delivery_81": {
+      "primary_clause": "B.1.1.7",
+      "inputs_sha256": "932c64bde93f6073c176d217477e62d875b3dfcd8d900986566f2336049dbf80"
+    },
+    "uB/test_report_macro_error_context_routed_action_81": {
+      "primary_clause": "B.1.1.7",
+      "inputs_sha256": "6509f4c465bcfc54d06404153442ca774b93d82d336cad84dc19413010b5b497"
+    },
+    "uB/test_report_macro_fatal_context_delivery_81": {
+      "primary_clause": "B.1.1.8",
+      "inputs_sha256": "9dc9dc1872905aeb49e3f8811713063e608d2a558bf47d49c721081674ab8244"
+    },
+    "uB/test_report_macro_fatal_context_routed_action_81": {
+      "primary_clause": "B.1.1.8",
+      "inputs_sha256": "0a154c8ec45e47f7a07d4f23b4e085c703c1c4c3af2432fbc7eb831ae7b5c836"
     }
   }
 }

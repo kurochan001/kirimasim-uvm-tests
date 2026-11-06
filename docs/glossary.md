@@ -1549,3 +1549,15 @@ they do not measure bins. [Q311](faq.md#q311-does-coverage-construction-measure-
 counts dispatch and captures current model values. It distinguishes user and
 actual parent-block calls without supplying a builtin covergroup algorithm;
 [Q313](faq.md#q313-what-do-sample_values-observers-establish) explains the routing evidence.
+
+## Reporting macro observations
+
+**Reporting context / RO** — The report object associated with a macro call /
+the explicitly supplied report-object argument of a context form. Their settings
+can differ, so routing and filtering are checked against the selected object;
+[Q314](faq.md#q314-what-do-the-reporting-macro-observers-measure) explains the observation.
+
+**MSG evaluation flag** — A boolean witness that a message expression was
+evaluated or suppressed. Visible flags require a positive count; filtered INFO
+requires zero. This does not prescribe an exact positive evaluation count;
+[Q316](faq.md#q316-does-suppression-skip-msg-evaluation-for-every-severity) distinguishes severities.
