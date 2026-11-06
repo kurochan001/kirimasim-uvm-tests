@@ -623,6 +623,8 @@ For a runtime mismatch, follow the selected test header's `:expected_stdout:` pa
 
 The JSON records each case under `tests`, including its `status`, any `reason` and its input fingerprint; [the result-reading guide](reading-guide.md#read-a-result) explains how to use those fields alongside the command exit code.
 
+To print the saved test IDs and judgments without a separate JSON tool, use [the Python example](reading-guide.md#open-the-result-json) after the command completes.
+
 Each run uses a temporary build directory. `out/` is ignored by Git; Check
 does not publish these JSON files. See the [FAQ](faq.md) for result
 statuses, exit codes and fingerprint interpretation.

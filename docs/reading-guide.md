@@ -8,6 +8,7 @@ Start here if UVM, the result labels or the progress counts are unfamiliar; choo
 - [Before the first run](#before-the-first-run)
 - [Choose an execution condition](#choose-an-execution-condition)
 - [Read a result](#read-a-result)
+- [Open the result JSON](#open-the-result-json)
 - [Trace a difference](#trace-a-difference)
 - [Follow one test through the files](#follow-one-test-through-the-files)
 - [Read coverage and progress](#read-coverage-and-progress)
@@ -61,6 +62,27 @@ In a result JSON, find the test ID under `tests` and read its `status` and any `
 A reused result is evidence only for its recorded inputs, runner and library. See [how compatible records are combined](results.md#evidence-assembly) before treating an old JSON file as a current result.
 
 When a case differs, inspect its cited rule, expected observation and setup before changing it; [Q18](faq.md#q18-how-should-i-report-or-correct-a-wrong-expectation) describes how to report or correct a suspected expectation error.
+
+## Open the result JSON
+
+JSON is the structured result file written by `--json`; after [the smoke command](faq.md#q3-how-can-i-run-one-test-first) finishes, run the following from the repository root to list its test IDs, statuses and any reasons.
+
+```sh
+python3 - <<'PY'
+import json
+from pathlib import Path
+
+result = json.loads(Path("out/verilator-smoke.json").read_text(encoding="utf-8"))
+for test_id, record in result["tests"].items():
+    print(test_id, record["status"], record.get("reason", ""), sep="\t")
+PY
+```
+
+Each entry under `tests` is one selected case, and its ID omits the `tests/` prefix and `.sv` suffix, as shown in [the file walkthrough](#follow-one-test-through-the-files).
+
+An absent entry supplies no result for that case, so check [the default selection and `--all`](faq.md#q4-how-do-i-include-spec-only-cases) or rerun its explicit source path before interpreting the absence.
+
+The file stores judgments and summarized reasons rather than a complete simulator transcript; [Trace a difference](#trace-a-difference) explains how to inspect the declared observations when a reason reports a mismatch.
 
 ## Trace a difference
 

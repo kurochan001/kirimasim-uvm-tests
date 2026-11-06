@@ -470,6 +470,8 @@ retains its prior mirror until its own final word arrives.
 
 ## Execution and result records
 
+The result file stores the labels defined below for each selected test, and [the JSON-reading example](reading-guide.md#open-the-result-json) shows how to extract them from your own run.
+
 A compile rejection can be the expected success of an illegal-design check; [Interpretation](results.md#interpretation) explains how that differs from a runtime failure.
 
 **Runner / metadata** — A `tools/run_*.py` script that builds, executes and

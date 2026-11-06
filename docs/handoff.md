@@ -125,6 +125,8 @@ publication.
 
 ## Evidence and latest differences
 
+The smoke command above writes your own per-test record, and [Open the result JSON](reading-guide.md#open-the-result-json) shows how to inspect it before comparing it with this snapshot.
+
 Chapter totals below give partial decomposition, explicit classification and unassessed identifiers in that order, using the states defined in [the root table](requirements.md#review-work-queue-and-root-totals).
 
 A test can appear in both ordinary and backend measurements, so [the measurement scope](results.md#current-snapshot) explains which rows overlap before you compare their totals.
@@ -474,7 +476,7 @@ create_object equivalent-call arity and report_db/report_cb name conflicts open.
 Annex D has no unassessed identifier but retains 39 partial identifiers.
 Named wrappers still need missing-name/path/map and complete status/protocol
 audits; do not infer undocumented null-target diagnostics from a library result.
-Chapter 18 retains 9 unassessed identifiers. Subclauses 18.1–18.3 have none,
+Chapter 18 retains 1 unassessed identifier. Subclauses 18.1–18.3 have none,
 but partial map/register-file obligations remain. Clone availability/source
 preservation now has direct observations; new-map contents/rights and the printed
 scalar/map return conflict remain open. Do not invent a handle-return or

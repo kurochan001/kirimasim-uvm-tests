@@ -11,7 +11,7 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
 contains 4035 AI-drafted requirements, all with direct links to 2487 tests.
-Forty-four tests have only control links. All 2541 tests have a requirement link.
+Fifty-four tests have only control links. All 2541 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -20,13 +20,15 @@ A control-only test checks a supporting premise, and [the HDL-view example](faq.
 
 The clause catalog has 2,507 identifiers. 2038 have a partial
 requirement decomposition; 420 have explicit AI assessments (291 structural,
-129 contextual), and 62 remain unassessed. No state certifies completion.
+129 contextual), and 49 remain unassessed. No state certifies completion.
 Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
 Here `null` records that the denominator and percentage are unset pending approval; [Q77](faq.md#q77-why-is-there-no-coverage-percentage-after-starting-m4) explains the decisions needed to calculate them.
 
 ## Counting unit and scope proposal
+
+One test may be direct for one duty and a control for another, so the two role totals can overlap; [the mapping examples](#citations-requirements-and-execution-evidence) explain how to read those links.
 
 The denominator would be the agreed set of applicable obligations, so [the approval steps](#remaining-m4-work-and-approval) must resolve that set before any requirement-coverage percentage is published.
 

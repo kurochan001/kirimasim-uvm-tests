@@ -12,6 +12,8 @@ in [known differences](known-differences.md).
 
 The questions are grouped by topic, so use the entry matching your task and follow its links to the detailed guide.
 
+If you have an API name or test filename, use that exact spelling in your browser's page search; [the test-header guide](testing.md#metadata) shows where to find the identifiers used in these explanations.
+
 - Preparing a first run: [getting started](#getting-started) and [runner commands](testing.md#running-the-suite).
 - Interpreting output or an exit code: [result labels](#understanding-a-result) and [measurement conditions](results.md#interpretation).
 - Reports and display policies: [report routing and printer state](#report-routing-and-printer-state) and [related terms](glossary.md#uvm-building-blocks).
@@ -96,6 +98,8 @@ Other kirimasim compilation failures can still be `fail`.
 Do not interpret the number of failed tests as the number of distinct bugs.
 
 ### Q6. Why can Verilator exit successfully with KNOWN results?
+
+The command's exit code summarizes the run, while each JSON entry records a case's judgment; [Open the result JSON](reading-guide.md#open-the-result-json) shows how to list those entries before interpreting the summary.
 
 Its exit status tracks regressions in tagged fixed-release oracles. An untagged
 mismatch is recorded as `known` in JSON and does not make the command fail.
@@ -3716,7 +3720,7 @@ control adds UNPACK and matches the unchanged expectation. Both remain indexed.
 The suppressed target sentinel also remains unchanged, but compatible roundtrip
 does not independently establish all one-way packing suppression or a layout.
 Print, record, configuration, empty/null/alias and wider flag conditions remain
-partial; the overall unassessed count is 73.
+partial; the overall unassessed count is 49.
 
 ## Field access order, map changes and physical neighbors
 

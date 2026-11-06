@@ -1221,6 +1221,8 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
+A compiler error in a `simulation` case leaves its runtime behavior unobserved, while an `elaboration` case requires the declared rejection; [the metadata guide](testing.md#metadata) explains how to distinguish them before investigating the sources below.
+
 An explicit source path selects one listed fixture for investigation, and [the single-test command](faq.md#q3-how-can-i-run-one-test-first) shows how to request both runtime seeds.
 
 Several listed inputs can stop at the same missing API, so their count is not a count of independent defects; [the measured breakdown](results.md#interpretation) separates build blockers from runtime observations.
