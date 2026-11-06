@@ -7,14 +7,14 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案3899件は、すべて2339テストへ直接対応し、
-追加の32テストはcontrol専用です。全2371テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案3911件は、すべて2352テストへ直接対応し、
+追加の32テストはcontrol専用です。全2384テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
 control専用テストは補助的な前提を検査するもので、その一致が欠落する標準APIの契約を立証しない理由は[HDL viewの例](faq.ja.md#q308-標準viewとmember-view-controlを分ける理由は)で確認できます。
 
-条項catalogの番号は2,507件です。1993件は要求を一部分解し、411件はAIで明示的に分類（構造284件・文脈127件）、残る103件は未評価です。
+条項catalogの番号は2,507件です。1997件は要求を一部分解し、411件はAIで明示的に分類（構造284件・文脈127件）、残る99件は未評価です。
 いずれも完了を示しません。M4の開始は、範囲や分母の承認、M1〜M3の完了を意味しません。
 `approved_denominator`と`coverage_percentage`は`null`のままです。
 
@@ -28,7 +28,7 @@ control専用テストは補助的な前提を検査するもので、その一�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-3899件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+3911件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -58,10 +58,10 @@ directとcontrolは、義務を直接検査するか、準備や条件の評価�
 ![条項の引用、明示的な要求の対応付け、別途測定する実行の証拠の関係。](images/requirement-evidence.ja.svg)
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は1239件、どちらかの引用がある番号は2,032件です。
+catalogのうち主引用がある番号は1243件、どちらかの引用がある番号は2,034件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,243、1件が766、2件以上が473です。
+対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,239、1件が767、2件以上が476です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -80,7 +80,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2371件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2384件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -102,7 +102,7 @@ schemaの版はJSONの項目構成を識別するもので、UVMライブラリ�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2371件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2384件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -210,30 +210,37 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | C | 98 | 69 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
 | E | 114 | 88 | 0 | 20 | 0 |
-| F | 211 | 124 | 0 | 23 | 22 |
+| F | 223 | 137 | 0 | 23 | 18 |
 | G | 45 | 20 | 0 | 4 | 0 |
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
-残る識別子103件は評価／分解が必要です。範囲は提案、3899件のレビューはすべて`ai`、分母は未承認です。
+残る識別子99件は評価／分解が必要です。範囲は提案、3911件のレビューはすべて`ai`、分母は未承認です。
 
-M1の新規size／version 12検査系はruntime入力11件と不正parameter代入1件に分かれます。
-runtime 9件はseed 1／73に一致し、代入は選択したsource／parameter診断で拒否されruntimeを実行しません。
-合法simulation buildの2件はruntimeなしのknownで、reserved＋129のflag拡張は64 bitを超えるenum methodの未対応を報告し、UVM_PACKER_MIN_BITSは未定義です。
+新規runtime 13検査系は、uFにM1のreport／enum 8件とM2のsequence-state 5件を加えます。11件はseed 1／73に一致します。
+限定した入力2件はexit 0のseed 1差分を保持し、seed 73結果はありません。字義的なverbosity無効化不可の解釈に対して負のID閾値でUVM_NONEが抑制され、
+killは必要なpost_body／post_start callbackを呼びません。API境界queryとSTOPPEDの行は一致しても、差分のある全入力を成功扱いにしません。
+根本原因、訂正、独立したbug件数は認定しません。
 
-既定flag幅、正確な符号なしbit-vector refへの互換性、reserved flagの和、reserved＋17拡張は一致します。
-reserved数と下位bit配置は実装依存に残します。別の未変更packerは非一様8／64-bit fieldで32768 bitを保持し、
-opaque encoding、割当方式、最大容量は規定せず、その一致でmacro存在を成功扱いにしません。
-標準2020 version macro、非空の定数implementation string、POST_2017の存在は一致し、vendor textや記載外の過去macroは固定しません。
+実公開APIは型付きseverity fieldを保持し、genericの非INFO reportで選択verbosity上限を無視し、標準INFO levelを等値込みで配送します。
+ID／severity-ID閾値と独立reporterは選択した条件を保持します。別の既定server入力は正のquit上限100未満でCOUNT専用error 2件の後も継続します。
+他の実行observerは既定DISPLAY／COUNT／EXIT動作を置換し、既定fatal終了を認定しません。
 
-日英AI義務12件はleaf識別子7件を部分分解し、個別に読んだ本文のないB.6／B.7の整理見出しだけを構造分類します。
-以前の全3887義務、以前の409分類、範囲案は未変更です。全体は部分1993／分類411／未評価103です。
-付録Bは118／7／19、義務239件、主引用183検査系（simulation 179／elaboration 4）で、付録Fは92／23／22、義務211件、主引用124検査系（simulation 91／elaboration 33）です。
-全3899義務は2339テストへ直接対応し、他の32テストはcontrol専用、control linkあり122です。全ての部分義務と元のM1〜M4目標は未完です。
+severity名の逆変換とone-hotな9 sequence stateを観測し、選択した全512 state maskがbit位置を固定せず所属を保持します。
+通常／optional-hook無効のstartで実hook state、CREATED、FINISHEDと一致済みmaskの時刻を進めない待機を観測します。
+killしたsequenceはpeerの正常完了中もSTOPPEDを保持し、同じhandleで後のstartを完了します。一過性ENDEDの採取と任意の取消時刻は未完で、
+state専用の一致で字義的なkill post-callback義務を成功扱いにしません。
 
-初回の104桁commentは測定終了後に折り返し、初回source／expectedの23 blobを保管します。
-測定で一致した10件に再現tagを付け、変更した最終12入力を全て新たに測定し、本体と期待値file 11件は未変更です。
-以前の通常2359記録、以前のcompiler 96記録、HDL 34記録、command-line 18記録、互換guest 1082記録の内容は保持します。
-新しいguest実行／filter、実装sourceの閲覧、backend／runner変更はありません。guest未測定1289入力は追加1286件と修正した元入力3件（simulation 1192／elaboration 97）です。
+日英AI義務12件はF.2.2.1、F.2.2.4、F.2.4.2、F.3.4を部分分解します。以前のkill post-callback義務2件は直接／control linkのみを加え、
+他の以前の3897義務、411分類、範囲案は未変更です。全体は部分1997／分類411／未評価99です。
+付録Fは96／23／18、義務223件、主引用137検査系（simulation 104／elaboration 33）です。
+全3911義務は2352テストへ直接対応し、他の32テストはcontrol専用、control linkあり123です。全ての部分義務と元のM1〜M4目標は未完です。
+
+整形はnative測定前に終え、測定したpretagの28 blobを保管します。実測に基づくheader tag 11件は最終入力を新たに測定し、
+負のID閾値observerは、選択したAPI呼出し内で正確な対象messageの正の観測を数える形へ補強し、ID閾値0の明示controlで同じobserverを確認します。
+改訂した最終入力を新たに測定し、以前のobserver記録は旧同一性で保管して除外します。元の期待2行を保持し、規格に基づく正のcontrol 1行を追加します。
+本体12件、期待値file 12件、helper 2件は未変更で、字義的kill入力は実pretag同一性を保持します。
+以前の通常2371記録、compiler 97記録、HDL 34記録、command-line 18記録、互換guest 1082記録の内容は保持します。
+新しいguest実行／filter、実装sourceの閲覧、backend／runner変更はありません。guest未測定1302入力は追加1299件と修正した元入力3件（simulation 1205／elaboration 97）です。
 人のレビューと範囲／分母承認は未完です。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
@@ -486,4 +493,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる3899要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる3911要求案と直接の対応は、その条件を満たしていません。

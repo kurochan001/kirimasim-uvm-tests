@@ -1585,3 +1585,17 @@ implementation, distinct from its maximum or opaque stream representation.
 **Standard versus implementation version** — A standard-revision macro versus
 the package's implementation-identifying string parameter.
 [Q322](faq.md#q322-are-the-standard-version-and-implementation-version-the-same-value) explains the separate presence ladder.
+
+## Report and sequence-state premises
+
+**Effective verbosity bound** — The global, ID or severity-ID limit selected for
+one report, independently of another reporter's settings.
+[Q323](faq.md#q323-do-the-direct-info-matches-resolve-every-verbosity-interpretation) explains the qualified NONE boundary.
+
+**One-hot sequence mask** — Distinct state bits combined with bitwise OR,
+without requiring particular numeric positions.
+[Q324](faq.md#q324-do-512-matching-state-masks-certify-all-sequence-timing) separates mask representation and live timing.
+
+**Stopped state versus post-callback evidence** — Observing that a sequence
+was forcibly stopped versus observing its required post callbacks.
+[Q325](faq.md#q325-does-matching-stopped-and-reuse-pass-the-required-kill-post-hooks) explains why the observations stay separate.

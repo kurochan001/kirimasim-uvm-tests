@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の83回目の拡充（全2371件：simulation 2274・elaboration 97）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の84回目の拡充（全2384件：simulation 2287・elaboration 97）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3162,3 +3162,36 @@ opaque encoding、割当方式、最大容量は規定せず、その一致でma
 全2371件（simulation 2274／elaboration 97）、M1 1012（932／80）、M2 563（556／7）、M3 796（786／10）です。
 通常は2003 pass（runtime 1911／compiler拒否92）、368 known（runtime 247／build 116／不正受理5）です。
 goal第55反復で未評価103へ減らし、開始時1463から1360の減少です。全体の完了は未立証でgoalを継続します。
+
+## 薄い領域の84回目の拡充：reportの列挙型とsequence state
+
+新規runtime 13検査系は、uFにM1のreport／enum 8件とM2のsequence-state 5件を加えます。11件はseed 1／73に一致します。
+限定した入力2件はexit 0のseed 1差分を保持し、seed 73結果はありません。字義的なverbosity無効化不可の解釈に対して負のID閾値でUVM_NONEが抑制され、
+killは必要なpost_body／post_start callbackを呼びません。API境界queryとSTOPPEDの行は一致しても、差分のある全入力を成功扱いにしません。
+根本原因、訂正、独立したbug件数は認定しません。
+
+実公開APIは型付きseverity fieldを保持し、genericの非INFO reportで選択verbosity上限を無視し、標準INFO levelを等値込みで配送します。
+ID／severity-ID閾値と独立reporterは選択した条件を保持します。別の既定server入力は正のquit上限100未満でCOUNT専用error 2件の後も継続します。
+他の実行observerは既定DISPLAY／COUNT／EXIT動作を置換し、既定fatal終了を認定しません。
+
+severity名の逆変換とone-hotな9 sequence stateを観測し、選択した全512 state maskがbit位置を固定せず所属を保持します。
+通常／optional-hook無効のstartで実hook state、CREATED、FINISHEDと一致済みmaskの時刻を進めない待機を観測します。
+killしたsequenceはpeerの正常完了中もSTOPPEDを保持し、同じhandleで後のstartを完了します。一過性ENDEDの採取と任意の取消時刻は未完で、
+state専用の一致で字義的なkill post-callback義務を成功扱いにしません。
+
+日英AI義務12件はF.2.2.1、F.2.2.4、F.2.4.2、F.3.4を部分分解します。以前のkill post-callback義務2件は直接／control linkのみを加え、
+他の以前の3897義務、411分類、範囲案は未変更です。全体は部分1997／分類411／未評価99です。
+付録Fは96／23／18、義務223件、主引用137検査系（simulation 104／elaboration 33）です。
+全3911義務は2352テストへ直接対応し、他の32テストはcontrol専用、control linkあり123です。全ての部分義務と元のM1〜M4目標は未完です。
+
+整形はnative測定前に終え、測定したpretagの28 blobを保管します。実測に基づくheader tag 11件は最終入力を新たに測定し、
+負のID閾値observerは、選択したAPI呼出し内で正確な対象messageの正の観測を数える形へ補強し、ID閾値0の明示controlで同じobserverを確認します。
+改訂した最終入力を新たに測定し、以前のobserver記録は旧同一性で保管して除外します。元の期待2行を保持し、規格に基づく正のcontrol 1行を追加します。
+本体12件、期待値file 12件、helper 2件は未変更で、字義的kill入力は実pretag同一性を保持します。
+以前の通常2371記録、compiler 97記録、HDL 34記録、command-line 18記録、互換guest 1082記録の内容は保持します。
+新しいguest実行／filter、実装sourceの閲覧、backend／runner変更はありません。guest未測定1302入力は追加1299件と修正した元入力3件（simulation 1205／elaboration 97）です。
+人のレビューと範囲／分母承認は未完です。
+
+全2384件（simulation 2287／elaboration 97）、M1 1020（940／80）、M2 568（561／7）、M3 796（786／10）です。
+通常は2014 pass（runtime 1922／compiler拒否92）、370 known（runtime 249／build 116／不正受理5）です。
+goal第56反復で未評価103から99へ減らし、開始時1463からの減少は1364です。全体の完了は未立証でgoalを継続します。

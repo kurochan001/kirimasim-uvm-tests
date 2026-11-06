@@ -1213,3 +1213,14 @@ severityの区別は[Q316](faq.ja.md#q316-すべてのseverityで抑制時のmsg
 
 **標準versionと実装version（standard versus implementation version）** — 標準revisionのmacroと、packageが実装を識別するstring parameterです。
 別の存在ladderとの関係は[Q322](faq.ja.md#q322-標準versionと実装versionは同じ値ですか)で説明しています。
+
+## Reportとsequence-stateの前提
+
+**有効verbosity閾値（effective verbosity bound）** — reportに選択されるglobal／ID／severity-IDの上限で、別reporterの設定とは独立です。
+限定したNONE境界は[Q323](faq.ja.md#q323-直接infoの一致でverbosityの全解釈を解決しますか)で説明しています。
+
+**one-hot sequence mask** — 特定の数値位置を要求せず、互いに異なるstate bitをbitwise ORで組み合わせたものです。
+mask表現と実行時刻の違いは[Q324](faq.ja.md#q324-state-mask-512通りの一致で全sequence時刻を認定しますか)で確認できます。
+
+**STOPPEDとpost-callbackの証拠** — sequenceの強制停止を観測することと、必要なpost callbackを観測することです。
+分ける理由は[Q325](faq.ja.md#q325-stoppedと再利用の一致で必要なkill-post-hookも成功ですか)で説明しています。

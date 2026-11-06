@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighty-three cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2371 tests: 2274 simulation and 94 elaboration). The earlier 349-test checkpoint is
+three M4 increments and eighty-four cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2384 tests: 2287 simulation and 94 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4918,4 +4918,59 @@ Totals are 2371 (2274 simulation/97 elaboration): M1 1012 (932/80), M2 563
 (556/7), M3 796 (786/10). Ordinary evidence is 2003 pass (1911 runtime/92 compiler)
 and 368 known (247 runtime/116 build/5 illegal acceptance). Goal iteration 55
 reduces unassessed from 112 to 103, a decrease of 1360 from activation count1463.
+Full completion remains unproven and the goal stays active.
+
+## Eighty-fourth thin-area expansion: report enums and sequence state
+
+Thirteen new runtime fixtures add eight M1 reporting/enum cases and five M2
+sequence-state cases in uF. Eleven match seeds 1/73. Two qualified
+inputs retain seed-1 differences with exit 0 and no seed 73: UVM_NONE is filtered
+by a negative ID limit under the literal no-verbosity-disable reading, and kill
+does not invoke the required post_body/post_start callbacks. Their API-bound
+query and stopped-state rows match without passing the whole differing input.
+Neither observation establishes a root cause, erratum or independent bug count.
+
+Actual public APIs preserve typed severity fields, ignore the selected verbosity
+bound for non-INFO generic reports, and deliver standard INFO levels inclusively
+at equality. ID/severity-ID limits and independent reporters retain their selected
+conditions. A separate default-server input continues after two COUNT-only errors
+below a positive 100 quit limit. Other execution observers replace default
+DISPLAY/COUNT/EXIT behavior and do not establish default fatal termination.
+
+The severity-name inverse and nine one-hot sequence states gain observations;
+all 512 selected state masks retain their members without fixing bit positions.
+Normal and optional-hook-disabled starts expose actual live hook states, CREATED
+and FINISHED, with matching-mask waits that preserve caller time. A killed sequence remains
+STOPPED while its peer finishes, and the same handle completes a later start.
+Transient ENDED sampling and arbitrary cancellation timing remain open; the
+state-only match does not pass the separate literal kill post-callback duty.
+
+Twelve new bilingual AI duties partially decompose F.2.2.1, F.2.2.4, F.2.4.2 and
+F.3.4. Two earlier kill post-callback duties gain direct/control links only;
+all 3897 other earlier duties, 411 assessments and proposed scope are unchanged.
+Global state is 1997 partial/411 assessed/99 unassessed. Annex F is 96/23/18,
+with 223 duties and 137 primary fixtures (104 simulation/33 elaboration).
+All 3911 duties link directly to 2352 tests; 32 others are control-only and
+123 have control links. All partial obligations and original M1–M4 targets remain open.
+
+Formatting finishes before native measurement, and 28 measured pretag blobs are
+archived. Eleven proof-based header tags receive fresh final measurements.
+The negative-ID observer is refined to count a positive witness of the exact
+fixture message only during the selected API call, with an explicit zero-ID-limit
+control exercising that same observer. The final revised input is freshly
+measured, and earlier observer records are archived/excluded under their old
+identities. Its original two expected rows remain and one standard-derived
+positive-control row is appended. Twelve bodies, twelve expected files and both
+helpers stay unchanged; the literal kill input retains its real pretag identity.
+All 2371 earlier ordinary records, 97 compiler records, 34 HDL records, 18
+command-line records and 1082 compatible guest records retain their exact content.
+No new guest execution/filter, implementation-source reading or backend/runner
+change is claimed. The 1302 unmeasured guest inputs are 1299 additions and three
+revised originals (1205 simulation/97 elaboration). Human review and
+scope/denominator approval remain open.
+
+Totals are 2384 (2287 simulation/97 elaboration): M1 1020 (940/80), M2 568
+(561/7), M3 796 (786/10). Ordinary evidence is 2014 pass (1922 runtime/92 compiler)
+and 370 known (249 runtime/116 build/5 illegal acceptance). Goal iteration 56
+reduces unassessed from 103 to 99, a decrease of 1364 from activation count1463.
 Full completion remains unproven and the goal stays active.

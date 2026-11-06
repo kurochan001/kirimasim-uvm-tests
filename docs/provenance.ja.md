@@ -182,6 +182,11 @@ size／version期待値は提供IEEE B.6／B.7、F.2.1.1／.2と公開packer／p
 独自patternは保持dataでありUVM algorithmではなく、reservedの数値、下位配置、vendor version text、opaque encodingを固定しません。
 初回commentの折返しと再現tag後に全12入力を再測定し、期待値／本体は保持します。実装sourceや商用結果を新たに利用せず、[サイズのFAQ](faq.ja.md#サイズ定義とversion識別)で観測の限界を説明しています。
 
+report／state期待値は提供IEEE F.2.2.1／.4、F.2.4.2、F.3.4と引用APIから測定前に導きます。
+独自observerは実message／hookを取得し、INFO等値、負閾値NONE、状態とkill post-callbackを分け、数値encodingや既定fatal動作を新たに固定しません。
+実装sourceや商用結果は新たに利用せず、11 header tagと補強したNONE observer／閾値0 controlを最終測定し、以前のobserver記録は保管して除外します。
+未変更の字義的killのpretag同一性を保持する範囲は[report／stateのFAQ](faq.ja.md#reportの列挙型とsequence-state)で説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

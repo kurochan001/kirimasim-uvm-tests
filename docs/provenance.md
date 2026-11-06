@@ -268,6 +268,15 @@ and reproduction tags, all twelve final inputs are freshly measured with bodies
 and expectations retained. No new implementation source or commercial result is
 used; [the size FAQ](faq.md#size-defines-and-version-identification) records the observation limits.
 
+Report/state expectations are derived before measurement from supplied IEEE
+F.2.2.1/.4, F.2.4.2, F.3.4 and cited public APIs. Original observers receive actual
+messages/hooks while keeping INFO equality, negative-limit NONE and state versus
+kill post-callbacks separate. No numeric encoding or default fatal action is newly
+fixed. No new implementation source or commercial result is used; eleven header
+tags and the refined NONE observer/zero-limit control are freshly measured;
+earlier observer variants are archived/excluded and the unchanged literal kill
+pretag identity retained, as explained in [the report/state FAQ](faq.md#report-enums-and-sequence-state).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

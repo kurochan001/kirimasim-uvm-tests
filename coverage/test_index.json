@@ -9485,6 +9485,58 @@
     "uB/test_size_version_prior_standard_version_ladder_83": {
       "primary_clause": "B.7.3",
       "inputs_sha256": "561cfe279096f2129147588885b162722933aa961eafa3c69dc2637d0118d904"
+    },
+    "uF/test_enum_state_severity_specific_fields_84": {
+      "primary_clause": "F.2.2.1",
+      "inputs_sha256": "70e8161baae134463975860c1279fbc57be4066323b89fc0eab8e30fb1fe945c"
+    },
+    "uF/test_enum_state_severity_generic_above_threshold_84": {
+      "primary_clause": "F.2.2.1",
+      "inputs_sha256": "9f983bf14f3365eecf7af8ac22ec81068a7a0207e130235b77142a026c745f30"
+    },
+    "uF/test_enum_state_error_count_continuation_84": {
+      "primary_clause": "F.2.2.1",
+      "inputs_sha256": "ff1cbe1fa8cc9e14dbc3cdd64a2c846c40e161c8be86d90b9aab29995e3ce949"
+    },
+    "uF/test_enum_state_severity_name_inverse_84": {
+      "primary_clause": "F.3.4",
+      "inputs_sha256": "03b827d2fccf6108f133c340c32d32aa0e2cc65c0f1da3cd974139bd3e101cd3"
+    },
+    "uF/test_enum_state_verbosity_literal_values_84": {
+      "primary_clause": "F.2.2.4",
+      "inputs_sha256": "c07f68502312a2c33c85e543b75494f3777c483d7036d0ac01fc2b15a2d64882"
+    },
+    "uF/test_enum_state_verbosity_standard_matrix_84": {
+      "primary_clause": "F.2.2.4",
+      "inputs_sha256": "214a7ffd243c562c7c9e8d251a13f24cc90c2f934ff7c15e3627111dab5bab9a"
+    },
+    "uF/test_enum_state_verbosity_id_limits_and_peer_84": {
+      "primary_clause": "F.2.2.4",
+      "inputs_sha256": "6a4305c3d2add54ac35d46a95283a1fa827696341ddff63c19b5ab84d2ac2bcb"
+    },
+    "uF/test_enum_state_none_negative_id_limit_literal_84": {
+      "primary_clause": "F.2.2.4",
+      "inputs_sha256": "c2aaf933ae2a4f6534da4abda2efd55b50624d775b3ab49e223d99123f059e09"
+    },
+    "uF/test_enum_state_sequence_state_onehot_masks_84": {
+      "primary_clause": "F.2.4.2",
+      "inputs_sha256": "ff32841704a9ecd141c8ad0404640f24e18f2301205cac24a3139cbbcbeafc4a"
+    },
+    "uF/test_enum_state_sequence_normal_hook_states_84": {
+      "primary_clause": "F.2.4.2",
+      "inputs_sha256": "83430a93b90387f31340cfb3fa7dfc0e119290437d6800dc0192eb117116a464"
+    },
+    "uF/test_enum_state_sequence_optional_hooks_skipped_84": {
+      "primary_clause": "F.2.4.2",
+      "inputs_sha256": "bcd8a6ae848c7188d2b1e9dbac7a175c93d085a715dae5c385c6466b2fd11060"
+    },
+    "uF/test_enum_state_sequence_stopped_peer_and_reuse_84": {
+      "primary_clause": "F.2.4.2",
+      "inputs_sha256": "58a3ba3e3108323783325b9a5fb8184311432acd8827b86d485f352784d358a2"
+    },
+    "uF/test_enum_state_sequence_kill_post_hooks_literal_84": {
+      "primary_clause": "F.2.4.2",
+      "inputs_sha256": "ba26d99ef4b6576f0721f5c5b0cc9837f6d9cab82325807567b16c619737ac46"
     }
   }
 }

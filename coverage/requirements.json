@@ -41163,6 +41163,22 @@
           "expected_observations": [
             "UT: post_hooks 1 1"
           ]
+        },
+        {
+          "test": "uF/test_enum_state_sequence_kill_post_hooks_literal_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state84 kill state 1 hook 1 late_write 1",
+            "UT: state84 kill post_body 1 post_start 1"
+          ]
+        },
+        {
+          "test": "uF/test_enum_state_sequence_stopped_peer_and_reuse_84",
+          "role": "control",
+          "expected_observations": [
+            "UT: state84 stopped state 1 immediate 1 peer 1 late_write 1",
+            "UT: state84 reused finished 1 hooks 1 completed 1"
+          ]
         }
       ]
     },
@@ -41203,6 +41219,22 @@
           "role": "direct",
           "expected_observations": [
             "UT: post_hooks 1 1"
+          ]
+        },
+        {
+          "test": "uF/test_enum_state_sequence_kill_post_hooks_literal_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state84 kill state 1 hook 1 late_write 1",
+            "UT: state84 kill post_body 1 post_start 1"
+          ]
+        },
+        {
+          "test": "uF/test_enum_state_sequence_stopped_peer_and_reuse_84",
+          "role": "control",
+          "expected_observations": [
+            "UT: state84 stopped state 1 immediate 1 peer 1 late_write 1",
+            "UT: state84 reused finished 1 hooks 1 completed 1"
           ]
         }
       ]
@@ -145125,6 +145157,467 @@
           "role": "direct",
           "expected_observations": [
             "UT: version83 post2017_present 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-SEVERITY-LITERALS",
+      "clause": "F.2.2.1",
+      "statement": {
+        "en": "The four named severity literals represent distinct selectable report kinds.",
+        "ja": "4つの名前付きseverity literalは、別々に選択できるreport種別を表す。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "Named INFO/WARNING/ERROR/FATAL values are distinct and each maps to its exact declared enum name without fixing numeric values.",
+        "ja": "名前付きINFO／WARNING／ERROR／FATAL値は互いに異なり、数値を固定せず各宣言enum名へ正確に対応する。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_severity_specific_fields_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severity84 typed distinct 1 fields 1"
+          ]
+        },
+        {
+          "test": "uF/test_enum_state_severity_name_inverse_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severity84 inverse exact 1 named 1",
+            "UT: severity84 inverse case_rejected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-SEVERITY-MESSAGE-KIND",
+      "clause": "F.2.2.1",
+      "statement": {
+        "en": "Public severity-specific and generic reporting preserve the selected message kind.",
+        "ja": "公開severity専用／generic reportingは、選択したmessage種別を保持する。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "Execution snapshots preserve the selected severity,origin,ID,body and default or explicitly supplied verbosity;non-INFO generic calls ignore the selected verbosity bound.",
+        "ja": "実行snapshotが選択severity、発信元、ID、本文、既定または明示verbosityを保持し、genericの非INFO呼出しは選択verbosity上限を無視する。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_severity_specific_fields_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severity84 typed distinct 1 fields 1"
+          ]
+        },
+        {
+          "test": "uF/test_enum_state_severity_generic_above_threshold_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severity84 generic info_filtered 1",
+            "UT: severity84 generic noninfo 1 fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-ERROR-CONTINUATION",
+      "clause": "F.2.2.1",
+      "statement": {
+        "en": "An error permits simulation to continue subject to its configured report action.",
+        "ja": "errorは設定されたreport actionに従い、シミュレーションの継続を許す。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "Two COUNT-only errors below a positive100 quit limit both reach the default server,increment severity/quit counts and return to the following observation.",
+        "ja": "正のquit上限100未満でCOUNT専用error 2件が既定serverへ到達し、severity／quit countを増やして後続観測へ戻る。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_error_count_continuation_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severity84 error continued 1 counted 1 quit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-ENUM-NAME-INVERSE",
+      "clause": "F.3.4",
+      "statement": {
+        "en": "The enum wrapper converts declared names back to their corresponding enum values.",
+        "ja": "enum wrapperは宣言名を対応するenum値へ戻す。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "All four literal severity names invert the language name method and a lowercase variant is rejected without constraining the failed output reference.",
+        "ja": "4つのseverity literal名が言語のname methodの逆変換となり、小文字の変形は拒否され、失敗後の出力参照は制約しない。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_severity_name_inverse_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severity84 inverse exact 1 named 1",
+            "UT: severity84 inverse case_rejected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-VERBOSITY-LITERAL-VALUES",
+      "clause": "F.2.2.4",
+      "statement": {
+        "en": "The standard verbosity names supply their specified numeric levels.",
+        "ja": "標準verbosity名は、規定された数値levelを提供する。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "NONE,LOW,MEDIUM,HIGH andFULL equal0,100,200,300 and400 respectively.",
+        "ja": "NONE、LOW、MEDIUM、HIGH、FULLはそれぞれ0、100、200、300、400に等しい。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_verbosity_literal_values_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: verbosity84 literals none 1 low 1 medium 1 high 1 full 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-INFO-STANDARD-BOUNDS",
+      "clause": "F.2.2.4",
+      "statement": {
+        "en": "Direct INFO delivery admits a standard level when its configured verbosity is at that level or above.",
+        "ja": "直接INFOの配送は、設定verbosityが標準levelと等しいかそれ以上ならそのlevelを受け入れる。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "The five-by-five direct-API matrix includes equality,filters higher levels and preserves the admitted message fields.",
+        "ja": "5×5の直接API matrixが等値を含み、上のlevelを抑制し、受け入れたmessage fieldを保持する。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_verbosity_standard_matrix_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: verbosity84 matrix delivery 1 fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-INFO-EFFECTIVE-LIMITS",
+      "clause": "F.2.2.4",
+      "statement": {
+        "en": "Named verbosity levels use the effective report-specific configured limit.",
+        "ja": "名前付きverbosity levelは、reportごとに有効な設定閾値を使う。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "Selected severity-ID,ID-only and global limits route the named levels as configured,while another reporter remains independent.",
+        "ja": "選択したseverity-ID、ID専用、global閾値が設定どおり名前付きlevelを配送し、別reporterは独立性を保つ。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_verbosity_id_limits_and_peer_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: verbosity84 limits delivery 1 fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-NONE-NO-VERBOSITY-DISABLE",
+      "clause": "F.2.2.4",
+      "statement": {
+        "en": "A qualified literal reading keeps UVM_NONE from being disabled by the verbosity setting.",
+        "ja": "限定した字義的解釈では、verbosity設定でUVM_NONEを無効にできない。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "NONE reaches delivery at the selected nonnegative standard limits and at an explicitly configured negative ID limit;the independent API-bound query remains0 for the negative limit.",
+        "ja": "選択した非負の標準閾値と明示した負のID閾値でNONEが配送へ到達し、負の閾値に対する独立したAPI境界queryは0を保つ。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering. A same-observer zero-ID-limit control requires a positive exact-message witness;it validates the observer without passing the negative-limit duty.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。 同じobserverのID閾値0 controlは、正確なmessageの正の観測を要求し、負閾値の義務を成功扱いにせずobserverを確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_verbosity_standard_matrix_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: verbosity84 matrix delivery 1 fields 1"
+          ]
+        },
+        {
+          "test": "uF/test_enum_state_none_negative_id_limit_literal_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: verbosity84 none_negative configured 1 query_bound 1",
+            "UT: verbosity84 none_negative delivered 1",
+            "UT: verbosity84 none_negative observer_control 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-SEQUENCE-ONEHOT-MASKS",
+      "clause": "F.2.4.2",
+      "statement": {
+        "en": "The declared sequence states have distinct one-hot encodings usable in state masks.",
+        "ja": "宣言されたsequence stateは、state maskで利用できる互いに異なるone-hot encodingを持つ。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "Each of nine named states is one-hot,and all512 selected subsets retain independent membership in the public integer-mask representation.",
+        "ja": "名前付き9 stateが各one-hotで、選択した全512部分集合が公開integer-mask表現で独立した所属を保持する。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_sequence_state_onehot_masks_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state84 encodings onehot 1 distinct 1 masks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-SEQUENCE-ALLOCATION-COMPLETION",
+      "clause": "F.2.4.2",
+      "statement": {
+        "en": "New and normally completed sequences report CREATED and FINISHED respectively.",
+        "ja": "新規生成と正常完了のsequenceは、それぞれCREATEDとFINISHEDを返す。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "Default and optional-hook-disabled starts preserve the allocated/completed states and already-matching OR-mask waits return without advancing time.",
+        "ja": "既定とoptional-hook無効のstartが生成／完了stateを保持し、既に一致するOR-mask待機は時刻を進めず戻る。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_sequence_normal_hook_states_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state84 normal created 1 immediate 1",
+            "UT: state84 normal finished 1 immediate 1 hooks 1 mask 1"
+          ]
+        },
+        {
+          "test": "uF/test_enum_state_sequence_optional_hooks_skipped_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state84 skip created 1 immediate 1",
+            "UT: state84 skip finished 1 immediate 1 hooks 1 mask 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-SEQUENCE-LIVE-HOOK-STATES",
+      "clause": "F.2.4.2",
+      "statement": {
+        "en": "Selected actual sequence hooks expose their corresponding live states.",
+        "ja": "選択した実sequence hookは、対応する実行中stateを公開する。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "The normal profile observes PRE_START/PRE_BODY/BODY/POST_BODY/POST_START;disabling optional hooks omits their calls and leaves the required hook states intact.",
+        "ja": "通常条件はPRE_START／PRE_BODY／BODY／POST_BODY／POST_STARTを観測し、optional hookを無効にするとその呼出しを省略して必須hook stateを保持する。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_sequence_normal_hook_states_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state84 normal created 1 immediate 1",
+            "UT: state84 normal finished 1 immediate 1 hooks 1 mask 1"
+          ]
+        },
+        {
+          "test": "uF/test_enum_state_sequence_optional_hooks_skipped_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state84 skip created 1 immediate 1",
+            "UT: state84 skip finished 1 immediate 1 hooks 1 mask 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-STATE-SEQUENCE-STOPPED-PEER-REUSE",
+      "clause": "F.2.4.2",
+      "statement": {
+        "en": "A forcibly ended sequence reports STOPPED independently of a surviving peer and can later complete another start.",
+        "ja": "強制終了したsequenceは、生存peerと独立にSTOPPEDを返し、後続の別startを完了できる。"
+      },
+      "conditions": {
+        "en": "Original message execution observers receive actual public reporting API calls;the separate error-continuation input uses the unmodified default server with a positive100 quit limit. Standard INFO levels0/100/200/300/400 are tested with global,ID,severity-ID and independent reporter settings. Original unbound sequences expose actual state getters inside hooks,positive body delays,optional hook control,kill,peer isolation and restart. No UVM state is assigned by the fixture.",
+        "ja": "独自message実行observerが実公開report APIを受け、別のerror継続入力は未変更の既定serverと正のquit上限100を使う。標準INFO level 0／100／200／300／400をglobal／ID／severity-IDと独立reporter設定で調べる。独自のunbound sequenceがhook内の実state getter、正のbody遅延、optional hook制御、kill、peer分離、再開を観測し、検査系はUVM stateを代入しない。"
+      },
+      "expected": {
+        "en": "Kill stops the delayed body,an already matching mask returns immediately,a peer finishes and the same handle later reaches FINISHED;literal post-callback obligations remain separately observed.",
+        "ja": "killが遅延bodyを停止し、一致済みmaskは即時に戻り、peerが完了して同じhandleが後にFINISHEDへ到達し、字義的post-callback義務は別に観測する。"
+      },
+      "limitations": {
+        "en": "Selected declarations and runtime conditions only. No severity numeric encoding,sequence bit positions,default report layout or arbitrary timing is prescribed. Original message observers do not execute default fatal/DISPLAY/COUNT/EXIT actions and do not establish default fatal termination. Direct INFO equality follows6.3.3.3 and does not pass the strict macro-wording probes. The negative-ID NONE expectation is a qualified reading of F.2.2.4 against the API bound;no root cause or erratum is certified. Exact transient ENDED observation,cancellation post-hook state/order,arbitrary races and full protocol/lifecycle coverage remain open. State-only kill/reuse does not pass the separate required post-callback duty. Failed enum conversion output is unspecified. No implementation source or commercial result supplies the oracle. Clock-equality predicates check elapsed time,not delta-cycle ordering.",
+        "ja": "選択した宣言とruntime条件のみ。severityの数値encoding、sequence bit位置、既定report書式、任意の時間関係を規定しない。独自message observerは既定fatal／DISPLAY／COUNT／EXIT actionを実行せず、既定fatal終了を認定しない。直接INFOの等値は6.3.3.3に従い、厳密なmacro本文probeを成功扱いにしない。負のID閾値に対するNONE期待はAPI境界とF.2.2.4を照合する限定解釈で、根本原因や訂正は認定しない。一過性ENDEDの正確な観測、取消時post-hook state／順序、任意の競合、protocol／lifecycle全体は未完。state専用のkill／reuse一致で必要なpost-callback義務を成功扱いにせず、enum変換失敗後の出力値も規定しない。実装sourceや商用結果をoracleにしない。 時刻一致の判定は経過時間を検査し、delta-cycle順序は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_state_sequence_stopped_peer_and_reuse_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state84 stopped state 1 immediate 1 peer 1 late_write 1",
+            "UT: state84 reused finished 1 hooks 1 completed 1"
+          ]
+        },
+        {
+          "test": "uF/test_enum_state_sequence_kill_post_hooks_literal_84",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state84 kill state 1 hook 1 late_write 1",
+            "UT: state84 kill post_body 1 post_start 1"
           ]
         }
       ]
