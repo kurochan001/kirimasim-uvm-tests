@@ -144770,7 +144770,7 @@
       "clause": "F.2.1.2",
       "statement": {
         "en": "The field-flag typedef is the declared unsigned packed bit vector indexed from its selected size minus one to zero.",
-        "ja": "field-flag typedefは、選択幅の1未満から0までをindexとする宣言された符号なしpacked bit vectorである。"
+        "ja": "field-flag typedefは、選択した幅から1を引いた値を上端、0を下端とする、宣言された符号なしpacked bit vectorである。"
       },
       "conditions": {
         "en": "Unmodified public UVM types/macros and default packer implementation. Flag overrides use the actual reserved-count parameter plus17 or129,without fixing its implementation-dependent value. Capacity inputs explicitly flush and retain32768 bits via independent original8/64-bit payload patterns. Version inputs use public package/preprocessor access;the illegal parameter assignment has no runtime.",
