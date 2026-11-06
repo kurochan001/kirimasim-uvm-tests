@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and ninety-four cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2551 tests: 2452 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and ninety-five cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2583 tests: 2484 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5522,3 +5522,56 @@ records, 18 command-line records and 1082 guest inputs are retained.
 Guests have 1469 unmeasured inputs: 1466 additions and three revised originals
 (1370 simulation/99 elaboration). No human review, scope/denominator approval
 or original milestone completion is recorded.
+
+## Ninety-fifth thin-area expansion: collection macro values and opaque state
+
+Thirty-two new M1 runtime inputs cover twelve collection packing/unpacking
+macros with two/four unsigned elements. Eight static-array inputs retain
+qualified one-way scalar-API observations; twenty-four inputs check compatible
+macro pairs, including opaque typed state transfer for unpack-focused inputs.
+All final inputs match seeds 1/73. [The collection-macro FAQ](faq.md#collection-macro-values-and-opaque-state)
+explains what each profile can establish.
+
+Explicit N sizes are positive constants 9/97 with 109-bit storage and a set
+bit outside the selected width. Inferred widths are 13/97. Static arrays use
+nonzero ascending/descending ranges; dynamic arrays and queues are nonempty
+and pre-sized. Independently chosen source values are restored into sentinel
+destinations; shape, unchanged source/marker fields, independent object/policy
+peers and a separate seven-bit trailer are observed. Opaque get_packed_bits
+state is passed unchanged to set_packed_bits on a fresh, identically typed
+compatible policy, and consuming that policy leaves the original unconsumed.
+The state length and contents are never interpreted as a wire format.
+
+The initial proposed flat/no-header dynamic-array and queue oracle was too
+strong: the collection clauses do not promise an element-only sequence of
+primitive operations or a particular length framing. Separately, IEEE
+16.5.3.1/.2 leaves exported state length/format unspecified and supplies the
+matched typed transfer used by the corrected inputs.
+The provisional batch was deliberately stopped after that verified test-premise
+error. The sixteen affected proposed inputs were corrected before canonical
+indexing, with fresh measurements; completed initial records and inputs are
+archived and excluded from UVM difference counts. The pinned Apache UVM macros
+were read after the mismatch only to diagnose their length prefix; no header
+algorithm or implementation-derived expectation was copied into the tests.
+Eight valid static scalar probes retain their independent observations and
+also have fresh final records. This is an explicit oracle correction, not a
+neutral relabeling of a legitimate known result or reuse of an old fingerprint.
+
+Paired restoration does not independently prove both one-way implementations
+or rule out mutually compensating defects. Static scalar probes retain their
+qualified interoperability reading. Empty/differently-sized destinations,
+automatic allocation, signed/XZ values, invalid N diagnosis, alternate policies,
+all error/lifecycle/concurrency conditions and complete framing remain open.
+No universal no-header or mandatory length-header representation is asserted.
+
+Twelve AI duties are appended without changing the 4041 prior requirement
+objects or 422 assessments. There are 4053 duties, 2529 directly linked tests,
+fifty-four control-only tests and 154 control-linked tests. Inventory is 2056
+partial/422 assessed/29 unassessed. Annex B is 133/7/4 with 255 duties and 221
+primary tests (217 simulation/four elaboration); twelve newly partial clauses
+are not complete. Primary-focus identifiers are 1300 and identifiers with any
+citation are 2088. All 2551 prior ordinary/index records and the 99 compiler,
+38 HDL, 18 command-line and 1082 guest records are retained. Guests have 1501
+unmeasured inputs: 1498 additions and three revised originals (1402 simulation/
+99 elaboration). Human review, scope/denominator approval and original M1–M4
+targets remain open.

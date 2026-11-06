@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の94回目の拡充（全2551件：simulation 2452・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の95回目の拡充（全2583件：simulation 2484・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3482,3 +3482,30 @@ COPYは選択eventをaliasし、COPY|NOCOPYは独立したtarget通知を保持�
 主引用のある番号は1288件、引用がある番号は2076件です。以前の通常2541記録と索引、以前の420分類、compiler 99記録、HDL 38記録、command-line 18記録、guest 1082入力を保持します。
 guestの未測定は1469入力で、追加1466件と改訂済みの元3件（simulation 1370／elaboration 99）です。
 人の照合、範囲／分母承認、元の段階目標の完了は記録しません。
+
+## 薄い領域の95回目の拡充：collection macroの値とopaque状態
+
+M1のruntime 32入力でcollectionのpacking／unpacking macro 12種類を検査し、unsigned要素を2つまたは4つ使います。
+static array 8入力は限定した片方向scalar-API観測を保持し、24入力は互換なmacro対を検査します。unpacking中心の入力では型の対応したopaque状態の転送も行います。
+最終入力はすべてseed 1／73に一致し、各profileが立証できることは[collection macroのFAQ](faq.ja.md#collection-macroの値とopaque状態)で説明しています。
+
+明示Nは正の定数9／97で、109-bit記憶域の選択幅外にもbitを立て、推定幅は13／97です。
+static arrayは非zeroの昇順／降順範囲を使い、dynamic arrayとqueueは空でなく事前にサイズを設定します。
+独立に選んだsource値をsentinel宛先へ復元し、shape、元source／marker fieldの保持、独立object／policy peer、別の7-bit trailerを観測します。
+get_packed_bitsのopaque状態は変更せずfreshで同じ型の互換policyのset_packed_bitsへ渡し、そのconsumerが消費しても元policyは未消費を保ちます。
+状態の長さや内容をwire形式として解釈しません。
+
+最初に提案したdynamic array／queueのflat／headerなしoracleは強すぎる前提でした。collection条項はprimitive操作の要素だけの列や特定の長さframingを約束していません。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、修正入力で使う型の対応した転送を規定します。
+このテスト前提の誤りを確認して仮batchを意図的に停止し、影響した提案16入力は正規索引への登録前に修正して新しく測定しました。
+完了済みの初期記録と入力は保存し、UVMの差分件数から除外します。固定Apache UVM macroは差分後に長さprefixの診断だけに読み、header algorithmや実装由来の期待値をテストへ写しません。
+有効なstatic scalar probe 8件は独立した観測を保持し、最終入力にも新しい記録があります。これは明示したoracle修正であり、有効な既知差分の中立な読み替えや古い指紋の再利用ではありません。
+
+paired復元は両片方向実装を独立に証明せず、互いに補償する欠陥も排除しません。static scalar probeは限定した相互運用の読みを保持します。
+空／異なるサイズの宛先、自動割当、signed／XZ値、不正Nの診断、別policy、全error／lifecycle／並行条件、完全なframingは未完です。
+普遍的なheaderなしや必須の長さheader表現を要求しません。
+
+以前の4041要求objectと422分類を変更せず、AI義務12件を追記します。現在は4053義務、直接対応2529テスト、control専用54テスト、control linkあり154です。
+棚卸しは部分2056／分類422／未評価29です。付録Bは133／7／4、義務255件、主引用221テスト（simulation 217／elaboration 4）で、新しく部分分解した12条項も完了ではありません。
+主引用のある番号は1300件、引用がある番号は2088件です。以前の通常2551記録と索引、compiler 99記録、HDL 38記録、command-line 18記録、guest 1082記録を保持します。
+guestの未測定は1501入力で、追加1498件と改訂済みの元3件（simulation 1402／elaboration 99）です。
+人の照合、範囲／分母承認、元のM1〜M4目標は未完です。

@@ -1608,7 +1608,7 @@ one report, independently of another reporter's settings.
 
 **One-hot sequence mask** — Distinct state bits combined with bitwise OR,
 without requiring particular numeric positions.
-[Q324](faq.md#q324-do-517-matching-state-masks-certify-all-sequence-timing) separates mask representation and live timing.
+[Q324](faq.md#q324-do-529-matching-state-masks-certify-all-sequence-timing) separates mask representation and live timing.
 
 **Stopped state versus post-callback evidence** — Observing that a sequence
 was forcibly stopped versus observing its required post callbacks.
@@ -1734,3 +1734,15 @@ These terms describe the selected fixture conditions, with their limits in [the 
 **Registry lookup string** — The custom name S associated with class T by a low-level registration macro; [Q361](faq.md#q361-do-low-level-registry-macros-supply-all-utility-methods) distinguishes the observed registration from unpromised utility methods.
 
 **Pre-copy event waiter** — A process already waiting on the target's original synchronization queue before an event field is copied; [Q362](faq.md#q362-why-do-event-copy-inputs-remain-known-when-alias-and-flag-rows-match) explains its retained difference.
+
+## Collection macro observation profiles
+
+These profiles keep value restoration separate from representation assumptions, as explained in [the collection FAQ](faq.md#collection-macro-values-and-opaque-state).
+
+**Scalar-API collection probe** — A selected one-way static-array macro compared with an independent scalar API under an explicit interoperability reading; [Q364](faq.md#q364-do-matching-collection-pairs-independently-validate-each-direction) records its limits.
+
+**Compatible macro pair** — Corresponding collection packing/unpacking macros using compatible policy state; [Q364](faq.md#q364-do-matching-collection-pairs-independently-validate-each-direction) explains why restoration alone cannot independently certify both directions.
+
+**Opaque typed state transfer** — Passing a state getter's output unchanged to the identically typed setter of a compatible implementation; [Q366](faq.md#q366-does-opaque-state-transfer-mean-copying-a-fixed-bit-layout) describes the independent-policy observation.
+
+**Pre-sized collection destination** — A nonempty target allocated before unpacking, without asserting empty-target or automatic-allocation behavior; [Q365](faq.md#q365-which-array-shapes-and-widths-are-exercised) lists the selected widths and shapes.

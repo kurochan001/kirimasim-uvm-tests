@@ -1233,7 +1233,7 @@ severityの区別は[Q316](faq.ja.md#q316-すべてのseverityで抑制時のmsg
 限定したNONE境界は[Q323](faq.ja.md#q323-直接infoの一致でverbosityの全解釈を解決しますか)で説明しています。
 
 **one-hot sequence mask** — 特定の数値位置を要求せず、互いに異なるstate bitをbitwise ORで組み合わせたものです。
-mask表現と実行時刻の違いは[Q324](faq.ja.md#q324-state-mask-517通りの一致で全sequence時刻を認定しますか)で確認できます。
+mask表現と実行時刻の違いは[Q324](faq.ja.md#q324-state-mask-529通りの一致で全sequence時刻を認定しますか)で確認できます。
 
 **STOPPEDとpost-callbackの証拠** — sequenceの強制停止を観測することと、必要なpost callbackを観測することです。
 分ける理由は[Q325](faq.ja.md#q325-stoppedと再利用の一致で必要なkill-post-hookも成功ですか)で説明しています。
@@ -1352,3 +1352,15 @@ data経路の成功だけでは最終file形式の検証にならないため、
 **registryの照会文字列** — 低水準登録macroでclass Tへ対応させるcustom名Sであり、観測した登録と約束されない便利methodの違いは[Q361](faq.ja.md#q361-低水準registry-macroはすべての便利methodを供給しますか)で説明しています。
 
 **copy前のevent waiter** — event fieldのcopy前からtargetの元の同期queueで待機するprocessで、その保持する差分は[Q362](faq.ja.md#q362-aliasとflag行が一致してもevent-copyがknownの理由は)で説明しています。
+
+## collection macroの観測profile
+
+これらのprofileは値の復元と表現の仮定を分け、その違いは[collectionのFAQ](faq.ja.md#collection-macroの値とopaque状態)で説明しています。
+
+**scalar-API collection probe** — 明示した相互運用の読みで片方向static-array macroを独立scalar APIと比較する検査で、その限界は[Q364](faq.ja.md#q364-collection対の一致は各方向を独立に検証しますか)に記録しています。
+
+**互換macro対** — 互換なpolicy状態を使う対応するcollection packing／unpacking macroで、復元だけでは両方向を独立に認定できない理由は[Q364](faq.ja.md#q364-collection対の一致は各方向を独立に検証しますか)で説明しています。
+
+**型の対応したopaque状態転送** — state getterの出力を変更せず互換実装の同じ型のsetterへ渡すことで、独立policyの観測は[Q366](faq.ja.md#q366-opaque状態の転送は固定bit配置のcopyですか)で説明しています。
+
+**事前サイズ設定したcollection宛先** — unpack前に割り当てる空でないtargetで、空targetや自動割当は断定せず、選択した幅とshapeは[Q365](faq.ja.md#q365-どの配列shapeと幅を検査しますか)で説明しています。

@@ -152688,6 +152688,618 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-PACK-SARRAYN-INTEROPERABILITY-95",
+      "clause": "B.2.4.3",
+      "statement": {
+        "en": "The selected packing macro preserves its integral collection as data recoverable by the corresponding macro with a compatible packer.",
+        "ja": "選択packing macroはintegral collectionを、互換packerと対応macroで復元できるdataとして保持する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized sarray of two or four unsigned elements. N is a positive constant 9 or 97 with 109-bit storage and an independently set high bit outside the selected width. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みstatic arrayを使う。Nは正の定数9または97で、109-bit記憶域の選択幅外の上位bitも独立に設定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_sarrayn_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_sarrayn 0 values 1 shape 1 independent 1",
+            "UT: collection95 pack_sarrayn 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_sarrayn 0 source_preserved 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_pack_sarrayn_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_sarrayn 1 values 1 shape 1 independent 1",
+            "UT: collection95 pack_sarrayn 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_sarrayn 1 source_preserved 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_pack_sarrayn_paired_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_sarrayn_paired 0 values 1 shape 1 independent 1",
+            "UT: collection95 pack_sarrayn_paired 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_sarrayn_paired 0 source_preserved 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_pack_sarrayn_paired_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_sarrayn_paired 1 values 1 shape 1 independent 1",
+            "UT: collection95 pack_sarrayn_paired 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_sarrayn_paired 1 source_preserved 1 unrelated_field 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-PACK-SARRAY-INTEROPERABILITY-95",
+      "clause": "B.2.4.10",
+      "statement": {
+        "en": "The selected packing macro preserves its integral collection as data recoverable by the corresponding macro with a compatible packer.",
+        "ja": "選択packing macroはintegral collectionを、互換packerと対応macroで復元できるdataとして保持する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized sarray of two or four unsigned elements. Element width is inferred from 13-bit or 97-bit storage. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みstatic arrayを使う。要素幅は13-bitまたは97-bit記憶域から推定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_sarray_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_sarray 0 values 1 shape 1 independent 1",
+            "UT: collection95 pack_sarray 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_sarray 0 source_preserved 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_pack_sarray_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_sarray 1 values 1 shape 1 independent 1",
+            "UT: collection95 pack_sarray 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_sarray 1 source_preserved 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_pack_sarray_paired_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_sarray_paired 0 values 1 shape 1 independent 1",
+            "UT: collection95 pack_sarray_paired 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_sarray_paired 0 source_preserved 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_pack_sarray_paired_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_sarray_paired 1 values 1 shape 1 independent 1",
+            "UT: collection95 pack_sarray_paired 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_sarray_paired 1 source_preserved 1 unrelated_field 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-UNPACK-SARRAYN-INTEROPERABILITY-95",
+      "clause": "B.2.5.3",
+      "statement": {
+        "en": "The selected unpacking macro restores the independently chosen integral values packed by its corresponding macro using a compatible packer.",
+        "ja": "選択unpacking macroは、互換packerで対応macroがpackした独立に選んだintegral値を復元する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized sarray of two or four unsigned elements. N is a positive constant 9 or 97 with 109-bit storage and an independently set high bit outside the selected width. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みstatic arrayを使う。Nは正の定数9または97で、109-bit記憶域の選択幅外の上位bitも独立に設定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_sarrayn_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_sarrayn 0 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_sarrayn 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_sarrayn 0 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_sarrayn_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_sarrayn 1 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_sarrayn 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_sarrayn 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_sarrayn_paired_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_sarrayn_paired 0 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_sarrayn_paired 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_sarrayn_paired 0 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_sarrayn_paired_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_sarrayn_paired 1 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_sarrayn_paired 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_sarrayn_paired 1 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-UNPACK-SARRAY-INTEROPERABILITY-95",
+      "clause": "B.2.5.10",
+      "statement": {
+        "en": "The selected unpacking macro restores the independently chosen integral values packed by its corresponding macro using a compatible packer.",
+        "ja": "選択unpacking macroは、互換packerで対応macroがpackした独立に選んだintegral値を復元する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized sarray of two or four unsigned elements. Element width is inferred from 13-bit or 97-bit storage. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みstatic arrayを使う。要素幅は13-bitまたは97-bit記憶域から推定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_sarray_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_sarray 0 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_sarray 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_sarray 0 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_sarray_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_sarray 1 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_sarray 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_sarray 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_sarray_paired_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_sarray_paired 0 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_sarray_paired 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_sarray_paired 0 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_sarray_paired_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_sarray_paired 1 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_sarray_paired 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_sarray_paired 1 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-PACK-ARRAYN-INTEROPERABILITY-95",
+      "clause": "B.2.4.4",
+      "statement": {
+        "en": "The selected packing macro preserves its integral collection as data recoverable by the corresponding macro with a compatible packer.",
+        "ja": "選択packing macroはintegral collectionを、互換packerと対応macroで復元できるdataとして保持する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized array of two or four unsigned elements. N is a positive constant 9 or 97 with 109-bit storage and an independently set high bit outside the selected width. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みdynamic arrayを使う。Nは正の定数9または97で、109-bit記憶域の選択幅外の上位bitも独立に設定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_arrayn_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_arrayn 0 values 1 shape 1 independent 1",
+            "UT: collection95 pack_arrayn 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_arrayn 0 source_preserved 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_pack_arrayn_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_arrayn 1 values 1 shape 1 independent 1",
+            "UT: collection95 pack_arrayn 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_arrayn 1 source_preserved 1 unrelated_field 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-PACK-ARRAY-INTEROPERABILITY-95",
+      "clause": "B.2.4.11",
+      "statement": {
+        "en": "The selected packing macro preserves its integral collection as data recoverable by the corresponding macro with a compatible packer.",
+        "ja": "選択packing macroはintegral collectionを、互換packerと対応macroで復元できるdataとして保持する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized array of two or four unsigned elements. Element width is inferred from 13-bit or 97-bit storage. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みdynamic arrayを使う。要素幅は13-bitまたは97-bit記憶域から推定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_array_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_array 0 values 1 shape 1 independent 1",
+            "UT: collection95 pack_array 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_array 0 source_preserved 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_pack_array_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_array 1 values 1 shape 1 independent 1",
+            "UT: collection95 pack_array 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_array 1 source_preserved 1 unrelated_field 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-PACK-QUEUEN-INTEROPERABILITY-95",
+      "clause": "B.2.4.5",
+      "statement": {
+        "en": "The selected packing macro preserves its integral collection as data recoverable by the corresponding macro with a compatible packer.",
+        "ja": "選択packing macroはintegral collectionを、互換packerと対応macroで復元できるdataとして保持する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized queue of two or four unsigned elements. N is a positive constant 9 or 97 with 109-bit storage and an independently set high bit outside the selected width. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みqueueを使う。Nは正の定数9または97で、109-bit記憶域の選択幅外の上位bitも独立に設定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_queuen_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_queuen 0 values 1 shape 1 independent 1",
+            "UT: collection95 pack_queuen 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_queuen 0 source_preserved 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_pack_queuen_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_queuen 1 values 1 shape 1 independent 1",
+            "UT: collection95 pack_queuen 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_queuen 1 source_preserved 1 unrelated_field 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-PACK-QUEUE-INTEROPERABILITY-95",
+      "clause": "B.2.4.12",
+      "statement": {
+        "en": "The selected packing macro preserves its integral collection as data recoverable by the corresponding macro with a compatible packer.",
+        "ja": "選択packing macroはintegral collectionを、互換packerと対応macroで復元できるdataとして保持する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized queue of two or four unsigned elements. Element width is inferred from 13-bit or 97-bit storage. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みqueueを使う。要素幅は13-bitまたは97-bit記憶域から推定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_queue_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_queue 0 values 1 shape 1 independent 1",
+            "UT: collection95 pack_queue 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_queue 0 source_preserved 1 unrelated_field 1"
+          ]
+        },
+        {
+          "test": "uB/test_pack_queue_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 pack_queue 1 values 1 shape 1 independent 1",
+            "UT: collection95 pack_queue 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 pack_queue 1 source_preserved 1 unrelated_field 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-UNPACK-ARRAYN-INTEROPERABILITY-95",
+      "clause": "B.2.5.4",
+      "statement": {
+        "en": "The selected unpacking macro restores the independently chosen integral values packed by its corresponding macro using a compatible packer.",
+        "ja": "選択unpacking macroは、互換packerで対応macroがpackした独立に選んだintegral値を復元する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized array of two or four unsigned elements. N is a positive constant 9 or 97 with 109-bit storage and an independently set high bit outside the selected width. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みdynamic arrayを使う。Nは正の定数9または97で、109-bit記憶域の選択幅外の上位bitも独立に設定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_arrayn_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_arrayn 0 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_arrayn 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_arrayn 0 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_arrayn_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_arrayn 1 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_arrayn 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_arrayn 1 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-UNPACK-ARRAY-INTEROPERABILITY-95",
+      "clause": "B.2.5.11",
+      "statement": {
+        "en": "The selected unpacking macro restores the independently chosen integral values packed by its corresponding macro using a compatible packer.",
+        "ja": "選択unpacking macroは、互換packerで対応macroがpackした独立に選んだintegral値を復元する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized array of two or four unsigned elements. Element width is inferred from 13-bit or 97-bit storage. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みdynamic arrayを使う。要素幅は13-bitまたは97-bit記憶域から推定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_array_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_array 0 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_array 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_array 0 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_array_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_array 1 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_array 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_array 1 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-UNPACK-QUEUEN-INTEROPERABILITY-95",
+      "clause": "B.2.5.5",
+      "statement": {
+        "en": "The selected unpacking macro restores the independently chosen integral values packed by its corresponding macro using a compatible packer.",
+        "ja": "選択unpacking macroは、互換packerで対応macroがpackした独立に選んだintegral値を復元する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized queue of two or four unsigned elements. N is a positive constant 9 or 97 with 109-bit storage and an independently set high bit outside the selected width. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みqueueを使う。Nは正の定数9または97で、109-bit記憶域の選択幅外の上位bitも独立に設定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_queuen_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_queuen 0 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_queuen 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_queuen 0 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_queuen_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_queuen 1 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_queuen 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_queuen 1 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COLLECTION-MACRO-UNPACK-QUEUE-INTEROPERABILITY-95",
+      "clause": "B.2.5.12",
+      "statement": {
+        "en": "The selected unpacking macro restores the independently chosen integral values packed by its corresponding macro using a compatible packer.",
+        "ja": "選択unpacking macroは、互換packerで対応macroがpackした独立に選んだintegral値を復元する。"
+      },
+      "conditions": {
+        "en": "Use original do_pack/do_unpack overrides with a nonempty, pre-sized queue of two or four unsigned elements. Element width is inferred from 13-bit or 97-bit storage. Static-array cases use distinct nonzero ascending/descending index ranges. Packing-focused paired inputs decode on the same policy; unpacking-focused paired inputs transfer untouched get_packed_bits state into set_packed_bits of a fresh identically typed compatible policy. Separate static-array inputs also retain qualified one-way scalar-API probes. All inputs carry an independent seven-bit trailer and separate object/policy peers.",
+        "ja": "独自do_pack／do_unpack overrideを使い、2または4 unsigned要素を持つ空でない事前サイズ設定済みqueueを使う。要素幅は13-bitまたは97-bit記憶域から推定する。 static arrayは非zeroの昇順／降順index範囲を使う。packing中心のpaired入力は同一policyでdecodeし、unpacking中心のpaired入力はget_packed_bitsの状態を解釈も変更もせずfreshで同じ型の互換policyのset_packed_bitsへ渡す。別のstatic-array入力は限定した片方向scalar-API probeも保持する。全入力に独立した7-bit trailerと別object／policy peerを用意する。"
+      },
+      "expected": {
+        "en": "Each restored element equals its independently chosen value and the pre-sized shape is retained. The selected trailer remains and is consumed independently; source values, unrelated fields and peer state remain intact. Opaque-state consumers do not consume the original source packer. Static one-way probes additionally compare the corresponding scalar API.",
+        "ja": "各復元要素が独立に選んだ値に一致し、事前サイズ設定したshapeを保持する。選択trailerを残して独立に消費し、source値、無関係なfield、peer状態を保持する。opaque状態のconsumerは元のsource packerを消費しない。staticの片方向probeでは対応するscalar APIとの比較も行う。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. Paired restoration does not independently prove each one-way implementation or exclude mutually compensating encoder/decoder defects; static scalar-API probes retain an explicitly qualified interoperability interpretation. The collection clauses do not promise element-only primitive framing. Separately IEEE16.5.3.1/.2 leaves exported state length/format unspecified and defines matched opaque typed transfer. No flat/no-header or mandatory length-header grammar is prescribed. No external raw order, automatic allocation, empty/differently-sized containers, signed/XZ semantics, alternate policy, invalid/nonconstant/zero/negative N diagnostics, all failure cases or concurrency is certified. Expected anchors are not measured passes. All remaining applicability, original M1-M4 targets, human review and scope/denominator approval remain open.",
+        "ja": "AIによる部分分解のみ。paired復元は各片方向実装を独立に証明せず、encoder／decoderの補償する欠陥も排除せず、static scalar-API probeも明示的に限定した相互運用の解釈を保持する。collection条項は要素だけのprimitive framingを約束しない。別にIEEE16.5.3.1／.2はexport状態の長さ／形式を未規定とし、型の対応したopaque転送を定める。flat／headerなしや必須長さheaderの構文を規定しない。外部raw順、自動割当、空／異なるサイズのcontainer、signed／XZ、別policy、不正／非定数／zero／負Nの診断、全失敗条件、並行性は認定しない。期待anchorは実測passではない。残る適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_queue_0_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_queue 0 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_queue 0 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_queue 0 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_queue_1_95",
+          "role": "direct",
+          "expected_observations": [
+            "UT: collection95 unpack_queue 1 values 1 shape 1 independent 1",
+            "UT: collection95 unpack_queue 1 trailer 1 remaining 1 consumed 1",
+            "UT: collection95 unpack_queue 1 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        }
+      ]
     }
   ]
 }

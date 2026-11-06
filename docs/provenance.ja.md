@@ -229,6 +229,8 @@ unsignedの%u文言、raw backend、短rowへの適用は明示的に限定し�
 
 package／root／registry／eventの期待値は実行前に提供IEEE条項から独立に導き、rootの結合した印字綴りと裸event copyの解釈は限定を保持します。中立なhelper修正とeventのtrigger前observer追加後は影響入力を新しく測定し、元のpredicateを保持します。UVMなしの独自言語診断でも元waiterの起床を再現し、simulator実装sourceを取り込まず、native出力からoracleを定めません。その限界は[解釈のFAQ](faq.ja.md#package公開root-view低水準macro)に記録しています。
 
+collectionの期待値は提供IEEE条項から独立に導きました。最初のflat／headerなしdynamic／queue oracleはcollection条項に必須の要素だけのframingがないことと、別のopaque状態の契約を再確認して撤回し、元記録はテスト前提の診断として保存します。固定Apache UVM macroは差分後に長さprefixの説明だけに読みました。修正入力はprefix algorithmをcopyせず型付きexport状態をopaqueに保ち、独立に選んだ値で新しく測定します。paired復元とstatic片方向観測の限界は[collectionのFAQ](faq.ja.md#collection-macroの値とopaque状態)に明示し、以前の有効な既知差分、商用結果、simulator実装source、人の承認を読み替えません。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。
