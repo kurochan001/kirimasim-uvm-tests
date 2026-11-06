@@ -1194,3 +1194,11 @@ builtin covergroup algorithmを供給せず、userと実際の親blockの呼出�
 
 **MSG評価flag（MSG evaluation flag）** — message式の評価／抑制を示すbooleanです。可視flagは正の回数、抑制INFOは0を要求しますが、正確な正の評価回数を規定しません。
 severityの区別は[Q316](faq.ja.md#q316-すべてのseverityで抑制時のmsg評価を省略しますか)で説明しています。
+
+## Callback macroの前提
+
+**Callback登録pair（callback registration pair）** — macro利用のために宣言するcaller型とcallback型の組です。
+登録の合法性はqueue membershipやdispatchと別で、parameterized別名は[Q318](faq.ja.md#q318-parameterized-callbackでtypedefを使う理由は)で説明しています。
+
+**暗黙のcallback caller（implicit callback caller）** — macroが適用対象のcallbackを呼び出す現在のobjectで、明示object引数と区別します。
+観測は[Q319](faq.ja.md#q319-dispatch-traceとmethod不正入力は何を証明しますか)で説明しています。

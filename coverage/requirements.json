@@ -438,16 +438,16 @@
         "ja": "callback登録のappendは既存の後、prependは既存の前に追加する。"
       },
       "conditions": {
-        "en": "Two callbacks are appended and one is prepended to one object.",
-        "ja": "1つのobjectに2つをappendし、1つをprependする。"
+        "en": "Two callbacks are appended and one is prepended to one object. Additional two-callback macro profiles use original A3/B7 transforms with append or prepend from initial5.",
+        "ja": "1つのobjectに2つをappendし、1つをprependする。 追加の2-callback macro条件では、独自A3／B7変換を初期値5からappendまたはprependで使う。"
       },
       "expected": {
-        "en": "Invocation order is ahead, first, second, with one invocation each.",
-        "ja": "呼出し順はahead、first、secondで、それぞれ1回呼ばれる。"
+        "en": "Invocation order is ahead, first, second, with one invocation each. The added profiles yield AB/33 for append and BA/37 for prepend.",
+        "ja": "呼出し順はahead、first、secondで、それぞれ1回呼ばれる。 追加条件はappendでAB／33、prependでBA／37となる。"
       },
       "limitations": {
-        "en": "Type-wide inheritance, duplicates and removal are separate conditions.",
-        "ja": "型全体への継承、重複、削除は別の条件である。"
+        "en": "Type-wide inheritance, duplicates and removal are separate conditions. The affine formula is original fixture code;only invocation ordering and reference propagation are observed.",
+        "ja": "型全体への継承、重複、削除は別の条件である。 affine式は独自fixture codeで、呼出し順と参照伝播のみを観測する。"
       },
       "review": {
         "status": "ai",
@@ -463,6 +463,20 @@
             "UT: hit first",
             "UT: hit second",
             "UT: counts 1 1 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_macro_method_refs_append_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 method_refs_append value 1 trace 1 calls 1 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_macro_method_refs_prepend_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 method_refs_prepend value 1 trace 1 calls 1 args 1"
           ]
         }
       ]
@@ -10066,8 +10080,8 @@
         "ja": "super-type関係の登録により、derived objectはbase型全体のcallbackを引き継げる。"
       },
       "conditions": {
-        "en": "Declare the relationship with the standard macro and invoke base/derived objects.",
-        "ja": "規格のmacroで関係を宣言し、base／derived objectから呼ぶ。"
+        "en": "Declare the relationship with the standard macro and invoke base/derived objects. A new original object-family case combines inherited base typewide membership with an independent derived-local callback and observes the actual receiver.",
+        "ja": "規格のmacroで関係を宣言し、base／derived objectから呼ぶ。 新たな独自object型のケースでは、継承base-typewide所属と独立したderived-local callbackを組み合わせ、実receiverを観測する。"
       },
       "expected": {
         "en": "The callback runs for both without prescribing inherited queue order.",
@@ -10090,6 +10104,14 @@
             "UT: hit value",
             "UT: after_base 1",
             "UT: after_derived 2"
+          ]
+        },
+        {
+          "test": "uB/test_callback_macro_derived_caller_typewide_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 derived base 1 counts 1 args 1",
+            "UT: cb82 derived child 1 counts 1 args 1"
           ]
         }
       ]
@@ -144213,6 +144235,457 @@
             "UT: macro81 uvm_info_context routed_action fields 1 level 1 origin 1",
             "UT: macro81 uvm_info_context routed_action location 1 format 1 time 1",
             "UT: macro81 uvm_info_context statement else 1 entry 1 quiet 1 time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-UNREGISTERED-PAIR-USE-WARNING",
+      "clause": "B.4.1",
+      "statement": {
+        "en": "Using an unregistered object/callback type pair through add or delete issues a warning.",
+        "ja": "未登録のobject／callback型pairをaddまたはdeleteで使うとwarningを発行する。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "Fresh instance and typewide add/delete windows each observe at least one WARNING without fixing its text,count or queue outcome.",
+        "ja": "新規instance／typewideのadd／delete windowで少なくとも1つのWARNINGを観測し、text／件数／queue結果を固定しない。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_unregistered_add_instance_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 unregistered_add_instance warning 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_macro_unregistered_add_typewide_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 unregistered_add_typewide warning 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_macro_unregistered_delete_instance_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 unregistered_delete_instance warning 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_macro_unregistered_delete_typewide_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 unregistered_delete_typewide warning 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-PARAMETERIZED-TYPEDEF-MACRO-USABILITY",
+      "clause": "B.4.1",
+      "statement": {
+        "en": "Typedef names permit selected parameterized callback types to be used by the registration macro and typed callback interface.",
+        "ja": "typedef名により、選択したparameterized callback型を登録macroと型付きcallback interfaceで利用できる。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "Global aliases of two specializations and a class-local alias compile and preserve selected type/instance dispatch with original arguments.",
+        "ja": "2特殊化のglobal aliasとclass-local aliasがcompileでき、元の引数で選択した型／instanceへのdispatchを保持する。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_parameterized_global_typedefs_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 global_alias first 1 typed 1 args 1",
+            "UT: cb82 global_alias second 1 typed 1 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_macro_parameterized_local_typedef_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 local_alias left 1 scope 1 args 1",
+            "UT: cb82 local_alias right 1 scope 1 args 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-MACRO-IMPLICIT-CALLING-OBJECT",
+      "clause": "B.4.3",
+      "statement": {
+        "en": "The implicit callback macro selects callbacks associated with the actual calling object.",
+        "ja": "暗黙callback macroは実際のcaller objectに対応するcallbackを選ぶ。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "Separate callers sharing a callback handle still deliver their own context and local membership without invoking the other caller local callback.",
+        "ja": "callback handleを共有する別callerが、自身のcontextとlocal所属を渡し、他callerのlocal callbackを呼ばない。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_implicit_caller_shared_handle_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 caller left 1 counts 1 args 1",
+            "UT: cb82 caller right 1 counts 1 args 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-MACRO-METHOD-REFERENCE-ARGUMENTS",
+      "clause": "B.4.3",
+      "statement": {
+        "en": "METHOD receives the supplied object/token and reference arguments as direct calls would.",
+        "ja": "METHODは直接呼出しと同じように指定object／tokenと参照引数を受ける。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "Append and prepend histories retain both reference transformations and exact trace order with the original caller/token at each callback.",
+        "ja": "append／prepend履歴で両参照の変換と正確なtrace順を保持し、各callbackが元のcaller／tokenを受ける。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_method_refs_append_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 method_refs_append value 1 trace 1 calls 1 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_macro_method_refs_prepend_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 method_refs_prepend value 1 trace 1 calls 1 args 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-MACRO-ENABLED-CURRENT-CALLBACKS",
+      "clause": "B.4.3",
+      "statement": {
+        "en": "Implicit dispatch executes the currently enabled applicable callbacks.",
+        "ja": "暗黙dispatchは現在有効で適用されるcallbackを実行する。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "An explicitly disabled entry is skipped and resumes after explicit enabling on a later completed invocation.",
+        "ja": "明示disableしたentryを省略し、明示enable後の後続呼出しで再び実行する。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_enabled_typewide_and_instance_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 enabled left 1 counts 1 dormant 1",
+            "UT: cb82 enabled right 1 counts 1 scope 1",
+            "UT: cb82 enabled resumed 1 counts 1 args 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-MACRO-TYPED-VIRTUAL-DISPATCH",
+      "clause": "B.4.3",
+      "statement": {
+        "en": "Dispatch selects the requested CB family and invokes its actual virtual method override.",
+        "ja": "dispatchは要求CB型群を選び、実際のvirtual method overrideを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "A derived callback receives the selected invocation while an unrelated callback with the same method name is excluded and remains separately callable.",
+        "ja": "派生callbackが選択呼出しを受け、同名methodを持つ無関係callbackは除外され、別に呼び出せる状態を保つ。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_typed_virtual_dispatch_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 typed selected 1 virtual 1 excluded 1 args 1",
+            "UT: cb82 typed alternate 1 counts 1 scope 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-MACRO-APPLICABLE-TYPEWIDE-AND-LOCAL",
+      "clause": "B.4.3",
+      "statement": {
+        "en": "Implicit dispatch includes applicable typewide and calling-instance callbacks.",
+        "ja": "暗黙dispatchは適用されるtypewideとcaller-instanceのcallbackを含む。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "Selected calls visit both memberships and preserve peer isolation without prescribing their cross-queue enumeration order.",
+        "ja": "選択呼出しが両所属を訪問し、queue間の列挙順を規定せずpeer分離を保持する。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_enabled_typewide_and_instance_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 enabled left 1 counts 1 dormant 1",
+            "UT: cb82 enabled right 1 counts 1 scope 1",
+            "UT: cb82 enabled resumed 1 counts 1 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_macro_derived_caller_typewide_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 derived base 1 counts 1 args 1",
+            "UT: cb82 derived child 1 counts 1 args 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-MACRO-CURRENT-COMPLETED-REGISTRATIONS",
+      "clause": "B.4.3",
+      "statement": {
+        "en": "A later implicit invocation uses the registrations current after completed add/delete operations.",
+        "ja": "後続の暗黙呼出しは、完了したadd／delete後の現在の登録を使う。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "Delete removes a selected entry from the next dispatch; reinsertion affects a later complete trace while an outside peer remains untouched.",
+        "ja": "deleteが次のdispatchから指定entryを除き、再追加が後の完全traceへ反映され、外部peerを呼ばない。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_completed_dispatch_reconfiguration_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 reconfigure first 1 trace 1",
+            "UT: cb82 reconfigure deleted 1 counts 1",
+            "UT: cb82 reconfigure restored 1 counts 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-MACRO-EMPTY-CALLER-ISOLATION",
+      "clause": "B.4.3",
+      "statement": {
+        "en": "An empty calling-object context supplies no callbacks to the implicit macro.",
+        "ja": "空のcaller-object contextは暗黙macroへcallbackを供給しない。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "The selected empty caller is entered,reference sentinels are retained and a peer-only callback is not called.",
+        "ja": "選択した空callerへ進入し、参照sentinelを保持してpeer専用callbackを呼ばない。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_empty_caller_isolation_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 empty entered 1 retained 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-MACRO-CALLER-BASED-ON-T",
+      "clause": "B.4.3",
+      "statement": {
+        "en": "The calling object may be derived from the macro T type.",
+        "ja": "caller objectはmacroのT型から派生してよい。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "An inherited dispatch body passes the actual derived receiver and reaches its applicable base typewide and derived-local callbacks.",
+        "ja": "継承dispatch本体が実際の派生receiverを渡し、適用される基底typewide／派生local callbackへ到達する。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_derived_caller_typewide_82",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cb82 derived base 1 counts 1 args 1",
+            "UT: cb82 derived child 1 counts 1 args 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-MACRO-METHOD-SIGNATURE-CONSTRAINT",
+      "clause": "B.4.3",
+      "statement": {
+        "en": "The CB class method signature must accept the METHOD invocation supplied to the macro.",
+        "ja": "CB classのmethod signatureはmacroへ渡すMETHOD呼出しを受けられなければならない。"
+      },
+      "conditions": {
+        "en": "Original legal object/callback derivatives use actual registration and implicit dispatch macros. Cases include global/class-local aliases of parameterized callbacks, shared handles in separate instance queues, explicit mode0/1, related/unrelated callback families, inherited typewide state and completed-call reconfiguration. METHOD receives original object/token and mutable reference arguments. No factory-utility prerequisite is added.",
+        "ja": "独自の合法object／callback派生型で実登録macroと暗黙dispatch macroを使う。parameterized callbackのglobal／class-local alias、別instance queueで共有するhandle、明示mode0／1、関連／無関係callback型、継承typewide状態、呼出し完了後の再設定を含む。METHODは元のobject／tokenと変更可能な参照引数を受ける。factory utilityの前提は追加しない。"
+      },
+      "expected": {
+        "en": "Missing-method and incompatible-argument designs reject with the declared fixture/member diagnostic and execute no runtime seed.",
+        "ja": "method欠落と引数不適合の設計を宣言した検査系／member診断で拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_macro_method_signature_missing_82",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_callback_macro_method_signature_missing_82\\.sv:[0-9]+:[0-9]+:)(?=.*\\bhook82\\b)(?=.*(?:not found|unknown|no such|member)).*error"
+          }
+        },
+        {
+          "test": "uB/test_callback_macro_method_signature_arity_82",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_callback_macro_method_signature_arity_82\\.sv:[0-9]+:[0-9]+:)(?=.*\\bhook82\\b)(?=.*(?:argument|too many|pin)).*error"
+          }
+        },
+        {
+          "test": "uB/test_callback_macro_method_refs_append_82",
+          "role": "control",
+          "expected_observations": [
+            "UT: cb82 method_refs_append value 1 trace 1 calls 1 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_macro_method_refs_prepend_82",
+          "role": "control",
+          "expected_observations": [
+            "UT: cb82 method_refs_prepend value 1 trace 1 calls 1 args 1"
           ]
         }
       ]

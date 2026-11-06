@@ -1561,3 +1561,13 @@ can differ, so routing and filtering are checked against the selected object;
 evaluated or suppressed. Visible flags require a positive count; filtered INFO
 requires zero. This does not prescribe an exact positive evaluation count;
 [Q316](faq.md#q316-does-suppression-skip-msg-evaluation-for-every-severity) distinguishes severities.
+
+## Callback macro premises
+
+**Callback registration pair** — The caller type and callback type declared for
+macro use; registration legality is distinct from queue membership or dispatch.
+[Q318](faq.md#q318-why-use-typedefs-for-parameterized-callbacks) explains parameterized aliases.
+
+**Implicit callback caller** — The current object whose applicable callbacks the
+macro dispatches, distinguished from an explicit object argument.
+[Q319](faq.md#q319-what-do-the-dispatch-traces-and-method-negatives-prove) describes the observations.

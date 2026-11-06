@@ -9373,6 +9373,70 @@
     "uB/test_report_macro_fatal_context_routed_action_81": {
       "primary_clause": "B.1.1.8",
       "inputs_sha256": "0a154c8ec45e47f7a07d4f23b4e085c703c1c4c3af2432fbc7eb831ae7b5c836"
+    },
+    "uB/test_callback_macro_unregistered_add_instance_82": {
+      "primary_clause": "B.4.1",
+      "inputs_sha256": "2343280010f03ada9a532a4ea634132819cd4c0986993f4b300156c78a8ccca8"
+    },
+    "uB/test_callback_macro_unregistered_add_typewide_82": {
+      "primary_clause": "B.4.1",
+      "inputs_sha256": "a6d56309ab9655c82947cd06d4230588fbcfe799b4cd234ca1f38634f7d820d2"
+    },
+    "uB/test_callback_macro_unregistered_delete_instance_82": {
+      "primary_clause": "B.4.1",
+      "inputs_sha256": "9d34f15ac41e8fe0598248b5ffcac4b66298d39b97aa72428b5b0cbcc7350e0d"
+    },
+    "uB/test_callback_macro_unregistered_delete_typewide_82": {
+      "primary_clause": "B.4.1",
+      "inputs_sha256": "c5564ea03dac2cc90fc6a0548c8f3e0bcefde31456be2b6139d6a94a9d7a00c1"
+    },
+    "uB/test_callback_macro_parameterized_global_typedefs_82": {
+      "primary_clause": "B.4.1",
+      "inputs_sha256": "ae9de3f670710cdfbc2f6fbe89f5821a6779f9813ab91064b6e10ed32cc1b8d8"
+    },
+    "uB/test_callback_macro_parameterized_local_typedef_82": {
+      "primary_clause": "B.4.1",
+      "inputs_sha256": "e2d1254982fca75482e50b3921135cd30aca2c24b22076cef60e9701ca6dfc06"
+    },
+    "uB/test_callback_macro_implicit_caller_shared_handle_82": {
+      "primary_clause": "B.4.3",
+      "inputs_sha256": "e64c9fe7e38d1ab837f5c23e7758a0117021431d691f238cfde09e7e9cd8a2cc"
+    },
+    "uB/test_callback_macro_method_refs_append_82": {
+      "primary_clause": "B.4.3",
+      "inputs_sha256": "d59e3b118581caa9f25f0c905aa0917e7f247c79860be91ff0d809786a836b4d"
+    },
+    "uB/test_callback_macro_method_refs_prepend_82": {
+      "primary_clause": "B.4.3",
+      "inputs_sha256": "fc7c086739370acd8b982bee4ac0c1df5274d4de27087b23f06f32ed02fb4619"
+    },
+    "uB/test_callback_macro_enabled_typewide_and_instance_82": {
+      "primary_clause": "B.4.3",
+      "inputs_sha256": "1927034f44ac0fdc365d46d82a4ad9eb2bc5f341626da46b46c4de29b4d1a4c6"
+    },
+    "uB/test_callback_macro_typed_virtual_dispatch_82": {
+      "primary_clause": "B.4.3",
+      "inputs_sha256": "1c8231e15b47d6d94bef4a0aca71c1737404930da8e2d639685935a258626379"
+    },
+    "uB/test_callback_macro_derived_caller_typewide_82": {
+      "primary_clause": "B.4.3",
+      "inputs_sha256": "5a02e65e50490d6b92c56742da44991fc12a20416f2f94fb832c65b840771a41"
+    },
+    "uB/test_callback_macro_completed_dispatch_reconfiguration_82": {
+      "primary_clause": "B.4.3",
+      "inputs_sha256": "a7beada08cde211b2e15c87cd743cb07a6e9501e4c63985bb75e6a2f96b0ba50"
+    },
+    "uB/test_callback_macro_empty_caller_isolation_82": {
+      "primary_clause": "B.4.3",
+      "inputs_sha256": "3b4824894f777a16a95bf924a030a8956656df2e5add5ff197baf3c6e89d6984"
+    },
+    "uB/test_callback_macro_method_signature_missing_82": {
+      "primary_clause": "B.4.3",
+      "inputs_sha256": "dab0c93f334c6ae61456c909a2bac23ee2fbb776502ba85a5457f53aca3170bd"
+    },
+    "uB/test_callback_macro_method_signature_arity_82": {
+      "primary_clause": "B.4.3",
+      "inputs_sha256": "47eb2f10b6efd98b40b365ce8191a99bc14601716324b710c41952e78ff301a3"
     }
   }
 }

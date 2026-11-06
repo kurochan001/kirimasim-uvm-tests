@@ -174,6 +174,10 @@ report macroの期待値は、提供IEEE B.1と8基本／context条項、report 
 初回の未規定な可視MSG 1回制約は正の回数へ修正し、期待値file／helperを変えず全入力を測り直します。
 商用結果やsimulator実装sourceは使わず、[macroのFAQ](faq.ja.md#report-macroとinfoの境界)で旧入力の除外と解釈を説明しています。
 
+callback macroの期待値は提供IEEE B.4.1／.3、callback登録／iterator／型／METHOD契約から測定前に導きます。
+独自affine hookは順序と参照引数を示すだけでUVM algorithmにはせず、private bitやfactory utilityを前提にしません。
+実装sourceや商用結果は新たに利用せず、観測前に終了する差分と未解決B.4概要は[callbackのFAQ](faq.ja.md#callback登録とdispatch-macro)で説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

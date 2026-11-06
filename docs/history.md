@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighty-one cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2343 tests: 2249 simulation and 94 elaboration). The earlier 349-test checkpoint is
+three M4 increments and eighty-two cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2359 tests: 2263 simulation and 94 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4837,4 +4837,44 @@ Totals are 2343 (2249 simulation/94 elaboration): M1 1000 (921/79), M2 547
 (542/5), M3 796 (786/10). Ordinary evidence is 1978 pass (1889 runtime/89 compiler)
 and 365 known (246 runtime/114 build/5 illegal acceptance). Goal iteration 53
 reduces unassessed from 124 to 114, a decrease of 1349 from the activation count
+1463. Full completion remains unproven and the goal stays active.
+
+## Eighty-second thin-area expansion: callback registration and dispatch macros
+
+Sixteen new M2 fixtures exercise callback registration and dispatch macros:
+fourteen runtime cases and two illegal METHOD signatures. Thirteen runtime cases
+match seeds 1/73, and both compiler cases reject with their required hook82
+diagnostics without runtime. The fresh unregistered-instance empty-delete input
+terminates with a null-reference diagnostic and exit 1 at seed 1 before its
+post-call UT observation; no seed 73 result exists. This does not establish
+warning absence or a simulator/library root cause.
+
+The other three unregistered-call windows observe WARNING presence without fixed
+text, ID or count. Parameterized callback typedefs, implicit caller identity,
+reference-argument order, explicit enable state, typed virtual dispatch, derived
+typewide membership, completed-call reconfiguration and empty-caller isolation
+gain observations. The affine values 33/37 and AB/BA traces belong to original
+fixture code. No private registration bit, factory-utility prerequisite,
+active-iteration mutation or unspecified cross-queue ordering is assumed.
+
+Eleven new bilingual AI duties partially decompose B.4.1 and B.4.3. Two earlier
+partial duties gain conditions and direct links; original statements and links
+remain, while the insertion-profile expectation and limitations are extended.
+All 409 assessments and proposed scope are unchanged. B.4's overview stays
+unassessed because its callback-base wording differs from 10.7.2.2.2.
+Global state is 1986 partial/409 assessed/112 unassessed. Annex B is 113/5/26,
+with 231 duties and 173 primary fixtures (170 simulation/3 elaboration).
+All 3887 duties link directly to 2327 tests; 32 others are control-only and
+121 have control links. All partial obligations and original M1–M4 targets remain open.
+
+All 2343 earlier ordinary records, 34 HDL records, 18 command-line records,
+94 earlier compiler records and 1082 compatible guest records retain their exact
+content. No new guest execution/filter or backend/runner change is claimed.
+The 1277 unmeasured guest inputs are 1274 additions and three revised originals
+(1181 simulation/96 elaboration). Human review and scope/denominator approval remain open.
+
+Totals are 2359 (2263 simulation/96 elaboration): M1 1000 (921/79), M2 563
+(556/7), M3 796 (786/10). Ordinary evidence is 1993 pass (1902 runtime/91 compiler)
+and 366 known (247 runtime/114 build/5 illegal acceptance). Goal iteration 54
+reduces unassessed from 114 to 112, a decrease of 1351 from the activation count
 1463. Full completion remains unproven and the goal stays active.

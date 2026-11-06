@@ -254,6 +254,12 @@ to positivity; expected files/helper remain unchanged and all inputs are freshly
 measured. No commercial result or simulator implementation source is used.
 [The macro FAQ](faq.md#reporting-macros-and-info-boundaries) records excluded old inputs and interpretation limits.
 
+Callback-macro expectations are derived before measurement from supplied IEEE
+B.4.1/.3 and callback registration, iterator, type and METHOD contracts. Original
+affine hooks expose order/reference arguments rather than defining UVM algorithms;
+no private bit or factory utility is assumed. No new implementation source or
+commercial result is used; [the callback FAQ](faq.md#callback-registration-and-dispatch-macros) records the early termination and unresolved B.4 overview.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.
