@@ -91812,16 +91812,16 @@
         "ja": "baseの記録無効化APIは独立peerを無効にせず選択sequencer状態を変更する。"
       },
       "conditions": {
-        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request. Additionally disable twice through a base handle before first connected pull/push traffic, with selected driver marks omitted or explicitly supplied and an independent peer completing its own request.",
-        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。 さらに接続済みpull／push転送の最初の要求前にbase handleで2回disableし、選択driverのmarkを省略／明示し、独立peerも自身の要求を完了する。"
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request. Additionally disable twice through a base handle before first connected pull/push traffic, with selected driver marks omitted or explicitly supplied and an independent peer completing its own request. Also disable the selected base before real pull/push traffic while recording storage is explicitly enabled and an independent peer remains in default automatic mode.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。 さらに接続済みpull／push転送の最初の要求前にbase handleで2回disableし、選択driverのmarkを省略／明示し、独立peerも自身の要求を完了する。 さらに記録先を明示的に有効にし、独立peerは既定の自動modeを保ったまま、実際のpull／push転送前に選択baseをdisableする。"
       },
       "expected": {
-        "en": "The base recording-disable API changes the selected sequencer state without disabling an independent peer. Added no-mark inputs retain captured transaction begin/end times and deliver no named begin/end notification. Added manual inputs still accept exactly one explicit component begin/end mark at the captured driver times. Both selected and peer traffic retain the original request and block completion until their delayed driver work returns; the added profiles do not assert peer automatic recording counts.",
-        "ja": "baseの記録無効化APIは独立peerを無効にせず選択sequencer状態を変更する。 追加の無mark入力は取得したtransaction begin／end時刻を保持し、名前付きbegin／end通知を行わない。追加の手動入力は、取得したdriver時刻で明示component begin／end markをそれぞれ1回受け付ける。選択対象とpeerの両転送は元の要求を保持し、遅延するdriver処理の戻りまで完了を待つ。追加profileはpeerの自動記録件数を要求しない。"
+        "en": "The base recording-disable API changes the selected sequencer state without disabling an independent peer. Added no-mark inputs retain captured transaction begin/end times and deliver no named begin/end notification. Added manual inputs still accept exactly one explicit component begin/end mark at the captured driver times. Both selected and peer traffic retain the original request and block completion until their delayed driver work returns; the added profiles do not assert peer automatic recording counts. The added enabled-backend inputs deliver both original requests but invoke no selected request custom-record hook or named property-field hook; the peer still records its own distinct stable property through the original backend.",
+        "ja": "baseの記録無効化APIは独立peerを無効にせず選択sequencer状態を変更する。 追加の無mark入力は取得したtransaction begin／end時刻を保持し、名前付きbegin／end通知を行わない。追加の手動入力は、取得したdriver時刻で明示component begin／end markをそれぞれ1回受け付ける。選択対象とpeerの両転送は元の要求を保持し、遅延するdriver処理の戻りまで完了を待つ。追加profileはpeerの自動記録件数を要求しない。 追加のbackend有効入力は元の両要求を配送するが、選択要求の独自record hookと名前付きproperty field hookは呼ばず、peerは独自backendを通じて自身の異なる固定propertyを記録する。"
       },
       "limitations": {
-        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing. Additional recording108 profiles use one request on each of two independently connected pull or push sequencers. Disable is called twice through the actual base API before either worker starts and before the gated pull driver first requests. Selected no-mark events/times and explicit driver-owned marks are normative observations. Peer event counts are DIAG108 only, with no oracle/link; peer traffic and original request identity are checked. New profiles do not call a query alias or settle the separately known printed15.3.2.23 spelling. No default-push automatic event count/timestamp mandate, initial event-pool membership, database/handle encoding, simultaneous sibling order, mid-item disable, re-enabling operation, arbitrary pipeline/multi-request push, complete partial clause or original milestone completion is certified. Human/scope/denominator approval remains unrecorded.",
-        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。 追加のrecording108 profileは、独立に接続した2つのpullまたはpush sequencerで各1要求を使う。実際のbase APIで両workerの開始前、gate付きpull driverの最初の要求前に2回disableする。選択対象で明示markしない場合のevent／時刻と、driverが明示するmarkを規範的に観測する。peerのevent件数はDIAG108だけでoracle／linkを持たず、peer転送と元の要求の同一性は検査する。新しいprofileはqueryの別名を呼ばず、別に既知差分がある印刷15.3.2.23の綴りを解決しない。push既定時の自動event件数／時刻の義務、event poolの初期member、database／handleの符号化、同時siblingの順序、item処理中のdisable、再有効化操作、任意のpipeline／複数要求push、部分条項全体や元の段階目標の完了は認定しない。人／範囲／分母の承認は未記録である。"
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing. Additional recording108 profiles use one request on each of two independently connected pull or push sequencers. Disable is called twice through the actual base API before either worker starts and before the gated pull driver first requests. Selected no-mark events/times and explicit driver-owned marks are normative observations. Peer event counts are DIAG108 only, with no oracle/link; peer traffic and original request identity are checked. New profiles do not call a query alias or settle the separately known printed15.3.2.23 spelling. No default-push automatic event count/timestamp mandate, initial event-pool membership, database/handle encoding, simultaneous sibling order, mid-item disable, re-enabling operation, arbitrary pipeline/multi-request push, complete partial clause or original milestone completion is certified. Human/scope/denominator approval remains unrecorded. Selected one-request pull/push traffic with component recording, explicit transaction streams and an original global/component backend enabled before requests. Both packets keep stable distinct32-bit properties and use the inherited recorder object-record path with its default deep/user-hook behavior. No driver or coordinator manually records or begins/ends a transaction; only actual library calls drive the custom property hooks. Presence, declared valid bits, size and radix are normative; DIAG109 exact hook/stream/open/close/free counts are investigative only. A composite anchor claims only the enabled instance property named by this duty. No exact callback count, event timing, stream name, database format, handle encoding, snapshot under mutation, mid-item toggle, arbitrary pipeline/multi-request push or complete clause/milestone claim. The explicit enabled setup is a tested applicability condition, not a universal UVM prerequisite or a resolution of default disabled-storage conditions. Human/scope/denominator approval remains unrecorded.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。 追加のrecording108 profileは、独立に接続した2つのpullまたはpush sequencerで各1要求を使う。実際のbase APIで両workerの開始前、gate付きpull driverの最初の要求前に2回disableする。選択対象で明示markしない場合のevent／時刻と、driverが明示するmarkを規範的に観測する。peerのevent件数はDIAG108だけでoracle／linkを持たず、peer転送と元の要求の同一性は検査する。新しいprofileはqueryの別名を呼ばず、別に既知差分がある印刷15.3.2.23の綴りを解決しない。push既定時の自動event件数／時刻の義務、event poolの初期member、database／handleの符号化、同時siblingの順序、item処理中のdisable、再有効化操作、任意のpipeline／複数要求push、部分条項全体や元の段階目標の完了は認定しない。人／範囲／分母の承認は未記録である。 要求前にcomponentの記録、明示transaction stream、独自のglobal／component backendを有効にした、各1要求のpull／push転送だけを扱う。両packetは異なる固定32-bit propertyを持ち、recorderの継承したobject記録経路で既定のdeep／user hook動作を使う。driverやcoordinatorはtransactionを手動record／begin／endせず、実際のlibrary呼び出しだけが独自property hookを動かす。存在、宣言した有効bit、size、radixを規範的に確認し、DIAG109の正確なhook／stream／open／close／free件数は調査用だけとする。複合anchorは、この義務で名付けた有効instanceのpropertyだけを主張する。正確なcallback件数、event時刻、stream名、database形式、handle符号化、変更中のsnapshot、item処理中の切替、任意のpipeline／複数要求push、条項全体や段階目標の完了を認定しない。明示的な有効化は検査する適用条件で、全UVMの必須前提や、記憶先の既定無効条件の解決とはしない。人／範囲／分母の承認は未記録である。"
       },
       "review": {
         "status": "ai",
@@ -91878,6 +91878,22 @@
             "UT: selected_begin calls 1 end_pending 1 time 1 identity 1",
             "UT: completion selected 1 peer 1 original_items 1",
             "UT: selected_end calls 1 time 1 identity 1"
+          ]
+        },
+        {
+          "test": "u15/test_automatic_recording_properties_pull_disabled_109",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic selected_hooks 0 selected_fields 0 peer_hooks 1 peer_fields 1",
+            "UT: completion selected 1 peer 1 original_items 1"
+          ]
+        },
+        {
+          "test": "u15/test_automatic_recording_properties_push_disabled_109",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic selected_hooks 0 selected_fields 0 peer_hooks 1 peer_fields 1",
+            "UT: completion selected 1 peer 1 original_items 1"
           ]
         }
       ]
@@ -158926,6 +158942,69 @@
             "UT: wide_next address 1 166",
             "UT: single_last transfer 2 count 1",
             "UT: single_last address 0 166"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUTOMATIC-REQUEST-PROPERTY-RECORDING-109",
+      "clause": "15.3.2.22",
+      "statement": {
+        "en": "Default automatic item recording records the actual enabled request through its custom record hook and recorder property API during pull/push execution.",
+        "ja": "既定の自動item記録は、pull／push実行で、記録を有効にした実際の要求を独自record hookとrecorderのproperty APIを通じて記録する。"
+      },
+      "conditions": {
+        "en": "Use connected pull get_next_item/item_done or push req_port.put with a positive-delay gated original driver and one real request per sequencer. Enable component recording and original explicit transaction streams, binding the same original backend globally and on both sequencers. The peer always stays in default automatic mode; the selected instance is additionally checked without disable in the positive profiles. Keep selected/peer32-bit payloads41/97 stable throughout execution; no participant manually calls record/begin/end.",
+        "ja": "正の遅延とgateを持つ独自driverを使い、接続したpullのget_next_item／item_doneまたはpushのreq_port.putで、sequencerごとに実際の要求を1件処理する。componentの記録と独自の明示transaction streamを有効にし、同じ独自backendをglobalと両sequencerへ設定する。peerは常に既定の自動modeで、正のprofileでは選択対象もdisableなしで検査する。選択対象／peerの32-bit payload 41／97は実行中に固定し、参加者はrecord／begin／endを手動で呼ばない。"
+      },
+      "expected": {
+        "en": "Each non-disabled request has at least one custom record-hook invocation and its named stable32-bit property reaches the original recorder field hook with its declared value,size32 and UVM_DEC. The independent peer provides positive recording evidence even when the selected instance is disabled. Neither exact repetition counts nor an early/late snapshot rule is inferred from automatic recording.",
+        "ja": "disableしていない各要求で独自record hookを少なくとも1回呼び、名前付きの固定32-bit propertyが、宣言した値、size 32、UVM_DECで独自recorderのfield hookへ届く。選択対象が無効でも、独立peerで正の記録証拠を得る。自動記録から正確な反復件数や、早い／遅いsnapshot規則は導かない。"
+      },
+      "limitations": {
+        "en": "Selected one-request pull/push traffic with component recording, explicit transaction streams and an original global/component backend enabled before requests. Both packets keep stable distinct32-bit properties and use the inherited recorder object-record path with its default deep/user-hook behavior. No driver or coordinator manually records or begins/ends a transaction; only actual library calls drive the custom property hooks. Presence, declared valid bits, size and radix are normative; DIAG109 exact hook/stream/open/close/free counts are investigative only. A composite anchor claims only the enabled instance property named by this duty. No exact callback count, event timing, stream name, database format, handle encoding, snapshot under mutation, mid-item toggle, arbitrary pipeline/multi-request push or complete clause/milestone claim. The explicit enabled setup is a tested applicability condition, not a universal UVM prerequisite or a resolution of default disabled-storage conditions. Human/scope/denominator approval remains unrecorded.",
+        "ja": "要求前にcomponentの記録、明示transaction stream、独自のglobal／component backendを有効にした、各1要求のpull／push転送だけを扱う。両packetは異なる固定32-bit propertyを持ち、recorderの継承したobject記録経路で既定のdeep／user hook動作を使う。driverやcoordinatorはtransactionを手動record／begin／endせず、実際のlibrary呼び出しだけが独自property hookを動かす。存在、宣言した有効bit、size、radixを規範的に確認し、DIAG109の正確なhook／stream／open／close／free件数は調査用だけとする。複合anchorは、この義務で名付けた有効instanceのpropertyだけを主張する。正確なcallback件数、event時刻、stream名、database形式、handle符号化、変更中のsnapshot、item処理中の切替、任意のpipeline／複数要求push、条項全体や段階目標の完了を認定しない。明示的な有効化は検査する適用条件で、全UVMの必須前提や、記憶先の既定無効条件の解決とはしない。人／範囲／分母の承認は未記録である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_automatic_recording_properties_pull_default_109",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic selected_hooks 1 selected_fields 1 peer_hooks 1 peer_fields 1",
+            "UT: properties selected 1 peer 1",
+            "UT: completion selected 1 peer 1 original_items 1"
+          ]
+        },
+        {
+          "test": "u15/test_automatic_recording_properties_pull_disabled_109",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic selected_hooks 0 selected_fields 0 peer_hooks 1 peer_fields 1",
+            "UT: properties selected 1 peer 1",
+            "UT: completion selected 1 peer 1 original_items 1"
+          ]
+        },
+        {
+          "test": "u15/test_automatic_recording_properties_push_default_109",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic selected_hooks 1 selected_fields 1 peer_hooks 1 peer_fields 1",
+            "UT: properties selected 1 peer 1",
+            "UT: completion selected 1 peer 1 original_items 1"
+          ]
+        },
+        {
+          "test": "u15/test_automatic_recording_properties_push_disabled_109",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic selected_hooks 0 selected_fields 0 peer_hooks 1 peer_fields 1",
+            "UT: properties selected 1 peer 1",
+            "UT: completion selected 1 peer 1 original_items 1"
           ]
         }
       ]

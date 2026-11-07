@@ -24,6 +24,7 @@ API名やテストのファイル名が分かる場合は、その表記でブ�
 - TLM 2のphaseと時間の区別：[protocolの履歴](#q96-新しいtlm-2テストはprotocol検査器やシミュレータのschedulerですか)と[delayの注記](#q25-tlmのdelay-annotationを変えるとシミュレーション時刻も進みますか)。
 - 入れ子transportの束縛の理解：[input handle](#q402-delayのreferenceはendpointがcallerのhandleを置換できる意味ですか)と[liveなphase参照](#q403-transport呼出しの復帰前にcallerのphaseを読む理由は)。
 - 自動記録とdriver markの区別：[抑制の観測](#q413-recording無効化profileはflag-queryに何を追加しますか)と[peerの診断](#q414-peerのevent件数を調査専用にする理由は)。
+- 記録したproperty dataの追跡：[実際の記録経路](#q416-property-profileはtransaction-markに何を追加しますか)と[件数の限界](#q417-正確な件数や時刻でなく記録の存在を検査する理由は)。
 - heartbeat監視の理解：[活動区間の質問](#heartbeatpayload-dispatchabstract-fifo)と[heartbeatの用語](glossary.ja.md#heartbeatvirtual-accessorfifoモデル)。
 - macro flagの理解：[field-macroの型と操作の質問](#field-macroの型引数と対応する操作flag)と[controlの用語](glossary.ja.md#field-macroとcallbackのcontrol)。
 - レジスタのテストの理解：[モデルの基本](#レジスタモデルの基本)と[レジスタの用語](glossary.ja.md#レジスタモデル)。
@@ -167,7 +168,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2649件、HDL DPIの明示選択が38件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2653件、HDL DPIの明示選択が38件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -1032,8 +1033,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる4096要求案は部分的な分解で、4096要求を2649テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
-全2705テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる4097要求案は部分的な分解で、4097要求を2653テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
+全2709テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -2423,7 +2424,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1081件へ減った理由は？
 
 command enum引用、Boolean rerandomization観測、virtual-field configure引用に加え、reraiseの主引用を直した元入力1件で指紋が変わり、古いguest行を除外しました。4入力はそれぞれの変更時点で再測定し、reraiseの改訂は前回の拡充で両seedを測定しました。歴史的な1085記録の出典fileは保持します。
-現在は互換1081入力を再利用し、未測定1624入力は追加1620件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
+現在は互換1081入力を再利用し、未測定1628入力は追加1624件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
 
@@ -2475,9 +2476,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2705テストを2 seedで実行しましたか？
+### Q201. 全2709テストを2 seedで実行しましたか？
 
-いいえ。simulation 2606件とelaboration 99件があります。通常記録はruntime両seed一致2155件、期待compiler拒否94件、既知simulation差分451件、不正compile受理の既知差分5件です。
+いいえ。simulation 2610件とelaboration 99件があります。通常記録はruntime両seed一致2159件、期待compiler拒否94件、既知simulation差分451件、不正compile受理の既知差分5件です。
 不正design 99件は、compileを受理された場合もruntime seedを実行しません。
 
 `configuration`の`seeds`は要求した設定であり、全ケースが両方の実行に達した証拠ではないため、個別の結果と併せた読み方は[JSONのガイド](reading-guide.ja.md#結果jsonを開く)で確認できます。
@@ -2862,7 +2863,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価0番号です。
-スイートは直接対応2649テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2653テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2946,7 +2947,7 @@ shardはworkflowが選んだテストを分割した1区画で、Checkの対象�
 
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
-いいえ。現在のタグ付き2249検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
+いいえ。現在のタグ付き2253検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
 command-line 17検査はshard 0で通常検査の前に1回だけ実行します。runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
 分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分456件は通常の既定CI選択に含めません。
 
@@ -3067,7 +3068,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 その以前の引用修正では、本体とoracleが同じでも指紋が変わり、互換1083記録を1082へ絞りました。その時点ではGhostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
 
-現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1624入力は追加1620件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
+現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1628入力は追加1624件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3251,7 +3252,7 @@ zero-timeの委譲やprimitive release/readと、この実HDL 8入力の違い�
 
 既に部分分解した条項へ義務や条件を足しても、未評価queueは変わらない場合があります。
 初回の分解や根拠のある分類でそのqueueが変わり、テスト追加だけでは減らない場合があります。
-現在の4096義務は2649テストへ直接対応し、部分2062・未評価0番号が残ります。
+現在の4097義務は2653テストへ直接対応し、部分2062・未評価0番号が残ります。
 別々の進捗指標は[棚卸しのガイド](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
 
 ## Register HDL pathと観測の前提
@@ -3874,7 +3875,7 @@ queueの件数は記録したレビュー作業を表し、完全性や実行成
 
 いいえ。全2507識別子が部分的な要求分解または個別評価を持ち、部分2062・分類445です。
 B.4のregister／execute動作に部分義務を置き、継承の記述は未解決で保持します。
-全4096義務に直接テスト、全2705テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
+全4097義務に直接テスト、全2709テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
 元のM1〜M4目標、人の照合、範囲／分母承認は未完であり、完了条件は[残作業の案内](requirements.ja.md#m4の残作業と承認)にあります。
 coverage割合やgoal完了は主張しません。
 
@@ -4048,7 +4049,7 @@ descriptionと主引用を保留dropの10.5.1.3.4へ直し、本体と期待2行
 drop_objectionの主引用は0件から13件へ増え、getterは2件から1件になりますが、独立した検査や要求全体を証明しません。
 
 ヘッダー編集は[更新規則](requirements.ja.md#テストや対応付けの更新)で入力指紋を変えます。改訂した元入力の古いguest行を互換1082記録から除外し、1081件を保持します。
-未測定1624入力は追加1620件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
+未測定1628入力は追加1624件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
 guestの再実行、改善、新しいpassはなく、元の証拠を保管し、通常の既知440入力も全て保持します。goalは未完です。
 
 ## 物理addressの直接変換
@@ -4083,10 +4084,12 @@ mapの直接照会は記憶域へaccessせずaddressを算出するもので、�
 
 ### Q412. known入力16件は新しいbug 16件やmap coverageの完了を意味しますか？
 
+この回答は107回目の拡充の時点を記録し、現在の件数は[その後のproperty記録の監査](#q418-自動記録義務の追加でbase条項は完了しますか)で確認できます。
+
 どちらも導けません。1caseに複数の不一致があり、複数caseが同じ原因を持つ場合があります。
 直接の幅、entry index、階層、出力列の観測はそれぞれの限界を保持し、一致した行で別の必須不一致を持つcaseをpassにしません。新しい入力には固定版tagを付けません。
 
-107回目の拡充ではentry indexの義務1件と安定した義務2件の拡張で明示対応を改善し、主引用censusは0件1173番号・目標未満771番号・2件以上538番号でした。現在のcensusは[その後の記録の監査](#q415-4要求を追加せず既存5義務を拡張する理由は)で確認できます。
+107回目の拡充ではentry indexの義務1件と安定した義務2件の拡張で明示対応を改善し、主引用censusは0件1173番号・目標未満771番号・2件以上538番号でした。次の時点のcensusは[その後の記録の監査](#q415-4要求を追加せず既存5義務を拡張する理由は)で確認できます。
 台帳はAI案4096件で3つのqueueも0のままですが、2062番号は部分分解です。
 元の段階目標、限定した解釈、人の照合、範囲／分母承認は未完で、[完了の説明](#q390-未評価の識別子0件なら残作業も0件ですか)を適用します。
 
@@ -4111,7 +4114,11 @@ database形式や記録handleのoracleを置かず、選択した抑制と手動
 元のpeer状態のquery証拠は別に保持します。新しいcaseは、別に既知差分がある印刷base query APIを別名に置き換えず、push既定時の記録通知、event poolの初期member、任意の複数要求push／pipeline、item処理中のdisable、再有効化やsibling順を認定しません。
 これらの条件は[要求の範囲](requirements.ja.md#計数単位と対象範囲の案)に明示して残します。
 
+後のproperty検査は、記録先を明示した条件で実際の独自dataを観測し、別のoracleは[Q416](#q416-property-profileはtransaction-markに何を追加しますか)で説明しています。
+
 ### Q415. 4要求を追加せず既存5義務を拡張する理由は？
+
+この回答は108回目の拡充の時点を記録し、現在の件数は[その後のproperty記録の監査](#q418-自動記録義務の追加でbase条項は完了しますか)で確認できます。
 
 新しいcaseは、既存のbase disable、時刻0／既定のtransaction begin／end、名前付きeventの義務を、追加の実転送条件で検査します。
 4profileごとに重複した義務を作らず、安定したIDと元の文章／linkを保持します。AI案は4096件のまま、直接対応は2649テストとなり、他の旧要求4091件と分類445件は同一です。
@@ -4119,3 +4126,39 @@ database形式や記録handleのoracleを置かず、選択した抑制と手動
 新しい主引用でcensusは0件1172番号・目標未満771番号・2件以上539番号になりますが、4096義務と2062部分番号は別の単位です。
 最終tag付き4入力は両seedで一致し、以前の既知456入力と元の通常2701記録は全て保持します。
 guest再実行、人の照合、範囲／分母承認や段階完了は導かず、[完了の説明](#q390-未評価の識別子0件なら残作業も0件ですか)を引き続き適用します。
+
+## 要求propertyの自動記録
+
+記録markはtransactionのlifecycleを追い、独自propertyはrecorder APIを通じて記憶先へ届くもので、ここで使う両方のobserverは[記録の新しい用語](glossary.ja.md#propertyの自動記録)で確認できます。
+
+### Q416. property profileはtransaction markに何を追加しますか？
+
+4caseは最初の転送前に、公開component、transaction stream、global databaseのAPIで独自の記録先を設定します。
+既定のpull／push記録は、実際の要求の独自propertyをrecord hookから独自recorderの整数field hookへ届ける必要があります。
+両packetの異なる32-bit data 41／97を実行中に固定し、早い／遅い変更時点の規則は仮定しません。
+
+実際の呼び出しと期待出力の宣言は、[pullの既定](../tests/u15/test_automatic_recording_properties_pull_default_109.sv)、[pullの無効化](../tests/u15/test_automatic_recording_properties_pull_disabled_109.sv)、[pushの既定](../tests/u15/test_automatic_recording_properties_push_default_109.sv)、[pushの無効化](../tests/u15/test_automatic_recording_properties_push_disabled_109.sv)の各検査系で確認できます。
+
+既定の記録では両要求のproperty証拠を得ます。選択sequencerだけをbase APIで無効にすると、その独自hookとfieldを抑制し、独立した有効peerは記録します。
+準備用getterはdisable前に観測し、その値を余分なdisable事後条件にはしません。独自driverもcoordinatorもrecordやbegin／endを呼ばず、実際の転送をgateしてlibraryで動くhookを観測します。観測順をレビューした後、初期の一致batchは保存して除外し、現在の入力を再測定します。
+この新義務と以前のlifecycle event証拠の違いは[要求のガイド](requirements.ja.md#引用要求実行の証拠)で確認できます。
+
+### Q417. 正確な件数や時刻でなく記録の存在を検査する理由は？
+
+自動記録の義務ではproperty記録を観測できますが、普遍的な反復件数、stream名、recorder handle、外部database形式、event時刻は規定しません。
+そのためoracleはhook／fieldの非0の証拠、宣言した有効bit、size 32、UVM_DECを確認します。
+正確なbackend集計は`DIAG109`だけで、各seedに4行、現在の合計8行を残し、oracleや要求linkは持ちません。
+
+これらはcomponentとtransactionの記録を明示的に有効にし、継承した既定のobject記録の再帰／user hook動作を使います。
+選択した準備を普遍的な必須前提にせず、記憶先が無効な既定条件、変化するdata、item処理中のdisable、任意のpipelineや複数要求pushは認定しません。
+以前の`DIAG108`のevent件数は調査用のままで、[以前のpeerの説明](#q414-peerのevent件数を調査専用にする理由は)も引き続き適用します。
+
+### Q418. 自動記録義務の追加でbase条項は完了しますか？
+
+いいえ。新義務1件と安定したbase disable義務の拡張で、分解と実際のdata証拠を改善します。
+台帳のAI案4097件は2653テストへ直接対応し、他の旧要求4095件と分類445件は同一です。
+元の通常／index 2705記録と既知456入力は全て保持し、印刷base query名のbuild差分も含みます。
+
+最終tag付き4入力は全て両seedで一致します。通常の合計は一致2253件とknown 456件で、guestは互換1081記録と未測定1628入力を持ち、再実行はありません。
+候補censusは主引用0件1172番号・目標未満771番号・2件以上539番号のままで、2062番号は部分分解です。
+[完了の条件](requirements.ja.md#m4の残作業と承認)には残る義務、適用条件、元の目標と実際の人／範囲／分母のレビューが必要で、3つのqueueの0件からその判断は導けません。

@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の108回目の拡充（全2705件：simulation 2606・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の109回目の拡充（全2709件：simulation 2610・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3824,3 +3824,27 @@ pullヘッダー2件の引用はnative実行前に直し、期待値は全段階
 guestは互換1081記録をbyte単位で保持し、未測定1624入力（追加1620件・修正した元入力4件）で、再実行や新しいfilterはありません。
 主引用censusは0件1172番号・目標未満771番号・2件以上539番号ですが、新しい主引用で独立coverageは認定しません。
 全2062部分番号、適用条件、元の段階目標は未完で、人の照合と範囲／分母承認は未記録です。
+
+## 薄い領域の109回目の拡充：自動記録された要求property
+
+109回目はM2の自動記録property profileを4件追加します。pull／push転送で選択sequencerの既定／無効modeを使い、独立peerは既定modeに保ちます。
+最初の要求前にcomponentの記録、明示transaction stream、独自global／component backendを有効にします。
+選択対象／peerの固定property 41／97を、実際の要求の独自record hookとrecorderの整数field hookへ渡し、観測する経路は[propertyのFAQ](faq.ja.md#q416-property-profileはtransaction-markに何を追加しますか)で説明しています。
+
+最終tag付き4入力は全てseed1／73で一致します。無効にしていない各要求で独自hookとproperty fieldの証拠を得て、選択対象を無効にすると両方を抑制しつつpeerのdataは記録します。
+driver gateで元の要求の同一性と完了の意味を保持します。driverもcoordinatorもitemのrecordやtransactionの明示begin／endを呼ばず、実際のlibraryの記録がdata観測を供給します。
+存在と宣言した値、有効bit、size 32、UVM_DECだけを検査し、既定のobject記録の再帰とuser hook動作はrecorderの継承実装に残します。
+
+正確なhook／stream／open／close／free件数は各seedでDIAG109を4行、現在の合計8行に記録し、oracleや要求linkを持ちません。その境界は[件数のFAQ](faq.ja.md#q417-正確な件数や時刻でなく記録の存在を検査する理由は)で説明しています。
+固定dataにより、変更中のsnapshotを仮定しません。stream名、database形式、handle符号化、event件数／時刻、item処理中の切替、任意のpipelineや複数要求pushは認定しません。
+記録先を明示的に有効にした条件であり、全ての既定条件を解決するものではありません。
+
+自動propertyの義務1件を追加し、安定したbase disable義務へbackend有効の2profileを加え、元の文章とlinkを保持します。
+他の旧要求4095件、分類445件、元の通常／index 2705記録、既知456入力は同一です。
+metadataのcomment幅と、実際のrecord object／既定policyの補助引用はnative実行前に整えます。初期の一致したpretag／tag batchは、準備状態の観測をdisable前へ移してgetter状態の保持を余分な事後条件にしないようにした後、保存して除外します。現在の入力は新しく測定し、期待fileは全段階で保持します。
+実装sourceや商用結果を期待値の根拠にしません。
+
+全2709テスト、AI義務4097件は全て2653テストへ直接対応し、control専用56件とcontrol link付き156件を保持します。
+通常条件はpass 2253件（両seedのruntime 2159件・compile拒否94件）、known 456件（seed1 runtime 316件・build 135件・不正受理5件）です。
+guestは互換1081記録をbyte単位で保持し、未測定1628入力（追加1624件・修正した元入力4件）で、再実行や新しいfilterはありません。
+主引用censusは0件1172番号・目標未満771番号・2件以上539番号のままです。全2062部分番号、適用条件、元の段階目標は未完で、人の照合と範囲／分母承認は未記録です。

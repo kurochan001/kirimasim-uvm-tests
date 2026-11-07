@@ -1502,3 +1502,9 @@ static iteratorはcallerの整数をopaqueな位置として使い、その表�
 **自動抑制／明示driver mark** — sequencerが生成するitem記録の無効化／引き続き利用できるdriver自身のcomponent begin／end呼び出しで、transaction時刻と名前付きeventとの対応は[Q413](faq.ja.md#q413-recording無効化profileはflag-queryに何を追加しますか)で確認できます。
 
 **driverごとの観測gate／peerの診断** — 途中の観測まで各独自driverの戻りを保留するテストベンチのbarrier／oracleを持たず独立に記録するpeerのevent件数で、保持する範囲は[Q414](faq.ja.md#q414-peerのevent件数を調査専用にする理由は)で説明しています。
+
+## propertyの自動記録
+
+**独自record hook／recorder field hook** — 要求objectの`do_record`実装／公開recorder APIを通じて宣言したpropertyを受けるbackendの`do_record_field_int`で、実際のlibraryで動く経路は[Q416](faq.ja.md#q416-property-profileはtransaction-markに何を追加しますか)で辿れます。
+
+**記録の存在／記録件数** — 宣言したpropertyがrecorderへ届く証拠／hookやlifecycle呼び出しの回数で、診断の正確な合計をoracleにしない理由は[Q417](faq.ja.md#q417-正確な件数や時刻でなく記録の存在を検査する理由は)で説明しています。

@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 108 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2705 tests: 2606 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 109 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2709 tests: 2610 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -6156,3 +6156,52 @@ filter. Primary census is 1172 zero, 771 below-target, 539 at least two; the new
 primary focus does not certify independent coverage. All 2062 partial
 identifiers, applicability conditions and original targets remain open.
 Human review and scope/denominator approval remain unrecorded.
+
+## 109th thin-area expansion: automatically recorded request properties
+
+The 109th expansion adds four M2 automatic-recording property profiles:
+pull/push traffic with the selected sequencer in default or disabled mode,
+and an independent peer kept in default mode. Component recording, explicit
+transaction streams and the original global/component backend are enabled
+before first requests. Stable selected/peer properties 41/97 pass through the
+actual request's custom record hook and the recorder's integer-field hook;
+[the property FAQ](faq.md#q416-what-do-the-property-profiles-add-beyond-transaction-marks)
+explains the observable path.
+
+All four final tagged inputs match seeds1/73. Each non-disabled request has
+custom-hook and property-field evidence; disabling the selected instance
+suppresses both while peer data still records. Driver gates retain original
+request identity and completion semantics. Neither driver nor coordinator
+records an item or explicitly begins/ends its transaction, so actual library
+recording supplies the data observations. Only presence and declared values,
+valid bits, size32 and UVM_DEC are checked. Default object-record recursion and
+user-hook behavior remain in the inherited recorder implementation.
+
+Exact hook/stream/open/close/free totals produce four DIAG109 rows per seed,
+eight current rows in total, without an oracle or requirement link; [the
+count FAQ](faq.md#q417-why-check-recording-presence-rather-than-exact-counts-or-times)
+explains the boundary. Stable data avoids a mutation-snapshot assumption.
+No stream naming, database format, handle encoding, event count/timestamp,
+mid-item toggle, arbitrary pipeline or multi-request push claim is made.
+This explicitly enabled storage condition does not resolve all defaults.
+
+One automatic-property duty is added and the stable base-disable duty gains
+two enabled-backend profiles while retaining its original text and links.
+All 4095 other old requirement objects, 445 assessments, 2705 old ordinary/index
+records and 456 known inputs are unchanged. Metadata comment widths and actual
+supporting record-object/default-policy citations were completed before any
+native run. Initial matching pretag/tagged batches are archived after moving
+the setup-state observation before disable, avoiding an extra getter-state
+preservation postcondition. Current inputs are freshly measured and all
+expected files remain unchanged.
+No implementation source or commercial result supplies an expectation.
+
+There are 2709 tests and 4097 AI duties, all with direct links to 2653 tests;
+56 remain control-only and 156 control-linked. Ordinary results are 2253 pass
+(2159 runtime at both seeds, 94 compiler rejections) and 456 known (316 runtime
+seed1, 135 builds, five illegal acceptances). Guests retain 1081 byte-identical
+compatible records; 1628 inputs are unmeasured (1624 additions, four revised
+originals), with no rerun or new filtering. Primary census stays 1172 zero,
+771 below-target, 539 at least two. All 2062 partial identifiers, applicability
+conditions and original milestone targets remain open; human review and
+scope/denominator approval remain unrecorded.

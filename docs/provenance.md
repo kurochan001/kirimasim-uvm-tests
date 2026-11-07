@@ -402,6 +402,8 @@ Direct-map expectations are independently calculated from IEEE address units, en
 
 Recording-disable expectations follow IEEE base API and explicit transaction timestamp/event contracts. Driver gates avoid relative-delivery assumptions; [Q414](faq.md#q414-why-are-peer-event-counts-diagnostic-only) records why peer diagnostics are not an oracle. No implementation source or commercial output is newly used.
 
+Automatic-property expectations follow IEEE default automatic recording and public record/integer-field hook contracts, using original stable data and an original backend. [Q417](faq.md#q417-why-check-recording-presence-rather-than-exact-counts-or-times) records why exact backend totals are not an oracle; no implementation source or commercial result is newly used.
+
 ## Clause catalog maintenance
 
 The catalog lists clause identifiers used to validate citations; [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains how these identifiers differ from normative duties and a coverage denominator.

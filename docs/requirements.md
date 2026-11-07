@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4096 AI-drafted requirements, all with direct links to 2649 tests.
-Fifty-six tests have only control links. All 2705 tests have a requirement link.
+contains 4097 AI-drafted requirements, all with direct links to 2653 tests.
+Fifty-six tests have only control links. All 2709 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4096 draft entries span several areas,
+a heading is not an obligation. The 4097 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2705-test
+known difference. It is not a pass or a conformance claim. The current 2709-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2705 reviewed requirement mappings.
+  index is an inventory, not 2709 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -279,7 +279,7 @@ The table retains every catalog root, including context and deferred roots; cont
 | 12 | 326 | 200 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
 | 14 | 229 | 146 | 0 | 17 | 0 |
-| 15 | 131 | 120 | 0 | 18 | 0 |
+| 15 | 132 | 124 | 0 | 18 | 0 |
 | 16 | 280 | 188 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 933 | 640 | 0 | 63 | 0 |
@@ -296,52 +296,55 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4096 reviews are `ai` and
+Scope is proposed, all 4097 reviews are `ai` and
 the denominator remains unapproved.
 
-The 108th expansion adds four M2 recording-disable profiles through the
-actual sequencer base API, crossing pull/push traffic and omitted/explicit
-driver transaction marks. Each case connects independent selected and peer
-sequencers, each with one actual request. Disable is called twice before
-worker start and before the gated pull driver's first request; [the effect
-FAQ](faq.md#q413-what-do-the-recording-disable-profiles-add-beyond-a-flag-query)
-explains why observed traffic and marks add evidence beyond a state query.
+The 109th expansion adds four M2 automatic-recording property profiles:
+pull/push traffic with the selected sequencer in default or disabled mode,
+and an independent peer kept in default mode. Component recording, explicit
+transaction streams and the original global/component backend are enabled
+before first requests. Stable selected/peer properties 41/97 pass through the
+actual request's custom record hook and the recorder's integer-field hook;
+[the property FAQ](faq.md#q416-what-do-the-property-profiles-add-beyond-transaction-marks)
+explains the observable path.
 
-All four final tagged inputs match seeds1/73. Without driver marks, selected
-begin/end timestamps retain their captured values and neither named event
-callback runs. With explicit component begin/end calls, each event callback
-runs once at the captured driver mark and transaction times match. Real
-original request handles arrive, both producers remain blocked while driver
-returns are gated, and both complete after release. Per-driver gates avoid
-assuming a relative delivery time or sibling callback order.
+All four final tagged inputs match seeds1/73. Each non-disabled request has
+custom-hook and property-field evidence; disabling the selected instance
+suppresses both while peer data still records. Driver gates retain original
+request identity and completion semantics. Neither driver nor coordinator
+records an item or explicitly begins/ends its transaction, so actual library
+recording supplies the data observations. Only presence and declared values,
+valid bits, size32 and UVM_DEC are checked. Default object-record recursion and
+user-hook behavior remain in the inherited recorder implementation.
 
-Peer begin/end counts produce four DIAG108 rows per seed, eight current rows
-in total, with no oracle or requirement link. Peer traffic is checked, but
-those diagnostics do not certify default push recording semantics; [the peer
-FAQ](faq.md#q414-why-are-peer-event-counts-diagnostic-only)
-records the distinction. The separately known printed 15.3.2.23 query input
-remains unchanged; no alternate query name is substituted.
+Exact hook/stream/open/close/free totals produce four DIAG109 rows per seed,
+eight current rows in total, without an oracle or requirement link; [the
+count FAQ](faq.md#q417-why-check-recording-presence-rather-than-exact-counts-or-times)
+explains the boundary. Stable data avoids a mutation-snapshot assumption.
+No stream naming, database format, handle encoding, event count/timestamp,
+mid-item toggle, arbitrary pipeline or multi-request push claim is made.
+This explicitly enabled storage condition does not resolve all defaults.
 
-Five stable duties expand applicability: sequencer-base disable, transaction
-zero/default-time begin/end and their named event notifications. Their old
-text and links remain, and all 4091 other old requirement objects and 445
-assessments are identical. No per-profile obligation duplicates are added;
-[the mapping FAQ](faq.md#q415-why-extend-five-existing-duties-instead-of-adding-four-requirements)
-explains the unchanged 4096-draft count. All 2701 old ordinary/index records and
-456 known inputs remain. Initial nongated inputs matched both seeds but are
-archived and excluded after strengthening the observer; all four gated inputs
-were remeasured before tagging. Two pull-header citations were corrected
-before any native run, with expectations unchanged throughout.
+One automatic-property duty is added and the stable base-disable duty gains
+two enabled-backend profiles while retaining its original text and links.
+All 4095 other old requirement objects, 445 assessments, 2705 old ordinary/index
+records and 456 known inputs are unchanged. Metadata comment widths and actual
+supporting record-object/default-policy citations were completed before any
+native run. Initial matching pretag/tagged batches are archived after moving
+the setup-state observation before disable, avoiding an extra getter-state
+preservation postcondition. Current inputs are freshly measured and all
+expected files remain unchanged.
+No implementation source or commercial result supplies an expectation.
 
-The suite has 2705 tests, 2649 directly linked tests, 56 control-only and 156
-control-linked tests. Ordinary results are 2249 pass (2155 runtime both seeds,
-94 compiler rejections) and 456 known (316 runtime seed1, 135 builds,five illegal
-acceptances). Guests retain 1081 byte-identical compatible records; 1624 inputs
-are unmeasured (1620 additions, four revised originals), with no rerun or new
-filter. Primary census is 1172 zero, 771 below-target, 539 at least two; the new
-primary focus does not certify independent coverage. All 2062 partial
-identifiers, applicability conditions and original targets remain open.
-Human review and scope/denominator approval remain unrecorded.
+There are 2709 tests and 4097 AI duties, all with direct links to 2653 tests;
+56 remain control-only and 156 control-linked. Ordinary results are 2253 pass
+(2159 runtime at both seeds, 94 compiler rejections) and 456 known (316 runtime
+seed1, 135 builds, five illegal acceptances). Guests retain 1081 byte-identical
+compatible records; 1628 inputs are unmeasured (1624 additions, four revised
+originals), with no rerun or new filtering. Primary census stays 1172 zero,
+771 below-target, 539 at least two. All 2062 partial identifiers, applicability
+conditions and original milestone targets remain open; human review and
+scope/denominator approval remain unrecorded.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -758,4 +761,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4096 AI drafts and their direct links do not satisfy that gate.
+The current 4097 AI drafts and their direct links do not satisfy that gate.

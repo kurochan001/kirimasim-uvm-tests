@@ -1884,3 +1884,9 @@ These terms distinguish an interface's restriction from the memory's intrinsic p
 **Automatic suppression / explicit driver mark** — Disabling sequencer-generated item recording / the driver's own component begin/end calls, which remain available; [Q413](faq.md#q413-what-do-the-recording-disable-profiles-add-beyond-a-flag-query) connects them to transaction timestamps and named events.
 
 **Per-driver observation gate / peer diagnostic** — A testbench barrier holding each original driver return until the intermediate observation / independently recorded peer event counts without an oracle; [Q414](faq.md#q414-why-are-peer-event-counts-diagnostic-only) explains the retained scope.
+
+## Automatic property recording
+
+**Custom record hook / recorder field hook** — The request object's `do_record` implementation / the backend's `do_record_field_int` receiving a declared property through the public recorder API; [Q416](faq.md#q416-what-do-the-property-profiles-add-beyond-transaction-marks) follows the actual library-driven path.
+
+**Recording presence / recording count** — Evidence that the declared property reaches a recorder / the number of hook or lifecycle calls; [Q417](faq.md#q417-why-check-recording-presence-rather-than-exact-counts-or-times) explains why exact diagnostic totals do not define an oracle.

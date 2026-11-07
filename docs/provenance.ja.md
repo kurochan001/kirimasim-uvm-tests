@@ -264,6 +264,8 @@ memoryの期待は明示mapの契約と独立した単位／offset計算から�
 
 記録無効化の期待はIEEEのbase APIと明示transaction時刻／event契約から定めます。driver gateで配送時刻の仮定を避け、peer診断を期待値にしない理由は[Q414](faq.ja.md#q414-peerのevent件数を調査専用にする理由は)に残します。実装sourceや商用出力は新たに使いません。
 
+自動property記録の期待はIEEEの既定自動記録と公開record／整数field hook契約から定め、元の固定dataを独自backendで観測します。正確なbackend集計を期待にしない理由は[Q417](faq.ja.md#q417-正確な件数や時刻でなく記録の存在を検査する理由は)に残し、実装sourceや商用結果は新たに使いません。
+
 ## 条項カタログの保守
 
 条項カタログは引用の検証に使う規格の識別子一覧であり、規範的義務やcoverage分母との違いは[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)で確認できます。
