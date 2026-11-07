@@ -1408,3 +1408,13 @@ data経路の成功だけでは最終file形式の検証にならないため、
 **明記された派生override** — component full-name合成のように、対応する基底動作を規定した派生動作で置き換えるAPIであり、未記載のsetter例外を仮定することとの違いは[Q379](faq.ja.md#q379-component-setterの観測が異なっても期待値を保持する理由は)で説明しています。
 
 **限定した継承setterのprofile** — 明示した条件で継承setter契約を適用し、観測した実装差分を保持するテストであり、全継承の疑問を解決するわけではない理由は[Q380](faq.ja.md#q380-callbackとregistryの基底の記述で矛盾が証明されますか)で説明しています。
+
+## 非推奨と現行の代替API
+
+現行API profileは自身の条項をoracleに使い、規範的な非推奨の注記が文脈を与える関係は[Q382](faq.ja.md#q382-規範的な付録hは非推奨apiの拒否を要求しますか)で説明しています。
+
+**非推奨の項目** — 古いconstructを規格から除いた、または削除を検討するという記録であり、それだけで追加実装memberを禁止したり範囲除外を承認したりしません。
+
+**順不同のlink endpoint組** — 型付き関係が結ぶ正確な2objectを、未記載のparent／childとlhs／rhsの役割対応やdescriptorの名前／件数を固定せず検査するものです。
+
+**signed byteの区切り** — 0x80／0xffのように上位bitが立つ場合もあるbyte引数で、split profileはstring内の同じbyteに一致させ、regexや旧aliasを解釈せず空fieldを保持します。

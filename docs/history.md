@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and ninety-nine cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2613 tests: 2514 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and one hundred cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2627 tests: 2528 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5760,3 +5760,49 @@ unmeasured inputs: 1528 additions and three revised originals, with 1432
 simulation and 99 elaboration inputs. No simulator implementation source or
 commercial result was used. Every remaining partial applicability condition
 and original M1-M4 target stays in the completion audit.
+
+## Hundredth thin-area expansion: deprecation context and current APIs
+
+The hundredth expansion adds fourteen M1 runtime inputs: eight current
+transaction-parent profiles, four byte-separator split profiles and two ordinary
+command-line singleton state profiles. Two live parent recordings, two children
+and one repeated child exercise omitted/zero and selected nonzero parent
+handles. Original database/stream/recorder hooks observe a typed relation and
+recording before the begin hook and named event; endpoint pairs are unordered,
+with no fixed lhs/rhs role, numeric handle, link name or exact link count.
+The [parent-profile FAQ](faq.md#q383-how-are-transaction-parent-links-observed)
+explains the observations and remaining conditions.
+
+Split profiles use colon, space, 0x80 and 0xff through mixed, all-separator,
+no-match and empty inputs with a reused caller queue. Singleton callers share
+identity and explicitly changed report verbosity, while an independent peer
+is unchanged; ordinary no-DPI success does not establish argument parsing or
+replace the separate command-line backend evidence.
+
+The fourteen final tagged inputs match seeds 1/73 with exit 0. Current evidence
+retains fourteen build logs and twenty-eight runtime logs. Initial include-path
+and reserved-helper-name errors were fixture preparation failures, corrected
+without changing expectations; their original inputs/logs remain archived,
+and are not product-known differences or current-input passes.
+
+Seven partial duties are appended while all 4067 previous whole requirements,
+425 assessments and 2613 index/ordinary records are retained. Nine individually
+read normative annex H identifiers gain two structural and seven contextual
+assessments. Each rationale distinguishes removed-standard constructs from
+forbidden implementation extensions and links current operational duties where
+appropriate; [the deprecation FAQ](faq.md#q382-does-normative-annex-h-require-rejecting-deprecated-apis)
+explains why no legacy absence test or scope approval is inferred.
+H remains deferred with 0 partial/9 assessed/0 unassessed identifiers and no
+primary tests. Current API profiles stay under 5.4.2.4/F.3.3.2/G.1.2; no
+deprecated-API macro or old API alias is introduced.
+
+The ledger has 4074 AI duties and 2573 directly linked tests; 54 tests remain
+control-only and 154 have control links. The catalog is 2060 partial/434 assessed/
+13 unassessed, with 1306 primary-focus and 2093 referenced identifiers. The
+candidate primary census is 1179 zero/771 below-target/532 at-least-target.
+The earlier 424 known cases are unchanged. Compiler 99/HDL 38/command-line 18/
+guest 1082 evidence is byte-identical and input-compatible; 1545 guest inputs
+are unmeasured: 1542 additions and 3 revised originals (1446 simulation/99
+elaboration). No simulator implementation source or commercial result was used.
+All partial applicability and original M1-M4 targets, human review and
+scope/denominator approval remain open.

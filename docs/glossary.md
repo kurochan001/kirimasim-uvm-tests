@@ -1790,3 +1790,13 @@ Here a view changes the static type used to refer to an object without copying i
 **Documented derived override** — A derived API whose specified behavior replaces the corresponding base behavior, such as component full-name composition; [Q379](faq.md#q379-why-retain-the-component-setter-expectation-when-its-observations-differ) distinguishes it from assuming an undocumented setter exception.
 
 **Qualified inherited-setter profile** — A test applying the inherited setter contract under explicitly stated conditions while retaining observed implementation differences; [Q380](faq.md#q380-do-the-callback-and-registry-base-descriptions-prove-a-contradiction) explains why this does not settle every inheritance question.
+
+## Deprecation and current replacement APIs
+
+Current API profiles use their own clauses as the oracle; [Q382](faq.md#q382-does-normative-annex-h-require-rejecting-deprecated-apis) explains how the normative deprecation notes supply context.
+
+**Deprecation entry** — A record that an older construct was removed or is under consideration for removal from the standard; it does not by itself forbid an additional implementation member or approve scope exclusion.
+
+**Unordered link endpoint pair** — The two exact objects connected by a typed relation, checked without assigning undocumented parent/child roles to lhs/rhs slots or fixing descriptor names/counts.
+
+**Signed byte separator** — A byte argument whose high bit may be set, such as 0x80/0xff; the split profiles match the same byte in the string and retain empty fields without interpreting a regex or legacy alias.

@@ -10453,6 +10453,62 @@
     "u01/test_inherited_api_transaction_1_99": {
       "primary_clause": "1.4.3",
       "inputs_sha256": "0d8cc54008ac95ebd630c7c7650d87d1af2f55133851479166adaa788b8f5bb4"
+    },
+    "u05/test_transaction_parent_profile_0_0_100": {
+      "primary_clause": "5.4.2.4",
+      "inputs_sha256": "05704f1d91c960a03c393aaea38679bd4dd0cba95a32aa94aa9a2f46b0e08e33"
+    },
+    "u05/test_transaction_parent_profile_0_1_100": {
+      "primary_clause": "5.4.2.4",
+      "inputs_sha256": "929a4ffab2d55b862aba283570e8d4450d9bf50f948a11afe6dde6fdebf87403"
+    },
+    "u05/test_transaction_parent_profile_1_0_100": {
+      "primary_clause": "5.4.2.4",
+      "inputs_sha256": "35ee28ccc0412190a307bfa741caf48c4b261d4c5912d17642063a285b66752f"
+    },
+    "u05/test_transaction_parent_profile_1_1_100": {
+      "primary_clause": "5.4.2.4",
+      "inputs_sha256": "7622b9eca291c7f8458370528e16dfe7585806a679e6edc9e19db5c86bc3aabb"
+    },
+    "u05/test_transaction_parent_profile_2_0_100": {
+      "primary_clause": "5.4.2.4",
+      "inputs_sha256": "afb497d1d017609dfa322cb8447465ed1a08e0a43c736fcb89762064e7832470"
+    },
+    "u05/test_transaction_parent_profile_2_1_100": {
+      "primary_clause": "5.4.2.4",
+      "inputs_sha256": "670cc5e4aa5684f7b6a6d52bb549240ee014b8e2628d3d29c186747252e029b5"
+    },
+    "u05/test_transaction_parent_profile_3_0_100": {
+      "primary_clause": "5.4.2.4",
+      "inputs_sha256": "82bc0cba3c9a251a30764565217aeeb8e23206d68632fd2b23f5d77f8f96b9c2"
+    },
+    "u05/test_transaction_parent_profile_3_1_100": {
+      "primary_clause": "5.4.2.4",
+      "inputs_sha256": "3e093fedee87acdefd313c9a688b0910337ad1a97484f882d4bff3523bb4b075"
+    },
+    "uF/test_string_split_byte_profile_0_100": {
+      "primary_clause": "F.3.3.2",
+      "inputs_sha256": "cb358534f458803375ba855ff52d7924ae7f1d64448205171956d84b2ceb17ee"
+    },
+    "uF/test_string_split_byte_profile_1_100": {
+      "primary_clause": "F.3.3.2",
+      "inputs_sha256": "772dc5fe0be40d559c03588694b071af8a290c289184dfbd438ebad4268d3ffb"
+    },
+    "uF/test_string_split_byte_profile_2_100": {
+      "primary_clause": "F.3.3.2",
+      "inputs_sha256": "31011e9acf0df57bb14abd445811be434ed569164ae035acb349b3ee1e1f62fb"
+    },
+    "uF/test_string_split_byte_profile_3_100": {
+      "primary_clause": "F.3.3.2",
+      "inputs_sha256": "884c7f5859cdd9bd3dbc734c70eb74257435439bd1ff6f137d5066e6498eddc1"
+    },
+    "uG/test_cmdline_singleton_shared_state_0_100": {
+      "primary_clause": "G.1.2",
+      "inputs_sha256": "d5b8893a800a6840bd4e42f605bc05c42ca13d262ab39a0c358b26519678b847"
+    },
+    "uG/test_cmdline_singleton_shared_state_1_100": {
+      "primary_clause": "G.1.2",
+      "inputs_sha256": "036f98cd31aeedd343e9ef4b05d5c017e22d0acd88bc28a5af261a0e3bc629cc"
     }
   }
 }

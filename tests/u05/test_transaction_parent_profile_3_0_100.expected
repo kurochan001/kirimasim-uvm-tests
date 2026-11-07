@@ -1,0 +1,10 @@
+UT: parent100 3 0 step 1 live_handle 1 same_time 1 opened_once 1
+UT: parent100 3 0 step 1 relation 1 hook_order 1 event_order 1 peers 1
+UT: parent100 3 0 step 1 explicit_time 1
+UT: parent100 3 0 step 2 live_handle 1 same_time 1 opened_once 1
+UT: parent100 3 0 step 2 relation 1 hook_order 1 event_order 1 peers 1
+UT: parent100 3 0 step 2 explicit_time 1
+UT: parent100 3 0 step 3 live_handle 1 same_time 1 opened_once 1
+UT: parent100 3 0 step 3 relation 1 hook_order 1 event_order 1 peers 1
+UT: parent100 3 0 step 3 explicit_time 1
+UT: parent100 3 0 final independent 1 repeated 1

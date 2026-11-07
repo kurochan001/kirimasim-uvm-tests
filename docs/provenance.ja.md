@@ -239,6 +239,11 @@ TLM namespaceの期待値は実行前に提供B.5のclass生成とSystemVerilog�
 
 1.4.3の継承API期待値は、実行前に提供された一般継承規則と選択した基底／派生API条項から導きました。独自bridge／leaf型はconstructorだけを定義し、実装class配置、具体的な型名文字列、instance IDの数値をoracleへコピーしません。限定したcomponent差分は期待setterと明記されたfull-name合成を保持し、libraryだけの原因にはしません。[継承のFAQ](faq.ja.md#継承apiと明記されたoverride)ではB.4のregistry記述も未解決として保ち、シミュレータ実装sourceと商用結果は使っていません。
 
+現行transaction-parent、byte-split、singleton profileのoracleは測定前に提供IEEE 5.4.2.4／F.3.3.2／G.1.2と関連公開APIから導きます。
+付録Hを項目ごとに読み独自の日英の非推奨根拠を記録し、規範的な状態と保留区分を維持します。
+初期検査系のinclude／予約語の誤りは期待観測を変えずに修正し、保存した元入力／結果を現在の証拠へ付け替えません。
+この作業ではlibrary／simulatorの実装sourceと商用結果を使わず、旧APIの拒否oracleを作らない理由は[Q382](faq.ja.md#q382-規範的な付録hは非推奨apiの拒否を要求しますか)で説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

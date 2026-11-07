@@ -1,0 +1,4 @@
+UT: singleton100 1 step 0 identity 1 state 1 peer 1
+UT: singleton100 1 step 1 identity 1 state 1 peer 1
+UT: singleton100 1 step 2 identity 1 state 1 peer 1
+UT: singleton100 1 step 3 identity 1 state 1 peer 1

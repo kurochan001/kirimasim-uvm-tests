@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4067 AI-drafted requirements, all with direct links to 2559 tests.
-Fifty-four tests have only control links. All 2613 tests have a requirement link.
+contains 4074 AI-drafted requirements, all with direct links to 2573 tests.
+Fifty-four tests have only control links. All 2627 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -19,8 +19,8 @@ complete IEEE coverage. No requirement records human review.
 A control-only test checks a supporting premise, and [the HDL-view example](faq.md#q308-why-keep-standard-views-and-member-view-controls-separate) shows why its match cannot establish a missing standard API contract.
 
 The clause catalog has 2,507 identifiers. 2060 have a partial
-requirement decomposition; 425 have explicit AI assessments (293 structural,
-132 contextual), and 22 remain unassessed. No state certifies completion.
+requirement decomposition; 434 have explicit AI assessments (295 structural,
+139 contextual), and 13 remain unassessed. No state certifies completion.
 Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4067 draft entries span several areas,
+a heading is not an obligation. The 4074 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -75,14 +75,14 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1304
-have a primary-focus test and 2,092 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 1306
+have a primary-focus test and 2,093 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,181 with zero primary-focus tests, 771 with one,
-and 530 with at least two. It measures test placement only. It does not
+census currently shows 1,179 with zero primary-focus tests, 771 with one,
+and 532 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2613-test
+known difference. It is not a pass or a conformance claim. The current 2627-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2613 reviewed requirement mappings.
+  index is an inventory, not 2627 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -265,7 +265,7 @@ The table retains every catalog root, including context and deferred roots; cont
 | 2 | 0 | 0 | 0 | 0 | 1 |
 | 3 | 0 | 0 | 0 | 0 | 3 |
 | 4 | 0 | 0 | 0 | 0 | 1 |
-| 5 | 177 | 92 | 0 | 12 | 0 |
+| 5 | 181 | 100 | 0 | 12 | 0 |
 | 6 | 170 | 68 | 0 | 19 | 0 |
 | 7 | 91 | 35 | 0 | 20 | 0 |
 | 8 | 83 | 65 | 0 | 12 | 0 |
@@ -284,62 +284,60 @@ The table retains every catalog root, including context and deferred roots; cont
 | C | 98 | 69 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
 | E | 114 | 88 | 0 | 20 | 0 |
-| F | 277 | 208 | 0 | 25 | 0 |
-| G | 45 | 20 | 0 | 4 | 0 |
-| H | 0 | 0 | 0 | 0 | 9 |
+| F | 279 | 212 | 0 | 25 | 0 |
+| G | 46 | 22 | 0 | 4 | 0 |
+| H | 0 | 0 | 0 | 9 | 0 |
 
 The table shows all 26 catalog roots, including those with no primary-focus tests; [the scope glossary](glossary.md#scope-and-coverage) explains why context and deferred rows remain in the unassessed total.
 
 Zero unmapped tests and zero drafts without direct tests do not establish
-complete requirement coverage. The remaining 22 identifiers still need
-assessment/decomposition. Scope is proposed, all 4067 reviews are `ai` and
+complete requirement coverage. The remaining 13 identifiers still need
+assessment/decomposition. Scope is proposed, all 4074 reviews are `ai` and
 the denominator remains unapproved.
 
-Twelve new runtime profiles apply 1.4.3 to inherited APIs: four M1,
-four M2 and four M3 inputs. Original bridge/leaf classes over transactions,
-callbacks, sequence items, components, registers and memories override only
-constructors. Object, bridge and leaf views observe supplied names, stable
-and distinct lifetime IDs, explicit transaction IDs, callback enable state
-and model shape. Two construction/selection histories change selected/peer
-names through different static views. No exact immediate-parent layout,
-numeric instance ID, ID ordering or concrete type-name string is required.
-[The inheritance FAQ](faq.md#inherited-apis-and-documented-overrides) explains
-the ancestor views and the explicitly documented component full-name override.
+The hundredth expansion adds fourteen M1 runtime inputs: eight current
+transaction-parent profiles, four byte-separator split profiles and two ordinary
+command-line singleton state profiles. Two live parent recordings, two children
+and one repeated child exercise omitted/zero and selected nonzero parent
+handles. Original database/stream/recorder hooks observe a typed relation and
+recording before the begin hook and named event; endpoint pairs are unordered,
+with no fixed lhs/rhs role, numeric handle, link name or exact link count.
+The [parent-profile FAQ](faq.md#q383-how-are-transaction-parent-links-observed)
+explains the observations and remaining conditions.
 
-Ten final tagged profiles build and match seeds 1/73 with exit 0. Two unchanged
-qualified component profiles build and exit 0 at seed 1, but changed-name and
-full-name observations differ; initial observations and ID/parent checks match.
-No seed-73 result is recorded for those two cases. Their expected inherited
-setter semantics remain unchanged: 5.3.4.1 applies through 1.4.3, while 13.1
-documents the separate full-name override but no alternate set_name contract.
-The profile does not infer a library-only cause, child-dictionary reindexing
-or a fixed implicit-root spelling. Matching ID/parent rows do not pass the
-whole case. The current selection has twelve build and twenty-two runtime
-logs; the two known records retain their exact original input identities,
-and ten tagged headers were freshly measured under [the reuse rules](results.md#evidence-assembly).
+Split profiles use colon, space, 0x80 and 0xff through mixed, all-separator,
+no-match and empty inputs with a reused caller queue. Singleton callers share
+identity and explicitly changed report verbosity, while an independent peer
+is unchanged; ordinary no-DPI success does not establish argument parsing or
+replace the separate command-line backend evidence.
 
-Six partial duties are added for 1.4.3; all 4061 previous whole requirement
-objects, 425 assessments and 2601 index/ordinary records are retained.
-Root 1 now has four partial identifiers, fourteen duties, twenty-six primary
-tests and seven unassessed identifiers, with its context scope unchanged.
-The catalog has 2060 partial, 425 assessed and 22 unassessed identifiers;
-1304 have primary tests and 2092 have any citation. All 4067 AI duties have
-direct links to 2559 tests; 54 tests have only controls and 154 have control
-links. No human review or scope/denominator approval is recorded.
+The fourteen final tagged inputs match seeds 1/73 with exit 0. Current evidence
+retains fourteen build logs and twenty-eight runtime logs. Initial include-path
+and reserved-helper-name errors were fixture preparation failures, corrected
+without changing expectations; their original inputs/logs remain archived,
+and are not product-known differences or current-input passes.
 
-The printed callback/registry bases alone do not prove a contradiction,
-because 1.4.3 permits intermediate ancestors. B.4 remains unassessed: the
-ordinary callback-object profiles do not settle that overview's literal
-registry wording or justify classifying it away. [Q380](faq.md#q380-do-the-callback-and-registry-base-descriptions-prove-a-contradiction)
-records the unresolved relationship.
+Seven partial duties are appended while all 4067 previous whole requirements,
+425 assessments and 2613 index/ordinary records are retained. Nine individually
+read normative annex H identifiers gain two structural and seven contextual
+assessments. Each rationale distinguishes removed-standard constructs from
+forbidden implementation extensions and links current operational duties where
+appropriate; [the deprecation FAQ](faq.md#q382-does-normative-annex-h-require-rejecting-deprecated-apis)
+explains why no legacy absence test or scope approval is inferred.
+H remains deferred with 0 partial/9 assessed/0 unassessed identifiers and no
+primary tests. Current API profiles stay under 5.4.2.4/F.3.3.2/G.1.2; no
+deprecated-API macro or old API alias is introduced.
 
-The earlier 422 known records remain unchanged; the two new component profiles
-bring the current total to 424. Compiler 99, HDL 38, command-line 18 and guest
-1082 records remain byte-identical and input-compatible. Guests have 1531
-unmeasured inputs: 1528 additions and three revised originals, with 1432
-simulation and 99 elaboration inputs. No simulator implementation source or
-commercial result was used. Every remaining partial applicability condition
-and original M1-M4 target stays in the completion audit.
+The ledger has 4074 AI duties and 2573 directly linked tests; 54 tests remain
+control-only and 154 have control links. The catalog is 2060 partial/434 assessed/
+13 unassessed, with 1306 primary-focus and 2093 referenced identifiers. The
+candidate primary census is 1179 zero/771 below-target/532 at-least-target.
+The earlier 424 known cases are unchanged. Compiler 99/HDL 38/command-line 18/
+guest 1082 evidence is byte-identical and input-compatible; 1545 guest inputs
+are unmeasured: 1542 additions and 3 revised originals (1446 simulation/99
+elaboration). No simulator implementation source or commercial result was used.
+All partial applicability and original M1-M4 targets, human review and
+scope/denominator approval remain open.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -601,7 +599,7 @@ Port drafts add resource-controlled hierarchy checks, illegal outgoing roles
 and cardinality diagnostics. Memory-policy drafts observe address-unit length,
 bounds, constrained/procedural starts, default selection and exact in-use handles.
 
-425 individually read identifier assessments preserve rationale and AI status
+434 individually read identifier assessments preserve rationale and AI status
 in [the classification file](../coverage/assessments.json). Chapter 11 has no
 unassessed identifiers, while every behavior clause remains partially decomposed;
 this is not completed coverage. No automatic classification, parent rollup or
@@ -735,6 +733,8 @@ lock inputs, direct/control distinctions, citation non-promotion, duplicate
 or invalid data, scope claims and generated-output protection. Check CI runs
 this validation alongside the existing metadata and library checks.
 
+Individual annex H assessments record deprecation context, and [Q382](faq.md#q382-does-normative-annex-h-require-rejecting-deprecated-apis) explains why they neither complete current API contracts nor approve deferred scope.
+
 ## Remaining M4 work and approval
 
 An empty unassessed queue can still leave partial obligations and applicability conditions open; [the inventory states](#review-work-queue-and-root-totals) explain which remaining work to inspect.
@@ -752,4 +752,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4067 AI drafts and their direct links do not satisfy that gate.
+The current 4074 AI drafts and their direct links do not satisfy that gate.

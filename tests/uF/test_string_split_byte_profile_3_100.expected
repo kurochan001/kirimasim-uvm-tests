@@ -1,0 +1,4 @@
+UT: split100 3 mixed count 4 positions 1
+UT: split100 3 all count 4 positions 1
+UT: split100 3 none count 1 positions 1
+UT: split100 3 empty count 1 positions 1

@@ -6495,6 +6495,157 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "H",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read annex label marks a normative deprecation annex; its title adds no standalone callable API or operation. The specific general policy and six entries are reviewed individually below; this structural record neither propagates child coverage nor changes the deferred scope.",
+        "ja": "個別に読んだ付録labelは規範的な非推奨付録を示すが、表題自体は単独の呼出APIや操作を加えない。一般説明と6項目を別々に評価し、この構造記録で子のcoverageを集約せず保留scopeを変えない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "H.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The general paragraph explains two categories of constructs: removed from this edition and being considered for later removal. It provides lifecycle-of-the-standard context, not an independent runtime absence test or a claim that every deprecated extension is illegal. This is an individual reading of the normative annex, not a claim that annex H is informative or an approved scope exclusion. The proposed deferred disposition remains unchanged. Additional implementation members are not forbidden by absence from the 2020 API; no compiler-rejection or compatibility-mode oracle is invented. Current replacement API duties retain partial applicability, known differences and original milestone targets.",
+        "ja": "一般段落は、この版から除かれたconstructと将来の削除を検討するconstructという2区分を説明する。規格の変遷の文脈であり、独立したruntimeの不在テストや、全非推奨拡張が不正という主張ではない。 規範的付録を個別に読んだもので、付録Hを参考情報とする主張や承認済みの範囲除外ではない。提案の保留区分は未変更である。2020 APIにないことだけで追加の実装memberを禁止せず、compiler拒否や互換modeのoracleを作らない。現行の代替API義務は部分的な適用条件、既知差分、元の段階目標を保持する。"
+      },
+      "related_requirements": [
+        "UVM-SQR-AUDIT-INTERFACE-RECORDING-DISABLE",
+        "UVM-TRANSACTION-BEGIN-PARENT-RELATION-100",
+        "UVM-CMDLINE-SINGLETON-SHARED-STATE-100",
+        "UVM-STRING-SPLIT-REUSED-OUTPUT-QUEUE-100"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "H.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "This individually read heading groups the six deprecated constructs H.2.1-H.2.6 and specifies no independent method, algorithm or rejection behavior. Each entry has its own contextual rationale; normative annex status and proposed deferred scope remain unchanged.",
+        "ja": "個別に読んだ見出しは非推奨construct 6件（H.2.1〜H.2.6）をまとめ、独立したmethod、algorithm、拒否動作を定めない。各項目の文脈根拠を別に記録し、規範的な付録の状態と提案の保留scopeを保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "H.2.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This entry says the older UVM_DISABLE_RECORDING define reference was removed from the 2020 edition. It explains historical recording configuration; current interface disable and notification duties are separately specified by 15.2.1.2.10 and its associated APIs. It does not define how a retained vendor macro must behave. This is an individual reading of the normative annex, not a claim that annex H is informative or an approved scope exclusion. The proposed deferred disposition remains unchanged. Additional implementation members are not forbidden by absence from the 2020 API; no compiler-rejection or compatibility-mode oracle is invented. Current replacement API duties retain partial applicability, known differences and original milestone targets.",
+        "ja": "この項目は、旧UVM_DISABLE_RECORDING defineへの参照が2020版から除かれたと記す。記録設定の歴史的文脈を与え、現行interfaceの無効化と通知義務は15.2.1.2.10と関連APIで別に定める。実装が保持するmacroの動作は定めない。 規範的付録を個別に読んだもので、付録Hを参考情報とする主張や承認済みの範囲除外ではない。提案の保留区分は未変更である。2020 APIにないことだけで追加の実装memberを禁止せず、compiler拒否や互換modeのoracleを作らない。現行の代替API義務は部分的な適用条件、既知差分、元の段階目標を保持する。"
+      },
+      "related_requirements": [
+        "UVM-SQR-AUDIT-INTERFACE-RECORDING-DISABLE",
+        "UVM-SEQUENCER-AUDIT-DISABLE-EVENTS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "H.2.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This entry identifies the removed is_auto_updated function and explains its former dependency on wait_for_change. It supplies historical context for user-defined register backdoors, not an automatic-update service requirement, a prohibition on extension members or a replacement getter contract. Current read and write extension duties remain independent. This is an individual reading of the normative annex, not a claim that annex H is informative or an approved scope exclusion. The proposed deferred disposition remains unchanged. Additional implementation members are not forbidden by absence from the 2020 API; no compiler-rejection or compatibility-mode oracle is invented. Current replacement API duties retain partial applicability, known differences and original milestone targets.",
+        "ja": "この項目は除かれたis_auto_updated functionと、旧wait_for_changeへの依存理由を説明する。user-defined register backdoorの歴史的文脈であり、自動更新service義務、拡張memberの禁止、代替getter契約にはしない。現行read／write拡張の義務は独立して保持する。 規範的付録を個別に読んだもので、付録Hを参考情報とする主張や承認済みの範囲除外ではない。提案の保留区分は未変更である。2020 APIにないことだけで追加の実装memberを禁止せず、compiler拒否や互換modeのoracleを作らない。現行の代替API義務は部分的な適用条件、既知差分、元の段階目標を保持する。"
+      },
+      "related_requirements": [
+        "UVM-REG-INTERACTION-DEFAULT-READ-FUNCTION-DISPATCH",
+        "UVM-REG-INTERACTION-USER-WRITE-RESULT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "H.2.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The entry explains removal of the older local wait_for_change method because users could neither call nor override it. This is a deprecation rationale, not a current callable wait task, polling/watch algorithm, visibility-rejection requirement or obligation to recreate the old implementation. The current task-read extension contract is separately retained. This is an individual reading of the normative annex, not a claim that annex H is informative or an approved scope exclusion. The proposed deferred disposition remains unchanged. Additional implementation members are not forbidden by absence from the 2020 API; no compiler-rejection or compatibility-mode oracle is invented. Current replacement API duties retain partial applicability, known differences and original milestone targets.",
+        "ja": "この項目は、userが呼出もoverrideもできない旧local wait_for_change methodを除いた理由を説明する。非推奨の根拠であり、現行の呼出可能な待機task、polling／watch algorithm、可視性の拒否要件、旧実装の再現義務にはしない。現行task-read拡張契約は別に保持する。 規範的付録を個別に読んだもので、付録Hを参考情報とする主張や承認済みの範囲除外ではない。提案の保留区分は未変更である。2020 APIにないことだけで追加の実装memberを禁止せず、compiler拒否や互換modeのoracleを作らない。現行の代替API義務は部分的な適用条件、既知差分、元の段階目標を保持する。"
+      },
+      "related_requirements": [
+        "UVM-REG-PIPELINE-TASK-READ-VIRTUAL-DISPATCH",
+        "UVM-REG-INTERACTION-DEFAULT-READ-FUNCTION-DISPATCH"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "H.2.4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This entry explains removal of begin_child_tr by moving its optional parent_handle into current begin_tr, defaulting to zero. It contextualizes the operational duties in 5.4.2.4, which are decomposed and tested there; it does not require an old alias or duplicate legacy calls. New parent-link and zero-parent profiles do not complete transaction recording. This is an individual reading of the normative annex, not a claim that annex H is informative or an approved scope exclusion. The proposed deferred disposition remains unchanged. Additional implementation members are not forbidden by absence from the 2020 API; no compiler-rejection or compatibility-mode oracle is invented. Current replacement API duties retain partial applicability, known differences and original milestone targets.",
+        "ja": "この項目は、任意のparent_handleを既定zeroで現行begin_trへ統合しbegin_child_trを除いた理由を説明する。操作義務は5.4.2.4で分解・検査するもので、旧aliasや旧呼出しの複製を要求しない。新しい親link／zero-parent profileだけでtransaction記録を完了しない。 規範的付録を個別に読んだもので、付録Hを参考情報とする主張や承認済みの範囲除外ではない。提案の保留区分は未変更である。2020 APIにないことだけで追加の実装memberを禁止せず、compiler拒否や互換modeのoracleを作らない。現行の代替API義務は部分的な適用条件、既知差分、元の段階目標を保持する。"
+      },
+      "related_requirements": [
+        "UVM-TRANSACTION-BEGIN-PARENT-RELATION-100",
+        "UVM-TRANSACTION-BEGIN-ZERO-PARENT-100",
+        "UVM-TRANSACTION-BEGIN-RECORDING-BEFORE-HOOK-EVENT-100"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "H.2.5",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This entry explains that the old package-scope uvm_cmdline_proc variable could introduce static-initialization races and was removed from the standard. It provides singleton-access context for current G.1.2 get_inst, without requiring the legacy variable, forbidding its compatibility presence or guaranteeing arbitrary static-initializer ordering. Ordinary identity/state checks and explicit-DPI parser evidence remain separate. This is an individual reading of the normative annex, not a claim that annex H is informative or an approved scope exclusion. The proposed deferred disposition remains unchanged. Additional implementation members are not forbidden by absence from the 2020 API; no compiler-rejection or compatibility-mode oracle is invented. Current replacement API duties retain partial applicability, known differences and original milestone targets.",
+        "ja": "この項目は、旧package scopeのuvm_cmdline_proc変数がstatic初期化raceを招き得るため規格から除かれたと説明する。現行G.1.2 get_instのsingleton accessの文脈であり、旧変数の必須化、互換memberとしての存在の禁止、任意static初期化順序の保証にはしない。通常の同一性／状態検査と明示DPIのparser evidenceを分ける。 規範的付録を個別に読んだもので、付録Hを参考情報とする主張や承認済みの範囲除外ではない。提案の保留区分は未変更である。2020 APIにないことだけで追加の実装memberを禁止せず、compiler拒否や互換modeのoracleを作らない。現行の代替API義務は部分的な適用条件、既知差分、元の段階目標を保持する。"
+      },
+      "related_requirements": [
+        "UVM-CMDLINE-SINGLETON-IDENTITY",
+        "UVM-CMDLINE-SINGLETON-SHARED-STATE-100"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "H.2.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This entry explains replacement of ambiguously documented uvm_split_string with current uvm_string_split F.3.3.2 for consecutive separators and empty strings. It supplies historical rationale; the current split obligations are decomposed under F.3.3.2. It assigns no oracle to a retained legacy alias and does not certify all byte/string conditions from selected profiles. This is an individual reading of the normative annex, not a claim that annex H is informative or an approved scope exclusion. The proposed deferred disposition remains unchanged. Additional implementation members are not forbidden by absence from the 2020 API; no compiler-rejection or compatibility-mode oracle is invented. Current replacement API duties retain partial applicability, known differences and original milestone targets.",
+        "ja": "この項目は、連続区切りや空stringの記述が曖昧だったuvm_split_stringを、現行F.3.3.2のuvm_string_splitへ置き換えた理由を説明する。歴史的根拠を与え、現行split義務はF.3.3.2で分解する。保持された旧aliasへoracleを与えず、選択profileで全byte／string条件を認定しない。 規範的付録を個別に読んだもので、付録Hを参考情報とする主張や承認済みの範囲除外ではない。提案の保留区分は未変更である。2020 APIにないことだけで追加の実装memberを禁止せず、compiler拒否や互換modeのoracleを作らない。現行の代替API義務は部分的な適用条件、既知差分、元の段階目標を保持する。"
+      },
+      "related_requirements": [
+        "UVM-STRING-SPLIT-EMPTY-FIELDS",
+        "UVM-STRING-SPLIT-SIGNED-BYTE-SEPARATOR-100",
+        "UVM-STRING-SPLIT-REUSED-OUTPUT-QUEUE-100"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

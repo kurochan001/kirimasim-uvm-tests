@@ -367,6 +367,16 @@ The 1.4.2 return expectations were independently derived from the general Boolea
 
 The 1.4.3 inherited-API expectations were derived from the provided general inheritance rule and selected base/derived API clauses before execution. Original bridge/leaf types override only constructors; no implementation class layout, concrete type string or numeric instance ID is copied into an oracle. Qualified component differences retain their expected setters and documented full-name composition, without library-only attribution. [The inheritance FAQ](faq.md#inherited-apis-and-documented-overrides) also keeps B.4's registry wording unresolved; no simulator implementation source or commercial result was used.
 
+The current transaction-parent, byte-split and singleton profiles derive their
+oracles from the supplied IEEE 5.4.2.4/F.3.3.2/G.1.2 and related public APIs before
+measurement. Annex H was read entry by entry for individual bilingual
+deprecation rationales; it is normative and remains deferred. Initial fixture
+include/keyword failures were corrected without changing expected observations,
+and archived inputs/results are not relabeled as current evidence. No library
+or simulator implementation source or commercial result was used for this work;
+[Q382](faq.md#q382-does-normative-annex-h-require-rejecting-deprecated-apis)
+explains the absence of a legacy rejection oracle.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

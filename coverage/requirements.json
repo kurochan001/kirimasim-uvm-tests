@@ -154044,6 +154044,511 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-TRANSACTION-BEGIN-PARENT-RELATION-100",
+      "clause": "5.4.2.4",
+      "statement": {
+        "en": "A recorded begin with a live nonzero parent handle establishes a typed parent-child relation to the selected parent recorder.",
+        "ja": "liveな非zero親handleで記録beginすると、選択した親recorderとの型付きparent-child関係を確立する。"
+      },
+      "conditions": {
+        "en": "Keep two parent recordings open, select each through explicit handles, and begin two children and a repeated selected child with reversed construction/selection.",
+        "ja": "2つの親記録を開いたまま明示handleでそれぞれ選び、生成／選択を反転して2つの子と選択した子の反復をbeginする。"
+      },
+      "expected": {
+        "en": "Each child has a parent-child relation whose two endpoints are exactly its new recorder and the selected parent recorder, without a relation to another parent.",
+        "ja": "各子は、新しい子recorderと選択した親recorderを正確な2endpointとするparent-child関係を持ち、別の親との関係を持たない。"
+      },
+      "limitations": {
+        "en": "Finite legal live-parent profiles with an original in-memory database/stream/recorder and typed begin-event observer. Parent-child endpoint pairs are unordered: no lhs/rhs role, exact link count/name, numeric handle, external persistence, callback payload, initial event-pool membership, default package time unit or error/concurrent recovery is certified. Existing object-recording and initial-active differences remain separate. All remaining applicability, human review, scope/denominator approval and original M1-M4 targets stay open.",
+        "ja": "独自のメモリ内database／stream／recorderと型付きbegin-event observerを使う有限の合法live-parent profile。parent-child endpoint組は順不同で、lhs／rhsの役割、linkの正確な件数／名前、数値handle、外部永続化、callback payload、初期event-pool所属、packageの既定時間単位、error／並行復旧は認定しない。既存のobject記録と初期activeの差分は別に保持する。残る適用条件、人の照合、範囲／分母承認、元のM1〜M4目標は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_parent_profile_2_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 2 0 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 2 0 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 2 0 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_2_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 2 1 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 2 1 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 2 1 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_3_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 3 0 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 3 0 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 3 0 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_3_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 3 1 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 3 1 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 3 1 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRANSACTION-BEGIN-ZERO-PARENT-100",
+      "clause": "5.4.2.4",
+      "statement": {
+        "en": "Omitting parent_handle or explicitly supplying zero begins recording without a parent-child relation.",
+        "ja": "parent_handleの省略または明示zeroは、parent-child関係なしで記録をbeginする。"
+      },
+      "conditions": {
+        "en": "Two unrelated parent recordings stay live while omitted-parent and explicit-zero calls begin both children and repeat one.",
+        "ja": "無関係な親記録2つをliveに保ち、親省略と明示zeroで両子をbeginして一方を反復する。"
+      },
+      "expected": {
+        "en": "New child recordings are valid while no parent-child edge is attached to those recorder endpoints.",
+        "ja": "新しい子記録は有効で、そのrecorder endpointにparent-child辺を付けない。"
+      },
+      "limitations": {
+        "en": "Finite legal live-parent profiles with an original in-memory database/stream/recorder and typed begin-event observer. Parent-child endpoint pairs are unordered: no lhs/rhs role, exact link count/name, numeric handle, external persistence, callback payload, initial event-pool membership, default package time unit or error/concurrent recovery is certified. Existing object-recording and initial-active differences remain separate. All remaining applicability, human review, scope/denominator approval and original M1-M4 targets stay open.",
+        "ja": "独自のメモリ内database／stream／recorderと型付きbegin-event observerを使う有限の合法live-parent profile。parent-child endpoint組は順不同で、lhs／rhsの役割、linkの正確な件数／名前、数値handle、外部永続化、callback payload、初期event-pool所属、packageの既定時間単位、error／並行復旧は認定しない。既存のobject記録と初期activeの差分は別に保持する。残る適用条件、人の照合、範囲／分母承認、元のM1〜M4目標は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_parent_profile_0_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 0 0 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 0 0 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 0 0 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_0_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 0 1 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 0 1 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 0 1 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_1_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 1 0 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 1 0 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 1 0 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_1_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 1 1 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 1 1 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 1 1 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRANSACTION-BEGIN-RECORDING-BEFORE-HOOK-EVENT-100",
+      "clause": "5.4.2.4",
+      "statement": {
+        "en": "Recording and any requested parent relation are ready before the begin hook, which precedes the named begin event.",
+        "ja": "記録と要求した親関係はbegin hookより前に準備され、そのhookは名前付きbegin eventに先行する。"
+      },
+      "conditions": {
+        "en": "Observe standard protected do_begin_tr and a typed callback on the transaction pool begin event for three sequential begin calls.",
+        "ja": "標準protected do_begin_trとtransaction poolのbegin eventに登録した型付きcallbackで、逐次begin 3回を観測する。"
+      },
+      "expected": {
+        "en": "At the hook, the new recorder/handle and required relation exist with the same begin time; event callbacks observe the completed hook count.",
+        "ja": "hook時点で新recorder／handleと必要な関係が存在しbegin時刻が等しく、event callbackは完了済みhook件数を観測する。"
+      },
+      "limitations": {
+        "en": "Finite legal live-parent profiles with an original in-memory database/stream/recorder and typed begin-event observer. Parent-child endpoint pairs are unordered: no lhs/rhs role, exact link count/name, numeric handle, external persistence, callback payload, initial event-pool membership, default package time unit or error/concurrent recovery is certified. Existing object-recording and initial-active differences remain separate. All remaining applicability, human review, scope/denominator approval and original M1-M4 targets stay open.",
+        "ja": "独自のメモリ内database／stream／recorderと型付きbegin-event observerを使う有限の合法live-parent profile。parent-child endpoint組は順不同で、lhs／rhsの役割、linkの正確な件数／名前、数値handle、外部永続化、callback payload、初期event-pool所属、packageの既定時間単位、error／並行復旧は認定しない。既存のobject記録と初期activeの差分は別に保持する。残る適用条件、人の照合、範囲／分母承認、元のM1〜M4目標は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_parent_profile_0_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 0 0 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 0 0 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 0 0 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_0_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 0 1 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 0 1 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 0 1 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_1_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 1 0 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 1 0 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 1 0 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_1_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 1 1 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 1 1 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 1 1 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_2_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 2 0 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 2 0 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 2 0 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_2_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 2 1 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 2 1 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 2 1 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_3_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 3 0 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 3 0 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 3 0 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_3_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 3 1 step 1 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 3 1 step 2 relation 1 hook_order 1 event_order 1 peers 1",
+            "UT: parent100 3 1 step 3 relation 1 hook_order 1 event_order 1 peers 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRANSACTION-BEGIN-REOPEN-INDEPENDENT-100",
+      "clause": "5.4.2.4",
+      "statement": {
+        "en": "A new begin after end starts another recording while unrelated live parent and peer recordings retain their handles.",
+        "ja": "end後の新たなbeginは別の記録を開始し、無関係なlive親／peer記録のhandleを保持する。"
+      },
+      "conditions": {
+        "en": "End the selected child, begin it again, and retain the peer child and both parents throughout; use explicit nonzero begin times in the parent-linked profiles.",
+        "ja": "選択子をend後に再beginし、その間peer子と両親を保持する。親link profileは明示nonzero begin時刻を使う。"
+      },
+      "expected": {
+        "en": "Each begin calls open_recorder once and returns that recorder handle; explicit times agree and the live peer handles remain independent.",
+        "ja": "各beginはopen_recorderを1回呼んでそのrecorder handleを返し、明示時刻が一致し、live peer handleの独立性を保持する。"
+      },
+      "limitations": {
+        "en": "Finite legal live-parent profiles with an original in-memory database/stream/recorder and typed begin-event observer. Parent-child endpoint pairs are unordered: no lhs/rhs role, exact link count/name, numeric handle, external persistence, callback payload, initial event-pool membership, default package time unit or error/concurrent recovery is certified. Existing object-recording and initial-active differences remain separate. All remaining applicability, human review, scope/denominator approval and original M1-M4 targets stay open.",
+        "ja": "独自のメモリ内database／stream／recorderと型付きbegin-event observerを使う有限の合法live-parent profile。parent-child endpoint組は順不同で、lhs／rhsの役割、linkの正確な件数／名前、数値handle、外部永続化、callback payload、初期event-pool所属、packageの既定時間単位、error／並行復旧は認定しない。既存のobject記録と初期activeの差分は別に保持する。残る適用条件、人の照合、範囲／分母承認、元のM1〜M4目標は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_parent_profile_0_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 0 0 step 1 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 0 0 step 2 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 0 0 step 3 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 0 0 final independent 1 repeated 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_0_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 0 1 step 1 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 0 1 step 2 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 0 1 step 3 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 0 1 final independent 1 repeated 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_1_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 1 0 step 1 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 1 0 step 2 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 1 0 step 3 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 1 0 final independent 1 repeated 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_1_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 1 1 step 1 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 1 1 step 2 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 1 1 step 3 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 1 1 final independent 1 repeated 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_2_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 2 0 step 1 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 2 0 step 1 explicit_time 1",
+            "UT: parent100 2 0 step 2 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 2 0 step 2 explicit_time 1",
+            "UT: parent100 2 0 step 3 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 2 0 step 3 explicit_time 1",
+            "UT: parent100 2 0 final independent 1 repeated 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_2_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 2 1 step 1 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 2 1 step 1 explicit_time 1",
+            "UT: parent100 2 1 step 2 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 2 1 step 2 explicit_time 1",
+            "UT: parent100 2 1 step 3 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 2 1 step 3 explicit_time 1",
+            "UT: parent100 2 1 final independent 1 repeated 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_3_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 3 0 step 1 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 3 0 step 1 explicit_time 1",
+            "UT: parent100 3 0 step 2 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 3 0 step 2 explicit_time 1",
+            "UT: parent100 3 0 step 3 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 3 0 step 3 explicit_time 1",
+            "UT: parent100 3 0 final independent 1 repeated 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_parent_profile_3_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent100 3 1 step 1 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 3 1 step 1 explicit_time 1",
+            "UT: parent100 3 1 step 2 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 3 1 step 2 explicit_time 1",
+            "UT: parent100 3 1 step 3 live_handle 1 same_time 1 opened_once 1",
+            "UT: parent100 3 1 step 3 explicit_time 1",
+            "UT: parent100 3 1 final independent 1 repeated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-STRING-SPLIT-SIGNED-BYTE-SEPARATOR-100",
+      "clause": "F.3.3.2",
+      "statement": {
+        "en": "String splitting interprets the selected signed byte separator as its matching string byte and preserves ordered empty fields.",
+        "ja": "string splitは選択したsigned byteの区切りを対応するstring byteとして扱い、順序付きの空fieldを保持する。"
+      },
+      "conditions": {
+        "en": "Use separator bytes0x80 and0xff with adjacent and trailing occurrences, all-separator input, no match and empty input.",
+        "ja": "0x80／0xffのbyte区切りで、隣接／末尾出現、区切りのみ、不一致、空入力を使う。"
+      },
+      "expected": {
+        "en": "Mixed and all-separator inputs each yield four exact tokens; no-match and empty inputs each yield one exact token.",
+        "ja": "混合／区切りのみの入力は正確なtoken 4つ、不一致／空入力は正確なtoken 1つを返す。"
+      },
+      "limitations": {
+        "en": "Nonzero single-byte separators only: colon, space,0x80 and0xff; explicit caller strings and original expected token positions. No NUL interpretation, regex, legacy alias, arbitrary locale/encoding, all strings or complete F.3.3.2 coverage is asserted. No scope/denominator/human approval.",
+        "ja": "nonzero単一byte区切りのみ（colon、space、0x80、0xff）。caller文字列と独自の期待token位置を明示する。NULの解釈、regex、旧alias、任意locale／encoding、全string、F.3.3.2全体の網羅は断定しない。範囲／分母／人の承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_string_split_byte_profile_2_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: split100 2 mixed count 4 positions 1",
+            "UT: split100 2 all count 4 positions 1",
+            "UT: split100 2 none count 1 positions 1",
+            "UT: split100 2 empty count 1 positions 1"
+          ]
+        },
+        {
+          "test": "uF/test_string_split_byte_profile_3_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: split100 3 mixed count 4 positions 1",
+            "UT: split100 3 all count 4 positions 1",
+            "UT: split100 3 none count 1 positions 1",
+            "UT: split100 3 empty count 1 positions 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-STRING-SPLIT-REUSED-OUTPUT-QUEUE-100",
+      "clause": "F.3.3.2",
+      "statement": {
+        "en": "Repeated split calls replace the caller queue with the newly required token sequence.",
+        "ja": "splitの反復呼出しは、caller queueを新たに必要なtoken列へ置き換える。"
+      },
+      "conditions": {
+        "en": "Reuse a prefilled/mutated output queue through mixed, all-separator, no-match and empty input for each selected byte.",
+        "ja": "各選択byteで事前値／変更値を持つ出力queueを、混合、区切りのみ、不一致、空入力で再利用する。"
+      },
+      "expected": {
+        "en": "Only the new ordered tokens remain at each stage; prior contents and caller mutations do not leak into later results.",
+        "ja": "各段階で新しい順序付きtokenだけを保持し、以前の内容やcaller変更を後の結果へ混入しない。"
+      },
+      "limitations": {
+        "en": "Nonzero single-byte separators only: colon, space,0x80 and0xff; explicit caller strings and original expected token positions. No NUL interpretation, regex, legacy alias, arbitrary locale/encoding, all strings or complete F.3.3.2 coverage is asserted. No scope/denominator/human approval.",
+        "ja": "nonzero単一byte区切りのみ（colon、space、0x80、0xff）。caller文字列と独自の期待token位置を明示する。NULの解釈、regex、旧alias、任意locale／encoding、全string、F.3.3.2全体の網羅は断定しない。範囲／分母／人の承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_string_split_byte_profile_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: split100 0 mixed count 4 positions 1",
+            "UT: split100 0 all count 4 positions 1",
+            "UT: split100 0 none count 1 positions 1",
+            "UT: split100 0 empty count 1 positions 1"
+          ]
+        },
+        {
+          "test": "uF/test_string_split_byte_profile_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: split100 1 mixed count 4 positions 1",
+            "UT: split100 1 all count 4 positions 1",
+            "UT: split100 1 none count 1 positions 1",
+            "UT: split100 1 empty count 1 positions 1"
+          ]
+        },
+        {
+          "test": "uF/test_string_split_byte_profile_2_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: split100 2 mixed count 4 positions 1",
+            "UT: split100 2 all count 4 positions 1",
+            "UT: split100 2 none count 1 positions 1",
+            "UT: split100 2 empty count 1 positions 1"
+          ]
+        },
+        {
+          "test": "uF/test_string_split_byte_profile_3_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: split100 3 mixed count 4 positions 1",
+            "UT: split100 3 all count 4 positions 1",
+            "UT: split100 3 none count 1 positions 1",
+            "UT: split100 3 empty count 1 positions 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-SINGLETON-SHARED-STATE-100",
+      "clause": "G.1.2",
+      "statement": {
+        "en": "Current singleton accessors share object identity and mutable report state across independent caller functions.",
+        "ja": "現行singleton accessorは独立したcaller function間でobjectの同一性と変更可能なreport状態を共有する。"
+      },
+      "conditions": {
+        "en": "Use imported/qualified accessors under the ordinary no-DPI setup, reverse caller order, alternate four explicit report verbosity settings, and keep a separate report-object peer.",
+        "ja": "通常のDPIなし条件でimport／修飾accessorを使い、caller順を反転して明示report verbosityを4回交替し、独立したreport-object peerを保持する。"
+      },
+      "expected": {
+        "en": "Accessor views retain the same lifetime identity and see each assigned verbosity while the independent peer remains unchanged.",
+        "ja": "accessor viewは同じ寿命内の同一性を保って各verbosity代入を共有し、独立peerは未変更である。"
+      },
+      "limitations": {
+        "en": "Identity and inherited report-state checks only; no argument parsing, regex, static-initialization race guarantee, removed package variable, singleton name/ID number, or replacement of the separate explicit-DPI evidence. Partial G.1.2 conditions and original targets remain open.",
+        "ja": "同一性と継承report状態だけを検査する。引数解析、regex、static初期化raceの保証、削除されたpackage変数、singleton名／ID数値、別の明示DPI evidenceの置換はしない。G.1.2の部分条件と元の目標は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_cmdline_singleton_shared_state_0_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton100 0 step 0 identity 1 state 1 peer 1",
+            "UT: singleton100 0 step 1 identity 1 state 1 peer 1",
+            "UT: singleton100 0 step 2 identity 1 state 1 peer 1",
+            "UT: singleton100 0 step 3 identity 1 state 1 peer 1"
+          ]
+        },
+        {
+          "test": "uG/test_cmdline_singleton_shared_state_1_100",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton100 1 step 0 identity 1 state 1 peer 1",
+            "UT: singleton100 1 step 1 identity 1 state 1 peer 1",
+            "UT: singleton100 1 step 2 identity 1 state 1 peer 1",
+            "UT: singleton100 1 step 3 identity 1 state 1 peer 1"
+          ]
+        }
+      ]
     }
   ]
 }

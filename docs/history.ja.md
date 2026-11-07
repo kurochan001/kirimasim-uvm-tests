@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の99回目の拡充（全2613件：simulation 2514・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の100回目の拡充（全2627件：simulation 2528・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3615,3 +3615,26 @@ B.4は未評価を保持し、通常のcallback objectのprofileで、概要の�
 compiler 99、HDL 38、command-line 18、guest 1082記録はbyte単位で同一かつ入力と互換です。
 guestの未測定は1531入力、追加1528件と修正した元3件（simulation 1432／elaboration 99）です。
 シミュレータ実装sourceと商用結果は使っていません。残る全ての部分的な適用条件と元のM1〜M4目標は完了監査に残します。
+
+## 薄い領域の100回目の拡充：非推奨の文脈と現行API
+
+100回目はM1 runtime 14入力を追加します。現行transaction-parent profile 8件、byte区切りsplit profile 4件、通常条件のcommand-line singleton状態profile 2件です。
+live親記録2つ、子2つと子の反復で、省略／zeroと選択したnonzero親handleを扱います。
+独自database／stream／recorder hookで型付き関係、begin hookと名前付きeventより前の記録を観測し、endpoint組は順不同で、lhs／rhsの役割、数値handle、link名、正確なlink件数を固定しません。
+観測と残る条件は[親profileのFAQ](faq.ja.md#q383-transactionの親linkをどう観測しますか)で説明しています。
+
+splitはcolon、space、0x80、0xffを使い、caller queueを再利用して混合、区切りのみ、不一致、空入力を扱います。
+singletonのcallerは同一性と明示変更したreport verbosityを共有し、独立peerは未変更です。通常のDPIなしの一致で引数解析を認定せず、別command-line backendの証拠を置換しません。
+
+最終tag付き14入力はseed 1／73でexit0の一致を得て、現在のbuild log 14個とruntime log 28個を保持します。
+初期のinclude pathとhelperの予約語名は検査系の準備の誤りで、期待値を変えずに修正しました。元入力とlogを保存し、製品の既知差分や現行入力の成功にはしません。
+
+部分義務7件を追加し、以前の要求4067 object全体、分類425件、索引／通常2613記録を保持します。
+個別に読んだ規範的付録Hの9識別子へ構造2件・文脈7件の分類を追加します。
+各根拠は規格から除かれたconstructと実装拡張の禁止を区別し、該当する現行の操作義務へ関連付け、旧APIの不在テストや範囲承認にしない理由は[非推奨のFAQ](faq.ja.md#q382-規範的な付録hは非推奨apiの拒否を要求しますか)で説明しています。
+Hは保留のまま部分0／分類9／未評価0で、主引用テストはありません。現行API profileは5.4.2.4／F.3.3.2／G.1.2に置き、非推奨API macroや旧aliasは追加しません。
+
+台帳はAI義務4074件、直接対応2573テスト、control専用54件、control linkあり154です。
+catalogは部分2060／分類434／未評価13で、主引用のある番号1306、何らかの引用2093です。候補の主引用棚卸しは0件1179／目標未満771／目標以上532です。
+以前の既知424件は未変更です。compiler 99／HDL 38／command-line 18／guest 1082記録はbyte単位で同一かつ入力と互換で、guest未測定1545入力は追加1542件と修正した元3件（simulation 1446／elaboration 99）です。
+シミュレータ実装sourceと商用結果は使っていません。全ての部分的な適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完です。
