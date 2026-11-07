@@ -363,6 +363,8 @@ TLM namespace expectations were derived from the supplied B.5 class-generation a
 
 The 1.4.6 random-stability expectations were derived from the provided UVM standard and SystemVerilog process/object RNG rules before execution. The original helper observes relative future draws, actual API outputs and same-implementation state restoration without copying a numeric random sequence or decoding a vendor state string; [the RNG FAQ](faq.md#random-state-and-api-applicability) records its qualified applicability. No simulator implementation source or commercial result was used.
 
+The 1.4.2 return expectations were independently derived from the general Boolean convention and the selected one-sided model predicate descriptions before execution. The chapter 18 overview was read individually as model-composition context tied to existing partial hierarchy duties. Four provisional auxiliary field-configure citations were corrected to 18.5.3.2 without changing bodies or expected values, and the current tagged inputs were freshly measured; [the return FAQ](faq.md#boolean-return-conventions-and-model-context) records the scope. No simulator implementation source or commercial result was used.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

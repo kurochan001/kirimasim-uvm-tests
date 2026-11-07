@@ -1256,6 +1256,8 @@ sequence-library inputs also use M2 by their sequence subject.
 
 The B.5 TLM declaration cases likewise count toward M2 while residing in `uB`; [the declaration-scope FAQ](faq.md#q367-why-declare-the-same-suffix-in-two-packages) explains their communication subject.
 
+Model-return predicates in u01 count toward M3 despite primary clause 1.4.2; [Q376](faq.md#q376-why-do-these-u01-cases-count-toward-m3) distinguishes them from the RNG inputs in the same directory.
+
 ## Block and register query boundaries
 
 A query can inspect model configuration without performing a transfer; [the query FAQ](faq.md#block-and-register-query-boundaries) explains the additional observations needed for access or coverage claims.
@@ -1768,3 +1770,11 @@ These terms describe the selected declaration and cast checks, with their limits
 **Opaque RNG-state replay** — Saving and restoring a state within the same implementation to compare future observations without interpreting its encoding; [Q371](faq.md#q371-do-these-tests-require-a-particular-random-sequence-or-state-string-format) describes the relative control.
 
 **Cold and warmed call histories** — Measurements before any selected API call or after explicit setup calls, with the snapshot taken after setup; [Q373](faq.md#q373-why-are-the-random-stability-cases-under-u01) connects these new inputs to their primary clause and directory.
+
+## Boolean return conventions and model context
+
+**Implied opposite Boolean return** — The false/true counterpart supplied by the general return convention when a predicate describes one outcome; [Q374](faq.md#q374-how-is-the-false-return-inferred-when-an-api-describes-only-true) shows selected literal observations.
+
+**Valid nonmember map** — An existing explicit map with no association to the queried model, rather than a missing or malformed handle; [Q375](faq.md#q375-is-a-valid-nonmember-map-the-same-as-a-null-or-invalid-map) explains the predicate boundary.
+
+**Model-only predicate evidence** — Observations of lock state or configured associations without a physical access operation; [Q377](faq.md#q377-does-classifying-the-chapter-18-overview-complete-the-register-layer) separates that evidence from completed register-layer coverage.

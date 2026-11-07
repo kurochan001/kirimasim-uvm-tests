@@ -171,7 +171,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2537 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2545 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -218,7 +218,7 @@ Execution success and requirement review are separate records, so use [Read cove
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 884
+M1 and M2 still have open clause targets. M3 now has 892
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1228,9 +1228,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4057 AI drafts cover only a partial decomposition: 4057 requirements link
-directly to 2539 tests; all drafts have direct tests, and forty-four separate tests have only control links.
-All 2593 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4061 AI drafts cover only a partial decomposition: 4061 requirements link
+directly to 2547 tests; all drafts have direct tests, and forty-four separate tests have only control links.
+All 2601 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2349,7 +2349,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-424 classifications currently exist, with no denominator approval or new pass.
+425 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -3045,7 +3045,7 @@ Three original inputs have new fingerprints: the command enum citation, the
 Boolean rerandomization observation and the virtual-field configuration citation.
 All three were remeasured on Verilator; their stale guest records are excluded.
 The historical 1085-record source files remain intact. Current reuse covers
-1082 inputs, with 1511 unmeasured: 1508 additions and three revised originals.
+1082 inputs, with 1519 unmeasured: 1516 additions and three revised originals.
 This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
@@ -3116,10 +3116,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2593 tests run at two seeds?
+### Q201. Did all 2601 tests run at two seeds?
 
-No. There are 2494 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2077 two-seed runtime matches, 94 expected compiler rejections, 417 known
+No. There are 2502 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2085 two-seed runtime matches, 94 expected compiler rejections, 417 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3190,7 +3190,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 25 identifiers remain
+do not finish its remaining conditions. Overall 23 identifiers remain
 unassessed. The table-format overview 16.2.10 now has selected short-row duties; chapter 16
 has 0 unassessed and 176 partial identifiers, with introduction 16 still classified as contextual. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3352,7 +3352,7 @@ live in uD. Their functional subject is the register layer, so the six named
 access fixtures count as M3. Chapter-based census and milestone grouping are
 different views of the same tests. Annex D has zero unassessed identifiers but
 39 partial ones. Its conditions and the original M1–M4 targets remain open;
-overall, 25 identifiers remain unassessed.
+overall, 23 identifiers remain unassessed.
 
 ## Block and register query boundaries
 
@@ -3581,7 +3581,7 @@ The derived accessors are fixture helpers, not new UVM APIs. See [testing](testi
 
 No. It has 74 partial and 20 assessed identifiers, with 114 AI drafts. Physical
 reset/access, historical walking-ones interpretation and further skip/error/
-abort/concurrency conditions remain. Overall 25 identifiers are unassessed;
+abort/concurrency conditions remain. Overall 23 identifiers are unassessed;
 all original M1–M4 targets remain open. See [requirements](requirements.md).
 
 ## Base classes, recording and canonical time
@@ -3614,7 +3614,7 @@ decomposed identifiers and zero unassessed ones. Four active-policy probes are
 still blocked by missing methods in the measured library. Initiator printing/recording, complete
 transaction links/ordering, pure-method/default-body conflicts, older override
 formal names and broader lifecycle/error conditions remain audit work. Overall
-25 identifiers remain unassessed; original M1–M4 targets are still open.
+23 identifiers remain unassessed; original M1–M4 targets are still open.
 
 ## Resource collection, sorting and config aliases
 
@@ -3642,7 +3642,7 @@ No. Named/anonymous scope sets, literal names, four config aliases and selected
 virtual-interface values match under their measured conditions. Regex alternation
 and base virtual dispatch retain runtime differences. The original override
 probe certifies no builtin collection algorithm. Annex C is 71 partial,
-13 assessed and zero unassessed with 98 drafts; overall 25 identifiers remain
+13 assessed and zero unassessed with 98 drafts; overall 23 identifiers remain
 unassessed. Broader types, queue/error/lifecycle conditions, automatic component
 configuration and original milestone targets remain open.
 
@@ -3673,8 +3673,8 @@ independent defect count. The original normal-register control matches.
 ### Q257. Does zero unassessed in 18.6–18.8 complete the goal?
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
-track chapter 18's remaining review. Overall 25 identifiers remain unassessed.
-The suite has 2539 directly linked tests and forty-four
+track chapter 18's remaining review. Overall 23 identifiers remain unassessed.
+The suite has 2547 directly linked tests and forty-four
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3751,7 +3751,7 @@ The whole-word expectation is a qualified best-effort interpretation, not an
 unconditional guarantee. Poke after an explicit B75D reset and a standalone
 read-only poke deposit B39D. The corrected fixture is remeasured; a superseded
 seed-73 log stays archived under its old input fingerprint and is excluded.
-The overall backlog remains 25 unassessed identifiers and partial contracts.
+The overall backlog remains 23 unassessed identifiers and partial contracts.
 
 ## Predefined protection and prediction callbacks
 
@@ -3779,7 +3779,7 @@ The selected successful read/write predictions supply exact field, previous/
 latest data, kind, path and map context, and callback replacement changes the
 mirror. Explicit and omitted direct kinds update as supplied without read/write
 callback delivery. Disable/delete histories stop a later mutation. These probes
-perform no physical storage transfer. The backlog still has 25 unassessed
+perform no physical storage transfer. The backlog still has 23 unassessed
 identifiers; callback 18.11 remains partial despite zero unassessed identifiers.
 
 ## CI shards and execution time
@@ -3788,7 +3788,7 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 2171 tagged checks form 8 disjoint shards with at most 4 concurrent
+No. The current 2179 tagged checks form 8 disjoint shards with at most 4 concurrent
 jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
@@ -3871,7 +3871,7 @@ No. Four headings were individually read as structural and three overviews
 linked to explicit declaration/method duties. Fourteen other identifiers gained
 partial decompositions. Selected names, type defaults, empty hooks and acyclic
 trees leave graph/alias/null/concurrency conditions and wording conflicts open.
-Overall 25 identifiers remain unassessed; [review states](requirements.md#review-work-queue-and-root-totals)
+Overall 23 identifiers remain unassessed; [review states](requirements.md#review-work-queue-and-root-totals)
 explain why classification and links do not certify the original M1–M4 goal.
 
 ## Virtual-register queries and declaration boundaries
@@ -3949,8 +3949,8 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 The corrected citation changes the exact input hash despite an unchanged body
 and oracle. Its old guest record is excluded: 1083 compatible records become
 1082, leaving Ghost 206 matches/876 failures per seed and kirimasim 1073
-unsupported/nine failures. No guest was rerun. The 1511 unmeasured inputs are
-1508 additions and three revised originals. This filter is not evidence of
+unsupported/nine failures. No guest was rerun. The 1519 unmeasured inputs are
+1516 additions and three revised originals. This filter is not evidence of
 guest improvement or regression; see [the evidence assembly](results.md#evidence-assembly).
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
@@ -4193,8 +4193,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4057 duties link directly
-to 2539 tests, with 2058 partial and 25 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4061 duties link directly
+to 2547 tests, with 2059 partial and 23 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -4880,3 +4880,50 @@ Their functional subject belongs to M1. This adds a directory without moving
 older cases, and root 1's context scope does not exclude its operational
 requirements; [the counting guide](requirements.md#counting-unit-and-scope-proposal)
 distinguishes those groupings.
+
+## Boolean return conventions and model context
+
+A one-sided Boolean description defines its stated condition and leaves the opposite return to the general convention; [the return-value glossary](glossary.md#boolean-return-conventions-and-model-context) explains the valid-state boundary before the examples below.
+
+### Q374. How is the false return inferred when an API describes only true?
+
+UVM 1.4.2 associates true with 1 and false with 0 and supplies the opposite
+outcome for other cases of a Boolean predicate. These probes observe raw
+values under the following qualified model conditions, using [the original helper](../tests/u01/helpers98/return_predicates98.svh).
+
+| Predicate | Selected true condition | Selected opposite condition |
+| --- | --- | --- |
+| block `is_locked` | The selected model is locked | The selected model is initially unlocked or explicitly unlocked |
+| register `is_in_map` | The explicit map contains the register | A valid explicit map does not contain that register |
+| memory `is_in_map` | The explicit map contains the memory | A valid explicit map does not contain that memory |
+| virtual-register `is_in_map` | Its backing memory belongs to the map | That implemented array's memory does not belong to the valid map |
+
+These cases cover bit-valued predicates; other return types and all possible
+API conditions remain partial in [the requirement ledger](requirements.md#counting-unit-and-scope-proposal).
+
+### Q375. Is a valid nonmember map the same as a null or invalid map?
+
+No. Both maps are created and valid, and actual model associations determine
+membership. The histories query before adding mappings, after selected/peer
+additions, after expanding membership and after locking. Virtual arrays are
+implemented in valid independent memories; static and dynamic setup use
+different inputs. A false membership value establishes no null-handle recovery,
+diagnostic policy or physical data transfer; [the model glossary](glossary.md#register-model)
+explains the separate access paths.
+
+### Q376. Why do these u01 cases count toward M3?
+
+The primary citation 1.4.2 determines u01, while register-model lock and map
+predicates determine M3. Existing u01 RNG cases retain their M1 grouping.
+Directory and functional milestone are separate under [the layout rule](testing.md#layout),
+so this adds cases without moving or reclassifying the earlier tests.
+
+### Q377. Does classifying the chapter 18 overview complete the register layer?
+
+No. The individually read overview describes typical model composition, while
+the concrete child clauses define configuration, containment and operations.
+Its contextual assessment links existing partial hierarchy duties, without
+requiring every block to contain every listed type or declaring their tests
+complete. Chapter 18 still has 393 partial identifiers despite zero unassessed
+identifiers; [the root totals](requirements.md#review-work-queue-and-root-totals)
+retain these distinctions and the unapproved denominator.

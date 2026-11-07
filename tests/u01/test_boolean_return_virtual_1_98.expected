@@ -1,0 +1,5 @@
+UT: return98 virtual 1 initial selected 0 0 peer 0 0
+UT: return98 virtual 1 first selected 1 0 peer 0 0
+UT: return98 virtual 1 separate selected 1 0 peer 0 1
+UT: return98 virtual 1 expanded selected 1 1 peer 0 1
+UT: return98 virtual 1 locked selected 1 1 peer 0 1

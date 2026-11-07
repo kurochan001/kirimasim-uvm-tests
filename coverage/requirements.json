@@ -153520,6 +153520,200 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-BOOLEAN-RETURNS-BLOCK-LOCK-98",
+      "clause": "1.4.2",
+      "statement": {
+        "en": "Selected model-lock predicates return literal true for locked blocks and false for unlocked blocks, including the implicit opposite branch.",
+        "ja": "選択したmodel lock述語はlock中のblockに真、非lockのblockに偽を返し、暗黙の反対分岐も含める。"
+      },
+      "conditions": {
+        "en": "Use independent configured root/child pairs with real maps, registers and submaps. Reverse root construction/selection and observe initial, recursive lock, unlock and relock histories with an independently locked peer.",
+        "ja": "実map、register、submapを持つ独立した設定済みroot／child pairを使う。root生成／選択を反転し、独立してlockしたpeerとともに初期、再帰lock、unlock、再lockの履歴を観測する。"
+      },
+      "expected": {
+        "en": "The raw predicate observations match literal 1/0 for the stated true condition and its valid opposite, preserving selected/peer independence across the declared histories.",
+        "ja": "述べられた真の条件とその妥当な反対条件で、生の述語観測がliteral1／0に一致し、宣言した履歴で選択／peerの独立性を保つ。"
+      },
+      "limitations": {
+        "en": "Partial application of 1.4.2 to these four bit-valued model predicates only. No arbitrary integer/enum return type, malformed/null handle recovery, all lifecycle/map topologies, physical HDL/bus transfer or full global-clause/M1-M4 coverage is asserted. The chapter 18 overview remains context, not a requirement that every block contain every model type. No human review or scope/denominator approval.",
+        "ja": "これら4つのbit値model述語に対する1.4.2の部分的適用だけ。任意のinteger／enum返却型、不正／null handleの復旧、全lifecycle／map topology、物理HDL／bus転送、全体条項／M1〜M4の網羅は断定しない。第18章の概要は文脈として保持し、全blockが全model型を含む要件にはしない。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_boolean_return_lock_0_98",
+          "role": "direct",
+          "expected_observations": [
+            "UT: return98 lock 0 initial selected 0 0 peer 0 0",
+            "UT: return98 lock 0 first selected 1 1 peer 0 0",
+            "UT: return98 lock 0 unlocked selected 0 0 peer 1 1",
+            "UT: return98 lock 0 reused selected 1 1 peer 0 0"
+          ]
+        },
+        {
+          "test": "u01/test_boolean_return_lock_1_98",
+          "role": "direct",
+          "expected_observations": [
+            "UT: return98 lock 1 initial selected 0 0 peer 0 0",
+            "UT: return98 lock 1 first selected 1 1 peer 0 0",
+            "UT: return98 lock 1 unlocked selected 0 0 peer 1 1",
+            "UT: return98 lock 1 reused selected 1 1 peer 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BOOLEAN-RETURNS-REGISTER-MAP-98",
+      "clause": "1.4.2",
+      "statement": {
+        "en": "Selected register membership predicates return one for actual map membership and zero for valid maps that do not contain the register.",
+        "ja": "選択したregister所属述語は実際のmap所属で1、registerを含まない妥当なmapで0を返す。"
+      },
+      "conditions": {
+        "en": "Use two configured original registers with fields and two explicit valid maps. Start unmapped, add selected and peer associations, add the selected register to a second map at a distinct offset and repeat after locking; reverse construction/selection between inputs.",
+        "ja": "field付きの設定済み独自register 2つと明示した妥当なmap 2つを使う。未所属から選択／peer対応を追加し、異なるoffsetで選択registerを第2mapへ追加してlock後に反復し、入力間で生成／選択を反転する。"
+      },
+      "expected": {
+        "en": "The raw predicate observations match literal 1/0 for the stated true condition and its valid opposite, preserving selected/peer independence across the declared histories.",
+        "ja": "述べられた真の条件とその妥当な反対条件で、生の述語観測がliteral1／0に一致し、宣言した履歴で選択／peerの独立性を保つ。"
+      },
+      "limitations": {
+        "en": "Partial application of 1.4.2 to these four bit-valued model predicates only. No arbitrary integer/enum return type, malformed/null handle recovery, all lifecycle/map topologies, physical HDL/bus transfer or full global-clause/M1-M4 coverage is asserted. The chapter 18 overview remains context, not a requirement that every block contain every model type. No human review or scope/denominator approval.",
+        "ja": "これら4つのbit値model述語に対する1.4.2の部分的適用だけ。任意のinteger／enum返却型、不正／null handleの復旧、全lifecycle／map topology、物理HDL／bus転送、全体条項／M1〜M4の網羅は断定しない。第18章の概要は文脈として保持し、全blockが全model型を含む要件にはしない。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_boolean_return_register_0_98",
+          "role": "direct",
+          "expected_observations": [
+            "UT: return98 register 0 initial selected 0 0 peer 0 0",
+            "UT: return98 register 0 first selected 1 0 peer 0 0",
+            "UT: return98 register 0 separate selected 1 0 peer 0 1",
+            "UT: return98 register 0 expanded selected 1 1 peer 0 1",
+            "UT: return98 register 0 locked selected 1 1 peer 0 1"
+          ]
+        },
+        {
+          "test": "u01/test_boolean_return_register_1_98",
+          "role": "direct",
+          "expected_observations": [
+            "UT: return98 register 1 initial selected 0 0 peer 0 0",
+            "UT: return98 register 1 first selected 1 0 peer 0 0",
+            "UT: return98 register 1 separate selected 1 0 peer 0 1",
+            "UT: return98 register 1 expanded selected 1 1 peer 0 1",
+            "UT: return98 register 1 locked selected 1 1 peer 0 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BOOLEAN-RETURNS-MEMORY-MAP-98",
+      "clause": "1.4.2",
+      "statement": {
+        "en": "Selected memory membership predicates return true for actual membership and the inferred false for valid nonmember maps.",
+        "ja": "選択したmemory所属述語は実所属で真、妥当な非所属mapで推定した偽を返す。"
+      },
+      "conditions": {
+        "en": "Use separate original 32-location 8-bit memory models and two explicit valid maps. Observe initially absent, selected/peer maps, additional membership at a nonoverlapping offset and a post-lock repeat with reversed creation/selection histories.",
+        "ja": "独立した独自32-location8-bit memory modelと明示した妥当なmap 2つを使う。初期の不在、選択／peer map、重ならないoffsetでの追加所属、lock後の反復を、生成／選択を反転した履歴で観測する。"
+      },
+      "expected": {
+        "en": "The raw predicate observations match literal 1/0 for the stated true condition and its valid opposite, preserving selected/peer independence across the declared histories.",
+        "ja": "述べられた真の条件とその妥当な反対条件で、生の述語観測がliteral1／0に一致し、宣言した履歴で選択／peerの独立性を保つ。"
+      },
+      "limitations": {
+        "en": "Partial application of 1.4.2 to these four bit-valued model predicates only. No arbitrary integer/enum return type, malformed/null handle recovery, all lifecycle/map topologies, physical HDL/bus transfer or full global-clause/M1-M4 coverage is asserted. The chapter 18 overview remains context, not a requirement that every block contain every model type. No human review or scope/denominator approval.",
+        "ja": "これら4つのbit値model述語に対する1.4.2の部分的適用だけ。任意のinteger／enum返却型、不正／null handleの復旧、全lifecycle／map topology、物理HDL／bus転送、全体条項／M1〜M4の網羅は断定しない。第18章の概要は文脈として保持し、全blockが全model型を含む要件にはしない。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_boolean_return_memory_0_98",
+          "role": "direct",
+          "expected_observations": [
+            "UT: return98 memory 0 initial selected 0 0 peer 0 0",
+            "UT: return98 memory 0 first selected 1 0 peer 0 0",
+            "UT: return98 memory 0 separate selected 1 0 peer 0 1",
+            "UT: return98 memory 0 expanded selected 1 1 peer 0 1",
+            "UT: return98 memory 0 locked selected 1 1 peer 0 1"
+          ]
+        },
+        {
+          "test": "u01/test_boolean_return_memory_1_98",
+          "role": "direct",
+          "expected_observations": [
+            "UT: return98 memory 1 initial selected 0 0 peer 0 0",
+            "UT: return98 memory 1 first selected 1 0 peer 0 0",
+            "UT: return98 memory 1 separate selected 1 0 peer 0 1",
+            "UT: return98 memory 1 expanded selected 1 1 peer 0 1",
+            "UT: return98 memory 1 locked selected 1 1 peer 0 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BOOLEAN-RETURNS-VIRTUAL-MAP-98",
+      "clause": "1.4.2",
+      "statement": {
+        "en": "Selected implemented virtual-register arrays report true only for their backing memory maps and false for other valid maps.",
+        "ja": "選択した実装済みvirtual-register arrayは裏付けmemoryのmapにだけ真、他の妥当なmapに偽を返す。"
+      },
+      "conditions": {
+        "en": "Construct two original 16-bit arrays of 3 elements backed by separate 32-location 8-bit memories, offset 5 and stride 3. Use static configure in one input and explicit successful dynamic implement in the other. Query no null/unimplemented handle; change actual backing-memory map associations before the post-lock repeat.",
+        "ja": "独立した32-location8-bit memoryを裏付けに、offset5、stride3で3要素の独自16-bit arrayを2つ構築する。一方は静的configure、他方は成功を確認した明示dynamic implementを使う。null／未実装handleは照会せず、lock後の反復前に実際の裏付けmemoryのmap対応を変える。"
+      },
+      "expected": {
+        "en": "The raw predicate observations match literal 1/0 for the stated true condition and its valid opposite, preserving selected/peer independence across the declared histories.",
+        "ja": "述べられた真の条件とその妥当な反対条件で、生の述語観測がliteral1／0に一致し、宣言した履歴で選択／peerの独立性を保つ。"
+      },
+      "limitations": {
+        "en": "Partial application of 1.4.2 to these four bit-valued model predicates only. No arbitrary integer/enum return type, malformed/null handle recovery, all lifecycle/map topologies, physical HDL/bus transfer or full global-clause/M1-M4 coverage is asserted. The chapter 18 overview remains context, not a requirement that every block contain every model type. No human review or scope/denominator approval.",
+        "ja": "これら4つのbit値model述語に対する1.4.2の部分的適用だけ。任意のinteger／enum返却型、不正／null handleの復旧、全lifecycle／map topology、物理HDL／bus転送、全体条項／M1〜M4の網羅は断定しない。第18章の概要は文脈として保持し、全blockが全model型を含む要件にはしない。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_boolean_return_virtual_0_98",
+          "role": "direct",
+          "expected_observations": [
+            "UT: return98 virtual 0 initial selected 0 0 peer 0 0",
+            "UT: return98 virtual 0 first selected 1 0 peer 0 0",
+            "UT: return98 virtual 0 separate selected 1 0 peer 0 1",
+            "UT: return98 virtual 0 expanded selected 1 1 peer 0 1",
+            "UT: return98 virtual 0 locked selected 1 1 peer 0 1"
+          ]
+        },
+        {
+          "test": "u01/test_boolean_return_virtual_1_98",
+          "role": "direct",
+          "expected_observations": [
+            "UT: return98 virtual 1 initial selected 0 0 peer 0 0",
+            "UT: return98 virtual 1 first selected 1 0 peer 0 0",
+            "UT: return98 virtual 1 separate selected 1 0 peer 0 1",
+            "UT: return98 virtual 1 expanded selected 1 1 peer 0 1",
+            "UT: return98 virtual 1 locked selected 1 1 peer 0 1"
+          ]
+        }
+      ]
     }
   ]
 }

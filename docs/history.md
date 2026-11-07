@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and ninety-seven cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2593 tests: 2494 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and ninety-eight cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2601 tests: 2502 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5665,3 +5665,50 @@ and guest 1082 records remain byte-identical and input-compatible. The earlier
 elaboration inputs. No simulator implementation source or commercial result
 was used. All partial applicability, original milestone targets, human review
 and scope/denominator approval remain open.
+
+## Ninety-eighth thin-area expansion: Boolean returns and model context
+
+Eight new M3 runtime inputs apply 1.4.2's Boolean return convention to
+model predicates that describe their true condition: block lock state and
+register, memory and implemented virtual-register map membership. Raw numeric
+returns check literal 1 for the stated condition and 0 for its valid opposite.
+Two lock histories include recursive lock, unlock, relock and an independent
+peer tree with real maps/registers. Membership histories start absent, add
+selected/peer mappings, add a second selected mapping and repeat after lock.
+Construction/selection are reversed; virtual arrays use static and dynamic
+implementation in separate memories. No null or unimplemented handle is
+queried. [The return-value FAQ](faq.md#boolean-return-conventions-and-model-context)
+explains the implied branch and the model-only scope.
+
+All eight final tagged inputs match seeds 1/73 with exit 0, with eight current
+build logs and sixteen runtime logs. Four initial auxiliary field-configure
+citations were corrected to 18.5.3.2 before this fresh final measurement;
+test bodies and expectations are unchanged. The initial runtime records and
+their original 18 input files are archived with provisional metadata, rather
+than silently relabeled as valid current input identities.
+Header changes also alter input fingerprints, so [evidence assembly](results.md#evidence-assembly)
+explains why a corrected header needs a compatible new record.
+
+Four partial duties are added for 1.4.2. Their primary citation places these
+inputs in u01, while their register-model subject counts toward M3. The older
+u01 random-stability inputs remain M1. Root 1 now has three partial identifiers,
+eight duties, fourteen primary tests and eight unassessed identifiers; its
+context scope remains unchanged and does not exclude operational duties.
+
+The individually read chapter 18 parent describes typical model composition
+and receives a contextual assessment tied to existing containment/hierarchy
+duties. It adds no new independent algorithm or fixed model shape. Chapter 18
+is now 393 partial/63 assessed/0 unassessed; its partial duties and the whole
+register-layer target remain open, as [Q377](faq.md#q377-does-classifying-the-chapter-18-overview-complete-the-register-layer)
+explains. No child coverage is automatically rolled up to its parent.
+
+The ledger has 4061 AI duties and 2547 directly linked tests, with 54 control-only
+and 154 control-linked tests. The catalog has 2059 partial, 425 assessed and
+23 unassessed identifiers; 1303 have primary tests and 2091 have any citation.
+All 4057 previous requirement objects, 424 assessments and 2593 index/ordinary
+records are preserved. Compiler 99, HDL 38, command-line 18 and guest 1082
+records remain byte-identical and input-compatible. Existing 422 known cases
+are unchanged. Guests have 1519 unmeasured inputs: 1516 additions and three
+revised originals, with 1420 simulation and 99 elaboration inputs. No simulator
+implementation source or commercial result was used. All remaining applicability,
+original M1-M4 targets, human review and scope/denominator approval remain open.

@@ -1,0 +1,4 @@
+UT: return98 lock 0 initial selected 0 0 peer 0 0
+UT: return98 lock 0 first selected 1 1 peer 0 0
+UT: return98 lock 0 unlocked selected 0 0 peer 1 1
+UT: return98 lock 0 reused selected 1 1 peer 0 0

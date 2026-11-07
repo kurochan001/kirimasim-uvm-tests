@@ -6475,6 +6475,26 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read chapter 18 parent describes a typical hierarchy of blocks, registers, register files, memories and maps before 18.1. It provides model-composition context rather than a new independent API, algorithm, fixed depth or requirement that every block contain every listed type. Specific containment/configuration/enumeration contracts remain in their child clauses and retain their partial applicability. This classification does not complete the register layer or remove it from proposed scope.",
+        "ja": "個別に読んだ第18章の親は18.1より前で、block、register、register file、memory、mapからなる典型的な階層を説明する。model構成の文脈を与えるもので、新しい独立API、algorithm、固定した深さ、全blockが列挙した全型を含む要件にはしない。具体的な包含／設定／列挙契約は子条項の部分的な適用条件として保持する。この分類でregister層を完了せず、提案scopeからも除外しない。"
+      },
+      "related_requirements": [
+        "UVM-BLOCK-CONFIGURED-PARENT-HANDLE",
+        "UVM-BLOCK-SUBBLOCK-ENUMERATION-SCOPE",
+        "UVM-BLOCK-REGISTER-ENUMERATION-SCOPE",
+        "UVM-BLOCK-MEMORY-ENUMERATION-SCOPE",
+        "UVM-REG-BLOCK-DEFAULT-MAP-RECURSIVE-LOCK"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }
