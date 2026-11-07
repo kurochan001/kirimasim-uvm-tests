@@ -2,6 +2,8 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
+Current transfer: the goal is paused at the user’s request. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, unexecuted proposal and restart instructions.
+
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
 ## Snapshot and objective
@@ -216,12 +218,12 @@ remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-one-hundred-sixth-verilator-combined.json
-out/thin-one-hundred-sixth-ghost-final-1.json
-out/thin-one-hundred-sixth-ghost-final-73.json
-out/thin-one-hundred-sixth-kirimasim-final.json
-out/thin-one-hundred-sixth-inventory.json
-out/thin-one-hundred-sixth-backlog-final.json
+out/thin-one-hundred-twelfth-verilator-combined.json
+out/thin-one-hundred-twelfth-ghost-final-1.json
+out/thin-one-hundred-twelfth-ghost-final-73.json
+out/thin-one-hundred-twelfth-kirimasim-final.json
+out/thin-one-hundred-twelfth-inventory.json
+out/thin-one-hundred-twelfth-backlog-final.json
 out/thin-one-hundred-twelfth-evidence-scope.json
 out/thin-one-hundred-sixth-hdl-combined.json
 out/thin-one-hundred-sixth-cmdline-final.json
@@ -243,10 +245,10 @@ Unassessed counts and partial obligations track different remaining work; [Read 
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.
 At activation there were 1,463 unassessed identifiers, zero unlinked tests and
-zero requirements without direct tests. 84 iterations retain zero unassessed, a decrease of 1463 since activation. Four M2 independent-unpack inputs add two plain final-tagged matches at both seeds and two observed known differences at seed 1 with normal exit 0 and no seed 73. Public typed packer streams separate direct-setter calibration from actual inherited unpack. Both observed profiles match the ten other UT rows but differ on two first-setter trace rows; the named-setter reading is qualified and no cause is assigned. Two new duties and one stable extension-preservation expansion produce 4101 duties, with 4098 other old objects identical. All 2719 old ordinary/index records, 456 old known inputs and 445 assessments remain; the known total is 458. Guests retain 1081 compatible/1642 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal stays active.
+zero requirements without direct tests. 84 iterations retain zero unassessed, a decrease of 1463 since activation. Four M2 independent-unpack inputs add two plain final-tagged matches at both seeds and two observed known differences at seed 1 with normal exit 0 and no seed 73. Public typed packer streams separate direct-setter calibration from actual inherited unpack. Both observed profiles match the ten other UT rows but differ on two first-setter trace rows; the named-setter reading is qualified and no cause is assigned. Two new duties and one stable extension-preservation expansion produce 4101 duties, with 4098 other old objects identical. All 2719 old ordinary/index records, 456 old known inputs and 445 assessments remain; the known total is 458. Guests retain 1081 compatible/1642 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is now paused at the user’s request; the remaining work is unchanged.
 
 The separate earlier 12.2.9.2 reassessment did not reduce unassessed. Keep the
-goal active. Zero unassessed in chapter 12 does not complete its 169 partial
+goal paused until the user requests resumption. Zero unassessed in chapter 12 does not complete its 169 partial
 identifiers or explicit milestone targets. Final audit must check the original
 scope, actual standard duties, meaningful conditions and compatible execution
 evidence. Preserve qualified interpretations, known differences and unmeasured

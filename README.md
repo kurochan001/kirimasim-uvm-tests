@@ -140,7 +140,7 @@ its counterpart; commands and API identifiers retain their original spelling.
 | Guide | English | 日本語 |
 | --- | --- | --- |
 | Reading order and explanations for a first visit | [Reading guide](docs/reading-guide.md) | [読み方ガイド](docs/reading-guide.ja.md) |
-| Resuming development and remaining work | [Handoff](docs/handoff.md) | [ハンドオフ](docs/handoff.ja.md) |
+| Resuming development and remaining work | [Handoff](docs/handoff.md) · [Claude Code](docs/claude-code-handoff.md) | [ハンドオフ](docs/handoff.ja.md) · [Claude Code](docs/claude-code-handoff.ja.md) |
 | Test format, execution and contributions | [Testing guide](docs/testing.md) | [テストと開発のガイド](docs/testing.ja.md) |
 | Current measurements and methodology | [Results](docs/results.md) | [実行結果](docs/results.ja.md) |
 | Draft scope, requirement links and coverage census | [Requirement ledger](docs/requirements.md) | [要求台帳](docs/requirements.ja.md) |

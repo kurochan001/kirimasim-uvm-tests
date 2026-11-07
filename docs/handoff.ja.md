@@ -2,6 +2,8 @@
 
 [English](handoff.md) · [README](../README.ja.md) · [要求台帳](requirements.ja.md)
 
+現在の引継ぎ：goalはユーザーの依頼で一時停止中です。公開済みcheckpoint・未実行の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
+
 このページは開発の再開を支える資料なので、最初のテストを動かしたり理解したりしたい場合は[読み方ガイド](reading-guide.ja.md)から始めてください。
 
 ## 引継ぎ時点と目的
@@ -165,12 +167,12 @@ seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋�
 現在のhostでは、互換なlocal記録は次にあります。
 
 ```text
-out/thin-one-hundred-sixth-verilator-combined.json
-out/thin-one-hundred-sixth-ghost-final-1.json
-out/thin-one-hundred-sixth-ghost-final-73.json
-out/thin-one-hundred-sixth-kirimasim-final.json
-out/thin-one-hundred-sixth-inventory.json
-out/thin-one-hundred-sixth-backlog-final.json
+out/thin-one-hundred-twelfth-verilator-combined.json
+out/thin-one-hundred-twelfth-ghost-final-1.json
+out/thin-one-hundred-twelfth-ghost-final-73.json
+out/thin-one-hundred-twelfth-kirimasim-final.json
+out/thin-one-hundred-twelfth-inventory.json
+out/thin-one-hundred-twelfth-backlog-final.json
 out/thin-one-hundred-twelfth-evidence-scope.json
 out/thin-one-hundred-sixth-hdl-combined.json
 out/thin-one-hundred-sixth-cmdline-final.json
@@ -190,9 +192,9 @@ Git対象外のファイルなので別hostにはない場合があり、許可�
 未評価件数と部分的な義務は別の残作業を数えるため、件数が減るだけではgoalを完了できない理由は[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 ユーザーはM1〜M4の未対応0件まで続けるgoalを依頼しました。開始時は未評価1,463番号、未対応テスト0件、直接テストのない要求0件でした。
-84反復目も未評価0を保持し、有効化以降の減少は1463です。M2の独立unpack 4入力を追加し、通常targetの最終tag付き2件は両seed一致、観測targetの2件は正常終了0のseed 1既知差分でseed 73は未実行です。型付き公開packer streamを使い、setter直接呼出しの確認と実際の継承unpackを分けます。両観測profileの他のUT 10行は一致しますが、setter初回訪問のtrace 2行が異なります。列挙されたsetterを実呼出しと読む期待は限定して保持し、原因を帰属しません。新規2義務と既存のextension保持義務1件の拡張で4101義務となり、他の旧要求4098件は同一です。元の2719通常／index記録、旧既知456入力、分類445件を保持し、既知総数は458です。guestは互換1081／未測定1642入力です。部分2062番号、適用条件、元の段階目標、人の照合、範囲／分母承認は未完でgoalを継続します。
+84反復目も未評価0を保持し、有効化以降の減少は1463です。M2の独立unpack 4入力を追加し、通常targetの最終tag付き2件は両seed一致、観測targetの2件は正常終了0のseed 1既知差分でseed 73は未実行です。型付き公開packer streamを使い、setter直接呼出しの確認と実際の継承unpackを分けます。両観測profileの他のUT 10行は一致しますが、setter初回訪問のtrace 2行が異なります。列挙されたsetterを実呼出しと読む期待は限定して保持し、原因を帰属しません。新規2義務と既存のextension保持義務1件の拡張で4101義務となり、他の旧要求4098件は同一です。元の2719通常／index記録、旧既知456入力、分類445件を保持し、既知総数は458です。guestは互換1081／未測定1642入力です。部分2062番号、適用条件、元の段階目標、人の照合、範囲／分母承認は未完です。現在はユーザーの依頼でgoalを一時停止しており、残作業は変わりません。
 
-以前の12.2.9.2の再分類は未評価件数を減らしません。goalを有効に保ち、第12章の未評価0を部分分解169番号や明示milestone目標の完了へ置き換えません。
+以前の12.2.9.2の再分類は未評価件数を減らしません。ユーザーが再開を依頼するまでgoalの一時停止を保ち、第12章の未評価0を部分分解169番号や明示milestone目標の完了へ置き換えません。
 最終監査は元の範囲、実際の規範的義務、有意な条件、互換な実行evidenceを確認します。限定解釈、既知差分、guest未測定を保持し、架空の承認やpass化を行いません。
 
 日英資料を維持し、検証した追加をmainへ反映します。goal本体の状態は会話が管理し、この記録はgoalを置き換えない引継ぎです。

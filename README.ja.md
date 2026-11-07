@@ -130,7 +130,7 @@ API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](doc
 | 資料 | English | 日本語 |
 | --- | --- | --- |
 | 初めて読むときの順序と説明 | [Reading guide](docs/reading-guide.md) | [読み方ガイド](docs/reading-guide.ja.md) |
-| 作業の再開と残課題 | [Handoff](docs/handoff.md) | [ハンドオフ](docs/handoff.ja.md) |
+| 作業の再開と残課題 | [Handoff](docs/handoff.md) · [Claude Code](docs/claude-code-handoff.md) | [ハンドオフ](docs/handoff.ja.md) · [Claude Code](docs/claude-code-handoff.ja.md) |
 | テスト形式・実行・変更時の規則 | [Testing guide](docs/testing.md) | [テストと開発のガイド](docs/testing.ja.md) |
 | 現在の測定と測定方法 | [Results](docs/results.md) | [実行結果](docs/results.ja.md) |
 | 対象範囲の案・要求の対応・カバレッジの棚卸し | [Requirement ledger](docs/requirements.md) | [要求台帳](docs/requirements.ja.md) |
