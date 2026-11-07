@@ -17,6 +17,7 @@ API名やテストのファイル名が分かる場合は、その表記でブ�
 - 出力や終了コードの解釈：[結果ラベル](#結果の読み方)と[測定条件](results.ja.md#結果の解釈)。
 - reportと表示policy：[reportの配送とprinterの状態](#reportの配送先とprinterの状態)と[関連用語](glossary.ja.md#uvmの構成要素)。
 - 待機と同期：[event・barrier・transportの質問](#eventbarrierの同期と時刻を隔てたtransport履歴)と[関連用語](glossary.ja.md#同期とtransportの履歴)。
+- objectionの取消しの理解：[taskのgate](#q405-drain中の再raiseから何を追加しましたか)と[net伝播](#q406-新しい件数が保留dropより少ない場合は何をassertしますか)。
 - configurationの検索：[resourceの選択とsort](#resource収集sortconfig-alias)と[関連用語](glossary.ja.md#resourceとsequenceの順序)。
 - compiler診断を読む：[拒否と合法control](#compiler拒否と合法control)と[テストのmetadata](testing.ja.md#メタデータ)。
 - sequenceや通信の理解：[lockとtransport](#lockとnonblocking-transport)と[TLMの用語](glossary.ja.md#transaction単位の通信)。
@@ -163,7 +164,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2617件、HDL DPIの明示選択が38件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2629件、HDL DPIの明示選択が38件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -1016,8 +1017,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる4094要求案は部分的な分解で、4094要求を2617テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
-全2673テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる4095要求案は部分的な分解で、4095要求を2629テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
+全2685テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -2404,12 +2405,10 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 以前の文脈記録を直接要求2件へ置き換え、実bound-interface容量検査へ対応します。
 未評価件数は減らさず、除外も承認しません。以前の要求は全て保持します。
 
-### Q193. 互換なguest部分集合が1082件へ減った理由は？
+### Q193. 互換なguest部分集合が1081件へ減った理由は？
 
-command enum引用、Boolean rerandomization観測、virtual fieldのconfigure引用の既存3入力で指紋が変わりました。
-3入力ともVerilatorで再測定し、古いguest記録を除外しています。歴史的な1085記録の出典fileは保持します。
-現在の再利用は1082入力で、未測定1591件は追加1588件と修正した既存3入力です。
-これは記録のfilterでありguestの再実行ではなく、[記録の合算](results.ja.md#記録の合算)で説明しています。
+command enum引用、Boolean rerandomization観測、virtual-field configure引用に加え、reraiseの主引用を直した元入力1件で指紋が変わり、古いguest行を除外します。前の3入力は各変更時点で再測定し、今回は改訂reraiseを両seedで新たに測定します。歴史的な1085記録の出典fileは保持します。
+現在は互換1081入力を再利用し、未測定1604入力は追加1600件と修正した元入力4件です。guestの再実行はなく、[今回の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
 
@@ -2461,9 +2460,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2673テストを2 seedで実行しましたか？
+### Q201. 全2685テストを2 seedで実行しましたか？
 
-いいえ。simulation 2574件とelaboration 99件があります。通常記録はruntime両seed一致2139件、期待compiler拒否94件、既知simulation差分435件、不正compile受理の既知差分5件です。
+いいえ。simulation 2586件とelaboration 99件があります。通常記録はruntime両seed一致2151件、期待compiler拒否94件、既知simulation差分435件、不正compile受理の既知差分5件です。
 不正design 99件は、compileを受理された場合もruntime seedを実行しません。
 
 `configuration`の`seeds`は要求した設定であり、全ケースが両方の実行に達した証拠ではないため、個別の結果と併せた読み方は[JSONのガイド](reading-guide.ja.md#結果jsonを開く)で確認できます。
@@ -2557,7 +2556,7 @@ sequenceテストを修正するとguestを再実行しなくても以前の記�
 ### Q215. guest実行なしで互換部分集合が減った理由は何ですか？
 
 [rerandomization fixture](../tests/u14/test_sequence_send_request_rerandomize_uses_request_constraint_once.sv)を正確なcallback 1回ではなく、正の回数全てを許容するよう訂正しました。
-入力指紋が変わるため、古いfail／unsupported guest記録を、引用を変更したcommand入力とvirtual fieldのconfigure入力とともに除外します。元の1085記録fileは保持し、現在の再利用は1082入力です。
+入力指紋が変わるため、古いfail／unsupported guest記録を、引用を変更したcommand入力とvirtual fieldのconfigure入力とともに除外します。元の1085記録fileは保持し、現在の再利用は1081入力です。
 これはfilterで、新しいpass／failやsimulator改善ではありません。
 
 ### Q216. 新しいsequencer検査で残りの契約は完了しますか？
@@ -2848,7 +2847,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価0番号です。
-スイートは直接対応2617テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2629テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2932,7 +2931,7 @@ shardはworkflowが選んだテストを分割した1区画で、Checkの対象�
 
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
-いいえ。現在のタグ付き2233検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
+いいえ。現在のタグ付き2245検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
 command-line 17検査はshard 0で通常検査の前に1回だけ実行します。runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
 分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分440件は通常の既定CI選択に含めません。
 
@@ -3051,9 +3050,9 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 ### Q284. 互換なGhost一致数が207から206へ減った理由は何ですか
 
-引用の修正は、本体とoracleが同じでも正確な入力hashを変えます。古いguest記録を除き、互換1083記録を1082へ絞ります。
-Ghostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
-未測定1591入力は追加1588件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
+その以前の引用修正では、本体とoracleが同じでも指紋が変わり、互換1083記録を1082へ絞りました。その時点ではGhostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
+
+現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1604入力は追加1600件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3237,7 +3236,7 @@ zero-timeの委譲やprimitive release/readと、この実HDL 8入力の違い�
 
 既に部分分解した条項へ義務や条件を足しても、未評価queueは変わらない場合があります。
 初回の分解や根拠のある分類でそのqueueが変わり、テスト追加だけでは減らない場合があります。
-現在の4094義務は2617テストへ直接対応し、部分2062・未評価0番号が残ります。
+現在の4095義務は2629テストへ直接対応し、部分2062・未評価0番号が残ります。
 別々の進捗指標は[棚卸しのガイド](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
 
 ## Register HDL pathと観測の前提
@@ -3860,7 +3859,7 @@ queueの件数は記録したレビュー作業を表し、完全性や実行成
 
 いいえ。全2507識別子が部分的な要求分解または個別評価を持ち、部分2062・分類445です。
 B.4のregister／execute動作に部分義務を置き、継承の記述は未解決で保持します。
-全4094義務に直接テスト、全2673テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
+全4095義務に直接テスト、全2685テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
 元のM1〜M4目標、人の照合、範囲／分母承認は未完であり、完了条件は[残作業の案内](requirements.ja.md#m4の残作業と承認)にあります。
 coverage割合やgoal完了は主張しません。
 
@@ -3924,7 +3923,7 @@ reset後の走査を含む他17行の一致でも全入力は成功にせず、s
 いいえ。get_last、get_next、get_prevには実際の補助引用と直接対応がすでにあり、主引用テストがないだけで動作の未対応は立証できません。
 今はそれぞれlocal／typewideという異なる条件の主引用2profileがあります。u10のcore callback utilityは以前の整数iterator検査系と同じM1に数え、
 B.4 callback macroはM2の分類を保持します。不在／追加後の義務4件と既存4要求の対応を追加し、元のfieldと対応は保持します。
-candidateの棚卸しは主引用0が1174、目標未満770、目標以上538となりますが、部分2062識別子と元の目標は全て未完です。
+candidateの棚卸しは主引用0が1173、目標未満771、目標以上538となりますが、部分2062識別子と元の目標は全て未完です。
 配置が2件あっても独立した完全なcoverageを示さない理由は[計数のガイド](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
 ## memoryのaccess制限とrelocation単位
@@ -4000,3 +3999,39 @@ SystemVerilog 13.5.2はclass propertyをrefのactualとして認め、変更の�
 同時processの安全性、異方向socketの再入、payloadの所有、任意の寿命／topology、一般的なphase排他や全base-protocol timingは立証しません。
 初回のinclude欠落buildは検査系の誤りであり、期待を変えずに修正して現在の結果から除外します。以前の既知440入力、部分2062契約、元のM1〜M4目標は全て保持し、
 残る監査は[完了までのガイド](requirements.ja.md#m4の残作業と承認)で説明しています。
+
+## 保留objectionと差分伝播
+
+sourceの0件と祖先に保留する件数が共存する場合があり、新しいsnapshotが測るものは[保留chainの用語](glossary.ja.md#保留objectionのchain)で確認できます。
+
+### Q405. drain中の再raiseから何を追加しましたか？
+
+元のreraise caseは3単位のdrain中に再raiseし、時刻6のphase extractを観測します。
+新しい[独自helper](../tests/u10/helpers106_objection/objection106.svh)は2単位のdrain中またはall_dropped task実行中に独立したgateを使います。
+gate自身または子孫からのraiseで保留中の0 count chainを終了し、古いgateを解放しても新しい保持件数を後から消しません。
+最後のdropは新しいdrain／callback cycleを完了し、後処理完了後の2round目で再利用を検査します。別の分岐は4件、別objection instanceは通して7件を保持します。
+名前付きlocal snapshotはgate、leaf、upper、peer、total snapshotはgate、upper、rootの値です。
+
+### Q406. 新しい件数が保留dropより少ない場合は何をassertしますか？
+
+保留drop Dと新raise Rに対して、10.5.1.3.4は伝播するraiseから保留dropを差し引きます。
+選択source／配下と祖先はR件、rootはそれにpeerの4件を加えた値を保持します。R>=Dではraised callbackの量はR-Dで、同数では伝播せず、それ以外は減らした正の件数になります。
+R<Dでは、補正callbackの種別、符号化、metadataを固定せず公開件数の状態をoracleにします。DIAG106は各seedでそのhook値8行を調査用に記録するだけで、期待出力anchorや要求対応はありません。
+期待値は実行前に規格から固定しており、診断行で広い補正動作を解決するものではありません。
+
+### Q407. taskのgateでcomponentの印刷function宣言も解決しますか？
+
+いいえ。10.5.1.4.3と10.5.2.2.3はobjectionと登録callbackをvirtual taskとして印刷しており、今回はこちらを拡張します。
+一方13.1.6.3はcomponentのfunctionを印刷し、[字義どおりのfunction検査系](../tests/u13/test_component_printed_all_dropped_function_signature_dispatches_through_a_base_view.sv)はfunction／taskのbuild差分を保持します。
+新しいnode classはcomponent hookをtaskでoverrideせず、taskでの取消しprofileの成功でcomponentのsignature契約を成功にはしません。
+componentと登録callback本体の相対順序や、ユーザーtaskの末尾が取り消されることは要求しません。
+
+### Q408. 引用の修正でguestの結果が改善したり条項coverageを証明したりしますか？
+
+いいえ。元のreraise検査系は、getterを呼ばずに10.5.1.3.6を主引用にしていました。
+descriptionと主引用を保留dropの10.5.1.3.4へ直し、本体と期待2行を保って両seedで新しく測定します。別のdrain-time検査系は実際にgetterを呼び、その対応を保持します。
+drop_objectionの主引用は0件から13件へ増え、getterは2件から1件になりますが、独立した検査や要求全体を証明しません。
+
+ヘッダー編集は[更新規則](requirements.ja.md#テストや対応付けの更新)で入力指紋を変えます。改訂した元入力の古いguest行を互換1082記録から除外し、1081件を保持します。
+未測定1604入力は追加1600件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
+guestの再実行、改善、新しいpassはなく、元の証拠を保管し、通常の既知440入力も全て保持します。goalは未完です。

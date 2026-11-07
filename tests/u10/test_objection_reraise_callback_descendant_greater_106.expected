@@ -1,0 +1,48 @@
+UT: config mode 1 drain 2
+UT: r0 raised local gate 1 leaf 0 upper 0 peer 4
+UT: r0 raised total gate 1 upper 1 root 5
+UT: r0 raised other gate 7 root 7
+UT: r0 pending local gate 0 leaf 0 upper 0 peer 4
+UT: r0 pending total gate 0 upper 1 root 5
+UT: r0 pending other gate 7 root 7
+UT: r0 pending entered 1 context 1 drained 1
+UT: r0 again local gate 0 leaf 3 upper 0 peer 4
+UT: r0 again total gate 3 upper 3 root 7
+UT: r0 again other gate 7 root 7
+UT: r0 net raises 2 calls 1
+UT: r0 net source 1
+UT: r0 held local gate 0 leaf 3 upper 0 peer 4
+UT: r0 held total gate 3 upper 3 root 7
+UT: r0 held other gate 7 root 7
+UT: r0 held entries 1
+UT: r0 final local gate 0 leaf 0 upper 0 peer 4
+UT: r0 final total gate 0 upper 0 root 4
+UT: r0 final other gate 7 root 7
+UT: r0 final entries 2 context 1
+UT: r0 peer_done local gate 0 leaf 0 upper 0 peer 0
+UT: r0 peer_done total gate 0 upper 0 root 0
+UT: r0 peer_done other gate 7 root 7
+UT: r1 raised local gate 1 leaf 0 upper 0 peer 4
+UT: r1 raised total gate 1 upper 1 root 5
+UT: r1 raised other gate 7 root 7
+UT: r1 pending local gate 0 leaf 0 upper 0 peer 4
+UT: r1 pending total gate 0 upper 1 root 5
+UT: r1 pending other gate 7 root 7
+UT: r1 pending entered 1 context 1 drained 1
+UT: r1 again local gate 0 leaf 3 upper 0 peer 4
+UT: r1 again total gate 3 upper 3 root 7
+UT: r1 again other gate 7 root 7
+UT: r1 net raises 2 calls 1
+UT: r1 net source 1
+UT: r1 held local gate 0 leaf 3 upper 0 peer 4
+UT: r1 held total gate 3 upper 3 root 7
+UT: r1 held other gate 7 root 7
+UT: r1 held entries 1
+UT: r1 final local gate 0 leaf 0 upper 0 peer 4
+UT: r1 final total gate 0 upper 0 root 4
+UT: r1 final other gate 7 root 7
+UT: r1 final entries 2 context 1
+UT: r1 peer_done local gate 0 leaf 0 upper 0 peer 0
+UT: r1 peer_done total gate 0 upper 0 root 0
+UT: r1 peer_done other gate 7 root 7
+UT: cleanup subject 0 other 0

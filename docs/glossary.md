@@ -1862,3 +1862,11 @@ These terms distinguish an interface's restriction from the memory's intrinsic p
 **Live phase alias** — A phase ref argument addresses the caller's variable throughout the call, with changes visible before return; [Q403](faq.md#q403-why-read-the-callers-phase-before-the-transport-call-returns) shows why checking only a final value is weaker.
 
 **Synchronous transport reentry** — A still-active endpoint calls the same resolved port again before returning, using another phase variable and shared or distinct objects; [Q404](faq.md#q404-do-the-six-matching-profiles-complete-tlm-2-or-prove-concurrent-safety) separates it from simultaneous-process safety and complete protocol coverage.
+
+## Pending objection chains
+
+**Pending zero-count chain** — Deferred propagation after a source reaches zero, while an ancestor still holds its pending counts; [Q405](faq.md#q405-what-is-added-beyond-re-raising-during-drain) explains the drain and all_dropped gates.
+
+**Net propagation compensation** — Reducing a new raise R by a pending drop D before propagation, with public count state and hook amounts distinguished in [Q406](faq.md#q406-what-is-asserted-when-the-new-count-is-smaller-than-the-pending-drop).
+
+**Selected task gate** — An original wait in the printed objection or registered callback task, used to observe cancellation while the task is active; [Q407](faq.md#q407-do-the-task-gates-resolve-the-components-printed-function-declaration) keeps it separate from the component's function declaration.

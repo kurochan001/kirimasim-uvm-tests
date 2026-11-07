@@ -396,6 +396,8 @@ Memory expectations follow the explicit-map contracts and independent unit/offse
 
 Nested transport expectations follow the printed UVM prototypes and SystemVerilog input/ref rules, with independent endpoint arithmetic rather than a prescribed algorithm; [Q402](faq.md#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle) explains the qualified reading of the prose reference wording.
 
+Pending-objection expectations follow the supplied IEEE propagation/count contracts with original gates in the printed tasks; [Q406](faq.md#q406-what-is-asserted-when-the-new-count-is-smaller-than-the-pending-drop) explains why diagnostic hook values are not an oracle. The citation-revised original is remeasured with its body and expectation retained, without new implementation-source or commercial-output use.
+
 ## Clause catalog maintenance
 
 The catalog lists clause identifiers used to validate citations; [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains how these identifiers differ from normative duties and a coverage denominator.

@@ -371,6 +371,9 @@ Nonzero location offsets remain checked despite their known difference.
 The [nested transport helper](../tests/u12/helpers105_transport/transport105.svh) uses real ordinary ports, two exports and selected imps after normal resolution; [Q402](faq.md#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle) distinguishes endpoint-local input rebinding from visible object mutations.
 Four nonblocking profiles read exact caller phase properties before returning, while blocking profiles use explicit waits. Two rounds check shared/distinct objects, local activation retention, replacements and unselected peers. Endpoint arithmetic and custom phases are setup, and helper edits require fresh evidence for all six dependent inputs.
 
+The [pending-objection helper](../tests/u10/helpers106_objection/objection106.svh) gates the documented objection/registered tasks and observes public counts; [Q405](faq.md#q405-what-is-added-beyond-re-raising-during-drain) explains the named source, ancestor and peer snapshots.
+Twelve representative stage/source/count profiles run two completed rounds. No component task substitutes for the printed function signature. Negative-compensation DIAG106 hook rows have no oracle/link, and no callback-tail kill or exact delta order is asserted. Changes to this helper invalidate all twelve dependent inputs.
+
 ### Metadata
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
@@ -546,7 +549,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2617 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
+- 2629 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -680,7 +683,7 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 2233 tagged two-state checks: 2139 runtime
+By default, Verilator selects 2245 tagged two-state checks: 2151 runtime
 cases and 94 expected compiler rejections. To include
 the 440 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
@@ -750,7 +753,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2673 tests (2574 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+2685 tests (2586 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
@@ -759,7 +762,7 @@ not that every UVM requirement or every simulator passes.
 
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2233 tagged checks into 8 disjoint shards (280/279/279/279/279/279/279/279),
+the current 2245 tagged checks into 8 disjoint shards (281/281/281/281/281/280/280/280),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies

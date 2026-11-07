@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 105 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2673 tests: 2574 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 106 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2685 tests: 2586 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -24,6 +24,8 @@ Use these entry points to trace why an area was added, and [the handoff prioriti
 The [memory access and relocation increment](#104th-thin-area-expansion-memory-access-restrictions-and-relocation-units) records the added profiles, and [the memory FAQ](faq.md#q398-why-can-memory-rights-and-effective-access-differ) explains the query contracts used in that record.
 
 The [nested transport increment](#105th-thin-area-expansion-nested-transport-input-handles-and-live-phases) records the input/ref observations, and [the phase FAQ](faq.md#q403-why-read-the-callers-phase-before-the-transport-call-returns) explains why their timing within a call matters.
+
+The [pending objection increment](#106th-thin-area-expansion-pending-objection-cancellation-and-net-counts) records cancellation and count compensation, and [the net-count FAQ](faq.md#q406-what-is-asserted-when-the-new-count-is-smaller-than-the-pending-drop) explains the public observations.
 
 Historical `out/` paths identify local artifacts that may no longer exist; [the handoff file guide](handoff.md#files-and-local-material) points to maintained tools for resuming work without those files.
 
@@ -6013,3 +6015,51 @@ coverage, as explained in [the reentry FAQ](faq.md#q404-do-the-six-matching-prof
 All 2062 partial identifiers, applicability conditions and original M1–M4
 targets remain open despite the three empty queues. Human review and
 scope/denominator approval remain unrecorded.
+
+## 106th thin-area expansion: pending objection cancellation and net counts
+
+The 106th expansion adds twelve M1 pending-objection profiles and reviews
+one original citation. New cases cross drain/callback stage, a raise from the
+same object or a descendant, and new counts equal to, greater than or fewer
+than the pending drop. Two completed rounds use a gate/leaf/ancestor hierarchy,
+a separate peer branch holding four and an independent objection holding seven.
+The selected waits use the printed objection or registered callback tasks;
+[the cancellation FAQ](faq.md#q405-what-is-added-beyond-re-raising-during-drain)
+explains why cancellation during all_dropped is a separate condition.
+
+All twelve final tagged new inputs match seeds 1/73, and the revised original
+also matches both seeds with its unchanged body and two expected rows. Counts
+remain held after the canceled gate is released, then final drops complete a
+fresh cycle. For nonnegative compensation, the ancestor raise amount is R-D;
+for negative compensation, public totals supply the oracle while eight DIAG106
+hook rows per seed are investigative only, with no oracle or requirement link.
+[The net-count FAQ](faq.md#q406-what-is-asserted-when-the-new-count-is-smaller-than-the-pending-drop)
+separates these state obligations from unspecified compensation-hook details.
+
+The blocking task shapes are objection all_dropped and registered all_dropped,
+not a delayed component task. The separately retained 13.1.6.3 printed-function
+input remains a known build difference; [the declaration FAQ](faq.md#q407-do-the-task-gates-resolve-the-components-printed-function-declaration)
+keeps that conflict visible. No private process/counter, callback-tail kill,
+exact delta order, concurrent raises, mode-zero completeness or complete
+objection protocol is inferred.
+
+One net-propagation duty is added and the stable cancellation duty expands its
+applicability while retaining all original text and links. The other 4093 old
+requirement objects and all 445 assessments remain unchanged. The original
+reraise fixture's description/primary citation is corrected from the unused
+get_drain_time clause to drop_objection. Its old input is archived; 2672 other
+ordinary/index records remain unchanged and the revised input is freshly
+measured. All 440 prior known inputs remain. Scope, catalog, runners, backends
+and workflow are unchanged.
+
+The ledger has 4095 AI duties and 2629 directly linked tests, with 56
+control-only and 156 control-linked tests. Guests retain 1081 compatible
+records after filtering the revised original, leaving 1604 current inputs
+unmeasured. Ghost retains 206 pass/875 fail per seed and kirimasim retains
+1072 unsupported/nine failures. These smaller guest totals are compatibility
+filtering, not a new measurement or improvement; [the citation FAQ](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage)
+explains the input identity change. The primary census is 1173 zero, 771
+below-target and 538 at least two; primary citations do not prove independent
+or complete obligation coverage. All 2062 partial identifiers, applicability
+conditions and original M1–M4 targets remain open despite three empty queues.
+Human review and scope/denominator approval remain unrecorded.

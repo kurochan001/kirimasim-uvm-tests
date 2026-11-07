@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の105回目の拡充（全2673件：simulation 2574・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の106回目の拡充（全2685件：simulation 2586・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -21,6 +21,8 @@ M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求へ�
 [memory accessとrelocationの拡充](#薄い領域の104回目の拡充memory-access制限とrelocation単位)には追加したprofileの記録があり、そこで使うquery契約の意味は[memoryのFAQ](faq.ja.md#q398-memoryのrightsと有効accessが異なる理由は)で確認できます。
 
 [入れ子transportの拡充](#薄い領域の105回目の拡充入れ子transportのinput-handleとlive-phase)にはinput／refの観測記録があり、呼出し中の観測時点が重要な理由は[phaseのFAQ](faq.ja.md#q403-transport呼出しの復帰前にcallerのphaseを読む理由は)で確認できます。
+
+[保留objectionの拡充](#薄い領域の106回目の拡充保留objectionの取消しと差分件数)には取消しと件数補正の記録があり、公開する観測の意味は[差分件数のFAQ](faq.ja.md#q406-新しい件数が保留dropより少ない場合は何をassertしますか)で確認できます。
 
 履歴中の`out/`パスは現在も残っているとは限らないローカル資料を指すため、そのファイルがない環境での再開に使う保守対象のツールは[引継ぎ資料のファイル案内](handoff.ja.md#ファイルとローカル資料)を参照してください。
 
@@ -3749,4 +3751,29 @@ input束縛とlive phaseの異なる2義務を追加し、以前の要求object�
 scope、catalog、runner、backend、workflowは未変更です。台帳はAI義務4094件、直接対応テスト2617件、control専用56件、control対応156件です。
 guestは互換1082記録を保持し、現在の1591入力は未測定です。同期的な同方向呼出しは同時processの安全性、異方向／socket動作、寿命の所有、base protocol全体のcoverageを立証せず、
 その違いは[再入のFAQ](faq.ja.md#q404-一致した6profileでtlm-2の完了や並行安全性も証明できますか)で説明しています。
+空の3queueで部分2062識別子、適用条件、元のM1〜M4目標を完了にはせず、人の照合と範囲／分母承認は記録していません。
+
+## 薄い領域の106回目の拡充：保留objectionの取消しと差分件数
+
+106回目の拡充はM1の保留objection profileを12件追加し、元の引用1件を見直します。
+新しいcaseはdrain／callback段階、同じobject／子孫からのraise、保留dropと同数／多い／少ない新件数を組み合わせます。
+逐次2roundでgate／leaf／祖先の階層、4件を保持する別のpeer分岐、7件を保持する独立objectionを使います。
+選択した待機は印刷されたobjectionまたは登録callbackのtaskに置き、all_dropped実行中の取消しが別条件になる理由は[取消しのFAQ](faq.ja.md#q405-drain中の再raiseから何を追加しましたか)で説明しています。
+
+最終tag付きの新規12入力は全てseed 1／73で一致し、改訂した元の入力も本体と期待2行を保って両seedで一致します。
+取り消されたgateの解放後も件数を保持し、最後のdropで新しいcycleを完了します。非負の補正では祖先へのraise量はR-Dで、負の補正では公開totalをoracleにし、DIAG106は各seedでhook 8行を調査専用に記録し、oracleや要求対応を持ちません。
+状態の義務と未規定の補正hook詳細の違いは[差分件数のFAQ](faq.ja.md#q406-新しい件数が保留dropより少ない場合は何をassertしますか)で確認できます。
+
+待機するtaskはobjectionのall_droppedと登録all_droppedであり、遅延するcomponent taskではありません。
+別に保持した13.1.6.3の印刷function入力はbuildの既知差分を保持し、その食違いは[宣言のFAQ](faq.ja.md#q407-taskのgateでcomponentの印刷function宣言も解決しますか)で説明しています。
+private process／counter、callback末尾のkill、正確なdelta順序、並行raise、mode zero全体やobjection protocol全体は推定しません。
+
+net伝播の1義務を追加し、安定した取消し義務の元の全本文と対応を保持して適用範囲を広げます。他の元の要求object 4093件と分類445件は未変更です。
+元のreraise検査系のdescription／主引用は、呼び出さないget_drain_timeからdrop_objectionへ修正します。元入力を保管し、他の通常／index 2672記録を保持して改訂入力を新たに測定します。
+以前の既知440入力は全て保持し、scope、catalog、runner、backend、workflowは未変更です。
+
+台帳はAI義務4095件、直接対応テスト2629件、control専用56件、control対応156件です。
+guestは改訂した元入力を除いて互換1081記録を保持し、現在の1604入力は未測定です。Ghostは各seedでpass 206／fail 875、kirimasimはunsupported 1072／fail 9を保持します。
+guestの件数減少は互換性のfilterで新測定や改善ではなく、入力同一性の変更は[引用のFAQ](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)で説明しています。
+主引用の棚卸しは0件1173番号、1件771番号、2件以上538番号であり、主引用で独立した検査や義務全体のcoverageを証明しません。
 空の3queueで部分2062識別子、適用条件、元のM1〜M4目標を完了にはせず、人の照合と範囲／分母承認は記録していません。

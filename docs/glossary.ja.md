@@ -1480,3 +1480,11 @@ static iteratorはcallerの整数をopaqueな位置として使い、その表�
 **Live phase alias** — phaseのref引数が呼出し中を通してcaller変数を参照し、復帰前に変更が見えることで、最終値だけの確認が弱い理由は[Q403](faq.ja.md#q403-transport呼出しの復帰前にcallerのphaseを読む理由は)で確認できます。
 
 **Transportへの同期的再入** — 実行中のendpointが復帰前に同じ解決済みportを再び呼び、別のphase変数と共有または別objectを使うことで、同時processの安全性や完全なprotocol coverageとの違いは[Q404](faq.ja.md#q404-一致した6profileでtlm-2の完了や並行安全性も証明できますか)で説明しています。
+
+## 保留objectionのchain
+
+**保留中の0 count chain** — sourceが0件になっても祖先が保留件数を保持する、遅延した伝播であり、drainとall_droppedのgateは[Q405](faq.ja.md#q405-drain中の再raiseから何を追加しましたか)で説明しています。
+
+**Net伝播の補正** — 新しいraise Rから保留drop Dを差し引いて伝播することで、公開件数の状態とhookの量の違いは[Q406](faq.ja.md#q406-新しい件数が保留dropより少ない場合は何をassertしますか)で説明しています。
+
+**選択taskのgate** — 印刷されたobjectionまたは登録callbackのtaskに置く独自の待機であり、実行中の取消しを観測し、componentのfunction宣言との区別は[Q407](faq.ja.md#q407-taskのgateでcomponentの印刷function宣言も解決しますか)で説明しています。

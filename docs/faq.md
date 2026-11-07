@@ -18,6 +18,7 @@ If you have an API name or test filename, use that exact spelling in your browse
 - Interpreting output or an exit code: [result labels](#understanding-a-result) and [measurement conditions](results.md#interpretation).
 - Reports and display policies: [report routing and printer state](#report-routing-and-printer-state) and [related terms](glossary.md#uvm-building-blocks).
 - Waiting and synchronization: [event, barrier and transport questions](#eventbarrier-synchronization-and-timed-transport-histories) and [related terms](glossary.md#synchronization-and-transport-histories).
+- Understanding objection cancellation: [task gates](#q405-what-is-added-beyond-re-raising-during-drain) and [net propagation](#q406-what-is-asserted-when-the-new-count-is-smaller-than-the-pending-drop).
 - Configuration lookup: [resource selection and sorting](#resource-collection-sorting-and-config-aliases) and [related terms](glossary.md#resource-and-sequence-ordering).
 - Interpreting compiler diagnostics: [rejection and legal controls](#compiler-rejection-and-legal-controls) and [test metadata](testing.md#metadata).
 - Understanding sequences and communication: [locking and transport](#locking-and-nonblocking-transport) and [TLM terms](glossary.md#transaction-level-communication).
@@ -175,7 +176,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2617 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2629 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1236,9 +1237,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4094 AI drafts cover only a partial decomposition: 4094 requirements link
-directly to 2617 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2673 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4095 AI drafts cover only a partial decomposition: 4095 requirements link
+directly to 2629 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2685 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -3064,14 +3065,10 @@ FIFO sizes to one. The earlier contextual record is replaced by two direct
 requirements and an actual bound-interface capacity test. It does not reduce
 the unassessed count or approve an exclusion. All earlier requirements remain.
 
-### Q193. Why did the compatible guest subset decrease to 1082?
+### Q193. Why did the compatible guest subset decrease to 1081?
 
-Three original inputs have new fingerprints: the command enum citation, the
-Boolean rerandomization observation and the virtual-field configuration citation.
-All three were remeasured on Verilator; their stale guest records are excluded.
-The historical 1085-record source files remain intact. Current reuse covers
-1082 inputs, with 1591 unmeasured: 1588 additions and three revised originals.
-This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
+Four original inputs have revised fingerprints: the command-enum citation, Boolean rerandomization observation, virtual-field configure citation and now the reraise primary citation. The earlier three were remeasured when changed; the revised reraise input is freshly measured at both seeds here. Their stale guest rows are excluded while the historical 1085-record source files remain intact.
+Current reuse covers 1081 inputs, with 1604 unmeasured: 1600 additions and four revised originals. This is record filtering rather than a guest run; see [the current repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
 
@@ -3141,10 +3138,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2673 tests run at two seeds?
+### Q201. Did all 2685 tests run at two seeds?
 
-No. There are 2574 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2139 two-seed runtime matches, 94 expected compiler rejections, 435 known
+No. There are 2586 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2151 two-seed runtime matches, 94 expected compiler rejections, 435 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3276,7 +3273,7 @@ The [rerandomization fixture](../tests/u14/test_sequence_send_request_rerandomiz
 now accepts any positive callback count rather than requiring exactly one.
 Its input fingerprint changed, so its old failing/unsupported guest record is
 excluded alongside the citation-revised command and virtual-field configuration inputs. The original
-1085-record files remain intact. Current reuse covers 1082 inputs; this is
+1085-record files remain intact. Current reuse covers 1081 inputs; this is
 filtering, not a new pass, failure or simulator improvement.
 
 ### Q216. Do the new sequencer cases close its remaining contracts?
@@ -3698,7 +3695,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2617 directly linked tests and fifty-six
+The suite has 2629 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3812,7 +3809,7 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 2233 tagged checks form 8 disjoint shards with at most 4 concurrent
+No. The current 2245 tagged checks form 8 disjoint shards with at most 4 concurrent
 jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
@@ -3970,12 +3967,9 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 
 ### Q284. Why did the compatible Ghost match count fall from 207 to 206?
 
-The corrected citation changes the exact input hash despite an unchanged body
-and oracle. Its old guest record is excluded: 1083 compatible records become
-1082, leaving Ghost 206 matches/876 failures per seed and kirimasim 1073
-unsupported/nine failures. No guest was rerun. The 1591 unmeasured inputs are
-1588 additions and three revised originals. This filter is not evidence of
-guest improvement or regression; see [the evidence assembly](results.md#evidence-assembly).
+At that earlier citation repair, the changed fingerprint excluded an old row despite an unchanged body/oracle: 1083 compatible records became 1082. At that checkpoint Ghost retained 206 matches/876 failures per seed and kirimasim retained 1073 unsupported/nine failures, without a guest rerun.
+
+Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1604 unmeasured inputs are 1600 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
 
@@ -4217,8 +4211,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4094 duties link directly
-to 2617 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4095 duties link directly
+to 2629 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5107,7 +5101,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4094 duties all have direct tests and all 2673 tests have links, but those
+The 4095 duties all have direct tests and all 2685 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5204,7 +5198,7 @@ conditions. These u10 core callback utilities count as M1, consistently with
 the earlier integer-iterator fixtures; the B.4 callback macros retain their
 M2 grouping. Four boundary/growth duties are added and four existing mappings
 extended without changing original fields or links. The census now has
-1174 zero/770 below-target/538 at-least-target candidate identifiers, while
+1173 zero/771 below-target/538 at-least-target candidate identifiers, while
 all 2062 partial identifiers and original targets remain open; [the counting
 guide](requirements.md#citations-requirements-and-execution-evidence) explains
 why two placements alone do not prove independent complete coverage.
@@ -5320,3 +5314,60 @@ without changing expectations and excluded from current results. All 440
 older known inputs remain, as do the 2062 partial contracts and original
 M1–M4 targets; [the completion guide](requirements.md#remaining-m4-work-and-approval)
 explains the remaining audit.
+
+## Pending objections and net propagation
+
+A zero at a source can coexist with pending counts at ancestors, and [the pending-chain terms](glossary.md#pending-objection-chains) explain what the new snapshots measure.
+
+### Q405. What is added beyond re-raising during drain?
+
+The original reraise case raises during a three-unit drain and observes phase
+extraction at time six. The new [original helper](../tests/u10/helpers106_objection/objection106.svh)
+uses independent gates during a two-unit drain or an executing all_dropped
+task. Raising at the gate itself or a descendant must terminate the pending
+zero-count chain. Releasing the old gate must not later remove the new held
+counts. A final drop must complete a new drain/callback cycle, and a second
+round checks reuse after completed cleanup. A separate branch holds four;
+another objection instance holds seven throughout. The named local snapshot
+fields are gate, leaf, upper and peer; total fields are gate, upper and root.
+
+### Q406. What is asserted when the new count is smaller than the pending drop?
+
+For pending drop D and new raise R, 10.5.1.3.4 reduces the propagated raise by
+the pending drop. The selected source/subtree and its ancestor retain R while
+the root also retains the peer's four. For R>=D, the observed raised callback
+amount is R-D: no propagation at equality and the reduced positive amount
+otherwise. When R<D, the oracle checks public count state without fixing the
+kind, encoding or metadata of a compensation callback. Eight DIAG106 rows per seed
+record those hook values for investigation only, with no expected-output
+anchor or requirement link. Expectations were fixed from the standard before
+execution; these diagnostic rows do not resolve broader compensation behavior.
+
+### Q407. Do the task gates resolve the component's printed function declaration?
+
+No. 10.5.1.4.3 and 10.5.2.2.3 print virtual tasks for the objection and its
+registered callback. Those are the new extension points. 13.1.6.3 instead
+prints a component function; [the literal function fixture](../tests/u13/test_component_printed_all_dropped_function_signature_dispatches_through_a_base_view.sv)
+retains its known function/task build difference. The new node class does not
+override that component hook with a task, and passing task-based cancellation
+profiles does not pass the component signature contract. No relative ordering
+of component and registered callback bodies, or cancellation of a user's
+task tail, is asserted.
+
+### Q408. Does the citation repair improve guest results or prove clause coverage?
+
+No. The original reraise fixture cited the getter 10.5.1.3.6 first without
+calling it. Its description and primary citation now identify the pending-drop
+rule 10.5.1.3.4; its body and two expected rows remain unchanged and were
+freshly measured at both seeds. The separate drain-time fixture really calls
+the getter and keeps that mapping. Primary placement for drop_objection grows
+from zero to thirteen, while the getter drops from two to one. Neither figure
+proves independent tests or complete requirements.
+
+Header edits change the input fingerprint under [the update rules](requirements.md#updating-a-test-or-mapping).
+The revised original's old guest row is filtered from 1082 compatible records,
+leaving 1081; the 1604 unmeasured inputs are 1600 additions and four revised
+originals. Ghost's retained failure count becomes 875 and kirimasim's retained
+unsupported count becomes 1072 because that stale row was removed. No guest
+was re-executed, improved or newly passed. The old evidence remains archived,
+all 440 ordinary known inputs remain and the goal is still incomplete.

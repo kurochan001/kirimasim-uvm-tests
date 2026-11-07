@@ -258,6 +258,8 @@ memoryの期待は明示mapの契約と独立した単位／offset計算から�
 
 入れ子transportの期待は印刷UVM prototypeとSystemVerilogのinput／ref規則から独立に定め、独自endpointの算術を標準algorithmにはせず、本文のreferenceという語を限定する理由は[Q402](faq.ja.md#q402-delayのreferenceはendpointがcallerのhandleを置換できる意味ですか)で説明しています。
 
+保留objectionの期待は提供IEEEの伝播／count契約から独立に定め、印刷taskの独自gateを使い、診断hook値をoracleにしない理由は[Q406](faq.ja.md#q406-新しい件数が保留dropより少ない場合は何をassertしますか)で説明しています。元のreraiseは主引用のみの修正でも本体と期待を保持して再測定し、実装sourceや商用出力を新たに使いません。
+
 ## 条項カタログの保守
 
 条項カタログは引用の検証に使う規格の識別子一覧であり、規範的義務やcoverage分母との違いは[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)で確認できます。
