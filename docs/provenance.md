@@ -386,9 +386,11 @@ was copied from observed output, and no implementation source or commercial
 result was used. [Q389](faq.md#q389-how-is-the-detached-sequence-root-expectation-qualified)
 records the qualified root reading rather than a library-only conclusion.
 
+Named-callback expectations follow the standard through original per-target lists and arithmetic, while the conditional directional type controls do not establish mandatory ancestry; [Q392](faq.md#q392-do-the-type-relation-controls-settle-the-b4-base-wording) explains that qualification.
+
 ## Clause catalog maintenance
 
-The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.
+The catalog lists clause identifiers used to validate citations; [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains how these identifiers differ from normative duties and a coverage denominator.
 
 The identifier-only [clause catalog](../tools/clauses_1800_2.txt) now includes
 B.2.1.2, B.2.1.3 and D.2.2.3. Their wrapped headings were missing from the

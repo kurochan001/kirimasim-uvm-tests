@@ -1130,6 +1130,8 @@ the runner does not execute the resulting binary or runtime seeds.
 
 ## Reporting and policy state
 
+A printer can expose values through hooks or emit formatted text, and [the output FAQ](faq.md#output-limits-and-routed-observations) explains which observation each fixture checks.
+
 **Report pipeline trace**: An original catcher and server overrides expose
 the order in which catching, composition and execution occur. This observes
 framework dispatch without prescribing a default formatter algorithm.
@@ -1366,6 +1368,8 @@ without assuming its initial value, allocation count or post-body retention.
 
 ## Time units and constructor premises
 
+A premise is a test's setup assumption, so an explicitly initialized control must be read under its own conditions; [the FIFO initialization example](faq.md#q255-why-retain-constructor-only-fifo-failures-after-a-build-control-matches) shows why its match cannot pass the original input.
+
 **Caller-unit canonical time** — A real time quantity interpreted in the calling
 scope's time units. Explicit scaled/secs arguments convert it to or from the
 canonical representation; a nanosecond-based example cannot be reused unchanged
@@ -1396,6 +1400,8 @@ legal base-view dispatch from missing pure implementations. An explicit pinned
 extra-hook control does not certify builtin algorithms or the listed-only premise.
 
 ## Field-macro and callback controls
+
+A field macro generates code for selected object operations, and [the macro FAQ](faq.md#field-macro-type-arguments-and-paired-operation-flags) explains how type arguments and flags change the premise being checked.
 
 **Enum collection T premise** — A collection typedef passed literally from
 the field-macro prose, separately from a control using its element enum type.
@@ -1763,7 +1769,7 @@ These terms describe the selected declaration and cast checks, with their limits
 
 **Resolved implementation view** — The interface selected from an actually bound port, with default or explicit index; [Q368](faq.md#q368-does-correct-routing-pass-the-nominal-type-case) separates correct routing/identity rows from whole-case success.
 
-**Callback registry/object distinction** — The management class and the callback type it manages, whose base rules differ; [Q370](faq.md#q370-why-leave-b4-unassessed-after-reading-its-callback-description) records the unresolved overview wording.
+**Callback registry/object distinction** — The management class and the callback type it manages, whose documented base roles must be read together; [Q370](faq.md#q370-why-leave-b4-unassessed-after-reading-its-callback-description) records the earlier unresolved overview wording.
 
 ## Random state and API applicability
 
@@ -1810,3 +1816,13 @@ These terms describe selected naming and ordering observations, and [Q388](faq.m
 **Order of equivalent data** — The implementation's permitted choice within the specified semantics, which does not erase an API's explicit field-position order or require different runs to use different orders.
 
 **Detached sequence root interpretation** — The qualified expectation that a sequence whose parent is cleared identifies itself as root; path, parent, root handle and root name are observed separately without asserting depth or execution behavior.
+
+## Named callback lifecycle and conditional type relations
+
+A callback can belong to several object queues while sharing one enabled state, and [the lifecycle FAQ](faq.md#q391-what-do-the-named-callback-lifecycle-profiles-check) shows how separate memberships are observed.
+
+**Disabled deletion history** — Removing a callback's association while its execution is disabled, then enabling it again to distinguish deletion from temporary suppression; [Q391](faq.md#q391-what-do-the-named-callback-lifecycle-profiles-check) records the exact-root/glob controls.
+
+**Conditional directional type control** — A supporting conversion probe under one explicitly selected ancestry interpretation; [Q392](faq.md#q392-do-the-type-relation-controls-settle-the-b4-base-wording) explains why it does not prove mandatory ancestry or exclude the opposite permitted chain.
+
+**Zero-unassessed checkpoint** — Every catalog identifier has a partial decomposition or an individual assessment, with other obligations and completion gates still open; [Q390](faq.md#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) distinguishes this queue from complete coverage.

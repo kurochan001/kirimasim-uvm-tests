@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 101 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2639 tests: 2540 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 102 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2649 tests: 2550 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5854,3 +5854,42 @@ input-compatible; 1557 guest inputs remain unmeasured: 1554 additions and three
 revised originals (1458 simulation/99 elaboration). No simulator implementation
 source or commercial result was used. All partial applicability and original
 M1-M4 targets, human review and scope/denominator approval remain open.
+
+## 102nd thin-area expansion: named callbacks and the zero-unassessed checkpoint
+
+The 102nd expansion adds ten M2 profiles with primary clause B.4. Eight
+operational inputs combine named callback addition, explicit disable/enable,
+deletion while disabled and re-addition through implicit or external-object
+macros. Exact and glob names, two branch selections and opposite construction
+orders retain per-target membership, placement, reference values and caller
+arguments; [the callback FAQ](faq.md#q391-what-do-the-named-callback-lifecycle-profiles-check)
+explains the selected conditions. All eight final tagged inputs match seeds
+1/73 with exit 0.
+
+Two constructor-free supporting controls test only a selected
+registry-below-callback type interpretation. They fail at the typed conversion
+assignment during simulation build, without runtime. The initial comments
+overstated that relation as necessary: 1.4.3 also permits the opposite
+intermediate chain. Comments were clarified and both current inputs rebuilt;
+logic and expected lines remain unchanged. These are qualified controls,
+not proof of mandatory ancestry, a typo, a contradiction or a library-only
+defect; [the type-relation FAQ](faq.md#q392-do-the-type-relation-controls-settle-the-b4-base-wording)
+records this boundary.
+
+Three distinct partial duties are added and five existing mappings extended
+without duplicating mode, deletion or implicit-argument duties. Fourteen
+existing requirement objects were reviewed, including clarification of the
+unresolved B.4 wording in limitations; their original links, statements,
+conditions, expectations and review records remain. All 445 individual
+assessments and 2639 prior index/ordinary records are retained. The new total
+is 4085 AI duties, 2593 directly linked tests, 56 control-only tests and 156
+control-linked tests. Human review and scope/denominator approval remain
+unrecorded.
+
+The catalog is 2062 partial/445 assessed/0 unassessed. B.4 becomes partial
+through operational decomposition, with the ancestry issue still open; it is
+not classified away. Zero unassessed is one queue checkpoint, while all
+partial obligations, applicability conditions and original M1–M4 targets remain
+open under [the completion explanation](faq.md#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work).
+All 430 earlier known inputs are retained, and ten new inputs remain unmeasured
+for guests. Scope, catalog, runners, backends and workflow are unchanged.

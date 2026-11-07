@@ -4153,6 +4153,150 @@
             "UT: disabled_counts 0 1",
             "UT: enabled_counts 1 2 context_same 1"
           ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 0 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 0 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 0 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 0 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 0 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 0 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 0 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 0 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 0 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 0 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 0 0 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 0 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 0 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 0 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 0 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 0 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 0 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 0 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 0 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 0 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 0 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 0 1 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 1 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 1 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 1 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 1 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 1 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 1 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 1 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 1 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 1 0 stage 4 node 1 trace SAZ value 808 args 1",
+            "UT: named102 1 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 1 0 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 1 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 1 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 1 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 1 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 1 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 1 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 1 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 1 1 stage 4 node 0 trace SAZ value 802 args 1",
+            "UT: named102 1 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 1 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 1 1 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 2 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 2 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 2 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 2 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 2 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 2 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 2 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 2 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 2 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 2 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 2 0 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 2 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 2 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 2 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 2 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 2 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 2 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 2 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 2 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 2 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 2 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 2 1 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 3 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 3 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 3 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 3 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 3 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 3 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 3 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 3 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 3 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 3 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 3 0 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 3 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 3 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 3 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 3 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 3 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 3 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 3 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 3 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 3 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 3 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 3 1 stage 4 node 3 trace AZS value 841 args 1"
+          ]
         }
       ]
     },
@@ -10230,6 +10374,118 @@
             "UT: hit value",
             "UT: calls 2"
           ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 0 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 0 0 stage 1 node 1 trace AZ value 82 args 1",
+            "UT: named102 0 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 0 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 0 0 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 0 0 stage 5 node 1 trace AZ value 338 args 1",
+            "UT: named102 0 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 0 0 stage 5 node 3 trace AZS value 1033 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 1 stage 1 node 0 trace AZ value 80 args 1",
+            "UT: named102 0 1 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 0 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 0 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 0 1 stage 5 node 0 trace AZ value 336 args 1",
+            "UT: named102 0 1 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 0 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 0 1 stage 5 node 3 trace AZS value 1033 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 0 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 1 0 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 1 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 1 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 1 0 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 1 0 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 1 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 1 0 stage 5 node 3 trace AZS value 1033 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 1 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 1 1 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 1 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 1 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 1 1 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 1 1 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 1 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 1 1 stage 5 node 3 trace AZS value 1033 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 0 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 2 0 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 2 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 2 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 2 0 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 2 0 stage 5 node 1 trace AZ value 338 args 1",
+            "UT: named102 2 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 2 0 stage 5 node 3 trace AZS value 1033 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 1 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 2 1 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 2 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 2 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 2 1 stage 5 node 0 trace AZ value 336 args 1",
+            "UT: named102 2 1 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 2 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 2 1 stage 5 node 3 trace AZS value 1033 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 0 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 3 0 stage 1 node 1 trace AZ value 82 args 1",
+            "UT: named102 3 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 3 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 3 0 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 3 0 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 3 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 3 0 stage 5 node 3 trace AZS value 1033 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 1 stage 1 node 0 trace AZ value 80 args 1",
+            "UT: named102 3 1 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 3 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 3 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 3 1 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 3 1 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 3 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 3 1 stage 5 node 3 trace AZS value 1033 args 1"
+          ]
         }
       ]
     },
@@ -10367,6 +10623,86 @@
           "expected_observations": [
             "UT: hit value",
             "UT: calls 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 0 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 0 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 0 0 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 0 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 0 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 0 1 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 1 0 stage 4 node 1 trace SAZ value 808 args 1",
+            "UT: named102 1 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 1 0 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 1 stage 4 node 0 trace SAZ value 802 args 1",
+            "UT: named102 1 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 1 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 1 1 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 2 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 2 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 2 0 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 2 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 2 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 2 1 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 3 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 3 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 3 0 stage 4 node 3 trace AZS value 841 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 3 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 3 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 3 1 stage 4 node 3 trace AZS value 841 args 1"
           ]
         }
       ]
@@ -144407,8 +144743,8 @@
         "ja": "新規instance／typewideのadd／delete windowで少なくとも1つのWARNINGを観測し、text／件数／queue結果を固定しない。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -144462,8 +144798,8 @@
         "ja": "2特殊化のglobal aliasとclass-local aliasがcompileでき、元の引数で選択した型／instanceへのdispatchを保持する。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -144505,8 +144841,8 @@
         "ja": "callback handleを共有する別callerが、自身のcontextとlocal所属を渡し、他callerのlocal callbackを呼ばない。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -144540,8 +144876,8 @@
         "ja": "append／prepend履歴で両参照の変換と正確なtrace順を保持し、各callbackが元のcaller／tokenを受ける。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -144562,6 +144898,146 @@
           "expected_observations": [
             "UT: cb82 method_refs_prepend value 1 trace 1 calls 1 args 1"
           ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 0 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 0 0 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 0 0 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 0 0 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 0 0 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 0 0 stage 1 node 1 trace AZ value 82 args 1",
+            "UT: named102 0 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 0 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 0 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 0 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 0 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 0 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 0 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 0 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 0 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 0 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 0 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 0 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 0 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 0 0 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 0 0 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 0 0 stage 5 node 1 trace AZ value 338 args 1",
+            "UT: named102 0 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 0 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 0 0 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 0 0 stage 6 node 1 trace AZ value 402 args 1",
+            "UT: named102 0 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 0 0 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 0 0 final calls 28 28 8 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 1 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 0 1 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 0 1 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 0 1 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 0 1 stage 1 node 0 trace AZ value 80 args 1",
+            "UT: named102 0 1 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 0 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 0 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 0 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 0 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 0 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 0 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 0 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 0 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 0 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 0 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 0 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 0 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 0 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 0 1 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 0 1 stage 5 node 0 trace AZ value 336 args 1",
+            "UT: named102 0 1 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 0 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 0 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 0 1 stage 6 node 0 trace AZ value 400 args 1",
+            "UT: named102 0 1 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 0 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 0 1 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 0 1 final calls 28 28 8 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 0 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 2 0 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 2 0 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 2 0 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 2 0 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 2 0 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 2 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 2 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 2 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 2 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 2 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 2 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 2 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 2 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 2 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 2 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 2 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 2 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 2 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 2 0 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 2 0 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 2 0 stage 5 node 1 trace AZ value 338 args 1",
+            "UT: named102 2 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 2 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 2 0 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 2 0 stage 6 node 1 trace AZ value 402 args 1",
+            "UT: named102 2 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 2 0 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 2 0 final calls 28 28 9 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 1 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 2 1 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 2 1 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 2 1 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 2 1 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 2 1 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 2 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 2 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 2 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 2 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 2 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 2 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 2 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 2 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 2 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 2 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 2 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 2 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 2 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 2 1 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 2 1 stage 5 node 0 trace AZ value 336 args 1",
+            "UT: named102 2 1 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 2 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 2 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 2 1 stage 6 node 0 trace AZ value 400 args 1",
+            "UT: named102 2 1 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 2 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 2 1 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 2 1 final calls 28 28 9 enabled 1"
+          ]
         }
       ]
     },
@@ -144581,8 +145057,8 @@
         "ja": "明示disableしたentryを省略し、明示enable後の後続呼出しで再び実行する。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -144617,8 +145093,8 @@
         "ja": "派生callbackが選択呼出しを受け、同名methodを持つ無関係callbackは除外され、別に呼び出せる状態を保つ。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -144652,8 +145128,8 @@
         "ja": "選択呼出しが両所属を訪問し、queue間の列挙順を規定せずpeer分離を保持する。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -144696,8 +145172,8 @@
         "ja": "deleteが次のdispatchから指定entryを除き、再追加が後の完全traceへ反映され、外部peerを呼ばない。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -144712,6 +145188,94 @@
             "UT: cb82 reconfigure first 1 trace 1",
             "UT: cb82 reconfigure deleted 1 counts 1",
             "UT: cb82 reconfigure restored 1 counts 1 peer 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 0 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 0 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 0 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 0 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 0 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 0 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 0 0 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 0 0 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 0 0 stage 5 node 1 trace AZ value 338 args 1",
+            "UT: named102 0 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 0 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 0 0 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 0 0 stage 6 node 1 trace AZ value 402 args 1",
+            "UT: named102 0 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 0 0 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 0 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 0 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 0 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 0 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 0 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 0 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 0 1 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 0 1 stage 5 node 0 trace AZ value 336 args 1",
+            "UT: named102 0 1 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 0 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 0 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 0 1 stage 6 node 0 trace AZ value 400 args 1",
+            "UT: named102 0 1 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 0 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 0 1 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 2 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 2 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 2 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 2 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 2 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 2 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 2 0 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 2 0 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 2 0 stage 5 node 1 trace AZ value 338 args 1",
+            "UT: named102 2 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 2 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 2 0 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 2 0 stage 6 node 1 trace AZ value 402 args 1",
+            "UT: named102 2 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 2 0 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 2 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 2 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 2 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 2 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 2 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 2 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 2 1 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 2 1 stage 5 node 0 trace AZ value 336 args 1",
+            "UT: named102 2 1 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 2 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 2 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 2 1 stage 6 node 0 trace AZ value 400 args 1",
+            "UT: named102 2 1 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 2 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 2 1 stage 6 node 3 trace AZS value 1225 args 1"
           ]
         }
       ]
@@ -144732,8 +145296,8 @@
         "ja": "選択した空callerへ進入し、参照sentinelを保持してpeer専用callbackを呼ばない。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -144766,8 +145330,8 @@
         "ja": "継承dispatch本体が実際の派生receiverを渡し、適用される基底typewide／派生local callbackへ到達する。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -144801,8 +145365,8 @@
         "ja": "method欠落と引数不適合の設計を宣言した検査系／member診断で拒否し、runtime seedは実行しない。"
       },
       "limitations": {
-        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unassessed rather than classified away.",
-        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未評価に保持する。"
+        "en": "Selected callback dispatch/diagnostic conditions only. Original affine arithmetic and traces expose ordered reference propagation,not a UVM algorithm. Unregistered warning windows assert presence without a diagnostic ID,text or exact count,and do not prescribe acceptance,membership or recovery. Empty-delete warning presence alone does not identify the validation mechanism. Typedef usability does not establish private registration bits or general absence of warnings. No active-iteration mutation,unspecified cross-queue order,omitted callback-mode default or complete type/hierarchy/lifecycle coverage is certified. The B.4 overview base-type wording remains unresolved despite the partial operational decomposition.",
+        "ja": "選択したcallback dispatch／診断条件のみ。独自のaffine計算とtraceで順序付きの参照伝播を観測し、UVM algorithmにはしない。未登録のwarning windowはID／text／正確な件数なしに存在だけを要求し、受理／所属／復旧を規定しない。空queueのdelete warningの存在だけでは検証機構を特定しない。typedefの利用可能性で非公開登録bitや一般的なwarning不在を成立させない。反復中の変更、未指定のqueue間順序、callback-mode省略既定値、型／階層／寿命の完全性は認定しない。B.4導入の基底型本文は分類で消さず未解決に保持する。"
       },
       "review": {
         "status": "ai",
@@ -154918,6 +155482,665 @@
             "UT: case101 model 2 1 stage 0 field_order 1",
             "UT: case101 model 2 1 stage 1 field_order 1",
             "UT: case101 model 2 1 stage 2 field_order 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-OVERVIEW-REGISTERED-METHOD-EXECUTION-102",
+      "clause": "B.4",
+      "statement": {
+        "en": "The callback macro family supports registration and execution of callback methods associated with the selected object context.",
+        "ja": "callback macro群は、選択objectの文脈へ対応付けたcallback methodの登録と実行を提供する。"
+      },
+      "conditions": {
+        "en": "Use a valid object/callback pair registered by the documented macro and uvm_callback-derived methods under10.7.1; modify named registrations and explicit enabled state between completed implicit or external-object invocations. Keep the overview ancestry interpretation separate.",
+        "ja": "文書化されたmacroで登録する有効なobject／callback対と10.7.1のuvm_callback派生methodを使い、implicit／external-objectの呼出し完了の間に名前指定の登録と明示enable状態を変更する。overviewの継承解釈は別に保持する。"
+      },
+      "expected": {
+        "en": "Each invocation reaches the enabled callbacks currently associated with its selected object, preserving the original object/token, ordered transformations and independent peer memberships.",
+        "ja": "各呼出しは選択objectに現在対応する有効callbackへ到達し、元のobject／token、順序付きの変換、独立peerの所属を保持する。"
+      },
+      "limitations": {
+        "en": "Selected existing component roots, ASCII case-sensitive exact/glob names, explicit callback modes0/1 and changes between completed calls only. Original affine operations expose per-object dispatch order and METHOD reference propagation; caller iteration does not prescribe target-search order. No active-iteration mutation, universal regex behavior, typewide/inheritance coverage, omitted callback-mode default, exit-on macro behavior, private queue or factory-macro prerequisite is inferred. The B.4 registry-base wording remains unresolved: operational direct profiles use the documented uvm_callback base under10.7.1, while two constructor-free static-relation profiles are supporting controls under a qualified literal reading, not mandatory ancestry duties or proof of a typo/contradiction. Partial obligations, original milestone targets and human/scope/denominator approval remain open.",
+        "ja": "既存componentの選択root、ASCIIのcaseを区別するexact／glob名、明示callback mode0／1、完了した呼出し間の変更だけを扱う。独自のaffine操作でobjectごとのdispatch順とMETHOD参照引数の伝播を観測し、callerの反復順を対象検索順の規定にしない。実行中のiterator変更、普遍的regex、typewide／継承の網羅、省略callback-mode既定値、exit-on macro、private queue、factory macroの前提を推測しない。B.4のregistry基底の記述は未解決である。動作のdirect profileは10.7.1に記載されたuvm_callback基底を使い、constructorを呼ばない静的関係2profileは限定した字面解釈の補助controlであって、必須継承の義務や誤記／矛盾の証明にしない。部分義務、元の段階目標、人／範囲／分母の承認は未完である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_named_lifecycle_0_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 0 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 0 0 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 0 0 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 0 0 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 0 0 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 0 0 stage 1 node 1 trace AZ value 82 args 1",
+            "UT: named102 0 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 0 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 0 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 0 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 0 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 0 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 0 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 0 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 0 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 0 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 0 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 0 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 0 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 0 0 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 0 0 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 0 0 stage 5 node 1 trace AZ value 338 args 1",
+            "UT: named102 0 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 0 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 0 0 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 0 0 stage 6 node 1 trace AZ value 402 args 1",
+            "UT: named102 0 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 0 0 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 0 0 final calls 28 28 8 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 1 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 0 1 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 0 1 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 0 1 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 0 1 stage 1 node 0 trace AZ value 80 args 1",
+            "UT: named102 0 1 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 0 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 0 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 0 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 0 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 0 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 0 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 0 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 0 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 0 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 0 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 0 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 0 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 0 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 0 1 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 0 1 stage 5 node 0 trace AZ value 336 args 1",
+            "UT: named102 0 1 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 0 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 0 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 0 1 stage 6 node 0 trace AZ value 400 args 1",
+            "UT: named102 0 1 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 0 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 0 1 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 0 1 final calls 28 28 8 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 0 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 1 0 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 1 0 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 1 0 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 1 0 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 1 0 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 1 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 1 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 1 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 1 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 1 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 1 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 1 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 1 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 1 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 1 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 1 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 1 0 stage 4 node 1 trace SAZ value 808 args 1",
+            "UT: named102 1 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 1 0 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 1 0 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 1 0 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 1 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 1 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 1 0 stage 6 node 0 trace AZS value 1207 args 1",
+            "UT: named102 1 0 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 1 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 1 0 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 1 0 final calls 28 28 12 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 1 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 1 1 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 1 1 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 1 1 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 1 1 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 1 1 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 1 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 1 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 1 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 1 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 1 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 1 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 1 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 1 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 1 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 1 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 1 1 stage 4 node 0 trace SAZ value 802 args 1",
+            "UT: named102 1 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 1 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 1 1 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 1 1 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 1 1 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 1 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 1 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 1 1 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 1 1 stage 6 node 1 trace AZS value 1213 args 1",
+            "UT: named102 1 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 1 1 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 1 1 final calls 28 28 12 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 0 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 2 0 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 2 0 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 2 0 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 2 0 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 2 0 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 2 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 2 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 2 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 2 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 2 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 2 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 2 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 2 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 2 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 2 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 2 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 2 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 2 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 2 0 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 2 0 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 2 0 stage 5 node 1 trace AZ value 338 args 1",
+            "UT: named102 2 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 2 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 2 0 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 2 0 stage 6 node 1 trace AZ value 402 args 1",
+            "UT: named102 2 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 2 0 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 2 0 final calls 28 28 9 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 1 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 2 1 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 2 1 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 2 1 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 2 1 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 2 1 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 2 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 2 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 2 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 2 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 2 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 2 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 2 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 2 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 2 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 2 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 2 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 2 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 2 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 2 1 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 2 1 stage 5 node 0 trace AZ value 336 args 1",
+            "UT: named102 2 1 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 2 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 2 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 2 1 stage 6 node 0 trace AZ value 400 args 1",
+            "UT: named102 2 1 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 2 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 2 1 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 2 1 final calls 28 28 9 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 0 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 3 0 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 3 0 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 3 0 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 3 0 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 3 0 stage 1 node 1 trace AZ value 82 args 1",
+            "UT: named102 3 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 3 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 3 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 3 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 3 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 3 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 3 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 3 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 3 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 3 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 3 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 3 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 3 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 3 0 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 3 0 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 3 0 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 3 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 3 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 3 0 stage 6 node 0 trace AZS value 1207 args 1",
+            "UT: named102 3 0 stage 6 node 1 trace AZS value 1213 args 1",
+            "UT: named102 3 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 3 0 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 3 0 final calls 28 28 10 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 1 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 3 1 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 3 1 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 3 1 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 3 1 stage 1 node 0 trace AZ value 80 args 1",
+            "UT: named102 3 1 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 3 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 3 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 3 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 3 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 3 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 3 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 3 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 3 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 3 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 3 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 3 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 3 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 3 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 3 1 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 3 1 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 3 1 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 3 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 3 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 3 1 stage 6 node 0 trace AZS value 1207 args 1",
+            "UT: named102 3 1 stage 6 node 1 trace AZS value 1213 args 1",
+            "UT: named102 3 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 3 1 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 3 1 final calls 28 28 10 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_overview_base_relation_0_102",
+          "role": "control",
+          "expected_observations": [
+            "UT: literal102 0 null_identity 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_overview_base_relation_1_102",
+          "role": "control",
+          "expected_observations": [
+            "UT: literal102 1 null_identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-NAMED-PLACEMENT-AND-READDITION-102",
+      "clause": "10.7.2.3.2",
+      "statement": {
+        "en": "Named callback addition applies the specified append/prepend placement independently to each matching existing component queue.",
+        "ja": "名前指定のcallback追加は、一致する既存componentの各queueへ指定のappend／prepend配置を個別に適用する。"
+      },
+      "conditions": {
+        "en": "Start with distinct A/Z registrations on four existing targets; add shared S by exact full name or glob under an explicit whole-tree or branch root, then remove and re-add it between completed calls. Exercise omitted APPEND, explicit APPEND and PREPEND.",
+        "ja": "既存4対象へ別のA／Z登録を用意し、明示した全tree／枝root内でexact full nameまたはglobにより共有Sを追加して、完了呼出しの間に削除／再追加する。APPEND省略、明示APPEND、PREPENDを検査する。"
+      },
+      "expected": {
+        "en": "Matching targets place S after or before their existing A/Z callbacks as selected; a case-mismatched sibling and outside-root peer retain their own registrations. Re-addition affects the next completed dispatch and repeats without stale order.",
+        "ja": "一致対象は指定に従ってSを既存A／Zの後または前へ置き、case不一致のsiblingとroot外peerは自身の登録を保持する。再追加は次の完了dispatchへ反映され、古い順序を残さず反復する。"
+      },
+      "limitations": {
+        "en": "Selected existing component roots, ASCII case-sensitive exact/glob names, explicit callback modes0/1 and changes between completed calls only. Original affine operations expose per-object dispatch order and METHOD reference propagation; caller iteration does not prescribe target-search order. No active-iteration mutation, universal regex behavior, typewide/inheritance coverage, omitted callback-mode default, exit-on macro behavior, private queue or factory-macro prerequisite is inferred. The B.4 registry-base wording remains unresolved: operational direct profiles use the documented uvm_callback base under10.7.1, while two constructor-free static-relation profiles are supporting controls under a qualified literal reading, not mandatory ancestry duties or proof of a typo/contradiction. Partial obligations, original milestone targets and human/scope/denominator approval remain open.",
+        "ja": "既存componentの選択root、ASCIIのcaseを区別するexact／glob名、明示callback mode0／1、完了した呼出し間の変更だけを扱う。独自のaffine操作でobjectごとのdispatch順とMETHOD参照引数の伝播を観測し、callerの反復順を対象検索順の規定にしない。実行中のiterator変更、普遍的regex、typewide／継承の網羅、省略callback-mode既定値、exit-on macro、private queue、factory macroの前提を推測しない。B.4のregistry基底の記述は未解決である。動作のdirect profileは10.7.1に記載されたuvm_callback基底を使い、constructorを呼ばない静的関係2profileは限定した字面解釈の補助controlであって、必須継承の義務や誤記／矛盾の証明にしない。部分義務、元の段階目標、人／範囲／分母の承認は未完である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_named_lifecycle_0_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 0 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 0 0 stage 1 node 1 trace AZ value 82 args 1",
+            "UT: named102 0 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 0 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 0 0 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 0 0 stage 5 node 1 trace AZ value 338 args 1",
+            "UT: named102 0 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 0 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 0 0 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 0 0 stage 6 node 1 trace AZ value 402 args 1",
+            "UT: named102 0 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 0 0 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_0_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 0 1 stage 1 node 0 trace AZ value 80 args 1",
+            "UT: named102 0 1 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 0 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 0 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 0 1 stage 5 node 0 trace AZ value 336 args 1",
+            "UT: named102 0 1 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 0 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 0 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 0 1 stage 6 node 0 trace AZ value 400 args 1",
+            "UT: named102 0 1 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 0 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 0 1 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 0 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 1 0 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 1 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 1 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 1 0 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 1 0 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 1 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 1 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 1 0 stage 6 node 0 trace AZS value 1207 args 1",
+            "UT: named102 1 0 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 1 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 1 0 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 1 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 1 1 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 1 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 1 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 1 1 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 1 1 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 1 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 1 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 1 1 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 1 1 stage 6 node 1 trace AZS value 1213 args 1",
+            "UT: named102 1 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 1 1 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 0 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 2 0 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 2 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 2 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 2 0 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 2 0 stage 5 node 1 trace AZ value 338 args 1",
+            "UT: named102 2 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 2 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 2 0 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 2 0 stage 6 node 1 trace AZ value 402 args 1",
+            "UT: named102 2 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 2 0 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_2_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 2 1 stage 1 node 0 trace AZS value 247 args 1",
+            "UT: named102 2 1 stage 1 node 1 trace AZS value 253 args 1",
+            "UT: named102 2 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 2 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 2 1 stage 5 node 0 trace AZ value 336 args 1",
+            "UT: named102 2 1 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 2 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 2 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 2 1 stage 6 node 0 trace AZ value 400 args 1",
+            "UT: named102 2 1 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 2 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 2 1 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 0 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 3 0 stage 1 node 1 trace AZ value 82 args 1",
+            "UT: named102 3 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 3 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 3 0 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 3 0 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 3 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 3 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 3 0 stage 6 node 0 trace AZS value 1207 args 1",
+            "UT: named102 3 0 stage 6 node 1 trace AZS value 1213 args 1",
+            "UT: named102 3 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 3 0 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 1 stage 1 node 0 trace AZ value 80 args 1",
+            "UT: named102 3 1 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 3 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 3 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 3 1 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 3 1 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 3 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 3 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 3 1 stage 6 node 0 trace AZS value 1207 args 1",
+            "UT: named102 3 1 stage 6 node 1 trace AZS value 1213 args 1",
+            "UT: named102 3 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 3 1 stage 6 node 3 trace AZS value 1225 args 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-EXPLICIT-METHOD-REFERENCE-PIPELINE-102",
+      "clause": "B.4.4",
+      "statement": {
+        "en": "The external-object macro invokes METHOD with its supplied arguments and preserves ordered reference updates for that selected context.",
+        "ja": "external-object macroは指定引数でMETHODを呼び、選択文脈で順序付きの参照更新を保持する。"
+      },
+      "conditions": {
+        "en": "A module function receives the actual external target and invokes its macro with an object handle, token and mutable value/trace references. Named registration, disabled deletion, re-enable and re-addition change applicable membership only between completed calls.",
+        "ja": "module functionが実際の外部対象を受け、object handle、token、更新可能なvalue／trace参照でmacroを呼ぶ。名前指定の登録、無効中の削除、再有効化、再追加は完了した呼出しの間だけ所属を変更する。"
+      },
+      "expected": {
+        "en": "Every reached hook receives the original selected object/token, each arithmetic result flows to the next hook and caller, and disabled or deleted entries contribute no transformation while unrelated memberships remain independent.",
+        "ja": "到達する各hookは元の選択object／tokenを受け、算術結果は次のhookとcallerへ伝わる。無効／削除entryは変換へ参加せず、無関係な所属は独立を保つ。"
+      },
+      "limitations": {
+        "en": "Selected existing component roots, ASCII case-sensitive exact/glob names, explicit callback modes0/1 and changes between completed calls only. Original affine operations expose per-object dispatch order and METHOD reference propagation; caller iteration does not prescribe target-search order. No active-iteration mutation, universal regex behavior, typewide/inheritance coverage, omitted callback-mode default, exit-on macro behavior, private queue or factory-macro prerequisite is inferred. The B.4 registry-base wording remains unresolved: operational direct profiles use the documented uvm_callback base under10.7.1, while two constructor-free static-relation profiles are supporting controls under a qualified literal reading, not mandatory ancestry duties or proof of a typo/contradiction. Partial obligations, original milestone targets and human/scope/denominator approval remain open.",
+        "ja": "既存componentの選択root、ASCIIのcaseを区別するexact／glob名、明示callback mode0／1、完了した呼出し間の変更だけを扱う。独自のaffine操作でobjectごとのdispatch順とMETHOD参照引数の伝播を観測し、callerの反復順を対象検索順の規定にしない。実行中のiterator変更、普遍的regex、typewide／継承の網羅、省略callback-mode既定値、exit-on macro、private queue、factory macroの前提を推測しない。B.4のregistry基底の記述は未解決である。動作のdirect profileは10.7.1に記載されたuvm_callback基底を使い、constructorを呼ばない静的関係2profileは限定した字面解釈の補助controlであって、必須継承の義務や誤記／矛盾の証明にしない。部分義務、元の段階目標、人／範囲／分母の承認は未完である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_callback_named_lifecycle_1_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 0 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 1 0 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 1 0 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 1 0 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 1 0 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 1 0 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 1 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 1 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 1 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 1 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 1 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 1 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 1 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 1 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 1 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 1 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 1 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 1 0 stage 4 node 1 trace SAZ value 808 args 1",
+            "UT: named102 1 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 1 0 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 1 0 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 1 0 stage 5 node 1 trace SAZ value 1000 args 1",
+            "UT: named102 1 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 1 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 1 0 stage 6 node 0 trace AZS value 1207 args 1",
+            "UT: named102 1 0 stage 6 node 1 trace SAZ value 1192 args 1",
+            "UT: named102 1 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 1 0 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 1 0 final calls 28 28 12 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_1_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 1 1 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 1 1 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 1 1 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 1 1 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 1 1 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 1 1 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 1 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 1 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 1 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 1 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 1 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 1 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 1 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 1 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 1 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 1 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 1 1 stage 4 node 0 trace SAZ value 802 args 1",
+            "UT: named102 1 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 1 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 1 1 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 1 1 stage 5 node 0 trace SAZ value 994 args 1",
+            "UT: named102 1 1 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 1 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 1 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 1 1 stage 6 node 0 trace SAZ value 1186 args 1",
+            "UT: named102 1 1 stage 6 node 1 trace AZS value 1213 args 1",
+            "UT: named102 1 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 1 1 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 1 1 final calls 28 28 12 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_0_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 0 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 3 0 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 3 0 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 3 0 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 3 0 stage 1 node 0 trace SAZ value 226 args 1",
+            "UT: named102 3 0 stage 1 node 1 trace AZ value 82 args 1",
+            "UT: named102 3 0 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 3 0 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 3 0 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 3 0 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 3 0 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 3 0 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 3 0 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 3 0 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 3 0 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 3 0 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 3 0 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 3 0 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 3 0 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 3 0 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 3 0 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 3 0 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 3 0 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 3 0 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 3 0 stage 6 node 0 trace AZS value 1207 args 1",
+            "UT: named102 3 0 stage 6 node 1 trace AZS value 1213 args 1",
+            "UT: named102 3 0 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 3 0 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 3 0 final calls 28 28 10 enabled 1"
+          ]
+        },
+        {
+          "test": "uB/test_callback_named_lifecycle_3_1_102",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named102 3 1 stage 0 node 0 trace AZ value 16 args 1",
+            "UT: named102 3 1 stage 0 node 1 trace AZ value 18 args 1",
+            "UT: named102 3 1 stage 0 node 2 trace AZ value 20 args 1",
+            "UT: named102 3 1 stage 0 node 3 trace AZS value 73 args 1",
+            "UT: named102 3 1 stage 1 node 0 trace AZ value 80 args 1",
+            "UT: named102 3 1 stage 1 node 1 trace SAZ value 232 args 1",
+            "UT: named102 3 1 stage 1 node 2 trace AZ value 84 args 1",
+            "UT: named102 3 1 stage 1 node 3 trace AZS value 265 args 1",
+            "UT: named102 3 1 stage 2 node 0 trace AZ value 144 args 1",
+            "UT: named102 3 1 stage 2 node 1 trace AZ value 146 args 1",
+            "UT: named102 3 1 stage 2 node 2 trace AZ value 148 args 1",
+            "UT: named102 3 1 stage 2 node 3 trace AZ value 150 args 1",
+            "UT: named102 3 1 stage 3 node 0 trace AZ value 208 args 1",
+            "UT: named102 3 1 stage 3 node 1 trace AZ value 210 args 1",
+            "UT: named102 3 1 stage 3 node 2 trace AZ value 212 args 1",
+            "UT: named102 3 1 stage 3 node 3 trace AZ value 214 args 1",
+            "UT: named102 3 1 stage 4 node 0 trace AZ value 272 args 1",
+            "UT: named102 3 1 stage 4 node 1 trace AZ value 274 args 1",
+            "UT: named102 3 1 stage 4 node 2 trace AZ value 276 args 1",
+            "UT: named102 3 1 stage 4 node 3 trace AZS value 841 args 1",
+            "UT: named102 3 1 stage 5 node 0 trace AZS value 1015 args 1",
+            "UT: named102 3 1 stage 5 node 1 trace AZS value 1021 args 1",
+            "UT: named102 3 1 stage 5 node 2 trace AZ value 340 args 1",
+            "UT: named102 3 1 stage 5 node 3 trace AZS value 1033 args 1",
+            "UT: named102 3 1 stage 6 node 0 trace AZS value 1207 args 1",
+            "UT: named102 3 1 stage 6 node 1 trace AZS value 1213 args 1",
+            "UT: named102 3 1 stage 6 node 2 trace AZ value 404 args 1",
+            "UT: named102 3 1 stage 6 node 3 trace AZS value 1225 args 1",
+            "UT: named102 3 1 final calls 28 28 10 enabled 1"
           ]
         }
       ]

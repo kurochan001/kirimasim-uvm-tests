@@ -343,6 +343,15 @@ the field's explicit bit order are observed without a generic sort oracle.
 [Q388](faq.md#q388-do-the-new-profiles-prove-incorrect-case-folding) keeps pre-lock
 and qualified root differences separate from a case-folding attribution.
 
+The [named-callback helper](../tests/uB/helpers102_named/named102.svh) uses
+original callback arithmetic and four existing component targets. Completed-call
+registration and mode changes preserve per-target queues without assuming the
+search traversal order; [Q391](faq.md#q391-what-do-the-named-callback-lifecycle-profiles-check)
+explains the reference and caller observations. The two separate literal
+type-relation controls use no helper or constructor, retain conditional premises
+and execute no macro; their build differences do not pass the B.4 ancestry
+interpretation or make a direct duty.
+
 ### Metadata
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
@@ -516,7 +525,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2583 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
+- 2593 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -650,9 +659,9 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 2209 tagged two-state checks: 2115 runtime
+By default, Verilator selects 2217 tagged two-state checks: 2123 runtime
 cases and 94 expected compiler rejections. To include
-the 430 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 432 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -708,7 +717,7 @@ against the lock before executing.
 
 ## Checks
 
-These commands validate the library, tools and test descriptions; [Continuous integration](results.md#continuous-integration) describes the additional simulator checks performed by Check.
+Python unit tests check the runner and validation code, while SystemVerilog fixtures check UVM behavior; [the CI scope](results.md#continuous-integration) explains how Check combines them.
 
 The library check expects an existing fetched copy, so if that copy is absent, follow [Fetching](#fetching) before running these validation commands.
 
@@ -720,7 +729,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2639 tests (2540 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+2649 tests (2550 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
@@ -729,7 +738,7 @@ not that every UVM requirement or every simulator passes.
 
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2209 tagged checks into 8 disjoint shards (277/276/276/276/276/276/276/276),
+the current 2217 tagged checks into 8 disjoint shards (278/277/277/277/277/277/277/277),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies

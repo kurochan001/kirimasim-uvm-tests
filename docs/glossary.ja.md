@@ -880,6 +880,8 @@ negative検査の不一致であり、runnerは生成binaryやruntime seedを実
 
 ## reportingとpolicyの状態
 
+printerにはhookで値を観測する検査と整形後の文字列を観測する検査があり、各検査系がどちらを確かめるかは[出力のFAQ](faq.ja.md#出力上限応答の観測)で確認できます。
+
 **report pipeline trace（Report pipeline trace）**：独自catcherとserver overrideでcatching、composition、executionの順序を観測することです。
 既定formatter algorithmを規定せず、framework dispatchを確認します。
 
@@ -1055,6 +1057,8 @@ storage同一性の検査と実際の対象実行には異なる観測が必要�
 
 ## 時間単位とconstructorの前提
 
+premiseはテストが前提とする準備条件であり、明示的に初期化したcontrolはその条件で評価する必要があるため、一致しても元の入力の成功にはならない理由を[FIFOの初期化の例](faq.ja.md#q255-build-controlが一致してもconstructor-only-fifo失敗を残す理由は)で確認できます。
+
 **caller単位のcanonical time** — 呼出しscopeの時間単位で解釈するreal時間量です。
 明示scaled／secs引数がcanonical表現との換算を指定し、nanosecond基準の例をpicosecond scopeで未変更のまま再利用できません。
 
@@ -1077,6 +1081,8 @@ controlのpassで元の前提をpassにせず、記載外methodをIEEE義務へ�
 固定版の追加hookを明示するcontrolでbuiltin algorithmや記載methodだけの前提を認定しません。
 
 ## field macroとcallbackのcontrol
+
+field macroは選択したobject操作のコードを生成する仕組みであり、型引数やflagが検査の前提をどう変えるかは[macroのFAQ](faq.ja.md#field-macroの型引数と対応する操作flag)で確認できます。
 
 **enum collection T前提** — field-macro本文の字面どおりに渡すcollection typedefで、要素enum型を使うcontrolとは別です。
 controlはstorageを保持しても元の前提を解決しません。
@@ -1428,3 +1434,13 @@ data経路の成功だけでは最終file形式の検証にならないため、
 **同等dataの順序** — 記載された意味の範囲内で実装が許される選択であり、APIの明示field位置順序を消したり、実行ごとに異なる順序を要求したりしません。
 
 **分離したsequenceのroot解釈** — 親を解除したsequenceが自身をrootとして識別するという限定した期待であり、path、parent、root handle、root名を分けて観測し、depthや実行動作は断定しません。
+
+## 名前指定callbackのlifecycleと条件付き型関係
+
+callbackは複数objectのqueueへ所属しながら1つのenable状態を共有でき、その所属を別々に観測する方法は[lifecycleのFAQ](faq.ja.md#q391-名前指定callbackのlifecycle-profileは何を検査しますか)で確認できます。
+
+**無効中の削除履歴** — callbackの実行を無効にしたまま所属を削除し、その後の有効化で一時的な抑止と削除を区別する履歴であり、exact-root／globのcontrolは[Q391](faq.ja.md#q391-名前指定callbackのlifecycle-profileは何を検査しますか)に記録します。
+
+**条件付きの方向別型control** — 明示して選んだ1つの継承解釈の下で行う補助変換probeであり、必須継承を証明せず逆向きの許されたchainを除外しない理由は[Q392](faq.ja.md#q392-型関係のcontrolでb4の基底の記述は解決しますか)で説明しています。
+
+**未評価0の区切り** — 全catalog識別子が部分分解または個別評価を持ち、他の義務や完了条件は未完に保つ状態であり、このqueueと完全なcoverageの違いは[Q390](faq.ja.md#q390-未評価の識別子0件なら残作業も0件ですか)で確認できます。
