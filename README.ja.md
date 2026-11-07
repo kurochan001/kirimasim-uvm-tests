@@ -16,10 +16,10 @@ UVMに不慣れな場合は、以下の件数を読む前に[読み方ガイド]
 oracleは期待値の根拠を記録し、`spec`は規格、`verilator@5.052`は固定リリースでの再現も示します。
 specのみの意味は[用語集の「規格と期待値」](docs/glossary.ja.md#規格と期待値)で説明しています。
 
-> **状態：M4を進行中。** 22の章・付録directoryに全2685件（simulation 2586件・elaboration 99件）があります。
-> oracle付きが2245件、specのみが440件です。
+> **状態：M4を進行中。** 22の章・付録directoryに全2701件（simulation 2602件・elaboration 99件）があります。
+> oracle付きが2245件、specのみが456件です。
 > 全件が`:spec_check: ai`で、AIによる照合を記録する意味は[照合の用語](docs/glossary.ja.md#規格と期待値)で説明しています。人による照合は未記録で、M1〜M3の目標は未達です。
-> M4はAIが照合した[観測可能な義務の案](docs/requirements.ja.md#計数単位と対象範囲の案)4095件、直接対応テスト2629件と全2685件の索引があります。
+> M4はAIが照合した[観測可能な義務の案](docs/requirements.ja.md#計数単位と対象範囲の案)4096件、直接対応テスト2645件と全2701件の索引があります。
 > 未対応テスト0件、直接テストのない要求案0件で、[memory-walkの歴史的解釈](docs/faq.ja.md#q134-memory-walk-algorithmをどう解釈していますか)は照合が必要です。
 > 未評価0番号・部分2062番号・AI分類445番号で、[未評価0は完了を意味せず](docs/faq.ja.md#q390-未評価の識別子0件なら残作業も0件ですか)、範囲と分母は未承認です。
 
@@ -41,7 +41,7 @@ factoryはオブジェクトの生成、phaseは実行段階、TLMはcomponent�
   recording、core service、[static callback iteratorを含む型付きutility](docs/faq.ja.md#q397-主引用の追加でiterator条項は完了しますか)、[objectionの取消し](docs/faq.ja.md#q405-drain中の再raiseから何を追加しましたか)。
 - **M2：612件（simulation 605・elaboration 7）。** sequenceとsequencer、request／responseのlifecycle、callback、
   TLM 1のchannel、[入れ子のinput／ref経路](docs/faq.ja.md#q402-delayのreferenceはendpointがcallerのhandleを置換できる意味ですか)を含む一部のTLM 2 transport。uFのF.2.3 port役割、F.2.4.2 state、F.2.4.3 sequence-library検査系は[段階の分類](docs/glossary.ja.md#範囲とカバレッジ)ではM2に数えます。
-- **M3：912件（simulation 901・elaboration 11）。** register／field／block／memory／virtual registerのモデル、access path、prediction、
+- **M3：928件（simulation 917・elaboration 11）。** register／field／block／memory／virtual registerのモデル、access path、prediction、
   callback、coverage、割り当て、組み込みtest sequence。uD内のD.3とu01内のmodel API profileは[機能対象の分類](docs/faq.ja.md#q381-同じu01-directory内のprofileを3つのmilestoneへ数える理由は)でM3に数えます。
 
 frontdoorとbackdoorはアクセス経路の名前で、それぞれの役割と実際のHDLアクセスとの違いは[レジスタの用語](docs/glossary.ja.md#レジスタモデル)で説明しています。
@@ -82,7 +82,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-`--all`を付けると、specのみの440件を含め、すべての2値テストを実行します。
+`--all`を付けると、specのみの456件を含め、すべての2値テストを実行します。
 `known`ではコマンドを失敗させず、oracleタグ付きの回帰では失敗させます。
 `-j`は並行するテスト数、`--build-jobs`は各ビルド内のC++ジョブ数で、ビルドに時間がかかる理由は[Q13](docs/faq.ja.md#q13-ビルドが重い理由と2種類の並列数の違いは何ですか)で説明しています。
 runtimeの各モデルは一度ビルドし、seedごとに新しいプロセスで実行します。
@@ -102,18 +102,18 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 
 simulation一致とcompiler拒否は別の検査なので、以下のラベルと件数は[結果の読み方](docs/reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-07に集約したVerilator記録は、現在の2685件すべてを対象にします。
-他2系統は互換な1081入力の記録で、1604入力は[証拠の再利用規則](docs/results.ja.md#記録の合算)を満たす現在の記録がないため未測定です。
+2026-11-07に集約したVerilator記録は、現在の2701件すべてを対象にします。
+他2系統は互換な1081入力の記録で、1620入力は[証拠の再利用規則](docs/results.ja.md#記録の合算)を満たす現在の記録がないため未測定です。
 
 | シミュレータとライブラリ | 観測結果 |
 | --- | --- |
-| Verilator 5.052・固定版UVM・通常runner | runtime 2151件がseed 1／73一致、期待compile拒否94件、既知差分440件 |
+| Verilator 5.052・固定版UVM・通常runner | runtime 2151件がseed 1／73一致、期待compile拒否94件、既知差分456件 |
 | Verilator 5.052・独自VPI HDL backend | 別条件の部分集合38件で、37件が両seed一致、1件が差分 |
 | Verilator 5.052・VPI command-line bridge・固定regex DPI | 別条件の18件で17件が両seed一致、1件は既知差分 |
-| kirimasim・固定版UVM | 1081件で`unsupported` 1072件・API欠落`fail` 9件、1604入力は未測定 |
-| Ghost・同梱UVM | 1081件で各seed一致206件・不一致875件、1604入力は未測定 |
+| kirimasim・固定版UVM | 1081件で`unsupported` 1072件・API欠落`fail` 9件、1620入力は未測定 |
+| Ghost・同梱UVM | 1081件で各seed一致206件・不一致875件、1620入力は未測定 |
 
-通常runnerはseed 1のruntime差分300件、simulation build 135件、runtimeのない不正designの受理5件を記録します。
+通常runnerはseed 1のruntime差分316件、simulation build 135件、runtimeのない不正designの受理5件を記録します。
 API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](docs/results.ja.md#結果の解釈)で説明し、2種類のVPI部分集合は別条件に保ちます。
 
 `known`・`unsupported`は成功に数えません。Ghostの同梱UVMの結果は、固定版ライブラリでの結果を示すものではありません。
@@ -147,8 +147,8 @@ API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](doc
 | M0 | 取得・実行・metadataとツールの検査、Check、スモークテスト | 基盤を実装済み |
 | M1 | 基本クラス・policy・factory・phase・objection・設定・reporting | 1161件。各条項2件以上という目標の棚卸しは未完 |
 | M2 | sequence・sequencer・TLM・callback | 612件。目標は未達 |
-| M3 | レジスタ層（17〜19、D.3、付録E）と共通のAPI規則 | 1.4.2／1.4.3のmodel API profileを含め912件。目標は未達 |
-| M4 | 要求台帳とカバレッジ | 進行中。AI要求案4095件、4095要求を2629テストへ直接対応。分母は未承認 |
+| M3 | レジスタ層（17〜19、D.3、付録E）と共通のAPI規則 | 1.4.2／1.4.3のmodel API profileを含め928件。目標は未達 |
+| M4 | 要求台帳とカバレッジ | 進行中。AI要求案4096件、4096要求を2645テストへ直接対応。分母は未承認 |
 
 各条項2件という目標の進捗は主引用ごとの棚卸しで追い、必須動作の独立した検査を確認するための追加レビューは[計数の説明](docs/requirements.ja.md#引用要求実行の証拠)で説明しています。
 

@@ -10741,6 +10741,70 @@
     "u10/test_objection_reraise_callback_descendant_fewer_106": {
       "primary_clause": "10.5.1.3.4",
       "inputs_sha256": "ba1065053c45dd2b8bc16d613524a9edeed9b23e0581135f154ef9140e56b25e"
+    },
+    "u18/test_map_direct_translation_flat_little_byte_empty_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "724c922c7bbf624e88ef76a032acf404465c76ecb87d03225df36867d92dfbf6"
+    },
+    "u18/test_map_direct_translation_flat_big_byte_empty_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "1b07f43934f43dccbb45c460e4566782d69ba9549ee78b6c210e70775d591de7"
+    },
+    "u18/test_map_direct_translation_flat_little_word_empty_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "a68dd669b5cbe10859cc25ce23a6fbcef73c596613949837cff016c7b4852669"
+    },
+    "u18/test_map_direct_translation_flat_big_word_empty_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "53e0c870971edd6700271da3308ecda8e1a9d23a9fa47c02a6dae7dd0b319f11"
+    },
+    "u18/test_map_direct_translation_child4_root2_empty_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "3deb7326e2b4bbf17f53360bb86aff08adc48f5660d640fd2ddd5830e3e1df53"
+    },
+    "u18/test_map_direct_translation_child2_root4_empty_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "6e0de7b8c06ed8ad878d03d6dfb214068beebd32f78f1d57db86adeca081dda1"
+    },
+    "u18/test_map_direct_translation_little_fifo_empty_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "90cbd3d528b9f45816ba6522f51a670e6ef42418d1988aa40c944da57a1cc165"
+    },
+    "u18/test_map_direct_translation_big_fifo_empty_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "c14707a7bcb51bb8005e75281addcadd2c2a8afff21ffd788db9eaa01c5ffd58"
+    },
+    "u18/test_map_direct_translation_flat_little_byte_populated_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "774e6a760ea8487293a9d4660a14e78783d43530857e4bca7f8f2d42f50fbfe3"
+    },
+    "u18/test_map_direct_translation_flat_big_byte_populated_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "7aedcd4fa4618c219bfeb24856b683c7a8925d8d2b53d189db7c6728c4293a82"
+    },
+    "u18/test_map_direct_translation_flat_little_word_populated_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "2cf7051ed12c83380a23b85764aaa9089b5cd39a269507e73726506c80d9c37f"
+    },
+    "u18/test_map_direct_translation_flat_big_word_populated_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "55cce12a439a8d3e704f369aaa019a24b6bfb96893db3db659c8baef934ceaab"
+    },
+    "u18/test_map_direct_translation_child4_root2_populated_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "6989983312df78ad145d5249c7ea225b785f549e3e53f556eb45c881eb291576"
+    },
+    "u18/test_map_direct_translation_child2_root4_populated_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "56831b2b418c7170c8be380dcce9ebf44d8f9d56c7dd87b99089cb3813dd249e"
+    },
+    "u18/test_map_direct_translation_little_fifo_populated_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "462d8a8043a041449fa01e5c77c56b6749d9297665352720c25c2ef320d07844"
+    },
+    "u18/test_map_direct_translation_big_fifo_populated_107": {
+      "primary_clause": "18.2.4.16",
+      "inputs_sha256": "e471e2e8721fcd1befc45ef9cfe17ebc1d584c6e580a504ecc0da6263d51d0f7"
     }
   }
 }

@@ -1490,3 +1490,9 @@ static iteratorはcallerの整数をopaqueな位置として使い、その表�
 **Net伝播の補正** — 新しいraise Rから保留drop Dを差し引いて伝播することで、公開件数の状態とhookの量の違いは[Q406](faq.ja.md#q406-新しい件数が保留dropより少ない場合は何をassertしますか)で説明しています。
 
 **選択taskのgate** — 印刷されたobjectionまたは登録callbackのtaskに置く独自の待機であり、実行中の取消しを観測し、componentのfunction宣言との区別は[Q407](faq.ja.md#q407-taskのgateでcomponentの印刷function宣言も解決しますか)で説明しています。
+
+## mapの直接変換
+
+**直接変換／memory entry index** — `get_physical_addresses`自体の呼び出し／`mem_offset`でmemory entryを選ぶことで、その値をbyteやbus beatとして加える操作とは区別し、引数と独立したaddress計算の対応は[Q409](faq.ja.md#q409-mapの直接照会はregisterのaddress照会に何を追加しますか)で確認できます。
+
+**完全beat／部分戻り値の診断** — 有効幅の完全beatだけで構成するaccess／幅が異なるbeatに対する単一整数の意味にレビューが必要な場合に規範的oracleを持たず記録する戻り値で、その境界は[Q411](faq.ja.md#q411-部分転送の戻り値を調査専用にする理由は)で説明しています。

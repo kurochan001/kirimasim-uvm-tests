@@ -1872,3 +1872,9 @@ These terms distinguish an interface's restriction from the memory's intrinsic p
 **Net propagation compensation** — Reducing a new raise R by a pending drop D before propagation, with public count state and hook amounts distinguished in [Q406](faq.md#q406-what-is-asserted-when-the-new-count-is-smaller-than-the-pending-drop).
 
 **Selected task gate** — An original wait in the printed objection or registered callback task, used to observe cancellation while the task is active; [Q407](faq.md#q407-do-the-task-gates-resolve-the-components-printed-function-declaration) keeps it separate from the component's function declaration.
+
+## Direct map translation
+
+**Direct translator / memory-entry index** — Calling `get_physical_addresses` itself / selecting a memory entry through `mem_offset`, rather than adding that value as bytes or bus beats; [Q409](faq.md#q409-what-does-a-direct-map-query-add-beyond-register-address-queries) connects those arguments to the independent address arithmetic.
+
+**Integral beat / partial-return diagnostic** — An access consisting entirely of full effective-width beats / a recorded return value without a normative oracle when one integer's meaning across unequal beat widths needs review; [Q411](faq.md#q411-why-is-the-partial-transfer-return-value-diagnostic-only) explains the retained boundary.

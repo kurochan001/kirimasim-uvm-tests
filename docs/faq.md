@@ -178,7 +178,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2629 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2645 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -225,7 +225,7 @@ Execution success and requirement review are separate records, so use [Read cove
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 912
+M1 and M2 still have open clause targets. M3 now has 928
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1251,9 +1251,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4095 AI drafts cover only a partial decomposition: 4095 requirements link
-directly to 2629 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2685 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4096 AI drafts cover only a partial decomposition: 4096 requirements link
+directly to 2645 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2701 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -3081,8 +3081,8 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 
 ### Q193. Why did the compatible guest subset decrease to 1081?
 
-Four original inputs have revised fingerprints: the command-enum citation, Boolean rerandomization observation, virtual-field configure citation and now the reraise primary citation. The earlier three were remeasured when changed; the revised reraise input is freshly measured at both seeds here. Their stale guest rows are excluded while the historical 1085-record source files remain intact.
-Current reuse covers 1081 inputs, with 1604 unmeasured: 1600 additions and four revised originals. This is record filtering rather than a guest run; see [the current repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
+Four original inputs have revised fingerprints: the command-enum citation, Boolean rerandomization observation, virtual-field configure citation and the reraise primary citation. All four were remeasured when changed; the reraise revision was measured at both seeds in the previous expansion. Their stale guest rows are excluded while the historical 1085-record source files remain intact.
+Current reuse covers 1081 inputs, with 1620 unmeasured: 1616 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
 
@@ -3152,10 +3152,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2685 tests run at two seeds?
+### Q201. Did all 2701 tests run at two seeds?
 
-No. There are 2586 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2151 two-seed runtime matches, 94 expected compiler rejections, 435 known
+No. There are 2602 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2151 two-seed runtime matches, 94 expected compiler rejections, 451 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3709,7 +3709,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2629 directly linked tests and fifty-six
+The suite has 2645 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3828,7 +3828,7 @@ jobs. The previous unsharded run reached its 150-minute limit. The 17 command-li
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the README badge
-for the current workflow result. The 440 known cases remain outside the ordinary default CI selection.
+for the current workflow result. The 456 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -3983,7 +3983,7 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 
 At that earlier citation repair, the changed fingerprint excluded an old row despite an unchanged body/oracle: 1083 compatible records became 1082. At that checkpoint Ghost retained 206 matches/876 failures per seed and kirimasim retained 1073 unsupported/nine failures, without a guest rerun.
 
-Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1604 unmeasured inputs are 1600 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
+Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1620 unmeasured inputs are 1616 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
 
@@ -4225,8 +4225,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4095 duties link directly
-to 2629 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4096 duties link directly
+to 2645 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5115,7 +5115,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4095 duties all have direct tests and all 2685 tests have links, but those
+The 4096 duties all have direct tests and all 2701 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5380,8 +5380,36 @@ proves independent tests or complete requirements.
 
 Header edits change the input fingerprint under [the update rules](requirements.md#updating-a-test-or-mapping).
 The revised original's old guest row is filtered from 1082 compatible records,
-leaving 1081; the 1604 unmeasured inputs are 1600 additions and four revised
+leaving 1081; the 1620 unmeasured inputs are 1616 additions and four revised
 originals. Ghost's retained failure count becomes 875 and kirimasim's retained
 unsupported count becomes 1072 because that stale row was removed. No guest
 was re-executed, improved or newly passed. The old evidence remains archived,
 all 440 ordinary known inputs remain and the goal is still incomplete.
+
+## Direct physical-address translation
+
+A direct map query computes addresses without performing storage access; [the register-model glossary](glossary.md#register-model) explains the units and state needed to read these results.
+
+### Q409. What does a direct map query add beyond register address queries?
+
+The direct `get_physical_addresses` call has its own return-width and memory-entry-index contract. Existing register `get_addresses` matches do not pass that separate API. Sixteen profiles cover normal byte/word units and both endian orders, two opposite hierarchy-width shapes and FIFO address repetition, each empty/populated. Result arrays change length and the original query repeats; an independent array supplies a local observer control.
+
+Non-FIFO calls query entry1 of an entry two local-bus widths wide and entry3 of an entry one local-bus width wide. Each query specifies its own geometry through `n_bytes`; no registered memory is resized. Expected origins use the entry index times its width, converted to address units, independently of the observed values. Four hierarchy inputs stop on the first nonzero-entry query and leave later rows unobserved; twelve flat inputs exit normally. All sixteen retain normative expectations as known differences at seed1, without seed73; [the current interpretation](results.md#interpretation) separates them from build failures.
+
+### Q410. Do the populated variants make registration a translation precondition?
+
+No. The translator contract does not require a registered target. Each populated shape adds unrelated registers and keeps exactly the same address and return-width expectations as its empty counterpart. Both shapes return zero instead of the expected full-beat width, and selected hierarchy observations also differ. This is neither a registration remedy nor evidence of a library-only cause.
+
+The old empty-map word-address input and all other old evidence remain unchanged. The first new fixture used a conditional expression with null in a parent observer; Verilator stopped internally before runtime. Replacing it with a typed expected-parent variable changes only the fixture expression, preserving all expected files. Sixteen initial builds are archived, not counted as current measurements.
+
+### Q411. Why is the partial-transfer return value diagnostic-only?
+
+The contract returns one integer for valid bytes per access. A six-byte access on a four-byte bus has a full beat and a partial final beat, so the reading of that one return value needs review. The two selected entry0 probes check the two required addresses and record the returned width as `DIAG107` only. No observation-derived partial-width oracle or requirement link is introduced.
+
+All integral full-beat queries still require two or four valid bytes per access; their zero return is retained as a difference. These probes do not settle arbitrary sub-bus entry strides or data packing, and [the partial-contract guide](requirements.md#remaining-m4-work-and-approval) explains why those conditions stay open.
+
+### Q412. Do sixteen known inputs mean sixteen new bugs or completed map coverage?
+
+Neither follows. A case can contain several mismatches and several cases can share a cause. Direct width, entry-index, hierarchy and output-list observations retain their individual limits; a matching row cannot pass a case with another required mismatch. No new input receives a fixed-release tag.
+
+One entry-index duty and two extended stable duties improve explicit mapping, while the census stays at 1173 zero-primary, 771 below-target and 538 at least two. The ledger has 4096 AI drafts and all three queues remain empty, but 2062 identifiers are partial. Original milestone targets, qualified interpretations, human review and scope/denominator approval remain open; [the completion explanation](#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) applies.

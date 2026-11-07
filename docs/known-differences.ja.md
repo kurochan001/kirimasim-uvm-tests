@@ -6,7 +6,7 @@
 
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
-現在の2685件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の2701件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 差分の件数は[実測の内訳](results.ja.md#結果の解釈)で確認し、個別の入力を調べるときは[ライブラリの注記](known-differences.ja.md#固定版ライブラリの制約)、[ソースの分類一覧](known-differences.ja.md#specのみのテスト)、[シミュレータとライブラリの条件](known-differences.ja.md#シミュレータとライブラリの組み合わせ)を使ってください。
@@ -154,7 +154,7 @@ enumのsignature／本文とTR_HANDLE／0引数accessorの境界は限定した�
 
 elaboration 99件は抽象class直接生成36件とpure interface／const参照／禁止member／型context／非公開constructor違反63件で拒否を期待し、94件が一致します。
 subscriber／visitor／proxy／adapterの未実装と印字virtual builtin dispatcherの直接生成は受理され、runtimeなしでspec-onlyを保持します。
-compiler受理5件は既知simulation差分435件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+compiler受理5件は既知simulation差分451件と別です。合法な派生controlを必要な拒否の代わりにはしません。
 
 field-access監査はseed 73結果のないseed 1 runtime差分5件を保持します。
 register write／readのpre hookは保持するRCFD期待に対してFDRCを観測し、別のcrdf post観測が一致しても入力全体をpassにしません。
@@ -463,6 +463,8 @@ DIAG104のlookup行はoracleではなく、[accessの違い](faq.ja.md#q398-memo
 新しい入れ子transport 6入力は別のinput／ref条件を両seedで検査し、既存の既知440入力やsocket差分を解消しない理由は[Q404](faq.ja.md#q404-一致した6profileでtlm-2の完了や並行安全性も証明できますか)で説明しています。
 
 新しい取消し12profileは両seedで一致しますが、componentの印刷function入力は既知差分のままで、taskとの境界は[Q407](faq.ja.md#q407-taskのgateでcomponentの印刷function宣言も解決しますか)で説明しています。
+
+直接map変換16入力は全てseed1の既知差分で、戻り幅、entry stride、階層条件の観測と、階層4入力の途中停止は[直接照会のFAQ](faq.ja.md#q409-mapの直接照会はregisterのaddress照会に何を追加しますか)で説明しています。空／登録済みで期待を保持し、部分戻り幅は調査用のままです。
 
 ## 固定版ライブラリの制約
 
@@ -868,7 +870,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは2245件、specのみのテストは440件です。
+スイート全体では、`verilator@5.052`を付けたテストは2245件、specのみのテストは456件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -877,9 +879,9 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの440件も、規格から導いた出力またはcompiler診断の期待を保持します。通常のVerilator実行とCIはoracle付き2245件（runtime 2151・compile拒否94）を選びます。
+specのみの456件も、規格から導いた出力またはcompiler診断の期待を保持します。通常のVerilator実行とCIはoracle付き2245件（runtime 2151・compile拒否94）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時300件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時316件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 simulation build 135件には通常runtimeがなく、DPI未linkの56入力（HDL 38／command-line 18）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
 不正compiler受理5件は別のruntimeなし条件です。
 
@@ -939,7 +941,7 @@ specのみのケースも固定版oracle tagなしに規格から導いた期待
 
 controlは差分を解釈するために前提を変えて実行する補助検査であり、元のケースの結果との関係は[要求への対応付けの役割](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
-現在のspecのみの440件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在のspecのみの456件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 
 
@@ -1326,7 +1328,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1081記録、未測定は修正2入力を含む1604件です。
+対応する歴史的guest記録を除外し、互換範囲は1081記録、未測定は修正2入力を含む1620件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -1358,16 +1360,35 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [local resource poolのname precedenceとtype priority](../tests/uC/test_resource_pool_precedence_changes_name_selection_but_not_type_queue_priority.sv).
 - [global resource poolのname precedenceとtype priority](../tests/uC/test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority.sv).
 
+直接map変換の16入力：
+
+- [test_map_direct_translation_flat_little_byte_empty_107](../tests/u18/test_map_direct_translation_flat_little_byte_empty_107.sv)
+- [test_map_direct_translation_flat_big_byte_empty_107](../tests/u18/test_map_direct_translation_flat_big_byte_empty_107.sv)
+- [test_map_direct_translation_flat_little_word_empty_107](../tests/u18/test_map_direct_translation_flat_little_word_empty_107.sv)
+- [test_map_direct_translation_flat_big_word_empty_107](../tests/u18/test_map_direct_translation_flat_big_word_empty_107.sv)
+- [test_map_direct_translation_child4_root2_empty_107](../tests/u18/test_map_direct_translation_child4_root2_empty_107.sv)
+- [test_map_direct_translation_child2_root4_empty_107](../tests/u18/test_map_direct_translation_child2_root4_empty_107.sv)
+- [test_map_direct_translation_little_fifo_empty_107](../tests/u18/test_map_direct_translation_little_fifo_empty_107.sv)
+- [test_map_direct_translation_big_fifo_empty_107](../tests/u18/test_map_direct_translation_big_fifo_empty_107.sv)
+- [test_map_direct_translation_flat_little_byte_populated_107](../tests/u18/test_map_direct_translation_flat_little_byte_populated_107.sv)
+- [test_map_direct_translation_flat_big_byte_populated_107](../tests/u18/test_map_direct_translation_flat_big_byte_populated_107.sv)
+- [test_map_direct_translation_flat_little_word_populated_107](../tests/u18/test_map_direct_translation_flat_little_word_populated_107.sv)
+- [test_map_direct_translation_flat_big_word_populated_107](../tests/u18/test_map_direct_translation_flat_big_word_populated_107.sv)
+- [test_map_direct_translation_child4_root2_populated_107](../tests/u18/test_map_direct_translation_child4_root2_populated_107.sv)
+- [test_map_direct_translation_child2_root4_populated_107](../tests/u18/test_map_direct_translation_child2_root4_populated_107.sv)
+- [test_map_direct_translation_little_fifo_populated_107](../tests/u18/test_map_direct_translation_little_fifo_populated_107.sv)
+- [test_map_direct_translation_big_fifo_populated_107](../tests/u18/test_map_direct_translation_big_fifo_populated_107.sv)
+
 ## シミュレータとライブラリの組み合わせ
 
 共通するビルド上の問題1つで多数のテストがUVMの動作を実行する前に停止することがあり、その状態で後続の動作について何が分かるかは[Q9](faq.ja.md#q9-checkが緑ならkirimasimでもuvmが成功したということですか)で説明しています。
 
 同梱ライブラリと固定ライブラリは異なる実行条件なので、記録の比較には[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-以前のfield-configuration filterは互換1083記録を1082へ絞りました。今回はreraiseの主引用修正で古い行をさらに1件除き、guestを再実行せず1081件を保持します。[入力同一性の説明](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で両段階を区別します。
+以前のfield-configuration filterは互換1083記録を1082へ絞りました。その後のreraise主引用のfilterで1082件から1081件へ減りました。今回は新たなfilterやguest再実行をせず、その記録を保持します。[入力同一性の説明](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で両段階を区別します。
 
-スイートは2685件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1081件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、1604入力は未測定です。
+スイートは2701件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1081件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、1620入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも206件一致・875件不一致で、不一致になるテストも同じです。

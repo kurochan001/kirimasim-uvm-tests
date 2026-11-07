@@ -6,7 +6,7 @@ To locate a result's source, search this page for the filename portion of its te
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2685-test suite and the pinned Accellera UVM
+This describes the current 2701-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -178,7 +178,7 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 63 pure-interface/const-reference/forbidden-member/type-context/non-public-constructor violations.
 94 match. Subscriber/visitor/proxy/adapter omissions and direct construction
 of the printed virtual builtin dispatcher remain accepted and spec-only without
-runtime. These five compiler acceptances are separate from 435 known simulation
+runtime. These five compiler acceptances are separate from 451 known simulation
 differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
@@ -604,6 +604,8 @@ and [the result limits](faq.md#q401-do-passing-shared-or-rom-controls-clear-the-
 Six new nested transport inputs match both seeds for additional input/ref conditions; [Q404](faq.md#q404-do-the-six-matching-profiles-complete-tlm-2-or-prove-concurrent-safety) explains why they do not clear the 440 older known inputs or socket differences.
 
 Twelve new cancellation profiles match both seeds while the component printed-function input remains known; [Q407](faq.md#q407-do-the-task-gates-resolve-the-components-printed-function-declaration) explains that task/function boundary.
+
+Sixteen direct-map inputs retain seed1 known differences in return width, entry stride and hierarchy conditions, including four hierarchy stops before later observations; [the direct-query FAQ](faq.md#q409-what-does-a-direct-map-query-add-beyond-register-address-queries) explains the scope. Empty/populated variants preserve the oracle and partial return widths remain investigative.
 
 ## Pinned-library limitations
 
@@ -1218,7 +1220,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2245 tests have the `verilator@5.052` oracle tag and 440
+Across the suite, 2245 tests have the `verilator@5.052` oracle tag and 456
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -1230,10 +1232,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 440 spec-only cases retain standard-derived expected output or compiler diagnostics.
+The 456 spec-only cases retain standard-derived expected output or compiler diagnostics.
 Default Verilator runs and CI select 2245 tagged checks (2151 runtime, 94 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 300 cases establish their first difference
+The ordinary runtime records for 316 cases establish their first difference
 at seed 1, without seed 73 results.
 The 135 simulation builds have no ordinary runtime, including 56 unlinked DPI
 inputs (38 HDL and 18 command-line); [the measured breakdown](results.md#interpretation)
@@ -1323,7 +1325,7 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 440 current spec-only cases are linked in the explanatory notes and the
+The 456 current spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
 
@@ -1713,7 +1715,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1081 records and 1604 inputs
+records are excluded. The compatible subset has 1081 records and 1620 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1746,16 +1748,35 @@ not a new guest failure, pass or simulator improvement.
 - [resource pool precedence changes name selection but not type queue priority](../tests/uC/test_resource_pool_precedence_changes_name_selection_but_not_type_queue_priority.sv).
 - [resource pool global precedence selects name maximum and keeps type priority](../tests/uC/test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority.sv).
 
+Sixteen direct-map translation inputs:
+
+- [test_map_direct_translation_flat_little_byte_empty_107](../tests/u18/test_map_direct_translation_flat_little_byte_empty_107.sv)
+- [test_map_direct_translation_flat_big_byte_empty_107](../tests/u18/test_map_direct_translation_flat_big_byte_empty_107.sv)
+- [test_map_direct_translation_flat_little_word_empty_107](../tests/u18/test_map_direct_translation_flat_little_word_empty_107.sv)
+- [test_map_direct_translation_flat_big_word_empty_107](../tests/u18/test_map_direct_translation_flat_big_word_empty_107.sv)
+- [test_map_direct_translation_child4_root2_empty_107](../tests/u18/test_map_direct_translation_child4_root2_empty_107.sv)
+- [test_map_direct_translation_child2_root4_empty_107](../tests/u18/test_map_direct_translation_child2_root4_empty_107.sv)
+- [test_map_direct_translation_little_fifo_empty_107](../tests/u18/test_map_direct_translation_little_fifo_empty_107.sv)
+- [test_map_direct_translation_big_fifo_empty_107](../tests/u18/test_map_direct_translation_big_fifo_empty_107.sv)
+- [test_map_direct_translation_flat_little_byte_populated_107](../tests/u18/test_map_direct_translation_flat_little_byte_populated_107.sv)
+- [test_map_direct_translation_flat_big_byte_populated_107](../tests/u18/test_map_direct_translation_flat_big_byte_populated_107.sv)
+- [test_map_direct_translation_flat_little_word_populated_107](../tests/u18/test_map_direct_translation_flat_little_word_populated_107.sv)
+- [test_map_direct_translation_flat_big_word_populated_107](../tests/u18/test_map_direct_translation_flat_big_word_populated_107.sv)
+- [test_map_direct_translation_child4_root2_populated_107](../tests/u18/test_map_direct_translation_child4_root2_populated_107.sv)
+- [test_map_direct_translation_child2_root4_populated_107](../tests/u18/test_map_direct_translation_child2_root4_populated_107.sv)
+- [test_map_direct_translation_little_fifo_populated_107](../tests/u18/test_map_direct_translation_little_fifo_populated_107.sv)
+- [test_map_direct_translation_big_fifo_populated_107](../tests/u18/test_map_direct_translation_big_fifo_populated_107.sv)
+
 ## Simulator and library combinations
 
 One shared build blocker can stop many tests before their UVM behavior runs; [Q9](faq.md#q9-why-does-a-green-check-not-mean-kirimasim-passes-uvm) explains what can be concluded about behavior beyond those compilation blockers.
 
 A bundled library and the pinned library are different execution conditions, so compare records using [Current snapshot](results.md#current-snapshot).
 
-The earlier field-configuration filter reduced 1083 compatible records to 1082. This filter removes one more stale row after the reraise primary-citation repair, retaining 1081 without a guest run; [the input-identity explanation](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish the two stages.
+The earlier field-configuration filter reduced 1083 compatible records to 1082. The subsequent reraise primary-citation filter reduced 1082 to 1081; this increment retains those records without another filter or guest run, and [the input-identity explanation](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish the two stages.
 
-The suite has 2685 cases, but the kirimasim/Ghost records below cover only
-1081 unchanged current-input cases. The 1604 inputs are unmeasured
+The suite has 2701 cases, but the kirimasim/Ghost records below cover only
+1081 unchanged current-input cases. The 1620 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

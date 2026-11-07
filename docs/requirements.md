@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4095 AI-drafted requirements, all with direct links to 2629 tests.
-Fifty-six tests have only control links. All 2685 tests have a requirement link.
+contains 4096 AI-drafted requirements, all with direct links to 2645 tests.
+Fifty-six tests have only control links. All 2701 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4095 draft entries span several areas,
+a heading is not an obligation. The 4096 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2685-test
+known difference. It is not a pass or a conformance claim. The current 2701-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2685 reviewed requirement mappings.
+  index is an inventory, not 2701 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -282,7 +282,7 @@ The table retains every catalog root, including context and deferred roots; cont
 | 15 | 131 | 116 | 0 | 18 | 0 |
 | 16 | 280 | 188 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
-| 18 | 932 | 624 | 0 | 63 | 0 |
+| 18 | 933 | 640 | 0 | 63 | 0 |
 | 19 | 199 | 165 | 0 | 24 | 0 |
 | B | 258 | 235 | 0 | 9 | 0 |
 | C | 98 | 69 | 0 | 13 | 0 |
@@ -296,54 +296,53 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4095 reviews are `ai` and
+Scope is proposed, all 4096 reviews are `ai` and
 the denominator remains unapproved.
 
-The 106th expansion adds twelve M1 pending-objection profiles and reviews
-one original citation. New cases cross drain/callback stage, a raise from the
-same object or a descendant, and new counts equal to, greater than or fewer
-than the pending drop. Two completed rounds use a gate/leaf/ancestor hierarchy,
-a separate peer branch holding four and an independent objection holding seven.
-The selected waits use the printed objection or registered callback tasks;
-[the cancellation FAQ](faq.md#q405-what-is-added-beyond-re-raising-during-drain)
-explains why cancellation during all_dropped is a separate condition.
+The 107th expansion adds sixteen M3 direct physical-address translation
+profiles. They cross empty and independently populated maps with flat normal
+byte/word addressing and both endian orders, byte-addressed little-endian
+child4/root2 and child2/root4 hierarchies, and flat little/big FIFO maps.
+Queries reuse a prefilled result array at changing lengths and repeat the
+original query. Non-FIFO cases also query nonzero memory-entry indices;
+[the direct-query FAQ](faq.md#q409-what-does-a-direct-map-query-add-beyond-register-address-queries)
+explains the distinction from register and memory wrapper APIs.
 
-All twelve final tagged new inputs match seeds 1/73, and the revised original
-also matches both seeds with its unchanged body and two expected rows. Counts
-remain held after the canceled gate is released, then final drops complete a
-fresh cycle. For nonnegative compensation, the ancestor raise amount is R-D;
-for negative compensation, public totals supply the oracle while eight DIAG106
-hook rows per seed are investigative only, with no oracle or requirement link.
-[The net-count FAQ](faq.md#q406-what-is-asserted-when-the-new-count-is-smaller-than-the-pending-drop)
-separates these state obligations from unspecified compensation-hook details.
+All sixteen build and run but differ at seed1; none has a seed73 result or a
+new fixed-release tag. Observed full-beat return widths are zero instead of the
+required two or four. Nonzero entry origins and selected hierarchy width/list
+observations also differ. Empty and populated variants keep the same oracle;
+[the setup FAQ](faq.md#q410-do-the-populated-variants-make-registration-a-translation-precondition)
+explains why population is not a new prerequisite or a claimed remedy.
+Four hierarchy inputs stop with a null-dereference diagnostic at the first nonzero-entry query, so their later expected rows are unobserved. The twelve flat inputs exit normally. No simulator-versus-library cause is inferred from these observations.
 
-The blocking task shapes are objection all_dropped and registered all_dropped,
-not a delayed component task. The separately retained 13.1.6.3 printed-function
-input remains a known build difference; [the declaration FAQ](faq.md#q407-do-the-task-gates-resolve-the-components-printed-function-declaration)
-keeps that conflict visible. No private process/counter, callback-tail kill,
-exact delta order, concurrent raises, mode-zero completeness or complete
-objection protocol is inferred.
+Two six-byte entry0 probes assert the two-address list but leave the single
+partial-transfer return value diagnostic-only. DIAG107 has one row in each
+of those seed1 logs, with no oracle or requirement link; [the partial-width
+FAQ](faq.md#q411-why-is-the-partial-transfer-return-value-diagnostic-only)
+records the unresolved reading. No bus transfer, packing, RTL timing,
+nonzero FIFO-entry stride, mixed-endian hierarchy, hierarchical word-unit
+resolution or arbitrary sub-bus entry rounding is certified.
 
-One net-propagation duty is added and the stable cancellation duty expands its
-applicability while retaining all original text and links. The other 4093 old
-requirement objects and all 445 assessments remain unchanged. The original
-reraise fixture's description/primary citation is corrected from the unused
-get_drain_time clause to drop_objection. Its old input is archived; 2672 other
-ordinary/index records remain unchanged and the revised input is freshly
-measured. All 440 prior known inputs remain. Scope, catalog, runners, backends
-and workflow are unchanged.
+One memory-entry-index duty is added; the stable data-order/width and
+narrowest-width duties retain their original text and links while expanding
+applicability. The other 4093 old requirement objects, all 445 assessments,
+all 2685 old ordinary/index records and all 440 old known inputs remain
+unchanged. Initial builds stopped at a conditional null expression in the
+observer; a typed expected-parent variable repairs that fixture without
+changing expectations. Initial inputs/logs remain archived and excluded.
+The sixteen repaired inputs are freshly measured, not reused from those logs.
 
-The ledger has 4095 AI duties and 2629 directly linked tests, with 56
-control-only and 156 control-linked tests. Guests retain 1081 compatible
-records after filtering the revised original, leaving 1604 current inputs
-unmeasured. Ghost retains 206 pass/875 fail per seed and kirimasim retains
-1072 unsupported/nine failures. These smaller guest totals are compatibility
-filtering, not a new measurement or improvement; [the citation FAQ](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage)
-explains the input identity change. The primary census is 1173 zero, 771
-below-target and 538 at least two; primary citations do not prove independent
-or complete obligation coverage. All 2062 partial identifiers, applicability
-conditions and original M1–M4 targets remain open despite three empty queues.
-Human review and scope/denominator approval remain unrecorded.
+There are 2701 tests, 4096 AI duty drafts and 2645 directly linked tests,
+with 56 control-only and 156 control-linked tests. Ordinary results are
+2245 pass (2151 runtime at both seeds, 94 compiler rejections) and 456 known
+(316 runtime seed1, 135 simulation build failures, five illegal acceptances).
+Guest records remain byte-identical at 1081 compatible inputs, with 1620
+unmeasured (1616 additions and four revised originals). No guest rerun or
+new filtering is claimed. Scope, catalog, runners, backends and CI selection
+are unchanged. All 2062 partial identifiers, applicability conditions and
+original M1–M4 targets remain open despite three empty queues; human review
+and scope/denominator approval remain unrecorded.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -760,4 +759,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4095 AI drafts and their direct links do not satisfy that gate.
+The current 4096 AI drafts and their direct links do not satisfy that gate.

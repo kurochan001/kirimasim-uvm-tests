@@ -398,6 +398,8 @@ Nested transport expectations follow the printed UVM prototypes and SystemVerilo
 
 Pending-objection expectations follow the supplied IEEE propagation/count contracts with original gates in the printed tasks; [Q406](faq.md#q406-what-is-asserted-when-the-new-count-is-smaller-than-the-pending-drop) explains why diagnostic hook values are not an oracle. The citation-revised original is remeasured with its body and expectation retained, without new implementation-source or commercial-output use.
 
+Direct-map expectations are independently calculated from IEEE address units, entry index, data order and effective width. Registration does not change the oracle; [Q411](faq.md#q411-why-is-the-partial-transfer-return-value-diagnostic-only) records why the single partial-width return stays investigative. No implementation source or commercial output is newly used.
+
 ## Clause catalog maintenance
 
 The catalog lists clause identifiers used to validate citations; [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains how these identifiers differ from normative duties and a coverage denominator.

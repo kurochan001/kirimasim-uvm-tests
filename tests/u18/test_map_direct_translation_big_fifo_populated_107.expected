@@ -1,0 +1,14 @@
+UT: setup root 1 parent 1 base 100 local_width 4 effective_width 4 unit 1
+UT: wide_first transfer 4 count 2
+UT: wide_first address 0 120
+UT: wide_first address 1 120
+UT: single transfer 4 count 1
+UT: single address 0 120
+UT: triple transfer 4 count 3
+UT: triple address 0 120
+UT: triple address 1 120
+UT: triple address 2 120
+UT: wide_restored transfer 4 count 2
+UT: wide_restored address 0 120
+UT: wide_restored address 1 120
+UT: independent count 2 values 55 aa

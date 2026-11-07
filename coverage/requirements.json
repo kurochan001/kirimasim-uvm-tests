@@ -21029,16 +21029,16 @@
         "ja": "物理address変換は、dataの下位側からaddressを転送幅とともに返す。"
       },
       "conditions": {
-        "en": "Use a wide big-endian register and a word-addressed register.",
-        "ja": "広幅big-endian registerとword-addressed registerを使う。"
+        "en": "Use a wide big-endian register and a word-addressed register. Also call the map translator directly in empty/populated flat normal maps, two opposite hierarchical-width shapes and flat FIFO maps; reuse an initially nonempty dynamic result array across changing query lengths.",
+        "ja": "広幅big-endian registerとword-addressed registerを使う。 さらに空／register登録済みの平坦な通常map、親子の幅の大小が逆の2階層形状、平坦なFIFO mapでmap変換を直接呼び、最初に値を入れた動的な結果配列を長さの異なる照会に再利用する。"
       },
       "expected": {
-        "en": "The big-endian address list descends by two; word addressing advances one unit per four-byte transfer.",
-        "ja": "big-endianのaddress列は2ずつ減り、word addressingでは4-byte転送ごとに1 unit進む。"
+        "en": "The big-endian address list descends by two; word addressing advances one unit per four-byte transfer. Full integral accesses return the effective transfer width and the exact least-significant-data-first address list in the declared address units. Normal maps advance by the transfer width in those units; FIFO beats repeat one address. Each call supplies only its current list, and repeating the original query restores that list. Partial probes constrain the list, not the ambiguous returned partial width.",
+        "ja": "big-endianのaddress列は2ずつ減り、word addressingでは4-byte転送ごとに1 unit進む。 整数個の完全転送は有効転送幅と、宣言したaddress単位で下位dataから並べた正確なaddress列を返す。通常mapはその単位で転送幅ずつ進み、FIFO beatは同じaddressを繰り返す。各呼び出しは今回の列だけを返し、元の照会を繰り返すとその列に戻る。部分転送probeは列を検査し、曖昧な部分幅の戻り値は規定しない。"
       },
       "limitations": {
-        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
-        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative. Selected direct public map calls only: flat four-byte buses, both normal endian orders in byte/word units, byte-addressed little-endian child4/root2 and child2/root4, and flat FIFO maps at entry0. Empty and independently populated maps have identical expectations; population is not a normative precondition. Integral full beats have a return-width oracle. Two six-byte entry0 probes check only address lists; DIAG107 partial return widths have no oracle/link because the single returned int does not describe both beat widths unambiguously. No nonzero FIFO-entry stride, mixed-endian hierarchy, hierarchical word-unit resolution, arbitrary sub-bus entry rounding, lookup namespace, transfer issue order, data packing, bus/HDL access or complete clause/milestone coverage is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。 選択した公開mapの直接呼び出しだけを扱う。平坦な4-byte bus、byte／word単位で通常の両endian、byte単位little-endianのchild4／root2とchild2／root4、entry0の平坦なFIFO mapを使う。空のmapと独立registerを登録したmapの期待は同じで、登録を規範的な前提にしない。整数個の完全beatには戻り幅のoracleを持つ。entry0の6-byte probe 2件はaddress列だけを検査し、単一intで両beatの幅を明確に表せないため、DIAG107の部分転送の戻り幅はoracle／linkを持たない。FIFOの非0 entry stride、混在endian階層、階層word単位の解決、任意のsub-bus entryの丸め、lookupの名前空間、転送の発行順、data packing、bus／HDL access、条項全体や段階目標の完了を認定しない。人／範囲／分母の承認は未記録である。"
       },
       "review": {
         "status": "ai",
@@ -21060,6 +21060,302 @@
           "expected_observations": [
             "UT: unit 4 transfer 4 count 2",
             "UT: addresses 22 23"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_little_byte_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 120",
+            "UT: wide_first address 1 124",
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 128",
+            "UT: wide_next address 1 12c",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 12c",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 120",
+            "UT: wide_restored address 1 124",
+            "UT: partial count 2",
+            "UT: partial address 0 120",
+            "UT: partial address 1 124"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_big_byte_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 124",
+            "UT: wide_first address 1 120",
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 12c",
+            "UT: wide_next address 1 128",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 12c",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 124",
+            "UT: wide_restored address 1 120"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_little_word_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 120",
+            "UT: wide_first address 1 121",
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 122",
+            "UT: wide_next address 1 123",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 123",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 120",
+            "UT: wide_restored address 1 121"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_big_word_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 121",
+            "UT: wide_first address 1 120",
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 123",
+            "UT: wide_next address 1 122",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 123",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 121",
+            "UT: wide_restored address 1 120"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child4_root2_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 2 count 4",
+            "UT: wide_first address 0 160",
+            "UT: wide_first address 1 162",
+            "UT: wide_first address 2 164",
+            "UT: wide_first address 3 166",
+            "UT: wide_next transfer 2 count 4",
+            "UT: wide_next address 0 168",
+            "UT: wide_next address 1 16a",
+            "UT: wide_next address 2 16c",
+            "UT: wide_next address 3 16e",
+            "UT: single_last transfer 2 count 2",
+            "UT: single_last address 0 16c",
+            "UT: single_last address 1 16e",
+            "UT: wide_restored transfer 2 count 4",
+            "UT: wide_restored address 0 160",
+            "UT: wide_restored address 1 162",
+            "UT: wide_restored address 2 164",
+            "UT: wide_restored address 3 166"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child2_root4_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 2 count 2",
+            "UT: wide_first address 0 160",
+            "UT: wide_first address 1 162",
+            "UT: wide_next transfer 2 count 2",
+            "UT: wide_next address 0 164",
+            "UT: wide_next address 1 166",
+            "UT: single_last transfer 2 count 1",
+            "UT: single_last address 0 166",
+            "UT: wide_restored transfer 2 count 2",
+            "UT: wide_restored address 0 160",
+            "UT: wide_restored address 1 162"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_little_fifo_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 120",
+            "UT: wide_first address 1 120",
+            "UT: single transfer 4 count 1",
+            "UT: single address 0 120",
+            "UT: triple transfer 4 count 3",
+            "UT: triple address 0 120",
+            "UT: triple address 1 120",
+            "UT: triple address 2 120",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 120",
+            "UT: wide_restored address 1 120"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_big_fifo_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 120",
+            "UT: wide_first address 1 120",
+            "UT: single transfer 4 count 1",
+            "UT: single address 0 120",
+            "UT: triple transfer 4 count 3",
+            "UT: triple address 0 120",
+            "UT: triple address 1 120",
+            "UT: triple address 2 120",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 120",
+            "UT: wide_restored address 1 120"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_little_byte_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 120",
+            "UT: wide_first address 1 124",
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 128",
+            "UT: wide_next address 1 12c",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 12c",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 120",
+            "UT: wide_restored address 1 124",
+            "UT: partial count 2",
+            "UT: partial address 0 120",
+            "UT: partial address 1 124"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_big_byte_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 124",
+            "UT: wide_first address 1 120",
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 12c",
+            "UT: wide_next address 1 128",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 12c",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 124",
+            "UT: wide_restored address 1 120"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_little_word_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 120",
+            "UT: wide_first address 1 121",
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 122",
+            "UT: wide_next address 1 123",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 123",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 120",
+            "UT: wide_restored address 1 121"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_big_word_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 121",
+            "UT: wide_first address 1 120",
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 123",
+            "UT: wide_next address 1 122",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 123",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 121",
+            "UT: wide_restored address 1 120"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child4_root2_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 2 count 4",
+            "UT: wide_first address 0 160",
+            "UT: wide_first address 1 162",
+            "UT: wide_first address 2 164",
+            "UT: wide_first address 3 166",
+            "UT: wide_next transfer 2 count 4",
+            "UT: wide_next address 0 168",
+            "UT: wide_next address 1 16a",
+            "UT: wide_next address 2 16c",
+            "UT: wide_next address 3 16e",
+            "UT: single_last transfer 2 count 2",
+            "UT: single_last address 0 16c",
+            "UT: single_last address 1 16e",
+            "UT: wide_restored transfer 2 count 4",
+            "UT: wide_restored address 0 160",
+            "UT: wide_restored address 1 162",
+            "UT: wide_restored address 2 164",
+            "UT: wide_restored address 3 166"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child2_root4_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 2 count 2",
+            "UT: wide_first address 0 160",
+            "UT: wide_first address 1 162",
+            "UT: wide_next transfer 2 count 2",
+            "UT: wide_next address 0 164",
+            "UT: wide_next address 1 166",
+            "UT: single_last transfer 2 count 1",
+            "UT: single_last address 0 166",
+            "UT: wide_restored transfer 2 count 2",
+            "UT: wide_restored address 0 160",
+            "UT: wide_restored address 1 162"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_little_fifo_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 120",
+            "UT: wide_first address 1 120",
+            "UT: single transfer 4 count 1",
+            "UT: single address 0 120",
+            "UT: triple transfer 4 count 3",
+            "UT: triple address 0 120",
+            "UT: triple address 1 120",
+            "UT: triple address 2 120",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 120",
+            "UT: wide_restored address 1 120"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_big_fifo_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_first transfer 4 count 2",
+            "UT: wide_first address 0 120",
+            "UT: wide_first address 1 120",
+            "UT: single transfer 4 count 1",
+            "UT: single address 0 120",
+            "UT: triple transfer 4 count 3",
+            "UT: triple address 0 120",
+            "UT: triple address 1 120",
+            "UT: triple address 2 120",
+            "UT: wide_restored transfer 4 count 2",
+            "UT: wide_restored address 0 120",
+            "UT: wide_restored address 1 120"
           ]
         }
       ]
@@ -21471,16 +21767,16 @@
         "ja": "階層mapの有効bus幅は、rootまでの経路で最も狭い幅になる。"
       },
       "conditions": {
-        "en": "Expose a four-byte child through a two-byte root.",
-        "ja": "4-byteの子を2-byteのrootを通して公開する。"
+        "en": "Expose a four-byte child through a two-byte root. Additionally inspect direct map queries for both child4/root2 and child2/root4 with empty and populated byte-addressed little-endian models.",
+        "ja": "4-byteの子を2-byteのrootを通して公開する。 さらに空／register登録済みのbyte単位little-endian modelで、child4／root2とchild2／root4の両方の直接map照会を観測する。"
       },
       "expected": {
-        "en": "The child local width is four, effective width two, and a four-byte register requires two transfers.",
-        "ja": "子のlocal幅は4、有効幅は2になり、4-byte registerには2転送が必要になる。"
+        "en": "The child local width is four, effective width two, and a four-byte register requires two transfers. Both hierarchy directions report an effective width of two while preserving the configured local width; each integral direct translation uses two valid bytes per access.",
+        "ja": "子のlocal幅は4、有効幅は2になり、4-byte registerには2転送が必要になる。 両方向の階層で設定したlocal幅を保持しながら有効幅は2になり、完全転送の直接変換はaccessごとに有効2-byteを返す。"
       },
       "limitations": {
-        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
-        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative. Selected direct public map calls only: flat four-byte buses, both normal endian orders in byte/word units, byte-addressed little-endian child4/root2 and child2/root4, and flat FIFO maps at entry0. Empty and independently populated maps have identical expectations; population is not a normative precondition. Integral full beats have a return-width oracle. Two six-byte entry0 probes check only address lists; DIAG107 partial return widths have no oracle/link because the single returned int does not describe both beat widths unambiguously. No nonzero FIFO-entry stride, mixed-endian hierarchy, hierarchical word-unit resolution, arbitrary sub-bus entry rounding, lookup namespace, transfer issue order, data packing, bus/HDL access or complete clause/milestone coverage is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。 選択した公開mapの直接呼び出しだけを扱う。平坦な4-byte bus、byte／word単位で通常の両endian、byte単位little-endianのchild4／root2とchild2／root4、entry0の平坦なFIFO mapを使う。空のmapと独立registerを登録したmapの期待は同じで、登録を規範的な前提にしない。整数個の完全beatには戻り幅のoracleを持つ。entry0の6-byte probe 2件はaddress列だけを検査し、単一intで両beatの幅を明確に表せないため、DIAG107の部分転送の戻り幅はoracle／linkを持たない。FIFOの非0 entry stride、混在endian階層、階層word単位の解決、任意のsub-bus entryの丸め、lookupの名前空間、転送の発行順、data packing、bus／HDL access、条項全体や段階目標の完了を認定しない。人／範囲／分母の承認は未記録である。"
       },
       "review": {
         "status": "ai",
@@ -21494,6 +21790,50 @@
           "expected_observations": [
             "UT: root 1 parent 1 base 140 local_width 4 effective_width 2",
             "UT: transfer 2 count 2"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child4_root2_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: setup root 1 parent 1 base 140 local_width 4 effective_width 2 unit 1",
+            "UT: wide_first transfer 2 count 4",
+            "UT: wide_first address 0 160",
+            "UT: wide_first address 1 162",
+            "UT: wide_first address 2 164",
+            "UT: wide_first address 3 166"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child2_root4_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: setup root 1 parent 1 base 140 local_width 2 effective_width 2 unit 1",
+            "UT: wide_first transfer 2 count 2",
+            "UT: wide_first address 0 160",
+            "UT: wide_first address 1 162"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child4_root2_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: setup root 1 parent 1 base 140 local_width 4 effective_width 2 unit 1",
+            "UT: wide_first transfer 2 count 4",
+            "UT: wide_first address 0 160",
+            "UT: wide_first address 1 162",
+            "UT: wide_first address 2 164",
+            "UT: wide_first address 3 166"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child2_root4_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: setup root 1 parent 1 base 140 local_width 2 effective_width 2 unit 1",
+            "UT: wide_first transfer 2 count 2",
+            "UT: wide_first address 0 160",
+            "UT: wide_first address 1 162"
           ]
         }
       ]
@@ -158321,6 +158661,171 @@
             "UT: r1 peer_done total gate 0 upper 0 root 0",
             "UT: r1 peer_done other gate 7 root 7",
             "UT: cleanup subject 0 other 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-TRANSLATOR-MEMORY-INDEX-107",
+      "clause": "18.2.4.16",
+      "statement": {
+        "en": "The direct physical-address translator interprets mem_offset as a memory-entry index rather than a byte or bus-beat offset.",
+        "ja": "物理addressの直接変換はmem_offsetをbyteやbus beatのoffsetではなく、memory entryのindexとして解釈する。"
+      },
+      "conditions": {
+        "en": "Query non-FIFO maps at entry1 for an entry of two local-bus widths and entry3 for an entry of one local-bus width. Use flat byte/word units with either normal endian order, and two byte-addressed little-endian hierarchy-width shapes, each empty and independently populated. Each query describes its own entry width through n_bytes; no registered memory changes size.",
+        "ja": "非FIFO mapで、local bus幅2個分のentryをentry1で、local bus幅1個分のentryをentry3で照会する。平坦なbyte／word単位の通常の両endianと、byte単位little-endianの2つの階層幅形状を使い、それぞれ空／独立register登録済みを用意する。各照会はn_bytesでそれぞれのentry幅を示し、登録したmemoryの大きさを変更する検査ではない。"
+      },
+      "expected": {
+        "en": "The entry origin is the external map base plus the local memory base and index times the entry width, expressed in address units. The resulting list covers the entry in least-significant-data order; index1 of a double-width entry and index3 of a single-width entry have independently computed origins.",
+        "ja": "entryの先頭は外部map baseにlocal memory baseとindex×entry幅を加え、address単位に換算した位置になる。結果の列はそのentryを下位dataから並べ、2幅entryのindex1と1幅entryのindex3の先頭を独立に算出する。"
+      },
+      "limitations": {
+        "en": "Selected direct public map calls only: flat four-byte buses, both normal endian orders in byte/word units, byte-addressed little-endian child4/root2 and child2/root4, and flat FIFO maps at entry0. Empty and independently populated maps have identical expectations; population is not a normative precondition. Integral full beats have a return-width oracle. Two six-byte entry0 probes check only address lists; DIAG107 partial return widths have no oracle/link because the single returned int does not describe both beat widths unambiguously. No nonzero FIFO-entry stride, mixed-endian hierarchy, hierarchical word-unit resolution, arbitrary sub-bus entry rounding, lookup namespace, transfer issue order, data packing, bus/HDL access or complete clause/milestone coverage is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "選択した公開mapの直接呼び出しだけを扱う。平坦な4-byte bus、byte／word単位で通常の両endian、byte単位little-endianのchild4／root2とchild2／root4、entry0の平坦なFIFO mapを使う。空のmapと独立registerを登録したmapの期待は同じで、登録を規範的な前提にしない。整数個の完全beatには戻り幅のoracleを持つ。entry0の6-byte probe 2件はaddress列だけを検査し、単一intで両beatの幅を明確に表せないため、DIAG107の部分転送の戻り幅はoracle／linkを持たない。FIFOの非0 entry stride、混在endian階層、階層word単位の解決、任意のsub-bus entryの丸め、lookupの名前空間、転送の発行順、data packing、bus／HDL access、条項全体や段階目標の完了を認定しない。人／範囲／分母の承認は未記録である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_direct_translation_flat_little_byte_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 128",
+            "UT: wide_next address 1 12c",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 12c"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_big_byte_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 12c",
+            "UT: wide_next address 1 128",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 12c"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_little_word_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 122",
+            "UT: wide_next address 1 123",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 123"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_big_word_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 123",
+            "UT: wide_next address 1 122",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 123"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child4_root2_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 2 count 4",
+            "UT: wide_next address 0 168",
+            "UT: wide_next address 1 16a",
+            "UT: wide_next address 2 16c",
+            "UT: wide_next address 3 16e",
+            "UT: single_last transfer 2 count 2",
+            "UT: single_last address 0 16c",
+            "UT: single_last address 1 16e"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child2_root4_empty_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 2 count 2",
+            "UT: wide_next address 0 164",
+            "UT: wide_next address 1 166",
+            "UT: single_last transfer 2 count 1",
+            "UT: single_last address 0 166"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_little_byte_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 128",
+            "UT: wide_next address 1 12c",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 12c"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_big_byte_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 12c",
+            "UT: wide_next address 1 128",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 12c"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_little_word_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 122",
+            "UT: wide_next address 1 123",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 123"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_flat_big_word_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 4 count 2",
+            "UT: wide_next address 0 123",
+            "UT: wide_next address 1 122",
+            "UT: single_last transfer 4 count 1",
+            "UT: single_last address 0 123"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child4_root2_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 2 count 4",
+            "UT: wide_next address 0 168",
+            "UT: wide_next address 1 16a",
+            "UT: wide_next address 2 16c",
+            "UT: wide_next address 3 16e",
+            "UT: single_last transfer 2 count 2",
+            "UT: single_last address 0 16c",
+            "UT: single_last address 1 16e"
+          ]
+        },
+        {
+          "test": "u18/test_map_direct_translation_child2_root4_populated_107",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_next transfer 2 count 2",
+            "UT: wide_next address 0 164",
+            "UT: wide_next address 1 166",
+            "UT: single_last transfer 2 count 1",
+            "UT: single_last address 0 166"
           ]
         }
       ]

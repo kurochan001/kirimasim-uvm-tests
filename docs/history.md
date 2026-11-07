@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 106 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2685 tests: 2586 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 107 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2701 tests: 2602 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -6063,3 +6063,50 @@ below-target and 538 at least two; primary citations do not prove independent
 or complete obligation coverage. All 2062 partial identifiers, applicability
 conditions and original M1–M4 targets remain open despite three empty queues.
 Human review and scope/denominator approval remain unrecorded.
+
+## 107th thin-area expansion: direct physical-address translation
+
+The 107th expansion adds sixteen M3 direct physical-address translation
+profiles. They cross empty and independently populated maps with flat normal
+byte/word addressing and both endian orders, byte-addressed little-endian
+child4/root2 and child2/root4 hierarchies, and flat little/big FIFO maps.
+Queries reuse a prefilled result array at changing lengths and repeat the
+original query. Non-FIFO cases also query nonzero memory-entry indices;
+[the direct-query FAQ](faq.md#q409-what-does-a-direct-map-query-add-beyond-register-address-queries)
+explains the distinction from register and memory wrapper APIs.
+
+All sixteen build and run but differ at seed1; none has a seed73 result or a
+new fixed-release tag. Observed full-beat return widths are zero instead of the
+required two or four. Nonzero entry origins and selected hierarchy width/list
+observations also differ. Empty and populated variants keep the same oracle;
+[the setup FAQ](faq.md#q410-do-the-populated-variants-make-registration-a-translation-precondition)
+explains why population is not a new prerequisite or a claimed remedy.
+Four hierarchy inputs stop with a null-dereference diagnostic at the first nonzero-entry query, so their later expected rows are unobserved. The twelve flat inputs exit normally. No simulator-versus-library cause is inferred from these observations.
+
+Two six-byte entry0 probes assert the two-address list but leave the single
+partial-transfer return value diagnostic-only. DIAG107 has one row in each
+of those seed1 logs, with no oracle or requirement link; [the partial-width
+FAQ](faq.md#q411-why-is-the-partial-transfer-return-value-diagnostic-only)
+records the unresolved reading. No bus transfer, packing, RTL timing,
+nonzero FIFO-entry stride, mixed-endian hierarchy, hierarchical word-unit
+resolution or arbitrary sub-bus entry rounding is certified.
+
+One memory-entry-index duty is added; the stable data-order/width and
+narrowest-width duties retain their original text and links while expanding
+applicability. The other 4093 old requirement objects, all 445 assessments,
+all 2685 old ordinary/index records and all 440 old known inputs remain
+unchanged. Initial builds stopped at a conditional null expression in the
+observer; a typed expected-parent variable repairs that fixture without
+changing expectations. Initial inputs/logs remain archived and excluded.
+The sixteen repaired inputs are freshly measured, not reused from those logs.
+
+There are 2701 tests, 4096 AI duty drafts and 2645 directly linked tests,
+with 56 control-only and 156 control-linked tests. Ordinary results are
+2245 pass (2151 runtime at both seeds, 94 compiler rejections) and 456 known
+(316 runtime seed1, 135 simulation build failures, five illegal acceptances).
+Guest records remain byte-identical at 1081 compatible inputs, with 1620
+unmeasured (1616 additions and four revised originals). No guest rerun or
+new filtering is claimed. Scope, catalog, runners, backends and CI selection
+are unchanged. All 2062 partial identifiers, applicability conditions and
+original M1–M4 targets remain open despite three empty queues; human review
+and scope/denominator approval remain unrecorded.

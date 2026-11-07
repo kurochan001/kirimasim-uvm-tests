@@ -1,0 +1,20 @@
+UT: setup root 1 parent 1 base 140 local_width 4 effective_width 2 unit 1
+UT: wide_first transfer 2 count 4
+UT: wide_first address 0 160
+UT: wide_first address 1 162
+UT: wide_first address 2 164
+UT: wide_first address 3 166
+UT: wide_next transfer 2 count 4
+UT: wide_next address 0 168
+UT: wide_next address 1 16a
+UT: wide_next address 2 16c
+UT: wide_next address 3 16e
+UT: single_last transfer 2 count 2
+UT: single_last address 0 16c
+UT: single_last address 1 16e
+UT: wide_restored transfer 2 count 4
+UT: wide_restored address 0 160
+UT: wide_restored address 1 162
+UT: wide_restored address 2 164
+UT: wide_restored address 3 166
+UT: independent count 2 values 55 aa

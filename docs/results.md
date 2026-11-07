@@ -6,14 +6,14 @@
 
 Runtime matches, compiler rejections and unmeasured inputs describe different execution conditions; [Read a result](reading-guide.md#read-a-result) explains how to read the counts together.
 
-The Verilator snapshot assembled on 2026-11-07 covers all 2685 current tests.
-Guest records retain 1081 compatible current inputs; 1604 inputs are
+The Verilator snapshot assembled on 2026-11-07 covers all 2701 current tests.
+Guest records retain 1081 compatible current inputs; 1620 inputs are
 unmeasured, including four revised old inputs. Each record
 fingerprints its inputs and conditions.
-The suite has 2685 fixtures in 22 directories: 2586 simulation and 99
-elaboration. Milestone totals are M1 1161 (1080/81), M2 612 (605/7) and M3 912
-(901/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
-none records human review. Of 2629 no-DPI fixtures, 99 are illegal elaboration
+The suite has 2701 fixtures in 22 directories: 2602 simulation and 99
+elaboration. Milestone totals are M1 1161 (1080/81), M2 612 (605/7) and M3 928
+(917/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
+none records human review. Of 2645 no-DPI fixtures, 99 are illegal elaboration
 checks. The thirty-eight HDL-DPI and eighteen command-line/regex-DPI runtime fixtures
 remain separate.
 
@@ -23,11 +23,11 @@ Backend rows revisit inputs already included in the ordinary row under different
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 2245 `pass`: 2151 runtime + 94 compile rejection; 440 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
+| Verilator 5.052, pinned UVM | 2245 `pass`: 2151 runtime + 94 compile rejection; 456 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
 | Verilator 5.052, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 17 `pass`; 1 `known` | Separate overlapping 18-case condition; matches at seeds 1/73, difference at seed 1 |
-| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 unchanged inputs; 1604 inputs unmeasured |
-| Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1604 inputs unmeasured |
+| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 unchanged inputs; 1620 inputs unmeasured |
+| Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1620 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -56,9 +56,9 @@ printed virtual builtin dispatcher. They retain the rejection oracle as known
 differences without runtime, even when accepted. The 135 unexpected simulation
 builds remain separate. A pass requires the declared expectation.
 
-The 440 spec-only cases retain standard-derived output or compile-diagnostic
-expectations. Five are illegal compiler acceptances; 435 are simulation cases.
-Of these, 300 first differ at runtime seed 1 without seed 73. Forty-three cannot build
+The 456 spec-only cases retain standard-derived output or compile-diagnostic
+expectations. Five are illegal compiler acceptances; 451 are simulation cases.
+Of these, 316 first differ at runtime seed 1 without seed 73. Forty-three cannot build
 because of missing APIs/type names: one time API, fourteen sequence-library APIs,
 twelve HDL slice-view cases, one named-concat constructor, five object active-policy API cases,
 three catcher message-handle cases, the printed base recording-state getter,
@@ -140,56 +140,55 @@ A fingerprint identifies the exact inputs behind a reused record, so [Execution 
 
 Here an unmeasured input has no compatible current record, even if an older version was run; [Q15](faq.md#q15-how-do-i-know-whether-an-old-result-still-applies) explains the checks needed before reusing it.
 
-The snapshot starts from [afd85a8](https://github.com/kurochan001/kirimasim-uvm-tests/commit/afd85a861559eee11f9a39f753e7c3af1ed7fb57), retains 2672 unchanged ordinary records,
-refreshes one citation-revised original and adds twelve M1 simulation inputs on 2026-11-07 JST.
+The snapshot starts from [066e24d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/066e24d2f2ddf47e90f3032b112a3212136a5719), retains all 2685 old ordinary records,
+and adds sixteen M3 simulation inputs on 2026-11-07 JST.
 
 The profiles below check only their stated conditions, so a match under a different premise cannot pass an original difference; [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains the recorded direct/control roles.
 
-The 106th expansion adds twelve M1 pending-objection profiles and reviews
-one original citation. New cases cross drain/callback stage, a raise from the
-same object or a descendant, and new counts equal to, greater than or fewer
-than the pending drop. Two completed rounds use a gate/leaf/ancestor hierarchy,
-a separate peer branch holding four and an independent objection holding seven.
-The selected waits use the printed objection or registered callback tasks;
-[the cancellation FAQ](faq.md#q405-what-is-added-beyond-re-raising-during-drain)
-explains why cancellation during all_dropped is a separate condition.
+The 107th expansion adds sixteen M3 direct physical-address translation
+profiles. They cross empty and independently populated maps with flat normal
+byte/word addressing and both endian orders, byte-addressed little-endian
+child4/root2 and child2/root4 hierarchies, and flat little/big FIFO maps.
+Queries reuse a prefilled result array at changing lengths and repeat the
+original query. Non-FIFO cases also query nonzero memory-entry indices;
+[the direct-query FAQ](faq.md#q409-what-does-a-direct-map-query-add-beyond-register-address-queries)
+explains the distinction from register and memory wrapper APIs.
 
-All twelve final tagged new inputs match seeds 1/73, and the revised original
-also matches both seeds with its unchanged body and two expected rows. Counts
-remain held after the canceled gate is released, then final drops complete a
-fresh cycle. For nonnegative compensation, the ancestor raise amount is R-D;
-for negative compensation, public totals supply the oracle while eight DIAG106
-hook rows per seed are investigative only, with no oracle or requirement link.
-[The net-count FAQ](faq.md#q406-what-is-asserted-when-the-new-count-is-smaller-than-the-pending-drop)
-separates these state obligations from unspecified compensation-hook details.
+All sixteen build and run but differ at seed1; none has a seed73 result or a
+new fixed-release tag. Observed full-beat return widths are zero instead of the
+required two or four. Nonzero entry origins and selected hierarchy width/list
+observations also differ. Empty and populated variants keep the same oracle;
+[the setup FAQ](faq.md#q410-do-the-populated-variants-make-registration-a-translation-precondition)
+explains why population is not a new prerequisite or a claimed remedy.
+Four hierarchy inputs stop with a null-dereference diagnostic at the first nonzero-entry query, so their later expected rows are unobserved. The twelve flat inputs exit normally. No simulator-versus-library cause is inferred from these observations.
 
-The blocking task shapes are objection all_dropped and registered all_dropped,
-not a delayed component task. The separately retained 13.1.6.3 printed-function
-input remains a known build difference; [the declaration FAQ](faq.md#q407-do-the-task-gates-resolve-the-components-printed-function-declaration)
-keeps that conflict visible. No private process/counter, callback-tail kill,
-exact delta order, concurrent raises, mode-zero completeness or complete
-objection protocol is inferred.
+Two six-byte entry0 probes assert the two-address list but leave the single
+partial-transfer return value diagnostic-only. DIAG107 has one row in each
+of those seed1 logs, with no oracle or requirement link; [the partial-width
+FAQ](faq.md#q411-why-is-the-partial-transfer-return-value-diagnostic-only)
+records the unresolved reading. No bus transfer, packing, RTL timing,
+nonzero FIFO-entry stride, mixed-endian hierarchy, hierarchical word-unit
+resolution or arbitrary sub-bus entry rounding is certified.
 
-One net-propagation duty is added and the stable cancellation duty expands its
-applicability while retaining all original text and links. The other 4093 old
-requirement objects and all 445 assessments remain unchanged. The original
-reraise fixture's description/primary citation is corrected from the unused
-get_drain_time clause to drop_objection. Its old input is archived; 2672 other
-ordinary/index records remain unchanged and the revised input is freshly
-measured. All 440 prior known inputs remain. Scope, catalog, runners, backends
-and workflow are unchanged.
+One memory-entry-index duty is added; the stable data-order/width and
+narrowest-width duties retain their original text and links while expanding
+applicability. The other 4093 old requirement objects, all 445 assessments,
+all 2685 old ordinary/index records and all 440 old known inputs remain
+unchanged. Initial builds stopped at a conditional null expression in the
+observer; a typed expected-parent variable repairs that fixture without
+changing expectations. Initial inputs/logs remain archived and excluded.
+The sixteen repaired inputs are freshly measured, not reused from those logs.
 
-The ledger has 4095 AI duties and 2629 directly linked tests, with 56
-control-only and 156 control-linked tests. Guests retain 1081 compatible
-records after filtering the revised original, leaving 1604 current inputs
-unmeasured. Ghost retains 206 pass/875 fail per seed and kirimasim retains
-1072 unsupported/nine failures. These smaller guest totals are compatibility
-filtering, not a new measurement or improvement; [the citation FAQ](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage)
-explains the input identity change. The primary census is 1173 zero, 771
-below-target and 538 at least two; primary citations do not prove independent
-or complete obligation coverage. All 2062 partial identifiers, applicability
-conditions and original M1–M4 targets remain open despite three empty queues.
-Human review and scope/denominator approval remain unrecorded.
+There are 2701 tests, 4096 AI duty drafts and 2645 directly linked tests,
+with 56 control-only and 156 control-linked tests. Ordinary results are
+2245 pass (2151 runtime at both seeds, 94 compiler rejections) and 456 known
+(316 runtime seed1, 135 simulation build failures, five illegal acceptances).
+Guest records remain byte-identical at 1081 compatible inputs, with 1620
+unmeasured (1616 additions and four revised originals). No guest rerun or
+new filtering is claimed. Scope, catalog, runners, backends and CI selection
+are unchanged. All 2062 partial identifiers, applicability conditions and
+original M1–M4 targets remain open despite three empty queues; human review
+and scope/denominator approval remain unrecorded.
 
 Retained kirimasim/Ghost records were collected with fixed executable
 snapshots and Ghost's seed-specific private profiles.
@@ -199,17 +198,14 @@ Commercial simulator results are excluded under the
 
 The earlier temporary kirimasim/Ghost executable/profile snapshots are no
 longer available, so no guest rerun is claimed. Historical source files retain
-1085 records. Earlier filters exclude the command-enum citation, Boolean
-rerandomization and virtual-field configuration revisions; this filter also
-excludes the original reraise input after its primary citation is corrected.
-Every other compatible row remains byte-identical, leaving 1081 records.
-Twelve additions and one revised input increase the unmeasured set to 1604:
-1600 additions and four revised originals. Retained Ghost counts are 206 pass
-and 875 fail per seed; kirimasim retains 1072 unsupported and nine API failures.
-Those smaller totals reflect filtering. Earlier provenance is in
-`out/thin-seventy-first-guest-exclusions.json`, the new exclusion is in
-`out/thin-one-hundred-sixth-guest-exclusions.json`, and the current scope is in
-`out/thin-one-hundred-sixth-evidence-scope.json`.
+1085 records. Earlier filters excluded four revisions: command-enum citation,
+Boolean rerandomization, virtual-field configuration and reraise primary citation.
+This increment performs no new filtering. All 1081 compatible records and
+filter metadata are retained byte-identically. Sixteen additions increase the
+unmeasured set to 1620: 1616 additions and four revised originals. Ghost remains
+206 pass/875 fail per seed and kirimasim remains 1072 unsupported/nine API failures.
+The latest exclusions are recorded in `out/thin-one-hundred-sixth-guest-exclusions.json`;
+the current scope is in `out/thin-one-hundred-seventh-evidence-scope.json`.
 
 The fingerprints identify different inputs:
 
@@ -230,7 +226,7 @@ simulator, configuration and library identities before reusing execution records
 Before combining records, check that:
 
 - Verilator IDs cover the current suite exactly. Retained guest IDs match
-  their declared 1081-case subset; 1604 input IDs remain unmeasured.
+  their declared 1081-case subset; 1620 input IDs remain unmeasured.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -245,11 +241,11 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-The [draft ledger](requirements.md) has 4095 AI duties and 0 unassessed
+The [draft ledger](requirements.md) has 4096 AI duties and 0 unassessed
 identifiers: 2062 partial/445 assessed. Chapter 10 is 87/29/0; chapter 18 is
 393/63/0. Their partial contracts and original targets remain open. Direct
-links cover 2629 tests; 56 others have only controls. Guests retain 1081
-compatible inputs; 1604 (1505 simulation/99 elaboration), including four
+links cover 2645 tests; 56 others have only controls. Guests retain 1081
+compatible inputs; 1620 (1521 simulation/99 elaboration), including four
 revised originals, are unmeasured. Scope and denominator remain unapproved.
 
 ## Reproducing and retaining results
@@ -282,7 +278,7 @@ A shard runs a disjoint subset of the selected tests, and the final gate require
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
 and manual dispatch. It checks pinned-library integrity, 110 tool unit tests,
-2685 metadata records and the draft ledger/index. Its 2245 tagged ordinary
+2701 metadata records and the draft ledger/index. Its 2245 tagged ordinary
 Verilator checks comprise 2151 runtime cases at seeds 1/73 and 94 compiler
 rejections without runtime seeds, plus seventeen
 explicit command-line checks under their separate condition.

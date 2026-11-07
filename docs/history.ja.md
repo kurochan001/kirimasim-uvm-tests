@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の106回目の拡充（全2685件：simulation 2586・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の107回目の拡充（全2701件：simulation 2602・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3777,3 +3777,28 @@ guestは改訂した元入力を除いて互換1081記録を保持し、現在�
 guestの件数減少は互換性のfilterで新測定や改善ではなく、入力同一性の変更は[引用のFAQ](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)で説明しています。
 主引用の棚卸しは0件1173番号、1件771番号、2件以上538番号であり、主引用で独立した検査や義務全体のcoverageを証明しません。
 空の3queueで部分2062識別子、適用条件、元のM1〜M4目標を完了にはせず、人の照合と範囲／分母承認は記録していません。
+
+## 薄い領域の107回目の拡充：物理addressの直接変換
+
+107回目はM3の物理address直接変換profileを16件追加します。
+空／独立register登録済みのmapに対し、平坦な通常mapのbyte／word単位と両endian、byte単位little-endianのchild4／root2とchild2／root4の階層、平坦なlittle／big FIFO mapを組み合わせます。
+値を入れた結果配列を長さの異なる照会へ再利用し、元の照会も繰り返します。非FIFOでは非0のmemory entry indexも照会し、registerやmemoryのwrapper APIとの違いは[直接照会のFAQ](faq.ja.md#q409-mapの直接照会はregisterのaddress照会に何を追加しますか)で説明しています。
+
+16件は全てbuildと実行に到達しますがseed1で不一致となり、seed73の結果も新しい固定版tagもありません。
+観測できた完全beatの戻り幅は要求する2または4でなく0です。非0 entryの先頭と一部の階層幅／列の観測も異なります。
+空と登録済みの期待は同じで、登録を新しい前提や解決策にしない理由は[準備条件のFAQ](faq.ja.md#q410-登録済みの比較で変換前のregister登録を必須にしますか)で説明しています。
+階層4入力は最初の非0 entry照会でnull参照の診断とともに停止し、後続の期待行は未観測です。平坦な12入力は正常終了します。この観測でsimulatorとlibraryのどちらが原因かは推定しません。
+
+entry0の6-byte probe 2件はaddress 2個の列をassertし、単一の部分転送の戻り値は調査専用にします。
+DIAG107はそのseed1のlogに各1行あり、oracleも要求linkも持ちません。未解決の読み方は[部分幅のFAQ](faq.ja.md#q411-部分転送の戻り値を調査専用にする理由は)に残します。
+bus転送、packing、RTL timing、非0 FIFO entryのstride、混在endian階層、階層word単位の解決、任意のsub-bus entryの丸めは認定しません。
+
+memory entry indexの義務を1件追加し、安定したdata順／幅と最小幅の義務は元の文章とlinkを保持しながら適用条件を広げます。
+他の旧要求4093件、分類445件、元の通常／index 2685記録、以前のknown 440入力は全て維持します。
+初回buildはobserver内のnull条件式で止まり、型付きの期待parent変数へ直しますが期待値は変えません。初回入力／logは保存して除外します。
+修正後16入力は、そのlogを流用せず新しく測定します。
+
+全2701テスト、AI義務案4096件、直接対応2645テストとなり、control専用56件とcontrol link付き156件を保持します。
+通常条件はpass 2245件（両seedのruntime 2151件・compile拒否94件）、known 456件（seed1のruntime 316件・simulation build失敗135件・不正設計の受理5件）です。
+guestは互換1081入力の記録をbyte単位で保持し、未測定1620入力（追加1616件・修正した元入力4件）になります。guest再実行や新しいfilterはありません。
+範囲、catalog、runner、backend、CIの選択は変更しません。3つのqueueは0でも、部分2062番号、適用条件、元のM1〜M4目標は未完で、人の照合と範囲／分母の承認は未記録です。
