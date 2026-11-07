@@ -10,17 +10,17 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4054 AI-drafted requirements, all with direct links to 2533 tests.
-Fifty-four tests have only control links. All 2587 tests have a requirement link.
+contains 4057 AI-drafted requirements, all with direct links to 2539 tests.
+Fifty-four tests have only control links. All 2593 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
 
 A control-only test checks a supporting premise, and [the HDL-view example](faq.md#q308-why-keep-standard-views-and-member-view-controls-separate) shows why its match cannot establish a missing standard API contract.
 
-The clause catalog has 2,507 identifiers. 2057 have a partial
+The clause catalog has 2,507 identifiers. 2058 have a partial
 requirement decomposition; 424 have explicit AI assessments (293 structural,
-131 contextual), and 26 remain unassessed. No state certifies completion.
+131 contextual), and 25 remain unassessed. No state certifies completion.
 Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
@@ -37,7 +37,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4054 draft entries span several areas,
+a heading is not an obligation. The 4057 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -73,8 +73,8 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1301
-have a primary-focus test and 2,089 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 1302
+have a primary-focus test and 2,090 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
@@ -109,7 +109,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2587-test
+known difference. It is not a pass or a conformance claim. The current 2593-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -147,7 +147,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2587 reviewed requirement mappings.
+  index is an inventory, not 2593 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -250,16 +250,16 @@ to certify a parent requirement. Multiple requirements can share a test, and
 one requirement can have multiple test links; neither implies independent
 coverage from every anchor in a shared expected-output line.
 
-All existing tests across the twenty-one primary-focus roots now have
+All existing tests across the twenty-two primary-focus roots now have
 requirement links, while normative decomposition remains partial:
 
 Each row counts requirements by their own clause and tests by their primary citation, so [Q79](faq.md#q79-how-can-i-find-the-next-m4-review-items) explains why a linked test can belong to a different root.
 
-The table retains every catalog root, including context and deferred roots; context root 1 has the namespace duty whose tests have F.1 as their primary focus, and [the mapping guide](#citations-requirements-and-execution-evidence) explains why its requirement count and primary-test count differ.
+The table retains every catalog root, including context and deferred roots; context root 1 has namespace and random-stability duties, with primary tests under F.1 and 1.4.6 respectively, and [the mapping guide](#citations-requirements-and-execution-evidence) explains why requirement counts and primary-test counts differ.
 
 | Root | Draft requirements | Primary-focus tests | Tests without links | Assessed identifiers | Unassessed identifiers |
 | --- | --- | --- | --- | --- | --- |
-| 1 | 1 | 0 | 0 | 0 | 10 |
+| 1 | 4 | 6 | 0 | 0 | 9 |
 | 2 | 0 | 0 | 0 | 0 | 1 |
 | 3 | 0 | 0 | 0 | 0 | 3 |
 | 4 | 0 | 0 | 0 | 0 | 1 |
@@ -286,61 +286,49 @@ The table retains every catalog root, including context and deferred roots; cont
 | G | 45 | 20 | 0 | 4 | 0 |
 | H | 0 | 0 | 0 | 0 | 9 |
 
-This table includes roots with primary-focus tests, while the global unassessed total also includes context and deferred roots, whose treatment is explained in [the scope glossary](glossary.md#scope-and-coverage).
+The table shows all 26 catalog roots, including those with no primary-focus tests; [the scope glossary](glossary.md#scope-and-coverage) explains why context and deferred rows remain in the unassessed total.
 
 Zero unmapped tests and zero drafts without direct tests do not establish
-complete requirement coverage. The remaining 26 identifiers still need
-assessment/decomposition. Scope is proposed, all 4054 reviews are `ai` and
+complete requirement coverage. The remaining 25 identifiers still need
+assessment/decomposition. Scope is proposed, all 4057 reviews are `ai` and
 the denominator remains unapproved.
 
-Four new M2 runtime inputs cover generated TLM implementation classes in two
-lexical packages: blocking put with int data and nonblocking get with original
-class handles. Each package uses the same _shared96 and plain96 suffixes;
-owner-component construction and selected call order reverse between inputs. Bound ordinary ports use
-default/indexed interface views and retain the selected imp and parent.
-[The declaration-scope FAQ](faq.md#tlm-declaration-scopes-and-callback-overview)
-explains the class names, observations and remaining interpretation questions.
+Six new M1 runtime inputs check the random-stability obligation in 1.4.6
+for selected calls that execute no user code: string splitting, conversion to
+an original enum, and inherited object-name queries without user overrides.
+The original helper compares 24 future caller draws with a no-UVM-call replay
+from the same saved state; object queries also compare 24 successful receiver
+randomizations of two unconstrained fields. User construction and optional
+warmup precede the snapshots. Cold 24-call and warmed 48-call histories use
+different call orders. Actual API values and call counts are checked too;
+failed enum conversion does not constrain the undocumented ref output.
+The [random-state FAQ](faq.md#random-state-and-api-applicability) explains
+the eligibility conditions and the relative oracle.
 
-All four inputs build and exit zero at seed 1, but a cross-package cast between
-same-name parameterized generated classes succeeds unexpectedly. Cross-suffix
-casts are rejected as expected, and all selected routing, argument/history,
-readiness, successful handle/data, later-call and peer observations match.
-Those matching rows do not pass a complete differing input or separately pass
-the child declaration duties. No input has a seed-73 record or a fixed-release
-oracle tag. The nominal-type expectation remains unchanged.
+All six original proof inputs and six final tagged inputs build successfully
+and match seeds 1/73 with exit 0. The final records have six build logs and
+twelve runtime logs. No fixed numeric random sequence, opaque-state string
+format or cross-simulator RNG identity is required. Finite matching histories
+do not establish every state, every API or calls that execute user code.
 
-The original three expected rows are retained. A fresh observer adds separate
-package/suffix cast results without short-circuiting either check; current
-fingerprints have fresh build/runtime evidence. An independent original
-no-UVM language probe observes same=1, package=1, name=0, plain_package=0,
-plain_name=0, whereas package=0 was expected. The selected failure concerns
-parameterized same-name classes across packages; different names and plain
-classes match their controls. This supplies no separate canonical test, guest
-measurement, original seed-73 result or library-only cause attribution.
+Three AI partial duties are added for 1.4.6 without classifying any identifier
+away. The new u01 directory follows that primary citation and counts toward
+M1 by its subject; API-specific clauses remain supporting citations. Root 1
+now has two partial identifiers, four duties, six primary tests and nine
+unassessed identifiers. Its context scope is retained and does not remove
+these operational requirements. There are 22 primary-focus roots/directories.
 
-One B.5 namespace duty is appended, and two existing child declaration duties
-gain two reviewed links each without changing their definitions, conditions,
-expectations, limitations or AI review. B.2 is individually assessed as a
-structural family title. B.2.1 is contextual factory-infrastructure guidance
-with a should-use recommendation, not a prohibition of equivalent manual
-infrastructure. B.4 remains unassessed: its registry-base wording conflicts
-with the explicit callback-object/CB base rules and is not silently classified.
-The generic interface-imp macro name in B.5 denotes a family placeholder;
-only the concrete child-generated names are used, without an invented separator.
-
-There are 4054 AI duties, 2533 directly linked tests, fifty-four control-only
-tests and 154 control-linked tests. Inventory is 2057 partial/424 assessed/
-26 unassessed. Annex B is 134/9/1, with 256 duties and 225 primary tests
-(221 simulation/four elaboration). Primary-focus identifiers are 1301 and
-identifiers with any citation are 2089. All 4053 prior requirement definitions
-and reviews remain, with 4051 whole objects unchanged and only two link-list
-extensions; 422 prior assessments, 2583 index/ordinary records and the 99
-compiler, 38 HDL, 18 command-line and 1082 guest records are retained.
-The previous 418 known cases are unchanged; four new runtime differences
-bring the total to 422. Guests have 1505 unmeasured inputs: 1502 additions
-and three revised originals (1406 simulation/99 elaboration). All partial
-contracts, original M1–M4 targets, human review and scope/denominator approval
-remain open.
+The ledger has 4057 AI duties, 2539 directly linked tests, 54 control-only
+tests and 154 control-linked tests. The catalog has 2058 partial, 424 assessed
+and 25 unassessed identifiers; 1302 have primary tests and 2090 have some
+citation. All 4054 previous requirement objects, 424 assessments and 2587
+index/ordinary records remain unchanged. Compiler 99, HDL 38, command-line 18
+and guest 1082 records remain byte-identical and input-compatible. The earlier
+422 known differences are preserved. Guests have 1511 unmeasured inputs:
+1508 additions plus three revised originals, with 1412 simulation and 99
+elaboration inputs. No simulator implementation source or commercial result
+was used. All partial applicability, original milestone targets, human review
+and scope/denominator approval remain open.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -753,4 +741,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4054 AI drafts and their direct links do not satisfy that gate.
+The current 4057 AI drafts and their direct links do not satisfy that gate.

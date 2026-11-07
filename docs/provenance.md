@@ -361,6 +361,8 @@ Collection value expectations were derived independently from the supplied IEEE 
 
 TLM namespace expectations were derived from the supplied B.5 class-generation and SystemVerilog class/cast rules before execution. The original three oracle rows remain, with separate package/suffix cast observations and fresh current-input measurements. An independently written no-UVM language probe reproduces the same-name parameterized cross-package cast difference; plain/different-name controls match. No simulator implementation source, commercial result, library-only cause or human approval supplies the oracle. [The scope FAQ](faq.md#tlm-declaration-scopes-and-callback-overview) records the remaining limits and unresolved B.4 wording.
 
+The 1.4.6 random-stability expectations were derived from the provided UVM standard and SystemVerilog process/object RNG rules before execution. The original helper observes relative future draws, actual API outputs and same-implementation state restoration without copying a numeric random sequence or decoding a vendor state string; [the RNG FAQ](faq.md#random-state-and-api-applicability) records its qualified applicability. No simulator implementation source or commercial result was used.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

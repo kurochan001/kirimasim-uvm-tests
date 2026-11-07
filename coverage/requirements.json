@@ -153395,6 +153395,131 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RANDOM-STABILITY-SPLIT-CALLER-97",
+      "clause": "1.4.6",
+      "statement": {
+        "en": "The selected plain string-split calls preserve the calling process random stream.",
+        "ja": "選択した単純な文字列分割呼出しは、呼出しprocessの乱数列を保持する。"
+      },
+      "conditions": {
+        "en": "Split original strings containing ordinary tokens, consecutive separators and a trailing separator; inspect the actual resulting queue after each call. Replay a same-implementation saved calling-process RNG state against a no-UVM-call baseline of 24 future draws. Compare a cold 24-call history with a two-call warmup followed by 48 mixed/reversed calls; receiver construction and warmup precede the snapshot.",
+        "ja": "独自の通常token、連続区切り、末尾区切りを持つ文字列を分割し、各呼出し後の実queueを確認する。 同じ実装で保存した呼出しprocessのRNG状態を復元し、UVM呼出しなしの対照の将来24drawと比較する。未呼出しからの24回と、2回事前呼出し後の混在／反転48回を比較し、receiver生成と事前呼出しはsnapshotより前に行う。"
+      },
+      "expected": {
+        "en": "Declared API observations and call counts match; every selected future calling-process draw agrees with its control. No output from another RNG or any specific numeric random sequence is prescribed.",
+        "ja": "宣言したAPI観測と呼出し件数が一致し、選択した将来のcaller drawがすべて対照と一致する。別RNGの出力や特定の数値乱数列は指定しない。"
+      },
+      "limitations": {
+        "en": "Partial applicability review for these calls without executing user code only; user constructors run before measurement. Same-runtime opaque state transfer supports relative observations without imposing a serialization format, numeric seed sequence or cross-simulator identity. Finite histories do not prove all RNG states, APIs, explicit exceptions, callback/override cases or full M1-M4 targets. No human review or scope/denominator approval.",
+        "ja": "user codeを実行しないこれらの呼出しだけの部分的な適用条件レビューで、user constructorは測定前に実行する。同一runtimeのopaque状態転送で相対観測を行い、直列化書式、数値seed列、シミュレータ間同一性は規定しない。有限の履歴では全RNG状態、全API、明示例外、callback／override条件、M1〜M4全目標を証明しない。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_random_stability_split_0_97",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rng97 split 0 values 1 caller_stream 1 calls 24"
+          ]
+        },
+        {
+          "test": "u01/test_random_stability_split_1_97",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rng97 split 1 values 1 caller_stream 1 calls 48"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RANDOM-STABILITY-ENUM-CALLER-97",
+      "clause": "1.4.6",
+      "statement": {
+        "en": "The selected enumeration name-conversion calls preserve the calling process random stream.",
+        "ja": "選択した列挙型の名前変換呼出しは、呼出しprocessの乱数列を保持する。"
+      },
+      "conditions": {
+        "en": "Use an original three-valued enum with exact matching names and a case-mismatched unsuccessful name; check success flags and only successful converted values. Replay a same-implementation saved calling-process RNG state against a no-UVM-call baseline of 24 future draws. Compare a cold 24-call history with a two-call warmup followed by 48 mixed/reversed calls; receiver construction and warmup precede the snapshot.",
+        "ja": "独自の3値enumに正確な名前とcaseの異なる不成功名を使い、成功flagと成功時だけの変換値を確認する。 同じ実装で保存した呼出しprocessのRNG状態を復元し、UVM呼出しなしの対照の将来24drawと比較する。未呼出しからの24回と、2回事前呼出し後の混在／反転48回を比較し、receiver生成と事前呼出しはsnapshotより前に行う。"
+      },
+      "expected": {
+        "en": "Declared API observations and call counts match; every selected future calling-process draw agrees with its control. No output from another RNG or any specific numeric random sequence is prescribed.",
+        "ja": "宣言したAPI観測と呼出し件数が一致し、選択した将来のcaller drawがすべて対照と一致する。別RNGの出力や特定の数値乱数列は指定しない。"
+      },
+      "limitations": {
+        "en": "Partial applicability review for these calls without executing user code only; user constructors run before measurement. Same-runtime opaque state transfer supports relative observations without imposing a serialization format, numeric seed sequence or cross-simulator identity. Finite histories do not prove all RNG states, APIs, explicit exceptions, callback/override cases or full M1-M4 targets. Failed conversion ref output is intentionally not asserted. No human review or scope/denominator approval.",
+        "ja": "user codeを実行しないこれらの呼出しだけの部分的な適用条件レビューで、user constructorは測定前に実行する。同一runtimeのopaque状態転送で相対観測を行い、直列化書式、数値seed列、シミュレータ間同一性は規定しない。有限の履歴では全RNG状態、全API、明示例外、callback／override条件、M1〜M4全目標を証明しない。失敗変換のref出力は意図的に検査しない。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_random_stability_enum_0_97",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rng97 enum 0 values 1 caller_stream 1 calls 24"
+          ]
+        },
+        {
+          "test": "u01/test_random_stability_enum_1_97",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rng97 enum 1 values 1 caller_stream 1 calls 48"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RANDOM-STABILITY-OBJECT-NAME-STREAMS-97",
+      "clause": "1.4.6",
+      "statement": {
+        "en": "Selected inherited object-name queries preserve both the caller and receiver random streams when no user override is executed.",
+        "ja": "user overrideを実行しない選択した継承objectの名前照会は、callerとreceiverの両乱数列を保持する。"
+      },
+      "conditions": {
+        "en": "Construct an original object derivative with two unconstrained rand fields before measurement; use inherited get_name/get_full_name with no overrides or randomize hooks and confirm actual names and successful receiver randomizations. Replay a same-implementation saved calling-process RNG state against a no-UVM-call baseline of 24 future draws. Compare a cold 24-call history with a two-call warmup followed by 48 mixed/reversed calls; receiver construction and warmup precede the snapshot.",
+        "ja": "測定前に制約なしrand field 2つの独自object派生型を生成し、overrideやrandomize hookなしに継承get_name／get_full_nameを使って実名とreceiver randomizeの成功を確認する。 同じ実装で保存した呼出しprocessのRNG状態を復元し、UVM呼出しなしの対照の将来24drawと比較する。未呼出しからの24回と、2回事前呼出し後の混在／反転48回を比較し、receiver生成と事前呼出しはsnapshotより前に行う。"
+      },
+      "expected": {
+        "en": "Declared API observations and call counts match; every selected future calling-process draw agrees with its control. Every receiver randomization succeeds and both rand fields agree with the receiver-state replay control.",
+        "ja": "宣言したAPI観測と呼出し件数が一致し、選択した将来のcaller drawがすべて対照と一致する。receiverの各randomizeが成功し、両rand fieldがreceiver状態を復元した対照と一致する。"
+      },
+      "limitations": {
+        "en": "Partial applicability review for these calls without executing user code only; user constructors run before measurement. Same-runtime opaque state transfer supports relative observations without imposing a serialization format, numeric seed sequence or cross-simulator identity. Finite histories do not prove all RNG states, APIs, explicit exceptions, callback/override cases or full M1-M4 targets. No human review or scope/denominator approval.",
+        "ja": "user codeを実行しないこれらの呼出しだけの部分的な適用条件レビューで、user constructorは測定前に実行する。同一runtimeのopaque状態転送で相対観測を行い、直列化書式、数値seed列、シミュレータ間同一性は規定しない。有限の履歴では全RNG状態、全API、明示例外、callback／override条件、M1〜M4全目標を証明しない。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_random_stability_object_0_97",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rng97 object 0 values 1 caller_stream 1 calls 24",
+            "UT: rng97 object 0 randomize 1 object_stream 1"
+          ]
+        },
+        {
+          "test": "u01/test_random_stability_object_1_97",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rng97 object 1 values 1 caller_stream 1 calls 48",
+            "UT: rng97 object 1 randomize 1 object_stream 1"
+          ]
+        }
+      ]
     }
   ]
 }

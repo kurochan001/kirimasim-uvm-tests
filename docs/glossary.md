@@ -1760,3 +1760,11 @@ These terms describe the selected declaration and cast checks, with their limits
 **Resolved implementation view** — The interface selected from an actually bound port, with default or explicit index; [Q368](faq.md#q368-does-correct-routing-pass-the-nominal-type-case) separates correct routing/identity rows from whole-case success.
 
 **Callback registry/object distinction** — The management class and the callback type it manages, whose base rules differ; [Q370](faq.md#q370-why-leave-b4-unassessed-after-reading-its-callback-description) records the unresolved overview wording.
+
+## Random state and API applicability
+
+**API random stability** — Preservation of the applicable caller or object random stream for selected calls without user-code execution, subject to explicit exceptions; [Q372](faq.md#q372-does-the-same-random-stability-guarantee-cover-user-callbacks-and-constructors) explains the qualified boundary.
+
+**Opaque RNG-state replay** — Saving and restoring a state within the same implementation to compare future observations without interpreting its encoding; [Q371](faq.md#q371-do-these-tests-require-a-particular-random-sequence-or-state-string-format) describes the relative control.
+
+**Cold and warmed call histories** — Measurements before any selected API call or after explicit setup calls, with the snapshot taken after setup; [Q373](faq.md#q373-why-are-the-random-stability-cases-under-u01) connects these new inputs to their primary clause and directory.

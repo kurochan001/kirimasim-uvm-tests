@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and ninety-six cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2587 tests: 2488 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and ninety-seven cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2593 tests: 2494 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5626,3 +5626,42 @@ bring the total to 422. Guests have 1505 unmeasured inputs: 1502 additions
 and three revised originals (1406 simulation/99 elaboration). All partial
 contracts, original M1–M4 targets, human review and scope/denominator approval
 remain open.
+
+## Ninety-seventh thin-area expansion: API random stability
+
+Six new M1 runtime inputs check the random-stability obligation in 1.4.6
+for selected calls that execute no user code: string splitting, conversion to
+an original enum, and inherited object-name queries without user overrides.
+The original helper compares 24 future caller draws with a no-UVM-call replay
+from the same saved state; object queries also compare 24 successful receiver
+randomizations of two unconstrained fields. User construction and optional
+warmup precede the snapshots. Cold 24-call and warmed 48-call histories use
+different call orders. Actual API values and call counts are checked too;
+failed enum conversion does not constrain the undocumented ref output.
+The [random-state FAQ](faq.md#random-state-and-api-applicability) explains
+the eligibility conditions and the relative oracle.
+
+All six original proof inputs and six final tagged inputs build successfully
+and match seeds 1/73 with exit 0. The final records have six build logs and
+twelve runtime logs. No fixed numeric random sequence, opaque-state string
+format or cross-simulator RNG identity is required. Finite matching histories
+do not establish every state, every API or calls that execute user code.
+
+Three AI partial duties are added for 1.4.6 without classifying any identifier
+away. The new u01 directory follows that primary citation and counts toward
+M1 by its subject; API-specific clauses remain supporting citations. Root 1
+now has two partial identifiers, four duties, six primary tests and nine
+unassessed identifiers. Its context scope is retained and does not remove
+these operational requirements. There are 22 primary-focus roots/directories.
+
+The ledger has 4057 AI duties, 2539 directly linked tests, 54 control-only
+tests and 154 control-linked tests. The catalog has 2058 partial, 424 assessed
+and 25 unassessed identifiers; 1302 have primary tests and 2090 have some
+citation. All 4054 previous requirement objects, 424 assessments and 2587
+index/ordinary records remain unchanged. Compiler 99, HDL 38, command-line 18
+and guest 1082 records remain byte-identical and input-compatible. The earlier
+422 known differences are preserved. Guests have 1511 unmeasured inputs:
+1508 additions plus three revised originals, with 1412 simulation and 99
+elaboration inputs. No simulator implementation source or commercial result
+was used. All partial applicability, original milestone targets, human review
+and scope/denominator approval remain open.

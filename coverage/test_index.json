@@ -10349,6 +10349,30 @@
     "uB/test_tlm_package_put_1_96": {
       "primary_clause": "B.5",
       "inputs_sha256": "677d121c43ed406e5908b880eceec375306a05794f10257744fb41e30dbff67c"
+    },
+    "u01/test_random_stability_enum_0_97": {
+      "primary_clause": "1.4.6",
+      "inputs_sha256": "dd72debbe9ce4165238095b085097996987a477234a374a189dd2498a46e9f0c"
+    },
+    "u01/test_random_stability_enum_1_97": {
+      "primary_clause": "1.4.6",
+      "inputs_sha256": "a5bb10df5495c307cc2b0daa0beb7f9cd08e8682f6a43b78b17fe8d82bdf9be8"
+    },
+    "u01/test_random_stability_object_0_97": {
+      "primary_clause": "1.4.6",
+      "inputs_sha256": "b43c05cb7791614e3a430b81035fb8d064314d66a7b5e2ec72fcc4f8106af55f"
+    },
+    "u01/test_random_stability_object_1_97": {
+      "primary_clause": "1.4.6",
+      "inputs_sha256": "a81e455ecc0234ade4f15157049e926e68067b304363b4669b58af73cf183163"
+    },
+    "u01/test_random_stability_split_0_97": {
+      "primary_clause": "1.4.6",
+      "inputs_sha256": "3de90d9a221119f1ca06c90a020716f7628a198c42b1d91979459b04164dcd72"
+    },
+    "u01/test_random_stability_split_1_97": {
+      "primary_clause": "1.4.6",
+      "inputs_sha256": "1d522cbe005b32b58d9315d50b30542caeacd190edf39cbeed12ec3cda2009bb"
     }
   }
 }

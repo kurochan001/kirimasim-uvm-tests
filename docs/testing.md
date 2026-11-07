@@ -33,6 +33,7 @@ The `uNN` directory identifies a standard chapter, while M1–M4 identify develo
 ```text
 tests/uNN/<name>.sv          a test with metadata; NN is the chapter of 1800.2
 tests/uNN/<name>.expected    its expected observed lines
+tests/u01/                  cross-API common rules
 tests/uB/, uC/, uD/          annex tests: macros, configuration, callbacks
 tests/uE/                   built-in register/memory test sequences
 tests/uF/, uG/              string utilities and command-line queries
@@ -315,6 +316,9 @@ The [declaration helper](../tests/uB/helpers96_declarations/declaration_packages
 The [put fixture](../tests/uB/helpers96_put/put_fixture96.svh) uses delayed original int handlers, while [the get fixture](../tests/uB/helpers96_get/get_fixture96.svh) observes readiness, rejection status and successful original class handles without prescribing failed outputs.
 Both use actual connections and independent casts; [the scope FAQ](faq.md#tlm-declaration-scopes-and-callback-overview) explains why matching routing does not pass the nominal-type difference.
 
+The [random-stability helper](../tests/u01/helpers97/rng_stability97.svh) uses same-implementation opaque state replay and independent no-UVM-call controls for caller streams and selected receiver randomizations.
+User construction and warmup precede measurement; [the applicability FAQ](faq.md#random-state-and-api-applicability) explains why inherited queries without overrides and plain-data calls qualify, and why numeric random sequences and serialized state formats are not fixed.
+
 ### Metadata
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
@@ -486,7 +490,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2531 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
+- 2537 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -620,7 +624,7 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 2165 tagged two-state checks: 2071 runtime
+By default, Verilator selects 2171 tagged two-state checks: 2077 runtime
 cases and 94 expected compiler rejections. To include
 the 422 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
@@ -690,7 +694,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2587 tests (2488 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+2593 tests (2494 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
@@ -699,7 +703,7 @@ not that every UVM requirement or every simulator passes.
 
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2165 tagged checks into 8 disjoint shards (271/271/271/271/271/270/270/270),
+the current 2171 tagged checks into 8 disjoint shards (272/272/272/271/271/271/271/271),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies

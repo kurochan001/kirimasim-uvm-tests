@@ -233,6 +233,8 @@ collectionの期待値は提供IEEE条項から独立に導きました。最初
 
 TLM namespaceの期待値は実行前に提供B.5のclass生成とSystemVerilogのclass／cast規則から導きました。元のoracle 3行は保持し、package／suffix castの個別観測を追加して現在の入力を新しく測定しました。UVMなしの独立した言語probeでも同名parameterized classのpackage間cast差分を再現し、通常class／異なる名前の対照例は一致します。simulator実装source、商用結果、libraryだけの原因帰属、人の承認をoracleにしません。残る限界と未解決のB.4表記は[scopeのFAQ](faq.ja.md#tlm宣言scopeとcallback概要)に記録しています。
 
+1.4.6の乱数状態の期待値は、実行前に提供UVM規格とSystemVerilogのprocess／object RNG規則から導きました。独自helperは相対的な将来draw、実API出力、同じ実装での状態復元を観測し、数値乱数列をコピーせずvendor状態文字列も解読しないもので、限定した適用条件は[RNGのFAQ](faq.ja.md#乱数状態とapiの適用条件)に記録しています。シミュレータ実装sourceと商用結果は使っていません。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。
