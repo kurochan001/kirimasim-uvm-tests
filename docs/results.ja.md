@@ -206,7 +206,7 @@ Verilator jobは、基点の版から記録入力が変わった通常oracle付�
 基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Checkの成功は選んだ検査だけの成功です。
 
 [Regression](../.github/workflows/regression.yml)は手動実行と毎週（土曜17:23 UTC）に動きます。
-タグ付き通常検査2265件（seed 1／73のruntime 2171・実行時seedなしのcompiler拒否94）を重複しない20 shard（114件が5、113件が15）へ分け、同時実行は最大10、各job上限は360分です。
+タグ付き通常検査2265件（seed 1／73のruntime 2171・実行時seedなしのcompiler拒否94）を重複しない20 shard（114件が5、113件が15）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
 別条件の明示command-line 17件は別jobで実行し、gateは両方の成功を要求します。新しい要求は実行中のrunを取り消さずに待ちます。
 
 以前の単一Checkはpushごとに全選択を実行していました。分割前の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は150分のjob上限を超え、その後の8 shard版も完了していません。

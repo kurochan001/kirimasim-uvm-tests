@@ -6371,7 +6371,7 @@ Check now runs the tool, metadata, library and ledger checks and, through
 canary; it falls back to the canary with a warning when the base is unknown, a
 file affecting every result changed or more than 30 checks are affected.
 [Regression](../.github/workflows/regression.yml) runs all 2265 tagged checks in
-20 disjoint shards (at most 10 concurrent, 360 minutes each) and the 17
+20 disjoint shards (at most 4 concurrent, 360 minutes each) and the 17
 command-line checks, manually and weekly, without cancelling a run in progress.
 A shared setup action builds or restores Verilator 5.052 and fetches UVM.
 

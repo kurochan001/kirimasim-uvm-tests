@@ -3834,7 +3834,7 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 No. Check now runs only the tagged checks whose inputs changed, plus a canary,
 and falls back to the canary with a warning when it cannot cover a change; it
 never stands in for the full selection. Regression runs all 2265 tagged checks
-in 20 disjoint shards, at most 10 concurrent, and the 17 command-line checks in
+in 20 disjoint shards, at most 4 concurrent, and the 17 command-line checks in
 a separate job. The earlier 8-shard Check never finished: its one uninterrupted
 run reached the 150-minute limit on every shard. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition

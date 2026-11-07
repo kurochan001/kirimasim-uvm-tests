@@ -293,8 +293,8 @@ and a warning asks for Regression. A green Check covers the selected checks only
 [Regression](../.github/workflows/regression.yml) runs on manual dispatch and
 weekly (Saturdays 17:23 UTC). It runs all 2265 tagged ordinary checks (2171
 runtime cases at seeds 1/73 and 94 compiler rejections without runtime seeds)
-in 20 disjoint shards (five of 114 and fifteen of 113), at most 10 concurrent and
-each limited to 360 minutes, and the seventeen explicit command-line checks in a
+in 20 disjoint shards (five of 114 and fifteen of 113), at most 4 concurrent so
+that Check and other repositories keep hosted job slots, each limited to 360 minutes, and the seventeen explicit command-line checks in a
 separate job under their condition. Its gate requires both. A newer request
 waits for a run in progress instead of cancelling it.
 

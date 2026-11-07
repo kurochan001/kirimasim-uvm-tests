@@ -2950,7 +2950,7 @@ shardはworkflowが選んだテストを分割した1区画で、CheckとRegress
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
 いいえ。現在のCheckは入力が変わったタグ付き検査とcanaryだけを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻るため、全選択の代わりにはなりません。
-Regressionは全タグ付き2265検査を重複しない20 shard（同時最大10）で、command-line 17検査を別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
+Regressionは全タグ付き2265検査を重複しない20 shard（同時最大4）で、command-line 17検査を別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
 runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
 分割の検証でhosted CI成功や適合性は立証しません。現在の結果は各workflowのページで確認してください。既知差分458件は通常の既定CI選択に含めません。
 

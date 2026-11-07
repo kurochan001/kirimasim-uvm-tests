@@ -3947,7 +3947,7 @@ pushで置き換えられなかった唯一の8 shard[実行](https://github.com
 
 現在のCheckはtool、metadata、library、台帳を検査し、`tools/ci_select.py`で記録入力が変わったタグ付き検査とcanary 1件を実行します。
 基点が不明な場合、全結果に影響するファイルが変わった場合、影響する検査が30件を超える場合は、警告を出してcanaryだけに戻ります。
-[Regression](../.github/workflows/regression.yml)は手動と毎週、全タグ付き2265検査を重複しない20 shard（同時最大10、各360分）で、command-line 17検査と合わせて実行し、実行中のrunを取り消しません。
+[Regression](../.github/workflows/regression.yml)は手動と毎週、全タグ付き2265検査を重複しない20 shard（同時最大4、各360分）で、command-line 17検査と合わせて実行し、実行中のrunを取り消しません。
 共通の準備用actionがVerilator 5.052をbuildまたは復元し、UVMを取得します。
 
 新しいtool単体テスト8件（合計118件）が、変更入力の対応、戻る条件、shard和集合の完全一致を検査します。
