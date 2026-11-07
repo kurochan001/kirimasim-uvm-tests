@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 107 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2701 tests: 2602 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 108 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2705 tests: 2606 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -6110,3 +6110,49 @@ new filtering is claimed. Scope, catalog, runners, backends and CI selection
 are unchanged. All 2062 partial identifiers, applicability conditions and
 original M1–M4 targets remain open despite three empty queues; human review
 and scope/denominator approval remain unrecorded.
+
+## 108th thin-area expansion: base recording suppression and driver marks
+
+The 108th expansion adds four M2 recording-disable profiles through the
+actual sequencer base API, crossing pull/push traffic and omitted/explicit
+driver transaction marks. Each case connects independent selected and peer
+sequencers, each with one actual request. Disable is called twice before
+worker start and before the gated pull driver's first request; [the effect
+FAQ](faq.md#q413-what-do-the-recording-disable-profiles-add-beyond-a-flag-query)
+explains why observed traffic and marks add evidence beyond a state query.
+
+All four final tagged inputs match seeds1/73. Without driver marks, selected
+begin/end timestamps retain their captured values and neither named event
+callback runs. With explicit component begin/end calls, each event callback
+runs once at the captured driver mark and transaction times match. Real
+original request handles arrive, both producers remain blocked while driver
+returns are gated, and both complete after release. Per-driver gates avoid
+assuming a relative delivery time or sibling callback order.
+
+Peer begin/end counts produce four DIAG108 rows per seed, eight current rows
+in total, with no oracle or requirement link. Peer traffic is checked, but
+those diagnostics do not certify default push recording semantics; [the peer
+FAQ](faq.md#q414-why-are-peer-event-counts-diagnostic-only)
+records the distinction. The separately known printed 15.3.2.23 query input
+remains unchanged; no alternate query name is substituted.
+
+Five stable duties expand applicability: sequencer-base disable, transaction
+zero/default-time begin/end and their named event notifications. Their old
+text and links remain, and all 4091 other old requirement objects and 445
+assessments are identical. No per-profile obligation duplicates are added;
+[the mapping FAQ](faq.md#q415-why-extend-five-existing-duties-instead-of-adding-four-requirements)
+explains the unchanged 4096-draft count. All 2701 old ordinary/index records and
+456 known inputs remain. Initial nongated inputs matched both seeds but are
+archived and excluded after strengthening the observer; all four gated inputs
+were remeasured before tagging. Two pull-header citations were corrected
+before any native run, with expectations unchanged throughout.
+
+The suite has 2705 tests, 2649 directly linked tests, 56 control-only and 156
+control-linked tests. Ordinary results are 2249 pass (2155 runtime both seeds,
+94 compiler rejections) and 456 known (316 runtime seed1, 135 builds,five illegal
+acceptances). Guests retain 1081 byte-identical compatible records; 1624 inputs
+are unmeasured (1620 additions, four revised originals), with no rerun or new
+filter. Primary census is 1172 zero, 771 below-target, 539 at least two; the new
+primary focus does not certify independent coverage. All 2062 partial
+identifiers, applicability conditions and original targets remain open.
+Human review and scope/denominator approval remain unrecorded.

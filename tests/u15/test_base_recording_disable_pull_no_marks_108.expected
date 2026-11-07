@@ -1,0 +1,5 @@
+UT: initial selected_begin 0 selected_end 0 distinct_items 1
+UT: held original_items 1 both_pending 1
+UT: selected_begin calls 0 end_pending 1 time 1 identity 1
+UT: completion selected 1 peer 1 original_items 1
+UT: selected_end calls 0 time 1 identity 1

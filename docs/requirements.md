@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4096 AI-drafted requirements, all with direct links to 2645 tests.
-Fifty-six tests have only control links. All 2701 tests have a requirement link.
+contains 4096 AI-drafted requirements, all with direct links to 2649 tests.
+Fifty-six tests have only control links. All 2705 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -75,14 +75,14 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1313
+references are **supporting citations**. Of the catalog identifiers, 1314
 have a primary-focus test and 2,096 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,173 with zero primary-focus tests, 771 with one,
-and 538 with at least two. It measures test placement only. It does not
+census currently shows 1,172 with zero primary-focus tests, 771 with one,
+and 539 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2701-test
+known difference. It is not a pass or a conformance claim. The current 2705-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2701 reviewed requirement mappings.
+  index is an inventory, not 2705 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -279,7 +279,7 @@ The table retains every catalog root, including context and deferred roots; cont
 | 12 | 326 | 200 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
 | 14 | 229 | 146 | 0 | 17 | 0 |
-| 15 | 131 | 116 | 0 | 18 | 0 |
+| 15 | 131 | 120 | 0 | 18 | 0 |
 | 16 | 280 | 188 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 933 | 640 | 0 | 63 | 0 |
@@ -299,50 +299,49 @@ complete requirement coverage. All 2062 partial identifiers still need review of
 Scope is proposed, all 4096 reviews are `ai` and
 the denominator remains unapproved.
 
-The 107th expansion adds sixteen M3 direct physical-address translation
-profiles. They cross empty and independently populated maps with flat normal
-byte/word addressing and both endian orders, byte-addressed little-endian
-child4/root2 and child2/root4 hierarchies, and flat little/big FIFO maps.
-Queries reuse a prefilled result array at changing lengths and repeat the
-original query. Non-FIFO cases also query nonzero memory-entry indices;
-[the direct-query FAQ](faq.md#q409-what-does-a-direct-map-query-add-beyond-register-address-queries)
-explains the distinction from register and memory wrapper APIs.
+The 108th expansion adds four M2 recording-disable profiles through the
+actual sequencer base API, crossing pull/push traffic and omitted/explicit
+driver transaction marks. Each case connects independent selected and peer
+sequencers, each with one actual request. Disable is called twice before
+worker start and before the gated pull driver's first request; [the effect
+FAQ](faq.md#q413-what-do-the-recording-disable-profiles-add-beyond-a-flag-query)
+explains why observed traffic and marks add evidence beyond a state query.
 
-All sixteen build and run but differ at seed1; none has a seed73 result or a
-new fixed-release tag. Observed full-beat return widths are zero instead of the
-required two or four. Nonzero entry origins and selected hierarchy width/list
-observations also differ. Empty and populated variants keep the same oracle;
-[the setup FAQ](faq.md#q410-do-the-populated-variants-make-registration-a-translation-precondition)
-explains why population is not a new prerequisite or a claimed remedy.
-Four hierarchy inputs stop with a null-dereference diagnostic at the first nonzero-entry query, so their later expected rows are unobserved. The twelve flat inputs exit normally. No simulator-versus-library cause is inferred from these observations.
+All four final tagged inputs match seeds1/73. Without driver marks, selected
+begin/end timestamps retain their captured values and neither named event
+callback runs. With explicit component begin/end calls, each event callback
+runs once at the captured driver mark and transaction times match. Real
+original request handles arrive, both producers remain blocked while driver
+returns are gated, and both complete after release. Per-driver gates avoid
+assuming a relative delivery time or sibling callback order.
 
-Two six-byte entry0 probes assert the two-address list but leave the single
-partial-transfer return value diagnostic-only. DIAG107 has one row in each
-of those seed1 logs, with no oracle or requirement link; [the partial-width
-FAQ](faq.md#q411-why-is-the-partial-transfer-return-value-diagnostic-only)
-records the unresolved reading. No bus transfer, packing, RTL timing,
-nonzero FIFO-entry stride, mixed-endian hierarchy, hierarchical word-unit
-resolution or arbitrary sub-bus entry rounding is certified.
+Peer begin/end counts produce four DIAG108 rows per seed, eight current rows
+in total, with no oracle or requirement link. Peer traffic is checked, but
+those diagnostics do not certify default push recording semantics; [the peer
+FAQ](faq.md#q414-why-are-peer-event-counts-diagnostic-only)
+records the distinction. The separately known printed 15.3.2.23 query input
+remains unchanged; no alternate query name is substituted.
 
-One memory-entry-index duty is added; the stable data-order/width and
-narrowest-width duties retain their original text and links while expanding
-applicability. The other 4093 old requirement objects, all 445 assessments,
-all 2685 old ordinary/index records and all 440 old known inputs remain
-unchanged. Initial builds stopped at a conditional null expression in the
-observer; a typed expected-parent variable repairs that fixture without
-changing expectations. Initial inputs/logs remain archived and excluded.
-The sixteen repaired inputs are freshly measured, not reused from those logs.
+Five stable duties expand applicability: sequencer-base disable, transaction
+zero/default-time begin/end and their named event notifications. Their old
+text and links remain, and all 4091 other old requirement objects and 445
+assessments are identical. No per-profile obligation duplicates are added;
+[the mapping FAQ](faq.md#q415-why-extend-five-existing-duties-instead-of-adding-four-requirements)
+explains the unchanged 4096-draft count. All 2701 old ordinary/index records and
+456 known inputs remain. Initial nongated inputs matched both seeds but are
+archived and excluded after strengthening the observer; all four gated inputs
+were remeasured before tagging. Two pull-header citations were corrected
+before any native run, with expectations unchanged throughout.
 
-There are 2701 tests, 4096 AI duty drafts and 2645 directly linked tests,
-with 56 control-only and 156 control-linked tests. Ordinary results are
-2245 pass (2151 runtime at both seeds, 94 compiler rejections) and 456 known
-(316 runtime seed1, 135 simulation build failures, five illegal acceptances).
-Guest records remain byte-identical at 1081 compatible inputs, with 1620
-unmeasured (1616 additions and four revised originals). No guest rerun or
-new filtering is claimed. Scope, catalog, runners, backends and CI selection
-are unchanged. All 2062 partial identifiers, applicability conditions and
-original M1–M4 targets remain open despite three empty queues; human review
-and scope/denominator approval remain unrecorded.
+The suite has 2705 tests, 2649 directly linked tests, 56 control-only and 156
+control-linked tests. Ordinary results are 2249 pass (2155 runtime both seeds,
+94 compiler rejections) and 456 known (316 runtime seed1, 135 builds,five illegal
+acceptances). Guests retain 1081 byte-identical compatible records; 1624 inputs
+are unmeasured (1620 additions, four revised originals), with no rerun or new
+filter. Primary census is 1172 zero, 771 below-target, 539 at least two; the new
+primary focus does not certify independent coverage. All 2062 partial
+identifiers, applicability conditions and original targets remain open.
+Human review and scope/denominator approval remain unrecorded.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.

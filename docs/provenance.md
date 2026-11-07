@@ -400,6 +400,8 @@ Pending-objection expectations follow the supplied IEEE propagation/count contra
 
 Direct-map expectations are independently calculated from IEEE address units, entry index, data order and effective width. Registration does not change the oracle; [Q411](faq.md#q411-why-is-the-partial-transfer-return-value-diagnostic-only) records why the single partial-width return stays investigative. No implementation source or commercial output is newly used.
 
+Recording-disable expectations follow IEEE base API and explicit transaction timestamp/event contracts. Driver gates avoid relative-delivery assumptions; [Q414](faq.md#q414-why-are-peer-event-counts-diagnostic-only) records why peer diagnostics are not an oracle. No implementation source or commercial output is newly used.
+
 ## Clause catalog maintenance
 
 The catalog lists clause identifiers used to validate citations; [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains how these identifiers differ from normative duties and a coverage denominator.

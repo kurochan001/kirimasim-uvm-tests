@@ -262,6 +262,8 @@ memoryの期待は明示mapの契約と独立した単位／offset計算から�
 
 直接map変換の期待はIEEEのaddress単位、entry index、data順、有効幅から独立に算出します。register登録の有無で期待を変えず、部分幅の単一戻り値を調査専用に残す理由は[Q411](faq.ja.md#q411-部分転送の戻り値を調査専用にする理由は)に記録します。実装sourceや商用出力は新たに使いません。
 
+記録無効化の期待はIEEEのbase APIと明示transaction時刻／event契約から定めます。driver gateで配送時刻の仮定を避け、peer診断を期待値にしない理由は[Q414](faq.ja.md#q414-peerのevent件数を調査専用にする理由は)に残します。実装sourceや商用出力は新たに使いません。
+
 ## 条項カタログの保守
 
 条項カタログは引用の検証に使う規格の識別子一覧であり、規範的義務やcoverage分母との違いは[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)で確認できます。

@@ -1496,3 +1496,9 @@ static iteratorはcallerの整数をopaqueな位置として使い、その表�
 **直接変換／memory entry index** — `get_physical_addresses`自体の呼び出し／`mem_offset`でmemory entryを選ぶことで、その値をbyteやbus beatとして加える操作とは区別し、引数と独立したaddress計算の対応は[Q409](faq.ja.md#q409-mapの直接照会はregisterのaddress照会に何を追加しますか)で確認できます。
 
 **完全beat／部分戻り値の診断** — 有効幅の完全beatだけで構成するaccess／幅が異なるbeatに対する単一整数の意味にレビューが必要な場合に規範的oracleを持たず記録する戻り値で、その境界は[Q411](faq.ja.md#q411-部分転送の戻り値を調査専用にする理由は)で説明しています。
+
+## 接続した転送での記録抑制
+
+**自動抑制／明示driver mark** — sequencerが生成するitem記録の無効化／引き続き利用できるdriver自身のcomponent begin／end呼び出しで、transaction時刻と名前付きeventとの対応は[Q413](faq.ja.md#q413-recording無効化profileはflag-queryに何を追加しますか)で確認できます。
+
+**driverごとの観測gate／peerの診断** — 途中の観測まで各独自driverの戻りを保留するテストベンチのbarrier／oracleを持たず独立に記録するpeerのevent件数で、保持する範囲は[Q414](faq.ja.md#q414-peerのevent件数を調査専用にする理由は)で説明しています。

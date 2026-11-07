@@ -24,6 +24,7 @@ If you have an API name or test filename, use that exact spelling in your browse
 - Understanding sequences and communication: [locking and transport](#locking-and-nonblocking-transport) and [TLM terms](glossary.md#transaction-level-communication).
 - Distinguishing TLM 2 phases and time: [protocol histories](#q96-are-the-new-tlm-2-tests-protocol-validators-or-simulator-schedulers) and [delay annotations](#q25-does-a-tlm-delay-annotation-advance-simulation-time).
 - Understanding nested transport bindings: [input handles](#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle) and [live phase references](#q403-why-read-the-callers-phase-before-the-transport-call-returns).
+- Distinguishing automatic recording from driver marks: [observed suppression](#q413-what-do-the-recording-disable-profiles-add-beyond-a-flag-query) and [peer diagnostics](#q414-why-are-peer-event-counts-diagnostic-only).
 - Understanding heartbeat monitoring: [activity-window questions](#heartbeats-payload-dispatch-and-abstract-fifos) and [heartbeat terms](glossary.md#heartbeats-virtual-accessors-and-fifo-models).
 - Understanding macro flags: [field-macro type and operation questions](#field-macro-type-arguments-and-paired-operation-flags) and [the control terms](glossary.md#field-macro-and-callback-controls).
 - Understanding register tests: [model basics](#register-model-basics) and [register terms](glossary.md#register-model).
@@ -178,7 +179,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2645 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2649 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1252,8 +1253,8 @@ not a direct test of the requirement.
 ### Q77. Why is there no coverage percentage after starting M4?
 
 The 4096 AI drafts cover only a partial decomposition: 4096 requirements link
-directly to 2645 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2701 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+directly to 2649 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2705 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -3082,7 +3083,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 ### Q193. Why did the compatible guest subset decrease to 1081?
 
 Four original inputs have revised fingerprints: the command-enum citation, Boolean rerandomization observation, virtual-field configure citation and the reraise primary citation. All four were remeasured when changed; the reraise revision was measured at both seeds in the previous expansion. Their stale guest rows are excluded while the historical 1085-record source files remain intact.
-Current reuse covers 1081 inputs, with 1620 unmeasured: 1616 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
+Current reuse covers 1081 inputs, with 1624 unmeasured: 1620 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
 
@@ -3152,10 +3153,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2701 tests run at two seeds?
+### Q201. Did all 2705 tests run at two seeds?
 
-No. There are 2602 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2151 two-seed runtime matches, 94 expected compiler rejections, 451 known
+No. There are 2606 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2155 two-seed runtime matches, 94 expected compiler rejections, 451 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3709,7 +3710,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2645 directly linked tests and fifty-six
+The suite has 2649 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3823,7 +3824,7 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 2245 tagged checks form 8 disjoint shards with at most 4 concurrent
+No. The current 2249 tagged checks form 8 disjoint shards with at most 4 concurrent
 jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
@@ -3983,7 +3984,7 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 
 At that earlier citation repair, the changed fingerprint excluded an old row despite an unchanged body/oracle: 1083 compatible records became 1082. At that checkpoint Ghost retained 206 matches/876 failures per seed and kirimasim retained 1073 unsupported/nine failures, without a guest rerun.
 
-Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1620 unmeasured inputs are 1616 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
+Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1624 unmeasured inputs are 1620 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
 
@@ -4226,7 +4227,7 @@ rounding are not inferred.
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
 that queue; additional tests alone need not. Current 4096 duties link directly
-to 2645 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+to 2649 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5115,7 +5116,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4096 duties all have direct tests and all 2701 tests have links, but those
+The 4096 duties all have direct tests and all 2705 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5212,7 +5213,7 @@ conditions. These u10 core callback utilities count as M1, consistently with
 the earlier integer-iterator fixtures; the B.4 callback macros retain their
 M2 grouping. Four boundary/growth duties are added and four existing mappings
 extended without changing original fields or links. The census now has
-1173 zero/771 below-target/538 at-least-target candidate identifiers, while
+1172 zero/771 below-target/539 at-least-target candidate identifiers, while
 all 2062 partial identifiers and original targets remain open; [the counting
 guide](requirements.md#citations-requirements-and-execution-evidence) explains
 why two placements alone do not prove independent complete coverage.
@@ -5380,7 +5381,7 @@ proves independent tests or complete requirements.
 
 Header edits change the input fingerprint under [the update rules](requirements.md#updating-a-test-or-mapping).
 The revised original's old guest row is filtered from 1082 compatible records,
-leaving 1081; the 1620 unmeasured inputs are 1616 additions and four revised
+leaving 1081; the 1624 unmeasured inputs are 1620 additions and four revised
 originals. Ghost's retained failure count becomes 875 and kirimasim's retained
 unsupported count becomes 1072 because that stale row was removed. No guest
 was re-executed, improved or newly passed. The old evidence remains archived,
@@ -5412,4 +5413,26 @@ All integral full-beat queries still require two or four valid bytes per access;
 
 Neither follows. A case can contain several mismatches and several cases can share a cause. Direct width, entry-index, hierarchy and output-list observations retain their individual limits; a matching row cannot pass a case with another required mismatch. No new input receives a fixed-release tag.
 
-One entry-index duty and two extended stable duties improve explicit mapping, while the census stays at 1173 zero-primary, 771 below-target and 538 at least two. The ledger has 4096 AI drafts and all three queues remain empty, but 2062 identifiers are partial. Original milestone targets, qualified interpretations, human review and scope/denominator approval remain open; [the completion explanation](#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) applies.
+At the 107th expansion checkpoint, one entry-index duty and two extended stable duties improved mapping while the census remained 1173 zero-primary, 771 below-target and 538 at least two; [the later recording audit](#q415-why-extend-five-existing-duties-instead-of-adding-four-requirements) gives the current census. The ledger has 4096 AI drafts and all three queues remain empty, but 2062 identifiers are partial. Original milestone targets, qualified interpretations, human review and scope/denominator approval remain open; [the completion explanation](#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) applies.
+
+## Base recording suppression and driver marks
+
+Disabling automatic item recording leaves explicit driver transaction operations available; [the lifecycle terms](glossary.md#uvm-building-blocks) explain the timestamps and events observed here.
+
+### Q413. What do the recording-disable profiles add beyond a flag query?
+
+Four cases call the actual base disable API twice before first traffic, crossing pull/push paths and no/manual driver marks. A selected and an independent peer sequencer each deliver one original request. With no explicit mark, selected named begin/end callbacks stay at zero and captured transaction times stay unchanged. With explicit component begin/end calls, the selected callbacks each run once and their times match the driver's captured calls.
+
+Both producers wait while original driver returns are held, then complete after release. Separate driver gates make the intermediate observation independent of relative delivery time. This checks selected suppression and continued manual control without a database-format or record-handle oracle. Initial nongated inputs and logs are archived; current evidence comes from remeasured gated inputs and final tagged inputs.
+
+### Q414. Why are peer event counts diagnostic-only?
+
+The printed base clause describes automatic recording for push delivery, but it does not by itself fix the exact begin/end event counts and timing under every configuration. The peer's event callbacks are therefore recorded as `DIAG108` with no oracle or requirement link. The independent peer's request identity and completion are still required observations.
+
+The original peer-state query evidence is retained separately. These new cases do not replace the separately known printed base query API with an alias, or certify default push-recording notifications, initial event-pool membership, arbitrary multi-request push/pipelines, mid-item disable, re-enablement or sibling order. [The requirement scope](requirements.md#counting-unit-and-scope-proposal) keeps these conditions explicit.
+
+### Q415. Why extend five existing duties instead of adding four requirements?
+
+The new cases exercise existing base-disable, zero/default-time transaction begin/end and named-event duties under additional actual traffic conditions. They preserve the stable IDs and original wording/links instead of creating duplicate obligations for four profiles. There remain 4096 AI drafts, now linked directly to 2649 tests; 4091 other old requirement objects and all 445 assessments are identical.
+
+The new primary focus moves the census to 1172 zero, 771 below-target and 539 at least two; the 4096-duty count and 2062 partial identifiers are different units. Four final tagged inputs match both seeds, while 456 prior known inputs and all 2701 old ordinary records remain. No guest rerun, human review, scope/denominator approval or milestone completion follows; [the completion explanation](#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) still applies.

@@ -10805,6 +10805,22 @@
     "u18/test_map_direct_translation_big_fifo_populated_107": {
       "primary_clause": "18.2.4.16",
       "inputs_sha256": "e471e2e8721fcd1befc45ef9cfe17ebc1d584c6e580a504ecc0da6263d51d0f7"
+    },
+    "u15/test_base_recording_disable_pull_no_marks_108": {
+      "primary_clause": "15.3.2.22",
+      "inputs_sha256": "8b7a142b4f59e7eb9e96da0f4e52095cc20f76d0b52e22df0863abcfd7c6d568"
+    },
+    "u15/test_base_recording_disable_pull_manual_marks_108": {
+      "primary_clause": "15.3.2.22",
+      "inputs_sha256": "2a523107c39b385a29dbe72f052f033f912f3992bb1aa7dc0add2c6520f43943"
+    },
+    "u15/test_base_recording_disable_push_no_marks_108": {
+      "primary_clause": "15.3.2.22",
+      "inputs_sha256": "a652bff04e2db46254c9825966b7e6e096292fcec5764eb147ce806c73ae06c7"
+    },
+    "u15/test_base_recording_disable_push_manual_marks_108": {
+      "primary_clause": "15.3.2.22",
+      "inputs_sha256": "e9c3c1ae6e65c7904edd857c3c1b92e941a4ad19a52d0e24f81d13348c1078af"
     }
   }
 }

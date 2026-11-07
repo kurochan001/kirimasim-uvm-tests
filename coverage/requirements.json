@@ -2266,16 +2266,16 @@
         "ja": "transactionのbeginは、時刻引数が0または省略なら現在時刻を使う。"
       },
       "conditions": {
-        "en": "Run the three lifecycle calls at separate positive delays with recording disabled.",
-        "ja": "recording無効で、3つのlifecycle操作を異なる正の遅延後に呼ぶ。"
+        "en": "Run the three lifecycle calls at separate positive delays with recording disabled. Also observe explicit zero-time component lifecycle calls made by a real pull/push driver after automatic recording was disabled through the sequencer base API.",
+        "ja": "recording無効で、3つのlifecycle操作を異なる正の遅延後に呼ぶ。 さらにsequencerのbase APIで自動記録を無効にした後、実際のpull／push driverが行う時刻0指定の明示component lifecycle呼び出しを観測する。"
       },
       "expected": {
-        "en": "The fixture records accept/begin/end times 2, 5 and 9.",
-        "ja": "検査系のaccept／begin／end時刻は2、5、9になる。"
+        "en": "The fixture records accept/begin/end times 2, 5 and 9. The transaction time and callback observation equal the driver time captured at the explicit call.",
+        "ja": "検査系のaccept／begin／end時刻は2、5、9になる。 transaction時刻とcallbackの観測は、明示呼び出し時に取得したdriver時刻に一致する。"
       },
       "limitations": {
-        "en": "Only the listed fixtures and conditions are mapped; other branches of the clause remain unassessed.",
-        "ja": "列挙した構成と条件のみを対応付け、条項の他の分岐は未評価のままにする。"
+        "en": "Only the listed fixtures and conditions are mapped; other branches of the clause remain unassessed. Additional recording108 profiles use one request on each of two independently connected pull or push sequencers. Disable is called twice through the actual base API before either worker starts and before the gated pull driver first requests. Selected no-mark events/times and explicit driver-owned marks are normative observations. Peer event counts are DIAG108 only, with no oracle/link; peer traffic and original request identity are checked. New profiles do not call a query alias or settle the separately known printed15.3.2.23 spelling. No default-push automatic event count/timestamp mandate, initial event-pool membership, database/handle encoding, simultaneous sibling order, mid-item disable, re-enabling operation, arbitrary pipeline/multi-request push, complete partial clause or original milestone completion is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "列挙した構成と条件のみを対応付け、条項の他の分岐は未評価のままにする。 追加のrecording108 profileは、独立に接続した2つのpullまたはpush sequencerで各1要求を使う。実際のbase APIで両workerの開始前、gate付きpull driverの最初の要求前に2回disableする。選択対象で明示markしない場合のevent／時刻と、driverが明示するmarkを規範的に観測する。peerのevent件数はDIAG108だけでoracle／linkを持たず、peer転送と元の要求の同一性は検査する。新しいprofileはqueryの別名を呼ばず、別に既知差分がある印刷15.3.2.23の綴りを解決しない。push既定時の自動event件数／時刻の義務、event poolの初期member、database／handleの符号化、同時siblingの順序、item処理中のdisable、再有効化操作、任意のpipeline／複数要求push、部分条項全体や元の段階目標の完了は認定しない。人／範囲／分母の承認は未記録である。"
       },
       "review": {
         "status": "ai",
@@ -2289,6 +2289,20 @@
           "expected_observations": [
             "UT: times 2 5 9"
           ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_pull_manual_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_begin calls 1 end_pending 1 time 1 identity 1"
+          ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_push_manual_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_begin calls 1 end_pending 1 time 1 identity 1"
+          ]
         }
       ]
     },
@@ -2300,16 +2314,16 @@
         "ja": "transactionのbeginは、transaction event pool内の対応するeventをtriggerする。"
       },
       "conditions": {
-        "en": "Acquire the three event handles before running the lifecycle.",
-        "ja": "lifecycle実行前に3つのevent handleを取得する。"
+        "en": "Acquire the three event handles before running the lifecycle. Also observe explicit zero-time component lifecycle calls made by a real pull/push driver after automatic recording was disabled through the sequencer base API.",
+        "ja": "lifecycle実行前に3つのevent handleを取得する。 さらにsequencerのbase APIで自動記録を無効にした後、実際のpull／push driverが行う時刻0指定の明示component lifecycle呼び出しを観測する。"
       },
       "expected": {
-        "en": "Each event becomes on only after its matching lifecycle call.",
-        "ja": "各eventは、対応するlifecycle操作の後にonになる。"
+        "en": "Each event becomes on only after its matching lifecycle call. The selected named callback is invoked once for the actual transaction event.",
+        "ja": "各eventは、対応するlifecycle操作の後にonになる。 実際のtransaction eventについて選択した名前付きcallbackを1回呼ぶ。"
       },
       "limitations": {
-        "en": "Persistent event state is observed; delta-cycle waiter resumption is not tested.",
-        "ja": "持続するevent状態を観測し、delta cycleでの待機者の再開は検査しない。"
+        "en": "Persistent event state is observed; delta-cycle waiter resumption is not tested. Additional recording108 profiles use one request on each of two independently connected pull or push sequencers. Disable is called twice through the actual base API before either worker starts and before the gated pull driver first requests. Selected no-mark events/times and explicit driver-owned marks are normative observations. Peer event counts are DIAG108 only, with no oracle/link; peer traffic and original request identity are checked. New profiles do not call a query alias or settle the separately known printed15.3.2.23 spelling. No default-push automatic event count/timestamp mandate, initial event-pool membership, database/handle encoding, simultaneous sibling order, mid-item disable, re-enabling operation, arbitrary pipeline/multi-request push, complete partial clause or original milestone completion is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "持続するevent状態を観測し、delta cycleでの待機者の再開は検査しない。 追加のrecording108 profileは、独立に接続した2つのpullまたはpush sequencerで各1要求を使う。実際のbase APIで両workerの開始前、gate付きpull driverの最初の要求前に2回disableする。選択対象で明示markしない場合のevent／時刻と、driverが明示するmarkを規範的に観測する。peerのevent件数はDIAG108だけでoracle／linkを持たず、peer転送と元の要求の同一性は検査する。新しいprofileはqueryの別名を呼ばず、別に既知差分がある印刷15.3.2.23の綴りを解決しない。push既定時の自動event件数／時刻の義務、event poolの初期member、database／handleの符号化、同時siblingの順序、item処理中のdisable、再有効化操作、任意のpipeline／複数要求push、部分条項全体や元の段階目標の完了は認定しない。人／範囲／分母の承認は未記録である。"
       },
       "review": {
         "status": "ai",
@@ -2324,6 +2338,20 @@
             "UT: accepted 1 begun 0 ended 0",
             "UT: begun 1 ended 0",
             "UT: ended 1 same_pool 1"
+          ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_pull_manual_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_begin calls 1 end_pending 1 time 1 identity 1"
+          ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_push_manual_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_begin calls 1 end_pending 1 time 1 identity 1"
           ]
         }
       ]
@@ -2377,16 +2405,16 @@
         "ja": "transactionのendは、時刻引数が0または省略なら現在時刻を使う。"
       },
       "conditions": {
-        "en": "Run the three lifecycle calls at separate positive delays with recording disabled.",
-        "ja": "recording無効で、3つのlifecycle操作を異なる正の遅延後に呼ぶ。"
+        "en": "Run the three lifecycle calls at separate positive delays with recording disabled. Also observe explicit zero-time component lifecycle calls made by a real pull/push driver after automatic recording was disabled through the sequencer base API.",
+        "ja": "recording無効で、3つのlifecycle操作を異なる正の遅延後に呼ぶ。 さらにsequencerのbase APIで自動記録を無効にした後、実際のpull／push driverが行う時刻0指定の明示component lifecycle呼び出しを観測する。"
       },
       "expected": {
-        "en": "The fixture records accept/begin/end times 2, 5 and 9.",
-        "ja": "検査系のaccept／begin／end時刻は2、5、9になる。"
+        "en": "The fixture records accept/begin/end times 2, 5 and 9. The transaction time and callback observation equal the driver time captured at the explicit call.",
+        "ja": "検査系のaccept／begin／end時刻は2、5、9になる。 transaction時刻とcallbackの観測は、明示呼び出し時に取得したdriver時刻に一致する。"
       },
       "limitations": {
-        "en": "Only the listed fixtures and conditions are mapped; other branches of the clause remain unassessed.",
-        "ja": "列挙した構成と条件のみを対応付け、条項の他の分岐は未評価のままにする。"
+        "en": "Only the listed fixtures and conditions are mapped; other branches of the clause remain unassessed. Additional recording108 profiles use one request on each of two independently connected pull or push sequencers. Disable is called twice through the actual base API before either worker starts and before the gated pull driver first requests. Selected no-mark events/times and explicit driver-owned marks are normative observations. Peer event counts are DIAG108 only, with no oracle/link; peer traffic and original request identity are checked. New profiles do not call a query alias or settle the separately known printed15.3.2.23 spelling. No default-push automatic event count/timestamp mandate, initial event-pool membership, database/handle encoding, simultaneous sibling order, mid-item disable, re-enabling operation, arbitrary pipeline/multi-request push, complete partial clause or original milestone completion is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "列挙した構成と条件のみを対応付け、条項の他の分岐は未評価のままにする。 追加のrecording108 profileは、独立に接続した2つのpullまたはpush sequencerで各1要求を使う。実際のbase APIで両workerの開始前、gate付きpull driverの最初の要求前に2回disableする。選択対象で明示markしない場合のevent／時刻と、driverが明示するmarkを規範的に観測する。peerのevent件数はDIAG108だけでoracle／linkを持たず、peer転送と元の要求の同一性は検査する。新しいprofileはqueryの別名を呼ばず、別に既知差分がある印刷15.3.2.23の綴りを解決しない。push既定時の自動event件数／時刻の義務、event poolの初期member、database／handleの符号化、同時siblingの順序、item処理中のdisable、再有効化操作、任意のpipeline／複数要求push、部分条項全体や元の段階目標の完了は認定しない。人／範囲／分母の承認は未記録である。"
       },
       "review": {
         "status": "ai",
@@ -2400,6 +2428,20 @@
           "expected_observations": [
             "UT: times 2 5 9"
           ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_pull_manual_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_end calls 1 time 1 identity 1"
+          ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_push_manual_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_end calls 1 time 1 identity 1"
+          ]
         }
       ]
     },
@@ -2411,16 +2453,16 @@
         "ja": "transactionのendは、transaction event pool内の対応するeventをtriggerする。"
       },
       "conditions": {
-        "en": "Acquire the three event handles before running the lifecycle.",
-        "ja": "lifecycle実行前に3つのevent handleを取得する。"
+        "en": "Acquire the three event handles before running the lifecycle. Also observe explicit zero-time component lifecycle calls made by a real pull/push driver after automatic recording was disabled through the sequencer base API.",
+        "ja": "lifecycle実行前に3つのevent handleを取得する。 さらにsequencerのbase APIで自動記録を無効にした後、実際のpull／push driverが行う時刻0指定の明示component lifecycle呼び出しを観測する。"
       },
       "expected": {
-        "en": "Each event becomes on only after its matching lifecycle call.",
-        "ja": "各eventは、対応するlifecycle操作の後にonになる。"
+        "en": "Each event becomes on only after its matching lifecycle call. The selected named callback is invoked once for the actual transaction event.",
+        "ja": "各eventは、対応するlifecycle操作の後にonになる。 実際のtransaction eventについて選択した名前付きcallbackを1回呼ぶ。"
       },
       "limitations": {
-        "en": "Persistent event state is observed; delta-cycle waiter resumption is not tested.",
-        "ja": "持続するevent状態を観測し、delta cycleでの待機者の再開は検査しない。"
+        "en": "Persistent event state is observed; delta-cycle waiter resumption is not tested. Additional recording108 profiles use one request on each of two independently connected pull or push sequencers. Disable is called twice through the actual base API before either worker starts and before the gated pull driver first requests. Selected no-mark events/times and explicit driver-owned marks are normative observations. Peer event counts are DIAG108 only, with no oracle/link; peer traffic and original request identity are checked. New profiles do not call a query alias or settle the separately known printed15.3.2.23 spelling. No default-push automatic event count/timestamp mandate, initial event-pool membership, database/handle encoding, simultaneous sibling order, mid-item disable, re-enabling operation, arbitrary pipeline/multi-request push, complete partial clause or original milestone completion is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "持続するevent状態を観測し、delta cycleでの待機者の再開は検査しない。 追加のrecording108 profileは、独立に接続した2つのpullまたはpush sequencerで各1要求を使う。実際のbase APIで両workerの開始前、gate付きpull driverの最初の要求前に2回disableする。選択対象で明示markしない場合のevent／時刻と、driverが明示するmarkを規範的に観測する。peerのevent件数はDIAG108だけでoracle／linkを持たず、peer転送と元の要求の同一性は検査する。新しいprofileはqueryの別名を呼ばず、別に既知差分がある印刷15.3.2.23の綴りを解決しない。push既定時の自動event件数／時刻の義務、event poolの初期member、database／handleの符号化、同時siblingの順序、item処理中のdisable、再有効化操作、任意のpipeline／複数要求push、部分条項全体や元の段階目標の完了は認定しない。人／範囲／分母の承認は未記録である。"
       },
       "review": {
         "status": "ai",
@@ -2435,6 +2477,20 @@
             "UT: accepted 1 begun 0 ended 0",
             "UT: begun 1 ended 0",
             "UT: ended 1 same_pool 1"
+          ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_pull_manual_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_end calls 1 time 1 identity 1"
+          ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_push_manual_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_end calls 1 time 1 identity 1"
           ]
         }
       ]
@@ -91756,16 +91812,16 @@
         "ja": "baseの記録無効化APIは独立peerを無効にせず選択sequencer状態を変更する。"
       },
       "conditions": {
-        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
-        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request. Additionally disable twice through a base handle before first connected pull/push traffic, with selected driver marks omitted or explicitly supplied and an independent peer completing its own request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。 さらに接続済みpull／push転送の最初の要求前にbase handleで2回disableし、選択driverのmarkを省略／明示し、独立peerも自身の要求を完了する。"
       },
       "expected": {
-        "en": "The base recording-disable API changes the selected sequencer state without disabling an independent peer.",
-        "ja": "baseの記録無効化APIは独立peerを無効にせず選択sequencer状態を変更する。"
+        "en": "The base recording-disable API changes the selected sequencer state without disabling an independent peer. Added no-mark inputs retain captured transaction begin/end times and deliver no named begin/end notification. Added manual inputs still accept exactly one explicit component begin/end mark at the captured driver times. Both selected and peer traffic retain the original request and block completion until their delayed driver work returns; the added profiles do not assert peer automatic recording counts.",
+        "ja": "baseの記録無効化APIは独立peerを無効にせず選択sequencer状態を変更する。 追加の無mark入力は取得したtransaction begin／end時刻を保持し、名前付きbegin／end通知を行わない。追加の手動入力は、取得したdriver時刻で明示component begin／end markをそれぞれ1回受け付ける。選択対象とpeerの両転送は元の要求を保持し、遅延するdriver処理の戻りまで完了を待つ。追加profileはpeerの自動記録件数を要求しない。"
       },
       "limitations": {
-        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
-        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing. Additional recording108 profiles use one request on each of two independently connected pull or push sequencers. Disable is called twice through the actual base API before either worker starts and before the gated pull driver first requests. Selected no-mark events/times and explicit driver-owned marks are normative observations. Peer event counts are DIAG108 only, with no oracle/link; peer traffic and original request identity are checked. New profiles do not call a query alias or settle the separately known printed15.3.2.23 spelling. No default-push automatic event count/timestamp mandate, initial event-pool membership, database/handle encoding, simultaneous sibling order, mid-item disable, re-enabling operation, arbitrary pipeline/multi-request push, complete partial clause or original milestone completion is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。 追加のrecording108 profileは、独立に接続した2つのpullまたはpush sequencerで各1要求を使う。実際のbase APIで両workerの開始前、gate付きpull driverの最初の要求前に2回disableする。選択対象で明示markしない場合のevent／時刻と、driverが明示するmarkを規範的に観測する。peerのevent件数はDIAG108だけでoracle／linkを持たず、peer転送と元の要求の同一性は検査する。新しいprofileはqueryの別名を呼ばず、別に既知差分がある印刷15.3.2.23の綴りを解決しない。push既定時の自動event件数／時刻の義務、event poolの初期member、database／handleの符号化、同時siblingの順序、item処理中のdisable、再有効化操作、任意のpipeline／複数要求push、部分条項全体や元の段階目標の完了は認定しない。人／範囲／分母の承認は未記録である。"
       },
       "review": {
         "status": "ai",
@@ -91778,6 +91834,50 @@
           "role": "direct",
           "expected_observations": [
             "UT: recording_base_disabled selected 0 peer 1"
+          ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_pull_no_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial selected_begin 0 selected_end 0 distinct_items 1",
+            "UT: held original_items 1 both_pending 1",
+            "UT: selected_begin calls 0 end_pending 1 time 1 identity 1",
+            "UT: completion selected 1 peer 1 original_items 1",
+            "UT: selected_end calls 0 time 1 identity 1"
+          ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_pull_manual_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial selected_begin 0 selected_end 0 distinct_items 1",
+            "UT: held original_items 1 both_pending 1",
+            "UT: selected_begin calls 1 end_pending 1 time 1 identity 1",
+            "UT: completion selected 1 peer 1 original_items 1",
+            "UT: selected_end calls 1 time 1 identity 1"
+          ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_push_no_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial selected_begin 0 selected_end 0 distinct_items 1",
+            "UT: held original_items 1 both_pending 1",
+            "UT: selected_begin calls 0 end_pending 1 time 1 identity 1",
+            "UT: completion selected 1 peer 1 original_items 1",
+            "UT: selected_end calls 0 time 1 identity 1"
+          ]
+        },
+        {
+          "test": "u15/test_base_recording_disable_push_manual_marks_108",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial selected_begin 0 selected_end 0 distinct_items 1",
+            "UT: held original_items 1 both_pending 1",
+            "UT: selected_begin calls 1 end_pending 1 time 1 identity 1",
+            "UT: completion selected 1 peer 1 original_items 1",
+            "UT: selected_end calls 1 time 1 identity 1"
           ]
         }
       ]

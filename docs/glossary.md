@@ -1878,3 +1878,9 @@ These terms distinguish an interface's restriction from the memory's intrinsic p
 **Direct translator / memory-entry index** — Calling `get_physical_addresses` itself / selecting a memory entry through `mem_offset`, rather than adding that value as bytes or bus beats; [Q409](faq.md#q409-what-does-a-direct-map-query-add-beyond-register-address-queries) connects those arguments to the independent address arithmetic.
 
 **Integral beat / partial-return diagnostic** — An access consisting entirely of full effective-width beats / a recorded return value without a normative oracle when one integer's meaning across unequal beat widths needs review; [Q411](faq.md#q411-why-is-the-partial-transfer-return-value-diagnostic-only) explains the retained boundary.
+
+## Recording suppression in connected traffic
+
+**Automatic suppression / explicit driver mark** — Disabling sequencer-generated item recording / the driver's own component begin/end calls, which remain available; [Q413](faq.md#q413-what-do-the-recording-disable-profiles-add-beyond-a-flag-query) connects them to transaction timestamps and named events.
+
+**Per-driver observation gate / peer diagnostic** — A testbench barrier holding each original driver return until the intermediate observation / independently recorded peer event counts without an oracle; [Q414](faq.md#q414-why-are-peer-event-counts-diagnostic-only) explains the retained scope.

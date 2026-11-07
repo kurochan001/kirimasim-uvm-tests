@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の107回目の拡充（全2701件：simulation 2602・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の108回目の拡充（全2705件：simulation 2606・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3802,3 +3802,25 @@ memory entry indexの義務を1件追加し、安定したdata順／幅と最小
 通常条件はpass 2245件（両seedのruntime 2151件・compile拒否94件）、known 456件（seed1のruntime 316件・simulation build失敗135件・不正設計の受理5件）です。
 guestは互換1081入力の記録をbyte単位で保持し、未測定1620入力（追加1616件・修正した元入力4件）になります。guest再実行や新しいfilterはありません。
 範囲、catalog、runner、backend、CIの選択は変更しません。3つのqueueは0でも、部分2062番号、適用条件、元のM1〜M4目標は未完で、人の照合と範囲／分母の承認は未記録です。
+
+## 薄い領域の108回目の拡充：baseの記録抑制とdriver mark
+
+108回目はM2のrecording無効化profileを4件追加し、実際のsequencer base APIでpull／push転送とdriver transaction markの省略／明示を組み合わせます。
+各caseは独立した選択対象とpeerのsequencerを接続し、それぞれ実際の要求を1件使います。workerの開始前とgate付きpull driverの最初の要求前にdisableを2回呼び、状態のqueryを超えて転送とmarkの効果を観測する理由は[効果のFAQ](faq.ja.md#q413-recording無効化profileはflag-queryに何を追加しますか)で説明しています。
+
+最終tag付き4入力は全てseed1／73で一致します。driverのmarkがない場合、選択対象のbegin／end時刻は取得済みの値を保持し、名前付きeventのcallbackも呼ばれません。
+明示したcomponent begin／end呼び出しがある場合、各event callbackを取得したdriver markの時刻で1回呼び、transaction時刻も一致します。
+元の要求handleが届き、driverの戻りをgateで保留する間は両producerが待ち、解放後に両方が完了します。driverごとのgateで、相対的な配送時刻やsibling callback順を仮定しません。
+
+peerのbegin／end件数は各seedでDIAG108を4行、現在の合計8行に記録し、oracleや要求linkはありません。peerの転送は検査しますが、その診断でpush既定時のrecording動作は認定しません。[peerのFAQ](faq.ja.md#q414-peerのevent件数を調査専用にする理由は)で違いを残します。
+別に既知差分がある印刷15.3.2.23のquery入力は変更せず、別のquery名に置き換えません。
+
+安定した5義務、sequencer baseのdisable、transactionの時刻0／既定begin／end、名前付きevent通知の適用条件を広げます。元の文章とlinkを保持し、他の旧要求4091件と分類445件は同一です。
+profileごとに重複する義務は追加せず、要求案4096件を変えない理由は[対応付けのFAQ](faq.ja.md#q415-4要求を追加せず既存5義務を拡張する理由は)で説明しています。
+元の通常／index 2701記録と既知456入力は全て保持します。初期のgateなし入力は両seedで一致しましたが、observerを強化した後は保存して除外し、gate付き4入力をtag前に全て再測定します。
+pullヘッダー2件の引用はnative実行前に直し、期待値は全段階で保持します。
+
+全2705テスト、直接対応2649件、control専用56件、control link付き156件です。通常条件はpass 2249件（両seedのruntime 2155件・compile拒否94件）とknown 456件（seed1 runtime 316件・build 135件・不正受理5件）です。
+guestは互換1081記録をbyte単位で保持し、未測定1624入力（追加1620件・修正した元入力4件）で、再実行や新しいfilterはありません。
+主引用censusは0件1172番号・目標未満771番号・2件以上539番号ですが、新しい主引用で独立coverageは認定しません。
+全2062部分番号、適用条件、元の段階目標は未完で、人の照合と範囲／分母承認は未記録です。

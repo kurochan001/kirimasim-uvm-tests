@@ -7,8 +7,8 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4096件は、すべて2645テストへ直接対応し、
-追加の56テストはcontrol専用です。全2701テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4096件は、すべて2649テストへ直接対応し、
+追加の56テストはcontrol専用です。全2705テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
@@ -62,10 +62,10 @@ directとcontrolは、義務を直接検査するか、準備や条件の評価�
 ![条項の引用、明示的な要求の対応付け、別途測定する実行の証拠の関係。](images/requirement-evidence.ja.svg)
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は1313件、どちらかの引用がある番号は2,096件です。
+catalogのうち主引用がある番号は1314件、どちらかの引用がある番号は2,096件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,173、1件が771、2件以上が538です。
+対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,172、1件が771、2件以上が539です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -86,7 +86,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2701件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2705件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -110,7 +110,7 @@ schemaの版はJSONの項目構成を識別するもので、UVMライブラリ�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2701件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2705件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -219,7 +219,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 12 | 326 | 200 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
 | 14 | 229 | 146 | 0 | 17 | 0 |
-| 15 | 131 | 116 | 0 | 18 | 0 |
+| 15 | 131 | 120 | 0 | 18 | 0 |
 | 16 | 280 | 188 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 933 | 640 | 0 | 63 | 0 |
@@ -238,28 +238,25 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 部分2062識別子は残る義務と適用条件を[完了条件](#m4の残作業と承認)に従って確認する必要があります。
 範囲は提案、4096件のレビューはすべて`ai`、分母は未承認です。
 
-107回目はM3の物理address直接変換profileを16件追加します。
-空／独立register登録済みのmapに対し、平坦な通常mapのbyte／word単位と両endian、byte単位little-endianのchild4／root2とchild2／root4の階層、平坦なlittle／big FIFO mapを組み合わせます。
-値を入れた結果配列を長さの異なる照会へ再利用し、元の照会も繰り返します。非FIFOでは非0のmemory entry indexも照会し、registerやmemoryのwrapper APIとの違いは[直接照会のFAQ](faq.ja.md#q409-mapの直接照会はregisterのaddress照会に何を追加しますか)で説明しています。
+108回目はM2のrecording無効化profileを4件追加し、実際のsequencer base APIでpull／push転送とdriver transaction markの省略／明示を組み合わせます。
+各caseは独立した選択対象とpeerのsequencerを接続し、それぞれ実際の要求を1件使います。workerの開始前とgate付きpull driverの最初の要求前にdisableを2回呼び、状態のqueryを超えて転送とmarkの効果を観測する理由は[効果のFAQ](faq.ja.md#q413-recording無効化profileはflag-queryに何を追加しますか)で説明しています。
 
-16件は全てbuildと実行に到達しますがseed1で不一致となり、seed73の結果も新しい固定版tagもありません。
-観測できた完全beatの戻り幅は要求する2または4でなく0です。非0 entryの先頭と一部の階層幅／列の観測も異なります。
-空と登録済みの期待は同じで、登録を新しい前提や解決策にしない理由は[準備条件のFAQ](faq.ja.md#q410-登録済みの比較で変換前のregister登録を必須にしますか)で説明しています。
-階層4入力は最初の非0 entry照会でnull参照の診断とともに停止し、後続の期待行は未観測です。平坦な12入力は正常終了します。この観測でsimulatorとlibraryのどちらが原因かは推定しません。
+最終tag付き4入力は全てseed1／73で一致します。driverのmarkがない場合、選択対象のbegin／end時刻は取得済みの値を保持し、名前付きeventのcallbackも呼ばれません。
+明示したcomponent begin／end呼び出しがある場合、各event callbackを取得したdriver markの時刻で1回呼び、transaction時刻も一致します。
+元の要求handleが届き、driverの戻りをgateで保留する間は両producerが待ち、解放後に両方が完了します。driverごとのgateで、相対的な配送時刻やsibling callback順を仮定しません。
 
-entry0の6-byte probe 2件はaddress 2個の列をassertし、単一の部分転送の戻り値は調査専用にします。
-DIAG107はそのseed1のlogに各1行あり、oracleも要求linkも持ちません。未解決の読み方は[部分幅のFAQ](faq.ja.md#q411-部分転送の戻り値を調査専用にする理由は)に残します。
-bus転送、packing、RTL timing、非0 FIFO entryのstride、混在endian階層、階層word単位の解決、任意のsub-bus entryの丸めは認定しません。
+peerのbegin／end件数は各seedでDIAG108を4行、現在の合計8行に記録し、oracleや要求linkはありません。peerの転送は検査しますが、その診断でpush既定時のrecording動作は認定しません。[peerのFAQ](faq.ja.md#q414-peerのevent件数を調査専用にする理由は)で違いを残します。
+別に既知差分がある印刷15.3.2.23のquery入力は変更せず、別のquery名に置き換えません。
 
-memory entry indexの義務を1件追加し、安定したdata順／幅と最小幅の義務は元の文章とlinkを保持しながら適用条件を広げます。
-他の旧要求4093件、分類445件、元の通常／index 2685記録、以前のknown 440入力は全て維持します。
-初回buildはobserver内のnull条件式で止まり、型付きの期待parent変数へ直しますが期待値は変えません。初回入力／logは保存して除外します。
-修正後16入力は、そのlogを流用せず新しく測定します。
+安定した5義務、sequencer baseのdisable、transactionの時刻0／既定begin／end、名前付きevent通知の適用条件を広げます。元の文章とlinkを保持し、他の旧要求4091件と分類445件は同一です。
+profileごとに重複する義務は追加せず、要求案4096件を変えない理由は[対応付けのFAQ](faq.ja.md#q415-4要求を追加せず既存5義務を拡張する理由は)で説明しています。
+元の通常／index 2701記録と既知456入力は全て保持します。初期のgateなし入力は両seedで一致しましたが、observerを強化した後は保存して除外し、gate付き4入力をtag前に全て再測定します。
+pullヘッダー2件の引用はnative実行前に直し、期待値は全段階で保持します。
 
-全2701テスト、AI義務案4096件、直接対応2645テストとなり、control専用56件とcontrol link付き156件を保持します。
-通常条件はpass 2245件（両seedのruntime 2151件・compile拒否94件）、known 456件（seed1のruntime 316件・simulation build失敗135件・不正設計の受理5件）です。
-guestは互換1081入力の記録をbyte単位で保持し、未測定1620入力（追加1616件・修正した元入力4件）になります。guest再実行や新しいfilterはありません。
-範囲、catalog、runner、backend、CIの選択は変更しません。3つのqueueは0でも、部分2062番号、適用条件、元のM1〜M4目標は未完で、人の照合と範囲／分母の承認は未記録です。
+全2705テスト、直接対応2649件、control専用56件、control link付き156件です。通常条件はpass 2249件（両seedのruntime 2155件・compile拒否94件）とknown 456件（seed1 runtime 316件・build 135件・不正受理5件）です。
+guestは互換1081記録をbyte単位で保持し、未測定1624入力（追加1620件・修正した元入力4件）で、再実行や新しいfilterはありません。
+主引用censusは0件1172番号・目標未満771番号・2件以上539番号ですが、新しい主引用で独立coverageは認定しません。
+全2062部分番号、適用条件、元の段階目標は未完で、人の照合と範囲／分母承認は未記録です。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。

@@ -376,6 +376,8 @@ Twelve representative stage/source/count profiles run two completed rounds. No c
 
 The [direct translation helper](../tests/u18/helpers107_map_translation/translation107.svh) calls the public map translator without bus transfers. Empty and independently populated maps share one oracle; varying entry widths describe separate direct queries, not a resized registered memory. Prefilled result arrays, repeated queries and an independent local array check the observer setup. Full integral widths stay normative while DIAG107 partial returns stay investigative; [the direct-query FAQ](faq.md#q409-what-does-a-direct-map-query-add-beyond-register-address-queries) explains the remaining conditions.
 
+The [recording-disable helper](../tests/u15/helpers108_recording/recording108.svh) connects actual pull/push traffic, typed transaction-pool callbacks and optional original driver marks. The base disable call precedes first requests; separate driver gates isolate the held observation from delivery order. Peer event counts are DIAG108 only, and [the effect FAQ](faq.md#q413-what-do-the-recording-disable-profiles-add-beyond-a-flag-query) explains why a suppressed automatic mark does not disable explicit transaction operations.
+
 ### Metadata
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
@@ -553,7 +555,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2645 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
+- 2649 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -687,7 +689,7 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 2245 tagged two-state checks: 2151 runtime
+By default, Verilator selects 2249 tagged two-state checks: 2155 runtime
 cases and 94 expected compiler rejections. To include
 the 456 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
@@ -757,7 +759,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2701 tests (2602 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+2705 tests (2606 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
@@ -766,7 +768,7 @@ not that every UVM requirement or every simulator passes.
 
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2245 tagged checks into 8 disjoint shards (281/281/281/281/281/280/280/280),
+the current 2249 tagged checks into 8 disjoint shards (282/281/281/281/281/281/281/281),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies
