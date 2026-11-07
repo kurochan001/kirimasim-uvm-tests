@@ -244,6 +244,11 @@ build差分でB.4の継承解釈を成功とせず、直接の義務も作りま
 公開selected／null flagとopaqueなcaller iteratorを観測し、privateな位置やqueueを使わない追加後の条件は[Q395](faq.ja.md#q395-終端queueへ追加してもnullを期待する理由は)で説明しています。
 実行前に全期待行を固定し、reset後の行の一致で以前の追加後の不一致を成功にはしません。
 
+[明示accessのhelper](../tests/u18/helpers104_access/access104.svh)は実際のmemory queryを使い、共有入力には必要なmapを明示します。
+別の[relocation helper](../tests/u18/helpers104_relocation/relocation104.svh)は固定したoffset／address観測とDIAG104 lookup probeを出力し、
+診断が期待oracleや直接coverageを与えない理由は[Q400](faq.ja.md#q400-lookup診断でアドレス検索の適合性を示せますか)で説明しています。
+非ゼロlocation offsetは既知差分があっても検査を保持します。
+
 ### メタデータ
 
 ヘッダーは実行スクリプトにビルドと判定の条件を伝えるもので、条項の引用と要求への対応付けの関係は[Q76](faq.ja.md#q76-条項を引用すればその要求を検査したことになりますか)で説明しています。
@@ -386,7 +391,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の2601件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
+- 現在の2611件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -488,7 +493,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の2223件（runtime 2129・期待compiler拒否94）です。`--all`を付けるとspecのみの434件も含めます。
+Verilatorの既定の対象はoracle付き・2値の2227件（runtime 2133・期待compiler拒否94）です。`--all`を付けるとspecのみの440件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -551,7 +556,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト2657件（simulation 2558件・elaboration 99件）です。
+現在のツールの単体テストは110件、メタデータの対象はテスト2667件（simulation 2568件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
@@ -559,7 +564,7 @@ Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きの
 UVMの全要求や全シミュレータの成功を示すものではありません。
 
 以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
-現在のworkflowは現在のタグ付き2223検査を重複しない8 shard（278／278／278／278／278／278／278／277）へ分け、同時shard jobは最大4です。
+現在のworkflowは現在のタグ付き2227検査を重複しない8 shard（279／279／279／278／278／278／278／278）へ分け、同時shard jobは最大4です。
 和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
 seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
 

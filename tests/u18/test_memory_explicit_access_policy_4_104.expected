@@ -1,0 +1,6 @@
+UT: access104 4 stage 0 A access RO rights RW maps 1 default_A 1
+UT: access104 4 stage 0 peer access RW rights RW maps 1
+UT: access104 4 stage 1 A access RO rights RW maps 1 default_A 0
+UT: access104 4 stage 1 peer access RW rights RW maps 1
+UT: access104 4 stage 2 A access RO rights RW maps 1 default_A 1
+UT: access104 4 stage 2 peer access RW rights RW maps 1

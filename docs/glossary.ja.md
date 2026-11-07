@@ -1454,3 +1454,13 @@ static iteratorはcallerの整数をopaqueな位置として使い、その表�
 **終端cursor／endpoint reset** — callbackがもうないためcontinuationがnullを返した状態と、対応方向をresetする新たなget_first／get_lastの呼出しであり、null継続条件は[Q395](faq.ja.md#q395-終端queueへ追加してもnullを期待する理由は)で説明しています。
 
 **終端後の完了した追加** — callback追加を終えてから終端cursorで再びcontinuationを呼び、その後に明示resetを別に行う条件であり、reset後の行の一致と全traceの成功の違いは[Q396](faq.ja.md#q396-他17行が一致すれば前方iteratorの入力は成功ですか)で確認できます。
+
+## memoryのaccess制限とrelocation単位
+
+これらの用語はinterfaceの制限とmemory固有policyを区別するもので、観測した具体例は[accessのFAQ](faq.ja.md#q398-memoryのrightsと有効accessが異なる理由は)で確認できます。
+
+**memory policy／map権限** — 固有RW／ROの記憶policyと、RO／WO／RWのinterface制限であり、get_accessとget_rightsの異なる契約、非共有規則と共有mapの明示要求は[Q398](faq.ja.md#q398-memoryのrightsと有効accessが異なる理由は)で説明しています。
+
+**flat address単位／location stride** — mapの1address単位が表すbyte数と、その単位でのmemory location先頭間の距離であり、整数1／2beat layoutのモデルaddressと実記憶accessの違いは[Q399](faq.ja.md#q399-どのaddress単位とrelocation条件を検査しますか)で確認できます。
+
+**診断専用のlookup座標** — 期待oracleや要求の直接対応を持たないlocal／external lookup probeのlogであり、結果から規格の座標の意味を決めない理由は[Q400](faq.ja.md#q400-lookup診断でアドレス検索の適合性を示せますか)で説明しています。

@@ -10629,6 +10629,46 @@
     "u10/test_callback_static_prev_exhausted_growth_typewide_103": {
       "primary_clause": "10.7.2.4.4",
       "inputs_sha256": "cad1bd9efd4bd02b21beaf18047a1a302d8bed0b8c29d0cd523ecfcd24b8681b"
+    },
+    "u18/test_memory_explicit_access_policy_0_104": {
+      "primary_clause": "18.6.4.6",
+      "inputs_sha256": "88a4d28ae6c16f2fa15054d5a5e94978822437f8ac69eedc7a0d9838635b8647"
+    },
+    "u18/test_memory_explicit_access_policy_1_104": {
+      "primary_clause": "18.6.4.6",
+      "inputs_sha256": "cba4f010e9bd48c43a2c98b680deee42707e4b4505f026ae241e2a0f7279fcdd"
+    },
+    "u18/test_memory_explicit_access_policy_2_104": {
+      "primary_clause": "18.6.4.6",
+      "inputs_sha256": "de738658706b73819461c9a8966fc0ba528ffe98bcc422dfb29d529ded86b264"
+    },
+    "u18/test_memory_explicit_access_policy_3_104": {
+      "primary_clause": "18.6.4.6",
+      "inputs_sha256": "d3659caa82731d2f6326f41a4464d7d907ad9763c52278dd2bab50ec513897b5"
+    },
+    "u18/test_memory_explicit_access_policy_4_104": {
+      "primary_clause": "18.6.4.6",
+      "inputs_sha256": "63e3c8eada7aacfa32f55d0a646931fe5a0f0675aa06d4d74d0b27b026194dec"
+    },
+    "u18/test_memory_explicit_access_policy_5_104": {
+      "primary_clause": "18.6.4.6",
+      "inputs_sha256": "1c562637f95b9e636ae692ea728d5132e88f832fce93aaa7f2208cfd6b012c48"
+    },
+    "u18/test_memory_relocation_map_units_0_0_104": {
+      "primary_clause": "18.6.3.3",
+      "inputs_sha256": "f3f3e650e059a46eddd16a5eb93da9308b247541cdcac7c44a53dc87e40125df"
+    },
+    "u18/test_memory_relocation_map_units_0_1_104": {
+      "primary_clause": "18.6.3.3",
+      "inputs_sha256": "5eb9ce2a7c80bcd6ccd00c3b201590b360e6ddd8eade06594d416947aa79d089"
+    },
+    "u18/test_memory_relocation_map_units_1_0_104": {
+      "primary_clause": "18.6.3.3",
+      "inputs_sha256": "ee48090f61848d1431e2d5f88a32a4401f689c59cd150435e9b9cb310e4ae510"
+    },
+    "u18/test_memory_relocation_map_units_1_1_104": {
+      "primary_clause": "18.6.3.3",
+      "inputs_sha256": "cd1c4ee87f4bcd950b2646caa97363d9d9c3b9f3af58a2325dfd9fd9b715f267"
     }
   }
 }

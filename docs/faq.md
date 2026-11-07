@@ -171,7 +171,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2601 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2611 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -218,7 +218,7 @@ Execution success and requirement review are separate records, so use [Read cove
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 902
+M1 and M2 still have open clause targets. M3 now has 912
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1230,9 +1230,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4089 AI drafts cover only a partial decomposition: 4089 requirements link
-directly to 2601 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2657 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4092 AI drafts cover only a partial decomposition: 4092 requirements link
+directly to 2611 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2667 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -3062,7 +3062,7 @@ Three original inputs have new fingerprints: the command enum citation, the
 Boolean rerandomization observation and the virtual-field configuration citation.
 All three were remeasured on Verilator; their stale guest records are excluded.
 The historical 1085-record source files remain intact. Current reuse covers
-1082 inputs, with 1575 unmeasured: 1572 additions and three revised originals.
+1082 inputs, with 1585 unmeasured: 1582 additions and three revised originals.
 This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
@@ -3133,10 +3133,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2657 tests run at two seeds?
+### Q201. Did all 2667 tests run at two seeds?
 
-No. There are 2558 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2129 two-seed runtime matches, 94 expected compiler rejections, 429 known
+No. There are 2568 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2133 two-seed runtime matches, 94 expected compiler rejections, 435 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3688,7 +3688,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2601 directly linked tests and fifty-six
+The suite has 2611 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3802,12 +3802,12 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 2223 tagged checks form 8 disjoint shards with at most 4 concurrent
+No. The current 2227 tagged checks form 8 disjoint shards with at most 4 concurrent
 jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the README badge
-for the current workflow result. The 434 known cases remain outside the ordinary default CI selection.
+for the current workflow result. The 440 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -3963,8 +3963,8 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 The corrected citation changes the exact input hash despite an unchanged body
 and oracle. Its old guest record is excluded: 1083 compatible records become
 1082, leaving Ghost 206 matches/876 failures per seed and kirimasim 1073
-unsupported/nine failures. No guest was rerun. The 1575 unmeasured inputs are
-1572 additions and three revised originals. This filter is not evidence of
+unsupported/nine failures. No guest was rerun. The 1585 unmeasured inputs are
+1582 additions and three revised originals. This filter is not evidence of
 guest improvement or regression; see [the evidence assembly](results.md#evidence-assembly).
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
@@ -4207,8 +4207,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4089 duties link directly
-to 2601 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4092 duties link directly
+to 2611 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5097,7 +5097,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4089 duties all have direct tests and all 2657 tests have links, but those
+The 4092 duties all have direct tests and all 2667 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5194,7 +5194,71 @@ conditions. These u10 core callback utilities count as M1, consistently with
 the earlier integer-iterator fixtures; the B.4 callback macros retain their
 M2 grouping. Four boundary/growth duties are added and four existing mappings
 extended without changing original fields or links. The census now has
-1175 zero/771 below-target/536 at-least-target candidate identifiers, while
+1174 zero/770 below-target/538 at-least-target candidate identifiers, while
 all 2062 partial identifiers and original targets remain open; [the counting
 guide](requirements.md#citations-requirements-and-execution-evidence) explains
 why two placements alone do not prove independent complete coverage.
+
+## Memory access restrictions and relocation units
+
+A memory policy limits the storage model while a map restriction limits one interface, and [the memory terms](glossary.md#memory-access-restrictions-and-relocation-units) explain the two queries before the examples below.
+
+### Q398. Why can memory rights and effective access differ?
+
+18.6.4.5 gives get_rights its unshared-RW and shared-map rules. The separate
+get_access rule in 18.6.4.6 accounts for restrictions when accessing via the
+specified map; the add_mem rights parameter permits RO/WO/RW. These contracts
+are checked independently, without copying one query's result as the other
+query's expectation:
+
+| Call | Selected fixture condition | Required observation |
+| --- | --- | --- |
+| get_rights(A) | Unshared RW memory, A has RO rights | RW |
+| get_access(A) | Same valid explicit A | RO |
+| get_access(A) | RW memory, A has WO rights | WO |
+| get_access(RW_map) | Intrinsic ROM through RW interface | RO |
+
+All shared get_access calls explicitly supply a member map, as the standard
+requires. Changing the parent's default does not replace that argument; no
+shared-null fallback is inferred from get_rights. The [original access helper](../tests/u18/helpers104_access/access104.svh)
+also checks an independent RW peer. Omitted sole-map and disjoint-policy
+conditions remain separate audit work.
+
+### Q399. Which address units and relocation conditions are checked?
+
+Four layouts combine byte/word units with 16-bit locations on a two-byte bus
+and 64-bit locations on a four-byte bus. Integral location strides follow the
+declared map units, and nonzero root bases distinguish local offsets from
+external model addresses. A selected-map move, peer reuse, another move and
+restoration leave the other interface independently observed at first, middle
+and last locations. The [relocation helper](../tests/u18/helpers104_relocation/relocation104.svh)
+retains the nonzero-location get_offset expectations even when they differ.
+The declared get_addr_unit_bytes function in 18.2.4.6 is used despite the
+shorter name in some cross-reference prose. These are model queries, with no
+storage/HDL transfer or general partial-beat/endian/nested-map claim.
+
+### Q400. Do the lookup diagnostics establish address-lookup conformance?
+
+No. Five DIAG104 rows per relocation input query both local and external
+coordinates through the actual get_mem_by_offset API. They have no fixed
+expected row or requirement link: this audit does not resolve its nonzero-root
+coordinate interpretation from implementation output. The runner compares
+only the separately fixed UT observations. See [the diagnostic source](../tests/u18/helpers104_relocation/relocation104.svh)
+and [the citation/mapping distinction](requirements.md#citations-requirements-and-execution-evidence).
+Existing zero-root lookup oracles and results remain, while this broader
+namespace condition remains open; a supporting citation or logged call is
+not direct coverage or a completed contract.
+
+### Q401. Do passing shared or ROM controls clear the other differences?
+
+No. Four final tagged access profiles match both seeds. The two sole-map
+profiles return RW instead of RO/WO in three selected-access rows at seed 1,
+with matching peer rows. Four relocation profiles differ in ten nonzero-location
+offset rows each; all address/peer/unit fields and five location-zero rows
+match. All six build and exit 0 at seed 1 without seed 73, retaining the whole
+known status. The earlier combined rights/access fixture and location-offset
+oracle are unchanged. See [the sole RO source](../tests/u18/test_memory_explicit_access_policy_0_104.sv),
+[the sole WO source](../tests/u18/test_memory_explicit_access_policy_1_104.sv)
+and [one relocation source](../tests/u18/test_memory_relocation_map_units_1_0_104.sv).
+Matching controls or fields do not pass a different premise or establish six
+independent defects, a library-only cause, or complete M3 coverage.

@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 103 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2657 tests: 2558 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 104 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2667 tests: 2568 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5932,3 +5932,42 @@ complete the partial obligations, applicability conditions or original M1–M4
 targets; [the coverage FAQ](faq.md#q397-do-the-new-primary-citations-complete-the-iterator-clauses)
 explains the remaining audit. Human review and scope/denominator approval
 remain unrecorded.
+
+## 104th thin-area expansion: memory access restrictions and relocation units
+
+The 104th expansion adds ten M3 profiles: six explicit memory-access cases
+and four flat byte/word relocation layouts. Access cases distinguish intrinsic
+RW/RO policy from RO/WO/RW interface restrictions, with sole/shared membership,
+parent-default changes and an independent RW peer. Shared get_access always
+names a map; [the access FAQ](faq.md#q398-why-can-memory-rights-and-effective-access-differ)
+explains why get_rights is a different contract.
+
+Four final tagged shared-restriction/ROM inputs match seeds 1/73. Two sole-map
+inputs build and exit 0 at seed 1 but return RW instead of RO/WO in their three
+selected access rows; three peer rows match. Four relocation inputs retain
+nonzero-location off/alt_off differences in ten rows each, while address,
+peer and unit fields match and five location-zero rows match. All six known
+inputs have no seed-73 result, and matching fields do not pass a whole input.
+The existing access and location-offset expectations remain unchanged;
+[the result FAQ](faq.md#q401-do-passing-shared-or-rom-controls-clear-the-other-differences)
+does not infer six defects or a library-only cause.
+
+Relocation uses nonzero root bases, integral one/two-beat locations, a selected
+map move, peer reuse of the vacated range, another move and restoration.
+The other interface has different units and remains independently observed.
+Twenty DIAG104 lookup-coordinate rows are investigative only: no expected
+oracle or requirement link is created, and nonzero-root lookup semantics
+remain open; [the diagnostic FAQ](faq.md#q400-do-the-lookup-diagnostics-establish-address-lookup-conformance)
+explains that boundary. The declared get_addr_unit_bytes API supplies units;
+the prose cross-reference does not add a mandatory get_add_unit_bytes alias.
+
+Three distinct map-restriction/unit/isolation duties are added. The intrinsic
+ROM mapping gains two links; the existing location-offset duty expands its
+conditions/expectations/limitations while preserving all original text and
+links. All other original requirement objects, all 445 assessments and all
+2657 previous index/ordinary records remain. All 434 prior known inputs remain.
+Scope, catalog, runners, backends and workflow are unchanged. The ledger now
+has 4092 AI duties and 2611 directly linked tests, with 56 control-only and
+156 control-linked tests. The three empty queues do not complete 2062 partial
+identifiers, applicability conditions or original M1–M4 targets. Human review
+and scope/denominator approval remain unrecorded.

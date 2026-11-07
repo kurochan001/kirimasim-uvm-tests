@@ -810,16 +810,16 @@
         "ja": "memoryのlocation offsetは、そのmap内の指定location indexを反映する。"
       },
       "conditions": {
-        "en": "A 16-bit memory starts at offset 0x20 on a byte-addressed map with base 0x100.",
-        "ja": "16-bit memoryが、base 0x100のbyte-addressed mapのoffset 0x20にある。"
+        "en": "A 16-bit memory starts at offset 0x20 on a byte-addressed map with base 0x100. Retain that original case,and additionally use locked shared 16/64-bit memories in flat byte/word maps with nonzero root bases and completed selected-map/peer relocation and restoration;observe locations 0,1,and the last configured index.",
+        "ja": "16-bit memoryが、base 0x100のbyte-addressed mapのoffset 0x20にある。 この元のcaseを保持し、さらに非ゼロroot基点のflat byte／word mapでlock済み共有16／64bit memoryを使い、完了した選択map／peerのrelocationと復元を通してlocation0、1、設定した末尾indexを観測する。"
       },
       "expected": {
-        "en": "Selected locations yield offsets 0x20, 0x22, 0x26 and addresses 0x120, 0x122, 0x126.",
-        "ja": "選択したlocationはoffset 0x20、0x22、0x26とaddress 0x120、0x122、0x126になる。"
+        "en": "Selected locations yield offsets 0x20, 0x22, 0x26 and addresses 0x120, 0x122, 0x126. In the additional profiles,each local location offset equals its current map start plus index times the integral location stride in that map's units;external addresses add the declared root base. Original and new expectations remain when a combination differs.",
+        "ja": "選択したlocationはoffset 0x20、0x22、0x26とaddress 0x120、0x122、0x126になる。 追加profileでは、各local location offsetは現在のmap先頭に、そのmap単位での整数location strideとindexの積を加えた値になる。外部addressには宣言root基点を加える。組合せに差分があっても元と新しい期待を保持する。"
       },
       "limitations": {
-        "en": "Known library offset behavior differs; burst and alternate addressing modes remain separate.",
-        "ja": "ライブラリのoffsetには既知差分がある。burstと他のaddressing modeは別途扱う。"
+        "en": "Known library offset behavior differs; burst and alternate addressing modes remain separate. The added profiles cover only the stated flat integral-width byte/word conditions;burst,nested width,partial beats and broader endian interpretations remain open. Diagnostic lookup calls have no expected anchor and do not certify lookup coordinate semantics.",
+        "ja": "ライブラリのoffsetには既知差分がある。burstと他のaddressing modeは別途扱う。 追加profileは記載したflatで整数幅のbyte／word条件だけを扱い、burst、nested幅、partial beat、広いendian解釈は未完である。診断lookup呼出しは期待anchorを持たず、lookup座標の意味を認定しない。"
       },
       "review": {
         "status": "ai",
@@ -833,6 +833,90 @@
           "expected_observations": [
             "UT: offsets 20 22 26",
             "UT: addresses 120 122 126"
+          ]
+        },
+        {
+          "test": "u18/test_memory_relocation_map_units_0_0_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 0 0 stage 0 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 0 loc 1 off 41 addr 141 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 0 loc 2 off 42 addr 142 alt_off 604 alt_addr 904 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 1 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 1 loc 1 off 101 addr 201 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 1 loc 2 off 102 addr 202 alt_off 604 alt_addr 904 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 2 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 2 loc 1 off 101 addr 201 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 2 loc 2 off 102 addr 202 alt_off 604 alt_addr 904 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 3 loc 0 off 200 addr 300 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 3 loc 1 off 201 addr 301 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 3 loc 2 off 202 addr 302 alt_off 604 alt_addr 904 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 4 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 4 loc 1 off 41 addr 141 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 4 loc 2 off 42 addr 142 alt_off 604 alt_addr 904 peer_off 400 peer_addr 500 units 2 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_relocation_map_units_0_1_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 0 1 stage 0 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 0 loc 1 off 42 addr 142 alt_off 601 alt_addr 901 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 0 loc 2 off 44 addr 144 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 1 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 1 loc 1 off 102 addr 202 alt_off 601 alt_addr 901 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 1 loc 2 off 104 addr 204 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 2 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 2 loc 1 off 102 addr 202 alt_off 601 alt_addr 901 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 2 loc 2 off 104 addr 204 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 3 loc 0 off 200 addr 300 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 3 loc 1 off 202 addr 302 alt_off 601 alt_addr 901 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 3 loc 2 off 204 addr 304 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 4 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 4 loc 1 off 42 addr 142 alt_off 601 alt_addr 901 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 4 loc 2 off 44 addr 144 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 1 2"
+          ]
+        },
+        {
+          "test": "u18/test_memory_relocation_map_units_1_0_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 1 0 stage 0 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 0 loc 1 off 52 addr 552 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 0 loc 4 off 58 addr 558 alt_off 640 alt_addr f40 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 1 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 1 loc 1 off 112 addr 612 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 1 loc 4 off 118 addr 618 alt_off 640 alt_addr f40 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 2 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 2 loc 1 off 112 addr 612 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 2 loc 4 off 118 addr 618 alt_off 640 alt_addr f40 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 3 loc 0 off 210 addr 710 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 3 loc 1 off 212 addr 712 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 3 loc 4 off 218 addr 718 alt_off 640 alt_addr f40 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 4 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 4 loc 1 off 52 addr 552 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 4 loc 4 off 58 addr 558 alt_off 640 alt_addr f40 peer_off 410 peer_addr 910 units 4 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_relocation_map_units_1_1_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 1 1 stage 0 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 0 loc 1 off 58 addr 558 alt_off 622 alt_addr f22 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 0 loc 4 off 70 addr 570 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 1 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 1 loc 1 off 118 addr 618 alt_off 622 alt_addr f22 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 1 loc 4 off 130 addr 630 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 2 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 2 loc 1 off 118 addr 618 alt_off 622 alt_addr f22 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 2 loc 4 off 130 addr 630 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 3 loc 0 off 210 addr 710 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 3 loc 1 off 218 addr 718 alt_off 622 alt_addr f22 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 3 loc 4 off 230 addr 730 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 4 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 4 loc 1 off 58 addr 558 alt_off 622 alt_addr f22 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 4 loc 4 off 70 addr 570 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 1 4"
           ]
         }
       ]
@@ -20113,6 +20197,24 @@
           "role": "direct",
           "expected_observations": [
             "UT: rights RW RW access RO RO"
+          ]
+        },
+        {
+          "test": "u18/test_memory_explicit_access_policy_4_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: access104 4 stage 0 A access RO rights RW maps 1 default_A 1",
+            "UT: access104 4 stage 1 A access RO rights RW maps 1 default_A 0",
+            "UT: access104 4 stage 2 A access RO rights RW maps 1 default_A 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_explicit_access_policy_5_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: access104 5 stage 0 B access RO rights RW maps 2 default_B 0",
+            "UT: access104 5 stage 1 B access RO rights RW maps 2 default_B 1",
+            "UT: access104 5 stage 2 B access RO rights RW maps 2 default_B 0"
           ]
         }
       ]
@@ -156521,6 +156623,291 @@
             "UT: iterator103 3 1 grown_exhausted selected 1 null 1",
             "UT: iterator103 3 1 grown_repeat selected 1 null 1",
             "UT: iterator103 3 1 foreign_only selected 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-EXPLICIT-MAP-ACCESS-RESTRICTION-104",
+      "clause": "18.6.4.6",
+      "statement": {
+        "en": "Memory get_access accounts for the restrictions of its explicitly selected address map.",
+        "ja": "memoryのget_accessは、明示して選択したaddress mapの制限を考慮する。"
+      },
+      "conditions": {
+        "en": "Use intrinsic RW memories through RO or WO interfaces,with sole-member or shared two-interface mappings. Change the parent default between the explicit maps; keep a separate intrinsic RW peer through an RW interface.",
+        "ja": "固有RW memoryをRO／WO interfaceから扱い、単独または共有2interfaceへのmapを使う。明示map間で親の既定を切り替え、別の固有RW peerをRW interfaceへ登録する。"
+      },
+      "expected": {
+        "en": "Explicit RO and WO accesses report RO and WO respectively while the RW interface and peer remain RW;changing the parent default does not replace the supplied map. The separate get_rights query retains its own shared/unshared rule.",
+        "ja": "明示RO／WO accessはそれぞれRO／WOとなり、RW interfaceとpeerはRWを保つ。親の既定変更は指定mapを置き換えない。別のget_rights queryには自身の共有／非共有規則を保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid explicit-map access calls and flat little-endian byte/word maps only. Shared get_access always supplies a map; get_rights default-map rules are not promoted to that different API. Intrinsic policies are RW/RO with compatible RO/WO/RW interface restrictions,not disjoint or arbitrary policies. Relocations use integral one/two-beat locations,nonzero root bases,completed calls,peer reuse/restoration and independent interfaces. Composite expected lines support only the named obligation; a matching field does not pass a whole known fixture. Nonzero location-offset observations retain their normative expectations. DIAG104 lookup-coordinate probes are investigative only,have no expected anchor or requirement link,and do not certify nonzero-root lookup semantics. The declared get_addr_unit_bytes API in18.2.4.6 supplies units,no undocumented get_add_unit_bytes alias is required. No storage/HDL transfer,nested bus-width interpretation,unmapped flag effect,concurrent relocation,disjoint access outcome,complete partial clause or original M1-M4 target is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "選択した有効な明示mapでのaccessと、flatでlittle-endianのbyte／word mapだけを扱う。共有get_accessでは常にmapを指定し、別APIであるget_rightsの既定map規則を流用しない。固有policyはRW／RO、interface制限は互換なRO／WO／RWとし、相反するものや任意policyを扱わない。relocationは整数の1／2beat location、非ゼロroot基点、完了呼出し、peer領域の再利用／復元、独立interfaceを使う。複合期待行は名前を付けた義務だけを支え、一致したfieldでknownの全検査系を成功にはしない。非ゼロlocation offsetの規範的期待は保持する。DIAG104 lookup座標probeは調査専用で期待anchorや要求対応を持たず、非ゼロrootでのlookup意味を認定しない。単位は18.2.4.6に宣言されたget_addr_unit_bytesで確認し、未記載get_add_unit_bytes別名を要求しない。記憶域／HDL転送、nested bus幅の解釈、unmapped flagの効果、並行relocation、相反accessの結果、部分条項全体や元のM1〜M4目標の完了は認定しない。人／範囲／分母の承認は未記録である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_explicit_access_policy_0_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: access104 0 stage 0 A access RO rights RW maps 1 default_A 1",
+            "UT: access104 0 stage 1 A access RO rights RW maps 1 default_A 0",
+            "UT: access104 0 stage 2 A access RO rights RW maps 1 default_A 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_explicit_access_policy_1_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: access104 1 stage 0 A access WO rights RW maps 1 default_A 1",
+            "UT: access104 1 stage 1 A access WO rights RW maps 1 default_A 0",
+            "UT: access104 1 stage 2 A access WO rights RW maps 1 default_A 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_explicit_access_policy_2_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: access104 2 stage 0 A access RO rights RO maps 2 default_A 1",
+            "UT: access104 2 stage 1 A access RO rights RO maps 2 default_A 0",
+            "UT: access104 2 stage 2 A access RO rights RO maps 2 default_A 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_explicit_access_policy_3_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: access104 3 stage 0 A access WO rights WO maps 2 default_A 1",
+            "UT: access104 3 stage 1 A access WO rights WO maps 2 default_A 0",
+            "UT: access104 3 stage 2 A access WO rights WO maps 2 default_A 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-RELOCATION-ADDRESS-UNITS-104",
+      "clause": "18.6.3.3",
+      "statement": {
+        "en": "Memory set_offset interprets the new offset in the selected map address units.",
+        "ja": "memoryのset_offsetは新しいoffsetを選択mapのaddress単位で解釈する。"
+      },
+      "conditions": {
+        "en": "Relocate a locked shared memory through first,next,last and restored local starts in one flat byte- or word-addressed interface with nonzero root base. Use 16-bit/two-byte and 64-bit/four-byte bus profiles with first,middle,last locations.",
+        "ja": "非ゼロroot基点を持つflatなbyte／word interfaceで、lock済み共有memoryのlocal先頭を初期、次、最後、復元先へ移す。16bit／2byteと64bit／4byte busのprofileで、先頭／中間／末尾locationを使う。"
+      },
+      "expected": {
+        "en": "The selected base-offset query follows the supplied map-unit start,and external location addresses equal the declared root base plus that start and the location stride in those units. Both map unit getters retain their configured flat byte/word units.",
+        "ja": "選択mapのbase-offset queryは指定したmap単位の先頭へ変わり、外部location addressは宣言root基点、先頭、同単位のlocation strideの和になる。両mapの単位getterは設定したflat byte／word単位を保つ。"
+      },
+      "limitations": {
+        "en": "Selected valid explicit-map access calls and flat little-endian byte/word maps only. Shared get_access always supplies a map; get_rights default-map rules are not promoted to that different API. Intrinsic policies are RW/RO with compatible RO/WO/RW interface restrictions,not disjoint or arbitrary policies. Relocations use integral one/two-beat locations,nonzero root bases,completed calls,peer reuse/restoration and independent interfaces. Composite expected lines support only the named obligation; a matching field does not pass a whole known fixture. Nonzero location-offset observations retain their normative expectations. DIAG104 lookup-coordinate probes are investigative only,have no expected anchor or requirement link,and do not certify nonzero-root lookup semantics. The declared get_addr_unit_bytes API in18.2.4.6 supplies units,no undocumented get_add_unit_bytes alias is required. No storage/HDL transfer,nested bus-width interpretation,unmapped flag effect,concurrent relocation,disjoint access outcome,complete partial clause or original M1-M4 target is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "選択した有効な明示mapでのaccessと、flatでlittle-endianのbyte／word mapだけを扱う。共有get_accessでは常にmapを指定し、別APIであるget_rightsの既定map規則を流用しない。固有policyはRW／RO、interface制限は互換なRO／WO／RWとし、相反するものや任意policyを扱わない。relocationは整数の1／2beat location、非ゼロroot基点、完了呼出し、peer領域の再利用／復元、独立interfaceを使う。複合期待行は名前を付けた義務だけを支え、一致したfieldでknownの全検査系を成功にはしない。非ゼロlocation offsetの規範的期待は保持する。DIAG104 lookup座標probeは調査専用で期待anchorや要求対応を持たず、非ゼロrootでのlookup意味を認定しない。単位は18.2.4.6に宣言されたget_addr_unit_bytesで確認し、未記載get_add_unit_bytes別名を要求しない。記憶域／HDL転送、nested bus幅の解釈、unmapped flagの効果、並行relocation、相反accessの結果、部分条項全体や元のM1〜M4目標の完了は認定しない。人／範囲／分母の承認は未記録である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_relocation_map_units_0_0_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 0 0 stage 0 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 0 loc 1 off 41 addr 141 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 0 loc 2 off 42 addr 142 alt_off 604 alt_addr 904 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 1 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 1 loc 1 off 101 addr 201 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 1 loc 2 off 102 addr 202 alt_off 604 alt_addr 904 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 2 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 2 loc 1 off 101 addr 201 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 2 loc 2 off 102 addr 202 alt_off 604 alt_addr 904 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 3 loc 0 off 200 addr 300 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 3 loc 1 off 201 addr 301 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 3 loc 2 off 202 addr 302 alt_off 604 alt_addr 904 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 4 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 4 loc 1 off 41 addr 141 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 4 loc 2 off 42 addr 142 alt_off 604 alt_addr 904 peer_off 400 peer_addr 500 units 2 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_relocation_map_units_0_1_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 0 1 stage 0 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 0 loc 1 off 42 addr 142 alt_off 601 alt_addr 901 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 0 loc 2 off 44 addr 144 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 1 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 1 loc 1 off 102 addr 202 alt_off 601 alt_addr 901 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 1 loc 2 off 104 addr 204 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 2 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 2 loc 1 off 102 addr 202 alt_off 601 alt_addr 901 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 2 loc 2 off 104 addr 204 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 3 loc 0 off 200 addr 300 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 3 loc 1 off 202 addr 302 alt_off 601 alt_addr 901 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 3 loc 2 off 204 addr 304 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 4 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 4 loc 1 off 42 addr 142 alt_off 601 alt_addr 901 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 4 loc 2 off 44 addr 144 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 1 2"
+          ]
+        },
+        {
+          "test": "u18/test_memory_relocation_map_units_1_0_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 1 0 stage 0 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 0 loc 1 off 52 addr 552 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 0 loc 4 off 58 addr 558 alt_off 640 alt_addr f40 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 1 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 1 loc 1 off 112 addr 612 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 1 loc 4 off 118 addr 618 alt_off 640 alt_addr f40 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 2 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 2 loc 1 off 112 addr 612 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 2 loc 4 off 118 addr 618 alt_off 640 alt_addr f40 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 3 loc 0 off 210 addr 710 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 3 loc 1 off 212 addr 712 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 3 loc 4 off 218 addr 718 alt_off 640 alt_addr f40 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 4 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 4 loc 1 off 52 addr 552 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 4 loc 4 off 58 addr 558 alt_off 640 alt_addr f40 peer_off 410 peer_addr 910 units 4 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_relocation_map_units_1_1_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 1 1 stage 0 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 0 loc 1 off 58 addr 558 alt_off 622 alt_addr f22 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 0 loc 4 off 70 addr 570 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 1 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 1 loc 1 off 118 addr 618 alt_off 622 alt_addr f22 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 1 loc 4 off 130 addr 630 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 2 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 2 loc 1 off 118 addr 618 alt_off 622 alt_addr f22 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 2 loc 4 off 130 addr 630 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 3 loc 0 off 210 addr 710 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 3 loc 1 off 218 addr 718 alt_off 622 alt_addr f22 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 3 loc 4 off 230 addr 730 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 4 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 4 loc 1 off 58 addr 558 alt_off 622 alt_addr f22 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 4 loc 4 off 70 addr 570 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 1 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-RELOCATION-INTERFACE-AND-PEER-ISOLATION-104",
+      "clause": "18.6.3.3",
+      "statement": {
+        "en": "Relocating a memory in one address map preserves its other interface and unrelated peer until each is explicitly changed.",
+        "ja": "1つのaddress mapでmemoryを移動しても、別interfaceと無関係なpeerは明示変更まで保持する。"
+      },
+      "conditions": {
+        "en": "Configure chosen and peer memories in two owned root maps with different address units and distinct offsets. Move chosen only in the selected map,move the peer into the vacated range,move chosen again,then restore both selected starts.",
+        "ja": "異なるaddress単位と別offsetを持つ、同じ所有blockの2root mapへ選択memoryとpeerを構成する。選択mapだけでmemoryを移し、空いた範囲へpeerを移し、再びmemoryを移してから両先頭を復元する。"
+      },
+      "expected": {
+        "en": "The alternate interface retains its base and all observed location addresses throughout;the selected peer start changes only on its own set_offset call. Restoring selected starts recovers their original address relations without rewriting the other interface.",
+        "ja": "別interfaceはbaseと観測した全location addressを通して保持し、選択peerの先頭は自身のset_offset呼出し時だけ変わる。選択先頭の復元は別interfaceを書き換えず元のaddress関係を回復する。"
+      },
+      "limitations": {
+        "en": "Selected valid explicit-map access calls and flat little-endian byte/word maps only. Shared get_access always supplies a map; get_rights default-map rules are not promoted to that different API. Intrinsic policies are RW/RO with compatible RO/WO/RW interface restrictions,not disjoint or arbitrary policies. Relocations use integral one/two-beat locations,nonzero root bases,completed calls,peer reuse/restoration and independent interfaces. Composite expected lines support only the named obligation; a matching field does not pass a whole known fixture. Nonzero location-offset observations retain their normative expectations. DIAG104 lookup-coordinate probes are investigative only,have no expected anchor or requirement link,and do not certify nonzero-root lookup semantics. The declared get_addr_unit_bytes API in18.2.4.6 supplies units,no undocumented get_add_unit_bytes alias is required. No storage/HDL transfer,nested bus-width interpretation,unmapped flag effect,concurrent relocation,disjoint access outcome,complete partial clause or original M1-M4 target is certified. Human/scope/denominator approval remains unrecorded.",
+        "ja": "選択した有効な明示mapでのaccessと、flatでlittle-endianのbyte／word mapだけを扱う。共有get_accessでは常にmapを指定し、別APIであるget_rightsの既定map規則を流用しない。固有policyはRW／RO、interface制限は互換なRO／WO／RWとし、相反するものや任意policyを扱わない。relocationは整数の1／2beat location、非ゼロroot基点、完了呼出し、peer領域の再利用／復元、独立interfaceを使う。複合期待行は名前を付けた義務だけを支え、一致したfieldでknownの全検査系を成功にはしない。非ゼロlocation offsetの規範的期待は保持する。DIAG104 lookup座標probeは調査専用で期待anchorや要求対応を持たず、非ゼロrootでのlookup意味を認定しない。単位は18.2.4.6に宣言されたget_addr_unit_bytesで確認し、未記載get_add_unit_bytes別名を要求しない。記憶域／HDL転送、nested bus幅の解釈、unmapped flagの効果、並行relocation、相反accessの結果、部分条項全体や元のM1〜M4目標の完了は認定しない。人／範囲／分母の承認は未記録である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_relocation_map_units_0_0_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 0 0 stage 0 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 0 loc 1 off 41 addr 141 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 0 loc 2 off 42 addr 142 alt_off 604 alt_addr 904 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 1 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 1 loc 1 off 101 addr 201 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 1 loc 2 off 102 addr 202 alt_off 604 alt_addr 904 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 2 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 2 loc 1 off 101 addr 201 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 2 loc 2 off 102 addr 202 alt_off 604 alt_addr 904 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 3 loc 0 off 200 addr 300 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 3 loc 1 off 201 addr 301 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 3 loc 2 off 202 addr 302 alt_off 604 alt_addr 904 peer_off 40 peer_addr 140 units 2 1",
+            "UT: relocation104 0 0 stage 4 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 4 loc 1 off 41 addr 141 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 2 1",
+            "UT: relocation104 0 0 stage 4 loc 2 off 42 addr 142 alt_off 604 alt_addr 904 peer_off 400 peer_addr 500 units 2 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_relocation_map_units_0_1_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 0 1 stage 0 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 0 loc 1 off 42 addr 142 alt_off 601 alt_addr 901 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 0 loc 2 off 44 addr 144 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 1 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 1 loc 1 off 102 addr 202 alt_off 601 alt_addr 901 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 1 loc 2 off 104 addr 204 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 2 loc 0 off 100 addr 200 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 2 loc 1 off 102 addr 202 alt_off 601 alt_addr 901 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 2 loc 2 off 104 addr 204 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 3 loc 0 off 200 addr 300 alt_off 600 alt_addr 900 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 3 loc 1 off 202 addr 302 alt_off 601 alt_addr 901 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 3 loc 2 off 204 addr 304 alt_off 602 alt_addr 902 peer_off 40 peer_addr 140 units 1 2",
+            "UT: relocation104 0 1 stage 4 loc 0 off 40 addr 140 alt_off 600 alt_addr 900 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 4 loc 1 off 42 addr 142 alt_off 601 alt_addr 901 peer_off 400 peer_addr 500 units 1 2",
+            "UT: relocation104 0 1 stage 4 loc 2 off 44 addr 144 alt_off 602 alt_addr 902 peer_off 400 peer_addr 500 units 1 2"
+          ]
+        },
+        {
+          "test": "u18/test_memory_relocation_map_units_1_0_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 1 0 stage 0 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 0 loc 1 off 52 addr 552 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 0 loc 4 off 58 addr 558 alt_off 640 alt_addr f40 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 1 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 1 loc 1 off 112 addr 612 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 1 loc 4 off 118 addr 618 alt_off 640 alt_addr f40 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 2 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 2 loc 1 off 112 addr 612 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 2 loc 4 off 118 addr 618 alt_off 640 alt_addr f40 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 3 loc 0 off 210 addr 710 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 3 loc 1 off 212 addr 712 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 3 loc 4 off 218 addr 718 alt_off 640 alt_addr f40 peer_off 50 peer_addr 550 units 4 1",
+            "UT: relocation104 1 0 stage 4 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 4 loc 1 off 52 addr 552 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 4 1",
+            "UT: relocation104 1 0 stage 4 loc 4 off 58 addr 558 alt_off 640 alt_addr f40 peer_off 410 peer_addr 910 units 4 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_relocation_map_units_1_1_104",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocation104 1 1 stage 0 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 0 loc 1 off 58 addr 558 alt_off 622 alt_addr f22 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 0 loc 4 off 70 addr 570 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 1 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 1 loc 1 off 118 addr 618 alt_off 622 alt_addr f22 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 1 loc 4 off 130 addr 630 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 2 loc 0 off 110 addr 610 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 2 loc 1 off 118 addr 618 alt_off 622 alt_addr f22 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 2 loc 4 off 130 addr 630 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 3 loc 0 off 210 addr 710 alt_off 620 alt_addr f20 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 3 loc 1 off 218 addr 718 alt_off 622 alt_addr f22 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 3 loc 4 off 230 addr 730 alt_off 628 alt_addr f28 peer_off 50 peer_addr 550 units 1 4",
+            "UT: relocation104 1 1 stage 4 loc 0 off 50 addr 550 alt_off 620 alt_addr f20 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 4 loc 1 off 58 addr 558 alt_off 622 alt_addr f22 peer_off 410 peer_addr 910 units 1 4",
+            "UT: relocation104 1 1 stage 4 loc 4 off 70 addr 570 alt_off 628 alt_addr f28 peer_off 410 peer_addr 910 units 1 4"
           ]
         }
       ]

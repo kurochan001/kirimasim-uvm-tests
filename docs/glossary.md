@@ -1836,3 +1836,13 @@ A static iterator uses the caller's integer as an opaque position, and [the boun
 **Exhausted cursor / endpoint reset** — A continuation that has returned null for no remaining callbacks / a new get_first or get_last that resets the corresponding direction; [Q395](faq.md#q395-why-keep-null-after-an-exhausted-queue-grows) explains the repeat-null condition.
 
 **Completed growth after exhaustion** — Callback additions finish before another continuation on the exhausted cursor, with a separate explicit reset afterward; [Q396](faq.md#q396-do-seventeen-matching-rows-pass-the-forward-iterator-inputs) distinguishes matching reset rows from a complete passing trace.
+
+## Memory access restrictions and relocation units
+
+These terms distinguish an interface's restriction from the memory's intrinsic policy, with the observed examples in [the access FAQ](faq.md#q398-why-can-memory-rights-and-effective-access-differ).
+
+**Memory policy / map rights** — Intrinsic RW/RO storage policy / RO/WO/RW interface restrictions, with distinct get_access and get_rights contracts; [Q398](faq.md#q398-why-can-memory-rights-and-effective-access-differ) explains the unshared rule and explicit shared-map requirement.
+
+**Flat address unit / location stride** — Bytes in one map address unit / distance between memory-location starts in those units, tested with integral one/two-beat layouts; [Q399](faq.md#q399-which-address-units-and-relocation-conditions-are-checked) distinguishes model addresses from actual storage access.
+
+**Diagnostic-only lookup coordinate** — A logged local/external lookup probe without an expected oracle or direct requirement link; [Q400](faq.md#q400-do-the-lookup-diagnostics-establish-address-lookup-conformance) explains why its result does not settle the standard's coordinate meaning.

@@ -159,7 +159,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2601件、HDL DPIの明示選択が38件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2611件、HDL DPIの明示選択が38件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -200,7 +200,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め902件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め912件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -1010,8 +1010,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる4089要求案は部分的な分解で、4089要求を2601テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
-全2657テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる4092要求案は部分的な分解で、4092要求を2611テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
+全2667テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -2400,7 +2400,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 
 command enum引用、Boolean rerandomization観測、virtual fieldのconfigure引用の既存3入力で指紋が変わりました。
 3入力ともVerilatorで再測定し、古いguest記録を除外しています。歴史的な1085記録の出典fileは保持します。
-現在の再利用は1082入力で、未測定1575件は追加1572件と修正した既存3入力です。
+現在の再利用は1082入力で、未測定1585件は追加1582件と修正した既存3入力です。
 これは記録のfilterでありguestの再実行ではなく、[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
@@ -2453,9 +2453,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2657テストを2 seedで実行しましたか？
+### Q201. 全2667テストを2 seedで実行しましたか？
 
-いいえ。simulation 2558件とelaboration 99件があります。通常記録はruntime両seed一致2129件、期待compiler拒否94件、既知simulation差分429件、不正compile受理の既知差分5件です。
+いいえ。simulation 2568件とelaboration 99件があります。通常記録はruntime両seed一致2133件、期待compiler拒否94件、既知simulation差分435件、不正compile受理の既知差分5件です。
 不正design 94件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
@@ -2838,7 +2838,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価0番号です。
-スイートは直接対応2601テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2611テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2922,9 +2922,9 @@ shardはworkflowが選んだテストを分割した1区画で、Checkの対象�
 
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
-いいえ。現在のタグ付き2223検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
+いいえ。現在のタグ付き2227検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
 command-line 17検査はshard 0で通常検査の前に1回だけ実行します。runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
-分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分434件は通常の既定CI選択に含めません。
+分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分440件は通常の既定CI選択に含めません。
 
 ## recordingとscalar macroの条件
 
@@ -3043,7 +3043,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 引用の修正は、本体とoracleが同じでも正確な入力hashを変えます。古いguest記録を除き、互換1083記録を1082へ絞ります。
 Ghostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
-未測定1575入力は追加1572件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
+未測定1585入力は追加1582件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3227,7 +3227,7 @@ zero-timeの委譲やprimitive release/readと、この実HDL 8入力の違い�
 
 既に部分分解した条項へ義務や条件を足しても、未評価queueは変わらない場合があります。
 初回の分解や根拠のある分類でそのqueueが変わり、テスト追加だけでは減らない場合があります。
-現在の4089義務は2601テストへ直接対応し、部分2062・未評価0番号が残ります。
+現在の4092義務は2611テストへ直接対応し、部分2062・未評価0番号が残ります。
 別々の進捗指標は[棚卸しのガイド](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
 
 ## Register HDL pathと観測の前提
@@ -3850,7 +3850,7 @@ queueの件数は記録したレビュー作業を表し、完全性や実行成
 
 いいえ。全2507識別子が部分的な要求分解または個別評価を持ち、部分2062・分類445です。
 B.4のregister／execute動作に部分義務を置き、継承の記述は未解決で保持します。
-全4089義務に直接テスト、全2657テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
+全4092義務に直接テスト、全2667テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
 元のM1〜M4目標、人の照合、範囲／分母承認は未完であり、完了条件は[残作業の案内](requirements.ja.md#m4の残作業と承認)にあります。
 coverage割合やgoal完了は主張しません。
 
@@ -3914,5 +3914,49 @@ reset後の走査を含む他17行の一致でも全入力は成功にせず、s
 いいえ。get_last、get_next、get_prevには実際の補助引用と直接対応がすでにあり、主引用テストがないだけで動作の未対応は立証できません。
 今はそれぞれlocal／typewideという異なる条件の主引用2profileがあります。u10のcore callback utilityは以前の整数iterator検査系と同じM1に数え、
 B.4 callback macroはM2の分類を保持します。不在／追加後の義務4件と既存4要求の対応を追加し、元のfieldと対応は保持します。
-candidateの棚卸しは主引用0が1175、目標未満771、目標以上536となりますが、部分2062識別子と元の目標は全て未完です。
+candidateの棚卸しは主引用0が1174、目標未満770、目標以上538となりますが、部分2062識別子と元の目標は全て未完です。
 配置が2件あっても独立した完全なcoverageを示さない理由は[計数のガイド](requirements.ja.md#引用要求実行の証拠)で説明しています。
+
+## memoryのaccess制限とrelocation単位
+
+memory policyは記憶モデル側、map制限は1つのinterface側の制約であり、以下の例で使う2つのqueryの違いは[memoryの用語](glossary.ja.md#memoryのaccess制限とrelocation単位)で確認できます。
+
+### Q398. memoryのrightsと有効accessが異なる理由は？
+
+18.6.4.5はget_rightsに非共有時のRWと共有mapの規則を定め、別の18.6.4.6のget_accessは指定mapからaccessする際の制限を考慮します。
+add_memのrights引数はRO／WO／RWを許すため、一方のqueryの結果を他方の期待値にせず、契約を独立に検査します。
+
+| 呼出し | 選択した検査系の条件 | 必要な観測 |
+| --- | --- | --- |
+| get_rights(A) | 非共有のRW memory、Aの権限はRO | RW |
+| get_access(A) | 同じ有効な明示A | RO |
+| get_access(A) | RW memory、Aの権限はWO | WO |
+| get_access(RW_map) | 固有ROMをRW interfaceから照会 | RO |
+
+共有get_accessには規格どおり所属mapを必ず明示し、親の既定変更で指定引数を置き換えず、get_rightsからshared-nullのfallbackを推測しません。
+[独自access helper](../tests/u18/helpers104_access/access104.svh)は独立したRW peerも確かめ、単独mapでの省略や相反policyの条件は別の監査作業に残します。
+
+### Q399. どのaddress単位とrelocation条件を検査しますか？
+
+4layoutでbyte／word単位と、2byte busの16bit location、4byte busの64bit locationを組み合わせます。
+整数location strideは宣言map単位に従い、非ゼロroot基点によってlocal offsetと外部モデルaddressを区別します。
+選択mapの移動、peerの再利用、再移動、復元を行い、別interfaceも先頭／中間／末尾locationで独立に観測します。
+[relocation helper](../tests/u18/helpers104_relocation/relocation104.svh)は非ゼロlocationのget_offsetの期待を、差分があっても保持します。
+一部の相互参照本文で短い名前が使われても、18.2.4.6に宣言されたget_addr_unit_bytesを使います。
+モデルのqueryであり、記憶域／HDL転送や一般のpartial-beat／endian／nested-mapの主張にはしません。
+
+### Q400. lookup診断でアドレス検索の適合性を示せますか？
+
+いいえ。relocation入力ごとにDIAG104の5行で、実際のget_mem_by_offset APIへlocal／external座標を渡しますが、固定期待行や要求対応を持ちません。
+この監査では実装出力から非ゼロrootの座標解釈を決定せず、runnerは別に固定したUT観測だけを比較します。
+[診断ソース](../tests/u18/helpers104_relocation/relocation104.svh)と[引用と対応付けの違い](requirements.ja.md#引用要求実行の証拠)を参照してください。
+既存のroot 0のlookup oracleと結果は保持し、広いnamespace条件は未解決に残します。補助引用や呼出しlogだけでは直接coverageや契約の完了にはなりません。
+
+### Q401. 共有やROMのcontrolが一致すれば他の差分は解消しますか？
+
+いいえ。最終tag付きaccess 4profileは両seed一致ですが、単独map 2profileはseed 1の選択access 3行でRO／WOでなくRWを返し、peerの行は一致します。
+relocation 4profileはそれぞれ非ゼロlocationのoffset 10行で異なり、全address／peer／unit fieldとlocation 0の5行は一致します。
+6件は全てbuildとseed 1をexit 0で終え、seed 73はなく、全体のknownを保持します。以前のrights／access複合検査系とlocation-offset oracleは未変更です。
+[単独ROのソース](../tests/u18/test_memory_explicit_access_policy_0_104.sv)、[単独WOのソース](../tests/u18/test_memory_explicit_access_policy_1_104.sv)、
+[relocationの1例](../tests/u18/test_memory_relocation_map_units_1_0_104.sv)を参照してください。
+controlや一部fieldの一致で異なる前提を成功にせず、独立6不具合、libraryだけの原因、M3の完全なcoverageも主張しません。

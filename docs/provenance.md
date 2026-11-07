@@ -390,6 +390,8 @@ Named-callback expectations follow the standard through original per-target list
 
 Static-iterator expectations follow independently chosen handle placement and the documented repeat-null contract, without importing implementation integers or output; [Q395](faq.md#q395-why-keep-null-after-an-exhausted-queue-grows) explains the completed-addition premise.
 
+Memory expectations follow the explicit-map contracts and independent unit/offset arithmetic; [Q400](faq.md#q400-do-the-lookup-diagnostics-establish-address-lookup-conformance) explains why lookup diagnostics do not define a standards oracle.
+
 ## Clause catalog maintenance
 
 The catalog lists clause identifiers used to validate citations; [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains how these identifiers differ from normative duties and a coverage denominator.
