@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 110 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2715 tests: 2616 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 111 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2719 tests: 2620 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -6264,3 +6264,46 @@ human review remain unapproved/unrecorded. Exact consecutive-delta counts,+post-
 kill/cancel combinations, full event contracts and original milestone targets
 remain open; [the completion FAQ](faq.md#q421-do-the-six-matching-event-profiles-complete-the-clauses)
 distinguishes this progress from completion.
+
+## 111th thin-area expansion: cancellation across wait styles and reuse
+
+The 111th expansion adds four M1 cancellation/count profiles, one for each of
+wait_trigger, wait_ptrigger, wait_on and wait_off. Three callers are held on
+one event; two selected process handles are killed and canceled in turn,
+leaving one real survivor. [The cancellation FAQ](faq.md#q422-what-do-the-four-cancellation-profiles-add)
+connects that setup to the count oracle.
+
+Counts must progress 3 to 2 to 1 after the explicit kill/cancel pairs and to
+0 after the survivor's controlled trigger/reset. No count is sampled between
+kill and cancel. The terminated callers must not return, and a peer event
+retains its own single waiter until independently released. The same subject
+is reused for two rounds. Positive-time barriers establish blocking and
+avoid relying on persistent-trigger behavior in the earlier trigger's slice;
+[the reuse FAQ](faq.md#q423-why-check-onoff-waits-and-reuse-the-same-event)
+explains these premises.
+
+All four final tagged inputs match seeds 1/73. Two stable cancellation and
+actual-waiter-count duties receive direct links and prefix-preserved
+conditions/limitations; there is no new duty merely for a profile. The other
+4097 old requirement objects, all 445 assessments and all 2715 old ordinary/
+index records are unchanged. Existing mixed-reset and wakeup-reset cases
+remain known under their own conditions; these profiles do not reset a
+selected event while its remaining callers are blocked, except the reset
+that deliberately releases off-state waiters.
+
+The suite now has 2719 tests (2620 simulation/99 elaboration), 4099 AI duties
+and 2663 directly linked tests, with 56 control-only tests. Ordinary matches
+are 2263: 2169 runtime inputs at both seeds and 94 compiler rejections.
+All 456 known inputs and both backend subsets remain. No guest run/filter
+is added: 1081 compatible records remain byte-identical, with 1638 unmeasured
+inputs (1634 additions and four revised originals; 1539 simulation/99 elaboration).
+
+Chapter 10 retains 87 partial/29 assessed/0 unassessed identifiers and 169
+duties; primary-focus tests rise to 144. Candidate census is 1171 zero/768
+below target/543 at least two, with 1315 primary-focused identifiers overall.
+All 2062 partial identifiers, actual remaining applicability, original
+milestone targets, human review and scope/denominator approval remain open.
+Zero-count/redundant/live cancellation, suspension/resumption, otherwise
+activated callers, callback cancellation and concurrent reset are not
+certified; [the completion FAQ](faq.md#q424-do-the-cancellation-matches-complete-the-event-contracts)
+explains why three empty queues do not complete the goal.

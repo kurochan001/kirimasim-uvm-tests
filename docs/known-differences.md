@@ -6,7 +6,7 @@ To locate a result's source, search this page for the filename portion of its te
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2715-test suite and the pinned Accellera UVM
+This describes the current 2719-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -612,6 +612,8 @@ Four base-recording-disable inputs match both seeds with final tags but do not c
 Four automatic-property inputs match both seeds with final tags under explicitly enabled recording storage. All 456 known inputs and the printed base query-name difference remain; [the property FAQ](faq.md#q416-what-do-the-property-profiles-add-beyond-transaction-marks) distinguishes recorded data from earlier event diagnostics.
 
 Six event delta inputs match both seeds with final tags while all 456 known inputs remain. [The completion FAQ](faq.md#q421-do-the-six-matching-event-profiles-complete-the-clauses) explains why exact consecutive-#0 counts and delta applicability after an initially unsatisfied wait remain open.
+
+Four cancellation/count inputs match both seeds with final tags while all 456 known inputs remain. [The reuse FAQ](faq.md#q423-why-check-onoff-waits-and-reuse-the-same-event) explains why mixed-wait and wakeup-reset differences remain under separate premises.
 
 ## Pinned-library limitations
 
@@ -1226,7 +1228,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2259 tests have the `verilator@5.052` oracle tag and 456
+Across the suite, 2263 tests have the `verilator@5.052` oracle tag and 456
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -1239,7 +1241,7 @@ observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
 The 456 spec-only cases retain standard-derived expected output or compiler diagnostics.
-Default Verilator runs and CI select 2259 tagged checks (2165 runtime, 94 compile rejection). `--all` includes
+Default Verilator runs and CI select 2263 tagged checks (2169 runtime, 94 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 316 cases establish their first difference
 at seed 1, without seed 73 results.
@@ -1723,7 +1725,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1081 records and 1634 inputs
+records are excluded. The compatible subset has 1081 records and 1638 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1783,8 +1785,8 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The earlier field-configuration filter reduced 1083 compatible records to 1082. The subsequent reraise primary-citation filter reduced 1082 to 1081; this increment retains those records without another filter or guest run, and [the input-identity explanation](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish the two stages.
 
-The suite has 2715 cases, but the kirimasim/Ghost records below cover only
-1081 unchanged current-input cases. The 1634 inputs are unmeasured
+The suite has 2719 cases, but the kirimasim/Ghost records below cover only
+1081 unchanged current-input cases. The 1638 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

@@ -1908,3 +1908,9 @@ These terms distinguish an interface's restriction from the memory's intrinsic p
 **Zero-time yield / deferred-child witness** — An already-satisfied event wait with delta one blocks without advancing physical time, allowing a fresh fork/join_none child to start; [Q419](faq.md#q419-what-do-the-event-delta-profiles-add) distinguishes this from an omitted or explicit-zero call.
 
 **Pending NBA witness** — An original module process queues a nonblocking update in Active before the tested wait, and the update must remain invisible at return but appear after a positive-time drain; [Q420](faq.md#q420-why-use-both-a-deferred-child-and-a-pending-nba) explains how this checks pre-NBA return without counting every #0 control.
+
+## Event cancellation and waiter-count reuse
+
+**Explicit kill/cancel pair** — Terminating one held process via its standard handle, then calling event cancel once before querying the count; [Q422](faq.md#q422-what-do-the-four-cancellation-profiles-add) explains why no between-pair count is required.
+
+**Same-event cancellation reuse** — Establishing a fresh group on the original event after selected callers were canceled and the survivor completed, while another event remains pending; [Q423](faq.md#q423-why-check-onoff-waits-and-reuse-the-same-event) records the wait-style and reset boundaries.

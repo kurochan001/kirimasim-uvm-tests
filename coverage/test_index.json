@@ -10861,6 +10861,22 @@
     "u10/test_event_wait_off_delta_one_110": {
       "primary_clause": "10.1.1.2.3",
       "inputs_sha256": "937821b1b09f4025441b30476312a6f27cc6fb5583e99eae1273182390c41cba"
+    },
+    "u10/test_event_cancel_reuse_trigger_111": {
+      "primary_clause": "10.1.1.2.9",
+      "inputs_sha256": "7b74f901f3ca0baaaba2df56e1ce22a670e2cc27514b0d7cb35219c5021462bb"
+    },
+    "u10/test_event_cancel_reuse_ptrigger_111": {
+      "primary_clause": "10.1.1.2.9",
+      "inputs_sha256": "6ed64868083728e66815b6e2e4d3017cbf647cde421cba7fae78065eea5fb51f"
+    },
+    "u10/test_event_cancel_reuse_on_111": {
+      "primary_clause": "10.1.1.2.10",
+      "inputs_sha256": "36854b40e1edcf6fedc533f298650716bf19b41ae8c2e4564713f5a6f7e7786c"
+    },
+    "u10/test_event_cancel_reuse_off_111": {
+      "primary_clause": "10.1.1.2.10",
+      "inputs_sha256": "6fae696c3e57cb59569b443a93b7a3ab8fc4b3b618659dea164fe88795cf8026"
     }
   }
 }

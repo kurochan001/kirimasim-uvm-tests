@@ -8,8 +8,8 @@ This page supports resuming development; if you want to run or understand a firs
 
 The base commit below identifies the starting point for the described work, so check uncommitted changes before treating saved results as evidence for the current files; [the input-update procedure](requirements.md#updating-a-test-or-mapping) explains how to review their compatibility.
 
-Updated on 2026-11-07 for the 110th thin-area expansion, based on
-[63e7b02](https://github.com/kurochan001/kirimasim-uvm-tests/commit/63e7b026a48a6c0279e8887383b0d55e0711986b)
+Updated on 2026-11-07 for the 111th thin-area expansion, based on
+[42bdc6a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42bdc6a064d57934e21999e3ee07546cc7f15426)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -20,11 +20,11 @@ zero unlinked tests does not complete any milestone.
 
 | Area | Current snapshot |
 | --- | --- |
-| M1 | 1167 tests (1086 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
+| M1 | 1171 tests (1090 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
 | M2 | 620 tests (613 runtime, 7 elaboration): sequences, sequencers, callbacks and TLM |
 | M3 | 928 tests (917 runtime, 11 elaboration): register/memory layer and annex E |
-| Entire suite | 2715 tests (2616 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 4099 AI requirement drafts; 4099 have direct links to 2659 tests; fifty-six control-only tests; zero tests without links |
+| Entire suite | 2719 tests (2620 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 4099 AI requirement drafts; 4099 have direct links to 2663 tests; fifty-six control-only tests; zero tests without links |
 | Normative inventory | 2062 of 2,507 identifiers partially decomposed; 445 explicitly assessed; 0 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
@@ -73,13 +73,13 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
   for these versioned inputs.
 - [Library lock](../third_party/uvm.lock): Accellera UVM 2020.3.1 at
   `78c06547a2a0`, 326 files. Fetch with the tracked tool; the library itself
-  is not committed. 2659 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
+  is not committed. 2663 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
 - The user supplied `IEEE_Std_1800.2-2020.pdf` and
   `IEEE_Std_1800-2023_SystemVerilog.pdf` in the repository root. They are
   ignored local files, unavailable in a fresh clone, and must not be
   redistributed. Extracted text under `out/` is local and ignored; `/tmp` contents may disappear.
 - Results under `out/` are ignored and local. Temporary expansion helpers
-  under `out/thin-one-hundred-tenth-*.py` are optional local aids,
+  under `out/thin-one-hundred-eleventh-*.py` are optional local aids,
   not maintained entry points. Some append drafts/history and must not be
   rerun blindly. Recreate missing helpers using the tracked tools.
 
@@ -104,11 +104,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 110 tool unit tests, metadata for all 2715 tests (2616 simulation, 99 elaboration),
+The snapshot passed 110 tool unit tests, metadata for all 2719 tests (2620 simulation, 99 elaboration),
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1081 unchanged inputs, with 1634 inputs unmeasured.
+cover 1081 unchanged inputs, with 1638 inputs unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -135,11 +135,11 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 2165 runtime passes at seeds 1/73; 94 expected compile rejections; 456 known |
+| Verilator 5.052 / pinned UVM | 2169 runtime passes at seeds 1/73; 94 expected compile rejections; 456 known |
 | Verilator 5.052 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
 | Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 18-case condition: 17 pass both seeds; 1 known at seed 1 |
-| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1634 inputs unmeasured |
-| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1634 inputs unmeasured |
+| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1638 inputs unmeasured |
+| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1638 inputs unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
 The ordinary condition retains 456 known cases: 316 runtime first differences,
@@ -149,67 +149,55 @@ two inherited type_id registry specializations, one protected-access build, two 
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
 
-The 110th expansion adds six M1 event-wait profiles: wait_on/wait_off with
-the delta argument omitted, explicitly zero or explicitly one. They call the
-actual event methods in two reuse rounds, with an already blocked default
-waiter, a later controlled release of an unsatisfied wait and an independent
-peer event. [The delta FAQ](faq.md#q419-what-do-the-event-delta-profiles-add)
-explains the three argument forms.
+The 111th expansion adds four M1 cancellation/count profiles, one for each of
+wait_trigger, wait_ptrigger, wait_on and wait_off. Three callers are held on
+one event; two selected process handles are killed and canceled in turn,
+leaving one real survivor. [The cancellation FAQ](faq.md#q422-what-do-the-four-cancellation-profiles-add)
+connects that setup to the count oracle.
 
-An original no-wait task checks the SystemVerilog deferred-child premise.
-A fresh fork/join_none child cannot start until its parent blocks or ends:
-it must remain pending across an already-satisfied omitted/zero call and run
-across an explicit-one call. Both time and realtime must remain unchanged.
-A separate module process queues a real NBA update in Active before the
-tested call; that update must still be pending at return and visible after
-a positive-time drain. These are observations of yielding and pre-NBA return,
-not a count of every consecutive #0 control; [the scheduler-witness FAQ](faq.md#q420-why-use-both-a-deferred-child-and-a-pending-nba)
-explains the limits. The fixture inserts no #0 workaround.
+Counts must progress 3 to 2 to 1 after the explicit kill/cancel pairs and to
+0 after the survivor's controlled trigger/reset. No count is sampled between
+kill and cancel. The terminated callers must not return, and a peer event
+retains its own single waiter until independently released. The same subject
+is reused for two rounds. Positive-time barriers establish blocking and
+avoid relying on persistent-trigger behavior in the earlier trigger's slice;
+[the reuse FAQ](faq.md#q423-why-check-onoff-waits-and-reuse-the-same-event)
+explains these premises.
 
-All six final tagged inputs match seeds 1/73. Each initially unsatisfied wait
-remains blocked until its controlled trigger/reset and returns at that
-transition's time, while the peer remains waiting until its own reset.
-Existing ready-waiter completion order is investigative for every argument:
-four DIAG110 rows per case per seed, 48 current rows in total, have no oracle
-or requirement link. The delta sentence's scope after an initially
-unsatisfied wait still needs review; no stronger waiter-completion ordering
-is inferred from the printed opportunity to resume.
+All four final tagged inputs match seeds 1/73. Two stable cancellation and
+actual-waiter-count duties receive direct links and prefix-preserved
+conditions/limitations; there is no new duty merely for a profile. The other
+4097 old requirement objects, all 445 assessments and all 2715 old ordinary/
+index records are unchanged. Existing mixed-reset and wakeup-reset cases
+remain known under their own conditions; these profiles do not reset a
+selected event while its remaining callers are blocked, except the reset
+that deliberately releases off-state waiters.
 
-The earlier six pretag and six tagged inputs also matched, but lacked the
-NBA-region witness. They are archived under
-`out/thin-one-hundred-tenth-before-region-witness/` and are not current evidence.
-The region review strengthened the independently derived expectation and
-removed the earlier ready-waiter completion assertion before new measurement.
-The current pretag and final batches each match all six cases at both seeds;
-only the oracle tag changes between those current batches.
+The suite now has 2719 tests (2620 simulation/99 elaboration), 4099 AI duties
+and 2663 directly linked tests, with 56 control-only tests. Ordinary matches
+are 2263: 2169 runtime inputs at both seeds and 94 compiler rejections.
+All 456 known inputs and both backend subsets remain. No guest run/filter
+is added: 1081 compatible records remain byte-identical, with 1638 unmeasured
+inputs (1634 additions and four revised originals; 1539 simulation/99 elaboration).
 
-Two new already-satisfied delta-yield duties and two prefix-preserved
-persistence/reset extensions produce 4099 AI duties. The other 4095 old
-requirements and all 445 assessments are unchanged. All 2709 old ordinary
-and index records, all 456 known inputs and both backend subsets are retained.
-There are 2259 ordinary matches: 2165 runtime inputs at both seeds and 94
-expected compiler rejections. No guest run or filter is added: 1081 compatible
-records remain byte-identical and 1634 inputs are unmeasured, comprising
-1630 additions and four revised originals (1535 simulation, 99 elaboration).
+Chapter 10 retains 87 partial/29 assessed/0 unassessed identifiers and 169
+duties; primary-focus tests rise to 144. Candidate census is 1171 zero/768
+below target/543 at least two, with 1315 primary-focused identifiers overall.
+All 2062 partial identifiers, actual remaining applicability, original
+milestone targets, human review and scope/denominator approval remain open.
+Zero-count/redundant/live cancellation, suspension/resumption, otherwise
+activated callers, callback cancellation and concurrent reset are not
+certified; [the completion FAQ](faq.md#q424-do-the-cancellation-matches-complete-the-event-contracts)
+explains why three empty queues do not complete the goal.
 
-Chapter 10 still has 87 partial/29 assessed/0 unassessed identifiers, with
-169 duties and 140 primary-focus tests. Across the catalog, 1315 identifiers
-have primary tests; candidates are 1171 zero/770 below target/541 at least two.
-The suite has 2062 partial/445 assessed/0 unassessed identifiers and 2659
-directly linked tests, with 56 control-only tests. Scope, denominator and
-human review remain unapproved/unrecorded. Exact consecutive-delta counts,+post-blocking delta applicability, event callbacks, waiter-count/reset and
-kill/cancel combinations, full event contracts and original milestone targets
-remain open; [the completion FAQ](faq.md#q421-do-the-six-matching-event-profiles-complete-the-clauses)
-distinguishes this progress from completion.
-
-Totals are 2715 (2616 simulation/99 elaboration): M1 1167 (1086/81), M2 620
-(613/7), M3 928 (917/11). Ordinary pass is 2259 (2165 runtime/94 rejections),
+Totals are 2719 (2620 simulation/99 elaboration): M1 1171 (1090/81), M2 620
+(613/7), M3 928 (917/11). Ordinary pass is 2263 (2169 runtime/94 rejections),
 with 456 known (316 runtime/135 builds/5 illegal acceptances). Guests retain
-1081 compatible records; 1634 unmeasured inputs are 1630 additions and four revised originals.
+1081 compatible records; 1638 unmeasured inputs are 1634 additions and four revised originals.
 
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2259 tagged checks into 8 disjoint shards (283/283/283/282/282/282/282/282),
+the current 2263 tagged checks into 8 disjoint shards (283/283/283/283/283/283/283/282),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies
@@ -228,7 +216,7 @@ out/thin-one-hundred-sixth-ghost-final-73.json
 out/thin-one-hundred-sixth-kirimasim-final.json
 out/thin-one-hundred-sixth-inventory.json
 out/thin-one-hundred-sixth-backlog-final.json
-out/thin-one-hundred-tenth-evidence-scope.json
+out/thin-one-hundred-eleventh-evidence-scope.json
 out/thin-one-hundred-sixth-hdl-combined.json
 out/thin-one-hundred-sixth-cmdline-final.json
 ```
@@ -249,7 +237,7 @@ Unassessed counts and partial obligations track different remaining work; [Read 
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.
 At activation there were 1,463 unassessed identifiers, zero unlinked tests and
-zero requirements without direct tests. 82 iterations retain zero unassessed, a decrease of 1463 since activation. Six M1 event delta inputs match both seeds with final tags. Fresh deferred children and queued NBA updates observe already-satisfied omitted/zero/one calls; time/realtime, controlled release of unsatisfied waits, two reuse rounds and an independent peer are checked. All 48 existing-waiter order rows are diagnostic-only. Initial six pretag/six final inputs are archived before the region-witness review; each current six-input batch was freshly measured. All 2709 old ordinary/index records, 456 known inputs and 445 assessments remain. Two new delta duties and two stable extensions produce 4099 duties while 4095 other old objects remain identical. Guests retain 1081 compatible records with 1634 unmeasured. All 2062 partial contracts, applicability conditions, original targets, human review and scope/denominator approval remain unfinished; the goal stays active.
+zero requirements without direct tests. 83 iterations retain zero unassessed, a decrease of 1463 since activation. Four M1 cancellation/count inputs match both seeds with final tags. Trigger/persistent/on/off waits each hold three callers, sequentially kill/cancel two and release the survivor, across two rounds on the original event while a peer stays pending. Two stable duties receive expanded conditions/links; the total remains 4099 with 4097 other old objects identical. All 2715 old ordinary/index records, 456 known inputs and 445 assessments remain. Guests retain 1081 compatible records with 1638 unmeasured. All 2062 partial contracts, applicability conditions, original targets, human review and scope/denominator approval remain unfinished; the goal stays active.
 
 The separate earlier 12.2.9.2 reassessment did not reduce unassessed. Keep the
 goal active. Zero unassessed in chapter 12 does not complete its 169 partial

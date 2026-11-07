@@ -1526,3 +1526,9 @@ static iteratorはcallerの整数をopaqueな位置として使い、その表�
 **ゼロ時間のyield／開始を遅らせる子の観測** — 既に条件が成立したdelta 1のevent待機は物理時刻を進めずblockし、新しいfork/join_noneの子の開始を許すもので、省略／明示0との違いは[Q419](faq.ja.md#q419-eventのdelta-profileは何を追加しますか)で確認できます。
 
 **予約済みNBAの観測** — 独自module processが対象待機の前にActiveでnonblocking更新を予約し、復帰時には未反映、正時間drain後には反映済みを要求するもので、全#0制御の回数を数えずNBA前の復帰を検査する理由は[Q420](faq.ja.md#q420-新しい子と予約したnbaを両方使う理由は)で確認できます。
+
+## eventの取消しとwaiter件数の再利用
+
+**明示kill／cancelの組** — 標準handleで待機中の1 processを終了し、eventのcancelを1回呼んでから件数を照会するもので、組の途中の値を要求しない理由は[Q422](faq.ja.md#q422-4件の取消しprofileは何を追加しますか)で確認できます。
+
+**同じeventの取消し後の再利用** — 選択callerの取消しと生存者の完了後、元のeventに新しい待機groupを成立させ、別eventは保留にするもので、待機方法とresetの境界は[Q423](faq.ja.md#q423-onoff待機と同じeventの再利用を確認する理由は)で確認できます。

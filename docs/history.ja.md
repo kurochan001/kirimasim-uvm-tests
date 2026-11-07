@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の110回目の拡充（全2715件：simulation 2616・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の111回目の拡充（全2719件：simulation 2620・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3885,3 +3885,27 @@ guestの再実行やfilterは追加せず、互換1081記録をbyte単位で維�
 catalog全体の主引用がある番号は1315で、candidateは0件1171／目標未満770／2件以上541です。
 全体は部分2062／分類445／未評価0番号、直接対応2659テストとcontrolのみ56テストです。
 範囲・分母は未承認、人の照合は未記録です。連続deltaの正確な回数、block後のdelta適用、event callback、waiter件数／reset、kill／cancelの組合せ、event契約全体と元の段階目標は残り、[完了のFAQ](faq.ja.md#q421-6件のevent-profileの一致で条項は完了しますか)で今回の進捗と区別しています。
+
+## 薄い領域の111回目の拡充：待機方法を跨ぐ取消しと再利用
+
+111回目はM1の取消し／件数profileを4件追加し、wait_trigger、wait_ptrigger、wait_on、wait_offを1件ずつ使います。
+1 eventで3 callerを待機させ、選択した2つのprocess handleを順にkillしてcancelし、実際の生存waiterを1人残します。
+準備と件数oracleの関係は[取消しのFAQ](faq.ja.md#q422-4件の取消しprofileは何を追加しますか)で説明しています。
+
+明示kill／cancelの組ごとに件数は3から2、1へ進み、生存者を制御したtrigger／resetで解放した後は0である必要があります。
+killとcancelの間の件数は採りません。終了させたcallerは復帰せず、peer eventは自身を解放するまで1 waiterを保ちます。
+同じ対象を2 round再利用します。正時間のbarrierでblockを成立させ、以前のtriggerと同じsliceのpersistent-trigger動作に依存することを避け、前提は[再利用のFAQ](faq.ja.md#q423-onoff待機と同じeventの再利用を確認する理由は)で説明しています。
+
+最終tag付き4入力は全てseed 1／73で一致します。既存の取消し義務と実waiter件数義務の2件へdirect linkと、元の記述を保った条件／限界を追加し、profileごとに新しい義務を作りません。
+他の旧要求4097件、分類445件、元の通常／index 2715記録は同一です。
+既存の混在resetとwakeup resetは各条件で既知差分に保持します。今回のprofileは、off waiterを意図的に解放するresetを除き、残るcallerがblock中に選択eventをresetしません。
+
+全体は2719テスト（simulation 2620／elaboration 99）、AI義務4099件、直接対応2663テストとcontrolのみ56テストです。
+通常の一致は2263件で、runtime両seed一致2169入力とcompiler拒否94件です。既知456入力と2種類のbackend部分集合を保持します。
+guestの再実行／filterは追加せず、互換1081記録をbyte単位で維持し、未測定は1638入力です。
+内訳は追加1634件と修正した元入力4件で、simulation 1539／elaboration 99です。
+
+第10章は部分87／分類29／未評価0番号と義務169件を保持し、主引用は144テストになります。
+candidateの件数は0件1171／目標未満768／2件以上543で、全体の主引用がある番号は1315です。
+部分2062番号、残る実際の適用条件、元の段階目標、人の照合、範囲／分母承認は未完です。
+0件／重複／生存processのcancel、suspend／resume、別手段で起動したcaller、callback取消や並行resetは認定せず、3つのqueueが空でもgoal完了にならない理由は[完了のFAQ](faq.ja.md#q424-取消しの一致でevent契約は完了しますか)で説明しています。

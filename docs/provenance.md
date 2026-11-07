@@ -408,6 +408,8 @@ Automatic-property expectations follow IEEE default automatic recording and publ
 
 Event delta expectations are independently derived from IEEE 1800.2 wait_on/wait_off and IEEE 1800 deferred-fork and Active/Inactive/NBA rules. [Q420](faq.md#q420-why-use-both-a-deferred-child-and-a-pending-nba) records the original witnesses and limits; no implementation source or commercial result is newly used.
 
+Cancellation/count expectations are independently derived from IEEE 1800.2 cancel/get_num_waiters and IEEE 1800 process self/status/kill. [Q423](faq.md#q423-why-check-onoff-waits-and-reuse-the-same-event) explains the original positive-time setup and same-event reuse; no implementation source or commercial result is newly used.
+
 ## Clause catalog maintenance
 
 The catalog lists clause identifiers used to validate citations; [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains how these identifiers differ from normative duties and a coverage denominator.

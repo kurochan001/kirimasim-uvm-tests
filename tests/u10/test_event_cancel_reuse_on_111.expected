@@ -1,0 +1,12 @@
+UT: initial subject 0 peer 0
+UT: peer armed 1 waiters 1
+UT: round 1 armed blocked 1 waiters 3 peer 1
+UT: round 1 cancel_first waiters 2 blocked 1 killed 1 peer 1
+UT: round 1 cancel_second waiters 1 blocked 1 killed 1 peer 1
+UT: round 1 released survivor 1 victims 1 waiters 0 peer 1
+UT: round 2 armed blocked 1 waiters 3 peer 1
+UT: round 2 cancel_first waiters 2 blocked 1 killed 1 peer 1
+UT: round 2 cancel_second waiters 1 blocked 1 killed 1 peer 1
+UT: round 2 released survivor 1 victims 1 waiters 0 peer 1
+UT: peer retained 1 waiters 1
+UT: peer released 1 waiters 0

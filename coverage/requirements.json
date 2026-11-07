@@ -26506,16 +26506,16 @@
         "ja": "eventのcancelは、待機processのkill後に件数を減らす。"
       },
       "conditions": {
-        "en": "Kill one of two waiters, cancel it, then trigger the surviving waiter.",
-        "ja": "2 waiterの片方をkillしてcancelし、生存waiterをtriggerする。"
+        "en": "Kill one of two waiters, cancel it, then trigger the surviving waiter. In additional independent profiles, establish three actual wait_trigger, wait_ptrigger, wait_on or wait_off callers on one event, kill/cancel two selected callers sequentially and release the survivor using the appropriate trigger/reset. Repeat on the same event with an independently held peer.",
+        "ja": "2 waiterの片方をkillしてcancelし、生存waiterをtriggerする。 別の独立したprofileでは、1 eventに実際のwait_trigger／wait_ptrigger／wait_on／wait_off callerを3人成立させ、選択した2人を順にkill／cancelし、適切なtrigger／resetで生存者を解放する。同じeventで繰り返し、独立peerは待機を保持する。"
       },
       "expected": {
-        "en": "The count falls from two to one without releasing the survivor, then reaches zero after its trigger.",
-        "ja": "生存waiterを解放せず件数が2から1になり、そのtrigger後に0になる。"
+        "en": "The count falls from two to one without releasing the survivor, then reaches zero after its trigger. The added three-caller histories report 3 before cancellation, 2 after the first kill/cancel, 1 after the second and 0 after the survivor returns. Both terminated callers remain unreturned, the survivor stays blocked until its release, and the peer remains one until independently released to zero, in both reuse rounds.",
+        "ja": "生存waiterを解放せず件数が2から1になり、そのtrigger後に0になる。 追加した3 callerの履歴では取消前に3、最初のkill／cancel後に2、2回目の後に1、生存者の復帰後に0を報告する。終了させた2 callerは復帰せず、生存者は制御した解放までblockし、peerは独立に解放して0になるまで1を保つ。再利用2 roundで確認する。"
       },
       "limitations": {
-        "en": "A killed process is explicitly removed from the waiter count using cancel; process control is cited separately to IEEE 1800. No cancellation of a live caller, implicit process bookkeeping or winner order is required.",
-        "ja": "killしたprocessをcancelでwaiter数から明示的に除く。process制御は別途IEEE 1800を引用する。生存する呼出し側の取消、暗黙のprocess管理、解放順は要求しない。"
+        "en": "A killed process is explicitly removed from the waiter count using cancel; process control is cited separately to IEEE 1800. No cancellation of a live caller, implicit process bookkeeping or winner order is required. The added profiles use positive-time barriers and explicit IEEE1800 process handles/status/kill, with one cancel per held terminated caller and no query between kill and cancel. The waiter-count interpretation includes actual on/off waits under the literal processes-waiting wording, consistent with the earlier mixed-wait duty; a mismatch retains that oracle. No zero-count/redundant/live cancellation, suspension/resumption or otherwise-activated process condition, implicit bookkeeping, scheduler winner order, callback cancellation, concurrent reset, recursive kill or complete event/milestone claim is made. Existing mixed-reset/wakeup differences are not replaced by these different premises.",
+        "ja": "killしたprocessをcancelでwaiter数から明示的に除く。process制御は別途IEEE 1800を引用する。生存する呼出し側の取消、暗黙のprocess管理、解放順は要求しない。 追加profileは正時間のbarrierとIEEE1800のprocess handle／status／killを使い、待機中に終了させた各callerにcancelを1回だけ呼び、killとcancelの間は照会しない。waiter件数は待機するprocessという字義に従い実際のon／off待機も含める解釈で、以前の混在待機の義務と一致し、不一致でも期待を保持する。0件／重複／生存processのcancel、suspend／resumeや別手段で起動したprocess、暗黙の件数管理、schedulerの勝者順、callback取消、並行reset、再帰kill、event／段階全体の完了は主張しない。異なる前提の追加profileで既存の混在reset／wakeup差分を置き換えない。"
       },
       "review": {
         "status": "ai",
@@ -26530,6 +26530,54 @@
             "UT: initial blocked 1 waiters 2",
             "UT: canceled waiters 1 survivor_waiting 1 victim_stopped 1",
             "UT: completion survivor 1 victim_returned 0 waiters 0"
+          ]
+        },
+        {
+          "test": "u10/test_event_cancel_reuse_trigger_111",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 1 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 1 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: round 2 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 2 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 2 released survivor 1 victims 1 waiters 0 peer 1"
+          ]
+        },
+        {
+          "test": "u10/test_event_cancel_reuse_ptrigger_111",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 1 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 1 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: round 2 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 2 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 2 released survivor 1 victims 1 waiters 0 peer 1"
+          ]
+        },
+        {
+          "test": "u10/test_event_cancel_reuse_on_111",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 1 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 1 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: round 2 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 2 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 2 released survivor 1 victims 1 waiters 0 peer 1"
+          ]
+        },
+        {
+          "test": "u10/test_event_cancel_reuse_off_111",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 1 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 1 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: round 2 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 2 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 2 released survivor 1 victims 1 waiters 0 peer 1"
           ]
         }
       ]
@@ -72624,16 +72672,16 @@
         "ja": "event waiter照会は、そのeventで実際に待機するprocessを報告する。"
       },
       "conditions": {
-        "en": "Reset the selected off event without wakeup while its mixed waiters remain blocked.",
-        "ja": "混在waiterを待機させたまま、選択したoff eventをwakeupなしでresetする。"
+        "en": "Reset the selected off event without wakeup while its mixed waiters remain blocked. In additional independent profiles, establish three actual wait_trigger, wait_ptrigger, wait_on or wait_off callers on one event, kill/cancel two selected callers sequentially and release the survivor using the appropriate trigger/reset. Repeat on the same event with an independently held peer.",
+        "ja": "混在waiterを待機させたまま、選択したoff eventをwakeupなしでresetする。 別の独立したprofileでは、1 eventに実際のwait_trigger／wait_ptrigger／wait_on／wait_off callerを3人成立させ、選択した2人を順にkill／cancelし、適切なtrigger／resetで生存者を解放する。同じeventで繰り返し、独立peerは待機を保持する。"
       },
       "expected": {
-        "en": "Three selected wait styles and one peer off-wait produce counts three/one; no-wakeup reset preserves the three blocked callers.",
-        "ja": "選択した3待機方式とpeer off-waitは件数3／1を示し、wakeupなしreset後も3 callerは待機する。"
+        "en": "Three selected wait styles and one peer off-wait produce counts three/one; no-wakeup reset preserves the three blocked callers. The added three-caller histories report 3 before cancellation, 2 after the first kill/cancel, 1 after the second and 0 after the survivor returns. Both terminated callers remain unreturned, the survivor stays blocked until its release, and the peer remains one until independently released to zero, in both reuse rounds.",
+        "ja": "選択した3待機方式とpeer off-waitは件数3／1を示し、wakeupなしreset後も3 callerは待機する。 追加した3 callerの履歴では取消前に3、最初のkill／cancel後に2、2回目の後に1、生存者の復帰後に0を報告する。終了させた2 callerは復帰せず、生存者は制御した解放までblockし、peerは独立に解放して0になるまで1を保つ。再利用2 roundで確認する。"
       },
       "limitations": {
-        "en": "Actual raw-trigger, persistent-trigger and on-state waiters plus a separate off-state peer are established with positive delays. Bounded public observations occur before cleanup of stranded processes. The expected fresh-trigger release remains normative even if the pinned library resets its internal event/count. No private event handle or arbitrary reset concurrency is asserted.",
-        "ja": "正の遅延で実際のraw-trigger、persistent-trigger、on-state waiterと別のoff-state peerを確立する。取り残されたprocessをcleanupする前に、公開状態を有限に観測する。固定libraryが内部event／countをresetしても、新triggerでの解放という規範的期待を保持する。非公開event handleや任意reset並行性は主張しない。"
+        "en": "Actual raw-trigger, persistent-trigger and on-state waiters plus a separate off-state peer are established with positive delays. Bounded public observations occur before cleanup of stranded processes. The expected fresh-trigger release remains normative even if the pinned library resets its internal event/count. No private event handle or arbitrary reset concurrency is asserted. The added profiles use positive-time barriers and explicit IEEE1800 process handles/status/kill, with one cancel per held terminated caller and no query between kill and cancel. The waiter-count interpretation includes actual on/off waits under the literal processes-waiting wording, consistent with the earlier mixed-wait duty; a mismatch retains that oracle. No zero-count/redundant/live cancellation, suspension/resumption or otherwise-activated process condition, implicit bookkeeping, scheduler winner order, callback cancellation, concurrent reset, recursive kill or complete event/milestone claim is made. Existing mixed-reset/wakeup differences are not replaced by these different premises.",
+        "ja": "正の遅延で実際のraw-trigger、persistent-trigger、on-state waiterと別のoff-state peerを確立する。取り残されたprocessをcleanupする前に、公開状態を有限に観測する。固定libraryが内部event／countをresetしても、新triggerでの解放という規範的期待を保持する。非公開event handleや任意reset並行性は主張しない。 追加profileは正時間のbarrierとIEEE1800のprocess handle／status／killを使い、待機中に終了させた各callerにcancelを1回だけ呼び、killとcancelの間は照会しない。waiter件数は待機するprocessという字義に従い実際のon／off待機も含める解釈で、以前の混在待機の義務と一致し、不一致でも期待を保持する。0件／重複／生存processのcancel、suspend／resumeや別手段で起動したprocess、暗黙の件数管理、schedulerの勝者順、callback取消、並行reset、再帰kill、event／段階全体の完了は主張しない。異なる前提の追加profileで既存の混在reset／wakeup差分を置き換えない。"
       },
       "review": {
         "status": "ai",
@@ -72648,6 +72696,78 @@
             "UT: event_waiter_initial subject 3 peer 1 blocked 1",
             "UT: event_waiter_reset subject 3 blocked 1 peer_returned 1 peer_waiters 0",
             "UT: event_waiter_fresh complete 1 data 33/33/33 waiters 0"
+          ]
+        },
+        {
+          "test": "u10/test_event_cancel_reuse_trigger_111",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial subject 0 peer 0",
+            "UT: peer armed 1 waiters 1",
+            "UT: round 1 armed blocked 1 waiters 3 peer 1",
+            "UT: round 1 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 1 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 1 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: round 2 armed blocked 1 waiters 3 peer 1",
+            "UT: round 2 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 2 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 2 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: peer retained 1 waiters 1",
+            "UT: peer released 1 waiters 0"
+          ]
+        },
+        {
+          "test": "u10/test_event_cancel_reuse_ptrigger_111",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial subject 0 peer 0",
+            "UT: peer armed 1 waiters 1",
+            "UT: round 1 armed blocked 1 waiters 3 peer 1",
+            "UT: round 1 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 1 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 1 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: round 2 armed blocked 1 waiters 3 peer 1",
+            "UT: round 2 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 2 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 2 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: peer retained 1 waiters 1",
+            "UT: peer released 1 waiters 0"
+          ]
+        },
+        {
+          "test": "u10/test_event_cancel_reuse_on_111",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial subject 0 peer 0",
+            "UT: peer armed 1 waiters 1",
+            "UT: round 1 armed blocked 1 waiters 3 peer 1",
+            "UT: round 1 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 1 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 1 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: round 2 armed blocked 1 waiters 3 peer 1",
+            "UT: round 2 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 2 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 2 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: peer retained 1 waiters 1",
+            "UT: peer released 1 waiters 0"
+          ]
+        },
+        {
+          "test": "u10/test_event_cancel_reuse_off_111",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial subject 0 peer 0",
+            "UT: peer armed 1 waiters 1",
+            "UT: round 1 armed blocked 1 waiters 3 peer 1",
+            "UT: round 1 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 1 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 1 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: round 2 armed blocked 1 waiters 3 peer 1",
+            "UT: round 2 cancel_first waiters 2 blocked 1 killed 1 peer 1",
+            "UT: round 2 cancel_second waiters 1 blocked 1 killed 1 peer 1",
+            "UT: round 2 released survivor 1 victims 1 waiters 0 peer 1",
+            "UT: peer retained 1 waiters 1",
+            "UT: peer released 1 waiters 0"
           ]
         }
       ]

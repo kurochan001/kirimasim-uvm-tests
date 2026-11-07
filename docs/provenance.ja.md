@@ -270,6 +270,8 @@ memoryの期待は明示mapの契約と独立した単位／offset計算から�
 
 event deltaの期待はIEEE 1800.2のwait_on／wait_offと、IEEE 1800のdeferred fork・Active／Inactive／NBA規則から独立に定めます。独自の子とNBA観測の限界は[Q420](faq.ja.md#q420-新しい子と予約したnbaを両方使う理由は)へ記録し、実装sourceや商用結果は新たに使いません。
 
+取消し／件数の期待はIEEE 1800.2のcancel／get_num_waitersと、IEEE 1800のprocess self／status／killから独立に定めます。正時間の準備と同じeventの再利用は[Q423](faq.ja.md#q423-onoff待機と同じeventの再利用を確認する理由は)で説明し、実装sourceや商用結果は新たに使いません。
+
 ## 条項カタログの保守
 
 条項カタログは引用の検証に使う規格の識別子一覧であり、規範的義務やcoverage分母との違いは[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)で確認できます。

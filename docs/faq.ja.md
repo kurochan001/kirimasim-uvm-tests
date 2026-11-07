@@ -170,7 +170,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2659件、HDL DPIの明示選択が38件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2663件、HDL DPIの明示選択が38件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -1035,8 +1035,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる4099要求案は部分的な分解で、4099要求を2659テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
-全2715テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる4099要求案は部分的な分解で、4099要求を2663テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
+全2719テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -2426,7 +2426,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1081件へ減った理由は？
 
 command enum引用、Boolean rerandomization観測、virtual-field configure引用に加え、reraiseの主引用を直した元入力1件で指紋が変わり、古いguest行を除外しました。4入力はそれぞれの変更時点で再測定し、reraiseの改訂は前回の拡充で両seedを測定しました。歴史的な1085記録の出典fileは保持します。
-現在は互換1081入力を再利用し、未測定1634入力は追加1630件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
+現在は互換1081入力を再利用し、未測定1638入力は追加1634件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
 
@@ -2478,9 +2478,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2715テストを2 seedで実行しましたか？
+### Q201. 全2719テストを2 seedで実行しましたか？
 
-いいえ。simulation 2616件とelaboration 99件があります。通常記録はruntime両seed一致2165件、期待compiler拒否94件、既知simulation差分451件、不正compile受理の既知差分5件です。
+いいえ。simulation 2620件とelaboration 99件があります。通常記録はruntime両seed一致2169件、期待compiler拒否94件、既知simulation差分451件、不正compile受理の既知差分5件です。
 不正design 99件は、compileを受理された場合もruntime seedを実行しません。
 
 `configuration`の`seeds`は要求した設定であり、全ケースが両方の実行に達した証拠ではないため、個別の結果と併せた読み方は[JSONのガイド](reading-guide.ja.md#結果jsonを開く)で確認できます。
@@ -2865,7 +2865,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価0番号です。
-スイートは直接対応2659テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2663テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2949,7 +2949,7 @@ shardはworkflowが選んだテストを分割した1区画で、Checkの対象�
 
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
-いいえ。現在のタグ付き2259検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
+いいえ。現在のタグ付き2263検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
 command-line 17検査はshard 0で通常検査の前に1回だけ実行します。runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
 分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分456件は通常の既定CI選択に含めません。
 
@@ -3070,7 +3070,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 その以前の引用修正では、本体とoracleが同じでも指紋が変わり、互換1083記録を1082へ絞りました。その時点ではGhostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
 
-現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1634入力は追加1630件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
+現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1638入力は追加1634件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3254,7 +3254,7 @@ zero-timeの委譲やprimitive release/readと、この実HDL 8入力の違い�
 
 既に部分分解した条項へ義務や条件を足しても、未評価queueは変わらない場合があります。
 初回の分解や根拠のある分類でそのqueueが変わり、テスト追加だけでは減らない場合があります。
-現在の4099義務は2659テストへ直接対応し、部分2062・未評価0番号が残ります。
+現在の4099義務は2663テストへ直接対応し、部分2062・未評価0番号が残ります。
 別々の進捗指標は[棚卸しのガイド](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
 
 ## Register HDL pathと観測の前提
@@ -3877,7 +3877,7 @@ queueの件数は記録したレビュー作業を表し、完全性や実行成
 
 いいえ。全2507識別子が部分的な要求分解または個別評価を持ち、部分2062・分類445です。
 B.4のregister／execute動作に部分義務を置き、継承の記述は未解決で保持します。
-全4099義務に直接テスト、全2715テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
+全4099義務に直接テスト、全2719テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
 元のM1〜M4目標、人の照合、範囲／分母承認は未完であり、完了条件は[残作業の案内](requirements.ja.md#m4の残作業と承認)にあります。
 coverage割合やgoal完了は主張しません。
 
@@ -3941,7 +3941,7 @@ reset後の走査を含む他17行の一致でも全入力は成功にせず、s
 いいえ。get_last、get_next、get_prevには実際の補助引用と直接対応がすでにあり、主引用テストがないだけで動作の未対応は立証できません。
 今はそれぞれlocal／typewideという異なる条件の主引用2profileがあります。u10のcore callback utilityは以前の整数iterator検査系と同じM1に数え、
 B.4 callback macroはM2の分類を保持します。不在／追加後の義務4件と既存4要求の対応を追加し、元のfieldと対応は保持します。
-candidateの棚卸しは主引用0が1171、目標未満770、目標以上541となりますが、部分2062識別子と元の目標は全て未完です。
+candidateの棚卸しは主引用0が1171、目標未満768、目標以上543となりますが、部分2062識別子と元の目標は全て未完です。
 配置が2件あっても独立した完全なcoverageを示さない理由は[計数のガイド](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
 ## memoryのaccess制限とrelocation単位
@@ -4051,7 +4051,7 @@ descriptionと主引用を保留dropの10.5.1.3.4へ直し、本体と期待2行
 drop_objectionの主引用は0件から13件へ増え、getterは2件から1件になりますが、独立した検査や要求全体を証明しません。
 
 ヘッダー編集は[更新規則](requirements.ja.md#テストや対応付けの更新)で入力指紋を変えます。改訂した元入力の古いguest行を互換1082記録から除外し、1081件を保持します。
-未測定1634入力は追加1630件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
+未測定1638入力は追加1634件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
 guestの再実行、改善、新しいpassはなく、元の証拠を保管し、通常の既知440入力も全て保持します。goalは未完です。
 
 ## 物理addressの直接変換
@@ -4086,7 +4086,7 @@ mapの直接照会は記憶域へaccessせずaddressを算出するもので、�
 
 ### Q412. known入力16件は新しいbug 16件やmap coverageの完了を意味しますか？
 
-この回答は107回目の拡充の時点を記録し、現在の件数は[その後のevent待機の監査](#q421-6件のevent-profileの一致で条項は完了しますか)で確認できます。
+この回答は107回目の拡充の時点を記録し、現在の件数は[その後の取消しの監査](#q424-取消しの一致でevent契約は完了しますか)で確認できます。
 
 どちらも導けません。1caseに複数の不一致があり、複数caseが同じ原因を持つ場合があります。
 直接の幅、entry index、階層、出力列の観測はそれぞれの限界を保持し、一致した行で別の必須不一致を持つcaseをpassにしません。新しい入力には固定版tagを付けません。
@@ -4120,7 +4120,7 @@ database形式や記録handleのoracleを置かず、選択した抑制と手動
 
 ### Q415. 4要求を追加せず既存5義務を拡張する理由は？
 
-この回答は108回目の拡充の時点を記録し、現在の件数は[その後のevent待機の監査](#q421-6件のevent-profileの一致で条項は完了しますか)で確認できます。
+この回答は108回目の拡充の時点を記録し、現在の件数は[その後の取消しの監査](#q424-取消しの一致でevent契約は完了しますか)で確認できます。
 
 新しいcaseは、既存のbase disable、時刻0／既定のtransaction begin／end、名前付きeventの義務を、追加の実転送条件で検査します。
 4profileごとに重複した義務を作らず、安定したIDと元の文章／linkを保持します。AI案は4096件のまま、直接対応は2649テストとなり、他の旧要求4091件と分類445件は同一です。
@@ -4157,7 +4157,7 @@ guest再実行、人の照合、範囲／分母承認や段階完了は導かず
 
 ### Q418. 自動記録義務の追加でbase条項は完了しますか？
 
-この回答は109回目の拡充の時点を記録し、現在の件数は[その後のevent待機の監査](#q421-6件のevent-profileの一致で条項は完了しますか)で確認できます。
+この回答は109回目の拡充の時点を記録し、現在の件数は[その後の取消しの監査](#q424-取消しの一致でevent契約は完了しますか)で確認できます。
 
 いいえ。新義務1件と安定したbase disable義務の拡張で、分解と実際のdata証拠を改善します。
 台帳のAI案4097件は2653テストへ直接対応し、他の旧要求4095件と分類445件は同一です。
@@ -4194,6 +4194,8 @@ event契約は#0を指定し、4.4.2.3／.4ではmodule processはNBA更新前�
 
 ### Q421. 6件のevent profileの一致で条項は完了しますか？
 
+この回答は110回目の拡充の時点を記録し、現在の件数は[その後の取消しの監査](#q424-取消しの一致でevent契約は完了しますか)で確認できます。
+
 完了しません。既に条件が成立したdelta-yield義務2件と、既存の持続／reset義務2件の拡張で選択条件を補強します。
 第10章は部分87／分類29／未評価0番号、義務169件、主引用140テストです。
 event契約全体、callback、waiter件数／reset、取消し、連続deltaの正確な観測は照合が必要で、
@@ -4204,3 +4206,38 @@ event契約全体、callback、waiter件数／reset、取消し、連続deltaの
 通常の一致は2259件で、seed 1／73のruntime 2165入力とcompiler拒否94件です。
 guestは新しい実行やfilterなしで互換1081／未測定1634入力です。
 部分2062番号、元の段階目標、人の照合、範囲／分母承認は残り、3つのqueueが空でもgoal完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で確認できます。
+
+## eventの取消しとwaiter件数の再利用
+
+### Q422. 4件の取消しprofileは何を追加しますか？
+
+以前の取消しケースは、raw-trigger waiter 2人の片方を1回killしました。
+今回のprofileは実callerを3人成立させ、選択した2 processを順にkill／cancelしてから、残るcallerを解放します。
+wait_trigger、wait_ptrigger、wait_on、wait_offを扱い、同じeventの2 roundと別の待機peerを使い、
+明示process handleと制御した解放は[独自helper](../tests/u10/helpers111_cancel/event_cancel111.svh)で確認できます。
+
+oracleは各観測時点の実waiter件数3、2、1、0を要求し、killとcancelの間の値や任意のprocess勝者順は採りません。
+IEEE 1800.2は取消し／件数、IEEE 1800はself、kill、KILLED statusを規定し、測定前にそれぞれを引用する場所は[ソースのmetadata](testing.ja.md#メタデータ)で確認できます。
+
+### Q423. on/off待機と同じeventの再利用を確認する理由は？
+
+件数の契約はeventで待機するprocessを記述するため、字義に従う解釈ではraw／persistent trigger待機と、実際にblockしたon／off呼出しを含めます。
+正の遅延でblockを成立させ、persistent待機では以前のtriggerと同じtime sliceの準備も避けます。
+[件数profile](../tests/u10/test_event_cancel_reuse_off_111.sv)は、実装がこれらのcallerを異なる方法で数えても期待を保持します。
+
+2 roundで取消しと通常完了後の同じeventの再利用を検査し、独立peerは自身を解放するまで1 callerを保つ必要があります。
+生存者はtrigger／persistent／on待機ではtrigger、off待機ではresetで復帰します。
+混在waiterをblockしたままにすべきeventのresetとは異なり、別条件の既知差分は[以前のresetの質問](#q184-wakeupなしresetでeventとbarrierのcount契約は同じですか)で説明しています。
+
+### Q424. 取消しの一致でevent契約は完了しますか？
+
+完了しません。profileごとに要求を追加せず、既存の2義務を拡張します。
+元の記述／link、他の旧要求4097件と分類445件は同一です。対応付けと完全な分解や実測の違いは[対応付けのガイド](requirements.ja.md#引用要求実行の証拠)で確認できます。
+
+最終tag付き4入力は全て両seedで一致し、元の通常／index 2715記録と既知456入力を保持します。
+全体は2719テスト（simulation 2620／elaboration 99）、AI義務4099件、直接対応2663テスト、通常一致2263件（runtime両seed 2169／compiler拒否94）です。
+guestは新しい実行／filterなしで互換1081／未測定1638入力です。
+
+第10章は部分87／分類29／未評価0番号、義務169件、主引用144テストです。
+suspendしたcallerや別手段で起動したcaller、生存／0件／重複cancel、callbackや並行reset、event契約全体は残ります。
+部分2062番号、元の目標、人／範囲／分母の照合は未完で、3つの空queueがgoalを完了しない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で確認できます。
