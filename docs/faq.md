@@ -171,7 +171,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2593 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2601 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1230,9 +1230,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4085 AI drafts cover only a partial decomposition: 4085 requirements link
-directly to 2593 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2649 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4089 AI drafts cover only a partial decomposition: 4089 requirements link
+directly to 2601 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2657 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2251,9 +2251,10 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 22
-catalog identifiers remain unassessed; decomposition and human review are
-incomplete, and the denominator remains unapproved.
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. All
+catalog identifiers now have partial decompositions or explicit assessments;
+remaining obligations and human review are incomplete, and the denominator
+remains unapproved.
 
 The [new policy test](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)
 closes the previous object-side synchronization mapping gap using the standard
@@ -3061,7 +3062,7 @@ Three original inputs have new fingerprints: the command enum citation, the
 Boolean rerandomization observation and the virtual-field configuration citation.
 All three were remeasured on Verilator; their stale guest records are excluded.
 The historical 1085-record source files remain intact. Current reuse covers
-1082 inputs, with 1567 unmeasured: 1564 additions and three revised originals.
+1082 inputs, with 1575 unmeasured: 1572 additions and three revised originals.
 This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
@@ -3132,10 +3133,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2649 tests run at two seeds?
+### Q201. Did all 2657 tests run at two seeds?
 
-No. There are 2550 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2123 two-seed runtime matches, 94 expected compiler rejections, 427 known
+No. There are 2558 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2129 two-seed runtime matches, 94 expected compiler rejections, 429 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3687,7 +3688,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2593 directly linked tests and fifty-six
+The suite has 2601 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3735,7 +3736,7 @@ control adds UNPACK and matches the unchanged expectation. Both remain indexed.
 The suppressed target sentinel also remains unchanged, but compatible roundtrip
 does not independently establish all one-way packing suppression or a layout.
 Print, record, configuration, empty/null/alias and wider flag conditions remain
-partial; the overall unassessed count is 22.
+partial; the overall unassessed identifier count is zero.
 
 ## Field access order, map changes and physical neighbors
 
@@ -3801,12 +3802,12 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 2217 tagged checks form 8 disjoint shards with at most 4 concurrent
+No. The current 2223 tagged checks form 8 disjoint shards with at most 4 concurrent
 jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the README badge
-for the current workflow result. The 432 known cases remain outside the ordinary default CI selection.
+for the current workflow result. The 434 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -3962,8 +3963,8 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 The corrected citation changes the exact input hash despite an unchanged body
 and oracle. Its old guest record is excluded: 1083 compatible records become
 1082, leaving Ghost 206 matches/876 failures per seed and kirimasim 1073
-unsupported/nine failures. No guest was rerun. The 1567 unmeasured inputs are
-1564 additions and three revised originals. This filter is not evidence of
+unsupported/nine failures. No guest was rerun. The 1575 unmeasured inputs are
+1572 additions and three revised originals. This filter is not evidence of
 guest improvement or regression; see [the evidence assembly](results.md#evidence-assembly).
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
@@ -4206,8 +4207,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4085 duties link directly
-to 2593 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4089 duties link directly
+to 2601 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5096,7 +5097,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4085 duties all have direct tests and all 2649 tests have links, but those
+The 4089 duties all have direct tests and all 2657 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5143,3 +5144,57 @@ Original statement/condition/expected/review fields and links are retained;
 [the mapping guide](requirements.md#citations-requirements-and-execution-evidence)
 explains why several tests can support one duty without creating new duties
 or establishing independent coverage for every shared output anchor.
+
+## Static callback boundaries and exhausted cursors
+
+An exhausted cursor is a traversal position whose continuation has reported no more callbacks, and [the iterator terms](glossary.md#static-callback-boundaries-and-exhausted-cursors) explain the endpoint reset used below.
+
+### Q394. Which static callback boundaries are checked?
+
+Each of get_first, get_last, get_next and get_prev has a local-object and a
+null typewide profile. Endpoint cases check initially empty, all-disabled,
+single/two-enabled, disabled-again, derived enabled edges and foreign-only
+requested-family states. An enabled registration on an excluded peer or
+instance must not substitute. The [original helper](../tests/u10/helpers103_static/static103.svh)
+uses exact handle comparisons and an unrelated callback class interleaved in
+known append order, with no numeric iterator encoding, private queue or
+factory-macro prerequisite. These profiles supplement the six earlier stable
+registration, independent-position and context fixtures.
+
+### Q395. Why keep null after an exhausted queue grows?
+
+10.7.2.4.3 and .4 require continued null after exhaustion until get_first or
+get_last resets the respective iterator. The new conditions apply that sentence
+literally after completed add calls; the add calls never receive the caller's
+cursor. Both an initially empty continuation and a previously nonempty exhausted
+walk are tested before reset, followed by a fresh complete selected-type walk.
+The [forward input](../tests/u10/test_callback_static_next_exhausted_growth_local_103.sv)
+retains this expectation when it differs. No undocumented auto-reset exception
+is introduced, and no general contract for nonexhausted traversal mutation,
+concurrent calls or arbitrary invalid integers is inferred.
+
+### Q396. Do seventeen matching rows pass the forward iterator inputs?
+
+No. Both forward profiles build and exit 0 at seed 1 but differ at
+after_empty_add and after_exhausted_add: the selected/null flags are 0/0
+instead of 1/1, establishing a nonnull return without identifying which handle
+was returned. All seventeen other rows match, including fresh-reset traversal,
+but neither complete input passes and neither has a seed-73 result. Six final
+tagged endpoint/backward inputs match both seeds separately. See [the typewide
+forward source](../tests/u10/test_callback_static_next_exhausted_growth_typewide_103.sv)
+and [the result rules](results.md#interpretation); no library-only cause or two
+independent defects are inferred.
+
+### Q397. Do the new primary citations complete the iterator clauses?
+
+No. get_last, get_next and get_prev already had real supporting citations and
+direct mappings; absence of a primary-focus test did not establish a missing
+behavior. Each now has two primary profiles with distinct local/typewide
+conditions. These u10 core callback utilities count as M1, consistently with
+the earlier integer-iterator fixtures; the B.4 callback macros retain their
+M2 grouping. Four boundary/growth duties are added and four existing mappings
+extended without changing original fields or links. The census now has
+1175 zero/771 below-target/536 at-least-target candidate identifiers, while
+all 2062 partial identifiers and original targets remain open; [the counting
+guide](requirements.md#citations-requirements-and-execution-evidence) explains
+why two placements alone do not prove independent complete coverage.

@@ -10597,6 +10597,38 @@
     "uB/test_callback_overview_base_relation_1_102": {
       "primary_clause": "B.4",
       "inputs_sha256": "7279bfe5b60934587a4609df57a0e0ddbe21f6936f7b03250320406614622bee"
+    },
+    "u10/test_callback_static_first_empty_disabled_local_103": {
+      "primary_clause": "10.7.2.4.1",
+      "inputs_sha256": "47210e3edce847045fac967d5ba9b5629e6e99cc87149e1adb4ae131a72dcfa7"
+    },
+    "u10/test_callback_static_first_empty_disabled_typewide_103": {
+      "primary_clause": "10.7.2.4.1",
+      "inputs_sha256": "3dc4c1b2ee454a0b2dc7df317b80abaea8a0dc5966eb186e0efa2eafc9ca76a9"
+    },
+    "u10/test_callback_static_last_empty_disabled_local_103": {
+      "primary_clause": "10.7.2.4.2",
+      "inputs_sha256": "388477c81c3a6115864f06151a9b1177f2ef327a6ec9d0857979b0647b2a1888"
+    },
+    "u10/test_callback_static_last_empty_disabled_typewide_103": {
+      "primary_clause": "10.7.2.4.2",
+      "inputs_sha256": "8917efce799a9a4fe55376f73c025297fff6c04a56b7589261ec9c2e31bd1e0a"
+    },
+    "u10/test_callback_static_next_exhausted_growth_local_103": {
+      "primary_clause": "10.7.2.4.3",
+      "inputs_sha256": "7eba7d04af07b7268c91d2e8e8ef2dbd3a426ce9d98ac87ae0e7cc6873bce1a0"
+    },
+    "u10/test_callback_static_next_exhausted_growth_typewide_103": {
+      "primary_clause": "10.7.2.4.3",
+      "inputs_sha256": "91eb87910a50f9d46f408fe1d640c4fa2bcffce4c4969e1e8d6808649bb178c7"
+    },
+    "u10/test_callback_static_prev_exhausted_growth_local_103": {
+      "primary_clause": "10.7.2.4.4",
+      "inputs_sha256": "9c5c74bff55c92c48cd644ed40b0ca36e141bee8d9c6b52db62092eaa2f65813"
+    },
+    "u10/test_callback_static_prev_exhausted_growth_typewide_103": {
+      "primary_clause": "10.7.2.4.4",
+      "inputs_sha256": "cad1bd9efd4bd02b21beaf18047a1a302d8bed0b8c29d0cd523ecfcd24b8681b"
     }
   }
 }

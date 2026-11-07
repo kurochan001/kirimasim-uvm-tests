@@ -159,7 +159,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2593件、HDL DPIの明示選択が38件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2601件、HDL DPIの明示選択が38件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -1010,8 +1010,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる4085要求案は部分的な分解で、4085要求を2593テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
-全2649テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる4089要求案は部分的な分解で、4089要求を2601テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
+全2657テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1814,8 +1814,8 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1件も未評価です。
-分解と人のレビューは未完で、分母は未承認です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。
+全catalog識別子が部分的な分解または明示分類を持ちますが、残る義務と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
 標準getterを使って、以前のobject側同期の未対応付けを解消します。固定libraryにはそのgetterがなく、
@@ -2400,7 +2400,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 
 command enum引用、Boolean rerandomization観測、virtual fieldのconfigure引用の既存3入力で指紋が変わりました。
 3入力ともVerilatorで再測定し、古いguest記録を除外しています。歴史的な1085記録の出典fileは保持します。
-現在の再利用は1082入力で、未測定1567件は追加1564件と修正した既存3入力です。
+現在の再利用は1082入力で、未測定1575件は追加1572件と修正した既存3入力です。
 これは記録のfilterでありguestの再実行ではなく、[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
@@ -2453,9 +2453,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2649テストを2 seedで実行しましたか？
+### Q201. 全2657テストを2 seedで実行しましたか？
 
-いいえ。simulation 2550件とelaboration 99件があります。通常記録はruntime両seed一致2123件、期待compiler拒否94件、既知simulation差分427件、不正compile受理の既知差分5件です。
+いいえ。simulation 2558件とelaboration 99件があります。通常記録はruntime両seed一致2129件、期待compiler拒否94件、既知simulation差分429件、不正compile受理の既知差分5件です。
 不正design 94件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
@@ -2838,7 +2838,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価0番号です。
-スイートは直接対応2593テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2601テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2922,9 +2922,9 @@ shardはworkflowが選んだテストを分割した1区画で、Checkの対象�
 
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
-いいえ。現在のタグ付き2217検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
+いいえ。現在のタグ付き2223検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
 command-line 17検査はshard 0で通常検査の前に1回だけ実行します。runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
-分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分432件は通常の既定CI選択に含めません。
+分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分434件は通常の既定CI選択に含めません。
 
 ## recordingとscalar macroの条件
 
@@ -3043,7 +3043,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 引用の修正は、本体とoracleが同じでも正確な入力hashを変えます。古いguest記録を除き、互換1083記録を1082へ絞ります。
 Ghostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
-未測定1567入力は追加1564件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
+未測定1575入力は追加1572件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3227,7 +3227,7 @@ zero-timeの委譲やprimitive release/readと、この実HDL 8入力の違い�
 
 既に部分分解した条項へ義務や条件を足しても、未評価queueは変わらない場合があります。
 初回の分解や根拠のある分類でそのqueueが変わり、テスト追加だけでは減らない場合があります。
-現在の4085義務は2593テストへ直接対応し、部分2062・未評価0番号が残ります。
+現在の4089義務は2601テストへ直接対応し、部分2062・未評価0番号が残ります。
 別々の進捗指標は[棚卸しのガイド](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
 
 ## Register HDL pathと観測の前提
@@ -3850,7 +3850,7 @@ queueの件数は記録したレビュー作業を表し、完全性や実行成
 
 いいえ。全2507識別子が部分的な要求分解または個別評価を持ち、部分2062・分類445です。
 B.4のregister／execute動作に部分義務を置き、継承の記述は未解決で保持します。
-全4085義務に直接テスト、全2649テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
+全4089義務に直接テスト、全2657テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
 元のM1〜M4目標、人の照合、範囲／分母承認は未完であり、完了条件は[残作業の案内](requirements.ja.md#m4の残作業と承認)にあります。
 coverage割合やgoal完了は主張しません。
 
@@ -3879,3 +3879,40 @@ modeによる抑止、名前指定の所属／削除、implicit METHODの伝播�
 異なる新3案はB.4の動作上の利用、再追加を通じた名前指定のappend／prepend配置、external-object METHODの参照伝播を記録します。
 既存14objectをレビューし、動作の分解後もB.4の継承の記述は未解決とする関連limitationsを明確にします。
 元のstatement／condition／expected／reviewと対応は保持し、複数テストが同じ義務を支えても義務を増やさず、共有anchorの全観測へ独立したcoverageを主張しない理由は[対応付けのガイド](requirements.ja.md#引用要求実行の証拠)で確認できます。
+
+## static callbackの境界と終端cursor
+
+終端cursorは継続呼出しでcallbackがもうないと報告した走査位置であり、以下で使うendpoint resetは[iteratorの用語](glossary.ja.md#static-callbackの境界と終端cursor)で確認できます。
+
+### Q394. static callbackのどの境界を検査しますか？
+
+get_first、get_last、get_next、get_prevごとにlocal objectとnullのtypewide profileを用意します。
+endpointでは初期の空、全件無効、1／2件有効、再無効化、派生型を含む有効な端、要求型群のないforeign-only状態を検査し、
+除外したpeerやinstanceの有効登録で代替しないことも確かめます。
+[独自helper](../tests/u10/helpers103_static/static103.svh)は既知のappend順に無関係なcallback classを挟んで正確なhandleを比較し、
+iterator整数の表現、private queue、factory macroの前提は使いません。
+以前の登録不変、位置の独立性、文脈を扱う6検査系を補強するprofileです。
+
+### Q395. 終端queueへ追加してもnullを期待する理由は？
+
+10.7.2.4.3と.4は、終端後にget_first／get_lastで対応するiteratorをresetするまでnullを継続すると要求します。
+新条件は完了したadd呼出しの後にもこの文を字面どおり適用し、add呼出しにはcallerのcursorを渡しません。
+初期に空のcontinuationと、以前に非空だった走査の終端をreset前に確かめ、その後にresetして選択型の完全な走査を行います。
+[前方入力](../tests/u10/test_callback_static_next_exhausted_growth_local_103.sv)は差分があっても期待を保持します。
+未記載の自動reset例外を作らず、終端前の走査中の変更、並行呼出し、任意の不正整数に対する一般の契約も推測しません。
+
+### Q396. 他17行が一致すれば前方iteratorの入力は成功ですか？
+
+いいえ。前方両profileはbuildとseed 1をexit 0で終えますが、after_empty_addとafter_exhausted_addで異なります。
+selected／null flagが期待する1／1でなく0／0なのでnonnullを返したことは分かりますが、返したhandleの正体は特定しません。
+reset後の走査を含む他17行の一致でも全入力は成功にせず、seed 73結果もありません。
+最終tag付きendpoint／後方6入力は別に両seedで一致し、[typewideの前方ソース](../tests/u10/test_callback_static_next_exhausted_growth_typewide_103.sv)と
+[結果の規則](results.ja.md#結果の解釈)で観測条件を確認できます。libraryだけの原因や独立した2不具合は推測しません。
+
+### Q397. 主引用の追加でiterator条項は完了しますか？
+
+いいえ。get_last、get_next、get_prevには実際の補助引用と直接対応がすでにあり、主引用テストがないだけで動作の未対応は立証できません。
+今はそれぞれlocal／typewideという異なる条件の主引用2profileがあります。u10のcore callback utilityは以前の整数iterator検査系と同じM1に数え、
+B.4 callback macroはM2の分類を保持します。不在／追加後の義務4件と既存4要求の対応を追加し、元のfieldと対応は保持します。
+candidateの棚卸しは主引用0が1175、目標未満771、目標以上536となりますが、部分2062識別子と元の目標は全て未完です。
+配置が2件あっても独立した完全なcoverageを示さない理由は[計数のガイド](requirements.ja.md#引用要求実行の証拠)で説明しています。

@@ -388,6 +388,8 @@ records the qualified root reading rather than a library-only conclusion.
 
 Named-callback expectations follow the standard through original per-target lists and arithmetic, while the conditional directional type controls do not establish mandatory ancestry; [Q392](faq.md#q392-do-the-type-relation-controls-settle-the-b4-base-wording) explains that qualification.
 
+Static-iterator expectations follow independently chosen handle placement and the documented repeat-null contract, without importing implementation integers or output; [Q395](faq.md#q395-why-keep-null-after-an-exhausted-queue-grows) explains the completed-addition premise.
+
 ## Clause catalog maintenance
 
 The catalog lists clause identifiers used to validate citations; [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains how these identifiers differ from normative duties and a coverage denominator.

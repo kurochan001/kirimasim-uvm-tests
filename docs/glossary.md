@@ -1826,3 +1826,13 @@ A callback can belong to several object queues while sharing one enabled state, 
 **Conditional directional type control** — A supporting conversion probe under one explicitly selected ancestry interpretation; [Q392](faq.md#q392-do-the-type-relation-controls-settle-the-b4-base-wording) explains why it does not prove mandatory ancestry or exclude the opposite permitted chain.
 
 **Zero-unassessed checkpoint** — Every catalog identifier has a partial decomposition or an individual assessment, with other obligations and completion gates still open; [Q390](faq.md#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) distinguishes this queue from complete coverage.
+
+## Static callback boundaries and exhausted cursors
+
+A static iterator uses the caller's integer as an opaque position, and [the boundary FAQ](faq.md#q394-which-static-callback-boundaries-are-checked) explains which public results are observed without fixing that representation.
+
+**Eligible static callback** — An enabled callback belonging to the requested CB family in the selected object or typewide queue, with unrelated and disabled entries excluded; [Q394](faq.md#q394-which-static-callback-boundaries-are-checked) shows the endpoint controls.
+
+**Exhausted cursor / endpoint reset** — A continuation that has returned null for no remaining callbacks / a new get_first or get_last that resets the corresponding direction; [Q395](faq.md#q395-why-keep-null-after-an-exhausted-queue-grows) explains the repeat-null condition.
+
+**Completed growth after exhaustion** — Callback additions finish before another continuation on the exhausted cursor, with a separate explicit reset afterward; [Q396](faq.md#q396-do-seventeen-matching-rows-pass-the-forward-iterator-inputs) distinguishes matching reset rows from a complete passing trace.

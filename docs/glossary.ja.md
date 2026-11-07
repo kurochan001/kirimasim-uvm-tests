@@ -1444,3 +1444,13 @@ callbackは複数objectのqueueへ所属しながら1つのenable状態を共有
 **条件付きの方向別型control** — 明示して選んだ1つの継承解釈の下で行う補助変換probeであり、必須継承を証明せず逆向きの許されたchainを除外しない理由は[Q392](faq.ja.md#q392-型関係のcontrolでb4の基底の記述は解決しますか)で説明しています。
 
 **未評価0の区切り** — 全catalog識別子が部分分解または個別評価を持ち、他の義務や完了条件は未完に保つ状態であり、このqueueと完全なcoverageの違いは[Q390](faq.ja.md#q390-未評価の識別子0件なら残作業も0件ですか)で確認できます。
+
+## static callbackの境界と終端cursor
+
+static iteratorはcallerの整数をopaqueな位置として使い、その表現を固定せず観測する公開結果は[境界のFAQ](faq.ja.md#q394-static-callbackのどの境界を検査しますか)で確認できます。
+
+**適格なstatic callback** — 選択object／typewide queueで要求CB型群に属する有効callbackであり、無関係な型や無効entryを除くendpointのcontrolは[Q394](faq.ja.md#q394-static-callbackのどの境界を検査しますか)にあります。
+
+**終端cursor／endpoint reset** — callbackがもうないためcontinuationがnullを返した状態と、対応方向をresetする新たなget_first／get_lastの呼出しであり、null継続条件は[Q395](faq.ja.md#q395-終端queueへ追加してもnullを期待する理由は)で説明しています。
+
+**終端後の完了した追加** — callback追加を終えてから終端cursorで再びcontinuationを呼び、その後に明示resetを別に行う条件であり、reset後の行の一致と全traceの成功の違いは[Q396](faq.ja.md#q396-他17行が一致すれば前方iteratorの入力は成功ですか)で確認できます。

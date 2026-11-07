@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 102 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2649 tests: 2550 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 103 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2657 tests: 2558 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5893,3 +5893,42 @@ partial obligations, applicability conditions and original M1–M4 targets remai
 open under [the completion explanation](faq.md#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work).
 All 430 earlier known inputs are retained, and ten new inputs remain unmeasured
 for guests. Scope, catalog, runners, backends and workflow are unchanged.
+
+## 103rd thin-area expansion: static iterator boundaries and post-exhaustion growth
+
+The 103rd expansion audits six existing static callback-iterator fixtures and
+adds eight M1 core-utility profiles under 10.7.2.4.1–.4. Local and null typewide
+contexts check empty/all-disabled queues, an unrelated callback family,
+derived enabled endpoints and explicit restart after exhaustion; [the boundary
+FAQ](faq.md#q394-which-static-callback-boundaries-are-checked) explains the selected observations.
+Four distinct absence/growth duties are added and four existing mappings
+extended. All original 4085 requirement fields and links, 445 assessments and
+2649 index/ordinary records remain. Scope, catalog, runners, backends and
+workflow are unchanged.
+
+Six final tagged endpoint/backward inputs match seeds 1/73 with exit 0. Two
+forward inputs build and exit 0 at seed 1, but return nonnull after additions
+to an exhausted cursor before its required reset. Both after_empty_add and
+after_exhausted_add rows differ, while seventeen other rows match. The original
+null-until-reset expectations remain; [the exhaustion FAQ](faq.md#q395-why-keep-null-after-an-exhausted-queue-grows)
+states this literal reading of the documented contract. No seed-73 result,
+unexpected handle identity or library-only cause is inferred, and matching
+other rows do not pass either complete input.
+
+The suite is 2657 tests (2558 simulation/99 elaboration): M1 1149 (1068/81),
+M2 606 (599/7), M3 902 (891/11). Ordinary evidence is 2223 pass
+(2129 runtime/94 compiler rejections) and 434 known (294 runtime/135 builds/
+five illegal acceptances). All 432 prior known inputs remain. Guest records
+retain 1082 compatible inputs; 1575 are unmeasured, comprising 1572 additions
+and three revised originals (1476 simulation/99 elaboration). No new guest
+measurement is claimed.
+
+The ledger has 4089 AI duties and 2601 directly linked tests, with 56
+control-only and 156 control-linked tests. All three review queues remain
+empty, while 2062 identifiers remain partial and 445 assessed. Primary-focus
+identifiers rise to 1311, with 2096 referenced; the candidate census is
+1175 zero/771 below-target/536 at-least-target. These placement counts do not
+complete the partial obligations, applicability conditions or original M1–M4
+targets; [the coverage FAQ](faq.md#q397-do-the-new-primary-citations-complete-the-iterator-clauses)
+explains the remaining audit. Human review and scope/denominator approval
+remain unrecorded.

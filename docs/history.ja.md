@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の102回目の拡充（全2649件：simulation 2550・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の103回目の拡充（全2657件：simulation 2558・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3684,3 +3684,26 @@ simulation buildの型変換の代入で失敗し、runtime結果はありませ
 catalogは部分2062／分類445／未評価0です。B.4は動作の分解によって部分となり、継承の問題を未解決で保持し、分類で除去しません。
 未評価0は1つのqueueの区切りであり、全ての部分義務、適用条件、元のM1〜M4目標を未完に保つ理由は[完了の説明](faq.ja.md#q390-未評価の識別子0件なら残作業も0件ですか)で確認できます。
 以前の既知430入力は全て保持し、新10入力はguestで未測定です。scope、catalog、runner、backend、workflowは未変更です。
+
+## 薄い領域の103回目の拡充：static iteratorの境界と終端後の追加
+
+103回目の拡充は既存static callback iteratorの6検査系を監査し、10.7.2.4.1〜.4へM1 core utilityの8profileを追加します。
+localとnullのtypewide文脈で、空／全件無効queue、無関係なcallback型群、派生型の有効endpoint、終端からの明示再開を検査し、
+選択した観測は[境界のFAQ](faq.ja.md#q394-static-callbackのどの境界を検査しますか)で説明しています。
+異なる不在／追加後の義務4件と既存4要求の対応を追加し、元の4085要求の全fieldと対応、分類445件、index／通常2649記録は保持します。
+scope、catalog、runner、backend、workflowは未変更です。
+
+最終tag付きのendpoint／後方走査6入力はseed 1／73でexit 0となり一致します。
+前方2入力はbuildとseed 1をexit 0で終えますが、終端cursorへ登録を追加すると、必要なresetの前にnonnullを返します。
+after_empty_addとafter_exhausted_addの両行が異なり、他17行は一致します。元のnull-until-resetの期待を保持し、文書化された契約を
+字面どおり適用する理由は[終端のFAQ](faq.ja.md#q395-終端queueへ追加してもnullを期待する理由は)に記録します。
+seed 73、予期しないhandleの正体、libraryだけの原因を推測せず、他の行の一致で全入力を成功にはしません。
+
+全体は2657テスト（simulation 2558／elaboration 99）で、M1 1149（1068／81）、M2 606（599／7）、M3 902（891／11）です。
+通常evidenceはpass 2223（runtime 2129／compiler拒否94）、known 434（runtime 294／build 135／不正受理5）で、以前の既知432入力は全て保持します。
+guestは互換1082入力を保持し、未測定1575入力は追加1572件と修正した元の3件（simulation 1476／elaboration 99）です。
+guestの新測定は主張しません。
+
+台帳はAI義務4089件、直接対応テスト2601件、controlのみ56件、control対応156件です。3つのレビューqueueは空のままですが、部分2062識別子と分類445識別子を保持します。
+主引用の識別子は1311、引用がある識別子は2096で、candidateの棚卸しは主引用0が1175、目標未満771、目標以上536です。
+配置の件数で部分義務、適用条件、元のM1〜M4目標を完了にしない理由は[coverageのFAQ](faq.ja.md#q397-主引用の追加でiterator条項は完了しますか)で説明し、人の照合と範囲／分母承認は記録していません。

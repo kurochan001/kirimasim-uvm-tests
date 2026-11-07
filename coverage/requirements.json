@@ -10802,6 +10802,36 @@
             "UT: middles 1 1",
             "UT: opposite_ends 1 1"
           ]
+        },
+        {
+          "test": "u10/test_callback_static_next_exhausted_growth_local_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 2 0 reset_grown selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_0 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_1 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_2 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_3 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_4 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_5 selected 1 null 0",
+            "UT: iterator103 2 0 grown_exhausted selected 1 null 1",
+            "UT: iterator103 2 0 grown_repeat selected 1 null 1"
+          ]
+        },
+        {
+          "test": "u10/test_callback_static_next_exhausted_growth_typewide_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 2 1 reset_grown selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_0 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_1 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_2 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_3 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_4 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_5 selected 1 null 0",
+            "UT: iterator103 2 1 grown_exhausted selected 1 null 1",
+            "UT: iterator103 2 1 grown_repeat selected 1 null 1"
+          ]
         }
       ]
     },
@@ -10857,6 +10887,36 @@
             "UT: endpoints 1 1",
             "UT: middles 1 1",
             "UT: opposite_ends 1 1"
+          ]
+        },
+        {
+          "test": "u10/test_callback_static_prev_exhausted_growth_local_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 3 0 reset_grown selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_0 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_1 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_2 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_3 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_4 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_5 selected 1 null 0",
+            "UT: iterator103 3 0 grown_exhausted selected 1 null 1",
+            "UT: iterator103 3 0 grown_repeat selected 1 null 1"
+          ]
+        },
+        {
+          "test": "u10/test_callback_static_prev_exhausted_growth_typewide_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 3 1 reset_grown selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_0 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_1 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_2 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_3 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_4 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_5 selected 1 null 0",
+            "UT: iterator103 3 1 grown_exhausted selected 1 null 1",
+            "UT: iterator103 3 1 grown_repeat selected 1 null 1"
           ]
         }
       ]
@@ -10923,6 +10983,36 @@
             "UT: exhausted 1 1",
             "UT: restarted 1 1"
           ]
+        },
+        {
+          "test": "u10/test_callback_static_next_exhausted_growth_local_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 2 0 reset_grown selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_0 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_1 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_2 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_3 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_4 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_5 selected 1 null 0",
+            "UT: iterator103 2 0 grown_exhausted selected 1 null 1",
+            "UT: iterator103 2 0 grown_repeat selected 1 null 1"
+          ]
+        },
+        {
+          "test": "u10/test_callback_static_next_exhausted_growth_typewide_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 2 1 reset_grown selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_0 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_1 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_2 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_3 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_4 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_5 selected 1 null 0",
+            "UT: iterator103 2 1 grown_exhausted selected 1 null 1",
+            "UT: iterator103 2 1 grown_repeat selected 1 null 1"
+          ]
         }
       ]
     },
@@ -10978,6 +11068,36 @@
             "UT: endpoints 1 1",
             "UT: middles 1 1",
             "UT: opposite_ends 1 1"
+          ]
+        },
+        {
+          "test": "u10/test_callback_static_prev_exhausted_growth_local_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 3 0 reset_grown selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_0 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_1 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_2 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_3 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_4 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_5 selected 1 null 0",
+            "UT: iterator103 3 0 grown_exhausted selected 1 null 1",
+            "UT: iterator103 3 0 grown_repeat selected 1 null 1"
+          ]
+        },
+        {
+          "test": "u10/test_callback_static_prev_exhausted_growth_typewide_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 3 1 reset_grown selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_0 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_1 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_2 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_3 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_4 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_5 selected 1 null 0",
+            "UT: iterator103 3 1 grown_exhausted selected 1 null 1",
+            "UT: iterator103 3 1 grown_repeat selected 1 null 1"
           ]
         }
       ]
@@ -156141,6 +156261,266 @@
             "UT: named102 3 1 stage 6 node 2 trace AZ value 404 args 1",
             "UT: named102 3 1 stage 6 node 3 trace AZS value 1225 args 1",
             "UT: named102 3 1 final calls 28 28 10 enabled 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-STATIC-FIRST-NO-ELIGIBLE-ENTRY-103",
+      "clause": "10.7.2.4.1",
+      "statement": {
+        "en": "get_first returns null when its selected context has no enabled callback of the requested CB type.",
+        "ja": "get_firstは、選択文脈に要求CB型の有効callbackがない場合にnullを返す。"
+      },
+      "conditions": {
+        "en": "Query an initially empty local or typewide queue, then a queue with all requested-family entries disabled and a live unrelated family. Enable selected entries and disable them again; finally remove the requested-family entries while leaving the unrelated family and excluded instance/peer registration.",
+        "ja": "初期に空のlocal／typewide queueを照会し、要求型群を全て無効にして無関係な型群を有効にしたqueueを照会する。選択entryの有効化／再無効化後、無関係な型群と除外するinstance／peer登録を残して要求型群を削除する。"
+      },
+      "expected": {
+        "en": "Empty,all-disabled,disabled-again and unrelated-only stages return null. Independent positive stages select the exact first/last enabled handle,including a derived callback endpoint.",
+        "ja": "空、全件無効、再無効化、無関係型のみの段階はnullを返す。独立したpositive段階は派生callback endpointを含め、最初／最後の有効handleを正確に選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected public static integer-iterator API profiles under one exact object context or null typewide context. An unrelated callback family and disabled endpoints expose filtering; exact handles and expected nulls are observed without integer encodings, private queues or factory-macro prerequisites. The repeat-null contract is applied literally after an exhausted continuation and completed callback additions, with get_first/get_last as the documented reset; no undocumented auto-reset exception is invented. No active nonexhausted traversal mutation, concurrent calls, arbitrary invalid iterator integers, general inheritance/typewide-instance ordering, facade equivalence or complete callback coverage is certified. All prior knowns and unresolved premises,2062partial clauses,original M1-M4 targets and human/scope/denominator approval remain open.",
+        "ja": "選択した公開static整数iterator APIを、正確なobject文脈またはnullのtypewide文脈で検査する。無関係なcallback型群と無効endpointによって選別を観測し、整数表現、private queue、factory macroの前提を使わず、正確なhandleと期待するnullを確認する。終端のcontinuationと完了したcallback追加後に、get_first／get_lastを記載されたresetとするnull継続契約を字面どおり適用し、未記載の自動reset例外は作らない。終端前の走査中の変更、並行呼出し、任意の不正iterator整数、一般の継承／typewideとinstance間の順序、facadeの同等性、callback全体の網羅は認定しない。以前の既知差分と未解決前提、部分2062条項、元のM1〜M4目標、人／範囲／分母の承認は未完である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callback_static_first_empty_disabled_local_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 0 0 empty_start selected 1 null 1",
+            "UT: iterator103 0 0 all_disabled selected 1 null 1",
+            "UT: iterator103 0 0 single_enabled selected 1 null 0",
+            "UT: iterator103 0 0 two_enabled selected 1 null 0",
+            "UT: iterator103 0 0 disabled_again selected 1 null 1",
+            "UT: iterator103 0 0 enabled_edges selected 1 null 0",
+            "UT: iterator103 0 0 foreign_only selected 1 null 1"
+          ]
+        },
+        {
+          "test": "u10/test_callback_static_first_empty_disabled_typewide_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 0 1 empty_start selected 1 null 1",
+            "UT: iterator103 0 1 all_disabled selected 1 null 1",
+            "UT: iterator103 0 1 single_enabled selected 1 null 0",
+            "UT: iterator103 0 1 two_enabled selected 1 null 0",
+            "UT: iterator103 0 1 disabled_again selected 1 null 1",
+            "UT: iterator103 0 1 enabled_edges selected 1 null 0",
+            "UT: iterator103 0 1 foreign_only selected 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-STATIC-LAST-NO-ELIGIBLE-ENTRY-103",
+      "clause": "10.7.2.4.2",
+      "statement": {
+        "en": "get_last returns null when its selected context has no enabled callback of the requested CB type.",
+        "ja": "get_lastは、選択文脈に要求CB型の有効callbackがない場合にnullを返す。"
+      },
+      "conditions": {
+        "en": "Query an initially empty local or typewide queue, then a queue with all requested-family entries disabled and a live unrelated family. Enable selected entries and disable them again; finally remove the requested-family entries while leaving the unrelated family and excluded instance/peer registration.",
+        "ja": "初期に空のlocal／typewide queueを照会し、要求型群を全て無効にして無関係な型群を有効にしたqueueを照会する。選択entryの有効化／再無効化後、無関係な型群と除外するinstance／peer登録を残して要求型群を削除する。"
+      },
+      "expected": {
+        "en": "Empty,all-disabled,disabled-again and unrelated-only stages return null. Independent positive stages select the exact first/last enabled handle,including a derived callback endpoint.",
+        "ja": "空、全件無効、再無効化、無関係型のみの段階はnullを返す。独立したpositive段階は派生callback endpointを含め、最初／最後の有効handleを正確に選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected public static integer-iterator API profiles under one exact object context or null typewide context. An unrelated callback family and disabled endpoints expose filtering; exact handles and expected nulls are observed without integer encodings, private queues or factory-macro prerequisites. The repeat-null contract is applied literally after an exhausted continuation and completed callback additions, with get_first/get_last as the documented reset; no undocumented auto-reset exception is invented. No active nonexhausted traversal mutation, concurrent calls, arbitrary invalid iterator integers, general inheritance/typewide-instance ordering, facade equivalence or complete callback coverage is certified. All prior knowns and unresolved premises,2062partial clauses,original M1-M4 targets and human/scope/denominator approval remain open.",
+        "ja": "選択した公開static整数iterator APIを、正確なobject文脈またはnullのtypewide文脈で検査する。無関係なcallback型群と無効endpointによって選別を観測し、整数表現、private queue、factory macroの前提を使わず、正確なhandleと期待するnullを確認する。終端のcontinuationと完了したcallback追加後に、get_first／get_lastを記載されたresetとするnull継続契約を字面どおり適用し、未記載の自動reset例外は作らない。終端前の走査中の変更、並行呼出し、任意の不正iterator整数、一般の継承／typewideとinstance間の順序、facadeの同等性、callback全体の網羅は認定しない。以前の既知差分と未解決前提、部分2062条項、元のM1〜M4目標、人／範囲／分母の承認は未完である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callback_static_last_empty_disabled_local_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 1 0 empty_start selected 1 null 1",
+            "UT: iterator103 1 0 all_disabled selected 1 null 1",
+            "UT: iterator103 1 0 single_enabled selected 1 null 0",
+            "UT: iterator103 1 0 two_enabled selected 1 null 0",
+            "UT: iterator103 1 0 disabled_again selected 1 null 1",
+            "UT: iterator103 1 0 enabled_edges selected 1 null 0",
+            "UT: iterator103 1 0 foreign_only selected 1 null 1"
+          ]
+        },
+        {
+          "test": "u10/test_callback_static_last_empty_disabled_typewide_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 1 1 empty_start selected 1 null 1",
+            "UT: iterator103 1 1 all_disabled selected 1 null 1",
+            "UT: iterator103 1 1 single_enabled selected 1 null 0",
+            "UT: iterator103 1 1 two_enabled selected 1 null 0",
+            "UT: iterator103 1 1 disabled_again selected 1 null 1",
+            "UT: iterator103 1 1 enabled_edges selected 1 null 0",
+            "UT: iterator103 1 1 foreign_only selected 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-STATIC-NEXT-EXHAUSTION-UNTIL-RESET-AFTER-ADD-103",
+      "clause": "10.7.2.4.3",
+      "statement": {
+        "en": "After an exhausted get_next returns null,completed callback additions do not replace the required get_first reset.",
+        "ja": "終端でget_nextがnullを返した後、完了したcallback追加は必要なget_firstのresetを置き換えない。"
+      },
+      "conditions": {
+        "en": "Use an opaque integer cursor in local or null typewide context. Obtain repeated null from get_next on an empty queue,add mixed requested/unrelated and disabled callbacks,then continue before resetting. Exhaust a nonempty walk,append five enabled callbacks after the completed exhausted calls,and continue before a fresh get_first.",
+        "ja": "localまたはnullのtypewide文脈でopaqueな整数cursorを使う。空queueのget_nextでnullを反復し、要求型／無関係型と無効callbackを追加してreset前に継続する。非空走査を終端まで進め、終端呼出しの完了後に有効callbackを5件追加して、新たなget_first前に継続する。"
+      },
+      "expected": {
+        "en": "Both post-add continuations remain null until get_first. A fresh reset then selects the required endpoint and subsequent get_next calls return exactly the enabled requested-family handles in order before repeated null; unrelated or excluded peer entries never substitute.",
+        "ja": "追加後の両continuationはget_firstまでnullを保つ。reset後は必要なendpointを選び、続くget_nextは有効な要求型群のhandleだけを前向きの順で返してnullを反復し、無関係な型や除外peerのentryで代替しない。"
+      },
+      "limitations": {
+        "en": "Selected public static integer-iterator API profiles under one exact object context or null typewide context. An unrelated callback family and disabled endpoints expose filtering; exact handles and expected nulls are observed without integer encodings, private queues or factory-macro prerequisites. The repeat-null contract is applied literally after an exhausted continuation and completed callback additions, with get_first/get_last as the documented reset; no undocumented auto-reset exception is invented. No active nonexhausted traversal mutation, concurrent calls, arbitrary invalid iterator integers, general inheritance/typewide-instance ordering, facade equivalence or complete callback coverage is certified. All prior knowns and unresolved premises,2062partial clauses,original M1-M4 targets and human/scope/denominator approval remain open.",
+        "ja": "選択した公開static整数iterator APIを、正確なobject文脈またはnullのtypewide文脈で検査する。無関係なcallback型群と無効endpointによって選別を観測し、整数表現、private queue、factory macroの前提を使わず、正確なhandleと期待するnullを確認する。終端のcontinuationと完了したcallback追加後に、get_first／get_lastを記載されたresetとするnull継続契約を字面どおり適用し、未記載の自動reset例外は作らない。終端前の走査中の変更、並行呼出し、任意の不正iterator整数、一般の継承／typewideとinstance間の順序、facadeの同等性、callback全体の網羅は認定しない。以前の既知差分と未解決前提、部分2062条項、元のM1〜M4目標、人／範囲／分母の承認は未完である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callback_static_next_exhausted_growth_local_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 2 0 empty_start selected 1 null 1",
+            "UT: iterator103 2 0 empty_step selected 1 null 1",
+            "UT: iterator103 2 0 empty_repeat selected 1 null 1",
+            "UT: iterator103 2 0 after_empty_add selected 1 null 1",
+            "UT: iterator103 2 0 reset_initial selected 1 null 0",
+            "UT: iterator103 2 0 initial_step selected 1 null 0",
+            "UT: iterator103 2 0 initial_exhausted selected 1 null 1",
+            "UT: iterator103 2 0 initial_repeat selected 1 null 1",
+            "UT: iterator103 2 0 after_exhausted_add selected 1 null 1",
+            "UT: iterator103 2 0 reset_grown selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_0 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_1 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_2 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_3 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_4 selected 1 null 0",
+            "UT: iterator103 2 0 grown_step_5 selected 1 null 0",
+            "UT: iterator103 2 0 grown_exhausted selected 1 null 1",
+            "UT: iterator103 2 0 grown_repeat selected 1 null 1",
+            "UT: iterator103 2 0 foreign_only selected 1 null 1"
+          ]
+        },
+        {
+          "test": "u10/test_callback_static_next_exhausted_growth_typewide_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 2 1 empty_start selected 1 null 1",
+            "UT: iterator103 2 1 empty_step selected 1 null 1",
+            "UT: iterator103 2 1 empty_repeat selected 1 null 1",
+            "UT: iterator103 2 1 after_empty_add selected 1 null 1",
+            "UT: iterator103 2 1 reset_initial selected 1 null 0",
+            "UT: iterator103 2 1 initial_step selected 1 null 0",
+            "UT: iterator103 2 1 initial_exhausted selected 1 null 1",
+            "UT: iterator103 2 1 initial_repeat selected 1 null 1",
+            "UT: iterator103 2 1 after_exhausted_add selected 1 null 1",
+            "UT: iterator103 2 1 reset_grown selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_0 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_1 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_2 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_3 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_4 selected 1 null 0",
+            "UT: iterator103 2 1 grown_step_5 selected 1 null 0",
+            "UT: iterator103 2 1 grown_exhausted selected 1 null 1",
+            "UT: iterator103 2 1 grown_repeat selected 1 null 1",
+            "UT: iterator103 2 1 foreign_only selected 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-STATIC-PREVIOUS-EXHAUSTION-UNTIL-RESET-AFTER-ADD-103",
+      "clause": "10.7.2.4.4",
+      "statement": {
+        "en": "After an exhausted get_prev returns null,completed callback additions do not replace the required get_last reset.",
+        "ja": "終端でget_prevがnullを返した後、完了したcallback追加は必要なget_lastのresetを置き換えない。"
+      },
+      "conditions": {
+        "en": "Use an opaque integer cursor in local or null typewide context. Obtain repeated null from get_prev on an empty queue,add mixed requested/unrelated and disabled callbacks,then continue before resetting. Exhaust a nonempty walk,append five enabled callbacks after the completed exhausted calls,and continue before a fresh get_last.",
+        "ja": "localまたはnullのtypewide文脈でopaqueな整数cursorを使う。空queueのget_prevでnullを反復し、要求型／無関係型と無効callbackを追加してreset前に継続する。非空走査を終端まで進め、終端呼出しの完了後に有効callbackを5件追加して、新たなget_last前に継続する。"
+      },
+      "expected": {
+        "en": "Both post-add continuations remain null until get_last. A fresh reset then selects the required endpoint and subsequent get_prev calls return exactly the enabled requested-family handles in order before repeated null; unrelated or excluded peer entries never substitute.",
+        "ja": "追加後の両continuationはget_lastまでnullを保つ。reset後は必要なendpointを選び、続くget_prevは有効な要求型群のhandleだけを後向きの順で返してnullを反復し、無関係な型や除外peerのentryで代替しない。"
+      },
+      "limitations": {
+        "en": "Selected public static integer-iterator API profiles under one exact object context or null typewide context. An unrelated callback family and disabled endpoints expose filtering; exact handles and expected nulls are observed without integer encodings, private queues or factory-macro prerequisites. The repeat-null contract is applied literally after an exhausted continuation and completed callback additions, with get_first/get_last as the documented reset; no undocumented auto-reset exception is invented. No active nonexhausted traversal mutation, concurrent calls, arbitrary invalid iterator integers, general inheritance/typewide-instance ordering, facade equivalence or complete callback coverage is certified. All prior knowns and unresolved premises,2062partial clauses,original M1-M4 targets and human/scope/denominator approval remain open.",
+        "ja": "選択した公開static整数iterator APIを、正確なobject文脈またはnullのtypewide文脈で検査する。無関係なcallback型群と無効endpointによって選別を観測し、整数表現、private queue、factory macroの前提を使わず、正確なhandleと期待するnullを確認する。終端のcontinuationと完了したcallback追加後に、get_first／get_lastを記載されたresetとするnull継続契約を字面どおり適用し、未記載の自動reset例外は作らない。終端前の走査中の変更、並行呼出し、任意の不正iterator整数、一般の継承／typewideとinstance間の順序、facadeの同等性、callback全体の網羅は認定しない。以前の既知差分と未解決前提、部分2062条項、元のM1〜M4目標、人／範囲／分母の承認は未完である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callback_static_prev_exhausted_growth_local_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 3 0 empty_start selected 1 null 1",
+            "UT: iterator103 3 0 empty_step selected 1 null 1",
+            "UT: iterator103 3 0 empty_repeat selected 1 null 1",
+            "UT: iterator103 3 0 after_empty_add selected 1 null 1",
+            "UT: iterator103 3 0 reset_initial selected 1 null 0",
+            "UT: iterator103 3 0 initial_step selected 1 null 0",
+            "UT: iterator103 3 0 initial_exhausted selected 1 null 1",
+            "UT: iterator103 3 0 initial_repeat selected 1 null 1",
+            "UT: iterator103 3 0 after_exhausted_add selected 1 null 1",
+            "UT: iterator103 3 0 reset_grown selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_0 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_1 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_2 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_3 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_4 selected 1 null 0",
+            "UT: iterator103 3 0 grown_step_5 selected 1 null 0",
+            "UT: iterator103 3 0 grown_exhausted selected 1 null 1",
+            "UT: iterator103 3 0 grown_repeat selected 1 null 1",
+            "UT: iterator103 3 0 foreign_only selected 1 null 1"
+          ]
+        },
+        {
+          "test": "u10/test_callback_static_prev_exhausted_growth_typewide_103",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator103 3 1 empty_start selected 1 null 1",
+            "UT: iterator103 3 1 empty_step selected 1 null 1",
+            "UT: iterator103 3 1 empty_repeat selected 1 null 1",
+            "UT: iterator103 3 1 after_empty_add selected 1 null 1",
+            "UT: iterator103 3 1 reset_initial selected 1 null 0",
+            "UT: iterator103 3 1 initial_step selected 1 null 0",
+            "UT: iterator103 3 1 initial_exhausted selected 1 null 1",
+            "UT: iterator103 3 1 initial_repeat selected 1 null 1",
+            "UT: iterator103 3 1 after_exhausted_add selected 1 null 1",
+            "UT: iterator103 3 1 reset_grown selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_0 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_1 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_2 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_3 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_4 selected 1 null 0",
+            "UT: iterator103 3 1 grown_step_5 selected 1 null 0",
+            "UT: iterator103 3 1 grown_exhausted selected 1 null 1",
+            "UT: iterator103 3 1 grown_repeat selected 1 null 1",
+            "UT: iterator103 3 1 foreign_only selected 1 null 1"
           ]
         }
       ]

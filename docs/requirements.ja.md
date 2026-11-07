@@ -7,8 +7,8 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4085件は、すべて2593テストへ直接対応し、
-追加の56テストはcontrol専用です。全2649テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4089件は、すべて2601テストへ直接対応し、
+追加の56テストはcontrol専用です。全2657テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
@@ -32,7 +32,7 @@ control専用テストは補助的な前提を検査するもので、その一�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-4085件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+4089件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -62,10 +62,10 @@ directとcontrolは、義務を直接検査するか、準備や条件の評価�
 ![条項の引用、明示的な要求の対応付け、別途測定する実行の証拠の関係。](images/requirement-evidence.ja.svg)
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は1308件、どちらかの引用がある番号は2,096件です。
+catalogのうち主引用がある番号は1311件、どちらかの引用がある番号は2,096件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,178、1件が771、2件以上が533です。
+対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,175、1件が771、2件以上が536です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -86,7 +86,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2649件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2657件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -110,7 +110,7 @@ schemaの版はJSONの項目構成を識別するもので、UVMライブラリ�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2649件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2657件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -212,7 +212,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 7 | 91 | 35 | 0 | 20 | 0 |
 | 8 | 83 | 65 | 0 | 12 | 0 |
 | 9 | 141 | 63 | 0 | 22 | 0 |
-| 10 | 162 | 114 | 0 | 29 | 0 |
+| 10 | 166 | 122 | 0 | 29 | 0 |
 | 11 | 35 | 20 | 0 | 4 | 0 |
 | 12 | 324 | 194 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
@@ -233,26 +233,29 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 この表は主引用テストがないものも含むcatalogの全26rootを示し、文脈・保留の行も未評価合計に残す理由は[範囲の用語](glossary.ja.md#範囲とカバレッジ)で確認できます。
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
-残る識別子1件は評価／分解が必要です。範囲は提案、4085件のレビューはすべて`ai`、分母は未承認です。
+部分2062識別子は残る義務と適用条件を[完了条件](#m4の残作業と承認)に従って確認する必要があります。
+範囲は提案、4089件のレビューはすべて`ai`、分母は未承認です。
 
-102回目の拡充は主引用B.4のM2 profileを10件追加します。動作8入力は名前指定のcallback追加、明示disable／enable、
-無効中の削除、implicit／external-object macroでの再追加を組み合わせます。exact／glob名、枝2選択、逆の生成順で、
-対象ごとの所属、配置、参照値、caller引数を保持する条件は[callbackのFAQ](faq.ja.md#q391-名前指定callbackのlifecycle-profileは何を検査しますか)で説明しています。
-最終tag付き8入力は全てseed 1／73でexit 0となり一致します。
+103回目の拡充は既存static callback iteratorの6検査系を監査し、10.7.2.4.1〜.4へM1 core utilityの8profileを追加します。
+localとnullのtypewide文脈で、空／全件無効queue、無関係なcallback型群、派生型の有効endpoint、終端からの明示再開を検査し、
+選択した観測は[境界のFAQ](faq.ja.md#q394-static-callbackのどの境界を検査しますか)で説明しています。
+異なる不在／追加後の義務4件と既存4要求の対応を追加し、元の4085要求の全fieldと対応、分類445件、index／通常2649記録は保持します。
+scope、catalog、runner、backend、workflowは未変更です。
 
-constructorを呼ばない補助control 2件は、registryがcallbackの派生になるという選択した型解釈だけを検査します。
-simulation buildの型変換の代入で失敗し、runtime結果はありません。当初のコメントはこの関係を必須と過大に記していましたが、
-1.4.3は逆向きの中間継承も許します。コメントを明確にして両方を再buildし、logicと期待行は保持します。
-限定したcontrolであり、必須継承、誤記、矛盾、libraryだけの不具合の証明にはせず、その境界は[型関係のFAQ](faq.ja.md#q392-型関係のcontrolでb4の基底の記述は解決しますか)に記録します。
+最終tag付きのendpoint／後方走査6入力はseed 1／73でexit 0となり一致します。
+前方2入力はbuildとseed 1をexit 0で終えますが、終端cursorへ登録を追加すると、必要なresetの前にnonnullを返します。
+after_empty_addとafter_exhausted_addの両行が異なり、他17行は一致します。元のnull-until-resetの期待を保持し、文書化された契約を
+字面どおり適用する理由は[終端のFAQ](faq.ja.md#q395-終端queueへ追加してもnullを期待する理由は)に記録します。
+seed 73、予期しないhandleの正体、libraryだけの原因を推測せず、他の行の一致で全入力を成功にはしません。
 
-異なる部分義務3件を追加し、mode、削除、implicit引数の義務を重複させず既存5要求の対応を増やします。
-既存要求object 14件をレビューし、limitations内の未解決B.4の説明も明確にします。元の対応、statement、conditions、expected、reviewは保持します。
-個別分類445件と以前のindex／通常記録2639件は保持します。AI義務4085件、直接対応テスト2593件、controlのみ56件、control対応156件になります。
-人の照合と範囲／分母承認は記録していません。
+全体は2657テスト（simulation 2558／elaboration 99）で、M1 1149（1068／81）、M2 606（599／7）、M3 902（891／11）です。
+通常evidenceはpass 2223（runtime 2129／compiler拒否94）、known 434（runtime 294／build 135／不正受理5）で、以前の既知432入力は全て保持します。
+guestは互換1082入力を保持し、未測定1575入力は追加1572件と修正した元の3件（simulation 1476／elaboration 99）です。
+guestの新測定は主張しません。
 
-catalogは部分2062／分類445／未評価0です。B.4は動作の分解によって部分となり、継承の問題を未解決で保持し、分類で除去しません。
-未評価0は1つのqueueの区切りであり、全ての部分義務、適用条件、元のM1〜M4目標を未完に保つ理由は[完了の説明](faq.ja.md#q390-未評価の識別子0件なら残作業も0件ですか)で確認できます。
-以前の既知430入力は全て保持し、新10入力はguestで未測定です。scope、catalog、runner、backend、workflowは未変更です。
+台帳はAI義務4089件、直接対応テスト2601件、controlのみ56件、control対応156件です。3つのレビューqueueは空のままですが、部分2062識別子と分類445識別子を保持します。
+主引用の識別子は1311、引用がある識別子は2096で、candidateの棚卸しは主引用0が1175、目標未満771、目標以上536です。
+配置の件数で部分義務、適用条件、元のM1〜M4目標を完了にしない理由は[coverageのFAQ](faq.ja.md#q397-主引用の追加でiterator条項は完了しますか)で説明し、人の照合と範囲／分母承認は記録していません。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。
@@ -366,7 +369,7 @@ heartbeat要求案は、mode選択、不在／置換／再利用するevent、st
 payload要求案はmethod別のvirtual-dispatch義務14件と、既存setter観測11件の明示対応を加えます。
 transactionのhook／時刻照会の要求6件は、未変更の1検査系を使います。FIFO要求案は公開abstract queue、容量、popしないget、
 debug引数の非機能性、選択したinline／subtype制約を扱います。FIFOのbus access、compare、そのための初期化は未完です。
-payload memberの導入は文脈として分類し、下位のattribute所有規則とtarget／transportの義務は別に未評価のまま保持します。
+payload memberの導入は文脈として分類し、下位のattribute所有規則とtarget／transportの義務は、残る適用条件を別にレビューする必要があります。
 
 constructor要求案は、recording database／stream／link、sequence型、register fileの名前省略・明示・明示的な空文字を分けます。
 prefilled linkでは既定名とinstanceの独立性を追加します。未変更M2検査系5件へ、setter、randomization gate、handler照会、
@@ -508,4 +511,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる4085要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる4089要求案と直接の対応は、その条件を満たしていません。

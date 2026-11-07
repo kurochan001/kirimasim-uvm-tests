@@ -1,0 +1,7 @@
+UT: iterator103 0 0 empty_start selected 1 null 1
+UT: iterator103 0 0 all_disabled selected 1 null 1
+UT: iterator103 0 0 single_enabled selected 1 null 0
+UT: iterator103 0 0 two_enabled selected 1 null 0
+UT: iterator103 0 0 disabled_again selected 1 null 1
+UT: iterator103 0 0 enabled_edges selected 1 null 0
+UT: iterator103 0 0 foreign_only selected 1 null 1
