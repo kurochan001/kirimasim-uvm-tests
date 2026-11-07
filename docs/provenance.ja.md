@@ -272,6 +272,8 @@ event deltaの期待はIEEE 1800.2のwait_on／wait_offと、IEEE 1800のdeferre
 
 取消し／件数の期待はIEEE 1800.2のcancel／get_num_waitersと、IEEE 1800のprocess self／status／killから独立に定めます。正時間の準備と同じeventの再利用は[Q423](faq.ja.md#q423-onoff待機と同じeventの再利用を確認する理由は)で説明し、実装sourceや商用結果は新たに使いません。
 
+unpackの期待と型付き入力は測定前にIEEEから固定し、payloadのdo_packや実装出力を根拠にしません。両測定phaseの後に、固定Apacheの[method](https://github.com/accellera-official/uvm-core/blob/78c06547a2a0a29b3dc9dcafae62b75b2ff61544/src/tlm2/uvm_tlm2_generic_payload.svh#L619-L645)と[unpack macro](https://github.com/accellera-official/uvm-core/blob/78c06547a2a0a29b3dc9dcafae62b75b2ff61544/src/macros/uvm_packer_defines.svh#L229-L253)を診断用だけに読み、member fieldへの直接代入がsetter訪問を捕捉できないことと整合すると確認しました。[Q426](faq.ja.md#q426-field値が一致してもsetter順序を限定した解釈とする理由は)の列挙setter解釈は未解決に保ちます。期待値は変更せず、simulator実装sourceや商用結果は使いません。
+
 ## 条項カタログの保守
 
 条項カタログは引用の検証に使う規格の識別子一覧であり、規範的義務やcoverage分母との違いは[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)で確認できます。

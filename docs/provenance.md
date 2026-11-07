@@ -410,6 +410,8 @@ Event delta expectations are independently derived from IEEE 1800.2 wait_on/wait
 
 Cancellation/count expectations are independently derived from IEEE 1800.2 cancel/get_num_waiters and IEEE 1800 process self/status/kill. [Q423](faq.md#q423-why-check-onoff-waits-and-reuse-the-same-event) explains the original positive-time setup and same-event reuse; no implementation source or commercial result is newly used.
 
+Unpack expectations and typed input were fixed from IEEE before measurement, independently of payload do_pack or implementation output. After both measurement phases, the locked Apache [method](https://github.com/accellera-official/uvm-core/blob/78c06547a2a0a29b3dc9dcafae62b75b2ff61544/src/tlm2/uvm_tlm2_generic_payload.svh#L619-L645) and [unpack macros](https://github.com/accellera-official/uvm-core/blob/78c06547a2a0a29b3dc9dcafae62b75b2ff61544/src/macros/uvm_packer_defines.svh#L229-L253) were read only for diagnosis: they assign the member fields directly, consistent with the captured absence of setter visits. [Q426](faq.md#q426-why-is-setter-order-qualified-when-field-values-match) retains the unresolved named-setter interpretation. No expectation changed, and no simulator implementation source or commercial result was used.
+
 ## Clause catalog maintenance
 
 The catalog lists clause identifiers used to validate citations; [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains how these identifiers differ from normative duties and a coverage denominator.

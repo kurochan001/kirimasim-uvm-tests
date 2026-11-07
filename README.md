@@ -16,10 +16,10 @@ If UVM is new to you, [the reading guide](docs/reading-guide.md#what-this-reposi
 An oracle records the expectation's basis: `spec` cites the standard and `verilator@5.052` adds reproduction;
 [Standards and expectations](docs/glossary.md#standards-and-expectations) explains spec-only cases.
 
-> **Status: M4 in progress.** 2719 tests: 2620 simulation and 99 elaboration,
-> in 22 chapter/annex directories; 2263 tagged oracles and 456 spec-only cases.
+> **Status: M4 in progress.** 2723 tests: 2624 simulation and 99 elaboration,
+> in 22 chapter/annex directories; 2265 tagged oracles and 458 spec-only cases.
 > All use `:spec_check: ai`, recording AI review as explained in [review terms](docs/glossary.md#standards-and-expectations); none records human review. M1–M3 targets remain open.
-> M4 has 4099 [observable-duty drafts](docs/requirements.md#counting-unit-and-scope-proposal) reviewed by AI, 2663 directly linked tests and an index of all 2719.
+> M4 has 4101 [observable-duty drafts](docs/requirements.md#counting-unit-and-scope-proposal) reviewed by AI, 2667 directly linked tests and an index of all 2723.
 > 0 tests lack requirement links and 0 drafts lack direct tests; the historical
 > [memory-walk interpretation](docs/faq.md#q134-how-is-the-memory-walk-algorithm-interpreted) requires review. 0 identifiers remain unassessed;
 > 2062 identifiers remain partial and 445 have AI classifications; [zero unassessed](docs/faq.md#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) does not establish completion. Scope and denominator remain unapproved.
@@ -41,8 +41,8 @@ Factory controls object creation and phases organize execution, while TLM carrie
 - **M1: 1171 tests (1090 simulation, 81 elaboration).** Objects and policies,
   reporting, factory, hierarchy, phases, synchronization, configuration,
   recording, core services and typed utilities, including [static callback iterators](docs/faq.md#q397-do-the-new-primary-citations-complete-the-iterator-clauses) and [objection cancellation](docs/faq.md#q405-what-is-added-beyond-re-raising-during-drain) and [event delta waits](docs/faq.md#q419-what-do-the-event-delta-profiles-add) and [event cancellation/reuse](docs/faq.md#q422-what-do-the-four-cancellation-profiles-add).
-- **M2: 620 tests (613 simulation, 7 elaboration).** Sequences and sequencers,
-  request/response lifecycle, callbacks, [recording control](docs/faq.md#q413-what-do-the-recording-disable-profiles-add-beyond-a-flag-query) and [property data](docs/faq.md#q416-what-do-the-property-profiles-add-beyond-transaction-marks), TLM 1 channels and selected TLM 2 transports, including [nested input/ref paths](docs/faq.md#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle); F.2.3 port-role, F.2.4.2 state and F.2.4.3 sequence-library fixtures in uF count as M2 under the [milestone grouping](docs/glossary.md#scope-and-coverage).
+- **M2: 624 tests (617 simulation, 7 elaboration).** Sequences and sequencers,
+  request/response lifecycle, callbacks, [recording control](docs/faq.md#q413-what-do-the-recording-disable-profiles-add-beyond-a-flag-query) and [property data](docs/faq.md#q416-what-do-the-property-profiles-add-beyond-transaction-marks) and [independent payload unpack](docs/faq.md#q425-what-do-the-independent-unpack-streams-check), TLM 1 channels and selected TLM 2 transports, including [nested input/ref paths](docs/faq.md#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle); F.2.3 port-role, F.2.4.2 state and F.2.4.3 sequence-library fixtures in uF count as M2 under the [milestone grouping](docs/glossary.md#scope-and-coverage).
 - **M3: 928 tests (917 simulation, 11 elaboration).** Register, field, block,
   memory and virtual-register models; access paths, prediction, callbacks,
   coverage, allocation and built-in test sequences; D.3 fixtures in uD and model API profiles in u01 count as M3 under [the functional grouping](docs/faq.md#q381-why-do-profiles-under-the-same-u01-directory-use-three-milestones).
@@ -80,14 +80,14 @@ The fetcher downloads and checks the pinned Accellera UVM 2020.3.1 library; inst
 To see what that case checks, [follow the worked example](docs/reading-guide.md#follow-one-test-through-the-files) from its source to its expected output and requirement.
 The saved JSON lists each case's judgment; [an example for opening it](docs/reading-guide.md#open-the-result-json) shows how to read it. If it reports a difference, [Trace a difference](docs/reading-guide.md#trace-a-difference) shows how to locate the checked expectation and execution conditions.
 
-To run all 2263 tagged checks (2169 runtime, 94 compile rejection):
+To run all 2265 tagged checks (2171 runtime, 94 compile rejection):
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-Add `--all` to include all two-state cases, including the 456 spec-only cases.
+Add `--all` to include all two-state cases, including the 458 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls concurrent tests and `--build-jobs` controls C++ jobs within each build; [Q13](docs/faq.md#q13-why-is-compilation-heavy-and-what-do-the-two-job-options-control) explains the build cost.
 Each runtime model is built once and run in a fresh process for each seed.
 
@@ -107,18 +107,18 @@ by Git; results are not automatically published.
 
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
-The Verilator snapshot assembled on 2026-11-07 covers all 2719 current cases.
-Guest records retain 1081 compatible inputs; 1638 inputs are unmeasured, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly).
+The Verilator snapshot assembled on 2026-11-07 covers all 2723 current cases.
+Guest records retain 1081 compatible inputs; 1642 inputs are unmeasured, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly).
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, ordinary runner | 2169 runtime matches at seeds 1/73; 94 expected compile rejections; 456 known differences |
+| Verilator 5.052, pinned UVM, ordinary runner | 2171 runtime matches at seeds 1/73; 94 expected compile rejections; 458 known differences |
 | Verilator 5.052, original VPI HDL backend | Separate 38-case subset: 37 match both seeds; 1 differs |
 | Verilator 5.052, VPI command-line bridge and pinned regex DPI | Separate 18-case subset: 17 match both seeds; 1 known difference |
-| kirimasim, pinned UVM | 1072 `unsupported`; nine missing-API `fail` in 1081 cases; 1638 unmeasured |
-| Ghost, bundled UVM | 206 match and 875 fail at each seed in 1081 cases; 1638 unmeasured |
+| kirimasim, pinned UVM | 1072 `unsupported`; nine missing-API `fail` in 1081 cases; 1642 unmeasured |
+| Ghost, bundled UVM | 206 match and 875 fail at each seed in 1081 cases; 1642 unmeasured |
 
-The ordinary runner records 316 runtime differences at seed 1, 135 simulation build failures
+The ordinary runner records 318 runtime differences at seed 1, 135 simulation build failures
 and five accepted illegal designs without runtime; [the detailed breakdown](docs/results.md#interpretation) explains API/declaration, macro and DPI categories and qualified premises.
 The VPI rows measure cases already included in the ordinary row under different conditions, so do not add them to the suite total; see [the measurement scope](docs/results.md#current-snapshot).
 
@@ -156,9 +156,9 @@ its counterpart; commands and API identifiers retain their original spelling.
 | --- | --- | --- |
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
 | M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 1171 tests; reviewed two-tests-per-clause target open |
-| M2 | Sequences, sequencers, TLM and callbacks | 620 tests; target open |
+| M2 | Sequences, sequencers, TLM and callbacks | 624 tests; target open |
 | M3 | Register layer (17–19, D.3, annex E) and shared API rules | 928 tests, including model API profiles under 1.4.2/1.4.3; target open |
-| M4 | Requirement ledger and coverage | In progress: 4099 AI drafts; 4099 requirements link to 2663 tests; denominator unapproved |
+| M4 | Requirement ledger and coverage | In progress: 4101 AI drafts; 4101 requirements link to 2667 tests; denominator unapproved |
 
 M1–M3 group the UVM test areas and M4 maps their requirements, as explained in [the stage definitions](docs/glossary.md#scope-and-coverage). The primary-citation census tracks the two-tests-per-clause target; [the counting explanation](docs/requirements.md#citations-requirements-and-execution-evidence) describes the additional review needed to establish independent checks of required behavior.
 

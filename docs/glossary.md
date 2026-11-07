@@ -1914,3 +1914,9 @@ These terms distinguish an interface's restriction from the memory's intrinsic p
 **Explicit kill/cancel pair** — Terminating one held process via its standard handle, then calling event cancel once before querying the count; [Q422](faq.md#q422-what-do-the-four-cancellation-profiles-add) explains why no between-pair count is required.
 
 **Same-event cancellation reuse** — Establishing a fresh group on the original event after selected callers were canceled and the survivor completed, while another event remains pending; [Q423](faq.md#q423-why-check-onoff-waits-and-reuse-the-same-event) records the wait-style and reset boundaries.
+
+## Independent payload unpack and setter observations
+
+**Typed unpack stream** — Original public packer writes construct the listed field values and widths without using payload do_pack output or fixing raw endian representation; [Q425](faq.md#q425-what-do-the-independent-unpack-streams-check) explains the active-prefix conditions.
+
+**First setter visit** — The first captured call to each public setter during inherited unpack, separated from direct-call calibration and exact diagnostic invocation counts; [Q426](faq.md#q426-why-is-setter-order-qualified-when-field-values-match) records the qualified named-setter interpretation.

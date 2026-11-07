@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4099 AI-drafted requirements, all with direct links to 2663 tests.
-Fifty-six tests have only control links. All 2719 tests have a requirement link.
+contains 4101 AI-drafted requirements, all with direct links to 2667 tests.
+Fifty-six tests have only control links. All 2723 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4099 draft entries span several areas,
+a heading is not an obligation. The 4101 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -75,14 +75,14 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1315
+references are **supporting citations**. Of the catalog identifiers, 1316
 have a primary-focus test and 2,096 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,171 with zero primary-focus tests, 768 with one,
-and 543 with at least two. It measures test placement only. It does not
+census currently shows 1,170 with zero primary-focus tests, 768 with one,
+and 544 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2719-test
+known difference. It is not a pass or a conformance claim. The current 2723-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2719 reviewed requirement mappings.
+  index is an inventory, not 2723 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -278,7 +278,7 @@ The table retains every catalog root, including context and deferred roots; cont
 | 9 | 141 | 63 | 0 | 22 | 0 |
 | 10 | 169 | 144 | 0 | 29 | 0 |
 | 11 | 35 | 20 | 0 | 4 | 0 |
-| 12 | 326 | 200 | 0 | 45 | 0 |
+| 12 | 328 | 204 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
 | 14 | 229 | 146 | 0 | 17 | 0 |
 | 15 | 132 | 124 | 0 | 18 | 0 |
@@ -298,49 +298,55 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4099 reviews are `ai` and
+Scope is proposed, all 4101 reviews are `ai` and
 the denominator remains unapproved.
 
-The 111th expansion adds four M1 cancellation/count profiles, one for each of
-wait_trigger, wait_ptrigger, wait_on and wait_off. Three callers are held on
-one event; two selected process handles are killed and canceled in turn,
-leaving one real survivor. [The cancellation FAQ](faq.md#q422-what-do-the-four-cancellation-profiles-add)
-connects that setup to the count oracle.
+The 112th expansion adds four M2 payload-unpack profiles: plain/observed
+targets crossed with empty/nonempty data. An original public packer writer
+supplies the listed fields using their declared widths, independently of
+payload do_pack output or raw endian representation. Two rounds reuse the
+target with different incoming addresses/bytes and a retained extension;
+[the unpack FAQ](faq.md#q425-what-do-the-independent-unpack-streams-check)
+explains the input and active-prefix boundary.
 
-Counts must progress 3 to 2 to 1 after the explicit kill/cancel pairs and to
-0 after the survivor's controlled trigger/reset. No count is sampled between
-kill and cancel. The terminated callers must not return, and a peer event
-retains its own single waiter until independently released. The same subject
-is reused for two rounds. Positive-time barriers establish blocking and
-avoid relying on persistent-trigger behavior in the earlier trigger's slice;
-[the reuse FAQ](faq.md#q423-why-check-onoff-waits-and-reuse-the-same-event)
-explains these premises.
+The two plain final tagged inputs match seeds 1/73. Both observed inputs
+retain known differences at seed 1 with normal exit 0 and no seed 73 result.
+All ten other checked rows match: sentinel setup, direct reverse-order setter
+calibration, restored scalars/active bytes and extension identity/value/hook
+preservation. Neither round captures a first setter visit during actual
+inherited do_unpack, so the two required trace rows differ. A matching value
+row does not pass a whole observed case; [the qualified-reading FAQ](faq.md#q426-why-is-setter-order-qualified-when-field-values-match)
+records the interpretation without assigning a simulator/library cause.
 
-All four final tagged inputs match seeds 1/73. Two stable cancellation and
-actual-waiter-count duties receive direct links and prefix-preserved
-conditions/limitations; there is no new duty merely for a profile. The other
-4097 old requirement objects, all 445 assessments and all 2715 old ordinary/
-index records are unchanged. Existing mixed-reset and wakeup-reset cases
-remain known under their own conditions; these profiles do not reset a
-selected event while its remaining callers are blocked, except the reset
-that deliberately releases off-state waiters.
+The order oracle reads the named setters in 12.3.4.2.5 with the virtual-accessor
+declaration in 12.3.4.2.15 and SystemVerilog 8.20 as actual visits in the listed
+order, including empty-array setters. That reading still needs review.
+Only each setter's first visit and presence are checked; four current DIAG112
+rows contain exact invocation counts without an oracle or requirement link.
+The observer forwards each public setter to super and never overrides
+do_unpack. Direct-call calibration runs before the observation is cleared.
 
-The suite now has 2719 tests (2620 simulation/99 elaboration), 4099 AI duties
-and 2663 directly linked tests, with 56 control-only tests. Ordinary matches
-are 2263: 2169 runtime inputs at both seeds and 94 compiler rejections.
-All 456 known inputs and both backend subsets remain. No guest run/filter
-is added: 1081 compatible records remain byte-identical, with 1638 unmeasured
-inputs (1634 additions and four revised originals; 1539 simulation/99 elaboration).
+Two duties decompose incoming field values and qualified first-setter order;
+one stable extension-preservation duty is extended. The total is 4101 AI
+duties, with 4098 other old objects and all 445 assessments unchanged. Plain
+profiles are direct for field values and controls for setter order, so roles
+overlap:2667 tests have direct links,158 have controls and 56 are control-only.
+All 2719 old ordinary/index records and 456 old known inputs remain unchanged.
 
-Chapter 10 retains 87 partial/29 assessed/0 unassessed identifiers and 169
-duties; primary-focus tests rise to 144. Candidate census is 1171 zero/768
-below target/543 at least two, with 1315 primary-focused identifiers overall.
-All 2062 partial identifiers, actual remaining applicability, original
-milestone targets, human review and scope/denominator approval remain open.
-Zero-count/redundant/live cancellation, suspension/resumption, otherwise
-activated callers, callback cancellation and concurrent reset are not
-certified; [the completion FAQ](faq.md#q424-do-the-cancellation-matches-complete-the-event-contracts)
-explains why three empty queues do not complete the goal.
+The suite has 2723 tests (2624 simulation/99 elaboration). Ordinary results
+are 2265 matches:2171 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 458:318 runtime seed 1 differences,135 simulation builds and
+five accepted illegal designs without runtime. The two backend subsets are
+unchanged. No guest run/filter is added:1081 compatible records remain
+byte-identical and 1642 inputs are unmeasured (1638 additions/four revised
+originals;1543 simulation/99 elaboration).
+
+Chapter 12 retains 169 partial/45 assessed/0 unassessed identifiers, with 328
+duties and 204 primary tests. Primary-focused identifiers rise to 1316;
+candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
+identifiers, actual remaining conditions, original milestone targets,
+human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q427-do-the-unpack-profiles-complete-the-payload-clause)
+explains why neither mapping nor matching controls completes the goal.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -757,4 +763,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4099 AI drafts and their direct links do not satisfy that gate.
+The current 4101 AI drafts and their direct links do not satisfy that gate.

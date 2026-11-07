@@ -1532,3 +1532,9 @@ static iteratorはcallerの整数をopaqueな位置として使い、その表�
 **明示kill／cancelの組** — 標準handleで待機中の1 processを終了し、eventのcancelを1回呼んでから件数を照会するもので、組の途中の値を要求しない理由は[Q422](faq.ja.md#q422-4件の取消しprofileは何を追加しますか)で確認できます。
 
 **同じeventの取消し後の再利用** — 選択callerの取消しと生存者の完了後、元のeventに新しい待機groupを成立させ、別eventは保留にするもので、待機方法とresetの境界は[Q423](faq.ja.md#q423-onoff待機と同じeventの再利用を確認する理由は)で確認できます。
+
+## 独立したpayload unpackとsetterの観測
+
+**型付きunpack stream** — payloadのdo_pack結果やendianの生表現を使わず、独自の公開packer呼出しで列挙fieldの値と幅を入力するもので、active prefixの条件は[Q425](faq.ja.md#q425-独立したunpack-streamは何を検査しますか)で確認できます。
+
+**setterの初回訪問** — 継承unpack中の各公開setterの最初の呼出しを捕捉し、直接呼出しの確認や診断用の正確な回数と分けるもので、限定した列挙setterの解釈は[Q426](faq.ja.md#q426-field値が一致してもsetter順序を限定した解釈とする理由は)で確認できます。

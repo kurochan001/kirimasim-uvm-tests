@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 111 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2719 tests: 2620 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 112 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2723 tests: 2624 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -6307,3 +6307,52 @@ Zero-count/redundant/live cancellation, suspension/resumption, otherwise
 activated callers, callback cancellation and concurrent reset are not
 certified; [the completion FAQ](faq.md#q424-do-the-cancellation-matches-complete-the-event-contracts)
 explains why three empty queues do not complete the goal.
+
+## 112th thin-area expansion: independent unpack and qualified setter observations
+
+The 112th expansion adds four M2 payload-unpack profiles: plain/observed
+targets crossed with empty/nonempty data. An original public packer writer
+supplies the listed fields using their declared widths, independently of
+payload do_pack output or raw endian representation. Two rounds reuse the
+target with different incoming addresses/bytes and a retained extension;
+[the unpack FAQ](faq.md#q425-what-do-the-independent-unpack-streams-check)
+explains the input and active-prefix boundary.
+
+The two plain final tagged inputs match seeds 1/73. Both observed inputs
+retain known differences at seed 1 with normal exit 0 and no seed 73 result.
+All ten other checked rows match: sentinel setup, direct reverse-order setter
+calibration, restored scalars/active bytes and extension identity/value/hook
+preservation. Neither round captures a first setter visit during actual
+inherited do_unpack, so the two required trace rows differ. A matching value
+row does not pass a whole observed case; [the qualified-reading FAQ](faq.md#q426-why-is-setter-order-qualified-when-field-values-match)
+records the interpretation without assigning a simulator/library cause.
+
+The order oracle reads the named setters in 12.3.4.2.5 with the virtual-accessor
+declaration in 12.3.4.2.15 and SystemVerilog 8.20 as actual visits in the listed
+order, including empty-array setters. That reading still needs review.
+Only each setter's first visit and presence are checked; four current DIAG112
+rows contain exact invocation counts without an oracle or requirement link.
+The observer forwards each public setter to super and never overrides
+do_unpack. Direct-call calibration runs before the observation is cleared.
+
+Two duties decompose incoming field values and qualified first-setter order;
+one stable extension-preservation duty is extended. The total is 4101 AI
+duties, with 4098 other old objects and all 445 assessments unchanged. Plain
+profiles are direct for field values and controls for setter order, so roles
+overlap:2667 tests have direct links,158 have controls and 56 are control-only.
+All 2719 old ordinary/index records and 456 old known inputs remain unchanged.
+
+The suite has 2723 tests (2624 simulation/99 elaboration). Ordinary results
+are 2265 matches:2171 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 458:318 runtime seed 1 differences,135 simulation builds and
+five accepted illegal designs without runtime. The two backend subsets are
+unchanged. No guest run/filter is added:1081 compatible records remain
+byte-identical and 1642 inputs are unmeasured (1638 additions/four revised
+originals;1543 simulation/99 elaboration).
+
+Chapter 12 retains 169 partial/45 assessed/0 unassessed identifiers, with 328
+duties and 204 primary tests. Primary-focused identifiers rise to 1316;
+candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
+identifiers, actual remaining conditions, original milestone targets,
+human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q427-do-the-unpack-profiles-complete-the-payload-clause)
+explains why neither mapping nor matching controls completes the goal.

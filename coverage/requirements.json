@@ -26314,16 +26314,16 @@
         "ja": "generic payloadの既定unpackは、転送先に事前設定したextensionを変更しない。"
       },
       "conditions": {
-        "en": "Unpack ordinary payload fields into a target with an existing valued extension.",
-        "ja": "値を持つ既存extension付きtargetへ、通常のpayload fieldをunpackする。"
+        "en": "Unpack ordinary payload fields into a target with an existing valued extension. In additional independent profiles, apply a hand-written typed packer stream to a plain or original observed payload, with empty/nonempty active arrays, retained extension value 63 and two rounds on the same target.",
+        "ja": "値を持つ既存extension付きtargetへ、通常のpayload fieldをunpackする。 別の独立したprofileでは、独自に書いた型付きpacker streamを通常／独自観測payloadへ適用し、active配列の空／非空、保持するextension値63、同じtargetの2 roundを使う。"
       },
       "expected": {
-        "en": "Address updates while extension identity/value remain and its unpack hook is not called.",
-        "ja": "addressは更新し、extensionの同一性／値を保ち、そのunpack hookは呼ばない。"
+        "en": "Address updates while extension identity/value remain and its unpack hook is not called. After each added unpack, the original extension handle and value 63 remain and its unpack hook has not run, while ordinary scalar and active-prefix fields receive the incoming values.",
+        "ja": "addressは更新し、extensionの同一性／値を保ち、そのunpack hookは呼ばない。 追加した各unpack後、元のextension handleと値63を保持し、そのunpack hookは実行せず、通常scalarとactive prefixのfieldは入力値を受ける。"
       },
       "limitations": {
-        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
-        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only. Added stream construction uses public pack_field_int and the listed field types/order, independently of payload do_pack output or observed encoding. Setter-first-visit expectations are a separate qualified duty; a whole observed case with that mismatch remains known even when extension/value rows match. Unused array capacity, raw wire/byte representation and extension serialization are not fixed.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。 追加streamはpayloadのdo_pack結果や観測した符号化を使わず、公開pack_field_intと列挙fieldの型／順序から構築する。setter初回訪問の期待は別の限定した義務とし、extension／値の行が一致しても、その差分を持つ観測ケース全体はknownのままにする。未使用配列容量、wire／byteの生表現、extension直列化は固定しない。"
       },
       "review": {
         "status": "ai",
@@ -26336,6 +26336,38 @@
           "role": "direct",
           "expected_observations": [
             "UT: address 91 extension_same 1 value 63 unpack_calls 0"
+          ]
+        },
+        {
+          "test": "u12/test_payload_unpack_base_empty_112",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 extension same 1 value 63 unpack_calls 0",
+            "UT: round 2 extension same 1 value 63 unpack_calls 0"
+          ]
+        },
+        {
+          "test": "u12/test_payload_unpack_base_data_112",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 extension same 1 value 63 unpack_calls 0",
+            "UT: round 2 extension same 1 value 63 unpack_calls 0"
+          ]
+        },
+        {
+          "test": "u12/test_payload_unpack_observed_empty_112",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 extension same 1 value 63 unpack_calls 0",
+            "UT: round 2 extension same 1 value 63 unpack_calls 0"
+          ]
+        },
+        {
+          "test": "u12/test_payload_unpack_observed_data_112",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 extension same 1 value 63 unpack_calls 0",
+            "UT: round 2 extension same 1 value 63 unpack_calls 0"
           ]
         }
       ]
@@ -159251,6 +159283,140 @@
             "UT: round 1 already child 1 same_time 1 desired 1 nba_pending 1 drained 1",
             "UT: round 2 nba_queued pending 1",
             "UT: round 2 already child 1 same_time 1 desired 1 nba_pending 1 drained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-UNPACK-TYPED-FIELDS-112",
+      "clause": "12.3.4.2.5",
+      "statement": {
+        "en": "Default generic-payload unpack applies the incoming listed scalar fields and active data/enable prefixes.",
+        "ja": "generic payloadの既定unpackは、入力された列挙scalar fieldとdata／enableのactive prefixを適用する。"
+      },
+      "conditions": {
+        "en": "Write the nine logical fields with public typed packer operations using their declared widths/order, then call the actual inherited do_unpack through a payload base handle. Use plain/observed targets, empty/nonempty arrays, distinct sentinels and two target-reuse rounds.",
+        "ja": "宣言された幅／順序に従う公開型付きpacker操作で9論理fieldを書き、payloadの基底handleから実際に継承したdo_unpackを呼ぶ。通常／観測target、空／非空配列、異なるsentinel、target再利用2 roundを使う。"
+      },
+      "expected": {
+        "en": "Address, command, data length, DMI, response, enable length and streaming width match the incoming values; every active data/enable byte matches. The previous sentinel values are replaced in both rounds.",
+        "ja": "address、command、data length、DMI、response、enable length、streaming widthは入力値に一致し、全active data／enable byteも一致する。両roundで以前のsentinelを置換する。"
+      },
+      "limitations": {
+        "en": "Original public pack_field_int calls construct input from the field list and declared 64/32/1/8-bit types; no payload do_pack result, raw endian layout or simulator output defines it. Three data bytes/two enable bytes versus zero lengths are selected; unused capacity is unconstrained. A failed stream/control or other mismatch does not attribute cause. This duty does not itself require setter-hook dispatch, extension serialization, bus transport or complete TLM/milestone coverage. These are unsubmitted serialization calls; the empty profile uses IGNORE and does not certify zero-length live transfers. Length observations follow the associated serialized active-length fields. The getter descriptions current-size wording versus retained array capacity remains a separate interpretation review; unused capacity is not a tested postcondition.",
+        "ja": "独自の公開pack_field_int呼出しで、field列挙と宣言された64／32／1／8-bit型から入力を構築し、payloadのdo_pack結果、endianの生配置、simulator出力は根拠にしない。data 3 byte／enable 2 byteと長さ0を選び、未使用容量は制約しない。stream／controlや別の不一致だけで原因は帰属しない。この義務自体ではsetter hook dispatch、extension直列化、bus transport、TLM／段階全体の検査は要求しない。 これは未送信の直列化呼出しで、空profileはIGNOREを使い、長さ0のlive転送の妥当性は認定しない。長さの観測は対応する直列化active-length fieldに従う。getter説明のcurrent-size文言と保持した配列容量の関係は別の解釈レビューに残し、未使用容量は検査する事後条件にしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_payload_unpack_base_empty_112",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 1 arrays active_data 1 active_enables 1",
+            "UT: round 2 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 2 arrays active_data 1 active_enables 1"
+          ]
+        },
+        {
+          "test": "u12/test_payload_unpack_base_data_112",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 1 arrays active_data 1 active_enables 1",
+            "UT: round 2 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 2 arrays active_data 1 active_enables 1"
+          ]
+        },
+        {
+          "test": "u12/test_payload_unpack_observed_empty_112",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 1 arrays active_data 1 active_enables 1",
+            "UT: round 2 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 2 arrays active_data 1 active_enables 1"
+          ]
+        },
+        {
+          "test": "u12/test_payload_unpack_observed_data_112",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 1 arrays active_data 1 active_enables 1",
+            "UT: round 2 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 2 arrays active_data 1 active_enables 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-UNPACK-LISTED-SETTER-FIRST-ORDER-112",
+      "clause": "12.3.4.2.5",
+      "statement": {
+        "en": "Under the literal named-setter reading, default payload unpack visits the nine virtual setters in the listed order.",
+        "ja": "列挙setterを呼び出すという字義の解釈では、payloadの既定unpackは9 virtual setterを列挙順で訪問する。"
+      },
+      "conditions": {
+        "en": "An original subtype overrides the exact nine public setter signatures and forwards to super without overriding do_unpack. Calibrate direct base-view calls in reverse order, clear the observer, then invoke actual inherited unpack for empty/nonempty independent streams over two rounds. Plain targets are controls.",
+        "ja": "独自subtypeで9つの公開setterの正確なsignatureをoverrideしてsuperへ渡し、do_unpackはoverrideしない。基底viewから逆順に直接呼んで観測を確認し、観測をclearしてから、独立streamの空／非空を2 round実際の継承unpackへ適用する。通常targetはcontrolとする。"
+      },
+      "expected": {
+        "en": "Each setter is visited at least once and first visits follow address, command, data length, DMI, data, response, enable length, enables and width. The separate direct-call calibration follows its explicit reverse order.",
+        "ja": "各setterを1回以上訪問し、初回訪問はaddress、command、data length、DMI、data、response、enable length、enables、widthの順になる。別の直接呼出しの確認は明示した逆順に従う。"
+      },
+      "limitations": {
+        "en": "Qualified interpretation of the named setter list in 12.3.4.2.5 combined with virtual-accessor declaration 12.3.4.2.15 and SV 8.20; whether that text mandates actual virtual calls, including zero-byte array setters, still needs review. Only first visits/presence are prescribed; exact invocation counts are DIAG112 only with no oracle/link. No do_unpack workaround, source-derived expected trace or causal simulator/library attribution. Matching field/extension rows or plain controls cannot pass a whole observed input with a trace mismatch. Unused capacity, binary encoding, full payload/TLM/milestone completion and human/scope/denominator approval remain open.",
+        "ja": "12.3.4.2.5のsetter列挙、12.3.4.2.15のvirtual accessor宣言、SV8.20を合わせた限定した解釈で、0 byte配列のsetterを含め実際のvirtual呼出しを義務付けるかは照合が必要である。初回訪問／存在だけを規定し、正確な呼出し回数はoracle／linkのないDIAG112だけにする。do_unpackの回避処理、実装source由来の期待trace、simulator／libraryの原因帰属はしない。field／extension行や通常controlの一致では、traceが異なる観測入力全体をpassにしない。未使用容量、binary符号化、payload／TLM／段階全体の完了、人／範囲／分母承認は未解決である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_payload_unpack_base_empty_112",
+          "role": "control",
+          "expected_observations": [
+            "UT: round 1 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 1 arrays active_data 1 active_enables 1",
+            "UT: round 2 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 2 arrays active_data 1 active_enables 1"
+          ]
+        },
+        {
+          "test": "u12/test_payload_unpack_base_data_112",
+          "role": "control",
+          "expected_observations": [
+            "UT: round 1 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 1 arrays active_data 1 active_enables 1",
+            "UT: round 2 scalars address 1 command 1 length 1 dmi 1 status 1 width 1",
+            "UT: round 2 arrays active_data 1 active_enables 1"
+          ]
+        },
+        {
+          "test": "u12/test_payload_unpack_observed_empty_112",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 direct first_mask 1 order width enables enable_length response data dmi length command address",
+            "UT: round 1 unpack first_mask 1 order address command length dmi data response enable_length enables width",
+            "UT: round 2 direct first_mask 1 order width enables enable_length response data dmi length command address",
+            "UT: round 2 unpack first_mask 1 order address command length dmi data response enable_length enables width"
+          ]
+        },
+        {
+          "test": "u12/test_payload_unpack_observed_data_112",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 direct first_mask 1 order width enables enable_length response data dmi length command address",
+            "UT: round 1 unpack first_mask 1 order address command length dmi data response enable_length enables width",
+            "UT: round 2 direct first_mask 1 order width enables enable_length response data dmi length command address",
+            "UT: round 2 unpack first_mask 1 order address command length dmi data response enable_length enables width"
           ]
         }
       ]

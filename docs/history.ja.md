@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の111回目の拡充（全2719件：simulation 2620・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の112回目の拡充（全2723件：simulation 2624・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3909,3 +3909,32 @@ guestの再実行／filterは追加せず、互換1081記録をbyte単位で維�
 candidateの件数は0件1171／目標未満768／2件以上543で、全体の主引用がある番号は1315です。
 部分2062番号、残る実際の適用条件、元の段階目標、人の照合、範囲／分母承認は未完です。
 0件／重複／生存processのcancel、suspend／resume、別手段で起動したcaller、callback取消や並行resetは認定せず、3つのqueueが空でもgoal完了にならない理由は[完了のFAQ](faq.ja.md#q424-取消しの一致でevent契約は完了しますか)で説明しています。
+
+## 薄い領域の112回目の拡充：独立unpackと限定したsetter観測
+
+112回目はM2のpayload unpack profileを4件追加し、通常／観測targetとdataの空／非空を組み合わせます。
+独自の公開packer writerで、payloadのdo_pack結果やendianの生表現を使わず、宣言された幅に従って列挙fieldを入力します。
+異なる入力address／byteと保持するextensionでtargetを2 round再利用し、入力とactive prefixの境界は[unpackのFAQ](faq.ja.md#q425-独立したunpack-streamは何を検査しますか)で説明しています。
+
+通常targetの最終tag付き2入力はseed 1／73で一致します。観測targetの2入力はseed 1の既知差分で、正常終了0、seed 73の結果はありません。
+他の検査行10行は全て一致し、sentinel準備、直接呼出しの逆順setter確認、復元したscalar／active byte、extensionの同一性／値／hook保持を含みます。
+実際に継承したdo_unpack中の初回setter訪問は両roundとも観測されず、要求するtrace 2行が異なります。
+値の行が一致しても観測ケース全体はpassにせず、simulator／libraryの原因を帰属しない解釈は[限定した読み方のFAQ](faq.ja.md#q426-field値が一致してもsetter順序を限定した解釈とする理由は)で説明しています。
+
+順序oracleは12.3.4.2.5のsetter列挙と12.3.4.2.15のvirtual accessor宣言、SystemVerilog 8.20から、空配列setterを含む実際の列挙順訪問と読むものです。
+その読み方は照合が必要です。各setterの初回訪問と存在だけを検査し、現在のDIAG112 4行の正確な呼出し回数はoracleや要求linkにしません。
+観測側は各公開setterをsuperへ渡し、do_unpackはoverrideしません。直接呼出しの確認後に観測をclearします。
+
+入力field値と限定した初回setter順序の2義務を分解し、既存のextension保持義務1件を拡張します。
+AI義務は4101件で、他の旧要求4098件と分類445件は同一です。
+通常profileはfield値にdirect、setter順序にはcontrolなので役割が重なり、直接対応は2667テスト、control対応は158テスト、controlのみは56テストです。
+元の通常／index 2719記録と旧既知456入力は全て維持します。
+
+全体は2723テスト（simulation 2624／elaboration 99）です。通常一致は2265件で、runtime両seed 2171入力とcompiler拒否94件です。
+既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。
+2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1642入力です。
+追加1638件と修正した元入力4件で、simulation 1543／elaboration 99です。
+
+第12章は部分169／分類45／未評価0番号、義務328件、主引用204テストです。
+主引用がある番号は1316へ増え、candidateは0件1170／目標未満768／2件以上544です。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、対応付けやcontrolの一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q427-unpack-profileでpayload条項は完了しますか)で説明しています。

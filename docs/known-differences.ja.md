@@ -6,7 +6,7 @@
 
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
-現在の2719件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の2723件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 差分の件数は[実測の内訳](results.ja.md#結果の解釈)で確認し、個別の入力を調べるときは[ライブラリの注記](known-differences.ja.md#固定版ライブラリの制約)、[ソースの分類一覧](known-differences.ja.md#specのみのテスト)、[シミュレータとライブラリの条件](known-differences.ja.md#シミュレータとライブラリの組み合わせ)を使ってください。
@@ -154,7 +154,7 @@ enumのsignature／本文とTR_HANDLE／0引数accessorの境界は限定した�
 
 elaboration 99件は抽象class直接生成36件とpure interface／const参照／禁止member／型context／非公開constructor違反63件で拒否を期待し、94件が一致します。
 subscriber／visitor／proxy／adapterの未実装と印字virtual builtin dispatcherの直接生成は受理され、runtimeなしでspec-onlyを保持します。
-compiler受理5件は既知simulation差分451件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+compiler受理5件は既知simulation差分453件と別です。合法な派生controlを必要な拒否の代わりにはしません。
 
 field-access監査はseed 73結果のないseed 1 runtime差分5件を保持します。
 register write／readのpre hookは保持するRCFD期待に対してFDRCを観測し、別のcrdf post観測が一致しても入力全体をpassにしません。
@@ -466,13 +466,18 @@ DIAG104のlookup行はoracleではなく、[accessの違い](faq.ja.md#q398-memo
 
 直接map変換16入力は全てseed1の既知差分で、戻り幅、entry stride、階層条件の観測と、階層4入力の途中停止は[直接照会のFAQ](faq.ja.md#q409-mapの直接照会はregisterのaddress照会に何を追加しますか)で説明しています。空／登録済みで期待を保持し、部分戻り幅は調査用のままです。
 
-base記録無効化の4入力は最終tagで両seedに一致しますが、既知456入力、印刷base query名、既定push記録の解釈は解決しません。[peerのFAQ](faq.ja.md#q414-peerのevent件数を調査専用にする理由は)で、実転送の一致と調査用event件数の違いを説明しています。
+base記録無効化の4入力は最終tagで両seedに一致しますが、既知458入力、印刷base query名、既定push記録の解釈は解決しません。[peerのFAQ](faq.ja.md#q414-peerのevent件数を調査専用にする理由は)で、実転送の一致と調査用event件数の違いを説明しています。
 
-自動propertyの4入力は、記録先を明示的に有効にした条件で最終tagが両seedに一致します。既知456入力と印刷base query名の差分を保持し、data記録と以前のevent診断の違いは[propertyのFAQ](faq.ja.md#q416-property-profileはtransaction-markに何を追加しますか)で説明しています。
+自動propertyの4入力は、記録先を明示的に有効にした条件で最終tagが両seedに一致します。既知458入力と印刷base query名の差分を保持し、data記録と以前のevent診断の違いは[propertyのFAQ](faq.ja.md#q416-property-profileはtransaction-markに何を追加しますか)で説明しています。
 
-event deltaの6入力は最終tag付きで両seedに一致しますが、既知456入力を維持します。連続#0の正確な回数と、最初は未成立だった待機へのdelta適用を残す理由は[完了のFAQ](faq.ja.md#q421-6件のevent-profileの一致で条項は完了しますか)で説明しています。
+event deltaの6入力は最終tag付きで両seedに一致しますが、既知458入力を維持します。連続#0の正確な回数と、最初は未成立だった待機へのdelta適用を残す理由は[完了のFAQ](faq.ja.md#q421-6件のevent-profileの一致で条項は完了しますか)で説明しています。
 
-取消し／件数の4入力は最終tag付きで両seedに一致し、既知456入力を維持します。混在waiterのresetとwakeup resetは別の前提に残し、今回の一致で解消しない理由は[再利用のFAQ](faq.ja.md#q423-onoff待機と同じeventの再利用を確認する理由は)で説明しています。
+取消し／件数の4入力は最終tag付きで両seedに一致し、既知458入力を維持します。混在waiterのresetとwakeup resetは別の前提に残し、今回の一致で解消しない理由は[再利用のFAQ](faq.ja.md#q423-onoff待機と同じeventの再利用を確認する理由は)で説明しています。
+
+通常unpack 2入力は最終tag付きで両seed一致し、観測2入力は正常終了0のseed 1既知差分でseed 73はありません。他のUT 10行は一致しますが、両roundのsetter初回訪問traceが異なり、限定した解釈は[Q426](faq.ja.md#q426-field値が一致してもsetter順序を限定した解釈とする理由は)に残します。旧既知456入力を保持し、既知総数は458です。
+
+- [観測empty](../tests/u12/test_payload_unpack_observed_empty_112.sv)。
+- [観測data](../tests/u12/test_payload_unpack_observed_data_112.sv)。
 
 ## 固定版ライブラリの制約
 
@@ -878,7 +883,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは2263件、specのみのテストは456件です。
+スイート全体では、`verilator@5.052`を付けたテストは2265件、specのみのテストは458件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -887,9 +892,9 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの456件も、規格から導いた出力またはcompiler診断の期待を保持します。通常のVerilator実行とCIはoracle付き2263件（runtime 2169・compile拒否94）を選びます。
+specのみの458件も、規格から導いた出力またはcompiler診断の期待を保持します。通常のVerilator実行とCIはoracle付き2265件（runtime 2171・compile拒否94）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時316件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時318件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 simulation build 135件には通常runtimeがなく、DPI未linkの56入力（HDL 38／command-line 18）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
 不正compiler受理5件は別のruntimeなし条件です。
 
@@ -951,7 +956,7 @@ specのみのケースも固定版oracle tagなしに規格から導いた期待
 
 controlは差分を解釈するために前提を変えて実行する補助検査であり、元のケースの結果との関係は[要求への対応付けの役割](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
-現在のspecのみの456件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在のspecのみの458件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 
 
@@ -1338,7 +1343,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1081記録、未測定は修正2入力を含む1638件です。
+対応する歴史的guest記録を除外し、互換範囲は1081記録、未測定は修正2入力を含む1642件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -1397,8 +1402,8 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 
 以前のfield-configuration filterは互換1083記録を1082へ絞りました。その後のreraise主引用のfilterで1082件から1081件へ減りました。今回は新たなfilterやguest再実行をせず、その記録を保持します。[入力同一性の説明](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で両段階を区別します。
 
-スイートは2719件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1081件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、1638入力は未測定です。
+スイートは2723件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1081件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、1642入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも206件一致・875件不一致で、不一致になるテストも同じです。

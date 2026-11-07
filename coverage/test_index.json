@@ -10877,6 +10877,22 @@
     "u10/test_event_cancel_reuse_off_111": {
       "primary_clause": "10.1.1.2.10",
       "inputs_sha256": "6fae696c3e57cb59569b443a93b7a3ab8fc4b3b618659dea164fe88795cf8026"
+    },
+    "u12/test_payload_unpack_base_empty_112": {
+      "primary_clause": "12.3.4.2.5",
+      "inputs_sha256": "ff7eaec95623ba0f17a0ab244355d897d3a5c3e2f1f525183d791510c0d8cfa7"
+    },
+    "u12/test_payload_unpack_base_data_112": {
+      "primary_clause": "12.3.4.2.5",
+      "inputs_sha256": "3658cde32bb90e0837fd3823619dc35aac2fcf4af105600454ca9e870d93aa56"
+    },
+    "u12/test_payload_unpack_observed_empty_112": {
+      "primary_clause": "12.3.4.2.5",
+      "inputs_sha256": "60663913e4d536401a36d8dc4143c28c05c14e12c3896f315f49bd8c2aea6771"
+    },
+    "u12/test_payload_unpack_observed_data_112": {
+      "primary_clause": "12.3.4.2.5",
+      "inputs_sha256": "f0bc377ccbb17973115c6a92c2db7caca01a78c50cafabacf9630d39c4306fe2"
     }
   }
 }
