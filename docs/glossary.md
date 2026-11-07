@@ -45,6 +45,8 @@ can be specified separately.
 records reproduction with that fixed release. Spec-only means there is no
 fixed-release oracle tag. A later match does not automatically change the tag.
 
+For a simulation fixture, adding a fixed-release tag requires reproducing its expectation at both prescribed seeds; [Adding or correcting a test](testing.md#adding-or-correcting-a-test) describes that contribution step.
+
 **Review / `:spec_check:`** — Who checked the expectation against the standard.
 `ai` records AI review; `human` records human review. It is separate from
 whether a simulator matches. All current tests record `ai`.

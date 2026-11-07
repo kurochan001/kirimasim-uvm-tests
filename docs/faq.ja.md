@@ -55,6 +55,8 @@ Ubuntuでの準備は[Checkのworkflow](../.github/workflows/check.yml)にあり
 
 ### Q3. まず1件だけ動かすにはどうしますか
 
+スモーク実行が成功したかは保存したJSON内の当該ケースの`pass`判定で確認でき、その探し方は[結果JSONを開く](reading-guide.ja.md#結果jsonを開く)で説明しています。
+
 Verilator 5.052をPATHに置き、リポジトリのrootから実行します。
 
 ```sh
@@ -401,6 +403,8 @@ rerandomize引数を1にした場合はdriverへ渡す前に乱数化します�
 
 ### Q34. 分割したmaster／slave impの呼び出しはどのcomponentが処理しますか
 
+impはTLM接続の処理を実装する終端で、その終端と所有するcomponentとの違いは[TLMの用語](glossary.ja.md#transaction単位の通信)で確認できます。
+
 impのconstructorの要求側・応答側引数が、実装する兄弟componentを選びます。
 親はimpを所有しますが、転送methodを実装する必要はありません。
 masterは要求を書いて応答を読み、slaveは要求を読んで応答を書きます。読み出しにはpeekも含みます。
@@ -445,6 +449,8 @@ nullのitem、`is_item`が0のsequence、3つのsequencer候補がすべてな�
 [既知差分](known-differences.ja.md)として保持します。
 
 ### Q38. 外部objectを指定したマクロはどのcallbackを実行しますか
+
+typewide callbackは型に対して、instance callbackは特定のobjectに対して登録するもので、2つの登録範囲は[callbackの用語](glossary.ja.md#uvmの構成要素)で説明しています。
 
 `uvm_do_obj_callbacks`とそのexit-on版は、渡したobjectを使います。呼び出し元のdispatcherだけに
 登録したentryは含めず、適用されるtypewide・指定instanceのentryを実行し、無効なentryは飛ばします。
@@ -695,6 +701,8 @@ burstの2件はspecのみです。19.1.2.1が物理bus記述子をREAD／WRITE�
 
 ### Q55. update・mirrorとbusエラーでは何を検査していますか
 
+mirrorはモデルが記録する状態、`mirror()`は読み出しと任意の比較を行う操作で、モデル内だけのpredictionとの違いは[レジスタモデルの用語](glossary.ja.md#レジスタモデル)で確認できます。
+
 `set`は転送なしでdesiredを変えます。`update`は必要な場合に書き込み、成功時のauto-predictionで次のupdateが不要になります。
 W1C／W1Sではbusへ送るwrite maskと結果のmirrorを分けて観測します。命令のデータとpolicy適用後の値は異なる場合があります。
 
@@ -778,6 +786,8 @@ memory location 12から始まるregionの相対offset 2はlocation 14で、こ�
 RTLのDUT、virtual registerのmirror、backdoorの統合を含まない、選択したfrontdoor経路の検査です。
 
 ### Q61. virtual registerの動的な実装はどこまで検査していますか
+
+ここでの動的な実装はvirtual register配列の記憶域となるmemory locationを割り当てたり解放したりすることで、配置やregionの用語は[レジスタモデルの用語](glossary.ja.md#レジスタモデル)で説明しています。
 
 8件で、実装と領域の配置、同じmemory内／同じblockの別memoryへの移動、動的な解放と再利用、
 静的な実装の解放拒否、重複の拒否、memory引数を省略したresize、領域からvirtual配列の所有者を取得する問い合わせを検査します。
@@ -876,6 +886,8 @@ read-hookの順序と追加のcallbackの組み合わせは別の作業です。
 
 ### Q67. ユーザー定義backdoorにHDL DPIは必要ですか。peek／pokeはどう違いますか
 
+rawなpeek／pokeとpolicyを適用するregisterのread／writeでは状態への作用が異なり、以下のケースの前提となる違いは[backdoorの用語](glossary.ja.md#レジスタモデル)で確認できます。
+
 8件で`uvm_reg_backdoor`のsubclassを使い、正の遅延でテストベンチの記憶域を読み書きします。
 overrideは最初に必須のpre helper、最後にpost helperを呼びます。registerのrawなpoke／peek、物理アクセスを模擬する
 RO／W1CのwriteとRCのread、memoryのlocationを選ぶpoke／peek、blockからの継承とローカルでの上書き、失敗statusと再試行を確認します。
@@ -934,6 +946,8 @@ bit-bashではbitの両方の値、memory walkでは4 locationすべてのアク
 選択したdispatcherの組み合わせでは17.2.2.10が定める系統の実行順序を確認します（Q75）。
 
 ### Q70. 除外resourceはsequenceへどう影響しますか
+
+除外resourceはscope・名前・型で選ばれるため、対象のモデルパスとの一致が必要な理由は[configurationの用語](glossary.ja.md#uvmの構成要素)で確認できます。
 
 `REG::`の名前空間へ`uvm_resource_db#(bit)`のentryを置きます。今回の除外は`NO_REG_TESTS`、
 `NO_REG_HW_RESET_TEST`、`NO_REG_BIT_BASH_TEST`、`NO_REG_ACCESS_TEST`、`NO_MEM_WALK_TEST`、

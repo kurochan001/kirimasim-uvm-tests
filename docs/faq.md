@@ -56,6 +56,8 @@ file count and content digest. The library is fetched, not committed.
 
 ### Q3. How can I run one test first?
 
+For a successful smoke run, look for this case's `pass` judgment in the saved JSON; [Open the result JSON](reading-guide.md#open-the-result-json) shows how to find it.
+
 From the repository root, with Verilator 5.052 on PATH:
 
 ```sh
@@ -462,6 +464,8 @@ Completion notification does not itself supply a response transaction.
 
 ### Q34. Which component handles a split master/slave imp call?
 
+An imp is the implementation endpoint of a TLM connection, and [the TLM terms](glossary.md#transaction-level-communication) distinguish that endpoint from its owning component.
+
 The imp's request and response constructor arguments select the sibling
 implementations. The parent owns the imp but need not implement their
 transfer methods. A master puts requests and gets/peeks responses; a slave
@@ -517,6 +521,8 @@ catcher and retain the required ERROR in
 [known differences](known-differences.md).
 
 ### Q38. Which callbacks run when a macro names an external object?
+
+Typewide callbacks are registered for types, while instance callbacks are registered for a particular object; [the callback terms](glossary.md#uvm-building-blocks) explain the two registration scopes.
 
 `uvm_do_obj_callbacks` and its exit-on form use the supplied object. Entries
 registered only on the calling dispatcher are excluded. Applicable typewide
@@ -824,6 +830,8 @@ adapter. See [known differences](known-differences.md).
 
 ### Q55. How do update, mirror and bus errors behave in these cases?
 
+The mirror is recorded model state, while `mirror()` initiates a read and optional comparison; [the register glossary](glossary.md#register-model) distinguishes that operation from model-only prediction.
+
 `set` changes desired state without a transfer. `update` writes only when
 needed; successful auto-prediction makes the next update a no-op. The W1C
 and W1S cases separately observe the physical write mask and resulting
@@ -930,6 +938,8 @@ These are selected frontdoor paths without an RTL DUT, virtual-register
 mirror or backdoor integration.
 
 ### Q61. What does dynamic virtual-register implementation cover?
+
+Here dynamic implementation means assigning and releasing backing-memory locations for a virtual-register array, with placement and region terms explained in [the register glossary](glossary.md#register-model).
 
 Eight cases check implementation and region geometry, moving within one
 memory or to another memory in the same block, dynamic release and reuse,
@@ -1064,6 +1074,8 @@ and further callback combinations are separate work.
 
 ### Q67. Do user backdoors require HDL DPI, and how do peek/poke differ?
 
+Raw peek/poke access and policy-aware register read/write access have different effects, as explained in [the backdoor terms](glossary.md#register-model) before the cases below.
+
 Eight cases use a `uvm_reg_backdoor` subclass with positive-delay reads and
 writes into testbench storage. The overrides call the required pre helpers
 first and post helpers last. They check raw register poke/peek, physical-style
@@ -1136,6 +1148,8 @@ The selected dispatcher combination checks the family order that
 17.2.2.10 prescribes (Q75).
 
 ### Q70. How do exclusion resources affect these sequences?
+
+An exclusion resource is selected by scope, name and type, so [the configuration terms](glossary.md#uvm-building-blocks) explain why matching the intended model path matters.
 
 The tests install `uvm_resource_db#(bit)` entries in the `REG::` namespace.
 Selected exclusions are `NO_REG_TESTS`, `NO_REG_HW_RESET_TEST`,

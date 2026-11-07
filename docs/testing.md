@@ -442,6 +442,8 @@ A helper declared through `:files:` or an include directory can bring sibling fi
 
 Only the `UT: ` prefix is shared by observation lines; the labels and values after it are defined by each fixture, whose source and expectation can be followed in [the worked example](reading-guide.md#follow-one-test-through-the-files).
 
+Lines beginning with `DIAG` are investigative output outside the `UT: ` comparison; [the compensation-hook example](faq.md#q406-what-is-asserted-when-the-new-count-is-smaller-than-the-pending-drop) explains why such values do not define an oracle.
+
 An intentional UVM error can be the required observation, so [Q7](faq.md#q7-why-compare-ut-lines-rather-than-all-uvm-messages) explains why an error message alone does not determine the test's status.
 
 1800.2 defines what the methods that build a report do, not the text they
