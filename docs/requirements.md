@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4102 AI-drafted requirements, all with direct links to 2671 tests.
-Fifty-six tests have only control links. All 2727 tests have a requirement link.
+contains 4105 AI-drafted requirements, all with direct links to 2675 tests.
+Fifty-six tests have only control links. All 2731 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4102 draft entries span several areas,
+a heading is not an obligation. The 4105 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2727-test
+known difference. It is not a pass or a conformance claim. The current 2731-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2727 reviewed requirement mappings.
+  index is an inventory, not 2731 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -284,7 +284,7 @@ The table retains every catalog root, including context and deferred roots; cont
 | 15 | 132 | 124 | 0 | 18 | 0 |
 | 16 | 280 | 188 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
-| 18 | 934 | 644 | 0 | 63 | 0 |
+| 18 | 937 | 648 | 0 | 63 | 0 |
 | 19 | 199 | 165 | 0 | 24 | 0 |
 | B | 258 | 235 | 0 | 9 | 0 |
 | C | 98 | 69 | 0 | 13 | 0 |
@@ -298,50 +298,59 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4102 reviews are `ai` and
+Scope is proposed, all 4105 reviews are `ai` and
 the denominator remains unapproved.
 
-The 113th expansion adds four M3 memory-manager profiles: a release of all
-regions or a region-facade release, crossed with the first or last descriptor in
-allocation-call order. Each of two rounds reserves three four-location regions
-in a fresh 32-location manager, checks membership without an iterator-order
-oracle, reuses the freed range and then releases the saved descriptor again
-through the manager; [the stale-descriptor FAQ](faq.md#q428-what-do-the-stale-descriptor-profiles-check)
+The 114th expansion adds four M3 memory-manager profiles that obtain the
+stale descriptor from other sources: a request_region descriptor released
+through the manager or through its region facade, and the region of a dynamic
+virtual-register array implemented with implement or allocate and released with
+the virtual-register release method. Each profile keeps an independent peer
+reservation, checks membership without an iterator-order oracle, reuses the
+freed range and then releases the saved descriptor again through the manager;
+[the source FAQ](faq.md#q430-what-do-the-stale-descriptor-source-profiles-add)
 explains the boundary.
 
-All four inputs match seeds 1/73 before and after tagging; only the `:oracle:`
-line changed between the two measurements. 18.12.5.3 requires an error when the
-specified region is no longer allocated, and 18.12.7 describes each region
-instance as an allocated region. Only the presence of an error is checked; the
-DIAG113 report counts are diagnostic. After the invalid call no state of that
-manager is inspected; an independently constructed manager supplies the later
-reservation checks.
+18.12.5.3 requires an error when the specified region is no longer allocated.
+For a virtual-register region, 18.9.1.1.4 and 18.9.1.1.5 direct release through
+the virtual-register method instead of the manager; the stale call is made only
+after that release has left the array unimplemented, which is a stated
+interpretation. Only the presence of an error is checked; the DIAG114 report
+counts are diagnostic. After the invalid call no state of that manager, array
+or memory is inspected; an independently constructed manager supplies the
+later reservation checks.
 
-No stale call is made while the same range is reserved again. Whether that
-later reservation returns a new descriptor instance is not specified, so such
-a call would depend on an unspecified identity. The existing second-release and
-foreign-region tests are unchanged.
+The first freeze also asserted the region-owner query in the virtual-register
+setup row. Both virtual-register inputs differed only there at both seeds,
+reproducing the existing [owner known difference](known-differences.md#spec-only-tests);
+the request inputs matched. Because that query is outside this duty and is
+already asserted by the existing owner test, it became a DIAG114 row while the
+getter's descriptor identity stays asserted. Expected files are unchanged. The
+first-freeze inputs and batches are archived under
+`out/thin-one-hundred-fourteenth-before-owner-split/` and are not current
+evidence. The revised inputs match seeds 1/73 before and after tagging; only
+the `:oracle:` line changed between those two measurements.
 
-One new duty covers the stale descriptor after both release paths, and the
-region-release duty gains the two region-facade profiles as direct links. The
-total is 4102 AI duties, with 4100 other old objects and all 445 assessments
-unchanged; 2671 tests have direct links, 158 have controls and 56 are
-control-only. All 2723 old ordinary/index records and 458 old known inputs
-remain unchanged.
+Two new error duties cover the requested and virtual-register sources, a third
+covers the virtual-register release leaving a peer allocated, and the
+region-release duty gains the requested region-facade profile. The total is
+4105 AI duties, with 4101 other old objects and all 445 assessments unchanged;
+2675 tests have direct links, 158 have controls and 56 are control-only. All
+2727 old ordinary/index records and 458 old known inputs remain unchanged.
 
-The suite has 2727 tests (2628 simulation/99 elaboration). Ordinary results
-are 2269 matches: 2175 runtime inputs at both seeds and 94 compiler rejections.
+The suite has 2731 tests (2632 simulation/99 elaboration). Ordinary results
+are 2273 matches: 2179 runtime inputs at both seeds and 94 compiler rejections.
 Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
 five accepted illegal designs without runtime. The two backend subsets are
 unchanged. No guest run/filter is added: 1081 compatible records remain
-byte-identical and 1646 inputs are unmeasured (1642 additions/four revised
-originals; 1547 simulation/99 elaboration).
+byte-identical and 1650 inputs are unmeasured (1646 additions/four revised
+originals; 1551 simulation/99 elaboration).
 
-Chapter 18 retains 393 partial/63 assessed/0 unassessed identifiers, with 934
-duties and 644 primary tests. Primary-focused identifiers remain 1316;
+Chapter 18 retains 393 partial/63 assessed/0 unassessed identifiers, with 937
+duties and 648 primary tests. Primary-focused identifiers remain 1316;
 candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
 identifiers, actual remaining conditions, original milestone targets,
-human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q429-do-the-stale-descriptor-profiles-complete-the-release-contract)
+human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q431-do-the-source-profiles-complete-the-stale-descriptor-contract)
 explains why the error matches do not complete the goal.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
@@ -759,4 +768,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4102 AI drafts and their direct links do not satisfy that gate.
+The current 4105 AI drafts and their direct links do not satisfy that gate.

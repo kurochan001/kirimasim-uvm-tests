@@ -10909,6 +10909,22 @@
     "u18/test_mam_stale_release_region_last_113": {
       "primary_clause": "18.12.5.3",
       "inputs_sha256": "f2397363584ee40b9702ad110046e4d51a80e0948a1f1ba3c92175378928ac19"
+    },
+    "u18/test_mam_stale_request_manager_release_114": {
+      "primary_clause": "18.12.5.3",
+      "inputs_sha256": "a3d34a8fc2576893e15c8caa299f119e3e567ed2327583dc6f5a4e57bf829139"
+    },
+    "u18/test_mam_stale_request_region_release_114": {
+      "primary_clause": "18.12.5.3",
+      "inputs_sha256": "870b9c31a80b293b471ddfb393b44a527a9f8846db74ecb7353e70c62f6187a9"
+    },
+    "u18/test_mam_stale_vreg_allocate_release_114": {
+      "primary_clause": "18.12.5.3",
+      "inputs_sha256": "8532fe86c39d4849d1e02d33c40d617f6014baccf0c5c5ec4e159625bab4af68"
+    },
+    "u18/test_mam_stale_vreg_implement_release_114": {
+      "primary_clause": "18.12.5.3",
+      "inputs_sha256": "c3a1dfcdda630990ab333d01d642b22bfde8668a295eba51d494cee3bcff7454"
     }
   }
 }

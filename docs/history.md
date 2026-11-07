@@ -6424,3 +6424,70 @@ candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
 identifiers, actual remaining conditions, original milestone targets,
 human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q429-do-the-stale-descriptor-profiles-complete-the-release-contract)
 explains why the error matches do not complete the goal.
+
+## Constraint solver in hosted CI
+
+The first Regression dispatch, [run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603)
+on 42d03ab, was cancelled after its command-line job and three of its twenty
+shards had completed. The command-line job succeeded; the three shards matched
+334 of 342 checks. All eight differences were checks that depend on constrained
+randomization: the hosted image provided no SMT solver on the path, so
+`randomize()` failed. Each matches locally with z3, and removing z3 from the
+local path reproduced the four differences checked, including the same seed-1
+value. Earlier green Check runs selected no check that randomizes. The
+[setup action](../.github/actions/setup-verilator/action.yml) now installs z3
+in every job, and the cancelled run is not a Regression result for any commit.
+
+## 114th thin-area expansion: stale descriptor sources
+
+The 114th expansion adds four M3 memory-manager profiles that obtain the
+stale descriptor from other sources: a request_region descriptor released
+through the manager or through its region facade, and the region of a dynamic
+virtual-register array implemented with implement or allocate and released with
+the virtual-register release method. Each profile keeps an independent peer
+reservation, checks membership without an iterator-order oracle, reuses the
+freed range and then releases the saved descriptor again through the manager;
+[the source FAQ](faq.md#q430-what-do-the-stale-descriptor-source-profiles-add)
+explains the boundary.
+
+18.12.5.3 requires an error when the specified region is no longer allocated.
+For a virtual-register region, 18.9.1.1.4 and 18.9.1.1.5 direct release through
+the virtual-register method instead of the manager; the stale call is made only
+after that release has left the array unimplemented, which is a stated
+interpretation. Only the presence of an error is checked; the DIAG114 report
+counts are diagnostic. After the invalid call no state of that manager, array
+or memory is inspected; an independently constructed manager supplies the
+later reservation checks.
+
+The first freeze also asserted the region-owner query in the virtual-register
+setup row. Both virtual-register inputs differed only there at both seeds,
+reproducing the existing [owner known difference](known-differences.md#spec-only-tests);
+the request inputs matched. Because that query is outside this duty and is
+already asserted by the existing owner test, it became a DIAG114 row while the
+getter's descriptor identity stays asserted. Expected files are unchanged. The
+first-freeze inputs and batches are archived under
+`out/thin-one-hundred-fourteenth-before-owner-split/` and are not current
+evidence. The revised inputs match seeds 1/73 before and after tagging; only
+the `:oracle:` line changed between those two measurements.
+
+Two new error duties cover the requested and virtual-register sources, a third
+covers the virtual-register release leaving a peer allocated, and the
+region-release duty gains the requested region-facade profile. The total is
+4105 AI duties, with 4101 other old objects and all 445 assessments unchanged;
+2675 tests have direct links, 158 have controls and 56 are control-only. All
+2727 old ordinary/index records and 458 old known inputs remain unchanged.
+
+The suite has 2731 tests (2632 simulation/99 elaboration). Ordinary results
+are 2273 matches: 2179 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
+five accepted illegal designs without runtime. The two backend subsets are
+unchanged. No guest run/filter is added: 1081 compatible records remain
+byte-identical and 1650 inputs are unmeasured (1646 additions/four revised
+originals; 1551 simulation/99 elaboration).
+
+Chapter 18 retains 393 partial/63 assessed/0 unassessed identifiers, with 937
+duties and 648 primary tests. Primary-focused identifiers remain 1316;
+candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
+identifiers, actual remaining conditions, original milestone targets,
+human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q431-do-the-source-profiles-complete-the-stale-descriptor-contract)
+explains why the error matches do not complete the goal.

@@ -3977,3 +3977,36 @@ AI義務は4102件で、他の旧要求4100件と分類445件は同一です。�
 第18章は部分393／分類63／未評価0番号、義務934件、主引用644テストです。
 主引用がある番号は1316のままで、candidateは0件1170／目標未満768／2件以上544です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、errorの一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q429-古いdescriptorのprofileで解放の契約は完了しますか)で説明しています。
+
+## hosted CIの制約solver
+
+最初のRegression起動である42d03abの[run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603)は、command-line jobと20 shardのうち3 shardが完了した時点で取り消しました。
+command-line jobは成功し、3 shardは342検査のうち334件が一致しました。8件の差分はすべて制約付きの乱数化に依存する検査で、hostedのimageにはpath上のSMT solverがなく、`randomize()`が失敗していました。
+各検査はz3のあるlocalでは一致し、localのpathからz3を外すと、確かめた4件で同じseed 1の値を含む差分を再現しました。以前に成功したCheckは、乱数化する検査を選んでいません。
+[準備用action](../.github/actions/setup-verilator/action.yml)はすべてのjobでz3を導入するようになり、取り消したrunはどのcommitのRegression結果でもありません。
+
+## 薄い領域の114回目の拡充：古いdescriptorの取得元
+
+114回目はM3のmemory manager profileを4件追加し、古いdescriptorを別の取得元から得ます。request_regionで得たdescriptorをmanagerまたはregion経由で解放するprofileと、implementまたはallocateで実装した動的なvirtual register配列のregionを、virtual registerの解放methodで解放するprofileです。
+各profileは独立したpeerの予約を保ち、iterator順をoracleにせず所属を確認し、空いた範囲を再利用した後、保存したdescriptorをmanagerから再度解放します。境界は[取得元のFAQ](faq.ja.md#q430-古いdescriptorの取得元profileは何を追加しますか)で説明しています。
+
+18.12.5.3は指定したregionがもう割り当てられていない場合にerrorを求めます。virtual registerのregionについて、18.9.1.1.4と18.9.1.1.5はmanagerではなくvirtual registerのmethodで解放するよう定めています。
+古いdescriptorの解放は、その解放で配列が未実装になった後にだけ行い、これは明記した解釈です。
+errorの発生だけを検査し、DIAG114のreport回数は診断に留めます。不正呼出し後はそのmanager・配列・memoryの状態を検査せず、以後の予約検査は別に生成したmanagerで行います。
+
+最初の凍結では、virtual registerのsetup行でregion ownerの照会もassertしていました。virtual registerの2入力は両seedともその点だけが異なり、既存の[ownerの既知差分](known-differences.ja.md#specのみのテスト)を再現しました。request側の2入力は一致しました。
+この照会は今回の義務の範囲外で、既存のownerテストがassertしているため、DIAG114行へ移し、getterが返すdescriptorのidentityはassertしたままにしました。期待ファイルは変更していません。
+最初の凍結の入力と測定は`out/thin-one-hundred-fourteenth-before-owner-split/`に保管し、現在の証拠には使いません。改訂した入力はtag付けの前後ともseed 1／73で一致し、2回の測定の間で変わったのは`:oracle:`行だけです。
+
+request側とvirtual register側の古いdescriptorを新しいerror義務2件で扱い、virtual registerの解放がpeerを割り当てたまま残す点を3件目の義務で扱います。region解放の義務にはrequest側のregion経由profileを追加します。
+AI義務は4105件で、他の旧要求4101件と分類445件は同一です。直接対応は2675テスト、control対応は158テスト、controlのみは56テストです。
+元の通常／index 2727記録と旧既知458入力は全て維持します。
+
+全体は2731テスト（simulation 2632／elaboration 99）です。通常一致は2273件で、runtime両seed 2179入力とcompiler拒否94件です。
+既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。
+2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1650入力です。
+追加1646件と修正した元入力4件で、simulation 1551／elaboration 99です。
+
+第18章は部分393／分類63／未評価0番号、義務937件、主引用648テストです。
+主引用がある番号は1316のままで、candidateは0件1170／目標未満768／2件以上544です。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、errorの一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q431-取得元profileで古いdescriptorの契約は完了しますか)で説明しています。

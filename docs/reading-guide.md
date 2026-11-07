@@ -35,7 +35,7 @@ Many register tests use original testbench storage; the words frontdoor or backd
 
 The source path selects a fixture, while `+UVM_TESTNAME=t` selects the registered UVM test class inside it; [the example header](testing.md#example) shows both names in use.
 
-Use Python 3.10 or later, exactly Verilator 5.052, a C++ toolchain and make, then run the smoke command in [FAQ Q3](faq.md#q3-how-can-i-run-one-test-first) from the repository root, the directory containing README. Verilator generates a C++ model, so its build needs a C++ compiler and make. The UVM fetch command downloads the locked library; it does not install the simulator.
+Use Python 3.10 or later, exactly Verilator 5.052, a C++ toolchain, make and the z3 solver on the path, then run the smoke command in [FAQ Q3](faq.md#q3-how-can-i-run-one-test-first) from the repository root, the directory containing README. Verilator generates a C++ model, so its build needs a C++ compiler and make. A model that randomizes with constraints calls z3 while it runs; without it, `randomize()` fails and those checks differ. The UVM fetch command downloads the locked library; it does not install the simulator.
 
 An explicit test path selects one case. Seeds 1 and 73 run that same built model in separate processes with different random initialization seeds, rather than selecting two different tests. See [the runner options](testing.md#running-the-suite) before expanding to the full suite.
 
@@ -59,7 +59,7 @@ For a simulation case, the runner compares the ordered lines beginning with `UT:
 
 `pass` means the declared checks matched; `fail` means a checked condition differed; `known` records a difference for an untagged Verilator case; `unsupported` records a kirimasim unsupported-feature diagnostic recognized by the runner. The last two are not passes. See [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean).
 
-The `elaboration` cases here expect the compiler to reject an illegal design and execute no runtime seed, while `simulation` cases run a model. Matches at both seeds do not establish four-state coverage including X/Z; see [the seed and compiler-count explanation](faq.md#q201-did-all-2727-tests-run-at-two-seeds).
+The `elaboration` cases here expect the compiler to reject an illegal design and execute no runtime seed, while `simulation` cases run a model. Matches at both seeds do not establish four-state coverage including X/Z; see [the seed and compiler-count explanation](faq.md#q201-did-all-2731-tests-run-at-two-seeds).
 
 With `--all`, known differences do not by themselves make the Verilator command fail, so inspect individual statuses as well as its exit code. See [why the exit code can still be zero](faq.md#q6-why-can-verilator-exit-successfully-with-known-results).
 

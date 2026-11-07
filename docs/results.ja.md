@@ -6,23 +6,23 @@
 
 runtime一致、compiler拒否、未測定入力は実行条件が異なるため、件数を併せて読む方法は[結果を読む](reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-07に集約したVerilator記録は現在の2727件すべてを対象にします。他2系統は未変更1081件の記録で、
-1646入力は未測定です。各記録は入力と実行条件を指紋で識別します。
-スイートは22 directoryの2727件で、simulation 2628件とelaboration 99件です。
-milestoneはM1 1171件（1090／81）、M2 624件（617／7）、M3 932件（921／11）で、括弧内はruntime／elaborationです。
-全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし2671件のうち99件は不正elaboration検査であり、HDL-DPI 38件とcommand-line／regex-DPI runtime 18件は別です。
+2026-11-07に集約したVerilator記録は現在の2731件すべてを対象にします。他2系統は未変更1081件の記録で、
+1650入力は未測定です。各記録は入力と実行条件を指紋で識別します。
+スイートは22 directoryの2731件で、simulation 2632件とelaboration 99件です。
+milestoneはM1 1171件（1090／81）、M2 624件（617／7）、M3 936件（925／11）で、括弧内はruntime／elaborationです。
+全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし2675件のうち99件は不正elaboration検査であり、HDL-DPI 38件とcommand-line／regex-DPI runtime 18件は別です。
 
 backendの行は通常条件にも含まれる入力を条件を変えて測定した記録であり、結果を別に数える理由は[実行環境の説明](testing.ja.md#uvmライブラリ)で確認できます。
 
-seed 1／73で一致しても検査系は1件と数え、設定で指定したseedも最初の不一致後には実行されない場合があるため、実行範囲の列の読み方は[seed件数の説明](faq.ja.md#q201-全2727テストを2-seedで実行しましたか)で確認できます。
+seed 1／73で一致しても検査系は1件と数え、設定で指定したseedも最初の不一致後には実行されない場合があるため、実行範囲の列の読み方は[seed件数の説明](faq.ja.md#q201-全2731テストを2-seedで実行しましたか)で確認できます。
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.052・固定版UVM | `pass` 2269件：runtime 2175＋compile拒否94、`known` 458件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
+| Verilator 5.052・固定版UVM | `pass` 2273件：runtime 2179＋compile拒否94、`known` 458件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
 | Verilator 5.052・独自VPI HDL backend | `pass` 37件、`fail` 1件 | 重複する38件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・独自command-line VPI bridge・固定regex DPI | `pass` 17件、`known` 1件 | 重複する18件の別条件。一致はseed 1／73、差分はseed 1 |
-| kirimasim・固定版UVM | `unsupported`が1072件、`fail`が9件 | 未変更1081入力。1646入力は未測定 |
-| Ghost・同梱UVM | `pass`が206件、`fail`が875件 | 各seedで未変更1081入力。失敗集合は同じ。1646入力は未測定 |
+| kirimasim・固定版UVM | `unsupported`が1072件、`fail`が9件 | 未変更1081入力。1650入力は未測定 |
+| Ghost・同梱UVM | `pass`が206件、`fail`が875件 | 各seedで未変更1081入力。失敗集合は同じ。1650入力は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
 固定ライブラリはAccellera UVM 2020.3.1、コミット`78c06547a2a0`で、326ファイルを
@@ -100,32 +100,33 @@ frontdoor／backdoorの転送動作の成功は示しません。
 
 ここでの未測定入力は、以前の版を実行していても現在と互換な記録がない入力を指し、再利用前の確認は[Q15](faq.ja.md#q15-過去の結果を現在も使えるかどう確認しますか)で説明しています。
 
-snapshotは[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)から元の通常2723記録を全て保持し、2026-11-07 JSTにM3 simulation入力4件を追加します。
+snapshotは[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)から元の通常2727記録を全て保持し、2026-11-07 JSTにM3 simulation入力4件を追加します。
 
 以下のprofileは記載した条件だけを検査し、別の前提の一致で元の差分を成功へ読み替えない理由と台帳のdirect／controlの役割は[要求対応のガイド](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
-113回目はM3のmemory manager profileを4件追加し、全regionの解放またはregion経由の解放と、allocation呼出し順で最初または最後のdescriptorを組み合わせます。
-各roundは新しい32 locationのmanagerに4 locationのregionを3つ予約し、iterator順をoracleにせず所属を確認し、空いた範囲を再利用した後、保存したdescriptorをmanagerから再度解放します。境界は[古いdescriptorのFAQ](faq.ja.md#q428-古いdescriptorのprofileは何を検査しますか)で説明しています。
+114回目はM3のmemory manager profileを4件追加し、古いdescriptorを別の取得元から得ます。request_regionで得たdescriptorをmanagerまたはregion経由で解放するprofileと、implementまたはallocateで実装した動的なvirtual register配列のregionを、virtual registerの解放methodで解放するprofileです。
+各profileは独立したpeerの予約を保ち、iterator順をoracleにせず所属を確認し、空いた範囲を再利用した後、保存したdescriptorをmanagerから再度解放します。境界は[取得元のFAQ](faq.ja.md#q430-古いdescriptorの取得元profileは何を追加しますか)で説明しています。
 
-4入力はtag付けの前後ともseed 1／73で一致し、2回の測定の間で変わったのは`:oracle:`行だけです。
-18.12.5.3は指定したregionがもう割り当てられていない場合にerrorを求め、18.12.7は各region instanceを割り当てられたregionの記述とします。
-errorの発生だけを検査し、DIAG113のreport回数は診断に留めます。不正呼出し後はそのmanagerの状態を検査せず、以後の予約検査は別に生成したmanagerで行います。
+18.12.5.3は指定したregionがもう割り当てられていない場合にerrorを求めます。virtual registerのregionについて、18.9.1.1.4と18.9.1.1.5はmanagerではなくvirtual registerのmethodで解放するよう定めています。
+古いdescriptorの解放は、その解放で配列が未実装になった後にだけ行い、これは明記した解釈です。
+errorの発生だけを検査し、DIAG114のreport回数は診断に留めます。不正呼出し後はそのmanager・配列・memoryの状態を検査せず、以後の予約検査は別に生成したmanagerで行います。
 
-同じ範囲を再び予約した状態では古いdescriptorを解放しません。後の予約が新しいdescriptor instanceを返すかは規定されず、その呼出しは規定のないidentityに依存するためです。
-既存の二度目の解放と他managerのregionのテストは変更しません。
+最初の凍結では、virtual registerのsetup行でregion ownerの照会もassertしていました。virtual registerの2入力は両seedともその点だけが異なり、既存の[ownerの既知差分](known-differences.ja.md#specのみのテスト)を再現しました。request側の2入力は一致しました。
+この照会は今回の義務の範囲外で、既存のownerテストがassertしているため、DIAG114行へ移し、getterが返すdescriptorのidentityはassertしたままにしました。期待ファイルは変更していません。
+最初の凍結の入力と測定は`out/thin-one-hundred-fourteenth-before-owner-split/`に保管し、現在の証拠には使いません。改訂した入力はtag付けの前後ともseed 1／73で一致し、2回の測定の間で変わったのは`:oracle:`行だけです。
 
-両方の解放経路の後の古いdescriptorを新しい義務1件で扱い、region解放の義務にregion経由の2 profileをdirect linkとして追加します。
-AI義務は4102件で、他の旧要求4100件と分類445件は同一です。直接対応は2671テスト、control対応は158テスト、controlのみは56テストです。
-元の通常／index 2723記録と旧既知458入力は全て維持します。
+request側とvirtual register側の古いdescriptorを新しいerror義務2件で扱い、virtual registerの解放がpeerを割り当てたまま残す点を3件目の義務で扱います。region解放の義務にはrequest側のregion経由profileを追加します。
+AI義務は4105件で、他の旧要求4101件と分類445件は同一です。直接対応は2675テスト、control対応は158テスト、controlのみは56テストです。
+元の通常／index 2727記録と旧既知458入力は全て維持します。
 
-全体は2727テスト（simulation 2628／elaboration 99）です。通常一致は2269件で、runtime両seed 2175入力とcompiler拒否94件です。
+全体は2731テスト（simulation 2632／elaboration 99）です。通常一致は2273件で、runtime両seed 2179入力とcompiler拒否94件です。
 既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。
-2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1646入力です。
-追加1642件と修正した元入力4件で、simulation 1547／elaboration 99です。
+2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1650入力です。
+追加1646件と修正した元入力4件で、simulation 1551／elaboration 99です。
 
-第18章は部分393／分類63／未評価0番号、義務934件、主引用644テストです。
+第18章は部分393／分類63／未評価0番号、義務937件、主引用648テストです。
 主引用がある番号は1316のままで、candidateは0件1170／目標未満768／2件以上544です。
-部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、errorの一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q429-古いdescriptorのprofileで解放の契約は完了しますか)で説明しています。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、errorの一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q431-取得元profileで古いdescriptorの契約は完了しますか)で説明しています。
 
 kirimasim／Ghost記録は、固定した実行ファイルとseedごとの非公開profileで取得しました。
 
@@ -133,9 +134,9 @@ kirimasim／Ghost記録は、固定した実行ファイルとseedごとの非�
 
 以前のkirimasim／Ghostの一時的な実行ファイル／profile snapshotは失われており、guest再実行は主張しません。
 歴史的な元fileは1085記録を保持します。以前のfilterでcommand-enum引用、Boolean rerandomization、virtual-field configure引用、reraise主引用の修正入力4件を除外しました。今回は新しいfilterを行いません。
-互換1081記録とfilter metadataをbyte単位で保持し、さらに追加4件で未測定は1646入力（追加1642件・修正した元入力4件）となります。
+互換1081記録とfilter metadataをbyte単位で保持し、さらに追加4件で未測定は1650入力（追加1646件・修正した元入力4件）となります。
 Ghostは各seedでpass 206／fail 875、kirimasimはunsupported 1072／API欠落fail 9のままです。
-直近の除外の出典は`out/thin-one-hundred-sixth-guest-exclusions.json`、現在の範囲は`out/thin-one-hundred-thirteenth-evidence-scope.json`に記録します。
+直近の除外の出典は`out/thin-one-hundred-sixth-guest-exclusions.json`、現在の範囲は`out/thin-one-hundred-fourteenth-evidence-scope.json`に記録します。
 
 指紋ごとに、識別する入力が異なります。
 
@@ -154,7 +155,7 @@ SHA-256は記録した内容から計算する識別値であり、1つの識別
 
 合算する前に、次を確認します。
 
-- Verilator IDが現在の全件を覆い、guest IDは宣言した1081件の部分集合と一致すること。1646入力IDは未測定のままにすること。
+- Verilator IDが現在の全件を覆い、guest IDは宣言した1081件の部分集合と一致すること。1650入力IDは未測定のままにすること。
 - 各記録の`inputs_sha256`が、ランナーの集めた現在のソース、期待出力、関連入力、ライブラリのlockと一致すること。
 - batch間でシミュレータの版、configuration、`runner_sha256`が一致し、`runner_changed`がfalseであること。
 - このスナップショットでは、Verilatorタグ付きの全ケースが`pass`、現在のタグなしケースがすべて`known`であること。
@@ -164,9 +165,9 @@ SHA-256は記録した内容から計算する識別値であり、1つの識別
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
-[要求台帳の案](requirements.ja.md)はAI義務4102件と未評価0番号、部分2062／分類445です。
+[要求台帳の案](requirements.ja.md)はAI義務4105件と未評価0番号、部分2062／分類445です。
 第10章は87／29／0、第18章は393／63／0で、部分契約と元の目標は未完です。
-直接対応2671テスト、他の56テストはcontrol専用です。guestは互換1081入力を保持し、修正した元入力4件を含む1646（simulation 1547／elaboration 99）は未測定です。
+直接対応2675テスト、他の56テストはcontrol専用です。guestは互換1081入力を保持し、修正した元入力4件を含む1650（simulation 1551／elaboration 99）は未測定です。
 範囲と分母は未承認です。
 
 ## 再現と結果の保存
@@ -197,18 +198,23 @@ JSON出力は選択した実行のローカル記録であり、公開されるC
 shardは選んだテストを重複なく分担する単位で、最後のgateは全shardの成功を要求し、検査範囲との関係は[Q268](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)で説明しています。
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト118件、metadata 2727件、要求台帳の案／テスト索引を検査します。
+固定ライブラリの整合性、ツールの単体テスト118件、metadata 2731件、要求台帳の案／テスト索引を検査します。
 Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
 基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Checkの成功は選んだ検査だけの成功です。
 
 [Regression](../.github/workflows/regression.yml)は手動実行と毎週（土曜17:23 UTC）に動きます。
-タグ付き通常検査2269件（seed 1／73のruntime 2175・実行時seedなしのcompiler拒否94）を重複しない20 shard（114件が9、113件が11）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
+タグ付き通常検査2273件（seed 1／73のruntime 2179・実行時seedなしのcompiler拒否94）を重複しない20 shard（114件が13、113件が7）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
 別条件の明示command-line 17件は別jobで実行し、gateは両方の成功を要求します。新しい要求は実行中のrunを取り消さずに待ちます。
 
 以前の単一Checkはpushごとに全選択を実行していました。分割前の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は150分のjob上限を超え、その後の8 shard版も完了していません。
 新しいpushで置き換えられなかった唯一の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)では8 shardすべてが150分の上限に達し、2026-10-31より後の他の実行は新しいpushで取り消されました。
 この分割でもseed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は変わらず、選択ツールはrunner指紋に含まれません。
 shard数はlocalのbuild時間から見積もったもので、local検証でhostedのRegression成功は立証しません。
+
+最初のRegression起動である42d03abの[run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603)は、command-line jobと20 shardのうち3 shardが完了した時点で取り消しました。
+command-line jobは成功し、3 shardは342検査のうち334件が一致しました。8件の差分はすべて制約付きの乱数化に依存する検査で、hostedのimageにはpath上のSMT solverがなく、`randomize()`が失敗していました。
+各検査はz3のあるlocalでは一致し、localのpathからz3を外すと、確かめた4件で同じseed 1の値を含む差分を再現しました。以前に成功したCheckは、乱数化する検査を選んでいません。
+[準備用action](../.github/actions/setup-verilator/action.yml)はすべてのjobでz3を導入するようになり、取り消したrunはどのcommitのRegression結果でもありません。
 
 kirimasim、Ghost、specのみのケースはどちらのworkflowでも実行しません。READMEのバッジは現在のCheckの状態で、このローカル測定とは別です。
 CheckやRegressionが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。結果の自動公開はありません。

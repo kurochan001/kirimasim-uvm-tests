@@ -7,8 +7,8 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4102件は、すべて2671テストへ直接対応し、
-追加の56テストはcontrol専用です。全2727テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4105件は、すべて2675テストへ直接対応し、
+追加の56テストはcontrol専用です。全2731テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
@@ -32,7 +32,7 @@ control専用テストは補助的な前提を検査するもので、その一�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-4102件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+4105件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -86,7 +86,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2727件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2731件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -110,7 +110,7 @@ schemaの版はJSONの項目構成を識別するもので、UVMライブラリ�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2727件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2731件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -224,7 +224,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 15 | 132 | 124 | 0 | 18 | 0 |
 | 16 | 280 | 188 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
-| 18 | 934 | 644 | 0 | 63 | 0 |
+| 18 | 937 | 648 | 0 | 63 | 0 |
 | 19 | 199 | 165 | 0 | 24 | 0 |
 | B | 258 | 235 | 0 | 9 | 0 |
 | C | 98 | 69 | 0 | 13 | 0 |
@@ -238,30 +238,31 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
 部分2062識別子は残る義務と適用条件を[完了条件](#m4の残作業と承認)に従って確認する必要があります。
-範囲は提案、4102件のレビューはすべて`ai`、分母は未承認です。
+範囲は提案、4105件のレビューはすべて`ai`、分母は未承認です。
 
-113回目はM3のmemory manager profileを4件追加し、全regionの解放またはregion経由の解放と、allocation呼出し順で最初または最後のdescriptorを組み合わせます。
-各roundは新しい32 locationのmanagerに4 locationのregionを3つ予約し、iterator順をoracleにせず所属を確認し、空いた範囲を再利用した後、保存したdescriptorをmanagerから再度解放します。境界は[古いdescriptorのFAQ](faq.ja.md#q428-古いdescriptorのprofileは何を検査しますか)で説明しています。
+114回目はM3のmemory manager profileを4件追加し、古いdescriptorを別の取得元から得ます。request_regionで得たdescriptorをmanagerまたはregion経由で解放するprofileと、implementまたはallocateで実装した動的なvirtual register配列のregionを、virtual registerの解放methodで解放するprofileです。
+各profileは独立したpeerの予約を保ち、iterator順をoracleにせず所属を確認し、空いた範囲を再利用した後、保存したdescriptorをmanagerから再度解放します。境界は[取得元のFAQ](faq.ja.md#q430-古いdescriptorの取得元profileは何を追加しますか)で説明しています。
 
-4入力はtag付けの前後ともseed 1／73で一致し、2回の測定の間で変わったのは`:oracle:`行だけです。
-18.12.5.3は指定したregionがもう割り当てられていない場合にerrorを求め、18.12.7は各region instanceを割り当てられたregionの記述とします。
-errorの発生だけを検査し、DIAG113のreport回数は診断に留めます。不正呼出し後はそのmanagerの状態を検査せず、以後の予約検査は別に生成したmanagerで行います。
+18.12.5.3は指定したregionがもう割り当てられていない場合にerrorを求めます。virtual registerのregionについて、18.9.1.1.4と18.9.1.1.5はmanagerではなくvirtual registerのmethodで解放するよう定めています。
+古いdescriptorの解放は、その解放で配列が未実装になった後にだけ行い、これは明記した解釈です。
+errorの発生だけを検査し、DIAG114のreport回数は診断に留めます。不正呼出し後はそのmanager・配列・memoryの状態を検査せず、以後の予約検査は別に生成したmanagerで行います。
 
-同じ範囲を再び予約した状態では古いdescriptorを解放しません。後の予約が新しいdescriptor instanceを返すかは規定されず、その呼出しは規定のないidentityに依存するためです。
-既存の二度目の解放と他managerのregionのテストは変更しません。
+最初の凍結では、virtual registerのsetup行でregion ownerの照会もassertしていました。virtual registerの2入力は両seedともその点だけが異なり、既存の[ownerの既知差分](known-differences.ja.md#specのみのテスト)を再現しました。request側の2入力は一致しました。
+この照会は今回の義務の範囲外で、既存のownerテストがassertしているため、DIAG114行へ移し、getterが返すdescriptorのidentityはassertしたままにしました。期待ファイルは変更していません。
+最初の凍結の入力と測定は`out/thin-one-hundred-fourteenth-before-owner-split/`に保管し、現在の証拠には使いません。改訂した入力はtag付けの前後ともseed 1／73で一致し、2回の測定の間で変わったのは`:oracle:`行だけです。
 
-両方の解放経路の後の古いdescriptorを新しい義務1件で扱い、region解放の義務にregion経由の2 profileをdirect linkとして追加します。
-AI義務は4102件で、他の旧要求4100件と分類445件は同一です。直接対応は2671テスト、control対応は158テスト、controlのみは56テストです。
-元の通常／index 2723記録と旧既知458入力は全て維持します。
+request側とvirtual register側の古いdescriptorを新しいerror義務2件で扱い、virtual registerの解放がpeerを割り当てたまま残す点を3件目の義務で扱います。region解放の義務にはrequest側のregion経由profileを追加します。
+AI義務は4105件で、他の旧要求4101件と分類445件は同一です。直接対応は2675テスト、control対応は158テスト、controlのみは56テストです。
+元の通常／index 2727記録と旧既知458入力は全て維持します。
 
-全体は2727テスト（simulation 2628／elaboration 99）です。通常一致は2269件で、runtime両seed 2175入力とcompiler拒否94件です。
+全体は2731テスト（simulation 2632／elaboration 99）です。通常一致は2273件で、runtime両seed 2179入力とcompiler拒否94件です。
 既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。
-2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1646入力です。
-追加1642件と修正した元入力4件で、simulation 1547／elaboration 99です。
+2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1650入力です。
+追加1646件と修正した元入力4件で、simulation 1551／elaboration 99です。
 
-第18章は部分393／分類63／未評価0番号、義務934件、主引用644テストです。
+第18章は部分393／分類63／未評価0番号、義務937件、主引用648テストです。
 主引用がある番号は1316のままで、candidateは0件1170／目標未満768／2件以上544です。
-部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、errorの一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q429-古いdescriptorのprofileで解放の契約は完了しますか)で説明しています。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、errorの一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q431-取得元profileで古いdescriptorの契約は完了しますか)で説明しています。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。
@@ -519,4 +520,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる4102要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる4105要求案と直接の対応は、その条件を満たしていません。

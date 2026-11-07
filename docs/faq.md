@@ -51,7 +51,8 @@ in kirimasim-tests; a UVM mismatch may involve the simulator, library or test.
 The Verilator smoke run needs a separately installed simulator and C++ build environment as well as the fetched UVM library; [Before the first run](reading-guide.md#before-the-first-run) connects these prerequisites to the smoke command.
 
 Use Python 3.10 or later and a simulator able to run UVM. The fixed oracle is
-Verilator 5.052, whose model builds also require a C++ toolchain and make.
+Verilator 5.052, whose model builds also require a C++ toolchain and make;
+models that randomize with constraints call the z3 solver on the path while they run.
 The [setup action](../.github/actions/setup-verilator/action.yml) used by Check and Regression contains its Ubuntu setup.
 
 Run `python3 tools/fetch_uvm.py` to fetch the locked Accellera UVM release.
@@ -186,7 +187,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2671 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2675 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -233,7 +234,7 @@ Execution success and requirement review are separate records, so use [Read cove
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 932
+M1 and M2 still have open clause targets. M3 now has 936
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1259,9 +1260,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4102 AI drafts cover only a partial decomposition: 4102 requirements link
-directly to 2671 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2727 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4105 AI drafts cover only a partial decomposition: 4105 requirements link
+directly to 2675 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2731 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -3090,7 +3091,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 ### Q193. Why did the compatible guest subset decrease to 1081?
 
 Four original inputs have revised fingerprints: the command-enum citation, Boolean rerandomization observation, virtual-field configure citation and the reraise primary citation. All four were remeasured when changed; the reraise revision was measured at both seeds in the previous expansion. Their stale guest rows are excluded while the historical 1085-record source files remain intact.
-Current reuse covers 1081 inputs, with 1646 unmeasured: 1642 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
+Current reuse covers 1081 inputs, with 1650 unmeasured: 1646 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
 
@@ -3160,10 +3161,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2727 tests run at two seeds?
+### Q201. Did all 2731 tests run at two seeds?
 
-No. There are 2628 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2175 two-seed runtime matches, 94 expected compiler rejections, 453 known
+No. There are 2632 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2179 two-seed runtime matches, 94 expected compiler rejections, 453 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3717,7 +3718,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2671 directly linked tests and fifty-six
+The suite has 2675 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3833,7 +3834,7 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 No. Check now runs only the tagged checks whose inputs changed, plus a canary,
 and falls back to the canary with a warning when it cannot cover a change; it
-never stands in for the full selection. Regression runs all 2269 tagged checks
+never stands in for the full selection. Regression runs all 2273 tagged checks
 in 20 disjoint shards, at most 4 concurrent, and the 17 command-line checks in
 a separate job. The earlier 8-shard Check never finished: its one uninterrupted
 run reached the 150-minute limit on every shard. Runtime seeds 1/73 and
@@ -3994,7 +3995,7 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 
 At that earlier citation repair, the changed fingerprint excluded an old row despite an unchanged body/oracle: 1083 compatible records became 1082. At that checkpoint Ghost retained 206 matches/876 failures per seed and kirimasim retained 1073 unsupported/nine failures, without a guest rerun.
 
-Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1646 unmeasured inputs are 1642 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
+Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1650 unmeasured inputs are 1646 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
 
@@ -4236,8 +4237,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4102 duties link directly
-to 2671 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4105 duties link directly
+to 2675 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5126,7 +5127,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4102 duties all have direct tests and all 2727 tests have links, but those
+The 4105 duties all have direct tests and all 2731 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5391,7 +5392,7 @@ proves independent tests or complete requirements.
 
 Header edits change the input fingerprint under [the update rules](requirements.md#updating-a-test-or-mapping).
 The revised original's old guest row is filtered from 1082 compatible records,
-leaving 1081; the 1646 unmeasured inputs are 1642 additions and four revised
+leaving 1081; the 1650 unmeasured inputs are 1646 additions and four revised
 originals. Ghost's retained failure count becomes 875 and kirimasim's retained
 unsupported count becomes 1072 because that stale row was removed. No guest
 was re-executed, improved or newly passed. The old evidence remains archived,
@@ -5697,5 +5698,54 @@ unmeasured without a new run or filter.
 Stale request_region descriptors, virtual-register regions, concurrent
 releases and stale calls while the range is reserved again remain open, as do
 all 2062 partial identifiers, original targets, human review and
+scope/denominator approval; [the progress guide](reading-guide.md#read-coverage-and-progress)
+explains why matching errors do not supply completion.
+
+## Stale descriptor sources
+
+### Q430. What do the stale-descriptor source profiles add?
+
+[The 113th profiles](#q428-what-do-the-stale-descriptor-profiles-check) obtain
+every stale descriptor from reserve_region. The two request profiles reserve
+locations 0 to 3 as a peer in a 32-location manager and request four locations
+with a policy constrained to start at 12; the requested descriptor is released
+through the manager or through its region facade. The two virtual-register
+profiles reserve a peer in the memory's own manager, implement two elements at
+offset two or allocate three elements with a policy constrained to start at
+ten, and release the array with the virtual-register release method.
+[The helper](../tests/u18/helpers114_mam_stale_source/stale_source114.svh)
+reserves and releases the freed range again before releasing the saved
+descriptor through the manager.
+
+18.12.5.3 requires an error when the specified region is no longer allocated.
+The standard directs a region that implements a virtual-register array to be
+released through the virtual-register method rather than the manager, so the
+stale call is made only after that release has left the array unimplemented.
+That reading is an interpretation and is stated in the duty's limitations.
+Reuse uses the saved byte count, so it assumes no bytes-per-location value for
+the memory's manager. Only the presence of an error is checked.
+
+The region-owner query is a DIAG114 row in these profiles. A first freeze
+asserted it, and both virtual-register inputs differed only there, as the
+existing owner test already records; [the history](history.md#114th-thin-area-expansion-stale-descriptor-sources)
+describes the archived first freeze. The revised inputs match seeds 1/73.
+
+### Q431. Do the source profiles complete the stale-descriptor contract?
+
+No. Two new duties cover stale requested and virtual-register descriptors, a
+third covers the virtual-register release leaving a peer allocated, and the
+region-release duty gains the requested region-facade profile. The ledger has
+4105 AI duties, with 4101 other old objects and 445 assessments unchanged.
+Chapter 18 is 393 partial/63 assessed/0 unassessed, 937 duties and 648 primary
+tests.
+
+Totals are 2731 tests (2632 simulation/99 elaboration), 2675 direct-linked
+tests and 2273 ordinary matches (2179 runtime both seeds/94 compiler
+rejections). Known inputs remain 458. Guests remain 1081 compatible/1650
+unmeasured without a new run or filter.
+
+A manager release of a region that still implements a virtual-register array,
+concurrent releases and stale calls while the range is reserved again remain
+open, as do all 2062 partial identifiers, original targets, human review and
 scope/denominator approval; [the progress guide](reading-guide.md#read-coverage-and-progress)
 explains why matching errors do not supply completion.

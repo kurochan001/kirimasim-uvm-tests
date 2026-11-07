@@ -4,9 +4,9 @@
 
 ## 最初に読むこと
 
-2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、この文面を含むcommitで113回目の拡充を公開しました。**goalは継続中で、完了していません。**
+2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)で113回目の拡充を公開しました。その後、最初のRegressionでhostedのrunnerにz3制約solverがないことが分かり、準備用actionで導入して、この文面を含むcommitで114回目の拡充を公開しました。**goalは継続中で、完了していません。**
 
-編集前に実際のbranchと作業ツリーを確認してください。113回目のnative測定はすべて終了済みです。
+編集前に実際のbranchと作業ツリーを確認してください。114回目のnative測定はすべて終了済みです。
 
 最初に現在のworkspaceの指示を読みます。ユーザーのagent向け指示は`RTK.md`を参照するため、現在の環境で解決してください。非公開設定やユーザーの絶対パスを公開ファイルへ記載しません。
 
@@ -14,63 +14,66 @@
 
 生成する3つのキュー、つまり未対応テスト・直接テストのない要求・未評価の条項識別子は0件です。**実際の残作業が0件とは実証されていません。** 棚卸し2507識別子のうち2062件は一部分解、445件は分類済みです。範囲は提案段階、完全性はfalse、承認済み分母とcoverage率はnullで、人のレビューは未記録です。元のM1〜M4目標と規範的義務の適用条件は未完で、これらの異なる指標は[要求ガイド](requirements.ja.md)で説明しています。
 
-- テスト：22 directoryに2727件 = simulation 2628 + elaboration 99。M1：1171（1090/81）、M2：624（617/7）、M3：932（921/11）。
-- AI要求：4102件すべてを2671テストへ直接対応。control専用は56テストです。人のレビューは主張しません。
-- 通常のpass入力：2269件 = seed 1/73でruntime一致2175 + 期待したcompiler rejection 94。
+- テスト：22 directoryに2731件 = simulation 2632 + elaboration 99。M1：1171（1090/81）、M2：624（617/7）、M3：936（925/11）。
+- AI要求：4105件すべてを2675テストへ直接対応。control専用は56テストです。人のレビューは主張しません。
+- 通常のpass入力：2273件 = seed 1/73でruntime一致2179 + 期待したcompiler rejection 94。
 - 既知差分：458件 = runtime差分318 + simulation build失敗135 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。
-- guest証拠：互換1081記録、未測定1646入力（追加1642 + 改訂した元入力4）。112回目と113回目にguest測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
+- guest証拠：互換1081記録、未測定1650入力（追加1646 + 改訂した元入力4）。112〜114回目にguest測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
 - 候補の配置：primaryテスト0件が1170番号、1件が768番号、2件以上が544番号です。条項の網羅や独立した検査の成功を証明する件数ではありません。
 
 HDL backendとcommand-lineの追加検査には別の実行条件があり、[実行結果](results.ja.md)と[テストガイド](testing.ja.md)を確認してください。範囲を確認せず通常の総数へ加算しません。
 
 ## CIの状態
 
-hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していませんでした。単一のCheckが`cancel-in-progress`付きでpushごとに全件を実行し、中断されなかった唯一の8 shard実行では全shardが150分の上限に達しました。置き換えた構成は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
+hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していませんでした。単一のCheckが`cancel-in-progress`付きでpushごとに全件を実行し、中断されなかった唯一の8 shard実行では全shardが150分の上限に達しました。置き換えた構成とsolverの修正は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 
-- [Check](../.github/workflows/check.yml)はtool・metadata・library・台帳の検査と、入力が変わったタグ付き検査、canary 1件を実行します（[選択ツール](../tools/ci_select.py)）。42d03abの[run 42359747127](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747127)は成功しました。このcommitはテスト入力を変えていないため、実行したのはcanaryだけです。
-- [Regression](../.github/workflows/regression.yml)は手動と毎週、全タグ付き検査を20 shard（同時4、各360分）で、command-line 17件と合わせて実行します。最初の起動である42d03abの[run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603)はこの文面の作成時点で実行中で、Regressionの結果は主張しません。hostedのcanaryは約2.5分かかったので、1 shard約2.2時間、全体約11時間と見込んでいますが、これは見積もりで測定ではありません。
-- 同時10で起動したrunは、アカウント共有のhosted job枠を埋めて他のrepositoryを遅らせたため取り消しました。Regressionの同時実行数は控えめに保ちます。
-- まずrun 42359747603の結果を確認してください。shardがtimeoutまたは失敗した場合は、テストを追加公開する前に調べます。このrunの対象は42d03abで、113回目の4件は113回目のcommitに対するCheckの変更入力jobとlocal測定で確認しています。後のcommitで全件のhosted結果が必要なら、Regressionを再度起動します。
+- [Check](../.github/workflows/check.yml)はtool・metadata・library・台帳の検査と、入力が変わったタグ付き検査、canary 1件を実行します（[選択ツール](../tools/ci_select.py)）。42d03ab（[run 42359747127](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747127)、canaryのみ）とf94ba4a（[run 42360326889](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42360326889)、113回目の4入力とcanary）で成功しました。どちらの選択も乱数化を行いません。
+- [Regression](../.github/workflows/regression.yml)は手動と毎週、全タグ付き検査を20 shard（同時4、各360分）で、command-line 17件と合わせて実行します。最初の起動である42d03abの[run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603)は、command-line job（成功）とshard 0・2・3（342件中334件一致）の完了後に取り消しました。8件の差分はすべて制約付き乱数化に依存し、imageのpathにSMT solverがありませんでした。localでz3を外すと、確かめた4件の差分を再現しました。このrunはどのcommitのRegression結果でもありません。
+- [準備用action](../.github/actions/setup-verilator/action.yml)はすべてのjobでz3を導入し、その版を表示します。114回目のcommitのCheckは、allocation policyを乱数化するrequest側の2 profileを選ぶため、hostedのrunnerでsolverを使います。
+- このsessionは公開後にRegressionを再度起動しますが、その結果はここでは主張しません。まず`gh run list --workflow regression.yml`を確認し、shardがtimeoutまたは失敗した場合は、テストを追加公開する前に調べます。
+- 同時10で起動したrunは、アカウント共有のhosted job枠を埋めて他のrepositoryを遅らせたため以前に取り消しました。Regressionの同時実行数は控えめに保ち、全件実行を重ねて起動しません。
 
 ## 維持する判断
 
 - 独立した期待値はユーザー提供IEEE規格から導きます。Git対象外のlocal PDFは`IEEE_Std_1800.2-2020.pdf`と`IEEE_Std_1800-2023_SystemVerilog.pdf`で、新規cloneには含まれず、再配布しません。規格の本文・図・例をテストや資料へコピーしません。
 - 商用シミュレータの結果・出力・診断を、匿名化や第三者経由を含めて利用しません。GPL／LGPLシミュレータの実装sourceを読みません。[出典方針](provenance.ja.md)と[投稿方針](faq.ja.md#商用シミュレータとissueの投稿方針)に従います。
-- 固定したApache UVM sourceは、規格由来のoracleを凍結した後で差分の説明に使えますが、期待値を定義しません。有効なspec-only差分と限定した解釈を保持します。観測出力へ合わせるためだけに期待値を変更しません。
+- 固定したApache UVM sourceは、規格由来のoracleを凍結した後で差分の説明に使えますが、期待値を定義しません。有効なspec-only差分と限定した解釈を保持します。観測出力へ合わせるためだけに期待値を変更せず、tag付け前の改訂は明記して保管します。
 - Ghostの実際の識別情報・版・executable／profileパス・profile内容・生の診断を非公開にします。PDF・取得したlibrary source・log・非公開設定・生成した一時ファイルをGitへ含めません。
 - 完全な日英対を維持します。READMEは現状、[履歴](history.ja.md)は過去の追加を記録します。最近追加した読者向け説明とリンク、過去時点のFAQ、AI照合状態、既存証拠のidentityを保持します。
-- `tools/run_verilator.py`、`tools/suite_results.py`、`tools/uvm_common.py`を安易に変更しません。これらはrunner指紋を構成し、変更すると保存済みの全記録が無効になります。`tools/ci_select.py`は指紋の外にあります。
+- `tools/run_verilator.py`、`tools/suite_results.py`、`tools/uvm_common.py`を安易に変更しません。これらはrunner指紋を構成し、変更すると保存済みの全記録が無効になります。`tools/ci_select.py`とworkflowのファイルは指紋の外にあります。
 
 ## 最新実装と限界
 
-113回目では`tests/u18/`へM3の古いmemory manager descriptor 4 profileを追加し、`tests/u18/helpers113_mam_stale/stale_release113.svh`を共有します。全regionの解放またはregion経由の解放と、allocation呼出し順で最初または最後のdescriptorを組み合わせます。4件ともtag付けの前後でseed 1／73が一致しました。18.12.5.3は割当てが終わったregionの解放にerrorを求めます。検査するのはerrorの発生だけで、DIAG113の回数は診断です。不正呼出し後は対象managerを調べず、以後の検査は別のmanagerで行います。
+114回目では`tests/u18/`へM3の4 profileを追加し、`tests/u18/helpers114_mam_stale_source/stale_source114.svh`を共有します。古いdescriptorは、request_regionで得てmanagerまたはregion経由で解放したものか、動的なvirtual register配列を実装または割り当ててvirtual registerのmethodで解放したものです。各profileはpeerの予約を保ち、空いた範囲を再利用した後、保存したdescriptorをmanagerから解放します。18.12.5.3はerrorを求めます。virtual registerのregionでは、18.9.1.1.4と18.9.1.1.5がvirtual registerのmethodでの解放を定めているため、配列が未実装になった後にだけ古いdescriptorを解放し、これは明記した解釈です。検査するのはerrorの発生だけです。
 
-同じ範囲を再び予約した状態で古いdescriptorを解放する案は、検討した上で採用しませんでした。18.12.7は、同じ範囲を後で予約したときに新しいdescriptor instanceが返るかを述べていないためです。新しい義務は`UVM-MAM-AUDIT-STALE-DESCRIPTOR-RELEASE-ERROR`で、`UVM-MAM-AUDIT-REGION-RELEASE`にはregion経由の2 profileをdirect linkとして追加しました。`UVM-MAM-RELEASE-ALL-REUSE`は条件文が特定の2 rangeを指すため拡張していません。[完了のFAQ](faq.ja.md#q429-古いdescriptorのprofileで解放の契約は完了しますか)を参照してください。
+最初の凍結では、virtual registerのsetup行でregion ownerの照会もassertしていました。virtual registerの2入力はその点だけが異なり、既存の18.12.7.2.7のowner既知差分を再現し、request側の2入力は一致しました。その照会はDIAG114行へ移し、getterのidentityはassertしたままで、期待ファイルは変えていません。最初の凍結の入力と測定は`out/thin-one-hundred-fourteenth-before-owner-split/`に保管しています。改訂した入力はtag付けの前後ともseed 1／73で一致しました。新しい義務は`UVM-MAM-AUDIT-STALE-REQUEST-DESCRIPTOR-RELEASE-ERROR`、`UVM-VREG-AUDIT-STALE-REGION-MANAGER-RELEASE-ERROR`、`UVM-VREG-AUDIT-RELEASE-KEEPS-PEER-RESERVATION`で、`UVM-MAM-AUDIT-REGION-RELEASE`にはrequest側のregion経由profileを追加しました。[取得元のFAQ](faq.ja.md#q430-古いdescriptorの取得元profileは何を追加しますか)を参照してください。
 
-112回目のunpackの解釈は限定したままです。列挙されたsetterが空配列を含む実際のvirtual訪問を要求するかは照合が必要で、観測profile 2件はknownのままです。他にも物理address変換、storage無効時や変更時の自動recording、event deltaの厳密な適用条件、別要因で起動済みまたは停止したwaiterのcancelなどが未完です。[詳細ハンドオフ](handoff.ja.md)に周辺条件と以前の有効な差分を残しています。
+113回目の限界は残ります。18.12.7は同じ範囲を後で予約したときに新しいdescriptor instanceが返るかを述べていないため、その範囲を再び予約した状態では古いdescriptorを解放しません。virtual register配列を実装中のregionのmanagerからの解放は検査していません。112回目のunpackの解釈は限定したままです。列挙されたsetterが空配列を含む実際のvirtual訪問を要求するかは照合が必要で、観測profile 2件はknownのままです。他にも物理address変換、storage無効時や変更時の自動recording、event deltaの厳密な適用条件、別要因で起動済みまたは停止したwaiterのcancelなどが未完です。[詳細ハンドオフ](handoff.ja.md)に周辺条件と以前の有効な差分を残しています。
 
 ## ローカル資料
 
-Git対象外の`out/`は補助的なlocal証拠であり、版管理する正本ではありません。clone先には存在しない場合があります。このhostでの113回目のファイルは次のとおりです。
+Git対象外の`out/`は補助的なlocal証拠であり、版管理する正本ではありません。clone先には存在しない場合があります。このhostでの114回目のファイルは次のとおりです。
 
 ```text
-out/thin-one-hundred-thirteenth-pretag-freeze.json
-out/thin-one-hundred-thirteenth-verilator-pretag.json
-out/thin-one-hundred-thirteenth-verilator-final.json
-out/thin-one-hundred-thirteenth-verilator-combined.json
-out/thin-one-hundred-thirteenth-evidence-scope.json
-out/thin-one-hundred-thirteenth-inventory.json
-out/thin-one-hundred-thirteenth-backlog.json
-out/thin-one-hundred-thirteenth-doc-contents-effective.json
+out/thin-one-hundred-fourteenth-pretag-freeze.json
+out/thin-one-hundred-fourteenth-verilator-pretag.json
+out/thin-one-hundred-fourteenth-verilator-final.json
+out/thin-one-hundred-fourteenth-verilator-combined.json
+out/thin-one-hundred-fourteenth-evidence-scope.json
+out/thin-one-hundred-fourteenth-inventory.json
+out/thin-one-hundred-fourteenth-backlog.json
+out/thin-one-hundred-fourteenth-doc-contents-effective.json
+out/thin-one-hundred-fourteenth-regression-42359747603.json
+out/thin-one-hundred-fourteenth-before-owner-split/
 ```
 
-guest記録は[詳細ハンドオフ](handoff.ja.md#実測記録と直近の差分)に記載した112回目のファイルのままです。`out/thin-one-hundred-thirteenth-generator-used.py`と`out/thin-one-hundred-thirteenth-docs-used.py`は実際に使ったscriptで、guardがa897c68と112回目の資料本文を参照するため再実行しません。以前の下書き`out/thin-one-hundred-thirteenth-generate.py`は一度も実行しておらず、置き換え済みです。次の資料更新はeffective snapshotと現在の版管理ファイルから始めます。indexへの追記時は既存の順序を保持し、証拠を持ち越す前に入力・runner・library・simulatorのfingerprintを確認します。規則は[証拠の集約](results.ja.md#記録の合算)にあります。
+guest記録は[詳細ハンドオフ](handoff.ja.md#実測記録と直近の差分)に記載した112回目のファイルのままです。`out/thin-one-hundred-fourteenth-generator-used.py`、`-wrap-used.py`、`-ledger-used.py`、`-docs-used.py`は実際に使ったscriptで、guardがf94ba4aと113回目の資料本文を参照するため、113回目のscriptと同様に再実行しません。次の資料更新はeffective snapshotと現在の版管理ファイルから始めます。indexへの追記時は既存の順序を保持し、証拠を持ち越す前に入力・runner・library・simulatorのfingerprintを確認します。規則は[証拠の集約](results.ja.md#記録の合算)にあります。
 
 ## 次の候補
 
 承認済みの範囲ではなく提案です。選ぶ前にbacklogを再生成します。
 
-- request_regionで得たdescriptorと、virtual registerを実装するregionの古いdescriptor：先に18.12.5.2と18.9.1.1.6を読み、既存のvirtual register解放テストと比べ、上記のdescriptor identityの限界を保ちます。
+- まず新しいRegressionの結果を確認します。solverを入れた状態での最初の全件hosted結果です。
 - 112回目のunpackの列挙setterの問題：規格と照合し、library証拠を理由にknownをpassへ変更しません。
 - 第18章の他の部分条件（部分393番号）と全体の部分2062番号を、元のM1〜M3目標と比べます。
 
@@ -78,11 +81,12 @@ guest記録は[詳細ハンドオフ](handoff.ja.md#実測記録と直近の差�
 
 各拡充の前にbacklogを再生成し、実際に残る義務を規格で確認して、独立したoracleを凍結し、最終入力を測定し、互換な証拠と両言語を更新してから公開します。実際の残る義務と元のmilestone目標の監査が終わるまでgoalを完了扱いにしません。Claude Codeは会話のnative goal状態を自動継承しません。
 
-Python 3.10以降を使います。native再現にはVerilator 5.052、C++ toolchain、makeが必要です。固定Accellera UVM 2020.3.1 libraryがなければ取得します。再開時の確認手順です。
+Python 3.10以降を使います。native再現にはVerilator 5.052、C++ toolchain、make、path上のz3 solverが必要です。固定Accellera UVM 2020.3.1 libraryがなければ取得します。再開時の確認手順です。
 
 ```sh
 git status --short --branch
 git log -1 --oneline
+z3 --version
 python3 tools/fetch_uvm.py
 python3 tools/fetch_uvm.py --check
 python3 tools/lint_metadata.py
@@ -96,4 +100,4 @@ gh run list --workflow regression.yml --limit 3
 
 ## 再開時にClaude Codeへ渡す文面
 
-> 現在のworkspaceの指示、README、日英のClaude Codeハンドオフを読んでください。main・作業ツリー・最新のCheckと、Regression run 42359747603の結果を確認してください。ユーザーが許可した範囲で、継続中のM1〜M4のgoalを続けてください。生成する3キューは0ですが、部分分解2062番号と元のmilestone目標が残り、実際の未対応0件は未実証です。意味のある残る条件をlocal IEEE規格で監査し、既存テストとの重複を避けてください。独立した期待値、限定した既知差分、互換な証拠、runner指紋、商用結果の不使用、Ghostの非公開情報、完全な日英資料を維持してください。完了済みの一時scriptを再実行しないでください。最終入力を測定し、適切な検査を実施して限界を報告し、許可された範囲でmainへ公開してください。レビュー・範囲承認・pass・goal完了を捏造しないでください。
+> 現在のworkspaceの指示、README、日英のClaude Codeハンドオフを読んでください。main・作業ツリー・最新のCheckと、z3 solverの修正後に起動した最新のRegressionの結果を確認してください。ユーザーが許可した範囲で、継続中のM1〜M4のgoalを続けてください。生成する3キューは0ですが、部分分解2062番号と元のmilestone目標が残り、実際の未対応0件は未実証です。意味のある残る条件をlocal IEEE規格で監査し、既存テストとの重複を避けてください。独立した期待値、限定した既知差分、互換な証拠、runner指紋、商用結果の不使用、Ghostの非公開情報、完全な日英資料を維持してください。完了済みの一時scriptを再実行しないでください。最終入力を測定し、適切な検査を実施して限界を報告し、許可された範囲でmainへ公開してください。レビュー・範囲承認・pass・goal完了を捏造しないでください。

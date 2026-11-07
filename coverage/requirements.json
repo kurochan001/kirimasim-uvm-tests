@@ -89760,6 +89760,14 @@
             "UT: round 2 released members 1",
             "UT: round 2 reuse geometry 1 released_again 1"
           ]
+        },
+        {
+          "test": "u18/test_mam_stale_request_region_release_114",
+          "role": "direct",
+          "expected_observations": [
+            "UT: released members 1",
+            "UT: reuse geometry 1 released_again 1"
+          ]
         }
       ]
     },
@@ -90001,6 +90009,131 @@
           "expected_observations": [
             "UT: round 1 stale_error 1",
             "UT: round 2 stale_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-STALE-REQUEST-DESCRIPTOR-RELEASE-ERROR",
+      "clause": "18.12.5.3",
+      "statement": {
+        "en": "Releasing, through the manager, a requested descriptor that is no longer allocated after a manager or region-facade release reports an error.",
+        "ja": "managerまたはregion経由の解放によって割当てが終わったrequest_regionのdescriptorをmanagerから解放すると、errorをreportする。"
+      },
+      "conditions": {
+        "en": "In a 32-location manager, reserve locations 0 to 3 as a peer and request four locations with a policy constrained to start at 12. Release the requested descriptor through the manager or through its region facade, reserve and release the freed range again, then release the saved descriptor through the manager.",
+        "ja": "32 locationのmanagerで0〜3をpeerとして予約し、開始位置を12に制約したpolicyで4 locationを要求する。要求で得たdescriptorをmanagerまたはregion経由で解放し、空いた範囲を予約して再度解放した後、保存したdescriptorをmanagerから解放する。"
+      },
+      "expected": {
+        "en": "The release of the stale requested descriptor reports an error.",
+        "ja": "古いrequest descriptorの解放はerrorをreportする。"
+      },
+      "limitations": {
+        "en": "Only the presence of an error is checked; the exact number of reports is diagnostic. The fixed-start policy makes the request deterministic and asserts no random distribution. The stale descriptor's range is free at the invalid call; because descriptor identity on a later reservation of the same range is not specified, no stale call is made while that range is allocated again. No state of the invalid-call target is inspected or reused; later checks use an independently constructed manager.",
+        "ja": "errorの発生だけを確認し、report回数は診断に留める。開始位置を固定したpolicyで要求を決定的にし、乱数分布は検査しない。不正呼出し時、古いdescriptorの範囲は空いている。同じ範囲を後で予約したときのdescriptor identityは規定されないため、その範囲を再び割り当てた状態では古いdescriptorを解放しない。不正呼出し対象の状態は検査も再利用もせず、以後の検査は別に生成したmanagerで行う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_stale_request_manager_release_114",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stale_error 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_stale_request_region_release_114",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stale_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-AUDIT-STALE-REGION-MANAGER-RELEASE-ERROR",
+      "clause": "18.12.5.3",
+      "statement": {
+        "en": "After a dynamic virtual-register release, releasing the saved implementation descriptor through the memory's manager reports an error.",
+        "ja": "動的なvirtual register配列を解放した後、保存した実装descriptorをmemoryのmanagerから解放すると、errorをreportする。"
+      },
+      "conditions": {
+        "en": "In a 64-location eight-bit memory, reserve a four-byte peer at location 40 through the memory's manager. Implement two sixteen-bit elements at offset two, or allocate three elements through that manager with a policy constrained to start at ten, and save the region returned by the getter or by the allocation. Release the array with the virtual-register release method, reserve and release the freed range again, then release the saved descriptor through the manager.",
+        "ja": "8 bit・64 locationのmemoryで、memoryのmanagerからlocation 40に4 byteのpeerを予約する。16 bitの要素2つをoffset 2へ実装するか、開始位置を10に制約したpolicyでそのmanagerから要素3つを割り当て、getterまたは割当てが返したregionを保存する。virtual registerの解放methodで配列を解放し、空いた範囲を予約して再度解放した後、保存したdescriptorをmanagerから解放する。"
+      },
+      "expected": {
+        "en": "The release of the stale implementation descriptor reports an error.",
+        "ja": "古い実装descriptorの解放はerrorをreportする。"
+      },
+      "limitations": {
+        "en": "Only the presence of an error is checked; the exact number of reports is diagnostic. The standard directs a region that implements a virtual-register array to be released through the virtual-register method rather than the manager; applying the manager's error duty only after the array is released and unimplemented is an interpretation. The memory's own manager is used with its construction defaults; the reuse check uses the saved byte count and assumes no bytes-per-location value. The region-owner query is diagnostic here; the existing virtual-owner test asserts it. No state of the invalid-call target, array or memory is inspected or reused; later checks use an independently constructed manager.",
+        "ja": "errorの発生だけを確認し、report回数は診断に留める。規格は、virtual register配列を実装するregionをmanagerではなくvirtual registerのmethodで解放するよう定めている。配列を解放して未実装になった後にだけmanagerのerror義務を適用するのは解釈である。memory自身のmanagerを生成時の既定設定で使い、再利用の検査は保存したbyte数を使ってlocationあたりのbyte数を仮定しない。region ownerの照会はここでは診断で、既存のvirtual-ownerテストがassertする。不正呼出し対象・配列・memoryの状態は検査も再利用もせず、以後の検査は別に生成したmanagerで行う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_stale_vreg_implement_release_114",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stale_error 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_stale_vreg_allocate_release_114",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stale_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-AUDIT-RELEASE-KEEPS-PEER-RESERVATION",
+      "clause": "18.9.1.1.6",
+      "statement": {
+        "en": "The virtual-register release returns only the implementing region to the memory's manager, leaving an independent peer reservation allocated and the array unimplemented.",
+        "ja": "virtual registerの解放は実装regionだけをmemoryのmanagerへ返し、独立したpeerの予約は割り当てたまま、配列は未実装になる。"
+      },
+      "conditions": {
+        "en": "In a 64-location eight-bit memory, reserve a four-byte peer at location 40 through the memory's manager. Implement two sixteen-bit elements at offset two, or allocate three elements through that manager with a policy constrained to start at ten, and save the region returned by the getter or by the allocation. Release the array with the virtual-register release method, then reserve and release the freed range using the saved start, end and byte count.",
+        "ja": "8 bit・64 locationのmemoryで、memoryのmanagerからlocation 40に4 byteのpeerを予約する。16 bitの要素2つをoffset 2へ実装するか、開始位置を10に制約したpolicyでそのmanagerから要素3つを割り当て、getterまたは割当てが返したregionを保存する。virtual registerの解放methodで配列を解放し、保存した開始・終了位置とbyte数で空いた範囲を予約して再度解放する。"
+      },
+      "expected": {
+        "en": "Only the peer remains allocated, the region getter returns null, and the freed range can be reserved with its saved geometry and released again.",
+        "ja": "割り当てたまま残るのはpeerだけで、regionのgetterはnullを返し、空いた範囲は保存した位置と長さで予約して再度解放できる。"
+      },
+      "limitations": {
+        "en": "Membership is observed through the manager iterator without assuming its order. The memory's own manager is used with its construction defaults; the reuse check uses the saved byte count and assumes no bytes-per-location value. Whether a later reservation returns a new descriptor instance is not specified, so only geometry and membership are compared. The memory getter after release and physical memory contents are not checked here.",
+        "ja": "membershipはmanagerのiteratorで観測し、その順序を仮定しない。memory自身のmanagerを生成時の既定設定で使い、再利用の検査は保存したbyte数を使ってlocationあたりのbyte数を仮定しない。後の予約で新しいdescriptor instanceが返るかは規定されないため、位置・長さとmembershipだけを比べる。解放後のmemory getterと物理memoryの内容はここでは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_stale_vreg_implement_release_114",
+          "role": "direct",
+          "expected_observations": [
+            "UT: released members 1 unimplemented 1",
+            "UT: reuse geometry 1 released_again 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_stale_vreg_allocate_release_114",
+          "role": "direct",
+          "expected_observations": [
+            "UT: released members 1 unimplemented 1",
+            "UT: reuse geometry 1 released_again 1"
           ]
         }
       ]
