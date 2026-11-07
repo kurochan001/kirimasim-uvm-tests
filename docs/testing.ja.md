@@ -58,6 +58,8 @@ tools/clauses_1800_2.txt     1800.2-2020の条項番号（番号だけ）
 tools/UPSTREAM               写したツールの元と、変えた点
 ```
 
+共有する`.svh`ヘッダーはテストに取り込む補助コードで、単独のテスト件数には数えず、変更時には[影響する全入力と対応付けのレビュー](requirements.ja.md#テストや対応付けの更新)が必要です。
+
 ## テストの形式
 
 テストは観測する動作と独自に導いた期待値を組み合わせるため、以下で使うoracleと期待出力の意味は[規格と期待値](glossary.ja.md#規格と期待値)を参照してください。
@@ -65,6 +67,8 @@ tools/UPSTREAM               写したツールの元と、変えた点
 ### 例
 
 次のコードはメタデータのヘッダーだけを示しており、実行に必要なクラスやtop moduleは[動作確認用テストの全ソース](../tests/u09/test_common_phases_run_in_order.sv)で確認できます。
+
+overrideはテスト用の派生クラスがcallbackや観測メソッドを提供する仕組みで、ソース全体に出てくる参照・メソッド呼び出し・型パラメーターの読み方は[コード表記の用語](glossary.ja.md#コードの表記を読む)で確認できます。
 
 ```systemverilog
 /*
@@ -263,6 +267,11 @@ nonblocking 4profileは復帰前に正確なcaller phaseのpropertyを読み、b
 
 [自動property helper](../tests/u15/helpers109_recording/automatic109.svh)は、異なる固定要求propertyと、独自のmemory内database、stream、recorderを用意します。公開component／transaction／global設定で選択した記録条件を有効にし、実際のlibrary呼び出しがproperty dataを供給します。driver／coordinatorはrecordやbegin／endを呼ばず、正確なbackend件数はDIAG109だけに残し、証拠と残る既定条件は[propertyのFAQ](faq.ja.md#q416-property-profileはtransaction-markに何を追加しますか)で説明しています。
 
+eventのdelta profileは[独自の共有helper](../tests/u10/helpers110_event_delta/event_delta110.svh)で既定waiterをblockし、
+別module processでNBA更新を予約してから、新しい子を開始待ちにして実際のwaitを呼びます。
+timeとrealtime、再利用2 round、独立peerを比較し、helperは#0を挿入しません。
+schedulerの観測と診断専用のwaiter順序は[Q420](faq.ja.md#q420-新しい子と予約したnbaを両方使う理由は)で説明しています。
+
 ### メタデータ
 
 ヘッダーは実行スクリプトにビルドと判定の条件を伝えるもので、条項の引用と要求への対応付けの関係は[Q76](faq.ja.md#q76-条項を引用すればその要求を検査したことになりますか)で説明しています。
@@ -303,6 +312,8 @@ kirimasim-testsと同じです。共通実装の取得元は[ソースの出典]
 これらの指定と、選択するUVMクラス、期待値ファイルの関係は、[スモークテストをファイルで辿る例](reading-guide.ja.md#1件のテストをファイルで辿る)で確認できます。
 
 `:fourstate: no`は検査系がX/Zの値を必要としないという宣言で、得られる2値の証拠の限界は[Q14](faq.ja.md#q14-seedを2つ変えれば決定性や4値の動作も証明できますか)で説明しています。
+
+`:nondeterministic: no`は再現可能な観測を期待する検査系という宣言で、2つのseedの一致が全実行についての証明にはならない理由は[seedの限界](faq.ja.md#q14-seedを2つ変えれば決定性や4値の動作も証明できますか)で確認できます。
 
 ヘッダーの`:uvm:`はテスト側のライブラリ版の指定であり、同梱モードでは供給されたライブラリを使うため、結果が前提にする実際のライブラリ条件の読み方は[Q11](faq.ja.md#q11-ghostの結果は何を確認しなぜ仮名なのですか)で確認できます。
 
@@ -409,7 +420,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の2653件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
+- 現在の2659件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -511,7 +522,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の2253件（runtime 2159・期待compiler拒否94）です。`--all`を付けるとspecのみの456件も含めます。
+Verilatorの既定の対象はoracle付き・2値の2259件（runtime 2165・期待compiler拒否94）です。`--all`を付けるとspecのみの456件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -574,7 +585,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト2709件（simulation 2610件・elaboration 99件）です。
+現在のツールの単体テストは110件、メタデータの対象はテスト2715件（simulation 2616件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
@@ -582,7 +593,7 @@ Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きの
 UVMの全要求や全シミュレータの成功を示すものではありません。
 
 以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
-現在のworkflowは現在のタグ付き2253検査を重複しない8 shard（282／282／282／282／282／281／281／281）へ分け、同時shard jobは最大4です。
+現在のworkflowは現在のタグ付き2259検査を重複しない8 shard（283／283／283／282／282／282／282／282）へ分け、同時shard jobは最大4です。
 和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
 seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
 

@@ -8,7 +8,7 @@ These are the meanings used in this repository's tests and reports. This
 glossary is a reading guide; cited clauses in each test remain the basis of
 its expected result.
 
-The main groups explain [expectations](#standards-and-expectations), [UVM components](#uvm-building-blocks), [transaction-level communication](#transaction-level-communication), [register models](#register-model), [execution records](#execution-and-result-records) and [coverage counts](#scope-and-coverage), so you can start with the terms used on the page you are reading.
+The main groups explain [expectations](#standards-and-expectations), [code notation](#reading-code-notation), [UVM components](#uvm-building-blocks), [transaction-level communication](#transaction-level-communication), [register models](#register-model), [execution records](#execution-and-result-records) and [coverage counts](#scope-and-coverage), so you can start with the terms used on the page you are reading.
 
 API names retain their source spelling for in-page searches, and [the FAQ topic guide](faq.md#find-an-explanation) leads from a term to fixture conditions and examples.
 
@@ -50,6 +50,18 @@ For a simulation fixture, adding a fixed-release tag requires reproducing its ex
 **Review / `:spec_check:`** — Who checked the expectation against the standard.
 `ai` records AI review; `human` records human review. It is separate from
 whether a simulator matches. All current tests record `ai`.
+
+## Reading code notation
+
+These terms help read the [complete smoke-test source](../tests/u09/test_common_phases_run_in_order.sv); [the file walkthrough](reading-guide.md#follow-one-test-through-the-files) connects that code to an expectation.
+
+**Object handle / `null`** — A reference to a class object / a value referring to no object; assigning a handle shares the reference rather than copying the object, as illustrated by [typed analysis inputs](faq.md#q40-can-a-generated-master-imp-use-separate-request-and-response-objects).
+
+**Parameterized type / `#(...)`** — A class specialization selecting type or value parameters, such as a transaction type; [the TLM type terms](#transaction-level-communication) explain why connected interfaces need compatible specializations.
+
+**Member call / `.` / `::`** — In these examples, `obj.method()` calls through an object handle and `type_or_package::name` selects a name in a class or package scope; [the smoke-test walkthrough](reading-guide.md#follow-one-test-through-the-files) shows how module and UVM class names serve different roles.
+
+**Hook / override / `do_*`** — A method supplied or replaced by a subtype so an operation can invoke test-specific behavior; [the observation rules](testing.md#what-is-observed) explain how fixtures observe required behavior without comparing every library message.
 
 ## UVM building blocks
 
@@ -1890,3 +1902,9 @@ These terms distinguish an interface's restriction from the memory's intrinsic p
 **Custom record hook / recorder field hook** — The request object's `do_record` implementation / the backend's `do_record_field_int` receiving a declared property through the public recorder API; [Q416](faq.md#q416-what-do-the-property-profiles-add-beyond-transaction-marks) follows the actual library-driven path.
 
 **Recording presence / recording count** — Evidence that the declared property reaches a recorder / the number of hook or lifecycle calls; [Q417](faq.md#q417-why-check-recording-presence-rather-than-exact-counts-or-times) explains why exact diagnostic totals do not define an oracle.
+
+## Event wait delta observations
+
+**Zero-time yield / deferred-child witness** — An already-satisfied event wait with delta one blocks without advancing physical time, allowing a fresh fork/join_none child to start; [Q419](faq.md#q419-what-do-the-event-delta-profiles-add) distinguishes this from an omitted or explicit-zero call.
+
+**Pending NBA witness** — An original module process queues a nonblocking update in Active before the tested wait, and the update must remain invisible at return but appear after a positive-time drain; [Q420](faq.md#q420-why-use-both-a-deferred-child-and-a-pending-nba) explains how this checks pre-NBA return without counting every #0 control.

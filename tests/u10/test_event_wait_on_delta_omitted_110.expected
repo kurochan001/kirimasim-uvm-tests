@@ -1,0 +1,13 @@
+UT: language deferred 1 drained 1 peer_waiting 1
+UT: round 1 armed entered 1 pending 1
+UT: round 1 nba_queued pending 1
+UT: round 1 already child 0 same_time 1 desired 1 nba_pending 1 drained 1
+UT: round 1 blocked 1 peer_waiting 1
+UT: round 1 released at_transition 1 desired 1 drained 1
+UT: round 2 armed entered 1 pending 1
+UT: round 2 nba_queued pending 1
+UT: round 2 already child 0 same_time 1 desired 1 nba_pending 1 drained 1
+UT: round 2 blocked 1 peer_waiting 1
+UT: round 2 released at_transition 1 desired 1 drained 1
+UT: peer retained 1
+UT: peer released 1 off 1

@@ -6,14 +6,14 @@
 
 Runtime matches, compiler rejections and unmeasured inputs describe different execution conditions; [Read a result](reading-guide.md#read-a-result) explains how to read the counts together.
 
-The Verilator snapshot assembled on 2026-11-07 covers all 2709 current tests.
-Guest records retain 1081 compatible current inputs; 1628 inputs are
+The Verilator snapshot assembled on 2026-11-07 covers all 2715 current tests.
+Guest records retain 1081 compatible current inputs; 1634 inputs are
 unmeasured, including four revised old inputs. Each record
 fingerprints its inputs and conditions.
-The suite has 2709 fixtures in 22 directories: 2610 simulation and 99
-elaboration. Milestone totals are M1 1161 (1080/81), M2 620 (613/7) and M3 928
+The suite has 2715 fixtures in 22 directories: 2616 simulation and 99
+elaboration. Milestone totals are M1 1167 (1086/81), M2 620 (613/7) and M3 928
 (917/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
-none records human review. Of 2653 no-DPI fixtures, 99 are illegal elaboration
+none records human review. Of 2659 no-DPI fixtures, 99 are illegal elaboration
 checks. The thirty-eight HDL-DPI and eighteen command-line/regex-DPI runtime fixtures
 remain separate.
 
@@ -21,13 +21,15 @@ Counts do not establish a reviewed coverage percentage.
 
 Backend rows revisit inputs already included in the ordinary row under different conditions; [the execution setup](testing.md#the-uvm-library) explains why their results are counted separately.
 
+A runtime match at seeds 1/73 still counts as one fixture, while a seed requested in configuration may be skipped after a first mismatch; [the seed-count explanation](faq.md#q201-did-all-2715-tests-run-at-two-seeds) explains how to read the execution scope column.
+
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 2253 `pass`: 2159 runtime + 94 compile rejection; 456 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
+| Verilator 5.052, pinned UVM | 2259 `pass`: 2165 runtime + 94 compile rejection; 456 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
 | Verilator 5.052, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 17 `pass`; 1 `known` | Separate overlapping 18-case condition; matches at seeds 1/73, difference at seed 1 |
-| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 unchanged inputs; 1628 inputs unmeasured |
-| Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1628 inputs unmeasured |
+| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 unchanged inputs; 1634 inputs unmeasured |
+| Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1634 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -140,57 +142,63 @@ A fingerprint identifies the exact inputs behind a reused record, so [Execution 
 
 Here an unmeasured input has no compatible current record, even if an older version was run; [Q15](faq.md#q15-how-do-i-know-whether-an-old-result-still-applies) explains the checks needed before reusing it.
 
-The snapshot starts from [c3428e7](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c3428e7d8ad6b5755119657c491cfacfefb69137), retains all 2705 old ordinary records,
-and adds four M2 simulation inputs on 2026-11-07 JST.
+The snapshot starts from [63e7b02](https://github.com/kurochan001/kirimasim-uvm-tests/commit/63e7b026a48a6c0279e8887383b0d55e0711986b), retains all 2709 old ordinary records,
+and adds six M1 simulation inputs on 2026-11-07 JST.
 
 The profiles below check only their stated conditions, so a match under a different premise cannot pass an original difference; [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains the recorded direct/control roles.
 
-The 109th expansion adds four M2 automatic-recording property profiles:
-pull/push traffic with the selected sequencer in default or disabled mode,
-and an independent peer kept in default mode. Component recording, explicit
-transaction streams and the original global/component backend are enabled
-before first requests. Stable selected/peer properties 41/97 pass through the
-actual request's custom record hook and the recorder's integer-field hook;
-[the property FAQ](faq.md#q416-what-do-the-property-profiles-add-beyond-transaction-marks)
-explains the observable path.
+The 110th expansion adds six M1 event-wait profiles: wait_on/wait_off with
+the delta argument omitted, explicitly zero or explicitly one. They call the
+actual event methods in two reuse rounds, with an already blocked default
+waiter, a later controlled release of an unsatisfied wait and an independent
+peer event. [The delta FAQ](faq.md#q419-what-do-the-event-delta-profiles-add)
+explains the three argument forms.
 
-All four final tagged inputs match seeds1/73. Each non-disabled request has
-custom-hook and property-field evidence; disabling the selected instance
-suppresses both while peer data still records. Driver gates retain original
-request identity and completion semantics. Neither driver nor coordinator
-records an item or explicitly begins/ends its transaction, so actual library
-recording supplies the data observations. Only presence and declared values,
-valid bits, size32 and UVM_DEC are checked. Default object-record recursion and
-user-hook behavior remain in the inherited recorder implementation.
+An original no-wait task checks the SystemVerilog deferred-child premise.
+A fresh fork/join_none child cannot start until its parent blocks or ends:
+it must remain pending across an already-satisfied omitted/zero call and run
+across an explicit-one call. Both time and realtime must remain unchanged.
+A separate module process queues a real NBA update in Active before the
+tested call; that update must still be pending at return and visible after
+a positive-time drain. These are observations of yielding and pre-NBA return,
+not a count of every consecutive #0 control; [the scheduler-witness FAQ](faq.md#q420-why-use-both-a-deferred-child-and-a-pending-nba)
+explains the limits. The fixture inserts no #0 workaround.
 
-Exact hook/stream/open/close/free totals produce four DIAG109 rows per seed,
-eight current rows in total, without an oracle or requirement link; [the
-count FAQ](faq.md#q417-why-check-recording-presence-rather-than-exact-counts-or-times)
-explains the boundary. Stable data avoids a mutation-snapshot assumption.
-No stream naming, database format, handle encoding, event count/timestamp,
-mid-item toggle, arbitrary pipeline or multi-request push claim is made.
-This explicitly enabled storage condition does not resolve all defaults.
+All six final tagged inputs match seeds 1/73. Each initially unsatisfied wait
+remains blocked until its controlled trigger/reset and returns at that
+transition's time, while the peer remains waiting until its own reset.
+Existing ready-waiter completion order is investigative for every argument:
+four DIAG110 rows per case per seed, 48 current rows in total, have no oracle
+or requirement link. The delta sentence's scope after an initially
+unsatisfied wait still needs review; no stronger waiter-completion ordering
+is inferred from the printed opportunity to resume.
 
-One automatic-property duty is added and the stable base-disable duty gains
-two enabled-backend profiles while retaining its original text and links.
-All 4095 other old requirement objects, 445 assessments, 2705 old ordinary/index
-records and 456 known inputs are unchanged. Metadata comment widths and actual
-supporting record-object/default-policy citations were completed before any
-native run. Initial matching pretag/tagged batches are archived after moving
-the setup-state observation before disable, avoiding an extra getter-state
-preservation postcondition. Current inputs are freshly measured and all
-expected files remain unchanged.
-No implementation source or commercial result supplies an expectation.
+The earlier six pretag and six tagged inputs also matched, but lacked the
+NBA-region witness. They are archived under
+`out/thin-one-hundred-tenth-before-region-witness/` and are not current evidence.
+The region review strengthened the independently derived expectation and
+removed the earlier ready-waiter completion assertion before new measurement.
+The current pretag and final batches each match all six cases at both seeds;
+only the oracle tag changes between those current batches.
 
-There are 2709 tests and 4097 AI duties, all with direct links to 2653 tests;
-56 remain control-only and 156 control-linked. Ordinary results are 2253 pass
-(2159 runtime at both seeds, 94 compiler rejections) and 456 known (316 runtime
-seed1, 135 builds, five illegal acceptances). Guests retain 1081 byte-identical
-compatible records; 1628 inputs are unmeasured (1624 additions, four revised
-originals), with no rerun or new filtering. Primary census stays 1172 zero,
-771 below-target, 539 at least two. All 2062 partial identifiers, applicability
-conditions and original milestone targets remain open; human review and
-scope/denominator approval remain unrecorded.
+Two new already-satisfied delta-yield duties and two prefix-preserved
+persistence/reset extensions produce 4099 AI duties. The other 4095 old
+requirements and all 445 assessments are unchanged. All 2709 old ordinary
+and index records, all 456 known inputs and both backend subsets are retained.
+There are 2259 ordinary matches: 2165 runtime inputs at both seeds and 94
+expected compiler rejections. No guest run or filter is added: 1081 compatible
+records remain byte-identical and 1634 inputs are unmeasured, comprising
+1630 additions and four revised originals (1535 simulation, 99 elaboration).
+
+Chapter 10 still has 87 partial/29 assessed/0 unassessed identifiers, with
+169 duties and 140 primary-focus tests. Across the catalog, 1315 identifiers
+have primary tests; candidates are 1171 zero/770 below target/541 at least two.
+The suite has 2062 partial/445 assessed/0 unassessed identifiers and 2659
+directly linked tests, with 56 control-only tests. Scope, denominator and
+human review remain unapproved/unrecorded. Exact consecutive-delta counts,+post-blocking delta applicability, event callbacks, waiter-count/reset and
+kill/cancel combinations, full event contracts and original milestone targets
+remain open; [the completion FAQ](faq.md#q421-do-the-six-matching-event-profiles-complete-the-clauses)
+distinguishes this progress from completion.
 
 Retained kirimasim/Ghost records were collected with fixed executable
 snapshots and Ghost's seed-specific private profiles.
@@ -203,11 +211,11 @@ longer available, so no guest rerun is claimed. Historical source files retain
 1085 records. Earlier filters excluded four revisions: command-enum citation,
 Boolean rerandomization, virtual-field configuration and reraise primary citation.
 This increment performs no new filtering. All 1081 compatible records and
-filter metadata are retained byte-identically. Four additions increase the
-unmeasured set to 1628: 1624 additions and four revised originals. Ghost remains
+filter metadata are retained byte-identically. Six additions increase the
+unmeasured set to 1634: 1630 additions and four revised originals. Ghost remains
 206 pass/875 fail per seed and kirimasim remains 1072 unsupported/nine API failures.
 The latest exclusions are recorded in `out/thin-one-hundred-sixth-guest-exclusions.json`;
-the current scope is in `out/thin-one-hundred-ninth-evidence-scope.json`.
+the current scope is in `out/thin-one-hundred-tenth-evidence-scope.json`.
 
 The fingerprints identify different inputs:
 
@@ -228,7 +236,7 @@ simulator, configuration and library identities before reusing execution records
 Before combining records, check that:
 
 - Verilator IDs cover the current suite exactly. Retained guest IDs match
-  their declared 1081-case subset; 1628 input IDs remain unmeasured.
+  their declared 1081-case subset; 1634 input IDs remain unmeasured.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -243,11 +251,11 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-The [draft ledger](requirements.md) has 4097 AI duties and 0 unassessed
+The [draft ledger](requirements.md) has 4099 AI duties and 0 unassessed
 identifiers: 2062 partial/445 assessed. Chapter 10 is 87/29/0; chapter 18 is
 393/63/0. Their partial contracts and original targets remain open. Direct
-links cover 2653 tests; 56 others have only controls. Guests retain 1081
-compatible inputs; 1628 (1529 simulation/99 elaboration), including four
+links cover 2659 tests; 56 others have only controls. Guests retain 1081
+compatible inputs; 1634 (1535 simulation/99 elaboration), including four
 revised originals, are unmeasured. Scope and denominator remain unapproved.
 
 ## Reproducing and retaining results
@@ -280,13 +288,13 @@ A shard runs a disjoint subset of the selected tests, and the final gate require
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
 and manual dispatch. It checks pinned-library integrity, 110 tool unit tests,
-2709 metadata records and the draft ledger/index. Its 2253 tagged ordinary
-Verilator checks comprise 2159 runtime cases at seeds 1/73 and 94 compiler
+2715 metadata records and the draft ledger/index. Its 2259 tagged ordinary
+Verilator checks comprise 2165 runtime cases at seeds 1/73 and 94 compiler
 rejections without runtime seeds, plus seventeen
 explicit command-line checks under their separate condition.
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2253 tagged checks into 8 disjoint shards (282/282/282/282/282/281/281/281),
+the current 2259 tagged checks into 8 disjoint shards (283/283/283/282/282/282/282/282),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies

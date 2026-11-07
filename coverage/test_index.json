@@ -10837,6 +10837,30 @@
     "u15/test_automatic_recording_properties_push_disabled_109": {
       "primary_clause": "15.3.2.22",
       "inputs_sha256": "c13ced4e98c41bc9c0493b0864813577db8a38e75b2f30654eefcfbbd0c30614"
+    },
+    "u10/test_event_wait_on_delta_omitted_110": {
+      "primary_clause": "10.1.1.2.2",
+      "inputs_sha256": "6816738970f1ca9ea08a9b9c7d3e29f1b304d82c92506d48d616a978046d6866"
+    },
+    "u10/test_event_wait_on_delta_zero_110": {
+      "primary_clause": "10.1.1.2.2",
+      "inputs_sha256": "62f9407e2932da7c9eeee551338d6e331eadb452d84ae59f59985afd81875405"
+    },
+    "u10/test_event_wait_on_delta_one_110": {
+      "primary_clause": "10.1.1.2.2",
+      "inputs_sha256": "a8ca09ab0ade6ddaf38d18345ba2c554e094fefe2d77ac12c33d8157108dea2c"
+    },
+    "u10/test_event_wait_off_delta_omitted_110": {
+      "primary_clause": "10.1.1.2.3",
+      "inputs_sha256": "b116fdb6c17ff3d32a9c72c281a84aa67e8cc30715641457d755d136204a86af"
+    },
+    "u10/test_event_wait_off_delta_zero_110": {
+      "primary_clause": "10.1.1.2.3",
+      "inputs_sha256": "5f4afe3b70697257ef38abfc3e03ca377441ddbe5df9b2f3fbcb995da1baeaaf"
+    },
+    "u10/test_event_wait_off_delta_one_110": {
+      "primary_clause": "10.1.1.2.3",
+      "inputs_sha256": "937821b1b09f4025441b30476312a6f27cc6fb5583e99eae1273182390c41cba"
     }
   }
 }

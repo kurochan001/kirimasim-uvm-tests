@@ -42,6 +42,8 @@ upstreamのコミットはコードを取り込んだ時点の正確な内容を
 
 ## このスイート独自のツール
 
+「独自」はコードの由来を示し、期待値の正しさは引用した規格との照合で確かめるため、レビューの際は[期待値の決め方](testing.ja.md#期待出力の決め方)も合わせて確認してください。
+
 独自helperはUVM呼出しの周囲で準備や観測を担うもので、以下の個別の出典記録で使う役割は[fixtureとhelperの用語](glossary.ja.md#実行と結果)で確認できます。
 
 runnerはテストをビルドして判定し、backendは選択した呼出しを外部コードにつなぐ役割を持ち、特定の実行条件での組み合わせ方は[HDL実行環境の説明](testing.ja.md#verilatorのvpi-hdl部分集合)で確認できます。
@@ -265,6 +267,8 @@ memoryの期待は明示mapの契約と独立した単位／offset計算から�
 記録無効化の期待はIEEEのbase APIと明示transaction時刻／event契約から定めます。driver gateで配送時刻の仮定を避け、peer診断を期待値にしない理由は[Q414](faq.ja.md#q414-peerのevent件数を調査専用にする理由は)に残します。実装sourceや商用出力は新たに使いません。
 
 自動property記録の期待はIEEEの既定自動記録と公開record／整数field hook契約から定め、元の固定dataを独自backendで観測します。正確なbackend集計を期待にしない理由は[Q417](faq.ja.md#q417-正確な件数や時刻でなく記録の存在を検査する理由は)に残し、実装sourceや商用結果は新たに使いません。
+
+event deltaの期待はIEEE 1800.2のwait_on／wait_offと、IEEE 1800のdeferred fork・Active／Inactive／NBA規則から独立に定めます。独自の子とNBA観測の限界は[Q420](faq.ja.md#q420-新しい子と予約したnbaを両方使う理由は)へ記録し、実装sourceや商用結果は新たに使いません。
 
 ## 条項カタログの保守
 

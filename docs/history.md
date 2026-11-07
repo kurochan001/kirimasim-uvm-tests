@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 109 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2709 tests: 2610 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 110 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2715 tests: 2616 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -60,6 +60,8 @@ differences. The fifth M2 increment matches 93 of 349 tests with both seeds,
 with the same 256 differences.
 
 ## M1 increments
+
+Each increment checks behavior under the conditions it describes, and [the test-to-requirement walkthrough](reading-guide.md#follow-one-test-through-the-files) shows how to find the exact observations behind a topic mentioned here.
 
 The first increment adds 26 independent tests to the original phase smoke
 test. Expected observations are written before running the simulator:
@@ -6205,3 +6207,60 @@ originals), with no rerun or new filtering. Primary census stays 1172 zero,
 771 below-target, 539 at least two. All 2062 partial identifiers, applicability
 conditions and original milestone targets remain open; human review and
 scope/denominator approval remain unrecorded.
+
+## 110th thin-area expansion: event wait delta and scheduler regions
+
+Reader guidance is also expanded across eleven English/Japanese guide pairs, with short explanations beside ambiguous counts and commands, linked code-notation terms and preserved historical checkpoints; [the reading guide](reading-guide.md) provides the entry points.
+
+The 110th expansion adds six M1 event-wait profiles: wait_on/wait_off with
+the delta argument omitted, explicitly zero or explicitly one. They call the
+actual event methods in two reuse rounds, with an already blocked default
+waiter, a later controlled release of an unsatisfied wait and an independent
+peer event. [The delta FAQ](faq.md#q419-what-do-the-event-delta-profiles-add)
+explains the three argument forms.
+
+An original no-wait task checks the SystemVerilog deferred-child premise.
+A fresh fork/join_none child cannot start until its parent blocks or ends:
+it must remain pending across an already-satisfied omitted/zero call and run
+across an explicit-one call. Both time and realtime must remain unchanged.
+A separate module process queues a real NBA update in Active before the
+tested call; that update must still be pending at return and visible after
+a positive-time drain. These are observations of yielding and pre-NBA return,
+not a count of every consecutive #0 control; [the scheduler-witness FAQ](faq.md#q420-why-use-both-a-deferred-child-and-a-pending-nba)
+explains the limits. The fixture inserts no #0 workaround.
+
+All six final tagged inputs match seeds 1/73. Each initially unsatisfied wait
+remains blocked until its controlled trigger/reset and returns at that
+transition's time, while the peer remains waiting until its own reset.
+Existing ready-waiter completion order is investigative for every argument:
+four DIAG110 rows per case per seed, 48 current rows in total, have no oracle
+or requirement link. The delta sentence's scope after an initially
+unsatisfied wait still needs review; no stronger waiter-completion ordering
+is inferred from the printed opportunity to resume.
+
+The earlier six pretag and six tagged inputs also matched, but lacked the
+NBA-region witness. They are archived under
+`out/thin-one-hundred-tenth-before-region-witness/` and are not current evidence.
+The region review strengthened the independently derived expectation and
+removed the earlier ready-waiter completion assertion before new measurement.
+The current pretag and final batches each match all six cases at both seeds;
+only the oracle tag changes between those current batches.
+
+Two new already-satisfied delta-yield duties and two prefix-preserved
+persistence/reset extensions produce 4099 AI duties. The other 4095 old
+requirements and all 445 assessments are unchanged. All 2709 old ordinary
+and index records, all 456 known inputs and both backend subsets are retained.
+There are 2259 ordinary matches: 2165 runtime inputs at both seeds and 94
+expected compiler rejections. No guest run or filter is added: 1081 compatible
+records remain byte-identical and 1634 inputs are unmeasured, comprising
+1630 additions and four revised originals (1535 simulation, 99 elaboration).
+
+Chapter 10 still has 87 partial/29 assessed/0 unassessed identifiers, with
+169 duties and 140 primary-focus tests. Across the catalog, 1315 identifiers
+have primary tests; candidates are 1171 zero/770 below target/541 at least two.
+The suite has 2062 partial/445 assessed/0 unassessed identifiers and 2659
+directly linked tests, with 56 control-only tests. Scope, denominator and
+human review remain unapproved/unrecorded. Exact consecutive-delta counts,+post-blocking delta applicability, event callbacks, waiter-count/reset and
+kill/cancel combinations, full event contracts and original milestone targets
+remain open; [the completion FAQ](faq.md#q421-do-the-six-matching-event-profiles-complete-the-clauses)
+distinguishes this progress from completion.

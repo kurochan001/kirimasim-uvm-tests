@@ -21902,16 +21902,16 @@
         "ja": "eventのwait_onは有効になるまで待ち、onの間は直ちに戻る。"
       },
       "conditions": {
-        "en": "Wait before a trigger, call again while on, reset and establish a fresh wait.",
-        "ja": "trigger前に待ち、onのまま再度呼び、resetして新しい待機を成立させる。"
+        "en": "Wait before a trigger, call again while on, reset and establish a fresh wait. Also exercise omitted and explicit-zero delta forms over two already-satisfied and freshly blocked/released rounds, with a deferred-child scheduler witness and an independent peer.",
+        "ja": "trigger前に待ち、onのまま再度呼び、resetして新しい待機を成立させる。 さらにdelta省略と明示0で、既に状態を満たす場合と、新しくblockして解放する場合を2回繰り返し、遅延した子のscheduler証人と独立peerを使う。"
       },
       "expected": {
-        "en": "Each inactive wait blocks until its own trigger; the already-on call returns without advancing time.",
-        "ja": "各inactiveの待機は自身のtriggerまでblockし、onの呼出しは時刻を進めず戻る。"
+        "en": "Each inactive wait blocks until its own trigger; the already-on call returns without advancing time. An already-satisfied zero/default call returns without starting its deferred child or advancing time/realtime. An unsatisfied call remains blocked until the controlled trigger/reset and returns with the desired state at that transition; peer waits remain independent.",
+        "ja": "各inactiveの待機は自身のtriggerまでblockし、onの呼出しは時刻を進めず戻る。 既に状態を満たす0／既定呼び出しは、遅延した子を開始せず、time／realtimeも進めずに復帰する。状態を満たさない呼び出しは、制御したtrigger／resetまでblockし、その遷移時刻に目的の状態で復帰する。peerの待機は独立に保たれる。"
       },
       "limitations": {
-        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
-        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type. Added direct links for this duty use only omitted/explicit0; explicit1 observations belong to the separate delta-yield duty. The following limits describe the whole six-profile matrix. Selected typed event on/off waits over two reuse rounds, omitted/explicit0/explicit1 arguments and an independently held peer. A no-wait task checks the deferred-child language premise. An event-driven always process queues an NBA and signals its Active-region setup before the caller spawns a fresh deferred child. An immediate0/default call does not start that child; a #0-requested already-satisfied call must yield yet return before the queued NBA update becomes visible. Both time and realtime remain unchanged. All existing waiter completion/order is DIAG110 only. The scope of delta after an initially unsatisfied wait remains an interpretation question; consecutive #0 counts and every scheduler region are not certified. No raw-trigger persistence, callback payload/order, waiter-count reset, cancel/kill, full event contract or original milestone completion claim. A failed language/control premise or another mismatch does not establish a simulator-versus-library cause. Human/scope/denominator approval remains unrecorded.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。 この義務に追加するdirect linkは省略／明示0だけを使い、明示1の観測は別のdelta-yield義務に属する。以下は6 profile全体の限界である。 型付きeventのon／off待機を、独立に保持したpeerと引数省略／明示0／明示1で2回再利用する。待機しないtaskで遅延した子の言語上の前提を確認する。event駆動のalways processでNBAを予約し、Active領域の準備を通知してからcallerが新しい遅延した子をspawnする。即時の0／既定呼び出しはその子を開始せず、既に状態を満たす#0要求の呼び出しはyieldしながら予約したNBAの更新が見える前に復帰する必要がある。time／realtimeはいずれも変わらない。既存waiterの完了／順序は全てDIAG110だけとする。最初に状態を満たさない待機でdeltaを適用する範囲は解釈上の問題に残し、連続した#0の回数や全scheduler領域は認定しない。raw trigger持続、callback payload／順序、waiter件数reset、cancel／kill、event契約全体や元の段階目標の完了は主張しない。言語／control前提の失敗や別の不一致だけでsimulator／libraryのどちらが原因かは特定しない。人／範囲／分母の承認は未記録である。"
       },
       "review": {
         "status": "ai",
@@ -21928,6 +21928,32 @@
             "UT: waiting_again 1",
             "UT: retrigger on 1 returned 1"
           ]
+        },
+        {
+          "test": "u10/test_event_wait_on_delta_omitted_110",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 already child 0 same_time 1 desired 1 nba_pending 1 drained 1",
+            "UT: round 1 blocked 1 peer_waiting 1",
+            "UT: round 1 released at_transition 1 desired 1 drained 1",
+            "UT: round 2 already child 0 same_time 1 desired 1 nba_pending 1 drained 1",
+            "UT: round 2 blocked 1 peer_waiting 1",
+            "UT: round 2 released at_transition 1 desired 1 drained 1",
+            "UT: peer released 1 off 1"
+          ]
+        },
+        {
+          "test": "u10/test_event_wait_on_delta_zero_110",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 already child 0 same_time 1 desired 1 nba_pending 1 drained 1",
+            "UT: round 1 blocked 1 peer_waiting 1",
+            "UT: round 1 released at_transition 1 desired 1 drained 1",
+            "UT: round 2 already child 0 same_time 1 desired 1 nba_pending 1 drained 1",
+            "UT: round 2 blocked 1 peer_waiting 1",
+            "UT: round 2 released at_transition 1 desired 1 drained 1",
+            "UT: peer released 1 off 1"
+          ]
         }
       ]
     },
@@ -21939,16 +21965,16 @@
         "ja": "eventのwait_offはoffなら直ちに戻り、onならresetを待つ。"
       },
       "conditions": {
-        "en": "Inspect the initially off event, then wait after a trigger and reset it.",
-        "ja": "初期offのeventを観測し、trigger後に待ってresetする。"
+        "en": "Inspect the initially off event, then wait after a trigger and reset it. Also exercise omitted and explicit-zero delta forms over two already-satisfied and freshly blocked/released rounds, with a deferred-child scheduler witness and an independent peer.",
+        "ja": "初期offのeventを観測し、trigger後に待ってresetする。 さらにdelta省略と明示0で、既に状態を満たす場合と、新しくblockして解放する場合を2回繰り返し、遅延した子のscheduler証人と独立peerを使う。"
       },
       "expected": {
-        "en": "The initial wait is immediate; the active wait returns only after reset and the event is off.",
-        "ja": "初期待機は即時で、activeの待機はreset後だけに戻り、eventはoffになる。"
+        "en": "The initial wait is immediate; the active wait returns only after reset and the event is off. An already-satisfied zero/default call returns without starting its deferred child or advancing time/realtime. An unsatisfied call remains blocked until the controlled trigger/reset and returns with the desired state at that transition; peer waits remain independent.",
+        "ja": "初期待機は即時で、activeの待機はreset後だけに戻り、eventはoffになる。 既に状態を満たす0／既定呼び出しは、遅延した子を開始せず、time／realtimeも進めずに復帰する。状態を満たさない呼び出しは、制御したtrigger／resetまでblockし、その遷移時刻に目的の状態で復帰する。peerの待機は独立に保たれる。"
       },
       "limitations": {
-        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
-        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type. Added direct links for this duty use only omitted/explicit0; explicit1 observations belong to the separate delta-yield duty. The following limits describe the whole six-profile matrix. Selected typed event on/off waits over two reuse rounds, omitted/explicit0/explicit1 arguments and an independently held peer. A no-wait task checks the deferred-child language premise. An event-driven always process queues an NBA and signals its Active-region setup before the caller spawns a fresh deferred child. An immediate0/default call does not start that child; a #0-requested already-satisfied call must yield yet return before the queued NBA update becomes visible. Both time and realtime remain unchanged. All existing waiter completion/order is DIAG110 only. The scope of delta after an initially unsatisfied wait remains an interpretation question; consecutive #0 counts and every scheduler region are not certified. No raw-trigger persistence, callback payload/order, waiter-count reset, cancel/kill, full event contract or original milestone completion claim. A failed language/control premise or another mismatch does not establish a simulator-versus-library cause. Human/scope/denominator approval remains unrecorded.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。 この義務に追加するdirect linkは省略／明示0だけを使い、明示1の観測は別のdelta-yield義務に属する。以下は6 profile全体の限界である。 型付きeventのon／off待機を、独立に保持したpeerと引数省略／明示0／明示1で2回再利用する。待機しないtaskで遅延した子の言語上の前提を確認する。event駆動のalways processでNBAを予約し、Active領域の準備を通知してからcallerが新しい遅延した子をspawnする。即時の0／既定呼び出しはその子を開始せず、既に状態を満たす#0要求の呼び出しはyieldしながら予約したNBAの更新が見える前に復帰する必要がある。time／realtimeはいずれも変わらない。既存waiterの完了／順序は全てDIAG110だけとする。最初に状態を満たさない待機でdeltaを適用する範囲は解釈上の問題に残し、連続した#0の回数や全scheduler領域は認定しない。raw trigger持続、callback payload／順序、waiter件数reset、cancel／kill、event契約全体や元の段階目標の完了は主張しない。言語／control前提の失敗や別の不一致だけでsimulator／libraryのどちらが原因かは特定しない。人／範囲／分母の承認は未記録である。"
       },
       "review": {
         "status": "ai",
@@ -21963,6 +21989,32 @@
             "UT: initially_off 1 immediate 1 time_zero 1",
             "UT: waiting_off 1",
             "UT: reset off 1 returned 1 time_zero 1"
+          ]
+        },
+        {
+          "test": "u10/test_event_wait_off_delta_omitted_110",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 already child 0 same_time 1 desired 1 nba_pending 1 drained 1",
+            "UT: round 1 blocked 1 peer_waiting 1",
+            "UT: round 1 released at_transition 1 desired 1 drained 1",
+            "UT: round 2 already child 0 same_time 1 desired 1 nba_pending 1 drained 1",
+            "UT: round 2 blocked 1 peer_waiting 1",
+            "UT: round 2 released at_transition 1 desired 1 drained 1",
+            "UT: peer released 1 off 1"
+          ]
+        },
+        {
+          "test": "u10/test_event_wait_off_delta_zero_110",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 already child 0 same_time 1 desired 1 nba_pending 1 drained 1",
+            "UT: round 1 blocked 1 peer_waiting 1",
+            "UT: round 1 released at_transition 1 desired 1 drained 1",
+            "UT: round 2 already child 0 same_time 1 desired 1 nba_pending 1 drained 1",
+            "UT: round 2 blocked 1 peer_waiting 1",
+            "UT: round 2 released at_transition 1 desired 1 drained 1",
+            "UT: peer released 1 off 1"
           ]
         }
       ]
@@ -159005,6 +159057,80 @@
             "UT: automatic selected_hooks 0 selected_fields 0 peer_hooks 1 peer_fields 1",
             "UT: properties selected 1 peer 1",
             "UT: completion selected 1 peer 1 original_items 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-WAIT-ON-ALREADY-DELTA-YIELD-110",
+      "clause": "10.1.1.2.2",
+      "statement": {
+        "en": "An already-satisfied wait_on with delta1 yields in zero physical time and resumes before a pending NBA update, as required by the printed #0 control.",
+        "ja": "既に状態を満たすwait_onでdelta1を指定すると、印刷された#0制御に従い、物理時刻を進めずにyieldして保留NBAの更新前に復帰する。"
+      },
+      "conditions": {
+        "en": "For wait_on, first block one default waiter in the opposite state, then make the state satisfy the wait. Queue an NBA through an original always process and acknowledge its setup in Active, then spawn a fresh deferred child and immediately call the actual wait with explicit1. Repeat after a new lifecycle round and retain an independent on-state peer.",
+        "ja": "wait_onについて、最初に反対の状態で既定waiterを1つblockし、その後に待機を満たす状態へ変える。独自always processでNBAを予約してActiveで準備を通知した後、新しい遅延した子をspawnして直ちに実際のwaitを明示1で呼び、新しいlifecycle roundでも繰り返す。独立したon状態のpeerを保持する。"
+      },
+      "expected": {
+        "en": "At return the fresh deferred child has run, the queued NBA update remains invisible, the requested state is satisfied and both time/realtime equal their pre-call values. A later positive drain observes the NBA update and waiter completion. Existing waiter order is not prescribed.",
+        "ja": "復帰時に新しい遅延した子が動き、予約したNBA更新はまだ見えず、目的の状態を満たし、time／realtimeは呼び出し前と等しい。後の正の遅延後にNBA更新とwaiter完了を観測する。既存waiterの順序は規定しない。"
+      },
+      "limitations": {
+        "en": "Selected typed event on/off waits over two reuse rounds, omitted/explicit0/explicit1 arguments and an independently held peer. A no-wait task checks the deferred-child language premise. An event-driven always process queues an NBA and signals its Active-region setup before the caller spawns a fresh deferred child. An immediate0/default call does not start that child; a #0-requested already-satisfied call must yield yet return before the queued NBA update becomes visible. Both time and realtime remain unchanged. All existing waiter completion/order is DIAG110 only. The scope of delta after an initially unsatisfied wait remains an interpretation question; consecutive #0 counts and every scheduler region are not certified. No raw-trigger persistence, callback payload/order, waiter-count reset, cancel/kill, full event contract or original milestone completion claim. A failed language/control premise or another mismatch does not establish a simulator-versus-library cause. Human/scope/denominator approval remains unrecorded.",
+        "ja": "型付きeventのon／off待機を、独立に保持したpeerと引数省略／明示0／明示1で2回再利用する。待機しないtaskで遅延した子の言語上の前提を確認する。event駆動のalways processでNBAを予約し、Active領域の準備を通知してからcallerが新しい遅延した子をspawnする。即時の0／既定呼び出しはその子を開始せず、既に状態を満たす#0要求の呼び出しはyieldしながら予約したNBAの更新が見える前に復帰する必要がある。time／realtimeはいずれも変わらない。既存waiterの完了／順序は全てDIAG110だけとする。最初に状態を満たさない待機でdeltaを適用する範囲は解釈上の問題に残し、連続した#0の回数や全scheduler領域は認定しない。raw trigger持続、callback payload／順序、waiter件数reset、cancel／kill、event契約全体や元の段階目標の完了は主張しない。言語／control前提の失敗や別の不一致だけでsimulator／libraryのどちらが原因かは特定しない。人／範囲／分母の承認は未記録である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_wait_on_delta_one_110",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 nba_queued pending 1",
+            "UT: round 1 already child 1 same_time 1 desired 1 nba_pending 1 drained 1",
+            "UT: round 2 nba_queued pending 1",
+            "UT: round 2 already child 1 same_time 1 desired 1 nba_pending 1 drained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-WAIT-OFF-ALREADY-DELTA-YIELD-110",
+      "clause": "10.1.1.2.3",
+      "statement": {
+        "en": "An already-satisfied wait_off with delta1 yields in zero physical time and resumes before a pending NBA update, as required by the printed #0 control.",
+        "ja": "既に状態を満たすwait_offでdelta1を指定すると、印刷された#0制御に従い、物理時刻を進めずにyieldして保留NBAの更新前に復帰する。"
+      },
+      "conditions": {
+        "en": "For wait_off, first block one default waiter in the opposite state, then make the state satisfy the wait. Queue an NBA through an original always process and acknowledge its setup in Active, then spawn a fresh deferred child and immediately call the actual wait with explicit1. Repeat after a new lifecycle round and retain an independent on-state peer.",
+        "ja": "wait_offについて、最初に反対の状態で既定waiterを1つblockし、その後に待機を満たす状態へ変える。独自always processでNBAを予約してActiveで準備を通知した後、新しい遅延した子をspawnして直ちに実際のwaitを明示1で呼び、新しいlifecycle roundでも繰り返す。独立したon状態のpeerを保持する。"
+      },
+      "expected": {
+        "en": "At return the fresh deferred child has run, the queued NBA update remains invisible, the requested state is satisfied and both time/realtime equal their pre-call values. A later positive drain observes the NBA update and waiter completion. Existing waiter order is not prescribed.",
+        "ja": "復帰時に新しい遅延した子が動き、予約したNBA更新はまだ見えず、目的の状態を満たし、time／realtimeは呼び出し前と等しい。後の正の遅延後にNBA更新とwaiter完了を観測する。既存waiterの順序は規定しない。"
+      },
+      "limitations": {
+        "en": "Selected typed event on/off waits over two reuse rounds, omitted/explicit0/explicit1 arguments and an independently held peer. A no-wait task checks the deferred-child language premise. An event-driven always process queues an NBA and signals its Active-region setup before the caller spawns a fresh deferred child. An immediate0/default call does not start that child; a #0-requested already-satisfied call must yield yet return before the queued NBA update becomes visible. Both time and realtime remain unchanged. All existing waiter completion/order is DIAG110 only. The scope of delta after an initially unsatisfied wait remains an interpretation question; consecutive #0 counts and every scheduler region are not certified. No raw-trigger persistence, callback payload/order, waiter-count reset, cancel/kill, full event contract or original milestone completion claim. A failed language/control premise or another mismatch does not establish a simulator-versus-library cause. Human/scope/denominator approval remains unrecorded.",
+        "ja": "型付きeventのon／off待機を、独立に保持したpeerと引数省略／明示0／明示1で2回再利用する。待機しないtaskで遅延した子の言語上の前提を確認する。event駆動のalways processでNBAを予約し、Active領域の準備を通知してからcallerが新しい遅延した子をspawnする。即時の0／既定呼び出しはその子を開始せず、既に状態を満たす#0要求の呼び出しはyieldしながら予約したNBAの更新が見える前に復帰する必要がある。time／realtimeはいずれも変わらない。既存waiterの完了／順序は全てDIAG110だけとする。最初に状態を満たさない待機でdeltaを適用する範囲は解釈上の問題に残し、連続した#0の回数や全scheduler領域は認定しない。raw trigger持続、callback payload／順序、waiter件数reset、cancel／kill、event契約全体や元の段階目標の完了は主張しない。言語／control前提の失敗や別の不一致だけでsimulator／libraryのどちらが原因かは特定しない。人／範囲／分母の承認は未記録である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_wait_off_delta_one_110",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 nba_queued pending 1",
+            "UT: round 1 already child 1 same_time 1 desired 1 nba_pending 1 drained 1",
+            "UT: round 2 nba_queued pending 1",
+            "UT: round 2 already child 1 same_time 1 desired 1 nba_pending 1 drained 1"
           ]
         }
       ]

@@ -45,6 +45,8 @@ The upstream commit identifies the exact source snapshot used for copied code, a
 
 ## Original suite tools
 
+Original describes where code came from, and the cited standard provides the basis for checking its expectation; [the expectation rules](testing.md#where-the-expected-outputs-come-from) explain that review.
+
 An original helper supplies test setup or observations around the UVM calls; [the fixture and helper terms](glossary.md#execution-and-result-records) explain those roles before the individual source notes below.
 
 A runner builds and judges a test, while a backend connects selected calls to external code; [the HDL setup guide](testing.md#verilator-vpi-hdl-subset) shows how they work together under a specific execution condition.
@@ -403,6 +405,8 @@ Direct-map expectations are independently calculated from IEEE address units, en
 Recording-disable expectations follow IEEE base API and explicit transaction timestamp/event contracts. Driver gates avoid relative-delivery assumptions; [Q414](faq.md#q414-why-are-peer-event-counts-diagnostic-only) records why peer diagnostics are not an oracle. No implementation source or commercial output is newly used.
 
 Automatic-property expectations follow IEEE default automatic recording and public record/integer-field hook contracts, using original stable data and an original backend. [Q417](faq.md#q417-why-check-recording-presence-rather-than-exact-counts-or-times) records why exact backend totals are not an oracle; no implementation source or commercial result is newly used.
+
+Event delta expectations are independently derived from IEEE 1800.2 wait_on/wait_off and IEEE 1800 deferred-fork and Active/Inactive/NBA rules. [Q420](faq.md#q420-why-use-both-a-deferred-child-and-a-pending-nba) records the original witnesses and limits; no implementation source or commercial result is newly used.
 
 ## Clause catalog maintenance
 
