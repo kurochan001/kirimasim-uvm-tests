@@ -609,6 +609,8 @@ DPI connects SystemVerilog to external code, and enabling its flag does not supp
 
 A note marked qualified records an interpretation that still needs review; [Q18](faq.md#q18-how-should-i-report-or-correct-a-wrong-expectation) explains how to propose another reading with its clause basis.
 
+The release's three notes are not an exhaustive list of this suite's differences; [the measured breakdown](results.md#interpretation) includes other build blockers and runtime mismatches under the recorded conditions.
+
 The library's own `DEVIATIONS.md` lists three differences at 18.2.3.4,
 18.4.3.6 and 13.1.5.1. Current register queries use explicit map arguments.
 A simple memory registered on two sibling-interface maps matches 18.2.3.4 in

@@ -42,6 +42,8 @@ upstreamのコミットはコードを取り込んだ時点の正確な内容を
 
 ## このスイート独自のツール
 
+独自helperはUVM呼出しの周囲で準備や観測を担うもので、以下の個別の出典記録で使う役割は[fixtureとhelperの用語](glossary.ja.md#実行と結果)で確認できます。
+
 runnerはテストをビルドして判定し、backendは選択した呼出しを外部コードにつなぐ役割を持ち、特定の実行条件での組み合わせ方は[HDL実行環境の説明](testing.ja.md#verilatorのvpi-hdl部分集合)で確認できます。
 
 ランナー（`run_*.py`）と`lint_metadata.py`はkirimasim-testsのツールを参考に、このスイート向けに書いたもので、コピーではありません。

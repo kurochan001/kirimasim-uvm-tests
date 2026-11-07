@@ -21,6 +21,8 @@ Use these entry points to trace why an area was added, and [the handoff prioriti
 - [Cross-milestone expansions](history.md#thin-area-expansion-across-m1m4)
 - [Traversal declarations and defaults](history.md#sixty-ninth-thin-area-expansion-traversal-declarations-and-defaults)
 
+The [memory access and relocation increment](#104th-thin-area-expansion-memory-access-restrictions-and-relocation-units) records the added profiles, and [the memory FAQ](faq.md#q398-why-can-memory-rights-and-effective-access-differ) explains the query contracts used in that record.
+
 Historical `out/` paths identify local artifacts that may no longer exist; [the handoff file guide](handoff.md#files-and-local-material) points to maintained tools for resuming work without those files.
 
 An increment is a batch of development work rather than a completed milestone; [the current plan](../README.md#plan) shows which M1–M4 targets remain open.

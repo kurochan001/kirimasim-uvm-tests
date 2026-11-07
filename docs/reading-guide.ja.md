@@ -102,6 +102,8 @@ PY
 
 ## 1件のテストをファイルで辿る
 
+結果IDはソース、UVMクラスは実行対象、要求IDは検査する義務を示し、以下の例で使う識別子の役割の違いは[対応付けのガイド](requirements.ja.md#引用要求実行の証拠)で確認できます。
+
 スモークテストの結果ID `u09/test_common_phases_run_in_order`から[ソース](../tests/u09/test_common_phases_run_in_order.sv)を開くと、最初のUVM引用は9.8.1であり、[配置の規則](testing.ja.md#ディレクトリ構成)に従って`u09`にあることが分かります。
 
 このソースでは`test_common_phases_run_in_order`は`initial`から`run_test()`を呼ぶSystemVerilogのmodule、`+UVM_TESTNAME=t`は登録済みUVMクラス`t`の選択であり、両者の指定は[メタデータのガイド](testing.ja.md#メタデータ)で区別できます。

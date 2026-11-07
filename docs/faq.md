@@ -21,9 +21,12 @@ If you have an API name or test filename, use that exact spelling in your browse
 - Configuration lookup: [resource selection and sorting](#resource-collection-sorting-and-config-aliases) and [related terms](glossary.md#resource-and-sequence-ordering).
 - Interpreting compiler diagnostics: [rejection and legal controls](#compiler-rejection-and-legal-controls) and [test metadata](testing.md#metadata).
 - Understanding sequences and communication: [locking and transport](#locking-and-nonblocking-transport) and [TLM terms](glossary.md#transaction-level-communication).
+- Distinguishing TLM 2 phases and time: [protocol histories](#q96-are-the-new-tlm-2-tests-protocol-validators-or-simulator-schedulers) and [delay annotations](#q25-does-a-tlm-delay-annotation-advance-simulation-time).
 - Understanding heartbeat monitoring: [activity-window questions](#heartbeats-payload-dispatch-and-abstract-fifos) and [heartbeat terms](glossary.md#heartbeats-virtual-accessors-and-fifo-models).
 - Understanding macro flags: [field-macro type and operation questions](#field-macro-type-arguments-and-paired-operation-flags) and [the control terms](glossary.md#field-macro-and-callback-controls).
 - Understanding register tests: [model basics](#register-model-basics) and [register terms](glossary.md#register-model).
+- Reading memory queries: [rights and access](#q398-why-can-memory-rights-and-effective-access-differ) and [address units](#q399-which-address-units-and-relocation-conditions-are-checked).
+- Understanding coverage terminology: [register coverage models](#q311-does-coverage-construction-measure-functional-coverage-bins) and [M4's counting unit](requirements.md#counting-unit-and-scope-proposal).
 - Checking actual HDL access: [path and observation questions](#register-hdl-paths-and-observation-premises) and [the separate HDL runner](testing.md#verilator-vpi-hdl-subset).
 - Checking progress or changing a mapping: [M4 questions](#requirement-ledger-and-m4) and [the ledger update procedure](requirements.md#updating-a-test-or-mapping).
 - Reporting a problem: [posting policy](#commercial-simulator-and-issue-reporting-policy) and [source provenance](provenance.md#library-and-standards).
@@ -267,6 +270,8 @@ item's completion. The pinned library grants these locks too early; see
 [known differences](known-differences.md).
 
 ### Q20. How can nonblocking transport return a response immediately?
+
+This answer concerns TLM 1's `nb_transport` completion bit; [the TLM glossary](glossary.md#transaction-level-communication) explains the phase argument and synchronization-enum result used by TLM 2's nonblocking calls.
 
 A target can compute a response synchronously when the accepted request's
 analysis notification is delivered, then write it through the response put
@@ -1565,6 +1570,8 @@ participants. Event delta-one waits, callbacks, cancellation and reset without
 wakeup remain separate work.
 
 ### Q96. Are the new TLM 2 tests protocol validators or simulator schedulers?
+
+Here, phase names such as `BEGIN_REQ` describe a transaction's protocol state; [the TLM terms](glossary.md#transaction-level-communication) distinguish them from the UVM execution phases that organize the testbench.
 
 The testbench drives selected protocol histories; sockets forward the calls.
 The [four-phase case](../tests/u12/test_tlm2_four_phase_socket_history_preserves_delayed_forward_and_backward_annotations.sv)
@@ -3139,6 +3146,8 @@ No. There are 2568 simulation and 99 elaboration fixtures. Ordinary evidence
 has 2133 two-seed runtime matches, 94 expected compiler rejections, 435 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
+
+The requested `seeds` in `configuration` record settings rather than proof that every case reached both runs, so [the JSON-reading guide](reading-guide.md#open-the-result-json) explains how to interpret them alongside the individual results.
 
 ### Q202. What do the older legal controls establish?
 
@@ -5204,6 +5213,8 @@ why two placements alone do not prove independent complete coverage.
 A memory policy limits the storage model while a map restriction limits one interface, and [the memory terms](glossary.md#memory-access-restrictions-and-relocation-units) explain the two queries before the examples below.
 
 ### Q398. Why can memory rights and effective access differ?
+
+RO means read-only, WO write-only and RW read/write, and [the register-model glossary](glossary.md#register-model) explains how a model policy and an interface restriction describe different parts of an access.
 
 18.6.4.5 gives get_rights its unshared-RW and shared-map rules. The separate
 get_access rule in 18.6.4.6 accounts for restrictions when accessing via the

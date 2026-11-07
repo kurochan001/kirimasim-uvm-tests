@@ -11,6 +11,8 @@ IEEE 1800.2-2020のUniversal Verification Methodology（UVM）を対象にした
 [kirimasim](https://github.com/kurochan001/kirimasim)を対象とし、IEEE 1800-2023のSystemVerilog言語を検査する
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)と対になります。
 
+UVMに不慣れな場合は、以下の件数を読む前に[読み方ガイド](docs/reading-guide.ja.md#このリポジトリが検査すること)でシミュレータ・ライブラリ・テストの関係を確認できます。
+
 oracleは期待値の根拠を記録し、`spec`は規格、`verilator@5.052`は固定リリースでの再現も示します。
 specのみの意味は[用語集の「規格と期待値」](docs/glossary.ja.md#規格と期待値)で説明しています。
 

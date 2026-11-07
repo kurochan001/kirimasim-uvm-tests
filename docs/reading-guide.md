@@ -102,6 +102,8 @@ A build failure has no runtime observation, while an accepted illegal design fai
 
 ## Follow one test through the files
 
+The result ID names the source, the UVM class selects what runs, and the requirement ID names the duty being checked; [the mapping guide](requirements.md#citations-requirements-and-execution-evidence) explains why these identifiers serve different purposes in the example below.
+
 The smoke test's result ID, `u09/test_common_phases_run_in_order`, identifies [its source](../tests/u09/test_common_phases_run_in_order.sv); its first UVM citation is 9.8.1, which places it in `u09` under [the layout rule](testing.md#layout).
 
 In that source, `test_common_phases_run_in_order` is the SystemVerilog module whose `initial` block calls `run_test()`, while `+UVM_TESTNAME=t` selects the registered UVM class `t`, as distinguished in [the metadata guide](testing.md#metadata).

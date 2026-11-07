@@ -11,6 +11,8 @@ A simulator conformance test suite for IEEE 1800.2-2020, the Universal Verificat
 [kirimasim](https://github.com/kurochan001/kirimasim) and complements
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which tests the IEEE 1800-2023 SystemVerilog language.
 
+If UVM is new to you, [the reading guide](docs/reading-guide.md#what-this-repository-tests) connects the simulator, library and test before you interpret the counts below.
+
 An oracle records the expectation's basis: `spec` cites the standard and `verilator@5.052` adds reproduction;
 [Standards and expectations](docs/glossary.md#standards-and-expectations) explains spec-only cases.
 

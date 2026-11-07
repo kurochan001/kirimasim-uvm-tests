@@ -222,6 +222,8 @@ by Git, and no generated output may overwrite the four canonical inputs.
 
 ## Review work queue and root totals
 
+The three `backlog` queues do not list every remaining condition of `partial` identifiers, so regenerate `inventory` and review those clauses before choosing more tests; [Q390](faq.md#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) explains why that review is still needed.
+
 A root is a top-level chapter or annex grouping identifiers, so [Scope and coverage](glossary.md#scope-and-coverage) distinguishes these row totals from a coverage percentage.
 
 Use `backlog` to extract work items without editing the ledger:
@@ -698,6 +700,8 @@ sources stay unchanged. A same-hash report can still describe an incomplete,
 unapproved inventory with known differences.
 
 ## Updating a test or mapping
+
+A new numeric layout can add evidence for an existing duty without creating a different duty; [Q393](faq.md#q393-why-extend-existing-callback-requirements-instead-of-adding-one-per-profile) illustrates when to extend links under an existing requirement ID.
 
 The index binds a mapping to exact test inputs rather than only a filename; [Q78](faq.md#q78-what-should-i-do-when-the-test-index-becomes-stale) explains why a stale fingerprint needs mapping review before it is replaced.
 

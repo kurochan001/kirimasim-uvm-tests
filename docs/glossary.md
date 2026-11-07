@@ -57,6 +57,8 @@ These names describe roles inside a testbench; [the smoke test source](../tests/
 component hierarchy that participates in phases. Components include tests,
 environments, drivers and sequencers.
 
+Two handles can refer to the same object, so passing a handle does not itself copy its data; [typed analysis inputs](faq.md#q40-can-a-generated-master-imp-use-separate-request-and-response-objects) provide an example of observing that identity across a connection.
+
 **Factory / wrapper / registry** — The type-based creation and override
 mechanism / a proxy describing a registered type / helpers that register and
 create objects or components through the factory. A type name and an instance
@@ -292,11 +294,13 @@ siblings while its parent owns the imp without transfer methods.
 be a class handle. A suffixed write handler receives that handle; selecting
 another input does not itself clone or change the transaction.
 
-**Nonblocking transport / `nb_transport`** — A request/response operation
+**TLM 1 nonblocking transport / `nb_transport`** — A request/response operation
 that returns 1 for immediate completion or 0 when it cannot complete
 immediately. A synchronous analysis callback can supply the response during
 the call. A 0 does not establish a particular response output value or that
 no partial request-side effect occurred.
+
+This TLM 1 result is a completion bit as described in [Q20](faq.md#q20-how-can-nonblocking-transport-return-a-response-immediately), while TLM 2's nonblocking `nb_transport_fw` and `nb_transport_bw` calls return a synchronization enum and carry a phase as illustrated in [Q96](faq.md#q96-are-the-new-tlm-2-tests-protocol-validators-or-simulator-schedulers).
 
 **Failed-read sentinel** — A nondefault value or nonnull handle passed into an
 unavailable nonblocking TLM read to observe its stated unchanged-output contract.
@@ -326,6 +330,8 @@ For model-only operations, [Q45](faq.md#q45-do-set-predict-and-reset-access-the-
 **Access policy / map rights** — A field's read/write rules, such as RO, RW
 or W1C / the register's access restriction through one map. Both participate
 in effective field access. Model-only `set` also applies the field policy.
+
+For memory, rights and effective access are separate query contracts, and [Q398](faq.md#q398-why-can-memory-rights-and-effective-access-differ) shows why an RO interface can have different answers to those queries.
 
 **Reset kind / model reset** — A named reset event, such as HARD or SOFT /
 restoring desired and mirrored values for that event. An unconfigured kind
@@ -531,6 +537,8 @@ metadata / evidence that defined requirements and conditions are exercised /
 the number of tests matching in a specified execution. These have different
 denominators. This repository has not approved a requirement-coverage denominator;
 neither the test total nor the oracle count is such a percentage.
+
+Register-model coverage APIs describe available measurement models and sampling hooks; [Q311](faq.md#q311-does-coverage-construction-measure-functional-coverage-bins) distinguishes those tests from functional-bin measurements, while [the counting guide](requirements.md#counting-unit-and-scope-proposal) defines M4's requirement-coverage unit.
 
 **Check / Nightly** — This repository's validation workflow / the separate
 scheduled reporting workflow used by kirimasim-tests. This repository currently

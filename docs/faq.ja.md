@@ -20,9 +20,12 @@ API名やテストのファイル名が分かる場合は、その表記でブ�
 - configurationの検索：[resourceの選択とsort](#resource収集sortconfig-alias)と[関連用語](glossary.ja.md#resourceとsequenceの順序)。
 - compiler診断を読む：[拒否と合法control](#compiler拒否と合法control)と[テストのmetadata](testing.ja.md#メタデータ)。
 - sequenceや通信の理解：[lockとtransport](#lockとnonblocking-transport)と[TLMの用語](glossary.ja.md#transaction単位の通信)。
+- TLM 2のphaseと時間の区別：[protocolの履歴](#q96-新しいtlm-2テストはprotocol検査器やシミュレータのschedulerですか)と[delayの注記](#q25-tlmのdelay-annotationを変えるとシミュレーション時刻も進みますか)。
 - heartbeat監視の理解：[活動区間の質問](#heartbeatpayload-dispatchabstract-fifo)と[heartbeatの用語](glossary.ja.md#heartbeatvirtual-accessorfifoモデル)。
 - macro flagの理解：[field-macroの型と操作の質問](#field-macroの型引数と対応する操作flag)と[controlの用語](glossary.ja.md#field-macroとcallbackのcontrol)。
 - レジスタのテストの理解：[モデルの基本](#レジスタモデルの基本)と[レジスタの用語](glossary.ja.md#レジスタモデル)。
+- memoryのqueryの読み方：[rightsとaccess](#q398-memoryのrightsと有効accessが異なる理由は)と[addressの単位](#q399-どのaddress単位とrelocation条件を検査しますか)。
+- coverageという語の意味：[registerの計測model](#q311-coverageの構築でfunctional-coverageのbinを測定しますか)と[M4の計数単位](requirements.ja.md#計数単位と対象範囲の案)。
 - 実際のHDLアクセスの確認：[pathと観測の質問](#register-hdl-pathと観測の前提)と[別のHDL runner](testing.ja.md#verilatorのvpi-hdl部分集合)。
 - 進捗の確認や対応付けの変更：[M4の質問](#要求台帳とm4)と[台帳の更新手順](requirements.ja.md#テストや対応付けの更新)。
 - 問題の報告：[投稿方針](#商用シミュレータとissueの投稿方針)と[資料の出典](provenance.ja.md#ライブラリと規格)。
@@ -240,6 +243,8 @@ blockedになる場合があります。`has_lock`と`is_blocked`を別々に確
 固定版ライブラリではlockを早く付与してしまうためです。[既知差分](known-differences.ja.md)を参照してください。
 
 ### Q20. nonblocking transportはどうやって即時に応答できますか
+
+この回答はTLM 1の`nb_transport`が返す完了のbitを扱い、TLM 2のnonblocking呼出しが使うphase引数と同期enumの結果は[TLMの用語集](glossary.ja.md#transaction単位の通信)で確認できます。
 
 受理した要求のanalysis通知を同期的に受けたtargetが、その場で応答を計算し、
 `nb_transport`から戻る前にresponse put portへ書き込めます。テストはこの経路を公開APIで接続し、
@@ -1268,6 +1273,8 @@ resetまでbarrierを開いたままにします。別の検査系でthreshold�
 eventのdelta 1の待機、callback、取消、wakeupなしのresetは別途扱います。
 
 ### Q96. 新しいTLM 2テストはprotocol検査器やシミュレータのschedulerですか？
+
+ここでの`BEGIN_REQ`などのphase名はtransactionのprotocol状態を表し、テストベンチ全体を進めるUVMの実行phaseとの違いは[TLMの用語](glossary.ja.md#transaction単位の通信)で確認できます。
 
 選択したprotocolの履歴を駆動するのはテストベンチで、socketは呼出しを転送します。
 [4-phaseの検査系](../tests/u12/test_tlm2_four_phase_socket_history_preserves_delayed_forward_and_backward_annotations.sv)は、
@@ -2456,7 +2463,9 @@ schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否し
 ### Q201. 全2667テストを2 seedで実行しましたか？
 
 いいえ。simulation 2568件とelaboration 99件があります。通常記録はruntime両seed一致2133件、期待compiler拒否94件、既知simulation差分435件、不正compile受理の既知差分5件です。
-不正design 94件は、compileを受理された場合もruntime seedを実行しません。
+不正design 99件は、compileを受理された場合もruntime seedを実行しません。
+
+`configuration`の`seeds`は要求した設定であり、全ケースが両方の実行に達した証拠ではないため、個別の結果と併せた読み方は[JSONのガイド](reading-guide.ja.md#結果jsonを開く)で確認できます。
 
 ### Q202. 以前の合法controlは何を示しますか？
 
@@ -3922,6 +3931,8 @@ candidateの棚卸しは主引用0が1174、目標未満770、目標以上538と
 memory policyは記憶モデル側、map制限は1つのinterface側の制約であり、以下の例で使う2つのqueryの違いは[memoryの用語](glossary.ja.md#memoryのaccess制限とrelocation単位)で確認できます。
 
 ### Q398. memoryのrightsと有効accessが異なる理由は？
+
+ROは読出し専用、WOは書込み専用、RWは読出し／書込みを表し、モデルのpolicyとinterfaceの制限がそれぞれaccessの異なる面を示すことは[レジスタモデルの用語集](glossary.ja.md#レジスタモデル)で確認できます。
 
 18.6.4.5はget_rightsに非共有時のRWと共有mapの規則を定め、別の18.6.4.6のget_accessは指定mapからaccessする際の制限を考慮します。
 add_memのrights引数はRO／WO／RWを許すため、一方のqueryの結果を他方の期待値にせず、契約を独立に検査します。

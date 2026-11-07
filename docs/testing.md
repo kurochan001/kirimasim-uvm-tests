@@ -6,6 +6,8 @@ This guide describes the current test format, library setup, runners and contrib
 Current counts and scope are in the [README](../README.md); measurement details are in
 [results](results.md), and earlier work is in [history](history.md).
 
+For a first run, go to [Running the suite](#running-the-suite); for a test header, go to [Metadata](#metadata), and use [the file walkthrough](reading-guide.md#follow-one-test-through-the-files) before the specialized helper examples.
+
 ## What the suite checks
 
 The simulator runs the language and the UVM library supplies the tested classes; see [What this repository tests](reading-guide.md#what-this-repository-tests) for their roles.
@@ -407,6 +409,8 @@ kirimasim-tests; the [tool provenance](provenance.md) identifies the shared impl
 For a source-level example connecting these settings to the selected UVM class and expectation file, [follow the smoke test through its files](reading-guide.md#follow-one-test-through-the-files).
 
 The `:fourstate: no` declaration says the fixture does not require X/Z values; [Q14](faq.md#q14-do-two-seeds-prove-determinism-or-four-state-correctness) explains the limits of the resulting two-state evidence.
+
+The header's `:uvm:` value states the test's library version, while a bundled run uses the supplied library; [Q11](faq.md#q11-what-does-the-ghost-result-cover-and-why-an-alias) explains how to read the actual library condition from its result.
 
 Negative fixtures use `:type: elaboration` and
 `:should_fail_because:`. Their `:expected_stderr_regex:` identifies the fixture,

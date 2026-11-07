@@ -227,6 +227,8 @@ The earlier guest filter excludes the corrected field-configuration citation inp
 
 ## Persistent goal and completion audit
 
+The completion audit compares remaining duties and conditions with the original M1–M4 targets; [Q390](faq.md#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) explains why clearing the three generated queues is only one checkpoint.
+
 Unassessed counts and partial obligations track different remaining work; [Read coverage and progress](reading-guide.md#read-coverage-and-progress) explains why a smaller counter does not by itself complete the goal.
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.

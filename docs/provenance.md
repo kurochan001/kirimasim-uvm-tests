@@ -45,6 +45,8 @@ The upstream commit identifies the exact source snapshot used for copied code, a
 
 ## Original suite tools
 
+An original helper supplies test setup or observations around the UVM calls; [the fixture and helper terms](glossary.md#execution-and-result-records) explain those roles before the individual source notes below.
+
 A runner builds and judges a test, while a backend connects selected calls to external code; [the HDL setup guide](testing.md#verilator-vpi-hdl-subset) shows how they work together under a specific execution condition.
 
 The runners (`run_*.py`) and `lint_metadata.py` were written for this suite

@@ -46,6 +46,8 @@ specのみは固定版のoracleタグがない状態です。後の実行で一�
 **object／component** — UVMのデータやpolicyを表すobject／UVM階層のノードとしてphaseに参加するcomponentです。
 componentにはtest・environment・driver・sequencerなどがあります。
 
+2つのhandleが同じobjectを参照する場合があるため、handleの受け渡し自体はdataのコピーではなく、その同一性を接続越しに観測する例は[型付きanalysis入力](faq.ja.md#q40-生成したmaster-impでも要求と応答を別objectへ委譲できますか)で確認できます。
+
 **factory／wrapper／registry** — 型の生成・置換の仕組み／登録した型を表すproxy／
 factoryを通してobjectやcomponentを登録・生成する補助です。型名とinstance pathは置換の選択で別の役割を持ちます。
 
@@ -223,9 +225,11 @@ class名と実装method名へ付ける文字列です。通常のportは引き�
 **型付きanalysis入力** — class handleもtransaction型にできるanalysis接続です。
 suffix付きwrite handlerへそのhandleを渡し、入力先の選択だけではtransactionを複製・変更しません。
 
-**nonblocking transport／`nb_transport`** — 即時に要求・応答を完了できれば1、できなければ0を返す操作です。
+**TLM 1のnonblocking transport／`nb_transport`** — 即時に要求・応答を完了できれば1、できなければ0を返す操作です。
 呼び出し中の同期的なanalysis callbackが応答を供給できます。
 0という結果だけでは、出力引数の特定の値や、要求側の途中の副作用がなかったことは示せません。
+
+このTLM 1の結果は[Q20](faq.ja.md#q20-nonblocking-transportはどうやって即時に応答できますか)にある完了のbitであり、TLM 2のnonblockingな`nb_transport_fw`と`nb_transport_bw`は同期のenumを返してphaseを受け渡すため、その呼出し列は[Q96](faq.ja.md#q96-新しいtlm-2テストはprotocol検査器やシミュレータのschedulerですか)で確認できます。
 
 **失敗readのsentinel** — 取得不可のnonblocking TLM readへ渡す、既定値でない値／nonnull handleです。
 記載された出力保持の契約を観測します。UVMの`output` formalとSystemVerilogのreturn時の代入には別途解釈の論点があり、
@@ -250,6 +254,8 @@ register・map・子blockをまとめる容器です。registerのbyte幅は端�
 **Access policy／mapの権限** — RO・RW・W1Cなどのfieldの読み書き規則／
 あるmapを通るregisterのアクセス制限です。両方からfieldの実効accessを決めます。
 モデル内の`set`にもfieldのpolicyを適用します。
+
+memoryのrightsと有効accessは別のquery契約であり、ROのinterfaceでも両queryの返却値が異なり得る例は[Q398](faq.ja.md#q398-memoryのrightsと有効accessが異なる理由は)で確認できます。
 
 **Resetの種類／モデルのreset** — HARD・SOFTなどの名前付きイベント／
 そのイベントのdesired／mirrored値を復元する操作です。設定のない種類はfieldを変えません。
@@ -406,6 +412,8 @@ Verilatorがknown差分だけでは失敗終了しない理由は[FAQ Q6](faq.ja
 **条項の引用／要求カバレッジ／一致件数** — メタデータの参照／定義した要求と条件を検査する証拠／
 特定の実行で期待値に一致したテスト数です。それぞれ分母が異なります。
 このリポジトリでは要求カバレッジの分母をまだ承認しておらず、テスト総数やoracle件数はその割合ではありません。
+
+registerモデルのcoverage APIは計測modelの搭載とsampling hookを扱い、functional binの実測との違いは[Q311](faq.ja.md#q311-coverageの構築でfunctional-coverageのbinを測定しますか)、M4の要求カバレッジの単位は[計数のガイド](requirements.ja.md#計数単位と対象範囲の案)で説明しています。
 
 **Check／Nightly** — このリポジトリの検証workflow／kirimasim-testsで使う別の定期実行・報告workflowです。
 こちらには現在Checkだけがあります。バッジは、全シミュレータの一致率を示すものではありません。
