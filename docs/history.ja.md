@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の95回目の拡充（全2583件：simulation 2484・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の96回目の拡充（全2587件：simulation 2488・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3509,3 +3509,29 @@ paired復元は両片方向実装を独立に証明せず、互いに補償す�
 主引用のある番号は1300件、引用がある番号は2088件です。以前の通常2551記録と索引、compiler 99記録、HDL 38記録、command-line 18記録、guest 1082記録を保持します。
 guestの未測定は1501入力で、追加1498件と改訂済みの元3件（simulation 1402／elaboration 99）です。
 人の照合、範囲／分母承認、元のM1〜M4目標は未完です。
+
+## 薄い領域の96回目の拡充：TLM宣言scopeとnominal型
+
+M2のruntime 4入力で、別々の字句packageにあるTLM実装の生成classを検査し、blocking putにはint、nonblocking getには独自class handleを使います。
+各packageで同じ_shared96とplain96のsuffixを使い、入力間でowner componentの生成順と選択した呼出し順を反転します。接続した通常portから既定／index指定のinterface viewを使い、選択impとparentを保持します。
+class名、観測、残る解釈事項は[宣言scopeのFAQ](faq.ja.md#tlm宣言scopeとcallback概要)で説明しています。
+
+4入力すべてがbuildしseed 1でexit 0ですが、同名のparameterized生成class間のpackageを越えるcastが予期せず成功します。
+suffix間のcastは期待どおり拒否され、選択した配送、引数／履歴、readiness、成功handle／data、後の呼出し、peerの観測は一致します。
+一致する行で差分入力全体や子の宣言義務を別途passにはしません。seed 73記録と固定版oracle tagはなく、nominal型の期待値を保持します。
+
+元の期待3行は保持し、package／suffixのcast結果を別々に観測して両方をshort-circuitせず検査する行を追加し、現在の指紋で新しくbuild／実行しました。
+UVMなしの独立した独自言語probeでは、package=0を期待したのにsame=1、package=1、name=0、plain_package=0、plain_name=0を観測します。
+選択した差分は別packageの同名parameterized classであり、異なる名前や通常classの対照例は一致します。
+正規テスト、guest測定、元入力のseed 73結果を追加せず、libraryだけへの原因帰属は行いません。
+
+B.5のnamespace義務1件を追記し、既存の子の宣言義務2件にはそれぞれ照合したlink 2件を追加しますが、本文、条件、期待、制限、AI照合は変更しません。
+B.2は個別に読んだfamily見出しとして構造分類、B.2.1はfactory基盤と使用推奨の文脈として分類し、同等の手書き基盤を禁止する規則にはしません。
+B.4はregistry基底という記述と明示したcallback object／CBの基底規則が食い違うため、黙って分類せず未評価を保持します。
+B.5の総称interface-imp macro名はfamilyのplaceholderであり、具体的な子の生成名だけを使って追加の区切り文字を作りません。
+
+現在はAI義務4054件、直接対応2533テスト、control専用54テスト、control linkあり154です。棚卸しは部分2057／分類424／未評価26です。
+付録Bは134／9／1、義務256件、主引用225テスト（simulation 221／elaboration 4）です。主引用のある番号は1301件、引用がある番号は2089件です。
+以前の4053要求の本文と照合を保持し、4051 object全体は未変更で既存2件のlink一覧だけを拡張します。以前の422分類、通常2583記録と索引、compiler 99記録、HDL 38記録、command-line 18記録、guest 1082記録を保持します。
+以前の既知418件は未変更で、新しい実行時差分4件により全体は422件です。guestの未測定は1505入力で、追加1502件と改訂済みの元3件（simulation 1406／elaboration 99）です。
+全ての部分契約、元のM1〜M4目標、人の照合、範囲／分母承認は未完です。

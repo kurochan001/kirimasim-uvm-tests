@@ -6442,6 +6442,39 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "B.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read B.2 entry is only the utility/field-family title immediately followed by B.2.1. It has no independent body or operational condition. Its utility, field, recording and I/O macro clauses remain in scope and partially decomposed; this does not certify those children complete.",
+        "ja": "個別に読んだB.2はutility／field familyの見出しだけで、直後にB.2.1が続き、独立本文や操作条件を持たない。utility、field、recording、I/O macroの子条項は範囲内の部分分解として保持し、完了を認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "B.2.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read overview describes utility infrastructure for factory use and recommends utility macros in object-derived user classes, then points to object/component-specific clauses and examples. It adds no separate utility implementation algorithm or mandatory prohibition of equivalent manual class infrastructure. Concrete type/proxy/create contracts remain partial in their specific clauses; the recommendation is retained as context, not turned into an illegal-no-macro compiler requirement.",
+        "ja": "個別に読んだ概要はfactory利用のutility基盤を説明し、object派生user classにutility macroの使用を推奨して、object／component固有の条項と例を参照する。別のutility実装algorithmや同等の手書き基盤の必須禁止を追加しない。具体的な型／proxy／create契約は個別条項の部分分解として残し、推奨を文脈として保持してmacroなしを不正とするcompiler要件には変換しない。"
+      },
+      "related_requirements": [
+        "UVM-OBJECT-TRAIT-OBJECT-MACRO-STATIC-PROXY",
+        "UVM-OBJECT-TRAIT-OBJECT-MACRO-DYNAMIC-PROXY",
+        "UVM-OBJECT-TRAIT-OBJECT-MACRO-TYPE-NAME",
+        "UVM-OBJECT-TRAIT-COMPONENT-MACRO-TYPE-NAME"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

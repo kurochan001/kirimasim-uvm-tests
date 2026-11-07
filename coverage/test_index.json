@@ -10333,6 +10333,22 @@
     "uB/test_unpack_sarrayn_paired_1_95": {
       "primary_clause": "B.2.5.3",
       "inputs_sha256": "82366f5f915a14bb3c71024a389eee5f2f088dab8da65315b2ce4822f6c59b80"
+    },
+    "uB/test_tlm_package_get_0_96": {
+      "primary_clause": "B.5",
+      "inputs_sha256": "5c9f61877de660e7191144b98c51644d0e824c224f10aca4f1a1283b0c7bd776"
+    },
+    "uB/test_tlm_package_get_1_96": {
+      "primary_clause": "B.5",
+      "inputs_sha256": "570885c2d3473e7fb00c18b2eb43e3fe12134536c530a2d59e3813a1b551511b"
+    },
+    "uB/test_tlm_package_put_0_96": {
+      "primary_clause": "B.5",
+      "inputs_sha256": "14d254c32501a17f2a00f4378d1471d42e711f3f9d4963ac1de5f2b50ad9da8b"
+    },
+    "uB/test_tlm_package_put_1_96": {
+      "primary_clause": "B.5",
+      "inputs_sha256": "677d121c43ed406e5908b880eceec375306a05794f10257744fb41e30dbff67c"
     }
   }
 }

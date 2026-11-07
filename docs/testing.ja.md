@@ -214,6 +214,10 @@ helper folderは未変更で、header tag 11件を新たに測定します。[�
 [paired packing helper](../tests/uB/helpers95_pair_pack/collection_pair_pack_fixture95.svh)はmacro対による復元を検査し、[状態転送helper](../tests/uB/helpers95_pair_unpack/collection_pair_unpack_fixture95.svh)は変更しない型付き状態をfreshな互換policyへ渡します。
 dynamic-array／queueの長さheaderをhelperで解釈せず、撤回した強すぎるflat oracleと残る片方向の限界は[collectionのFAQ](faq.ja.md#collection-macroの値とopaque状態)で説明しています。
 
+[宣言helper](../tests/uB/helpers96_declarations/declaration_packages96.sv)は同じ2つのsuffix名を別々の字句packageに生成します。
+[put検査系](../tests/uB/helpers96_put/put_fixture96.svh)は遅延する独自int handlerを使い、[get検査系](../tests/uB/helpers96_get/get_fixture96.svh)はreadiness、拒否status、成功時の独自class handleを観測し、失敗outputは規定しません。
+両方で実際の接続と独立したcastを使い、配送の一致でnominal型の差分をpassにしない理由は[scopeのFAQ](faq.ja.md#tlm宣言scopeとcallback概要)で説明しています。
+
 ### メタデータ
 
 ヘッダーは実行スクリプトにビルドと判定の条件を伝えるもので、条項の引用と要求への対応付けの関係は[Q76](faq.ja.md#q76-条項を引用すればその要求を検査したことになりますか)で説明しています。
@@ -221,6 +225,8 @@ dynamic-array／queueの長さheaderをhelperで解釈せず、撤回した強�
 `:spec_check: ai`は期待値を誰が照合したかを記録し、`:oracle: spec verilator@5.052`は固定リリースでの再現も記録するもので、両項目が別の確認を表す理由は[期待値の用語集](glossary.ja.md#規格と期待値)で説明しています。
 
 kirimasim-testsとsv-testsの形式を引き継ぎ、UVMの設定と共通のビルド・判定設定を以下に説明します。
+
+`:uvm:`の`2020.3.1`は実装のリリース、`:lrm:`の`1800.2-2020`は照合先の規格を表し、2つの版の付け方の違いは[ライブラリと規格の出典](provenance.ja.md#ライブラリと規格)で説明しています。
 
 | フィールド | 意味 |
 | --- | --- |
@@ -352,7 +358,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の2527件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
+- 現在の2531件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -454,7 +460,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の2165件（runtime 2071・期待compiler拒否94）です。`--all`を付けるとspecのみの418件も含めます。
+Verilatorの既定の対象はoracle付き・2値の2165件（runtime 2071・期待compiler拒否94）です。`--all`を付けるとspecのみの422件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -517,7 +523,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト2583件（simulation 2484件・elaboration 99件）です。
+現在のツールの単体テストは110件、メタデータの対象はテスト2587件（simulation 2488件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and ninety-five cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2583 tests: 2484 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and ninety-six cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2587 tests: 2488 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5575,3 +5575,54 @@ citation are 2088. All 2551 prior ordinary/index records and the 99 compiler,
 unmeasured inputs: 1498 additions and three revised originals (1402 simulation/
 99 elaboration). Human review, scope/denominator approval and original M1–M4
 targets remain open.
+
+## Ninety-sixth thin-area expansion: TLM declaration scopes and nominal types
+
+Four new M2 runtime inputs cover generated TLM implementation classes in two
+lexical packages: blocking put with int data and nonblocking get with original
+class handles. Each package uses the same _shared96 and plain96 suffixes;
+owner-component construction and selected call order reverse between inputs. Bound ordinary ports use
+default/indexed interface views and retain the selected imp and parent.
+[The declaration-scope FAQ](faq.md#tlm-declaration-scopes-and-callback-overview)
+explains the class names, observations and remaining interpretation questions.
+
+All four inputs build and exit zero at seed 1, but a cross-package cast between
+same-name parameterized generated classes succeeds unexpectedly. Cross-suffix
+casts are rejected as expected, and all selected routing, argument/history,
+readiness, successful handle/data, later-call and peer observations match.
+Those matching rows do not pass a complete differing input or separately pass
+the child declaration duties. No input has a seed-73 record or a fixed-release
+oracle tag. The nominal-type expectation remains unchanged.
+
+The original three expected rows are retained. A fresh observer adds separate
+package/suffix cast results without short-circuiting either check; current
+fingerprints have fresh build/runtime evidence. An independent original
+no-UVM language probe observes same=1, package=1, name=0, plain_package=0,
+plain_name=0, whereas package=0 was expected. The selected failure concerns
+parameterized same-name classes across packages; different names and plain
+classes match their controls. This supplies no separate canonical test, guest
+measurement, original seed-73 result or library-only cause attribution.
+
+One B.5 namespace duty is appended, and two existing child declaration duties
+gain two reviewed links each without changing their definitions, conditions,
+expectations, limitations or AI review. B.2 is individually assessed as a
+structural family title. B.2.1 is contextual factory-infrastructure guidance
+with a should-use recommendation, not a prohibition of equivalent manual
+infrastructure. B.4 remains unassessed: its registry-base wording conflicts
+with the explicit callback-object/CB base rules and is not silently classified.
+The generic interface-imp macro name in B.5 denotes a family placeholder;
+only the concrete child-generated names are used, without an invented separator.
+
+There are 4054 AI duties, 2533 directly linked tests, fifty-four control-only
+tests and 154 control-linked tests. Inventory is 2057 partial/424 assessed/
+26 unassessed. Annex B is 134/9/1, with 256 duties and 225 primary tests
+(221 simulation/four elaboration). Primary-focus identifiers are 1301 and
+identifiers with any citation are 2089. All 4053 prior requirement definitions
+and reviews remain, with 4051 whole objects unchanged and only two link-list
+extensions; 422 prior assessments, 2583 index/ordinary records and the 99
+compiler, 38 HDL, 18 command-line and 1082 guest records are retained.
+The previous 418 known cases are unchanged; four new runtime differences
+bring the total to 422. Guests have 1505 unmeasured inputs: 1502 additions
+and three revised originals (1406 simulation/99 elaboration). All partial
+contracts, original M1–M4 targets, human review and scope/denominator approval
+remain open.

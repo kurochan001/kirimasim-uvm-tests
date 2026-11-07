@@ -311,6 +311,10 @@ The [scalar packing helper](../tests/uB/helpers95_pack/collection_pack_fixture95
 The [paired packing helper](../tests/uB/helpers95_pair_pack/collection_pair_pack_fixture95.svh) checks macro-pair restoration, while [the state-transfer helper](../tests/uB/helpers95_pair_unpack/collection_pair_unpack_fixture95.svh) moves untouched typed state into a fresh compatible policy.
 No helper interprets a dynamic-array/queue length header; [the collection FAQ](faq.md#collection-macro-values-and-opaque-state) explains the withdrawn overconstrained flat oracle and the remaining one-way limits.
 
+The [declaration helper](../tests/uB/helpers96_declarations/declaration_packages96.sv) creates the same two suffix names in two lexical packages.
+The [put fixture](../tests/uB/helpers96_put/put_fixture96.svh) uses delayed original int handlers, while [the get fixture](../tests/uB/helpers96_get/get_fixture96.svh) observes readiness, rejection status and successful original class handles without prescribing failed outputs.
+Both use actual connections and independent casts; [the scope FAQ](faq.md#tlm-declaration-scopes-and-callback-overview) explains why matching routing does not pass the nominal-type difference.
+
 ### Metadata
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
@@ -318,6 +322,8 @@ The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does
 `:spec_check: ai` records who reviewed the expectation, while `:oracle: spec verilator@5.052` also records fixed-release reproduction; [the expectation glossary](glossary.md#standards-and-expectations) explains why those fields describe separate checks.
 
 The metadata follows kirimasim-tests and sv-tests; the fields below cover UVM settings and common build and judgment settings:
+
+The `2020.3.1` in `:uvm:` identifies an implementation release, while `1800.2-2020` in `:lrm:` identifies the standard it is checked against; [library and standards provenance](provenance.md#library-and-standards) explains the two version schemes.
 
 | Field | Meaning |
 | --- | --- |
@@ -480,7 +486,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2527 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
+- 2531 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -616,7 +622,7 @@ The JSON configuration records either `seed` or `seeds` accordingly.
 
 By default, Verilator selects 2165 tagged two-state checks: 2071 runtime
 cases and 94 expected compiler rejections. To include
-the 418 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 422 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -684,7 +690,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2583 tests (2484 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+2587 tests (2488 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

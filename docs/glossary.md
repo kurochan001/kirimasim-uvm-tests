@@ -1254,6 +1254,8 @@ access belongs to M3 even though its files reside in uD. The F.2.3 port-role
 inputs use M2 by their TLM subject even though their files reside in uF. F.2.4.3
 sequence-library inputs also use M2 by their sequence subject.
 
+The B.5 TLM declaration cases likewise count toward M2 while residing in `uB`; [the declaration-scope FAQ](faq.md#q367-why-declare-the-same-suffix-in-two-packages) explains their communication subject.
+
 ## Block and register query boundaries
 
 A query can inspect model configuration without performing a transfer; [the query FAQ](faq.md#block-and-register-query-boundaries) explains the additional observations needed for access or coverage claims.
@@ -1608,7 +1610,7 @@ one report, independently of another reporter's settings.
 
 **One-hot sequence mask** — Distinct state bits combined with bitwise OR,
 without requiring particular numeric positions.
-[Q324](faq.md#q324-do-529-matching-state-masks-certify-all-sequence-timing) separates mask representation and live timing.
+[Q324](faq.md#q324-do-530-matching-state-masks-certify-all-sequence-timing) separates mask representation and live timing.
 
 **Stopped state versus post-callback evidence** — Observing that a sequence
 was forcibly stopped versus observing its required post callbacks.
@@ -1746,3 +1748,15 @@ These profiles keep value restoration separate from representation assumptions, 
 **Opaque typed state transfer** — Passing a state getter's output unchanged to the identically typed setter of a compatible implementation; [Q366](faq.md#q366-does-opaque-state-transfer-mean-copying-a-fixed-bit-layout) describes the independent-policy observation.
 
 **Pre-sized collection destination** — A nonempty target allocated before unpacking, without asserting empty-target or automatic-allocation behavior; [Q365](faq.md#q365-which-array-shapes-and-widths-are-exercised) lists the selected widths and shapes.
+
+## Generated TLM class scope
+
+These terms describe the selected declaration and cast checks, with their limits in [the scope FAQ](faq.md#tlm-declaration-scopes-and-callback-overview).
+
+**Generated suffix class** — A class named by a concrete implementation-declaration macro and its supplied suffix; [Q367](faq.md#q367-why-declare-the-same-suffix-in-two-packages) distinguishes it from a generic family placeholder.
+
+**Cross-package nominal cast** — A cast from an actual generated class instance to a distinct declaration with the same name in another package; [Q368](faq.md#q368-does-correct-routing-pass-the-nominal-type-case) explains the retained parameterized-class difference.
+
+**Resolved implementation view** — The interface selected from an actually bound port, with default or explicit index; [Q368](faq.md#q368-does-correct-routing-pass-the-nominal-type-case) separates correct routing/identity rows from whole-case success.
+
+**Callback registry/object distinction** — The management class and the callback type it manages, whose base rules differ; [Q370](faq.md#q370-why-leave-b4-unassessed-after-reading-its-callback-description) records the unresolved overview wording.

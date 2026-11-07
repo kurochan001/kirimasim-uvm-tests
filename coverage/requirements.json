@@ -4314,6 +4314,26 @@
           "expected_observations": [
             "UT: values 11 21 puts 1 1"
           ]
+        },
+        {
+          "test": "uB/test_tlm_package_put_0_96",
+          "role": "direct",
+          "expected_observations": [
+            "UT: package_imp96 put 0 distinct_types 1 selected_views 1 parents 1",
+            "UT: package_imp96 put 0 package_cast_rejected 1 suffix_cast_rejected 1",
+            "UT: package_imp96 put 0 routed 1 counts 1",
+            "UT: package_imp96 put 0 later_target 1 others_retained 1"
+          ]
+        },
+        {
+          "test": "uB/test_tlm_package_put_1_96",
+          "role": "direct",
+          "expected_observations": [
+            "UT: package_imp96 put 1 distinct_types 1 selected_views 1 parents 1",
+            "UT: package_imp96 put 1 package_cast_rejected 1 suffix_cast_rejected 1",
+            "UT: package_imp96 put 1 routed 1 counts 1",
+            "UT: package_imp96 put 1 later_target 1 others_retained 1"
+          ]
         }
       ]
     },
@@ -4453,6 +4473,26 @@
             "UT: initial_can 1 0",
             "UT: success 1 unavailable 1 later 1 values 11 21 gets 1 1",
             "UT: empty 1 1"
+          ]
+        },
+        {
+          "test": "uB/test_tlm_package_get_0_96",
+          "role": "direct",
+          "expected_observations": [
+            "UT: package_imp96 get 0 distinct_types 1 selected_views 1 parents 1",
+            "UT: package_imp96 get 0 package_cast_rejected 1 suffix_cast_rejected 1",
+            "UT: package_imp96 get 0 ready 1 rejection 1 handles 1 values 1",
+            "UT: package_imp96 get 0 exhausted 1 routed_calls 1"
+          ]
+        },
+        {
+          "test": "uB/test_tlm_package_get_1_96",
+          "role": "direct",
+          "expected_observations": [
+            "UT: package_imp96 get 1 distinct_types 1 selected_views 1 parents 1",
+            "UT: package_imp96 get 1 package_cast_rejected 1 suffix_cast_rejected 1",
+            "UT: package_imp96 get 1 ready 1 rejection 1 handles 1 values 1",
+            "UT: package_imp96 get 1 exhausted 1 routed_calls 1"
           ]
         }
       ]
@@ -153297,6 +153337,61 @@
             "UT: collection95 unpack_queue 1 values 1 shape 1 independent 1",
             "UT: collection95 unpack_queue 1 trailer 1 remaining 1 consumed 1",
             "UT: collection95 unpack_queue 1 source_preserved 1 unrelated_field 1 state_isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-IMP-DECL-PACKAGE-NOMINAL-ISOLATION-96",
+      "clause": "B.5",
+      "statement": {
+        "en": "Selected implementation-declaration macro invocations in separate packages create distinct generated class types even with identical suffix arguments.",
+        "ja": "別package内の選択implementation宣言macroは、同じsuffix引数でも異なる生成class型を作る。"
+      },
+      "conditions": {
+        "en": "Use two original lexical packages, each declaring blocking-put and nonblocking-get classes for both _shared96 and plain96 suffixes. Actual connected ordinary ports resolve generated imps owned by two original components; reverse owner-component construction and selected call order, use default/indexed interface views and int/class transaction types.",
+        "ja": "独自の字句package 2つのそれぞれで、_shared96とplain96の両suffixに対しblocking-put／nonblocking-get classを宣言する。接続した実際の通常portから独自component 2つの生成impを解決し、owner componentの生成順と選択した呼出し順を反転し、既定／index指定のinterface viewとint／class transaction型を使う。"
+      },
+      "expected": {
+        "en": "The exact generated class names are usable with supplied suffix spelling; interface views retain selected imp/parent identity, and cross-package or cross-suffix downcasts fail. Independently selected handlers retain actual argument/output histories.",
+        "ja": "指定したsuffix綴りの正確な生成class名を使え、interface viewが選択imp／parent同一性を保持し、package間／suffix間のdowncastは失敗する。独立に選んだhandlerが実際の引数／出力履歴を保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition for two declaration families and suffix forms only. Generic uvm_interface_imp_decl wording denotes a family placeholder, not a separate mandatory macro or class. Suffixed handler spelling follows the established selected-interface test profile; no universal concrete get_type_name string, failed-output value, all interface combinations, builtin duplicate-method diagnosis, arbitrary connection topology or complete TLM protocol is asserted. This does not settle every B.5 obligation or original M1-M4 target. No human review or scope/denominator approval.",
+        "ja": "2宣言familyとsuffix形のAI部分分解のみ。総称uvm_interface_imp_declの記述はfamilyのplaceholderで、別の必須macroやclassとは扱わない。suffix付きhandler名は既存の選択interface検査profileに従い、普遍的な具体get_type_name文字列、失敗output値、全interface組合せ、builtinの重複method診断、任意接続topology、TLM protocol全体を断定しない。B.5全義務や元のM1〜M4目標は完了しない。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_tlm_package_put_0_96",
+          "role": "direct",
+          "expected_observations": [
+            "UT: package_imp96 put 0 distinct_types 1 selected_views 1 parents 1"
+          ]
+        },
+        {
+          "test": "uB/test_tlm_package_put_1_96",
+          "role": "direct",
+          "expected_observations": [
+            "UT: package_imp96 put 1 distinct_types 1 selected_views 1 parents 1"
+          ]
+        },
+        {
+          "test": "uB/test_tlm_package_get_0_96",
+          "role": "direct",
+          "expected_observations": [
+            "UT: package_imp96 get 0 distinct_types 1 selected_views 1 parents 1"
+          ]
+        },
+        {
+          "test": "uB/test_tlm_package_get_1_96",
+          "role": "direct",
+          "expected_observations": [
+            "UT: package_imp96 get 1 distinct_types 1 selected_views 1 parents 1"
           ]
         }
       ]

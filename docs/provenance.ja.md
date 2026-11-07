@@ -231,6 +231,8 @@ package／root／registry／eventの期待値は実行前に提供IEEE条項か�
 
 collectionの期待値は提供IEEE条項から独立に導きました。最初のflat／headerなしdynamic／queue oracleはcollection条項に必須の要素だけのframingがないことと、別のopaque状態の契約を再確認して撤回し、元記録はテスト前提の診断として保存します。固定Apache UVM macroは差分後に長さprefixの説明だけに読みました。修正入力はprefix algorithmをcopyせず型付きexport状態をopaqueに保ち、独立に選んだ値で新しく測定します。paired復元とstatic片方向観測の限界は[collectionのFAQ](faq.ja.md#collection-macroの値とopaque状態)に明示し、以前の有効な既知差分、商用結果、simulator実装source、人の承認を読み替えません。
 
+TLM namespaceの期待値は実行前に提供B.5のclass生成とSystemVerilogのclass／cast規則から導きました。元のoracle 3行は保持し、package／suffix castの個別観測を追加して現在の入力を新しく測定しました。UVMなしの独立した言語probeでも同名parameterized classのpackage間cast差分を再現し、通常class／異なる名前の対照例は一致します。simulator実装source、商用結果、libraryだけの原因帰属、人の承認をoracleにしません。残る限界と未解決のB.4表記は[scopeのFAQ](faq.ja.md#tlm宣言scopeとcallback概要)に記録しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

@@ -974,6 +974,8 @@ wrapper algorithmを置換せず境界を検査し、targetの物理transportを
 **Milestone grouping（milestone分類）**: 機能対象のmilestoneでテストを数え、主引用条項で章directoryを決めます。
 D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。F.2.3のport役割入力はfileをuFに置いても、TLMという機能対象からM2へ属します。F.2.4.3のsequence-library入力もsequenceという対象からM2へ属します。
 
+B.5のTLM宣言ケースも`uB`に置きながらM2へ数え、その通信という機能対象は[宣言scopeのFAQ](faq.ja.md#q367-同じsuffixを2-packageで宣言する理由は)で確認できます。
+
 ## blockとregisterの照会の境界
 
 照会は転送を行わずにモデルの設定を調べる場合があり、アクセスやcoverageの主張に追加で必要な観測は[照会のFAQ](faq.ja.md#blockとregisterの照会の境界)で説明しています。
@@ -1233,7 +1235,7 @@ severityの区別は[Q316](faq.ja.md#q316-すべてのseverityで抑制時のmsg
 限定したNONE境界は[Q323](faq.ja.md#q323-直接infoの一致でverbosityの全解釈を解決しますか)で説明しています。
 
 **one-hot sequence mask** — 特定の数値位置を要求せず、互いに異なるstate bitをbitwise ORで組み合わせたものです。
-mask表現と実行時刻の違いは[Q324](faq.ja.md#q324-state-mask-529通りの一致で全sequence時刻を認定しますか)で確認できます。
+mask表現と実行時刻の違いは[Q324](faq.ja.md#q324-state-mask-530通りの一致で全sequence時刻を認定しますか)で確認できます。
 
 **STOPPEDとpost-callbackの証拠** — sequenceの強制停止を観測することと、必要なpost callbackを観測することです。
 分ける理由は[Q325](faq.ja.md#q325-stoppedと再利用の一致で必要なkill-post-hookも成功ですか)で説明しています。
@@ -1364,3 +1366,15 @@ data経路の成功だけでは最終file形式の検証にならないため、
 **型の対応したopaque状態転送** — state getterの出力を変更せず互換実装の同じ型のsetterへ渡すことで、独立policyの観測は[Q366](faq.ja.md#q366-opaque状態の転送は固定bit配置のcopyですか)で説明しています。
 
 **事前サイズ設定したcollection宛先** — unpack前に割り当てる空でないtargetで、空targetや自動割当は断定せず、選択した幅とshapeは[Q365](faq.ja.md#q365-どの配列shapeと幅を検査しますか)で説明しています。
+
+## 生成TLM classのscope
+
+これらの用語は選択した宣言とcast検査を表し、その限界は[scopeのFAQ](faq.ja.md#tlm宣言scopeとcallback概要)で説明しています。
+
+**suffixの生成class** — 具体的なimplementation宣言macroと指定suffixによる名前のclassで、総称family placeholderとの違いは[Q367](faq.ja.md#q367-同じsuffixを2-packageで宣言する理由は)で説明しています。
+
+**package間のnominal cast** — 実際の生成class instanceから、別packageの同名の別宣言へcastすることで、保持するparameterized-class差分は[Q368](faq.ja.md#q368-配送が正しければnominal型のケースもpassですか)で説明しています。
+
+**解決したimplementation view** — 実際に接続したportから既定または明示indexで選ぶinterfaceで、正しい配送／同一性の行と入力全体の成功の違いは[Q368](faq.ja.md#q368-配送が正しければnominal型のケースもpassですか)で説明しています。
+
+**callback registry／objectの区別** — 管理classと、異なる基底規則を持つ管理対象のcallback型で、概要の未解決の表記は[Q370](faq.ja.md#q370-callbackの説明を読んでもb4を未評価にする理由は)に記録しています。
