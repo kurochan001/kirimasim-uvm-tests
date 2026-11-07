@@ -3952,3 +3952,28 @@ pushで置き換えられなかった唯一の8 shard[実行](https://github.com
 
 新しいtool単体テスト8件（合計118件）が、変更入力の対応、戻る条件、shard和集合の完全一致を検査します。
 テスト、期待値、台帳、runner指紋、保存済みevidenceは変わりません。shard数はlocalのbuild時間からの見積もりで、この記録はhostedのRegression成功を主張しません。
+
+## 薄い領域の113回目の拡充：memory managerの古いdescriptor
+
+113回目はM3のmemory manager profileを4件追加し、全regionの解放またはregion経由の解放と、allocation呼出し順で最初または最後のdescriptorを組み合わせます。
+各roundは新しい32 locationのmanagerに4 locationのregionを3つ予約し、iterator順をoracleにせず所属を確認し、空いた範囲を再利用した後、保存したdescriptorをmanagerから再度解放します。境界は[古いdescriptorのFAQ](faq.ja.md#q428-古いdescriptorのprofileは何を検査しますか)で説明しています。
+
+4入力はtag付けの前後ともseed 1／73で一致し、2回の測定の間で変わったのは`:oracle:`行だけです。
+18.12.5.3は指定したregionがもう割り当てられていない場合にerrorを求め、18.12.7は各region instanceを割り当てられたregionの記述とします。
+errorの発生だけを検査し、DIAG113のreport回数は診断に留めます。不正呼出し後はそのmanagerの状態を検査せず、以後の予約検査は別に生成したmanagerで行います。
+
+同じ範囲を再び予約した状態では古いdescriptorを解放しません。後の予約が新しいdescriptor instanceを返すかは規定されず、その呼出しは規定のないidentityに依存するためです。
+既存の二度目の解放と他managerのregionのテストは変更しません。
+
+両方の解放経路の後の古いdescriptorを新しい義務1件で扱い、region解放の義務にregion経由の2 profileをdirect linkとして追加します。
+AI義務は4102件で、他の旧要求4100件と分類445件は同一です。直接対応は2671テスト、control対応は158テスト、controlのみは56テストです。
+元の通常／index 2723記録と旧既知458入力は全て維持します。
+
+全体は2727テスト（simulation 2628／elaboration 99）です。通常一致は2269件で、runtime両seed 2175入力とcompiler拒否94件です。
+既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。
+2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1646入力です。
+追加1642件と修正した元入力4件で、simulation 1547／elaboration 99です。
+
+第18章は部分393／分類63／未評価0番号、義務934件、主引用644テストです。
+主引用がある番号は1316のままで、candidateは0件1170／目標未満768／2件以上544です。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、errorの一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q429-古いdescriptorのprofileで解放の契約は完了しますか)で説明しています。

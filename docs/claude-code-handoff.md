@@ -4,9 +4,9 @@
 
 ## Start here
 
-Prepared on 2026-11-07 because the user has 1% quota remaining and requested a handoff, commit and push. The persistent M1–M4 goal is **paused at the user's request**; this handoff does not resume it or declare it complete. The next agent should continue implementation when the user requests resumption. This publication changes documentation only.
+Updated on 2026-11-07. A Claude Code session took over from the previous handoff; the user approved resuming the persistent M1–M4 goal, fixing CI first and publishing to main. That session split CI in [a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4) and [42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1), then published the 113th expansion in the commit that carries this text. **The goal remains open; it is not complete.**
 
-The last implementation checkpoint is [ba28ff5](https://github.com/kurochan001/kirimasim-uvm-tests/commit/ba28ff5eb4abed79b6b0a1c752e0213a9b6a685f), the published 112th expansion, on main. The handoff commit follows that checkpoint; inspect the actual branch and working tree before editing. All native measurements from that expansion have terminated; no 113th measurement was started.
+Inspect the actual branch and working tree before editing. All native measurements of the 113th expansion have terminated.
 
 Read the current workspace instructions first. The user's agent instructions reference `RTK.md`; resolve it in the current environment. No private configuration or absolute user path belongs in published files.
 
@@ -14,14 +14,23 @@ Read the current workspace instructions first. The user's agent instructions ref
 
 The three generated queues are 0: unlinked tests, requirements without direct tests, and unassessed catalog identifiers. **Zero actual remaining work has not been demonstrated.** The catalog contains 2507 identifiers: 2062 partial and 445 assessed. Scope is proposed, completeness is false, the approved denominator and coverage percentage are null, and human review is unrecorded. Original M1–M4 targets and remaining normative applicability conditions stay open; [the requirements guide](requirements.md) explains these distinct measures.
 
-- Tests: 2723 = 2624 simulation + 99 elaboration, across 22 directories. M1: 1171 (1090/81); M2: 624 (617/7); M3: 928 (917/11).
-- AI duties: 4101, all directly linked to 2667 tests; 56 tests are control-only. No human review is claimed.
-- Ordinary passing inputs: 2265 = 2171 runtime matches at seeds 1/73 + 94 expected compiler rejections.
+- Tests: 2727 = 2628 simulation + 99 elaboration, across 22 directories. M1: 1171 (1090/81); M2: 624 (617/7); M3: 932 (921/11).
+- AI duties: 4102, all directly linked to 2671 tests; 56 tests are control-only. No human review is claimed.
+- Ordinary passing inputs: 2269 = 2175 runtime matches at seeds 1/73 + 94 expected compiler rejections.
 - Known differences: 458 = 318 runtime differences + 135 simulation build failures + 5 illegal compile acceptances. A failed first seed does not establish a second-seed result.
-- Guest evidence: 1081 compatible records; 1642 unmeasured inputs (1638 additions and 4 revised originals). No new guest run occurred in expansion 112. Previously used temporary private executable/profile snapshots are unavailable; obtain authorized local configuration before measuring guests.
+- Guest evidence: 1081 compatible records; 1646 unmeasured inputs (1642 additions and 4 revised originals). No guest run occurred in expansions 112 or 113. Previously used temporary private executable/profile snapshots are unavailable; obtain authorized local configuration before measuring guests.
 - Candidate placement: 1170 have no primary test, 768 have one, and 544 have at least two. These counts do not prove clause coverage or independent passing checks.
 
 Additional HDL-backend and command-line checks have separate execution conditions; see [results](results.md) and [testing](testing.md). Do not add their counts to ordinary totals without checking scope.
+
+## CI state
+
+Hosted CI had not finished a Verilator selection since 2026-10-31: the single Check ran everything on each push with cancel-in-progress, and its one uninterrupted 8-shard run reached the 150-minute limit on every shard. [The CI section](results.md#continuous-integration) describes the replacement.
+
+- [Check](../.github/workflows/check.yml) runs tools, metadata, library and ledger checks plus the tagged checks whose inputs changed and one canary ([the selection tool](../tools/ci_select.py)). [Run 42359747127](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747127) on 42d03ab succeeded; it ran only the canary, because that commit changed no test input.
+- [Regression](../.github/workflows/regression.yml) runs all tagged checks in 20 shards, four at a time with 360 minutes each, plus the 17 command-line checks, manually and weekly. Its first dispatch, [run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603) on 42d03ab, was still running when this was written, so no Regression result is claimed. The hosted canary took about 2.5 minutes, suggesting roughly 2.2 hours per shard and 11 hours in total; that is an estimate, not a measurement.
+- A ten-concurrent dispatch was cancelled because it filled the account's shared hosted job slots and delayed other repositories. Keep Regression's concurrency modest.
+- Check the outcome of run 42359747603 first. If a shard times out or fails, investigate before publishing more tests. That run covers 42d03ab; the four 113th tests are covered by Check's changed-input job on the 113th commit and by the local measurements. Dispatch Regression again for a full hosted result on a later commit.
 
 ## Preserve these decisions
 
@@ -30,43 +39,46 @@ Additional HDL-backend and command-line checks have separate execution condition
 - Pinned Apache UVM source can explain a difference after the standard-derived oracle is frozen; it does not define the expected result. Preserve valid spec-only differences and qualified interpretations. Never change an expectation merely to match observed output.
 - Keep Ghost's real identity, version, executable/profile paths, profile contents and raw diagnostics private. Keep PDFs, fetched library source, logs, private settings and generated scratch files out of Git.
 - Maintain complete English/Japanese pairs. README describes the current state; [history](history.md) records past increments. Preserve the recent reader explanations and links, historical FAQ checkpoints, AI review status and existing evidence identity.
+- Do not change `tools/run_verilator.py`, `tools/suite_results.py` or `tools/uvm_common.py` casually: they form the runner fingerprint, and changing them invalidates every stored record. `tools/ci_select.py` is outside it.
 
 ## The latest implementation and its limits
 
-Expansion 112 added four M2 independent payload-unpack profiles under `tests/u12/`, sharing `tests/u12/helpers112_unpack/payload_unpack112.svh`. Two plain-target final-tagged tests match both seeds. Two observed-target tests remain known differences at seed 1, normal exit 0, with no seed 73. Only UT rows 6/12, the first-setter-visit trace, differ; the other ten rows match. Diagnostic counts are not oracles.
+Expansion 113 added four M3 stale memory-manager descriptor profiles under `tests/u18/`, sharing `tests/u18/helpers113_mam_stale/stale_release113.svh`: a release of all regions or a region-facade release, crossed with the first or last descriptor in allocation-call order. All four match seeds 1/73 before and after tagging. 18.12.5.3 requires an error for a region that is no longer allocated; only the presence of an error is checked, and DIAG113 counts are diagnostic. After the invalid call the target manager is not inspected; an independent manager supplies later checks.
 
-Public typed packer inputs are independent of payload packing. Direct setter calibration is separate from inherited unpack. The interpretation that the listed setters require actual virtual visits remains qualified, including empty arrays. The fixtures check associated serialized active lengths, not unused retained capacity or the complete current-size wording. Empty IGNORE payloads are unsubmitted serialization cases, not live zero-length transfer evidence. See [the completion FAQ](faq.md#q427-do-the-unpack-profiles-complete-the-payload-clause).
+A variant that releases the stale descriptor while the same range is reserved again was considered and dropped: 18.12.7 does not state whether a later same-range reservation returns a new descriptor instance. The new duty is `UVM-MAM-AUDIT-STALE-DESCRIPTOR-RELEASE-ERROR`; `UVM-MAM-AUDIT-REGION-RELEASE` gained the two region-facade profiles as direct links. `UVM-MAM-RELEASE-ALL-REUSE` was not extended, because its conditions name two specific ranges. See [the completion FAQ](faq.md#q429-do-the-stale-descriptor-profiles-complete-the-release-contract).
 
-After freezing expectations and finishing measurements, the locked Apache payload unpack body and unpack macros were inspected. Their direct member assignments are consistent with the missing setter visits; they do not settle the IEEE interpretation. Do not promote these tests to pass on that basis.
+The 112th unpack interpretation remains qualified: whether the listed setters require actual virtual visits, including empty arrays, still needs review, and the two observed profiles stay known. Other open interpretations include physical address translation, automatic recording with storage disabled or mutated, exact event-delta applicability, and cancellation of otherwise activated or suspended waiters. The [detailed handoff](handoff.md) retains the surrounding conditions and older valid differences.
 
-Other open interpretations include physical address translation, automatic recording with storage disabled or mutated, exact event-delta applicability, and cancellation of otherwise activated or suspended waiters. The [detailed handoff](handoff.md) retains the surrounding conditions and older valid differences.
+## Local artifacts
 
-## Local artifacts and the unexecuted proposal
-
-The ignored `out/` directory is optional local evidence, not a tracked source of truth. It may be absent after cloning. On this host, inspect these 112th-expansion files before reusing any record:
+The ignored `out/` directory is optional local evidence, not a tracked source of truth. It may be absent after cloning. On this host, the 113th-expansion files are:
 
 ```text
-out/thin-one-hundred-twelfth-publication.json
-out/thin-one-hundred-twelfth-resume-state.json
-out/thin-one-hundred-twelfth-next-audit-observations.json
-out/thin-one-hundred-twelfth-audit.json
-out/thin-one-hundred-twelfth-evidence-scope.json
-out/thin-one-hundred-twelfth-verilator-combined.json
-out/thin-one-hundred-twelfth-post-measurement-library-diagnostic.json
-out/thin-one-hundred-twelfth-doc-contents-effective.json
+out/thin-one-hundred-thirteenth-pretag-freeze.json
+out/thin-one-hundred-thirteenth-verilator-pretag.json
+out/thin-one-hundred-thirteenth-verilator-final.json
+out/thin-one-hundred-thirteenth-verilator-combined.json
+out/thin-one-hundred-thirteenth-evidence-scope.json
+out/thin-one-hundred-thirteenth-inventory.json
+out/thin-one-hundred-thirteenth-backlog.json
+out/thin-one-hundred-thirteenth-doc-contents-effective.json
 ```
 
-Do not rerun completed 112th-expansion generators, ledger installers, assemblers, documentation mutators or prepublication audits: their guards and baselines refer to the previous checkpoint. For later document updates, inspect the effective document snapshot and current tracked files rather than replaying the raw document mutator, which would lose later manual corrections. Preserve existing index order when appending records. Check input, runner, library and simulator fingerprints before carrying evidence forward; [evidence assembly](results.md#evidence-assembly) describes the compatibility rules.
+Guest records remain the 112th files listed in [the detailed handoff](handoff.md#evidence-and-latest-differences). `out/thin-one-hundred-thirteenth-generator-used.py` and `out/thin-one-hundred-thirteenth-docs-used.py` are the scripts actually used; their guards refer to a897c68 and the 112th document text, so do not rerun them. The earlier draft `out/thin-one-hundred-thirteenth-generate.py` was never executed and is superseded. For later document updates, start from the effective snapshot and the current tracked files. Preserve existing index order when appending records, and check input, runner, library and simulator fingerprints before carrying evidence forward; [evidence assembly](results.md#evidence-assembly) gives the rules.
 
-Only `out/thin-one-hundred-thirteenth-generate.py` was drafted for the next expansion. **It has not been executed or validated**: no 113th tests, expectations, ledger updates or measurements exist. Do not treat that generator as approved test content or run it during the pause.
+## Next candidates
 
-Its proposed M3 topic is releasing stale memory-manager descriptors after bulk release or region-facade release, then applying the manager release operation. Review IEEE 18.12.5.3 and surrounding context first, and compare existing second-release, foreign-region, bulk-release and region-release tests to avoid duplication. Four proposed profiles combine the two release paths with the first/last allocation-call handle, without assuming iterator order. Complete all valid target-state observations before the invalid call; afterwards, do not inspect or reuse the target manager or descriptors. Later valid checks must use an independent manager. Check that an error occurred rather than asserting an exact report count; keep exact counts diagnostic. This is a proposal for missing applicability conditions, not a way to reduce a placement counter.
+These are suggestions, not approved scope. Regenerate the backlog before choosing.
+
+- Stale descriptors from request_region and regions implementing virtual registers: read 18.12.5.2 and 18.9.1.1.6 first, compare the existing virtual-register release tests, and keep the descriptor-identity limit above.
+- The 112th named-setter question for unpack, reviewed against the standard without promoting the known cases on library evidence.
+- Other partial M3 conditions in chapter 18 (393 partial identifiers), and the 2062 partial identifiers overall, compared with the original M1–M3 targets.
 
 ## Verify and resume
 
-After the user resumes work, regenerate the backlog, review a real remaining duty against the standards, freeze the independent oracle, measure final inputs, update compatible evidence and both languages, then publish a validated increment. Do not declare the goal complete until actual remaining duties and original milestone targets have been audited. Claude Code does not inherit this conversation's native goal state automatically.
+Before each increment, regenerate the backlog, review a real remaining duty against the standards, freeze the independent oracle, measure the final inputs, update compatible evidence and both languages, then publish. Do not declare the goal complete until actual remaining duties and original milestone targets have been audited. Claude Code does not inherit a conversation's native goal state automatically.
 
-Use Python 3.10 or later. Native reproduction uses Verilator 5.052, a C++ toolchain and make. Fetch the pinned Accellera UVM 2020.3.1 library if absent. These commands are a restart checklist, not checks rerun for this documentation-only handoff:
+Use Python 3.10 or later. Native reproduction uses Verilator 5.052, a C++ toolchain and make. Fetch the pinned Accellera UVM 2020.3.1 library if absent. A restart checklist:
 
 ```sh
 git status --short --branch
@@ -79,10 +91,9 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
+gh run list --workflow regression.yml --limit 3
 ```
-
-The last implementation publication recorded [Check run 42355593581](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42355593581) as queued at 2026-11-07 08:29:08 UTC; it was later cancelled by the next push and is not a success claim. The former 8-shard Check never finished after 2026-10-31, so Check now runs changed tagged inputs plus a canary and [Regression](../.github/workflows/regression.yml) runs the whole selection in 20 shards; [the CI section](results.md#continuous-integration) explains both. Check both workflows for the actual current commit; local passing results do not establish hosted CI success.
 
 ## Message to give Claude Code when resuming
 
-> Read the current workspace instructions, README and both Claude Code handoff files. Verify main, the working tree and latest CI. Resume the paused M1–M4 effort only as now authorized by the user. The three generated queues are zero, but 2062 partial identifiers and original milestone targets remain; zero actual gaps is unproven. Audit a meaningful remaining condition against the local IEEE standards, considering the unexecuted stale-descriptor proposal after duplicate review. Preserve independent expectations, qualified known differences, compatible evidence, commercial-result exclusion, Ghost privacy and complete bilingual documentation. Do not replay completed scratch mutators. Measure final inputs, run appropriate checks, report limitations and publish to main as authorized. Do not manufacture review, scope approval, passing results or goal completion.
+> Read the current workspace instructions, README and both Claude Code handoff files. Verify main, the working tree, the latest Check run and the outcome of Regression run 42359747603. Continue the open M1–M4 goal only as authorized by the user. The three generated queues are zero, but 2062 partial identifiers and original milestone targets remain; zero actual gaps is unproven. Audit a meaningful remaining condition against the local IEEE standards and avoid duplicating existing tests. Preserve independent expectations, qualified known differences, compatible evidence, the runner fingerprint, commercial-result exclusion, Ghost privacy and complete bilingual documentation. Do not replay completed scratch scripts. Measure final inputs, run appropriate checks, report limitations and publish to main as authorized. Do not manufacture review, scope approval, passing results or goal completion.

@@ -1,0 +1,10 @@
+UT: round 1 setup members 1 distinct 1
+UT: round 1 released members 1
+UT: round 1 reuse geometry 1 released_again 1
+UT: round 1 stale_error 1
+UT: round 1 independent empty 1 full_pool 1
+UT: round 2 setup members 1 distinct 1
+UT: round 2 released members 1
+UT: round 2 reuse geometry 1 released_again 1
+UT: round 2 stale_error 1
+UT: round 2 independent empty 1 full_pool 1

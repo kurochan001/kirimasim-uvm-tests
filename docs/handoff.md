@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-Current transfer: the goal is paused at the user’s request. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, unexecuted proposal and restart instructions.
+Current transfer: the user resumed the goal on 2026-11-07, and the 113th expansion is published. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
@@ -10,8 +10,8 @@ This page supports resuming development; if you want to run or understand a firs
 
 The base commit below identifies the starting point for the described work, so check uncommitted changes before treating saved results as evidence for the current files; [the input-update procedure](requirements.md#updating-a-test-or-mapping) explains how to review their compatibility.
 
-Updated on 2026-11-07 for the 112th thin-area expansion, based on
-[6bd0312](https://github.com/kurochan001/kirimasim-uvm-tests/commit/6bd0312544c38707d657b3593ad624c047d06296)
+Updated on 2026-11-07 for the 113th thin-area expansion, based on
+[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -24,9 +24,9 @@ zero unlinked tests does not complete any milestone.
 | --- | --- |
 | M1 | 1171 tests (1090 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
 | M2 | 624 tests (617 runtime, 7 elaboration): sequences, sequencers, callbacks and TLM |
-| M3 | 928 tests (917 runtime, 11 elaboration): register/memory layer and annex E |
-| Entire suite | 2723 tests (2624 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 4101 AI requirement drafts; 4101 have direct links to 2667 tests; fifty-six control-only tests; zero tests without links |
+| M3 | 932 tests (921 runtime, 11 elaboration): register/memory layer and annex E |
+| Entire suite | 2727 tests (2628 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 4102 AI requirement drafts; 4102 have direct links to 2671 tests; fifty-six control-only tests; zero tests without links |
 | Normative inventory | 2062 of 2,507 identifiers partially decomposed; 445 explicitly assessed; 0 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
@@ -75,13 +75,13 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
   for these versioned inputs.
 - [Library lock](../third_party/uvm.lock): Accellera UVM 2020.3.1 at
   `78c06547a2a0`, 326 files. Fetch with the tracked tool; the library itself
-  is not committed. 2667 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
+  is not committed. 2671 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
 - The user supplied `IEEE_Std_1800.2-2020.pdf` and
   `IEEE_Std_1800-2023_SystemVerilog.pdf` in the repository root. They are
   ignored local files, unavailable in a fresh clone, and must not be
   redistributed. Extracted text under `out/` is local and ignored; `/tmp` contents may disappear.
 - Results under `out/` are ignored and local. Temporary expansion helpers
-  under `out/thin-one-hundred-twelfth-*.py` are optional local aids,
+  under `out/thin-one-hundred-*-*.py` are optional local aids,
   not maintained entry points. Some append drafts/history and must not be
   rerun blindly. Recreate missing helpers using the tracked tools.
 
@@ -106,11 +106,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 118 tool unit tests, metadata for all 2723 tests (2624 simulation, 99 elaboration),
+The snapshot passed 118 tool unit tests, metadata for all 2727 tests (2628 simulation, 99 elaboration),
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1081 unchanged inputs, with 1642 inputs unmeasured.
+cover 1081 unchanged inputs, with 1646 inputs unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -137,11 +137,11 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 2171 runtime passes at seeds 1/73; 94 expected compile rejections; 458 known |
+| Verilator 5.052 / pinned UVM | 2175 runtime passes at seeds 1/73; 94 expected compile rejections; 458 known |
 | Verilator 5.052 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
 | Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 18-case condition: 17 pass both seeds; 1 known at seed 1 |
-| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1642 inputs unmeasured |
-| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1642 inputs unmeasured |
+| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1646 inputs unmeasured |
+| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1646 inputs unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
 The ordinary condition retains 458 known cases: 318 runtime first differences,
@@ -151,63 +151,59 @@ two inherited type_id registry specializations, one protected-access build, two 
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
 
-The 112th expansion adds four M2 payload-unpack profiles: plain/observed
-targets crossed with empty/nonempty data. An original public packer writer
-supplies the listed fields using their declared widths, independently of
-payload do_pack output or raw endian representation. Two rounds reuse the
-target with different incoming addresses/bytes and a retained extension;
-[the unpack FAQ](faq.md#q425-what-do-the-independent-unpack-streams-check)
-explains the input and active-prefix boundary.
+The 113th expansion adds four M3 memory-manager profiles: a release of all
+regions or a region-facade release, crossed with the first or last descriptor in
+allocation-call order. Each of two rounds reserves three four-location regions
+in a fresh 32-location manager, checks membership without an iterator-order
+oracle, reuses the freed range and then releases the saved descriptor again
+through the manager; [the stale-descriptor FAQ](faq.md#q428-what-do-the-stale-descriptor-profiles-check)
+explains the boundary.
 
-The two plain final tagged inputs match seeds 1/73. Both observed inputs
-retain known differences at seed 1 with normal exit 0 and no seed 73 result.
-All ten other checked rows match: sentinel setup, direct reverse-order setter
-calibration, restored scalars/active bytes and extension identity/value/hook
-preservation. Neither round captures a first setter visit during actual
-inherited do_unpack, so the two required trace rows differ. A matching value
-row does not pass a whole observed case; [the qualified-reading FAQ](faq.md#q426-why-is-setter-order-qualified-when-field-values-match)
-records the interpretation without assigning a simulator/library cause.
+All four inputs match seeds 1/73 before and after tagging; only the `:oracle:`
+line changed between the two measurements. 18.12.5.3 requires an error when the
+specified region is no longer allocated, and 18.12.7 describes each region
+instance as an allocated region. Only the presence of an error is checked; the
+DIAG113 report counts are diagnostic. After the invalid call no state of that
+manager is inspected; an independently constructed manager supplies the later
+reservation checks.
 
-The order oracle reads the named setters in 12.3.4.2.5 with the virtual-accessor
-declaration in 12.3.4.2.15 and SystemVerilog 8.20 as actual visits in the listed
-order, including empty-array setters. That reading still needs review.
-Only each setter's first visit and presence are checked; four current DIAG112
-rows contain exact invocation counts without an oracle or requirement link.
-The observer forwards each public setter to super and never overrides
-do_unpack. Direct-call calibration runs before the observation is cleared.
+No stale call is made while the same range is reserved again. Whether that
+later reservation returns a new descriptor instance is not specified, so such
+a call would depend on an unspecified identity. The existing second-release and
+foreign-region tests are unchanged.
 
-Two duties decompose incoming field values and qualified first-setter order;
-one stable extension-preservation duty is extended. The total is 4101 AI
-duties, with 4098 other old objects and all 445 assessments unchanged. Plain
-profiles are direct for field values and controls for setter order, so roles
-overlap:2667 tests have direct links,158 have controls and 56 are control-only.
-All 2719 old ordinary/index records and 456 old known inputs remain unchanged.
+One new duty covers the stale descriptor after both release paths, and the
+region-release duty gains the two region-facade profiles as direct links. The
+total is 4102 AI duties, with 4100 other old objects and all 445 assessments
+unchanged; 2671 tests have direct links, 158 have controls and 56 are
+control-only. All 2723 old ordinary/index records and 458 old known inputs
+remain unchanged.
 
-The suite has 2723 tests (2624 simulation/99 elaboration). Ordinary results
-are 2265 matches:2171 runtime inputs at both seeds and 94 compiler rejections.
-Known inputs total 458:318 runtime seed 1 differences,135 simulation builds and
+The suite has 2727 tests (2628 simulation/99 elaboration). Ordinary results
+are 2269 matches: 2175 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
 five accepted illegal designs without runtime. The two backend subsets are
-unchanged. No guest run/filter is added:1081 compatible records remain
-byte-identical and 1642 inputs are unmeasured (1638 additions/four revised
-originals;1543 simulation/99 elaboration).
+unchanged. No guest run/filter is added: 1081 compatible records remain
+byte-identical and 1646 inputs are unmeasured (1642 additions/four revised
+originals; 1547 simulation/99 elaboration).
 
-Chapter 12 retains 169 partial/45 assessed/0 unassessed identifiers, with 328
-duties and 204 primary tests. Primary-focused identifiers rise to 1316;
+Chapter 18 retains 393 partial/63 assessed/0 unassessed identifiers, with 934
+duties and 644 primary tests. Primary-focused identifiers remain 1316;
 candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
 identifiers, actual remaining conditions, original milestone targets,
-human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q427-do-the-unpack-profiles-complete-the-payload-clause)
-explains why neither mapping nor matching controls completes the goal.
+human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q429-do-the-stale-descriptor-profiles-complete-the-release-contract)
+explains why the error matches do not complete the goal.
 
-Totals are 2723 (2624 simulation/99 elaboration): M1 1171 (1090/81), M2 624
-(617/7), M3 928 (917/11). Ordinary pass is 2265 (2171 runtime/94 rejections),
+Totals are 2727 (2628 simulation/99 elaboration): M1 1171 (1090/81), M2 624
+(617/7), M3 932 (921/11). Ordinary pass is 2269 (2175 runtime/94 rejections),
 with 458 known (318 runtime/135 builds/5 illegal acceptances). Guests retain
-1081 compatible records; 1642 unmeasured inputs are 1638 additions and four revised originals.
+1081 compatible records; 1646 unmeasured inputs are 1642 additions and four revised originals.
 
 The former single Check never finished its whole selection after 2026-10-31:
 its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)
 not superseded by a newer push reached the 150-minute limit on all eight
 shards. Check now runs the changed tagged inputs and a canary, and
-[Regression](../.github/workflows/regression.yml) runs all 2265 tagged checks in
+[Regression](../.github/workflows/regression.yml) runs all 2269 tagged checks in
 20 disjoint shards with the 17 command-line checks; [the CI section](results.md#continuous-integration)
 gives the limits. Seeds 1/73, compiler-rejection judgment, pinned dependencies
 and runner fingerprints are unchanged. After a change that Check reports as
@@ -219,13 +215,13 @@ remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-one-hundred-twelfth-verilator-combined.json
+out/thin-one-hundred-thirteenth-verilator-combined.json
 out/thin-one-hundred-twelfth-ghost-final-1.json
 out/thin-one-hundred-twelfth-ghost-final-73.json
 out/thin-one-hundred-twelfth-kirimasim-final.json
-out/thin-one-hundred-twelfth-inventory.json
-out/thin-one-hundred-twelfth-backlog-final.json
-out/thin-one-hundred-twelfth-evidence-scope.json
+out/thin-one-hundred-thirteenth-inventory.json
+out/thin-one-hundred-thirteenth-backlog.json
+out/thin-one-hundred-thirteenth-evidence-scope.json
 out/thin-one-hundred-sixth-hdl-combined.json
 out/thin-one-hundred-sixth-cmdline-final.json
 ```
@@ -246,10 +242,10 @@ Unassessed counts and partial obligations track different remaining work; [Read 
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.
 At activation there were 1,463 unassessed identifiers, zero unlinked tests and
-zero requirements without direct tests. 84 iterations retain zero unassessed, a decrease of 1463 since activation. Four M2 independent-unpack inputs add two plain final-tagged matches at both seeds and two observed known differences at seed 1 with normal exit 0 and no seed 73. Public typed packer streams separate direct-setter calibration from actual inherited unpack. Both observed profiles match the ten other UT rows but differ on two first-setter trace rows; the named-setter reading is qualified and no cause is assigned. Two new duties and one stable extension-preservation expansion produce 4101 duties, with 4098 other old objects identical. All 2719 old ordinary/index records, 456 old known inputs and 445 assessments remain; the known total is 458. Guests retain 1081 compatible/1642 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is now paused at the user’s request; the remaining work is unchanged.
+zero requirements without direct tests. 85 iterations retain zero unassessed, a decrease of 1463 since activation. The user resumed the paused goal on 2026-11-07. The 113th iteration first split CI, because the former Check never finished, and then added four M3 stale-descriptor inputs that match at both seeds before and after tagging. One new duty and one region-release extension produce 4102 duties, with 4100 other old objects identical. All 2723 old ordinary/index records, 458 old known inputs and 445 assessments remain. Guests retain 1081 compatible/1646 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is not complete.
 
-The separate earlier 12.2.9.2 reassessment did not reduce unassessed. Keep the
-goal paused until the user requests resumption. Zero unassessed in chapter 12 does not complete its 169 partial
+The separate earlier 12.2.9.2 reassessment did not reduce unassessed. Do not mark
+the goal complete before the final audit. Zero unassessed in chapter 12 does not complete its 169 partial
 identifiers or explicit milestone targets. Final audit must check the original
 scope, actual standard duties, meaningful conditions and compatible execution
 evidence. Preserve qualified interpretations, known differences and unmeasured
@@ -480,7 +476,10 @@ member meanings, human-readable state and region creation/ownership overview.
 Do not infer GREEDY/THRIFTY or BROAD/NEARBY behavior from assignments alone.
 Audit retained partial conditions, reconfiguration constraints and real backend
 transfers. Keep the burst-write offset and burst-read output/ref discrepancies
-separate from the selected delegation observations.
+separate from the selected delegation observations. Stale descriptors now have
+direct release-error checks after a release of all regions and a region-facade
+release; request_region descriptors, virtual-register regions and calls while
+the range is reserved again remain.
 
 Register-interaction candidates include callback resize/disable and operation
 failure conditions, wider translation beats, independent one-way payload

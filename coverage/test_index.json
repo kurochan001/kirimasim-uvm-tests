@@ -10893,6 +10893,22 @@
     "u12/test_payload_unpack_observed_data_112": {
       "primary_clause": "12.3.4.2.5",
       "inputs_sha256": "f0bc377ccbb17973115c6a92c2db7caca01a78c50cafabacf9630d39c4306fe2"
+    },
+    "u18/test_mam_stale_release_bulk_first_113": {
+      "primary_clause": "18.12.5.3",
+      "inputs_sha256": "961428c559f121e256731dff6f626f51c19a02807c2a1aa5461718e386f5d099"
+    },
+    "u18/test_mam_stale_release_bulk_last_113": {
+      "primary_clause": "18.12.5.3",
+      "inputs_sha256": "eb3f0a634b16362ea5002e7e3aeb3add3ce953770e531df309443dbc3ee0ee89"
+    },
+    "u18/test_mam_stale_release_region_first_113": {
+      "primary_clause": "18.12.5.3",
+      "inputs_sha256": "51e7c4b2215a7ff98a913cd9ffa5c1c2df62cf1bcd802053d786149626c50960"
+    },
+    "u18/test_mam_stale_release_region_last_113": {
+      "primary_clause": "18.12.5.3",
+      "inputs_sha256": "f2397363584ee40b9702ad110046e4d51a80e0948a1f1ba3c92175378928ac19"
     }
   }
 }

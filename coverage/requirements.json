@@ -89740,6 +89740,26 @@
           "expected_observations": [
             "UT: region_release again 1 peer_reserved 1 count 1"
           ]
+        },
+        {
+          "test": "u18/test_mam_stale_release_region_first_113",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 released members 1",
+            "UT: round 1 reuse geometry 1 released_again 1",
+            "UT: round 2 released members 1",
+            "UT: round 2 reuse geometry 1 released_again 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_stale_release_region_last_113",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 released members 1",
+            "UT: round 1 reuse geometry 1 released_again 1",
+            "UT: round 2 released members 1",
+            "UT: round 2 reuse geometry 1 released_again 1"
+          ]
         }
       ]
     },
@@ -89922,6 +89942,65 @@
           "role": "direct",
           "expected_observations": [
             "UT: invalid_release_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-STALE-DESCRIPTOR-RELEASE-ERROR",
+      "clause": "18.12.5.3",
+      "statement": {
+        "en": "Releasing, through the manager, a descriptor that is no longer allocated after a release of all regions or a region-facade release reports an error.",
+        "ja": "全regionの解放またはregion経由の解放によって割当てが終わったdescriptorをmanagerから解放すると、errorをreportする。"
+      },
+      "conditions": {
+        "en": "Reserve three four-location regions at locations 4, 12 and 20 of a 32-location manager, release all of them or the first or last allocated one through its region facade, reserve and release the freed range again, then release the saved first or last descriptor through the manager. Each of two rounds uses a fresh manager.",
+        "ja": "32 locationのmanagerの4、12、20に4 locationのregionを3つ予約し、全regionを解放するか、最初または最後に割り当てたregionをregion経由で解放する。空いた範囲を予約して再度解放した後、保存した最初または最後のdescriptorをmanagerから解放する。2 roundはそれぞれ新しいmanagerを使う。"
+      },
+      "expected": {
+        "en": "Each release of the stale descriptor reports an error.",
+        "ja": "古いdescriptorの各解放はerrorをreportする。"
+      },
+      "limitations": {
+        "en": "Only the presence of an error is checked; the exact number of reports is diagnostic. The stale descriptor's range is free at the invalid call. Whether a later reservation of the same range returns a new descriptor instance is not specified, so no stale call is made while that range is allocated again. First and last refer to allocation-call order, not iterator order. No state of the invalid-call target is inspected or reused; later checks use an independently constructed manager.",
+        "ja": "errorの発生だけを確認し、report回数は診断に留める。不正呼出し時、古いdescriptorの範囲は空いている。同じ範囲を後で予約したときに新しいdescriptor instanceが返るかは規定されないため、その範囲を再び割り当てた状態では古いdescriptorを解放しない。最初／最後はallocation呼出し順で、iterator順ではない。不正呼出し対象の状態は検査も再利用もせず、以後の検査は別に生成したmanagerで行う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_stale_release_bulk_first_113",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 stale_error 1",
+            "UT: round 2 stale_error 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_stale_release_bulk_last_113",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 stale_error 1",
+            "UT: round 2 stale_error 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_stale_release_region_first_113",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 stale_error 1",
+            "UT: round 2 stale_error 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_stale_release_region_last_113",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 stale_error 1",
+            "UT: round 2 stale_error 1"
           ]
         }
       ]

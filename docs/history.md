@@ -6379,3 +6379,48 @@ Eight new tool unit tests (118 in total) check the changed-input mapping,
 fallbacks and exact shard union. Tests, expectations, the ledger, runner
 fingerprints and stored evidence are unchanged. The shard count is estimated
 from local build times; this entry does not claim a successful hosted Regression.
+
+## 113th thin-area expansion: stale memory-manager descriptors
+
+The 113th expansion adds four M3 memory-manager profiles: a release of all
+regions or a region-facade release, crossed with the first or last descriptor in
+allocation-call order. Each of two rounds reserves three four-location regions
+in a fresh 32-location manager, checks membership without an iterator-order
+oracle, reuses the freed range and then releases the saved descriptor again
+through the manager; [the stale-descriptor FAQ](faq.md#q428-what-do-the-stale-descriptor-profiles-check)
+explains the boundary.
+
+All four inputs match seeds 1/73 before and after tagging; only the `:oracle:`
+line changed between the two measurements. 18.12.5.3 requires an error when the
+specified region is no longer allocated, and 18.12.7 describes each region
+instance as an allocated region. Only the presence of an error is checked; the
+DIAG113 report counts are diagnostic. After the invalid call no state of that
+manager is inspected; an independently constructed manager supplies the later
+reservation checks.
+
+No stale call is made while the same range is reserved again. Whether that
+later reservation returns a new descriptor instance is not specified, so such
+a call would depend on an unspecified identity. The existing second-release and
+foreign-region tests are unchanged.
+
+One new duty covers the stale descriptor after both release paths, and the
+region-release duty gains the two region-facade profiles as direct links. The
+total is 4102 AI duties, with 4100 other old objects and all 445 assessments
+unchanged; 2671 tests have direct links, 158 have controls and 56 are
+control-only. All 2723 old ordinary/index records and 458 old known inputs
+remain unchanged.
+
+The suite has 2727 tests (2628 simulation/99 elaboration). Ordinary results
+are 2269 matches: 2175 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
+five accepted illegal designs without runtime. The two backend subsets are
+unchanged. No guest run/filter is added: 1081 compatible records remain
+byte-identical and 1646 inputs are unmeasured (1642 additions/four revised
+originals; 1547 simulation/99 elaboration).
+
+Chapter 18 retains 393 partial/63 assessed/0 unassessed identifiers, with 934
+duties and 644 primary tests. Primary-focused identifiers remain 1316;
+candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
+identifiers, actual remaining conditions, original milestone targets,
+human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q429-do-the-stale-descriptor-profiles-complete-the-release-contract)
+explains why the error matches do not complete the goal.
