@@ -156911,6 +156911,264 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-TLM2-TRANSPORT-INPUT-HANDLE-REBINDING-105",
+      "clause": "12.3.2.2",
+      "statement": {
+        "en": "The input object-handle forms of the TLM 2 transport methods retain caller bindings when a callee rebinds its formal handles.",
+        "ja": "TLM 2 transport methodのinput object handle形式は、calleeがformal handleを再束縛してもcallerの束縛を保持する。"
+      },
+      "conditions": {
+        "en": "Call blocking, forward or backward transport through a resolved ordinary port/two-export/imp route. Reenter the same port before the outer call returns, using shared or distinct input objects and two successive rounds. Mutate the supplied objects, rebind each endpoint formal to independent replacements and mutate those replacements.",
+        "ja": "解決済みの通常port／2export／imp経路からblocking、forward、backward transportを呼ぶ。外側が復帰する前に同じportへ再入し、共有または別の入力objectと逐次2roundを使う。指定objectを変更した後、各endpointのformalを独立した置換objectへ再束縛し、置換側も変更する。"
+      },
+      "expected": {
+        "en": "Original object mutations remain visible through the exact caller handles. Formal rebinding and replacement mutations do not replace caller handles or modify an unselected peer. The outer activation retains its own local replacements across the nested call, and both rounds retain their independently declared data and delay results.",
+        "ja": "元objectへの変更は正確なcaller handleから見える。formalの再束縛と置換側の変更でcaller handleを置き換えたり、非選択peerを変更したりしない。外側のactivationは入れ子呼出しを通して自身のlocal置換を保持し、両roundで独立に定めたdataとdelayの結果を保つ。"
+      },
+      "limitations": {
+        "en": "The printed transport declarations use input transaction/delay handles and ref phase. The prose calls delay a reference, but no different ref/inout declaration is invented. Each fixture uses a custom message and phase type over an ordinary port, two exports and an imp after normal resolution. Same-direction nested calls are synchronous reentry with shared or distinct objects; they do not establish simultaneous-process safety, cross-direction/socket routing, lifetime ownership, arbitrary topology or the base protocol. Endpoint arithmetic, replacement objects, UPDATED for nested and COMPLETED for outer calls and positive blocking waits are original setup, not prescribed UVM algorithms. Composite oracle rows support only the named obligation. No simulator output or implementation source defines the expectation. Existing partial clauses, original M1-M4 targets and human/scope/denominator review remain incomplete.",
+        "ja": "印刷されたtransport宣言はtransaction／delayのinput handleとphaseのrefを使う。本文ではdelayをreferenceと呼ぶが、異なるref／inout宣言を作らない。各検査系は通常の解決後に独自message／phase型を通常port、2つのexport、impへ通す。同方向の入れ子呼出しは共有／別objectでの同期的再入であり、同時processの安全性、異方向／socket経路、寿命の所有、任意topology、base protocolを立証しない。endpointの算術、置換object、入れ子のUPDATEDと外側のCOMPLETED、正時間のblocking待機は独自の設定で、規定UVM algorithmではない。複合oracle行は名前を付けた義務だけを支える。シミュレータ出力や実装sourceから期待値を決めない。既存の部分条項、元のM1〜M4目標、人／範囲／分母のレビューは未完である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nested_blocking_distinct_input_handles_105",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 0 enter level 0 handles 1 value 23 annotation 1",
+            "UT: round 0 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 0 enter level 1 handles 1 value 38 annotation 1",
+            "UT: round 0 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 0 resume outer_locals 1 depth 1",
+            "UT: round 0 returned handles 1 a 123 b 38 inner 38",
+            "UT: round 0 timing delay_a 1 delay_b 1 elapsed 4 calls 2 depth 0",
+            "UT: round 0 shadows values 901/902 delays 1/1 independent 1",
+            "UT: round 1 enter level 0 handles 1 value 39 annotation 1",
+            "UT: round 1 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 1 enter level 1 handles 1 value 54 annotation 1",
+            "UT: round 1 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 1 resume outer_locals 1 depth 1",
+            "UT: round 1 returned handles 1 a 139 b 54 inner 54",
+            "UT: round 1 timing delay_a 1 delay_b 1 elapsed 4 calls 4 depth 0",
+            "UT: round 1 shadows values 901/902 delays 1/1 independent 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_blocking_shared_input_handles_105",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 0 enter level 0 handles 1 value 23 annotation 1",
+            "UT: round 0 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 0 enter level 1 handles 1 value 30 annotation 1",
+            "UT: round 0 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 0 resume outer_locals 1 depth 1",
+            "UT: round 0 returned handles 1 a 130 b 31 inner 130",
+            "UT: round 0 timing delay_a 1 delay_b 1 elapsed 4 calls 2 depth 0",
+            "UT: round 0 shadows values 901/902 delays 1/1 independent 1",
+            "UT: round 1 enter level 0 handles 1 value 39 annotation 1",
+            "UT: round 1 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 1 enter level 1 handles 1 value 46 annotation 1",
+            "UT: round 1 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 1 resume outer_locals 1 depth 1",
+            "UT: round 1 returned handles 1 a 146 b 47 inner 146",
+            "UT: round 1 timing delay_a 1 delay_b 1 elapsed 4 calls 4 depth 0",
+            "UT: round 1 shadows values 901/902 delays 1/1 independent 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_forward_distinct_input_handles_105",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 0 enter level 0 handles 1 value 23 annotation 1",
+            "UT: round 0 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 0 enter level 1 handles 1 value 38 annotation 1",
+            "UT: round 0 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 0 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 0 returned handles 1 a 123 b 38 inner 38",
+            "UT: round 0 timing delay_a 1 delay_b 1 elapsed 0 calls 2 depth 0",
+            "UT: round 0 shadows values 901/902 delays 1/1 independent 1",
+            "UT: round 1 enter level 0 handles 1 value 39 annotation 1",
+            "UT: round 1 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 1 enter level 1 handles 1 value 54 annotation 1",
+            "UT: round 1 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 1 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 1 returned handles 1 a 139 b 54 inner 54",
+            "UT: round 1 timing delay_a 1 delay_b 1 elapsed 0 calls 4 depth 0",
+            "UT: round 1 shadows values 901/902 delays 1/1 independent 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_forward_shared_input_handles_105",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 0 enter level 0 handles 1 value 23 annotation 1",
+            "UT: round 0 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 0 enter level 1 handles 1 value 30 annotation 1",
+            "UT: round 0 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 0 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 0 returned handles 1 a 130 b 31 inner 130",
+            "UT: round 0 timing delay_a 1 delay_b 1 elapsed 0 calls 2 depth 0",
+            "UT: round 0 shadows values 901/902 delays 1/1 independent 1",
+            "UT: round 1 enter level 0 handles 1 value 39 annotation 1",
+            "UT: round 1 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 1 enter level 1 handles 1 value 46 annotation 1",
+            "UT: round 1 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 1 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 1 returned handles 1 a 146 b 47 inner 146",
+            "UT: round 1 timing delay_a 1 delay_b 1 elapsed 0 calls 4 depth 0",
+            "UT: round 1 shadows values 901/902 delays 1/1 independent 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_backward_distinct_input_handles_105",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 0 enter level 0 handles 1 value 23 annotation 1",
+            "UT: round 0 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 0 enter level 1 handles 1 value 38 annotation 1",
+            "UT: round 0 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 0 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 0 returned handles 1 a 123 b 38 inner 38",
+            "UT: round 0 timing delay_a 1 delay_b 1 elapsed 0 calls 2 depth 0",
+            "UT: round 0 shadows values 901/902 delays 1/1 independent 1",
+            "UT: round 1 enter level 0 handles 1 value 39 annotation 1",
+            "UT: round 1 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 1 enter level 1 handles 1 value 54 annotation 1",
+            "UT: round 1 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 1 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 1 returned handles 1 a 139 b 54 inner 54",
+            "UT: round 1 timing delay_a 1 delay_b 1 elapsed 0 calls 4 depth 0",
+            "UT: round 1 shadows values 901/902 delays 1/1 independent 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_backward_shared_input_handles_105",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 0 enter level 0 handles 1 value 23 annotation 1",
+            "UT: round 0 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 0 enter level 1 handles 1 value 30 annotation 1",
+            "UT: round 0 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 0 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 0 returned handles 1 a 130 b 31 inner 130",
+            "UT: round 0 timing delay_a 1 delay_b 1 elapsed 0 calls 2 depth 0",
+            "UT: round 0 shadows values 901/902 delays 1/1 independent 1",
+            "UT: round 1 enter level 0 handles 1 value 39 annotation 1",
+            "UT: round 1 rebound level 0 local 1 caller 1 value 901 annotation 1",
+            "UT: round 1 enter level 1 handles 1 value 46 annotation 1",
+            "UT: round 1 rebound level 1 local 1 caller 1 value 902 annotation 1",
+            "UT: round 1 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 1 returned handles 1 a 146 b 47 inner 146",
+            "UT: round 1 timing delay_a 1 delay_b 1 elapsed 0 calls 4 depth 0",
+            "UT: round 1 shadows values 901/902 delays 1/1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-NONBLOCKING-LIVE-PHASE-REFERENCE-105",
+      "clause": "12.3.2.2",
+      "statement": {
+        "en": "The nonblocking TLM 2 phase reference remains a live alias to the caller variable through forwarding and synchronous nested calls.",
+        "ja": "nonblocking TLM 2のphase参照は、転送と同期的な入れ子呼出しを通してcaller変数へのlive aliasを保つ。"
+      },
+      "conditions": {
+        "en": "Use exact custom phase class properties as ref actuals in the forward and backward routes. Change the outer phase before reentry, change a different inner phase while the outer call remains active, and read each caller property before its call returns. Repeat with shared or distinct payload/delay objects.",
+        "ja": "forward／backward経路で、正確な独自phase型のclass propertyをrefのactualに使う。再入前に外側phaseを変更し、外側が実行中に別の内側phaseを変更し、各呼出しの復帰前にcaller側propertyを読む。payload／delayを共有する場合と分ける場合で繰り返す。"
+      },
+      "expected": {
+        "en": "Each phase write is immediately visible in the corresponding caller property before return. Inner updates leave the distinct outer phase active until the endpoint explicitly finishes it. Nested UPDATED and outer COMPLETED results propagate with their selected returned phases.",
+        "ja": "各phase書込みは復帰前に対応するcaller propertyへ直ちに見える。内側の変更でも別の外側phaseはendpointが明示終了するまで実行中の値を保つ。入れ子のUPDATEDと外側のCOMPLETEDは選択した返却phaseとともに伝播する。"
+      },
+      "limitations": {
+        "en": "The printed transport declarations use input transaction/delay handles and ref phase. The prose calls delay a reference, but no different ref/inout declaration is invented. Each fixture uses a custom message and phase type over an ordinary port, two exports and an imp after normal resolution. Same-direction nested calls are synchronous reentry with shared or distinct objects; they do not establish simultaneous-process safety, cross-direction/socket routing, lifetime ownership, arbitrary topology or the base protocol. Endpoint arithmetic, replacement objects, UPDATED for nested and COMPLETED for outer calls and positive blocking waits are original setup, not prescribed UVM algorithms. Composite oracle rows support only the named obligation. No simulator output or implementation source defines the expectation. Existing partial clauses, original M1-M4 targets and human/scope/denominator review remain incomplete.",
+        "ja": "印刷されたtransport宣言はtransaction／delayのinput handleとphaseのrefを使う。本文ではdelayをreferenceと呼ぶが、異なるref／inout宣言を作らない。各検査系は通常の解決後に独自message／phase型を通常port、2つのexport、impへ通す。同方向の入れ子呼出しは共有／別objectでの同期的再入であり、同時processの安全性、異方向／socket経路、寿命の所有、任意topology、base protocolを立証しない。endpointの算術、置換object、入れ子のUPDATEDと外側のCOMPLETED、正時間のblocking待機は独自の設定で、規定UVM algorithmではない。複合oracle行は名前を付けた義務だけを支える。シミュレータ出力や実装sourceから期待値を決めない。既存の部分条項、元のM1〜M4目標、人／範囲／分母のレビューは未完である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nested_forward_distinct_input_handles_105",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 0 phase level 0 incoming 1 live 1",
+            "UT: round 0 phase level 1 incoming 1 live 1",
+            "UT: round 0 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 0 resume_phase outer 1 inner 1",
+            "UT: round 0 final_phase live 1",
+            "UT: round 0 returned_phase outer 1 inner 1 completed 1",
+            "UT: round 1 phase level 0 incoming 1 live 1",
+            "UT: round 1 phase level 1 incoming 1 live 1",
+            "UT: round 1 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 1 resume_phase outer 1 inner 1",
+            "UT: round 1 final_phase live 1",
+            "UT: round 1 returned_phase outer 1 inner 1 completed 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_forward_shared_input_handles_105",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 0 phase level 0 incoming 1 live 1",
+            "UT: round 0 phase level 1 incoming 1 live 1",
+            "UT: round 0 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 0 resume_phase outer 1 inner 1",
+            "UT: round 0 final_phase live 1",
+            "UT: round 0 returned_phase outer 1 inner 1 completed 1",
+            "UT: round 1 phase level 0 incoming 1 live 1",
+            "UT: round 1 phase level 1 incoming 1 live 1",
+            "UT: round 1 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 1 resume_phase outer 1 inner 1",
+            "UT: round 1 final_phase live 1",
+            "UT: round 1 returned_phase outer 1 inner 1 completed 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_backward_distinct_input_handles_105",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 0 phase level 0 incoming 1 live 1",
+            "UT: round 0 phase level 1 incoming 1 live 1",
+            "UT: round 0 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 0 resume_phase outer 1 inner 1",
+            "UT: round 0 final_phase live 1",
+            "UT: round 0 returned_phase outer 1 inner 1 completed 1",
+            "UT: round 1 phase level 0 incoming 1 live 1",
+            "UT: round 1 phase level 1 incoming 1 live 1",
+            "UT: round 1 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 1 resume_phase outer 1 inner 1",
+            "UT: round 1 final_phase live 1",
+            "UT: round 1 returned_phase outer 1 inner 1 completed 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_backward_shared_input_handles_105",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 0 phase level 0 incoming 1 live 1",
+            "UT: round 0 phase level 1 incoming 1 live 1",
+            "UT: round 0 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 0 resume_phase outer 1 inner 1",
+            "UT: round 0 final_phase live 1",
+            "UT: round 0 returned_phase outer 1 inner 1 completed 1",
+            "UT: round 1 phase level 0 incoming 1 live 1",
+            "UT: round 1 phase level 1 incoming 1 live 1",
+            "UT: round 1 resume outer_locals 1 updated 1 depth 1",
+            "UT: round 1 resume_phase outer 1 inner 1",
+            "UT: round 1 final_phase live 1",
+            "UT: round 1 returned_phase outer 1 inner 1 completed 1"
+          ]
+        }
+      ]
     }
   ]
 }

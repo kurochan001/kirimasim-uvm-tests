@@ -6,21 +6,21 @@
 
 runtime一致、compiler拒否、未測定入力は実行条件が異なるため、件数を併せて読む方法は[結果を読む](reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-07に集約したVerilator記録は現在の2667件すべてを対象にします。他2系統は未変更1082件の記録で、
-1585入力は未測定です。各記録は入力と実行条件を指紋で識別します。
-スイートは22 directoryの2667件で、simulation 2568件とelaboration 99件です。
-milestoneはM1 1149件（1068／81）、M2 606件（599／7）、M3 912件（901／11）で、括弧内はruntime／elaborationです。
-全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし2611件のうち99件は不正elaboration検査であり、HDL-DPI 38件とcommand-line／regex-DPI runtime 18件は別です。
+2026-11-07に集約したVerilator記録は現在の2673件すべてを対象にします。他2系統は未変更1082件の記録で、
+1591入力は未測定です。各記録は入力と実行条件を指紋で識別します。
+スイートは22 directoryの2673件で、simulation 2574件とelaboration 99件です。
+milestoneはM1 1149件（1068／81）、M2 612件（605／7）、M3 912件（901／11）で、括弧内はruntime／elaborationです。
+全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし2617件のうち99件は不正elaboration検査であり、HDL-DPI 38件とcommand-line／regex-DPI runtime 18件は別です。
 
 backendの行は通常条件にも含まれる入力を条件を変えて測定した記録であり、結果を別に数える理由は[実行環境の説明](testing.ja.md#uvmライブラリ)で確認できます。
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.052・固定版UVM | `pass` 2227件：runtime 2133＋compile拒否94、`known` 440件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
+| Verilator 5.052・固定版UVM | `pass` 2233件：runtime 2139＋compile拒否94、`known` 440件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
 | Verilator 5.052・独自VPI HDL backend | `pass` 37件、`fail` 1件 | 重複する38件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・独自command-line VPI bridge・固定regex DPI | `pass` 17件、`known` 1件 | 重複する18件の別条件。一致はseed 1／73、差分はseed 1 |
-| kirimasim・固定版UVM | `unsupported`が1073件、`fail`が9件 | 未変更1082入力。1585入力は未測定 |
-| Ghost・同梱UVM | `pass`が206件、`fail`が876件 | 各seedで未変更1082入力。失敗集合は同じ。1585入力は未測定 |
+| kirimasim・固定版UVM | `unsupported`が1073件、`fail`が9件 | 未変更1082入力。1591入力は未測定 |
+| Ghost・同梱UVM | `pass`が206件、`fail`が876件 | 各seedで未変更1082入力。失敗集合は同じ。1591入力は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
 固定ライブラリはAccellera UVM 2020.3.1、コミット`78c06547a2a0`で、326ファイルを
@@ -98,26 +98,27 @@ frontdoor／backdoorの転送動作の成功は示しません。
 
 ここでの未測定入力は、以前の版を実行していても現在と互換な記録がない入力を指し、再利用前の確認は[Q15](faq.ja.md#q15-過去の結果を現在も使えるかどう確認しますか)で説明しています。
 
-snapshotは[2ad8909](https://github.com/kurochan001/kirimasim-uvm-tests/commit/2ad89094aa1883aa49d82ed98d7cf9725cfd9b2a)から通常2657記録を保持し、2026-11-07 JSTにM3 simulation入力10件を追加します。
+snapshotは[ae8d3e0](https://github.com/kurochan001/kirimasim-uvm-tests/commit/ae8d3e087adc3fc347af260f81e957797e6c9fdb)から通常2667記録を保持し、2026-11-07 JSTにM2 simulation入力6件を追加します。
 
 以下のprofileは記載した条件だけを検査し、別の前提の一致で元の差分を成功へ読み替えない理由と台帳のdirect／controlの役割は[要求対応のガイド](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
-104回目の拡充はM3 profileを10件追加し、明示memory accessの6caseとflatなbyte／word relocationの4layoutを扱います。
-accessは固有RW／RO policyとRO／WO／RW interface制限を分け、単独／共有の所属、親の既定変更、独立したRW peerを観測します。
-共有get_accessでは常にmapを指定し、get_rightsが別の契約である理由は[accessのFAQ](faq.ja.md#q398-memoryのrightsと有効accessが異なる理由は)で説明しています。
+105回目の拡充はM2 transport profileを6件追加し、blocking、forward、backwardの各経路でtransaction／delay objectを共有する場合と分ける場合を扱います。
+通常port、2つのexport、impを通常どおり解決してから、外側の呼出しが実行中に同じportへ再入します。
+逐次2roundで元objectへの変更、endpoint localのhandle再束縛、置換objectの変更、非選択peerを分けて観測し、prototypeに基づく解釈は[input handleのFAQ](faq.ja.md#q402-delayのreferenceはendpointがcallerのhandleを置換できる意味ですか)で説明しています。
 
-最終tag付きの共有制限／ROM 4入力はseed 1／73で一致します。単独map 2入力はbuildとseed 1をexit 0で終えますが、
-選択accessの3行でRO／WOでなくRWを返し、peerの3行は一致します。relocation 4入力はそれぞれ非ゼロlocationのoff／alt_offが10行で異なり、
-address、peer、unitのfieldとlocation 0の5行は一致します。既知6入力にはseed 73結果がなく、一部fieldの一致で全入力を成功にはしません。
-既存のaccessとlocation-offsetの期待を保持し、6不具合やlibraryだけの原因を推測しない扱いは[結果のFAQ](faq.ja.md#q401-共有やromのcontrolが一致すれば他の差分は解消しますか)で確認できます。
+最終tag付きの6入力は全てseed 1／73で一致します。nonblockingの4profileは呼出しの復帰前に独自phaseのclass propertyを読み、
+実転送経路を通るliveなref変更と外側／内側phaseの独立性を観測します。入れ子のUPDATEDと外側のCOMPLETEDは独自endpointで選ぶ結果で、規定protocol algorithmではありません。
+blockingでは明示した待機を使い、nonblockingはsimulation時刻を進めず復帰します。最終値だけでlive参照を示せない理由は[phaseのFAQ](faq.ja.md#q403-transport呼出しの復帰前にcallerのphaseを読む理由は)で確認できます。
 
-relocationは非ゼロroot基点、整数の1／2beat location、選択mapの移動、空いた範囲のpeer再利用、再移動、復元を使い、
-異なる単位の別interfaceも独立に観測します。DIAG104のlookup座標20行は調査専用で、期待oracleや要求対応を作らず、非ゼロrootのlookup意味は未解決に保ちます。
-その境界は[診断のFAQ](faq.ja.md#q400-lookup診断でアドレス検索の適合性を示せますか)で説明します。単位には宣言されたget_addr_unit_bytesを使い、本文の相互参照からget_add_unit_bytesという必須別名は作りません。
+初回6buildは、新しいヘッダーのfiles指定でhelperへ誤って@を付けたため停止しました。そのprefixを取り除いて検査系の準備を直し、
+元の全期待行とhelperを保持します。元の入力とbuild logは別に保存し、修正後の6入力を新しく測定し、再現tagの変更後も全6入力を再測定します。
+初回のbuild拒否をシミュレータ／ライブラリの不具合には数えません。
 
-map制限／単位／独立性の異なる3義務を追加します。固有ROMの対応へ2linkを増やし、既存location-offset義務の条件／期待／制限を広げ、元の全本文と対応を保持します。
-他の元の要求object、分類445件、以前のindex／通常2657記録を全て保持し、以前の既知434入力も保持します。scope、catalog、runner、backend、workflowは未変更です。
-台帳はAI義務4092件、直接対応テスト2611件、controlのみ56件、control対応156件です。空の3queueで部分2062識別子、適用条件、元のM1〜M4目標を完了にはせず、人の照合と範囲／分母承認は記録していません。
+input束縛とlive phaseの異なる2義務を追加し、以前の要求object全4092件、分類445件、元のindex／通常2667記録、既知440入力は全て保持します。
+scope、catalog、runner、backend、workflowは未変更です。台帳はAI義務4094件、直接対応テスト2617件、control専用56件、control対応156件です。
+guestは互換1082記録を保持し、現在の1591入力は未測定です。同期的な同方向呼出しは同時processの安全性、異方向／socket動作、寿命の所有、base protocol全体のcoverageを立証せず、
+その違いは[再入のFAQ](faq.ja.md#q404-一致した6profileでtlm-2の完了や並行安全性も証明できますか)で説明しています。
+空の3queueで部分2062識別子、適用条件、元のM1〜M4目標を完了にはせず、人の照合と範囲／分母承認は記録していません。
 
 kirimasim／Ghost記録は、固定した実行ファイルとseedごとの非公開profileで取得しました。
 
@@ -125,10 +126,10 @@ kirimasim／Ghost記録は、固定した実行ファイルとseedごとの非�
 
 以前のkirimasim／Ghostの一時的な実行ファイル／profile snapshotは失われており、guest再実行は主張しません。
 歴史的な元fileは1085記録を保持し、以前のfilterでcommand-enum引用、Boolean rerandomization、virtual-field configure引用の修正した元入力3件を除外します。
-今回は同じ互換1082記録をbyte単位で保持し、未測定入力10件を追加します。
+今回は同じ互換1082記録をbyte単位で保持し、未測定入力6件を追加します。
 Ghostは各seedでpass 206／fail 876、kirimasimはunsupported 1073／API欠落fail 9のままです。
-未測定1585入力は追加1582件と修正した元入力3件で、guestの改善／回帰を実測したものではありません。
-以前のfilterの出典は`out/thin-seventy-first-guest-exclusions.json`、現在の入力範囲は`out/thin-one-hundred-fourth-evidence-scope.json`にあります。
+未測定1591入力は追加1588件と修正した元入力3件で、guestの改善／回帰を実測したものではありません。
+以前のfilterの出典は`out/thin-seventy-first-guest-exclusions.json`、現在の入力範囲は`out/thin-one-hundred-fifth-evidence-scope.json`にあります。
 
 指紋ごとに、識別する入力が異なります。
 
@@ -147,7 +148,7 @@ SHA-256は記録した内容から計算する識別値であり、1つの識別
 
 合算する前に、次を確認します。
 
-- Verilator IDが現在の全件を覆い、guest IDは宣言した1082件の部分集合と一致すること。1585入力IDは未測定のままにすること。
+- Verilator IDが現在の全件を覆い、guest IDは宣言した1082件の部分集合と一致すること。1591入力IDは未測定のままにすること。
 - 各記録の`inputs_sha256`が、ランナーの集めた現在のソース、期待出力、関連入力、ライブラリのlockと一致すること。
 - batch間でシミュレータの版、configuration、`runner_sha256`が一致し、`runner_changed`がfalseであること。
 - このスナップショットでは、Verilatorタグ付きの全ケースが`pass`、現在のタグなしケースがすべて`known`であること。
@@ -157,9 +158,9 @@ SHA-256は記録した内容から計算する識別値であり、1つの識別
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
-[要求台帳の案](requirements.ja.md)はAI義務4092件と未評価0番号、部分2062／分類445です。
+[要求台帳の案](requirements.ja.md)はAI義務4094件と未評価0番号、部分2062／分類445です。
 第10章は87／29／0、第18章は393／63／0で、部分契約と元の目標は未完です。
-直接対応2611テスト、他の56テストはcontrol専用です。guestは互換1082入力を保持し、修正した元入力3件を含む1585（simulation 1486／elaboration 99）は未測定です。
+直接対応2617テスト、他の56テストはcontrol専用です。guestは互換1082入力を保持し、修正した元入力3件を含む1591（simulation 1492／elaboration 99）は未測定です。
 範囲と分母は未承認です。
 
 ## 再現と結果の保存
@@ -188,9 +189,9 @@ JSON出力は選択した実行のローカル記録であり、公開されるC
 shardは選んだテストを重複なく分担する単位で、最後のgateは全shardの成功を要求し、検査範囲との関係は[Q268](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)で説明しています。
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト110件、metadata 2667件、要求台帳の案／テスト索引、通常oracle付きVerilator 2227件（seed 1／73のruntime 2133・実行時seedなしのcompiler拒否94）と、別条件の明示command-line 17件を検査します。
+固定ライブラリの整合性、ツールの単体テスト110件、metadata 2673件、要求台帳の案／テスト索引、通常oracle付きVerilator 2233件（seed 1／73のruntime 2139・実行時seedなしのcompiler拒否94）と、別条件の明示command-line 17件を検査します。
 以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
-現在のworkflowは現在のタグ付き2227検査を重複しない8 shard（279／279／279／278／278／278／278／278）へ分け、同時shard jobは最大4です。
+現在のworkflowは現在のタグ付き2233検査を重複しない8 shard（280／279／279／279／279／279／279／279）へ分け、同時shard jobは最大4です。
 和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
 seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
 

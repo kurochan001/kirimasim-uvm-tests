@@ -256,6 +256,8 @@ static iteratorの期待は独立したhandle配置と規格のnull継続契約�
 
 memoryの期待は明示mapの契約と独立した単位／offset計算から定め、lookup診断を規格のoracleへ変えない理由は[Q400](faq.ja.md#q400-lookup診断でアドレス検索の適合性を示せますか)で説明しています。
 
+入れ子transportの期待は印刷UVM prototypeとSystemVerilogのinput／ref規則から独立に定め、独自endpointの算術を標準algorithmにはせず、本文のreferenceという語を限定する理由は[Q402](faq.ja.md#q402-delayのreferenceはendpointがcallerのhandleを置換できる意味ですか)で説明しています。
+
 ## 条項カタログの保守
 
 条項カタログは引用の検証に使う規格の識別子一覧であり、規範的義務やcoverage分母との違いは[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)で確認できます。

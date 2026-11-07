@@ -10669,6 +10669,30 @@
     "u18/test_memory_relocation_map_units_1_1_104": {
       "primary_clause": "18.6.3.3",
       "inputs_sha256": "cd1c4ee87f4bcd950b2646caa97363d9d9c3b9f3af58a2325dfd9fd9b715f267"
+    },
+    "u12/test_tlm2_nested_blocking_distinct_input_handles_105": {
+      "primary_clause": "12.3.2.2.3",
+      "inputs_sha256": "25df52e3bb07b101665596551ab05329909bf11c92b933131529aaed8170592e"
+    },
+    "u12/test_tlm2_nested_blocking_shared_input_handles_105": {
+      "primary_clause": "12.3.2.2.3",
+      "inputs_sha256": "a3a7ee07b13ac0920f3a9e917368c616be45bb4fb825a572f87fb0530a09a618"
+    },
+    "u12/test_tlm2_nested_forward_distinct_input_handles_105": {
+      "primary_clause": "12.3.2.2.1",
+      "inputs_sha256": "05e38a86d649afddb6e0d60fefbdc9efda4ca5b6a848de3749dabdb4f0df2fd5"
+    },
+    "u12/test_tlm2_nested_forward_shared_input_handles_105": {
+      "primary_clause": "12.3.2.2.1",
+      "inputs_sha256": "e8820537d9c0e4639d135d441b877ffae88f93a481e2fe98ff478a381731e7f5"
+    },
+    "u12/test_tlm2_nested_backward_distinct_input_handles_105": {
+      "primary_clause": "12.3.2.2.2",
+      "inputs_sha256": "1d217bcbd0630e73f111656881adaaae6fc21a90102db729b1baf828b6d91c3f"
+    },
+    "u12/test_tlm2_nested_backward_shared_input_handles_105": {
+      "primary_clause": "12.3.2.2.2",
+      "inputs_sha256": "c25d59cdb5345c40c4093d5c7cf1ca65748600e729fdc1e3d22563293fb82b0e"
     }
   }
 }

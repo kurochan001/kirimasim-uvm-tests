@@ -1854,3 +1854,11 @@ These terms distinguish an interface's restriction from the memory's intrinsic p
 **Flat address unit / location stride** — Bytes in one map address unit / distance between memory-location starts in those units, tested with integral one/two-beat layouts; [Q399](faq.md#q399-which-address-units-and-relocation-conditions-are-checked) distinguishes model addresses from actual storage access.
 
 **Diagnostic-only lookup coordinate** — A logged local/external lookup probe without an expected oracle or direct requirement link; [Q400](faq.md#q400-do-the-lookup-diagnostics-establish-address-lookup-conformance) explains why its result does not settle the standard's coordinate meaning.
+
+## Nested transport arguments
+
+**Input-handle rebinding** — Assigning another object handle to an input formal changes that local binding; mutating the referenced object can still be visible through the original caller handle, as explained in [Q402](faq.md#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle).
+
+**Live phase alias** — A phase ref argument addresses the caller's variable throughout the call, with changes visible before return; [Q403](faq.md#q403-why-read-the-callers-phase-before-the-transport-call-returns) shows why checking only a final value is weaker.
+
+**Synchronous transport reentry** — A still-active endpoint calls the same resolved port again before returning, using another phase variable and shared or distinct objects; [Q404](faq.md#q404-do-the-six-matching-profiles-complete-tlm-2-or-prove-concurrent-safety) separates it from simultaneous-process safety and complete protocol coverage.

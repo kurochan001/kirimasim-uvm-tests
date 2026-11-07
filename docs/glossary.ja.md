@@ -1472,3 +1472,11 @@ static iteratorはcallerの整数をopaqueな位置として使い、その表�
 **flat address単位／location stride** — mapの1address単位が表すbyte数と、その単位でのmemory location先頭間の距離であり、整数1／2beat layoutのモデルaddressと実記憶accessの違いは[Q399](faq.ja.md#q399-どのaddress単位とrelocation条件を検査しますか)で確認できます。
 
 **診断専用のlookup座標** — 期待oracleや要求の直接対応を持たないlocal／external lookup probeのlogであり、結果から規格の座標の意味を決めない理由は[Q400](faq.ja.md#q400-lookup診断でアドレス検索の適合性を示せますか)で説明しています。
+
+## 入れ子transportの引数
+
+**Input handleの再束縛** — input formalへ別のobject handleを代入するとlocalの束縛が変わり、参照していたobjectへの変更は元のcaller handleから見える場合があり、その違いは[Q402](faq.ja.md#q402-delayのreferenceはendpointがcallerのhandleを置換できる意味ですか)で説明しています。
+
+**Live phase alias** — phaseのref引数が呼出し中を通してcaller変数を参照し、復帰前に変更が見えることで、最終値だけの確認が弱い理由は[Q403](faq.ja.md#q403-transport呼出しの復帰前にcallerのphaseを読む理由は)で確認できます。
+
+**Transportへの同期的再入** — 実行中のendpointが復帰前に同じ解決済みportを再び呼び、別のphase変数と共有または別objectを使うことで、同時processの安全性や完全なprotocol coverageとの違いは[Q404](faq.ja.md#q404-一致した6profileでtlm-2の完了や並行安全性も証明できますか)で説明しています。

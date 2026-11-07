@@ -21,6 +21,7 @@ API名やテストのファイル名が分かる場合は、その表記でブ�
 - compiler診断を読む：[拒否と合法control](#compiler拒否と合法control)と[テストのmetadata](testing.ja.md#メタデータ)。
 - sequenceや通信の理解：[lockとtransport](#lockとnonblocking-transport)と[TLMの用語](glossary.ja.md#transaction単位の通信)。
 - TLM 2のphaseと時間の区別：[protocolの履歴](#q96-新しいtlm-2テストはprotocol検査器やシミュレータのschedulerですか)と[delayの注記](#q25-tlmのdelay-annotationを変えるとシミュレーション時刻も進みますか)。
+- 入れ子transportの束縛の理解：[input handle](#q402-delayのreferenceはendpointがcallerのhandleを置換できる意味ですか)と[liveなphase参照](#q403-transport呼出しの復帰前にcallerのphaseを読む理由は)。
 - heartbeat監視の理解：[活動区間の質問](#heartbeatpayload-dispatchabstract-fifo)と[heartbeatの用語](glossary.ja.md#heartbeatvirtual-accessorfifoモデル)。
 - macro flagの理解：[field-macroの型と操作の質問](#field-macroの型引数と対応する操作flag)と[controlの用語](glossary.ja.md#field-macroとcallbackのcontrol)。
 - レジスタのテストの理解：[モデルの基本](#レジスタモデルの基本)と[レジスタの用語](glossary.ja.md#レジスタモデル)。
@@ -162,7 +163,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2611件、HDL DPIの明示選択が38件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2617件、HDL DPIの明示選択が38件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -1015,8 +1016,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる4092要求案は部分的な分解で、4092要求を2611テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
-全2667テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる4094要求案は部分的な分解で、4094要求を2617テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
+全2673テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -2407,7 +2408,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 
 command enum引用、Boolean rerandomization観測、virtual fieldのconfigure引用の既存3入力で指紋が変わりました。
 3入力ともVerilatorで再測定し、古いguest記録を除外しています。歴史的な1085記録の出典fileは保持します。
-現在の再利用は1082入力で、未測定1585件は追加1582件と修正した既存3入力です。
+現在の再利用は1082入力で、未測定1591件は追加1588件と修正した既存3入力です。
 これは記録のfilterでありguestの再実行ではなく、[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
@@ -2460,9 +2461,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2667テストを2 seedで実行しましたか？
+### Q201. 全2673テストを2 seedで実行しましたか？
 
-いいえ。simulation 2568件とelaboration 99件があります。通常記録はruntime両seed一致2133件、期待compiler拒否94件、既知simulation差分435件、不正compile受理の既知差分5件です。
+いいえ。simulation 2574件とelaboration 99件があります。通常記録はruntime両seed一致2139件、期待compiler拒否94件、既知simulation差分435件、不正compile受理の既知差分5件です。
 不正design 99件は、compileを受理された場合もruntime seedを実行しません。
 
 `configuration`の`seeds`は要求した設定であり、全ケースが両方の実行に達した証拠ではないため、個別の結果と併せた読み方は[JSONのガイド](reading-guide.ja.md#結果jsonを開く)で確認できます。
@@ -2847,7 +2848,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価0番号です。
-スイートは直接対応2611テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2617テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2931,7 +2932,7 @@ shardはworkflowが選んだテストを分割した1区画で、Checkの対象�
 
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
-いいえ。現在のタグ付き2227検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
+いいえ。現在のタグ付き2233検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
 command-line 17検査はshard 0で通常検査の前に1回だけ実行します。runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
 分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分440件は通常の既定CI選択に含めません。
 
@@ -3052,7 +3053,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 引用の修正は、本体とoracleが同じでも正確な入力hashを変えます。古いguest記録を除き、互換1083記録を1082へ絞ります。
 Ghostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
-未測定1585入力は追加1582件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
+未測定1591入力は追加1588件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3236,7 +3237,7 @@ zero-timeの委譲やprimitive release/readと、この実HDL 8入力の違い�
 
 既に部分分解した条項へ義務や条件を足しても、未評価queueは変わらない場合があります。
 初回の分解や根拠のある分類でそのqueueが変わり、テスト追加だけでは減らない場合があります。
-現在の4092義務は2611テストへ直接対応し、部分2062・未評価0番号が残ります。
+現在の4094義務は2617テストへ直接対応し、部分2062・未評価0番号が残ります。
 別々の進捗指標は[棚卸しのガイド](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
 
 ## Register HDL pathと観測の前提
@@ -3859,7 +3860,7 @@ queueの件数は記録したレビュー作業を表し、完全性や実行成
 
 いいえ。全2507識別子が部分的な要求分解または個別評価を持ち、部分2062・分類445です。
 B.4のregister／execute動作に部分義務を置き、継承の記述は未解決で保持します。
-全4092義務に直接テスト、全2667テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
+全4094義務に直接テスト、全2673テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
 元のM1〜M4目標、人の照合、範囲／分母承認は未完であり、完了条件は[残作業の案内](requirements.ja.md#m4の残作業と承認)にあります。
 coverage割合やgoal完了は主張しません。
 
@@ -3971,3 +3972,31 @@ relocation 4profileはそれぞれ非ゼロlocationのoffset 10行で異なり�
 [単独ROのソース](../tests/u18/test_memory_explicit_access_policy_0_104.sv)、[単独WOのソース](../tests/u18/test_memory_explicit_access_policy_1_104.sv)、
 [relocationの1例](../tests/u18/test_memory_relocation_map_units_1_0_104.sv)を参照してください。
 controlや一部fieldの一致で異なる前提を成功にせず、独立6不具合、libraryだけの原因、M3の完全なcoverageも主張しません。
+
+## 入れ子transportのhandleとlive phase
+
+input handleとref引数は束縛の規則が異なり、新しい観測が区別するものは[transportの用語](glossary.ja.md#入れ子transportの引数)で確認できます。
+
+### Q402. delayのreferenceはendpointがcallerのhandleを置換できる意味ですか？
+
+12.3.2.2の本文はdelayをreferenceと呼びますが、印刷されたnonblocking prototypeは明示inputで、blocking prototypeも既定のinput方向を使います。
+transaction引数もinputです。これはその宣言とSystemVerilog 8.4／13.5.1に基づく限定した解釈で、コピーしたhandleも同じobjectを参照するためobjectへの変更は見えますが、
+formalへ別handleを代入してもcallerの束縛は変わりません。追加のref／inout overloadは推測しません。
+
+[独自helper](../tests/u12/helpers105_transport/transport105.svh)は指定objectを変更し、endpoint formalを独立した置換objectへ再束縛して置換側も変更します。
+実port／export／imp転送は逐次2roundを通して元のcaller handle、objectの変更、非選択peerを保持する必要があり、内側objectを共有する場合と分ける場合を観測します。
+
+### Q403. transport呼出しの復帰前にcallerのphaseを読む理由は？
+
+copy-in／copy-out引数でも最終値が一致する場合があり、それだけではrefに必要な即時の可視性を示せません。
+nonblocking 4profileは正確な独自phase型のclass propertyを渡し、endpoint内で復帰前に同じpropertyを読みます。
+入れ子呼出しの前に外側propertyを更新し、別の外側phaseが実行中の値を保持する間に内側propertyが直ちに変わり、その後外側が明示終了します。
+SystemVerilog 13.5.2はclass propertyをrefのactualとして認め、変更の即時可視性を要求します。選択した独自enum値で新しいbase protocolを定義せず、
+[以前のTLM 2の履歴](#q96-新しいtlm-2テストはprotocol検査器やシミュレータのschedulerですか)とは異なる条件を扱います。
+
+### Q404. 一致した6profileでTLM 2の完了や並行安全性も証明できますか？
+
+いいえ。通常port／2export／impの1topologyで、同方向へ同期的に入れ子呼出しを行います。endpointの算術、blocking待機、置換object、選択した返却enumは独立した設定です。
+同時processの安全性、異方向socketの再入、payloadの所有、任意の寿命／topology、一般的なphase排他や全base-protocol timingは立証しません。
+初回のinclude欠落buildは検査系の誤りであり、期待を変えずに修正して現在の結果から除外します。以前の既知440入力、部分2062契約、元のM1〜M4目標は全て保持し、
+残る監査は[完了までのガイド](requirements.ja.md#m4の残作業と承認)で説明しています。

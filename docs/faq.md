@@ -22,6 +22,7 @@ If you have an API name or test filename, use that exact spelling in your browse
 - Interpreting compiler diagnostics: [rejection and legal controls](#compiler-rejection-and-legal-controls) and [test metadata](testing.md#metadata).
 - Understanding sequences and communication: [locking and transport](#locking-and-nonblocking-transport) and [TLM terms](glossary.md#transaction-level-communication).
 - Distinguishing TLM 2 phases and time: [protocol histories](#q96-are-the-new-tlm-2-tests-protocol-validators-or-simulator-schedulers) and [delay annotations](#q25-does-a-tlm-delay-annotation-advance-simulation-time).
+- Understanding nested transport bindings: [input handles](#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle) and [live phase references](#q403-why-read-the-callers-phase-before-the-transport-call-returns).
 - Understanding heartbeat monitoring: [activity-window questions](#heartbeats-payload-dispatch-and-abstract-fifos) and [heartbeat terms](glossary.md#heartbeats-virtual-accessors-and-fifo-models).
 - Understanding macro flags: [field-macro type and operation questions](#field-macro-type-arguments-and-paired-operation-flags) and [the control terms](glossary.md#field-macro-and-callback-controls).
 - Understanding register tests: [model basics](#register-model-basics) and [register terms](glossary.md#register-model).
@@ -174,7 +175,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2611 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2617 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1235,9 +1236,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4092 AI drafts cover only a partial decomposition: 4092 requirements link
-directly to 2611 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2667 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4094 AI drafts cover only a partial decomposition: 4094 requirements link
+directly to 2617 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2673 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -3069,7 +3070,7 @@ Three original inputs have new fingerprints: the command enum citation, the
 Boolean rerandomization observation and the virtual-field configuration citation.
 All three were remeasured on Verilator; their stale guest records are excluded.
 The historical 1085-record source files remain intact. Current reuse covers
-1082 inputs, with 1585 unmeasured: 1582 additions and three revised originals.
+1082 inputs, with 1591 unmeasured: 1588 additions and three revised originals.
 This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
@@ -3140,10 +3141,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2667 tests run at two seeds?
+### Q201. Did all 2673 tests run at two seeds?
 
-No. There are 2568 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2133 two-seed runtime matches, 94 expected compiler rejections, 435 known
+No. There are 2574 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2139 two-seed runtime matches, 94 expected compiler rejections, 435 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3697,7 +3698,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2611 directly linked tests and fifty-six
+The suite has 2617 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3811,7 +3812,7 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 2227 tagged checks form 8 disjoint shards with at most 4 concurrent
+No. The current 2233 tagged checks form 8 disjoint shards with at most 4 concurrent
 jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
@@ -3972,8 +3973,8 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 The corrected citation changes the exact input hash despite an unchanged body
 and oracle. Its old guest record is excluded: 1083 compatible records become
 1082, leaving Ghost 206 matches/876 failures per seed and kirimasim 1073
-unsupported/nine failures. No guest was rerun. The 1585 unmeasured inputs are
-1582 additions and three revised originals. This filter is not evidence of
+unsupported/nine failures. No guest was rerun. The 1591 unmeasured inputs are
+1588 additions and three revised originals. This filter is not evidence of
 guest improvement or regression; see [the evidence assembly](results.md#evidence-assembly).
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
@@ -4216,8 +4217,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4092 duties link directly
-to 2611 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4094 duties link directly
+to 2617 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5106,7 +5107,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4092 duties all have direct tests and all 2667 tests have links, but those
+The 4094 duties all have direct tests and all 2673 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5273,3 +5274,49 @@ oracle are unchanged. See [the sole RO source](../tests/u18/test_memory_explicit
 and [one relocation source](../tests/u18/test_memory_relocation_map_units_1_0_104.sv).
 Matching controls or fields do not pass a different premise or establish six
 independent defects, a library-only cause, or complete M3 coverage.
+
+## Nested transport handles and live phases
+
+An input handle and a ref argument have different binding rules, and [the transport terms](glossary.md#nested-transport-arguments) explain what the new observations distinguish.
+
+### Q402. Does a delay reference mean an endpoint can replace the caller's handle?
+
+The prose in 12.3.2.2 calls delay a reference, but the printed nonblocking
+prototypes explicitly make it input; the blocking prototype also uses the
+default input direction. The transaction argument is input too. This is a
+qualified interpretation using those declarations and SystemVerilog 8.4 and
+13.5.1: a copied handle still refers to the same object, so object mutations
+are visible, while assigning another handle to the formal leaves the caller's
+binding unchanged. No extra ref/inout overload is inferred.
+
+The [original helper](../tests/u12/helpers105_transport/transport105.svh)
+mutates the supplied objects, rebinds endpoint formals to independent
+replacements and mutates those replacements too. Real port/export/imp
+forwarding must preserve the original caller handles, object changes and
+unselected peers across two rounds, with shared or distinct inner objects.
+
+### Q403. Why read the caller's phase before the transport call returns?
+
+A copy-in/copy-out argument could produce the right final value without the
+immediate visibility required by ref. The four nonblocking profiles pass
+exact custom-phase class properties and read those same properties inside
+the endpoint before return. The outer property is updated before a nested
+call; the inner property changes immediately while the distinct outer phase
+stays active, then the outer call explicitly finishes it. SystemVerilog
+13.5.2 permits class properties as ref actuals and requires changes to be
+visible immediately. The selected custom enum values do not define a new
+base protocol; [the earlier TLM 2 histories](#q96-are-the-new-tlm-2-tests-protocol-validators-or-simulator-schedulers)
+cover a different set of conditions.
+
+### Q404. Do the six matching profiles complete TLM 2 or prove concurrent safety?
+
+No. These are synchronous, same-direction nested calls through one ordinary
+port/two-export/imp topology. Endpoint arithmetic, blocking waits, replacement
+objects and selected return enums are independent setup. They do not prove
+simultaneous-process safety, cross-direction socket reentry, payload ownership,
+arbitrary lifetime/topology, general phase exclusions or all base-protocol
+timing. The initial missing-include builds were fixture errors, corrected
+without changing expectations and excluded from current results. All 440
+older known inputs remain, as do the 2062 partial contracts and original
+M1–M4 targets; [the completion guide](requirements.md#remaining-m4-work-and-approval)
+explains the remaining audit.

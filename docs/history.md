@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and 104 cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2667 tests: 2568 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 105 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2673 tests: 2574 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -22,6 +22,8 @@ Use these entry points to trace why an area was added, and [the handoff prioriti
 - [Traversal declarations and defaults](history.md#sixty-ninth-thin-area-expansion-traversal-declarations-and-defaults)
 
 The [memory access and relocation increment](#104th-thin-area-expansion-memory-access-restrictions-and-relocation-units) records the added profiles, and [the memory FAQ](faq.md#q398-why-can-memory-rights-and-effective-access-differ) explains the query contracts used in that record.
+
+The [nested transport increment](#105th-thin-area-expansion-nested-transport-input-handles-and-live-phases) records the input/ref observations, and [the phase FAQ](faq.md#q403-why-read-the-callers-phase-before-the-transport-call-returns) explains why their timing within a call matters.
 
 Historical `out/` paths identify local artifacts that may no longer exist; [the handoff file guide](handoff.md#files-and-local-material) points to maintained tools for resuming work without those files.
 
@@ -5973,3 +5975,41 @@ has 4092 AI duties and 2611 directly linked tests, with 56 control-only and
 156 control-linked tests. The three empty queues do not complete 2062 partial
 identifiers, applicability conditions or original M1–M4 targets. Human review
 and scope/denominator approval remain unrecorded.
+
+## 105th thin-area expansion: nested transport input handles and live phases
+
+The 105th expansion adds six M2 transport profiles: blocking, forward and
+backward routes, each with shared or distinct transaction/delay objects.
+An ordinary port, two exports and an imp resolve normally before each route
+reenters the same port while its outer call remains active. Two successive
+rounds distinguish original-object mutations, endpoint-local handle rebinding,
+replacement-object changes and unselected peers; [the input-handle FAQ](faq.md#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle)
+explains the prototype-based interpretation.
+
+All six final tagged inputs match seeds 1/73. Four nonblocking profiles read
+custom phase class properties before their calls return, observing live ref
+updates and independent outer/inner phases through the real forwarding path.
+Nested UPDATED and outer COMPLETED are chosen endpoint results, not a
+prescribed protocol algorithm. Blocking calls use explicit waits; nonblocking
+calls return without advancing simulation time. [The phase FAQ](faq.md#q403-why-read-the-callers-phase-before-the-transport-call-returns)
+explains why a final value alone would not establish a live reference.
+
+The initial six builds stopped because the new headers incorrectly prefixed
+the helper's files entry with @. Removing that prefix fixes fixture setup;
+all original expected rows and the helper remain unchanged. Original inputs
+and build logs are retained separately, and all six corrected inputs were
+measured afresh, then measured again after their reproduction tags changed.
+No initial build rejection is counted as a simulator/library defect.
+
+Two distinct input-binding/live-phase duties are added. All 4092 previous
+requirement objects, 445 assessments, 2667 old index/ordinary records and
+440 known inputs remain unchanged. Scope, catalog, runners, backends and
+workflow are unchanged. The ledger has 4094 AI duties and 2617 directly linked
+tests, with 56 control-only and 156 control-linked tests. Guests retain the
+same compatible 1082 records; 1591 current inputs are unmeasured. These
+synchronous same-direction calls do not establish simultaneous-process safety,
+cross-direction/socket behavior, lifetime ownership or full base-protocol
+coverage, as explained in [the reentry FAQ](faq.md#q404-do-the-six-matching-profiles-complete-tlm-2-or-prove-concurrent-safety).
+All 2062 partial identifiers, applicability conditions and original M1–M4
+targets remain open despite the three empty queues. Human review and
+scope/denominator approval remain unrecorded.

@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4092 AI-drafted requirements, all with direct links to 2611 tests.
-Fifty-six tests have only control links. All 2667 tests have a requirement link.
+contains 4094 AI-drafted requirements, all with direct links to 2617 tests.
+Fifty-six tests have only control links. All 2673 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4092 draft entries span several areas,
+a heading is not an obligation. The 4094 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2667-test
+known difference. It is not a pass or a conformance claim. The current 2673-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2667 reviewed requirement mappings.
+  index is an inventory, not 2673 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -276,7 +276,7 @@ The table retains every catalog root, including context and deferred roots; cont
 | 9 | 141 | 63 | 0 | 22 | 0 |
 | 10 | 166 | 122 | 0 | 29 | 0 |
 | 11 | 35 | 20 | 0 | 4 | 0 |
-| 12 | 324 | 194 | 0 | 45 | 0 |
+| 12 | 326 | 200 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
 | 14 | 229 | 146 | 0 | 17 | 0 |
 | 15 | 131 | 116 | 0 | 18 | 0 |
@@ -296,45 +296,44 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4092 reviews are `ai` and
+Scope is proposed, all 4094 reviews are `ai` and
 the denominator remains unapproved.
 
-The 104th expansion adds ten M3 profiles: six explicit memory-access cases
-and four flat byte/word relocation layouts. Access cases distinguish intrinsic
-RW/RO policy from RO/WO/RW interface restrictions, with sole/shared membership,
-parent-default changes and an independent RW peer. Shared get_access always
-names a map; [the access FAQ](faq.md#q398-why-can-memory-rights-and-effective-access-differ)
-explains why get_rights is a different contract.
+The 105th expansion adds six M2 transport profiles: blocking, forward and
+backward routes, each with shared or distinct transaction/delay objects.
+An ordinary port, two exports and an imp resolve normally before each route
+reenters the same port while its outer call remains active. Two successive
+rounds distinguish original-object mutations, endpoint-local handle rebinding,
+replacement-object changes and unselected peers; [the input-handle FAQ](faq.md#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle)
+explains the prototype-based interpretation.
 
-Four final tagged shared-restriction/ROM inputs match seeds 1/73. Two sole-map
-inputs build and exit 0 at seed 1 but return RW instead of RO/WO in their three
-selected access rows; three peer rows match. Four relocation inputs retain
-nonzero-location off/alt_off differences in ten rows each, while address,
-peer and unit fields match and five location-zero rows match. All six known
-inputs have no seed-73 result, and matching fields do not pass a whole input.
-The existing access and location-offset expectations remain unchanged;
-[the result FAQ](faq.md#q401-do-passing-shared-or-rom-controls-clear-the-other-differences)
-does not infer six defects or a library-only cause.
+All six final tagged inputs match seeds 1/73. Four nonblocking profiles read
+custom phase class properties before their calls return, observing live ref
+updates and independent outer/inner phases through the real forwarding path.
+Nested UPDATED and outer COMPLETED are chosen endpoint results, not a
+prescribed protocol algorithm. Blocking calls use explicit waits; nonblocking
+calls return without advancing simulation time. [The phase FAQ](faq.md#q403-why-read-the-callers-phase-before-the-transport-call-returns)
+explains why a final value alone would not establish a live reference.
 
-Relocation uses nonzero root bases, integral one/two-beat locations, a selected
-map move, peer reuse of the vacated range, another move and restoration.
-The other interface has different units and remains independently observed.
-Twenty DIAG104 lookup-coordinate rows are investigative only: no expected
-oracle or requirement link is created, and nonzero-root lookup semantics
-remain open; [the diagnostic FAQ](faq.md#q400-do-the-lookup-diagnostics-establish-address-lookup-conformance)
-explains that boundary. The declared get_addr_unit_bytes API supplies units;
-the prose cross-reference does not add a mandatory get_add_unit_bytes alias.
+The initial six builds stopped because the new headers incorrectly prefixed
+the helper's files entry with @. Removing that prefix fixes fixture setup;
+all original expected rows and the helper remain unchanged. Original inputs
+and build logs are retained separately, and all six corrected inputs were
+measured afresh, then measured again after their reproduction tags changed.
+No initial build rejection is counted as a simulator/library defect.
 
-Three distinct map-restriction/unit/isolation duties are added. The intrinsic
-ROM mapping gains two links; the existing location-offset duty expands its
-conditions/expectations/limitations while preserving all original text and
-links. All other original requirement objects, all 445 assessments and all
-2657 previous index/ordinary records remain. All 434 prior known inputs remain.
-Scope, catalog, runners, backends and workflow are unchanged. The ledger now
-has 4092 AI duties and 2611 directly linked tests, with 56 control-only and
-156 control-linked tests. The three empty queues do not complete 2062 partial
-identifiers, applicability conditions or original M1–M4 targets. Human review
-and scope/denominator approval remain unrecorded.
+Two distinct input-binding/live-phase duties are added. All 4092 previous
+requirement objects, 445 assessments, 2667 old index/ordinary records and
+440 known inputs remain unchanged. Scope, catalog, runners, backends and
+workflow are unchanged. The ledger has 4094 AI duties and 2617 directly linked
+tests, with 56 control-only and 156 control-linked tests. Guests retain the
+same compatible 1082 records; 1591 current inputs are unmeasured. These
+synchronous same-direction calls do not establish simultaneous-process safety,
+cross-direction/socket behavior, lifetime ownership or full base-protocol
+coverage, as explained in [the reentry FAQ](faq.md#q404-do-the-six-matching-profiles-complete-tlm-2-or-prove-concurrent-safety).
+All 2062 partial identifiers, applicability conditions and original M1–M4
+targets remain open despite the three empty queues. Human review and
+scope/denominator approval remain unrecorded.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -751,4 +750,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4092 AI drafts and their direct links do not satisfy that gate.
+The current 4094 AI drafts and their direct links do not satisfy that gate.

@@ -7,8 +7,8 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4092件は、すべて2611テストへ直接対応し、
-追加の56テストはcontrol専用です。全2667テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4094件は、すべて2617テストへ直接対応し、
+追加の56テストはcontrol専用です。全2673テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
@@ -32,7 +32,7 @@ control専用テストは補助的な前提を検査するもので、その一�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-4092件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+4094件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -86,7 +86,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2667件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2673件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -110,7 +110,7 @@ schemaの版はJSONの項目構成を識別するもので、UVMライブラリ�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2667件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2673件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -216,7 +216,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 9 | 141 | 63 | 0 | 22 | 0 |
 | 10 | 166 | 122 | 0 | 29 | 0 |
 | 11 | 35 | 20 | 0 | 4 | 0 |
-| 12 | 324 | 194 | 0 | 45 | 0 |
+| 12 | 326 | 200 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
 | 14 | 229 | 146 | 0 | 17 | 0 |
 | 15 | 131 | 116 | 0 | 18 | 0 |
@@ -236,24 +236,25 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
 部分2062識別子は残る義務と適用条件を[完了条件](#m4の残作業と承認)に従って確認する必要があります。
-範囲は提案、4092件のレビューはすべて`ai`、分母は未承認です。
+範囲は提案、4094件のレビューはすべて`ai`、分母は未承認です。
 
-104回目の拡充はM3 profileを10件追加し、明示memory accessの6caseとflatなbyte／word relocationの4layoutを扱います。
-accessは固有RW／RO policyとRO／WO／RW interface制限を分け、単独／共有の所属、親の既定変更、独立したRW peerを観測します。
-共有get_accessでは常にmapを指定し、get_rightsが別の契約である理由は[accessのFAQ](faq.ja.md#q398-memoryのrightsと有効accessが異なる理由は)で説明しています。
+105回目の拡充はM2 transport profileを6件追加し、blocking、forward、backwardの各経路でtransaction／delay objectを共有する場合と分ける場合を扱います。
+通常port、2つのexport、impを通常どおり解決してから、外側の呼出しが実行中に同じportへ再入します。
+逐次2roundで元objectへの変更、endpoint localのhandle再束縛、置換objectの変更、非選択peerを分けて観測し、prototypeに基づく解釈は[input handleのFAQ](faq.ja.md#q402-delayのreferenceはendpointがcallerのhandleを置換できる意味ですか)で説明しています。
 
-最終tag付きの共有制限／ROM 4入力はseed 1／73で一致します。単独map 2入力はbuildとseed 1をexit 0で終えますが、
-選択accessの3行でRO／WOでなくRWを返し、peerの3行は一致します。relocation 4入力はそれぞれ非ゼロlocationのoff／alt_offが10行で異なり、
-address、peer、unitのfieldとlocation 0の5行は一致します。既知6入力にはseed 73結果がなく、一部fieldの一致で全入力を成功にはしません。
-既存のaccessとlocation-offsetの期待を保持し、6不具合やlibraryだけの原因を推測しない扱いは[結果のFAQ](faq.ja.md#q401-共有やromのcontrolが一致すれば他の差分は解消しますか)で確認できます。
+最終tag付きの6入力は全てseed 1／73で一致します。nonblockingの4profileは呼出しの復帰前に独自phaseのclass propertyを読み、
+実転送経路を通るliveなref変更と外側／内側phaseの独立性を観測します。入れ子のUPDATEDと外側のCOMPLETEDは独自endpointで選ぶ結果で、規定protocol algorithmではありません。
+blockingでは明示した待機を使い、nonblockingはsimulation時刻を進めず復帰します。最終値だけでlive参照を示せない理由は[phaseのFAQ](faq.ja.md#q403-transport呼出しの復帰前にcallerのphaseを読む理由は)で確認できます。
 
-relocationは非ゼロroot基点、整数の1／2beat location、選択mapの移動、空いた範囲のpeer再利用、再移動、復元を使い、
-異なる単位の別interfaceも独立に観測します。DIAG104のlookup座標20行は調査専用で、期待oracleや要求対応を作らず、非ゼロrootのlookup意味は未解決に保ちます。
-その境界は[診断のFAQ](faq.ja.md#q400-lookup診断でアドレス検索の適合性を示せますか)で説明します。単位には宣言されたget_addr_unit_bytesを使い、本文の相互参照からget_add_unit_bytesという必須別名は作りません。
+初回6buildは、新しいヘッダーのfiles指定でhelperへ誤って@を付けたため停止しました。そのprefixを取り除いて検査系の準備を直し、
+元の全期待行とhelperを保持します。元の入力とbuild logは別に保存し、修正後の6入力を新しく測定し、再現tagの変更後も全6入力を再測定します。
+初回のbuild拒否をシミュレータ／ライブラリの不具合には数えません。
 
-map制限／単位／独立性の異なる3義務を追加します。固有ROMの対応へ2linkを増やし、既存location-offset義務の条件／期待／制限を広げ、元の全本文と対応を保持します。
-他の元の要求object、分類445件、以前のindex／通常2657記録を全て保持し、以前の既知434入力も保持します。scope、catalog、runner、backend、workflowは未変更です。
-台帳はAI義務4092件、直接対応テスト2611件、controlのみ56件、control対応156件です。空の3queueで部分2062識別子、適用条件、元のM1〜M4目標を完了にはせず、人の照合と範囲／分母承認は記録していません。
+input束縛とlive phaseの異なる2義務を追加し、以前の要求object全4092件、分類445件、元のindex／通常2667記録、既知440入力は全て保持します。
+scope、catalog、runner、backend、workflowは未変更です。台帳はAI義務4094件、直接対応テスト2617件、control専用56件、control対応156件です。
+guestは互換1082記録を保持し、現在の1591入力は未測定です。同期的な同方向呼出しは同時processの安全性、異方向／socket動作、寿命の所有、base protocol全体のcoverageを立証せず、
+その違いは[再入のFAQ](faq.ja.md#q404-一致した6profileでtlm-2の完了や並行安全性も証明できますか)で説明しています。
+空の3queueで部分2062識別子、適用条件、元のM1〜M4目標を完了にはせず、人の照合と範囲／分母承認は記録していません。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。
@@ -511,4 +512,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる4092要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる4094要求案と直接の対応は、その条件を満たしていません。

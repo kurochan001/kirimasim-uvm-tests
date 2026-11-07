@@ -394,6 +394,8 @@ Static-iterator expectations follow independently chosen handle placement and th
 
 Memory expectations follow the explicit-map contracts and independent unit/offset arithmetic; [Q400](faq.md#q400-do-the-lookup-diagnostics-establish-address-lookup-conformance) explains why lookup diagnostics do not define a standards oracle.
 
+Nested transport expectations follow the printed UVM prototypes and SystemVerilog input/ref rules, with independent endpoint arithmetic rather than a prescribed algorithm; [Q402](faq.md#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle) explains the qualified reading of the prose reference wording.
+
 ## Clause catalog maintenance
 
 The catalog lists clause identifiers used to validate citations; [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains how these identifiers differ from normative duties and a coverage denominator.

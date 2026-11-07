@@ -1,0 +1,16 @@
+UT: round 0 enter level 0 handles 1 value 23 annotation 1
+UT: round 0 rebound level 0 local 1 caller 1 value 901 annotation 1
+UT: round 0 enter level 1 handles 1 value 38 annotation 1
+UT: round 0 rebound level 1 local 1 caller 1 value 902 annotation 1
+UT: round 0 resume outer_locals 1 depth 1
+UT: round 0 returned handles 1 a 123 b 38 inner 38
+UT: round 0 timing delay_a 1 delay_b 1 elapsed 4 calls 2 depth 0
+UT: round 0 shadows values 901/902 delays 1/1 independent 1
+UT: round 1 enter level 0 handles 1 value 39 annotation 1
+UT: round 1 rebound level 0 local 1 caller 1 value 901 annotation 1
+UT: round 1 enter level 1 handles 1 value 54 annotation 1
+UT: round 1 rebound level 1 local 1 caller 1 value 902 annotation 1
+UT: round 1 resume outer_locals 1 depth 1
+UT: round 1 returned handles 1 a 139 b 54 inner 54
+UT: round 1 timing delay_a 1 delay_b 1 elapsed 4 calls 4 depth 0
+UT: round 1 shadows values 901/902 delays 1/1 independent 1

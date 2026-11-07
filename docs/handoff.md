@@ -8,8 +8,8 @@ This page supports resuming development; if you want to run or understand a firs
 
 The base commit below identifies the starting point for the described work, so check uncommitted changes before treating saved results as evidence for the current files; [the input-update procedure](requirements.md#updating-a-test-or-mapping) explains how to review their compatibility.
 
-Updated on 2026-11-07 for the 104th thin-area expansion, based on
-[2ad8909](https://github.com/kurochan001/kirimasim-uvm-tests/commit/2ad89094aa1883aa49d82ed98d7cf9725cfd9b2a)
+Updated on 2026-11-07 for the 105th thin-area expansion, based on
+[ae8d3e0](https://github.com/kurochan001/kirimasim-uvm-tests/commit/ae8d3e087adc3fc347af260f81e957797e6c9fdb)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -21,10 +21,10 @@ zero unlinked tests does not complete any milestone.
 | Area | Current snapshot |
 | --- | --- |
 | M1 | 1149 tests (1068 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
-| M2 | 606 tests (599 runtime, 7 elaboration): sequences, sequencers, callbacks and TLM |
+| M2 | 612 tests (605 runtime, 7 elaboration): sequences, sequencers, callbacks and TLM |
 | M3 | 912 tests (901 runtime, 11 elaboration): register/memory layer and annex E |
-| Entire suite | 2667 tests (2568 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 4092 AI requirement drafts; 4092 have direct links to 2611 tests; fifty-six control-only tests; zero tests without links |
+| Entire suite | 2673 tests (2574 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 4094 AI requirement drafts; 4094 have direct links to 2617 tests; fifty-six control-only tests; zero tests without links |
 | Normative inventory | 2062 of 2,507 identifiers partially decomposed; 445 explicitly assessed; 0 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
@@ -73,13 +73,13 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
   for these versioned inputs.
 - [Library lock](../third_party/uvm.lock): Accellera UVM 2020.3.1 at
   `78c06547a2a0`, 326 files. Fetch with the tracked tool; the library itself
-  is not committed. 2611 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
+  is not committed. 2617 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
 - The user supplied `IEEE_Std_1800.2-2020.pdf` and
   `IEEE_Std_1800-2023_SystemVerilog.pdf` in the repository root. They are
   ignored local files, unavailable in a fresh clone, and must not be
   redistributed. Extracted text under `out/` is local and ignored; `/tmp` contents may disappear.
 - Results under `out/` are ignored and local. Temporary expansion helpers
-  under `out/thin-one-hundred-fourth-*.py` are optional local aids,
+  under `out/thin-one-hundred-fifth-*.py` are optional local aids,
   not maintained entry points. Some append drafts/history and must not be
   rerun blindly. Recreate missing helpers using the tracked tools.
 
@@ -104,11 +104,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 110 tool unit tests, metadata for all 2667 tests (2568 simulation, 99 elaboration),
+The snapshot passed 110 tool unit tests, metadata for all 2673 tests (2574 simulation, 99 elaboration),
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1082 unchanged inputs, with 1585 inputs unmeasured.
+cover 1082 unchanged inputs, with 1591 inputs unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -135,11 +135,11 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 2133 runtime passes at seeds 1/73; 94 expected compile rejections; 440 known |
+| Verilator 5.052 / pinned UVM | 2139 runtime passes at seeds 1/73; 94 expected compile rejections; 440 known |
 | Verilator 5.052 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
 | Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 18-case condition: 17 pass both seeds; 1 known at seed 1 |
-| kirimasim / pinned UVM | 1082 unchanged cases: 1073 unsupported and nine missing-API failures; 1585 inputs unmeasured |
-| Ghost / bundled UVM | 1082 unchanged cases: 206 pass and 876 fail at each seed; 1585 inputs unmeasured |
+| kirimasim / pinned UVM | 1082 unchanged cases: 1073 unsupported and nine missing-API failures; 1591 inputs unmeasured |
+| Ghost / bundled UVM | 1082 unchanged cases: 206 pass and 876 fail at each seed; 1591 inputs unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
 The ordinary condition retains 440 known cases: 300 runtime first differences,
@@ -149,51 +149,50 @@ two inherited type_id registry specializations, one protected-access build, two 
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
 
-The 104th expansion adds ten M3 profiles: six explicit memory-access cases
-and four flat byte/word relocation layouts. Access cases distinguish intrinsic
-RW/RO policy from RO/WO/RW interface restrictions, with sole/shared membership,
-parent-default changes and an independent RW peer. Shared get_access always
-names a map; [the access FAQ](faq.md#q398-why-can-memory-rights-and-effective-access-differ)
-explains why get_rights is a different contract.
+The 105th expansion adds six M2 transport profiles: blocking, forward and
+backward routes, each with shared or distinct transaction/delay objects.
+An ordinary port, two exports and an imp resolve normally before each route
+reenters the same port while its outer call remains active. Two successive
+rounds distinguish original-object mutations, endpoint-local handle rebinding,
+replacement-object changes and unselected peers; [the input-handle FAQ](faq.md#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle)
+explains the prototype-based interpretation.
 
-Four final tagged shared-restriction/ROM inputs match seeds 1/73. Two sole-map
-inputs build and exit 0 at seed 1 but return RW instead of RO/WO in their three
-selected access rows; three peer rows match. Four relocation inputs retain
-nonzero-location off/alt_off differences in ten rows each, while address,
-peer and unit fields match and five location-zero rows match. All six known
-inputs have no seed-73 result, and matching fields do not pass a whole input.
-The existing access and location-offset expectations remain unchanged;
-[the result FAQ](faq.md#q401-do-passing-shared-or-rom-controls-clear-the-other-differences)
-does not infer six defects or a library-only cause.
+All six final tagged inputs match seeds 1/73. Four nonblocking profiles read
+custom phase class properties before their calls return, observing live ref
+updates and independent outer/inner phases through the real forwarding path.
+Nested UPDATED and outer COMPLETED are chosen endpoint results, not a
+prescribed protocol algorithm. Blocking calls use explicit waits; nonblocking
+calls return without advancing simulation time. [The phase FAQ](faq.md#q403-why-read-the-callers-phase-before-the-transport-call-returns)
+explains why a final value alone would not establish a live reference.
 
-Relocation uses nonzero root bases, integral one/two-beat locations, a selected
-map move, peer reuse of the vacated range, another move and restoration.
-The other interface has different units and remains independently observed.
-Twenty DIAG104 lookup-coordinate rows are investigative only: no expected
-oracle or requirement link is created, and nonzero-root lookup semantics
-remain open; [the diagnostic FAQ](faq.md#q400-do-the-lookup-diagnostics-establish-address-lookup-conformance)
-explains that boundary. The declared get_addr_unit_bytes API supplies units;
-the prose cross-reference does not add a mandatory get_add_unit_bytes alias.
+The initial six builds stopped because the new headers incorrectly prefixed
+the helper's files entry with @. Removing that prefix fixes fixture setup;
+all original expected rows and the helper remain unchanged. Original inputs
+and build logs are retained separately, and all six corrected inputs were
+measured afresh, then measured again after their reproduction tags changed.
+No initial build rejection is counted as a simulator/library defect.
 
-Three distinct map-restriction/unit/isolation duties are added. The intrinsic
-ROM mapping gains two links; the existing location-offset duty expands its
-conditions/expectations/limitations while preserving all original text and
-links. All other original requirement objects, all 445 assessments and all
-2657 previous index/ordinary records remain. All 434 prior known inputs remain.
-Scope, catalog, runners, backends and workflow are unchanged. The ledger now
-has 4092 AI duties and 2611 directly linked tests, with 56 control-only and
-156 control-linked tests. The three empty queues do not complete 2062 partial
-identifiers, applicability conditions or original M1–M4 targets. Human review
-and scope/denominator approval remain unrecorded.
+Two distinct input-binding/live-phase duties are added. All 4092 previous
+requirement objects, 445 assessments, 2667 old index/ordinary records and
+440 known inputs remain unchanged. Scope, catalog, runners, backends and
+workflow are unchanged. The ledger has 4094 AI duties and 2617 directly linked
+tests, with 56 control-only and 156 control-linked tests. Guests retain the
+same compatible 1082 records; 1591 current inputs are unmeasured. These
+synchronous same-direction calls do not establish simultaneous-process safety,
+cross-direction/socket behavior, lifetime ownership or full base-protocol
+coverage, as explained in [the reentry FAQ](faq.md#q404-do-the-six-matching-profiles-complete-tlm-2-or-prove-concurrent-safety).
+All 2062 partial identifiers, applicability conditions and original M1–M4
+targets remain open despite the three empty queues. Human review and
+scope/denominator approval remain unrecorded.
 
-Totals are 2667 (2568 simulation/99 elaboration): M1 1149 (1068/81), M2 606
-(599/7), M3 912 (901/11). Ordinary pass is 2227 (2133 runtime/94 rejections),
+Totals are 2673 (2574 simulation/99 elaboration): M1 1149 (1068/81), M2 612
+(605/7), M3 912 (901/11). Ordinary pass is 2233 (2139 runtime/94 rejections),
 with 440 known (300 runtime/135 builds/5 illegal acceptances). Guests retain
-1082 compatible records; 1585 unmeasured inputs are 1582 additions and three revised originals.
+1082 compatible records; 1591 unmeasured inputs are 1588 additions and three revised originals.
 
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2227 tagged checks into 8 disjoint shards (279/279/279/278/278/278/278/278),
+the current 2233 tagged checks into 8 disjoint shards (280/279/279/279/279/279/279/279),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies
@@ -206,15 +205,15 @@ remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-one-hundred-fourth-verilator-combined.json
-out/thin-one-hundred-fourth-ghost-final-1.json
-out/thin-one-hundred-fourth-ghost-final-73.json
-out/thin-one-hundred-fourth-kirimasim-final.json
-out/thin-one-hundred-fourth-inventory.json
-out/thin-one-hundred-fourth-backlog-final.json
-out/thin-one-hundred-fourth-evidence-scope.json
-out/thin-one-hundred-fourth-hdl-combined.json
-out/thin-one-hundred-fourth-cmdline-final.json
+out/thin-one-hundred-fifth-verilator-combined.json
+out/thin-one-hundred-fifth-ghost-final-1.json
+out/thin-one-hundred-fifth-ghost-final-73.json
+out/thin-one-hundred-fifth-kirimasim-final.json
+out/thin-one-hundred-fifth-inventory.json
+out/thin-one-hundred-fifth-backlog-final.json
+out/thin-one-hundred-fifth-evidence-scope.json
+out/thin-one-hundred-fifth-hdl-combined.json
+out/thin-one-hundred-fifth-cmdline-final.json
 ```
 
 Before reuse, verify test-ID sets within each declared full/subset scope, current `inputs_sha256`, identical
@@ -233,17 +232,16 @@ Unassessed counts and partial obligations track different remaining work; [Read 
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.
 At activation there were 1,463 unassessed identifiers, zero unlinked tests and
-zero requirements without direct tests. 76 iterations retain zero unassessed, a decrease of 1463 since activation.
-The latest audit adds three memory map-restriction/unit/isolation duties,
-extends intrinsic-ROM links and preserves original location-offset text while
-expanding its applicability. Four final tagged shared/ROM inputs match both
-seeds. Two sole-map access inputs and four relocation layouts retain seed-1
-differences with exit 0 and no seed 73. All 434 previous known inputs and 445
-assessments remain. Twenty lookup diagnostics do not supply an oracle or
-direct requirement link, and their coordinate interpretation remains open.
-All 2062 partial contracts, applicability conditions and original milestone
-targets remain open; human review and scope/denominator approval are
-unrecorded. Zero in the three queues does not complete the goal.
+zero requirements without direct tests. 77 iterations retain zero unassessed, a decrease of 1463 since activation.
+The latest audit adds input-handle rebinding and live phase-reference duties
+over six blocking/forward/backward same-direction nested routes. All six
+final tagged inputs match seeds 1/73, and all 440 previous known inputs and
+445 assessments remain. An initial helper-path metadata error was corrected
+without changing the helper or expected rows, and all corrected and final
+inputs were freshly measured. All 2062 partial contracts, applicability
+conditions and original milestone targets remain open; human review and
+scope/denominator approval are unrecorded. Zero in the three queues does not
+complete the goal.
 
 The separate earlier 12.2.9.2 reassessment did not reduce unassessed. Keep the
 goal active. Zero unassessed in chapter 12 does not complete its 169 partial

@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の104回目の拡充（全2667件：simulation 2568・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の105回目の拡充（全2673件：simulation 2574・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -19,6 +19,8 @@ M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求へ�
 - [走査の宣言と既定値](history.ja.md#薄い領域の69回目の拡充走査の宣言と既定値)
 
 [memory accessとrelocationの拡充](#薄い領域の104回目の拡充memory-access制限とrelocation単位)には追加したprofileの記録があり、そこで使うquery契約の意味は[memoryのFAQ](faq.ja.md#q398-memoryのrightsと有効accessが異なる理由は)で確認できます。
+
+[入れ子transportの拡充](#薄い領域の105回目の拡充入れ子transportのinput-handleとlive-phase)にはinput／refの観測記録があり、呼出し中の観測時点が重要な理由は[phaseのFAQ](faq.ja.md#q403-transport呼出しの復帰前にcallerのphaseを読む理由は)で確認できます。
 
 履歴中の`out/`パスは現在も残っているとは限らないローカル資料を指すため、そのファイルがない環境での再開に使う保守対象のツールは[引継ぎ資料のファイル案内](handoff.ja.md#ファイルとローカル資料)を参照してください。
 
@@ -3728,3 +3730,23 @@ relocationは非ゼロroot基点、整数の1／2beat location、選択mapの移
 map制限／単位／独立性の異なる3義務を追加します。固有ROMの対応へ2linkを増やし、既存location-offset義務の条件／期待／制限を広げ、元の全本文と対応を保持します。
 他の元の要求object、分類445件、以前のindex／通常2657記録を全て保持し、以前の既知434入力も保持します。scope、catalog、runner、backend、workflowは未変更です。
 台帳はAI義務4092件、直接対応テスト2611件、controlのみ56件、control対応156件です。空の3queueで部分2062識別子、適用条件、元のM1〜M4目標を完了にはせず、人の照合と範囲／分母承認は記録していません。
+
+## 薄い領域の105回目の拡充：入れ子transportのinput handleとlive phase
+
+105回目の拡充はM2 transport profileを6件追加し、blocking、forward、backwardの各経路でtransaction／delay objectを共有する場合と分ける場合を扱います。
+通常port、2つのexport、impを通常どおり解決してから、外側の呼出しが実行中に同じportへ再入します。
+逐次2roundで元objectへの変更、endpoint localのhandle再束縛、置換objectの変更、非選択peerを分けて観測し、prototypeに基づく解釈は[input handleのFAQ](faq.ja.md#q402-delayのreferenceはendpointがcallerのhandleを置換できる意味ですか)で説明しています。
+
+最終tag付きの6入力は全てseed 1／73で一致します。nonblockingの4profileは呼出しの復帰前に独自phaseのclass propertyを読み、
+実転送経路を通るliveなref変更と外側／内側phaseの独立性を観測します。入れ子のUPDATEDと外側のCOMPLETEDは独自endpointで選ぶ結果で、規定protocol algorithmではありません。
+blockingでは明示した待機を使い、nonblockingはsimulation時刻を進めず復帰します。最終値だけでlive参照を示せない理由は[phaseのFAQ](faq.ja.md#q403-transport呼出しの復帰前にcallerのphaseを読む理由は)で確認できます。
+
+初回6buildは、新しいヘッダーのfiles指定でhelperへ誤って@を付けたため停止しました。そのprefixを取り除いて検査系の準備を直し、
+元の全期待行とhelperを保持します。元の入力とbuild logは別に保存し、修正後の6入力を新しく測定し、再現tagの変更後も全6入力を再測定します。
+初回のbuild拒否をシミュレータ／ライブラリの不具合には数えません。
+
+input束縛とlive phaseの異なる2義務を追加し、以前の要求object全4092件、分類445件、元のindex／通常2667記録、既知440入力は全て保持します。
+scope、catalog、runner、backend、workflowは未変更です。台帳はAI義務4094件、直接対応テスト2617件、control専用56件、control対応156件です。
+guestは互換1082記録を保持し、現在の1591入力は未測定です。同期的な同方向呼出しは同時processの安全性、異方向／socket動作、寿命の所有、base protocol全体のcoverageを立証せず、
+その違いは[再入のFAQ](faq.ja.md#q404-一致した6profileでtlm-2の完了や並行安全性も証明できますか)で説明しています。
+空の3queueで部分2062識別子、適用条件、元のM1〜M4目標を完了にはせず、人の照合と範囲／分母承認は記録していません。
