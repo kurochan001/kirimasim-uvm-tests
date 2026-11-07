@@ -1258,6 +1258,8 @@ The B.5 TLM declaration cases likewise count toward M2 while residing in `uB`; [
 
 Model-return predicates in u01 count toward M3 despite primary clause 1.4.2; [Q376](faq.md#q376-why-do-these-u01-cases-count-toward-m3) distinguishes them from the RNG inputs in the same directory.
 
+The u01 profiles with primary clause 1.4.3 span M1/M2/M3 by functional subject; [Q381](faq.md#q381-why-do-profiles-under-the-same-u01-directory-use-three-milestones) explains that relationship.
+
 ## Block and register query boundaries
 
 A query can inspect model configuration without performing a transfer; [the query FAQ](faq.md#block-and-register-query-boundaries) explains the additional observations needed for access or coverage claims.
@@ -1778,3 +1780,13 @@ These terms describe the selected declaration and cast checks, with their limits
 **Valid nonmember map** — An existing explicit map with no association to the queried model, rather than a missing or malformed handle; [Q375](faq.md#q375-is-a-valid-nonmember-map-the-same-as-a-null-or-invalid-map) explains the predicate boundary.
 
 **Model-only predicate evidence** — Observations of lock state or configured associations without a physical access operation; [Q377](faq.md#q377-does-classifying-the-chapter-18-overview-complete-the-register-layer) separates that evidence from completed register-layer coverage.
+
+## Inherited APIs and documented overrides
+
+Here a view changes the static type used to refer to an object without copying it, and [Q378](faq.md#q378-what-do-the-inherited-api-profiles-check) shows which names, identities and API values the profiles compare.
+
+**Ancestor view** — A base-typed handle to the same live derived object, whose identity does not change with the static view; [Q378](faq.md#q378-what-do-the-inherited-api-profiles-check) describes the selected observations.
+
+**Documented derived override** — A derived API whose specified behavior replaces the corresponding base behavior, such as component full-name composition; [Q379](faq.md#q379-why-retain-the-component-setter-expectation-when-its-observations-differ) distinguishes it from assuming an undocumented setter exception.
+
+**Qualified inherited-setter profile** — A test applying the inherited setter contract under explicitly stated conditions while retaining observed implementation differences; [Q380](faq.md#q380-do-the-callback-and-registry-base-descriptions-prove-a-contradiction) explains why this does not settle every inheritance question.

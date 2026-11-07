@@ -978,6 +978,8 @@ B.5のTLM宣言ケースも`uB`に置きながらM2へ数え、その通信と�
 
 u01のmodel返却述語は主引用1.4.2でもM3へ数え、同じdirectoryのRNG入力との違いは[Q376](faq.ja.md#q376-これらのu01ケースをm3へ数える理由は)で説明しています。
 
+主引用1.4.3のu01 profileは機能対象でM1／M2／M3へ分かれ、その関係は[Q381](faq.ja.md#q381-同じu01-directory内のprofileを3つのmilestoneへ数える理由は)で説明しています。
+
 ## blockとregisterの照会の境界
 
 照会は転送を行わずにモデルの設定を調べる場合があり、アクセスやcoverageの主張に追加で必要な観測は[照会のFAQ](faq.ja.md#blockとregisterの照会の境界)で説明しています。
@@ -1396,3 +1398,13 @@ data経路の成功だけでは最終file形式の検証にならないため、
 **妥当な非所属map** — 照会modelとの対応を持たない既存の明示mapであり、欠落／不正handleとは区別し、その述語の境界は[Q375](faq.ja.md#q375-妥当な非所属mapはnullや不正なmapと同じですか)で説明しています。
 
 **model内だけの述語の証拠** — 物理アクセス操作を行わずにlock状態や設定済みの対応を観測することで、register層のcoverage完了との違いは[Q377](faq.ja.md#q377-第18章の概要を分類するとregister層は完了ですか)で説明しています。
+
+## 継承APIと明記されたoverride
+
+ここでのviewはobjectをコピーせず参照に使う静的な型を変えるもので、profileが比較する名前・同一性・API値は[Q378](faq.ja.md#q378-継承apiのprofileは何を検査しますか)で確認できます。
+
+**祖先view** — 同じ生きた派生objectを基底型handleで参照することで、static viewを変えても同一性を変えず、選択した観測は[Q378](faq.ja.md#q378-継承apiのprofileは何を検査しますか)で説明しています。
+
+**明記された派生override** — component full-name合成のように、対応する基底動作を規定した派生動作で置き換えるAPIであり、未記載のsetter例外を仮定することとの違いは[Q379](faq.ja.md#q379-component-setterの観測が異なっても期待値を保持する理由は)で説明しています。
+
+**限定した継承setterのprofile** — 明示した条件で継承setter契約を適用し、観測した実装差分を保持するテストであり、全継承の疑問を解決するわけではない理由は[Q380](faq.ja.md#q380-callbackとregistryの基底の記述で矛盾が証明されますか)で説明しています。

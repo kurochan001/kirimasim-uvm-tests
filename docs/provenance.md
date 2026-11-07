@@ -365,6 +365,8 @@ The 1.4.6 random-stability expectations were derived from the provided UVM stand
 
 The 1.4.2 return expectations were independently derived from the general Boolean convention and the selected one-sided model predicate descriptions before execution. The chapter 18 overview was read individually as model-composition context tied to existing partial hierarchy duties. Four provisional auxiliary field-configure citations were corrected to 18.5.3.2 without changing bodies or expected values, and the current tagged inputs were freshly measured; [the return FAQ](faq.md#boolean-return-conventions-and-model-context) records the scope. No simulator implementation source or commercial result was used.
 
+The 1.4.3 inherited-API expectations were derived from the provided general inheritance rule and selected base/derived API clauses before execution. Original bridge/leaf types override only constructors; no implementation class layout, concrete type string or numeric instance ID is copied into an oracle. Qualified component differences retain their expected setters and documented full-name composition, without library-only attribution. [The inheritance FAQ](faq.md#inherited-apis-and-documented-overrides) also keeps B.4's registry wording unresolved; no simulator implementation source or commercial result was used.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

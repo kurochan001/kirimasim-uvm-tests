@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and ninety-eight cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2601 tests: 2502 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and ninety-nine cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2613 tests: 2514 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5712,3 +5712,51 @@ are unchanged. Guests have 1519 unmeasured inputs: 1516 additions and three
 revised originals, with 1420 simulation and 99 elaboration inputs. No simulator
 implementation source or commercial result was used. All remaining applicability,
 original M1-M4 targets, human review and scope/denominator approval remain open.
+
+## Ninety-ninth thin-area expansion: inherited APIs and documented overrides
+
+Twelve new runtime profiles apply 1.4.3 to inherited APIs: four M1,
+four M2 and four M3 inputs. Original bridge/leaf classes over transactions,
+callbacks, sequence items, components, registers and memories override only
+constructors. Object, bridge and leaf views observe supplied names, stable
+and distinct lifetime IDs, explicit transaction IDs, callback enable state
+and model shape. Two construction/selection histories change selected/peer
+names through different static views. No exact immediate-parent layout,
+numeric instance ID, ID ordering or concrete type-name string is required.
+[The inheritance FAQ](faq.md#inherited-apis-and-documented-overrides) explains
+the ancestor views and the explicitly documented component full-name override.
+
+Ten final tagged profiles build and match seeds 1/73 with exit 0. Two unchanged
+qualified component profiles build and exit 0 at seed 1, but changed-name and
+full-name observations differ; initial observations and ID/parent checks match.
+No seed-73 result is recorded for those two cases. Their expected inherited
+setter semantics remain unchanged: 5.3.4.1 applies through 1.4.3, while 13.1
+documents the separate full-name override but no alternate set_name contract.
+The profile does not infer a library-only cause, child-dictionary reindexing
+or a fixed implicit-root spelling. Matching ID/parent rows do not pass the
+whole case. The current selection has twelve build and twenty-two runtime
+logs; the two known records retain their exact original input identities,
+and ten tagged headers were freshly measured under [the reuse rules](results.md#evidence-assembly).
+
+Six partial duties are added for 1.4.3; all 4061 previous whole requirement
+objects, 425 assessments and 2601 index/ordinary records are retained.
+Root 1 now has four partial identifiers, fourteen duties, twenty-six primary
+tests and seven unassessed identifiers, with its context scope unchanged.
+The catalog has 2060 partial, 425 assessed and 22 unassessed identifiers;
+1304 have primary tests and 2092 have any citation. All 4067 AI duties have
+direct links to 2559 tests; 54 tests have only controls and 154 have control
+links. No human review or scope/denominator approval is recorded.
+
+The printed callback/registry bases alone do not prove a contradiction,
+because 1.4.3 permits intermediate ancestors. B.4 remains unassessed: the
+ordinary callback-object profiles do not settle that overview's literal
+registry wording or justify classifying it away. [Q380](faq.md#q380-do-the-callback-and-registry-base-descriptions-prove-a-contradiction)
+records the unresolved relationship.
+
+The earlier 422 known records remain unchanged; the two new component profiles
+bring the current total to 424. Compiler 99, HDL 38, command-line 18 and guest
+1082 records remain byte-identical and input-compatible. Guests have 1531
+unmeasured inputs: 1528 additions and three revised originals, with 1432
+simulation and 99 elaboration inputs. No simulator implementation source or
+commercial result was used. Every remaining partial applicability condition
+and original M1-M4 target stays in the completion audit.

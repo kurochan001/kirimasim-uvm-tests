@@ -1,0 +1,8 @@
+UT: inherit99 memory 0 initial names 1 ids 1 distinct 1
+UT: inherit99 memory 0 initial model_shape 1
+UT: inherit99 memory 0 selected names 1 ids 1 distinct 1
+UT: inherit99 memory 0 selected model_shape 1
+UT: inherit99 memory 0 peer names 1 ids 1 distinct 1
+UT: inherit99 memory 0 peer model_shape 1
+UT: inherit99 memory 0 again names 1 ids 1 distinct 1
+UT: inherit99 memory 0 again model_shape 1

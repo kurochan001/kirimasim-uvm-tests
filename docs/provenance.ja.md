@@ -237,6 +237,8 @@ TLM namespaceの期待値は実行前に提供B.5のclass生成とSystemVerilog�
 
 1.4.2の返却期待値は、実行前に一般の真偽規則と選択した片側のmodel述語の記述から独立に導きました。第18章の概要は個別に読み、既存の部分的な階層義務に関連するmodel構成の文脈として扱います。暫定のfield configure補助引用4件を18.5.3.2へ修正し、本体や期待値を変えずに現在のtag付き入力を新たに実測したもので、その範囲は[返却値のFAQ](faq.ja.md#真偽返却規則とmodelの文脈)に記録しています。シミュレータ実装sourceと商用結果は使っていません。
 
+1.4.3の継承API期待値は、実行前に提供された一般継承規則と選択した基底／派生API条項から導きました。独自bridge／leaf型はconstructorだけを定義し、実装class配置、具体的な型名文字列、instance IDの数値をoracleへコピーしません。限定したcomponent差分は期待setterと明記されたfull-name合成を保持し、libraryだけの原因にはしません。[継承のFAQ](faq.ja.md#継承apiと明記されたoverride)ではB.4のregistry記述も未解決として保ち、シミュレータ実装sourceと商用結果は使っていません。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

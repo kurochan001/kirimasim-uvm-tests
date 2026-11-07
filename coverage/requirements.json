@@ -153714,6 +153714,336 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-INHERITED-TRANSACTION-OBJECT-API-99",
+      "clause": "1.4.3",
+      "statement": {
+        "en": "Transaction-derived bridge/leaf objects retain selected inherited naming, lifetime identity and transaction-ID semantics.",
+        "ja": "transaction派生bridge／leaf objectは、選択した継承名、寿命内の同一性、transaction-IDの意味を保持する。"
+      },
+      "conditions": {
+        "en": "Construct two original leaf instances through an original intermediate bridge over the selected UVM class, overriding only constructors. Reverse creation/selection, use object/bridge/leaf views, and change selected then peer then selected names through different static views. Hold both instances live; compare saved IDs and peer independence. Set explicit positive transaction IDs through a transaction view at each selected step.",
+        "ja": "選択UVM class上の独自の中間bridgeを介して独自leaf instanceを2つ生成し、constructor以外はoverrideしない。生成／選択を反転し、object／bridge／leaf viewを使い、異なるstatic viewから選択、peer、選択の順で名を変える。両instanceを保持し、保存IDとpeerの独立性を比較する。 各選択stepでtransaction viewを通じて明示的な正のtransaction IDを設定する。"
+      },
+      "expected": {
+        "en": "Supplied simple names are visible from all selected views; IDs are stable across name changes and distinct for the two live objects. The transaction-ID getter returns each explicit assigned value without changing the peer.",
+        "ja": "渡した単純名が選択した全viewから見え、名前変更でもIDが安定し、生きた2objectでIDが異なる。transaction-ID getterは明示代入値を返し、peerを変更しない。"
+      },
+      "limitations": {
+        "en": "Partial 1.4.3 applicability for this profile only. No exact immediate-parent layout, ID number/order, concrete type-name string, arbitrary user override, factory support, RNG, RAL full-name grammar or physical HDL/bus transfer is asserted. All remaining inheritance conditions and original M1-M4 targets stay open. No human review or scope/denominator approval.",
+        "ja": "このprofileだけの1.4.3の部分的適用。直接の親class配置、IDの数値／順序、具体的な型名文字列、任意user override、factory対応、RNG、RAL full-name文法、物理HDL／bus転送は断定しない。残る全継承条件と元のM1〜M4目標は未完に保つ。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_inherited_api_transaction_0_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 transaction 0 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 transaction 0 initial transaction_values 1",
+            "UT: inherit99 transaction 0 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 transaction 0 selected transaction_values 1",
+            "UT: inherit99 transaction 0 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 transaction 0 peer transaction_values 1",
+            "UT: inherit99 transaction 0 again names 1 ids 1 distinct 1",
+            "UT: inherit99 transaction 0 again transaction_values 1"
+          ]
+        },
+        {
+          "test": "u01/test_inherited_api_transaction_1_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 transaction 1 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 transaction 1 initial transaction_values 1",
+            "UT: inherit99 transaction 1 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 transaction 1 selected transaction_values 1",
+            "UT: inherit99 transaction 1 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 transaction 1 peer transaction_values 1",
+            "UT: inherit99 transaction 1 again names 1 ids 1 distinct 1",
+            "UT: inherit99 transaction 1 again transaction_values 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-CALLBACK-OBJECT-API-99",
+      "clause": "1.4.3",
+      "statement": {
+        "en": "Callback-derived bridge/leaf objects retain selected object naming/identity and explicit callback-enable operations.",
+        "ja": "callback派生bridge／leaf objectは、選択したobjectの名／同一性と明示callback有効化操作を保持する。"
+      },
+      "conditions": {
+        "en": "Construct two original leaf instances through an original intermediate bridge over the selected UVM class, overriding only constructors. Reverse creation/selection, use object/bridge/leaf views, and change selected then peer then selected names through different static views. Hold both instances live; compare saved IDs and peer independence. Explicitly enable both callbacks, then disable selected/peer and re-enable selected; use only explicit 0/1 mode arguments.",
+        "ja": "選択UVM class上の独自の中間bridgeを介して独自leaf instanceを2つ生成し、constructor以外はoverrideしない。生成／選択を反転し、object／bridge／leaf viewを使い、異なるstatic viewから選択、peer、選択の順で名を変える。両instanceを保持し、保存IDとpeerの独立性を比較する。 両callbackを明示enable後に選択／peerをdisableし選択を再enableし、mode引数は明示0／1だけを使う。"
+      },
+      "expected": {
+        "en": "Supplied simple names are visible from all selected views; IDs are stable across name changes and distinct for the two live objects. The callback getter follows selected enable state and callback_mode returns the previous state.",
+        "ja": "渡した単純名が選択した全viewから見え、名前変更でもIDが安定し、生きた2objectでIDが異なる。callback getterが選択有効状態に従い、callback_modeが以前の状態を返す。"
+      },
+      "limitations": {
+        "en": "Partial 1.4.3 applicability for this profile only. No exact immediate-parent layout, ID number/order, concrete type-name string, arbitrary user override, factory support, RNG, RAL full-name grammar or physical HDL/bus transfer is asserted. Default/other callback_mode arguments and B.4 callback-registry ancestry remain separate unresolved obligations. All remaining inheritance conditions and original M1-M4 targets stay open. No human review or scope/denominator approval.",
+        "ja": "このprofileだけの1.4.3の部分的適用。直接の親class配置、IDの数値／順序、具体的な型名文字列、任意user override、factory対応、RNG、RAL full-name文法、物理HDL／bus転送は断定しない。callback_modeの既定／その他の引数とB.4のcallback-registry祖先は別の未解決義務に残す。残る全継承条件と元のM1〜M4目標は未完に保つ。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_inherited_api_callback_0_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 callback 0 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 callback 0 initial enabled 1 old_mode 1",
+            "UT: inherit99 callback 0 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 callback 0 selected enabled 1 old_mode 1",
+            "UT: inherit99 callback 0 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 callback 0 peer enabled 1 old_mode 1",
+            "UT: inherit99 callback 0 again names 1 ids 1 distinct 1",
+            "UT: inherit99 callback 0 again enabled 1 old_mode 1"
+          ]
+        },
+        {
+          "test": "u01/test_inherited_api_callback_1_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 callback 1 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 callback 1 initial enabled 1 old_mode 1",
+            "UT: inherit99 callback 1 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 callback 1 selected enabled 1 old_mode 1",
+            "UT: inherit99 callback 1 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 callback 1 peer enabled 1 old_mode 1",
+            "UT: inherit99 callback 1 again names 1 ids 1 distinct 1",
+            "UT: inherit99 callback 1 again enabled 1 old_mode 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-SEQUENCE-ITEM-TRANSACTION-API-99",
+      "clause": "1.4.3",
+      "statement": {
+        "en": "Sequence-item bridge/leaf objects retain selected inherited object and transaction API semantics through their ancestor views.",
+        "ja": "sequence-itemのbridge／leaf objectは、祖先viewを通じて選択した継承object／transaction APIの意味を保持する。"
+      },
+      "conditions": {
+        "en": "Construct two original leaf instances through an original intermediate bridge over the selected UVM class, overriding only constructors. Reverse creation/selection, use object/bridge/leaf views, and change selected then peer then selected names through different static views. Hold both instances live; compare saved IDs and peer independence. Set explicit positive transaction IDs through a transaction view at each selected step.",
+        "ja": "選択UVM class上の独自の中間bridgeを介して独自leaf instanceを2つ生成し、constructor以外はoverrideしない。生成／選択を反転し、object／bridge／leaf viewを使い、異なるstatic viewから選択、peer、選択の順で名を変える。両instanceを保持し、保存IDとpeerの独立性を比較する。 各選択stepでtransaction viewを通じて明示的な正のtransaction IDを設定する。"
+      },
+      "expected": {
+        "en": "Supplied simple names are visible from all selected views; IDs are stable across name changes and distinct for the two live objects. The transaction-ID getter returns each explicit assigned value without changing the peer.",
+        "ja": "渡した単純名が選択した全viewから見え、名前変更でもIDが安定し、生きた2objectでIDが異なる。transaction-ID getterは明示代入値を返し、peerを変更しない。"
+      },
+      "limitations": {
+        "en": "Partial 1.4.3 applicability for this profile only. No exact immediate-parent layout, ID number/order, concrete type-name string, arbitrary user override, factory support, RNG, RAL full-name grammar or physical HDL/bus transfer is asserted. All remaining inheritance conditions and original M1-M4 targets stay open. No human review or scope/denominator approval.",
+        "ja": "このprofileだけの1.4.3の部分的適用。直接の親class配置、IDの数値／順序、具体的な型名文字列、任意user override、factory対応、RNG、RAL full-name文法、物理HDL／bus転送は断定しない。残る全継承条件と元のM1〜M4目標は未完に保つ。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_inherited_api_item_0_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 item 0 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 item 0 initial transaction_values 1",
+            "UT: inherit99 item 0 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 item 0 selected transaction_values 1",
+            "UT: inherit99 item 0 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 item 0 peer transaction_values 1",
+            "UT: inherit99 item 0 again names 1 ids 1 distinct 1",
+            "UT: inherit99 item 0 again transaction_values 1"
+          ]
+        },
+        {
+          "test": "u01/test_inherited_api_item_1_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 item 1 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 item 1 initial transaction_values 1",
+            "UT: inherit99 item 1 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 item 1 selected transaction_values 1",
+            "UT: inherit99 item 1 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 item 1 peer transaction_values 1",
+            "UT: inherit99 item 1 again names 1 ids 1 distinct 1",
+            "UT: inherit99 item 1 again transaction_values 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-COMPONENT-NAME-API-99",
+      "clause": "1.4.3",
+      "statement": {
+        "en": "The qualified inherited component-name setter retains object naming/identity while the documented full-name override preserves hierarchical composition.",
+        "ja": "限定した継承component名setterはobjectの名／同一性を保持し、明記されたfull-name overrideは階層合成を保つ。"
+      },
+      "conditions": {
+        "en": "Construct two original leaf instances through an original intermediate bridge over the selected UVM class, overriding only constructors. Reverse creation/selection, use object/bridge/leaf views, and change selected then peer then selected names through different static views. Hold both instances live; compare saved IDs and peer independence. Use unique legal leaf names under an explicit parent, with a descendant below the first leaf, before running phases. Capture the parent full-name prefix; apply 5.3.4.1 because 13.1 documents no alternate set_name contract.",
+        "ja": "選択UVM class上の独自の中間bridgeを介して独自leaf instanceを2つ生成し、constructor以外はoverrideしない。生成／選択を反転し、object／bridge／leaf viewを使い、異なるstatic viewから選択、peer、選択の順で名を変える。両instanceを保持し、保存IDとpeerの独立性を比較する。 phase実行前に、明示parent下の一意で合法なleaf名と第1leaf下の子孫を使う。parentのfull-name prefixを保存し、13.1に別のset_name契約の記載がないため5.3.4.1を適用する。"
+      },
+      "expected": {
+        "en": "Supplied simple names are visible from all selected views; IDs are stable across name changes and distinct for the two live objects. The documented component full-name override composes that prefix, the current leaf name and the descendant name with periods, preserving parent handles.",
+        "ja": "渡した単純名が選択した全viewから見え、名前変更でもIDが安定し、生きた2objectでIDが異なる。明記されたcomponent full-name overrideが、そのprefix、現在のleaf名、子孫名をperiodで合成し、parent handleを保持する。"
+      },
+      "limitations": {
+        "en": "Partial 1.4.3 applicability for this profile only. No exact immediate-parent layout, ID number/order, concrete type-name string, arbitrary user override, factory support, RNG, RAL full-name grammar or physical HDL/bus transfer is asserted. Retain the qualified inherited-setter expectation if implementation output differs; it does not establish a library-only cause, fixed implicit-root spelling or child-dictionary reindexing. All remaining inheritance conditions and original M1-M4 targets stay open. No human review or scope/denominator approval.",
+        "ja": "このprofileだけの1.4.3の部分的適用。直接の親class配置、IDの数値／順序、具体的な型名文字列、任意user override、factory対応、RNG、RAL full-name文法、物理HDL／bus転送は断定しない。実装出力が異なっても限定した継承setterの期待値を保持し、libraryだけの原因、固定した暗黙root綴り、child辞書の再索引を断定しない。残る全継承条件と元のM1〜M4目標は未完に保つ。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_inherited_api_component_0_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 component 0 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 component 0 initial full_names 1 parents 1",
+            "UT: inherit99 component 0 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 component 0 selected full_names 1 parents 1",
+            "UT: inherit99 component 0 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 component 0 peer full_names 1 parents 1",
+            "UT: inherit99 component 0 again names 1 ids 1 distinct 1",
+            "UT: inherit99 component 0 again full_names 1 parents 1"
+          ]
+        },
+        {
+          "test": "u01/test_inherited_api_component_1_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 component 1 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 component 1 initial full_names 1 parents 1",
+            "UT: inherit99 component 1 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 component 1 selected full_names 1 parents 1",
+            "UT: inherit99 component 1 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 component 1 peer full_names 1 parents 1",
+            "UT: inherit99 component 1 again names 1 ids 1 distinct 1",
+            "UT: inherit99 component 1 again full_names 1 parents 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-REGISTER-OBJECT-API-99",
+      "clause": "1.4.3",
+      "statement": {
+        "en": "Configured register bridge/leaf objects retain inherited simple-name and lifetime-ID semantics alongside their parent and width queries.",
+        "ja": "設定済みregisterのbridge／leaf objectは、parent／幅照会とともに継承した単純名と寿命内IDの意味を保持する。"
+      },
+      "conditions": {
+        "en": "Construct two original leaf instances through an original intermediate bridge over the selected UVM class, overriding only constructors. Reverse creation/selection, use object/bridge/leaf views, and change selected then peer then selected names through different static views. Hold both instances live; compare saved IDs and peer independence. Configure model-only receivers under one original block and a real address map; registers have one full-width field, and memories have 16 locations of 8 bits.",
+        "ja": "選択UVM class上の独自の中間bridgeを介して独自leaf instanceを2つ生成し、constructor以外はoverrideしない。生成／選択を反転し、object／bridge／leaf viewを使い、異なるstatic viewから選択、peer、選択の順で名を変える。両instanceを保持し、保存IDとpeerの独立性を比較する。 独自blockと実address mapの下でmodel内だけのreceiverを設定し、registerは全幅field 1つ、memoryは8bitの16locationを持つ。"
+      },
+      "expected": {
+        "en": "Supplied simple names are visible from all selected views; IDs are stable across name changes and distinct for the two live objects. Parent handles and declared width/size remain as configured.",
+        "ja": "渡した単純名が選択した全viewから見え、名前変更でもIDが安定し、生きた2objectでIDが異なる。parent handleと宣言幅／sizeが設定どおりに保たれる。"
+      },
+      "limitations": {
+        "en": "Partial 1.4.3 applicability for this profile only. No exact immediate-parent layout, ID number/order, concrete type-name string, arbitrary user override, factory support, RNG, RAL full-name grammar or physical HDL/bus transfer is asserted. All remaining inheritance conditions and original M1-M4 targets stay open. No human review or scope/denominator approval.",
+        "ja": "このprofileだけの1.4.3の部分的適用。直接の親class配置、IDの数値／順序、具体的な型名文字列、任意user override、factory対応、RNG、RAL full-name文法、物理HDL／bus転送は断定しない。残る全継承条件と元のM1〜M4目標は未完に保つ。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_inherited_api_register_0_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 register 0 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 register 0 initial model_shape 1",
+            "UT: inherit99 register 0 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 register 0 selected model_shape 1",
+            "UT: inherit99 register 0 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 register 0 peer model_shape 1",
+            "UT: inherit99 register 0 again names 1 ids 1 distinct 1",
+            "UT: inherit99 register 0 again model_shape 1"
+          ]
+        },
+        {
+          "test": "u01/test_inherited_api_register_1_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 register 1 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 register 1 initial model_shape 1",
+            "UT: inherit99 register 1 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 register 1 selected model_shape 1",
+            "UT: inherit99 register 1 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 register 1 peer model_shape 1",
+            "UT: inherit99 register 1 again names 1 ids 1 distinct 1",
+            "UT: inherit99 register 1 again model_shape 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-MEMORY-OBJECT-API-99",
+      "clause": "1.4.3",
+      "statement": {
+        "en": "Configured memory bridge/leaf objects retain inherited simple-name and lifetime-ID semantics alongside their parent and declared shape.",
+        "ja": "設定済みmemoryのbridge／leaf objectは、parentと宣言した形状とともに継承した単純名と寿命内IDの意味を保持する。"
+      },
+      "conditions": {
+        "en": "Construct two original leaf instances through an original intermediate bridge over the selected UVM class, overriding only constructors. Reverse creation/selection, use object/bridge/leaf views, and change selected then peer then selected names through different static views. Hold both instances live; compare saved IDs and peer independence. Configure model-only receivers under one original block and a real address map; registers have one full-width field, and memories have 16 locations of 8 bits.",
+        "ja": "選択UVM class上の独自の中間bridgeを介して独自leaf instanceを2つ生成し、constructor以外はoverrideしない。生成／選択を反転し、object／bridge／leaf viewを使い、異なるstatic viewから選択、peer、選択の順で名を変える。両instanceを保持し、保存IDとpeerの独立性を比較する。 独自blockと実address mapの下でmodel内だけのreceiverを設定し、registerは全幅field 1つ、memoryは8bitの16locationを持つ。"
+      },
+      "expected": {
+        "en": "Supplied simple names are visible from all selected views; IDs are stable across name changes and distinct for the two live objects. Parent handles and declared width/size remain as configured.",
+        "ja": "渡した単純名が選択した全viewから見え、名前変更でもIDが安定し、生きた2objectでIDが異なる。parent handleと宣言幅／sizeが設定どおりに保たれる。"
+      },
+      "limitations": {
+        "en": "Partial 1.4.3 applicability for this profile only. No exact immediate-parent layout, ID number/order, concrete type-name string, arbitrary user override, factory support, RNG, RAL full-name grammar or physical HDL/bus transfer is asserted. All remaining inheritance conditions and original M1-M4 targets stay open. No human review or scope/denominator approval.",
+        "ja": "このprofileだけの1.4.3の部分的適用。直接の親class配置、IDの数値／順序、具体的な型名文字列、任意user override、factory対応、RNG、RAL full-name文法、物理HDL／bus転送は断定しない。残る全継承条件と元のM1〜M4目標は未完に保つ。人の照合と範囲／分母承認はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_inherited_api_memory_0_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 memory 0 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 memory 0 initial model_shape 1",
+            "UT: inherit99 memory 0 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 memory 0 selected model_shape 1",
+            "UT: inherit99 memory 0 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 memory 0 peer model_shape 1",
+            "UT: inherit99 memory 0 again names 1 ids 1 distinct 1",
+            "UT: inherit99 memory 0 again model_shape 1"
+          ]
+        },
+        {
+          "test": "u01/test_inherited_api_memory_1_99",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherit99 memory 1 initial names 1 ids 1 distinct 1",
+            "UT: inherit99 memory 1 initial model_shape 1",
+            "UT: inherit99 memory 1 selected names 1 ids 1 distinct 1",
+            "UT: inherit99 memory 1 selected model_shape 1",
+            "UT: inherit99 memory 1 peer names 1 ids 1 distinct 1",
+            "UT: inherit99 memory 1 peer model_shape 1",
+            "UT: inherit99 memory 1 again names 1 ids 1 distinct 1",
+            "UT: inherit99 memory 1 again model_shape 1"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -10405,6 +10405,54 @@
     "u01/test_boolean_return_virtual_1_98": {
       "primary_clause": "1.4.2",
       "inputs_sha256": "d059c068f45dfdd8fda2277339319b03d1da7073959c85ea9eef468674f6f935"
+    },
+    "u01/test_inherited_api_callback_0_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "04b93a4ef31d51e31c5e46177342a624d6c9c0e49d3d58319b72c64aeece36fa"
+    },
+    "u01/test_inherited_api_callback_1_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "ebe792ff70eaa40f8f2ddb04ee42b254281d71c65bee0b92c1e759548e7ed97e"
+    },
+    "u01/test_inherited_api_component_0_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "c8930739b385f47ca8e9927a18a798b98baf7194190672f3f217534f2b07bfba"
+    },
+    "u01/test_inherited_api_component_1_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "dfb9bae4e59f39bd347a2d417d59351eb650934c1347fd5f896f32f3d6e8635f"
+    },
+    "u01/test_inherited_api_item_0_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "c4648005402a90c687a034440f9adcc70c26985709273dd952d993abbe428ac3"
+    },
+    "u01/test_inherited_api_item_1_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "02e39de3195da929e6661d32286eeec966e4a8852cd7e24e6bb7ce54af273859"
+    },
+    "u01/test_inherited_api_memory_0_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "b51000cf0bc938f3eb6f84f84308a8218daec8d7bc07c0b98fc8430b70d3bbe4"
+    },
+    "u01/test_inherited_api_memory_1_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "52b8f71ebc95cbb7e4b5549bdc9af6ff76e43a480146c3fde9af714b58c9af3c"
+    },
+    "u01/test_inherited_api_register_0_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "7cdd6237fb68d0715030b65026b228ca9e5b7c2f9466666dc57b9ac482613a97"
+    },
+    "u01/test_inherited_api_register_1_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "fd176fc8858400f34b67a3f608f94a52cecadc58439aec6fc22a332dab6a3b15"
+    },
+    "u01/test_inherited_api_transaction_0_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "a82163f4618f5cec6bca5e9f7c4b8a145d2aa5a39682784879713cf9479eebee"
+    },
+    "u01/test_inherited_api_transaction_1_99": {
+      "primary_clause": "1.4.3",
+      "inputs_sha256": "0d8cc54008ac95ebd630c7c7650d87d1af2f55133851479166adaa788b8f5bb4"
     }
   }
 }

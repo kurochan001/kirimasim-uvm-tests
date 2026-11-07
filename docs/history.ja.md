@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の98回目の拡充（全2601件：simulation 2502・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の99回目の拡充（全2613件：simulation 2514・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3585,3 +3585,33 @@ catalogは部分2059／分類425／未評価23で、主引用のある番号は1
 以前の要求4057 object、分類424件、索引／通常2593記録を保持し、compiler 99、HDL 38、command-line 18、guest 1082記録はbyte単位で同一かつ入力と互換です。
 以前の既知422件は未変更で、guestの未測定は1519入力、追加1516件と修正した元3件（simulation 1420／elaboration 99）です。
 シミュレータ実装sourceと商用結果は使っていません。残る全適用条件、元のM1〜M4目標、人の照合、範囲／分母承認は未完です。
+
+## 薄い領域の99回目の拡充：継承APIと明記されたoverride
+
+新しいruntime profile 12入力は1.4.3を継承APIへ適用し、M1／M2／M3がそれぞれ4件です。
+transaction、callback、sequence item、component、register、memoryの上に独自bridge／leaf classを置き、constructor以外はoverrideしません。
+object／bridge／leaf viewから、渡した名、寿命内で安定し異なるID、明示transaction ID、callback有効状態、model形状を観測します。
+生成／選択を変えた2履歴で異なるstatic viewから選択／peerの名を変更し、直接の親class配置、instance IDの数値や順序、具体的な型名文字列は要求しません。
+祖先viewと明記されたcomponent full-name overrideは[継承のFAQ](faq.ja.md#継承apiと明記されたoverride)で説明しています。
+
+最終tag付き10入力はbuildし、seed 1／73でexit 0の一致を得ました。
+未変更の限定component profile 2入力はbuildしてseed 1でexit 0ですが、変更後の名とfull-name観測が異なり、初期観測とID／parent検査は一致します。
+その2入力にseed 73結果はありません。期待する継承setterの意味は保持し、1.4.3を通じて5.3.4.1を適用します。
+13.1には別のfull-name overrideが明記されますが、別のset_name契約は記載されていません。
+このprofileでlibraryだけの原因、child辞書の再索引、暗黙rootの固定綴りは推測せず、ID／parent行の一致で全入力をpassにはしません。
+現在の選択はbuild log 12個とruntime log 22個で、既知2記録は元の正確な入力識別情報を保ち、tag付きheader 10件は[再利用規則](results.ja.md#記録の合算)に従って新たに測定しました。
+
+1.4.3に部分義務6件を追加し、以前の要求4061 object全体、分類425件、索引／通常2601記録を保持します。
+root 1は部分4番号、義務14件、主引用26テスト、未評価7番号で、文脈のscopeは未変更です。
+catalogは部分2060／分類425／未評価22で、主引用のある番号は1304、何らかの引用がある番号は2092です。
+AI義務4067件すべてが2559テストへ直接対応し、control専用54テスト、control linkあり154です。
+人の照合と範囲／分母承認は記録していません。
+
+1.4.3は中間の祖先を許すため、印字されたcallback／registry基底だけで論理的な矛盾とは断定できません。
+B.4は未評価を保持し、通常のcallback objectのprofileで、概要の字面のregistry記述を解消したり分類で除去したりしません。
+未解決の関係は[Q380](faq.ja.md#q380-callbackとregistryの基底の記述で矛盾が証明されますか)に記録しています。
+
+以前の既知422記録は未変更で、新しいcomponent profile 2件により現在の合計は424です。
+compiler 99、HDL 38、command-line 18、guest 1082記録はbyte単位で同一かつ入力と互換です。
+guestの未測定は1531入力、追加1528件と修正した元3件（simulation 1432／elaboration 99）です。
+シミュレータ実装sourceと商用結果は使っていません。残る全ての部分的な適用条件と元のM1〜M4目標は完了監査に残します。

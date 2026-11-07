@@ -6,7 +6,7 @@ To locate a result's source, search this page for the filename portion of its te
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2601-test suite and the pinned Accellera UVM
+This describes the current 2613-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -178,7 +178,7 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 63 pure-interface/const-reference/forbidden-member/type-context/non-public-constructor violations.
 94 match. Subscriber/visitor/proxy/adapter omissions and direct construction
 of the printed virtual builtin dispatcher remain accepted and spec-only without
-runtime. These five compiler acceptances are separate from 417 known simulation
+runtime. These five compiler acceptances are separate from 419 known simulation
 differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
@@ -534,6 +534,11 @@ Four TLM namespace inputs retain seed-1 successful casts between same-name param
 - [test_tlm_package_get_1_96](../tests/uB/test_tlm_package_get_1_96.sv).
 - [test_tlm_package_put_0_96](../tests/uB/test_tlm_package_put_0_96.sv).
 - [test_tlm_package_put_1_96](../tests/uB/test_tlm_package_put_1_96.sv).
+
+Two qualified component inherited-setter profiles retain seed-1 exit-0 differences after requested name changes. Initial observations, lifetime ID stability/distinctness and parent handles match; changed-name and documented full-name observations do not. Neither has a seed-73 record or fixed-release tag. The expected setter contract is not replaced by observed flags, and matching rows do not pass the whole case or establish a library-only cause. [The setter qualification](faq.md#q379-why-retain-the-component-setter-expectation-when-its-observations-differ) records the documented-override boundary.
+
+- [test_inherited_api_component_0_99](../tests/u01/test_inherited_api_component_0_99.sv).
+- [test_inherited_api_component_1_99](../tests/u01/test_inherited_api_component_1_99.sv).
 
 ## Pinned-library limitations
 
@@ -1146,7 +1151,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2179 tests have the `verilator@5.052` oracle tag and 422
+Across the suite, 2189 tests have the `verilator@5.052` oracle tag and 424
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -1158,10 +1163,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 422 spec-only cases retain standard-derived expected output or compiler diagnostics.
-Default Verilator runs and CI select 2179 tagged checks (2085 runtime, 94 compile rejection). `--all` includes
+The 424 spec-only cases retain standard-derived expected output or compiler diagnostics.
+Default Verilator runs and CI select 2189 tagged checks (2095 runtime, 94 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 284 cases establish their first difference
+The ordinary runtime records for 286 cases establish their first difference
 at seed 1, without seed 73 results.
 The 133 simulation builds have no ordinary runtime, including 56 unlinked DPI
 inputs (38 HDL and 18 command-line); [the measured breakdown](results.md#interpretation)
@@ -1237,6 +1242,8 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
+A build-time API omission has no runtime observations to compare, so [the result interpretation](results.md#interpretation) separates it from a case that ran and printed a differing observation.
+
 A compiler error in a `simulation` case leaves its runtime behavior unobserved, while an `elaboration` case requires the declared rejection; [the metadata guide](testing.md#metadata) explains how to distinguish them before investigating the sources below.
 
 An explicit source path selects one listed fixture for investigation, and [the single-test command](faq.md#q3-how-can-i-run-one-test-first) shows how to request both runtime seeds.
@@ -1247,11 +1254,14 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 422 current spec-only cases are linked in the explanatory notes and the
+The 424 current spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
 
 
+
+- [test_inherited_api_component_0_99](../tests/u01/test_inherited_api_component_0_99.sv).
+- [test_inherited_api_component_1_99](../tests/u01/test_inherited_api_component_1_99.sv).
 
 - [test_tlm_package_get_0_96](../tests/uB/test_tlm_package_get_0_96.sv).
 - [test_tlm_package_get_1_96](../tests/uB/test_tlm_package_get_1_96.sv).
@@ -1614,7 +1624,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1082 records and 1519 inputs
+records are excluded. The compatible subset has 1082 records and 1531 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1655,8 +1665,8 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The earlier guest filter excludes the corrected field-configuration citation input: 1083 prior compatible records become 1082, with no new guest execution. [The evidence guide](results.md#evidence-assembly) records the exact exclusion and resulting counts.
 
-The suite has 2601 cases, but the kirimasim/Ghost records below cover only
-1082 unchanged current-input cases. The 1519 inputs are unmeasured
+The suite has 2613 cases, but the kirimasim/Ghost records below cover only
+1082 unchanged current-input cases. The 1531 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

@@ -1,0 +1,8 @@
+UT: inherit99 transaction 0 initial names 1 ids 1 distinct 1
+UT: inherit99 transaction 0 initial transaction_values 1
+UT: inherit99 transaction 0 selected names 1 ids 1 distinct 1
+UT: inherit99 transaction 0 selected transaction_values 1
+UT: inherit99 transaction 0 peer names 1 ids 1 distinct 1
+UT: inherit99 transaction 0 peer transaction_values 1
+UT: inherit99 transaction 0 again names 1 ids 1 distinct 1
+UT: inherit99 transaction 0 again transaction_values 1

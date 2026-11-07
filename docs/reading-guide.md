@@ -49,11 +49,13 @@ The same input can have different results under these environments, so compare i
 
 ## Read a result
 
+An intentional UVM error message can be part of a successful check, so use the declared observations and exit conditions to judge the case as explained in [Q7](faq.md#q7-why-compare-ut-lines-rather-than-all-uvm-messages).
+
 For a simulation case, the runner compares the ordered lines beginning with `UT: ` to its `.expected` file, together with the declared exit and diagnostic checks; the complete log is not the expected output. See [what is observed](testing.md#what-is-observed).
 
 `pass` means the declared checks matched; `fail` means a checked condition differed; `known` records a difference for an untagged Verilator case; `unsupported` records a kirimasim unsupported-feature diagnostic recognized by the runner. The last two are not passes. See [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean).
 
-The `elaboration` cases here expect the compiler to reject an illegal design and execute no runtime seed, while `simulation` cases run a model. Matches at both seeds do not establish four-state coverage including X/Z; see [the seed and compiler-count explanation](faq.md#q201-did-all-2601-tests-run-at-two-seeds).
+The `elaboration` cases here expect the compiler to reject an illegal design and execute no runtime seed, while `simulation` cases run a model. Matches at both seeds do not establish four-state coverage including X/Z; see [the seed and compiler-count explanation](faq.md#q201-did-all-2613-tests-run-at-two-seeds).
 
 With `--all`, known differences do not by themselves make the Verilator command fail, so inspect individual statuses as well as its exit code. See [why the exit code can still be zero](faq.md#q6-why-can-verilator-exit-successfully-with-known-results).
 
