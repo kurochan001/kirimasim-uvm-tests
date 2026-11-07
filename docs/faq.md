@@ -52,7 +52,7 @@ The Verilator smoke run needs a separately installed simulator and C++ build env
 
 Use Python 3.10 or later and a simulator able to run UVM. The fixed oracle is
 Verilator 5.052, whose model builds also require a C++ toolchain and make.
-The [Check workflow](../.github/workflows/check.yml) contains its Ubuntu setup.
+The [setup action](../.github/actions/setup-verilator/action.yml) used by Check and Regression contains its Ubuntu setup.
 
 Run `python3 tools/fetch_uvm.py` to fetch the locked Accellera UVM release.
 `python3 tools/fetch_uvm.py --check` verifies the existing tree against its
@@ -145,7 +145,9 @@ has not been assigned to either the simulator or library. See
 ### Q9. Why does a green Check not mean kirimasim passes UVM?
 
 [Check](../.github/workflows/check.yml) checks metadata, tools, the pinned
-library and tagged Verilator oracles. It does not run kirimasim or Ghost and
+library and the tagged Verilator oracles whose inputs changed;
+[Regression](../.github/workflows/regression.yml) runs every tagged oracle.
+Neither runs kirimasim or Ghost, and Check
 does not require spec-only cases to match. Most cases in the current kirimasim
 run stop at `uvm_object_wrapper` as unsupported; the remaining cases fail
 earlier on missing library APIs. Neither result establishes behavior beyond
@@ -154,7 +156,9 @@ those compilation blockers.
 ### Q10. Where is Nightly or the public results dashboard?
 
 This repository currently has no Nightly workflow or automatic results
-publication. Its badges link to Check and the license. kirimasim-tests has its
+publication. The weekly [Regression](../.github/workflows/regression.yml)
+reruns the tagged Verilator checks, but its JSON stays inside its jobs and is
+not published. Its badges link to Check and the license. kirimasim-tests has its
 own Nightly, which does not report this UVM suite. Runner JSON under `out/`
 stays local unless deliberately shared; pushing tests does not publish it.
 
@@ -3823,16 +3827,19 @@ identifiers; callback 18.11 remains partial despite zero unassessed identifiers.
 
 ## CI shards and execution time
 
-A shard is one partition of the workflow's selected tests; [the CI guide](results.md#continuous-integration) explains which selections contribute to Check and how its result differs from local measurements.
+A shard is one partition of the workflow's selected tests; [the CI guide](results.md#continuous-integration) explains which selections contribute to Check and Regression and how their results differ from local measurements.
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 2265 tagged checks form 8 disjoint shards with at most 4 concurrent
-jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
-checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
+No. Check now runs only the tagged checks whose inputs changed, plus a canary,
+and falls back to the canary with a warning when it cannot cover a change; it
+never stands in for the full selection. Regression runs all 2265 tagged checks
+in 20 disjoint shards, at most 10 concurrent, and the 17 command-line checks in
+a separate job. The earlier 8-shard Check never finished: its one uninterrupted
+run reached the 150-minute limit on every shard. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
-validation proves neither hosted CI success nor conformance; use the README badge
-for the current workflow result. The 458 known cases remain outside the ordinary default CI selection.
+validation proves neither hosted CI success nor conformance; use the workflow
+pages for the current results. The 458 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 

@@ -106,7 +106,7 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 110 tool unit tests, metadata for all 2723 tests (2624 simulation, 99 elaboration),
+The snapshot passed 118 tool unit tests, metadata for all 2723 tests (2624 simulation, 99 elaboration),
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
@@ -122,10 +122,10 @@ An earlier [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/action
 is retained as a reference. Use the README badge for the latest workflow
 result; newer commits may supersede that run. Local checks are not proof
 of a successful full CI run. Check runs tool,
-metadata, ledger, library, tagged ordinary Verilator and seventeen command-line
-checks, not Ghost, kirimasim
-or spec-only cases. There is no Nightly workflow or automatic result
-publication.
+metadata, ledger and library checks and the tagged ordinary Verilator checks
+whose inputs changed, plus a canary; Regression runs all tagged ordinary checks
+and seventeen command-line checks, manually and weekly. Neither runs Ghost,
+kirimasim or spec-only cases. There is no automatic result publication.
 
 ## Evidence and latest differences
 
@@ -203,15 +203,16 @@ Totals are 2723 (2624 simulation/99 elaboration): M1 1171 (1090/81), M2 624
 with 458 known (318 runtime/135 builds/5 illegal acceptances). Guests retain
 1081 compatible records; 1642 unmeasured inputs are 1638 additions and four revised originals.
 
-The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
-exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2265 tagged checks into 8 disjoint shards (284/283/283/283/283/283/283/283),
-with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
-verified locally. The 17 command-line checks run once, on shard 0 before
-ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies
-and runner fingerprints are unchanged. The existing verilator gate requires
-all shards to succeed. Sharding is orchestration; local
-validation does not establish a successful hosted workflow result.
+The former single Check never finished its whole selection after 2026-10-31:
+its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)
+not superseded by a newer push reached the 150-minute limit on all eight
+shards. Check now runs the changed tagged inputs and a canary, and
+[Regression](../.github/workflows/regression.yml) runs all 2265 tagged checks in
+20 disjoint shards with the 17 command-line checks; [the CI section](results.md#continuous-integration)
+gives the limits. Seeds 1/73, compiler-rejection judgment, pinned dependencies
+and runner fingerprints are unchanged. After a change that Check reports as
+canary-only, dispatch Regression and check its result for the current commit;
+local validation does not establish a successful hosted workflow result.
 
 The assembled Verilator snapshot retains unchanged prior inputs and replaces only
 remeasured records. It is not one invocation rerunning the entire suite.

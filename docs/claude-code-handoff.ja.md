@@ -81,7 +81,7 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
 ```
 
-最後の実装公開時に[Check run 42355593581](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42355593581)を2026-11-07 08:29:08 UTC時点でqueuedと記録しました。これは過去の観測であり成功の主張ではありません。実際の現在commitのrunを確認してください。通常検査は8 shard、最大4並列で集約gateへつなぎ、localの成功はhosted CIの成功を意味しません。
+最後の実装公開時に[Check run 42355593581](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42355593581)を2026-11-07 08:29:08 UTC時点でqueuedと記録しました。このrunは次のpushで取り消され、成功の主張ではありません。以前の8 shard版Checkは2026-10-31より後に一度も完了しなかったため、現在のCheckは入力が変わったタグ付き検査とcanaryを、[Regression](../.github/workflows/regression.yml)は全選択を20 shardで実行します。両者は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。実際の現在commitで両workflowを確認してください。localの成功はhosted CIの成功を意味しません。
 
 ## 再開時にClaude Codeへ渡す文面
 

@@ -1,0 +1,73 @@
+name: Regression
+
+# Runs every tagged Verilator 5.052 check (`verilator@5.052` in :oracle:) in 20
+# disjoint shards (tools/ci_select.py --shard), and the explicit command-line
+# checks, with runtime seeds 1 and 73. Illegal elaboration cases require
+# compiler rejection with the declared diagnostic.
+#
+# The full selection takes hours, longer than the interval between pushes, so
+# it runs manually and weekly rather than on every push, and a newer request
+# waits instead of cancelling a run in progress.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 17 * * 6' # Saturdays 17:23 UTC
+
+permissions:
+  contents: read
+
+concurrency:
+  group: regression-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  cmdline:
+    name: command-line checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: ./.github/actions/setup-verilator
+
+      - name: Explicit command-line checks, seeds 1 and 73
+        run: python3 tools/run_verilator_cmdline.py --seeds 1 73 --build-jobs 2 -j 2
+
+  verilator_shards:
+    name: verilator (${{ matrix.shard }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: ./.github/actions/setup-verilator
+
+      - name: Select this shard of the tagged checks
+        env:
+          SHARD: ${{ matrix.shard }}
+        run: python3 tools/ci_select.py --shard "$SHARD/20" --output out/verilator-shard.paths
+
+      - name: Tagged Verilator checks (runtime seeds 1 and 73)
+        run: |
+          mapfile -t cases < out/verilator-shard.paths
+          test "${#cases[@]}" -gt 0
+          python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
+            --json out/verilator-shard.json "${cases[@]}"
+
+  verilator:
+    needs: [cmdline, verilator_shards]
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require the command-line checks and every shard to succeed
+        env:
+          CMDLINE_RESULT: ${{ needs.cmdline.result }}
+          SHARDS_RESULT: ${{ needs.verilator_shards.result }}
+        run: test "$CMDLINE_RESULT" = success && test "$SHARDS_RESULT" = success

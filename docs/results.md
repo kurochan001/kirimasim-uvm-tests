@@ -281,22 +281,35 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 110 tool unit tests,
-2723 metadata records and the draft ledger/index. Its 2265 tagged ordinary
-Verilator checks comprise 2171 runtime cases at seeds 1/73 and 94 compiler
-rejections without runtime seeds, plus seventeen
-explicit command-line checks under their separate condition.
-The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
-exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2265 tagged checks into 8 disjoint shards (284/283/283/283/283/283/283/283),
-with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
-verified locally. The 17 command-line checks run once, on shard 0 before
-ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies
-and runner fingerprints are unchanged. The existing verilator gate requires
-all shards to succeed. Sharding is orchestration; local
-validation does not establish a successful hosted workflow result.
+and manual dispatch. It checks pinned-library integrity, 118 tool unit tests,
+2723 metadata records and the draft ledger/index. Its Verilator job runs the
+tagged ordinary checks whose recorded inputs changed since the base revision,
+plus the canary `tests/u09/test_common_phases_run_in_order.sv`, with runtime
+seeds 1/73 ([the selection tool](../tools/ci_select.py)). When the base is
+unavailable, when the runner, its normalization, the library lock or the
+fetcher changed, or when more than 30 checks are affected, only the canary runs
+and a warning asks for Regression. A green Check covers the selected checks only.
 
-It does not run kirimasim, Ghost or spec-only cases. The README's badge is the
-live CI state, separate from these local measurements. A green Check does
-not establish complete UVM conformance or a passing result for every simulator.
-There is no Nightly workflow or automatic result publication.
+[Regression](../.github/workflows/regression.yml) runs on manual dispatch and
+weekly (Saturdays 17:23 UTC). It runs all 2265 tagged ordinary checks (2171
+runtime cases at seeds 1/73 and 94 compiler rejections without runtime seeds)
+in 20 disjoint shards (five of 114 and fifteen of 113), at most 10 concurrent and
+each limited to 360 minutes, and the seventeen explicit command-line checks in a
+separate job under their condition. Its gate requires both. A newer request
+waits for a run in progress instead of cancelling it.
+
+The former single Check ran the whole selection on every push. Its unsharded
+[run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
+exceeded the 150-minute job limit, and the 8-shard version did not finish either:
+in its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)
+not superseded by a newer push, all eight shards reached the 150-minute limit,
+and the other runs after 2026-10-31 were cancelled by newer pushes. The split
+keeps seeds 1/73, compiler-rejection judgment, pinned dependencies and runner
+fingerprints unchanged; the selection tool is not part of the runner fingerprint.
+The shard count is estimated from local build times, so local validation does
+not establish a successful hosted Regression result.
+
+Neither workflow runs kirimasim, Ghost or spec-only cases. The README's badge is
+the live Check state, separate from these local measurements. A green Check or
+Regression does not establish complete UVM conformance or a passing result for
+every simulator. There is no automatic result publication.

@@ -429,8 +429,8 @@ Verilatorがknown差分だけでは失敗終了しない理由は[FAQ Q6](faq.ja
 
 registerモデルのcoverage APIは計測modelの搭載とsampling hookを扱い、functional binの実測との違いは[Q311](faq.ja.md#q311-coverageの構築でfunctional-coverageのbinを測定しますか)、M4の要求カバレッジの単位は[計数のガイド](requirements.ja.md#計数単位と対象範囲の案)で説明しています。
 
-**Check／Nightly** — このリポジトリの検証workflow／kirimasim-testsで使う別の定期実行・報告workflowです。
-こちらには現在Checkだけがあります。バッジは、全シミュレータの一致率を示すものではありません。
+**Check／Regression／Nightly** — このリポジトリの変更入力向けの検証workflow／手動と毎週に動く全件Verilator workflow／kirimasim-testsで使う別の定期実行・報告workflowで、Nightlyはこちらにはありません。
+いずれの結果も、全シミュレータの一致率を示すものではありません。
 
 **要求台帳／安定した要求ID** — 規範的な動作を、観測できる義務と条件に分解して版管理するもの／
 テストのfilenameとは独立した名前です。[現在の台帳](requirements.ja.md)は部分的で全件がAIの案です。

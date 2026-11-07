@@ -3938,3 +3938,17 @@ AI義務は4101件で、他の旧要求4098件と分類445件は同一です。
 第12章は部分169／分類45／未評価0番号、義務328件、主引用204テストです。
 主引用がある番号は1316へ増え、candidateは0件1170／目標未満768／2件以上544です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、対応付けやcontrolの一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q427-unpack-profileでpayload条項は完了しますか)で説明しています。
+
+## CIの分割：変更入力のCheckと全件Regression
+
+2026-11-07の引継ぎ監査で、`main`のCheck 166実行のうち成功は2026-10-31の2件だけで、163件が取り消されていたことが分かりました。
+単一のworkflowは`cancel-in-progress`付きでpushごとに全タグ付き選択を実行し、pushは30〜40分ごとでした。
+pushで置き換えられなかった唯一の8 shard[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)では8 shardすべてが150分の上限に達し、以前の分割では選択が収まっていませんでした。
+
+現在のCheckはtool、metadata、library、台帳を検査し、`tools/ci_select.py`で記録入力が変わったタグ付き検査とcanary 1件を実行します。
+基点が不明な場合、全結果に影響するファイルが変わった場合、影響する検査が30件を超える場合は、警告を出してcanaryだけに戻ります。
+[Regression](../.github/workflows/regression.yml)は手動と毎週、全タグ付き2265検査を重複しない20 shard（同時最大10、各360分）で、command-line 17検査と合わせて実行し、実行中のrunを取り消しません。
+共通の準備用actionがVerilator 5.052をbuildまたは復元し、UVMを取得します。
+
+新しいtool単体テスト8件（合計118件）が、変更入力の対応、戻る条件、shard和集合の完全一致を検査します。
+テスト、期待値、台帳、runner指紋、保存済みevidenceは変わりません。shard数はlocalのbuild時間からの見積もりで、この記録はhostedのRegression成功を主張しません。

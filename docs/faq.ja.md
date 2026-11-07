@@ -51,7 +51,7 @@ Verilatorのスモーク実行では、UVM取得に加えてシミュレータ�
 
 Python 3.10以降と、UVMを実行できるシミュレータが必要です。固定版のoracleはVerilator 5.052です。
 モデルのビルドにはC++ツールチェーンとmakeも必要です。
-Ubuntuでの準備は[Checkのworkflow](../.github/workflows/check.yml)にあります。
+Ubuntuでの準備はCheckとRegressionが使う[準備用action](../.github/actions/setup-verilator/action.yml)にあります。
 
 `python3 tools/fetch_uvm.py`で、lockに指定したAccellera UVMを取得します。
 `python3 tools/fetch_uvm.py --check`は取得済みのファイル数と内容の指紋を照合します。
@@ -138,14 +138,14 @@ phaseの子タスク終了の差分は、シミュレータとライブラリの
 
 ### Q9. Checkが緑ならkirimasimでもUVMが成功したということですか
 
-[Check](../.github/workflows/check.yml)はメタデータ・ツール・固定版ライブラリ・Verilatorのoracleを検査します。
-kirimasim・Ghostは実行せず、specのみの一致も成功条件にはしていません。
+[Check](../.github/workflows/check.yml)はメタデータ・ツール・固定版ライブラリと、入力が変わったVerilatorのoracleを検査し、[Regression](../.github/workflows/regression.yml)は全タグ付きoracleを実行します。
+どちらもkirimasim・Ghostは実行せず、Checkはspecのみの一致も成功条件にはしていません。
 現在のkirimasimの記録では、大半が`uvm_object_wrapper`未実装で停止し、残りはそれより前に
 ライブラリAPIの欠落で失敗します。いずれも、そのコンパイル上の障害より後の動作を検査できた結果ではありません。
 
 ### Q10. Nightlyや公開の結果ダッシュボードはどこにありますか
 
-このリポジトリには、現在Nightlyや結果の自動公開はありません。バッジはCheckとライセンスへリンクします。
+このリポジトリには、現在Nightlyや結果の自動公開はありません。毎週の[Regression](../.github/workflows/regression.yml)はタグ付きVerilator検査を再実行しますが、そのJSONはjob内に留まり公開しません。バッジはCheckとライセンスへリンクします。
 kirimasim-testsには独自のNightlyがありますが、こちらのUVMスイートの結果ではありません。
 `out/`のJSONは明示的に共有するまではローカルのもので、テストをpushしても自動では公開しません。
 
@@ -2945,13 +2945,14 @@ ERRORの存在とUVM_NOT_OKを要求しますが、診断IDや件数は固定し
 
 ## CI shardと実行時間
 
-shardはworkflowが選んだテストを分割した1区画で、Checkの対象となる検査とローカル測定の違いは[CIのガイド](results.ja.md#継続的インテグレーション)で説明しています。
+shardはworkflowが選んだテストを分割した1区画で、CheckとRegressionの対象となる検査とローカル測定の違いは[CIのガイド](results.ja.md#継続的インテグレーション)で説明しています。
 
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
-いいえ。現在のタグ付き2265検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
-command-line 17検査はshard 0で通常検査の前に1回だけ実行します。runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
-分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分458件は通常の既定CI選択に含めません。
+いいえ。現在のCheckは入力が変わったタグ付き検査とcanaryだけを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻るため、全選択の代わりにはなりません。
+Regressionは全タグ付き2265検査を重複しない20 shard（同時最大10）で、command-line 17検査を別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
+runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
+分割の検証でhosted CI成功や適合性は立証しません。現在の結果は各workflowのページで確認してください。既知差分458件は通常の既定CI選択に含めません。
 
 ## recordingとscalar macroの条件
 

@@ -554,9 +554,10 @@ neither the test total nor the oracle count is such a percentage.
 
 Register-model coverage APIs describe available measurement models and sampling hooks; [Q311](faq.md#q311-does-coverage-construction-measure-functional-coverage-bins) distinguishes those tests from functional-bin measurements, while [the counting guide](requirements.md#counting-unit-and-scope-proposal) defines M4's requirement-coverage unit.
 
-**Check / Nightly** — This repository's validation workflow / the separate
-scheduled reporting workflow used by kirimasim-tests. This repository currently
-has Check only. Its badge does not report a full multi-simulator match rate.
+**Check / Regression / Nightly** — This repository's quick validation workflow
+for changed inputs / its full Verilator workflow, run manually and weekly / the
+separate scheduled reporting workflow used by kirimasim-tests, which this
+repository does not have. Neither result reports a full multi-simulator match rate.
 
 **Requirement ledger / stable requirement ID** — A versioned decomposition
 of normative behavior into observable obligations and conditions / a name

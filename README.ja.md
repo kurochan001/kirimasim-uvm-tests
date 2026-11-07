@@ -119,8 +119,10 @@ API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](doc
 `known`・`unsupported`は成功に数えません。Ghostの同梱UVMの結果は、固定版ライブラリでの結果を示すものではありません。
 
 詳しい実行条件と記録の範囲は[実行結果と測定方法](docs/results.ja.md)、ライブラリの制約とspecのみのケースは
-[既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・
-通常oracle付きVerilatorを8 shardへ分け、明示command-line 17件を検査し、kirimasimとGhostは実行しません。Nightlyや結果の自動公開はありません。
+[既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・台帳を検査し、
+pushとpull requestごとに入力が変わった通常oracle付きVerilator検査と固定canary 1件を実行します。
+[Regression](.github/workflows/regression.yml)は手動と毎週、タグ付き通常検査2265件を20 shardで、明示command-line 17件を別jobで実行します。
+どちらもkirimasimとGhostは実行せず、結果の自動公開はありません。
 
 ## ドキュメント
 

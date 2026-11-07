@@ -6356,3 +6356,26 @@ candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
 identifiers, actual remaining conditions, original milestone targets,
 human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q427-do-the-unpack-profiles-complete-the-payload-clause)
 explains why neither mapping nor matching controls completes the goal.
+
+## CI split: changed-input Check and full Regression
+
+A handoff audit on 2026-11-07 found that, of 166 Check runs on `main`, only the
+two on 2026-10-31 succeeded and 163 were cancelled. The single workflow ran the
+whole tagged selection on every push with `cancel-in-progress`, while pushes
+came every 30 to 40 minutes. The one 8-shard [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)
+that no push superseded reached the 150-minute limit on all eight shards, so
+the earlier split had not made the selection fit.
+
+Check now runs the tool, metadata, library and ledger checks and, through
+`tools/ci_select.py`, the tagged checks whose recorded inputs changed plus one
+canary; it falls back to the canary with a warning when the base is unknown, a
+file affecting every result changed or more than 30 checks are affected.
+[Regression](../.github/workflows/regression.yml) runs all 2265 tagged checks in
+20 disjoint shards (at most 10 concurrent, 360 minutes each) and the 17
+command-line checks, manually and weekly, without cancelling a run in progress.
+A shared setup action builds or restores Verilator 5.052 and fetches UVM.
+
+Eight new tool unit tests (118 in total) check the changed-input mapping,
+fallbacks and exact shard union. Tests, expectations, the ledger, runner
+fingerprints and stored evidence are unchanged. The shard count is estimated
+from local build times; this entry does not claim a successful hosted Regression.

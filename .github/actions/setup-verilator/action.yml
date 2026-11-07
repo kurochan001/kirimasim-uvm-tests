@@ -1,0 +1,48 @@
+name: Set up Verilator 5.052 and UVM
+description: >
+  Restores or builds Verilator 5.052, puts it on the path and fetches the
+  pinned UVM library. Used by the Check and Regression workflows.
+
+runs:
+  using: composite
+  steps:
+    # Restored and saved in separate steps, so that the build is kept even
+    # when the tests then fail the job.
+    - name: Restore Verilator 5.052
+      id: cache
+      uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ~/verilator
+        key: verilator-v5.052-ubuntu-24.04
+
+    - name: Build Verilator 5.052
+      if: steps.cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: |
+        sudo apt-get update || echo "::warning::apt-get update failed for some sources"
+        sudo apt-get install -y help2man autoconf flex bison libfl-dev zlib1g-dev
+        git clone -q --depth 1 --branch v5.052 https://github.com/verilator/verilator.git \
+          "$RUNNER_TEMP/verilator"
+        cd "$RUNNER_TEMP/verilator"
+        autoconf
+        ./configure -q --prefix="$HOME/verilator"
+        make -s -j"$(nproc)"
+        make -s install
+
+    - name: Save Verilator 5.052
+      if: steps.cache.outputs.cache-hit != 'true'
+      uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ~/verilator
+        key: verilator-v5.052-ubuntu-24.04
+
+    # No ccache: the model of a UVM test is built with a precompiled header
+    # that records the absolute path of its build directory (see
+    # tools/run_verilator.py).
+    - name: Put Verilator on the path
+      shell: bash
+      run: echo "$HOME/verilator/bin" >> "$GITHUB_PATH"
+
+    - name: Fetch the UVM library
+      shell: bash
+      run: python3 tools/fetch_uvm.py

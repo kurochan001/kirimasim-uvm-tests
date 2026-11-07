@@ -53,6 +53,7 @@ tools/run_ghost.py           非公開プロファイルを使うGhostのラン�
 tools/suite_results.py       判定と結果JSON（kirimasim-testsから写したもの）
 tools/lint_metadata.py       メタデータとテストの形式の検査
 tools/requirements.py        要求台帳の案の検査と棚卸し
+tools/ci_select.py           CIで実行する変更分またはshard分のタグ付き検査を選ぶ
 tools/sv_lifetimes.py        初期化付き手続き内ローカル変数の字句チェック
 tools/clauses_1800_2.txt     1800.2-2020の条項番号（番号だけ）
 tools/UPSTREAM               写したツールの元と、変えた点
@@ -593,17 +594,17 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト2723件（simulation 2624件・elaboration 99件）です。
+現在のツールの単体テストは118件、メタデータの対象はテスト2723件（simulation 2624件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
-Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
-各モデルを一度ビルドして2回使います。Checkの成功はその検査の成功を示し、
+Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
+各モデルを一度ビルドして2回使います。実行の成功はその実行が選んだ検査の成功を示し、
 UVMの全要求や全シミュレータの成功を示すものではありません。
 
-以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
-現在のworkflowは現在のタグ付き2265検査を重複しない8 shard（284／283／283／283／283／283／283／283）へ分け、同時shard jobは最大4です。
-和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
-seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
+Checkは記録入力が変わったタグ付き検査とcanaryを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻ります。
+Regressionは手動と毎週、タグ付き2265件を重複しない20 shardで、command-line 17件と合わせて実行します。
+戻る条件と上限、以前の8 shard版Checkが完了しなかった理由は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
+runner、library lock、多数の入力を変えた後は、Checkに頼らずRegressionを手動実行します。
 
 ## テストの追加・修正
 

@@ -90,7 +90,7 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-この記録は、tool単体テスト110件、全2723件（simulation 2624件・elaboration 99件）のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
+この記録は、tool単体テスト118件、全2723件（simulation 2624件・elaboration 99件）のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
 通過しています。資料だけの変更では、全シミュレーションを再buildせず、[ドキュメントの更新手順](testing.ja.md#ドキュメントの更新)に従って日英の対応とリンクを確認します。
 全件evidenceはVerilatorだけで、他2系統は未変更1081件の記録、1642入力は未測定です。実行のsmoke確認は次のとおりです。
 
@@ -102,8 +102,8 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 [以前のCheck実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41561342697)は参照用です。
 最新のworkflow結果はREADMEのbadgeで確認してください。後のcommitによって、このrunが置き換わる場合があります。
 local検証だけでCI全体の成功とは扱いません。
-Checkはtool、metadata、台帳、library、通常oracle付きVerilatorと明示command-line 17件を検査し、Ghost、kirimasim、spec-onlyの実行は含みません。
-Nightly workflowや結果の自動公開はありません。
+Checkはtool、metadata、台帳、libraryと、入力が変わった通常oracle付きVerilator検査およびcanaryを検査します。Regressionは手動と毎週、全タグ付き通常検査と明示command-line 17件を実行します。
+どちらもGhost、kirimasim、spec-onlyの実行は含まず、結果の自動公開はありません。
 
 ## 実測記録と直近の差分
 
@@ -158,10 +158,9 @@ AI義務は4101件で、他の旧要求4098件と分類445件は同一です。
 通常passは2265（runtime 2171／拒否94）、knownは458（runtime 318／build 135／不正受理5）です。
 guestは互換1081記録を保持し、未測定1642入力は追加1638件と修正した元入力4件です。
 
-以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
-現在のworkflowは現在のタグ付き2265検査を重複しない8 shard（284／283／283／283／283／283／283／283）へ分け、同時shard jobは最大4です。
-和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
-seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
+以前の単一Checkは、2026-10-31より後に全選択を完了していません。新しいpushで置き換えられなかった唯一の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)では、8 shardすべてが150分の上限に達しました。
+現在のCheckは入力が変わったタグ付き検査とcanaryを実行し、[Regression](../.github/workflows/regression.yml)は全タグ付き2265検査を重複しない20 shardで、command-line 17検査と合わせて実行します。上限は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
+seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。Checkがcanaryだけと報告した変更の後はRegressionを手動実行し、現在のcommitの結果を確認します。local検証でhosted workflowの成功は立証しません。
 
 集約した記録は、過去の未変更入力を保持し、再測定した記録だけを置換します。1回の呼出しで全件を再実行したものではありません。
 現在のhostでは、互換なlocal記録は次にあります。

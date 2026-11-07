@@ -81,7 +81,7 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
 ```
 
-The last implementation publication recorded [Check run 42355593581](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42355593581) as queued at 2026-11-07 08:29:08 UTC; this is historical observation, not a success claim. Check the run for the actual current commit. Eight ordinary shards, at most four concurrent, feed the aggregate gate; local passing results do not establish hosted CI success.
+The last implementation publication recorded [Check run 42355593581](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42355593581) as queued at 2026-11-07 08:29:08 UTC; it was later cancelled by the next push and is not a success claim. The former 8-shard Check never finished after 2026-10-31, so Check now runs changed tagged inputs plus a canary and [Regression](../.github/workflows/regression.yml) runs the whole selection in 20 shards; [the CI section](results.md#continuous-integration) explains both. Check both workflows for the actual current commit; local passing results do not establish hosted CI success.
 
 ## Message to give Claude Code when resuming
 

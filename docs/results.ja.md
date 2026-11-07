@@ -201,11 +201,18 @@ JSON出力は選択した実行のローカル記録であり、公開されるC
 shardは選んだテストを重複なく分担する単位で、最後のgateは全shardの成功を要求し、検査範囲との関係は[Q268](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)で説明しています。
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト110件、metadata 2723件、要求台帳の案／テスト索引、通常oracle付きVerilator 2265件（seed 1／73のruntime 2171・実行時seedなしのcompiler拒否94）と、別条件の明示command-line 17件を検査します。
-以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
-現在のworkflowは現在のタグ付き2265検査を重複しない8 shard（284／283／283／283／283／283／283／283）へ分け、同時shard jobは最大4です。
-和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
-seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
+固定ライブラリの整合性、ツールの単体テスト118件、metadata 2723件、要求台帳の案／テスト索引を検査します。
+Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
+基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Checkの成功は選んだ検査だけの成功です。
 
-kirimasim、Ghost、specのみのケースは実行しません。READMEのバッジは現在のCIで、このローカル測定とは別の状態です。
-Checkが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。Nightlyや結果の自動公開はありません。
+[Regression](../.github/workflows/regression.yml)は手動実行と毎週（土曜17:23 UTC）に動きます。
+タグ付き通常検査2265件（seed 1／73のruntime 2171・実行時seedなしのcompiler拒否94）を重複しない20 shard（114件が5、113件が15）へ分け、同時実行は最大10、各job上限は360分です。
+別条件の明示command-line 17件は別jobで実行し、gateは両方の成功を要求します。新しい要求は実行中のrunを取り消さずに待ちます。
+
+以前の単一Checkはpushごとに全選択を実行していました。分割前の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は150分のjob上限を超え、その後の8 shard版も完了していません。
+新しいpushで置き換えられなかった唯一の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)では8 shardすべてが150分の上限に達し、2026-10-31より後の他の実行は新しいpushで取り消されました。
+この分割でもseed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は変わらず、選択ツールはrunner指紋に含まれません。
+shard数はlocalのbuild時間から見積もったもので、local検証でhostedのRegression成功は立証しません。
+
+kirimasim、Ghost、specのみのケースはどちらのworkflowでも実行しません。READMEのバッジは現在のCheckの状態で、このローカル測定とは別です。
+CheckやRegressionが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。結果の自動公開はありません。

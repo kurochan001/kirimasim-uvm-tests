@@ -128,9 +128,11 @@ results for the pinned library.
 [Results and methodology](docs/results.md) gives the full execution conditions
 and evidence scope. [Known differences](docs/known-differences.md) lists the
 library limitations and spec-only tests. [Check](.github/workflows/check.yml)
-runs tool, metadata, library, tagged ordinary Verilator across 8 shards and seventeen explicit
-command-line checks; it does not run
-kirimasim or Ghost. There is no Nightly workflow or automatic result publication.
+runs tool, metadata, library and ledger checks and, for each push or pull request,
+the tagged ordinary Verilator checks whose inputs changed plus one canary.
+[Regression](.github/workflows/regression.yml) runs all 2265 tagged ordinary
+checks in 20 shards and the seventeen explicit command-line checks, manually and
+weekly. Neither runs kirimasim or Ghost, and there is no automatic result publication.
 
 ## Documentation
 

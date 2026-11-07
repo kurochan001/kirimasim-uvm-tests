@@ -1,16 +1,28 @@
 name: Check
 
 # Checks the tools, the metadata of the tests and the pinned UVM library, and
-# runs tagged Verilator 5.052 checks (`verilator@5.052` in :oracle:).
-# Runtime cases use two seeds; illegal elaboration cases require compiler
-# rejection with the declared diagnostic and do not run a binary. Each
-# expectation must match the fixed simulator/library condition.
+# runs the tagged Verilator 5.052 checks (`verilator@5.052` in :oracle:) whose
+# recorded inputs changed, plus a fixed canary (tools/ci_select.py). Runtime
+# cases use two seeds; illegal elaboration cases require compiler rejection
+# with the declared diagnostic and do not run a binary. Each expectation must
+# match the fixed simulator/library condition.
+#
+# This quick check does not replace the full selection: the whole tagged set
+# and the explicit command-line checks run in the Regression workflow
+# (regression.yml). When the base is unknown, a file that affects every result
+# changed, or too many checks are affected, only the canary runs and a warning
+# asks for Regression.
 
 on:
   push:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      base:
+        description: Revision whose inputs the changed checks are compared with
+        required: false
+        default: HEAD^
 
 permissions:
   contents: read
@@ -38,99 +50,29 @@ jobs:
       - name: Draft requirement ledger and test index
         run: python3 tools/requirements.py check
 
-  verilator_shards:
-    name: verilator (${{ matrix.shard }})
+  verilator:
     runs-on: ubuntu-24.04
-    timeout-minutes: 150
-    strategy:
-      fail-fast: false
-      max-parallel: 4
-      matrix:
-        shard: [0, 1, 2, 3, 4, 5, 6, 7]
+    timeout-minutes: 120
     steps:
+      # The whole history, so that the base revision can be compared.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      # Restored and saved in separate steps, so that the build is kept even
-      # when the tests then fail the job.
-      - name: Restore Verilator 5.052
-        id: cache
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
-          path: ~/verilator
-          key: verilator-v5.052-ubuntu-24.04
+          fetch-depth: 0
 
-      - name: Build Verilator 5.052
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          sudo apt-get update || echo "::warning::apt-get update failed for some sources"
-          sudo apt-get install -y help2man autoconf flex bison libfl-dev zlib1g-dev
-          git clone -q --depth 1 --branch v5.052 https://github.com/verilator/verilator.git \
-            "$RUNNER_TEMP/verilator"
-          cd "$RUNNER_TEMP/verilator"
-          autoconf
-          ./configure -q --prefix="$HOME/verilator"
-          make -s -j"$(nproc)"
-          make -s install
+      - uses: ./.github/actions/setup-verilator
 
-      - name: Save Verilator 5.052
-        if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ~/verilator
-          key: verilator-v5.052-ubuntu-24.04
-
-      # No ccache: the model of a UVM test is built with a precompiled header
-      # that records the absolute path of its build directory (see
-      # tools/run_verilator.py).
-      - name: Put Verilator on the path
-        run: echo "$HOME/verilator/bin" >> "$GITHUB_PATH"
-
-      - name: Fetch the UVM library
-        run: python3 tools/fetch_uvm.py
-
-      - name: Explicit command-line checks, seeds 1 and 73
-        if: matrix.shard == 0
-        run: python3 tools/run_verilator_cmdline.py --seeds 1 73 --build-jobs 2 -j 2
-
-      - name: Select this shard of the tagged checks
+      - name: Select the tagged checks whose inputs changed
         env:
-          MATRIX_SHARD_INDEX: ${{ matrix.shard }}
-          MATRIX_SHARD_COUNT: 8
-        run: |
-          python3 - <<'PY'
-          import os
-          from pathlib import Path
-          import sys
-          sys.path.insert(0, 'tools')
-          import run_verilator
-          import suite_results
+          # A pull request is checked out as a merge commit on its base.
+          BASE: >-
+            ${{ github.event_name == 'push' && github.event.before
+                || github.event_name == 'pull_request' && github.event.pull_request.base.sha
+                || inputs.base }}
+        run: python3 tools/ci_select.py --base "$BASE" --output out/verilator-changed.paths
 
-          index = int(os.environ['MATRIX_SHARD_INDEX'])
-          count = int(os.environ['MATRIX_SHARD_COUNT'])
-          assert 0 <= index < count
-          tests = sorted(run_verilator.selected(suite_results.find_tests(), False))
-          selected = tests[index::count]
-          assert selected, 'Empty shard must not fall back to the full suite'
-          Path('out').mkdir(exist_ok=True)
-          Path('out/verilator-shard.paths').write_text(
-              ''.join(str(path) + '\n' for path in selected))
-          print(f'Shard {index}/{count}: {len(selected)} of {len(tests)} tagged checks')
-          PY
-
-      - name: Tagged Verilator checks (runtime seeds 1 and 73)
+      - name: Selected Verilator checks (runtime seeds 1 and 73)
         run: |
-          mapfile -t cases < out/verilator-shard.paths
+          mapfile -t cases < out/verilator-changed.paths
           test "${#cases[@]}" -gt 0
           python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
-            --json out/verilator-shard.json "${cases[@]}"
-
-  verilator:
-    needs: verilator_shards
-    if: ${{ always() }}
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - name: Require every Verilator shard to succeed
-        env:
-          SHARDS_RESULT: ${{ needs.verilator_shards.result }}
-        run: test "$SHARDS_RESULT" = success
+            --json out/verilator-changed.json "${cases[@]}"

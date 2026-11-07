@@ -59,6 +59,7 @@ tools/run_ghost.py           private-profile runner under the public alias Ghost
 tools/suite_results.py       judgment and result JSON, copied from kirimasim-tests
 tools/lint_metadata.py       checks of the metadata and the form of the tests
 tools/requirements.py        validates and inventories the draft requirement ledger
+tools/ci_select.py           selects the changed or sharded tagged checks for CI
 tools/sv_lifetimes.py        lexical guard for initialized procedural locals
 tools/clauses_1800_2.txt     clause numbers of 1800.2-2020 (numbers only)
 tools/UPSTREAM               where the copied tool comes from, and what changed
@@ -785,23 +786,22 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-The current tool suite has 110 unit tests; metadata validation checks all
+The current tool suite has 118 unit tests; metadata validation checks all
 2723 tests (2624 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
-`main`, pull requests and manual dispatch. Its Verilator matrix jobs use
+`main`, pull requests and manual dispatch. Its Verilator job, like the
+[Regression](../.github/workflows/regression.yml) shards, uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
-built once for the two executions. A green Check establishes those checks,
-not that every UVM requirement or every simulator passes.
+built once for the two executions. A green run establishes the checks it
+selected, not that every UVM requirement or every simulator passes.
 
-The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
-exceeded the configured 150-minute job limit. The current workflow partitions
-the current 2265 tagged checks into 8 disjoint shards (284/283/283/283/283/283/283/283),
-with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
-verified locally. The 17 command-line checks run once, on shard 0 before
-ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies
-and runner fingerprints are unchanged. The existing verilator gate requires
-all shards to succeed. Sharding is orchestration; local
-validation does not establish a successful hosted workflow result.
+Check runs the tagged checks whose recorded inputs changed, plus a canary, and
+falls back to the canary alone with a warning when it cannot cover a change.
+Regression runs all 2265 tagged checks in 20 disjoint shards and the 17
+command-line checks, manually and weekly. [The CI section](results.md#continuous-integration)
+gives the fallbacks and limits, and why the earlier 8-shard Check never finished.
+After a change to the runner, the library lock or many inputs, dispatch
+Regression rather than relying on Check.
 
 ## Adding or correcting a test
 
