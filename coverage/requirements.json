@@ -89843,6 +89843,174 @@
       ]
     },
     {
+      "id": "UVM-MAM-AUDIT-RECONFIGURED-BOUNDS-RESERVE",
+      "clause": "18.12.4.2",
+      "statement": {
+        "en": "After reconfiguration moves both address-space bounds, explicit reservations follow the new bounds.",
+        "ja": "reconfigureで管理address範囲の両端を動かした後、明示的な予約は新しい範囲に従う。"
+      },
+      "conditions": {
+        "en": "In a manager with one byte per location and GREEDY/BROAD configuration that holds region 12..15, reconfigure the address space from 8..23 to 4..27 or from 4..27 to 8..23, keeping the byte width. Then make four-location explicit reservations at each new edge and at the four locations just outside each new bound.",
+        "ja": "1 locationあたり1 byte、GREEDY／BROAD設定で12〜15のregionを保持するmanagerのaddress範囲を、byte幅を変えずに8〜23から4〜27へ、または4〜27から8〜23へreconfigureする。その後、新しい範囲の両端と、各端のすぐ外側の4 locationで明示的な予約を行う。"
+      },
+      "expected": {
+        "en": "Both edge attempts succeed with exact geometry, both outside attempts return null, and only the held region and the two edge regions remain allocated.",
+        "ja": "両端の試行は正確な位置と長さで成功し、外側の試行はどちらもnullを返し、割り当てたまま残るのは保持regionと両端の2 regionだけとなる。"
+      },
+      "limitations": {
+        "en": "Probes of locations 4..7 and 24..27 before the change are controls and are released before reconfiguring, so every allocated region lies in both ranges. The returned configuration values and the held region are preconditions. Only one byte width, one mode/locality pair and four-location attempts are used; membership is counted without assuming iterator order. Diagnostic wording for rejected attempts is not checked, and incompatible reconfiguration that would exclude an allocated region is not exercised.",
+        "ja": "変更前の4〜7と24〜27の試行はcontrolで、reconfigureの前に解放するため、割り当てたregionはすべて両方の範囲に入る。返る設定値と保持regionは前提条件である。byte幅1種類、mode／locality 1組、4 locationの試行だけを使い、membershipはiterator順を仮定せずに数える。拒否時の診断本文は検査せず、割り当て済みregionを外す非互換なreconfigureは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_reconfigure_expand_reserve_115",
+          "role": "direct",
+          "expected_observations": [
+            "UT: after edges 1 1 outside 0 0",
+            "UT: members 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_reconfigure_shrink_reserve_115",
+          "role": "direct",
+          "expected_observations": [
+            "UT: after edges 1 1 outside 0 0",
+            "UT: members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-RECONFIGURED-BOUNDS-REQUEST",
+      "clause": "18.12.4.2",
+      "statement": {
+        "en": "After reconfiguration moves both address-space bounds, policy-driven requests follow the new bounds.",
+        "ja": "reconfigureで管理address範囲の両端を動かした後、policyによる要求は新しい範囲に従う。"
+      },
+      "conditions": {
+        "en": "In a manager with one byte per location and GREEDY/BROAD configuration that holds region 12..15, reconfigure the address space from 8..23 to 4..27 or from 4..27 to 8..23, keeping the byte width. Then make four-location policy-driven requests at each new edge and at the four locations just outside each new bound. Each request uses a policy constrained to start at that location.",
+        "ja": "1 locationあたり1 byte、GREEDY／BROAD設定で12〜15のregionを保持するmanagerのaddress範囲を、byte幅を変えずに8〜23から4〜27へ、または4〜27から8〜23へreconfigureする。その後、新しい範囲の両端と、各端のすぐ外側の4 locationでpolicyによる要求を行う。各要求は、開始位置をその位置に制約したpolicyを使う。"
+      },
+      "expected": {
+        "en": "Both edge attempts succeed with exact geometry, both outside attempts return null, and only the held region and the two edge regions remain allocated.",
+        "ja": "両端の試行は正確な位置と長さで成功し、外側の試行はどちらもnullを返し、割り当てたまま残るのは保持regionと両端の2 regionだけとなる。"
+      },
+      "limitations": {
+        "en": "Probes of locations 4..7 and 24..27 before the change are controls and are released before reconfiguring, so every allocated region lies in both ranges. The returned configuration values and the held region are preconditions. Only one byte width, one mode/locality pair and four-location attempts are used; membership is counted without assuming iterator order. Diagnostic wording for rejected attempts is not checked, and incompatible reconfiguration that would exclude an allocated region is not exercised. Fixed-start policies make each request deterministic; no random distribution is asserted.",
+        "ja": "変更前の4〜7と24〜27の試行はcontrolで、reconfigureの前に解放するため、割り当てたregionはすべて両方の範囲に入る。返る設定値と保持regionは前提条件である。byte幅1種類、mode／locality 1組、4 locationの試行だけを使い、membershipはiterator順を仮定せずに数える。拒否時の診断本文は検査せず、割り当て済みregionを外す非互換なreconfigureは実行しない。開始位置を固定したpolicyで要求を決定的にし、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_reconfigure_expand_request_115",
+          "role": "direct",
+          "expected_observations": [
+            "UT: after edges 1 1 outside 0 0",
+            "UT: members 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_reconfigure_shrink_request_115",
+          "role": "direct",
+          "expected_observations": [
+            "UT: after edges 1 1 outside 0 0",
+            "UT: members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-RECONFIGURED-POLICY-MINIMUM",
+      "clause": "18.12.8.2.3",
+      "statement": {
+        "en": "After reconfiguration, the policy minimum offset presented to a request is the new managed-space start.",
+        "ja": "reconfigure後、要求に渡すpolicyの最小offsetは、新しい管理範囲の開始位置となる。"
+      },
+      "conditions": {
+        "en": "In a manager with one byte per location and GREEDY/BROAD configuration that holds region 12..15, reconfigure the address space from 8..23 to 4..27 or from 4..27 to 8..23, keeping the byte width. Then make four-location policy-driven requests at each new edge and at the four locations just outside each new bound. Each request uses a policy constrained to start at that location.",
+        "ja": "1 locationあたり1 byte、GREEDY／BROAD設定で12〜15のregionを保持するmanagerのaddress範囲を、byte幅を変えずに8〜23から4〜27へ、または4〜27から8〜23へreconfigureする。その後、新しい範囲の両端と、各端のすぐ外側の4 locationでpolicyによる要求を行う。各要求は、開始位置をその位置に制約したpolicyを使う。"
+      },
+      "expected": {
+        "en": "Every pre_randomize call after reconfiguration sees min_offset equal to the new bound and a length of four, and the two successful edge requests make at least two such calls.",
+        "ja": "reconfigure後の各pre_randomize呼出しでmin_offsetは新しい端の値、lengthは4となり、成功した両端の要求で少なくとも2回呼び出される。"
+      },
+      "limitations": {
+        "en": "Observed in pre_randomize of an original policy subclass, including any calls made for the rejected outside requests. Values before reconfiguration and exact call counts are not asserted; the length is checked in the same row. Probes of locations 4..7 and 24..27 before the change are controls and are released before reconfiguring, so every allocated region lies in both ranges. The returned configuration values and the held region are preconditions.",
+        "ja": "独自policy subclassのpre_randomizeで観測し、外側の要求で呼ばれた場合も含める。reconfigure前の値と正確な呼出し回数はassertせず、lengthは同じ行で検査する。変更前の4〜7と24〜27の試行はcontrolで、reconfigureの前に解放するため、割り当てたregionはすべて両方の範囲に入る。返る設定値と保持regionは前提条件である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_reconfigure_expand_request_115",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy min 1 max 1 len 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_reconfigure_shrink_request_115",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy min 1 max 1 len 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-RECONFIGURED-POLICY-MAXIMUM",
+      "clause": "18.12.8.2.4",
+      "statement": {
+        "en": "After reconfiguration, the policy maximum offset presented to a request is the new managed-space end.",
+        "ja": "reconfigure後、要求に渡すpolicyの最大offsetは、新しい管理範囲の終了位置となる。"
+      },
+      "conditions": {
+        "en": "In a manager with one byte per location and GREEDY/BROAD configuration that holds region 12..15, reconfigure the address space from 8..23 to 4..27 or from 4..27 to 8..23, keeping the byte width. Then make four-location policy-driven requests at each new edge and at the four locations just outside each new bound. Each request uses a policy constrained to start at that location.",
+        "ja": "1 locationあたり1 byte、GREEDY／BROAD設定で12〜15のregionを保持するmanagerのaddress範囲を、byte幅を変えずに8〜23から4〜27へ、または4〜27から8〜23へreconfigureする。その後、新しい範囲の両端と、各端のすぐ外側の4 locationでpolicyによる要求を行う。各要求は、開始位置をその位置に制約したpolicyを使う。"
+      },
+      "expected": {
+        "en": "Every pre_randomize call after reconfiguration sees max_offset equal to the new bound and a length of four, and the two successful edge requests make at least two such calls.",
+        "ja": "reconfigure後の各pre_randomize呼出しでmax_offsetは新しい端の値、lengthは4となり、成功した両端の要求で少なくとも2回呼び出される。"
+      },
+      "limitations": {
+        "en": "Observed in pre_randomize of an original policy subclass, including any calls made for the rejected outside requests. Values before reconfiguration and exact call counts are not asserted; the length is checked in the same row. Probes of locations 4..7 and 24..27 before the change are controls and are released before reconfiguring, so every allocated region lies in both ranges. The returned configuration values and the held region are preconditions.",
+        "ja": "独自policy subclassのpre_randomizeで観測し、外側の要求で呼ばれた場合も含める。reconfigure前の値と正確な呼出し回数はassertせず、lengthは同じ行で検査する。変更前の4〜7と24〜27の試行はcontrolで、reconfigureの前に解放するため、割り当てたregionはすべて両方の範囲に入る。返る設定値と保持regionは前提条件である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mam_reconfigure_expand_request_115",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy min 1 max 1 len 1"
+          ]
+        },
+        {
+          "test": "u18/test_mam_reconfigure_shrink_request_115",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy min 1 max 1 len 1"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-MAM-AUDIT-DEFAULT-POLICY-RERANDOMIZE",
       "clause": "18.12.3",
       "statement": {
@@ -159582,8 +159750,8 @@
         "ja": "各setterを1回以上訪問し、初回訪問はaddress、command、data length、DMI、data、response、enable length、enables、widthの順になる。別の直接呼出しの確認は明示した逆順に従う。"
       },
       "limitations": {
-        "en": "Qualified interpretation of the named setter list in 12.3.4.2.5 combined with virtual-accessor declaration 12.3.4.2.15 and SV 8.20; whether that text mandates actual virtual calls, including zero-byte array setters, still needs review. Only first visits/presence are prescribed; exact invocation counts are DIAG112 only with no oracle/link. No do_unpack workaround, source-derived expected trace or causal simulator/library attribution. Matching field/extension rows or plain controls cannot pass a whole observed input with a trace mismatch. Unused capacity, binary encoding, full payload/TLM/milestone completion and human/scope/denominator approval remain open.",
-        "ja": "12.3.4.2.5のsetter列挙、12.3.4.2.15のvirtual accessor宣言、SV8.20を合わせた限定した解釈で、0 byte配列のsetterを含め実際のvirtual呼出しを義務付けるかは照合が必要である。初回訪問／存在だけを規定し、正確な呼出し回数はoracle／linkのないDIAG112だけにする。do_unpackの回避処理、実装source由来の期待trace、simulator／libraryの原因帰属はしない。field／extension行や通常controlの一致では、traceが異なる観測入力全体をpassにしない。未使用容量、binary符号化、payload／TLM／段階全体の完了、人／範囲／分母承認は未解決である。"
+        "en": "Qualified interpretation of the named setter list in 12.3.4.2.5 combined with virtual-accessor declaration 12.3.4.2.15 and SV 8.20; whether that text mandates actual virtual calls, including zero-byte array setters, still needs review. Only first visits/presence are prescribed; exact invocation counts are DIAG112 only with no oracle/link. No do_unpack workaround, source-derived expected trace or causal simulator/library attribution. Matching field/extension rows or plain controls cannot pass a whole observed input with a trace mismatch. Unused capacity, binary encoding, full payload/TLM/milestone completion and human/scope/denominator approval remain open. A later AI re-review found that the 12.3.4.2.6 note recommends accessors outside randomization for compatibility with derivations, which supports this reading, but the note is informative and 12.3.4.2.4 lists getters in the same form; the reading stays qualified until human review.",
+        "ja": "12.3.4.2.5のsetter列挙、12.3.4.2.15のvirtual accessor宣言、SV8.20を合わせた限定した解釈で、0 byte配列のsetterを含め実際のvirtual呼出しを義務付けるかは照合が必要である。初回訪問／存在だけを規定し、正確な呼出し回数はoracle／linkのないDIAG112だけにする。do_unpackの回避処理、実装source由来の期待trace、simulator／libraryの原因帰属はしない。field／extension行や通常controlの一致では、traceが異なる観測入力全体をpassにしない。未使用容量、binary符号化、payload／TLM／段階全体の完了、人／範囲／分母承認は未解決である。後のAIによる再照合では、12.3.4.2.6のNOTEが派生classとの互換性のためにrandomization以外でaccessorを使うよう勧めており、この読み方を支えるが、NOTEは参考情報で、12.3.4.2.4も同じ形でgetterを列挙するため、人の照合まで限定した解釈のままとする。"
       },
       "review": {
         "status": "ai",

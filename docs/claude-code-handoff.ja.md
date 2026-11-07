@@ -4,9 +4,9 @@
 
 ## 最初に読むこと
 
-2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)で113回目の拡充を公開しました。その後、最初のRegressionでhostedのrunnerにz3制約solverがないことが分かり、準備用actionで導入して、この文面を含むcommitで114回目の拡充を公開しました。**goalは継続中で、完了していません。**
+2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)で113回目の拡充を公開しました。その後、最初のRegressionでhostedのrunnerにz3制約solverがないことが分かり、準備用actionで導入して、[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)で114回目の拡充を公開しました。その後、この文面を含むcommitで115回目の拡充を公開しました。**goalは継続中で、完了していません。**
 
-編集前に実際のbranchと作業ツリーを確認してください。114回目のnative測定はすべて終了済みです。
+編集前に実際のbranchと作業ツリーを確認してください。115回目のnative測定はすべて終了済みです。
 
 最初に現在のworkspaceの指示を読みます。ユーザーのagent向け指示は`RTK.md`を参照するため、現在の環境で解決してください。非公開設定やユーザーの絶対パスを公開ファイルへ記載しません。
 
@@ -14,11 +14,11 @@
 
 生成する3つのキュー、つまり未対応テスト・直接テストのない要求・未評価の条項識別子は0件です。**実際の残作業が0件とは実証されていません。** 棚卸し2507識別子のうち2062件は一部分解、445件は分類済みです。範囲は提案段階、完全性はfalse、承認済み分母とcoverage率はnullで、人のレビューは未記録です。元のM1〜M4目標と規範的義務の適用条件は未完で、これらの異なる指標は[要求ガイド](requirements.ja.md)で説明しています。
 
-- テスト：22 directoryに2731件 = simulation 2632 + elaboration 99。M1：1171（1090/81）、M2：624（617/7）、M3：936（925/11）。
-- AI要求：4105件すべてを2675テストへ直接対応。control専用は56テストです。人のレビューは主張しません。
-- 通常のpass入力：2273件 = seed 1/73でruntime一致2179 + 期待したcompiler rejection 94。
+- テスト：22 directoryに2735件 = simulation 2636 + elaboration 99。M1：1171（1090/81）、M2：624（617/7）、M3：940（929/11）。
+- AI要求：4109件すべてを2679テストへ直接対応。control専用は56テストです。人のレビューは主張しません。
+- 通常のpass入力：2277件 = seed 1/73でruntime一致2183 + 期待したcompiler rejection 94。
 - 既知差分：458件 = runtime差分318 + simulation build失敗135 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。
-- guest証拠：互換1081記録、未測定1650入力（追加1646 + 改訂した元入力4）。112〜114回目にguest測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
+- guest証拠：互換1081記録、未測定1654入力（追加1650 + 改訂した元入力4）。112〜115回目にguest測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
 - 候補の配置：primaryテスト0件が1170番号、1件が768番号、2件以上が544番号です。条項の網羅や独立した検査の成功を証明する件数ではありません。
 
 HDL backendとcommand-lineの追加検査には別の実行条件があり、[実行結果](results.ja.md)と[テストガイド](testing.ja.md)を確認してください。範囲を確認せず通常の総数へ加算しません。
@@ -29,8 +29,8 @@ hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していま�
 
 - [Check](../.github/workflows/check.yml)はtool・metadata・library・台帳の検査と、入力が変わったタグ付き検査、canary 1件を実行します（[選択ツール](../tools/ci_select.py)）。42d03ab（[run 42359747127](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747127)、canaryのみ）とf94ba4a（[run 42360326889](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42360326889)、113回目の4入力とcanary）で成功しました。どちらの選択も乱数化を行いません。
 - [Regression](../.github/workflows/regression.yml)は手動と毎週、全タグ付き検査を20 shard（同時4、各360分）で、command-line 17件と合わせて実行します。最初の起動である42d03abの[run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603)は、command-line job（成功）とshard 0・2・3（342件中334件一致）の完了後に取り消しました。8件の差分はすべて制約付き乱数化に依存し、imageのpathにSMT solverがありませんでした。localでz3を外すと、確かめた4件の差分を再現しました。このrunはどのcommitのRegression結果でもありません。
-- [準備用action](../.github/actions/setup-verilator/action.yml)はすべてのjobでz3を導入し、その版を表示します。114回目のcommitのCheckは、allocation policyを乱数化するrequest側の2 profileを選ぶため、hostedのrunnerでsolverを使います。
-- このsessionは公開後にRegressionを再度起動しますが、その結果はここでは主張しません。まず`gh run list --workflow regression.yml`を確認し、shardがtimeoutまたは失敗した場合は、テストを追加公開する前に調べます。
+- [準備用action](../.github/actions/setup-verilator/action.yml)はすべてのjobでz3を導入し、その版を表示します。[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)のCheck（[run 42371357208](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42371357208)）はz3 4.8.12を導入し、allocation policyを乱数化するrequest側の2 profileを含む選択5件が一致しました。
+- Regressionはdb06513で[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)として再度起動しました。115回目の文面の作成時点では実行中で、Regressionの結果は主張しません。115回目のcommitはこのrunを確認してから公開しました。結果は`gh run list --workflow regression.yml`で確認し、shardがtimeoutまたは失敗した場合は、テストを追加公開する前に調べます。
 - 同時10で起動したrunは、アカウント共有のhosted job枠を埋めて他のrepositoryを遅らせたため以前に取り消しました。Regressionの同時実行数は控えめに保ち、全件実行を重ねて起動しません。
 
 ## 維持する判断
@@ -44,6 +44,8 @@ hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していま�
 
 ## 最新実装と限界
 
+115回目では`tests/u18/`へM3の4 profileを追加し、`tests/u18/helpers115_mam_reconfigure/reconfigure115.svh`を共有します。12〜15のregionを保持するmanagerを8〜23から4〜27へ、または4〜27から8〜23へreconfigureし、その後は新しい範囲の両端での予約または開始位置を固定した要求が正確な位置と長さで成功し、各端のすぐ外側では拒否される必要があります。request側はpre_randomizeで、min_offset、max_offset、lenが新しい範囲を示すことも検査します。最初の凍結はpolicyのhandle名に予約語`before`を使ったためbuildできず、変えたのは2つのhandle名だけで、buildできなかった入力は`out/thin-one-hundred-fifteenth-before-identifier-fix/`に保管しています。新しい義務は`UVM-MAM-AUDIT-RECONFIGURED-BOUNDS-RESERVE`、`-BOUNDS-REQUEST`、`-POLICY-MINIMUM`、`-POLICY-MAXIMUM`で、[reconfigureのFAQ](faq.ja.md#q432-reconfigure後の範囲のprofileは何を検査しますか)を参照してください。112回目のsetter順の義務の限界にはAI再照合を記録しました。12.3.4.2.6のNOTEはvirtual呼出しの読み方を支えますが参考情報のため、観測profile 2件は人の照合までknownのままです。
+
 114回目では`tests/u18/`へM3の4 profileを追加し、`tests/u18/helpers114_mam_stale_source/stale_source114.svh`を共有します。古いdescriptorは、request_regionで得てmanagerまたはregion経由で解放したものか、動的なvirtual register配列を実装または割り当ててvirtual registerのmethodで解放したものです。各profileはpeerの予約を保ち、空いた範囲を再利用した後、保存したdescriptorをmanagerから解放します。18.12.5.3はerrorを求めます。virtual registerのregionでは、18.9.1.1.4と18.9.1.1.5がvirtual registerのmethodでの解放を定めているため、配列が未実装になった後にだけ古いdescriptorを解放し、これは明記した解釈です。検査するのはerrorの発生だけです。
 
 最初の凍結では、virtual registerのsetup行でregion ownerの照会もassertしていました。virtual registerの2入力はその点だけが異なり、既存の18.12.7.2.7のowner既知差分を再現し、request側の2入力は一致しました。その照会はDIAG114行へ移し、getterのidentityはassertしたままで、期待ファイルは変えていません。最初の凍結の入力と測定は`out/thin-one-hundred-fourteenth-before-owner-split/`に保管しています。改訂した入力はtag付けの前後ともseed 1／73で一致しました。新しい義務は`UVM-MAM-AUDIT-STALE-REQUEST-DESCRIPTOR-RELEASE-ERROR`、`UVM-VREG-AUDIT-STALE-REGION-MANAGER-RELEASE-ERROR`、`UVM-VREG-AUDIT-RELEASE-KEEPS-PEER-RESERVATION`で、`UVM-MAM-AUDIT-REGION-RELEASE`にはrequest側のregion経由profileを追加しました。[取得元のFAQ](faq.ja.md#q430-古いdescriptorの取得元profileは何を追加しますか)を参照してください。
@@ -52,28 +54,30 @@ hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していま�
 
 ## ローカル資料
 
-Git対象外の`out/`は補助的なlocal証拠であり、版管理する正本ではありません。clone先には存在しない場合があります。このhostでの114回目のファイルは次のとおりです。
+Git対象外の`out/`は補助的なlocal証拠であり、版管理する正本ではありません。clone先には存在しない場合があります。このhostでの115回目のファイルは次のとおりです。
 
 ```text
-out/thin-one-hundred-fourteenth-pretag-freeze.json
-out/thin-one-hundred-fourteenth-verilator-pretag.json
-out/thin-one-hundred-fourteenth-verilator-final.json
-out/thin-one-hundred-fourteenth-verilator-combined.json
-out/thin-one-hundred-fourteenth-evidence-scope.json
-out/thin-one-hundred-fourteenth-inventory.json
-out/thin-one-hundred-fourteenth-backlog.json
-out/thin-one-hundred-fourteenth-doc-contents-effective.json
-out/thin-one-hundred-fourteenth-regression-42359747603.json
-out/thin-one-hundred-fourteenth-before-owner-split/
+out/thin-one-hundred-fifteenth-pretag-freeze.json
+out/thin-one-hundred-fifteenth-verilator-pretag.json
+out/thin-one-hundred-fifteenth-verilator-final.json
+out/thin-one-hundred-fifteenth-verilator-combined.json
+out/thin-one-hundred-fifteenth-evidence-scope.json
+out/thin-one-hundred-fifteenth-inventory.json
+out/thin-one-hundred-fifteenth-backlog.json
+out/thin-one-hundred-fifteenth-doc-contents-effective.json
+out/thin-one-hundred-fifteenth-before-identifier-fix/
 ```
 
-guest記録は[詳細ハンドオフ](handoff.ja.md#実測記録と直近の差分)に記載した112回目のファイルのままです。`out/thin-one-hundred-fourteenth-generator-used.py`、`-wrap-used.py`、`-ledger-used.py`、`-docs-used.py`は実際に使ったscriptで、guardがf94ba4aと113回目の資料本文を参照するため、113回目のscriptと同様に再実行しません。次の資料更新はeffective snapshotと現在の版管理ファイルから始めます。indexへの追記時は既存の順序を保持し、証拠を持ち越す前に入力・runner・library・simulatorのfingerprintを確認します。規則は[証拠の集約](results.ja.md#記録の合算)にあります。
+114回目のファイルは同じ名前の`fourteenth`版で、他に`out/thin-one-hundred-fourteenth-regression-42359747603.json`と`out/thin-one-hundred-fourteenth-before-owner-split/`があります。
+
+guest記録は[詳細ハンドオフ](handoff.ja.md#実測記録と直近の差分)に記載した112回目のファイルのままです。`out/thin-one-hundred-fifteenth-generator-used.py`、`-ledger-used.py`、`-docs-used.py`と、同じ形の114回目のscriptは実際に使ったもので、guardが以前のcommitと資料本文を参照するため再実行しません。次の資料更新はeffective snapshotと現在の版管理ファイルから始めます。indexへの追記時は既存の順序を保持し、証拠を持ち越す前に入力・runner・library・simulatorのfingerprintを確認します。規則は[証拠の集約](results.ja.md#記録の合算)にあります。
 
 ## 次の候補
 
 承認済みの範囲ではなく提案です。選ぶ前にbacklogを再生成します。
 
-- まず新しいRegressionの結果を確認します。solverを入れた状態での最初の全件hosted結果です。
+- まず[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)の結果を確認します。solverを入れた状態での最初の全件hosted結果です。
+- 18.12.4.2の、範囲と同時にmode／localityを変えるreconfigureや他のbyte幅。
 - 112回目のunpackの列挙setterの問題：規格と照合し、library証拠を理由にknownをpassへ変更しません。
 - 第18章の他の部分条件（部分393番号）と全体の部分2062番号を、元のM1〜M3目標と比べます。
 
@@ -100,4 +104,4 @@ gh run list --workflow regression.yml --limit 3
 
 ## 再開時にClaude Codeへ渡す文面
 
-> 現在のworkspaceの指示、README、日英のClaude Codeハンドオフを読んでください。main・作業ツリー・最新のCheckと、z3 solverの修正後に起動した最新のRegressionの結果を確認してください。ユーザーが許可した範囲で、継続中のM1〜M4のgoalを続けてください。生成する3キューは0ですが、部分分解2062番号と元のmilestone目標が残り、実際の未対応0件は未実証です。意味のある残る条件をlocal IEEE規格で監査し、既存テストとの重複を避けてください。独立した期待値、限定した既知差分、互換な証拠、runner指紋、商用結果の不使用、Ghostの非公開情報、完全な日英資料を維持してください。完了済みの一時scriptを再実行しないでください。最終入力を測定し、適切な検査を実施して限界を報告し、許可された範囲でmainへ公開してください。レビュー・範囲承認・pass・goal完了を捏造しないでください。
+> 現在のworkspaceの指示、README、日英のClaude Codeハンドオフを読んでください。main・作業ツリー・最新のCheckと、z3 solverの修正後に起動した最新のRegression（42372122368以降）の結果を確認してください。ユーザーが許可した範囲で、継続中のM1〜M4のgoalを続けてください。生成する3キューは0ですが、部分分解2062番号と元のmilestone目標が残り、実際の未対応0件は未実証です。意味のある残る条件をlocal IEEE規格で監査し、既存テストとの重複を避けてください。独立した期待値、限定した既知差分、互換な証拠、runner指紋、商用結果の不使用、Ghostの非公開情報、完全な日英資料を維持してください。完了済みの一時scriptを再実行しないでください。最終入力を測定し、適切な検査を実施して限界を報告し、許可された範囲でmainへ公開してください。レビュー・範囲承認・pass・goal完了を捏造しないでください。

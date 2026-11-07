@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4105 AI-drafted requirements, all with direct links to 2675 tests.
-Fifty-six tests have only control links. All 2731 tests have a requirement link.
+contains 4109 AI-drafted requirements, all with direct links to 2679 tests.
+Fifty-six tests have only control links. All 2735 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4105 draft entries span several areas,
+a heading is not an obligation. The 4109 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2731-test
+known difference. It is not a pass or a conformance claim. The current 2735-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2731 reviewed requirement mappings.
+  index is an inventory, not 2735 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -284,7 +284,7 @@ The table retains every catalog root, including context and deferred roots; cont
 | 15 | 132 | 124 | 0 | 18 | 0 |
 | 16 | 280 | 188 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
-| 18 | 937 | 648 | 0 | 63 | 0 |
+| 18 | 941 | 652 | 0 | 63 | 0 |
 | 19 | 199 | 165 | 0 | 24 | 0 |
 | B | 258 | 235 | 0 | 9 | 0 |
 | C | 98 | 69 | 0 | 13 | 0 |
@@ -298,60 +298,60 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4105 reviews are `ai` and
+Scope is proposed, all 4109 reviews are `ai` and
 the denominator remains unapproved.
 
-The 114th expansion adds four M3 memory-manager profiles that obtain the
-stale descriptor from other sources: a request_region descriptor released
-through the manager or through its region facade, and the region of a dynamic
-virtual-register array implemented with implement or allocate and released with
-the virtual-register release method. Each profile keeps an independent peer
-reservation, checks membership without an iterator-order oracle, reuses the
-freed range and then releases the saved descriptor again through the manager;
-[the source FAQ](faq.md#q430-what-do-the-stale-descriptor-source-profiles-add)
+The 115th expansion adds four M3 memory-manager profiles for reconfigured
+address-space bounds: widening 8..23 to 4..27 or narrowing 4..27 to 8..23,
+crossed with explicit reservations or fixed-start policy requests. A region at
+12..15 is held throughout. Before the change, locations 4..7 and 24..27 are
+probed as controls and released. After it, four locations at each new edge must
+be allocatable with exact geometry, the four locations just outside each new
+bound must be rejected, and only the held and edge regions remain;
+[the reconfiguration FAQ](faq.md#q432-what-do-the-reconfigured-bounds-profiles-check)
 explains the boundary.
 
-18.12.5.3 requires an error when the specified region is no longer allocated.
-For a virtual-register region, 18.9.1.1.4 and 18.9.1.1.5 direct release through
-the virtual-register method instead of the manager; the stale call is made only
-after that release has left the array unimplemented, which is a stated
-interpretation. Only the presence of an error is checked; the DIAG114 report
-counts are diagnostic. After the invalid call no state of that manager, array
-or memory is inspected; an independently constructed manager supplies the
-later reservation checks.
+18.12.4.2 states that reconfiguration modifies the minimum and maximum
+addresses of the managed space, while existing tests checked only the returned
+configuration, retained regions and mode/locality changes. The request profiles
+also record, in pre_randomize of an original policy subclass, that min_offset,
+max_offset and len present the new bounds and a four-location length
+(18.12.8.2.1, 18.12.8.2.3 and 18.12.8.2.4). Fixed-start policies make the
+requests deterministic.
 
-The first freeze also asserted the region-owner query in the virtual-register
-setup row. Both virtual-register inputs differed only there at both seeds,
-reproducing the existing [owner known difference](known-differences.md#spec-only-tests);
-the request inputs matched. Because that query is outside this duty and is
-already asserted by the existing owner test, it became a DIAG114 row while the
-getter's descriptor identity stays asserted. Expected files are unchanged. The
-first-freeze inputs and batches are archived under
-`out/thin-one-hundred-fourteenth-before-owner-split/` and are not current
-evidence. The revised inputs match seeds 1/73 before and after tagging; only
+The first freeze did not build: a policy handle used the reserved word
+`before`. Only the two handle names changed; expected files, printed rows and
+comments are unchanged. The unbuilt inputs and their build record are archived
+under `out/thin-one-hundred-fifteenth-before-identifier-fix/` and are not
+evidence. The re-frozen inputs match seeds 1/73 before and after tagging; only
 the `:oracle:` line changed between those two measurements.
 
-Two new error duties cover the requested and virtual-register sources, a third
-covers the virtual-register release leaving a peer allocated, and the
-region-release duty gains the requested region-facade profile. The total is
-4105 AI duties, with 4101 other old objects and all 445 assessments unchanged;
-2675 tests have direct links, 158 have controls and 56 are control-only. All
-2727 old ordinary/index records and 458 old known inputs remain unchanged.
+The 112th named-setter question received an AI re-review. The 12.3.4.2.6 note
+recommends accessors outside randomization for compatibility with derivations,
+which supports the virtual-visit reading, but the note is informative and
+12.3.4.2.4 lists getters in the same form. The reading stays qualified, the two
+observed profiles stay known, and the duty's limitations record the review.
 
-The suite has 2731 tests (2632 simulation/99 elaboration). Ordinary results
-are 2273 matches: 2179 runtime inputs at both seeds and 94 compiler rejections.
+Four new duties cover reservations, requests and the two policy bounds after
+reconfiguration, and the setter-order duty gains the review note. The total is
+4109 AI duties, with 4104 other old objects and all 445 assessments unchanged;
+2679 tests have direct links, 158 have controls and 56 are control-only. All
+2731 old ordinary/index records and 458 old known inputs remain unchanged.
+
+The suite has 2735 tests (2636 simulation/99 elaboration). Ordinary results
+are 2277 matches: 2183 runtime inputs at both seeds and 94 compiler rejections.
 Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
 five accepted illegal designs without runtime. The two backend subsets are
 unchanged. No guest run/filter is added: 1081 compatible records remain
-byte-identical and 1650 inputs are unmeasured (1646 additions/four revised
-originals; 1551 simulation/99 elaboration).
+byte-identical and 1654 inputs are unmeasured (1650 additions/four revised
+originals; 1555 simulation/99 elaboration).
 
-Chapter 18 retains 393 partial/63 assessed/0 unassessed identifiers, with 937
-duties and 648 primary tests. Primary-focused identifiers remain 1316;
+Chapter 18 retains 393 partial/63 assessed/0 unassessed identifiers, with 941
+duties and 652 primary tests. Primary-focused identifiers remain 1316;
 candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
 identifiers, actual remaining conditions, original milestone targets,
-human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q431-do-the-source-profiles-complete-the-stale-descriptor-contract)
-explains why the error matches do not complete the goal.
+human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q433-do-the-reconfigured-bounds-profiles-complete-reconfiguration)
+explains why matching bounds do not complete the goal.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -768,4 +768,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4105 AI drafts and their direct links do not satisfy that gate.
+The current 4109 AI drafts and their direct links do not satisfy that gate.

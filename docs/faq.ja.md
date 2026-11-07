@@ -170,7 +170,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2675件、HDL DPIの明示選択が38件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2679件、HDL DPIの明示選択が38件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -211,7 +211,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め936件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め940件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -1035,8 +1035,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる4105要求案は部分的な分解で、4105要求を2675テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
-全2731テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる4109要求案は部分的な分解で、4109要求を2679テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
+全2735テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -2426,7 +2426,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1081件へ減った理由は？
 
 command enum引用、Boolean rerandomization観測、virtual-field configure引用に加え、reraiseの主引用を直した元入力1件で指紋が変わり、古いguest行を除外しました。4入力はそれぞれの変更時点で再測定し、reraiseの改訂は前回の拡充で両seedを測定しました。歴史的な1085記録の出典fileは保持します。
-現在は互換1081入力を再利用し、未測定1650入力は追加1646件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
+現在は互換1081入力を再利用し、未測定1654入力は追加1650件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
 
@@ -2478,9 +2478,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2731テストを2 seedで実行しましたか？
+### Q201. 全2735テストを2 seedで実行しましたか？
 
-いいえ。simulation 2632件とelaboration 99件があります。通常記録はruntime両seed一致2179件、期待compiler拒否94件、既知simulation差分453件、不正compile受理の既知差分5件です。
+いいえ。simulation 2636件とelaboration 99件があります。通常記録はruntime両seed一致2183件、期待compiler拒否94件、既知simulation差分453件、不正compile受理の既知差分5件です。
 不正design 99件は、compileを受理された場合もruntime seedを実行しません。
 
 `configuration`の`seeds`は要求した設定であり、全ケースが両方の実行に達した証拠ではないため、個別の結果と併せた読み方は[JSONのガイド](reading-guide.ja.md#結果jsonを開く)で確認できます。
@@ -2865,7 +2865,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価0番号です。
-スイートは直接対応2675テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2679テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2950,7 +2950,7 @@ shardはworkflowが選んだテストを分割した1区画で、CheckとRegress
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
 いいえ。現在のCheckは入力が変わったタグ付き検査とcanaryだけを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻るため、全選択の代わりにはなりません。
-Regressionは全タグ付き2273検査を重複しない20 shard（同時最大4）で、command-line 17検査を別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
+Regressionは全タグ付き2277検査を重複しない20 shard（同時最大4）で、command-line 17検査を別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
 runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
 分割の検証でhosted CI成功や適合性は立証しません。現在の結果は各workflowのページで確認してください。既知差分458件は通常の既定CI選択に含めません。
 
@@ -3071,7 +3071,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 その以前の引用修正では、本体とoracleが同じでも指紋が変わり、互換1083記録を1082へ絞りました。その時点ではGhostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
 
-現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1650入力は追加1646件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
+現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1654入力は追加1650件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3255,7 +3255,7 @@ zero-timeの委譲やprimitive release/readと、この実HDL 8入力の違い�
 
 既に部分分解した条項へ義務や条件を足しても、未評価queueは変わらない場合があります。
 初回の分解や根拠のある分類でそのqueueが変わり、テスト追加だけでは減らない場合があります。
-現在の4105義務は2675テストへ直接対応し、部分2062・未評価0番号が残ります。
+現在の4109義務は2679テストへ直接対応し、部分2062・未評価0番号が残ります。
 別々の進捗指標は[棚卸しのガイド](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
 
 ## Register HDL pathと観測の前提
@@ -3878,7 +3878,7 @@ queueの件数は記録したレビュー作業を表し、完全性や実行成
 
 いいえ。全2507識別子が部分的な要求分解または個別評価を持ち、部分2062・分類445です。
 B.4のregister／execute動作に部分義務を置き、継承の記述は未解決で保持します。
-全4105義務に直接テスト、全2731テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
+全4109義務に直接テスト、全2735テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
 元のM1〜M4目標、人の照合、範囲／分母承認は未完であり、完了条件は[残作業の案内](requirements.ja.md#m4の残作業と承認)にあります。
 coverage割合やgoal完了は主張しません。
 
@@ -4052,7 +4052,7 @@ descriptionと主引用を保留dropの10.5.1.3.4へ直し、本体と期待2行
 drop_objectionの主引用は0件から13件へ増え、getterは2件から1件になりますが、独立した検査や要求全体を証明しません。
 
 ヘッダー編集は[更新規則](requirements.ja.md#テストや対応付けの更新)で入力指紋を変えます。改訂した元入力の古いguest行を互換1082記録から除外し、1081件を保持します。
-未測定1650入力は追加1646件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
+未測定1654入力は追加1650件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
 guestの再実行、改善、新しいpassはなく、元の証拠を保管し、通常の既知440入力も全て保持します。goalは未完です。
 
 ## 物理addressの直接変換
@@ -4341,3 +4341,30 @@ AI義務4105件、他の旧要求4101件、分類445件を同一に保持しま�
 
 virtual register配列を実装中のregionのmanagerからの解放、並行した解放、範囲を再び予約した状態での古いdescriptorの解放は未完で、部分2062番号、元の目標、人の照合、範囲／分母承認も残ります。
 errorの一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。
+
+## memory managerのreconfigure後の範囲
+
+### Q432. reconfigure後の範囲のprofileは何を検査しますか？
+
+各profileは、1 locationあたり1 byteで明示設定したmanagerに12〜15のregionを保持します。
+広げるprofileは8〜23から4〜27へ、狭めるprofileは4〜27から8〜23へreconfigureし、範囲の両端が動きます。
+変更前に4〜7と24〜27を試して得たregionは解放し、[helper](../tests/u18/helpers115_mam_reconfigure/reconfigure115.svh)は返る前後の範囲と保持regionを確認します。
+
+変更後は、新しい範囲の両端での4 locationの予約または開始位置を固定した要求が正確な位置と長さで成功し、各端のすぐ外側ではnullを返す必要があります。
+18.12.4.2はreconfigureで管理範囲の最小・最大addressが変わると定め、18.12.5.1と18.12.5.2はregionを予約または割り当てできない場合にnullを返すと定めます。
+request側のprofileはpre_randomizeでmin_offset、max_offset、lenも記録し、変更後の各呼出しは新しい範囲と4 locationの長さを示す必要があります。
+
+割り当て済みregionを外す非互換なreconfigureは行わず、拒否時の本文は検査しません。4入力は、[履歴](history.ja.md#薄い領域の115回目の拡充memory-managerのreconfigure後の範囲)に記したbuildだけの名前修正の後、seed 1／73で一致します。
+
+### Q433. 範囲のprofileでreconfigureは完了しますか？
+
+完了しません。reconfigure後の予約、要求、policyの最小・最大を新しい義務4件で扱います。
+AI義務4109件、他の旧要求4104件、分類445件を同一に保持します。第18章は部分393／分類63／未評価0、義務941件、主引用652テストです。
+
+全体は2735テスト（simulation 2636／elaboration 99）、直接対応2679テスト、通常一致2277件（runtime両seed 2183／compiler拒否94）です。
+既知は458入力のままです。guestは新しい実行／filterなしで互換1081／未測定1654入力です。
+
+[setter順の読み方](#q426-field値が一致してもsetter順序を限定した解釈とする理由は)はAIで再照合しました。12.3.4.2.6のNOTEはこの読み方を支えますが、NOTEは参考情報で、pack側の列挙も同じ形のため、観測profile 2件は人の照合までknownのままです。
+
+範囲と同時にmode／localityを変えるreconfigure、他のbyte幅、非互換なreconfigure、新しい範囲内の乱数配置は未完で、部分2062番号、元の目標、人の照合、範囲／分母承認も残ります。
+範囲の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。

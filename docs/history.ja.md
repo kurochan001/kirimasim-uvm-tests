@@ -4010,3 +4010,30 @@ AI義務は4105件で、他の旧要求4101件と分類445件は同一です。�
 第18章は部分393／分類63／未評価0番号、義務937件、主引用648テストです。
 主引用がある番号は1316のままで、candidateは0件1170／目標未満768／2件以上544です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、errorの一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q431-取得元profileで古いdescriptorの契約は完了しますか)で説明しています。
+
+## 薄い領域の115回目の拡充：memory managerのreconfigure後の範囲
+
+115回目はM3のmemory manager profileを4件追加し、reconfigure後のaddress範囲を検査します。8〜23から4〜27へ広げるか4〜27から8〜23へ狭める変更と、明示的な予約または開始位置を固定したpolicyによる要求を組み合わせます。
+12〜15のregionは全体を通して保持します。変更前に4〜7と24〜27をcontrolとして試して解放し、変更後は新しい範囲の両端の4 locationを正確な位置と長さで割り当てられ、各端のすぐ外側の4 locationは拒否され、保持regionと両端のregionだけが残る必要があります。境界は[reconfigureのFAQ](faq.ja.md#q432-reconfigure後の範囲のprofileは何を検査しますか)で説明しています。
+
+18.12.4.2はreconfigureで管理範囲の最小・最大addressが変わると定めますが、既存テストは返る設定、保持region、mode／localityの変更だけを検査していました。
+request側のprofileは、独自policy subclassのpre_randomizeで、min_offset、max_offset、lenが新しい範囲と4 locationの長さを示すことも記録します（18.12.8.2.1、18.12.8.2.3、18.12.8.2.4）。開始位置を固定したpolicyで要求を決定的にします。
+
+最初の凍結はbuildできませんでした。policyのhandle名に予約語`before`を使っていたためです。変えたのは2つのhandle名だけで、期待ファイル、出力行、コメントは変えていません。
+buildできなかった入力とそのbuild記録は`out/thin-one-hundred-fifteenth-before-identifier-fix/`に保管し、証拠には使いません。凍結し直した入力はtag付けの前後ともseed 1／73で一致し、2回の測定の間で変わったのは`:oracle:`行だけです。
+
+112回目の列挙setterの問題はAIで再照合しました。12.3.4.2.6のNOTEは派生classとの互換性のためにrandomization以外でaccessorを使うよう勧めており、virtual呼出しの読み方を支えますが、NOTEは参考情報で、12.3.4.2.4も同じ形でgetterを列挙しています。
+読み方は限定したままで、観測profile 2件はknownのままです。照合の結果は義務の限界に記録しました。
+
+reconfigure後の予約、要求、policyの最小・最大の範囲を新しい義務4件で扱い、setter順の義務に再照合の記録を追加します。
+AI義務は4109件で、他の旧要求4104件と分類445件は同一です。直接対応は2679テスト、control対応は158テスト、controlのみは56テストです。
+元の通常／index 2731記録と旧既知458入力は全て維持します。
+
+全体は2735テスト（simulation 2636／elaboration 99）です。通常一致は2277件で、runtime両seed 2183入力とcompiler拒否94件です。
+既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。
+2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1654入力です。
+追加1650件と修正した元入力4件で、simulation 1555／elaboration 99です。
+
+第18章は部分393／分類63／未評価0番号、義務941件、主引用652テストです。
+主引用がある番号は1316のままで、candidateは0件1170／目標未満768／2件以上544です。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、範囲の一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q433-範囲のprofileでreconfigureは完了しますか)で説明しています。

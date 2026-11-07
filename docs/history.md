@@ -6491,3 +6491,57 @@ candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
 identifiers, actual remaining conditions, original milestone targets,
 human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q431-do-the-source-profiles-complete-the-stale-descriptor-contract)
 explains why the error matches do not complete the goal.
+
+## 115th thin-area expansion: reconfigured memory-manager bounds
+
+The 115th expansion adds four M3 memory-manager profiles for reconfigured
+address-space bounds: widening 8..23 to 4..27 or narrowing 4..27 to 8..23,
+crossed with explicit reservations or fixed-start policy requests. A region at
+12..15 is held throughout. Before the change, locations 4..7 and 24..27 are
+probed as controls and released. After it, four locations at each new edge must
+be allocatable with exact geometry, the four locations just outside each new
+bound must be rejected, and only the held and edge regions remain;
+[the reconfiguration FAQ](faq.md#q432-what-do-the-reconfigured-bounds-profiles-check)
+explains the boundary.
+
+18.12.4.2 states that reconfiguration modifies the minimum and maximum
+addresses of the managed space, while existing tests checked only the returned
+configuration, retained regions and mode/locality changes. The request profiles
+also record, in pre_randomize of an original policy subclass, that min_offset,
+max_offset and len present the new bounds and a four-location length
+(18.12.8.2.1, 18.12.8.2.3 and 18.12.8.2.4). Fixed-start policies make the
+requests deterministic.
+
+The first freeze did not build: a policy handle used the reserved word
+`before`. Only the two handle names changed; expected files, printed rows and
+comments are unchanged. The unbuilt inputs and their build record are archived
+under `out/thin-one-hundred-fifteenth-before-identifier-fix/` and are not
+evidence. The re-frozen inputs match seeds 1/73 before and after tagging; only
+the `:oracle:` line changed between those two measurements.
+
+The 112th named-setter question received an AI re-review. The 12.3.4.2.6 note
+recommends accessors outside randomization for compatibility with derivations,
+which supports the virtual-visit reading, but the note is informative and
+12.3.4.2.4 lists getters in the same form. The reading stays qualified, the two
+observed profiles stay known, and the duty's limitations record the review.
+
+Four new duties cover reservations, requests and the two policy bounds after
+reconfiguration, and the setter-order duty gains the review note. The total is
+4109 AI duties, with 4104 other old objects and all 445 assessments unchanged;
+2679 tests have direct links, 158 have controls and 56 are control-only. All
+2731 old ordinary/index records and 458 old known inputs remain unchanged.
+
+The suite has 2735 tests (2636 simulation/99 elaboration). Ordinary results
+are 2277 matches: 2183 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
+five accepted illegal designs without runtime. The two backend subsets are
+unchanged. No guest run/filter is added: 1081 compatible records remain
+byte-identical and 1654 inputs are unmeasured (1650 additions/four revised
+originals; 1555 simulation/99 elaboration).
+
+Chapter 18 retains 393 partial/63 assessed/0 unassessed identifiers, with 941
+duties and 652 primary tests. Primary-focused identifiers remain 1316;
+candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
+identifiers, actual remaining conditions, original milestone targets,
+human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q433-do-the-reconfigured-bounds-profiles-complete-reconfiguration)
+explains why matching bounds do not complete the goal.

@@ -10925,6 +10925,22 @@
     "u18/test_mam_stale_vreg_implement_release_114": {
       "primary_clause": "18.12.5.3",
       "inputs_sha256": "c3a1dfcdda630990ab333d01d642b22bfde8668a295eba51d494cee3bcff7454"
+    },
+    "u18/test_mam_reconfigure_expand_request_115": {
+      "primary_clause": "18.12.4.2",
+      "inputs_sha256": "80bffeef00d0ca30554c01a9432495ea650774a0f8ce89e10f146c8cd47ce11d"
+    },
+    "u18/test_mam_reconfigure_expand_reserve_115": {
+      "primary_clause": "18.12.4.2",
+      "inputs_sha256": "a2269ff72d1c85f5d7b8c6e526af0fcba6752dba2b5f488aaa7f5e3128af129b"
+    },
+    "u18/test_mam_reconfigure_shrink_request_115": {
+      "primary_clause": "18.12.4.2",
+      "inputs_sha256": "c8cdbfa25787caacc7e8c5fb6545b60766040f22d3e77f725a154f7af540c3eb"
+    },
+    "u18/test_mam_reconfigure_shrink_reserve_115": {
+      "primary_clause": "18.12.4.2",
+      "inputs_sha256": "d52bfb831da747982f910726f8d3990390e2b13569ffe25d9e2ddb31f1b551c8"
     }
   }
 }
