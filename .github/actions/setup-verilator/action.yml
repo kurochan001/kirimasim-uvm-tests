@@ -36,6 +36,19 @@ runs:
         path: ~/verilator
         key: verilator-v5.052-ubuntu-24.04
 
+    # A Verilator model solves constrained randomization (randomize(), randc,
+    # memory-allocation policies) at run time with an SMT solver found on the
+    # path. Without one, randomize() fails and those tests differ, so the
+    # solver is installed in every job rather than kept in the cached build.
+    - name: Install the z3 constraint solver
+      shell: bash
+      run: |
+        if ! sudo apt-get install -y z3; then
+          sudo apt-get update || echo "::warning::apt-get update failed for some sources"
+          sudo apt-get install -y z3
+        fi
+        z3 --version
+
     # No ccache: the model of a UVM test is built with a precompiled header
     # that records the absolute path of its build directory (see
     # tools/run_verilator.py).
