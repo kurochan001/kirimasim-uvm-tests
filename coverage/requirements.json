@@ -154549,6 +154549,378 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-CASE-SENSITIVE-COMPONENT-NAMES-101",
+      "clause": "1.4",
+      "statement": {
+        "en": "Case-only component names identify distinct immediate children and exact hierarchical lookup paths.",
+        "ja": "caseだけが異なるcomponent名は、異なる直接childと正確な階層lookup pathを識別する。"
+      },
+      "conditions": {
+        "en": "Construct route101/Route101 branches with leaf101/Leaf101 descendants, query a missing uppercase branch, then add ROUTE101 and repeat the queries.",
+        "ja": "route101／Route101の枝とleaf101／Leaf101の子孫を生成し、不在のuppercase枝を照会後にROUTE101を追加して反復する。"
+      },
+      "expected": {
+        "en": "Exact names select their own handles; an unmatched spelling stays absent until explicitly added and cross-case paths do not resolve.",
+        "ja": "正確な名は自身のhandleを選び、不一致の綴りは明示追加まで不在で、caseの異なるpathは解決しない。"
+      },
+      "limitations": {
+        "en": "Partial 1.4 applicability for the named ASCII-case profiles and their API-specific exact-name/query contracts. Two construction/selection variants retain all declared observations. Explicit case-insensitive exceptions such as G.1.3.3 remain exceptions. No universal name/type/factory/regex/locale coverage, implicit lock prerequisite, cached-depth repair, arbitrary hierarchy mutation or physical bus/HDL behavior is inferred. All old known inputs, remaining applicability, original M1-M4 targets and unapproved human/scope/denominator status remain unchanged.",
+        "ja": "名前を挙げたASCII case profileとAPI固有の正確な名前／照会契約に対する1.4の部分的適用である。生成／選択2variantで宣言した全観測を保持する。G.1.3.3のように明示されたcase-insensitiveの例外は維持する。普遍的な名前／型／factory／regex／localeの網羅、暗黙のlock前提、depth cacheの修復、任意の階層変更、物理bus／HDL動作を推測しない。以前の既知入力、残る適用条件、元のM1〜M4目標、人／範囲／分母の未承認状態は保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_case_sensitive_component_0_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 component 0 stage 0 names 1 count 2 bag 1 iterator 1",
+            "UT: case101 component 0 stage 1 names 1 count 3 bag 1 iterator 1",
+            "UT: case101 component 0 stage 2 names 1 count 3 bag 1 iterator 1"
+          ]
+        },
+        {
+          "test": "u01/test_case_sensitive_component_1_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 component 1 stage 0 names 1 count 2 bag 1 iterator 1",
+            "UT: case101 component 1 stage 1 names 1 count 3 bag 1 iterator 1",
+            "UT: case101 component 1 stage 2 names 1 count 3 bag 1 iterator 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CASE-SENSITIVE-POOL-NAMES-101",
+      "clause": "1.4",
+      "statement": {
+        "en": "String-key pool operations keep case-only keys and their stored values independent through delete, reinsert and overwrite.",
+        "ja": "string-key poolの操作は、caseだけが異なるkeyと格納値をdelete、再挿入、上書きの履歴を通じて独立に保つ。"
+      },
+      "conditions": {
+        "en": "Use key101/Key101 with distinct values and a separate pool peer; delete the selected key, reinsert it and overwrite the other without creating a missing uppercase key.",
+        "ja": "key101／Key101へ別値を設定し独立pool peerを持つ。選択keyの削除／再挿入と他方の上書きを行い、不在のuppercase keyを生成しない。"
+      },
+      "expected": {
+        "en": "Only the exact selected key changes, the key count and traversal membership match each stage, and the independent peer retains both original values.",
+        "ja": "正確な選択keyだけが変化し、key件数と走査所属が各段階に一致して、独立peerは元の両値を保持する。"
+      },
+      "limitations": {
+        "en": "Partial 1.4 applicability for the named ASCII-case profiles and their API-specific exact-name/query contracts. Two construction/selection variants retain all declared observations. Explicit case-insensitive exceptions such as G.1.3.3 remain exceptions. No universal name/type/factory/regex/locale coverage, implicit lock prerequisite, cached-depth repair, arbitrary hierarchy mutation or physical bus/HDL behavior is inferred. All old known inputs, remaining applicability, original M1-M4 targets and unapproved human/scope/denominator status remain unchanged.",
+        "ja": "名前を挙げたASCII case profileとAPI固有の正確な名前／照会契約に対する1.4の部分的適用である。生成／選択2variantで宣言した全観測を保持する。G.1.3.3のように明示されたcase-insensitiveの例外は維持する。普遍的な名前／型／factory／regex／localeの網羅、暗黙のlock前提、depth cacheの修復、任意の階層変更、物理bus／HDL動作を推測しない。以前の既知入力、残る適用条件、元のM1〜M4目標、人／範囲／分母の未承認状態は保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_case_sensitive_pool_0_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 pool 0 stage 0 keys 1 count 2 iterator 1 peer 1",
+            "UT: case101 pool 0 stage 1 keys 1 count 1 iterator 1 peer 1",
+            "UT: case101 pool 0 stage 2 keys 1 count 2 iterator 1 peer 1",
+            "UT: case101 pool 0 stage 3 keys 1 count 2 iterator 1 peer 1"
+          ]
+        },
+        {
+          "test": "u01/test_case_sensitive_pool_1_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 pool 1 stage 0 keys 1 count 2 iterator 1 peer 1",
+            "UT: case101 pool 1 stage 1 keys 1 count 1 iterator 1 peer 1",
+            "UT: case101 pool 1 stage 2 keys 1 count 2 iterator 1 peer 1",
+            "UT: case101 pool 1 stage 3 keys 1 count 2 iterator 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CASE-SENSITIVE-SEQUENCE-NAMES-101",
+      "clause": "1.4",
+      "statement": {
+        "en": "Inactive sequence paths and root names preserve caller-supplied case through parent and name changes.",
+        "ja": "非active sequenceのpathとroot名は、親／名前の変更でもcallerが指定したcaseを保持する。"
+      },
+      "conditions": {
+        "en": "Create two case-only three-level sequence chains, reparent the selected tip, rename the current shared root and selected tip, then detach that tip.",
+        "ja": "caseだけが異なる3段sequence chainを2つ生成し、選択tipの親変更、現在の共有rootと選択tipのrename、そのtipの分離を行う。"
+      },
+      "expected": {
+        "en": "Paths are the current supplied names joined by dots; parent/root handles and root names follow the current chain while tip identities remain stable.",
+        "ja": "pathは現在の指定名をdotでつなぎ、parent／root handleとroot名は現在のchainに従い、tipの同一性は安定する。"
+      },
+      "limitations": {
+        "en": "Partial 1.4 applicability for the named ASCII-case profiles and their API-specific exact-name/query contracts. Two construction/selection variants retain all declared observations. Explicit case-insensitive exceptions such as G.1.3.3 remain exceptions. No universal name/type/factory/regex/locale coverage, implicit lock prerequisite, cached-depth repair, arbitrary hierarchy mutation or physical bus/HDL behavior is inferred. All old known inputs, remaining applicability, original M1-M4 targets and unapproved human/scope/denominator status remain unchanged. The detached root-self/name expectation is an explicit qualified reading of the root-sequence definitions in14.1.2.9 and14.2.3.1 with14.1.2.12/.13; separate flags retain the original aggregate oracle. No depth or start execution is tested, and no case-folding or library-only cause is attributed.",
+        "ja": "名前を挙げたASCII case profileとAPI固有の正確な名前／照会契約に対する1.4の部分的適用である。生成／選択2variantで宣言した全観測を保持する。G.1.3.3のように明示されたcase-insensitiveの例外は維持する。普遍的な名前／型／factory／regex／localeの網羅、暗黙のlock前提、depth cacheの修復、任意の階層変更、物理bus／HDL動作を推測しない。以前の既知入力、残る適用条件、元のM1〜M4目標、人／範囲／分母の未承認状態は保持する。 分離後のroot-self／name期待は、14.1.2.9と14.2.3.1のroot sequence定義を14.1.2.12／.13と合わせた明示的な限定解釈で、個別flagでも元の結合oracleを保持する。depthやstart実行を検査せず、case-foldingやlibraryだけの原因を割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_case_sensitive_sequence_0_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 sequence 0 stage 0 names_paths 1 identities 1",
+            "UT: case101 sequence 0 stage 1 names_paths 1 identities 1",
+            "UT: case101 sequence 0 stage 2 names_paths 1 identities 1",
+            "UT: case101 sequence 0 stage 3 names_paths 1 identities 1",
+            "UT: case101 sequence 0 detached path 1 parent_null 1 root_self 1 root_name 1"
+          ]
+        },
+        {
+          "test": "u01/test_case_sensitive_sequence_1_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 sequence 1 stage 0 names_paths 1 identities 1",
+            "UT: case101 sequence 1 stage 1 names_paths 1 identities 1",
+            "UT: case101 sequence 1 stage 2 names_paths 1 identities 1",
+            "UT: case101 sequence 1 stage 3 names_paths 1 identities 1",
+            "UT: case101 sequence 1 detached path 1 parent_null 1 root_self 1 root_name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CASE-SENSITIVE-REGISTER-NAMES-101",
+      "clause": "1.4",
+      "statement": {
+        "en": "Block register queries distinguish case-only simple names in local and descendant scopes.",
+        "ja": "blockのregister照会は、localと子孫scopeでcaseだけが異なる単純名を区別する。"
+      },
+      "conditions": {
+        "en": "Use local item101/Item101 and descendant leaf101/Leaf101 registers plus a separate peer root; query before lock and twice after lock without adding a lock prerequisite.",
+        "ja": "localのitem101／Item101、子孫のleaf101／Leaf101 register、独立peer rootを使い、lock前とlock後2回を照会してlock前提を追加しない。"
+      },
+      "expected": {
+        "en": "Each exact name finds its own register; unmatched uppercase, ancestor-only and unrelated-peer names return null under the stated API scopes.",
+        "ja": "正確な名は自身のregisterを返し、不一致のuppercase、祖先だけにある名、無関係peerの名はAPIのscopeに従いnullを返す。"
+      },
+      "limitations": {
+        "en": "Partial 1.4 applicability for the named ASCII-case profiles and their API-specific exact-name/query contracts. Two construction/selection variants retain all declared observations. Explicit case-insensitive exceptions such as G.1.3.3 remain exceptions. No universal name/type/factory/regex/locale coverage, implicit lock prerequisite, cached-depth repair, arbitrary hierarchy mutation or physical bus/HDL behavior is inferred. All old known inputs, remaining applicability, original M1-M4 targets and unapproved human/scope/denominator status remain unchanged.",
+        "ja": "名前を挙げたASCII case profileとAPI固有の正確な名前／照会契約に対する1.4の部分的適用である。生成／選択2variantで宣言した全観測を保持する。G.1.3.3のように明示されたcase-insensitiveの例外は維持する。普遍的な名前／型／factory／regex／localeの網羅、暗黙のlock前提、depth cacheの修復、任意の階層変更、物理bus／HDL動作を推測しない。以前の既知入力、残る適用条件、元のM1〜M4目標、人／範囲／分母の未承認状態は保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_case_sensitive_register_0_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 model 0 0 stage 0 names 1 missing 1 scope 1",
+            "UT: case101 model 0 0 stage 1 names 1 missing 1 scope 1",
+            "UT: case101 model 0 0 stage 2 names 1 missing 1 scope 1"
+          ]
+        },
+        {
+          "test": "u01/test_case_sensitive_register_1_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 model 0 1 stage 0 names 1 missing 1 scope 1",
+            "UT: case101 model 0 1 stage 1 names 1 missing 1 scope 1",
+            "UT: case101 model 0 1 stage 2 names 1 missing 1 scope 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CASE-SENSITIVE-MEMORY-NAMES-101",
+      "clause": "1.4",
+      "statement": {
+        "en": "Block memory queries distinguish case-only simple names in local and descendant scopes.",
+        "ja": "blockのmemory照会は、localと子孫scopeでcaseだけが異なる単純名を区別する。"
+      },
+      "conditions": {
+        "en": "Use the same selected local/descendant and independent-peer name shapes with configured memories, before lock and twice after lock.",
+        "ja": "同じ選択local／子孫と独立peerの名前形状でmemoryを構成し、lock前とlock後2回を使う。"
+      },
+      "expected": {
+        "en": "Exact names find only the specified-scope memory; missing case variants, ancestor-only and unrelated-peer names do not match.",
+        "ja": "正確な名は指定scopeのmemoryだけを返し、不在のcase variant、祖先だけの名、無関係peerの名には一致しない。"
+      },
+      "limitations": {
+        "en": "Partial 1.4 applicability for the named ASCII-case profiles and their API-specific exact-name/query contracts. Two construction/selection variants retain all declared observations. Explicit case-insensitive exceptions such as G.1.3.3 remain exceptions. No universal name/type/factory/regex/locale coverage, implicit lock prerequisite, cached-depth repair, arbitrary hierarchy mutation or physical bus/HDL behavior is inferred. All old known inputs, remaining applicability, original M1-M4 targets and unapproved human/scope/denominator status remain unchanged.",
+        "ja": "名前を挙げたASCII case profileとAPI固有の正確な名前／照会契約に対する1.4の部分的適用である。生成／選択2variantで宣言した全観測を保持する。G.1.3.3のように明示されたcase-insensitiveの例外は維持する。普遍的な名前／型／factory／regex／localeの網羅、暗黙のlock前提、depth cacheの修復、任意の階層変更、物理bus／HDL動作を推測しない。以前の既知入力、残る適用条件、元のM1〜M4目標、人／範囲／分母の未承認状態は保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_case_sensitive_memory_0_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 model 1 0 stage 0 names 1 missing 1 scope 1",
+            "UT: case101 model 1 0 stage 1 names 1 missing 1 scope 1",
+            "UT: case101 model 1 0 stage 2 names 1 missing 1 scope 1"
+          ]
+        },
+        {
+          "test": "u01/test_case_sensitive_memory_1_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 model 1 1 stage 0 names 1 missing 1 scope 1",
+            "UT: case101 model 1 1 stage 1 names 1 missing 1 scope 1",
+            "UT: case101 model 1 1 stage 2 names 1 missing 1 scope 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CASE-SENSITIVE-FIELD-NAMES-101",
+      "clause": "1.4",
+      "statement": {
+        "en": "Register field lookup distinguishes case-only names within each owning register before and after model lock.",
+        "ja": "registerのfield lookupは、model lockの前後に所有registerごとのcaseだけが異なる名を区別する。"
+      },
+      "conditions": {
+        "en": "Configure lane101/Lane101 at nonoverlapping positions in two registers, reverse field construction order and query before and after lock.",
+        "ja": "2つのregisterの重ならない位置へlane101／Lane101を構成し、field生成順を反転してlock前後を照会する。"
+      },
+      "expected": {
+        "en": "Each exact field name returns the matching owner-specific handle; an unmatched uppercase name returns null without leaking a peer field.",
+        "ja": "正確なfield名は所有者固有の対応handleを返し、不一致のuppercase名はpeer fieldを混入せずnullを返す。"
+      },
+      "limitations": {
+        "en": "Partial 1.4 applicability for the named ASCII-case profiles and their API-specific exact-name/query contracts. Two construction/selection variants retain all declared observations. Explicit case-insensitive exceptions such as G.1.3.3 remain exceptions. No universal name/type/factory/regex/locale coverage, implicit lock prerequisite, cached-depth repair, arbitrary hierarchy mutation or physical bus/HDL behavior is inferred. All old known inputs, remaining applicability, original M1-M4 targets and unapproved human/scope/denominator status remain unchanged.",
+        "ja": "名前を挙げたASCII case profileとAPI固有の正確な名前／照会契約に対する1.4の部分的適用である。生成／選択2variantで宣言した全観測を保持する。G.1.3.3のように明示されたcase-insensitiveの例外は維持する。普遍的な名前／型／factory／regex／localeの網羅、暗黙のlock前提、depth cacheの修復、任意の階層変更、物理bus／HDL動作を推測しない。以前の既知入力、残る適用条件、元のM1〜M4目標、人／範囲／分母の未承認状態は保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_case_sensitive_field_0_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 model 2 0 stage 0 names 1 missing 1 scope 1",
+            "UT: case101 model 2 0 stage 0 field_order 1",
+            "UT: case101 model 2 0 stage 1 names 1 missing 1 scope 1",
+            "UT: case101 model 2 0 stage 1 field_order 1",
+            "UT: case101 model 2 0 stage 2 names 1 missing 1 scope 1",
+            "UT: case101 model 2 0 stage 2 field_order 1"
+          ]
+        },
+        {
+          "test": "u01/test_case_sensitive_field_1_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 model 2 1 stage 0 names 1 missing 1 scope 1",
+            "UT: case101 model 2 1 stage 0 field_order 1",
+            "UT: case101 model 2 1 stage 1 names 1 missing 1 scope 1",
+            "UT: case101 model 2 1 stage 1 field_order 1",
+            "UT: case101 model 2 1 stage 2 names 1 missing 1 scope 1",
+            "UT: case101 model 2 1 stage 2 field_order 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-CASE-ENUMERATION-MULTIPLICITY-101",
+      "clause": "13.1.3.3",
+      "statement": {
+        "en": "Child enumeration appends exactly the immediate case-distinct children without imposing an unspecified traversal order.",
+        "ja": "child列挙は、未規定の走査順を固定せず、caseが異なる直接childだけを正確に末尾へ追加する。"
+      },
+      "conditions": {
+        "en": "Use a caller prefix containing a descendant, reverse construction and append a third case-only child after the first query; iterate with a finite guard.",
+        "ja": "子孫を含むcaller prefixを使い、生成順を反転し、最初の照会後にcaseだけが異なる3番目のchildを追加して有限guardで走査する。"
+      },
+      "expected": {
+        "en": "The prefix is retained; each immediate child appears once, descendants are excluded from the appended suffix and the cursor is retained at exhaustion.",
+        "ja": "prefixを保持し、各直接childは1回だけ現れ、追加suffixは子孫を除き、終端でcursorを保持する。"
+      },
+      "limitations": {
+        "en": "Partial 1.4 applicability for the named ASCII-case profiles and their API-specific exact-name/query contracts. Two construction/selection variants retain all declared observations. Explicit case-insensitive exceptions such as G.1.3.3 remain exceptions. No universal name/type/factory/regex/locale coverage, implicit lock prerequisite, cached-depth repair, arbitrary hierarchy mutation or physical bus/HDL behavior is inferred. All old known inputs, remaining applicability, original M1-M4 targets and unapproved human/scope/denominator status remain unchanged.",
+        "ja": "名前を挙げたASCII case profileとAPI固有の正確な名前／照会契約に対する1.4の部分的適用である。生成／選択2variantで宣言した全観測を保持する。G.1.3.3のように明示されたcase-insensitiveの例外は維持する。普遍的な名前／型／factory／regex／localeの網羅、暗黙のlock前提、depth cacheの修復、任意の階層変更、物理bus／HDL動作を推測しない。以前の既知入力、残る適用条件、元のM1〜M4目標、人／範囲／分母の未承認状態は保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_case_sensitive_component_0_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 component 0 stage 0 names 1 count 2 bag 1 iterator 1",
+            "UT: case101 component 0 stage 1 names 1 count 3 bag 1 iterator 1",
+            "UT: case101 component 0 stage 2 names 1 count 3 bag 1 iterator 1"
+          ]
+        },
+        {
+          "test": "u01/test_case_sensitive_component_1_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 component 1 stage 0 names 1 count 2 bag 1 iterator 1",
+            "UT: case101 component 1 stage 1 names 1 count 3 bag 1 iterator 1",
+            "UT: case101 component 1 stage 2 names 1 count 3 bag 1 iterator 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CASE-FIELD-POSITION-ORDER-101",
+      "clause": "18.4.3.11",
+      "statement": {
+        "en": "Case-distinct field names do not relax the explicit least-to-most-significant field enumeration order.",
+        "ja": "caseの異なるfield名によって、明示されたfield列挙のLSBからMSBへの順序を緩めない。"
+      },
+      "conditions": {
+        "en": "Configure two fields in opposite insertion orders at LSB0/8 in two sixteen-bit registers and repeat before/after lock.",
+        "ja": "16-bit register 2つのLSB0／8へ2fieldを逆の挿入順で構成し、lock前後で反復する。"
+      },
+      "expected": {
+        "en": "The returned queue has exactly two entries ordered by their declared bit positions, with the exact corresponding handles.",
+        "ja": "返却queueは宣言bit位置順に正確な対応handleを2つ保持する。"
+      },
+      "limitations": {
+        "en": "Partial 1.4 applicability for the named ASCII-case profiles and their API-specific exact-name/query contracts. Two construction/selection variants retain all declared observations. Explicit case-insensitive exceptions such as G.1.3.3 remain exceptions. No universal name/type/factory/regex/locale coverage, implicit lock prerequisite, cached-depth repair, arbitrary hierarchy mutation or physical bus/HDL behavior is inferred. All old known inputs, remaining applicability, original M1-M4 targets and unapproved human/scope/denominator status remain unchanged.",
+        "ja": "名前を挙げたASCII case profileとAPI固有の正確な名前／照会契約に対する1.4の部分的適用である。生成／選択2variantで宣言した全観測を保持する。G.1.3.3のように明示されたcase-insensitiveの例外は維持する。普遍的な名前／型／factory／regex／localeの網羅、暗黙のlock前提、depth cacheの修復、任意の階層変更、物理bus／HDL動作を推測しない。以前の既知入力、残る適用条件、元のM1〜M4目標、人／範囲／分母の未承認状態は保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_case_sensitive_field_0_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 model 2 0 stage 0 field_order 1",
+            "UT: case101 model 2 0 stage 1 field_order 1",
+            "UT: case101 model 2 0 stage 2 field_order 1"
+          ]
+        },
+        {
+          "test": "u01/test_case_sensitive_field_1_101",
+          "role": "direct",
+          "expected_observations": [
+            "UT: case101 model 2 1 stage 0 field_order 1",
+            "UT: case101 model 2 1 stage 1 field_order 1",
+            "UT: case101 model 2 1 stage 2 field_order 1"
+          ]
+        }
+      ]
     }
   ]
 }

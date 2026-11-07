@@ -1800,3 +1800,13 @@ Current API profiles use their own clauses as the oracle; [Q382](faq.md#q382-doe
 **Unordered link endpoint pair** — The two exact objects connected by a typed relation, checked without assigning undocumented parent/child roles to lhs/rhs slots or fixing descriptor names/counts.
 
 **Signed byte separator** — A byte argument whose high bit may be set, such as 0x80/0xff; the split profiles match the same byte in the string and retain empty fields without interpreting a regex or legacy alias.
+
+## Name case, ordering and detached roots
+
+These terms describe selected naming and ordering observations, and [Q388](faq.md#q388-do-the-new-profiles-prove-incorrect-case-folding) explains why a whole-fixture difference does not identify its cause.
+
+**Names differing only in case** — Distinct supplied spellings such as item101/Item101, tested through the specified API; explicitly case-insensitive exceptions keep their own rules.
+
+**Order of equivalent data** — The implementation's permitted choice within the specified semantics, which does not erase an API's explicit field-position order or require different runs to use different orders.
+
+**Detached sequence root interpretation** — The qualified expectation that a sequence whose parent is cleared identifies itself as root; path, parent, root handle and root name are observed separately without asserting depth or execution behavior.

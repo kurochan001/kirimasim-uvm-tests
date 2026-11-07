@@ -244,6 +244,10 @@ TLM namespaceの期待値は実行前に提供B.5のclass生成とSystemVerilog�
 初期検査系のinclude／予約語の誤りは期待観測を変えずに修正し、保存した元入力／結果を現在の証拠へ付け替えません。
 この作業ではlibrary／simulatorの実装sourceと商用結果を使わず、旧APIの拒否oracleを作らない理由は[Q382](faq.ja.md#q382-規範的な付録hは非推奨apiの拒否を要求しますか)で説明しています。
 
+命名／順序profileと総則11項目の個別根拠は、提供IEEE 1〜4と引用した公開hierarchy／pool／sequence／register APIから導き、期待を実行前に決めます。
+sequenceの改訂は元の期待4行を保持し、独立に決めた診断1行とroot定義の引用を追加してから測定します。
+観測出力から期待を写さず、実装sourceと商用結果も使わず、libraryだけの結論ではない限定root解釈は[Q389](faq.ja.md#q389-分離したsequenceのroot期待をどう限定していますか)に記録します。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

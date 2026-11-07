@@ -1418,3 +1418,13 @@ data経路の成功だけでは最終file形式の検証にならないため、
 **順不同のlink endpoint組** — 型付き関係が結ぶ正確な2objectを、未記載のparent／childとlhs／rhsの役割対応やdescriptorの名前／件数を固定せず検査するものです。
 
 **signed byteの区切り** — 0x80／0xffのように上位bitが立つ場合もあるbyte引数で、split profileはstring内の同じbyteに一致させ、regexや旧aliasを解釈せず空fieldを保持します。
+
+## 名前と順序と分離後のroot
+
+これらは選択した名前と順序の観測を表す語であり、全検査系の差分だけでは原因が決まらない理由は[Q388](faq.ja.md#q388-新profileでcase-foldingの不具合が証明されますか)で説明しています。
+
+**caseだけが異なる名前** — item101／Item101のように指定した異なる綴りを各APIで検査するもので、明示されたcase-insensitiveの例外は自身の規則を保持します。
+
+**同等dataの順序** — 記載された意味の範囲内で実装が許される選択であり、APIの明示field位置順序を消したり、実行ごとに異なる順序を要求したりしません。
+
+**分離したsequenceのroot解釈** — 親を解除したsequenceが自身をrootとして識別するという限定した期待であり、path、parent、root handle、root名を分けて観測し、depthや実行動作は断定しません。

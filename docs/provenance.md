@@ -377,6 +377,15 @@ or simulator implementation source or commercial result was used for this work;
 [Q382](faq.md#q382-does-normative-annex-h-require-rejecting-deprecated-apis)
 explains the absence of a legacy rejection oracle.
 
+The naming/order profiles and eleven individual front-matter rationales derive
+from the supplied IEEE 1-4 and the cited public hierarchy, pool, sequence and
+register APIs, with expectations fixed before execution. Sequence refinement
+keeps the original four expected rows and adds an independently fixed diagnostic
+row plus root-definition citations before its new measurement. No expectation
+was copied from observed output, and no implementation source or commercial
+result was used. [Q389](faq.md#q389-how-is-the-detached-sequence-root-expectation-qualified)
+records the qualified root reading rather than a library-only conclusion.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

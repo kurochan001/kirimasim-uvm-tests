@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and one hundred cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2627 tests: 2528 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and 101 cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2639 tests: 2540 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5806,3 +5806,51 @@ are unmeasured: 1542 additions and 3 revised originals (1446 simulation/99
 elaboration). No simulator implementation source or commercial result was used.
 All partial applicability and original M1-M4 targets, human review and
 scope/denominator approval remain open.
+
+## 101st thin-area expansion: name case and interpreting conventions
+
+The 101st expansion adds twelve runtime profiles with primary clause 1.4:
+four M1, two M2 and six M3 inputs under u01. Names differing only in ASCII
+case exercise component queries and enumeration, typed pool key changes,
+inactive sequence paths, block register/memory queries and register field
+lookup. Component membership/iteration accepts any unspecified order, while
+field enumeration keeps its explicit LSB-to-MSB order; [the ordering FAQ](faq.md#q387-does-144-allow-arbitrary-result-order)
+explains that distinction.
+
+Six final tagged component/pool/memory inputs match seeds 1/73 with exit 0.
+Four register/field inputs retain pre-lock name misses at seed 1; their locked
+rows match without passing the whole fixtures. Two refined sequence inputs
+retain a qualified detached-root expectation: path and parent-null flags match,
+while root-self and root-name flags differ. Earlier stages and identity flags
+match. All six known inputs build and exit 0 at seed 1, without seed 73;
+[the root interpretation](faq.md#q389-how-is-the-detached-sequence-root-expectation-qualified)
+is not a case-folding or library-only defect attribution.
+
+The original four sequence observation rows remain unchanged. Supporting root
+definitions were cited and one independently fixed diagnostic row was added
+before measuring the two refined identities; the original 29 input files and
+initial logs are archived, not relabeled as refined evidence. Current selection
+retains twelve build and eighteen runtime logs: six freshly measured tagged
+inputs, four unchanged pretag model inputs and two refined sequence inputs.
+
+Eight partial duties are appended while all 4074 previous whole requirements,
+434 assessments and 2627 index/ordinary records are retained. Eleven individually
+read front-matter identifiers receive one structural and ten contextual
+assessments. Each rationale identifies its own scope, purpose, modal words,
+meta-syntax, order permission, language reference, definitions or class-role
+context; no heading-name rule or bulk semantic exclusion is used.
+The [front-matter FAQ](faq.md#q386-what-remains-after-assessing-front-matter)
+explains why this does not complete those API contracts.
+
+The ledger has 4082 AI duties and 2585 directly linked tests; 54 tests remain
+control-only and 154 have control links. The catalog is 2061 partial/445 assessed/
+1 unassessed, with 1307 primary-focus and 2095 referenced identifiers. Candidate
+primary census remains 1179 zero/771 below-target/532 at-least-target. Root 1
+has 5 partial/6 assessed/0 unassessed identifiers, 20 duties and 38 primary tests;
+roots 1-4 keep context scope and H remains deferred. B.4 is still unassessed.
+The earlier 424 known inputs are unchanged; current known count is 430.
+Compiler 99/HDL 38/command-line 18/guest 1082 evidence is byte-identical and
+input-compatible; 1557 guest inputs remain unmeasured: 1554 additions and three
+revised originals (1458 simulation/99 elaboration). No simulator implementation
+source or commercial result was used. All partial applicability and original
+M1-M4 targets, human review and scope/denominator approval remain open.

@@ -6646,6 +6646,198 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "1",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Overview title only groups scope, purpose, word usage and the separately evaluated conventions. It contains no independent API or observable operation; the actual duties in1.4 and its children retain their own partial decompositions. Context scope is unchanged.",
+        "ja": "個別に読んだOverview表題は、範囲、目的、語の用法、別に評価する規約をまとめるだけで、独立したAPIや観測可能な操作を持たない。1.4と子の実際の義務は自身の部分分解を保持し、文脈scopeは変えない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "1.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The scope describes the UVM API/base-class library for reusable SystemVerilog verification components. It supplies the domain for current package access and inheritance duties, rather than a new constructor, universal interoperability test or independent simulator behavior. This individual contextual reading does not complete related partial duties, roll child evidence into parent coverage, or approve scope, denominator or human review.",
+        "ja": "範囲は再利用可能なSystemVerilog検証componentのためのUVM API／基底class libraryを説明する。現行package accessと継承義務の対象領域を与えるもので、新constructor、普遍的な相互運用テスト、独立したsimulator動作にはしない。 この個別の文脈評価で関連する部分義務を完了せず、子の証拠を親のcoverageへ集約せず、範囲／分母／人のレビューを承認しない。"
+      },
+      "related_requirements": [
+        "UVM-PACKAGE-IMPORTED-QUALIFIED-ACCESS-94",
+        "UVM-INHERITED-TRANSACTION-OBJECT-API-99"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "1.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The purpose explains reuse, interoperability and reduced development cost as motivations. It defines no measurable cost/quality threshold or universal portability pass criterion. Concrete factory-substitution/construction and compatible typed communication APIs carry their separately decomposed obligations. This individual contextual reading does not complete related partial duties, roll child evidence into parent coverage, or approve scope, denominator or human review.",
+        "ja": "目的は再利用、相互運用、開発cost低減という動機を説明する。測定可能なcost／品質の閾値や普遍的な移植性のpass基準を定めない。具体的なfactory構築／置換と互換な型付き通信APIの義務は別に部分分解して保持する。 この個別の文脈評価で関連する部分義務を完了せず、子の証拠を親のcoverageへ集約せず、範囲／分母／人のレビューを承認しない。"
+      },
+      "related_requirements": [
+        "UVM-OBJECT-REGISTRY-FACTORY-CALLBACK-CREATION",
+        "UVM-COMPONENT-EXT-FACTORY-COMPONENT-TYPE",
+        "UVM-TLM1-BOUND-BLOCKING-PORT-TRANSFERS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "1.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The word-usage entry distinguishes required shall, recommended should, permitted may and capability can, with explanatory footnotes on must/will. It governs interpretation of each API contract; it does not create a runtime ban on identifiers or turn every recommendation, example or permitted behavior into a mandatory oracle. Related predicate and declared rejection duties retain their own conditions. This individual contextual reading does not complete related partial duties, roll child evidence into parent coverage, or approve scope, denominator or human review.",
+        "ja": "語の用法は必須のshall、推奨のshould、許可のmay、能力のcanを区別し、must／willの注記を説明する。各API契約の解釈を定め、識別子のruntime禁止や、全推奨／例／許可動作を必須oracleにするものではない。関連する述語と宣言拒否の義務は自身の条件を保持する。 この個別の文脈評価で関連する部分義務を完了せず、子の証拠を親のcoverageへ集約せず、範囲／分母／人のレビューを承認しない。"
+      },
+      "related_requirements": [
+        "UVM-BOOLEAN-RETURNS-BLOCK-LOCK-98",
+        "UVM-COMPONENT-CASE-ENUMERATION-MULTIPLICITY-101"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "1.4.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read visual/meta-syntax rules explain required tokens, variable placeholders, code typography and prefix/postfix name families. The asterisk in a class-name family is not a new runtime glob API or a literal class to instantiate. These reading conventions contextualize the selected public port-family declarations and package names; no informative example supplies complete syntax. This individual contextual reading does not complete related partial duties, roll child evidence into parent coverage, or approve scope, denominator or human review.",
+        "ja": "個別に読んだvisual／meta-syntax規則は必須token、変数placeholder、code書体、prefix／postfixの名前familyを説明する。class名familyのasteriskを新たなruntime glob APIやliteralに生成するclassにはしない。選択した公開port family宣言とpackage名の読解の文脈であり、参考の例を完全なsyntaxの根拠にしない。 この個別の文脈評価で関連する部分義務を完了せず、子の証拠を親のcoverageへ集約せず、範囲／分母／人のレビューを承認しない。"
+      },
+      "related_requirements": [
+        "UVM-PKG-PORT-ROLE-PORT-91",
+        "UVM-PKG-PORT-ROLE-EXPORT-91",
+        "UVM-PKG-PORT-ROLE-IMPLEMENTATION-91",
+        "UVM-PACKAGE-IMPORTED-QUALIFIED-ACCESS-94"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "1.4.4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The entry permits operation/sort-order variation only for equivalent data within the specified semantics and leaves user-required extra ordering to users. It gives context for unordered child membership observations, without a new sorting algorithm or mandatory variation test. It does not erase an API-specific order such as field LSB-to-MSB enumeration. This individual contextual reading does not complete related partial duties, roll child evidence into parent coverage, or approve scope, denominator or human review.",
+        "ja": "この項目は記載された意味の範囲内で同等dataの操作／sort順序の差を許し、追加の順序が必要な場合はuserが定めると説明する。順不同のchild所属の観測へ文脈を与えるもので、新sort algorithmや必ず順序を変えるテストを作らない。fieldのLSBからMSBへの列挙のようなAPI固有の順序を消さない。 この個別の文脈評価で関連する部分義務を完了せず、子の証拠を親のcoverageへ集約せず、範囲／分母／人のレビューを承認しない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-CASE-ENUMERATION-MULTIPLICITY-101",
+        "UVM-REGISTER-CASE-FIELD-POSITION-ORDER-101"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The normative-reference paragraph makes the cited SystemVerilog standard necessary to interpret UVM and explains dated versus undated references. It supplies a language dependency, not another independent UVM method or an automatically approved edition/coverage denominator. The user-provided language edition and citations remain explicitly recorded in each fixture. This individual contextual reading does not complete related partial duties, roll child evidence into parent coverage, or approve scope, denominator or human review.",
+        "ja": "規範参照の段落はUVMの解釈に引用SystemVerilog規格が必要とし、日付あり／なしの参照を説明する。言語の依存関係を与えるもので、別の独立UVM method、版の自動承認、coverage分母にはしない。user提供の言語版と引用は各検査系に明示して保持する。 この個別の文脈評価で関連する部分義務を完了せず、子の証拠を親のcoverageへ集約せず、範囲／分母／人のレビューを承認しない。"
+      },
+      "related_requirements": [
+        "UVM-PACKAGE-IMPORTED-QUALIFIED-ACCESS-94",
+        "UVM-INHERITED-TRANSACTION-OBJECT-API-99"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The definitions introduction establishes terminology for this document and recommends consulting the IEEE dictionary for otherwise undefined terms. It is interpretive context, not a new simulator query or mandatory dictionary-access operation. The following definitions/acronyms are individually evaluated and the connected class/interface duties remain separate. This individual contextual reading does not complete related partial duties, roll child evidence into parent coverage, or approve scope, denominator or human review.",
+        "ja": "定義の導入はこの文書の用語を定め、未定義の語にはIEEE辞書の参照を推奨する。解釈の文脈であり、新simulator queryや必須の辞書access操作にはしない。続く定義／略語を個別に評価し、関連するclass／interface義務を別に保持する。 この個別の文脈評価で関連する部分義務を完了せず、子の証拠を親のcoverageへ集約せず、範囲／分母／人のレビューを承認しない。"
+      },
+      "related_requirements": [
+        "UVM-INHERITED-TRANSACTION-OBJECT-API-99",
+        "UVM-TLM1-BOUND-BLOCKING-PORT-TRANSFERS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "3.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individual definitions describe verification roles and core terms, including blocking completion, immediate nonblocking calls, ports/exports, sequences, transactions and singleton. They contextualize the concrete APIs rather than require every testbench to instantiate every named role or add a second generic implementation. Timing and communication duties are retained under their specific interfaces. This individual contextual reading does not complete related partial duties, roll child evidence into parent coverage, or approve scope, denominator or human review.",
+        "ja": "個別の定義は検証の役割と基本語を説明し、blockingの完了、即時のnonblocking呼出し、port／export、sequence、transaction、singletonを含む。具体的APIの文脈であり、全testbenchが列挙した全役割を生成したり別のgeneric実装を加える要件ではない。時間と通信の義務は具体的interfaceで保持する。 この個別の文脈評価で関連する部分義務を完了せず、子の証拠を親のcoverageへ集約せず、範囲／分母／人のレビューを承認しない。"
+      },
+      "related_requirements": [
+        "UVM-TLM1-CHANNEL-BLOCKED-PUT-CAPACITY",
+        "UVM-TLM1-REVIEW-NONBLOCKING-TRANSPORT-SUCCESS",
+        "UVM-CMDLINE-SINGLETON-SHARED-STATE-100",
+        "UVM-CASE-SENSITIVE-SEQUENCE-NAMES-101"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "3.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The acronym table expands API/BCL/DPI/DUT/EDA/FIFO/HDL/IP/RTL/TLM/UVM/VIP used by the class reference. It supplies vocabulary for package, transport and HDL API contracts, not independent runtime features, a product-name requirement or blanket evidence that these facilities execute. This individual contextual reading does not complete related partial duties, roll child evidence into parent coverage, or approve scope, denominator or human review.",
+        "ja": "略語表はclass referenceで使うAPI／BCL／DPI／DUT／EDA／FIFO／HDL／IP／RTL／TLM／UVM／VIPを説明する。package、transport、HDL API契約の用語を与えるもので、独立runtime機能、製品名の要件、全facilityを実行できたという一括証拠にはしない。 この個別の文脈評価で関連する部分義務を完了せず、子の証拠を親のcoverageへ集約せず、範囲／分母／人のレビューを承認しない。"
+      },
+      "related_requirements": [
+        "UVM-PACKAGE-IMPORTED-QUALIFIED-ACCESS-94",
+        "UVM-TLM1-BOUND-NONBLOCKING-PORT-TRANSFERS",
+        "UVM-HDL-READ-CURRENT-VALUE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The class-reference overview categorizes the later base/reporting/recording/factory/phase/synchronization/container/TLM/component/sequence/sequencer/policy/register/macro/configuration/package/command-line clauses. Its random-stability sentence uses should; read it with1.3 and the explicit user-code exceptions in1.4.6, rather than invent a mandatory all-API guarantee. Category descriptions do not impose a fixed testbench shape or complete their later contracts. This individual contextual reading does not complete related partial duties, roll child evidence into parent coverage, or approve scope, denominator or human review.",
+        "ja": "class-reference概要は後のbase／reporting／recording／factory／phase／同期／container／TLM／component／sequence／sequencer／policy／register／macro／configuration／package／command-line条項を分類する。乱数安定性の文はshouldを使い、1.3と1.4.6の明示user-code例外と一緒に読み、全APIへの必須保証を作らない。分類説明でtestbench形状を固定したり後の契約を完了したりしない。 この個別の文脈評価で関連する部分義務を完了せず、子の証拠を親のcoverageへ集約せず、範囲／分母／人のレビューを承認しない。"
+      },
+      "related_requirements": [
+        "UVM-RANDOM-STABILITY-SPLIT-CALLER-97",
+        "UVM-RANDOM-STABILITY-ENUM-CALLER-97",
+        "UVM-RANDOM-STABILITY-OBJECT-NAME-STREAMS-97",
+        "UVM-TLM1-BOUND-BLOCKING-PORT-TRANSFERS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

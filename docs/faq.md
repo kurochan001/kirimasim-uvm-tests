@@ -171,7 +171,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2571 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2583 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -218,7 +218,7 @@ Execution success and requirement review are separate records, so use [Read cove
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 896
+M1 and M2 still have open clause targets. M3 now has 902
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1228,9 +1228,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4074 AI drafts cover only a partial decomposition: 4074 requirements link
-directly to 2573 tests; all drafts have direct tests, and fifty-four separate tests have only control links.
-All 2627 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4082 AI drafts cover only a partial decomposition: 4082 requirements link
+directly to 2585 tests; all drafts have direct tests, and fifty-four separate tests have only control links.
+All 2639 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2349,7 +2349,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-434 classifications currently exist, with no denominator approval or new pass.
+445 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -3045,7 +3045,7 @@ Three original inputs have new fingerprints: the command enum citation, the
 Boolean rerandomization observation and the virtual-field configuration citation.
 All three were remeasured on Verilator; their stale guest records are excluded.
 The historical 1085-record source files remain intact. Current reuse covers
-1082 inputs, with 1545 unmeasured: 1542 additions and three revised originals.
+1082 inputs, with 1557 unmeasured: 1554 additions and three revised originals.
 This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
@@ -3116,10 +3116,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2627 tests run at two seeds?
+### Q201. Did all 2639 tests run at two seeds?
 
-No. There are 2528 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2109 two-seed runtime matches, 94 expected compiler rejections, 419 known
+No. There are 2540 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2115 two-seed runtime matches, 94 expected compiler rejections, 425 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3190,7 +3190,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 13 identifiers remain
+do not finish its remaining conditions. Overall 1 identifier remains
 unassessed. The table-format overview 16.2.10 now has selected short-row duties; chapter 16
 has 0 unassessed and 176 partial identifiers, with introduction 16 still classified as contextual. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3352,7 +3352,7 @@ live in uD. Their functional subject is the register layer, so the six named
 access fixtures count as M3. Chapter-based census and milestone grouping are
 different views of the same tests. Annex D has zero unassessed identifiers but
 39 partial ones. Its conditions and the original M1–M4 targets remain open;
-overall, 13 identifiers remain unassessed.
+overall, 1 identifier remains unassessed.
 
 ## Block and register query boundaries
 
@@ -3431,7 +3431,7 @@ new direct-delegate matrices have eight function and thirteen task rows, but
 are two shared fixtures. Timing, traversal and domain controls add selected
 conditions; all graph shapes, active synchronization mutation, invalid jumps,
 inheritance variants and task cleanup remain audits. Existing signature/prose
-conflicts and known lifetime differences are retained. Overall 13 identifiers
+conflicts and known lifetime differences are retained. Overall 1 identifiers
 remain unassessed and the original M1–M4 goal remains active.
 
 ### Q233. Which timeout clause is used when the run-phase cross-reference differs?
@@ -3581,7 +3581,7 @@ The derived accessors are fixture helpers, not new UVM APIs. See [testing](testi
 
 No. It has 74 partial and 20 assessed identifiers, with 114 AI drafts. Physical
 reset/access, historical walking-ones interpretation and further skip/error/
-abort/concurrency conditions remain. Overall 13 identifiers are unassessed;
+abort/concurrency conditions remain. Overall 1 identifier is unassessed;
 all original M1–M4 targets remain open. See [requirements](requirements.md).
 
 ## Base classes, recording and canonical time
@@ -3614,7 +3614,7 @@ decomposed identifiers and zero unassessed ones. Four active-policy probes are
 still blocked by missing methods in the measured library. Initiator printing/recording, complete
 transaction links/ordering, pure-method/default-body conflicts, older override
 formal names and broader lifecycle/error conditions remain audit work. Overall
-13 identifiers remain unassessed; original M1–M4 targets are still open.
+1 identifier remains unassessed; original M1–M4 targets are still open.
 
 ## Resource collection, sorting and config aliases
 
@@ -3642,7 +3642,7 @@ No. Named/anonymous scope sets, literal names, four config aliases and selected
 virtual-interface values match under their measured conditions. Regex alternation
 and base virtual dispatch retain runtime differences. The original override
 probe certifies no builtin collection algorithm. Annex C is 71 partial,
-13 assessed and zero unassessed with 98 drafts; overall 13 identifiers remain
+13 assessed and zero unassessed with 98 drafts; overall 1 identifier remains
 unassessed. Broader types, queue/error/lifecycle conditions, automatic component
 configuration and original milestone targets remain open.
 
@@ -3673,8 +3673,8 @@ independent defect count. The original normal-register control matches.
 ### Q257. Does zero unassessed in 18.6–18.8 complete the goal?
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
-track chapter 18's remaining review. Overall 13 identifiers remain unassessed.
-The suite has 2573 directly linked tests and fifty-four
+track chapter 18's remaining review. Overall 1 identifier remains unassessed.
+The suite has 2585 directly linked tests and fifty-four
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3751,7 +3751,7 @@ The whole-word expectation is a qualified best-effort interpretation, not an
 unconditional guarantee. Poke after an explicit B75D reset and a standalone
 read-only poke deposit B39D. The corrected fixture is remeasured; a superseded
 seed-73 log stays archived under its old input fingerprint and is excluded.
-The overall backlog remains 13 unassessed identifiers and partial contracts.
+The overall backlog remains 1 unassessed identifier and partial contracts.
 
 ## Predefined protection and prediction callbacks
 
@@ -3779,7 +3779,7 @@ The selected successful read/write predictions supply exact field, previous/
 latest data, kind, path and map context, and callback replacement changes the
 mirror. Explicit and omitted direct kinds update as supplied without read/write
 callback delivery. Disable/delete histories stop a later mutation. These probes
-perform no physical storage transfer. The backlog still has 13 unassessed
+perform no physical storage transfer. The backlog still has 1 unassessed
 identifiers; callback 18.11 remains partial despite zero unassessed identifiers.
 
 ## CI shards and execution time
@@ -3788,12 +3788,12 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 2203 tagged checks form 8 disjoint shards with at most 4 concurrent
+No. The current 2209 tagged checks form 8 disjoint shards with at most 4 concurrent
 jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the README badge
-for the current workflow result. The 424 known cases remain outside the ordinary default CI selection.
+for the current workflow result. The 430 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -3871,7 +3871,7 @@ No. Four headings were individually read as structural and three overviews
 linked to explicit declaration/method duties. Fourteen other identifiers gained
 partial decompositions. Selected names, type defaults, empty hooks and acyclic
 trees leave graph/alias/null/concurrency conditions and wording conflicts open.
-Overall 13 identifiers remain unassessed; [review states](requirements.md#review-work-queue-and-root-totals)
+Overall 1 identifier remains unassessed; [review states](requirements.md#review-work-queue-and-root-totals)
 explain why classification and links do not certify the original M1–M4 goal.
 
 ## Virtual-register queries and declaration boundaries
@@ -3949,8 +3949,8 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 The corrected citation changes the exact input hash despite an unchanged body
 and oracle. Its old guest record is excluded: 1083 compatible records become
 1082, leaving Ghost 206 matches/876 failures per seed and kirimasim 1073
-unsupported/nine failures. No guest was rerun. The 1545 unmeasured inputs are
-1542 additions and three revised originals. This filter is not evidence of
+unsupported/nine failures. No guest was rerun. The 1557 unmeasured inputs are
+1554 additions and three revised originals. This filter is not evidence of
 guest improvement or regression; see [the evidence assembly](results.md#evidence-assembly).
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
@@ -4193,8 +4193,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4074 duties link directly
-to 2573 tests, with 2060 partial and 13 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4082 duties link directly
+to 2585 tests, with 2061 partial and 1 unassessed identifier. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5025,3 +5025,49 @@ identity and inherited report state; they do not inspect process arguments.
 Actual argument/regex checks still require [the separate command-line runner](testing.md#verilator-command-line-subset).
 The [ordinary profile](../tests/uG/test_cmdline_singleton_shared_state_0_100.sv)
 does not require the removed package variable or impose static-initializer order.
+
+## Name case, ordering and detached roots
+
+Shared conventions qualify each API's own contract, and [the glossary](glossary.md#name-case-ordering-and-detached-roots) explains the terms used in these profiles.
+
+### Q386. What remains after assessing front matter?
+
+B.4 is still unassessed. The eleven individual front-matter rationales identify
+scope/purpose, modal words, meta-syntax, ordering, language references,
+definitions and class-role context; they do not replace operational requirements.
+Clause 1.4 gains six partial naming duties, and the API-specific enumeration
+duties remain partial too. The 2061 partial identifiers and original M1-M4
+targets are still open in [the current work queue](requirements.md#review-work-queue-and-root-totals).
+No human review, scope or denominator approval is recorded.
+
+### Q387. Does 1.4.4 allow arbitrary result order?
+
+Only equivalent-data order within the API's specified semantics is permitted
+to vary. Child enumeration checks exact membership/multiplicity and caller
+prefixes without imposing a traversal order. Register fields have an explicit
+LSB-to-MSB order, which is still checked even when construction order and name
+case vary. [The component helper](../tests/u01/helpers101_component/component101.svh)
+and [model helper](../tests/u01/helpers101_model/model101.svh) show both conditions;
+there is no test requiring an implementation to vary its order.
+
+### Q388. Do the new profiles prove incorrect case folding?
+
+No. Component/pool/memory profiles match, while four register/field cases retain
+pre-lock name misses despite matching locked rows. Two sequence cases retain
+qualified detached-root observations; their earlier case-preserving paths
+match. Whole fixtures remain known, and the difference alone does not establish
+case folding or a library-only cause. Explicit case-insensitive rules such as
+G.1.3.3 are unchanged. Primary 1.4 selects u01; functional subjects determine
+M1/M2/M3 counts of 4/2/6, as [the layout guide](testing.md#layout) explains.
+
+### Q389. How is the detached sequence root expectation qualified?
+
+The expectation reads the root-sequence definitions in 14.1.2.9 and 14.2.3.1
+together with 14.1.2.12/.13: after clearing the parent of a sequence, it identifies
+itself and its name as the root under this reading. This is an explicit qualified reading
+for inactive metadata, not a claim to have executed start or fixed cached depth.
+Both seed-1 traces match the path and parent-null flags, but differ in the
+root-self/root-name flags. The original four expected rows are retained, and
+one independently fixed diagnostic row separates these flags in
+[the refined helper](../tests/u01/helpers101_sequence/sequence101.svh).
+No seed-73 result or implementation-source diagnosis is claimed.

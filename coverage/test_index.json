@@ -10509,6 +10509,54 @@
     "uG/test_cmdline_singleton_shared_state_1_100": {
       "primary_clause": "G.1.2",
       "inputs_sha256": "036f98cd31aeedd343e9ef4b05d5c017e22d0acd88bc28a5af261a0e3bc629cc"
+    },
+    "u01/test_case_sensitive_component_0_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "24e25d8a0540e96467cb860c9dba2bc126b3b9204add2580639a1aaf8a30c442"
+    },
+    "u01/test_case_sensitive_component_1_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "683c2f7372cd43a3605ce4d3f2acd5f466174fbb118321f86b6c0c874d8e2190"
+    },
+    "u01/test_case_sensitive_pool_0_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "eb2d3c04b7457e97e335a2d083b711db239499d72991e3a4767e011968df4e47"
+    },
+    "u01/test_case_sensitive_pool_1_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "29ec8841d8c9b713b17f62a5eb83b0c3aa5f1c52e90debf628c68b9527fd04e0"
+    },
+    "u01/test_case_sensitive_sequence_0_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "b141e97baaaaab8423ce568a531064ca2b8b69c3f9d143b802aa619cf7e4991c"
+    },
+    "u01/test_case_sensitive_sequence_1_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "2bf3039daae76231c961975e191e60af5f1c91dd68313a7729037088d499dc4e"
+    },
+    "u01/test_case_sensitive_register_0_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "a0ab3757d5263039ba32c916eaddd227b6bf9220b14f270f36ab43d02e6fe5a7"
+    },
+    "u01/test_case_sensitive_register_1_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "b9b0559a4984171a9a0ecc00486ebc9b29c83df3f7d3068b95981f38fa5dc84e"
+    },
+    "u01/test_case_sensitive_memory_0_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "745639ee720b91fe839c0430e7b870b23506dcd55078337ab134160ca9b580d8"
+    },
+    "u01/test_case_sensitive_memory_1_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "c4afc89abf2d4921f3c78cd0e3748020ad1943b28cd456d248f4d52bb3d39cca"
+    },
+    "u01/test_case_sensitive_field_0_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "cc46aac8c4b6da6e1b81580a4b2a4bb4fcdd48e27123b6edb09ca0593b697ea1"
+    },
+    "u01/test_case_sensitive_field_1_101": {
+      "primary_clause": "1.4",
+      "inputs_sha256": "b4546504fa98cedc2a14506c3be6be68f291a4e315b1bd5552a064360b3ac3bd"
     }
   }
 }
