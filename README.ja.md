@@ -122,10 +122,12 @@ simulation一致とcompiler拒否は別の検査なので、以下のラベル�
 通常runnerはseed 1のruntime差分318件、simulation build 140件、runtimeのない不正designの受理5件を記録します。
 API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](docs/results.ja.md#結果の解釈)で説明し、VPIの行は通常条件にも含まれるケースを別条件で測定したもので、スイート総数へ加算しない理由は[測定範囲](docs/results.ja.md#現在のスナップショット)で確認できます。
 
+既知差分にはそれぞれ1件ずつ[原因の記録](coverage/known_causes.json)があり、`tools/known_causes.py`で検査します。これまでに割り当てた原因はlibrary 66件、interpretation 10件、simulator 8件、DPIの実行条件57件で、runtime差分318件と、DPIの実行条件の下でも違いが残る4件の計322件は未分類です。kirimasimについては、2364入力が規格の期待値でsimulatorを測る入力で、76入力は固定版libraryのためにどのsimulatorでも期待値に届きません。詳しくは[既知差分の原因](docs/known-differences.ja.md#既知差分の原因)を参照してください。
+
 `known`・`unsupported`は成功に数えません。Ghostの同梱UVMの結果は、固定版ライブラリでの結果を示すものではありません。
 
 詳しい実行条件と記録の範囲は[実行結果と測定方法](docs/results.ja.md)、ライブラリの制約とspecのみのケースは
-[既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・台帳を検査し、
+[既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・台帳・原因の記録を検査し、
 pushとpull requestごとに入力が変わった通常oracle付きVerilator検査と固定canary 1件を実行します。
 [Regression](.github/workflows/regression.yml)は手動と毎週、タグ付き通常検査2292件を20 shardで、明示command-line 20件とregex-DPI変種26件を別jobで実行します。
 どちらもkirimasimとGhostは実行せず、結果の自動公開はありません。

@@ -4462,3 +4462,19 @@ default sequenceのprofileは、別のpackageのsequenceのwrapperを2つのsequ
 
 新しい義務9件で台帳はAI義務4150件となり、旧要求4141件と分類445件はすべて同一です。全体は2762テスト、直接対応2706テスト、通常一致2292件で、既知は463入力のままです。
 部分2062番号、元の目標、人の照合、範囲／分母承認は未完です。
+
+## 既知差分の原因
+
+### Q444. 既知差分の原因の記録には何が入っていますか？
+
+[原因の記録](../coverage/known_causes.json)は、通常のVerilator実行の既知差分それぞれに、種別、必要なDPIの実行条件、原因1つ、その根拠を持つ記録を1件ずつ置きます。
+原因がlibraryのものは、引用した条項と、固定版libraryの異なるファイルと文字列を挙げます。interpretationは条項と2つの読み方（最初がテストの読み方）を、simulatorはUVMを使わない再現例を挙げます。conditionは、テストがそのDPIのrunnerでは一致することを表します。
+`python3 tools/known_causes.py summary`は原因ごとの件数とkirimasimの目標件数を数え、`candidates`は人による照合の候補を一覧にします。
+最初のbatchではbuild 140件と不正designの受理5件を分類し、runtime差分318件はdirectoryごとに続けます。[既知差分の原因](known-differences.ja.md#既知差分の原因)を参照してください。
+
+### Q445. 記録に固定版libraryの出力値がないのはなぜですか？
+
+期待値は規格から導き、観測した出力を写しません。正しいsimulatorで固定版libraryが出す値は、libraryのsourceから導く2つ目の期待値となり、この規則を変えるため、ユーザーは原因と根拠だけを記録することを選びました。
+原因がlibraryまたはinterpretationであれば、その入力が固定版libraryではどのsimulatorでも期待値に届かないことはkirimasimにも分かり、`summary`はそれらを別に数えます。こうした値を加えるかどうかは、分類が終わってから決めます。
+
+121回目は、テスト、期待値、記録、義務のどれも変えません。全体は2762テスト、AI義務4150件、通常一致2292件、既知463入力のままで、照合の候補は84件、未分類は322件です。

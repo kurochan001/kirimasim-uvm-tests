@@ -7,7 +7,7 @@
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
 現在の2762件と、固定したAccellera UVM 2020.3.1についての記録です。
-不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
+不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。原因は[原因の記録](#既知差分の原因)で別に割り当てており、照合はAIによるものです。
 
 差分の件数は[実測の内訳](results.ja.md#結果の解釈)で確認し、個別の入力を調べるときは[ライブラリの注記](known-differences.ja.md#固定版ライブラリの制約)、[ソースの分類一覧](known-differences.ja.md#specのみのテスト)、[シミュレータとライブラリの条件](known-differences.ja.md#シミュレータとライブラリの組み合わせ)を使ってください。
 
@@ -478,6 +478,26 @@ event deltaの6入力は最終tag付きで両seedに一致しますが、既知4
 
 - [観測empty](../tests/u12/test_payload_unpack_observed_empty_112.sv)。
 - [観測data](../tests/u12/test_payload_unpack_observed_data_112.sv)。
+
+## 既知差分の原因
+
+原因は、既知差分が期待値に届かない理由を説明するもので、規格から導いた期待値を変えることはありません。[原因の記録](../coverage/known_causes.json)は、通常のVerilator 5.052実行の既知差分それぞれに1件ずつ記録を持ちます。各記録は、種別（runtime、build、accepted-illegal）、必要なDPIの実行条件（あれば）、原因1つ、その根拠、日英の説明からなります。原因は期待値を凍結した後に診断します。この診断に限って固定版libraryのsource（Apache-2.0）を読みますが、Verilatorのsource（LGPL）は読まないため、simulatorが原因のものはUVMを使わない再現例だけで示します。どの記録も、人が照合するまでreview statusは`ai`のままです。
+
+| 原因 | 意味 | 根拠 | 件数 |
+| --- | --- | --- | --- |
+| library | 固定版libraryが、引用した条項と異なる | 引用した条項、libraryのファイルとその中の文字列 | 66 |
+| interpretation | 引用した文言には別の読み方があり、libraryはそちらに従う | 引用した条項、テストの読み方と別の読み方 | 10 |
+| simulator | VerilatorがIEEE 1800-2023と異なる | kirimasim-testsへ移す、UVMを使わない再現例 | 8 |
+| condition | テストが通常の実行ではlinkしないDPIの実行条件を必要とし、その条件では一致する | 実行条件とそのrunner | 57 |
+| unassigned | まだ診断していない | なし | 322 |
+
+最初のbatchでは、build差分140件と不正designの受理5件を分類しました。buildのうち61件はHDLまたはcommand lineのDPIの実行条件を必要とし、そのうち57件はその条件で一致します。残る84入力の原因はlibrary、interpretation、simulatorのいずれかです。runtime差分318件と、DPIの実行条件の下でも違いが残る4件は未分類のままで、directoryごとに診断します。[結果の内訳](results.ja.md#結果の解釈)のbuildの分類は、APIの名前がないといった症状でまとめたものなので、件数はここでの原因とは一致しません。これまでにlibraryが原因としたものは、どれも固定版libraryのDEVIATIONS.mdに載っていません。DEVIATIONS.mdの3件は、18.2.3.4、18.4.3.6、13.1.5.1に関するものです。
+
+再現例は3つです。parameter付きの基底classのpure virtual methodを具象classが実装しない例（Verilatorは受理します。不正designの受理4件）、type parameterの既定値がそれより前のtype parameterに依存する例（Verilatorは拒否します。traversalのbuild 3件で、VISITORを明示した対照は一致します）、64 bitより広いenumのname() method（Verilatorは未対応です。build 1件）です。
+
+`python3 tools/known_causes.py check`は、記録とテストが一致することを確かめます。`:oracle:`にverilator@5.052がない2値テストそれぞれにちょうど1件の記録があること、入力の指紋が現在のものであること、libraryの文字列が固定版のファイルにあること、条項が1800.2-2020のものであること、対照がtag付きのテストであることです。`--results`を付けると、合算したrunner JSONのknownの記録が記録と一致することも確かめます。`reproduce`は再現例をbuildし直し、Verilatorが記録どおりに受理または拒否することを確かめます。Checkは両方を実行します。
+
+kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2364入力と、固定版libraryのためにどのsimulatorでも期待値に届かない76入力（原因がlibraryとinterpretationのもの）を分けて数えます。未分類の322入力は、診断するまで別に数えます。測れる入力は、tag付きの2292件、原因がsimulatorとconditionのもの、4値の7件です。`candidates`は、人による照合の候補84件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。そうした値を加えるかどうかは、分類が終わってから決めます。
 
 ## 固定版ライブラリの制約
 

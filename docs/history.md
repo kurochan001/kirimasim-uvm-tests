@@ -6776,3 +6776,34 @@ target/551 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
 explains why matching conditions do not supply completion.
+
+## 121st expansion: causes of the known differences (external review item 6, first batch)
+
+The 121st expansion implements the first batch of the external review's sixth
+item, after the user approved the proposal and chose to record no library
+output values. [The cause record](../coverage/known_causes.json) gives each of
+the 463 known inputs one entry: its kind, the DPI condition it needs, one cause
+(library, interpretation, simulator, condition or unassigned), the evidence and
+a bilingual note, all with review `ai`. [The cause tool](../tools/known_causes.py)
+checks the record against the tests, their input fingerprints and the pinned
+library, summarizes the kirimasim targets and lists the human-review
+candidates; Check runs its check and rebuilds its three simulator reproducers,
+and sixteen new unit tests cover it.
+
+The 140 builds and five accepted illegal designs were classified from the
+pinned library source, read only after the expectations were frozen, the cited
+clauses and the existing explanations: 66 library causes, 10 interpretations,
+8 simulator causes and 57 DPI-condition causes. Four DPI-condition inputs still
+differ under their runner and stay unassigned with the 318 runtime differences.
+The three traversal builds first looked like a library cause; the library
+follows F.5.4.1 to F.5.6.1 and the explicit-visitor controls match, so they are
+simulator causes, and their reproducer shows a different symptom of the same
+dependent type-parameter default. [Q444](faq.md#q444-what-does-the-cause-record-of-the-known-differences-contain)
+and [Q445](faq.md#q445-why-does-the-record-give-no-output-values-of-the-pinned-library)
+describe the record.
+
+No test, expectation, record or duty changes. The suite keeps 2762 tests, 4150
+AI duties, 2292 ordinary matches and 463 known inputs. For kirimasim, 2364
+inputs are measurable against the standard, 76 are kept from their
+expectation by the pinned library and 322 are not yet classified. The detailed
+handoff's build breakdown is corrected from 56 to 61 unlinked DPI builds.

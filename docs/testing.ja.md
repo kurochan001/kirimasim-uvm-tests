@@ -36,7 +36,7 @@ tests/uF/, uG/              文字列utility・command-lineの照会
 docs/testing*.md            テスト形式・実行・変更時の規則
 docs/results*.md            現在の測定条件と記録
 docs/requirements*.md       範囲の案・要求の対応付け・棚卸し
-coverage/*.json             版管理する範囲・要求台帳・番号の分類・テスト索引
+coverage/*.json             版管理する範囲・要求台帳・番号の分類・テスト索引・既知差分の原因
 docs/provenance*.md         関連リポジトリとソースの由来
 docs/glossary*.md            用語集
 docs/faq*.md                 よくある質問
@@ -53,6 +53,7 @@ tools/run_ghost.py           非公開プロファイルを使うGhostのラン�
 tools/suite_results.py       判定と結果JSON（kirimasim-testsから写したもの）
 tools/lint_metadata.py       メタデータとテストの形式の検査
 tools/requirements.py        要求台帳の案の検査と棚卸し
+tools/known_causes.py        既知差分の原因の記録の検査と集計
 tools/ci_select.py           CIで実行する変更分またはshard分のタグ付き検査を選ぶ
 tools/sv_lifetimes.py        初期化付き手続き内ローカル変数の字句チェック
 tools/clauses_1800_2.txt     1800.2-2020の条項番号（番号だけ）
@@ -637,14 +638,17 @@ python3 tools/fetch_uvm.py --check
 python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 python3 tools/requirements.py check
+python3 tools/known_causes.py check
 ```
 
-現在のツールの単体テストは124件、メタデータの対象はテスト2762件（simulation 2663件・elaboration 99件）です。
+現在のツールの単体テストは140件、メタデータの対象はテスト2762件（simulation 2663件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
 各モデルを一度ビルドして2回使います。実行の成功はその実行が選んだ検査の成功を示し、
 UVMの全要求や全シミュレータの成功を示すものではありません。
+
+[原因の検査](known-differences.ja.md#既知差分の原因)は、既知差分ごとに現在の入力の指紋を持つ記録が1件あることを確かめるため、specのみのテストを変えたら診断し直す必要があります。Checkは`python3 tools/known_causes.py reproduce`で、記録にあるUVMを使わない再現例もbuildし直します。
 
 Checkは記録入力が変わったタグ付き検査とcanaryを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻ります。
 Regressionは手動と毎週、タグ付き2292件を重複しない20 shardで、command-line 20件、regex-DPI変種26件と合わせて実行します。

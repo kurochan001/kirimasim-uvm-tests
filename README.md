@@ -128,13 +128,15 @@ The ordinary runner records 318 runtime differences at seed 1, 140 simulation bu
 and five accepted illegal designs without runtime; [the detailed breakdown](docs/results.md#interpretation) explains API/declaration, macro and DPI categories and qualified premises.
 The VPI rows measure cases already included in the ordinary row under different conditions, so do not add them to the suite total; see [the measurement scope](docs/results.md#current-snapshot).
 
+Each known difference has one entry in [the cause record](coverage/known_causes.json), checked by `tools/known_causes.py`: 66 library, 10 interpretation, 8 simulator and 57 DPI-condition causes are assigned so far, and 322 entries, the 318 runtime differences and four inputs that still differ under their DPI condition, are not yet classified. For kirimasim, 2364 inputs measure a simulator against the standard and 76 are kept from their expectation by the pinned library on any simulator; see [the causes of the known differences](docs/known-differences.md#causes-of-the-known-differences).
+
 `known` and `unsupported` are not passes. Ghost bundled results do not establish
 results for the pinned library.
 
 [Results and methodology](docs/results.md) gives the full execution conditions
 and evidence scope. [Known differences](docs/known-differences.md) lists the
 library limitations and spec-only tests. [Check](.github/workflows/check.yml)
-runs tool, metadata, library and ledger checks and, for each push or pull request,
+runs tool, metadata, library, ledger and cause-record checks and, for each push or pull request,
 the tagged ordinary Verilator checks whose inputs changed plus one canary.
 [Regression](.github/workflows/regression.yml) runs all 2292 tagged ordinary
 checks in 20 shards, the twenty explicit command-line checks and the twenty-six

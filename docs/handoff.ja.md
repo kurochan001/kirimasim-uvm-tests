@@ -2,7 +2,7 @@
 
 [English](handoff.md) · [README](../README.ja.md) · [要求台帳](requirements.ja.md)
 
-現在の引継ぎ：ユーザーが2026-11-07にgoalを再開し、外部レビューの5番目の項目である120回目の拡充を公開しました。公開済みcheckpoint・次の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
+現在の引継ぎ：ユーザーが2026-11-07にgoalを再開し、外部レビューの6番目の項目の最初のbatchである121回目の拡充を公開しました。公開済みcheckpoint・次の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
 
 このページは開発の再開を支える資料なので、最初のテストを動かしたり理解したりしたい場合は[読み方ガイド](reading-guide.ja.md)から始めてください。
 
@@ -10,8 +10,8 @@
 
 以下の基点コミットは記載した作業の出発点を示すため、保存済みの結果を現在のファイルの証拠にする前に未コミットの変更を確認し、互換性のレビューは[入力の更新手順](requirements.ja.md#テストや対応付けの更新)に従います。
 
-2026-11-09に、`main`の[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)
-を基に、120回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
+2026-11-09に、`main`の[9c57290](https://github.com/kurochan001/kirimasim-uvm-tests/commit/9c572904a247a92a4445c0d9bfe7b1208eeb975a)
+を基に、121回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
 
 IEEE 1800.2-2020のUVM適合を検査し、kirimasimを対象とするプロジェクトです。
 SystemVerilog言語だけのreproducerは、
@@ -86,11 +86,12 @@ python3 tools/fetch_uvm.py
 python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 python3 tools/requirements.py check
+python3 tools/known_causes.py check
 python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-この記録は、tool単体テスト124件、全2762件（simulation 2663件・elaboration 99件）のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
+この記録は、tool単体テスト140件、全2762件（simulation 2663件・elaboration 99件）のmetadata、台帳／索引、原因の記録、library整合性、現在の入力とevidenceの照合を
 通過しています。資料だけの変更では、全シミュレーションを再buildせず、[ドキュメントの更新手順](testing.ja.md#ドキュメントの更新)に従って日英の対応とリンクを確認します。
 全件evidenceはVerilatorだけで、他2系統は未変更1081件の記録、1681入力は未測定です。実行のsmoke確認は次のとおりです。
 
@@ -102,7 +103,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 [以前のCheck実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41561342697)は参照用です。
 最新のworkflow結果はREADMEのbadgeで確認してください。後のcommitによって、このrunが置き換わる場合があります。
 local検証だけでCI全体の成功とは扱いません。
-Checkはtool、metadata、台帳、libraryと、入力が変わった通常oracle付きVerilator検査およびcanaryを検査します。Regressionは手動と毎週、全タグ付き通常検査、明示command-line 20件、regex-DPI変種26件を実行します。
+Checkはtool、metadata、台帳、library、原因の記録と、入力が変わった通常oracle付きVerilator検査およびcanaryを検査します。Regressionは手動と毎週、全タグ付き通常検査、明示command-line 20件、regex-DPI変種26件を実行します。
 どちらもGhost、kirimasim、spec-onlyの実行は含まず、結果の自動公開はありません。
 
 ## 実測記録と直近の差分
@@ -124,9 +125,11 @@ Checkはtool、metadata、台帳、libraryと、入力が変わった通常oracl
 | Ghost／固定UVM | 現在の実行ファイルsnapshotでは未測定 |
 
 通常条件のknownは463件で、runtime初回差分318、simulation build 140、不正compiler受理5です。
-buildはAPI／型名欠落43、time減算引数既定値1、型既定宣言2、依存visitor既定型3、印刷signature食違い2、継承type_id registry特殊化2、protected access 1、記載外pure-hook 2、DPI未link 56です。限定したvirtual抽象overview基底型のbuild 2件と、専用poolの印刷返却型build 2件も保持します。追加の合法build 3件はenum-collection T解釈です。ほか7 buildは厳密なattribute／enum-unpackの引数を保持します。印刷具象callback facadeの合法構築1件はabstractとして拒否されます。別HDL／command-line evidenceは独立に記録します。
+buildはAPI／型名欠落43、time減算引数既定値1、型既定宣言2、依存visitor既定型3、印刷signature食違い2、継承type_id registry特殊化2、protected access 1、記載外pure-hook 2、DPI未link 61です。限定したvirtual抽象overview基底型のbuild 2件と、専用poolの印刷返却型build 2件も保持します。追加の合法build 3件はenum-collection T解釈です。ほか7 buildは厳密なattribute／enum-unpackの引数を保持します。印刷具象callback facadeの合法構築1件はabstractとして拒否されます。別HDL／command-line evidenceは独立に記録します。
 
 残るsimulation build失敗6件は未登録packetのpredictor型名4件とサイズ／flag宣言2件で、規格に登録の前提条件を追加しない扱いと各実行条件は[結果の内訳](results.ja.md#結果の解釈)で説明しています。
+
+121回目は、外部レビューの6番目の項目の最初のbatchです。ユーザーが案を承認し、libraryの出力値は記録しない（A1）と決めました。[原因の記録](../coverage/known_causes.json)は既知の463入力それぞれに1件ずつ、種別、DPIの実行条件、原因、根拠、説明を持ちます。`tools/known_causes.py`は、記録をテストと入力の指紋に照らして検査し、kirimasimの目標件数をまとめ、人による照合の候補を一覧にします。Checkはこの検査を実行し、simulatorが原因のものの再現例3つをbuildし直します。build 140件と不正designの受理5件を分類し、原因はlibrary 66件、interpretation 10件、simulator 8件、DPIの実行条件57件です。runtime差分318件と、DPIの実行条件の下でも違いが残る4件は未分類で、directoryごとに診断します。[既知差分の原因](known-differences.ja.md#既知差分の原因)を参照してください。テスト、期待値、記録、義務はどれも変わりません。
 
 120回目は、外部レビューの5番目の項目であるユーザーpackageを扱います。`tests/u08/helpers120_pkg/`の独自の4 packageは、agent（item、driver、sequencerの型、agent）、sequence、environment、extensionのclassをそれぞれ持ちます。
 1800-2023の26.3はpackageをimportするscopeより先にそのpackageをcompileすることを求めるため、各テストは`:files:`にこの順で並べ、agentとsequenceのpackageはextensionのpackageをimportしません。
@@ -183,7 +186,7 @@ Git対象外のファイルなので別hostにはない場合があり、許可�
 未評価件数と部分的な義務は別の残作業を数えるため、件数が減るだけではgoalを完了できない理由は[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 ユーザーはM1〜M4の未対応0件まで続けるgoalを依頼しました。開始時は未評価1,463番号、未対応テスト0件、直接テストのない要求0件でした。
-92反復目も未評価0を保持し、有効化以降の減少は1463です。ユーザーは2026-11-07に一時停止中のgoalを再開しました。113〜115反復目はCIを分割し、hostedのrunnerにないz3 solverを導入し、M3のmemory manager入力12件を追加しました。2026-11-08にユーザーは8項目の外部レビューを示し、116〜118反復目はRTL結合、4値、乱数化の性質の入力を追加し、119反復目はregex-DPI変種の条件と正規表現の5検査系を追加し、120反復目は両seedで一致するユーザーpackageの入力5件を追加します。新規義務9件で4150義務となり、旧要求4141件はすべて同一です。元の通常2750記録、旧既知463入力、分類445件を保持します。guestは互換1081／未測定1681入力です。部分2062番号、適用条件、元の段階目標、人の照合、範囲／分母承認は未完で、goalは完了していません。
+93反復目も未評価0を保持し、有効化以降の減少は1463です。ユーザーは2026-11-07に一時停止中のgoalを再開しました。113〜115反復目はCIを分割し、hostedのrunnerにないz3 solverを導入し、M3のmemory manager入力12件を追加しました。2026-11-08にユーザーは8項目の外部レビューを示し、116〜118反復目はRTL結合、4値、乱数化の性質の入力を追加し、119反復目はregex-DPI変種の条件と正規表現の5検査系を追加し、120反復目は両seedで一致するユーザーpackageの入力5件を追加し、121反復目は義務を変えずに、既知差分の原因の記録と最初のbatchを追加します。新規義務9件で4150義務となり、旧要求4141件はすべて同一です。元の通常2750記録、旧既知463入力、分類445件を保持します。guestは互換1081／未測定1681入力です。部分2062番号、適用条件、元の段階目標、人の照合、範囲／分母承認は未完で、goalは完了していません。
 
 以前の12.2.9.2の再分類は未評価件数を減らしません。最終監査の前にgoalを完了扱いにせず、第12章の未評価0を部分分解169番号や明示milestone目標の完了へ置き換えません。
 最終監査は元の範囲、実際の規範的義務、有意な条件、互換な実行evidenceを確認します。限定解釈、既知差分、guest未測定を保持し、架空の承認やpass化を行いません。

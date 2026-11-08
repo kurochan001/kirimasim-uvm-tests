@@ -5975,3 +5975,34 @@ and 445 assessments unchanged. Totals are 2762 tests, 2706 direct-linked tests
 and 2292 ordinary matches; known inputs stay 463. All 2062 partial
 identifiers, original targets, human review and scope/denominator approval
 remain open.
+
+## Causes of the known differences
+
+### Q444. What does the cause record of the known differences contain?
+
+[The cause record](../coverage/known_causes.json) gives each known difference
+of the ordinary Verilator run one entry with its kind, the DPI condition it
+needs, one cause and the evidence. A library cause names the cited clauses and
+the files and text of the pinned library that differ; an interpretation names
+the clauses and two readings, the test's first; a simulator cause names a
+reproducer without UVM; a condition cause means that the test matches under
+its DPI runner. `python3 tools/known_causes.py summary` counts the causes and
+the kirimasim targets, and `candidates` lists the entries for human review.
+The first batch classifies the 140 builds and five accepted illegal designs;
+the 318 runtime differences follow directory by directory. See
+[the causes](known-differences.md#causes-of-the-known-differences).
+
+### Q445. Why does the record give no output values of the pinned library?
+
+Expectations are derived from the standard and never copied from observed
+output. A value that the pinned library would produce on a correct simulator
+would be a second expectation derived from library source, which changes that
+rule, so the user chose to record only the cause and its evidence. A library
+or interpretation cause already tells kirimasim that the input cannot reach
+its expectation with the pinned library on any simulator, and `summary` counts
+those inputs apart. Whether to add such values is decided after the
+classification is complete.
+
+The 121st expansion changes no test, expectation, record or duty. Totals stay
+2762 tests, 4150 AI duties, 2292 ordinary matches and 463 known inputs; 84
+entries are review candidates and 322 are unassigned.

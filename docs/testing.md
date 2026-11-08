@@ -42,7 +42,7 @@ tests/uF/, uG/              string utilities and command-line queries
 docs/testing*.md            test format, execution and contribution rules
 docs/results*.md            current measurement conditions and evidence
 docs/requirements*.md       draft scope, requirement mapping and census
-coverage/*.json             versioned scope, requirements, assessments and test index
+coverage/*.json             versioned scope, requirements, assessments, test index and known-difference causes
 docs/provenance*.md         related repositories and source attribution
 docs/glossary*.md            terminology
 docs/faq*.md                 common questions
@@ -59,6 +59,7 @@ tools/run_ghost.py           private-profile runner under the public alias Ghost
 tools/suite_results.py       judgment and result JSON, copied from kirimasim-tests
 tools/lint_metadata.py       checks of the metadata and the form of the tests
 tools/requirements.py        validates and inventories the draft requirement ledger
+tools/known_causes.py        checks and summarizes the causes of the known differences
 tools/ci_select.py           selects the changed or sharded tagged checks for CI
 tools/sv_lifetimes.py        lexical guard for initialized procedural locals
 tools/clauses_1800_2.txt     clause numbers of 1800.2-2020 (numbers only)
@@ -853,9 +854,10 @@ python3 tools/fetch_uvm.py --check
 python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 python3 tools/requirements.py check
+python3 tools/known_causes.py check
 ```
 
-The current tool suite has 124 unit tests; metadata validation checks all
+The current tool suite has 140 unit tests; metadata validation checks all
 2762 tests (2663 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
@@ -863,6 +865,11 @@ scope, explicit oracle links and input fingerprints without claiming coverage. [
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
 built once for the two executions. A green run establishes the checks it
 selected, not that every UVM requirement or every simulator passes.
+
+[The cause check](known-differences.md#causes-of-the-known-differences) keeps one entry with the
+current input fingerprint for each known difference, so a changed spec-only test needs a new
+diagnosis. Check also rebuilds the record's reproducers, which use no UVM, with
+`python3 tools/known_causes.py reproduce`.
 
 Check runs the tagged checks whose recorded inputs changed, plus a canary, and
 falls back to the canary alone with a warning when it cannot cover a change.

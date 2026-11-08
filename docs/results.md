@@ -59,6 +59,11 @@ printed virtual builtin dispatcher. They retain the rejection oracle as known
 differences without runtime, even when accepted. The 140 unexpected simulation
 builds remain separate. A pass requires the declared expectation.
 
+[The cause record](known-differences.md#causes-of-the-known-differences) assigns causes to these
+differences separately from the symptom categories below: so far 66 library, 10 interpretation,
+8 simulator and 57 DPI-condition causes, with 322 entries, all 318 runtime differences among them,
+not yet classified.
+
 The 463 measured spec-only cases retain standard-derived output or compile-diagnostic
 expectations; the seven four-state spec-only cases have no Verilator record. Five are illegal compiler acceptances; 458 are simulation cases.
 Of these, 318 first differ at runtime seed 1 without seed 73. Forty-three cannot build
@@ -277,14 +282,16 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 124 tool unit tests,
-2762 metadata records and the draft ledger/index. Its Verilator job runs the
+and manual dispatch. It checks pinned-library integrity, 140 tool unit tests,
+2762 metadata records, the draft ledger/index and the cause record of the known
+differences. Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,
 plus the canary `tests/u09/test_common_phases_run_in_order.sv`, with runtime
 seeds 1/73 ([the selection tool](../tools/ci_select.py)). When the base is
 unavailable, when the runner, its normalization, the library lock or the
 fetcher changed, or when more than 30 checks are affected, only the canary runs
-and a warning asks for Regression. A green Check covers the selected checks only.
+and a warning asks for Regression. The Verilator job also rebuilds the cause
+record's three reproducers. A green Check covers the selected checks only.
 
 [Regression](../.github/workflows/regression.yml) runs on manual dispatch and
 weekly (Saturdays 17:23 UTC). It runs all 2292 tagged ordinary checks (2198

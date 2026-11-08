@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-Current transfer: the user resumed the goal on 2026-11-07, and the 120th expansion, the fifth item of an external review, is published. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
+Current transfer: the user resumed the goal on 2026-11-07, and the 121st expansion, the first batch of an external review's sixth item, is published. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
@@ -10,8 +10,8 @@ This page supports resuming development; if you want to run or understand a firs
 
 The base commit below identifies the starting point for the described work, so check uncommitted changes before treating saved results as evidence for the current files; [the input-update procedure](requirements.md#updating-a-test-or-mapping) explains how to review their compatibility.
 
-Updated on 2026-11-09 for the 120th expansion, based on
-[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)
+Updated on 2026-11-09 for the 121st expansion, based on
+[9c57290](https://github.com/kurochan001/kirimasim-uvm-tests/commit/9c572904a247a92a4445c0d9bfe7b1208eeb975a)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -102,12 +102,13 @@ python3 tools/fetch_uvm.py
 python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 python3 tools/requirements.py check
+python3 tools/known_causes.py check
 python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 124 tool unit tests, metadata for all 2762 tests (2663 simulation, 99 elaboration),
-ledger/index validation, library integrity and current-input evidence checks.
+The snapshot passed 140 tool unit tests, metadata for all 2762 tests (2663 simulation, 99 elaboration),
+ledger/index validation, the cause-record check, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
 cover 1081 unchanged inputs, with 1681 inputs unmeasured.
@@ -122,7 +123,7 @@ An earlier [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/action
 is retained as a reference. Use the README badge for the latest workflow
 result; newer commits may supersede that run. Local checks are not proof
 of a successful full CI run. Check runs tool,
-metadata, ledger and library checks and the tagged ordinary Verilator checks
+metadata, ledger, library and cause-record checks and the tagged ordinary Verilator checks
 whose inputs changed, plus a canary; Regression runs all tagged ordinary checks
 and twenty command-line checks and twenty-six regex-DPI variants, manually and weekly. Neither runs Ghost,
 kirimasim or spec-only cases. There is no automatic result publication.
@@ -148,9 +149,21 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 The ordinary condition retains 463 known cases: 318 runtime first differences,
 140 simulation builds and five illegal compiler acceptances. One legal printed-concrete callback-facade construction is rejected as abstract. Builds are 43 missing
 API/type names, one time-decrement argument default, two type-default declarations, three dependent visitor-default builds, two printed signature conflicts,
-two inherited type_id registry specializations, one protected-access build, two unlisted-pure-hook builds and 56 unlinked DPI cases. Two qualified virtual-abstraction overview-base builds and two printed dedicated-pool return-type builds also remain. Three additional legal builds retain the enum-collection T interpretation. Seven more builds retain strict attribute/enum-unpack arities. Separate HDL/command-line evidence is reported independently.
+two inherited type_id registry specializations, one protected-access build, two unlisted-pure-hook builds and 61 unlinked DPI cases. Two qualified virtual-abstraction overview-base builds and two printed dedicated-pool return-type builds also remain. Three additional legal builds retain the enum-collection T interpretation. Seven more builds retain strict attribute/enum-unpack arities. Separate HDL/command-line evidence is reported independently.
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
+
+The 121st expansion implements the first batch of the external review's sixth item, after the
+user approved the proposal and chose to record no library output values (A1). [The cause
+record](../coverage/known_causes.json) gives each of the 463 known inputs one entry with its kind,
+DPI condition, cause, evidence and explanation; `tools/known_causes.py` checks it against the tests
+and their input fingerprints, summarizes the kirimasim targets and lists the candidates for human
+review, and Check runs the check and rebuilds the three simulator reproducers. The 140 builds and
+five accepted illegal designs are classified: 66 library, 10 interpretation, 8 simulator and 57
+DPI-condition causes. The 318 runtime differences and four inputs that still differ under their DPI
+condition remain unassigned, to be diagnosed directory by directory; see
+[the causes](known-differences.md#causes-of-the-known-differences). No test, expectation, record or
+duty changes.
 
 The 120th expansion implements the external review's fifth item, user
 packages. Four original packages in `tests/u08/helpers120_pkg/` hold an agent (item, driver,
@@ -245,7 +258,7 @@ Unassessed counts and partial obligations track different remaining work; [Read 
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.
 At activation there were 1,463 unassessed identifiers, zero unlinked tests and
-zero requirements without direct tests. 92 iterations retain zero unassessed, a decrease of 1463 since activation. The user resumed the paused goal on 2026-11-07. The 113th to 115th iterations split CI, fixed the missing z3 solver on hosted runners and added twelve M3 memory-manager inputs. On 2026-11-08 the user supplied an external review with eight items; the 116th to 118th iterations added RTL integration, four-state and randomization-property inputs, the 119th added a regex-DPI variant condition and five regular-expression fixtures, and the 120th adds five user-package inputs that match both seeds. Nine new duties produce 4150 duties, with all 4141 old objects identical. All 2750 old ordinary records, 463 old known inputs and 445 assessments remain. Guests retain 1081 compatible/1681 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is not complete.
+zero requirements without direct tests. 93 iterations retain zero unassessed, a decrease of 1463 since activation. The user resumed the paused goal on 2026-11-07. The 113th to 115th iterations split CI, fixed the missing z3 solver on hosted runners and added twelve M3 memory-manager inputs. On 2026-11-08 the user supplied an external review with eight items; the 116th to 118th iterations added RTL integration, four-state and randomization-property inputs, the 119th added a regex-DPI variant condition and five regular-expression fixtures, the 120th added five user-package inputs that match both seeds, and the 121st adds the cause record of the known differences with its first batch, without changing any duty. Nine new duties produce 4150 duties, with all 4141 old objects identical. All 2750 old ordinary records, 463 old known inputs and 445 assessments remain. Guests retain 1081 compatible/1681 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is not complete.
 
 The separate earlier 12.2.9.2 reassessment did not reduce unassessed. Do not mark
 the goal complete before the final audit. Zero unassessed in chapter 12 does not complete its 169 partial

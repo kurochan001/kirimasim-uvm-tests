@@ -8,7 +8,8 @@ A difference belongs to a particular simulator/library/input condition, and [the
 
 This describes the current 2762-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
-the cause to the simulator, the library or the expectation.
+the cause to the simulator, the library or the expectation; [the cause
+record](#causes-of-the-known-differences) assigns causes separately, with AI review.
 
 For the size of a difference set, read [the measured breakdown](results.md#interpretation); use [library notes](known-differences.md#pinned-library-limitations), [the grouped source list](known-differences.md#spec-only-tests) and [simulator/library conditions](known-differences.md#simulator-and-library-combinations) to investigate a particular input.
 
@@ -619,6 +620,26 @@ Two plain unpack inputs match both seeds with final tags; two observed inputs re
 
 - [observed empty](../tests/u12/test_payload_unpack_observed_empty_112.sv).
 - [observed data](../tests/u12/test_payload_unpack_observed_data_112.sv).
+
+## Causes of the known differences
+
+A cause explains why a known difference does not reach its expectation; it never changes the expectation, which follows the standard. [The cause record](../coverage/known_causes.json) gives each known difference of the ordinary Verilator 5.052 run one entry: its kind (runtime, build or accepted-illegal), the DPI condition it needs, if any, one cause, the evidence for it and an explanation in both languages. Causes are diagnosed after the expectation is frozen. The pinned library source (Apache-2.0) may be read for that diagnosis; Verilator's source (LGPL) is not read, so a simulator cause is shown only by a reproducer without UVM. Every entry keeps review status `ai` until a person checks it.
+
+| Cause | Meaning | Evidence | Entries |
+| --- | --- | --- | --- |
+| library | The pinned library differs from the cited clauses | Cited clauses; library files and the text in them | 66 |
+| interpretation | The cited text admits another reading, which the library follows | Cited clauses; the test's reading and the other one | 10 |
+| simulator | Verilator differs from IEEE 1800-2023 | A reproducer without UVM, for kirimasim-tests | 8 |
+| condition | The test needs a DPI condition that the ordinary run does not link, and it matches under that condition | The condition and its runner | 57 |
+| unassigned | Not diagnosed yet | None | 322 |
+
+The first batch classifies the 140 build differences and the five accepted illegal designs. Sixty-one builds need the HDL or command-line DPI condition, and 57 of them match there; the other 84 inputs have library, interpretation or simulator causes. The 318 runtime differences and the four DPI-condition inputs that still differ under their runner stay unassigned; they are diagnosed directory by directory. The build categories in [the result breakdown](results.md#interpretation) group symptoms, such as a missing API name, so their counts differ from these causes. None of the library causes so far is listed in the pinned library's DEVIATIONS.md, whose three issues concern 18.2.3.4, 18.4.3.6 and 13.1.5.1.
+
+The three reproducers are a parameterized base class whose pure virtual method a concrete subclass omits (Verilator accepts it; four accepted illegal designs), a type parameter whose default depends on an earlier type parameter (Verilator rejects it; three traversal builds, whose explicit-visitor controls match) and the name() method of an enum wider than 64 bits (Verilator does not support it; one build).
+
+`python3 tools/known_causes.py check` keeps the record equal to the tests: exactly one entry for each two-state test whose `:oracle:` lacks verilator@5.052, the current input fingerprint, library text that exists in the pinned files, clauses of 1800.2-2020 and controls that are tagged tests. With `--results`, the known records of a combined runner JSON must match the entries. `reproduce` rebuilds the reproducers and checks that Verilator still accepts or rejects them as recorded; Check runs both.
+
+For kirimasim, `summary` separates 2364 inputs that measure a simulator against the standard from 76 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes); the 322 unassigned inputs are counted apart until they are diagnosed. The measurable inputs are the 2292 tagged tests, the simulator and condition causes and the seven four-state tests. `candidates` lists the 84 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library; whether to add such values is decided after the classification is complete.
 
 ## Pinned-library limitations
 

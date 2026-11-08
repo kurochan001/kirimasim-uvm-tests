@@ -5,7 +5,9 @@ name: Check
 # recorded inputs changed, plus a fixed canary (tools/ci_select.py). Runtime
 # cases use two seeds; illegal elaboration cases require compiler rejection
 # with the declared diagnostic and do not run a binary. Each expectation must
-# match the fixed simulator/library condition.
+# match the fixed simulator/library condition. The tools job also checks the
+# record of causes of the known differences (coverage/known_causes.json), and
+# the Verilator job rebuilds its simulator reproducers (tools/known_causes.py).
 #
 # This quick check does not replace the full selection: the whole tagged set
 # and the explicit command-line checks run in the Regression workflow
@@ -50,6 +52,9 @@ jobs:
       - name: Draft requirement ledger and test index
         run: python3 tools/requirements.py check
 
+      - name: Causes of the known differences
+        run: python3 tools/known_causes.py check
+
   verilator:
     runs-on: ubuntu-24.04
     timeout-minutes: 120
@@ -76,3 +81,8 @@ jobs:
           test "${#cases[@]}" -gt 0
           python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
             --json out/verilator-changed.json "${cases[@]}"
+
+      # Each simulator cause of a known difference names a reproducer without
+      # UVM; Verilator must still accept or reject it as the record says.
+      - name: Simulator reproducers of the known differences
+        run: python3 tools/known_causes.py reproduce
