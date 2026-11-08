@@ -526,10 +526,23 @@ python3 tools/run_verilator_cmdline.py --all --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator-cmdline-all.json
 ```
 
-既定では`:uvm_cmdline_oracle: verilator@5.052`で再現済み17検査系を選びます。`--all`はspecのみのquit警告検査を加え、
+既定では`:uvm_cmdline_oracle: verilator@5.052`で再現済み20検査系を選びます。`--all`はspecのみのquit警告検査と正規表現の2検査を加え、
 差分をpassではない`known`で記録します。再現済み選択検査の回帰は`fail`で、終了codeも非zeroです。
 modelを1回buildし、両seedを新規processで実行します。別の`verilator_cmdline`結果同一性でrunnerを独立にhashし、generic期待出力を共有します。
-重複する通常18記録はDPIのlinkに失敗するため、両条件を分けます。Checkは既定のcommand-line 17件を実行し、既知差分の1件は実行しません。
+重複する通常23記録はDPIのlinkに失敗するため、両条件を分けます。Regressionは既定のcommand-line 20件を実行し、既知差分の3件は実行しません。
+
+### Verilatorのregex DPI変種
+
+[regex-DPI runner](../tools/run_verilator_regex.py)は、[変種の一覧](../coverage/regex_dpi_variants.txt)にある通常の2値検査系をUVM_NO_DPIなしでbuildし直します。
+UVM_HDL_NO_DPIを定義し、固定版のregex wrapperと独自のcommand-line VPI bridgeをlinkするため、名前の照合はlibraryの正規表現DPIを使い、+UVM_TESTNAMEなどの引数はcommand-line DPIで届きます。
+検査系のファイルと期待出力は変えず、一覧で`verilator@5.052`で終わる行はこの条件で一致した検査です。4値、不正design、DPIを選ぶ検査系は拒否します。
+
+```sh
+python3 tools/run_verilator_regex.py --seeds 1 73 --build-jobs 2 -j 2 \
+  --json out/verilator-regex.json
+```
+
+別の`verilator_regex`結果同一性はrunnerを独立にhashするため、変更しても通常の記録は無効になりません。一覧の26検査系はすべて両seedで一致し、Regressionはcommand-line jobの後に専用のjobで実行するため、同時に使うhostedのjob枠は増えません。
 
 ## スイートの実行
 
@@ -561,7 +574,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の2287件（runtime 2193・期待compiler拒否94）です。`--all`を付けるとspecのみの458件も含めます。
+Verilatorの既定の対象はoracle付き・2値の2287件（runtime 2193・期待compiler拒否94）です。`--all`を付けるとspecのみの463件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -624,7 +637,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは118件、メタデータの対象はテスト2752件（simulation 2653件・elaboration 99件）です。
+現在のツールの単体テストは124件、メタデータの対象はテスト2757件（simulation 2658件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
@@ -632,7 +645,7 @@ Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同�
 UVMの全要求や全シミュレータの成功を示すものではありません。
 
 Checkは記録入力が変わったタグ付き検査とcanaryを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻ります。
-Regressionは手動と毎週、タグ付き2287件を重複しない20 shardで、command-line 17件と合わせて実行します。
+Regressionは手動と毎週、タグ付き2287件を重複しない20 shardで、command-line 20件、regex-DPI変種26件と合わせて実行します。
 戻る条件と上限、以前の8 shard版Checkが完了しなかった理由は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 runner、library lock、多数の入力を変えた後は、Checkに頼らずRegressionを手動実行します。
 

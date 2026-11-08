@@ -11009,6 +11009,26 @@
     "uB/test_rand_send_randc_item_cycles_118": {
       "primary_clause": "B.3.1.3",
       "inputs_sha256": "4668c8215f94acba08c224b697bd516c7695405d5149f92a3fc65d3a4ba703a5"
+    },
+    "uC/test_regex_config_db_scope_and_field_119": {
+      "primary_clause": "C.4.2.2.1",
+      "inputs_sha256": "6182bd36d580847bc815c196713592fa4a974591d63635da31cc6547edfa9cc3"
+    },
+    "uC/test_regex_resource_db_scope_119": {
+      "primary_clause": "C.2.4.3",
+      "inputs_sha256": "da6773f91357b8c26b0bd4bf095d929b7cf2ad8ea711718b4b610baa722a4c26"
+    },
+    "uF/test_regex_is_match_posix_and_simplified_119": {
+      "primary_clause": "F.3.3.1",
+      "inputs_sha256": "6b6807924538fb424c19edd44f703a525f9fadd32ae749fbb92c9c08c79be4c1"
+    },
+    "uF/test_regex_root_find_all_119": {
+      "primary_clause": "F.7.4.1",
+      "inputs_sha256": "a2eb316dd921728f0bb0d4ac444f1d006defcd53a6f8b8a46c6f295f7bda2bdb"
+    },
+    "uG/test_regex_cmdline_get_arg_matches_119": {
+      "primary_clause": "G.1.3.4",
+      "inputs_sha256": "9b767056b3dd1d434f79db347e66cd4e48cecb7311407c19704c4121cba3dfc3"
     }
   }
 }

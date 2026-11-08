@@ -1,0 +1,33 @@
+# Ordinary two-state fixtures rerun by tools/run_verilator_regex.py with the
+# pinned UVM regex DPI and the original command-line VPI bridge; HDL DPI
+# stays disabled.
+# Each fixture passes a simplified-notation pattern (*, + or ?) to a name
+# matcher that uses uvm_is_match (F.3.3.1), which the ordinary UVM_NO_DPI build
+# serves with a SystemVerilog glob fallback. A line is "<test id>", or
+# "<test id> verilator@5.052" once both seeds match in this condition.
+u10/test_callback_add_by_name_glob_respects_search_root verilator@5.052
+u10/test_callback_delete_by_name_glob_preserves_outside_root verilator@5.052
+u12/test_rtl_analysis_fifo_scoreboard_116 verilator@5.052
+u14/test_rtl_clocking_handshake_116 verilator@5.052
+u19/test_rtl_explicit_predictor_116 verilator@5.052
+u19/test_rtl_frontdoor_adapter_116 verilator@5.052
+uB/test_callback_named_lifecycle_0_0_102 verilator@5.052
+uB/test_callback_named_lifecycle_0_1_102 verilator@5.052
+uB/test_callback_named_lifecycle_1_0_102 verilator@5.052
+uB/test_callback_named_lifecycle_1_1_102 verilator@5.052
+uB/test_callback_named_lifecycle_2_0_102 verilator@5.052
+uB/test_callback_named_lifecycle_2_1_102 verilator@5.052
+uB/test_callback_named_lifecycle_3_0_102 verilator@5.052
+uB/test_callback_named_lifecycle_3_1_102 verilator@5.052
+uC/test_config_db_scope_glob_matches_descendants verilator@5.052
+uC/test_config_db_scope_question_mark_matches_one_character verilator@5.052
+uC/test_resource_db_writes_update_shared_scope_matches_no_creating_missing_entries_or_changing verilator@5.052
+uC/test_resource_pool_regex_literal_combines_exact_names_and_scope_visibility verilator@5.052
+uC/test_resource_pool_scope_collection_preserves_all_visible_named_types verilator@5.052
+uC/test_rtl_vif_config_db_116 verilator@5.052
+uF/test_is_match_question_requires_exactly_one_character verilator@5.052
+uF/test_is_match_star_matches_empty_and_multiple_characters_across_hierarchy verilator@5.052
+uF/test_root_find_all_appends_and_repeated_calls_retain_the_caller_prefix verilator@5.052
+uF/test_root_find_all_glob_enumerates_leaf_members_without_sibling_order verilator@5.052
+uF/test_root_find_all_scoped_search_excludes_the_peer_branch verilator@5.052
+uF/test_root_find_unique_wildcard_matches_the_public_find_all_result verilator@5.052

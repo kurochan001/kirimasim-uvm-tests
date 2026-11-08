@@ -6,7 +6,7 @@
 
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
-現在の2752件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の2757件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 差分の件数は[実測の内訳](results.ja.md#結果の解釈)で確認し、個別の入力を調べるときは[ライブラリの注記](known-differences.ja.md#固定版ライブラリの制約)、[ソースの分類一覧](known-differences.ja.md#specのみのテスト)、[シミュレータとライブラリの条件](known-differences.ja.md#シミュレータとライブラリの組み合わせ)を使ってください。
@@ -154,7 +154,7 @@ enumのsignature／本文とTR_HANDLE／0引数accessorの境界は限定した�
 
 elaboration 99件は抽象class直接生成36件とpure interface／const参照／禁止member／型context／非公開constructor違反63件で拒否を期待し、94件が一致します。
 subscriber／visitor／proxy／adapterの未実装と印字virtual builtin dispatcherの直接生成は受理され、runtimeなしでspec-onlyを保持します。
-compiler受理5件は既知simulation差分453件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+compiler受理5件は既知simulation差分458件と別です。合法な派生controlを必要な拒否の代わりにはしません。
 
 field-access監査はseed 73結果のないseed 1 runtime差分5件を保持します。
 register write／readのpre hookは保持するRCFD期待に対してFDRCを観測し、別のcrdf post観測が一致しても入力全体をpassにしません。
@@ -862,8 +862,8 @@ simulatorの確定した不具合には割り当てません。規格から導�
 accessor 2検査系は置換、有効な隙間、値copyの独立性、空配列、置換後の追記を扱い、最初のbuild失敗は標準slice accessorの欠落です。
 legacy memberや異なる名前のmethodへ置換しません。3件ともbuildの記録で、実行時結果はありません。
 
-command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し、通常runnerはlinkせず実行時結果のないbuild 18件として記録します。
-別command-line条件では17件が両seed一致し、1件はNOでlockしたquit上限をuser codeが変える際のG.2.6の警告要求を保持します。
+command-line 23検査系は別のVPI bridgeと固定regex DPIを明示要求し、通常runnerはlinkせず実行時結果のないbuild 23件として記録します。
+別command-line条件では20件が両seed一致し、2件は[正規表現の照合](#正規表現の照合)の差分を保持し、1件はNOでlockしたquit上限をuser codeが変える際のG.2.6の警告要求を保持します。
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
@@ -883,7 +883,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは2287件、specのみのテストは465件で、うち7件は4値です。
+スイート全体では、`verilator@5.052`を付けたテストは2287件、specのみのテストは470件で、うち7件は4値です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -892,14 +892,14 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの465件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の7件は[4値の一覧](#4値のspecのみのテスト)にあります。通常のVerilator実行とCIはoracle付き2287件（runtime 2193・compile拒否94）を選びます。
+specのみの470件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の7件は[4値の一覧](#4値のspecのみのテスト)にあります。通常のVerilator実行とCIはoracle付き2287件（runtime 2193・compile拒否94）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時318件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
-simulation build 135件には通常runtimeがなく、DPI未linkの56入力（HDL 38／command-line 18）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
+simulation build 140件には通常runtimeがなく、DPI未linkの61入力（HDL 38／command-line 23）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
 不正compiler受理5件は別のruntimeなし条件です。
 
 別HDL条件は全38入力のうち、virtual register／field 4件、register 6件、正時間force_time 8件、primitive force／release 9件、実array memory 3件を含む37件が両seed一致し、保持するE.7 warning／転送なし差分1件はseed 1です。
-別command-line条件は17一致とquit-warning差分1件を保持し、重複条件を合算しません。
+別command-line条件は20一致、quit-warning差分1件、正規表現の差分2件を保持し、regex-DPI変種の条件は一覧の26件すべてで一致し、重複条件を合算しません。
 
 policy 7 fixtureはseed 1で最初に異なり、seed 73結果はありません。copierの省略名は空でなく、comparer threshold／copier recursion／recorder radixはflush後の規定既定値へ戻りません。
 stream最大超過のpack_fieldは要求errorをreportしません。SHALLOW field automationでは別handleの等値childを等値と比較し、copyで独立childを作ります。
@@ -956,7 +956,7 @@ specのみのケースも固定版oracle tagなしに規格から導いた期待
 
 controlは差分を解釈するために前提を変えて実行する補助検査であり、元のケースの結果との関係は[要求への対応付けの役割](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
-2値のspecのみの458件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+2値のspecのみの463件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 
 
@@ -1343,7 +1343,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1081記録、未測定は修正2入力を含む1671件です。
+対応する歴史的guest記録を除外し、互換範囲は1081記録、未測定は修正2入力を含む1676件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -1394,6 +1394,15 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [test_map_direct_translation_little_fifo_populated_107](../tests/u18/test_map_direct_translation_little_fifo_populated_107.sv)
 - [test_map_direct_translation_big_fifo_populated_107](../tests/u18/test_map_direct_translation_big_fifo_populated_107.sv)
 
+## 正規表現の照合
+
+command-line条件の2検査系は、固定版libraryが満たさない規格由来の期待を保持します。それぞれ1行だけが異なり、他の行は両seedで一致します。原因は期待値の凍結後に固定版libraryのsourceで特定しました。
+
+- [簡略表記の文字](../tests/uF/test_regex_is_match_posix_and_simplified_119.sv)：F.3.3.1ではslashのない^env$は文字列そのものにだけ一致するはずですが、glob変換がcaretとdollar記号をanchorとして残します（`src/dpi/uvm_regex.cc`の`uvm_re_deglobbed`）。
+- [正規表現のfield名](../tests/uC/test_regex_config_db_scope_and_field_119.sv)：C.4.2.2.1はfield名を正規表現にすることを認めますが、既定の設定検索は名前を完全一致で探します（`src/base/uvm_config_db_implementation.svh`の`get`が`uvm_resource_pool::lookup_name`を使う）。
+
+通常runnerは、他のcommand-line検査系と同じく正規表現の5検査系をすべてlinkしないbuildとして記録し、残る3件はcommand-line条件で両seedに一致します。
+
 ## 4値のspecのみのテスト
 
 次の7検査系は`:fourstate: yes`を宣言します。2値のVerilator oracleはXやZのbitを表せないためspecのみで、Verilatorの記録はなく、既知差分でもありません。規定の結果と規定のない経路は[4値の節](testing.ja.md#4値の経路)にあります。
@@ -1414,8 +1423,8 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 
 以前のfield-configuration filterは互換1083記録を1082へ絞りました。その後のreraise主引用のfilterで1082件から1081件へ減りました。今回は新たなfilterやguest再実行をせず、その記録を保持します。[入力同一性の説明](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で両段階を区別します。
 
-スイートは2752件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1081件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、1671入力は未測定です。
+スイートは2757件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1081件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、1676入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも206件一致・875件不一致で、不一致になるテストも同じです。

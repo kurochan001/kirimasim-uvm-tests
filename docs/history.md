@@ -6685,3 +6685,51 @@ Primary-focused identifiers remain 1318; candidates are 1168 zero/766 below
 target/548 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the scope FAQ](faq.md#q439-do-the-randomization-profiles-cover-randomization-completely) explains what remains.
+
+## 119th expansion: DPI configurations (external review item 4)
+
+The 119th expansion implements the external review's fourth item, DPI
+configurations. Ordinary fixtures build with UVM_NO_DPI, where uvm_is_match
+falls back to SystemVerilog glob matching and regular expressions cannot be
+evaluated. A new runner, `tools/run_verilator_regex.py`, rebuilds the 26
+two-state fixtures listed in `coverage/regex_dpi_variants.txt` with the pinned
+regex DPI and the original command-line VPI bridge, HDL DPI disabled; each
+passes a simplified-notation pattern to a matcher, and all 26 match seeds 1/73
+in this condition. A first configuration without command-line DPI could not
+deliver +UVM_TESTNAME to the five RTL profiles, so the runner enables the
+bridge. The fixtures, expected files and stored records are unchanged, and
+Regression gains a job for the variants; [the DPI FAQ](faq.md#q440-what-do-the-regex-dpi-variants-and-profiles-check) explains the
+condition.
+
+Five new fixtures select the existing command-line condition and check what
+1800.2 defines only with regular-expression support: POSIX expressions between
+slashes, the simplified plus, star and question mark, literal dots, carets and
+dollar signs (F.3.3.1), regular-expression and plus scopes in the
+configuration and resource databases, regular-expression and plus component
+lookup, and get_arg_matches. Three match both seeds after tagging. Two remain
+known, each in one row, with the pinned library identified as the cause after
+the oracle was frozen: the glob conversion keeps a leading caret and trailing
+dollar sign as anchors, and the default configuration lookup finds field names
+exactly; [the known-difference FAQ](faq.md#q441-why-are-two-regular-expression-profiles-known) explains them. The ordinary runner
+records the five as unlinked builds.
+
+Eight new duties cover these conditions. The total is 4141 AI duties, with all
+4133 old objects and 445 assessments unchanged; 2701 tests have direct links,
+158 have controls and 56 are control-only. All 2745 old ordinary records and
+458 old known inputs remain unchanged. The five inputs count as M1.
+
+The suite has 2757 tests (2658 simulation/99 elaboration). Ordinary results
+are 2287 matches: 2193 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 463: 318 runtime seed 1 differences, 140 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 470
+with the seven four-state inputs. The command-line condition has 23 fixtures
+(20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
+is added to the ordinary totals. No guest run/filter is added: 1081 compatible
+records remain byte-identical and 1676 inputs are unmeasured (1672
+additions/four revised originals; 1577 simulation/99 elaboration).
+
+Primary-focused identifiers rise to 1319; candidates are 1167 zero/767 below
+target/548 at least two. All 2062 partial identifiers, actual remaining
+conditions, original milestone targets, human review and scope/denominator
+approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
+explains why matching conditions do not supply completion.

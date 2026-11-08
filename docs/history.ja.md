@@ -4101,3 +4101,23 @@ uvm_createの後にconstraint_modeで無効にしたclass制約、24個のuvm_do
 
 主引用がある番号は1318のままで、candidateは0件1168／目標未満766／2件以上548です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、残る範囲は[範囲のFAQ](faq.ja.md#q439-乱数化のprofileで乱数化を網羅しますか)で説明しています。
+
+## 119回目の拡充：DPIの構成（外部レビュー項目4）
+
+119回目は、外部レビューの4番目の項目であるDPIの構成を扱います。通常の検査系はUVM_NO_DPIでbuildし、uvm_is_matchはSystemVerilogのglob照合に戻るため、正規表現を評価できません。
+新しいrunner`tools/run_verilator_regex.py`は、`coverage/regex_dpi_variants.txt`に一覧した2値の26検査系を、固定版のregex DPIと独自のcommand-line VPI bridgeで、HDL DPIを無効にしてbuildし直します。各検査系は照合に簡略表記のpatternを渡し、この条件で26件すべてがseed 1／73で一致しました。
+command-line DPIなしの最初の構成ではRTLの5 profileへ+UVM_TESTNAMEを渡せなかったため、runnerはbridgeを有効にします。検査系、期待ファイル、保存済みの記録は変えず、Regressionに変種のjobを追加しました。条件は[DPIのFAQ](faq.ja.md#q440-regex-dpi変種とprofileは何を検査しますか)で説明しています。
+
+新しい5検査系は既存のcommand-line条件を選び、1800.2が正規表現の対応によってだけ定める動作を検査します。slashで囲むPOSIX式、簡略表記のplus・star・question mark、文字どおりのdot・caret・dollar記号（F.3.3.1）、configuration databaseとresource databaseの正規表現とplusのscope、正規表現とplusによるcomponent検索、get_arg_matchesです。
+3件はtag付け後に両seedで一致しました。2件はそれぞれ1行だけが異なる既知差分で、oracleの凍結後に固定版libraryが原因と特定しました。glob変換が先頭のcaretと末尾のdollar記号をanchorとして残すことと、既定の設定検索がfield名を完全一致で探すことで、[既知差分のFAQ](faq.ja.md#q441-正規表現の2-profileが既知差分なのはなぜですか)で説明しています。通常runnerは5件をlinkしないbuildとして記録します。
+
+これらの条件を新しい義務8件で扱います。AI義務は4141件で、旧要求4133件と分類445件はすべて同一です。直接対応は2701テスト、control対応は158テスト、controlのみは56テストです。
+元の通常2745記録と旧既知458入力は全て維持します。5入力はM1に数えます。
+
+全体は2757テスト（simulation 2658／elaboration 99）です。通常一致は2287件で、runtime両seed 2193入力とcompiler拒否94件です。
+既知は463入力で、runtime seed 1差分318件、simulation build 140件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて470件です。
+command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）で、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1676入力です。
+追加1672件と修正した元入力4件で、simulation 1577／elaboration 99です。
+
+主引用がある番号は1319に増え、candidateは0件1167／目標未満767／2件以上548です。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。

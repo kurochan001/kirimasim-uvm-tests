@@ -34,6 +34,23 @@ jobs:
       - name: Explicit command-line checks, seeds 1 and 73
         run: python3 tools/run_verilator_cmdline.py --seeds 1 73 --build-jobs 2 -j 2
 
+  regex:
+    name: regex-DPI variants
+    # After the command-line job, so the run holds no more hosted slots at
+    # once than before (the account's slots are shared with other projects).
+    needs: cmdline
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: ./.github/actions/setup-verilator
+
+      # Listed ordinary fixtures rebuilt with the pinned regex DPI and the
+      # original command-line VPI bridge (coverage/regex_dpi_variants.txt).
+      - name: Listed fixtures with regex and command-line DPI, seeds 1 and 73
+        run: python3 tools/run_verilator_regex.py --seeds 1 73 --build-jobs 2 -j 2
+
   verilator_shards:
     name: verilator (${{ matrix.shard }})
     runs-on: ubuntu-24.04
@@ -63,13 +80,16 @@ jobs:
             --json out/verilator-shard.json "${cases[@]}"
 
   verilator:
-    needs: [cmdline, verilator_shards]
+    needs: [cmdline, regex, verilator_shards]
     if: ${{ always() }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: Require the command-line checks and every shard to succeed
+      - name: Require the command-line checks, regex-DPI variants and every shard to succeed
         env:
           CMDLINE_RESULT: ${{ needs.cmdline.result }}
+          REGEX_RESULT: ${{ needs.regex.result }}
           SHARDS_RESULT: ${{ needs.verilator_shards.result }}
-        run: test "$CMDLINE_RESULT" = success && test "$SHARDS_RESULT" = success
+        run: |
+          test "$CMDLINE_RESULT" = success && test "$REGEX_RESULT" = success &&
+            test "$SHARDS_RESULT" = success

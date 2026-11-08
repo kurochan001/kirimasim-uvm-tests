@@ -1260,9 +1260,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4133 AI drafts cover only a partial decomposition: 4133 requirements link
-directly to 2696 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2752 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4141 AI drafts cover only a partial decomposition: 4141 requirements link
+directly to 2701 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2757 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -3091,7 +3091,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 ### Q193. Why did the compatible guest subset decrease to 1081?
 
 Four original inputs have revised fingerprints: the command-enum citation, Boolean rerandomization observation, virtual-field configure citation and the reraise primary citation. All four were remeasured when changed; the reraise revision was measured at both seeds in the previous expansion. Their stale guest rows are excluded while the historical 1085-record source files remain intact.
-Current reuse covers 1081 inputs, with 1671 unmeasured: 1667 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
+Current reuse covers 1081 inputs, with 1676 unmeasured: 1672 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
 
@@ -3146,7 +3146,7 @@ An illegal-design check expects rejection before simulation; [negative-test meta
 Thirty-five selected abstract-construction fixtures deliberately instantiate classes
 that the standard declares virtual. The required result is rejection with an
 error identifying the fixture and class. A matching rejection is a successful
-negative check without runtime seeds, distinct from the 135 unexpected builds
+negative check without runtime seeds, distinct from the 140 unexpected builds
 among simulation cases. Pure-method and const-reference checks are additional
 negative conditions, each judged by its own declared oracle.
 
@@ -3161,10 +3161,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2752 tests run at two seeds?
+### Q201. Did all 2757 tests run at two seeds?
 
-No. There are 2653 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2193 two-seed runtime matches, 94 expected compiler rejections, 453 known
+No. There are 2658 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2193 two-seed runtime matches, 94 expected compiler rejections, 458 known
 simulation differences and five known illegal compile acceptances; the seven
 four-state fixtures are not run by the two-state oracle. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
@@ -3719,7 +3719,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2696 directly linked tests and fifty-six
+The suite has 2701 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3836,12 +3836,12 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 No. Check now runs only the tagged checks whose inputs changed, plus a canary,
 and falls back to the canary with a warning when it cannot cover a change; it
 never stands in for the full selection. Regression runs all 2287 tagged checks
-in 20 disjoint shards, at most 4 concurrent, and the 17 command-line checks in
-a separate job. The earlier 8-shard Check never finished: its one uninterrupted
+in 20 disjoint shards, at most 4 concurrent, and the 20 command-line checks and 26 regex-DPI variants in
+separate jobs. The earlier 8-shard Check never finished: its one uninterrupted
 run reached the 150-minute limit on every shard. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the workflow
-pages for the current results. The 458 known cases remain outside the ordinary default CI selection.
+pages for the current results. The 463 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -3996,7 +3996,7 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 
 At that earlier citation repair, the changed fingerprint excluded an old row despite an unchanged body/oracle: 1083 compatible records became 1082. At that checkpoint Ghost retained 206 matches/876 failures per seed and kirimasim retained 1073 unsupported/nine failures, without a guest rerun.
 
-Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1671 unmeasured inputs are 1667 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
+Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1676 unmeasured inputs are 1672 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
 
@@ -4238,8 +4238,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4133 duties link directly
-to 2696 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4141 duties link directly
+to 2701 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5128,7 +5128,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4133 duties all have direct tests and all 2752 tests have links, but those
+The 4141 duties all have direct tests and all 2757 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5393,7 +5393,7 @@ proves independent tests or complete requirements.
 
 Header edits change the input fingerprint under [the update rules](requirements.md#updating-a-test-or-mapping).
 The revised original's old guest row is filtered from 1082 compatible records,
-leaving 1081; the 1671 unmeasured inputs are 1667 additions and four revised
+leaving 1081; the 1676 unmeasured inputs are 1672 additions and four revised
 originals. Ghost's retained failure count becomes 875 and kirimasim's retained
 unsupported count becomes 1072 because that stale row was removed. No guest
 was re-executed, improved or newly passed. The old evidence remains archived,
@@ -5453,7 +5453,7 @@ This answer records the 108th expansion checkpoint; [the later unpack audit](#q4
 
 The new cases exercise existing base-disable, zero/default-time transaction begin/end and named-event duties under additional actual traffic conditions. They preserve the stable IDs and original wording/links instead of creating duplicate obligations for four profiles. There remain 4096 AI drafts, now linked directly to 2649 tests; 4091 other old requirement objects and all 445 assessments are identical.
 
-The new primary focus moves the census to 1178 zero, 771 below-target and 539 at least two; the 4096-duty count and 2062 partial identifiers are different units. Four final tagged inputs match both seeds, while 456 prior known inputs and all 2701 old ordinary records remain. No guest rerun, human review, scope/denominator approval or milestone completion follows; [the completion explanation](#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) still applies.
+The new primary focus moves the census to 1183 zero, 771 below-target and 539 at least two; the 4096-duty count and 2062 partial identifiers are different units. Four final tagged inputs match both seeds, while 456 prior known inputs and all 2701 old ordinary records remain. No guest rerun, human review, scope/denominator approval or milestone completion follows; [the completion explanation](#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) still applies.
 
 ## Automatic request-property recording
 
@@ -5477,9 +5477,9 @@ These cases explicitly enable component and transaction recording and use the in
 
 This answer records the 109th expansion checkpoint; [the later unpack audit](#q427-do-the-unpack-profiles-complete-the-payload-clause) gives the current counts.
 
-No. One new duty and an extension of the stable base-disable duty improve decomposition and actual data evidence. The ledger has 4097 AI drafts linked directly to 2653 tests; 4095 other old requirement objects and all 445 assessments are unchanged. All 2705 old ordinary/index records and 456 known inputs remain, including the printed base query-name build difference.
+No. One new duty and an extension of the stable base-disable duty improve decomposition and actual data evidence. The ledger has 4097 AI drafts linked directly to 2658 tests; 4095 other old requirement objects and all 445 assessments are unchanged. All 2705 old ordinary/index records and 456 known inputs remain, including the printed base query-name build difference.
 
-All four final tagged inputs match both seeds. Ordinary totals are 2253 matches and 456 known; guests retain 1081 compatible records with 1628 unmeasured and no rerun. Candidate census remains 1178 zero-primary, 771 below-target and 539 at least two, with 2062 partial identifiers. [The completion gate](requirements.md#remaining-m4-work-and-approval) still requires the remaining obligations, applicability and original targets, plus real human/scope/denominator review; three empty queues do not supply those decisions.
+All four final tagged inputs match both seeds. Ordinary totals are 2253 matches and 456 known; guests retain 1081 compatible records with 1628 unmeasured and no rerun. Candidate census remains 1183 zero-primary, 771 below-target and 539 at least two, with 2062 partial identifiers. [The completion gate](requirements.md#remaining-m4-work-and-approval) still requires the remaining obligations, applicability and original targets, plus real human/scope/denominator review; three empty queues do not supply those decisions.
 
 ## Event wait delta observations
 
@@ -5911,3 +5911,34 @@ elaboration), 2696 direct-linked tests and 2287 ordinary matches (2193
 runtime both seeds/94 compiler rejections). Known inputs remain 458. All 2062
 partial identifiers, original targets, human review and scope/denominator
 approval remain open.
+
+## Regex-DPI configurations
+
+### Q440. What do the regex-DPI variants and profiles check?
+
+The ordinary condition defines UVM_NO_DPI, so uvm_is_match uses the library's
+SystemVerilog glob fallback and regular expressions are not evaluated.
+[The regex-DPI runner](testing.md#verilator-regex-dpi-variants) rebuilds the
+26 fixtures listed in `coverage/regex_dpi_variants.txt` with the pinned regex
+DPI and the original command-line VPI bridge, keeping their expected files.
+Each passes a simplified-notation pattern to a name matcher, and all 26 match
+seeds 1/73. Five new fixtures in the command-line condition check behavior that
+needs regular expressions: F.3.3.1 notation, regular-expression and plus scopes
+in configuration and resource lookups, component lookup and get_arg_matches.
+
+### Q441. Why are two regular-expression profiles known?
+
+Their expectations follow the standard, and each differs in one row. The
+uvm_is_match profile expects an unslashed ^env$ to match only its literal
+string, because simplified notation has only three meta-characters; the pinned
+library treats the caret and dollar sign as anchors. The configuration profile
+expects a field name written as a regular expression to match, as C.4.2.2.1
+permits; the pinned library's default lookup finds names exactly. The library
+source was read only after the expectations were frozen and explains the
+differences without changing the expectations.
+
+Eight new duties bring the ledger to 4141 AI duties with all 4133 old objects
+and 445 assessments unchanged. Totals are 2757 tests, 2701 direct-linked tests
+and 2287 ordinary matches; known inputs are 463, including the five new
+fixtures' unlinked ordinary builds. All 2062 partial identifiers, original
+targets, human review and scope/denominator approval remain open.

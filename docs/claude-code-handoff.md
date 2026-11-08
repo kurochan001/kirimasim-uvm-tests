@@ -4,9 +4,9 @@
 
 ## Start here
 
-Updated on 2026-11-07. A Claude Code session took over from the previous handoff; the user approved resuming the persistent M1–M4 goal, fixing CI first and publishing to main. That session split CI in [a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4) and [42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1) and published the 113th expansion in [f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4). The first Regression then showed that hosted runners lacked the z3 constraint solver; the session installed it in the setup action and published the 114th expansion in [db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828). It then published the 115th expansion in [eeda25d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/eeda25d9b378773a2841076706f8e8029d87c08d). On 2026-11-08 the user supplied an external review; its first item, RTL integration, is the 116th expansion in [c314982](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c314982e5c42e5333790b7ba7bb00bbaef8da2f7); its second item, four-state paths, is the 117th expansion in [46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624); its third item, randomization properties, is the 118th expansion in the commit that carries this text. **The goal remains open; it is not complete.**
+Updated on 2026-11-07. A Claude Code session took over from the previous handoff; the user approved resuming the persistent M1–M4 goal, fixing CI first and publishing to main. That session split CI in [a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4) and [42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1) and published the 113th expansion in [f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4). The first Regression then showed that hosted runners lacked the z3 constraint solver; the session installed it in the setup action and published the 114th expansion in [db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828). It then published the 115th expansion in [eeda25d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/eeda25d9b378773a2841076706f8e8029d87c08d). On 2026-11-08 the user supplied an external review; its first item, RTL integration, is the 116th expansion in [c314982](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c314982e5c42e5333790b7ba7bb00bbaef8da2f7); its second item, four-state paths, is the 117th expansion in [46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624); its third item, randomization properties, is the 118th expansion in [8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8); its fourth item, DPI configurations, is the 119th expansion in the commit that carries this text. **The goal remains open; it is not complete.**
 
-Inspect the actual branch and working tree before editing. All native measurements of the 118th expansion have terminated; the 117th four-state inputs have no native measurement.
+Inspect the actual branch and working tree before editing. All native measurements of the 119th expansion have terminated; the 117th four-state inputs have no native measurement.
 
 Read the current workspace instructions first. The user's agent instructions reference `RTK.md`; resolve it in the current environment. No private configuration or absolute user path belongs in published files.
 
@@ -14,23 +14,24 @@ Read the current workspace instructions first. The user's agent instructions ref
 
 The three generated queues are 0: unlinked tests, requirements without direct tests, and unassessed catalog identifiers. **Zero actual remaining work has not been demonstrated.** The catalog contains 2507 identifiers: 2062 partial and 445 assessed. Scope is proposed, completeness is false, the approved denominator and coverage percentage are null, and human review is unrecorded. Original M1–M4 targets and remaining normative applicability conditions stay open; [the requirements guide](requirements.md) explains these distinct measures.
 
-- Tests: 2752 = 2653 simulation + 99 elaboration, across 22 directories. M1: 1178 (1097/81); M2: 632 (625/7); M3: 942 (931/11). Seven are four-state (`:fourstate: yes`) spec-only inputs without Verilator records.
-- AI duties: 4133, all directly linked to 2696 tests; 56 tests are control-only. No human review is claimed.
+- Tests: 2757 = 2658 simulation + 99 elaboration, across 22 directories. M1: 1183 (1102/81); M2: 632 (625/7); M3: 942 (931/11). Seven are four-state (`:fourstate: yes`) spec-only inputs without Verilator records.
+- AI duties: 4141, all directly linked to 2701 tests; 56 tests are control-only. No human review is claimed.
 - Ordinary passing inputs: 2287 = 2193 runtime matches at seeds 1/73 + 94 expected compiler rejections.
-- Known differences: 458 = 318 runtime differences + 135 simulation build failures + 5 illegal compile acceptances. A failed first seed does not establish a second-seed result. Spec-only cases total 465 with the seven four-state inputs.
-- Guest evidence: 1081 compatible records; 1671 unmeasured inputs (1667 additions and 4 revised originals). No guest run occurred in expansions 112 to 118. Previously used temporary private executable/profile snapshots are unavailable; obtain authorized local configuration before measuring guests.
-- Candidate placement: 1168 have no primary test, 766 have one, and 548 have at least two. These counts do not prove clause coverage or independent passing checks.
+- Known differences: 463 = 318 runtime differences + 140 simulation build failures + 5 illegal compile acceptances. A failed first seed does not establish a second-seed result. Spec-only cases total 470 with the seven four-state inputs.
+- Separate conditions: command-line 23 fixtures (20 match seeds 1/73, 3 known); regex-DPI variants 26 (all match).
+- Guest evidence: 1081 compatible records; 1676 unmeasured inputs (1672 additions and 4 revised originals). No guest run occurred in expansions 112 to 119. Previously used temporary private executable/profile snapshots are unavailable; obtain authorized local configuration before measuring guests.
+- Candidate placement: 1167 have no primary test, 767 have one, and 548 have at least two. These counts do not prove clause coverage or independent passing checks.
 
-Additional HDL-backend and command-line checks have separate execution conditions; see [results](results.md) and [testing](testing.md). Do not add their counts to ordinary totals without checking scope.
+Additional HDL-backend, command-line and regex-DPI variant checks have separate execution conditions; see [results](results.md) and [testing](testing.md). Do not add their counts to ordinary totals without checking scope.
 
 ## CI state
 
 Hosted CI had not finished a Verilator selection since 2026-10-31: the single Check ran everything on each push with cancel-in-progress, and its one uninterrupted 8-shard run reached the 150-minute limit on every shard. [The CI section](results.md#continuous-integration) describes the replacement and the solver fix.
 
 - [Check](../.github/workflows/check.yml) runs tools, metadata, library and ledger checks plus the tagged checks whose inputs changed and one canary ([the selection tool](../tools/ci_select.py)). It succeeded on 42d03ab ([run 42359747127](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747127), canary only) and on f94ba4a ([run 42360326889](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42360326889), the four 113th inputs and the canary). Neither selection randomizes.
-- [Regression](../.github/workflows/regression.yml) runs all tagged checks in 20 shards, four at a time with 360 minutes each, plus the 17 command-line checks, manually and weekly. Its first dispatch, [run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603) on 42d03ab, was cancelled after the command-line job (success) and shards 0, 2 and 3 (334 of 342 matched). All eight differences depend on constrained randomization: the image had no SMT solver on the path. Removing z3 locally reproduced the four differences checked. That run is not a Regression result for any commit.
+- [Regression](../.github/workflows/regression.yml) runs all tagged checks in 20 shards, four at a time with 360 minutes each, plus the 20 command-line checks and the 26 regex-DPI variants in separate jobs, manually and weekly. Its first dispatch, [run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603) on 42d03ab, was cancelled after the command-line job (success) and shards 0, 2 and 3 (334 of 342 matched). All eight differences depend on constrained randomization: the image had no SMT solver on the path. Removing z3 locally reproduced the four differences checked. That run is not a Regression result for any commit.
 - The [setup action](../.github/actions/setup-verilator/action.yml) now installs z3 in every job and prints its version. The Check for [db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828), [run 42371357208](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42371357208), installed z3 4.8.12 and matched its five selected checks, including the two request profiles that randomize an allocation policy.
-- Regression was dispatched again on db06513 as [run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368). All 20 shards matched the 2273 tagged checks at seeds 1/73, taking 113 to 199 minutes each, and the command-line job succeeded; the 115th commit was published after that result. The run covers db06513, while Check's changed-input job and the local measurements cover the four 115th inputs. The 116th inputs are covered by Check on their commit and the local measurements, the 117th four-state inputs are selected by neither Check nor Regression, and the 118th inputs are covered by Check on their commit and the local measurements; dispatch Regression again when a later full hosted result is needed, and if a shard times out or fails, investigate before publishing more tests.
+- Regression was dispatched again on db06513 as [run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368). All 20 shards matched the 2273 tagged checks at seeds 1/73, taking 113 to 199 minutes each, and the command-line job succeeded; the 115th commit was published after that result. The run covers db06513, while Check's changed-input job and the local measurements cover the four 115th inputs. The 116th inputs are covered by Check on their commit and the local measurements, the 117th four-state inputs are selected by neither Check nor Regression, the 118th inputs are covered by Check on their commit and the local measurements, and the 119th command-line fixtures and regex-DPI variants are covered by the local measurements, while Check runs only the canary for them and the next Regression covers them in its command-line and regex jobs; dispatch Regression again when a later full hosted result is needed, and if a shard times out or fails, investigate before publishing more tests.
 - A ten-concurrent dispatch was cancelled earlier because it filled the account's shared hosted job slots and delayed other repositories. Keep Regression's concurrency modest and do not overlap full runs.
 
 ## External review
@@ -40,8 +41,9 @@ On 2026-11-08 the user supplied an external static review with eight prioritized
 - Item 1, RTL integration: implemented in the 116th expansion below.
 - Item 2, four-state paths: implemented in the 117th expansion below.
 - Item 3, randomization properties: implemented in the 118th expansion below.
-- Item 5 (user packages): planned without format changes.
-- Item 4 (DPI configurations), item 6 (cause classification of the 458 known inputs) and item 7 (kirimasim stages): propose first and wait for the user's confirmation. For item 6, storing values that the pinned library would produce, derived from its source, changes the provenance policy and needs an explicit user decision. Stage tags and cause records are proposed as separate tracked files, because header fields would change every input fingerprint.
+- Item 4, DPI configurations: implemented in the 119th expansion below, after the user approved the proposal (a separate regex-DPI runner and variant list, no new metadata field).
+- Item 5 (user packages): next, planned without format changes.
+- Item 6 (cause classification of the known inputs, now 463) and item 7 (kirimasim stages): propose first and wait for the user's confirmation. For item 6, storing values that the pinned library would produce, derived from its source, changes the provenance policy and needs an explicit user decision. Stage tags and cause records are proposed as separate tracked files, because header fields would change every input fingerprint.
 - Item 8 (readability): changing comments and helpers re-fingerprints most inputs; a directory filter for Regression dispatch is proposed so that each directory does not need a full thirteen-hour run.
 
 ## Preserve these decisions
@@ -54,6 +56,8 @@ On 2026-11-08 the user supplied an external static review with eight prioritized
 - Do not change `tools/run_verilator.py`, `tools/suite_results.py` or `tools/uvm_common.py` casually: they form the runner fingerprint, and changing them invalidates every stored record. `tools/ci_select.py` and the workflow files are outside it.
 
 ## The latest implementation and its limits
+
+Expansion 119 implements item 4 as the user approved it. [The regex-DPI runner](../tools/run_verilator_regex.py) is a separate condition (`verilator_regex`): it rebuilds the two-state fixtures listed in `coverage/regex_dpi_variants.txt` without UVM_NO_DPI, defining UVM_HDL_NO_DPI and linking the pinned regex wrapper and the original command-line VPI bridge. Fixture files, expected files and stored records are unchanged. A first configuration with UVM_CMDLINE_NO_DPI did not deliver +UVM_TESTNAME (NOCOMP in the five RTL profiles), so the bridge is enabled. All 26 listed fixtures match seeds 1/73 and Regression runs them in a `regex` job; its gate requires the command-line, regex and shard jobs. Five new spec-only fixtures in the command-line condition check F.3.3.1 notation, regular-expression and plus scopes in configuration and resource lookups (C.4.2.2.1, C.2.4.3), component lookup (F.7.4.1) and get_arg_matches (G.1.3.4). Three match both seeds and are tagged; two remain known in one row each, and the pinned library source, read only after the oracle was frozen, explains them (`uvm_re_deglobbed` keeps an unslashed caret and dollar sign as anchors; the default configuration lookup finds field names exactly). Eight `UVM-REGEX-*` duties were added; see [the DPI FAQ](faq.md#q440-what-do-the-regex-dpi-variants-and-profiles-check) and [Regular-expression matching](known-differences.md#regular-expression-matching).
 
 Expansion 118 added five randomization-property profiles in uB, sharing `tests/uB/helpers118_rand/rand118.svh` (event log, driver and test base). They check constraint_mode after uvm_create, inline constraints with single randomization and start/randomize/finish order over twenty-four uvm_do items, randc cycling over repeated uvm_rand_send of one item, a child-sequence field kept by rand_mode before pre_start, and inline-constraint name resolution with local::. Judgments use properties, never particular values. Two readings are stated: an empty inline constraint does not change randc constraints, and macro CONSTRAINTS are evaluated as an inline constraint at the macro call. All five match seeds 1/73 before and after tagging from the first freeze. Six `UVM-RAND-PROPERTY-*` duties were added; see [the randomization FAQ](faq.md#q438-what-do-the-randomization-property-profiles-check).
 
@@ -71,28 +75,32 @@ The 113th limit stays: no stale call is made while the same range is reserved ag
 
 ## Local artifacts
 
-The ignored `out/` directory is optional local evidence, not a tracked source of truth. It may be absent after cloning. On this host, the 118th-expansion files are:
+The ignored `out/` directory is optional local evidence, not a tracked source of truth. It may be absent after cloning. On this host, the 119th-expansion files are:
 
 ```text
-out/thin-one-hundred-eighteenth-pretag-freeze.json
-out/thin-one-hundred-eighteenth-verilator-pretag.json
-out/thin-one-hundred-eighteenth-verilator-final.json
-out/thin-one-hundred-eighteenth-verilator-combined.json
-out/thin-one-hundred-eighteenth-evidence-scope.json
-out/thin-one-hundred-eighteenth-inventory.json
-out/thin-one-hundred-eighteenth-backlog.json
-out/thin-one-hundred-eighteenth-doc-contents-effective.json
+out/thin-one-hundred-nineteenth-pretag-freeze.json
+out/thin-one-hundred-nineteenth-cmdline-pretag.json
+out/thin-one-hundred-nineteenth-cmdline-final.json
+out/thin-one-hundred-nineteenth-cmdline-combined.json
+out/thin-one-hundred-nineteenth-verilator-final.json
+out/thin-one-hundred-nineteenth-verilator-combined.json
+out/thin-one-hundred-nineteenth-regex-variants.json
+out/thin-one-hundred-nineteenth-evidence-scope.json
+out/thin-one-hundred-nineteenth-inventory.json
+out/thin-one-hundred-nineteenth-backlog.json
+out/thin-one-hundred-nineteenth-doc-contents-effective.json
+out/thin-one-hundred-nineteenth-diag-cmdline-known.txt
 ```
 
-The 117th files keep the same names with `seventeenth`; its four-state inputs have only `freeze.json` and the two-state diagnostic log, without batches. The 116th files keep the same names with `sixteenth`, including pretag/final batches and `before-identifier-fix/`. The 115th files keep the same names with `fifteenth`. The 114th files keep the same names with `fourteenth`, plus `out/thin-one-hundred-fourteenth-regression-42359747603.json` and `out/thin-one-hundred-fourteenth-before-owner-split/`.
+The 118th files keep the same names with `eighteenth`, including `verilator-pretag.json`. The 117th files keep the same names with `seventeenth`; its four-state inputs have only `freeze.json` and the two-state diagnostic log, without batches. The 116th files keep the same names with `sixteenth`, including pretag/final batches and `before-identifier-fix/`. The 115th files keep the same names with `fifteenth`. The 114th files keep the same names with `fourteenth`, plus `out/thin-one-hundred-fourteenth-regression-42359747603.json` and `out/thin-one-hundred-fourteenth-before-owner-split/`.
 
-Guest records remain the 112th files listed in [the detailed handoff](handoff.md#evidence-and-latest-differences). `out/thin-one-hundred-eighteenth-generator-used.py`, `-ledger-used.py` and `-docs-used.py`, and the 114th to 117th scripts of the same form, are the scripts actually used; their guards refer to earlier commits and document text, so do not rerun them. For later document updates, start from the effective snapshot and the current tracked files. Preserve existing index order when appending records, and check input, runner, library and simulator fingerprints before carrying evidence forward; [evidence assembly](results.md#evidence-assembly) gives the rules.
+Guest records remain the 112th files listed in [the detailed handoff](handoff.md#evidence-and-latest-differences). `out/thin-one-hundred-nineteenth-generator-used.py`, `-ledger-used.py` and `-docs-used.py`, and the 114th to 118th scripts of the same form, are the scripts actually used; their guards refer to earlier commits and document text, so do not rerun them. For later document updates, start from the effective snapshot and the current tracked files. Preserve existing index order when appending records, and check input, runner, library and simulator fingerprints before carrying evidence forward; [evidence assembly](results.md#evidence-assembly) gives the rules.
 
 ## Next candidates
 
 These are suggestions, not approved scope. Regenerate the backlog before choosing.
 
-- The next external review item in order (item 4, which needs a proposal first), following the review plan above.
+- The next external review item in order (item 5, user packages, without format changes), following the review plan above. Before item 6, ask again for the decision on library-derived values.
 - Reconfiguration that changes mode or locality together with the bounds, or other byte widths, under 18.12.4.2.
 - The 112th named-setter question for unpack, reviewed against the standard without promoting the known cases on library evidence.
 - Other partial M3 conditions in chapter 18 (393 partial identifiers), and the 2062 partial identifiers overall, compared with the original M1–M3 targets.

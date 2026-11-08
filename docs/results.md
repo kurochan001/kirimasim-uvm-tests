@@ -6,30 +6,31 @@
 
 Runtime matches, compiler rejections and unmeasured inputs describe different execution conditions; [Read a result](reading-guide.md#read-a-result) explains how to read the counts together.
 
-The Verilator snapshot assembled on 2026-11-09 covers all 2745 two-state tests; the seven four-state tests have no Verilator record.
-Guest records retain 1081 compatible current inputs; 1671 inputs are
+The Verilator snapshot assembled on 2026-11-09 covers all 2750 two-state tests; the seven four-state tests have no Verilator record.
+Guest records retain 1081 compatible current inputs; 1676 inputs are
 unmeasured, including four revised old inputs. Each record
 fingerprints its inputs and conditions.
-The suite has 2752 fixtures in 22 directories: 2653 simulation and 99
-elaboration. Milestone totals are M1 1178 (1097/81), M2 632 (625/7) and M3 942
+The suite has 2757 fixtures in 22 directories: 2658 simulation and 99
+elaboration. Milestone totals are M1 1183 (1102/81), M2 632 (625/7) and M3 942
 (931/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
 none records human review. Of 2696 no-DPI fixtures, 99 are illegal elaboration
-checks. The thirty-eight HDL-DPI and eighteen command-line/regex-DPI runtime fixtures
+checks. The thirty-eight HDL-DPI and twenty-three command-line/regex-DPI runtime fixtures
 remain separate.
 
 Counts do not establish a reviewed coverage percentage.
 
 Backend rows revisit inputs already included in the ordinary row under different conditions; [the execution setup](testing.md#the-uvm-library) explains why their results are counted separately.
 
-A runtime match at seeds 1/73 still counts as one fixture, while a seed requested in configuration may be skipped after a first mismatch; [the seed-count explanation](faq.md#q201-did-all-2752-tests-run-at-two-seeds) explains how to read the execution scope column.
+A runtime match at seeds 1/73 still counts as one fixture, while a seed requested in configuration may be skipped after a first mismatch; [the seed-count explanation](faq.md#q201-did-all-2757-tests-run-at-two-seeds) explains how to read the execution scope column.
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 2287 `pass`: 2193 runtime + 94 compile rejection; 458 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
+| Verilator 5.052, pinned UVM | 2287 `pass`: 2193 runtime + 94 compile rejection; 463 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
 | Verilator 5.052, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
-| Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 17 `pass`; 1 `known` | Separate overlapping 18-case condition; matches at seeds 1/73, difference at seed 1 |
-| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 unchanged inputs; 1671 inputs unmeasured |
-| Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1671 inputs unmeasured |
+| Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 20 `pass`; 3 `known` | Separate overlapping 23-case condition; matches at seeds 1/73, differences at seed 1 |
+| Verilator 5.052, listed ordinary fixtures with regex and command-line DPI | 26 `pass` | Separate overlapping 26-case condition from `coverage/regex_dpi_variants.txt`; matches at seeds 1/73 |
+| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 unchanged inputs; 1676 inputs unmeasured |
+| Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1676 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -55,11 +56,11 @@ A build failure stops before simulation, while a runtime difference comes from a
 declared fixture/type/member diagnostic. Five illegal designs remain accepted:
 subscriber write, visitor visit, proxy get_immediate_children and adapter accept omissions, and direct construction of the
 printed virtual builtin dispatcher. They retain the rejection oracle as known
-differences without runtime, even when accepted. The 135 unexpected simulation
+differences without runtime, even when accepted. The 140 unexpected simulation
 builds remain separate. A pass requires the declared expectation.
 
-The 458 measured spec-only cases retain standard-derived output or compile-diagnostic
-expectations; the seven four-state spec-only cases have no Verilator record. Five are illegal compiler acceptances; 453 are simulation cases.
+The 463 measured spec-only cases retain standard-derived output or compile-diagnostic
+expectations; the seven four-state spec-only cases have no Verilator record. Five are illegal compiler acceptances; 458 are simulation cases.
 Of these, 318 first differ at runtime seed 1 without seed 73. Forty-three cannot build
 because of missing APIs/type names: one time API, fourteen sequence-library APIs,
 twelve HDL slice-view cases, one named-concat constructor, five object active-policy API cases,
@@ -71,16 +72,16 @@ Two declaration builds retain incompatible defaults; two retain printed
 all_dropped function/task and clone implicit-scalar/map-return conflicts. Two
 retain incompatible inherited type_id registry specializations; one retains the
 protected memory backdoor_read accessibility difference. Two legal extensions, resource-base and listed-only complete core service,
-also require unlisted pure hooks. Another 56 request
-unlinked DPI: thirty-eight HDL and eighteen command-line cases. Three additional legal
+also require unlisted pure hooks. Another 61 request
+unlinked DPI: thirty-eight HDL and twenty-three command-line cases. Three additional legal
 builds use the literal enum-collection T interpretation. Seven further builds
 retain six strict attribute definitions and the printed enum-unpack arity.
 Three more builds retain dependent visitor defaults with custom STRUCTURE.
 Two qualified virtual-abstraction overview-base inputs retain the wording
 conflict; their explicit class-base controls match separately. Two additional
-printed dedicated-pool return-type inputs retain the pool/item conflict. These 135
-simulation builds have no runtime result. Separate command-line evidence remains
-seventeen matches and one quit-warning difference.
+printed dedicated-pool return-type inputs retain the pool/item conflict. These 140
+simulation builds have no runtime result. Separate command-line evidence has
+twenty matches, one quit-warning difference and two regular-expression differences.
 
 One additional legal construction input is rejected as an abstract uvm_vreg_cbs
 facade under the pinned virtual declaration; its printed concrete expectation is
@@ -142,49 +143,56 @@ A fingerprint identifies the exact inputs behind a reused record, so [Execution 
 
 Here an unmeasured input has no compatible current record, even if an older version was run; [Q15](faq.md#q15-how-do-i-know-whether-an-old-result-still-applies) explains the checks needed before reusing it.
 
-The snapshot starts from [46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624), retains all 2740 old two-state records,
-and adds five M2 simulation inputs on 2026-11-09 JST; the seven four-state inputs still have no record.
+The snapshot starts from [8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8), retains all 2745 old two-state records,
+and adds five regex-DPI inputs (M1) as unlinked builds on 2026-11-09 JST; the seven four-state inputs still have no record.
 
 The profiles below check only their stated conditions, so a match under a different premise cannot pass an original difference; [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains the recorded direct/control roles.
 
-The 118th expansion implements the external review's third item,
-randomization. Five uB profiles judge macro-driven randomization by
-properties rather than values: a class constraint disabled with
-constraint_mode after uvm_create; inline constraints and single
-randomization over twenty-four uvm_do items with the start, randomize and
-finish order; randc cycling over repeated uvm_rand_send of one item; a child
-sequence field kept by rand_mode while the other is constrained before
-pre_start; and inline-constraint name resolution with local::.
-[The randomization FAQ](faq.md#q438-what-do-the-randomization-property-profiles-check) explains each.
+The 119th expansion implements the external review's fourth item, DPI
+configurations. Ordinary fixtures build with UVM_NO_DPI, where uvm_is_match
+falls back to SystemVerilog glob matching and regular expressions cannot be
+evaluated. A new runner, `tools/run_verilator_regex.py`, rebuilds the 26
+two-state fixtures listed in `coverage/regex_dpi_variants.txt` with the pinned
+regex DPI and the original command-line VPI bridge, HDL DPI disabled; each
+passes a simplified-notation pattern to a matcher, and all 26 match seeds 1/73
+in this condition. A first configuration without command-line DPI could not
+deliver +UVM_TESTNAME to the five RTL profiles, so the runner enables the
+bridge. The fixtures, expected files and stored records are unchanged, and
+Regression gains a job for the variants; [the DPI FAQ](faq.md#q440-what-do-the-regex-dpi-variants-and-profiles-check) explains the
+condition.
 
-The fact check found existing coverage of sequence-library selection, single
-inline constraints and macro hook order, so these profiles target the gaps;
-`uvm_do_with` is not part of 1800.2-2020, whose B.3.1.4 takes a CONSTRAINTS
-argument. Two readings are stated in the duties: an empty inline constraint
-does not change a randc variable's constraints, and the macro's CONSTRAINTS
-are evaluated as an inline constraint at the macro call. All five inputs
-match seeds 1/73 before and after tagging from the first freeze, with no
-randomization warning.
+Five new fixtures select the existing command-line condition and check what
+1800.2 defines only with regular-expression support: POSIX expressions between
+slashes, the simplified plus, star and question mark, literal dots, carets and
+dollar signs (F.3.3.1), regular-expression and plus scopes in the
+configuration and resource databases, regular-expression and plus component
+lookup, and get_arg_matches. Three match both seeds after tagging. Two remain
+known, each in one row, with the pinned library identified as the cause after
+the oracle was frozen: the glob conversion keeps a leading caret and trailing
+dollar sign as anchors, and the default configuration lookup finds field names
+exactly; [the known-difference FAQ](faq.md#q441-why-are-two-regular-expression-profiles-known) explains them. The ordinary runner
+records the five as unlinked builds.
 
-Six new duties cover these conditions. The total is 4133 AI duties, with all
-4127 old objects and 445 assessments unchanged; 2696 tests have direct links,
-158 have controls and 56 are control-only. All 2740 old ordinary records,
-2747 old index entries, 458 old known inputs and the seven four-state inputs
-remain unchanged. The five inputs count as M2.
+Eight new duties cover these conditions. The total is 4141 AI duties, with all
+4133 old objects and 445 assessments unchanged; 2701 tests have direct links,
+158 have controls and 56 are control-only. All 2745 old ordinary records and
+458 old known inputs remain unchanged. The five inputs count as M1.
 
-The suite has 2752 tests (2653 simulation/99 elaboration). Ordinary results
+The suite has 2757 tests (2658 simulation/99 elaboration). Ordinary results
 are 2287 matches: 2193 runtime inputs at both seeds and 94 compiler rejections.
-Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds
-and five accepted illegal designs without runtime; spec-only cases total 465
-with the seven four-state inputs. The two backend subsets are unchanged. No
-guest run/filter is added: 1081 compatible records remain byte-identical and
-1671 inputs are unmeasured (1667 additions/four revised originals; 1572
-simulation/99 elaboration).
+Known inputs total 463: 318 runtime seed 1 differences, 140 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 470
+with the seven four-state inputs. The command-line condition has 23 fixtures
+(20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
+is added to the ordinary totals. No guest run/filter is added: 1081 compatible
+records remain byte-identical and 1676 inputs are unmeasured (1672
+additions/four revised originals; 1577 simulation/99 elaboration).
 
-Primary-focused identifiers remain 1318; candidates are 1168 zero/766 below
+Primary-focused identifiers rise to 1319; candidates are 1167 zero/767 below
 target/548 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
-approval remain open; [the scope FAQ](faq.md#q439-do-the-randomization-profiles-cover-randomization-completely) explains what remains.
+approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
+explains why matching conditions do not supply completion.
 
 Retained kirimasim/Ghost records were collected with fixed executable
 snapshots and Ghost's seed-specific private profiles.
@@ -198,10 +206,10 @@ longer available, so no guest rerun is claimed. Historical source files retain
 Boolean rerandomization, virtual-field configuration and reraise primary citation.
 This increment performs no new filtering. All 1081 compatible records and
 filter metadata are retained byte-identically. Four more additions increase the
-unmeasured set to 1671: 1667 additions and four revised originals. Ghost remains
+unmeasured set to 1676: 1672 additions and four revised originals. Ghost remains
 206 pass/875 fail per seed and kirimasim remains 1072 unsupported/nine API failures.
 The latest exclusions are recorded in `out/thin-one-hundred-sixth-guest-exclusions.json`;
-the current scope is in `out/thin-one-hundred-eighteenth-evidence-scope.json`.
+the current scope is in `out/thin-one-hundred-nineteenth-evidence-scope.json`.
 
 The fingerprints identify different inputs:
 
@@ -223,7 +231,7 @@ Before combining records, check that:
 
 - Verilator IDs cover every current two-state input exactly; the seven
   four-state inputs have no Verilator record. Retained guest IDs match
-  their declared 1081-case subset; 1671 input IDs remain unmeasured.
+  their declared 1081-case subset; 1676 input IDs remain unmeasured.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -238,11 +246,11 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-The [draft ledger](requirements.md) has 4133 AI duties and 0 unassessed
+The [draft ledger](requirements.md) has 4141 AI duties and 0 unassessed
 identifiers: 2062 partial/445 assessed. Chapter 10 is 87/29/0; chapter 18 is
 393/63/0. Their partial contracts and original targets remain open. Direct
-links cover 2696 tests; 56 others have only controls. Guests retain 1081
-compatible inputs; 1671 (1572 simulation/99 elaboration), including four
+links cover 2701 tests; 56 others have only controls. Guests retain 1081
+compatible inputs; 1676 (1577 simulation/99 elaboration), including four
 revised originals, are unmeasured. Scope and denominator remain unapproved.
 
 ## Reproducing and retaining results
@@ -274,8 +282,8 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 118 tool unit tests,
-2752 metadata records and the draft ledger/index. Its Verilator job runs the
+and manual dispatch. It checks pinned-library integrity, 124 tool unit tests,
+2757 metadata records and the draft ledger/index. Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,
 plus the canary `tests/u09/test_common_phases_run_in_order.sv`, with runtime
 seeds 1/73 ([the selection tool](../tools/ci_select.py)). When the base is
@@ -287,8 +295,8 @@ and a warning asks for Regression. A green Check covers the selected checks only
 weekly (Saturdays 17:23 UTC). It runs all 2287 tagged ordinary checks (2193
 runtime cases at seeds 1/73 and 94 compiler rejections without runtime seeds)
 in 20 disjoint shards (seven of 115 and thirteen of 114), at most 4 concurrent so
-that Check and other repositories keep hosted job slots, each limited to 360 minutes, and the seventeen explicit command-line checks in a
-separate job under their condition. Its gate requires both. A newer request
+that Check and other repositories keep hosted job slots, each limited to 360 minutes, the twenty explicit command-line checks in a
+separate job under their condition, and the twenty-six regex-DPI variants in another job. Its gate requires all three. A newer request
 waits for a run in progress instead of cancelling it.
 
 The former single Check ran the whole selection on every push. Its unsharded

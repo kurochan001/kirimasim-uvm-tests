@@ -718,14 +718,35 @@ python3 tools/run_verilator_cmdline.py --all --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator-cmdline-all.json
 ```
 
-The default selects seventeen reproduced fixtures through
+The default selects twenty reproduced fixtures through
 `:uvm_cmdline_oracle: verilator@5.052`. `--all` adds the spec-only quit-warning
-case and records its difference as `known`, which is not a pass. Regressions in
+case and the two regular-expression cases and records their differences as `known`, which is not a pass. Regressions in
 selected reproduced cases are `fail` and cause a nonzero exit. One model build
 runs in fresh processes at both seeds. The separate `verilator_cmdline` result
 identity hashes its runner independently; generic expected output is shared.
-The eighteen overlapping ordinary records fail to link DPI. Keep both conditions
-separate. Check runs the seventeen default command-line checks, not the known case.
+The twenty-three overlapping ordinary records fail to link DPI. Keep both conditions
+separate. Regression runs the twenty default command-line checks, not the known cases.
+
+### Verilator regex-DPI variants
+
+[The regex-DPI runner](../tools/run_verilator_regex.py) rebuilds ordinary
+two-state fixtures listed in [the variant list](../coverage/regex_dpi_variants.txt)
+without UVM_NO_DPI. It defines UVM_HDL_NO_DPI and links the pinned regex wrapper
+and the original command-line VPI bridge, so name matching uses the library's
+regular-expression DPI and arguments such as +UVM_TESTNAME arrive through the
+command-line DPI. Fixture files and expected output are unchanged; a listed
+line ending in `verilator@5.052` is a check that matched in this condition.
+Four-state, illegal-design and DPI-selecting fixtures are refused.
+
+```sh
+python3 tools/run_verilator_regex.py --seeds 1 73 --build-jobs 2 -j 2 \
+  --json out/verilator-regex.json
+```
+
+The separate `verilator_regex` result identity hashes its runner independently,
+so changing it does not invalidate ordinary records. All 26 listed fixtures
+match both seeds, and Regression runs them in their own job after the
+command-line job, so the run uses no more hosted job slots at once.
 
 ## Running the suite
 
@@ -760,7 +781,7 @@ The JSON configuration records either `seed` or `seeds` accordingly.
 
 By default, Verilator selects 2287 tagged two-state checks: 2193 runtime
 cases and 94 expected compiler rejections. To include
-the 458 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 463 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -827,8 +848,8 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-The current tool suite has 118 unit tests; metadata validation checks all
-2752 tests (2653 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+The current tool suite has 124 unit tests; metadata validation checks all
+2757 tests (2658 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
 [Regression](../.github/workflows/regression.yml) shards, uses
@@ -838,8 +859,8 @@ selected, not that every UVM requirement or every simulator passes.
 
 Check runs the tagged checks whose recorded inputs changed, plus a canary, and
 falls back to the canary alone with a warning when it cannot cover a change.
-Regression runs all 2287 tagged checks in 20 disjoint shards and the 17
-command-line checks, manually and weekly. [The CI section](results.md#continuous-integration)
+Regression runs all 2287 tagged checks in 20 disjoint shards, the 20
+command-line checks and the 26 regex-DPI variants, manually and weekly. [The CI section](results.md#continuous-integration)
 gives the fallbacks and limits, and why the earlier 8-shard Check never finished.
 After a change to the runner, the library lock or many inputs, dispatch
 Regression rather than relying on Check.

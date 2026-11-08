@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-Current transfer: the user resumed the goal on 2026-11-07, and the 118th expansion, the third item of an external review, is published. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
+Current transfer: the user resumed the goal on 2026-11-07, and the 119th expansion, the fourth item of an external review, is published. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
@@ -10,8 +10,8 @@ This page supports resuming development; if you want to run or understand a firs
 
 The base commit below identifies the starting point for the described work, so check uncommitted changes before treating saved results as evidence for the current files; [the input-update procedure](requirements.md#updating-a-test-or-mapping) explains how to review their compatibility.
 
-Updated on 2026-11-09 for the 118th expansion, based on
-[46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624)
+Updated on 2026-11-09 for the 119th expansion, based on
+[8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -22,11 +22,11 @@ zero unlinked tests does not complete any milestone.
 
 | Area | Current snapshot |
 | --- | --- |
-| M1 | 1178 tests (1097 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
+| M1 | 1183 tests (1102 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
 | M2 | 632 tests (625 runtime, 7 elaboration): sequences, sequencers, callbacks and TLM |
 | M3 | 942 tests (931 runtime, 11 elaboration): register/memory layer and annex E |
-| Entire suite | 2752 tests (2653 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 4133 AI requirement drafts; 4133 have direct links to 2696 tests; fifty-six control-only tests; zero tests without links |
+| Entire suite | 2757 tests (2658 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 4141 AI requirement drafts; 4141 have direct links to 2701 tests; fifty-six control-only tests; zero tests without links |
 | Normative inventory | 2062 of 2,507 identifiers partially decomposed; 445 explicitly assessed; 0 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
@@ -68,7 +68,7 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
 
 - [Testing guide](testing.md): metadata, compilation, runner options and
   contribution rules. [Results](results.md): evidence interpretation and
-  assembly. [Known differences](known-differences.md): all 465 spec-only cases.
+  assembly. [Known differences](known-differences.md): all 470 spec-only cases.
 - [Requirement guide](requirements.md), [scope](../coverage/scope.json),
   [ledger](../coverage/requirements.json), [assessments](../coverage/assessments.json) and [test index](../coverage/test_index.json):
   canonical M4 state. Generated inventories are review aids, not replacements
@@ -106,11 +106,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 118 tool unit tests, metadata for all 2752 tests (2653 simulation, 99 elaboration),
+The snapshot passed 124 tool unit tests, metadata for all 2757 tests (2658 simulation, 99 elaboration),
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1081 unchanged inputs, with 1671 inputs unmeasured.
+cover 1081 unchanged inputs, with 1676 inputs unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -124,7 +124,7 @@ result; newer commits may supersede that run. Local checks are not proof
 of a successful full CI run. Check runs tool,
 metadata, ledger and library checks and the tagged ordinary Verilator checks
 whose inputs changed, plus a canary; Regression runs all tagged ordinary checks
-and seventeen command-line checks, manually and weekly. Neither runs Ghost,
+and twenty command-line checks and twenty-six regex-DPI variants, manually and weekly. Neither runs Ghost,
 kirimasim or spec-only cases. There is no automatic result publication.
 
 ## Evidence and latest differences
@@ -137,70 +137,78 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 2193 runtime passes at seeds 1/73; 94 expected compile rejections; 458 known |
+| Verilator 5.052 / pinned UVM | 2193 runtime passes at seeds 1/73; 94 expected compile rejections; 463 known |
 | Verilator 5.052 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
-| Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 18-case condition: 17 pass both seeds; 1 known at seed 1 |
-| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1671 inputs unmeasured |
-| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1671 inputs unmeasured |
+| Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 23-case condition: 20 pass both seeds; 3 known at seed 1 |
+| Verilator 5.052 / listed ordinary fixtures with regex and command-line DPI | Separate 26-case condition: 26 pass both seeds |
+| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1676 inputs unmeasured |
+| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1676 inputs unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
-The ordinary condition retains 458 known cases: 318 runtime first differences,
-135 simulation builds and five illegal compiler acceptances. One legal printed-concrete callback-facade construction is rejected as abstract. Builds are 43 missing
+The ordinary condition retains 463 known cases: 318 runtime first differences,
+140 simulation builds and five illegal compiler acceptances. One legal printed-concrete callback-facade construction is rejected as abstract. Builds are 43 missing
 API/type names, one time-decrement argument default, two type-default declarations, three dependent visitor-default builds, two printed signature conflicts,
 two inherited type_id registry specializations, one protected-access build, two unlisted-pure-hook builds and 56 unlinked DPI cases. Two qualified virtual-abstraction overview-base builds and two printed dedicated-pool return-type builds also remain. Three additional legal builds retain the enum-collection T interpretation. Seven more builds retain strict attribute/enum-unpack arities. Separate HDL/command-line evidence is reported independently.
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
 
-The 118th expansion implements the external review's third item,
-randomization. Five uB profiles judge macro-driven randomization by
-properties rather than values: a class constraint disabled with
-constraint_mode after uvm_create; inline constraints and single
-randomization over twenty-four uvm_do items with the start, randomize and
-finish order; randc cycling over repeated uvm_rand_send of one item; a child
-sequence field kept by rand_mode while the other is constrained before
-pre_start; and inline-constraint name resolution with local::.
-[The randomization FAQ](faq.md#q438-what-do-the-randomization-property-profiles-check) explains each.
+The 119th expansion implements the external review's fourth item, DPI
+configurations. Ordinary fixtures build with UVM_NO_DPI, where uvm_is_match
+falls back to SystemVerilog glob matching and regular expressions cannot be
+evaluated. A new runner, `tools/run_verilator_regex.py`, rebuilds the 26
+two-state fixtures listed in `coverage/regex_dpi_variants.txt` with the pinned
+regex DPI and the original command-line VPI bridge, HDL DPI disabled; each
+passes a simplified-notation pattern to a matcher, and all 26 match seeds 1/73
+in this condition. A first configuration without command-line DPI could not
+deliver +UVM_TESTNAME to the five RTL profiles, so the runner enables the
+bridge. The fixtures, expected files and stored records are unchanged, and
+Regression gains a job for the variants; [the DPI FAQ](faq.md#q440-what-do-the-regex-dpi-variants-and-profiles-check) explains the
+condition.
 
-The fact check found existing coverage of sequence-library selection, single
-inline constraints and macro hook order, so these profiles target the gaps;
-`uvm_do_with` is not part of 1800.2-2020, whose B.3.1.4 takes a CONSTRAINTS
-argument. Two readings are stated in the duties: an empty inline constraint
-does not change a randc variable's constraints, and the macro's CONSTRAINTS
-are evaluated as an inline constraint at the macro call. All five inputs
-match seeds 1/73 before and after tagging from the first freeze, with no
-randomization warning.
+Five new fixtures select the existing command-line condition and check what
+1800.2 defines only with regular-expression support: POSIX expressions between
+slashes, the simplified plus, star and question mark, literal dots, carets and
+dollar signs (F.3.3.1), regular-expression and plus scopes in the
+configuration and resource databases, regular-expression and plus component
+lookup, and get_arg_matches. Three match both seeds after tagging. Two remain
+known, each in one row, with the pinned library identified as the cause after
+the oracle was frozen: the glob conversion keeps a leading caret and trailing
+dollar sign as anchors, and the default configuration lookup finds field names
+exactly; [the known-difference FAQ](faq.md#q441-why-are-two-regular-expression-profiles-known) explains them. The ordinary runner
+records the five as unlinked builds.
 
-Six new duties cover these conditions. The total is 4133 AI duties, with all
-4127 old objects and 445 assessments unchanged; 2696 tests have direct links,
-158 have controls and 56 are control-only. All 2740 old ordinary records,
-2747 old index entries, 458 old known inputs and the seven four-state inputs
-remain unchanged. The five inputs count as M2.
+Eight new duties cover these conditions. The total is 4141 AI duties, with all
+4133 old objects and 445 assessments unchanged; 2701 tests have direct links,
+158 have controls and 56 are control-only. All 2745 old ordinary records and
+458 old known inputs remain unchanged. The five inputs count as M1.
 
-The suite has 2752 tests (2653 simulation/99 elaboration). Ordinary results
+The suite has 2757 tests (2658 simulation/99 elaboration). Ordinary results
 are 2287 matches: 2193 runtime inputs at both seeds and 94 compiler rejections.
-Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds
-and five accepted illegal designs without runtime; spec-only cases total 465
-with the seven four-state inputs. The two backend subsets are unchanged. No
-guest run/filter is added: 1081 compatible records remain byte-identical and
-1671 inputs are unmeasured (1667 additions/four revised originals; 1572
-simulation/99 elaboration).
+Known inputs total 463: 318 runtime seed 1 differences, 140 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 470
+with the seven four-state inputs. The command-line condition has 23 fixtures
+(20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
+is added to the ordinary totals. No guest run/filter is added: 1081 compatible
+records remain byte-identical and 1676 inputs are unmeasured (1672
+additions/four revised originals; 1577 simulation/99 elaboration).
 
-Primary-focused identifiers remain 1318; candidates are 1168 zero/766 below
+Primary-focused identifiers rise to 1319; candidates are 1167 zero/767 below
 target/548 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
-approval remain open; [the scope FAQ](faq.md#q439-do-the-randomization-profiles-cover-randomization-completely) explains what remains.
+approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
+explains why matching conditions do not supply completion.
 
-Totals are 2752 (2653 simulation/99 elaboration): M1 1178 (1097/81), M2 632
+Totals are 2757 (2658 simulation/99 elaboration): M1 1183 (1102/81), M2 632
 (625/7), M3 942 (931/11). Ordinary pass is 2287 (2193 runtime/94 rejections),
-with 458 known (318 runtime/135 builds/5 illegal acceptances). Guests retain
-1081 compatible records; 1671 unmeasured inputs are 1667 additions and four revised originals.
+with 463 known (318 runtime/140 builds/5 illegal acceptances). Guests retain
+1081 compatible records; 1676 unmeasured inputs are 1672 additions and four revised originals.
 
 The former single Check never finished its whole selection after 2026-10-31:
 its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)
 not superseded by a newer push reached the 150-minute limit on all eight
 shards. Check now runs the changed tagged inputs and a canary, and
 [Regression](../.github/workflows/regression.yml) runs all 2287 tagged checks in
-20 disjoint shards with the 17 command-line checks; [the CI section](results.md#continuous-integration)
+20 disjoint shards with the 20 command-line checks and 26 regex-DPI variants; [the CI section](results.md#continuous-integration)
 gives the limits. Seeds 1/73, compiler-rejection judgment, pinned dependencies
 and runner fingerprints are unchanged. After a change that Check reports as
 canary-only, dispatch Regression and check its result for the current commit;
@@ -215,13 +223,13 @@ remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-one-hundred-eighteenth-verilator-combined.json
+out/thin-one-hundred-nineteenth-verilator-combined.json
 out/thin-one-hundred-twelfth-ghost-final-1.json
 out/thin-one-hundred-twelfth-ghost-final-73.json
 out/thin-one-hundred-twelfth-kirimasim-final.json
-out/thin-one-hundred-eighteenth-inventory.json
-out/thin-one-hundred-eighteenth-backlog.json
-out/thin-one-hundred-eighteenth-evidence-scope.json
+out/thin-one-hundred-nineteenth-inventory.json
+out/thin-one-hundred-nineteenth-backlog.json
+out/thin-one-hundred-nineteenth-evidence-scope.json
 out/thin-one-hundred-sixth-hdl-combined.json
 out/thin-one-hundred-sixth-cmdline-final.json
 ```
@@ -242,7 +250,7 @@ Unassessed counts and partial obligations track different remaining work; [Read 
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.
 At activation there were 1,463 unassessed identifiers, zero unlinked tests and
-zero requirements without direct tests. 90 iterations retain zero unassessed, a decrease of 1463 since activation. The user resumed the paused goal on 2026-11-07. The 113th to 115th iterations split CI, fixed the missing z3 solver on hosted runners and added twelve M3 memory-manager inputs. On 2026-11-08 the user supplied an external review with eight items; the 116th iteration added five RTL integration inputs, the 117th seven four-state spec-only inputs and the 118th five randomization-property inputs, which match both seeds before and after tagging. Six new duties produce 4133 duties, with all 4127 old objects identical. All 2740 old ordinary records, 458 old known inputs and 445 assessments remain. Guests retain 1081 compatible/1671 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is not complete.
+zero requirements without direct tests. 91 iterations retain zero unassessed, a decrease of 1463 since activation. The user resumed the paused goal on 2026-11-07. The 113th to 115th iterations split CI, fixed the missing z3 solver on hosted runners and added twelve M3 memory-manager inputs. On 2026-11-08 the user supplied an external review with eight items; the 116th to 118th iterations added RTL integration, four-state and randomization-property inputs, and the 119th adds a regex-DPI variant condition for 26 listed fixtures and five regular-expression fixtures, two of which remain known with library causes. Eight new duties produce 4141 duties, with all 4133 old objects identical. All 2745 old ordinary records, 458 old known inputs and 445 assessments remain. Guests retain 1081 compatible/1676 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is not complete.
 
 The separate earlier 12.2.9.2 reassessment did not reduce unassessed. Do not mark
 the goal complete before the final audit. Zero unassessed in chapter 12 does not complete its 169 partial
@@ -488,7 +496,9 @@ byte enables, error responses and the remaining review items remain.
 Four-state paths now have seven spec-only profiles without Verilator records;
 the unspecified paths are listed in the testing guide. Macro-driven
 randomization now has five property profiles; distribution quality and
-behavior after a failed randomization remain.
+behavior after a failed randomization remain. Regular expressions now have a
+regex-DPI variant condition and five command-line profiles; other DPI-dependent
+behavior, such as HDL DPI with regular expressions, remains.
 
 Register-interaction candidates include callback resize/disable and operation
 failure conditions, wider translation beats, independent one-way payload

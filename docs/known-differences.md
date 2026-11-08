@@ -6,7 +6,7 @@ To locate a result's source, search this page for the filename portion of its te
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2752-test suite and the pinned Accellera UVM
+This describes the current 2757-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -178,7 +178,7 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 63 pure-interface/const-reference/forbidden-member/type-context/non-public-constructor violations.
 94 match. Subscriber/visitor/proxy/adapter omissions and direct construction
 of the printed virtual builtin dispatcher remain accepted and spec-only without
-runtime. These five compiler acceptances are separate from 453 known simulation
+runtime. These five compiler acceptances are separate from 458 known simulation
 differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
@@ -1192,10 +1192,11 @@ arrays and append after replacement. Their first build failure is the missing
 standard slice accessor. No legacy member or differently named method replaces
 these APIs. All three are build evidence without runtime results.
 
-Eighteen command-line fixtures explicitly request a separate VPI bridge and
-pinned regex DPI. The ordinary runner does not link them and records eighteen
+Twenty-three command-line fixtures explicitly request a separate VPI bridge and
+pinned regex DPI. The ordinary runner does not link them and records twenty-three
 additional builds without runtime results. Under the separate command-line
-condition seventeen match both seeds. One retains G.2.6's warning requirement
+condition twenty match both seeds, and two retain the differences in
+[Regular-expression matching](#regular-expression-matching). One retains G.2.6's warning requirement
 when user code tries to change a NO-locked quit limit. The limit correctly
 remains seven, but the pinned server emits INFO and the warning probe sees no
 warning. The YES control changes the limit to nine without a warning. This
@@ -1233,7 +1234,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2287 tests have the `verilator@5.052` oracle tag and 465
+Across the suite, 2287 tests have the `verilator@5.052` oracle tag and 470
 cases are spec-only, seven of them four-state. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -1245,13 +1246,13 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 465 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the seven four-state cases.
+The 470 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the seven four-state cases.
 Default Verilator runs and CI select 2287 tagged checks (2193 runtime, 94 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 318 cases establish their first difference
 at seed 1, without seed 73 results.
-The 135 simulation builds have no ordinary runtime, including 56 unlinked DPI
-inputs (38 HDL and 18 command-line); [the measured breakdown](results.md#interpretation)
+The 140 simulation builds have no ordinary runtime, including 61 unlinked DPI
+inputs (38 HDL and 23 command-line); [the measured breakdown](results.md#interpretation)
 records the complete categories. Five illegal compiler acceptances remain a
 separate no-runtime condition.
 
@@ -1259,7 +1260,9 @@ The separate HDL condition has thirty-seven both-seed matches in thirty-eight
 inputs, including four virtual-register/field transfers, six register transfers, eight positive-duration force_time, nine primitive force/release
 and three actual-array memory inputs, plus the
 retained E.7 warning/no-transfer difference at seed 1. The separate command-line
-condition retains seventeen matches and one quit-warning difference. These
+condition retains twenty matches, one quit-warning difference and two
+regular-expression differences, and the regex-DPI variant condition matches
+all twenty-six listed fixtures. These
 overlapping conditions are not summed.
 
 Seven policy fixtures first differ at seed 1 without seed 73: the copier's
@@ -1340,7 +1343,7 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 458 two-state spec-only cases are linked in the explanatory notes and the
+The 463 two-state spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
 
@@ -1730,7 +1733,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1081 records and 1671 inputs
+records are excluded. The compatible subset has 1081 records and 1676 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1782,6 +1785,18 @@ Sixteen direct-map translation inputs:
 - [test_map_direct_translation_little_fifo_populated_107](../tests/u18/test_map_direct_translation_little_fifo_populated_107.sv)
 - [test_map_direct_translation_big_fifo_populated_107](../tests/u18/test_map_direct_translation_big_fifo_populated_107.sv)
 
+## Regular-expression matching
+
+Two fixtures in the command-line condition keep standard-derived expectations
+that the pinned library does not meet; each differs in one row and matches its
+other rows at both seeds. The causes were identified in the pinned library
+source after the expectations were frozen.
+
+- [Simplified-notation literals](../tests/uF/test_regex_is_match_posix_and_simplified_119.sv): an unslashed ^env$ should match only its literal string under F.3.3.1, but the glob conversion keeps the caret and dollar sign as anchors (`src/dpi/uvm_regex.cc`, `uvm_re_deglobbed`).
+- [Regular-expression field names](../tests/uC/test_regex_config_db_scope_and_field_119.sv): C.4.2.2.1 lets a field name be a regular expression, but the default configuration lookup finds names exactly (`src/base/uvm_config_db_implementation.svh`, `get` through `uvm_resource_pool::lookup_name`).
+
+The ordinary runner records all five regular-expression fixtures as unlinked builds, like the other command-line fixtures; the other three match both seeds in the command-line condition.
+
 ## Four-state spec-only tests
 
 These seven fixtures declare `:fourstate: yes`. They are spec-only because the two-state Verilator oracle cannot represent X or Z bits; they have no Verilator record and are not known differences. [The four-state section](testing.md#four-state-paths) gives the defined results and the unspecified paths.
@@ -1802,8 +1817,8 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The earlier field-configuration filter reduced 1083 compatible records to 1082. The subsequent reraise primary-citation filter reduced 1082 to 1081; this increment retains those records without another filter or guest run, and [the input-identity explanation](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish the two stages.
 
-The suite has 2752 cases, but the kirimasim/Ghost records below cover only
-1081 unchanged current-input cases. The 1671 inputs are unmeasured
+The suite has 2757 cases, but the kirimasim/Ghost records below cover only
+1081 unchanged current-input cases. The 1676 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 
