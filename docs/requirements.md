@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4109 AI-drafted requirements, all with direct links to 2679 tests.
-Fifty-six tests have only control links. All 2735 tests have a requirement link.
+contains 4118 AI-drafted requirements, all with direct links to 2684 tests.
+Fifty-six tests have only control links. All 2740 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4109 draft entries span several areas,
+a heading is not an obligation. The 4118 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -75,13 +75,13 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1316
+references are **supporting citations**. Of the catalog identifiers, 1317
 have a primary-focus test and 2,096 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,170 with zero primary-focus tests, 768 with one,
+census currently shows 1,169 with zero primary-focus tests, 769 with one,
 and 544 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2735-test
+known difference. It is not a pass or a conformance claim. The current 2740-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2735 reviewed requirement mappings.
+  index is an inventory, not 2740 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -278,16 +278,16 @@ The table retains every catalog root, including context and deferred roots; cont
 | 9 | 141 | 63 | 0 | 22 | 0 |
 | 10 | 169 | 144 | 0 | 29 | 0 |
 | 11 | 35 | 20 | 0 | 4 | 0 |
-| 12 | 328 | 204 | 0 | 45 | 0 |
+| 12 | 329 | 205 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
-| 14 | 229 | 146 | 0 | 17 | 0 |
+| 14 | 230 | 147 | 0 | 17 | 0 |
 | 15 | 132 | 124 | 0 | 18 | 0 |
 | 16 | 280 | 188 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 941 | 652 | 0 | 63 | 0 |
-| 19 | 199 | 165 | 0 | 24 | 0 |
+| 19 | 203 | 167 | 0 | 24 | 0 |
 | B | 258 | 235 | 0 | 9 | 0 |
-| C | 98 | 69 | 0 | 13 | 0 |
+| C | 99 | 70 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
 | E | 114 | 88 | 0 | 20 | 0 |
 | F | 279 | 212 | 0 | 25 | 0 |
@@ -298,60 +298,56 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4109 reviews are `ai` and
+Scope is proposed, all 4118 reviews are `ai` and
 the denominator remains unapproved.
 
-The 115th expansion adds four M3 memory-manager profiles for reconfigured
-address-space bounds: widening 8..23 to 4..27 or narrowing 4..27 to 8..23,
-crossed with explicit reservations or fixed-start policy requests. A region at
-12..15 is held throughout. Before the change, locations 4..7 and 24..27 are
-probed as controls and released. After it, four locations at each new edge must
-be allocatable with exact geometry, the four locations just outside each new
-bound must be rejected, and only the held and edge regions remain;
-[the reconfiguration FAQ](faq.md#q432-what-do-the-reconfigured-bounds-profiles-check)
-explains the boundary.
+The 116th expansion starts the external review's first item, RTL integration.
+Five profiles share an original register-file design, a bus interface with
+driver and monitor clocking blocks, and an original UVM environment: a driver
+and monitor that obtain the virtual interface from the configuration
+database, a register model with an original adapter and optional explicit
+predictor, and an analysis-FIFO scoreboard; [the RTL FAQ](faq.md#q434-what-do-the-rtl-integration-profiles-check) explains
+each profile.
 
-18.12.4.2 states that reconfiguration modifies the minimum and maximum
-addresses of the managed space, while existing tests checked only the returned
-configuration, retained regions and mode/locality changes. The request profiles
-also record, in pre_randomize of an original policy subclass, that min_offset,
-max_offset and len present the new bounds and a four-location length
-(18.12.8.2.1, 18.12.8.2.3 and 18.12.8.2.4). Fixed-start policies make the
-requests deterministic.
+The profiles check configuration-database delivery of the virtual interface
+(C.4.2.2.2), finish_item completion and clocked request timing (14.2.6.3 and
+15.2.1.2.1), frontdoor writes and reads through the adapter with
+auto-prediction (19.2.1.2.5, 19.2.1.2.6 and 18.2.5.2), explicit prediction and
+its register-item port (19.3.2.1 and 19.3.2.2), and analysis-FIFO buffering
+(12.2.8.3). Expectations combine the design rules written in the helper with
+the cited UVM clauses and the 1800-2023 clocking-block timing. Zero-skew
+drives take effect in the Re-NBA region of their clocking event and one-step
+inputs sample the value before the edge, so a request is observed on the next
+clock and registered read data one clock later. No runner change was needed.
 
-The first freeze did not build: a policy handle used the reserved word
-`before`. Only the two handle names changed; expected files, printed rows and
-comments are unchanged. The unbuilt inputs and their build record are archived
-under `out/thin-one-hundred-fifteenth-before-identifier-fix/` and are not
-evidence. The re-frozen inputs match seeds 1/73 before and after tagging; only
-the `:oracle:` line changed between those two measurements.
+The first freeze did not build: a scoreboard counter used the reserved word
+`matches`. Only that identifier changed; expected files, printed rows and
+comments are unchanged, and the unbuilt inputs are archived under
+`out/thin-one-hundred-sixteenth-before-identifier-fix/`. The re-frozen inputs
+match seeds 1/73 before and after tagging; only the `:oracle:` line changed
+between those two measurements, and no UVM error or fatal report occurred.
 
-The 112th named-setter question received an AI re-review. The 12.3.4.2.6 note
-recommends accessors outside randomization for compatibility with derivations,
-which supports the virtual-visit reading, but the note is informative and
-12.3.4.2.4 lists getters in the same form. The reading stays qualified, the two
-observed profiles stay known, and the duty's limitations record the review.
+Nine new duties cover these conditions. The total is 4118 AI duties, with all
+4109 old objects and 445 assessments unchanged; 2684 tests have direct links,
+158 have controls and 56 are control-only. The scoreboard rows of the first
+four profiles are fixture sanity checks without links. All 2735 old
+ordinary/index records and 458 old known inputs remain unchanged. Milestones
+gain one M1 (configuration), two M2 (sequence and TLM) and two M3 (register)
+inputs.
 
-Four new duties cover reservations, requests and the two policy bounds after
-reconfiguration, and the setter-order duty gains the review note. The total is
-4109 AI duties, with 4104 other old objects and all 445 assessments unchanged;
-2679 tests have direct links, 158 have controls and 56 are control-only. All
-2731 old ordinary/index records and 458 old known inputs remain unchanged.
-
-The suite has 2735 tests (2636 simulation/99 elaboration). Ordinary results
-are 2277 matches: 2183 runtime inputs at both seeds and 94 compiler rejections.
+The suite has 2740 tests (2641 simulation/99 elaboration). Ordinary results
+are 2282 matches: 2188 runtime inputs at both seeds and 94 compiler rejections.
 Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
 five accepted illegal designs without runtime. The two backend subsets are
 unchanged. No guest run/filter is added: 1081 compatible records remain
-byte-identical and 1654 inputs are unmeasured (1650 additions/four revised
-originals; 1555 simulation/99 elaboration).
+byte-identical and 1659 inputs are unmeasured (1655 additions/four revised
+originals; 1560 simulation/99 elaboration).
 
-Chapter 18 retains 393 partial/63 assessed/0 unassessed identifiers, with 941
-duties and 652 primary tests. Primary-focused identifiers remain 1316;
-candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
-identifiers, actual remaining conditions, original milestone targets,
-human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q433-do-the-reconfigured-bounds-profiles-complete-reconfiguration)
-explains why matching bounds do not complete the goal.
+Primary-focused identifiers rise to 1317; candidates are 1169 zero/769 below
+target/544 at least two. All 2062 partial identifiers, actual remaining
+conditions, original milestone targets, human review and scope/denominator
+approval remain open; [the completion FAQ](faq.md#q435-do-the-rtl-profiles-show-that-a-simulator-runs-real-testbenches)
+explains what the matches do and do not show.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -768,4 +764,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4109 AI drafts and their direct links do not satisfy that gate.
+The current 4118 AI drafts and their direct links do not satisfy that gate.

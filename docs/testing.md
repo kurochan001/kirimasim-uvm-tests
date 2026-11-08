@@ -404,6 +404,14 @@ incoming fields; observed cases calibrate direct setter dispatch, then capture
 first visits during inherited unpack. [Q426](faq.md#q426-why-is-setter-order-qualified-when-field-values-match)
 explains the qualified interpretation and diagnostic-only exact counts.
 
+The RTL integration profiles compile an [original register-file design and interface](../tests/u19/helpers116_rtl/rf_rtl116.sv)
+through `:files:` and include a shared [UVM environment](../tests/u19/helpers116_rtl/rf_env116.svh)
+from the u19 helper directory, so tests in uC, u12, u14 and u19 use the same
+design. The driver and monitor reach the design only through clocking blocks;
+the design rules in the helper, the cited clauses and the 1800-2023
+clocking-block timing define the expectations. [Q434](faq.md#q434-what-do-the-rtl-integration-profiles-check)
+describes each profile.
+
 ### Metadata
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
@@ -583,7 +591,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2679 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
+- 2684 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -717,7 +725,7 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 2277 tagged two-state checks: 2183 runtime
+By default, Verilator selects 2282 tagged two-state checks: 2188 runtime
 cases and 94 expected compiler rejections. To include
 the 458 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
@@ -787,7 +795,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 118 unit tests; metadata validation checks all
-2735 tests (2636 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+2740 tests (2641 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
 [Regression](../.github/workflows/regression.yml) shards, uses
@@ -797,7 +805,7 @@ selected, not that every UVM requirement or every simulator passes.
 
 Check runs the tagged checks whose recorded inputs changed, plus a canary, and
 falls back to the canary alone with a warning when it cannot cover a change.
-Regression runs all 2277 tagged checks in 20 disjoint shards and the 17
+Regression runs all 2282 tagged checks in 20 disjoint shards and the 17
 command-line checks, manually and weekly. [The CI section](results.md#continuous-integration)
 gives the fallbacks and limits, and why the earlier 8-shard Check never finished.
 After a change to the runner, the library lock or many inputs, dispatch

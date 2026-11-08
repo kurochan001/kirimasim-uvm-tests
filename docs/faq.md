@@ -187,7 +187,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2679 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2684 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -234,7 +234,7 @@ Execution success and requirement review are separate records, so use [Read cove
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 940
+M1 and M2 still have open clause targets. M3 now has 942
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1260,9 +1260,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4109 AI drafts cover only a partial decomposition: 4109 requirements link
-directly to 2679 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2735 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4118 AI drafts cover only a partial decomposition: 4118 requirements link
+directly to 2684 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2740 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -3091,7 +3091,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 ### Q193. Why did the compatible guest subset decrease to 1081?
 
 Four original inputs have revised fingerprints: the command-enum citation, Boolean rerandomization observation, virtual-field configure citation and the reraise primary citation. All four were remeasured when changed; the reraise revision was measured at both seeds in the previous expansion. Their stale guest rows are excluded while the historical 1085-record source files remain intact.
-Current reuse covers 1081 inputs, with 1654 unmeasured: 1650 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
+Current reuse covers 1081 inputs, with 1659 unmeasured: 1655 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
 
@@ -3161,10 +3161,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2735 tests run at two seeds?
+### Q201. Did all 2740 tests run at two seeds?
 
-No. There are 2636 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2183 two-seed runtime matches, 94 expected compiler rejections, 453 known
+No. There are 2641 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2188 two-seed runtime matches, 94 expected compiler rejections, 453 known
 simulation differences and five known illegal compile acceptances. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3718,7 +3718,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2679 directly linked tests and fifty-six
+The suite has 2684 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3834,7 +3834,7 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 No. Check now runs only the tagged checks whose inputs changed, plus a canary,
 and falls back to the canary with a warning when it cannot cover a change; it
-never stands in for the full selection. Regression runs all 2277 tagged checks
+never stands in for the full selection. Regression runs all 2282 tagged checks
 in 20 disjoint shards, at most 4 concurrent, and the 17 command-line checks in
 a separate job. The earlier 8-shard Check never finished: its one uninterrupted
 run reached the 150-minute limit on every shard. Runtime seeds 1/73 and
@@ -3995,7 +3995,7 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 
 At that earlier citation repair, the changed fingerprint excluded an old row despite an unchanged body/oracle: 1083 compatible records became 1082. At that checkpoint Ghost retained 206 matches/876 failures per seed and kirimasim retained 1073 unsupported/nine failures, without a guest rerun.
 
-Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1654 unmeasured inputs are 1650 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
+Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1659 unmeasured inputs are 1655 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
 
@@ -4237,8 +4237,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4109 duties link directly
-to 2679 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4118 duties link directly
+to 2684 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5127,7 +5127,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4109 duties all have direct tests and all 2735 tests have links, but those
+The 4118 duties all have direct tests and all 2740 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5392,7 +5392,7 @@ proves independent tests or complete requirements.
 
 Header edits change the input fingerprint under [the update rules](requirements.md#updating-a-test-or-mapping).
 The revised original's old guest row is filtered from 1082 compatible records,
-leaving 1081; the 1654 unmeasured inputs are 1650 additions and four revised
+leaving 1081; the 1659 unmeasured inputs are 1655 additions and four revised
 originals. Ghost's retained failure count becomes 875 and kirimasim's retained
 unsupported count becomes 1072 because that stale row was removed. No guest
 was re-executed, improved or newly passed. The old evidence remains archived,
@@ -5795,3 +5795,50 @@ incompatible reconfiguration and random placement inside the new space remain
 open, as do all 2062 partial identifiers, original targets, human review and
 scope/denominator approval; [the progress guide](reading-guide.md#read-coverage-and-progress)
 explains why matching bounds do not supply completion.
+
+## RTL integration profiles
+
+### Q434. What do the RTL integration profiles check?
+
+Each profile compiles [the design and interface](../tests/u19/helpers116_rtl/rf_rtl116.sv)
+before the test and includes [the environment](../tests/u19/helpers116_rtl/rf_env116.svh).
+The register file holds read-write CTRL and DATA, a COUNT of accepted writes to
+them and a constant ID; a read returns its data on the next clock. The test top
+places the interface in the configuration database for `uvm_test_top.env.agent*`
+before run_test, and the driver and monitor touch the design only through
+clocking blocks with one-step input and zero output skew.
+
+The configuration profile checks that the driver and monitor obtain the same
+interface while the scoreboard outside the scope obtains none. The handshake
+profile checks the order, the one-clock request and read-data relations and
+that finish_item returns after item_done. The frontdoor profile writes and
+reads through the map sequencer and adapter with auto-prediction and confirms
+the design contents with raw reads. The predictor profile leaves
+auto-prediction at its default and checks mirrors after model and raw traffic,
+including a read-only write and a read of the design count, and the register
+items published. The FIFO profile holds the scoreboard until six transactions
+are buffered and then drains them into the reference model.
+
+All five inputs match seeds 1/73. Each timing relation is counted in clock
+edges, not simulation time, and mirrors and counts are compared after the
+traffic has drained.
+
+### Q435. Do the RTL profiles show that a simulator runs real testbenches?
+
+Only for this composition. They are the first tests in the suite with a
+design module, clocking blocks and a configuration-database virtual interface,
+so they exercise scheduling, interface and class interaction that earlier
+fixtures did not. They use one clock domain, one 8-bit bus without byte
+enables, no backdoor, no error responses and no randomization.
+
+Nine new duties bring the ledger to 4118 AI duties with all 4109 old objects
+and 445 assessments unchanged. Totals are 2740 tests (2641 simulation/99
+elaboration), 2684 direct-linked tests and 2282 ordinary matches (2188
+runtime both seeds/94 compiler rejections). Known inputs remain 458. Guests
+remain 1081 compatible/1659 unmeasured; kirimasim has not run these profiles.
+
+Further protocols, multiple clocks, reset during traffic, response ordering and
+the other review items remain open, as do all 2062 partial identifiers,
+original targets, human review and scope/denominator approval;
+[the progress guide](reading-guide.md#read-coverage-and-progress) explains why
+matching profiles do not supply completion.

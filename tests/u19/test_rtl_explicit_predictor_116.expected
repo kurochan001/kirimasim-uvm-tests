@@ -1,0 +1,4 @@
+UT: auto_predict 0 status 1
+UT: predicted model_write 1 raw_write 1 readonly_write 1 readonly_read 1
+UT: reg_ap items 4
+UT: scoreboard reads 1 matches 1 mismatches 0

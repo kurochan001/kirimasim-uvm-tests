@@ -4041,3 +4041,25 @@ AI義務は4109件で、他の旧要求4104件と分類445件は同一です。�
 ## hostedのRegressionで初めて全件一致
 
 修正後のdb06513での[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)は、20 shardでタグ付き検査2273件すべてがseed 1／73で一致し、command-line 17件も成功しました。各shardは113〜199分で、360分の上限内でした。hostedのRegressionで初めて全件がそろったこの結果の対象はそのcommitで、後のcommitにはそれぞれのCheckまたはRegressionが必要です。
+
+## 116回目の拡充：RTLとの結合（外部レビュー項目1）
+
+116回目は、外部レビューの最初の項目であるRTLとの結合に着手します。5 profileは、独自のregister-file design、driverとmonitorのclocking blockを持つbus interface、独自のUVM環境を共有します。
+UVM環境は、configuration databaseからvirtual interfaceを得るdriverとmonitor、独自adapterと任意の明示predictorを持つregister model、analysis FIFO経由のscoreboardで構成します。各profileは[RTLのFAQ](faq.ja.md#q434-rtl結合profileは何を検査しますか)で説明しています。
+
+検査するのは、configuration databaseによるvirtual interfaceの受渡し（C.4.2.2.2）、finish_itemの完了とclockに同期したrequestのtiming（14.2.6.3、15.2.1.2.1）、auto-predictionを有効にしたadapter経由のfrontdoor writeとread（19.2.1.2.5、19.2.1.2.6、18.2.5.2）、明示predictionとそのregister item port（19.3.2.1、19.3.2.2）、analysis FIFOの保持（12.2.8.3）です。
+期待値は、helperに書いたdesignの規則、引用したUVM条項、1800-2023のclocking blockのtimingを組み合わせて導きます。skew 0の駆動はclocking eventのRe-NBA regionで反映され、1 stepの入力はedge直前の値をsampleするため、requestは次のclockで、register化したread dataはその1 clock後に観測されます。runnerの変更は不要でした。
+
+最初の凍結はbuildできませんでした。scoreboardの計数変数に予約語`matches`を使っていたためです。変えたのはその識別子だけで、期待ファイル、出力行、コメントは変えておらず、buildできなかった入力は`out/thin-one-hundred-sixteenth-before-identifier-fix/`に保管しています。
+凍結し直した入力はtag付けの前後ともseed 1／73で一致し、2回の測定の間で変わったのは`:oracle:`行だけで、UVMのerrorとfatalのreportはありませんでした。
+
+これらの条件を新しい義務9件で扱います。AI義務は4118件で、旧要求4109件と分類445件はすべて同一です。直接対応は2684テスト、control対応は158テスト、controlのみは56テストです。
+最初の4 profileのscoreboard行は検査系の健全性確認で、要求へは対応付けていません。元の通常／index 2735記録と旧既知458入力は全て維持します。milestoneはM1（configuration）1件、M2（sequenceとTLM）2件、M3（register）2件が増えます。
+
+全体は2740テスト（simulation 2641／elaboration 99）です。通常一致は2282件で、runtime両seed 2188入力とcompiler拒否94件です。
+既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。
+2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1659入力です。
+追加1655件と修正した元入力4件で、simulation 1560／elaboration 99です。
+
+主引用がある番号は1317に増え、candidateは0件1169／目標未満769／2件以上544です。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、一致が何を示し何を示さないかは[完了のFAQ](faq.ja.md#q435-rtl-profileで実際のtestbenchを動かせると言えますか)で説明しています。

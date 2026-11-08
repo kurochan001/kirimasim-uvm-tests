@@ -6553,3 +6553,53 @@ at seeds 1/73 and passed the seventeen command-line checks. Each shard took 113
 to 199 minutes, within the 360-minute limit. This first complete hosted
 Regression result covers that commit; later commits need their own Check or
 Regression.
+
+## 116th expansion: RTL integration (external review item 1)
+
+The 116th expansion starts the external review's first item, RTL integration.
+Five profiles share an original register-file design, a bus interface with
+driver and monitor clocking blocks, and an original UVM environment: a driver
+and monitor that obtain the virtual interface from the configuration
+database, a register model with an original adapter and optional explicit
+predictor, and an analysis-FIFO scoreboard; [the RTL FAQ](faq.md#q434-what-do-the-rtl-integration-profiles-check) explains
+each profile.
+
+The profiles check configuration-database delivery of the virtual interface
+(C.4.2.2.2), finish_item completion and clocked request timing (14.2.6.3 and
+15.2.1.2.1), frontdoor writes and reads through the adapter with
+auto-prediction (19.2.1.2.5, 19.2.1.2.6 and 18.2.5.2), explicit prediction and
+its register-item port (19.3.2.1 and 19.3.2.2), and analysis-FIFO buffering
+(12.2.8.3). Expectations combine the design rules written in the helper with
+the cited UVM clauses and the 1800-2023 clocking-block timing. Zero-skew
+drives take effect in the Re-NBA region of their clocking event and one-step
+inputs sample the value before the edge, so a request is observed on the next
+clock and registered read data one clock later. No runner change was needed.
+
+The first freeze did not build: a scoreboard counter used the reserved word
+`matches`. Only that identifier changed; expected files, printed rows and
+comments are unchanged, and the unbuilt inputs are archived under
+`out/thin-one-hundred-sixteenth-before-identifier-fix/`. The re-frozen inputs
+match seeds 1/73 before and after tagging; only the `:oracle:` line changed
+between those two measurements, and no UVM error or fatal report occurred.
+
+Nine new duties cover these conditions. The total is 4118 AI duties, with all
+4109 old objects and 445 assessments unchanged; 2684 tests have direct links,
+158 have controls and 56 are control-only. The scoreboard rows of the first
+four profiles are fixture sanity checks without links. All 2735 old
+ordinary/index records and 458 old known inputs remain unchanged. Milestones
+gain one M1 (configuration), two M2 (sequence and TLM) and two M3 (register)
+inputs.
+
+The suite has 2740 tests (2641 simulation/99 elaboration). Ordinary results
+are 2282 matches: 2188 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
+five accepted illegal designs without runtime. The two backend subsets are
+unchanged. No guest run/filter is added: 1081 compatible records remain
+byte-identical and 1659 inputs are unmeasured (1655 additions/four revised
+originals; 1560 simulation/99 elaboration).
+
+Primary-focused identifiers rise to 1317; candidates are 1169 zero/769 below
+target/544 at least two. All 2062 partial identifiers, actual remaining
+conditions, original milestone targets, human review and scope/denominator
+approval remain open; [the completion FAQ](faq.md#q435-do-the-rtl-profiles-show-that-a-simulator-runs-real-testbenches)
+explains what the matches do and do not show.

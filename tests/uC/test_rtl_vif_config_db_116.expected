@@ -1,0 +1,3 @@
+UT: vif driver 1 monitor 1 same 1 outside 0
+UT: traffic monitored 4 readback 1
+UT: scoreboard reads 2 matches 2 mismatches 0

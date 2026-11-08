@@ -3321,6 +3321,41 @@
       ]
     },
     {
+      "id": "UVM-RTL-CONFIG-VIF-SCOPE",
+      "clause": "C.4.2.2.2",
+      "statement": {
+        "en": "A virtual interface set before build for a component scope is returned to components in that scope and connects them to the design.",
+        "ja": "build前にcomponent scopeへ設定したvirtual interfaceは、そのscope内のcomponentへ返り、designへ接続する。"
+      },
+      "conditions": {
+        "en": "A test top places the interface of an original register-file design in the configuration database for the agent scope; the driver and monitor use only its clocking blocks. The setting uses the scope uvm_test_top.env.agent*; a scoreboard outside it also looks up the field. Two writes and two reads then run through the agent.",
+        "ja": "test topが独自のregister-file designのinterfaceをagentのscopeへ設定し、driverとmonitorはそのclocking blockだけを使う。設定のscopeはuvm_test_top.env.agent*で、その外のscoreboardも同じfieldを探す。その後、agent経由で2回のwriteと2回のreadを行う。"
+      },
+      "expected": {
+        "en": "The driver and monitor obtain the same interface, the scoreboard obtains none, four transactions are monitored and the reads return the written design values.",
+        "ja": "driverとmonitorは同じinterfaceを得て、scoreboardは得られず、4 transactionを観測し、readはdesignへ書いた値を返す。"
+      },
+      "limitations": {
+        "en": "Uses an original four-register bus design, interface and agent; the design rules, not the standard, define register contents. Timing relies on SystemVerilog clocking blocks with one-step input and zero output skew in one clock domain. One map, an 8-bit bus and registers, no byte enables, no backdoor and no error responses are used. Matching results show this composition only, not every bus protocol, scheduling order or simulator. A glob scope is used, so the result does not depend on regular-expression support.",
+        "ja": "独自の4 register busのdesign、interface、agentを使い、register内容は規格ではなくdesignの規則で決まる。timingは、1つのclock domainで入力1 step・出力skew 0のSystemVerilog clocking blockに基づく。map 1つ、8 bitのbusとregister、byte enableなし、backdoorなし、error応答なしで検査する。一致はこの構成だけを示し、全bus protocol、scheduling順序、simulatorを示さない。glob scopeを使うため、結果は正規表現の対応に依存しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_rtl_vif_config_db_116",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vif driver 1 monitor 1 same 1 outside 0",
+            "UT: traffic monitored 4 readback 1"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-CONFIG-UPDATE-KEY",
       "clause": "C.4.2.2.1",
       "statement": {
@@ -16962,6 +16997,41 @@
             "UT: first 1 5",
             "UT: second 1 7",
             "UT: third 1 9 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-ANALYSIS-FIFO-BUFFERS-MONITOR",
+      "clause": "12.2.8.3",
+      "statement": {
+        "en": "An analysis FIFO buffers every monitored design transaction until its reader drains them in order.",
+        "ja": "analysis FIFOは、読出し側が順に取り出すまで、観測したdesignのtransactionをすべて保持する。"
+      },
+      "conditions": {
+        "en": "A test top places the interface of an original register-file design in the configuration database for the agent scope; the driver and monitor use only its clocking blocks. The scoreboard does not read its analysis FIFO until two writes and four reads have been monitored, then drains it into a reference model of the design.",
+        "ja": "test topが独自のregister-file designのinterfaceをagentのscopeへ設定し、driverとmonitorはそのclocking blockだけを使う。scoreboardは、2回のwriteと4回のreadを観測するまでanalysis FIFOを読まず、その後designの参照modelへ取り出す。"
+      },
+      "expected": {
+        "en": "The FIFO holds six transactions, all six are drained, the FIFO is then empty, and the four read results match the reference model.",
+        "ja": "FIFOは6 transactionを保持し、6件すべてが取り出されてFIFOは空になり、4つのread結果は参照modelと一致する。"
+      },
+      "limitations": {
+        "en": "Uses an original four-register bus design, interface and agent; the design rules, not the standard, define register contents. Timing relies on SystemVerilog clocking blocks with one-step input and zero output skew in one clock domain. One map, an 8-bit bus and registers, no byte enables, no backdoor and no error responses are used. Matching results show this composition only, not every bus protocol, scheduling order or simulator. In-order delivery is observed through the reference model's results, not by recording each handle.",
+        "ja": "独自の4 register busのdesign、interface、agentを使い、register内容は規格ではなくdesignの規則で決まる。timingは、1つのclock domainで入力1 step・出力skew 0のSystemVerilog clocking blockに基づく。map 1つ、8 bitのbusとregister、byte enableなし、backdoorなし、error応答なしで検査する。一致はこの構成だけを示し、全bus protocol、scheduling順序、simulatorを示さない。順序どおりの受渡しは参照modelの結果で観測し、各handleは記録しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_rtl_analysis_fifo_scoreboard_116",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo buffered 6 drained 6 empty 1",
+            "UT: scoreboard reads 4 matches 4 mismatches 0"
           ]
         }
       ]
@@ -35696,6 +35766,40 @@
           "role": "direct",
           "expected_observations": [
             "UT: hooks 1 1 same_arguments 1 1 post_after_ack 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-FINISH-AFTER-DRIVER-DONE",
+      "clause": "14.2.6.3",
+      "statement": {
+        "en": "finish_item returns only after the driver that took the item from the sequencer signals item_done.",
+        "ja": "finish_itemは、sequencerからitemを受け取ったdriverがitem_doneを通知した後にだけ戻る。"
+      },
+      "conditions": {
+        "en": "A test top places the interface of an original register-file design in the configuration database for the agent scope; the driver and monitor use only its clocking blocks. A sequence starts two writes and three reads; the driver stores completion data in each item before item_done.",
+        "ja": "test topが独自のregister-file designのinterfaceをagentのscopeへ設定し、driverとmonitorはそのclocking blockだけを使う。sequenceは2回のwriteと3回のreadを開始し、driverはitem_doneの前に完了dataを各itemへ格納する。"
+      },
+      "expected": {
+        "en": "Every item already holds its completion record when finish_item returns.",
+        "ja": "finish_itemが戻る時点で、各itemはすでに完了記録を持つ。"
+      },
+      "limitations": {
+        "en": "Uses an original four-register bus design, interface and agent; the design rules, not the standard, define register contents. Timing relies on SystemVerilog clocking blocks with one-step input and zero output skew in one clock domain. One map, an 8-bit bus and registers, no byte enables, no backdoor and no error responses are used. Matching results show this composition only, not every bus protocol, scheduling order or simulator.",
+        "ja": "独自の4 register busのdesign、interface、agentを使い、register内容は規格ではなくdesignの規則で決まる。timingは、1つのclock domainで入力1 step・出力skew 0のSystemVerilog clocking blockに基づく。map 1つ、8 bitのbusとregister、byte enableなし、backdoorなし、error応答なしで検査する。一致はこの構成だけを示し、全bus protocol、scheduling順序、simulatorを示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_rtl_clocking_handshake_116",
+          "role": "direct",
+          "expected_observations": [
+            "UT: finish_after_done 1"
           ]
         }
       ]
@@ -63239,6 +63343,40 @@
       ]
     },
     {
+      "id": "UVM-RTL-AUTO-PREDICT-FRONTDOOR-MIRROR",
+      "clause": "18.2.5.2",
+      "statement": {
+        "en": "With auto-prediction enabled, frontdoor operations against the design update the register mirrors.",
+        "ja": "auto-predictionを有効にすると、designに対するfrontdoor操作がregisterのmirrorを更新する。"
+      },
+      "conditions": {
+        "en": "A test top places the interface of an original register-file design in the configuration database for the agent scope; the driver and monitor use only its clocking blocks. Auto-prediction is enabled before the model writes CTRL and DATA and reads CTRL, ID and COUNT; two raw reads follow.",
+        "ja": "test topが独自のregister-file designのinterfaceをagentのscopeへ設定し、driverとmonitorはそのclocking blockだけを使う。modelがCTRLとDATAを書き、CTRL、ID、COUNTを読む前にauto-predictionを有効にし、その後2回のraw readを行う。"
+      },
+      "expected": {
+        "en": "Seven bus operations are monitored, the map reports auto-prediction on, and the mirrors hold the written and read values.",
+        "ja": "7 bus操作を観測し、mapはauto-prediction有効を返し、mirrorは書いた値と読んだ値を持つ。"
+      },
+      "limitations": {
+        "en": "Uses an original four-register bus design, interface and agent; the design rules, not the standard, define register contents. Timing relies on SystemVerilog clocking blocks with one-step input and zero output skew in one clock domain. One map, an 8-bit bus and registers, no byte enables, no backdoor and no error responses are used. Matching results show this composition only, not every bus protocol, scheduling order or simulator.",
+        "ja": "独自の4 register busのdesign、interface、agentを使い、register内容は規格ではなくdesignの規則で決まる。timingは、1つのclock domainで入力1 step・出力skew 0のSystemVerilog clocking blockに基づく。map 1つ、8 bitのbusとregister、byte enableなし、backdoorなし、error応答なしで検査する。一致はこの構成だけを示し、全bus protocol、scheduling順序、simulatorを示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_rtl_frontdoor_adapter_116",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bus_ops 7 auto_predict 1 mirrors 1"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-TLM-ADAPTER-FRONTDOOR-ADDRESS",
       "clause": "19.1.2.2",
       "statement": {
@@ -70051,6 +70189,41 @@
       ]
     },
     {
+      "id": "UVM-RTL-EXPLICIT-PREDICTOR-MIRRORS",
+      "clause": "19.3.2.1",
+      "statement": {
+        "en": "A predictor connected to the design's bus monitor updates mirrors from every observed register access, subject to access policy.",
+        "ja": "designのbus monitorに接続したpredictorは、観測したすべてのregister accessからaccess policyに従ってmirrorを更新する。"
+      },
+      "conditions": {
+        "en": "A test top places the interface of an original register-file design in the configuration database for the agent scope; the driver and monitor use only its clocking blocks. Auto-prediction keeps its default. The model writes CTRL; raw traffic writes DATA and the read-only ID and reads COUNT.",
+        "ja": "test topが独自のregister-file designのinterfaceをagentのscopeへ設定し、driverとmonitorはそのclocking blockだけを使う。auto-predictionは既定値のままとする。modelがCTRLを書き、raw trafficがDATAと読み出し専用のIDを書いてCOUNTを読む。"
+      },
+      "expected": {
+        "en": "The default is off, the model write succeeds, the read-write mirrors hold the written values, the ID mirror is unchanged and the COUNT mirror holds the design count of two.",
+        "ja": "既定値は無効で、modelのwriteは成功し、read-writeのmirrorは書いた値、IDのmirrorは不変、COUNTのmirrorはdesignのcount 2を持つ。"
+      },
+      "limitations": {
+        "en": "Uses an original four-register bus design, interface and agent; the design rules, not the standard, define register contents. Timing relies on SystemVerilog clocking blocks with one-step input and zero output skew in one clock domain. One map, an 8-bit bus and registers, no byte enables, no backdoor and no error responses are used. Matching results show this composition only, not every bus protocol, scheduling order or simulator. Mirrors are compared after the traffic has drained; no ordering between prediction and the end of a model operation is asserted.",
+        "ja": "独自の4 register busのdesign、interface、agentを使い、register内容は規格ではなくdesignの規則で決まる。timingは、1つのclock domainで入力1 step・出力skew 0のSystemVerilog clocking blockに基づく。map 1つ、8 bitのbusとregister、byte enableなし、backdoorなし、error応答なしで検査する。一致はこの構成だけを示し、全bus protocol、scheduling順序、simulatorを示さない。mirrorはtrafficが終わった後に比べ、predictionとmodel操作の終了の順序はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_rtl_explicit_predictor_116",
+          "role": "direct",
+          "expected_observations": [
+            "UT: auto_predict 0 status 1",
+            "UT: predicted model_write 1 raw_write 1 readonly_write 1 readonly_read 1"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-REG-INTERACTION-PREDICTOR-TYPED-OUTPUT",
       "clause": "19.3.2.2",
       "statement": {
@@ -70080,6 +70253,40 @@
           "role": "direct",
           "expected_observations": [
             "UT: predictor_ports input 1 output 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-PREDICTOR-REG-AP-PER-ACCESS",
+      "clause": "19.3.2.2",
+      "statement": {
+        "en": "The predictor publishes one register item for each observed access that maps to a register.",
+        "ja": "predictorは、registerへ対応する観測accessごとに1つのregister itemを公開する。"
+      },
+      "conditions": {
+        "en": "A test top places the interface of an original register-file design in the configuration database for the agent scope; the driver and monitor use only its clocking blocks. The predictor observes one model write and three raw accesses, each to a mapped register.",
+        "ja": "test topが独自のregister-file designのinterfaceをagentのscopeへ設定し、driverとmonitorはそのclocking blockだけを使う。predictorは、modelのwrite 1回と、いずれもmapしたregisterへのraw access 3回を観測する。"
+      },
+      "expected": {
+        "en": "Four register items are published.",
+        "ja": "4つのregister itemが公開される。"
+      },
+      "limitations": {
+        "en": "Uses an original four-register bus design, interface and agent; the design rules, not the standard, define register contents. Timing relies on SystemVerilog clocking blocks with one-step input and zero output skew in one clock domain. One map, an 8-bit bus and registers, no byte enables, no backdoor and no error responses are used. Matching results show this composition only, not every bus protocol, scheduling order or simulator.",
+        "ja": "独自の4 register busのdesign、interface、agentを使い、register内容は規格ではなくdesignの規則で決まる。timingは、1つのclock domainで入力1 step・出力skew 0のSystemVerilog clocking blockに基づく。map 1つ、8 bitのbusとregister、byte enableなし、backdoorなし、error応答なしで検査する。一致はこの構成だけを示し、全bus protocol、scheduling順序、simulatorを示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_rtl_explicit_predictor_116",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reg_ap items 4"
           ]
         }
       ]
@@ -81125,6 +81332,40 @@
       ]
     },
     {
+      "id": "UVM-RTL-FRONTDOOR-WRITE-REACHES-DESIGN",
+      "clause": "19.2.1.2.5",
+      "statement": {
+        "en": "Register-model frontdoor writes converted by reg2bus update the design registers.",
+        "ja": "reg2busで変換したregister modelのfrontdoor writeは、designのregisterを更新する。"
+      },
+      "conditions": {
+        "en": "A test top places the interface of an original register-file design in the configuration database for the agent scope; the driver and monitor use only its clocking blocks. The model writes CTRL and DATA through the map sequencer and adapter; raw bus reads then bypass the model.",
+        "ja": "test topが独自のregister-file designのinterfaceをagentのscopeへ設定し、driverとmonitorはそのclocking blockだけを使う。modelはmapのsequencerとadapter経由でCTRLとDATAを書き、その後modelを通らないraw bus readを行う。"
+      },
+      "expected": {
+        "en": "The raw reads return the values the model wrote.",
+        "ja": "raw readは、modelが書いた値を返す。"
+      },
+      "limitations": {
+        "en": "Uses an original four-register bus design, interface and agent; the design rules, not the standard, define register contents. Timing relies on SystemVerilog clocking blocks with one-step input and zero output skew in one clock domain. One map, an 8-bit bus and registers, no byte enables, no backdoor and no error responses are used. Matching results show this composition only, not every bus protocol, scheduling order or simulator.",
+        "ja": "独自の4 register busのdesign、interface、agentを使い、register内容は規格ではなくdesignの規則で決まる。timingは、1つのclock domainで入力1 step・出力skew 0のSystemVerilog clocking blockに基づく。map 1つ、8 bitのbusとregister、byte enableなし、backdoorなし、error応答なしで検査する。一致はこの構成だけを示し、全bus protocol、scheduling順序、simulatorを示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_rtl_frontdoor_adapter_116",
+          "role": "direct",
+          "expected_observations": [
+            "UT: design readback ctrl 1 data 1"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-ADAPTER-INHERITED-BUS2REG",
       "clause": "19.2.1.2.6",
       "statement": {
@@ -81154,6 +81395,40 @@
           "role": "direct",
           "expected_observations": [
             "UT: inherited_bus2reg calls 1 output 1 input 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-FRONTDOOR-READ-RETURNS-DESIGN",
+      "clause": "19.2.1.2.6",
+      "statement": {
+        "en": "Register-model frontdoor reads return the design value that bus2reg copies from the completed bus item.",
+        "ja": "register modelのfrontdoor readは、完了したbus itemからbus2regが写したdesignの値を返す。"
+      },
+      "conditions": {
+        "en": "A test top places the interface of an original register-file design in the configuration database for the agent scope; the driver and monitor use only its clocking blocks. After two model writes, the model reads CTRL, the constant ID and the write-counting COUNT.",
+        "ja": "test topが独自のregister-file designのinterfaceをagentのscopeへ設定し、driverとmonitorはそのclocking blockだけを使う。modelが2回書いた後、CTRL、固定のID、writeを数えるCOUNTをmodelで読む。"
+      },
+      "expected": {
+        "en": "All five operations report UVM_IS_OK and the reads return the written CTRL value, 8'hA5 and two.",
+        "ja": "5操作すべてがUVM_IS_OKを返し、readは書いたCTRL値、8'hA5、2を返す。"
+      },
+      "limitations": {
+        "en": "Uses an original four-register bus design, interface and agent; the design rules, not the standard, define register contents. Timing relies on SystemVerilog clocking blocks with one-step input and zero output skew in one clock domain. One map, an 8-bit bus and registers, no byte enables, no backdoor and no error responses are used. Matching results show this composition only, not every bus protocol, scheduling order or simulator.",
+        "ja": "独自の4 register busのdesign、interface、agentを使い、register内容は規格ではなくdesignの規則で決まる。timingは、1つのclock domainで入力1 step・出力skew 0のSystemVerilog clocking blockに基づく。map 1つ、8 bitのbusとregister、byte enableなし、backdoorなし、error応答なしで検査する。一致はこの構成だけを示し、全bus protocol、scheduling順序、simulatorを示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_rtl_frontdoor_adapter_116",
+          "role": "direct",
+          "expected_observations": [
+            "UT: frontdoor status 1 ctrl 1 id 1 count 1"
           ]
         }
       ]
@@ -91922,6 +92197,41 @@
           "role": "direct",
           "expected_observations": [
             "UT: interface_request same 1 value 45 completed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-PULL-DRIVER-CLOCKED-ORDER",
+      "clause": "15.2.1.2.1",
+      "statement": {
+        "en": "Items that a clocking-block driver takes with get_next_item reach the design in sequence order on the next clock.",
+        "ja": "clocking blockを使うdriverがget_next_itemで受け取ったitemは、sequenceの順に次のclockでdesignへ届く。"
+      },
+      "conditions": {
+        "en": "A test top places the interface of an original register-file design in the configuration database for the agent scope; the driver and monitor use only its clocking blocks. Two writes and three reads are driven with zero output skew and observed with one-step input sampling.",
+        "ja": "test topが独自のregister-file designのinterfaceをagentのscopeへ設定し、driverとmonitorはそのclocking blockだけを使う。2回のwriteと3回のreadを出力skew 0で駆動し、入力1 stepのsamplingで観測する。"
+      },
+      "expected": {
+        "en": "Five transactions are monitored in sequence order with the design values; each request is observed one clock after it is driven and each read result one clock after its request.",
+        "ja": "5 transactionをsequenceの順にdesignの値とともに観測し、各requestは駆動の1 clock後、各read結果はrequestの1 clock後に観測される。"
+      },
+      "limitations": {
+        "en": "Uses an original four-register bus design, interface and agent; the design rules, not the standard, define register contents. Timing relies on SystemVerilog clocking blocks with one-step input and zero output skew in one clock domain. One map, an 8-bit bus and registers, no byte enables, no backdoor and no error responses are used. Matching results show this composition only, not every bus protocol, scheduling order or simulator. The clock relations follow 1800-2023 14.4, 14.13 and 14.16 with the design's registered read; the write completion relation reflects the original driver.",
+        "ja": "独自の4 register busのdesign、interface、agentを使い、register内容は規格ではなくdesignの規則で決まる。timingは、1つのclock domainで入力1 step・出力skew 0のSystemVerilog clocking blockに基づく。map 1つ、8 bitのbusとregister、byte enableなし、backdoorなし、error応答なしで検査する。一致はこの構成だけを示し、全bus protocol、scheduling順序、simulatorを示さない。clockの関係は1800-2023の14.4、14.13、14.16とdesignのregister化したreadに従い、writeの完了関係は独自driverの動作を表す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_rtl_clocking_handshake_116",
+          "role": "direct",
+          "expected_observations": [
+            "UT: monitored 5 order 1 values 1",
+            "UT: request_after_drive 1 read_after_request 1 write_done_after_drive 1"
           ]
         }
       ]

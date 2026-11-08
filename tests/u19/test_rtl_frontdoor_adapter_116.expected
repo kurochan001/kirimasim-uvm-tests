@@ -1,0 +1,4 @@
+UT: frontdoor status 1 ctrl 1 id 1 count 1
+UT: design readback ctrl 1 data 1
+UT: bus_ops 7 auto_predict 1 mirrors 1
+UT: scoreboard reads 5 matches 5 mismatches 0

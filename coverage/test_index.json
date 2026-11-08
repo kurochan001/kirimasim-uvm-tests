@@ -10941,6 +10941,26 @@
     "u18/test_mam_reconfigure_shrink_reserve_115": {
       "primary_clause": "18.12.4.2",
       "inputs_sha256": "d52bfb831da747982f910726f8d3990390e2b13569ffe25d9e2ddb31f1b551c8"
+    },
+    "u12/test_rtl_analysis_fifo_scoreboard_116": {
+      "primary_clause": "12.2.8.3",
+      "inputs_sha256": "0a98d927488673720b49708904ca4fb2e22dcc9451187a70ad7aacbcf8769cdf"
+    },
+    "u14/test_rtl_clocking_handshake_116": {
+      "primary_clause": "14.2.6.3",
+      "inputs_sha256": "f822afcfe41c88631c575218eef5f524711d6f73c933da3495f89e7550b00bc2"
+    },
+    "u19/test_rtl_explicit_predictor_116": {
+      "primary_clause": "19.3.2.1",
+      "inputs_sha256": "3ae26bdf9ab4236e32fcb12a8a42c92c5467ec1fbc1e792a3db572cdfdd7fe4c"
+    },
+    "u19/test_rtl_frontdoor_adapter_116": {
+      "primary_clause": "19.2.1.2.5",
+      "inputs_sha256": "d58620a228f18060d7a73f1db7dbd1889cfffe1a985f8ed4513962ccce0356bd"
+    },
+    "uC/test_rtl_vif_config_db_116": {
+      "primary_clause": "C.4.2.2.2",
+      "inputs_sha256": "e7f865730df67c4c7a80cf0653fbb8379c026a3cde96d32e0a253c9e491d7a67"
     }
   }
 }
