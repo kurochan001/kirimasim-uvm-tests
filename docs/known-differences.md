@@ -6,7 +6,7 @@ To locate a result's source, search this page for the filename portion of its te
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2740-test suite and the pinned Accellera UVM
+This describes the current 2747-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -1233,8 +1233,8 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2282 tests have the `verilator@5.052` oracle tag and 458
-cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
+Across the suite, 2282 tests have the `verilator@5.052` oracle tag and 465
+cases are spec-only, seven of them four-state. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
@@ -1245,7 +1245,7 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 458 spec-only cases retain standard-derived expected output or compiler diagnostics.
+The 465 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the seven four-state cases.
 Default Verilator runs and CI select 2282 tagged checks (2188 runtime, 94 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 318 cases establish their first difference
@@ -1340,7 +1340,7 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 458 current spec-only cases are linked in the explanatory notes and the
+The 458 two-state spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
 
@@ -1730,7 +1730,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1081 records and 1659 inputs
+records are excluded. The compatible subset has 1081 records and 1666 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1782,6 +1782,18 @@ Sixteen direct-map translation inputs:
 - [test_map_direct_translation_little_fifo_populated_107](../tests/u18/test_map_direct_translation_little_fifo_populated_107.sv)
 - [test_map_direct_translation_big_fifo_populated_107](../tests/u18/test_map_direct_translation_big_fifo_populated_107.sv)
 
+## Four-state spec-only tests
+
+These seven fixtures declare `:fourstate: yes`. They are spec-only because the two-state Verilator oracle cannot represent X or Z bits; they have no Verilator record and are not known differences. [The four-state section](testing.md#four-state-paths) gives the defined results and the unspecified paths.
+
+- configuration database and uvm_config_int: [test_fourstate_config_db_values_117](../tests/uC/test_fourstate_config_db_values_117.sv).
+- typed resource: [test_fourstate_resource_read_write_117](../tests/uC/test_fourstate_resource_read_write_117.sv).
+- TLM and analysis FIFOs: [test_fourstate_tlm_fifo_values_117](../tests/u12/test_fourstate_tlm_fifo_values_117.sv).
+- pool missing key: [test_fourstate_pool_missing_key_117](../tests/u11/test_fourstate_pool_missing_key_117.sv).
+- queue missing entries: [test_fourstate_queue_missing_entries_117](../tests/u11/test_fourstate_queue_missing_entries_117.sv).
+- field recording: [test_fourstate_record_field_values_117](../tests/u16/test_fourstate_record_field_values_117.sv).
+- field-macro copy and clone: [test_fourstate_field_int_copy_117](../tests/uB/test_fourstate_field_int_copy_117.sv).
+
 ## Simulator and library combinations
 
 One shared build blocker can stop many tests before their UVM behavior runs; [Q9](faq.md#q9-why-does-a-green-check-not-mean-kirimasim-passes-uvm) explains what can be concluded about behavior beyond those compilation blockers.
@@ -1790,8 +1802,8 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The earlier field-configuration filter reduced 1083 compatible records to 1082. The subsequent reraise primary-citation filter reduced 1082 to 1081; this increment retains those records without another filter or guest run, and [the input-identity explanation](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish the two stages.
 
-The suite has 2740 cases, but the kirimasim/Ghost records below cover only
-1081 unchanged current-input cases. The 1659 inputs are unmeasured
+The suite has 2747 cases, but the kirimasim/Ghost records below cover only
+1081 unchanged current-input cases. The 1666 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

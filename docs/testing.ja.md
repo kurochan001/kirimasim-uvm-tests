@@ -284,6 +284,31 @@ payloadのdo_packを呼ばず、do_unpackをoverrideしません。通常ケー�
 RTL結合profileは、u19のhelper directoryにある[独自のregister-file designとinterface](../tests/u19/helpers116_rtl/rf_rtl116.sv)を`:files:`でcompileし、共有の[UVM環境](../tests/u19/helpers116_rtl/rf_env116.svh)をincludeするため、uC、u12、u14、u19のテストが同じdesignを使います。
 driverとmonitorはclocking blockだけでdesignに触れ、期待値はhelperのdesignの規則、引用条項、1800-2023のclocking blockのtimingで決まります。各profileは[Q434](faq.ja.md#q434-rtl結合profileは何を検査しますか)で説明しています。
 
+### 4値の経路
+
+4値の値はXやZのbitを持てます。specのみの7検査系は`:fourstate: yes`を宣言し、規格が結果を定める経路を検査します。通常のVerilator runnerは2値の検査系だけを選ぶため、これらにVerilatorの記録はなく、2値でのbuildは診断に留めます。
+
+| 経路 | 条項 | 検査する規定の結果 |
+| --- | --- | --- |
+| configuration databaseと`uvm_config_int` | C.4.2.2.2、C.4.2.3.1 | 検索は設定したbitを返す |
+| 型付きresource | C.2.5.4.1、C.2.5.4.2 | readは書いたbitを返す |
+| TLM FIFOとanalysis FIFO | 12.2.4.2.2、12.2.8.3 | getはputしたbitを順に返す |
+| `uvm_pool`の存在しないkey | 11.2.2.4 | 4値の要素型では全X（1800-2023のTable 7-1） |
+| `uvm_queue`の範囲外getと空のpop | 11.3.2.4、11.3.2.8、11.3.2.9 | warningと全X |
+| 直接の記録とfield macroによる記録 | 16.4.6.1、16.4.6.2、B.2.2.1.1 | hookがそのbitを受け取る |
+| field macroのcopyとclone | B.2.2.1.1 | bitを保つ |
+
+次の経路は規格が定めていないため、どの検査系もassertしません。
+
+- `uvm_comparer::compare_field`、`compare_field_int`、field macroの比較（16.3.3.1、16.3.3.2）：XとZのbitをcase equalityで比べるかは述べていません。
+- `uvm_printer::print_field`と`print_field_int`（16.2.3.8、16.2.3.9）：XとZの桁の書式は述べていません。
+- `uvm_packer`のpackとunpack（16.5.4.8〜16.5.4.17）：XとZがpacked arrayで保たれるか、2値のpacked bit accessorでどう変換されるかは述べていません。
+- `uvm_resource#(T)::write`（C.2.5.4.2）：XやZのbit以外が保存値と一致する値を同じ値とみなすかは述べていません。
+- `uvm_hdl_read`、`uvm_hdl_deposit`、`uvm_hdl_force`（19.6）：`uvm_hdl_data_t`は4値ですが、検査には4値のHDL backendが必要で、スイートのVPI backendは2値のVerilatorで動きます。
+- registerのbackdoor access（18.4.4.11、18.4.4.12、19.5）：XやZを`uvm_reg_data_t`へ渡す操作は規定されず、`uvm_reg_data_logic_t`（17.2.1.2）の使い道も規定されていません。
+- `set_local`とlogic fieldの自動configuration（5.3.12、13.1.5.1）：結果のfield値は書込みaccess以上に述べられていません。
+- TLM generic payloadのdataとbyte enable（12.3.4.2）は2値のbyte配列で、4値の経路はありません。
+
 ### メタデータ
 
 ヘッダーは実行スクリプトにビルドと判定の条件を伝えるもので、条項の引用と要求への対応付けの関係は[Q76](faq.ja.md#q76-条項を引用すればその要求を検査したことになりますか)で説明しています。
@@ -432,7 +457,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の2684件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
+- 現在の2691件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -597,7 +622,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは118件、メタデータの対象はテスト2740件（simulation 2641件・elaboration 99件）です。
+現在のツールの単体テストは118件、メタデータの対象はテスト2747件（simulation 2648件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

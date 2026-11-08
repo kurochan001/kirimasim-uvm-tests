@@ -412,6 +412,34 @@ the design rules in the helper, the cited clauses and the 1800-2023
 clocking-block timing define the expectations. [Q434](faq.md#q434-what-do-the-rtl-integration-profiles-check)
 describes each profile.
 
+### Four-state paths
+
+A four-state value can carry X or Z bits. Seven spec-only fixtures declare
+`:fourstate: yes` and check paths where the standard defines the result. The
+ordinary Verilator runner selects only two-state fixtures, so these have no
+Verilator record, and a two-state build of them is only a diagnostic.
+
+| Path | Clauses | Defined result checked |
+| --- | --- | --- |
+| Configuration database and `uvm_config_int` | C.4.2.2.2, C.4.2.3.1 | Lookups return the set bits |
+| Typed resource | C.2.5.4.1, C.2.5.4.2 | Reads return the written bits |
+| TLM FIFO and analysis FIFO | 12.2.4.2.2, 12.2.8.3 | Gets return the put bits in order |
+| `uvm_pool` missing key | 11.2.2.4 | All X for a four-state element type (1800-2023 Table 7-1) |
+| `uvm_queue` out-of-range get and empty pops | 11.3.2.4, 11.3.2.8, 11.3.2.9 | A warning and all X |
+| Direct and field-macro recording | 16.4.6.1, 16.4.6.2, B.2.2.1.1 | The hooks receive the bits |
+| Field-macro copy and clone | B.2.2.1.1 | The bits are preserved |
+
+The standard leaves these paths unspecified, so no fixture asserts them:
+
+- `uvm_comparer::compare_field`, `compare_field_int` and field-macro comparison (16.3.3.1, 16.3.3.2): whether X and Z bits compare by case equality is not stated.
+- `uvm_printer::print_field` and `print_field_int` (16.2.3.8, 16.2.3.9): how X and Z digits are formatted is not stated.
+- `uvm_packer` packing and unpacking (16.5.4.8 to 16.5.4.17): whether X and Z survive the packed array, or how they convert for the two-state packed-bit accessors, is not stated.
+- `uvm_resource#(T)::write` (C.2.5.4.2): whether a value that matches the stored one except in X or Z bits counts as the same value is not stated.
+- `uvm_hdl_read`, `uvm_hdl_deposit` and `uvm_hdl_force` (19.6): `uvm_hdl_data_t` is four-state, but checking it needs a four-state HDL backend; the suite's VPI backend runs with two-state Verilator.
+- Register backdoor access (18.4.4.11, 18.4.4.12, 19.5): no operation is specified to carry X or Z into `uvm_reg_data_t`, and `uvm_reg_data_logic_t` (17.2.1.2) has no specified use.
+- `set_local` and automatic configuration of logic fields (5.3.12, 13.1.5.1): the resulting field value is not described beyond write access.
+- TLM generic payload data and byte enables (12.3.4.2) are two-state byte arrays, so no four-state path exists.
+
 ### Metadata
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
@@ -591,7 +619,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2684 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
+- 2691 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -795,7 +823,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 118 unit tests; metadata validation checks all
-2740 tests (2641 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+2747 tests (2648 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
 [Regression](../.github/workflows/regression.yml) shards, uses

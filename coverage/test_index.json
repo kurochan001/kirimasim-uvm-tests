@@ -10961,6 +10961,34 @@
     "uC/test_rtl_vif_config_db_116": {
       "primary_clause": "C.4.2.2.2",
       "inputs_sha256": "e7f865730df67c4c7a80cf0653fbb8379c026a3cde96d32e0a253c9e491d7a67"
+    },
+    "u11/test_fourstate_pool_missing_key_117": {
+      "primary_clause": "11.2.2.4",
+      "inputs_sha256": "53a70d805655f3bdf7f56a8a161ae54c91552ed2d05f1a67d95904177291d7c6"
+    },
+    "u11/test_fourstate_queue_missing_entries_117": {
+      "primary_clause": "11.3.2.4",
+      "inputs_sha256": "3d76a450e9d632cdaf754ebb60f1782ff430a87b2ec540479768b502682aaa50"
+    },
+    "u12/test_fourstate_tlm_fifo_values_117": {
+      "primary_clause": "12.2.4.2.2",
+      "inputs_sha256": "509cccba85005161311bbc54c5f5c87fe9c4ed39f761d3dc757ccbdc58246a40"
+    },
+    "u16/test_fourstate_record_field_values_117": {
+      "primary_clause": "16.4.6.1",
+      "inputs_sha256": "6bd8946bc0f0dcdc8d042443ea5bfab8c0e92358ecb3d711bbf065c7042eb2ac"
+    },
+    "uB/test_fourstate_field_int_copy_117": {
+      "primary_clause": "B.2.2.1.1",
+      "inputs_sha256": "07b7404882d2c010d09f9cd7f1d303250ffd2dc24de84099a4a3f2d5f545ed73"
+    },
+    "uC/test_fourstate_config_db_values_117": {
+      "primary_clause": "C.4.2.2.2",
+      "inputs_sha256": "c2452b40f013432b04b2ec54901bb6b121e3267893f5b1b1725561b013c4f632"
+    },
+    "uC/test_fourstate_resource_read_write_117": {
+      "primary_clause": "C.2.5.4.1",
+      "inputs_sha256": "08b053a830c57583dad473c4a64dea1c1858f4f235a3d8b06c1ff99a44a3e5ea"
     }
   }
 }

@@ -6603,3 +6603,44 @@ target/544 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the completion FAQ](faq.md#q435-do-the-rtl-profiles-show-that-a-simulator-runs-real-testbenches)
 explains what the matches do and do not show.
+
+## 117th expansion: four-state paths (external review item 2)
+
+The 117th expansion implements the external review's second item, four-state
+paths. Seven spec-only fixtures declare `:fourstate: yes` and check paths where
+the standard defines the result for X and Z bits: configuration lookups,
+typed resources, TLM FIFOs, missing pool and queue entries, field recording
+and field-macro copy and clone; [the four-state FAQ](faq.md#q436-what-do-the-four-state-profiles-check) explains each.
+Values are compared with case equality, and pool and queue entries follow the
+missing-entry values of 1800-2023 Table 7-1 that 11.2.2.4, 11.3.2.4, 11.3.2.8 and
+11.3.2.9 cite. [The four-state section](testing.md#four-state-paths) also lists
+the paths the standard leaves unspecified, such as comparison, printing and
+packing of X and Z bits, which receive no fixture.
+
+The ordinary Verilator runner selects only two-state fixtures, so these
+inputs have no Verilator record; a two-state build of them is kept only as a
+diagnostic, in which Verilator rejected most tristate constructs. The
+combined Verilator evidence retains all 2740 two-state records unchanged. The
+field-macro recording check accepts a scoped name ending in the field name,
+because the name form is not specified, and does not assert sizes.
+
+Nine new duties cover these conditions. The total is 4127 AI duties, with all
+4118 old objects and 445 assessments unchanged; 2691 tests have direct links,
+158 have controls and 56 are control-only. All 2740 old ordinary/index records
+and 458 old known inputs remain unchanged. Milestones gain six M1 inputs and
+one M2 input.
+
+The suite has 2747 tests (2648 simulation/99 elaboration). Ordinary results
+are 2282 matches: 2188 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
+five accepted illegal designs without runtime. Spec-only cases total 465 with
+the seven four-state inputs. The two backend subsets are unchanged. No guest
+run/filter is added: 1081 compatible records remain byte-identical and 1666
+inputs are unmeasured (1662 additions/four revised originals; 1567
+simulation/99 elaboration).
+
+Primary-focused identifiers rise to 1318; candidates are 1168 zero/767 below
+target/547 at least two. All 2062 partial identifiers, actual remaining
+conditions, original milestone targets, human review and scope/denominator
+approval remain open; [the measurement FAQ](faq.md#q437-why-are-the-four-state-profiles-unmeasured)
+explains why these profiles have no result yet.

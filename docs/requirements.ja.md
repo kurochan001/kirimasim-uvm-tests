@@ -7,8 +7,8 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4118件は、すべて2684テストへ直接対応し、
-追加の56テストはcontrol専用です。全2740テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4127件は、すべて2691テストへ直接対応し、
+追加の56テストはcontrol専用です。全2747テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
@@ -32,7 +32,7 @@ control専用テストは補助的な前提を検査するもので、その一�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-4118件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+4127件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -62,10 +62,10 @@ directとcontrolは、義務を直接検査するか、準備や条件の評価�
 ![条項の引用、明示的な要求の対応付け、別途測定する実行の証拠の関係。](images/requirement-evidence.ja.svg)
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は1317件、どちらかの引用がある番号は2,096件です。
+catalogのうち主引用がある番号は1318件、どちらかの引用がある番号は2,096件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,169、1件が769、2件以上が544です。
+対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,168、1件が767、2件以上が547です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -86,7 +86,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2740件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2747件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -110,7 +110,7 @@ schemaの版はJSONの項目構成を識別するもので、UVMライブラリ�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2740件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2747件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -217,17 +217,17 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 8 | 83 | 65 | 0 | 12 | 0 |
 | 9 | 141 | 63 | 0 | 22 | 0 |
 | 10 | 169 | 144 | 0 | 29 | 0 |
-| 11 | 35 | 20 | 0 | 4 | 0 |
-| 12 | 329 | 205 | 0 | 45 | 0 |
+| 11 | 38 | 22 | 0 | 4 | 0 |
+| 12 | 330 | 206 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
 | 14 | 230 | 147 | 0 | 17 | 0 |
 | 15 | 132 | 124 | 0 | 18 | 0 |
-| 16 | 280 | 188 | 0 | 32 | 0 |
+| 16 | 281 | 189 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 941 | 652 | 0 | 63 | 0 |
 | 19 | 203 | 167 | 0 | 24 | 0 |
-| B | 258 | 235 | 0 | 9 | 0 |
-| C | 99 | 70 | 0 | 13 | 0 |
+| B | 260 | 236 | 0 | 9 | 0 |
+| C | 101 | 72 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
 | E | 114 | 88 | 0 | 20 | 0 |
 | F | 279 | 212 | 0 | 25 | 0 |
@@ -238,27 +238,24 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
 部分2062識別子は残る義務と適用条件を[完了条件](#m4の残作業と承認)に従って確認する必要があります。
-範囲は提案、4118件のレビューはすべて`ai`、分母は未承認です。
+範囲は提案、4127件のレビューはすべて`ai`、分母は未承認です。
 
-116回目は、外部レビューの最初の項目であるRTLとの結合に着手します。5 profileは、独自のregister-file design、driverとmonitorのclocking blockを持つbus interface、独自のUVM環境を共有します。
-UVM環境は、configuration databaseからvirtual interfaceを得るdriverとmonitor、独自adapterと任意の明示predictorを持つregister model、analysis FIFO経由のscoreboardで構成します。各profileは[RTLのFAQ](faq.ja.md#q434-rtl結合profileは何を検査しますか)で説明しています。
+117回目は、外部レビューの2番目の項目である4値の経路を扱います。specのみの7検査系は`:fourstate: yes`を宣言し、XとZのbitについて規格が結果を定める経路を検査します。configurationの検索、型付きresource、TLM FIFO、poolとqueueの存在しない要素、fieldの記録、field macroのcopyとcloneで、各profileは[4値のFAQ](faq.ja.md#q436-4値のprofileは何を検査しますか)で説明しています。
+値はcase equalityで比べ、poolとqueueの要素は、11.2.2.4、11.3.2.4、11.3.2.8、11.3.2.9が引用する1800-2023のTable 7-1の存在しない要素の値に従います。XとZのbitの比較、表示、packのように規格が定めていない経路は[4値の節](testing.ja.md#4値の経路)に一覧し、検査系を追加しません。
 
-検査するのは、configuration databaseによるvirtual interfaceの受渡し（C.4.2.2.2）、finish_itemの完了とclockに同期したrequestのtiming（14.2.6.3、15.2.1.2.1）、auto-predictionを有効にしたadapter経由のfrontdoor writeとread（19.2.1.2.5、19.2.1.2.6、18.2.5.2）、明示predictionとそのregister item port（19.3.2.1、19.3.2.2）、analysis FIFOの保持（12.2.8.3）です。
-期待値は、helperに書いたdesignの規則、引用したUVM条項、1800-2023のclocking blockのtimingを組み合わせて導きます。skew 0の駆動はclocking eventのRe-NBA regionで反映され、1 stepの入力はedge直前の値をsampleするため、requestは次のclockで、register化したread dataはその1 clock後に観測されます。runnerの変更は不要でした。
+通常のVerilator runnerは2値の検査系だけを選ぶため、これらの入力にVerilatorの記録はありません。2値でのbuildは診断として保管しただけで、Verilatorは多くのtristate構文を拒否しました。
+結合したVerilatorの証拠は、2値の2740記録を変えずに保持します。field macroの記録の検査は、名前の形が規定されないためfield名で終わるscope付きの名前も受け入れ、sizeはassertしません。
 
-最初の凍結はbuildできませんでした。scoreboardの計数変数に予約語`matches`を使っていたためです。変えたのはその識別子だけで、期待ファイル、出力行、コメントは変えておらず、buildできなかった入力は`out/thin-one-hundred-sixteenth-before-identifier-fix/`に保管しています。
-凍結し直した入力はtag付けの前後ともseed 1／73で一致し、2回の測定の間で変わったのは`:oracle:`行だけで、UVMのerrorとfatalのreportはありませんでした。
+これらの条件を新しい義務9件で扱います。AI義務は4127件で、旧要求4118件と分類445件はすべて同一です。直接対応は2691テスト、control対応は158テスト、controlのみは56テストです。
+元の通常／index 2740記録と旧既知458入力は全て維持します。milestoneはM1が6件、M2が1件増えます。
 
-これらの条件を新しい義務9件で扱います。AI義務は4118件で、旧要求4109件と分類445件はすべて同一です。直接対応は2684テスト、control対応は158テスト、controlのみは56テストです。
-最初の4 profileのscoreboard行は検査系の健全性確認で、要求へは対応付けていません。元の通常／index 2735記録と旧既知458入力は全て維持します。milestoneはM1（configuration）1件、M2（sequenceとTLM）2件、M3（register）2件が増えます。
+全体は2747テスト（simulation 2648／elaboration 99）です。通常一致は2282件で、runtime両seed 2188入力とcompiler拒否94件です。
+既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて465件です。
+2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1666入力です。
+追加1662件と修正した元入力4件で、simulation 1567／elaboration 99です。
 
-全体は2740テスト（simulation 2641／elaboration 99）です。通常一致は2282件で、runtime両seed 2188入力とcompiler拒否94件です。
-既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。
-2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1659入力です。
-追加1655件と修正した元入力4件で、simulation 1560／elaboration 99です。
-
-主引用がある番号は1317に増え、candidateは0件1169／目標未満769／2件以上544です。
-部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、一致が何を示し何を示さないかは[完了のFAQ](faq.ja.md#q435-rtl-profileで実際のtestbenchを動かせると言えますか)で説明しています。
+主引用がある番号は1318に増え、candidateは0件1168／目標未満767／2件以上547です。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、これらのprofileにまだ結果がない理由は[測定のFAQ](faq.ja.md#q437-4値のprofileが未測定なのはなぜですか)で説明しています。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。
@@ -516,4 +513,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる4118要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる4127要求案と直接の対応は、その条件を満たしていません。

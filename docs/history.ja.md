@@ -4063,3 +4063,22 @@ UVM環境は、configuration databaseからvirtual interfaceを得るdriverとmo
 
 主引用がある番号は1317に増え、candidateは0件1169／目標未満769／2件以上544です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、一致が何を示し何を示さないかは[完了のFAQ](faq.ja.md#q435-rtl-profileで実際のtestbenchを動かせると言えますか)で説明しています。
+
+## 117回目の拡充：4値の経路（外部レビュー項目2）
+
+117回目は、外部レビューの2番目の項目である4値の経路を扱います。specのみの7検査系は`:fourstate: yes`を宣言し、XとZのbitについて規格が結果を定める経路を検査します。configurationの検索、型付きresource、TLM FIFO、poolとqueueの存在しない要素、fieldの記録、field macroのcopyとcloneで、各profileは[4値のFAQ](faq.ja.md#q436-4値のprofileは何を検査しますか)で説明しています。
+値はcase equalityで比べ、poolとqueueの要素は、11.2.2.4、11.3.2.4、11.3.2.8、11.3.2.9が引用する1800-2023のTable 7-1の存在しない要素の値に従います。XとZのbitの比較、表示、packのように規格が定めていない経路は[4値の節](testing.ja.md#4値の経路)に一覧し、検査系を追加しません。
+
+通常のVerilator runnerは2値の検査系だけを選ぶため、これらの入力にVerilatorの記録はありません。2値でのbuildは診断として保管しただけで、Verilatorは多くのtristate構文を拒否しました。
+結合したVerilatorの証拠は、2値の2740記録を変えずに保持します。field macroの記録の検査は、名前の形が規定されないためfield名で終わるscope付きの名前も受け入れ、sizeはassertしません。
+
+これらの条件を新しい義務9件で扱います。AI義務は4127件で、旧要求4118件と分類445件はすべて同一です。直接対応は2691テスト、control対応は158テスト、controlのみは56テストです。
+元の通常／index 2740記録と旧既知458入力は全て維持します。milestoneはM1が6件、M2が1件増えます。
+
+全体は2747テスト（simulation 2648／elaboration 99）です。通常一致は2282件で、runtime両seed 2188入力とcompiler拒否94件です。
+既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて465件です。
+2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1666入力です。
+追加1662件と修正した元入力4件で、simulation 1567／elaboration 99です。
+
+主引用がある番号は1318に増え、candidateは0件1168／目標未満767／2件以上547です。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、これらのprofileにまだ結果がない理由は[測定のFAQ](faq.ja.md#q437-4値のprofileが未測定なのはなぜですか)で説明しています。

@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-Current transfer: the user resumed the goal on 2026-11-07, and the 116th expansion, the first item of an external review, is published. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
+Current transfer: the user resumed the goal on 2026-11-07, and the 117th expansion, the second item of an external review, is published. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
@@ -10,8 +10,8 @@ This page supports resuming development; if you want to run or understand a firs
 
 The base commit below identifies the starting point for the described work, so check uncommitted changes before treating saved results as evidence for the current files; [the input-update procedure](requirements.md#updating-a-test-or-mapping) explains how to review their compatibility.
 
-Updated on 2026-11-08 for the 116th expansion, based on
-[eeda25d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/eeda25d9b378773a2841076706f8e8029d87c08d)
+Updated on 2026-11-08 for the 117th expansion, based on
+[c314982](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c314982e5c42e5333790b7ba7bb00bbaef8da2f7)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -22,11 +22,11 @@ zero unlinked tests does not complete any milestone.
 
 | Area | Current snapshot |
 | --- | --- |
-| M1 | 1172 tests (1091 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
-| M2 | 626 tests (619 runtime, 7 elaboration): sequences, sequencers, callbacks and TLM |
+| M1 | 1178 tests (1097 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
+| M2 | 627 tests (620 runtime, 7 elaboration): sequences, sequencers, callbacks and TLM |
 | M3 | 942 tests (931 runtime, 11 elaboration): register/memory layer and annex E |
-| Entire suite | 2740 tests (2641 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 4118 AI requirement drafts; 4118 have direct links to 2684 tests; fifty-six control-only tests; zero tests without links |
+| Entire suite | 2747 tests (2648 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 4127 AI requirement drafts; 4127 have direct links to 2691 tests; fifty-six control-only tests; zero tests without links |
 | Normative inventory | 2062 of 2,507 identifiers partially decomposed; 445 explicitly assessed; 0 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
@@ -68,14 +68,14 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
 
 - [Testing guide](testing.md): metadata, compilation, runner options and
   contribution rules. [Results](results.md): evidence interpretation and
-  assembly. [Known differences](known-differences.md): all 458 spec-only cases.
+  assembly. [Known differences](known-differences.md): all 465 spec-only cases.
 - [Requirement guide](requirements.md), [scope](../coverage/scope.json),
   [ledger](../coverage/requirements.json), [assessments](../coverage/assessments.json) and [test index](../coverage/test_index.json):
   canonical M4 state. Generated inventories are review aids, not replacements
   for these versioned inputs.
 - [Library lock](../third_party/uvm.lock): Accellera UVM 2020.3.1 at
   `78c06547a2a0`, 326 files. Fetch with the tracked tool; the library itself
-  is not committed. 2684 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
+  is not committed. 2691 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
 - The user supplied `IEEE_Std_1800.2-2020.pdf` and
   `IEEE_Std_1800-2023_SystemVerilog.pdf` in the repository root. They are
   ignored local files, unavailable in a fresh clone, and must not be
@@ -106,11 +106,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 118 tool unit tests, metadata for all 2740 tests (2641 simulation, 99 elaboration),
+The snapshot passed 118 tool unit tests, metadata for all 2747 tests (2648 simulation, 99 elaboration),
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1081 unchanged inputs, with 1659 inputs unmeasured.
+cover 1081 unchanged inputs, with 1666 inputs unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -140,8 +140,8 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 | Verilator 5.052 / pinned UVM | 2188 runtime passes at seeds 1/73; 94 expected compile rejections; 458 known |
 | Verilator 5.052 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
 | Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 18-case condition: 17 pass both seeds; 1 known at seed 1 |
-| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1659 inputs unmeasured |
-| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1659 inputs unmeasured |
+| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1666 inputs unmeasured |
+| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1666 inputs unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
 The ordinary condition retains 458 known cases: 318 runtime first differences,
@@ -151,58 +151,49 @@ two inherited type_id registry specializations, one protected-access build, two 
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
 
-The 116th expansion starts the external review's first item, RTL integration.
-Five profiles share an original register-file design, a bus interface with
-driver and monitor clocking blocks, and an original UVM environment: a driver
-and monitor that obtain the virtual interface from the configuration
-database, a register model with an original adapter and optional explicit
-predictor, and an analysis-FIFO scoreboard; [the RTL FAQ](faq.md#q434-what-do-the-rtl-integration-profiles-check) explains
-each profile.
+The 117th expansion implements the external review's second item, four-state
+paths. Seven spec-only fixtures declare `:fourstate: yes` and check paths where
+the standard defines the result for X and Z bits: configuration lookups,
+typed resources, TLM FIFOs, missing pool and queue entries, field recording
+and field-macro copy and clone; [the four-state FAQ](faq.md#q436-what-do-the-four-state-profiles-check) explains each.
+Values are compared with case equality, and pool and queue entries follow the
+missing-entry values of 1800-2023 Table 7-1 that 11.2.2.4, 11.3.2.4, 11.3.2.8 and
+11.3.2.9 cite. [The four-state section](testing.md#four-state-paths) also lists
+the paths the standard leaves unspecified, such as comparison, printing and
+packing of X and Z bits, which receive no fixture.
 
-The profiles check configuration-database delivery of the virtual interface
-(C.4.2.2.2), finish_item completion and clocked request timing (14.2.6.3 and
-15.2.1.2.1), frontdoor writes and reads through the adapter with
-auto-prediction (19.2.1.2.5, 19.2.1.2.6 and 18.2.5.2), explicit prediction and
-its register-item port (19.3.2.1 and 19.3.2.2), and analysis-FIFO buffering
-(12.2.8.3). Expectations combine the design rules written in the helper with
-the cited UVM clauses and the 1800-2023 clocking-block timing. Zero-skew
-drives take effect in the Re-NBA region of their clocking event and one-step
-inputs sample the value before the edge, so a request is observed on the next
-clock and registered read data one clock later. No runner change was needed.
+The ordinary Verilator runner selects only two-state fixtures, so these
+inputs have no Verilator record; a two-state build of them is kept only as a
+diagnostic, in which Verilator rejected most tristate constructs. The
+combined Verilator evidence retains all 2740 two-state records unchanged. The
+field-macro recording check accepts a scoped name ending in the field name,
+because the name form is not specified, and does not assert sizes.
 
-The first freeze did not build: a scoreboard counter used the reserved word
-`matches`. Only that identifier changed; expected files, printed rows and
-comments are unchanged, and the unbuilt inputs are archived under
-`out/thin-one-hundred-sixteenth-before-identifier-fix/`. The re-frozen inputs
-match seeds 1/73 before and after tagging; only the `:oracle:` line changed
-between those two measurements, and no UVM error or fatal report occurred.
+Nine new duties cover these conditions. The total is 4127 AI duties, with all
+4118 old objects and 445 assessments unchanged; 2691 tests have direct links,
+158 have controls and 56 are control-only. All 2740 old ordinary/index records
+and 458 old known inputs remain unchanged. Milestones gain six M1 inputs and
+one M2 input.
 
-Nine new duties cover these conditions. The total is 4118 AI duties, with all
-4109 old objects and 445 assessments unchanged; 2684 tests have direct links,
-158 have controls and 56 are control-only. The scoreboard rows of the first
-four profiles are fixture sanity checks without links. All 2735 old
-ordinary/index records and 458 old known inputs remain unchanged. Milestones
-gain one M1 (configuration), two M2 (sequence and TLM) and two M3 (register)
-inputs.
-
-The suite has 2740 tests (2641 simulation/99 elaboration). Ordinary results
+The suite has 2747 tests (2648 simulation/99 elaboration). Ordinary results
 are 2282 matches: 2188 runtime inputs at both seeds and 94 compiler rejections.
 Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
-five accepted illegal designs without runtime. The two backend subsets are
-unchanged. No guest run/filter is added: 1081 compatible records remain
-byte-identical and 1659 inputs are unmeasured (1655 additions/four revised
-originals; 1560 simulation/99 elaboration).
+five accepted illegal designs without runtime. Spec-only cases total 465 with
+the seven four-state inputs. The two backend subsets are unchanged. No guest
+run/filter is added: 1081 compatible records remain byte-identical and 1666
+inputs are unmeasured (1662 additions/four revised originals; 1567
+simulation/99 elaboration).
 
-Primary-focused identifiers rise to 1317; candidates are 1169 zero/769 below
-target/544 at least two. All 2062 partial identifiers, actual remaining
+Primary-focused identifiers rise to 1318; candidates are 1168 zero/767 below
+target/547 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
-approval remain open; [the completion FAQ](faq.md#q435-do-the-rtl-profiles-show-that-a-simulator-runs-real-testbenches)
-explains what the matches do and do not show.
+approval remain open; [the measurement FAQ](faq.md#q437-why-are-the-four-state-profiles-unmeasured)
+explains why these profiles have no result yet.
 
-Totals are 2740 (2641 simulation/99 elaboration): M1 1172 (1091/81), M2 626
-(619/7), M3 942 (931/11). Ordinary pass is 2282 (2188 runtime/94 rejections),
+Totals are 2747 (2648 simulation/99 elaboration): M1 1178 (1097/81), M2 627
+(620/7), M3 942 (931/11). Ordinary pass is 2282 (2188 runtime/94 rejections),
 with 458 known (318 runtime/135 builds/5 illegal acceptances). Guests retain
-1081 compatible records; 1659 unmeasured inputs are 1655 additions and four revised originals.
+1081 compatible records; 1666 unmeasured inputs are 1662 additions and four revised originals.
 
 The former single Check never finished its whole selection after 2026-10-31:
 its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)
@@ -224,13 +215,13 @@ remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-one-hundred-sixteenth-verilator-combined.json
+out/thin-one-hundred-seventeenth-verilator-combined.json
 out/thin-one-hundred-twelfth-ghost-final-1.json
 out/thin-one-hundred-twelfth-ghost-final-73.json
 out/thin-one-hundred-twelfth-kirimasim-final.json
-out/thin-one-hundred-sixteenth-inventory.json
-out/thin-one-hundred-sixteenth-backlog.json
-out/thin-one-hundred-sixteenth-evidence-scope.json
+out/thin-one-hundred-seventeenth-inventory.json
+out/thin-one-hundred-seventeenth-backlog.json
+out/thin-one-hundred-seventeenth-evidence-scope.json
 out/thin-one-hundred-sixth-hdl-combined.json
 out/thin-one-hundred-sixth-cmdline-final.json
 ```
@@ -251,7 +242,7 @@ Unassessed counts and partial obligations track different remaining work; [Read 
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.
 At activation there were 1,463 unassessed identifiers, zero unlinked tests and
-zero requirements without direct tests. 88 iterations retain zero unassessed, a decrease of 1463 since activation. The user resumed the paused goal on 2026-11-07. The 113th to 115th iterations split CI, fixed the missing z3 solver on hosted runners and added twelve M3 memory-manager inputs. On 2026-11-08 the user supplied an external review with eight items; the 116th iteration implements its first item with five RTL integration inputs that match at both seeds before and after tagging after one disclosed build-only identifier fix. Nine new duties produce 4118 duties, with all 4109 old objects identical. All 2735 old ordinary/index records, 458 old known inputs and 445 assessments remain. Guests retain 1081 compatible/1659 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is not complete.
+zero requirements without direct tests. 89 iterations retain zero unassessed, a decrease of 1463 since activation. The user resumed the paused goal on 2026-11-07. The 113th to 115th iterations split CI, fixed the missing z3 solver on hosted runners and added twelve M3 memory-manager inputs. On 2026-11-08 the user supplied an external review with eight items; the 116th iteration added five RTL integration inputs for its first item, and the 117th adds seven four-state spec-only inputs for its second item, which the two-state oracle does not measure. Nine new duties produce 4127 duties, with all 4118 old objects identical. All 2740 old ordinary/index records, 458 old known inputs and 445 assessments remain. Guests retain 1081 compatible/1666 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is not complete.
 
 The separate earlier 12.2.9.2 reassessment did not reduce unassessed. Do not mark
 the goal complete before the final audit. Zero unassessed in chapter 12 does not complete its 169 partial
@@ -494,6 +485,8 @@ have direct reservation, request and policy-bound checks; changing mode or
 locality with the bounds, other byte widths and incompatible reconfiguration remain.
 RTL integration now has five direct profiles; other protocols, clock domains,
 byte enables, error responses and the remaining review items remain.
+Four-state paths now have seven spec-only profiles without Verilator records;
+the unspecified paths are listed in the testing guide.
 
 Register-interaction candidates include callback resize/disable and operation
 failure conditions, wider translation beats, independent one-way payload

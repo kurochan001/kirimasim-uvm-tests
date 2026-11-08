@@ -3356,6 +3356,41 @@
       ]
     },
     {
+      "id": "UVM-FOURSTATE-CONFIG-DB-PRESERVES-XZ",
+      "clause": "C.4.2.2.2",
+      "statement": {
+        "en": "Configuration-database lookups return four-state settings with their X and Z bits unchanged.",
+        "ja": "configuration databaseの検索は、4値の設定をXとZのbitを変えずに返す。"
+      },
+      "conditions": {
+        "en": "Set an 8-bit logic value and a uvm_config_int bitstream, each with X and Z bits, then look both up from a matching scope.",
+        "ja": "XとZのbitを持つ8 bitのlogic値とuvm_config_intのbitstreamを設定し、一致するscopeから両方を検索する。"
+      },
+      "expected": {
+        "en": "Both lookups succeed and return the same bits.",
+        "ja": "両方の検索が成功し、同じbitを返す。"
+      },
+      "limitations": {
+        "en": "Four-state only: values are compared with case equality, and a two-state simulator cannot represent the X or Z bits, so no two-state result is evidence for this duty. Only the selected widths and bit patterns are used.",
+        "ja": "4値だけを対象とし、値はcase equalityで比べる。2値のsimulatorはXやZを表せないため、2値の結果はこの義務の証拠にならない。選んだ幅とbit patternだけを使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_fourstate_config_db_values_117",
+          "role": "direct",
+          "expected_observations": [
+            "UT: narrow found 1 same 1",
+            "UT: wide found 1 same 1"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-CONFIG-UPDATE-KEY",
       "clause": "C.4.2.2.1",
       "statement": {
@@ -16158,6 +16193,42 @@
             "UT: replaced count 1 value 9",
             "UT: removed count 0 absent 1",
             "UT: peer count 1 value 77"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FOURSTATE-POOL-MISSING-GET-X",
+      "clause": "11.2.2.4",
+      "statement": {
+        "en": "Getting a missing key from a pool of a four-state element type creates the key with an all-X value.",
+        "ja": "4値の要素型のpoolで存在しないkeyをgetすると、そのkeyを全X値で作る。"
+      },
+      "conditions": {
+        "en": "Get a missing key from a pool of 8-bit logic values and from a pool of 8-bit bit values, then add and get a logic value with X and Z bits.",
+        "ja": "8 bit logic値のpoolと8 bit bit値のpoolで存在しないkeyをgetし、XとZのbitを持つlogic値をaddしてgetする。"
+      },
+      "expected": {
+        "en": "The logic pool returns all X and creates the key; the bit pool returns zero and creates the key; the stored value returns with the same bits.",
+        "ja": "logic poolは全Xを返してkeyを作り、bit poolは0を返してkeyを作り、保存した値は同じbitで戻る。"
+      },
+      "limitations": {
+        "en": "Four-state only: values are compared with case equality, and a two-state simulator cannot represent the X or Z bits, so no two-state result is evidence for this duty. Only the selected widths and bit patterns are used. The missing-entry values follow Table 7-1 of 1800-2023 (7.4.5) as the clause directs.",
+        "ja": "4値だけを対象とし、値はcase equalityで比べる。2値のsimulatorはXやZを表せないため、2値の結果はこの義務の証拠にならない。選んだ幅とbit patternだけを使う。存在しない要素の値は、条項の指示どおり1800-2023のTable 7-1（7.4.5）に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_fourstate_pool_missing_key_117",
+          "role": "direct",
+          "expected_observations": [
+            "UT: logic missing x 1 created 1",
+            "UT: bit missing zero 1 created 1",
+            "UT: logic stored same 1"
           ]
         }
       ]
@@ -29684,6 +29755,41 @@
           "expected_observations": [
             "UT: wrong_direction blocked 1 request_ready 1",
             "UT: response answer request 17 returned 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FOURSTATE-TLM-FIFO-PRESERVES-XZ",
+      "clause": "12.2.4.2.2",
+      "statement": {
+        "en": "TLM FIFOs deliver four-state transactions in order with their X and Z bits unchanged.",
+        "ja": "TLM FIFOは、4値のtransactionをXとZのbitを変えずに順に渡す。"
+      },
+      "conditions": {
+        "en": "Put two 8-bit logic values with X and Z bits into a two-entry FIFO and write a third to an analysis FIFO, then get them.",
+        "ja": "XとZのbitを持つ8 bitのlogic値を2要素のFIFOへ2つputし、3つ目をanalysis FIFOへwriteしてからgetする。"
+      },
+      "expected": {
+        "en": "The values return in order with the same bits, and the analysis FIFO try_get succeeds.",
+        "ja": "値は同じbitのまま順に戻り、analysis FIFOのtry_getは成功する。"
+      },
+      "limitations": {
+        "en": "Four-state only: values are compared with case equality, and a two-state simulator cannot represent the X or Z bits, so no two-state result is evidence for this duty. Only the selected widths and bit patterns are used.",
+        "ja": "4値だけを対象とし、値はcase equalityで比べる。2値のsimulatorはXやZを表せないため、2値の結果はこの義務の証拠にならない。選んだ幅とbit patternだけを使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_fourstate_tlm_fifo_values_117",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo first 1 second 1",
+            "UT: analysis got 1 same 1"
           ]
         }
       ]
@@ -48212,6 +48318,41 @@
       ]
     },
     {
+      "id": "UVM-FOURSTATE-QUEUE-OUT-OF-RANGE-GET-X",
+      "clause": "11.3.2.4",
+      "statement": {
+        "en": "An out-of-range get from a queue of a four-state element type warns and returns an all-X value.",
+        "ja": "4値の要素型のqueueで範囲外をgetすると、warningを出して全X値を返す。"
+      },
+      "conditions": {
+        "en": "Push two 8-bit logic values with X and Z bits, get index two, then get both stored entries.",
+        "ja": "XとZのbitを持つ8 bitのlogic値を2つpushし、index 2をgetしてから保存した2要素をgetする。"
+      },
+      "expected": {
+        "en": "The out-of-range get warns, returns all X and leaves the size at two; the stored entries return with the same bits.",
+        "ja": "範囲外のgetはwarningを出して全Xを返し、sizeは2のままで、保存した要素は同じbitで戻る。"
+      },
+      "limitations": {
+        "en": "Four-state only: values are compared with case equality, and a two-state simulator cannot represent the X or Z bits, so no two-state result is evidence for this duty. Only the selected widths and bit patterns are used. The missing-entry value follows Table 7-1 of 1800-2023 (7.4.5) as the clause directs; warning wording is not checked.",
+        "ja": "4値だけを対象とし、値はcase equalityで比べる。2値のsimulatorはXやZを表せないため、2値の結果はこの義務の証拠にならない。選んだ幅とbit patternだけを使う。存在しない要素の値は条項の指示どおり1800-2023のTable 7-1（7.4.5）に従い、warningの本文は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_fourstate_queue_missing_entries_117",
+          "role": "direct",
+          "expected_observations": [
+            "UT: beyond x 1 warned 1 size 2",
+            "UT: stored same 1 1"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-QUEUE-NONEMPTY-POP-FRONT-HANDLE",
       "clause": "11.3.2.8",
       "statement": {
@@ -48241,6 +48382,41 @@
           "role": "direct",
           "expected_observations": [
             "UT: popped front 1 back 1 middle 1 size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FOURSTATE-QUEUE-EMPTY-POP-X",
+      "clause": "11.3.2.8",
+      "statement": {
+        "en": "Popping from an empty queue of a four-state element type warns and returns an all-X value.",
+        "ja": "4値の要素型の空のqueueからpopすると、warningを出して全X値を返す。"
+      },
+      "conditions": {
+        "en": "After popping both stored entries from the front and back, pop the empty queue from the front and then from the back.",
+        "ja": "保存した2要素を前と後からpopした後、空のqueueを前から、次に後からpopする。"
+      },
+      "expected": {
+        "en": "The stored entries pop with the same bits, and each empty pop warns and returns all X.",
+        "ja": "保存した要素は同じbitでpopされ、空のpopはそれぞれwarningを出して全Xを返す。"
+      },
+      "limitations": {
+        "en": "Four-state only: values are compared with case equality, and a two-state simulator cannot represent the X or Z bits, so no two-state result is evidence for this duty. Only the selected widths and bit patterns are used. pop_back follows the same rule in 11.3.2.9; warning wording is not checked.",
+        "ja": "4値だけを対象とし、値はcase equalityで比べる。2値のsimulatorはXやZを表せないため、2値の結果はこの義務の証拠にならない。選んだ幅とbit patternだけを使う。pop_backも11.3.2.9の同じ規則に従い、warningの本文は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_fourstate_queue_missing_entries_117",
+          "role": "direct",
+          "expected_observations": [
+            "UT: popped same 1 1 empty_front x 1 warned 1",
+            "UT: empty_back x 1 warned 1"
           ]
         }
       ]
@@ -114315,6 +114491,41 @@
       ]
     },
     {
+      "id": "UVM-FOURSTATE-RESOURCE-PRESERVES-XZ",
+      "clause": "C.2.5.4.1",
+      "statement": {
+        "en": "A typed resource read returns the written four-state value with its X and Z bits unchanged.",
+        "ja": "型付きresourceのreadは、書いた4値をXとZのbitを変えずに返す。"
+      },
+      "conditions": {
+        "en": "Write an 8-bit logic value with X and Z bits, read it, then write a value that differs in known bits and read again.",
+        "ja": "XとZのbitを持つ8 bitのlogic値を書いて読み、既知のbitが異なる値を書いて再び読む。"
+      },
+      "expected": {
+        "en": "Each read returns the bits most recently written.",
+        "ja": "各readは最後に書いたbitを返す。"
+      },
+      "limitations": {
+        "en": "Four-state only: values are compared with case equality, and a two-state simulator cannot represent the X or Z bits, so no two-state result is evidence for this duty. Only the selected widths and bit patterns are used. Whether a write of a value equal to the stored one except in X or Z bits counts as the same value is not specified, so no such write is made.",
+        "ja": "4値だけを対象とし、値はcase equalityで比べる。2値のsimulatorはXやZを表せないため、2値の結果はこの義務の証拠にならない。選んだ幅とbit patternだけを使う。XやZのbit以外が保存値と等しい値の書込みを同じ値とみなすかは規定されないため、その書込みは行わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_fourstate_resource_read_write_117",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first same 1",
+            "UT: second same 1"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-RESOURCE-AUDIT-VALUE-WRITE",
       "clause": "C.2.5.4.2",
       "statement": {
@@ -127381,6 +127592,75 @@
       ]
     },
     {
+      "id": "UVM-FOURSTATE-FIELD-MACRO-RECORD-XZ",
+      "clause": "B.2.2.1.1",
+      "statement": {
+        "en": "Field-macro recording of logic properties delivers their X and Z bits unchanged to the recorder.",
+        "ja": "logic propertyのfield macroによる記録は、XとZのbitを変えずにrecorderへ渡す。"
+      },
+      "conditions": {
+        "en": "Record an object whose uvm_field_int properties are an 8-bit and a 100-bit logic value with X and Z bits.",
+        "ja": "uvm_field_int propertyとしてXとZのbitを持つ8 bitと100 bitのlogic値を持つobjectを記録する。"
+      },
+      "expected": {
+        "en": "The hook captures for both fields hold the same bits.",
+        "ja": "両fieldのhookでの捕捉値は同じbitを持つ。"
+      },
+      "limitations": {
+        "en": "Four-state only: values are compared with case equality, and a two-state simulator cannot represent the X or Z bits, so no two-state result is evidence for this duty. Only the selected widths and bit patterns are used. The name form passed by the macros is not specified, so a scoped name ending in the field name is accepted; the hook chosen and the size are not asserted.",
+        "ja": "4値だけを対象とし、値はcase equalityで比べる。2値のsimulatorはXやZを表せないため、2値の結果はこの義務の証拠にならない。選んだ幅とbit patternだけを使う。macroが渡す名前の形は規定されないため、field名で終わるscope付きの名前も受け入れ、選ばれるhookとsizeはassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_fourstate_record_field_values_117",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fields narrow 1 wide 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FOURSTATE-FIELD-MACRO-COPY-XZ",
+      "clause": "B.2.2.1.1",
+      "statement": {
+        "en": "Field-macro copy and clone of logic properties preserve their X and Z bits.",
+        "ja": "logic propertyのfield macroによるcopyとcloneは、XとZのbitを保つ。"
+      },
+      "conditions": {
+        "en": "Copy and clone an object whose uvm_field_int properties are an 8-bit and a 100-bit logic value with X and Z bits.",
+        "ja": "uvm_field_int propertyとしてXとZのbitを持つ8 bitと100 bitのlogic値を持つobjectをcopyし、cloneする。"
+      },
+      "expected": {
+        "en": "The copied and cloned properties hold the same bits.",
+        "ja": "copyとcloneしたpropertyは同じbitを持つ。"
+      },
+      "limitations": {
+        "en": "Four-state only: values are compared with case equality, and a two-state simulator cannot represent the X or Z bits, so no two-state result is evidence for this duty. Only the selected widths and bit patterns are used.",
+        "ja": "4値だけを対象とし、値はcase equalityで比べる。2値のsimulatorはXやZを表せないため、2値の結果はこの義務の証拠にならない。選んだ幅とbit patternだけを使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_fourstate_field_int_copy_117",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copy narrow 1 wide 1",
+            "UT: clone narrow 1 wide 1"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-FIELD-MACRO-AUDIT-B-2-2-1-2-COPY",
       "clause": "B.2.2.1.2",
       "statement": {
@@ -138081,6 +138361,40 @@
           "role": "direct",
           "expected_observations": [
             "UT: record_direct33 default 1 explicit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FOURSTATE-RECORD-FIELD-PRESERVES-XZ",
+      "clause": "16.4.6.1",
+      "statement": {
+        "en": "Recording an integral field delivers its four-state value to the recorder hook with X and Z bits unchanged.",
+        "ja": "整数fieldの記録は、その4値をXとZのbitを変えずにrecorderのhookへ渡す。"
+      },
+      "conditions": {
+        "en": "An original database, stream and recorder capture the values passed to the field hooks; record_field and record_field_int are called directly with X and Z bits.",
+        "ja": "独自のdatabase、stream、recorderがfield hookへ渡る値を捕捉し、XとZのbitを持つ値でrecord_fieldとrecord_field_intを直接呼ぶ。"
+      },
+      "expected": {
+        "en": "Both hooks receive the same low-order bits.",
+        "ja": "両方のhookが同じ下位bitを受け取る。"
+      },
+      "limitations": {
+        "en": "Four-state only: values are compared with case equality, and a two-state simulator cannot represent the X or Z bits, so no two-state result is evidence for this duty. Only the selected widths and bit patterns are used. Only the value bits within the recorded size are compared; the recorded size and radix are not asserted.",
+        "ja": "4値だけを対象とし、値はcase equalityで比べる。2値のsimulatorはXやZを表せないため、2値の結果はこの義務の証拠にならない。選んだ幅とbit patternだけを使う。記録したsize内の値のbitだけを比べ、記録したsizeとradixはassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_fourstate_record_field_values_117",
+          "role": "direct",
+          "expected_observations": [
+            "UT: direct wide 1 small 1"
           ]
         }
       ]
