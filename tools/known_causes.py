@@ -39,7 +39,10 @@ Verilator, the simulator and condition causes, and the four-state tests, which
 have no Verilator record; unassigned entries are counted apart until they are
 diagnosed. candidates lists the entries for human review.
 reproduce builds every simulator reproducer with Verilator and checks that
-Verilator still accepts or rejects it as recorded.
+Verilator still accepts or rejects it as recorded. A design is accepted when
+it builds and its run exits with 0, and rejected when it does not build or its
+run fails; a reproducer of a runtime difference checks its own result and
+calls $fatal when it differs from the standard.
 
 The record never changes an expectation, which follows the standard. Causes
 are diagnosed after the expectation is frozen and keep review status ai until
@@ -385,11 +388,14 @@ def reproduce(data, verilator):
                  "-Mdir", str(Path(tmp) / "obj"), str(source)],
                 capture_output=True, text=True, errors="replace", timeout=600)
             behavior = "accepts" if build.returncode == 0 else "rejects"
+            messages = build.stderr
             if behavior == "accepts":
                 run = subprocess.run([str(Path(tmp) / "obj" / f"V{module}")], capture_output=True,
                                      text=True, errors="replace", timeout=60)
                 behavior = "accepts" if run.returncode == 0 else "rejects"
-        first = next((line for line in build.stderr.splitlines() if "%Error" in line), "")
+                messages = run.stdout + run.stderr
+        first = next((line for line in messages.splitlines() if "%Error" in line or "%Fatal" in line),
+                     "")
         print(f"{name}: Verilator {behavior}" + (f" ({first.strip()})" if first else ""))
         if behavior != value["verilator"]:
             failures.append(name)

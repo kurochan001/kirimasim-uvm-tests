@@ -485,19 +485,19 @@ event deltaの6入力は最終tag付きで両seedに一致しますが、既知4
 
 | 原因 | 意味 | 根拠 | 件数 |
 | --- | --- | --- | --- |
-| library | 固定版libraryが、引用した条項と異なる | 引用した条項、libraryのファイルとその中の文字列 | 66 |
-| interpretation | 引用した文言には別の読み方があり、libraryはそちらに従う | 引用した条項、テストの読み方と別の読み方 | 10 |
-| simulator | VerilatorがIEEE 1800-2023と異なる | kirimasim-testsへ移す、UVMを使わない再現例 | 8 |
+| library | 固定版libraryが、引用した条項と異なる | 引用した条項、libraryのファイルとその中の文字列 | 105 |
+| interpretation | 引用した文言には別の読み方があり、libraryはそちらに従う | 引用した条項、テストの読み方と別の読み方 | 19 |
+| simulator | VerilatorがIEEE 1800-2023と異なる | kirimasim-testsへ移す、UVMを使わない再現例 | 14 |
 | condition | テストが通常の実行ではlinkしないDPIの実行条件を必要とし、その条件では一致する | 実行条件とそのrunner | 57 |
-| unassigned | まだ診断していない | なし | 322 |
+| unassigned | まだ診断していない | なし | 268 |
 
-最初のbatchでは、build差分140件と不正designの受理5件を分類しました。buildのうち61件はHDLまたはcommand lineのDPIの実行条件を必要とし、そのうち57件はその条件で一致します。残る84入力の原因はlibrary、interpretation、simulatorのいずれかです。runtime差分318件と、DPIの実行条件の下でも違いが残る4件は未分類のままで、directoryごとに診断します。[結果の内訳](results.ja.md#結果の解釈)のbuildの分類は、APIの名前がないといった症状でまとめたものなので、件数はここでの原因とは一致しません。これまでにlibraryが原因としたものは、どれも固定版libraryのDEVIATIONS.mdに載っていません。DEVIATIONS.mdの3件は、18.2.3.4、18.4.3.6、13.1.5.1に関するものです。
+最初のbatchでは、build差分140件と不正designの受理5件を分類しました。buildのうち61件はHDLまたはcommand lineのDPIの実行条件を必要とし、そのうち57件はその条件で一致します。残る84入力の原因はlibrary、interpretation、simulatorのいずれかです。2番目のbatchではruntime差分54件を分類しました。u01、u06〜u11、u13、uD、uGのすべてと、uCとuEの3件ずつです。残るruntime差分264件と、DPIの実行条件の下でも違いが残る4件は未分類のままで、directoryごとに診断します。通常の検査系のうち2件はcommand lineを読み、1件は正規表現で照合しますが、どれもDPIの実行条件を選んでいません。通常の実行のUVM_NO_DPIの構成では、固定版libraryは引数を返さず、globだけで照合するため、DPIの条件なら測れるlibraryの原因として数えます。[結果の内訳](results.ja.md#結果の解釈)のbuildの分類は、APIの名前がないといった症状でまとめたものなので、件数はここでの原因とは一致しません。これまでにlibraryが原因としたもののうち、固定版libraryのDEVIATIONS.mdに載っているのは、apply_config_settingsの既定のmodeの2入力だけです（3番目、13.1.5.1）。DEVIATIONS.mdの残る2件は、18.2.3.4と18.4.3.6に関するものです。
 
-再現例は3つです。parameter付きの基底classのpure virtual methodを具象classが実装しない例（Verilatorは受理します。不正designの受理4件）、type parameterの既定値がそれより前のtype parameterに依存する例（Verilatorは拒否します。traversalのbuild 3件で、VISITORを明示した対照は一致します）、64 bitより広いenumのname() method（Verilatorは未対応です。build 1件）です。
+再現例は6つです。parameter付きの基底classのpure virtual methodを具象classが実装しない例（Verilatorは受理します。不正designの受理4件）、type parameterの既定値がそれより前のtype parameterに依存する例（Verilatorは拒否します。traversalのbuild 3件で、VISITORを明示した対照は一致します）、64 bitより広いenumのname() method（Verilatorは未対応です。build 1件）、forkした子processが動き続けるprocessのkill()（phaseの終了の4入力）、classのmemberのeventの2つの形です。eventの形は、同じprocessでtriggerの後に待つと先に待っていたprocessが解放されない形と、triggerの後にeventへ代入するとどの待ちも解放されない形です（各1入力）。runtimeの差分の再現例は自分で結果を確かめ、規格と異なるときは$fatalを呼びます。実行が失敗すれば、Verilatorは拒否したと数えます。
 
 `python3 tools/known_causes.py check`は、記録とテストが一致することを確かめます。`:oracle:`にverilator@5.052がない2値テストそれぞれにちょうど1件の記録があること、入力の指紋が現在のものであること、libraryの文字列が固定版のファイルにあること、条項が1800.2-2020のものであること、対照がtag付きのテストであることです。`--results`を付けると、合算したrunner JSONのknownの記録が記録と一致することも確かめます。`reproduce`は再現例をbuildし直し、Verilatorが記録どおりに受理または拒否することを確かめます。Checkは両方を実行します。
 
-kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2364入力と、固定版libraryのためにどのsimulatorでも期待値に届かない76入力（原因がlibraryとinterpretationのもの）を分けて数えます。未分類の322入力は、診断するまで別に数えます。測れる入力は、tag付きの2292件、原因がsimulatorとconditionのもの、4値の7件です。`candidates`は、人による照合の候補84件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。そうした値を加えるかどうかは、分類が終わってから決めます。
+kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2370入力と、固定版libraryのためにどのsimulatorでも期待値に届かない124入力（原因がlibraryとinterpretationのもの）を分けて数えます。未分類の268入力は、診断するまで別に数えます。測れる入力は、tag付きの2292件、原因がsimulatorとconditionのもの、4値の7件です。`candidates`は、人による照合の候補138件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。そうした値を加えるかどうかは、分類が終わってから決めます。
 
 ## 固定版ライブラリの制約
 

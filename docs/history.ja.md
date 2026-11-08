@@ -4150,3 +4150,13 @@ build 140件と不正designの受理5件は、期待値の凍結後にだけ読�
 traversalのbuild 3件は最初はlibraryが原因に見えましたが、libraryはF.5.4.1〜F.5.6.1に従っており、VISITORを明示した対照は一致するため、simulatorが原因としました。その再現例は、同じ依存するtype parameterの既定値の、別の症状を示します。記録は[Q444](faq.ja.md#q444-既知差分の原因の記録には何が入っていますか)と[Q445](faq.ja.md#q445-記録に固定版libraryの出力値がないのはなぜですか)で説明しています。
 
 テスト、期待値、記録、義務はどれも変わりません。スイートは2762テスト、AI義務4150件、通常一致2292件、既知463入力のままです。kirimasimについては、2364入力が規格の期待値で測れ、76入力は固定版libraryのために期待値に届かず、322入力は未分類です。詳細ハンドオフのbuildの内訳のDPI未linkは、56件から61件へ訂正しました。
+
+## 122回目の拡充：runtimeの原因、2番目のbatch（外部レビューの項目6）
+
+122回目は、6番目の項目の2番目のbatchです。runtimeの既知入力を、通常のrunnerと同じ方法でbuildしてseed 1で診断用に実行し、このbatchの入力すべてについて全出力とUT行の差分をlocalに保存しました。そのため、最初の行だけでなく違う行をすべて、固定版libraryのsourceと引用した条項に照らして確かめています。
+このbatchでは、runtime差分54件を分類しました。u01、u06〜u11、u13、uD、uGのすべてと、uCとuEの3件ずつです。
+
+39件はlibrary、9件はinterpretation、6件はsimulatorが原因です。自分で結果を確かめる、UVMを使わない再現例を3つ加えました。Verilatorのkill()がforkした子processを動かし続けること（phaseの終了の4入力）と、classのmemberのeventの2つの形で起動が失われること（各1入力）を示します。
+apply_config_settingsの既定のmodeの2入力は、DEVIATIONS.mdの3番目に当たります。DPIの実行条件を選ばずにcommand lineまたはregexのDPIを必要とする通常の検査系3件は、UVM_NO_DPIの構成でのlibraryの原因として数えます。分かったことは[Q446](faq.ja.md#q446-原因の2番目のbatchでは何が分かりましたか)にまとめています。
+
+テスト、期待値、記録、義務はどれも変わりません。原因はlibrary 105件、interpretation 19件、simulator 14件、condition 57件、未分類268件で、kirimasimについては、2370入力が規格の期待値で測れ、124入力は固定版libraryのために期待値に届きません。

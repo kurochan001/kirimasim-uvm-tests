@@ -4478,3 +4478,11 @@ default sequenceのprofileは、別のpackageのsequenceのwrapperを2つのsequ
 原因がlibraryまたはinterpretationであれば、その入力が固定版libraryではどのsimulatorでも期待値に届かないことはkirimasimにも分かり、`summary`はそれらを別に数えます。こうした値を加えるかどうかは、分類が終わってから決めます。
 
 121回目は、テスト、期待値、記録、義務のどれも変えません。全体は2762テスト、AI義務4150件、通常一致2292件、既知463入力のままで、照合の候補は84件、未分類は322件です。
+
+### Q446. 原因の2番目のbatchでは何が分かりましたか？
+
+runtime差分の6件はVerilatorが原因で、それぞれUVMを使わない再現例で示しています。固定版のphase hopperはphaseのprocessをkillしてphaseを終え、1800-2023の9.7ではkill()はそのprocessがforkしたprocessも止めます。しかしVerilatorはそれらを動かし続けるため、phaseのtaskはphaseの後も書き込み続けます。
+classのmemberのeventの2つの形では起動が失われます。同じprocessでtriggerの後に待つ形と、triggerの後にeventへ代入する形で、後者は固定版のwakeupありのresetが行うものです。
+残る差分の多くは、sourceの行を名指しできるlibraryの原因です。たとえば、名前の表をlockのときにだけ埋めること、report handlerのresetがseverityとIDの組の表を残すこと、memory walkのsequenceがaccess testのresourceを調べることです。既定のmodeの設定の2入力は、library自身のDEVIATIONS.mdの3番目に当たります。interpretationの9件は、テストの読み方と、libraryが従う読み方を並べて残します。
+
+122回目は、テスト、期待値、記録、義務のどれも変えません。原因はlibrary 105件、interpretation 19件、simulator 14件、condition 57件、未分類268件で、照合の候補は138件です。

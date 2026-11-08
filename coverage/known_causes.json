@@ -109,6 +109,144 @@
         "en": "The design is legal and prints B. Verilator 5.052 reports name() on an enum wider than 64 bits as unsupported.",
         "ja": "このdesignは正しく、Bを表示する。Verilator 5.052は、64 bitより広いenumのname()を未対応と報告する。"
       }
+    },
+    "process-kill-subprocesses": {
+      "clauses_1800_2023": [
+        "9.7"
+      ],
+      "source": [
+        "// kill() terminates the process and the processes it spawned with fork",
+        "// (9.7); the child below must never write late.",
+        "module process_kill_subprocesses;",
+        "  int late;",
+        "  process parent;",
+        "",
+        "  initial begin",
+        "    fork",
+        "      begin",
+        "        parent = process::self();",
+        "        fork",
+        "          begin",
+        "            #10 late = 1;",
+        "          end",
+        "        join_none",
+        "        wait (0);",
+        "      end",
+        "    join_none",
+        "    #1 parent.kill();",
+        "    #20;",
+        "    if (late != 0) $fatal(1, \"a subprocess survived kill()\");",
+        "    $display(\"subprocess killed\");",
+        "  end",
+        "endmodule"
+      ],
+      "conforming": "accepts",
+      "verilator": "rejects",
+      "explanation": {
+        "en": "A conforming simulator terminates the child with its parent and exits normally. Verilator 5.052 lets the child of the killed process run, so the check reaches $fatal.",
+        "ja": "規格に従うsimulatorは、親とともに子processも止め、正常に終わる。Verilator 5.052はkillしたprocessの子processを動かし続けるため、確認が$fatalに達する。"
+      }
+    },
+    "class-event-trigger-then-wait": {
+      "clauses_1800_2023": [
+        "15.5.1",
+        "15.5.2"
+      ],
+      "source": [
+        "// A process blocked on @m is released by ->m (15.5.1), even when the",
+        "// triggering process then waits on m again in the same time slice.",
+        "class holder;",
+        "  event m;",
+        "",
+        "  task wait_trigger();",
+        "    @m;",
+        "  endtask",
+        "",
+        "  function void trigger();",
+        "    ->m;",
+        "  endfunction",
+        "endclass",
+        "",
+        "module class_event_trigger_then_wait;",
+        "  holder h;",
+        "  bit early;",
+        "",
+        "  initial begin",
+        "    h = new();",
+        "    fork",
+        "      begin",
+        "        h.wait_trigger();",
+        "        early = 1;",
+        "      end",
+        "      begin",
+        "        #2;",
+        "        h.trigger();",
+        "        h.wait_trigger();",
+        "      end",
+        "    join_none",
+        "    #3;",
+        "    if (!early) $fatal(1, \"the waiter blocked before the trigger was not released\");",
+        "    $display(\"released\");",
+        "    $finish;",
+        "  end",
+        "endmodule"
+      ],
+      "conforming": "accepts",
+      "verilator": "rejects",
+      "explanation": {
+        "en": "A conforming simulator releases the first waiter at time 2. Verilator 5.052 does not when the event is a class member and the triggering process waits on it again in the same time slice; the same pattern on a module-level event is released.",
+        "ja": "規格に従うsimulatorは、時刻2で最初に待っていたprocessを解放する。Verilator 5.052は、eventがclassのmemberで、起動したprocessが同じtime sliceで再び待つと解放しない。moduleのeventでの同じ形は解放する。"
+      }
+    },
+    "class-event-trigger-then-reassign": {
+      "clauses_1800_2023": [
+        "15.5.1",
+        "15.5.5"
+      ],
+      "source": [
+        "// ->m releases the processes waiting on m (15.5.1); assigning another event to",
+        "// m afterwards (15.5.5) does not undo that release.",
+        "class holder;",
+        "  event m;",
+        "",
+        "  task wait_trigger();",
+        "    @m;",
+        "  endtask",
+        "",
+        "  function void reset_with_wakeup();",
+        "    event fresh;",
+        "    ->m;",
+        "    m = fresh;",
+        "  endfunction",
+        "endclass",
+        "",
+        "module class_event_trigger_then_reassign;",
+        "  holder h;",
+        "  bit woke;",
+        "",
+        "  initial begin",
+        "    h = new();",
+        "    fork",
+        "      begin",
+        "        h.wait_trigger();",
+        "        woke = 1;",
+        "      end",
+        "    join_none",
+        "    #1;",
+        "    h.reset_with_wakeup();",
+        "    #1;",
+        "    if (!woke) $fatal(1, \"the waiter was not released by ->m\");",
+        "    $display(\"released\");",
+        "    $finish;",
+        "  end",
+        "endmodule"
+      ],
+      "conforming": "accepts",
+      "verilator": "rejects",
+      "explanation": {
+        "en": "A conforming simulator releases the waiter that ->m triggered before the assignment. Verilator 5.052 leaves it waiting, so the check reaches $fatal.",
+        "ja": "規格に従うsimulatorは、代入の前に->mが起動した待ちのprocessを解放する。Verilator 5.052は待たせたままにするため、確認が$fatalに達する。"
+      }
     }
   },
   "causes": [
@@ -116,9 +254,31 @@
       "test": "u01/test_case_sensitive_field_0_101",
       "inputs_sha256": "cc46aac8c4b6da6e1b81580a4b2a4bb4fcdd48e27123b6edb09ca0593b697ea1",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "18.1.3.14",
+          "18.4.3.12"
+        ],
+        "library": [
+          {
+            "file": "src/reg/uvm_reg.svh",
+            "text": "m_reg_registry[get_full_name()] = this;"
+          },
+          {
+            "file": "src/reg/uvm_reg.svh",
+            "text": "uvm_reg_field::m_reg_field_registry[m_fields[f].get_full_name()]=m_fields[f];"
+          },
+          {
+            "file": "src/reg/uvm_reg_block.svh",
+            "text": "get_reg_by_name = uvm_reg::get_reg_by_full_name({this.get_full_name(),\".\",name});"
+          }
+        ]
+      },
+      "note": {
+        "en": "18.1.3.14 and 18.4.3.12 look registers and fields up by name without any lock condition; the pinned library fills the name tables only in Xlock_modelX, so lookups before lock_model return null.",
+        "ja": "18.1.3.14と18.4.3.12は、lockを条件とせずに名前でregisterとfieldを引く。固定版libraryは名前の表をXlock_modelXの中でしか埋めないため、lock_modelの前の検索はnullを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -129,9 +289,31 @@
       "test": "u01/test_case_sensitive_field_1_101",
       "inputs_sha256": "b4546504fa98cedc2a14506c3be6be68f291a4e315b1bd5552a064360b3ac3bd",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "18.1.3.14",
+          "18.4.3.12"
+        ],
+        "library": [
+          {
+            "file": "src/reg/uvm_reg.svh",
+            "text": "m_reg_registry[get_full_name()] = this;"
+          },
+          {
+            "file": "src/reg/uvm_reg.svh",
+            "text": "uvm_reg_field::m_reg_field_registry[m_fields[f].get_full_name()]=m_fields[f];"
+          },
+          {
+            "file": "src/reg/uvm_reg_block.svh",
+            "text": "get_reg_by_name = uvm_reg::get_reg_by_full_name({this.get_full_name(),\".\",name});"
+          }
+        ]
+      },
+      "note": {
+        "en": "18.1.3.14 and 18.4.3.12 look registers and fields up by name without any lock condition; the pinned library fills the name tables only in Xlock_modelX, so lookups before lock_model return null.",
+        "ja": "18.1.3.14と18.4.3.12は、lockを条件とせずに名前でregisterとfieldを引く。固定版libraryは名前の表をXlock_modelXの中でしか埋めないため、lock_modelの前の検索はnullを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -142,9 +324,31 @@
       "test": "u01/test_case_sensitive_register_0_101",
       "inputs_sha256": "a0ab3757d5263039ba32c916eaddd227b6bf9220b14f270f36ab43d02e6fe5a7",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "18.1.3.14",
+          "18.4.3.12"
+        ],
+        "library": [
+          {
+            "file": "src/reg/uvm_reg.svh",
+            "text": "m_reg_registry[get_full_name()] = this;"
+          },
+          {
+            "file": "src/reg/uvm_reg.svh",
+            "text": "uvm_reg_field::m_reg_field_registry[m_fields[f].get_full_name()]=m_fields[f];"
+          },
+          {
+            "file": "src/reg/uvm_reg_block.svh",
+            "text": "get_reg_by_name = uvm_reg::get_reg_by_full_name({this.get_full_name(),\".\",name});"
+          }
+        ]
+      },
+      "note": {
+        "en": "18.1.3.14 and 18.4.3.12 look registers and fields up by name without any lock condition; the pinned library fills the name tables only in Xlock_modelX, so lookups before lock_model return null.",
+        "ja": "18.1.3.14と18.4.3.12は、lockを条件とせずに名前でregisterとfieldを引く。固定版libraryは名前の表をXlock_modelXの中でしか埋めないため、lock_modelの前の検索はnullを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -155,9 +359,31 @@
       "test": "u01/test_case_sensitive_register_1_101",
       "inputs_sha256": "b9b0559a4984171a9a0ecc00486ebc9b29c83df3f7d3068b95981f38fa5dc84e",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "18.1.3.14",
+          "18.4.3.12"
+        ],
+        "library": [
+          {
+            "file": "src/reg/uvm_reg.svh",
+            "text": "m_reg_registry[get_full_name()] = this;"
+          },
+          {
+            "file": "src/reg/uvm_reg.svh",
+            "text": "uvm_reg_field::m_reg_field_registry[m_fields[f].get_full_name()]=m_fields[f];"
+          },
+          {
+            "file": "src/reg/uvm_reg_block.svh",
+            "text": "get_reg_by_name = uvm_reg::get_reg_by_full_name({this.get_full_name(),\".\",name});"
+          }
+        ]
+      },
+      "note": {
+        "en": "18.1.3.14 and 18.4.3.12 look registers and fields up by name without any lock condition; the pinned library fills the name tables only in Xlock_modelX, so lookups before lock_model return null.",
+        "ja": "18.1.3.14と18.4.3.12は、lockを条件とせずに名前でregisterとfieldを引く。固定版libraryは名前の表をXlock_modelXの中でしか埋めないため、lock_modelの前の検索はnullを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -168,9 +394,28 @@
       "test": "u01/test_case_sensitive_sequence_0_101",
       "inputs_sha256": "b141e97baaaaab8423ce568a531064ca2b8b69c3f9d143b802aa619cf7e4991c",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "interpretation",
+      "evidence": {
+        "clauses": [
+          "14.1.2.13",
+          "14.1.2.12",
+          "14.2.3.1"
+        ],
+        "readings": [
+          {
+            "en": "A sequence without a parent is a root sequence (14.2.3.1), so get_root_sequence returns the sequence itself and get_root_sequence_name its name.",
+            "ja": "親のないsequenceはroot sequenceである（14.2.3.1）ので、get_root_sequenceはそのsequence自身を、get_root_sequence_nameはその名前を返す。"
+          },
+          {
+            "en": "The root sequence is the top-most parent sequence, so a sequence without a parent has none; the library returns null and an empty name.",
+            "ja": "root sequenceは最上位の親sequenceなので、親のないsequenceにはない。libraryはnullと空の名前を返す。"
+          }
+        ]
+      },
+      "note": {
+        "en": "Whether a sequence without a parent is its own root sequence depends on the reading of 'the top-most parent sequence'; the library returns null.",
+        "ja": "親のないsequenceが自身のroot sequenceかどうかは、「最上位の親sequence」の読み方による。libraryはnullを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -181,9 +426,28 @@
       "test": "u01/test_case_sensitive_sequence_1_101",
       "inputs_sha256": "2bf3039daae76231c961975e191e60af5f1c91dd68313a7729037088d499dc4e",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "interpretation",
+      "evidence": {
+        "clauses": [
+          "14.1.2.13",
+          "14.1.2.12",
+          "14.2.3.1"
+        ],
+        "readings": [
+          {
+            "en": "A sequence without a parent is a root sequence (14.2.3.1), so get_root_sequence returns the sequence itself and get_root_sequence_name its name.",
+            "ja": "親のないsequenceはroot sequenceである（14.2.3.1）ので、get_root_sequenceはそのsequence自身を、get_root_sequence_nameはその名前を返す。"
+          },
+          {
+            "en": "The root sequence is the top-most parent sequence, so a sequence without a parent has none; the library returns null and an empty name.",
+            "ja": "root sequenceは最上位の親sequenceなので、親のないsequenceにはない。libraryはnullと空の名前を返す。"
+          }
+        ]
+      },
+      "note": {
+        "en": "Whether a sequence without a parent is its own root sequence depends on the reading of 'the top-most parent sequence'; the library returns null.",
+        "ja": "親のないsequenceが自身のroot sequenceかどうかは、「最上位の親sequence」の読み方による。libraryはnullを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -194,9 +458,24 @@
       "test": "u01/test_inherited_api_component_0_99",
       "inputs_sha256": "c8930739b385f47ca8e9927a18a798b98baf7194190672f3f217534f2b07bfba",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "5.3.4.1",
+          "1.4.3",
+          "13.1.3.2"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "It is illegal to change the name of a component."
+          }
+        ]
+      },
+      "note": {
+        "en": "5.3.4.1 lets set_name overwrite the name, and 13.1 gives uvm_component no other contract; the pinned uvm_component::set_name reports INVSTNM and keeps the old name. The existing FAQ (Q379) calls the reading qualified, but no text supports the refusal.",
+        "ja": "5.3.4.1はset_nameによる名前の上書きを認め、13.1はuvm_componentに別の規則を定めていない。固定版のuvm_component::set_nameはINVSTNMを報告し、元の名前を保つ。既存のFAQ（Q379）はこの読み方を限定したものとするが、拒否を支える文言はない。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -207,9 +486,24 @@
       "test": "u01/test_inherited_api_component_1_99",
       "inputs_sha256": "dfb9bae4e59f39bd347a2d417d59351eb650934c1347fd5f896f32f3d6e8635f",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "5.3.4.1",
+          "1.4.3",
+          "13.1.3.2"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "It is illegal to change the name of a component."
+          }
+        ]
+      },
+      "note": {
+        "en": "5.3.4.1 lets set_name overwrite the name, and 13.1 gives uvm_component no other contract; the pinned uvm_component::set_name reports INVSTNM and keeps the old name. The existing FAQ (Q379) calls the reading qualified, but no text supports the refusal.",
+        "ja": "5.3.4.1はset_nameによる名前の上書きを認め、13.1はuvm_componentに別の規則を定めていない。固定版のuvm_component::set_nameはINVSTNMを報告し、元の名前を保つ。既存のFAQ（Q379）はこの読み方を限定したものとするが、拒否を支える文言はない。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -673,9 +967,30 @@
       "test": "u06/test_report_handler_reset_clears_pair_severity_override",
       "inputs_sha256": "cb5d2508822e4024f6358c627dd1865425cf129ae557bbe2c8d7ecc4ed31bcc3",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "6.3.8.3"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_report_handler.svh",
+            "text": "sev_overrides=new();"
+          },
+          {
+            "file": "src/base/uvm_report_handler.svh",
+            "text": "uvm_sev_override_array sev_id_overrides [string];"
+          },
+          {
+            "file": "src/base/uvm_report_handler.svh",
+            "text": "uvm_id_verbosities_array severity_id_verbosities[uvm_severity];"
+          }
+        ]
+      },
+      "note": {
+        "en": "6.3.8.3 makes reset_report_handler restore the default settings and clear every change made with the configuration methods; the pinned initialize rebuilds the ID tables and severity overrides but keeps the tables keyed by severity and ID.",
+        "ja": "6.3.8.3は、reset_report_handlerが既定の設定に戻し、設定methodによる変更をすべて消すと定める。固定版のinitializeはIDの表とseverityのoverrideを作り直すが、severityとIDの組で引く表は残す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -686,9 +1001,30 @@
       "test": "u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering",
       "inputs_sha256": "0a435c0d2e8d309c2a42b8c41e4590ab4fd33ff48d26cea25137ddbd1bfdff72",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "6.3.8.3"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_report_handler.svh",
+            "text": "sev_overrides=new();"
+          },
+          {
+            "file": "src/base/uvm_report_handler.svh",
+            "text": "uvm_sev_override_array sev_id_overrides [string];"
+          },
+          {
+            "file": "src/base/uvm_report_handler.svh",
+            "text": "uvm_id_verbosities_array severity_id_verbosities[uvm_severity];"
+          }
+        ]
+      },
+      "note": {
+        "en": "6.3.8.3 makes reset_report_handler restore the default settings and clear every change made with the configuration methods; the pinned initialize rebuilds the ID tables and severity overrides but keeps the tables keyed by severity and ID.",
+        "ja": "6.3.8.3は、reset_report_handlerが既定の設定に戻し、設定methodによる変更をすべて消すと定める。固定版のinitializeはIDの表とseverityのoverrideを作り直すが、severityとIDの組で引く表は残す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -699,9 +1035,22 @@
       "test": "u07/test_recording_database_ignores_stream_opens_until_connection_succeeds",
       "inputs_sha256": "49bebb860dd77a4b07d54bbfa9964771fa93c8d2f04b6c1981989f7dcf809c35",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "7.1.4.1"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_tr_database.svh",
+            "text": "if (!open_db()) begin"
+          }
+        ]
+      },
+      "note": {
+        "en": "7.1.4.1 ignores a stream request on a database that is not open and returns null; the pinned open_stream calls open_db first, so a closed database is opened implicitly.",
+        "ja": "7.1.4.1は、開いていないdatabaseへのstreamの要求を無視してnullを返すと定める。固定版のopen_streamは先にopen_dbを呼ぶため、閉じたdatabaseが暗黙に開かれる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -712,9 +1061,26 @@
       "test": "u07/test_recording_database_stream_enumeration_is_local_and_excludes_failed_opens",
       "inputs_sha256": "171b46c69f5338bbe1683aa22aa0554194ac883e4dc068b2e84dff2817eb42a4",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "interpretation",
+      "evidence": {
+        "clauses": [
+          "7.1.4.2"
+        ],
+        "readings": [
+          {
+            "en": "get_streams returns the size of the queue, as the description says.",
+            "ja": "説明文のとおり、get_streamsはqueueの大きさを返す。"
+          },
+          {
+            "en": "The printed declaration 'function unsigned' has an implicit one-bit return type (1800-2023 13.4), which the library copies, so a size of two returns zero.",
+            "ja": "印刷された宣言「function unsigned」の戻り値型は暗黙の1 bitであり（1800-2023の13.4）、libraryはこれを写しているため、大きさ2は0になる。"
+          }
+        ]
+      },
+      "note": {
+        "en": "The printed return type of get_streams holds one bit, while the description returns the queue size; the library follows the declaration.",
+        "ja": "get_streamsの印刷された戻り値型は1 bitだが、説明文はqueueの大きさを返すとしており、libraryは宣言に従う。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -725,9 +1091,28 @@
       "test": "u07/test_recording_uninitialized_stream_queries_each_report_a_warning",
       "inputs_sha256": "1cd56b2b7ee6d6a95fde33f6388c522b8b639347127ce4bf71606ef21cb2f238",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "7.2.3.1",
+          "7.2.3.2",
+          "7.2.3.3"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_tr_stream.svh",
+            "text": "local bit m_warn_null_cfg;"
+          },
+          {
+            "file": "src/base/uvm_tr_stream.svh",
+            "text": "m_warn_null_cfg = 0;"
+          }
+        ]
+      },
+      "note": {
+        "en": "7.2.3.1 to 7.2.3.3 require a warning for each query before do_open; the pinned stream warns only when m_warn_null_cfg is set, which starts at 0, is set only by free and is cleared after one warning.",
+        "ja": "7.2.3.1〜7.2.3.3は、do_openの前の問合せごとに警告を求める。固定版のstreamはm_warn_null_cfgが立っているときだけ警告し、このflagは0で始まり、freeでだけ立ち、1回警告すると下りる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -738,9 +1123,22 @@
       "test": "u08/test_abstract_component_registry_without_override_reports_error_and_returns_null",
       "inputs_sha256": "938a493aded669175fd4c17e97d1493463dd783815c7b8c5ab15b3c0f4ca4fd8",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "8.2.5.1.2"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_registry.svh",
+            "text": "name, parent.get_full_name(), this.get_type_name() )"
+          }
+        ]
+      },
+      "note": {
+        "en": "8.2.5.1.2 requires an error and a null return; for a request without a parent, the pinned abstract registry formats its message with parent.get_full_name() on a null handle, so the run stops before any row.",
+        "ja": "8.2.5.1.2はerrorとnullの戻り値を求める。親のない要求では、固定版の抽象registryがnullのhandleに対してparent.get_full_name()を呼んでmessageを作るため、どの行も出る前に実行が止まる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -855,9 +1253,26 @@
       "test": "u08/test_factory_no_override_component_queries_agree_with_ordinary_creation",
       "inputs_sha256": "d70239fb78bbd63f61f24cae4ce02b655a52bccb40d0b775275dfe6aed7e836d",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "8.3.1.7.1"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_factory.svh",
+            "text": "function uvm_object_wrapper uvm_default_factory::find_override_by_name (string requested_type_name,"
+          },
+          {
+            "file": "src/base/uvm_factory.svh",
+            "text": "return requested_type;"
+          }
+        ]
+      },
+      "note": {
+        "en": "8.3.1.7.1 has both lookups return the proxy of what would be created; without an override the pinned find_override_by_type returns the requested type, but find_override_by_name returns null.",
+        "ja": "8.3.1.7.1は、両方の問合せが生成されるもののproxyを返すとする。overrideがないとき、固定版のfind_override_by_typeは要求した型を返すが、find_override_by_nameはnullを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -868,9 +1283,26 @@
       "test": "u08/test_factory_no_override_object_queries_agree_with_ordinary_creation",
       "inputs_sha256": "47db7b48f7c66b7aae6344c0ee063204998b8432d90a8abba214b1f2dfe5c4ff",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "8.3.1.7.1"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_factory.svh",
+            "text": "function uvm_object_wrapper uvm_default_factory::find_override_by_name (string requested_type_name,"
+          },
+          {
+            "file": "src/base/uvm_factory.svh",
+            "text": "return requested_type;"
+          }
+        ]
+      },
+      "note": {
+        "en": "8.3.1.7.1 has both lookups return the proxy of what would be created; without an override the pinned find_override_by_type returns the requested type, but find_override_by_name returns null.",
+        "ja": "8.3.1.7.1は、両方の問合せが生成されるもののproxyを返すとする。overrideがないとき、固定版のfind_override_by_typeは要求した型を返すが、find_override_by_nameはnullを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -881,9 +1313,26 @@
       "test": "u08/test_factory_unknown_component_name_reports_an_error_and_returns_null_with_a_registered_control",
       "inputs_sha256": "18569187f010b08af2665f319554a3ee8210572c0fc93d53a0c11953636503e8",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "8.3.1.5"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_factory.svh",
+            "text": "uvm_report_warning(\"BDTYP\",{\"Cannot create a component of type '\","
+          },
+          {
+            "file": "src/base/uvm_factory.svh",
+            "text": "uvm_report_warning(\"BDTYP\",{\"Cannot create an object of type '\","
+          }
+        ]
+      },
+      "note": {
+        "en": "8.3.1.5 requires an error and a null handle when the factory does not recognize the requested name; the pinned factory returns null after a warning (BDTYP).",
+        "ja": "8.3.1.5は、要求した名前をfactoryが認識しないとき、errorとnullのhandleを求める。固定版のfactoryはwarning（BDTYP）を出してnullを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -894,9 +1343,26 @@
       "test": "u08/test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control",
       "inputs_sha256": "6b6b9d77e0b454e2edca07bbfad171a4e68dd6bee20741d80cd03a553152ed38",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "8.3.1.5"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_factory.svh",
+            "text": "uvm_report_warning(\"BDTYP\",{\"Cannot create a component of type '\","
+          },
+          {
+            "file": "src/base/uvm_factory.svh",
+            "text": "uvm_report_warning(\"BDTYP\",{\"Cannot create an object of type '\","
+          }
+        ]
+      },
+      "note": {
+        "en": "8.3.1.5 requires an error and a null handle when the factory does not recognize the requested name; the pinned factory returns null after a warning (BDTYP).",
+        "ja": "8.3.1.5は、要求した名前をfactoryが認識しないとき、errorとnullのhandleを求める。固定版のfactoryはwarning（BDTYP）を出してnullを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -907,9 +1373,22 @@
       "test": "u09/test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances",
       "inputs_sha256": "1c9cfc429f3d0e8efb8a38ffceda084b5262d66f4bd6c71170574f05e00fcd4e",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "9.4.2.2"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_domain.svh",
+            "text": "domains = m_domains;"
+          }
+        ]
+      },
+      "note": {
+        "en": "9.4.2.2 says the list of all domains always contains common and uvm; the pinned get_domains copies a table that gains them only when the built-in domains are first requested.",
+        "ja": "9.4.2.2は、すべてのdomainの一覧が常にcommonとuvmを含むと定める。固定版のget_domainsは、組込みのdomainが最初に要求されたときにだけそれらが加わる表を写す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -920,9 +1399,14 @@
       "test": "u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads",
       "inputs_sha256": "05fac228d26692d2407c8560b325d2595cc7f6db4d9407a39665ff364bde07e2",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "simulator",
+      "evidence": {
+        "reproducer": "process-kill-subprocesses"
+      },
+      "note": {
+        "en": "The pinned phase hopper kills the phase process (m_phase_proc) at cleanup, and the phase tasks run in processes that it spawned with fork; 1800-2023 9.7 makes kill() terminate those subprocesses too. Verilator leaves them running, as the reproducer shows.",
+        "ja": "固定版のphase hopperはcleanupでphaseのprocess（m_phase_proc）をkillし、phaseのtaskはこのprocessがforkで起動したprocessで動く。1800-2023の9.7では、kill()はそうした子processも止める。Verilatorは再現例のとおり、それらを動かし続ける。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -933,9 +1417,26 @@
       "test": "u09/test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose",
       "inputs_sha256": "b90a2342645c4d0cea2e59be4f52884565c0d59c650d0d15bc146b2db44f02f0",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "interpretation",
+      "evidence": {
+        "clauses": [
+          "9.3.1.6.7"
+        ],
+        "readings": [
+          {
+            "en": "get_imp returns null for a phase whose type is not UVM_PHASE_IMP, including a node.",
+            "ja": "get_impは、型がUVM_PHASE_IMPでないphaseには、nodeも含めてnullを返す。"
+          },
+          {
+            "en": "get_imp returns the phase implementation of a node, as the first sentence says; the library returns it.",
+            "ja": "最初の文のとおり、get_impはnodeのphase実装を返し、libraryはそれを返す。"
+          }
+        ]
+      },
+      "note": {
+        "en": "The two sentences of 9.3.1.6.7 disagree for a node; the library returns the implementation.",
+        "ja": "9.3.1.6.7の2つの文はnodeについて食い違い、libraryは実装を返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -946,9 +1447,26 @@
       "test": "u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver",
       "inputs_sha256": "d2d697412ee24cc79e207c911624c05c4e2ee82f8f2eadc3628e19de30900b42",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "interpretation",
+      "evidence": {
+        "clauses": [
+          "9.3.1.6.4"
+        ],
+        "readings": [
+          {
+            "en": "get_schedule returns string, as printed.",
+            "ja": "印刷どおり、get_scheduleはstringを返す。"
+          },
+          {
+            "en": "It returns the topmost parent schedule node, as the description says; the library returns uvm_phase.",
+            "ja": "説明文のとおり最上位の親schedule nodeを返し、libraryはuvm_phaseを返す。"
+          }
+        ]
+      },
+      "note": {
+        "en": "The printed return type of get_schedule is string, while the description returns a schedule node; the library returns uvm_phase.",
+        "ja": "get_scheduleの印刷された戻り値型はstringだが、説明文はschedule nodeを返すとしており、libraryはuvm_phaseを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -959,9 +1477,22 @@
       "test": "u09/test_phase_implementation_lookup_stays_within_each_local_schedule",
       "inputs_sha256": "91f1428c3cf89b1ec16517d8c90ad86bf4ad6e26bb6b40b08a57e4eb9d8812e6",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "9.3.1.4.4"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_phase.svh",
+            "text": "find = m_find_predecessor(phase,stay_in_scope,this);"
+          }
+        ]
+      },
+      "note": {
+        "en": "9.3.1.4.4 makes find return the phase node of the given IMP; when the receiver is that node, the pinned find returns the IMP itself.",
+        "ja": "9.3.1.4.4は、findが指定したIMPのphase nodeを返すと定める。受け手がそのnodeのとき、固定版のfindはIMPそのものを返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -972,9 +1503,14 @@
       "test": "u09/test_task_phase_kills_remaining_child_task",
       "inputs_sha256": "a0cfab3f5c92fff1f3b33751cf46d6fc5e507cd3721d7c39566ba4f64eab7036",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "simulator",
+      "evidence": {
+        "reproducer": "process-kill-subprocesses"
+      },
+      "note": {
+        "en": "The pinned phase hopper kills the phase process (m_phase_proc) at cleanup, and the phase tasks run in processes that it spawned with fork; 1800-2023 9.7 makes kill() terminate those subprocesses too. Verilator leaves them running, as the reproducer shows.",
+        "ja": "固定版のphase hopperはcleanupでphaseのprocess（m_phase_proc）をkillし、phaseのtaskはこのprocessがforkで起動したprocessで動く。1800-2023の9.7では、kill()はそうした子processも止める。Verilatorは再現例のとおり、それらを動かし続ける。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -985,9 +1521,22 @@
       "test": "u10/test_callback_static_next_exhausted_growth_local_103",
       "inputs_sha256": "7eba7d04af07b7268c91d2e8e8ef2dbd3a426ce9d98ac87ae0e7cc6873bce1a0",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "10.7.2.4.3"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_callback.svh",
+            "text": "for(itr = itr+1; itr<q.size(); ++itr) begin"
+          }
+        ]
+      },
+      "note": {
+        "en": "10.7.2.4.3 makes get_next keep returning null after the queue is exhausted until get_first resets the iterator; the pinned get_next scans on from the iterator, so callbacks added later are returned without a reset.",
+        "ja": "10.7.2.4.3は、queueを使い切った後はget_firstでiteratorを戻すまでget_nextがnullを返し続けると定める。固定版のget_nextはiteratorから先を探し続けるため、後で加えたcallbackを戻す前に返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -998,9 +1547,22 @@
       "test": "u10/test_callback_static_next_exhausted_growth_typewide_103",
       "inputs_sha256": "91eb87910a50f9d46f408fe1d640c4fa2bcffce4c4969e1e8d6808649bb178c7",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "10.7.2.4.3"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_callback.svh",
+            "text": "for(itr = itr+1; itr<q.size(); ++itr) begin"
+          }
+        ]
+      },
+      "note": {
+        "en": "10.7.2.4.3 makes get_next keep returning null after the queue is exhausted until get_first resets the iterator; the pinned get_next scans on from the iterator, so callbacks added later are returned without a reset.",
+        "ja": "10.7.2.4.3は、queueを使い切った後はget_firstでiteratorを戻すまでget_nextがnullを返し続けると定める。固定版のget_nextはiteratorから先を探し続けるため、後で加えたcallbackを戻す前に返す。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1011,9 +1573,27 @@
       "test": "u10/test_event_default_reset_preserves_mixed_waiters_for_a_fresh_trigger",
       "inputs_sha256": "b076f5227bf7fa4870455da6502e17061fe077d4f38ea06d94f7660faf4a2398",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "10.1.1.2.2",
+          "10.1.1.2.10"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_event.svh",
+            "text": "m_event = e;"
+          },
+          {
+            "file": "src/base/uvm_event.svh",
+            "text": "num_waiters = 0;"
+          }
+        ]
+      },
+      "note": {
+        "en": "10.1.1.2.2 wakes waiters only when wakeup is set and otherwise only returns the event to its off state; the pinned reset replaces the internal event and clears the waiter count, so the waiting processes are stranded and a fresh trigger cannot release them.",
+        "ja": "10.1.1.2.2はwakeupが指定されたときだけ待っているprocessを起こし、それ以外はeventをoff状態へ戻すだけとする。固定版のresetは内部のeventを差し替えて待ち数を0にするため、待っているprocessは取り残され、新しいtriggerでも解放されない。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1024,9 +1604,28 @@
       "test": "u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers",
       "inputs_sha256": "6fef1ea6050037ec97fc5412337a92335164654c55ce237a88328fc002a85b6e",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "interpretation",
+      "evidence": {
+        "clauses": [
+          "10.7.1.2.2",
+          "10.2",
+          "10.1.2.2.4"
+        ],
+        "readings": [
+          {
+            "en": "callback_mode(0) disables a callback, so a disabled event callback is skipped.",
+            "ja": "callback_mode(0)はcallbackを無効にするので、無効にしたeventのcallbackは呼ばれない。"
+          },
+          {
+            "en": "10.2 calls an attached callback each time the event is triggered, without regard to its mode; the library calls every attached callback.",
+            "ja": "10.2は、eventにつないだcallbackを、modeにかかわらずeventが起動されるたびに呼ぶとし、libraryはつないだcallbackをすべて呼ぶ。"
+          }
+        ]
+      },
+      "note": {
+        "en": "Whether callback_mode applies to event callbacks is not stated in 10.2; the library calls disabled callbacks.",
+        "ja": "callback_modeがeventのcallbackに適用されるかは10.2に書かれておらず、libraryは無効にしたcallbackも呼ぶ。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1037,9 +1636,22 @@
       "test": "u10/test_event_pool_initial_membership_contains_begin_accept_and_end_without_lazy_get",
       "inputs_sha256": "4609d00480ef3d716c930409d4fd613182ccd9bdfbc0093e51dc9ebb031140a4",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "10.4.1"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_pool.svh",
+            "text": "typedef uvm_object_string_pool #(uvm_event#(uvm_object)) uvm_event_pool"
+          }
+        ]
+      },
+      "note": {
+        "en": "10.4.1 says an event pool contains begin, accept and end by default; the pinned uvm_event_pool is a plain string pool that creates entries only on get.",
+        "ja": "10.4.1は、event poolが既定でbegin、accept、endを含むと定める。固定版のuvm_event_poolは、getのときにだけ要素を作る通常のstring poolである。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1050,9 +1662,14 @@
       "test": "u10/test_event_raw_trigger_wait_distinguishes_early_and_same_slice_late_calls",
       "inputs_sha256": "0863a9ba5b3c38d5b0e17f0e28cc6809f939cbce9377a4f99a3e16643ae98779",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "simulator",
+      "evidence": {
+        "reproducer": "class-event-trigger-then-wait"
+      },
+      "note": {
+        "en": "The pinned trigger executes ->m_event and wait_trigger waits with @m_event, as 10.1.1.2.4 and 10.1.2.2.4 need. When the triggering process waits on the same class-member event in the same time slice, Verilator does not release the process that was already waiting.",
+        "ja": "固定版のtriggerは->m_eventを実行し、wait_triggerは@m_eventで待つ。これは10.1.1.2.4と10.1.2.2.4が求めるとおりである。起動したprocessが同じtime sliceで同じclassのmemberのeventを待ち直すと、Verilatorは先に待っていたprocessを解放しない。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1063,9 +1680,14 @@
       "test": "u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch",
       "inputs_sha256": "43390a28394bcecd79fa5b89acf2a98aa13c647ca55016ab19f3cdc3fdf4880b",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "simulator",
+      "evidence": {
+        "reproducer": "class-event-trigger-then-reassign"
+      },
+      "note": {
+        "en": "With wakeup set, the pinned reset executes ->m_event before it replaces the internal event, as 10.1.1.2.2 requires. Verilator does not release the waiting processes when the event variable is assigned in the same function, so the run stops at the watchdog.",
+        "ja": "wakeupが指定されたとき、固定版のresetは10.1.1.2.2のとおり、内部のeventを差し替える前に->m_eventを実行する。Verilatorは、同じfunctionでevent変数へ代入すると待っているprocessを解放しないため、実行はwatchdogで止まる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1076,9 +1698,22 @@
       "test": "u10/test_heartbeat_default_start_reuses_its_event_while_running_and_after_stop",
       "inputs_sha256": "be3f484d4b4d31ef5fd9300faacc6068ae6f867d42b341770f4e0d3904b5efef",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "10.6.2.6"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_heartbeat.svh",
+            "text": "get_name(), \" with trigger \", e.get_name(), \" which is different \","
+          }
+        ]
+      },
+      "note": {
+        "en": "Calling start without an event while the heartbeat runs takes the pinned mismatch branch, which formats its error with e.get_name() on the null handle, so the run stops.",
+        "ja": "heartbeatの動作中にeventなしでstartを呼ぶと、固定版は不一致の分岐に入り、nullのhandleに対してe.get_name()を呼んでerrorを作るため、実行が止まる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1089,9 +1724,26 @@
       "test": "u10/test_objection_objectors_list_removes_dropped_source",
       "inputs_sha256": "520b61a2e3540ac27e8085372ed3d579235c8a63f6f24ff0cb0fc8a2c9ab283f",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "10.5.1.5.1"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_objection.svh",
+            "text": "if (m_source_count.exists(obj) && m_source_count[obj] == 0)"
+          },
+          {
+            "file": "src/base/uvm_objection.svh",
+            "text": "foreach (m_source_count[obj])"
+          }
+        ]
+      },
+      "note": {
+        "en": "10.5.1.5.1 lists the objects that currently object; the pinned get_objectors lists every source count entry, and a source whose count drops to zero is removed only when draining completes.",
+        "ja": "10.5.1.5.1は、現在objectionを出しているobjectを一覧にすると定める。固定版のget_objectorsはsourceの数の要素をすべて挙げ、数が0になったsourceはdrainが終わるまで消さない。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1102,9 +1754,27 @@
       "test": "u10/test_objection_skipped_propagation_delivers_default_and_registered_hooks_with_context",
       "inputs_sha256": "43b3c1d9a2d6d4a21bf353ff04dbb4be48a4fc5574d604b0be800aeb2aefa8cd",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "10.5.1.3.2",
+          "10.5.1.5.4"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_objection.svh",
+            "text": "if (!m_prop_mode && obj != m_top)"
+          },
+          {
+            "file": "src/base/uvm_objection.svh",
+            "text": "m_raise(m_top,source_obj,description,count);"
+          }
+        ]
+      },
+      "note": {
+        "en": "10.5.1.3.2 skips only the intermediate callbacks when the propagation mode is 0, and 10.5.1.5.4 counts an object's own and descendant objections; the pinned raise goes straight to the top, so intermediate totals stay zero.",
+        "ja": "10.5.1.3.2はpropagation modeが0のとき途中のcallbackだけを飛ばすと定め、10.5.1.5.4は自身と子孫のobjectionを数える。固定版のraiseはtopへ直接進むため、途中の合計は0のままになる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1177,9 +1847,27 @@
       "test": "u11/test_queue_empty_pop_back_warns_returns_default_and_allows_refill",
       "inputs_sha256": "9c595d6859e0baa0c21943f56828a1f78cccf88c4cc9bd9b2dfb4f8f907ec09f",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "11.3.2.8",
+          "11.3.2.9"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_queue.svh",
+            "text": "return queue.pop_front();"
+          },
+          {
+            "file": "src/base/uvm_queue.svh",
+            "text": "return queue.pop_back();"
+          }
+        ]
+      },
+      "note": {
+        "en": "11.3.2.8 and 11.3.2.9 require the implementation to issue a warning for a pop from an empty queue; the pinned uvm_queue returns the native pop, for which 1800-2023 7.10.2.4 only allows a warning, and reports nothing.",
+        "ja": "11.3.2.8と11.3.2.9は、空のqueueからのpopで実装が警告を出すことを求める。固定版のuvm_queueは、1800-2023の7.10.2.4が警告を任意とするSystemVerilogのpopをそのまま返し、何も報告しない。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1190,9 +1878,27 @@
       "test": "u11/test_queue_empty_pop_front_warns_returns_default_and_allows_refill",
       "inputs_sha256": "3567eb3e02c46e0a6b88d384f2bc6919b142201a5eeca671c604214f005f4999",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "11.3.2.8",
+          "11.3.2.9"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_queue.svh",
+            "text": "return queue.pop_front();"
+          },
+          {
+            "file": "src/base/uvm_queue.svh",
+            "text": "return queue.pop_back();"
+          }
+        ]
+      },
+      "note": {
+        "en": "11.3.2.8 and 11.3.2.9 require the implementation to issue a warning for a pop from an empty queue; the pinned uvm_queue returns the native pop, for which 1800-2023 7.10.2.4 only allows a warning, and reports nothing.",
+        "ja": "11.3.2.8と11.3.2.9は、空のqueueからのpopで実装が警告を出すことを求める。固定版のuvm_queueは、1800-2023の7.10.2.4が警告を任意とするSystemVerilogのpopをそのまま返し、何も報告しない。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1437,9 +2143,31 @@
       "test": "u13/test_component_config_application_matches_scope_and_passes_exact_resource",
       "inputs_sha256": "85ca31bb85bd8f6500ae5be4f4a65abfbf2b5c6b25f1fe9ba95344622c53a6da",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "13.1.5.1"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "localparam config_mode_t CONFIG_DEFAULT = `UVM_COMPONENT_CONFIG_MODE_DEFAULT;"
+          },
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "if (mode & CONFIG_CHECK_NAMES) begin"
+          },
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "set_local(r);"
+          }
+        ],
+        "deviations": 3
+      },
+      "note": {
+        "en": "13.1.5.1 passes each matching resource to do_execute_op as a UVM_SET operation and then, if the user hook is enabled, to set_local. The pinned default mode applies only names that field macros register (DEVIATIONS.md issue 3) and calls set_local without the UVM_SET operation.",
+        "ja": "13.1.5.1は、一致する各resourceをUVM_SETのoperationとしてdo_execute_opに渡し、user hookが有効ならset_localにも渡す。固定版の既定のmodeは、field macroが登録した名前だけを適用し（DEVIATIONS.mdの3番目）、UVM_SETのoperationなしでset_localを呼ぶ。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1450,9 +2178,31 @@
       "test": "u13/test_component_config_disabled_user_hook_skips_set_local_for_one_application",
       "inputs_sha256": "8f66904e471743bfaf5fb5275568bf4c6083a1ee5de62446ce3926d426d134fb",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "13.1.5.1"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "localparam config_mode_t CONFIG_DEFAULT = `UVM_COMPONENT_CONFIG_MODE_DEFAULT;"
+          },
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "if (mode & CONFIG_CHECK_NAMES) begin"
+          },
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "set_local(r);"
+          }
+        ],
+        "deviations": 3
+      },
+      "note": {
+        "en": "13.1.5.1 passes each matching resource to do_execute_op as a UVM_SET operation and then, if the user hook is enabled, to set_local. The pinned default mode applies only names that field macros register (DEVIATIONS.md issue 3) and calls set_local without the UVM_SET operation.",
+        "ja": "13.1.5.1は、一致する各resourceをUVM_SETのoperationとしてdo_execute_opに渡し、user hookが有効ならset_localにも渡す。固定版の既定のmodeは、field macroが登録した名前だけを適用し（DEVIATIONS.mdの3番目）、UVM_SETのoperationなしでset_localを呼ぶ。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1463,9 +2213,22 @@
       "test": "u13/test_component_free_recording_stream_invalidates_only_its_cached_pair",
       "inputs_sha256": "84d286c42a2993fbf09d3886ec38baf78f8f000d09e8bd8ce948afba695ac7a2",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "13.1.7.10"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "m_streams[stream.get_name()].delete(stream.get_type_name());"
+          }
+        ]
+      },
+      "note": {
+        "en": "13.1.7.10 makes a freed stream leave the component's cache, so the next request opens a fresh stream; the pinned free_tr_stream deletes the entry keyed by the object type name instead of the stream type name, so the freed stream stays cached.",
+        "ja": "13.1.7.10は、解放したstreamがcomponentのcacheから外れ、次の要求で新しいstreamが開かれるとする。固定版のfree_tr_streamはstreamの型名ではなくobjectの型名で要素を消すため、解放したstreamがcacheに残る。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1476,9 +2239,27 @@
       "test": "u13/test_component_phase_callback_threads_survive_their_runtime_phase_end",
       "inputs_sha256": "67a2c1a97e4b2532353b0137d17ba931a24d6e811cf0b11ce94120c1a9def8c4",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "13.1.4.3",
+          "13.1.4.3.2"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_phase_hopper.svh",
+            "text": "traverse_on(imp, null, phase, UVM_PHASE_READY_TO_END);"
+          },
+          {
+            "file": "src/base/uvm_phase_hopper.svh",
+            "text": "disable fork;"
+          }
+        ]
+      },
+      "note": {
+        "en": "13.1.4.3 says threads spawned in the phase callbacks are not affected when the phase ends; the pinned hopper calls phase_ready_to_end inside a fork that it ends with disable fork, which also ends the thread that the callback spawned.",
+        "ja": "13.1.4.3は、phaseのcallbackで起動したthreadはphaseが終わっても影響を受けないと定める。固定版のhopperはphase_ready_to_endを、disable forkで終えるforkの中から呼ぶため、callbackが起動したthreadも止まる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1521,9 +2302,14 @@
       "test": "u13/test_component_run_phase_kills_remaining_task_and_descendant_after_all_objections_drop",
       "inputs_sha256": "f2e7474ff78e9c31feade85ca645c6ffda6f945ac036e3e60cb979419c80c7eb",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "simulator",
+      "evidence": {
+        "reproducer": "process-kill-subprocesses"
+      },
+      "note": {
+        "en": "The pinned phase hopper kills the phase process (m_phase_proc) at cleanup, and the phase tasks run in processes that it spawned with fork; 1800-2023 9.7 makes kill() terminate those subprocesses too. Verilator leaves them running, as the reproducer shows.",
+        "ja": "固定版のphase hopperはcleanupでphaseのprocess（m_phase_proc）をkillし、phaseのtaskはこのprocessがforkで起動したprocessで動く。1800-2023の9.7では、kill()はそうした子processも止める。Verilatorは再現例のとおり、それらを動かし続ける。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1534,9 +2320,14 @@
       "test": "u13/test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant",
       "inputs_sha256": "2560b00cd6b1235bcf26c76d5ba345c06f682329c01ce69de6eac2c1a0201aa8",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "simulator",
+      "evidence": {
+        "reproducer": "process-kill-subprocesses"
+      },
+      "note": {
+        "en": "The pinned phase hopper kills the phase process (m_phase_proc) at cleanup, and the phase tasks run in processes that it spawned with fork; 1800-2023 9.7 makes kill() terminate those subprocesses too. Verilator leaves them running, as the reproducer shows.",
+        "ja": "固定版のphase hopperはcleanupでphaseのprocess（m_phase_proc）をkillし、phaseのtaskはこのprocessがforkで起動したprocessで動く。1800-2023の9.7では、kill()はそうした子processも止める。Verilatorは再現例のとおり、それらを動かし続ける。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1547,9 +2338,30 @@
       "test": "u13/test_component_strict_config_application_matches_scope_and_passes_exact_resource",
       "inputs_sha256": "6f8e10cda7ac715ab259729ed547b0be7456f040eba34cd1abc9f59eef41e7b7",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "13.1.5.1"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "localparam config_mode_t CONFIG_DEFAULT = `UVM_COMPONENT_CONFIG_MODE_DEFAULT;"
+          },
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "if (mode & CONFIG_CHECK_NAMES) begin"
+          },
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "set_local(r);"
+          }
+        ]
+      },
+      "note": {
+        "en": "13.1.5.1 passes each matching resource to do_execute_op as a UVM_SET operation and then, if the user hook is enabled, to set_local; the pinned strict mode applies every match but calls set_local directly, without the UVM_SET operation or the hook check.",
+        "ja": "13.1.5.1は、一致する各resourceをUVM_SETのoperationとしてdo_execute_opに渡し、user hookが有効ならset_localにも渡す。固定版のstrict modeはすべての一致を適用するが、UVM_SETのoperationもhookの確認もなしにset_localを直接呼ぶ。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -1560,9 +2372,30 @@
       "test": "u13/test_component_strict_config_disabled_user_hook_skips_set_local_for_one_application",
       "inputs_sha256": "64b4c110c39fd30d4cb1244bf0467a0687e80c500781af2182a470347d1a65da",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "13.1.5.1"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "localparam config_mode_t CONFIG_DEFAULT = `UVM_COMPONENT_CONFIG_MODE_DEFAULT;"
+          },
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "if (mode & CONFIG_CHECK_NAMES) begin"
+          },
+          {
+            "file": "src/base/uvm_component.svh",
+            "text": "set_local(r);"
+          }
+        ]
+      },
+      "note": {
+        "en": "13.1.5.1 passes each matching resource to do_execute_op as a UVM_SET operation and then, if the user hook is enabled, to set_local; the pinned strict mode applies every match but calls set_local directly, without the UVM_SET operation or the hook check.",
+        "ja": "13.1.5.1は、一致する各resourceをUVM_SETのoperationとしてdo_execute_opに渡し、user hookが有効ならset_localにも渡す。固定版のstrict modeはすべての一致を適用するが、UVM_SETのoperationもhookの確認もなしにset_localを直接呼ぶ。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -6332,9 +7165,22 @@
       "test": "uC/test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order",
       "inputs_sha256": "f4c7cd69dd0d5f9dacd75a67d88520ca62d675d416678eab84c54c4bc53a61ac",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "C.2.4.4.7"
+        ],
+        "library": [
+          {
+            "file": "src/dpi/uvm_regex.svh",
+            "text": "// The Verilog only version does not match regular expressions,"
+          }
+        ]
+      },
+      "note": {
+        "en": "This ordinary fixture does not select a regex DPI condition. In the UVM_NO_DPI configuration of the ordinary run, the pinned uvm_re_match only matches globs, so a regular expression with anchors and alternation does not match; the regex-DPI variant condition could measure it.",
+        "ja": "この通常の検査系はregexのDPIの実行条件を選んでいない。通常の実行のUVM_NO_DPIの構成では、固定版のuvm_re_matchはglobだけを照合するため、anchorと交替を使う正規表現は一致しない。regex-DPI変種の条件なら測れる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -6345,9 +7191,27 @@
       "test": "uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle",
       "inputs_sha256": "77b4dcbcd5d12074c28e0bf6fb9a104a88dfe0dd61d60b6f7aea01c532234eef",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "C.2.4.4.7",
+          "C.2.4.4.8"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_resource_pool.svh",
+            "text": "function uvm_resource_types::rsrc_q_t lookup_regex(string re, scope);"
+          },
+          {
+            "file": "src/base/uvm_resource_pool.svh",
+            "text": "function uvm_resource_types::rsrc_q_t lookup_scope(string scope);"
+          }
+        ]
+      },
+      "note": {
+        "en": "C.2.4.4.7 and C.2.4.4.8 declare lookup_regex and lookup_scope virtual; the pinned resource pool declares them as non-virtual functions, so overrides are not reached through a base handle.",
+        "ja": "C.2.4.4.7とC.2.4.4.8はlookup_regexとlookup_scopeをvirtualと宣言している。固定版のresource poolはvirtualでないfunctionとして宣言するため、base handleからはoverrideに届かない。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -6358,9 +7222,26 @@
       "test": "uC/test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule",
       "inputs_sha256": "6d3b5fa382e310df2bbdef40d260c216192b33610a17f0d0dcf4055423de4fda",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "interpretation",
+      "evidence": {
+        "clauses": [
+          "C.2.4.4.3"
+        ],
+        "readings": [
+          {
+            "en": "'Most recently set first' refers to the order in which the resources were set, so the resource set last comes first.",
+            "ja": "「最も新しく設定されたものを先に」は資源を設定した順を指すので、最後に設定した資源が先になる。"
+          },
+          {
+            "en": "The order is taken from the supplied list, which the library keeps for equal precedence.",
+            "ja": "順序は渡された一覧から取り、libraryは同じprecedenceではその順を保つ。"
+          }
+        ]
+      },
+      "note": {
+        "en": "C.2.4.4.3 does not define when a resource counts as set; the library keeps the list order for equal precedence.",
+        "ja": "C.2.4.4.3は、資源がいつ設定されたとみなすかを定めておらず、libraryは同じprecedenceでは一覧の順を保つ。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -6371,9 +7252,28 @@
       "test": "uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace",
       "inputs_sha256": "d3514ebf7a74552f018cc174e3b9dc9148326ef5ea8ec7517f9b54d0dab0aa88",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "interpretation",
+      "evidence": {
+        "clauses": [
+          "8.3.1.4.2",
+          "D.2.1.3",
+          "D.2.1.5"
+        ],
+        "readings": [
+          {
+            "en": "With replace 0 the new override is added while the previous one remains intact, and the newer override selects the created type.",
+            "ja": "replaceが0のとき、新しいoverrideを加えて前のものもそのまま残し、生成する型は新しいoverrideで決まる。"
+          },
+          {
+            "en": "With replace 0 the previous override remains in effect, so the earlier type is still created; the library looks further for the earlier override.",
+            "ja": "replaceが0のとき前のoverrideが効き続けるため、前の型が生成され続ける。libraryは前のoverrideを探す。"
+          }
+        ]
+      },
+      "note": {
+        "en": "'A previous override remains intact' (8.3.1.4.2) does not say which override selects the type; the library keeps the earlier one in effect.",
+        "ja": "「前のoverrideはそのまま残る」（8.3.1.4.2）は、どちらのoverrideが型を決めるかを述べておらず、libraryは前のものを有効なままにする。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -6384,9 +7284,28 @@
       "test": "uD/test_component_factory_typed_type_override_forwards_default_and_explicit_replace",
       "inputs_sha256": "b3f7112bbb5b5c40804b4ebbd865be428ac76accfb69b5e5034dfc32efbae787",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "interpretation",
+      "evidence": {
+        "clauses": [
+          "8.3.1.4.2",
+          "D.2.1.3",
+          "D.2.1.5"
+        ],
+        "readings": [
+          {
+            "en": "With replace 0 the new override is added while the previous one remains intact, and the newer override selects the created type.",
+            "ja": "replaceが0のとき、新しいoverrideを加えて前のものもそのまま残し、生成する型は新しいoverrideで決まる。"
+          },
+          {
+            "en": "With replace 0 the previous override remains in effect, so the earlier type is still created; the library looks further for the earlier override.",
+            "ja": "replaceが0のとき前のoverrideが効き続けるため、前の型が生成され続ける。libraryは前のoverrideを探す。"
+          }
+        ]
+      },
+      "note": {
+        "en": "'A previous override remains intact' (8.3.1.4.2) does not say which override selects the type; the library keeps the earlier one in effect.",
+        "ja": "「前のoverrideはそのまま残る」（8.3.1.4.2）は、どちらのoverrideが型を決めるかを述べておらず、libraryは前のものを有効なままにする。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -6453,9 +7372,22 @@
       "test": "uE/test_builtin_mem_single_access_seq_constructor_types_target",
       "inputs_sha256": "409c40576a3ebbdcc58c33322711d36ef8757d79407b7f404b0336819000d833",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "E.5.1.3"
+        ],
+        "library": [
+          {
+            "file": "src/reg/sequences/uvm_mem_access_seq.svh",
+            "text": "function new(string name=\"uam_mem_single_access_seq\");"
+          }
+        ]
+      },
+      "note": {
+        "en": "The constructor default name of uvm_mem_single_access_seq is \"uvm_mem_single_access_seq\"; the pinned default is misspelled \"uam_mem_single_access_seq\".",
+        "ja": "uvm_mem_single_access_seqのconstructorの既定名は\"uvm_mem_single_access_seq\"である。固定版の既定名は\"uam_mem_single_access_seq\"と綴りを誤っている。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -6466,9 +7398,22 @@
       "test": "uE/test_builtin_mem_single_walk_seq_constructor_types_target",
       "inputs_sha256": "a5afee319ea96d85cf5653a820d8d0fa0f58bc1fc761ad31b39b7c0be117390d",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "E.6.1.3.1"
+        ],
+        "library": [
+          {
+            "file": "src/reg/sequences/uvm_mem_walk_seq.svh",
+            "text": "function new(string name=\"uvm_mem_walk_seq\");"
+          }
+        ]
+      },
+      "note": {
+        "en": "E.6.1.3.1 gives uvm_mem_single_walk_seq the default name \"uvm_mem_single_walk_seq\"; the pinned default is \"uvm_mem_walk_seq\", the name of the block-level sequence.",
+        "ja": "E.6.1.3.1はuvm_mem_single_walk_seqの既定名を\"uvm_mem_single_walk_seq\"とする。固定版の既定名は、block単位のsequenceの名前である\"uvm_mem_walk_seq\"である。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -6557,9 +7502,22 @@
       "test": "uE/test_memory_walk_sequence_honors_a_block_specific_walk_exclusion",
       "inputs_sha256": "2bb777432852e234c43abece28203b8604fccbdcb31d79787dd629de40a5caf9",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "E.6.2"
+        ],
+        "library": [
+          {
+            "file": "src/reg/sequences/uvm_mem_walk_seq.svh",
+            "text": "\"NO_MEM_ACCESS_TEST\", 0) != null ) begin"
+          }
+        ]
+      },
+      "note": {
+        "en": "The memory walk sequence skips a block that has the NO_MEM_WALK_TEST resource; the pinned uvm_mem_walk_seq::do_block checks NO_MEM_ACCESS_TEST for the block instead.",
+        "ja": "memory walkのsequenceは、NO_MEM_WALK_TESTのresourceを持つblockを飛ばす。固定版のuvm_mem_walk_seq::do_blockは、blockについて代わりにNO_MEM_ACCESS_TESTを調べる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -7376,9 +8334,23 @@
       "test": "uG/test_command_arg_values_clear_on_no_match_and_repeat_without_appending",
       "inputs_sha256": "ebd5cecc714ee9bd20740f602872909e9ae7058b156939a45c488605e28d05b3",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "G.1.4.2",
+          "G.1.3.4"
+        ],
+        "library": [
+          {
+            "file": "src/dpi/uvm_svcmd_dpi.svh",
+            "text": "function string uvm_dpi_get_next_arg(int init=0);"
+          }
+        ]
+      },
+      "note": {
+        "en": "These ordinary fixtures do not select the command-line DPI condition. In the UVM_NO_DPI configuration of the ordinary run, the pinned uvm_dpi_get_next_arg returns an empty string, so the command-line processor sees no arguments; the command-line condition could measure them.",
+        "ja": "この通常の検査系はcommand lineのDPIの実行条件を選んでいない。通常の実行のUVM_NO_DPIの構成では、固定版のuvm_dpi_get_next_argが空文字列を返すため、command line processorには引数が見えない。command lineの条件なら測れる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,
@@ -7389,9 +8361,23 @@
       "test": "uG/test_command_arg_values_collect_matching_suffixes_without_stale_entries",
       "inputs_sha256": "5c85556926723694223eabe051aa96d529dd00a502480d87656126c54d88ca67",
       "kind": "runtime",
-      "cause": "unassigned",
-      "evidence": {},
-      "note": null,
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "G.1.4.2",
+          "G.1.3.4"
+        ],
+        "library": [
+          {
+            "file": "src/dpi/uvm_svcmd_dpi.svh",
+            "text": "function string uvm_dpi_get_next_arg(int init=0);"
+          }
+        ]
+      },
+      "note": {
+        "en": "These ordinary fixtures do not select the command-line DPI condition. In the UVM_NO_DPI configuration of the ordinary run, the pinned uvm_dpi_get_next_arg returns an empty string, so the command-line processor sees no arguments; the command-line condition could measure them.",
+        "ja": "この通常の検査系はcommand lineのDPIの実行条件を選んでいない。通常の実行のUVM_NO_DPIの構成では、固定版のuvm_dpi_get_next_argが空文字列を返すため、command line processorには引数が見えない。command lineの条件なら測れる。"
+      },
       "review": {
         "status": "ai",
         "reviewer": null,

@@ -6006,3 +6006,23 @@ classification is complete.
 The 121st expansion changes no test, expectation, record or duty. Totals stay
 2762 tests, 4150 AI duties, 2292 ordinary matches and 463 known inputs; 84
 entries are review candidates and 322 are unassigned.
+
+### Q446. What did the second cause batch find?
+
+Six runtime differences come from Verilator, each shown by a reproducer
+without UVM. The pinned phase hopper ends a phase by killing its phase
+process, and 1800-2023 9.7 makes kill() end the processes it forked, but
+Verilator leaves them running, so phase tasks keep writing after their phase.
+Two class-member event patterns lose a wakeup: a trigger followed by a wait in
+the same process, and a trigger followed by an assignment to the event, which
+the pinned reset with wakeup performs. Most of the other differences are
+library causes with a named source line, such as name tables filled only at
+lock, a report handler reset that keeps the severity and ID tables, and a
+memory walk sequence that checks the access-test resource. The two
+default-mode configuration inputs are the library's own DEVIATIONS.md issue
+3. Nine interpretations keep the test's reading next to the one that the
+library follows.
+
+The 122nd expansion changes no test, expectation, record or duty. Causes are
+105 library, 19 interpretation, 14 simulator, 57 condition and 268
+unassigned; 138 entries are review candidates.

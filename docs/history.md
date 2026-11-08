@@ -6807,3 +6807,27 @@ AI duties, 2292 ordinary matches and 463 known inputs. For kirimasim, 2364
 inputs are measurable against the standard, 76 are kept from their
 expectation by the pinned library and 322 are not yet classified. The detailed
 handoff's build breakdown is corrected from 56 to 61 unlinked DPI builds.
+
+## 122nd expansion: runtime causes, second batch (external review item 6)
+
+The 122nd expansion is the second batch of the sixth item. A seed-1 diagnostic
+run of the runtime known inputs, built as the ordinary runner builds them,
+saved the whole output and UT-line differences of every input of this batch
+locally, so every differing row was checked against the pinned library source and the cited
+clauses, not only the first. The batch classifies 54 runtime differences: all
+of those in u01, u06 to u11, u13, uD and uG, and three each in uC and uE.
+
+Thirty-nine are library causes, nine are interpretations and six are
+simulator causes. Three new reproducers without UVM, which check their own
+results, show that Verilator's kill() leaves forked children running (four
+phase-termination inputs) and that two class-member event patterns lose a
+wakeup (one input each). The two default-mode apply_config_settings inputs
+carry DEVIATIONS.md issue 3. Three ordinary fixtures need command-line or
+regex DPI without selecting a DPI condition and count as library causes in
+the UVM_NO_DPI configuration; [Q446](faq.md#q446-what-did-the-second-cause-batch-find)
+summarizes the findings.
+
+No test, expectation, record or duty changes. Causes are 105 library, 19
+interpretation, 14 simulator, 57 condition and 268 unassigned; for kirimasim,
+2370 inputs are measurable against the standard and 124 are kept from their
+expectation by the pinned library.

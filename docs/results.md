@@ -60,8 +60,8 @@ differences without runtime, even when accepted. The 140 unexpected simulation
 builds remain separate. A pass requires the declared expectation.
 
 [The cause record](known-differences.md#causes-of-the-known-differences) assigns causes to these
-differences separately from the symptom categories below: so far 66 library, 10 interpretation,
-8 simulator and 57 DPI-condition causes, with 322 entries, all 318 runtime differences among them,
+differences separately from the symptom categories below: so far 105 library, 19 interpretation,
+14 simulator and 57 DPI-condition causes, with 268 entries, 264 runtime differences among them,
 not yet classified.
 
 The 463 measured spec-only cases retain standard-derived output or compile-diagnostic
@@ -291,7 +291,7 @@ seeds 1/73 ([the selection tool](../tools/ci_select.py)). When the base is
 unavailable, when the runner, its normalization, the library lock or the
 fetcher changed, or when more than 30 checks are affected, only the canary runs
 and a warning asks for Regression. The Verilator job also rebuilds the cause
-record's three reproducers. A green Check covers the selected checks only.
+record's six reproducers. A green Check covers the selected checks only.
 
 [Regression](../.github/workflows/regression.yml) runs on manual dispatch and
 weekly (Saturdays 17:23 UTC). It runs all 2292 tagged ordinary checks (2198
