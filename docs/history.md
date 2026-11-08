@@ -6644,3 +6644,44 @@ target/547 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the measurement FAQ](faq.md#q437-why-are-the-four-state-profiles-unmeasured)
 explains why these profiles have no result yet.
+
+## 118th expansion: randomization properties (external review item 3)
+
+The 118th expansion implements the external review's third item,
+randomization. Five uB profiles judge macro-driven randomization by
+properties rather than values: a class constraint disabled with
+constraint_mode after uvm_create; inline constraints and single
+randomization over twenty-four uvm_do items with the start, randomize and
+finish order; randc cycling over repeated uvm_rand_send of one item; a child
+sequence field kept by rand_mode while the other is constrained before
+pre_start; and inline-constraint name resolution with local::.
+[The randomization FAQ](faq.md#q438-what-do-the-randomization-property-profiles-check) explains each.
+
+The fact check found existing coverage of sequence-library selection, single
+inline constraints and macro hook order, so these profiles target the gaps;
+`uvm_do_with` is not part of 1800.2-2020, whose B.3.1.4 takes a CONSTRAINTS
+argument. Two readings are stated in the duties: an empty inline constraint
+does not change a randc variable's constraints, and the macro's CONSTRAINTS
+are evaluated as an inline constraint at the macro call. All five inputs
+match seeds 1/73 before and after tagging from the first freeze, with no
+randomization warning.
+
+Six new duties cover these conditions. The total is 4133 AI duties, with all
+4127 old objects and 445 assessments unchanged; 2696 tests have direct links,
+158 have controls and 56 are control-only. All 2740 old ordinary records,
+2747 old index entries, 458 old known inputs and the seven four-state inputs
+remain unchanged. The five inputs count as M2.
+
+The suite has 2752 tests (2653 simulation/99 elaboration). Ordinary results
+are 2287 matches: 2193 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 465
+with the seven four-state inputs. The two backend subsets are unchanged. No
+guest run/filter is added: 1081 compatible records remain byte-identical and
+1671 inputs are unmeasured (1667 additions/four revised originals; 1572
+simulation/99 elaboration).
+
+Primary-focused identifiers remain 1318; candidates are 1168 zero/766 below
+target/548 at least two. All 2062 partial identifiers, actual remaining
+conditions, original milestone targets, human review and scope/denominator
+approval remain open; [the scope FAQ](faq.md#q439-do-the-randomization-profiles-cover-randomization-completely) explains what remains.

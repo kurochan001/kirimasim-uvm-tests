@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4127 AI-drafted requirements, all with direct links to 2691 tests.
-Fifty-six tests have only control links. All 2747 tests have a requirement link.
+contains 4133 AI-drafted requirements, all with direct links to 2696 tests.
+Fifty-six tests have only control links. All 2752 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4127 draft entries span several areas,
+a heading is not an obligation. The 4133 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -81,8 +81,8 @@ references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,168 with zero primary-focus tests, 767 with one,
-and 547 with at least two. It measures test placement only. It does not
+census currently shows 1,168 with zero primary-focus tests, 766 with one,
+and 548 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2747-test
+known difference. It is not a pass or a conformance claim. The current 2752-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2747 reviewed requirement mappings.
+  index is an inventory, not 2752 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -286,7 +286,7 @@ The table retains every catalog root, including context and deferred roots; cont
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 941 | 652 | 0 | 63 | 0 |
 | 19 | 203 | 167 | 0 | 24 | 0 |
-| B | 260 | 236 | 0 | 9 | 0 |
+| B | 266 | 241 | 0 | 9 | 0 |
 | C | 101 | 72 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
 | E | 114 | 88 | 0 | 20 | 0 |
@@ -298,47 +298,47 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4127 reviews are `ai` and
+Scope is proposed, all 4133 reviews are `ai` and
 the denominator remains unapproved.
 
-The 117th expansion implements the external review's second item, four-state
-paths. Seven spec-only fixtures declare `:fourstate: yes` and check paths where
-the standard defines the result for X and Z bits: configuration lookups,
-typed resources, TLM FIFOs, missing pool and queue entries, field recording
-and field-macro copy and clone; [the four-state FAQ](faq.md#q436-what-do-the-four-state-profiles-check) explains each.
-Values are compared with case equality, and pool and queue entries follow the
-missing-entry values of 1800-2023 Table 7-1 that 11.2.2.4, 11.3.2.4, 11.3.2.8 and
-11.3.2.9 cite. [The four-state section](testing.md#four-state-paths) also lists
-the paths the standard leaves unspecified, such as comparison, printing and
-packing of X and Z bits, which receive no fixture.
+The 118th expansion implements the external review's third item,
+randomization. Five uB profiles judge macro-driven randomization by
+properties rather than values: a class constraint disabled with
+constraint_mode after uvm_create; inline constraints and single
+randomization over twenty-four uvm_do items with the start, randomize and
+finish order; randc cycling over repeated uvm_rand_send of one item; a child
+sequence field kept by rand_mode while the other is constrained before
+pre_start; and inline-constraint name resolution with local::.
+[The randomization FAQ](faq.md#q438-what-do-the-randomization-property-profiles-check) explains each.
 
-The ordinary Verilator runner selects only two-state fixtures, so these
-inputs have no Verilator record; a two-state build of them is kept only as a
-diagnostic, in which Verilator rejected most tristate constructs. The
-combined Verilator evidence retains all 2740 two-state records unchanged. The
-field-macro recording check accepts a scoped name ending in the field name,
-because the name form is not specified, and does not assert sizes.
+The fact check found existing coverage of sequence-library selection, single
+inline constraints and macro hook order, so these profiles target the gaps;
+`uvm_do_with` is not part of 1800.2-2020, whose B.3.1.4 takes a CONSTRAINTS
+argument. Two readings are stated in the duties: an empty inline constraint
+does not change a randc variable's constraints, and the macro's CONSTRAINTS
+are evaluated as an inline constraint at the macro call. All five inputs
+match seeds 1/73 before and after tagging from the first freeze, with no
+randomization warning.
 
-Nine new duties cover these conditions. The total is 4127 AI duties, with all
-4118 old objects and 445 assessments unchanged; 2691 tests have direct links,
-158 have controls and 56 are control-only. All 2740 old ordinary/index records
-and 458 old known inputs remain unchanged. Milestones gain six M1 inputs and
-one M2 input.
+Six new duties cover these conditions. The total is 4133 AI duties, with all
+4127 old objects and 445 assessments unchanged; 2696 tests have direct links,
+158 have controls and 56 are control-only. All 2740 old ordinary records,
+2747 old index entries, 458 old known inputs and the seven four-state inputs
+remain unchanged. The five inputs count as M2.
 
-The suite has 2747 tests (2648 simulation/99 elaboration). Ordinary results
-are 2282 matches: 2188 runtime inputs at both seeds and 94 compiler rejections.
-Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds and
-five accepted illegal designs without runtime. Spec-only cases total 465 with
-the seven four-state inputs. The two backend subsets are unchanged. No guest
-run/filter is added: 1081 compatible records remain byte-identical and 1666
-inputs are unmeasured (1662 additions/four revised originals; 1567
+The suite has 2752 tests (2653 simulation/99 elaboration). Ordinary results
+are 2287 matches: 2193 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 458: 318 runtime seed 1 differences, 135 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 465
+with the seven four-state inputs. The two backend subsets are unchanged. No
+guest run/filter is added: 1081 compatible records remain byte-identical and
+1671 inputs are unmeasured (1667 additions/four revised originals; 1572
 simulation/99 elaboration).
 
-Primary-focused identifiers rise to 1318; candidates are 1168 zero/767 below
-target/547 at least two. All 2062 partial identifiers, actual remaining
+Primary-focused identifiers remain 1318; candidates are 1168 zero/766 below
+target/548 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
-approval remain open; [the measurement FAQ](faq.md#q437-why-are-the-four-state-profiles-unmeasured)
-explains why these profiles have no result yet.
+approval remain open; [the scope FAQ](faq.md#q439-do-the-randomization-profiles-cover-randomization-completely) explains what remains.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -755,4 +755,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4127 AI drafts and their direct links do not satisfy that gate.
+The current 4133 AI drafts and their direct links do not satisfy that gate.

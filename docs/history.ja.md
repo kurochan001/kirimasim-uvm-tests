@@ -4082,3 +4082,22 @@ UVM環境は、configuration databaseからvirtual interfaceを得るdriverとmo
 
 主引用がある番号は1318に増え、candidateは0件1168／目標未満767／2件以上547です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、これらのprofileにまだ結果がない理由は[測定のFAQ](faq.ja.md#q437-4値のprofileが未測定なのはなぜですか)で説明しています。
+
+## 118回目の拡充：乱数化の性質（外部レビュー項目3）
+
+118回目は、外部レビューの3番目の項目である乱数化を扱います。uBの5 profileは、macroによる乱数化を値ではなく性質で判定します。
+uvm_createの後にconstraint_modeで無効にしたclass制約、24個のuvm_do itemでのinline制約・1回だけの乱数化・start／乱数化／finishの順序、1つのitemを繰り返しuvm_rand_sendしたときのrandcの周期、rand_modeで保つchild sequenceのfieldとpre_startより前に制約されるもう一方のfield、local::を使うinline制約の名前解決です。各profileは[乱数化のFAQ](faq.ja.md#q438-乱数化の性質profileは何を検査しますか)で説明しています。
+
+事実確認では、sequence libraryの選択、単一のinline制約、macroのhook順序はすでに検査済みだったため、これらのprofileは隙間を対象にします。`uvm_do_with`は1800.2-2020に含まれず、B.3.1.4はCONSTRAINTS引数を取ります。
+義務には2つの読み方を明記しました。空のinline制約はrandc変数の制約を変えないこと、macroのCONSTRAINTSはmacro呼出し位置で評価するinline制約であることです。5入力は最初の凍結のまま、tag付けの前後ともseed 1／73で一致し、乱数化のwarningはありませんでした。
+
+これらの条件を新しい義務6件で扱います。AI義務は4133件で、旧要求4127件と分類445件はすべて同一です。直接対応は2696テスト、control対応は158テスト、controlのみは56テストです。
+元の通常2740記録、index 2747件、旧既知458入力、4値の7入力は変えていません。5入力はM2に数えます。
+
+全体は2752テスト（simulation 2653／elaboration 99）です。通常一致は2287件で、runtime両seed 2193入力とcompiler拒否94件です。
+既知は458入力で、runtime seed 1差分318件、simulation build 135件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて465件です。
+2種類のbackend部分集合は同一です。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1671入力です。
+追加1667件と修正した元入力4件で、simulation 1572／elaboration 99です。
+
+主引用がある番号は1318のままで、candidateは0件1168／目標未満766／2件以上548です。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、残る範囲は[範囲のFAQ](faq.ja.md#q439-乱数化のprofileで乱数化を網羅しますか)で説明しています。

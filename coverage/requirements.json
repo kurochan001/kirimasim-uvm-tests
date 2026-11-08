@@ -3905,6 +3905,40 @@
       ]
     },
     {
+      "id": "UVM-RAND-PROPERTY-CONSTRAINT-MODE-AFTER-CREATE",
+      "clause": "B.3.1.1",
+      "statement": {
+        "en": "A class constraint disabled with constraint_mode after uvm_create stays disabled when uvm_rand_send randomizes the item.",
+        "ja": "uvm_createの後にconstraint_modeで無効にしたclass制約は、uvm_rand_sendがitemを乱数化するときも無効のままである。"
+      },
+      "conditions": {
+        "en": "In sixteen rounds, disable the class constraint data < 16 of one created item and send it with the inline constraint data >= 200; send a second created item unchanged.",
+        "ja": "16回、作成したitemのclass制約data < 16を無効にしてinline制約data >= 200で送り、作成した2つ目のitemはそのまま送る。"
+      },
+      "expected": {
+        "en": "Every disabled item satisfies the inline constraint and reports the constraint off; every unchanged item satisfies the class constraint; thirty-two items are delivered.",
+        "ja": "無効にしたitemはすべてinline制約を満たして制約の無効を返し、そのままのitemはすべてclass制約を満たし、32 itemが届く。"
+      },
+      "limitations": {
+        "en": "Judged by properties only: satisfied constraints, call order and counts, never by particular random values; a zero-time original driver completes every item. Seeds 1 and 73 do not establish random distribution quality.",
+        "ja": "性質だけで判定し、制約の充足、呼出し順、回数を見て、特定の乱数値は見ない。各itemは時間0で完了する独自driverが受け取る。seed 1と73で乱数分布の品質は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_rand_constraint_mode_after_create_118",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled 16 enabled 16 delivered 32"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-SEQUENCE-MACRO-CREATE-FACTORY",
       "clause": "14.2.6.1",
       "statement": {
@@ -4144,6 +4178,143 @@
       ]
     },
     {
+      "id": "UVM-RAND-PROPERTY-DO-ITEM-ORDER",
+      "clause": "B.3.1.3",
+      "statement": {
+        "en": "For each item, randomization falls between the start_item and finish_item steps, before driver delivery.",
+        "ja": "各itemの乱数化は、start_itemとfinish_itemの手順の間、driverへの受渡しより前に行われる。"
+      },
+      "conditions": {
+        "en": "Twenty-four uvm_do calls log pre_do, pre_randomize, post_randomize, mid_do, the driver delivery and post_do.",
+        "ja": "24回のuvm_doで、pre_do、pre_randomize、post_randomize、mid_do、driverの受取り、post_doを記録する。"
+      },
+      "expected": {
+        "en": "The log repeats those six events in that order for every item, and twenty-four items are delivered.",
+        "ja": "記録は各itemについてその6つをこの順に繰り返し、24 itemが届く。"
+      },
+      "limitations": {
+        "en": "Judged by properties only: satisfied constraints, call order and counts, never by particular random values; a zero-time original driver completes every item. Seeds 1 and 73 do not establish random distribution quality. The order also relies on 14.2.6.2 and 14.2.6.3 for pre_do, mid_do and post_do.",
+        "ja": "性質だけで判定し、制約の充足、呼出し順、回数を見て、特定の乱数値は見ない。各itemは時間0で完了する独自driverが受け取る。seed 1と73で乱数分布の品質は示さない。順序はpre_do、mid_do、post_doについて14.2.6.2と14.2.6.3にも基づく。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_rand_do_items_satisfy_inline_constraints_in_order_118",
+          "role": "direct",
+          "expected_observations": [
+            "UT: items 24 in_range 24 single_randomization 24 order 1",
+            "UT: delivered 24"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RAND-PROPERTY-RANDC-REPEATED-SEND",
+      "clause": "B.3.1.3",
+      "statement": {
+        "en": "Repeated uvm_rand_send of one item cycles its randc field through every value before repeating.",
+        "ja": "1つのitemをuvm_rand_sendで繰り返し送ると、randc fieldは繰り返す前に全値を一巡する。"
+      },
+      "conditions": {
+        "en": "Create one item with a two-bit randc field once and send it eight times without inline constraints.",
+        "ja": "2 bitのrandc fieldを持つitemを1回作成し、inline制約なしで8回送る。"
+      },
+      "expected": {
+        "en": "Each block of four consecutive values is a permutation of 0 to 3, and eight items are delivered.",
+        "ja": "連続する4値の各組は0〜3の順列で、8 itemが届く。"
+      },
+      "limitations": {
+        "en": "Judged by properties only: satisfied constraints, call order and counts, never by particular random values; a zero-time original driver completes every item. Seeds 1 and 73 do not establish random distribution quality. 1800-2023 18.4.2 recomputes the permutation when constraints on the variable change; an empty inline constraint is read as no change.",
+        "ja": "性質だけで判定し、制約の充足、呼出し順、回数を見て、特定の乱数値は見ない。各itemは時間0で完了する独自driverが受け取る。seed 1と73で乱数分布の品質は示さない。1800-2023の18.4.2は変数への制約が変わると順列を作り直すが、空のinline制約は変更なしと読む。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_rand_send_randc_item_cycles_118",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sends 8 first_cycle 1 second_cycle 1 delivered 8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RAND-PROPERTY-CHILD-RAND-MODE",
+      "clause": "B.3.1.3",
+      "statement": {
+        "en": "uvm_rand_send randomizes a child sequence before starting it and keeps a field whose rand_mode is off.",
+        "ja": "uvm_rand_sendはchild sequenceを開始する前に乱数化し、rand_modeを無効にしたfieldを保つ。"
+      },
+      "conditions": {
+        "en": "Create eight child sequences, set one field and turn off its rand_mode, then send each with an inline constraint on the other field.",
+        "ja": "child sequenceを8つ作成し、一方のfieldを設定してrand_modeを無効にし、もう一方のfieldへのinline制約で送る。"
+      },
+      "expected": {
+        "en": "The body sees the kept value and an in-range value, and each child logs pre_randomize, post_randomize, pre_start, body and post_start without body hooks.",
+        "ja": "bodyは保った値と範囲内の値を見て、各childはbody hookなしでpre_randomize、post_randomize、pre_start、body、post_startを記録する。"
+      },
+      "limitations": {
+        "en": "Judged by properties only: satisfied constraints, call order and counts, never by particular random values; a zero-time original driver completes every item. Seeds 1 and 73 do not establish random distribution quality.",
+        "ja": "性質だけで判定し、制約の充足、呼出し順、回数を見て、特定の乱数値は見ない。各itemは時間0で完了する独自driverが受け取る。seed 1と73で乱数分布の品質は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_rand_send_child_rand_mode_118",
+          "role": "direct",
+          "expected_observations": [
+            "UT: children 8 kept 8 chosen 8 order 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RAND-PROPERTY-INLINE-CONSTRAINT-SCOPE",
+      "clause": "B.3.1.3",
+      "statement": {
+        "en": "Names in a uvm_rand_send inline constraint resolve in the item first, and local:: resolves them in the calling sequence.",
+        "ja": "uvm_rand_sendのinline制約の名前はまずitemで解決され、local::は呼び出したsequenceで解決する。"
+      },
+      "conditions": {
+        "en": "The item and the sequence each declare limit, 20 and 200; sixteen rounds send one item with data < limit and another with data > local::limit.",
+        "ja": "itemとsequenceはそれぞれlimitを20と200で宣言し、16回、data < limitのitemとdata > local::limitのitemを送る。"
+      },
+      "expected": {
+        "en": "All unqualified items stay below 20, all local:: items exceed 200, and thirty-two items are delivered.",
+        "ja": "修飾なしのitemはすべて20未満、local::のitemはすべて200超で、32 itemが届く。"
+      },
+      "limitations": {
+        "en": "Judged by properties only: satisfied constraints, call order and counts, never by particular random values; a zero-time original driver completes every item. Seeds 1 and 73 do not establish random distribution quality. Treating the macro's CONSTRAINTS as an inline constraint evaluated at the macro call follows 1800-2023 18.7 and 18.7.1 and is an interpretation of B.3.1.3.",
+        "ja": "性質だけで判定し、制約の充足、呼出し順、回数を見て、特定の乱数値は見ない。各itemは時間0で完了する独自driverが受け取る。seed 1と73で乱数分布の品質は示さない。macroのCONSTRAINTSをmacro呼出し位置で評価するinline制約として扱うのは1800-2023の18.7と18.7.1に従い、B.3.1.3の解釈である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_rand_send_inline_constraint_scope_118",
+          "role": "direct",
+          "expected_observations": [
+            "UT: object_scope 16 caller_scope 16 delivered 32"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-SEQUENCE-MACRO-DO",
       "clause": "B.3.1.4",
       "statement": {
@@ -4189,6 +4360,40 @@
           "role": "direct",
           "expected_observations": [
             "UT: alternate 1 parent_same 1 code 68 bodies 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RAND-PROPERTY-DO-INLINE-CONSTRAINT",
+      "clause": "B.3.1.4",
+      "statement": {
+        "en": "Every item created and sent by uvm_do satisfies its inline constraint and is randomized once.",
+        "ja": "uvm_doが作成して送る各itemはinline制約を満たし、1回だけ乱数化される。"
+      },
+      "conditions": {
+        "en": "Twenty-four uvm_do calls use an inline constraint that refers to sequence bounds 10 and 20.",
+        "ja": "24回のuvm_doで、sequenceの境界10と20を参照するinline制約を使う。"
+      },
+      "expected": {
+        "en": "All twenty-four items lie within the bounds, and each calls pre_randomize and post_randomize once.",
+        "ja": "24 itemはすべて境界内にあり、各itemはpre_randomizeとpost_randomizeを1回ずつ呼ぶ。"
+      },
+      "limitations": {
+        "en": "Judged by properties only: satisfied constraints, call order and counts, never by particular random values; a zero-time original driver completes every item. Seeds 1 and 73 do not establish random distribution quality. Unqualified bounds resolve in the calling sequence because the item declares no such names.",
+        "ja": "性質だけで判定し、制約の充足、呼出し順、回数を見て、特定の乱数値は見ない。各itemは時間0で完了する独自driverが受け取る。seed 1と73で乱数分布の品質は示さない。itemが同じ名前を宣言しないため、修飾なしの境界は呼び出したsequenceで解決される。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_rand_do_items_satisfy_inline_constraints_in_order_118",
+          "role": "direct",
+          "expected_observations": [
+            "UT: items 24 in_range 24 single_randomization 24 order 1"
           ]
         }
       ]

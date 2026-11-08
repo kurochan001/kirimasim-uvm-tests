@@ -10989,6 +10989,26 @@
     "uC/test_fourstate_resource_read_write_117": {
       "primary_clause": "C.2.5.4.1",
       "inputs_sha256": "08b053a830c57583dad473c4a64dea1c1858f4f235a3d8b06c1ff99a44a3e5ea"
+    },
+    "uB/test_rand_constraint_mode_after_create_118": {
+      "primary_clause": "B.3.1.1",
+      "inputs_sha256": "75f39a55dceebaf0b1dcdf2bff85722f3a5be7356f3f9670806bd1172d9237cf"
+    },
+    "uB/test_rand_do_items_satisfy_inline_constraints_in_order_118": {
+      "primary_clause": "B.3.1.4",
+      "inputs_sha256": "c552458ef09466f1ffad27b3b4fe6fa2b1eef93541f9051b372abccf49ea1c23"
+    },
+    "uB/test_rand_send_child_rand_mode_118": {
+      "primary_clause": "B.3.1.3",
+      "inputs_sha256": "837af3825e9a397e2e3219d8379813666417bae23721720b6bbf7098c8a16017"
+    },
+    "uB/test_rand_send_inline_constraint_scope_118": {
+      "primary_clause": "B.3.1.3",
+      "inputs_sha256": "64b6b9f22de0eeec078269d76fd4d88448d10aba7e4f0df1e1e23e0b9c3c8f89"
+    },
+    "uB/test_rand_send_randc_item_cycles_118": {
+      "primary_clause": "B.3.1.3",
+      "inputs_sha256": "4668c8215f94acba08c224b697bd516c7695405d5149f92a3fc65d3a4ba703a5"
     }
   }
 }

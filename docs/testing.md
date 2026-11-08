@@ -412,6 +412,11 @@ the design rules in the helper, the cited clauses and the 1800-2023
 clocking-block timing define the expectations. [Q434](faq.md#q434-what-do-the-rtl-integration-profiles-check)
 describes each profile.
 
+The randomization-property profiles share an [original event log, driver and test base](../tests/uB/helpers118_rand/rand118.svh).
+Each judges macro-driven randomization by satisfied constraints, call order or
+counts, never by particular random values; [Q438](faq.md#q438-what-do-the-randomization-property-profiles-check)
+describes each profile.
+
 ### Four-state paths
 
 A four-state value can carry X or Z bits. Seven spec-only fixtures declare
@@ -619,7 +624,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2691 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
+- 2696 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -753,7 +758,7 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 2282 tagged two-state checks: 2188 runtime
+By default, Verilator selects 2287 tagged two-state checks: 2193 runtime
 cases and 94 expected compiler rejections. To include
 the 458 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
@@ -823,7 +828,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 118 unit tests; metadata validation checks all
-2747 tests (2648 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+2752 tests (2653 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
 [Regression](../.github/workflows/regression.yml) shards, uses
@@ -833,7 +838,7 @@ selected, not that every UVM requirement or every simulator passes.
 
 Check runs the tagged checks whose recorded inputs changed, plus a canary, and
 falls back to the canary alone with a warning when it cannot cover a change.
-Regression runs all 2282 tagged checks in 20 disjoint shards and the 17
+Regression runs all 2287 tagged checks in 20 disjoint shards and the 17
 command-line checks, manually and weekly. [The CI section](results.md#continuous-integration)
 gives the fallbacks and limits, and why the earlier 8-shard Check never finished.
 After a change to the runner, the library lock or many inputs, dispatch
