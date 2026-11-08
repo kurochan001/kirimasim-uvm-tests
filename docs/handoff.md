@@ -220,6 +220,8 @@ canary-only, dispatch Regression and check its result for the current commit;
 local validation does not establish a successful hosted workflow result.
 The first dispatch exposed a missing constraint solver on the hosted image;
 [the CI section](results.md#continuous-integration) records the cancelled run and the fix.
+After the fix, Regression run 42372122368 on db06513 matched every tagged and
+command-line check.
 
 The assembled Verilator snapshot retains unchanged prior inputs and replaces only
 remeasured records. It is not one invocation rerunning the entire suite.

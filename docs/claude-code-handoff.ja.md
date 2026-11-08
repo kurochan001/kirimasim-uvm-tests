@@ -30,7 +30,7 @@ hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していま�
 - [Check](../.github/workflows/check.yml)はtool・metadata・library・台帳の検査と、入力が変わったタグ付き検査、canary 1件を実行します（[選択ツール](../tools/ci_select.py)）。42d03ab（[run 42359747127](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747127)、canaryのみ）とf94ba4a（[run 42360326889](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42360326889)、113回目の4入力とcanary）で成功しました。どちらの選択も乱数化を行いません。
 - [Regression](../.github/workflows/regression.yml)は手動と毎週、全タグ付き検査を20 shard（同時4、各360分）で、command-line 17件と合わせて実行します。最初の起動である42d03abの[run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603)は、command-line job（成功）とshard 0・2・3（342件中334件一致）の完了後に取り消しました。8件の差分はすべて制約付き乱数化に依存し、imageのpathにSMT solverがありませんでした。localでz3を外すと、確かめた4件の差分を再現しました。このrunはどのcommitのRegression結果でもありません。
 - [準備用action](../.github/actions/setup-verilator/action.yml)はすべてのjobでz3を導入し、その版を表示します。[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)のCheck（[run 42371357208](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42371357208)）はz3 4.8.12を導入し、allocation policyを乱数化するrequest側の2 profileを含む選択5件が一致しました。
-- Regressionはdb06513で[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)として再度起動しました。115回目の文面の作成時点では実行中で、Regressionの結果は主張しません。115回目のcommitはこのrunを確認してから公開しました。結果は`gh run list --workflow regression.yml`で確認し、shardがtimeoutまたは失敗した場合は、テストを追加公開する前に調べます。
+- Regressionはdb06513で[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)として再度起動しました。20 shardでタグ付き検査2273件すべてがseed 1／73で一致し（各shard 113〜199分）、command-line jobも成功したため、その結果を確認してから115回目のcommitを公開しました。このrunの対象はdb06513で、115回目の4入力はCheckの変更入力jobとlocal測定で確認しています。後で全件のhosted結果が必要になればRegressionを再度起動し、shardがtimeoutまたは失敗した場合は、テストを追加公開する前に調べます。
 - 同時10で起動したrunは、アカウント共有のhosted job枠を埋めて他のrepositoryを遅らせたため以前に取り消しました。Regressionの同時実行数は控えめに保ち、全件実行を重ねて起動しません。
 
 ## 維持する判断
@@ -76,7 +76,6 @@ guest記録は[詳細ハンドオフ](handoff.ja.md#実測記録と直近の差�
 
 承認済みの範囲ではなく提案です。選ぶ前にbacklogを再生成します。
 
-- まず[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)の結果を確認します。solverを入れた状態での最初の全件hosted結果です。
 - 18.12.4.2の、範囲と同時にmode／localityを変えるreconfigureや他のbyte幅。
 - 112回目のunpackの列挙setterの問題：規格と照合し、library証拠を理由にknownをpassへ変更しません。
 - 第18章の他の部分条件（部分393番号）と全体の部分2062番号を、元のM1〜M3目標と比べます。
@@ -104,4 +103,4 @@ gh run list --workflow regression.yml --limit 3
 
 ## 再開時にClaude Codeへ渡す文面
 
-> 現在のworkspaceの指示、README、日英のClaude Codeハンドオフを読んでください。main・作業ツリー・最新のCheckと、z3 solverの修正後に起動した最新のRegression（42372122368以降）の結果を確認してください。ユーザーが許可した範囲で、継続中のM1〜M4のgoalを続けてください。生成する3キューは0ですが、部分分解2062番号と元のmilestone目標が残り、実際の未対応0件は未実証です。意味のある残る条件をlocal IEEE規格で監査し、既存テストとの重複を避けてください。独立した期待値、限定した既知差分、互換な証拠、runner指紋、商用結果の不使用、Ghostの非公開情報、完全な日英資料を維持してください。完了済みの一時scriptを再実行しないでください。最終入力を測定し、適切な検査を実施して限界を報告し、許可された範囲でmainへ公開してください。レビュー・範囲承認・pass・goal完了を捏造しないでください。
+> 現在のworkspaceの指示、README、日英のClaude Codeハンドオフを読んでください。main・作業ツリー・最新のCheckと、最新のRegressionの結果を確認してください。ユーザーが許可した範囲で、継続中のM1〜M4のgoalを続けてください。生成する3キューは0ですが、部分分解2062番号と元のmilestone目標が残り、実際の未対応0件は未実証です。意味のある残る条件をlocal IEEE規格で監査し、既存テストとの重複を避けてください。独立した期待値、限定した既知差分、互換な証拠、runner指紋、商用結果の不使用、Ghostの非公開情報、完全な日英資料を維持してください。完了済みの一時scriptを再実行しないでください。最終入力を測定し、適切な検査を実施して限界を報告し、許可された範囲でmainへ公開してください。レビュー・範囲承認・pass・goal完了を捏造しないでください。

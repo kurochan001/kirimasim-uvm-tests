@@ -4037,3 +4037,7 @@ AI義務は4109件で、他の旧要求4104件と分類445件は同一です。�
 第18章は部分393／分類63／未評価0番号、義務941件、主引用652テストです。
 主引用がある番号は1316のままで、candidateは0件1170／目標未満768／2件以上544です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、範囲の一致でgoalが完了しない理由は[完了のFAQ](faq.ja.md#q433-範囲のprofileでreconfigureは完了しますか)で説明しています。
+
+## hostedのRegressionで初めて全件一致
+
+修正後のdb06513での[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)は、20 shardでタグ付き検査2273件すべてがseed 1／73で一致し、command-line 17件も成功しました。各shardは113〜199分で、360分の上限内でした。hostedのRegressionで初めて全件がそろったこの結果の対象はそのcommitで、後のcommitにはそれぞれのCheckまたはRegressionが必要です。

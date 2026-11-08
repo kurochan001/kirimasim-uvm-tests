@@ -217,5 +217,7 @@ command-line jobは成功し、3 shardは342検査のうち334件が一致しま
 各検査はz3のあるlocalでは一致し、localのpathからz3を外すと、確かめた4件で同じseed 1の値を含む差分を再現しました。以前に成功したCheckは、乱数化する検査を選んでいません。
 [準備用action](../.github/actions/setup-verilator/action.yml)はすべてのjobでz3を導入するようになり、取り消したrunはどのcommitのRegression結果でもありません。
 
+修正後のdb06513での[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)は、20 shardでタグ付き検査2273件すべてがseed 1／73で一致し、command-line 17件も成功しました。各shardは113〜199分で、360分の上限内でした。hostedのRegressionで初めて全件がそろったこの結果の対象はそのcommitで、後のcommitにはそれぞれのCheckまたはRegressionが必要です。
+
 kirimasim、Ghost、specのみのケースはどちらのworkflowでも実行しません。READMEのバッジは現在のCheckの状態で、このローカル測定とは別です。
 CheckやRegressionが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。結果の自動公開はありません。

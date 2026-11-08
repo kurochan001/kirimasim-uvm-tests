@@ -325,6 +325,12 @@ value. Earlier green Check runs selected no check that randomizes. The
 [setup action](../.github/actions/setup-verilator/action.yml) now installs z3
 in every job, and the cancelled run is not a Regression result for any commit.
 
+After the fix, [run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368) on db06513 matched all 2273 tagged checks in its 20 shards
+at seeds 1/73 and passed the seventeen command-line checks. Each shard took 113
+to 199 minutes, within the 360-minute limit. This first complete hosted
+Regression result covers that commit; later commits need their own Check or
+Regression.
+
 Neither workflow runs kirimasim, Ghost or spec-only cases. The README's badge is
 the live Check state, separate from these local measurements. A green Check or
 Regression does not establish complete UVM conformance or a passing result for

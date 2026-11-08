@@ -6545,3 +6545,11 @@ candidates are 1170 zero/768 below target/544 at least two. All 2062 partial
 identifiers, actual remaining conditions, original milestone targets,
 human review and scope/denominator approval remain open; [the completion FAQ](faq.md#q433-do-the-reconfigured-bounds-profiles-complete-reconfiguration)
 explains why matching bounds do not complete the goal.
+
+## First complete hosted Regression
+
+After the fix, [run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368) on db06513 matched all 2273 tagged checks in its 20 shards
+at seeds 1/73 and passed the seventeen command-line checks. Each shard took 113
+to 199 minutes, within the 360-minute limit. This first complete hosted
+Regression result covers that commit; later commits need their own Check or
+Regression.
