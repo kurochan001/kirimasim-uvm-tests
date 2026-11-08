@@ -2,7 +2,7 @@
 
 [English](handoff.md) · [README](../README.ja.md) · [要求台帳](requirements.ja.md)
 
-現在の引継ぎ：ユーザーが2026-11-07にgoalを再開し、外部レビューの4番目の項目である119回目の拡充を公開しました。公開済みcheckpoint・次の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
+現在の引継ぎ：ユーザーが2026-11-07にgoalを再開し、外部レビューの5番目の項目である120回目の拡充を公開しました。公開済みcheckpoint・次の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
 
 このページは開発の再開を支える資料なので、最初のテストを動かしたり理解したりしたい場合は[読み方ガイド](reading-guide.ja.md)から始めてください。
 
@@ -10,8 +10,8 @@
 
 以下の基点コミットは記載した作業の出発点を示すため、保存済みの結果を現在のファイルの証拠にする前に未コミットの変更を確認し、互換性のレビューは[入力の更新手順](requirements.ja.md#テストや対応付けの更新)に従います。
 
-2026-11-09に、`main`の[8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8)
-を基に、119回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
+2026-11-09に、`main`の[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)
+を基に、120回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
 
 IEEE 1800.2-2020のUVM適合を検査し、kirimasimを対象とするプロジェクトです。
 SystemVerilog言語だけのreproducerは、
@@ -20,11 +20,11 @@ M1〜M4の薄い領域を引き続き補強します。M4は進行中で、未�
 
 | 領域 | 現在の状態 |
 | --- | --- |
-| M1 | 1183件（runtime 1102・elaboration 81）：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
-| M2 | 632件（runtime 625・elaboration 7）：sequence、sequencer、callback、TLM |
+| M1 | 1187件（runtime 1106・elaboration 81）：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
+| M2 | 633件（runtime 626・elaboration 7）：sequence、sequencer、callback、TLM |
 | M3 | 942件（runtime 931・elaboration 11）：register／memory layer、付録E |
-| 全体 | 章・付録22 directoryに2757件（simulation 2658・elaboration 99）。照合はすべてAIで、人による照合は未記録 |
-| M4 | AI要求案4141件。4141要求を2701テストへ直接対応。control専用56テスト。未対応テスト0件 |
+| 全体 | 章・付録22 directoryに2762件（simulation 2663・elaboration 99）。照合はすべてAIで、人による照合は未記録 |
+| M4 | AI要求案4150件。4150要求を2706テストへ直接対応。control専用56テスト。未対応テスト0件 |
 | 規範的棚卸し | 2,507識別子のうち2062件を一部分解、445件を明示的に分類。0件は未評価。直接テストのない要求案0件 |
 
 `scope_status`は提案、`normative_inventory_complete`はfalse、
@@ -61,7 +61,7 @@ Ghostの設定が必要なのは非公開guestの測定を行う場合で、そ�
   [テスト索引](../coverage/test_index.json)：M4の正規の状態です。生成inventoryはレビューの補助資料で、
   版管理する入力の代わりではありません。
 - [library lock](../third_party/uvm.lock)：Accellera UVM 2020.3.1、`78c06547a2a0`、326ファイル。
-  版管理するtoolで取得し、library本体はコミットしません。2696検査系は`UVM_NO_DPI`を使い、38件は独自VPI HDL backendを明示要求します。
+  版管理するtoolで取得し、library本体はコミットしません。2701検査系は`UVM_NO_DPI`を使い、38件は独自VPI HDL backendを明示要求します。
 - ユーザーがrepository rootへ`IEEE_Std_1800.2-2020.pdf`と
   `IEEE_Std_1800-2023_SystemVerilog.pdf`を配置済みです。Git対象外のlocalファイルで、
   新規cloneにはなく、再配布しません。`out/`内の抽出済みtextはlocalでGit対象外です。`/tmp`は消える場合があります。
@@ -90,9 +90,9 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-この記録は、tool単体テスト124件、全2757件（simulation 2658件・elaboration 99件）のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
+この記録は、tool単体テスト124件、全2762件（simulation 2663件・elaboration 99件）のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
 通過しています。資料だけの変更では、全シミュレーションを再buildせず、[ドキュメントの更新手順](testing.ja.md#ドキュメントの更新)に従って日英の対応とリンクを確認します。
-全件evidenceはVerilatorだけで、他2系統は未変更1081件の記録、1676入力は未測定です。実行のsmoke確認は次のとおりです。
+全件evidenceはVerilatorだけで、他2系統は未変更1081件の記録、1681入力は未測定です。実行のsmoke確認は次のとおりです。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
@@ -115,12 +115,12 @@ Checkはtool、metadata、台帳、libraryと、入力が変わった通常oracl
 
 | シミュレータ／library | 記録した結果 |
 | --- | --- |
-| Verilator 5.052／固定UVM | runtime pass 2193件（seed 1／73）・期待compile拒否94件・known 463件 |
+| Verilator 5.052／固定UVM | runtime pass 2198件（seed 1／73）・期待compile拒否94件・known 463件 |
 | Verilator 5.052／独自VPI HDL backend | 別条件の38件：37件が両seed pass、1件はseed 1でfail |
 | Verilator 5.052／command-line VPI・固定regex DPI | 別条件の23件で20件は両seed一致、3件はseed 1の既知差分 |
 | Verilator 5.052／regex DPIとcommand-line DPIで再実行する通常検査系 | 別条件の26件：すべて両seed pass |
-| kirimasim／固定UVM | 未変更1081件で未対応1072件・API欠落fail 9件。1676入力は未測定 |
-| Ghost／同梱UVM | 未変更1081件で各seed pass 206件・fail 875件。1676入力は未測定 |
+| kirimasim／固定UVM | 未変更1081件で未対応1072件・API欠落fail 9件。1681入力は未測定 |
+| Ghost／同梱UVM | 未変更1081件で各seed pass 206件・fail 875件。1681入力は未測定 |
 | Ghost／固定UVM | 現在の実行ファイルsnapshotでは未測定 |
 
 通常条件のknownは463件で、runtime初回差分318、simulation build 140、不正compiler受理5です。
@@ -128,30 +128,29 @@ buildはAPI／型名欠落43、time減算引数既定値1、型既定宣言2、�
 
 残るsimulation build失敗6件は未登録packetのpredictor型名4件とサイズ／flag宣言2件で、規格に登録の前提条件を追加しない扱いと各実行条件は[結果の内訳](results.ja.md#結果の解釈)で説明しています。
 
-119回目は、外部レビューの4番目の項目であるDPIの構成を扱います。通常の検査系はUVM_NO_DPIでbuildし、uvm_is_matchはSystemVerilogのglob照合に戻るため、正規表現を評価できません。
-新しいrunner`tools/run_verilator_regex.py`は、`coverage/regex_dpi_variants.txt`に一覧した2値の26検査系を、固定版のregex DPIと独自のcommand-line VPI bridgeで、HDL DPIを無効にしてbuildし直します。各検査系は照合に簡略表記のpatternを渡し、この条件で26件すべてがseed 1／73で一致しました。
-command-line DPIなしの最初の構成ではRTLの5 profileへ+UVM_TESTNAMEを渡せなかったため、runnerはbridgeを有効にします。検査系、期待ファイル、保存済みの記録は変えず、Regressionに変種のjobを追加しました。条件は[DPIのFAQ](faq.ja.md#q440-regex-dpi変種とprofileは何を検査しますか)で説明しています。
+120回目は、外部レビューの5番目の項目であるユーザーpackageを扱います。`tests/u08/helpers120_pkg/`の独自の4 packageは、agent（item、driver、sequencerの型、agent）、sequence、environment、extensionのclassをそれぞれ持ちます。
+1800-2023の26.3はpackageをimportするscopeより先にそのpackageをcompileすることを求めるため、各テストは`:files:`にこの順で並べ、agentとsequenceのpackageはextensionのpackageをimportしません。
+5 profileは次を検査します。別のpackageのutility macroによる型がrun_testより前に静的初期化で登録され、どのcodeも名指ししない型をfactoryが見つけて生成できること。run_testがpackageで宣言したtest classを生成すること。environment、agent、sequenceの各packageのtype_id::createが階層とitemの流れを作ること。
+type_idで設定した型とinstanceのoverride、名前による生成と組み合わせた名前による型overrideが、override先のclassをimportしないpackageでの生成に届くこと。別のpackageのdefault sequenceのwrapperが、sequencerのpathに対するinstance overrideに従うことです。
+5件とも最初の凍結のまま、tag付けの前後でseed 1／73が一致しました。各profileは[packageのFAQ](faq.ja.md#q442-ユーザーpackageのprofileは何を検査しますか)、名前によるoverrideを名前による生成だけで確かめる理由は[overrideのFAQ](faq.ja.md#q443-名前によるoverrideを名前による生成で確かめるのはなぜですか)で説明しています。
 
-新しい5検査系は既存のcommand-line条件を選び、1800.2が正規表現の対応によってだけ定める動作を検査します。slashで囲むPOSIX式、簡略表記のplus・star・question mark、文字どおりのdot・caret・dollar記号（F.3.3.1）、configuration databaseとresource databaseの正規表現とplusのscope、正規表現とplusによるcomponent検索、get_arg_matchesです。
-3件はtag付け後に両seedで一致しました。2件はそれぞれ1行だけが異なる既知差分で、oracleの凍結後に固定版libraryが原因と特定しました。glob変換が先頭のcaretと末尾のdollar記号をanchorとして残すことと、既定の設定検索がfield名を完全一致で探すことで、[既知差分のFAQ](faq.ja.md#q441-正規表現の2-profileが既知差分なのはなぜですか)で説明しています。通常runnerは5件をlinkしないbuildとして記録します。
+これらの条件を新しい義務9件で扱います。AI義務は4150件で、旧要求4141件と分類445件はすべて同一です。直接対応は2706テスト、control対応は158テスト、controlのみは56テストです。
+元の通常2750記録と旧既知463入力は全て維持します。4入力はM1、1入力はM2に数えます。要求の表では、116回目の義務を1件ずつ数え漏らしていた15と18の行も訂正しました。
 
-これらの条件を新しい義務8件で扱います。AI義務は4141件で、旧要求4133件と分類445件はすべて同一です。直接対応は2701テスト、control対応は158テスト、controlのみは56テストです。
-元の通常2745記録と旧既知458入力は全て維持します。5入力はM1に数えます。
-
-全体は2757テスト（simulation 2658／elaboration 99）です。通常一致は2287件で、runtime両seed 2193入力とcompiler拒否94件です。
+全体は2762テスト（simulation 2663／elaboration 99）です。通常一致は2292件で、runtime両seed 2198入力とcompiler拒否94件です。
 既知は463入力で、runtime seed 1差分318件、simulation build 140件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて470件です。
-command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）で、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1676入力です。
-追加1672件と修正した元入力4件で、simulation 1577／elaboration 99です。
+command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1681入力です。
+追加1677件と修正した元入力4件で、simulation 1582／elaboration 99です。
 
-主引用がある番号は1319に増え、candidateは0件1167／目標未満767／2件以上548です。
+主引用がある番号は1319のままで、candidateは0件1167／目標未満764／2件以上551です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。
 
-全2757件（simulation 2658／elaboration 99）、M1 1183（1102／81）、M2 632（625／7）、M3 942（931／11）です。
-通常passは2287（runtime 2193／拒否94）、knownは463（runtime 318／build 140／不正受理5）です。
-guestは互換1081記録を保持し、未測定1676入力は追加1672件と修正した元入力4件です。
+全2762件（simulation 2663／elaboration 99）、M1 1187（1106／81）、M2 633（626／7）、M3 942（931／11）です。
+通常passは2292（runtime 2198／拒否94）、knownは463（runtime 318／build 140／不正受理5）です。
+guestは互換1081記録を保持し、未測定1681入力は追加1677件と修正した元入力4件です。
 
 以前の単一Checkは、2026-10-31より後に全選択を完了していません。新しいpushで置き換えられなかった唯一の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)では、8 shardすべてが150分の上限に達しました。
-現在のCheckは入力が変わったタグ付き検査とcanaryを実行し、[Regression](../.github/workflows/regression.yml)は全タグ付き2287検査を重複しない20 shardで、command-line 20検査、regex-DPI変種26件と合わせて実行します。上限は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
+現在のCheckは入力が変わったタグ付き検査とcanaryを実行し、[Regression](../.github/workflows/regression.yml)は全タグ付き2292検査を重複しない20 shardで、command-line 20検査、regex-DPI変種26件と合わせて実行します。上限は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。Checkがcanaryだけと報告した変更の後はRegressionを手動実行し、現在のcommitの結果を確認します。local検証でhosted workflowの成功は立証しません。
 最初の起動でhostedのimageに制約solverがないことが分かり、取り消したrunと修正は[CIの節](results.ja.md#継続的インテグレーション)に記録しています。修正後のdb06513でのRegression run 42372122368は、タグ付き検査とcommand-line検査がすべて一致しました。
 
@@ -159,13 +158,13 @@ seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋�
 現在のhostでは、互換なlocal記録は次にあります。
 
 ```text
-out/thin-one-hundred-nineteenth-verilator-combined.json
+out/thin-one-hundred-twentieth-verilator-combined.json
 out/thin-one-hundred-twelfth-ghost-final-1.json
 out/thin-one-hundred-twelfth-ghost-final-73.json
 out/thin-one-hundred-twelfth-kirimasim-final.json
-out/thin-one-hundred-nineteenth-inventory.json
-out/thin-one-hundred-nineteenth-backlog.json
-out/thin-one-hundred-nineteenth-evidence-scope.json
+out/thin-one-hundred-twentieth-inventory.json
+out/thin-one-hundred-twentieth-backlog.json
+out/thin-one-hundred-twentieth-evidence-scope.json
 out/thin-one-hundred-sixth-hdl-combined.json
 out/thin-one-hundred-sixth-cmdline-final.json
 ```
@@ -184,7 +183,7 @@ Git対象外のファイルなので別hostにはない場合があり、許可�
 未評価件数と部分的な義務は別の残作業を数えるため、件数が減るだけではgoalを完了できない理由は[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 ユーザーはM1〜M4の未対応0件まで続けるgoalを依頼しました。開始時は未評価1,463番号、未対応テスト0件、直接テストのない要求0件でした。
-91反復目も未評価0を保持し、有効化以降の減少は1463です。ユーザーは2026-11-07に一時停止中のgoalを再開しました。113〜115反復目はCIを分割し、hostedのrunnerにないz3 solverを導入し、M3のmemory manager入力12件を追加しました。2026-11-08にユーザーは8項目の外部レビューを示し、116〜118反復目はRTL結合、4値、乱数化の性質の入力を追加し、119反復目は一覧の26検査系のregex-DPI変種の条件と正規表現の5検査系を追加し、そのうち2件はlibraryが原因の既知差分です。新規義務8件で4141義務となり、旧要求4133件はすべて同一です。元の通常2745記録、旧既知458入力、分類445件を保持します。guestは互換1081／未測定1676入力です。部分2062番号、適用条件、元の段階目標、人の照合、範囲／分母承認は未完で、goalは完了していません。
+92反復目も未評価0を保持し、有効化以降の減少は1463です。ユーザーは2026-11-07に一時停止中のgoalを再開しました。113〜115反復目はCIを分割し、hostedのrunnerにないz3 solverを導入し、M3のmemory manager入力12件を追加しました。2026-11-08にユーザーは8項目の外部レビューを示し、116〜118反復目はRTL結合、4値、乱数化の性質の入力を追加し、119反復目はregex-DPI変種の条件と正規表現の5検査系を追加し、120反復目は両seedで一致するユーザーpackageの入力5件を追加します。新規義務9件で4150義務となり、旧要求4141件はすべて同一です。元の通常2750記録、旧既知463入力、分類445件を保持します。guestは互換1081／未測定1681入力です。部分2062番号、適用条件、元の段階目標、人の照合、範囲／分母承認は未完で、goalは完了していません。
 
 以前の12.2.9.2の再分類は未評価件数を減らしません。最終監査の前にgoalを完了扱いにせず、第12章の未評価0を部分分解169番号や明示milestone目標の完了へ置き換えません。
 最終監査は元の範囲、実際の規範的義務、有意な条件、互換な実行evidenceを確認します。限定解釈、既知差分、guest未測定を保持し、架空の承認やpass化を行いません。
@@ -309,7 +308,7 @@ parent_sequence条項はdo_cloneを指定しているため、objectのclone API
 memory-managerではallocation／locality enumと設定memberの意味、人が読める状態、region生成／所有概要が残ります。
 代入だけからGREEDY／THRIFTYやBROAD／NEARBYの動作を認定せず、部分条件、再設定制約、実backend転送を監査します。
 burst-write offsetとburst-read output／refの食違いは選択委譲観測と分けて保持します。
-古いdescriptorは、一括解放、region経由の解放、request_regionで得たdescriptorの解放、virtual registerの解放の後の再解放errorに直接検査ができました。virtual register配列を実装中のregionのmanagerからの解放と、範囲を再び予約した状態の呼出しは残ります。reconfigure後の範囲には予約、要求、policyの範囲の直接検査ができましたが、範囲と同時のmode／localityの変更、他のbyte幅、非互換なreconfigureは残ります。RTLとの結合には直接のprofileが5件できましたが、他のprotocol、clock domain、byte enable、error応答、残りのレビュー項目は残ります。4値の経路にはVerilatorの記録のないspecのみのprofileが7件でき、規定のない経路はテストのガイドに一覧しています。macroによる乱数化には性質のprofileが5件できましたが、乱数分布の品質と乱数化に失敗した後の動作は残ります。正規表現にはregex-DPI変種の条件とcommand-lineのprofile 5件ができましたが、正規表現とHDL DPIの組合せなど、他のDPIに依存する動作は残ります。
+古いdescriptorは、一括解放、region経由の解放、request_regionで得たdescriptorの解放、virtual registerの解放の後の再解放errorに直接検査ができました。virtual register配列を実装中のregionのmanagerからの解放と、範囲を再び予約した状態の呼出しは残ります。reconfigure後の範囲には予約、要求、policyの範囲の直接検査ができましたが、範囲と同時のmode／localityの変更、他のbyte幅、非互換なreconfigureは残ります。RTLとの結合には直接のprofileが5件できましたが、他のprotocol、clock domain、byte enable、error応答、残りのレビュー項目は残ります。4値の経路にはVerilatorの記録のないspecのみのprofileが7件でき、規定のない経路はテストのガイドに一覧しています。macroによる乱数化には性質のprofileが5件できましたが、乱数分布の品質と乱数化に失敗した後の動作は残ります。正規表現にはregex-DPI変種の条件とcommand-lineのprofile 5件ができましたが、正規表現とHDL DPIの組合せなど、他のDPIに依存する動作は残ります。ユーザーpackageにはfactoryのprofile 5件ができましたが、compilation unitやlibraryの分割、package水準のparameter付きclassは残ります。
 
 register連携の候補は、callbackのresize／無効化とoperation失敗条件、広いtranslation beat、独立した片方向payload検査、広いforce／release型と時間付きwrapperの相互作用です。
 task-based read境界とcallback値pipelineには選択した検査系ができましたが、その存在だけで広い適用条件や保持する伝播4差分は解消しません。

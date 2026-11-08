@@ -1,0 +1,9 @@
+UT: uvm_test_top.env env120
+UT: uvm_test_top.env.a0 agent120 drv driver120
+UT: uvm_test_top.env.a0.drv driver120 item120 20
+UT: uvm_test_top.env.a0.drv driver120 item120 21
+UT: uvm_test_top.env.a1 ext_agent120 drv driver120
+UT: uvm_test_top.env.a1.drv driver120 item120 20
+UT: uvm_test_top.env.a1.drv driver120 item120 21
+UT: started uvm_test_top.env.a0.sqr ext_seq120 s0
+UT: started uvm_test_top.env.a1.sqr ext_seq120 s1

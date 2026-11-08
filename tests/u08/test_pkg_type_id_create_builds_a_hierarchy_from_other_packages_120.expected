@@ -1,0 +1,10 @@
+UT: test hierarchy_test120 uvm_test_top
+UT: uvm_test_top.env env120
+UT: uvm_test_top.env.a0 agent120 drv driver120
+UT: uvm_test_top.env.a0.drv driver120 item120 10
+UT: uvm_test_top.env.a0.drv driver120 item120 11
+UT: uvm_test_top.env.a1 agent120 drv driver120
+UT: uvm_test_top.env.a1.drv driver120 item120 10
+UT: uvm_test_top.env.a1.drv driver120 item120 11
+UT: started uvm_test_top.env.a0.sqr seq120 s0
+UT: started uvm_test_top.env.a1.sqr seq120 s1

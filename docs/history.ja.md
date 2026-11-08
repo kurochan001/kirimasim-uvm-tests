@@ -4121,3 +4121,22 @@ command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条�
 
 主引用がある番号は1319に増え、candidateは0件1167／目標未満767／2件以上548です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。
+
+## 120回目の拡充：ユーザーpackage（外部レビュー項目5）
+
+120回目は、外部レビューの5番目の項目であるユーザーpackageを扱います。`tests/u08/helpers120_pkg/`の独自の4 packageは、agent（item、driver、sequencerの型、agent）、sequence、environment、extensionのclassをそれぞれ持ちます。
+1800-2023の26.3はpackageをimportするscopeより先にそのpackageをcompileすることを求めるため、各テストは`:files:`にこの順で並べ、agentとsequenceのpackageはextensionのpackageをimportしません。
+5 profileは次を検査します。別のpackageのutility macroによる型がrun_testより前に静的初期化で登録され、どのcodeも名指ししない型をfactoryが見つけて生成できること。run_testがpackageで宣言したtest classを生成すること。environment、agent、sequenceの各packageのtype_id::createが階層とitemの流れを作ること。
+type_idで設定した型とinstanceのoverride、名前による生成と組み合わせた名前による型overrideが、override先のclassをimportしないpackageでの生成に届くこと。別のpackageのdefault sequenceのwrapperが、sequencerのpathに対するinstance overrideに従うことです。
+5件とも最初の凍結のまま、tag付けの前後でseed 1／73が一致しました。各profileは[packageのFAQ](faq.ja.md#q442-ユーザーpackageのprofileは何を検査しますか)、名前によるoverrideを名前による生成だけで確かめる理由は[overrideのFAQ](faq.ja.md#q443-名前によるoverrideを名前による生成で確かめるのはなぜですか)で説明しています。
+
+これらの条件を新しい義務9件で扱います。AI義務は4150件で、旧要求4141件と分類445件はすべて同一です。直接対応は2706テスト、control対応は158テスト、controlのみは56テストです。
+元の通常2750記録と旧既知463入力は全て維持します。4入力はM1、1入力はM2に数えます。要求の表では、116回目の義務を1件ずつ数え漏らしていた15と18の行も訂正しました。
+
+全体は2762テスト（simulation 2663／elaboration 99）です。通常一致は2292件で、runtime両seed 2198入力とcompiler拒否94件です。
+既知は463入力で、runtime seed 1差分318件、simulation build 140件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて470件です。
+command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1681入力です。
+追加1677件と修正した元入力4件で、simulation 1582／elaboration 99です。
+
+主引用がある番号は1319のままで、candidateは0件1167／目標未満764／2件以上551です。
+部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。

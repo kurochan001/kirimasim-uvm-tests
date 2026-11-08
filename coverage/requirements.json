@@ -8837,6 +8837,43 @@
       ]
     },
     {
+      "id": "UVM-USER-PACKAGE-TYPE-ID-HIERARCHY",
+      "clause": "8.2.3.2.4",
+      "statement": {
+        "en": "type_id::create calls in the environment, agent and sequence packages build components and items with the given names and parents and their own types.",
+        "ja": "environment、agent、sequenceの各packageのtype_id::create呼出しは、指定した名前と親を持ち、それぞれ自身の型のcomponentとitemを作る。"
+      },
+      "conditions": {
+        "en": "The environment creates two agents, each agent creates a sequencer and a driver, and a sequence started on each agent creates two items.",
+        "ja": "environmentは2つのagentを作り、各agentはsequencerとdriverを作り、各agentで開始したsequenceは2つのitemを作る。"
+      },
+      "expected": {
+        "en": "The hierarchy has the expected full names and types, and each driver receives items 10 and 11 of its own sequence.",
+        "ja": "階層は期待どおりのfull nameと型を持ち、各driverは自身のsequenceのitem 10と11を受け取る。"
+      },
+      "limitations": {
+        "en": "Uses four original packages compiled from separate files in dependency order (agent, sequence, environment, extension) and one test file; it does not separate compilation units or libraries.",
+        "ja": "依存の順（agent、sequence、environment、extension）に別ファイルからcompileする独自の4 packageと1つのテストファイルを使い、compilation unitやlibraryを分けることはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_pkg_type_id_create_builds_a_hierarchy_from_other_packages_120",
+          "role": "direct",
+          "expected_observations": [
+            "UT: uvm_test_top.env env120",
+            "UT: uvm_test_top.env.a0 agent120 drv driver120",
+            "UT: uvm_test_top.env.a0.drv driver120 item120 10",
+            "UT: started uvm_test_top.env.a0.sqr seq120 s0"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-REGISTRY-OBJECT-CREATE-CONTEXT",
       "clause": "8.2.4.2.4",
       "statement": {
@@ -8913,6 +8950,41 @@
       ]
     },
     {
+      "id": "UVM-USER-PACKAGE-COMPONENT-TYPE-OVERRIDE",
+      "clause": "8.2.3.2.5",
+      "statement": {
+        "en": "A component type override set through type_id to a class of another package applies when a package that does not import that class creates the original type.",
+        "ja": "type_idで別のpackageのclassへ設定したcomponentの型overrideは、そのclassをimportしないpackageが元の型を生成するときに適用される。"
+      },
+      "conditions": {
+        "en": "Before building the environment, the test overrides driver120 with ext_driver120; the agent package creates driver120 through type_id.",
+        "ja": "environmentを作る前に、testはdriver120をext_driver120でoverrideし、agent packageはtype_idでdriver120を生成する。"
+      },
+      "expected": {
+        "en": "Both drivers are ext_driver120, while both agents stay agent120.",
+        "ja": "両driverはext_driver120で、両agentはagent120のままである。"
+      },
+      "limitations": {
+        "en": "Uses four original packages compiled from separate files in dependency order (agent, sequence, environment, extension) and one test file; it does not separate compilation units or libraries.",
+        "ja": "依存の順（agent、sequence、environment、extension）に別ファイルからcompileする独自の4 packageと1つのテストファイルを使い、compilation unitやlibraryを分けることはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_pkg_type_overrides_from_another_package_apply_to_type_id_create_120",
+          "role": "direct",
+          "expected_observations": [
+            "UT: uvm_test_top.env.a0 agent120 drv ext_driver120",
+            "UT: uvm_test_top.env.a1 agent120 drv ext_driver120"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-REGISTRY-OBJECT-TYPE-OVERRIDE",
       "clause": "8.2.4.2.5",
       "statement": {
@@ -8942,6 +9014,42 @@
           "role": "direct",
           "expected_observations": [
             "UT: retained first_item replaced second_item"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-USER-PACKAGE-OBJECT-TYPE-OVERRIDE",
+      "clause": "8.2.4.2.5",
+      "statement": {
+        "en": "An object type override set through type_id to a class of another package applies when a sequence package that does not import that class creates the original item type.",
+        "ja": "type_idで別のpackageのclassへ設定したobjectの型overrideは、そのclassをimportしないsequence packageが元のitem型を生成するときに適用される。"
+      },
+      "conditions": {
+        "en": "The test overrides item120 with ext_item120; the sequence package creates item120 through type_id and sets data 10 and 11.",
+        "ja": "testはitem120をext_item120でoverrideし、sequence packageはtype_idでitem120を生成してdata 10と11を設定する。"
+      },
+      "expected": {
+        "en": "Every delivered item is ext_item120 with unchanged data, and the sequences keep their own type and names.",
+        "ja": "届くitemはすべてdataの変わらないext_item120で、sequenceは自身の型と名前を保つ。"
+      },
+      "limitations": {
+        "en": "Uses four original packages compiled from separate files in dependency order (agent, sequence, environment, extension) and one test file; it does not separate compilation units or libraries.",
+        "ja": "依存の順（agent、sequence、environment、extension）に別ファイルからcompileする独自の4 packageと1つのテストファイルを使い、compilation unitやlibraryを分けることはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_pkg_type_overrides_from_another_package_apply_to_type_id_create_120",
+          "role": "direct",
+          "expected_observations": [
+            "UT: uvm_test_top.env.a0.drv ext_driver120 ext_item120 10",
+            "UT: uvm_test_top.env.a1.drv ext_driver120 ext_item120 11",
+            "UT: started uvm_test_top.env.a0.sqr seq120 s0"
           ]
         }
       ]
@@ -8977,6 +9085,41 @@
           "expected_observations": [
             "UT: selected first_env full env.leaf parent 1",
             "UT: outside base_env full other.leaf parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-USER-PACKAGE-RELATIVE-INSTANCE-OVERRIDE",
+      "clause": "8.2.3.2.6",
+      "statement": {
+        "en": "An instance override set through type_id relative to the test replaces only the matching component that another package creates.",
+        "ja": "testに相対的にtype_idで設定したinstance overrideは、別のpackageが生成するcomponentのうち一致するものだけを置き換える。"
+      },
+      "conditions": {
+        "en": "The test sets an override of agent120 by ext_agent120 for env.a1 relative to itself; the environment package creates a0 and a1 through type_id.",
+        "ja": "testは自身に相対的なenv.a1について、agent120をext_agent120でoverrideし、environment packageはtype_idでa0とa1を生成する。"
+      },
+      "expected": {
+        "en": "a0 stays agent120 and a1 is ext_agent120, whose inherited build still creates driver120.",
+        "ja": "a0はagent120のままで、a1はext_agent120となり、継承したbuildはdriver120を生成する。"
+      },
+      "limitations": {
+        "en": "Uses four original packages compiled from separate files in dependency order (agent, sequence, environment, extension) and one test file; it does not separate compilation units or libraries.",
+        "ja": "依存の順（agent、sequence、environment、extension）に別ファイルからcompileする独自の4 packageと1つのテストファイルを使い、compilation unitやlibraryを分けることはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_pkg_instance_and_name_overrides_cross_package_boundaries_120",
+          "role": "direct",
+          "expected_observations": [
+            "UT: uvm_test_top.env.a0 agent120 drv driver120",
+            "UT: uvm_test_top.env.a1 ext_agent120 drv driver120"
           ]
         }
       ]
@@ -9224,6 +9367,42 @@
           "role": "direct",
           "expected_observations": [
             "UT: type first_item name chosen"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-USER-PACKAGE-TYPE-OVERRIDE-BY-NAME",
+      "clause": "8.3.1.4.2",
+      "statement": {
+        "en": "A by-name type override applies to by-name creation of a sequence declared in another package, keeping the given name, with or without a parent path.",
+        "ja": "名前による型overrideは、別のpackageで宣言したsequenceの名前による生成に、親のpathの有無にかかわらず、指定した名前を保って適用される。"
+      },
+      "conditions": {
+        "en": "The test overrides seq120 with ext_seq120 by name and creates s0 with its own path and s1 with an empty path by the name seq120.",
+        "ja": "testは名前でseq120をext_seq120にoverrideし、seq120という名前でs0を自身のpathで、s1を空のpathで生成する。"
+      },
+      "expected": {
+        "en": "Both sequences are ext_seq120 named s0 and s1, and both drivers receive data 20 and 21.",
+        "ja": "両sequenceはs0とs1という名前のext_seq120で、両driverはdata 20と21を受け取る。"
+      },
+      "limitations": {
+        "en": "Uses four original packages compiled from separate files in dependency order (agent, sequence, environment, extension) and one test file; it does not separate compilation units or libraries.",
+        "ja": "依存の順（agent、sequence、environment、extension）に別ファイルからcompileする独自の4 packageと1つのテストファイルを使い、compilation unitやlibraryを分けることはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_pkg_instance_and_name_overrides_cross_package_boundaries_120",
+          "role": "direct",
+          "expected_observations": [
+            "UT: uvm_test_top.env.a0.drv driver120 item120 20",
+            "UT: started uvm_test_top.env.a0.sqr ext_seq120 s0",
+            "UT: started uvm_test_top.env.a1.sqr ext_seq120 s1"
           ]
         }
       ]
@@ -39961,6 +40140,43 @@
       ]
     },
     {
+      "id": "UVM-USER-PACKAGE-DEFAULT-SEQUENCE-WRAPPER",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "A default sequence given as the wrapper of a sequence from another package is created with the sequencer's full name as context and the wrapper's type name as name, so instance overrides for that path apply.",
+        "ja": "別のpackageのsequenceのwrapperとして与えたdefault sequenceは、sequencerのfull nameを文脈、wrapperの型名を名前として生成されるため、そのpathのinstance overrideが適用される。"
+      },
+      "conditions": {
+        "en": "Both sequencers of the agent package get the wrapper of seq120 for main_phase; the test sets an instance override to ext_seq120 for env.a1.sqr.seq120 relative to itself.",
+        "ja": "agent packageの両sequencerにmain_phaseのseq120のwrapperを与え、testは自身に相対的なenv.a1.sqr.seq120についてext_seq120へのinstance overrideを設定する。"
+      },
+      "expected": {
+        "en": "a0 runs seq120 and a1 runs ext_seq120, both named seq120 and started in the main phase; the drivers receive 10 and 11, and 20 and 21.",
+        "ja": "a0はseq120、a1はext_seq120を実行し、どちらもseq120という名前でmain phaseに開始され、driverは10と11、20と21を受け取る。"
+      },
+      "limitations": {
+        "en": "Uses four original packages compiled from separate files in dependency order (agent, sequence, environment, extension) and one test file; it does not separate compilation units or libraries. The phase name main follows the existing default-sequence profiles.",
+        "ja": "依存の順（agent、sequence、environment、extension）に別ファイルからcompileする独自の4 packageと1つのテストファイルを使い、compilation unitやlibraryを分けることはしない。phase名mainは既存のdefault sequenceのprofileに従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pkg_default_sequence_from_another_package_honors_an_instance_override_120",
+          "role": "direct",
+          "expected_observations": [
+            "UT: started uvm_test_top.env.a0.sqr seq120 seq120",
+            "UT: started uvm_test_top.env.a1.sqr ext_seq120 seq120",
+            "UT: phases main main",
+            "UT: uvm_test_top.env.a1.drv driver120 item120 20"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-RESPONSE-FINISHED-DROP",
       "clause": "15.5.2.9",
       "statement": {
@@ -50401,6 +50617,41 @@
           "role": "direct",
           "expected_observations": [
             "UT: singleton 1 specializations_distinct 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-USER-PACKAGE-STATIC-REGISTRATION",
+      "clause": "8.2.3.2.3",
+      "statement": {
+        "en": "Component and object types declared with utility macros in a package are registered with the factory by static initialization, before run_test and without any code naming them.",
+        "ja": "packageでutility macroを使って宣言したcomponentとobjectの型は、run_testより前に、どのcodeも型を名指ししなくても、静的初期化によってfactoryへ登録される。"
+      },
+      "conditions": {
+        "en": "Two types of the environment package and two of the extension package are never named in the test file; one other type of each package is named. Before run_test, query the factory by the four type names.",
+        "ja": "environment packageの2型とextension packageの2型はテストファイルで名指しせず、各packageの別の1型だけを名指しする。run_testの前に4つの型名でfactoryに問い合わせる。"
+      },
+      "expected": {
+        "en": "All four names are registered, and the wrappers found by name report those type names.",
+        "ja": "4つの名前はすべて登録済みで、名前で見つけたwrapperはその型名を返す。"
+      },
+      "limitations": {
+        "en": "Uses four original packages compiled from separate files in dependency order (agent, sequence, environment, extension) and one test file; it does not separate compilation units or libraries. The chain relies on B.2.1.5, F.3.1.3 and F.4.1.3, and on 1800-2023 6.8 for static class members.",
+        "ja": "依存の順（agent、sequence、environment、extension）に別ファイルからcompileする独自の4 packageと1つのテストファイルを使い、compilation unitやlibraryを分けることはしない。この連鎖はB.2.1.5、F.3.1.3、F.4.1.3と、静的class memberについての1800-2023の6.8に基づく。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_pkg_factory_registers_types_declared_in_other_packages_120",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registered 1 1 1 1",
+            "UT: wrappers named_env120 named_cfg120"
           ]
         }
       ]
@@ -112234,6 +112485,43 @@
       ]
     },
     {
+      "id": "UVM-USER-PACKAGE-CREATE-BY-NAME",
+      "clause": "8.3.1.5",
+      "statement": {
+        "en": "Creation by name returns components and objects of types declared in other packages, with the given names and parent, castable to their base types from the package that declares the base.",
+        "ja": "名前による生成は、別のpackageで宣言した型のcomponentとobjectを、指定した名前と親で返し、それらは基底を宣言したpackageの基底型へcastできる。"
+      },
+      "conditions": {
+        "en": "In build_phase, create a component and an object of each of the never-named types, and an extension agent and item, by name with the test as parent or context.",
+        "ja": "build_phaseで、名指ししない型のcomponentとobjectを1つずつ、extensionのagentとitemを、testを親または文脈として名前で生成する。"
+      },
+      "expected": {
+        "en": "Each object has the requested type and name, the components are children of uvm_test_top, and the extension agent and item cast to agent120 and item120.",
+        "ja": "各objectは要求した型と名前を持ち、componentはuvm_test_topの子で、extensionのagentとitemはagent120とitem120へcastできる。"
+      },
+      "limitations": {
+        "en": "Uses four original packages compiled from separate files in dependency order (agent, sequence, environment, extension) and one test file; it does not separate compilation units or libraries.",
+        "ja": "依存の順（agent、sequence、environment、extension）に別ファイルからcompileする独自の4 packageと1つのテストファイルを使い、compilation unitやlibraryを分けることはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_pkg_factory_registers_types_declared_in_other_packages_120",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component named_env120 uvm_test_top.env",
+            "UT: agent cast 1 ext_agent120 uvm_test_top.agent",
+            "UT: object named_cfg120 cfg",
+            "UT: item cast 1 ext_item120 item"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-FACTORY-AUDIT-VIRTUAL-BASE-CONSTRUCTION",
       "clause": "8.3.1.1",
       "statement": {
@@ -114582,6 +114870,40 @@
             "UT: callback_lifecycle membership 1 both_pre 1 both_post 1 removed_absent 1",
             "UT: callback_lifecycle pre_state 1 post_state 1 ordering 1 running 1 finished 1",
             "UT: callback_state_names first_pre UVM_CORE_PRE_RUN second_pre UVM_CORE_PRE_RUN first_post UVM_CORE_POST_RUN second_post UVM_CORE_POST_RUN"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-USER-PACKAGE-RUN-TEST-PACKAGE-TEST",
+      "clause": "F.7.3.1",
+      "statement": {
+        "en": "run_test creates a test class declared in a package from its type name, as uvm_test_top.",
+        "ja": "run_testは、packageで宣言したtest classを型名から生成し、uvm_test_topとする。"
+      },
+      "conditions": {
+        "en": "The test class sits in a package of the test file that the module only imports; run_test receives its type name.",
+        "ja": "test classは、moduleがimportするだけのテストファイル内のpackageにあり、run_testはその型名を受け取る。"
+      },
+      "expected": {
+        "en": "The created test reports its type name and the full name uvm_test_top.",
+        "ja": "生成したtestは自身の型名とfull name uvm_test_topを返す。"
+      },
+      "limitations": {
+        "en": "Uses four original packages compiled from separate files in dependency order (agent, sequence, environment, extension) and one test file; it does not separate compilation units or libraries.",
+        "ja": "依存の順（agent、sequence、environment、extension）に別ファイルからcompileする独自の4 packageと1つのテストファイルを使い、compilation unitやlibraryを分けることはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_pkg_type_id_create_builds_a_hierarchy_from_other_packages_120",
+          "role": "direct",
+          "expected_observations": [
+            "UT: test hierarchy_test120 uvm_test_top"
           ]
         }
       ]

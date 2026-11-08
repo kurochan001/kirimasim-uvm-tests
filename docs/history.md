@@ -6733,3 +6733,46 @@ target/548 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
 explains why matching conditions do not supply completion.
+
+## 120th expansion: user packages (external review item 5)
+
+The 120th expansion implements the external review's fifth item, user
+packages. Four original packages in `tests/u08/helpers120_pkg/` hold an agent (item, driver,
+sequencer type and agent), a sequence, an environment and extension classes.
+Each test lists them in `:files:` in that order, because 1800-2023 26.3
+requires a package to be compiled before the scopes that import it; the agent
+and sequence packages never import the extension package. Five profiles check
+that utility-macro types in other packages are registered by static
+initialization before run_test, so the factory finds and creates types that no
+code names; that run_test creates a test class declared in a package; that
+type_id::create in the environment, agent and sequence packages builds the
+hierarchy and item flow; that type and instance overrides set through type_id,
+and a by-name type override with creation by name, reach creation in packages
+that do not import the override classes; and that a default-sequence wrapper
+from another package honors an instance override for the sequencer's path.
+All five match seeds 1/73 before and after tagging from the first freeze;
+[the package FAQ](faq.md#q442-what-do-the-user-package-profiles-check) describes them and [the override FAQ](faq.md#q443-why-do-the-by-name-overrides-use-creation-by-name) explains
+why by-name overrides are checked only with creation by name.
+
+Nine new duties cover these conditions. The total is 4150 AI duties, with all
+4141 old objects and 445 assessments unchanged; 2706 tests have direct links,
+158 have controls and 56 are control-only. All 2750 old ordinary records and
+463 old known inputs remain unchanged. Four inputs count as M1 and one as M2.
+The requirement table also corrects rows 15 and 18, which had each missed one
+duty of the 116th expansion.
+
+The suite has 2762 tests (2663 simulation/99 elaboration). Ordinary results
+are 2292 matches: 2198 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 463: 318 runtime seed 1 differences, 140 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 470
+with the seven four-state inputs. The command-line condition keeps 23 fixtures
+(20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
+is added to the ordinary totals. No guest run/filter is added: 1081
+compatible records remain byte-identical and 1681 inputs are unmeasured (1677
+additions/four revised originals; 1582 simulation/99 elaboration).
+
+Primary-focused identifiers remain 1319; candidates are 1167 zero/764 below
+target/551 at least two. All 2062 partial identifiers, actual remaining
+conditions, original milestone targets, human review and scope/denominator
+approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
+explains why matching conditions do not supply completion.

@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4141 AI-drafted requirements, all with direct links to 2701 tests.
-Fifty-six tests have only control links. All 2757 tests have a requirement link.
+contains 4150 AI-drafted requirements, all with direct links to 2706 tests.
+Fifty-six tests have only control links. All 2762 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4141 draft entries span several areas,
+a heading is not an obligation. The 4150 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -81,8 +81,8 @@ references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,167 with zero primary-focus tests, 767 with one,
-and 548 with at least two. It measures test placement only. It does not
+census currently shows 1,167 with zero primary-focus tests, 764 with one,
+and 551 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2757-test
+known difference. It is not a pass or a conformance claim. The current 2762-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2757 reviewed requirement mappings.
+  index is an inventory, not 2762 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -274,23 +274,23 @@ The table retains every catalog root, including context and deferred roots; cont
 | 5 | 181 | 100 | 0 | 12 | 0 |
 | 6 | 170 | 68 | 0 | 19 | 0 |
 | 7 | 91 | 35 | 0 | 20 | 0 |
-| 8 | 83 | 65 | 0 | 12 | 0 |
+| 8 | 90 | 69 | 0 | 12 | 0 |
 | 9 | 141 | 63 | 0 | 22 | 0 |
 | 10 | 169 | 144 | 0 | 29 | 0 |
 | 11 | 38 | 22 | 0 | 4 | 0 |
 | 12 | 330 | 206 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
 | 14 | 230 | 147 | 0 | 17 | 0 |
-| 15 | 132 | 124 | 0 | 18 | 0 |
+| 15 | 134 | 125 | 0 | 18 | 0 |
 | 16 | 281 | 189 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
-| 18 | 941 | 652 | 0 | 63 | 0 |
+| 18 | 942 | 652 | 0 | 63 | 0 |
 | 19 | 203 | 167 | 0 | 24 | 0 |
 | B | 266 | 241 | 0 | 9 | 0 |
 | C | 104 | 74 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
 | E | 114 | 88 | 0 | 20 | 0 |
-| F | 283 | 214 | 0 | 25 | 0 |
+| F | 284 | 214 | 0 | 25 | 0 |
 | G | 47 | 23 | 0 | 4 | 0 |
 | H | 0 | 0 | 0 | 9 | 0 |
 
@@ -298,51 +298,46 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4141 reviews are `ai` and
+Scope is proposed, all 4150 reviews are `ai` and
 the denominator remains unapproved.
 
-The 119th expansion implements the external review's fourth item, DPI
-configurations. Ordinary fixtures build with UVM_NO_DPI, where uvm_is_match
-falls back to SystemVerilog glob matching and regular expressions cannot be
-evaluated. A new runner, `tools/run_verilator_regex.py`, rebuilds the 26
-two-state fixtures listed in `coverage/regex_dpi_variants.txt` with the pinned
-regex DPI and the original command-line VPI bridge, HDL DPI disabled; each
-passes a simplified-notation pattern to a matcher, and all 26 match seeds 1/73
-in this condition. A first configuration without command-line DPI could not
-deliver +UVM_TESTNAME to the five RTL profiles, so the runner enables the
-bridge. The fixtures, expected files and stored records are unchanged, and
-Regression gains a job for the variants; [the DPI FAQ](faq.md#q440-what-do-the-regex-dpi-variants-and-profiles-check) explains the
-condition.
+The 120th expansion implements the external review's fifth item, user
+packages. Four original packages in `tests/u08/helpers120_pkg/` hold an agent (item, driver,
+sequencer type and agent), a sequence, an environment and extension classes.
+Each test lists them in `:files:` in that order, because 1800-2023 26.3
+requires a package to be compiled before the scopes that import it; the agent
+and sequence packages never import the extension package. Five profiles check
+that utility-macro types in other packages are registered by static
+initialization before run_test, so the factory finds and creates types that no
+code names; that run_test creates a test class declared in a package; that
+type_id::create in the environment, agent and sequence packages builds the
+hierarchy and item flow; that type and instance overrides set through type_id,
+and a by-name type override with creation by name, reach creation in packages
+that do not import the override classes; and that a default-sequence wrapper
+from another package honors an instance override for the sequencer's path.
+All five match seeds 1/73 before and after tagging from the first freeze;
+[the package FAQ](faq.md#q442-what-do-the-user-package-profiles-check) describes them and [the override FAQ](faq.md#q443-why-do-the-by-name-overrides-use-creation-by-name) explains
+why by-name overrides are checked only with creation by name.
 
-Five new fixtures select the existing command-line condition and check what
-1800.2 defines only with regular-expression support: POSIX expressions between
-slashes, the simplified plus, star and question mark, literal dots, carets and
-dollar signs (F.3.3.1), regular-expression and plus scopes in the
-configuration and resource databases, regular-expression and plus component
-lookup, and get_arg_matches. Three match both seeds after tagging. Two remain
-known, each in one row, with the pinned library identified as the cause after
-the oracle was frozen: the glob conversion keeps a leading caret and trailing
-dollar sign as anchors, and the default configuration lookup finds field names
-exactly; [the known-difference FAQ](faq.md#q441-why-are-two-regular-expression-profiles-known) explains them. The ordinary runner
-records the five as unlinked builds.
+Nine new duties cover these conditions. The total is 4150 AI duties, with all
+4141 old objects and 445 assessments unchanged; 2706 tests have direct links,
+158 have controls and 56 are control-only. All 2750 old ordinary records and
+463 old known inputs remain unchanged. Four inputs count as M1 and one as M2.
+The requirement table also corrects rows 15 and 18, which had each missed one
+duty of the 116th expansion.
 
-Eight new duties cover these conditions. The total is 4141 AI duties, with all
-4133 old objects and 445 assessments unchanged; 2701 tests have direct links,
-158 have controls and 56 are control-only. All 2745 old ordinary records and
-458 old known inputs remain unchanged. The five inputs count as M1.
-
-The suite has 2757 tests (2658 simulation/99 elaboration). Ordinary results
-are 2287 matches: 2193 runtime inputs at both seeds and 94 compiler rejections.
+The suite has 2762 tests (2663 simulation/99 elaboration). Ordinary results
+are 2292 matches: 2198 runtime inputs at both seeds and 94 compiler rejections.
 Known inputs total 463: 318 runtime seed 1 differences, 140 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 470
-with the seven four-state inputs. The command-line condition has 23 fixtures
+with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
-is added to the ordinary totals. No guest run/filter is added: 1081 compatible
-records remain byte-identical and 1676 inputs are unmeasured (1672
-additions/four revised originals; 1577 simulation/99 elaboration).
+is added to the ordinary totals. No guest run/filter is added: 1081
+compatible records remain byte-identical and 1681 inputs are unmeasured (1677
+additions/four revised originals; 1582 simulation/99 elaboration).
 
-Primary-focused identifiers rise to 1319; candidates are 1167 zero/767 below
-target/548 at least two. All 2062 partial identifiers, actual remaining
+Primary-focused identifiers remain 1319; candidates are 1167 zero/764 below
+target/551 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
 explains why matching conditions do not supply completion.
@@ -762,4 +757,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4141 AI drafts and their direct links do not satisfy that gate.
+The current 4150 AI drafts and their direct links do not satisfy that gate.

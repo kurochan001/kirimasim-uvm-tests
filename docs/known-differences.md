@@ -6,7 +6,7 @@ To locate a result's source, search this page for the filename portion of its te
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2757-test suite and the pinned Accellera UVM
+This describes the current 2762-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -1234,7 +1234,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2287 tests have the `verilator@5.052` oracle tag and 470
+Across the suite, 2292 tests have the `verilator@5.052` oracle tag and 470
 cases are spec-only, seven of them four-state. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -1247,14 +1247,15 @@ observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
 The 470 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the seven four-state cases.
-Default Verilator runs and CI select 2287 tagged checks (2193 runtime, 94 compile rejection). `--all` includes
+Default Verilator runs and CI select 2292 tagged checks (2198 runtime, 94 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 318 cases establish their first difference
 at seed 1, without seed 73 results.
 The 140 simulation builds have no ordinary runtime, including 61 unlinked DPI
 inputs (38 HDL and 23 command-line); [the measured breakdown](results.md#interpretation)
 records the complete categories. Five illegal compiler acceptances remain a
-separate no-runtime condition.
+separate no-runtime condition. The five user-package profiles of the 120th expansion match both seeds and
+add no known difference.
 
 The separate HDL condition has thirty-seven both-seed matches in thirty-eight
 inputs, including four virtual-register/field transfers, six register transfers, eight positive-duration force_time, nine primitive force/release
@@ -1733,7 +1734,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1081 records and 1676 inputs
+records are excluded. The compatible subset has 1081 records and 1681 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1817,8 +1818,8 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The earlier field-configuration filter reduced 1083 compatible records to 1082. The subsequent reraise primary-citation filter reduced 1082 to 1081; this increment retains those records without another filter or guest run, and [the input-identity explanation](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish the two stages.
 
-The suite has 2757 cases, but the kirimasim/Ghost records below cover only
-1081 unchanged current-input cases. The 1676 inputs are unmeasured
+The suite has 2762 cases, but the kirimasim/Ghost records below cover only
+1081 unchanged current-input cases. The 1681 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

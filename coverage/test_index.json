@@ -11029,6 +11029,26 @@
     "uG/test_regex_cmdline_get_arg_matches_119": {
       "primary_clause": "G.1.3.4",
       "inputs_sha256": "9b767056b3dd1d434f79db347e66cd4e48cecb7311407c19704c4121cba3dfc3"
+    },
+    "u08/test_pkg_factory_registers_types_declared_in_other_packages_120": {
+      "primary_clause": "8.2.3.2.3",
+      "inputs_sha256": "aec33c04538190338c5ad5a92ad3a5a399eee8ecdd03270af0c92cbfddd2d09d"
+    },
+    "u08/test_pkg_instance_and_name_overrides_cross_package_boundaries_120": {
+      "primary_clause": "8.2.3.2.6",
+      "inputs_sha256": "685c84b031007fd999921122efcdb01418cb4a6bba4f6148b9004c90fb2f910c"
+    },
+    "u08/test_pkg_type_id_create_builds_a_hierarchy_from_other_packages_120": {
+      "primary_clause": "8.2.3.2.4",
+      "inputs_sha256": "75c0e6df82828b83803e618165ff3e7a51f2294af9ccaae1525f8a4a4b289c82"
+    },
+    "u08/test_pkg_type_overrides_from_another_package_apply_to_type_id_create_120": {
+      "primary_clause": "8.2.3.2.5",
+      "inputs_sha256": "f8927b66b4b69cd7d2b66d0b55e269f1d46910a88dd8fbe4a018024e779d1841"
+    },
+    "u15/test_pkg_default_sequence_from_another_package_honors_an_instance_override_120": {
+      "primary_clause": "15.3.5",
+      "inputs_sha256": "797ae4b8d8d483cef851a370ebc438e34bf62e6674e974d89d87271950277cc2"
     }
   }
 }

@@ -6,24 +6,24 @@
 
 runtime一致、compiler拒否、未測定入力は実行条件が異なるため、件数を併せて読む方法は[結果を読む](reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-09に集約したVerilator記録は2値の2750件すべてを対象にし、4値の7件には記録がありません。他2系統は未変更1081件の記録で、
-1676入力は未測定です。各記録は入力と実行条件を指紋で識別します。
-スイートは22 directoryの2757件で、simulation 2658件とelaboration 99件です。
-milestoneはM1 1183件（1102／81）、M2 632件（625／7）、M3 942件（931／11）で、括弧内はruntime／elaborationです。
-全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし2696件のうち99件は不正elaboration検査であり、HDL-DPI 38件とcommand-line／regex-DPI runtime 23件は別です。
+2026-11-09に集約したVerilator記録は2値の2755件すべてを対象にし、4値の7件には記録がありません。他2系統は未変更1081件の記録で、
+1681入力は未測定です。各記録は入力と実行条件を指紋で識別します。
+スイートは22 directoryの2762件で、simulation 2663件とelaboration 99件です。
+milestoneはM1 1187件（1106／81）、M2 633件（626／7）、M3 942件（931／11）で、括弧内はruntime／elaborationです。
+全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし2701件のうち99件は不正elaboration検査であり、HDL-DPI 38件とcommand-line／regex-DPI runtime 23件は別です。
 
 backendの行は通常条件にも含まれる入力を条件を変えて測定した記録であり、結果を別に数える理由は[実行環境の説明](testing.ja.md#uvmライブラリ)で確認できます。
 
-seed 1／73で一致しても検査系は1件と数え、設定で指定したseedも最初の不一致後には実行されない場合があるため、実行範囲の列の読み方は[seed件数の説明](faq.ja.md#q201-全2757テストを2-seedで実行しましたか)で確認できます。
+seed 1／73で一致しても検査系は1件と数え、設定で指定したseedも最初の不一致後には実行されない場合があるため、実行範囲の列の読み方は[seed件数の説明](faq.ja.md#q201-全2762テストを2-seedで実行しましたか)で確認できます。
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.052・固定版UVM | `pass` 2287件：runtime 2193＋compile拒否94、`known` 463件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
+| Verilator 5.052・固定版UVM | `pass` 2292件：runtime 2198＋compile拒否94、`known` 463件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
 | Verilator 5.052・独自VPI HDL backend | `pass` 37件、`fail` 1件 | 重複する38件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・独自command-line VPI bridge・固定regex DPI | `pass` 20件、`known` 3件 | 重複する23件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・regex DPIとcommand-line DPIで再実行する通常検査系 | `pass` 26件 | `coverage/regex_dpi_variants.txt`による重複する26件の別条件。一致はseed 1／73 |
-| kirimasim・固定版UVM | `unsupported`が1072件、`fail`が9件 | 未変更1081入力。1676入力は未測定 |
-| Ghost・同梱UVM | `pass`が206件、`fail`が875件 | 各seedで未変更1081入力。失敗集合は同じ。1676入力は未測定 |
+| kirimasim・固定版UVM | `unsupported`が1072件、`fail`が9件 | 未変更1081入力。1681入力は未測定 |
+| Ghost・同梱UVM | `pass`が206件、`fail`が875件 | 各seedで未変更1081入力。失敗集合は同じ。1681入力は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
 固定ライブラリはAccellera UVM 2020.3.1、コミット`78c06547a2a0`で、326ファイルを
@@ -101,26 +101,25 @@ frontdoor／backdoorの転送動作の成功は示しません。
 
 ここでの未測定入力は、以前の版を実行していても現在と互換な記録がない入力を指し、再利用前の確認は[Q15](faq.ja.md#q15-過去の結果を現在も使えるかどう確認しますか)で説明しています。
 
-snapshotは[8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8)から2値の元の2745記録を保持し、2026-11-09 JSTにregex-DPI入力5件（M1）をlinkしないbuildとして追加します。4値の7入力には引き続き記録がありません。
+snapshotは[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)から2値の元の2750記録を保持し、2026-11-09 JSTにユーザーpackage入力5件（M1 4件、M2 1件）を追加します。4値の7入力には引き続き記録がありません。
 
 以下のprofileは記載した条件だけを検査し、別の前提の一致で元の差分を成功へ読み替えない理由と台帳のdirect／controlの役割は[要求対応のガイド](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
-119回目は、外部レビューの4番目の項目であるDPIの構成を扱います。通常の検査系はUVM_NO_DPIでbuildし、uvm_is_matchはSystemVerilogのglob照合に戻るため、正規表現を評価できません。
-新しいrunner`tools/run_verilator_regex.py`は、`coverage/regex_dpi_variants.txt`に一覧した2値の26検査系を、固定版のregex DPIと独自のcommand-line VPI bridgeで、HDL DPIを無効にしてbuildし直します。各検査系は照合に簡略表記のpatternを渡し、この条件で26件すべてがseed 1／73で一致しました。
-command-line DPIなしの最初の構成ではRTLの5 profileへ+UVM_TESTNAMEを渡せなかったため、runnerはbridgeを有効にします。検査系、期待ファイル、保存済みの記録は変えず、Regressionに変種のjobを追加しました。条件は[DPIのFAQ](faq.ja.md#q440-regex-dpi変種とprofileは何を検査しますか)で説明しています。
+120回目は、外部レビューの5番目の項目であるユーザーpackageを扱います。`tests/u08/helpers120_pkg/`の独自の4 packageは、agent（item、driver、sequencerの型、agent）、sequence、environment、extensionのclassをそれぞれ持ちます。
+1800-2023の26.3はpackageをimportするscopeより先にそのpackageをcompileすることを求めるため、各テストは`:files:`にこの順で並べ、agentとsequenceのpackageはextensionのpackageをimportしません。
+5 profileは次を検査します。別のpackageのutility macroによる型がrun_testより前に静的初期化で登録され、どのcodeも名指ししない型をfactoryが見つけて生成できること。run_testがpackageで宣言したtest classを生成すること。environment、agent、sequenceの各packageのtype_id::createが階層とitemの流れを作ること。
+type_idで設定した型とinstanceのoverride、名前による生成と組み合わせた名前による型overrideが、override先のclassをimportしないpackageでの生成に届くこと。別のpackageのdefault sequenceのwrapperが、sequencerのpathに対するinstance overrideに従うことです。
+5件とも最初の凍結のまま、tag付けの前後でseed 1／73が一致しました。各profileは[packageのFAQ](faq.ja.md#q442-ユーザーpackageのprofileは何を検査しますか)、名前によるoverrideを名前による生成だけで確かめる理由は[overrideのFAQ](faq.ja.md#q443-名前によるoverrideを名前による生成で確かめるのはなぜですか)で説明しています。
 
-新しい5検査系は既存のcommand-line条件を選び、1800.2が正規表現の対応によってだけ定める動作を検査します。slashで囲むPOSIX式、簡略表記のplus・star・question mark、文字どおりのdot・caret・dollar記号（F.3.3.1）、configuration databaseとresource databaseの正規表現とplusのscope、正規表現とplusによるcomponent検索、get_arg_matchesです。
-3件はtag付け後に両seedで一致しました。2件はそれぞれ1行だけが異なる既知差分で、oracleの凍結後に固定版libraryが原因と特定しました。glob変換が先頭のcaretと末尾のdollar記号をanchorとして残すことと、既定の設定検索がfield名を完全一致で探すことで、[既知差分のFAQ](faq.ja.md#q441-正規表現の2-profileが既知差分なのはなぜですか)で説明しています。通常runnerは5件をlinkしないbuildとして記録します。
+これらの条件を新しい義務9件で扱います。AI義務は4150件で、旧要求4141件と分類445件はすべて同一です。直接対応は2706テスト、control対応は158テスト、controlのみは56テストです。
+元の通常2750記録と旧既知463入力は全て維持します。4入力はM1、1入力はM2に数えます。要求の表では、116回目の義務を1件ずつ数え漏らしていた15と18の行も訂正しました。
 
-これらの条件を新しい義務8件で扱います。AI義務は4141件で、旧要求4133件と分類445件はすべて同一です。直接対応は2701テスト、control対応は158テスト、controlのみは56テストです。
-元の通常2745記録と旧既知458入力は全て維持します。5入力はM1に数えます。
-
-全体は2757テスト（simulation 2658／elaboration 99）です。通常一致は2287件で、runtime両seed 2193入力とcompiler拒否94件です。
+全体は2762テスト（simulation 2663／elaboration 99）です。通常一致は2292件で、runtime両seed 2198入力とcompiler拒否94件です。
 既知は463入力で、runtime seed 1差分318件、simulation build 140件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて470件です。
-command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）で、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1676入力です。
-追加1672件と修正した元入力4件で、simulation 1577／elaboration 99です。
+command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1681入力です。
+追加1677件と修正した元入力4件で、simulation 1582／elaboration 99です。
 
-主引用がある番号は1319に増え、candidateは0件1167／目標未満767／2件以上548です。
+主引用がある番号は1319のままで、candidateは0件1167／目標未満764／2件以上551です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。
 
 kirimasim／Ghost記録は、固定した実行ファイルとseedごとの非公開profileで取得しました。
@@ -129,9 +128,9 @@ kirimasim／Ghost記録は、固定した実行ファイルとseedごとの非�
 
 以前のkirimasim／Ghostの一時的な実行ファイル／profile snapshotは失われており、guest再実行は主張しません。
 歴史的な元fileは1085記録を保持します。以前のfilterでcommand-enum引用、Boolean rerandomization、virtual-field configure引用、reraise主引用の修正入力4件を除外しました。今回は新しいfilterを行いません。
-互換1081記録とfilter metadataをbyte単位で保持し、さらに追加4件で未測定は1676入力（追加1672件・修正した元入力4件）となります。
+互換1081記録とfilter metadataをbyte単位で保持し、さらに追加4件で未測定は1681入力（追加1677件・修正した元入力4件）となります。
 Ghostは各seedでpass 206／fail 875、kirimasimはunsupported 1072／API欠落fail 9のままです。
-直近の除外の出典は`out/thin-one-hundred-sixth-guest-exclusions.json`、現在の範囲は`out/thin-one-hundred-nineteenth-evidence-scope.json`に記録します。
+直近の除外の出典は`out/thin-one-hundred-sixth-guest-exclusions.json`、現在の範囲は`out/thin-one-hundred-twentieth-evidence-scope.json`に記録します。
 
 指紋ごとに、識別する入力が異なります。
 
@@ -150,7 +149,7 @@ SHA-256は記録した内容から計算する識別値であり、1つの識別
 
 合算する前に、次を確認します。
 
-- Verilator IDが現在の2値の全入力を覆い（4値の7入力には記録がない）、guest IDは宣言した1081件の部分集合と一致すること。1676入力IDは未測定のままにすること。
+- Verilator IDが現在の2値の全入力を覆い（4値の7入力には記録がない）、guest IDは宣言した1081件の部分集合と一致すること。1681入力IDは未測定のままにすること。
 - 各記録の`inputs_sha256`が、ランナーの集めた現在のソース、期待出力、関連入力、ライブラリのlockと一致すること。
 - batch間でシミュレータの版、configuration、`runner_sha256`が一致し、`runner_changed`がfalseであること。
 - このスナップショットでは、Verilatorタグ付きの全ケースが`pass`、現在の2値のタグなしケースがすべて`known`であること。
@@ -160,9 +159,9 @@ SHA-256は記録した内容から計算する識別値であり、1つの識別
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
-[要求台帳の案](requirements.ja.md)はAI義務4141件と未評価0番号、部分2062／分類445です。
+[要求台帳の案](requirements.ja.md)はAI義務4150件と未評価0番号、部分2062／分類445です。
 第10章は87／29／0、第18章は393／63／0で、部分契約と元の目標は未完です。
-直接対応2701テスト、他の56テストはcontrol専用です。guestは互換1081入力を保持し、修正した元入力4件を含む1676（simulation 1577／elaboration 99）は未測定です。
+直接対応2706テスト、他の56テストはcontrol専用です。guestは互換1081入力を保持し、修正した元入力4件を含む1681（simulation 1582／elaboration 99）は未測定です。
 範囲と分母は未承認です。
 
 ## 再現と結果の保存
@@ -193,12 +192,12 @@ JSON出力は選択した実行のローカル記録であり、公開されるC
 shardは選んだテストを重複なく分担する単位で、最後のgateは全shardの成功を要求し、検査範囲との関係は[Q268](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)で説明しています。
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト124件、metadata 2757件、要求台帳の案／テスト索引を検査します。
+固定ライブラリの整合性、ツールの単体テスト124件、metadata 2762件、要求台帳の案／テスト索引を検査します。
 Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
 基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Checkの成功は選んだ検査だけの成功です。
 
 [Regression](../.github/workflows/regression.yml)は手動実行と毎週（土曜17:23 UTC）に動きます。
-タグ付き通常検査2287件（seed 1／73のruntime 2193・実行時seedなしのcompiler拒否94）を重複しない20 shard（115件が7、114件が13）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
+タグ付き通常検査2292件（seed 1／73のruntime 2198・実行時seedなしのcompiler拒否94）を重複しない20 shard（115件が7、114件が13）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
 別条件の明示command-line 20件とregex-DPI変種26件はそれぞれ別jobで実行し、gateは3つすべての成功を要求します。新しい要求は実行中のrunを取り消さずに待ちます。
 
 以前の単一Checkはpushごとに全選択を実行していました。分割前の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は150分のjob上限を超え、その後の8 shard版も完了していません。

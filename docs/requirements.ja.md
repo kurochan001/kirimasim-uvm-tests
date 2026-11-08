@@ -7,8 +7,8 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4141件は、すべて2701テストへ直接対応し、
-追加の56テストはcontrol専用です。全2757テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4150件は、すべて2706テストへ直接対応し、
+追加の56テストはcontrol専用です。全2762テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
@@ -32,7 +32,7 @@ control専用テストは補助的な前提を検査するもので、その一�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-4141件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+4150件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -65,7 +65,7 @@ directとcontrolは、義務を直接検査するか、準備や条件の評価�
 catalogのうち主引用がある番号は1319件、どちらかの引用がある番号は2,096件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,167、1件が767、2件以上が548です。
+対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,167、1件が764、2件以上が551です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -86,7 +86,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2757件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2762件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -110,7 +110,7 @@ schemaの版はJSONの項目構成を識別するもので、UVMライブラリ�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2757件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2762件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -214,23 +214,23 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 5 | 181 | 100 | 0 | 12 | 0 |
 | 6 | 170 | 68 | 0 | 19 | 0 |
 | 7 | 91 | 35 | 0 | 20 | 0 |
-| 8 | 83 | 65 | 0 | 12 | 0 |
+| 8 | 90 | 69 | 0 | 12 | 0 |
 | 9 | 141 | 63 | 0 | 22 | 0 |
 | 10 | 169 | 144 | 0 | 29 | 0 |
 | 11 | 38 | 22 | 0 | 4 | 0 |
 | 12 | 330 | 206 | 0 | 45 | 0 |
 | 13 | 153 | 58 | 0 | 21 | 0 |
 | 14 | 230 | 147 | 0 | 17 | 0 |
-| 15 | 132 | 124 | 0 | 18 | 0 |
+| 15 | 134 | 125 | 0 | 18 | 0 |
 | 16 | 281 | 189 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
-| 18 | 941 | 652 | 0 | 63 | 0 |
+| 18 | 942 | 652 | 0 | 63 | 0 |
 | 19 | 203 | 167 | 0 | 24 | 0 |
 | B | 266 | 241 | 0 | 9 | 0 |
 | C | 104 | 74 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
 | E | 114 | 88 | 0 | 20 | 0 |
-| F | 283 | 214 | 0 | 25 | 0 |
+| F | 284 | 214 | 0 | 25 | 0 |
 | G | 47 | 23 | 0 | 4 | 0 |
 | H | 0 | 0 | 0 | 9 | 0 |
 
@@ -238,24 +238,23 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
 部分2062識別子は残る義務と適用条件を[完了条件](#m4の残作業と承認)に従って確認する必要があります。
-範囲は提案、4141件のレビューはすべて`ai`、分母は未承認です。
+範囲は提案、4150件のレビューはすべて`ai`、分母は未承認です。
 
-119回目は、外部レビューの4番目の項目であるDPIの構成を扱います。通常の検査系はUVM_NO_DPIでbuildし、uvm_is_matchはSystemVerilogのglob照合に戻るため、正規表現を評価できません。
-新しいrunner`tools/run_verilator_regex.py`は、`coverage/regex_dpi_variants.txt`に一覧した2値の26検査系を、固定版のregex DPIと独自のcommand-line VPI bridgeで、HDL DPIを無効にしてbuildし直します。各検査系は照合に簡略表記のpatternを渡し、この条件で26件すべてがseed 1／73で一致しました。
-command-line DPIなしの最初の構成ではRTLの5 profileへ+UVM_TESTNAMEを渡せなかったため、runnerはbridgeを有効にします。検査系、期待ファイル、保存済みの記録は変えず、Regressionに変種のjobを追加しました。条件は[DPIのFAQ](faq.ja.md#q440-regex-dpi変種とprofileは何を検査しますか)で説明しています。
+120回目は、外部レビューの5番目の項目であるユーザーpackageを扱います。`tests/u08/helpers120_pkg/`の独自の4 packageは、agent（item、driver、sequencerの型、agent）、sequence、environment、extensionのclassをそれぞれ持ちます。
+1800-2023の26.3はpackageをimportするscopeより先にそのpackageをcompileすることを求めるため、各テストは`:files:`にこの順で並べ、agentとsequenceのpackageはextensionのpackageをimportしません。
+5 profileは次を検査します。別のpackageのutility macroによる型がrun_testより前に静的初期化で登録され、どのcodeも名指ししない型をfactoryが見つけて生成できること。run_testがpackageで宣言したtest classを生成すること。environment、agent、sequenceの各packageのtype_id::createが階層とitemの流れを作ること。
+type_idで設定した型とinstanceのoverride、名前による生成と組み合わせた名前による型overrideが、override先のclassをimportしないpackageでの生成に届くこと。別のpackageのdefault sequenceのwrapperが、sequencerのpathに対するinstance overrideに従うことです。
+5件とも最初の凍結のまま、tag付けの前後でseed 1／73が一致しました。各profileは[packageのFAQ](faq.ja.md#q442-ユーザーpackageのprofileは何を検査しますか)、名前によるoverrideを名前による生成だけで確かめる理由は[overrideのFAQ](faq.ja.md#q443-名前によるoverrideを名前による生成で確かめるのはなぜですか)で説明しています。
 
-新しい5検査系は既存のcommand-line条件を選び、1800.2が正規表現の対応によってだけ定める動作を検査します。slashで囲むPOSIX式、簡略表記のplus・star・question mark、文字どおりのdot・caret・dollar記号（F.3.3.1）、configuration databaseとresource databaseの正規表現とplusのscope、正規表現とplusによるcomponent検索、get_arg_matchesです。
-3件はtag付け後に両seedで一致しました。2件はそれぞれ1行だけが異なる既知差分で、oracleの凍結後に固定版libraryが原因と特定しました。glob変換が先頭のcaretと末尾のdollar記号をanchorとして残すことと、既定の設定検索がfield名を完全一致で探すことで、[既知差分のFAQ](faq.ja.md#q441-正規表現の2-profileが既知差分なのはなぜですか)で説明しています。通常runnerは5件をlinkしないbuildとして記録します。
+これらの条件を新しい義務9件で扱います。AI義務は4150件で、旧要求4141件と分類445件はすべて同一です。直接対応は2706テスト、control対応は158テスト、controlのみは56テストです。
+元の通常2750記録と旧既知463入力は全て維持します。4入力はM1、1入力はM2に数えます。要求の表では、116回目の義務を1件ずつ数え漏らしていた15と18の行も訂正しました。
 
-これらの条件を新しい義務8件で扱います。AI義務は4141件で、旧要求4133件と分類445件はすべて同一です。直接対応は2701テスト、control対応は158テスト、controlのみは56テストです。
-元の通常2745記録と旧既知458入力は全て維持します。5入力はM1に数えます。
-
-全体は2757テスト（simulation 2658／elaboration 99）です。通常一致は2287件で、runtime両seed 2193入力とcompiler拒否94件です。
+全体は2762テスト（simulation 2663／elaboration 99）です。通常一致は2292件で、runtime両seed 2198入力とcompiler拒否94件です。
 既知は463入力で、runtime seed 1差分318件、simulation build 140件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて470件です。
-command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）で、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1676入力です。
-追加1672件と修正した元入力4件で、simulation 1577／elaboration 99です。
+command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1681入力です。
+追加1677件と修正した元入力4件で、simulation 1582／elaboration 99です。
 
-主引用がある番号は1319に増え、candidateは0件1167／目標未満767／2件以上548です。
+主引用がある番号は1319のままで、candidateは0件1167／目標未満764／2件以上551です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
@@ -514,4 +513,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる4141要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる4150要求案と直接の対応は、その条件を満たしていません。

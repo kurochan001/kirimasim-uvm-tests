@@ -1,0 +1,6 @@
+UT: registered 1 1 1 1
+UT: wrappers named_env120 named_cfg120
+UT: component named_env120 uvm_test_top.env
+UT: agent cast 1 ext_agent120 uvm_test_top.agent
+UT: object named_cfg120 cfg
+UT: item cast 1 ext_item120 item
