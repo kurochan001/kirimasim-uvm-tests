@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_config_db_wait_modified_waits_for_creation.expected
 */
+// What it checks:
+// wait_modified blocks until a setting affecting its selected field is
+// applied.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.2.4 (UVM-CONFIG-WAIT-MODIFIED) gives the rule above.
+// Setup: Start a waiter before replacing or first creating the setting, with
+// an unrelated write first. Expected: The unrelated write leaves the waiter
+// blocked; the matching write wakes it and exposes value 58.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Start the waiter before any update. An unrelated write must not wake
 // it. A watchdog turns a missing notification into a bounded failure.
 

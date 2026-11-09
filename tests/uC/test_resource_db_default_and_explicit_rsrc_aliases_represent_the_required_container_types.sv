@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_db_default_and_explicit_rsrc_aliases_represent_the_required_container_types.expected
 */
+// What it checks:
+// 1. The resource DB defaults its type parameter to uvm_object.
+// 2. The DB rsrc_t alias uses the same T as uvm_resource#(T).
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.3.2.1 (UVM-RESOURCE-AUDIT-DB-DEFAULT-TYPE) gives rule 1
+//    above. Setup: Concrete resources are created through DB aliases, assigned
+//    both directions without casts and written/read with original object/int
+//    payloads. Expected: The default rsrc_t alias is statically identical to
+//    uvm_resource#(uvm_object) and stores the original token handle.
+// 2. 1800.2-2020 C.3.2.2 (UVM-RESOURCE-AUDIT-DB-RESOURCE-ALIAS) gives rule 2
+//    above. Setup: Concrete resources are created through DB aliases, assigned
+//    both directions without casts and written/read with original object/int
+//    payloads. Expected: Default-object and explicit-int aliases pass
+//    bidirectional exact receiver assignments and retain their selected
+//    values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_db_default_and_explicit_rsrc_aliases_represent_the_required_container_types;
   import uvm_pkg::*;
   class token_type extends uvm_object;

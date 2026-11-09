@@ -12,6 +12,42 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_db_named_default_and_anonymous_entries_retain_typed_values_and_lookup_identity.expected
 */
+// What it checks:
+// 1. set creates a named typed resource with the requested value/scope.
+// 2. set_default creates an unwritten resource using its type default.
+// 3. set_anonymous creates an unnamed typed resource retrievable by
+//    scope/type.
+// 4. The typed DB name getter returns the original matching resource handle.
+// 5. The typed DB type getter retrieves the selected visible resource.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.3.2.3.1 (UVM-RESOURCE-AUDIT-DB-SET-CREATE) gives rule 1
+//    above. Setup: Distinct scopes contain a named int, an unwritten two-state
+//    bit-vector default and an anonymous int. Expected: The named value is 58,
+//    default bits are zero, anonymous value is 59 with an empty name, and
+//    typed/name getters preserve identity where both apply.
+// 2. 1800.2-2020 C.3.2.3.2 (UVM-RESOURCE-AUDIT-DB-SET-DEFAULT) gives rule 2
+//    above. Setup: Distinct scopes contain a named int, an unwritten two-state
+//    bit-vector default and an anonymous int. Expected: The named value is 58,
+//    default bits are zero, anonymous value is 59 with an empty name, and
+//    typed/name getters preserve identity where both apply.
+// 3. 1800.2-2020 C.3.2.3.3 (UVM-RESOURCE-AUDIT-DB-SET-ANONYMOUS) gives rule 3
+//    above. Setup: Distinct scopes contain a named int, an unwritten two-state
+//    bit-vector default and an anonymous int. Expected: The named value is 58,
+//    default bits are zero, anonymous value is 59 with an empty name, and
+//    typed/name getters preserve identity where both apply.
+// 4. 1800.2-2020 C.3.2.3.4 (UVM-RESOURCE-AUDIT-DB-GET-NAME) gives rule 4
+//    above. Setup: Distinct scopes contain a named int, an unwritten two-state
+//    bit-vector default and an anonymous int. Expected: The named value is 58,
+//    default bits are zero, anonymous value is 59 with an empty name, and
+//    typed/name getters preserve identity where both apply.
+// 5. 1800.2-2020 C.3.2.3.5 (UVM-RESOURCE-AUDIT-DB-GET-TYPE) gives rule 5
+//    above. Setup: Distinct scopes contain a named int, an unwritten two-state
+//    bit-vector default and an anonymous int. Expected: The named value is 58,
+//    default bits are zero, anonymous value is 59 with an empty name, and
+//    typed/name getters preserve identity where both apply.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_db_named_default_and_anonymous_entries_retain_typed_values_and_lookup_identity;
   import uvm_pkg::*;
   typedef bit [15:0] word_type;

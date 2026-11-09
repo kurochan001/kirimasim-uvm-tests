@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle.expected
 */
+// What it checks:
+// 1. A base-typed regex lookup dispatches to the original override with its
+//    exact arguments.
+// 2. A base-typed scope lookup dispatches to the original override with its
+//    exact argument.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.4.4.7 (UVM-RESOURCE-COLLECTION-VIRTUAL-REGEX) gives rule
+//    1 above. Setup: An original pool extension implements the printed virtual
+//    signatures with identical formal names and returns its own live queue.
+//    Expected: One call, exact argument strings and the original returned
+//    queue are observed.
+// 2. 1800.2-2020 C.2.4.4.8 (UVM-RESOURCE-COLLECTION-VIRTUAL-SCOPE) gives rule
+//    2 above. Setup: An original pool extension implements the printed virtual
+//    signatures with identical formal names and returns its own live queue.
+//    Expected: One call, exact argument strings and the original returned
+//    queue are observed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle;
   import uvm_pkg::*;
   // Original overrides observe dispatch, not collection algorithms.

@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_sort_orders_distinct_precedences_in_the_supplied_queue.expected
 */
+// What it checks:
+// 1. Sorting places selected distinct precedences in descending order.
+// 2. Sorting uses the selected current precedence values after a change.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.4.4.3 (UVM-RESOURCE-COLLECTION-SORT-DESCENDING) gives
+//    rule 1 above. Setup: Register three resources, assign explicit distinct
+//    precedences and pass a deliberately unsorted queue to the static helper.
+//    Expected: All three handles remain and order is 93,17,0.
+// 2. 1800.2-2020 C.2.4.4.3 (UVM-RESOURCE-COLLECTION-SORT-CHANGED) gives rule 2
+//    above. Setup: Register three resources, assign explicit distinct
+//    precedences and pass a deliberately unsorted queue to the static helper.
+//    Expected: Changing the former minimum to 101 moves it ahead of 93 and 17.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_sort_orders_distinct_precedences_in_the_supplied_queue;
   import uvm_pkg::*;
   initial begin

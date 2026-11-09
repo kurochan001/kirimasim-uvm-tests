@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_base_legal_extensions_preserve_default_explicit_names_virtual_type_handles.expected
 */
+// What it checks:
+// A concrete resource-base extension implementing the listed pure type hook
+// can preserve omitted/explicit constructor names.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.3.2.1 (UVM-RESOURCE-AUDIT-BASE-CONSTRUCTOR) gives the rule
+// above. Setup: Two original direct resource-base extensions supply
+// get_type_handle: one calls the base constructor without a name and the other
+// passes an explicit name, without unlisted compatibility helpers. Expected:
+// The declared extension compiles and reports the empty/default and named
+// instances with object ancestry and original virtual-hook dispatch.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use the prose's unnamed default; the printed prototype has a stray comma.
 module
   test_resource_base_legal_extensions_preserve_default_explicit_names_virtual_type_handles;

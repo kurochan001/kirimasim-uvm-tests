@@ -13,6 +13,15 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_config_db_build_hierarchy_precedence.expected
 */
+// What it checks:
+// During build, a setting from a higher hierarchy level has higher precedence.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.2.1 (UVM-CONFIG-BUILD-PRECEDENCE) gives the rule above.
+// Setup: Different hierarchy levels supply conflicting integer settings during
+// build. Expected: Lookup finds the higher-precedence value 84.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // During build, a higher context takes precedence. The child writes later
 // from a lower context, then reads the value installed by the test.
 

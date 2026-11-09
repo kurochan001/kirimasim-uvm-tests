@@ -10875,7 +10875,7 @@
     },
     {
       "test": "uC/test_regex_config_db_scope_and_field_119",
-      "inputs_sha256": "6182bd36d580847bc815c196713592fa4a974591d63635da31cc6547edfa9cc3",
+      "inputs_sha256": "c86cb7a8dd1d267b9d230a56988df8d17258fb52e591fddf0cd69f39238cd52d",
       "kind": "build",
       "condition": "cmdline",
       "cause": "library",
@@ -10902,7 +10902,7 @@
     },
     {
       "test": "uC/test_regex_resource_db_scope_119",
-      "inputs_sha256": "da6773f91357b8c26b0bd4bf095d929b7cf2ad8ea711718b4b610baa722a4c26",
+      "inputs_sha256": "dc5ddef6f0819a3a6e5c5e11b9352b80330b3dcd09a037cba5e195d63f343363",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -10919,7 +10919,7 @@
     },
     {
       "test": "uC/test_resource_base_legal_extensions_preserve_default_explicit_names_virtual_type_handles",
-      "inputs_sha256": "7c12f25a8390fe2ff7980aff892145e4942b209c63e5108195d38a21542289f9",
+      "inputs_sha256": "5d2a1e01356555ad4053ccd14a19a24617e2fb6275a495c3f4a096f98d86afee",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -10945,7 +10945,7 @@
     },
     {
       "test": "uC/test_resource_db_default_type_selects_the_highest_object_container",
-      "inputs_sha256": "cbb48e0d099b0f5554923364952ad0ecba1f2e240ee73cf4731fed5104df3875",
+      "inputs_sha256": "db42e6e3526cba663464d5ee4f08ac68b96d6ffccf06f8e7f0e6114635e27e75",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -10971,7 +10971,7 @@
     },
     {
       "test": "uC/test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types",
-      "inputs_sha256": "15e3dc72b97324c33dc29880ec5c1b4383fc4e28e8ecbab77771b29450dfd334",
+      "inputs_sha256": "88fbb5c8445f5ca231af1594436bcb2e0298e775c626b8f40d669743003a8f33",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -10997,7 +10997,7 @@
     },
     {
       "test": "uC/test_resource_db_typed_highest_precedence_returns_the_first_matching_maximum",
-      "inputs_sha256": "648808a4bf930f2494c782d27ac285ab363ebd5f48f660143daf9a2b7b80e1ee",
+      "inputs_sha256": "d541e94280d2ec91fab01dcfbeb56a91dad2a2a7731c36379fb18f556c3a9594",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -11023,7 +11023,7 @@
     },
     {
       "test": "uC/test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority",
-      "inputs_sha256": "b026c554d366ddd3f1f1e240ace9f55ee4dae17c4ea843884f75b2d314b41978",
+      "inputs_sha256": "c1254a68fd9023da2721acd1f0586b8f9374228ad23064b459fba7ad106e3581",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -11054,7 +11054,7 @@
     },
     {
       "test": "uC/test_resource_pool_name_lookup_filters_type_and_scope_and_respects_missing_report_controls",
-      "inputs_sha256": "1962fe443cf418f522d58ff398f31ba566cc7acb3e2b5c17c7c130996ce2cf27",
+      "inputs_sha256": "ad9b61a91a19fa7ee041aea98a6e948d989037e886e231cb2bcc2667a9bd605c",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -11084,7 +11084,7 @@
     },
     {
       "test": "uC/test_resource_pool_precedence_changes_name_selection_but_not_type_queue_priority",
-      "inputs_sha256": "f00daf4252f08a35468c7895001f3fe703ae20b533f5c25faf62edfbc7cc3a62",
+      "inputs_sha256": "0e894a8564502f50a0754ca8d1e6accc1a91f761ee52fded424cf2ede08f10ad",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -11115,7 +11115,7 @@
     },
     {
       "test": "uC/test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order",
-      "inputs_sha256": "f4c7cd69dd0d5f9dacd75a67d88520ca62d675d416678eab84c54c4bc53a61ac",
+      "inputs_sha256": "2ddbf339fc5af1489e2d918d00743842fe7577bc1424f873578a793c41130434",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -11141,7 +11141,7 @@
     },
     {
       "test": "uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle",
-      "inputs_sha256": "77b4dcbcd5d12074c28e0bf6fb9a104a88dfe0dd61d60b6f7aea01c532234eef",
+      "inputs_sha256": "c1445aa6b7bddbfe46a6f16d1da77f2399ff8f367008f450d185251432f80809",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -11172,7 +11172,7 @@
     },
     {
       "test": "uC/test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule",
-      "inputs_sha256": "6d3b5fa382e310df2bbdef40d260c216192b33610a17f0d0dcf4055423de4fda",
+      "inputs_sha256": "e7b0fb65cf8ee31c81e032a876c29c125e63ecd14cba69960d2f4331e27cb244",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {

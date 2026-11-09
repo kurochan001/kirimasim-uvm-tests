@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_config_db_relative_and_absolute_lookup.expected
 */
+// What it checks:
+// Configuration scope combines context and instance path and supports
+// simplified scope patterns.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.2.1 (UVM-CONFIG-SCOPE-MATCH) gives the rule above. Setup:
+// Use relative/absolute paths, a descendant glob and a one-character pattern
+// with literal field names. Expected: Selected scopes resolve the configured
+// value; unrelated paths and the longer one-character mismatch do not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A context plus a relative path names the same setting as its absolute
 // component path. An unrelated component does not match that exact scope.
 

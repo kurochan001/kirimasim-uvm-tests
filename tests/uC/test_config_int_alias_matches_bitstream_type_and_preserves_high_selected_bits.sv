@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_config_int_alias_matches_bitstream_type_and_preserves_high_selected_bits.expected
 */
+// What it checks:
+// The integer config alias is the bitstream specialization.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.3.1 (UVM-RESOURCE-COLLECTION-CONFIG-INT-ALIAS) gives the
+// rule above. Setup: Compare exact type identities and perform actual
+// cross-spelling set/get operations using selected values and fresh scopes.
+// Expected: Exact type names agree and both alias-to-explicit routes preserve
+// selected bits above 64.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_config_int_alias_matches_bitstream_type_and_preserves_high_selected_bits;
   import uvm_pkg::*;
   initial begin

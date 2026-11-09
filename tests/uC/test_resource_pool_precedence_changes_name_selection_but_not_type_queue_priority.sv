@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_precedence_changes_name_selection_but_not_type_queue_priority.expected
 */
+// What it checks:
+// Under the local-pool interpretation, numeric precedence belongs to the
+// selected pool context while type priority is retained.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.4.5 (UVM-RESOURCE-AUDIT-LOCAL-POOL-PRECEDENCE) gives the
+// rule above. Setup: Earlier/later same-name int resources receive precedence
+// three/nine in an explicit global or directly allocated pool; type
+// collections retain insertion priority. Expected: Name lookup returns the
+// later maximum while type lookup and its collection retain the first
+// resource.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Type selection follows C.2.4.5 and the individual first-queue rule;
 // the broader lookup introduction's highest-precedence wording conflicts.
 // This local pool retains its own precedence context. An independent

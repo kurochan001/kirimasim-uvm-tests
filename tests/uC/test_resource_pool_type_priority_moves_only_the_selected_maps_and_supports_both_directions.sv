@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_type_priority_moves_only_the_selected_maps_and_supports_both_directions.expected
 */
+// What it checks:
+// type priority moves a resource to the selected map front/back and preserves
+// any unselected map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.4.5.1 (UVM-RESOURCE-AUDIT-PRIORITY-TYPE) gives the rule
+// above. Setup: Two equal-precedence resources share a name/type; the later
+// one is moved HIGH then LOW. Expected: HIGH selects the later resource only
+// in the specified maps; LOW restores the first resource in both views.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_type_priority_moves_only_the_selected_maps_and_supports_both_directions;
   import uvm_pkg::*;
   initial begin

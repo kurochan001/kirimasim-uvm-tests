@@ -12,6 +12,46 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_name_lookup_filters_type_and_scope_and_respects_missing_report_controls.expected
 */
+// What it checks:
+// 1. Name lookup combines exact name, scope visibility and optional type
+//    filtering.
+// 2. Missing-name lookup warns with default rpterr and suppresses warnings
+//    when zero is explicit.
+// 3. An empty name or absent matching resources produces an empty name-lookup
+//    queue.
+// 4. Type lookup returns a queue matching the type token and visible scope.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.4.4.1 (UVM-RESOURCE-AUDIT-LOOKUP-NAME-FILTER) gives rule
+//    1 above. Setup: Int/string resources share a name and simplified scope.
+//    Null/int type filters, a foreign scope, empty/missing names and
+//    default/explicit reporting flags are exercised. Expected: Unchecked type
+//    returns both original handles; int filtering returns one, hidden
+//    type/empty/missing lookups are empty, and warning behavior follows
+//    rpterr.
+// 2. 1800.2-2020 C.2.4.4.1 (UVM-RESOURCE-AUDIT-LOOKUP-NAME-DIAGNOSTIC) gives
+//    rule 2 above. Setup: Int/string resources share a name and simplified
+//    scope. Null/int type filters, a foreign scope, empty/missing names and
+//    default/explicit reporting flags are exercised. Expected: Unchecked type
+//    returns both original handles; int filtering returns one, hidden
+//    type/empty/missing lookups are empty, and warning behavior follows
+//    rpterr.
+// 3. 1800.2-2020 C.2.4.4.1 (UVM-RESOURCE-AUDIT-LOOKUP-NAME-EMPTY) gives rule 3
+//    above. Setup: Int/string resources share a name and simplified scope.
+//    Null/int type filters, a foreign scope, empty/missing names and
+//    default/explicit reporting flags are exercised. Expected: Unchecked type
+//    returns both original handles; int filtering returns one, hidden
+//    type/empty/missing lookups are empty, and warning behavior follows
+//    rpterr.
+// 4. 1800.2-2020 C.2.4.4.5 (UVM-RESOURCE-AUDIT-LOOKUP-TYPE-COLLECTION) gives
+//    rule 4 above. Setup: Int/string resources share a name and simplified
+//    scope. Null/int type filters, a foreign scope, empty/missing names and
+//    default/explicit reporting flags are exercised. Expected: Unchecked type
+//    returns both original handles; int filtering returns one, hidden
+//    type/empty/missing lookups are empty, and warning behavior follows
+//    rpterr.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Queue signatures/collection prose govern lookup_type despite its
 // conflicting convenience-method sentence about a single highest resource.
 module test_resource_pool_name_lookup_filters_type_and_scope_and_respects_missing_report_controls;

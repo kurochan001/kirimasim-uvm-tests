@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_scope_replacement_updates_name_type_visibility_no_duplicate_entries.expected
 */
+// What it checks:
+// 1. Scope matching uses the stored scope expression against the current
+//    lookup scope.
+// 2. Scope insertion registers both maps and replacing an existing scope
+//    changes its visibility without duplicate entries.
+// 3. A registered scope query returns the stored text and true.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.4.3 (UVM-RESOURCE-AUDIT-POOL-SCOPE-MATCH-DIRECTION) gives
+//    rule 1 above. Setup: One original resource moves from old58.* to new58.*
+//    in a directly constructed pool and fresh name/type collections are
+//    queried. Expected: The old scope loses both views; the new scope contains
+//    the original handle once per map and get_scope returns the new text.
+// 2. 1800.2-2020 C.2.4.3.1 (UVM-RESOURCE-AUDIT-POOL-SCOPE-INSERT-REPLACE)
+//    gives rule 2 above. Setup: One original resource moves from old58.* to
+//    new58.* in a directly constructed pool and fresh name/type collections
+//    are queried. Expected: The old scope loses both views; the new scope
+//    contains the original handle once per map and get_scope returns the new
+//    text.
+// 3. 1800.2-2020 C.2.4.3.5 (UVM-RESOURCE-AUDIT-POOL-SCOPE-GET) gives rule 3
+//    above. Setup: One original resource moves from old58.* to new58.* in a
+//    directly constructed pool and fresh name/type collections are queried.
+//    Expected: The old scope loses both views; the new scope contains the
+//    original handle once per map and get_scope returns the new text.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_resource_pool_scope_replacement_updates_name_type_visibility_no_duplicate_entries;
   import uvm_pkg::*;

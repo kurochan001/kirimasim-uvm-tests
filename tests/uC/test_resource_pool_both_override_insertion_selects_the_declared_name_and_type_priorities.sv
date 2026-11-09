@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_both_override_insertion_selects_the_declared_name_and_type_priorities.expected
 */
+// What it checks:
+// both override insertion uses the prescribed high/low name/type priorities.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.4.3.2 (UVM-RESOURCE-AUDIT-OVERRIDE-BOTH) gives the rule
+// above. Setup: A normal same-name/type resource is inserted first and a
+// second one is added by the selected override API. Expected: The second
+// resource wins exactly the maps specified for the override while other maps
+// retain the first.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_both_override_insertion_selects_the_declared_name_and_type_priorities;
   import uvm_pkg::*;
   initial begin

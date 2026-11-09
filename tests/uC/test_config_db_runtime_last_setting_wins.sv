@@ -13,6 +13,17 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_config_db_runtime_last_setting_wins.expected
 */
+// What it checks:
+// A later runtime setting can supersede an earlier higher-context build
+// setting.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.2.1 (UVM-CONFIG-RUNTIME-PRECEDENCE) gives the rule above.
+// Setup: A child overwrites the field after build, using default runtime
+// precedence. Expected: Lookup changes from build value 84 to runtime value
+// 12.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // After build, a setting uses default precedence. A child runtime write
 // can replace the earlier higher-context build value. Execute in one task.
 

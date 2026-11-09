@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_read_only_failure_does_not_notify_a_pending_modification_waiter.expected
 */
+// What it checks:
+// A rejected read-only write does not modify storage or release a pending
+// modification waiter.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.5.4.2 (UVM-RESOURCE-AUDIT-REJECTED-WRITE-NO-NOTIFY) gives
+// the rule above. Setup: set_default creates a fresh bit-vector resource
+// without a write; positive delays separate waiter start, equal/rejected write
+// and changed-write observations. Expected: ERROR is captured, the zero value
+// remains and the waiter stays pending.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_read_only_failure_does_not_notify_a_pending_modification_waiter;
   import uvm_pkg::*;
   typedef bit [7:0] word_type;

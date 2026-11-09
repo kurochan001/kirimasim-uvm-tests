@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_config_db_same_field_updates_are_scope_local.expected
 */
+// What it checks:
+// Updating one configuration key replaces that setting without overwriting
+// other keys.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.2.1 (UVM-CONFIG-UPDATE-KEY) gives the rule above. Setup:
+// Repeat set at one context/scope/field while keeping another field or exact
+// scope. Expected: The selected value changes and independent fields/scopes
+// retain their values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two literal scopes use the same field name. Updating one setting
 // replaces only that scope value, leaving the second scope independently set.
 

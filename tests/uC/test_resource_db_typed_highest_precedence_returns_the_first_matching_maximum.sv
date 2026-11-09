@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_db_typed_highest_precedence_returns_the_first_matching_maximum.expected
 */
+// What it checks:
+// Typed maximum selection returns the first matching maximum in the supplied
+// queue.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.3.2.3.10 (UVM-RESOURCE-COLLECTION-TYPED-FIRST-TIE) gives the
+// rule above. Setup: Construct original resource queues with explicit
+// global-pool precedences, mixed specializations and retained live handles.
+// Expected: Reversing the two matching maximum handles reverses the selected
+// handle despite a larger wrong-type entry.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_db_typed_highest_precedence_returns_the_first_matching_maximum;
   import uvm_pkg::*;
   initial begin

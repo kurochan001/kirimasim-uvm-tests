@@ -6856,279 +6856,279 @@
     },
     "uC/test_config_db_build_hierarchy_precedence": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "2a8de27160e338cc0bc61e27aa355338c655bf5b1a5b695e1e0f69a560aab08a"
+      "inputs_sha256": "c23466d7e40ec1d38fd5c56e4c5b716bd592f5cc17e8f37ed8813ccbda4c6bc7"
     },
     "uC/test_config_db_exists_checks_scope_and_field": {
       "primary_clause": "C.4.2.2.3",
-      "inputs_sha256": "1a871f4242a288754ef8c83a253fa67dafe7ad35fe4e1b35003f448b869af798"
+      "inputs_sha256": "a59aa3ad68e20447c0674780c98d7ef7a405603bc5dcde2d98d46f5e56fc0dad"
     },
     "uC/test_config_db_exists_spell_check_preserves_result": {
       "primary_clause": "C.4.2.2.3",
-      "inputs_sha256": "2134b52ad07182693863eba2b68a9fd2b3dc10f03909a055189d32f5fbbc947d"
+      "inputs_sha256": "5c2e04c1713f77e98cf369be8187f15f3a1bb98ff9b8c6f60977cad2ad4792e8"
     },
     "uC/test_config_db_inherits_the_matching_resource_database_static_interface": {
       "primary_clause": "C.4.2.1",
-      "inputs_sha256": "cabcbcb507b32e4e81d70f7f706317af69922aac4c04694426e9e10aa3912c1d"
+      "inputs_sha256": "750d24d3b1f0aec113dad7d086cdd17c50bd2cb84aa5856573ba643d07644250"
     },
     "uC/test_config_db_null_object_value_is_a_present_setting": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "7eba0221ae9f22c8ac1d7833aee6b46223a36c7b4bf1f018c3b51b4c50ddbee6"
+      "inputs_sha256": "725a2571211236f17acbdfcac29f80eb4d78349dfd4932553a4736e511b1c823"
     },
     "uC/test_config_db_object_replacement_keeps_old_handles_valid": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "eca2c3457b7378d274ddaaeeb8773deb007c2fed5f709007d37a4129a739df12"
+      "inputs_sha256": "5be42858332f18d8b5dd8ef71cfc210dcdada78b7a87d65e8c11b104ff79664c"
     },
     "uC/test_config_db_object_specializations_keep_separate_values": {
       "primary_clause": "C.4.2.1",
-      "inputs_sha256": "7398aa426d72bc6d9ef276441d2177e74dd6ea25b7ba8335c05954ef2fa9474a"
+      "inputs_sha256": "87d4ddeb6e01cf5a363c3878257c42d25efe01ae4ad9302e18f0a02bfeaf63ac"
     },
     "uC/test_config_db_object_value_preserves_handle_identity": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "422ecdb7c02df9036ccfcb6178330f0f3919bffa6c9c87743b92f5c43d6b7774"
+      "inputs_sha256": "389f05acfd4ffad7434a9cd12d19a769cdf33009a2e525a6d76402a3d5c23848"
     },
     "uC/test_config_db_omitted_type_matches_int_without_merging_string_settings": {
       "primary_clause": "C.4.2.1",
-      "inputs_sha256": "21ecfe96b6c00206535e4a7afa26dd43195b62b184a9b28cbe9cb6feb91bced4"
+      "inputs_sha256": "6893c3d8dcd0ea95a02a00456962ad96989358384dc604337a56e794ccb08e4c"
     },
     "uC/test_config_db_relative_and_absolute_lookup": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "eb27e3ed2ec4392d3e86d0121f619da121b41a76878b39bb9df1b8d04328d169"
+      "inputs_sha256": "0d47d9e8c5f26a067b372eb450fab9b717c4ff6774ae67556f0375b0263ccfe7"
     },
     "uC/test_config_db_repeated_set_updates_only_selected_field": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "c88250f4dae172540e40b92b8d568767876e798a2c51a5b2f0f3f9656192888a"
+      "inputs_sha256": "1f90a350040da52bc1d6a62187bce6f5f6a5629bbd31ad982cce0784a1159187"
     },
     "uC/test_config_db_runtime_last_setting_wins": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "85b69f87dd16c760667cea01a45a57c5ce73723a94bf408d02374d22ab1cedaf"
+      "inputs_sha256": "fb4d70298a372300f689f11b7370f7164f9b745ed2a6f641cc2dcd89c95a3f08"
     },
     "uC/test_config_db_same_field_updates_are_scope_local": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "d369b98799c353616b45d2b9cfbbd2c855152cf16bd30b4c2ebf2ffae2559d98"
+      "inputs_sha256": "67d06259ca762d5b14bb74dfce33daaf95ef538110e8115e23fbb6e0fb29fa10"
     },
     "uC/test_config_db_scope_glob_matches_descendants": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "08b6cab746e427b61976b55efbae7ebf1d286de900d5d728e0842764ac190eaa"
+      "inputs_sha256": "f8a4fd7468b5e80ecf31c50427e102daf4c1a9c123b422f6b1315edfafa65a7c"
     },
     "uC/test_config_db_scope_question_mark_matches_one_character": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "7924b23afb4e7a135834adbd9862cc3c4f3417261a824fb26bd039682bb3944d"
+      "inputs_sha256": "e528e24acddc3751e77da69b0a5d75e6fb9e5da8caa93a13bae33c9be7abaa12"
     },
     "uC/test_config_db_types_and_missing_fields": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "6ba667ad4313e8aaf9d57763f70733f1371fbc26e419700d4a3d33113c1ed363"
+      "inputs_sha256": "0128551c858d432a7a5478883a295c6e715fd8f2331befad257f331c655f898c"
     },
     "uC/test_config_db_wait_modified_ignores_other_fields": {
       "primary_clause": "C.4.2.2.4",
-      "inputs_sha256": "8b1d805cd6d8048d09f2c6463559fbfaf05672f17551bcdab97efc4b686834e0"
+      "inputs_sha256": "1cb947db92c44934757fe74a917507536ae137faf01648397b6fe1d4e48e240d"
     },
     "uC/test_config_db_wait_modified_waits_for_creation": {
       "primary_clause": "C.4.2.2.4",
-      "inputs_sha256": "4964ccb2e84fdf5fab65717b436789bc08a3158117c21a97b7bc94d6f6c8b6ea"
+      "inputs_sha256": "330f1b38b69bd18aa58e76d4254755a3de56cce47c4f84543c9b248f34bdc7c8"
     },
     "uC/test_config_int_alias_matches_bitstream_type_and_preserves_high_selected_bits": {
       "primary_clause": "C.4.2.3.1",
-      "inputs_sha256": "e34ef18c4fc51c269e0603f810c6e1594cf356f6d04ac46e8e04e2c5a4c84f48"
+      "inputs_sha256": "a8f7c89356eb9b2ea3249a85fe8078919424314185414747168cfacf07759496"
     },
     "uC/test_config_object_alias_returns_shared_handles_replacements_and_present_null": {
       "primary_clause": "C.4.2.3.3",
-      "inputs_sha256": "be0061c47560b4f66e220d000d8f91de4433ef41c2d630f28ea82702900acd98"
+      "inputs_sha256": "d9b648369b891b043c667cba0ebbb04b5e3fd4ddab16ca90bea2985bf74bad69"
     },
     "uC/test_config_string_alias_shares_selected_updates_and_preserves_a_peer": {
       "primary_clause": "C.4.2.3.2",
-      "inputs_sha256": "c3238fe625a6e890b71f7e557d71921b643cac56394b3d519bfd253b707e464a"
+      "inputs_sha256": "7be22805ff264c06fb9b492953334504b2862bb7d7c146f32d1845b033c4e851"
     },
     "uC/test_config_wrapper_alias_preserves_live_factory_proxy_handles_and_replacement": {
       "primary_clause": "C.4.2.3.4",
-      "inputs_sha256": "5b72965af53c771b47d7d7da5652689f09a2cbbc58fe8e1ff1f142589339aeac"
+      "inputs_sha256": "7b89ff4de466645973afb6dfccf867284cd9eaecbceded2bbcce25d6be626bcf"
     },
     "uC/test_configuration_and_resources_remain_accessible_at_selected_positive_times": {
       "primary_clause": "C.1",
-      "inputs_sha256": "d9c041c3aaf1b458a5e16a97b28402ac1f7faf77b321f0a3d42e7a39bb7f4a4a"
+      "inputs_sha256": "8ad0f10d078bebbc8cf2c386f376e845bb2f66da3f8cba3f1fa7aca23ac8fda4"
     },
     "uC/test_resource_base_concrete_extension_must_implement_the_pure_type_handle_hook": {
       "primary_clause": "C.2.3.2.2",
-      "inputs_sha256": "245bc1ab3689a68d1b6998b0c4488c79bc93add27c90eb8cc9f839c59943dd41"
+      "inputs_sha256": "ddac223cce54fae2e412278840d69416334bcdb6631d4a0312afa8b9b9493bac"
     },
     "uC/test_resource_base_legal_extensions_preserve_default_explicit_names_virtual_type_handles": {
       "primary_clause": "C.2.3.2.1",
-      "inputs_sha256": "7c12f25a8390fe2ff7980aff892145e4942b209c63e5108195d38a21542289f9"
+      "inputs_sha256": "5d2a1e01356555ad4053ccd14a19a24617e2fb6275a495c3f4a096f98d86afee"
     },
     "uC/test_resource_base_print_interface_dispatches_to_the_selected_typed_extension": {
       "primary_clause": "C.2.3",
-      "inputs_sha256": "cb198611cbefccd6cb5c730ddb76c6c71b68accfc353725ed297e6644bf32dec"
+      "inputs_sha256": "c5a5e6e799718e032a99c244d0d0aaa78cfa24c04059eeb8b8347f41fead31e4"
     },
     "uC/test_resource_db_default_and_explicit_rsrc_aliases_represent_the_required_container_types": {
       "primary_clause": "C.3.2.1",
-      "inputs_sha256": "2f1c295df2809aced8406fbfa8555b78f9e674bf8cd2dc14feaebadd83b1d4b6"
+      "inputs_sha256": "3f5a7397c61f75d13a91152c4bf28eeaedc68e982548dbb1510e43d2c2fb5a4e"
     },
     "uC/test_resource_db_default_type_selects_the_highest_object_container": {
       "primary_clause": "C.3.2.3.10",
-      "inputs_sha256": "cbb48e0d099b0f5554923364952ad0ecba1f2e240ee73cf4731fed5104df3875"
+      "inputs_sha256": "db42e6e3526cba663464d5ee4f08ac68b96d6ffccf06f8e7f0e6114635e27e75"
     },
     "uC/test_resource_db_named_default_and_anonymous_entries_retain_typed_values_and_lookup_identity": {
       "primary_clause": "C.3.2.3.1",
-      "inputs_sha256": "6a0b1ffc2e0d1da1d90df55e014c7b20e0bc2e5efa260de54c4973a47f84ecfd"
+      "inputs_sha256": "3a30e992c67c3384edd83e52318411cbfa3a773fe9f8ec10d91f6d5f370ba1ae"
     },
     "uC/test_resource_db_reads_update_success_inout_values_preserve_missing_wrong_type_values": {
       "primary_clause": "C.3.2.3.6",
-      "inputs_sha256": "4b8432bb67042623d784073c2c4cd36b80fdef543e1ac3c02e65e10b1c66f7c7"
+      "inputs_sha256": "a55d48d8a81deb3234e0aa44d2b19bb5160d0d819a646aa341b4d782ba4b8303"
     },
     "uC/test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types": {
       "primary_clause": "C.3.2.3.10",
-      "inputs_sha256": "15e3dc72b97324c33dc29880ec5c1b4383fc4e28e8ecbab77771b29450dfd334"
+      "inputs_sha256": "88fbb5c8445f5ca231af1594436bcb2e0298e775c626b8f40d669743003a8f33"
     },
     "uC/test_resource_db_typed_highest_precedence_returns_the_first_matching_maximum": {
       "primary_clause": "C.3.2.3.10",
-      "inputs_sha256": "648808a4bf930f2494c782d27ac285ab363ebd5f48f660143daf9a2b7b80e1ee"
+      "inputs_sha256": "d541e94280d2ec91fab01dcfbeb56a91dad2a2a7731c36379fb18f556c3a9594"
     },
     "uC/test_resource_db_writes_update_shared_scope_matches_no_creating_missing_entries_or_changing": {
       "primary_clause": "C.3.2.3.8",
-      "inputs_sha256": "e2cd284dba7f11db945b592a7756402607aa6dc447e91616551761e791e61026"
+      "inputs_sha256": "99cc8cb388fb59cdc7b3fd912a48e66cb60be9667df370dc6a1c310b979ecd09"
     },
     "uC/test_resource_modified_waiters_ignore_equal_values_and_all_wake_for_a_changed_write": {
       "primary_clause": "C.2.3.4",
-      "inputs_sha256": "7416c7039bbee0a252da932f04ed5acb7ae23c14754a526a44b53282539f8a4b"
+      "inputs_sha256": "e806d03ee56e6d49a734356d8ac4d46828bfc19e32375858271ba3034d4dc0ff"
     },
     "uC/test_resource_pool_bare_class_declaration_rejects_an_object_receiver": {
       "primary_clause": "C.2.4.1",
-      "inputs_sha256": "7e006416ec3d65a4e71d240c3a7e64c036a126d1f6079980b30ba359a973da1b"
+      "inputs_sha256": "0e0bb302dcb847a3fd4ee7cc05ca18a37acc16e5246809fd9de7af605ed174d9"
     },
     "uC/test_resource_pool_both_override_insertion_selects_the_declared_name_and_type_priorities": {
       "primary_clause": "C.2.4.3.2",
-      "inputs_sha256": "6ab0068111de520bf89a8f0af929819796217e860266353811ba63ec632f0247"
+      "inputs_sha256": "42891ff3643a2b434cc09ef0f07ef9045e822e3d349e6e88c5f86c2768de4afb"
     },
     "uC/test_resource_pool_both_priority_moves_only_the_selected_maps_and_supports_both_directions": {
       "primary_clause": "C.2.4.5.3",
-      "inputs_sha256": "c12df9341f4e385f517c4574690f17ec47d29b503d2044ec6bead24e63ef6579"
+      "inputs_sha256": "89568e88179ef513caf809026686b307d589a098028d1ed5541d85f4f65e883c"
     },
     "uC/test_resource_pool_default_accessor_follows_core_service_selection_and_restoration": {
       "primary_clause": "C.2.4.2.2",
-      "inputs_sha256": "0846d3c3a5802c3163778c755cd2d39166482f2edafebf49529a787fa72a0848"
+      "inputs_sha256": "9084c1bf85cee9f9f8ea594d20eeee210e601910d028ef37de027694fd859814"
     },
     "uC/test_resource_pool_default_precedence_updates_only_future_resources_implicit_assignments": {
       "primary_clause": "C.2.4.5.4",
-      "inputs_sha256": "b57b7201055cef985065b9877e59b9b7501e485f94847cadfefb600da68d26cc"
+      "inputs_sha256": "ccf7e686ba243bfeebb5b68cc5cfe3a6b1c8fc945484d0872607c777a4af8c06"
     },
     "uC/test_resource_pool_delete_removes_both_maps_and_silently_ignores_null_or_absent_handles": {
       "primary_clause": "C.2.4.3.6",
-      "inputs_sha256": "bc87876624c1b8b78987508c7590c61063adbf043435e2882361bc5ff8875cfa"
+      "inputs_sha256": "e0a45d05a5e7bd33ec611f7954a670a530ed39c3fad05108a53d38ed2b4b236b"
     },
     "uC/test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority": {
       "primary_clause": "C.2.4.5",
-      "inputs_sha256": "b026c554d366ddd3f1f1e240ace9f55ee4dae17c4ea843884f75b2d314b41978"
+      "inputs_sha256": "c1254a68fd9023da2721acd1f0586b8f9374228ad23064b459fba7ad106e3581"
     },
     "uC/test_resource_pool_highest_precedence_returns_the_first_maximum_in_the_supplied_queue": {
       "primary_clause": "C.2.4.4.2",
-      "inputs_sha256": "ed23002d9089b79b30c2453eb3be2a4d9a02528da8b24c3138a09ccb9223334f"
+      "inputs_sha256": "321b152a27af657afcfaa3172c1a3521cb4298a5bbe5b9a1636bbb28aa88b9fc"
     },
     "uC/test_resource_pool_name_lookup_filters_type_and_scope_and_respects_missing_report_controls": {
       "primary_clause": "C.2.4.4.1",
-      "inputs_sha256": "1962fe443cf418f522d58ff398f31ba566cc7acb3e2b5c17c7c130996ce2cf27"
+      "inputs_sha256": "ad9b61a91a19fa7ee041aea98a6e948d989037e886e231cb2bcc2667a9bd605c"
     },
     "uC/test_resource_pool_name_override_insertion_selects_the_declared_name_and_type_priorities": {
       "primary_clause": "C.2.4.3.3",
-      "inputs_sha256": "e703f0021dfaf5923d10778d812bb17477c293ddff1db7e037a2542b4a69bd28"
+      "inputs_sha256": "3d95b3da47ebd04c5b399a67aa656c7d2446eea42d841261c7ed02b3fba4eee4"
     },
     "uC/test_resource_pool_name_priority_moves_only_the_selected_maps_and_supports_both_directions": {
       "primary_clause": "C.2.4.5.2",
-      "inputs_sha256": "f59e4102c7a6b536084ac4f58cc9b4b36e9285a07c56f12172e89f54516dbb4d"
+      "inputs_sha256": "82ca09cad0a688124939d9739ee19ffbd6802925ca5b2a566948cfb329742587"
     },
     "uC/test_resource_pool_null_scope_insertion_warns_and_leaves_registered_resources_unchanged": {
       "primary_clause": "C.2.4.3.1",
-      "inputs_sha256": "c93316cbb519d59c9cb422c0b82a900c7b654657e82426ee05f93759167ae41f"
+      "inputs_sha256": "63dc018203747bd464e1978cb71329e63ff15c87ec04ed7bcd4aa86c18edab84"
     },
     "uC/test_resource_pool_precedence_changes_name_selection_but_not_type_queue_priority": {
       "primary_clause": "C.2.4.5",
-      "inputs_sha256": "f00daf4252f08a35468c7895001f3fe703ae20b533f5c25faf62edfbc7cc3a62"
+      "inputs_sha256": "0e894a8564502f50a0754ca8d1e6accc1a91f761ee52fded424cf2ede08f10ad"
     },
     "uC/test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order": {
       "primary_clause": "C.2.4.4.7",
-      "inputs_sha256": "f4c7cd69dd0d5f9dacd75a67d88520ca62d675d416678eab84c54c4bc53a61ac"
+      "inputs_sha256": "2ddbf339fc5af1489e2d918d00743842fe7577bc1424f873578a793c41130434"
     },
     "uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle": {
       "primary_clause": "C.2.4.4.7",
-      "inputs_sha256": "77b4dcbcd5d12074c28e0bf6fb9a104a88dfe0dd61d60b6f7aea01c532234eef"
+      "inputs_sha256": "c1445aa6b7bddbfe46a6f16d1da77f2399ff8f367008f450d185251432f80809"
     },
     "uC/test_resource_pool_regex_literal_combines_exact_names_and_scope_visibility": {
       "primary_clause": "C.2.4.4.7",
-      "inputs_sha256": "4690b411159ff1518cc52f53febfeaa4c51b712270cdfc38d8a95245edf4fe80"
+      "inputs_sha256": "cacfde2f6f95588fb304aed791881adfeeabe25af0b05ded63813e44875181d7"
     },
     "uC/test_resource_pool_scope_collection_includes_an_unnamed_visible_resource": {
       "primary_clause": "C.2.4.4.8",
-      "inputs_sha256": "f62c0b3eb63f94a1ed3640f040389b0678b24a7e6ec4232f98d2cfa40f4b1fbf"
+      "inputs_sha256": "bb2d23d923acdb9ec4da063d74b896b9221376b6c617d5bb6d1632d8350eb8bd"
     },
     "uC/test_resource_pool_scope_collection_preserves_all_visible_named_types": {
       "primary_clause": "C.2.4.4.8",
-      "inputs_sha256": "73f7787fbb56d619907a8a001e4beb5bef56e84735c49a583cd4cd15580dc084"
+      "inputs_sha256": "0532bc312295d91101f94b72309596e03ec28349d2a487e59fc45809b913a54d"
     },
     "uC/test_resource_pool_scope_replacement_updates_name_type_visibility_no_duplicate_entries": {
       "primary_clause": "C.2.4.3.1",
-      "inputs_sha256": "b873720f6766325c8364183f10749bb0917ed5f6fec756cf1544954c9427a1c3"
+      "inputs_sha256": "c1179a791dba5d531334ef5215c01517f62ff9127777b974dd82495545823873"
     },
     "uC/test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule": {
       "primary_clause": "C.2.4.4.3",
-      "inputs_sha256": "6d3b5fa382e310df2bbdef40d260c216192b33610a17f0d0dcf4055423de4fda"
+      "inputs_sha256": "e7b0fb65cf8ee31c81e032a876c29c125e63ecd14cba69960d2f4331e27cb244"
     },
     "uC/test_resource_pool_sort_orders_distinct_precedences_in_the_supplied_queue": {
       "primary_clause": "C.2.4.4.3",
-      "inputs_sha256": "65644d11991c8197ed88f62049859ec0296f3ac3e2cc2af7dbb743baabc1a2ad"
+      "inputs_sha256": "18a41aa764ed3b6f8e1a31a3137cd92fadca8c82204f31d27be6021f9eb6b2e0"
     },
     "uC/test_resource_pool_type_override_insertion_selects_the_declared_name_and_type_priorities": {
       "primary_clause": "C.2.4.3.4",
-      "inputs_sha256": "dd6748cb32547f439da6289686f5bee60c3cc9e657206a2040c6191294e9f661"
+      "inputs_sha256": "4b1ac9911bad094466968ad6c77dc622215d722e5d14da010bc7417811767b2d"
     },
     "uC/test_resource_pool_type_priority_moves_only_the_selected_maps_and_supports_both_directions": {
       "primary_clause": "C.2.4.5.1",
-      "inputs_sha256": "e94476b41bd03d52f0e63a6fd6e9f21718343eeef4ad381d97ed3e54ce730f0a"
+      "inputs_sha256": "23cb575bdbcc7d5b282012d53d8cbbe0fc3601382756376cffa9d61f1e739231"
     },
     "uC/test_resource_priority_enum_values_select_front_and_back_without_numeric_assumptions": {
       "primary_clause": "C.2.2.2",
-      "inputs_sha256": "36758c2ef66a7f232e9cebd5e375f66ed658034bf7901d107c9dd7ca4362c2ec"
+      "inputs_sha256": "df19105ca88b8c55ea397f59f0b1b1c42cdfef4ef67aa5199dec833f552a7989"
     },
     "uC/test_resource_queue_alias_has_exact_base_resource_queue_type_and_shared_handle_semantics": {
       "primary_clause": "C.2.2.1",
-      "inputs_sha256": "5539e60ea7ada59e49745ebcfc52af3bec4d44a1e1a241de9910f3f678756212"
+      "inputs_sha256": "42a8613aab9ad56a731c4d8636e7caea52b14e18ef65e3b5281a7a7a48e63666"
     },
     "uC/test_resource_read_only_failure_does_not_notify_a_pending_modification_waiter": {
       "primary_clause": "C.2.5.4.2",
-      "inputs_sha256": "4ef5bdc6abc77fd797802a86a744b5748582df67dbfc1c437d592358bf392dbc"
+      "inputs_sha256": "82f9995460905ee1174e95f28faa984d52dfbeade8385ba755dccebcae38d6d3"
     },
     "uC/test_resource_read_only_write_reports_error_preserves_value_leaves_a_writable_peer_independent": {
       "primary_clause": "C.2.3.3.1",
-      "inputs_sha256": "56b20ea8348663a038135ebc37b47f335e8cf55e683a18031345b3f5755e18f7"
+      "inputs_sha256": "a8aa48e40a5b8093777364b0dea8f7fbc15b443dfe77f297bf9e90527a0dd29f"
     },
     "uC/test_resource_virtual_base_rejects_direct_construction": {
       "primary_clause": "C.2.3.1",
-      "inputs_sha256": "078c111ca2b83170f5ea01fddec4c681f87e817faff3824c0a09cc040d3cf83e"
+      "inputs_sha256": "1652a716202fb277e95665f4533d0a27bfd5add64c4cb5628b87e6cc55c0eef7"
     },
     "uC/test_typed_resource_constructor_defaults_to_int_and_preserves_unnamed_and_named_instances": {
       "primary_clause": "C.2.5.1",
-      "inputs_sha256": "b5125839d92e5bbd2c69149ba03c300399c0230ba2b90497dc6b44d0085d9270"
+      "inputs_sha256": "d91bcc13a3d6d223469269567982b61ff26c253e48d2eddae463186012ba88bd"
     },
     "uC/test_typed_resource_object_values_preserve_alias_identity_replacement_and_null_without_cloning": {
       "primary_clause": "C.2.5.4.1",
-      "inputs_sha256": "fe32ccd83e9270e38d0d00653baba7a0b0b99d935f8aae5f326a330fc56c0277"
+      "inputs_sha256": "623bed2d37fa1f98f5751048a1fcad877a08f7ee7d4bed8800cf71f29a2e71ee"
     },
     "uC/test_typed_resource_read_rejects_an_object_receiver_for_an_integral_container": {
       "primary_clause": "C.2.5.4",
-      "inputs_sha256": "043634f40e370033f6b416c7787e61059b12c5cfbca865d18eefe022cc7108f2"
+      "inputs_sha256": "4c98a6ca9c845c8a7779f886068e20490c310c45722ab08d1d58246e4f113c61"
     },
     "uC/test_typed_resource_scalar_string_queue_values_preserve_copy_semantics_accessor_invariance": {
       "primary_clause": "C.2.5.4.1",
-      "inputs_sha256": "9e7848f976ce054be64f4a32f7673e6c31cbbc5850b7cdfbede34bf161d400bb"
+      "inputs_sha256": "0ebd8f953be01d17d7be82748cbc5823d34424117d8522277ac0cf22e7179393"
     },
     "uC/test_typed_resource_static_polymorphic_type_handles_are_shared_only_per_specialization": {
       "primary_clause": "C.2.5.3.1",
-      "inputs_sha256": "e244ca47428552dbef550c954c0d4d6e49e51b6336d07401ed3df560045cd698"
+      "inputs_sha256": "af3b04d7992c2af389fa41223f0a82271b4b5997494f068026f341fdc727668e"
     },
     "uC/test_typed_resource_virtual_interface_values_select_live_original_instances": {
       "primary_clause": "C.2.5",
-      "inputs_sha256": "1f973f81aa659d2178c7447b02742a11945be24bea0b6a42dc56df7118def2ed"
+      "inputs_sha256": "ed584612bceb2609b1c7e1a6fe9713c662a44a45685296bc4b4687be0e39572a"
     },
     "uC/test_typed_resource_write_rejects_an_integral_argument_for_an_object_container": {
       "primary_clause": "C.2.5.4",
-      "inputs_sha256": "f73b9f919d0972e00759c96de46d9ffb1df1e7968bf6f5d9e2b7151cd0cc9a8e"
+      "inputs_sha256": "86e04859bf86ca5405430ec253b9fc95f59bd5fb4f9f3891eb37a6381e7de6dd"
     },
     "uD/test_callback_iterator_backward_restart_resets_current_callback": {
       "primary_clause": "D.1.2.2",
@@ -10964,7 +10964,7 @@
     },
     "uC/test_rtl_vif_config_db_116": {
       "primary_clause": "C.4.2.2.2",
-      "inputs_sha256": "e7f865730df67c4c7a80cf0653fbb8379c026a3cde96d32e0a253c9e491d7a67"
+      "inputs_sha256": "992826bd4f38d2c9b802f4b9b15de4cd63af07150bbc1c49c4e801b0a9e08527"
     },
     "u11/test_fourstate_pool_missing_key_117": {
       "primary_clause": "11.2.2.4",
@@ -10988,11 +10988,11 @@
     },
     "uC/test_fourstate_config_db_values_117": {
       "primary_clause": "C.4.2.2.2",
-      "inputs_sha256": "c2452b40f013432b04b2ec54901bb6b121e3267893f5b1b1725561b013c4f632"
+      "inputs_sha256": "7bc8bc0ea30be2a79305ab37455ef2f1f8104e7422f99072e1891b9e3c7456e9"
     },
     "uC/test_fourstate_resource_read_write_117": {
       "primary_clause": "C.2.5.4.1",
-      "inputs_sha256": "08b053a830c57583dad473c4a64dea1c1858f4f235a3d8b06c1ff99a44a3e5ea"
+      "inputs_sha256": "1f72a08da3459b0a7b305e0c9c21a3a9697f80f9d575a67099612440cdfdcbb9"
     },
     "uB/test_rand_constraint_mode_after_create_118": {
       "primary_clause": "B.3.1.1",
@@ -11016,11 +11016,11 @@
     },
     "uC/test_regex_config_db_scope_and_field_119": {
       "primary_clause": "C.4.2.2.1",
-      "inputs_sha256": "6182bd36d580847bc815c196713592fa4a974591d63635da31cc6547edfa9cc3"
+      "inputs_sha256": "c86cb7a8dd1d267b9d230a56988df8d17258fb52e591fddf0cd69f39238cd52d"
     },
     "uC/test_regex_resource_db_scope_119": {
       "primary_clause": "C.2.4.3",
-      "inputs_sha256": "da6773f91357b8c26b0bd4bf095d929b7cf2ad8ea711718b4b610baa722a4c26"
+      "inputs_sha256": "dc5ddef6f0819a3a6e5c5e11b9352b80330b3dcd09a037cba5e195d63f343363"
     },
     "uF/test_regex_is_match_posix_and_simplified_119": {
       "primary_clause": "F.3.3.1",

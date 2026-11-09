@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_db_default_type_selects_the_highest_object_container.expected
 */
+// What it checks:
+// The omitted DB type selects the highest matching object resource container.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.3.2.3.10 (UVM-RESOURCE-COLLECTION-TYPED-DEFAULT-OBJECT) gives
+// the rule above. Setup: Construct original resource queues with explicit
+// global-pool precedences, mixed specializations and retained live handles.
+// Expected: The omitted type uses uvm_object and ignores a higher-precedence
+// int resource.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_db_default_type_selects_the_highest_object_container;
   import uvm_pkg::*;
   initial begin

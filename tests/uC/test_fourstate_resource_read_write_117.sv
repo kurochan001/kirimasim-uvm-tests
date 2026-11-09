@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_fourstate_resource_read_write_117.expected
 */
+// What it checks:
+// A typed resource read returns the written four-state value with its X and Z
+// bits unchanged.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.5.4.1 (UVM-FOURSTATE-RESOURCE-PRESERVES-XZ) gives the rule
+// above. Setup: Write an 8-bit logic value with X and Z bits, read it, then
+// write a value that differs in known bits and read again. Expected: Each read
+// returns the bits most recently written.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The second value differs from the first in known bits, so the write cannot be
 // skipped as an equal value under any reading of equality. Each read must
 // return the written bits, compared with case equality. The expectation comes

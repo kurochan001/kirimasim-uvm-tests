@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_typed_resource_static_polymorphic_type_handles_are_shared_only_per_specialization.expected
 */
+// What it checks:
+// 1. Static type handles are shared within a resource specialization and
+//    distinct across selected types.
+// 2. Polymorphic resource-base type queries return the same specialization
+//    token as the static accessor.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.5.3.1 (UVM-RESOURCE-AUDIT-STATIC-TYPE-TOKEN) gives rule 1
+//    above. Setup: Two int resources and one string resource are queried
+//    through exact static receiver types and a base view. Expected: Both
+//    tokens are nonnull; all same-int views agree and the string token is
+//    different.
+// 2. 1800.2-2020 C.2.5.3.2 (UVM-RESOURCE-AUDIT-VIRTUAL-TYPE-TOKEN) gives rule
+//    2 above. Setup: Two int resources and one string resource are queried
+//    through exact static receiver types and a base view. Expected: Both
+//    tokens are nonnull; all same-int views agree and the string token is
+//    different.
+// It also supports, as a control, the setup or conditions of
+// UVM-RESOURCE-AUDIT-PURE-TYPE-HOOK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_typed_resource_static_polymorphic_type_handles_are_shared_only_per_specialization;
   import uvm_pkg::*;

@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_db_reads_update_success_inout_values_preserve_missing_wrong_type_values.expected
 */
+// What it checks:
+// 1. read_by_name updates its inout value on success and preserves it on a
+//    miss.
+// 2. read_by_type updates its inout value on success and preserves
+//    missing-scope output.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.3.2.3.6 (UVM-RESOURCE-AUDIT-DB-READ-NAME) gives rule 1
+//    above. Setup: One int resource is read by name/type with null or original
+//    concrete accessors; foreign scopes and a wrong-type query use independent
+//    sentinels/status observations. Expected: Successful reads return true and
+//    58; each failed name/type/wrong-type read independently returns false and
+//    leaves its sentinel unchanged.
+// 2. 1800.2-2020 C.3.2.3.7 (UVM-RESOURCE-AUDIT-DB-READ-TYPE) gives rule 2
+//    above. Setup: One int resource is read by name/type with null or original
+//    concrete accessors; foreign scopes and a wrong-type query use independent
+//    sentinels/status observations. Expected: Successful reads return true and
+//    58; each failed name/type/wrong-type read independently returns false and
+//    leaves its sentinel unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_resource_db_reads_update_success_inout_values_preserve_missing_wrong_type_values;
   import uvm_pkg::*;

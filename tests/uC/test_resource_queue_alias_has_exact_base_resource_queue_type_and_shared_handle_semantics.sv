@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_queue_alias_has_exact_base_resource_queue_type_and_shared_handle_semantics.expected
 */
+// What it checks:
+// The resource queue typedef is uvm_queue specialized with uvm_resource_base.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.2.1 (UVM-RESOURCE-AUDIT-QUEUE-ALIAS) gives the rule above.
+// Setup: The declared alias and exact required class receiver are statically
+// assigned in both directions, then a typed resource is inserted. Expected:
+// The views share one handle and expose the inserted base-compatible resource.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_queue_alias_has_exact_base_resource_queue_type_and_shared_handle_semantics;
   import uvm_pkg::*;
   initial begin

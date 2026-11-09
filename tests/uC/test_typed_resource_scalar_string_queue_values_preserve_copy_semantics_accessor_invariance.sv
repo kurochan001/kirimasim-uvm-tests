@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_typed_resource_scalar_string_queue_values_preserve_copy_semantics_accessor_invariance.expected
 */
+// What it checks:
+// 1. Typed reads recover selected scalar, string and queue values
+//    independently of accessor.
+// 2. Typed writes store selected values with normal queue value-copy behavior.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.5.4.1 (UVM-RESOURCE-AUDIT-VALUE-READ) gives rule 1 above.
+//    Setup: Original concrete accessor objects and initialized
+//    scalar/string/two-element queue data are used. Expected: Stored values
+//    match and repeated scalar reads with two accessor handles agree.
+// 2. 1800.2-2020 C.2.5.4.2 (UVM-RESOURCE-AUDIT-VALUE-WRITE) gives rule 2
+//    above. Setup: Original concrete accessor objects and initialized
+//    scalar/string/two-element queue data are used. Expected: Mutating the
+//    caller queue or a returned queue does not change the resource queue;
+//    scalar and string values remain exact.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_typed_resource_scalar_string_queue_values_preserve_copy_semantics_accessor_invariance;
   import uvm_pkg::*;

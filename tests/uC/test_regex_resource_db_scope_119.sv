@@ -18,6 +18,17 @@
 :expected_exit: 0
 :expected_stdout: @test_regex_resource_db_scope_119.expected
 */
+// What it checks:
+// A resource whose scope is a regular expression or simplified plus is visible
+// only from the scopes it describes.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.4.3 (UVM-REGEX-RESOURCE-SCOPE) gives the rule above. Setup:
+// Set one resource for /^top119\.(a|b)$/ and another for top119.slot+, then
+// read both by name from matching and nonmatching scopes. Expected: Reads from
+// a, b and slot2 find their values; reads from c and slot find none.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // One resource has a regular-expression scope with an alternation and another a
 // simplified scope ending in plus. Reads by name must find each resource only
 // from the scopes that its expression describes. The pinned regex DPI and the

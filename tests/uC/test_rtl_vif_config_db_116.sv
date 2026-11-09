@@ -14,6 +14,21 @@
 :expected_stdout: @test_rtl_vif_config_db_116.expected
 :files: ../u19/helpers116_rtl/rf_rtl116.sv ../u19/helpers116_rtl/rf_env116.svh
 */
+// What it checks:
+// A virtual interface set before build for a component scope is returned to
+// components in that scope and connects them to the design.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.2.2 (UVM-RTL-CONFIG-VIF-SCOPE) gives the rule above.
+// Setup: A test top places the interface of an original register-file design
+// in the configuration database for the agent scope; the driver and monitor
+// use only its clocking blocks. The setting uses the scope
+// uvm_test_top.env.agent*; a scoreboard outside it also looks up the field.
+// Two writes and two reads then run through the agent. Expected: The driver
+// and monitor obtain the same interface, the scoreboard obtains none, four
+// transactions are monitored and the reads return the written design values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The test top sets the bus interface for uvm_test_top.env.agent* before
 // run_test. The driver and monitor inside that scope must obtain the same
 // interface, the scoreboard outside it must not, and traffic through the

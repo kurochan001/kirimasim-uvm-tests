@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_null_scope_insertion_warns_and_leaves_registered_resources_unchanged.expected
 */
+// What it checks:
+// Setting scope for a null resource emits WARNING and ignores the request.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.4.3.1 (UVM-RESOURCE-AUDIT-POOL-NULL-SCOPE-WARNING) gives the
+// rule above. Setup: A registered control is followed by a gated
+// set_scope(null,scope). Expected: A warning is observed and the original
+// control remains the sole named match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_null_scope_insertion_warns_and_leaves_registered_resources_unchanged;
   import uvm_pkg::*;
 

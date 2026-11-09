@@ -12,6 +12,61 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_default_precedence_updates_only_future_resources_implicit_assignments.expected
 */
+// What it checks:
+// 1. The pool default-precedence setter updates the core-service default.
+// 2. The pool default-precedence getter agrees with the core-service getter.
+// 3. A selected resource accepts explicit precedence or the current
+//    omitted-argument default.
+// 4. A registered resource query returns its own assigned numeric precedence.
+// 5. Changing the service default does not change resources already stored in
+//    the pool.
+// 6. The unoverridden service default precedence is one thousand.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.4.5.4 (UVM-RESOURCE-AUDIT-DEFAULT-PRECEDENCE-SET) gives
+//    rule 1 above. Setup: Capture the initial default, store one explicit
+//    resource, change the default before inserting an already constructed
+//    peer, then change it again and omit an assignment argument. Restore the
+//    initial value. Expected: Initial default/core views agree at 1000; later
+//    values are 58/59, an existing explicit eleven stays until reassigned, and
+//    the peer retains 58.
+// 2. 1800.2-2020 C.2.4.5.5 (UVM-RESOURCE-AUDIT-DEFAULT-PRECEDENCE-GET) gives
+//    rule 2 above. Setup: Capture the initial default, store one explicit
+//    resource, change the default before inserting an already constructed
+//    peer, then change it again and omit an assignment argument. Restore the
+//    initial value. Expected: Initial default/core views agree at 1000; later
+//    values are 58/59, an existing explicit eleven stays until reassigned, and
+//    the peer retains 58.
+// 3. 1800.2-2020 C.2.4.5.6 (UVM-RESOURCE-AUDIT-PRECEDENCE-ASSIGN) gives rule 3
+//    above. Setup: Capture the initial default, store one explicit resource,
+//    change the default before inserting an already constructed peer, then
+//    change it again and omit an assignment argument. Restore the initial
+//    value. Expected: Initial default/core views agree at 1000; later values
+//    are 58/59, an existing explicit eleven stays until reassigned, and the
+//    peer retains 58.
+// 4. 1800.2-2020 C.2.4.5.7 (UVM-RESOURCE-AUDIT-PRECEDENCE-QUERY) gives rule 4
+//    above. Setup: Capture the initial default, store one explicit resource,
+//    change the default before inserting an already constructed peer, then
+//    change it again and omit an assignment argument. Restore the initial
+//    value. Expected: Initial default/core views agree at 1000; later values
+//    are 58/59, an existing explicit eleven stays until reassigned, and the
+//    peer retains 58.
+// 5. 1800.2-2020 F.4.1.4.23 (UVM-RESOURCE-AUDIT-SERVICE-DEFAULT-FUTURE) gives
+//    rule 5 above. Setup: Capture the initial default, store one explicit
+//    resource, change the default before inserting an already constructed
+//    peer, then change it again and omit an assignment argument. Restore the
+//    initial value. Expected: Initial default/core views agree at 1000; later
+//    values are 58/59, an existing explicit eleven stays until reassigned, and
+//    the peer retains 58.
+// 6. 1800.2-2020 F.4.1.4.24 (UVM-RESOURCE-AUDIT-SERVICE-DEFAULT-INITIAL) gives
+//    rule 6 above. Setup: Capture the initial default, store one explicit
+//    resource, change the default before inserting an already constructed
+//    peer, then change it again and omit an assignment argument. Restore the
+//    initial value. Expected: Initial default/core views agree at 1000; later
+//    values are 58/59, an existing explicit eleven stays until reassigned, and
+//    the peer retains 58.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_resource_pool_default_precedence_updates_only_future_resources_implicit_assignments;
   import uvm_pkg::*;

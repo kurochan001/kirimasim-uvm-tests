@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_configuration_and_resources_remain_accessible_at_selected_positive_times.expected
 */
+// What it checks:
+// 1. Selected type-specific resource and configuration access remains
+//    available at positive simulation times.
+// 2. The configuration convenience layer supplies a selected component
+//    property through an explicit typed get.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.1 (UVM-RESOURCE-COLLECTION-DATABASE-ANYTIME) gives rule 1
+//    above. Setup: Construct original parent/child/peer components and issue
+//    explicit integer config and separate string resource requests after
+//    positive delays. Expected: At times two and five the explicit APIs retain
+//    the selected values and keep the unrelated peer unchanged.
+// 2. 1800.2-2020 C.4.1 (UVM-RESOURCE-COLLECTION-CONFIG-COMPONENT-LAYER) gives
+//    rule 2 above. Setup: Construct original parent/child/peer components and
+//    issue explicit integer config and separate string resource requests after
+//    positive delays. Expected: A child explicitly applies its absolute and
+//    relative settings while an outside peer is unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_configuration_and_resources_remain_accessible_at_selected_positive_times;
   import uvm_pkg::*;
   // The component explicitly gets its setting; automatic field application

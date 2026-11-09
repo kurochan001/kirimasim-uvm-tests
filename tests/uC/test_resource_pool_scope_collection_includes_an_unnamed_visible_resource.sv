@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_scope_collection_includes_an_unnamed_visible_resource.expected
 */
+// What it checks:
+// All-visible scope collection includes a selected unnamed resource.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.4.4.8 (UVM-RESOURCE-COLLECTION-SCOPE-ANONYMOUS) gives the
+// rule above. Setup: Use fresh pools, explicit scope registration and exact
+// original handle membership without assuming traversal order. Expected: Both
+// named and unnamed live handles occur exactly once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_scope_collection_includes_an_unnamed_visible_resource;
   import uvm_pkg::*;
   initial begin

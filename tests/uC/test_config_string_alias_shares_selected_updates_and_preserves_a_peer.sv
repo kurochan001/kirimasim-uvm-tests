@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_config_string_alias_shares_selected_updates_and_preserves_a_peer.expected
 */
+// What it checks:
+// The string config alias is the string specialization.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.3.2 (UVM-RESOURCE-COLLECTION-CONFIG-STRING-ALIAS) gives
+// the rule above. Setup: Compare exact type identities and perform actual
+// cross-spelling set/get operations using selected values and fresh scopes.
+// Expected: Type names agree; both spellings share an empty-string update
+// while a peer scope is preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_config_string_alias_shares_selected_updates_and_preserves_a_peer;
   import uvm_pkg::*;
   initial begin

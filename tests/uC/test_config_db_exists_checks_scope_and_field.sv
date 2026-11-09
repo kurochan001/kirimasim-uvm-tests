@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_config_db_exists_checks_scope_and_field.expected
 */
+// What it checks:
+// Configuration presence depends on a matching scope and field, not on a
+// nonnull stored handle.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.2.3 (UVM-CONFIG-EXISTS) gives the rule above. Setup:
+// Compare existing/missing names and scopes, and a configured null object.
+// Expected: Matching entries exist, including null values; unrelated scopes or
+// names do not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A literal setting is present only under its configured scope and name.
 // No expectation uses unsupported field-name glob matching.
 

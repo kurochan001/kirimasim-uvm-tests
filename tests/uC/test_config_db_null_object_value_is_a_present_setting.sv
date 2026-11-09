@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_config_db_null_object_value_is_a_present_setting.expected
 */
+// What it checks:
+// 1. Configuration presence depends on a matching scope and field, not on a
+//    nonnull stored handle.
+// 2. Getting a class-valued configuration returns its stored handle value.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.4.2.2.3 (UVM-CONFIG-EXISTS) gives rule 1 above. Setup:
+//    Compare existing/missing names and scopes, and a configured null object.
+//    Expected: Matching entries exist, including null values; unrelated scopes
+//    or names do not.
+// 2. 1800.2-2020 C.4.2.2.2 (UVM-CONFIG-OBJECT-HANDLE) gives rule 2 above.
+//    Setup: Read a shared object, replace its setting, or configure a null
+//    handle. Expected: Identity and mutations are visible through the
+//    retrieved handle; cached old handles remain valid after replacement.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Entry presence is separate from the class handle value stored in it.
 // Reading a configured null replaces the nonnull destination handle.
 

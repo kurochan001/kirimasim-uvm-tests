@@ -12,6 +12,17 @@
 :should_fail_because: A resource pool has no declared uvm_object ancestry
 :expected_stderr_regex: (?is)%Error[^\n]*test_resource_pool_bare_class_declaration_rejects_an_object_receiver.*?(assign|convert|class|type|uvm_resource_pool|uvm_object)
 */
+// What it checks:
+// The printed bare resource-pool class is not an object-derived type.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.4.1 (UVM-RESOURCE-COLLECTION-POOL-BARE-DECLARATION) gives
+// the rule above. Setup: Assign a newly constructed resource pool to a
+// uvm_object receiver in one isolated illegal elaboration fixture. Expected:
+// Compiler rejection matches the declared fixture/type diagnostic; no runtime
+// seed executes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_bare_class_declaration_rejects_an_object_receiver;
   import uvm_pkg::*;
   initial begin

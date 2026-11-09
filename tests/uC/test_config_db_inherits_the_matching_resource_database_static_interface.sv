@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_config_db_inherits_the_matching_resource_database_static_interface.expected
 */
+// What it checks:
+// 1. The config DB inherits the resource DB interface of its matching T.
+// 2. The selected resource DB convenience functions are callable by class
+//    scope.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.4.2.1 (UVM-RESOURCE-COLLECTION-CONFIG-INHERITANCE) gives
+//    rule 1 above. Setup: Use public class-qualified functions, selected
+//    default/explicit specializations and fresh distinct scopes. Expected: An
+//    original config extension inherits set_default, and explicit
+//    config/resource views recover the same resource/value.
+// 2. 1800.2-2020 C.3.2 (UVM-RESOURCE-COLLECTION-RESOURCE-DB-STATIC) gives rule
+//    2 above. Setup: Use public class-qualified functions, selected
+//    default/explicit specializations and fresh distinct scopes. Expected:
+//    Static creation and retrieval retain the same typed resource handle and
+//    stored value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_config_db_inherits_the_matching_resource_database_static_interface;
   import uvm_pkg::*;
   class config_extension extends uvm_config_db#(int);

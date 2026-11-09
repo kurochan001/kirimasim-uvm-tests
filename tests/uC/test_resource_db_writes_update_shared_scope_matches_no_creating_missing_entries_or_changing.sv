@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_db_writes_update_shared_scope_matches_no_creating_missing_entries_or_changing.expected
 */
+// What it checks:
+// 1. write_by_name changes the selected shared resource without creating a
+//    missing one.
+// 2. write_by_type changes the selected scope/type match and leaves unrelated
+//    peers unchanged.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.3.2.3.8 (UVM-RESOURCE-AUDIT-DB-WRITE-NAME) gives rule 1
+//    above. Setup: A shared simplified-star scope and an independent peer
+//    receive name/type writes with null/concrete accessors and missing-scope
+//    attempts. Expected: The shared handle changes to 58 then 59 across both
+//    matching scopes, peer stays 22, and missing writes return zero without a
+//    new named match.
+// 2. 1800.2-2020 C.3.2.3.9 (UVM-RESOURCE-AUDIT-DB-WRITE-TYPE) gives rule 2
+//    above. Setup: A shared simplified-star scope and an independent peer
+//    receive name/type writes with null/concrete accessors and missing-scope
+//    attempts. Expected: The shared handle changes to 58 then 59 across both
+//    matching scopes, peer stays 22, and missing writes return zero without a
+//    new named match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // No successful-write return value is invented; the prose specifies zero
 // only for a missing lookup and specifies the actual write for a match.
 // The type-write paragraph names name-based APIs; this fixture uses the

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_fourstate_config_db_values_117.expected
 */
+// What it checks:
+// Configuration-database lookups return four-state settings with their X and Z
+// bits unchanged.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.2.2 (UVM-FOURSTATE-CONFIG-DB-PRESERVES-XZ) gives the rule
+// above. Setup: Set an 8-bit logic value and a uvm_config_int bitstream, each
+// with X and Z bits, then look both up from a matching scope. Expected: Both
+// lookups succeed and return the same bits.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A typed logic setting and a uvm_config_int setting carry X and Z bits. Each
 // lookup must find its setting and return the same bits, compared with case
 // equality. The expectation comes from the cited clauses; a two-state simulator

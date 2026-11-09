@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_typed_resource_virtual_interface_values_select_live_original_instances.expected
 */
+// What it checks:
+// A typed resource can retain a selected virtual-interface value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.5 (UVM-RESOURCE-COLLECTION-TYPED-CONTAINER-INTERFACE) gives
+// the rule above. Setup: Store and replace virtual handles for two original
+// interface instances and mutate the selected instance through a retrieved
+// view. Expected: The retrieved views reach live selected state while a
+// previously retrieved view still reaches its original instance.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 interface resource_channel62;
   int value=0;
 endinterface

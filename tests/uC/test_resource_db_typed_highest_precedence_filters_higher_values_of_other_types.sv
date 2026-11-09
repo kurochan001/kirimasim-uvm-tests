@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types.expected
 */
+// What it checks:
+// Typed maximum selection ignores a higher-precedence container of another
+// type.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.3.2.3.10 (UVM-RESOURCE-COLLECTION-TYPED-MAXIMUM) gives the
+// rule above. Setup: Construct original resource queues with explicit
+// global-pool precedences, mixed specializations and retained live handles.
+// Expected: The int API selects precedence 17, while the string API selects
+// its precedence 99 container.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types;
   import uvm_pkg::*;
   initial begin

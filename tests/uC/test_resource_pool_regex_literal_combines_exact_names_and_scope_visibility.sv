@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_regex_literal_combines_exact_names_and_scope_visibility.expected
 */
+// What it checks:
+// 1. Regex lookup combines a selected literal name with scope visibility
+//    across types.
+// 2. The selected name lookup returns the collection matching its current name
+//    and scope.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.4.4.7 (UVM-RESOURCE-COLLECTION-REGEX-LITERAL) gives rule
+//    1 above. Setup: Use same-name int/string resources, a hidden same-name
+//    peer and a visible wrong-name peer in a fresh pool. Expected: Exactly
+//    both visible same-name handles are returned, and an unmatched scope
+//    returns an empty queue.
+// 2. 1800.2-2020 C.2.4.4 (UVM-RESOURCE-COLLECTION-LOOKUP-OVERVIEW) gives rule
+//    2 above. Setup: The literal-regex fixture independently queries the
+//    printed name-collection API on its mixed-type visible set. Expected: The
+//    named collection contains exactly the two visible same-name handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_regex_literal_combines_exact_names_and_scope_visibility;
   import uvm_pkg::*;
   initial begin

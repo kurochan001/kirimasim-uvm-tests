@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_highest_precedence_returns_the_first_maximum_in_the_supplied_queue.expected
 */
+// What it checks:
+// The resource-queue helper returns the first resource among those with
+// maximum precedence.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.4.4.2 (UVM-RESOURCE-AUDIT-HIGHEST-FIRST-MAXIMUM) gives the
+// rule above. Setup: Registered resources have precedence
+// three/seventeen/seventeen and a caller queue is reordered between calls.
+// Expected: The first peak wins initially and the other peak wins after
+// becoming first in the supplied queue.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_highest_precedence_returns_the_first_maximum_in_the_supplied_queue;
   import uvm_pkg::*;
   initial begin

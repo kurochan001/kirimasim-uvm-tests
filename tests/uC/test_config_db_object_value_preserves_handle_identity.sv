@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_config_db_object_value_preserves_handle_identity.expected
 */
+// What it checks:
+// Getting a class-valued configuration returns its stored handle value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.2.2 (UVM-CONFIG-OBJECT-HANDLE) gives the rule above.
+// Setup: Read a shared object, replace its setting, or configure a null
+// handle. Expected: Identity and mutations are visible through the retrieved
+// handle; cached old handles remain valid after replacement.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Setting a class value stores its handle. A later mutation of the
 // original object is visible through a handle read from the configuration.
 

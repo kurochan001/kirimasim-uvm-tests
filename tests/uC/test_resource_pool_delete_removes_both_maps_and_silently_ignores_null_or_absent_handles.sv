@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_delete_removes_both_maps_and_silently_ignores_null_or_absent_handles.expected
 */
+// What it checks:
+// 1. Deleting a registered resource removes it from name and type maps.
+// 2. Deleting null, absent or already deleted handles is silently ignored.
+// 3. A missing resource scope query returns false and clears its output
+//    string.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.4.3.6 (UVM-RESOURCE-AUDIT-POOL-DELETE-BOTH-MAPS) gives
+//    rule 1 above. Setup: A directly constructed pool receives one resource;
+//    after deletion, repeated/absent/null operations are report-gated and a
+//    sentinel scope output is queried. Expected: Both collections are empty;
+//    missing scope becomes empty/false and no gated report is delivered by
+//    no-op deletes.
+// 2. 1800.2-2020 C.2.4.3.6 (UVM-RESOURCE-AUDIT-POOL-DELETE-NOOPS) gives rule 2
+//    above. Setup: A directly constructed pool receives one resource; after
+//    deletion, repeated/absent/null operations are report-gated and a sentinel
+//    scope output is queried. Expected: Both collections are empty; missing
+//    scope becomes empty/false and no gated report is delivered by no-op
+//    deletes.
+// 3. 1800.2-2020 C.2.4.3.5 (UVM-RESOURCE-AUDIT-POOL-MISSING-SCOPE) gives rule
+//    3 above. Setup: A directly constructed pool receives one resource; after
+//    deletion, repeated/absent/null operations are report-gated and a sentinel
+//    scope output is queried. Expected: Both collections are empty; missing
+//    scope becomes empty/false and no gated report is delivered by no-op
+//    deletes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_delete_removes_both_maps_and_silently_ignores_null_or_absent_handles;
   import uvm_pkg::*;
 

@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_scope_collection_preserves_all_visible_named_types.expected
 */
+// What it checks:
+// 1. Scope collection includes all selected visible named resource types.
+// 2. Scope collection follows a selected resource scope replacement.
+// 3. The selected pool contains typed resources whose visibility follows
+//    registered scope expressions.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.4.4.8 (UVM-RESOURCE-COLLECTION-SCOPE-NAMED) gives rule 1
+//    above. Setup: Use fresh pools, explicit scope registration and exact
+//    original handle membership without assuming traversal order. Expected:
+//    Exactly the int and string handles are collected; a missing scope is
+//    empty.
+// 2. 1800.2-2020 C.2.4.4.8 (UVM-RESOURCE-COLLECTION-SCOPE-REPLACED) gives rule
+//    2 above. Setup: Use fresh pools, explicit scope registration and exact
+//    original handle membership without assuming traversal order. Expected:
+//    Moving the integer resource leaves only its string peer visible in the
+//    old scope.
+// 3. 1800.2-2020 C.2.4 (UVM-RESOURCE-COLLECTION-POOL-VISIBILITY-ROLE) gives
+//    rule 3 above. Setup: Register distinct int/string resources and query
+//    visible/missing scopes before and after one scope replacement. Expected:
+//    The selected scope queries return the exact currently visible original
+//    handles.
+// It also supports, as a control, the setup or conditions of
+// UVM-RESOURCE-COLLECTION-POOL-BARE-DECLARATION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_scope_collection_preserves_all_visible_named_types;
   import uvm_pkg::*;
   initial begin

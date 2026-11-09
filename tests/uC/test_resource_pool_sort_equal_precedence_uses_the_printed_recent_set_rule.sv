@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule.expected
 */
+// What it checks:
+// The selected recent-set interpretation orders equal precedences newest
+// first.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.4.4.3 (UVM-RESOURCE-COLLECTION-SORT-RECENT-SET) gives the
+// rule above. Setup: Use distinct set_scope insertion times, equal explicit
+// precedence seven and an oldest-first supplied queue. Expected: The supplied
+// list becomes newest,middle,oldest without losing handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule;
   import uvm_pkg::*;
   // Qualified reading: recent set is the observed set_scope insertion order.

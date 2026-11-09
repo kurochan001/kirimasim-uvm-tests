@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_priority_enum_values_select_front_and_back_without_numeric_assumptions.expected
 */
+// What it checks:
+// 1. The typed PRI_HIGH priority value moves the selected resource to the
+//    queue front.
+// 2. The typed PRI_LOW priority value moves the selected resource to the queue
+//    back.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.2.2 (UVM-RESOURCE-COLLECTION-PRIORITY-HIGH) gives rule 1
+//    above. Setup: Assign the exact names to a priority_e variable, inspect
+//    its symbolic name and pass it to the public name-priority API. Expected:
+//    The selected name queue starts with the resource while the type queue
+//    keeps its original head.
+// 2. 1800.2-2020 C.2.2.2 (UVM-RESOURCE-COLLECTION-PRIORITY-LOW) gives rule 2
+//    above. Setup: Assign the exact names to a priority_e variable, inspect
+//    its symbolic name and pass it to the public name-priority API. Expected:
+//    The selected resource becomes the name queue tail.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_priority_enum_values_select_front_and_back_without_numeric_assumptions;
   import uvm_pkg::*;
   initial begin

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_base_print_interface_dispatches_to_the_selected_typed_extension.expected
 */
+// What it checks:
+// The resource base exposes the selected inherited virtual print interface.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.3 (UVM-RESOURCE-COLLECTION-RESOURCE-BASE-PRINT) gives the
+// rule above. Setup: Call do_print through a resource-base view of an original
+// typed-resource extension with two supplied printer policies. Expected: The
+// original override sees both calls and the current policy; an untouched
+// resource peer receives no call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_base_print_interface_dispatches_to_the_selected_typed_extension;
   import uvm_pkg::*;
   // This original override checks the inherited virtual print interface.

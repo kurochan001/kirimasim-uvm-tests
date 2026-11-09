@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_config_wrapper_alias_preserves_live_factory_proxy_handles_and_replacement.expected
 */
+// What it checks:
+// The wrapper config alias is the factory-wrapper specialization.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.3.4 (UVM-RESOURCE-COLLECTION-CONFIG-WRAPPER-ALIAS) gives
+// the rule above. Setup: Compare exact type identities and perform actual
+// cross-spelling set/get operations using selected values and fresh scopes.
+// Expected: Type names agree and live distinct factory proxy handles survive
+// retrieval and replacement through both spellings.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_config_wrapper_alias_preserves_live_factory_proxy_handles_and_replacement;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

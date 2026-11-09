@@ -17,6 +17,24 @@
 :expected_exit: 0
 :expected_stdout: @test_regex_config_db_scope_and_field_119.expected
 */
+// What it checks:
+// 1. A configuration setting whose instance name is a regular expression or
+//    simplified plus applies only to the scopes it describes.
+// 2. A configuration setting whose field name is a regular expression applies
+//    to the field names it describes.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.4.2.2.1 (UVM-REGEX-CONFIG-SCOPE) gives rule 1 above. Setup:
+//    Set one value for /^top119\.env\.(left|right)$/ and another for
+//    top119.u+, then look them up from matching and nonmatching scopes.
+//    Expected: The left, right and u1 lookups find their values; the middle
+//    and u lookups find none.
+// 2. 1800.2-2020 C.4.2.2.1 (UVM-REGEX-CONFIG-FIELD-NAME) gives rule 2 above.
+//    Setup: Set a value for the field /^limit[0-9]$/ in one scope, then look
+//    up limit3 and limitx there. Expected: limit3 finds the value and limitx
+//    does not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // One setting uses a regular-expression scope with an alternation, one a
 // regular-expression field name with a digit class, and one a simplified scope
 // ending in plus. Only the lookups that the expressions describe may find a

@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_config_db_object_replacement_keeps_old_handles_valid.expected
 */
+// What it checks:
+// 1. Getting a class-valued configuration returns its stored handle value.
+// 2. Updating one configuration key replaces that setting without overwriting
+//    other keys.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.4.2.2.2 (UVM-CONFIG-OBJECT-HANDLE) gives rule 1 above.
+//    Setup: Read a shared object, replace its setting, or configure a null
+//    handle. Expected: Identity and mutations are visible through the
+//    retrieved handle; cached old handles remain valid after replacement.
+// 2. 1800.2-2020 C.4.2.2.1 (UVM-CONFIG-UPDATE-KEY) gives rule 2 above. Setup:
+//    Repeat set at one context/scope/field while keeping another field or
+//    exact scope. Expected: The selected value changes and independent
+//    fields/scopes retain their values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A retrieved handle remains bound to its original object when the same
 // setting is replaced. A later get selects the replacement object instead.
 

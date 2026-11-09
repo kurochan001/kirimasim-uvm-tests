@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order.expected
 */
+// What it checks:
+// The printed regular-expression lookup selects the two named alternatives
+// within the visible scope.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.4.4.7 (UVM-RESOURCE-COLLECTION-REGEX-ALTERNATION) gives the
+// rule above. Setup: Use explicit anchors and alternation with red/blue/green
+// names and a hidden same-name resource. Expected: Exactly the visible red and
+// blue handles are present.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order;
   import uvm_pkg::*;
   // The printed interface takes a regular expression. This uses explicit

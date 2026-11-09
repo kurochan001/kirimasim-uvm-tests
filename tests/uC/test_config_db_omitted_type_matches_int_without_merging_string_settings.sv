@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_config_db_omitted_type_matches_int_without_merging_string_settings.expected
 */
+// What it checks:
+// 1. The omitted config DB type is int, separate from a string specialization.
+// 2. The selected config functions can be invoked statically with the selected
+//    T.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.4.2.1 (UVM-RESOURCE-COLLECTION-CONFIG-DEFAULT) gives rule 1
+//    above. Setup: Use public class-qualified functions, selected
+//    default/explicit specializations and fresh distinct scopes. Expected:
+//    Omitted/explicit int settings share updates while the same-name string
+//    setting remains independent.
+// 2. 1800.2-2020 C.4.2 (UVM-RESOURCE-COLLECTION-CONFIG-STATIC) gives rule 2
+//    above. Setup: Use public class-qualified functions, selected
+//    default/explicit specializations and fresh distinct scopes. Expected:
+//    Class-qualified set/get calls recover the selected typed values without
+//    allocating a DB object.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_config_db_omitted_type_matches_int_without_merging_string_settings;
   import uvm_pkg::*;
   initial begin

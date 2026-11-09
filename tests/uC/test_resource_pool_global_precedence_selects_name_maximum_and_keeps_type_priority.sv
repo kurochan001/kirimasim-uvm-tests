@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority.expected
 */
+// What it checks:
+// 1. Global-pool name selection chooses the highest numeric precedence among
+//    matching resources.
+// 2. Global-pool type selection returns the first priority-queue resource,
+//    unaffected by numeric precedence.
+// 3. Priority and numeric precedence govern different selection paths under
+//    the explicit type exception.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 C.2.4.4.4 (UVM-RESOURCE-AUDIT-GLOBAL-NAME-PRECEDENCE) gives
+//    rule 1 above. Setup: Earlier/later same-name int resources receive
+//    precedence three/nine in an explicit global or directly allocated pool;
+//    type collections retain insertion priority. Expected: Name lookup returns
+//    the later maximum while type lookup and its collection retain the first
+//    resource.
+// 2. 1800.2-2020 C.2.4.4.6 (UVM-RESOURCE-AUDIT-GLOBAL-TYPE-PRIORITY) gives
+//    rule 2 above. Setup: Earlier/later same-name int resources receive
+//    precedence three/nine in an explicit global or directly allocated pool;
+//    type collections retain insertion priority. Expected: Name lookup returns
+//    the later maximum while type lookup and its collection retain the first
+//    resource.
+// 3. 1800.2-2020 C.2.4.5 (UVM-RESOURCE-AUDIT-TYPE-PRECEDENCE-BOUNDARY) gives
+//    rule 3 above. Setup: Earlier/later same-name int resources receive
+//    precedence three/nine in an explicit global or directly allocated pool;
+//    type collections retain insertion priority. Expected: Name lookup returns
+//    the later maximum while type lookup and its collection retain the first
+//    resource.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Type selection follows C.2.4.5 and the individual first-queue rule;
 // the broader lookup introduction's highest-precedence wording conflicts.
 // Default global pool, independently of the local-pool context fixture.

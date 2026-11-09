@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_typed_resource_object_values_preserve_alias_identity_replacement_and_null_without_cloning.expected
 */
+// What it checks:
+// Resources can carry shared object handles, replacements and null values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.1 (UVM-RESOURCE-AUDIT-OBJECT-HANDLES) gives the rule above.
+// Setup: An original token object is read, mutated, replaced by a second token
+// and then cleared to null. Expected: Reads retain identity/live alias state,
+// the replaced handle remains valid and null is stored without affecting the
+// peer object.
+// It also supports, as a control, the setup or conditions of
+// UVM-RESOURCE-AUDIT-WRITE-TYPE-SAFETY.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_typed_resource_object_values_preserve_alias_identity_replacement_and_null_without_cloning;
   import uvm_pkg::*;

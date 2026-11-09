@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_config_db_exists_spell_check_preserves_result.expected
 */
+// What it checks:
+// The spell-check option does not change the functional exists result.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.2.3 (UVM-CONFIG-SPELL-CHECK) gives the rule above. Setup:
+// Query present and absent fields with spell checking both off and on.
+// Expected: Presence results agree for both option values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The optional spell check controls diagnostics. Existing and missing
 // fields return the same presence result with the option enabled or disabled.
 

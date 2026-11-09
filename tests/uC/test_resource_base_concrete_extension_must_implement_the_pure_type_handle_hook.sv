@@ -12,6 +12,17 @@
 :should_fail_because: a concrete extension must implement the standard pure virtual get_type_handle
 :expected_stderr_regex: (?i)^(?=.*test_resource_base_concrete_extension_must_implement_the_pure_type_handle_hook.sv:[0-9]+:[0-9]+:)(?=.*\bget_type_handle\b).*error
 */
+// What it checks:
+// A concrete extension must implement the pure get_type_handle hook.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.2.3.2.2 (UVM-RESOURCE-AUDIT-PURE-TYPE-HOOK) gives the rule
+// above. Setup: A minimal illegal fixture isolates the named constructor, pure
+// hook or typed read/write context. Expected: The compiler rejects the named
+// declaration/type at the fixture location using the declared semantic
+// diagnostic predicate.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Extra original compatibility bodies isolate the standard get_type_handle
 // obligation. They do not pass the separate unqualified base-extension case.
 module test_resource_base_concrete_extension_must_implement_the_pure_type_handle_hook;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_config_object_alias_returns_shared_handles_replacements_and_present_null.expected
 */
+// What it checks:
+// The object config alias is the object-handle specialization.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 C.4.2.3.3 (UVM-RESOURCE-COLLECTION-CONFIG-OBJECT-ALIAS) gives
+// the rule above. Setup: Compare exact type identities and perform actual
+// cross-spelling set/get operations using selected values and fresh scopes.
+// Expected: Type names agree; exact handles/replacements and a present null
+// pass between the two spellings without cloning.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_config_object_alias_returns_shared_handles_replacements_and_present_null;
   import uvm_pkg::*;
   class item extends uvm_object;
