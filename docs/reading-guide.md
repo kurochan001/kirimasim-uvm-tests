@@ -59,7 +59,7 @@ For a simulation case, the runner compares the ordered lines beginning with `UT:
 
 `pass` means the declared checks matched; `fail` means a checked condition differed; `known` records a difference for an untagged Verilator case; `unsupported` records a kirimasim unsupported-feature diagnostic recognized by the runner. The last two are not passes. See [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean).
 
-The `elaboration` cases here expect the compiler to reject an illegal design and execute no runtime seed, while `simulation` cases run a model. Matches at both seeds do not establish four-state coverage including X/Z; see [the seed and compiler-count explanation](faq.md#q201-did-all-2762-tests-run-at-two-seeds).
+The `elaboration` cases here expect the compiler to reject an illegal design and execute no runtime seed, while `simulation` cases run a model. Matches at both seeds do not establish four-state coverage including X/Z; see [the seed and compiler-count explanation](faq.md#q201-did-all-2763-tests-run-at-two-seeds).
 
 With `--all`, known differences do not by themselves make the Verilator command fail, so inspect individual statuses as well as its exit code. See [why the exit code can still be zero](faq.md#q6-why-can-verilator-exit-successfully-with-known-results).
 
@@ -146,6 +146,7 @@ For a question about a particular API or clause, start with the test header and 
 - [Look up a term](glossary.md)
 - [Find a specific answer](faq.md#find-an-explanation)
 - [Read current measurements](results.md)
+- [Follow kirimasim stage by stage](kirimasim-stages.md)
 - [Inspect requirement mappings](requirements.md)
 - [Resume development](handoff.md)
 - [Trace an earlier change](history.md)

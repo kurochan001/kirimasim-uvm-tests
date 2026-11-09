@@ -170,7 +170,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2701件、HDL DPIの明示選択が38件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2702件、HDL DPIの明示選択が38件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -1035,8 +1035,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる4150要求案は部分的な分解で、4150要求を2706テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
-全2762テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる4151要求案は部分的な分解で、4151要求を2707テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
+全2763テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -2426,7 +2426,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1081件へ減った理由は？
 
 command enum引用、Boolean rerandomization観測、virtual-field configure引用に加え、reraiseの主引用を直した元入力1件で指紋が変わり、古いguest行を除外しました。4入力はそれぞれの変更時点で再測定し、reraiseの改訂は前回の拡充で両seedを測定しました。歴史的な1085記録の出典fileは保持します。
-現在は互換1081入力を再利用し、未測定1681入力は追加1677件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
+現在は互換1081入力を再利用し、未測定1682入力は追加1678件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
 
@@ -2478,9 +2478,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2762テストを2 seedで実行しましたか？
+### Q201. 全2763テストを2 seedで実行しましたか？
 
-いいえ。simulation 2663件とelaboration 99件があります。通常記録はruntime両seed一致2198件、期待compiler拒否94件、既知simulation差分458件、不正compile受理の既知差分5件で、4値の7件は2値のoracleでは実行しません。
+いいえ。simulation 2664件とelaboration 99件があります。通常記録はruntime両seed一致2199件、期待compiler拒否94件、既知simulation差分458件、不正compile受理の既知差分5件で、4値の7件は2値のoracleでは実行しません。
 不正design 99件は、compileを受理された場合もruntime seedを実行しません。
 
 `configuration`の`seeds`は要求した設定であり、全ケースが両方の実行に達した証拠ではないため、個別の結果と併せた読み方は[JSONのガイド](reading-guide.ja.md#結果jsonを開く)で確認できます。
@@ -2865,7 +2865,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価0番号です。
-スイートは直接対応2706テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2707テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2950,7 +2950,7 @@ shardはworkflowが選んだテストを分割した1区画で、CheckとRegress
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
 いいえ。現在のCheckは入力が変わったタグ付き検査とcanaryだけを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻るため、全選択の代わりにはなりません。
-Regressionは全タグ付き2292検査を重複しない20 shard（同時最大4）で、command-line 20検査とregex-DPI変種26件をそれぞれ別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
+Regressionは全タグ付き2293検査を重複しない20 shard（同時最大4）で、command-line 20検査とregex-DPI変種26件をそれぞれ別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
 runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
 分割の検証でhosted CI成功や適合性は立証しません。現在の結果は各workflowのページで確認してください。既知差分463件は通常の既定CI選択に含めません。
 
@@ -3071,7 +3071,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 その以前の引用修正では、本体とoracleが同じでも指紋が変わり、互換1083記録を1082へ絞りました。その時点ではGhostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
 
-現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1681入力は追加1677件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
+現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1682入力は追加1678件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3255,7 +3255,7 @@ zero-timeの委譲やprimitive release/readと、この実HDL 8入力の違い�
 
 既に部分分解した条項へ義務や条件を足しても、未評価queueは変わらない場合があります。
 初回の分解や根拠のある分類でそのqueueが変わり、テスト追加だけでは減らない場合があります。
-現在の4150義務は2706テストへ直接対応し、部分2062・未評価0番号が残ります。
+現在の4151義務は2707テストへ直接対応し、部分2062・未評価0番号が残ります。
 別々の進捗指標は[棚卸しのガイド](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
 
 ## Register HDL pathと観測の前提
@@ -3878,7 +3878,7 @@ queueの件数は記録したレビュー作業を表し、完全性や実行成
 
 いいえ。全2507識別子が部分的な要求分解または個別評価を持ち、部分2062・分類445です。
 B.4のregister／execute動作に部分義務を置き、継承の記述は未解決で保持します。
-全4150義務に直接テスト、全2762テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
+全4151義務に直接テスト、全2763テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
 元のM1〜M4目標、人の照合、範囲／分母承認は未完であり、完了条件は[残作業の案内](requirements.ja.md#m4の残作業と承認)にあります。
 coverage割合やgoal完了は主張しません。
 
@@ -4052,7 +4052,7 @@ descriptionと主引用を保留dropの10.5.1.3.4へ直し、本体と期待2行
 drop_objectionの主引用は0件から13件へ増え、getterは2件から1件になりますが、独立した検査や要求全体を証明しません。
 
 ヘッダー編集は[更新規則](requirements.ja.md#テストや対応付けの更新)で入力指紋を変えます。改訂した元入力の古いguest行を互換1082記録から除外し、1081件を保持します。
-未測定1681入力は追加1677件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
+未測定1682入力は追加1678件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
 guestの再実行、改善、新しいpassはなく、元の証拠を保管し、通常の既知440入力も全て保持します。goalは未完です。
 
 ## 物理addressの直接変換
@@ -4493,3 +4493,17 @@ classのmemberのeventの2つの形では起動が失われます。同じproces
 残る差分の多くは、sourceの行を名指しできるlibraryの原因です。たとえば、byte数を返さない変換、64 bitのdata全体のbyteを入れ替えるbig endianのaccess、規格にないbuild methodでしかfieldを作らないFIFO register、規格と逆の順で呼ぶhookです。interpretationの41件は、uvm_info macroの「より低い」という境界や、checkを伴うFIFOのmirrorで比べる値のように、テストの読み方とlibraryが従う読み方を並べて残します。nullのmapを渡すget_local_mapの入力は、library自身のDEVIATIONS.mdの2番目に当たります。
 
 123回目は、テスト、期待値、保存した記録、義務のどれも変えません。すべての既知差分に原因があり、library 319件、interpretation 60件、simulator 27件、condition 57件で、照合の候補は406件です。
+
+## kirimasimの立ち上げ段階
+
+### Q448. kirimasimの立ち上げ段階とは何ですか？
+
+simulatorがlibraryを動かせるようになるまでに出会うUVMの部分を順に並べたもので、0 uvm_pkgだけ、1 最小のrun_test、2 factory、3 config_db、4 sequence、5 TLM、6 register層です。
+`coverage/kirimasim_stages.json`は、各テストに、テスト自身のsourceでmarkerが一致する最も高い段階を与え、段階ごとにtag付きの代表の短いセットを持ちます。`tools/kirimasim_stages.py short`は、それをkirimasimのrunnerに渡せる形で出力します。
+kirimasimの現在の記録はどの段階でも同じ`uvm_object_wrapper`で止まっているため、最初に通る段階が次の進み具合の目印になります。段階はmilestone M1〜M4とは別のもので、期待値を変えません。規則と、各段階の言語機能とkirimasim-testsの対応は[段階のガイド](kirimasim-stages.ja.md)で説明しています。
+
+### Q449. 段階0のテストが1件だけなのはなぜですか？
+
+markerはテストがUVMのどの部分を使うかは分かりますが、libraryのcodeをまったく実行しないかどうかは分からないため、段階0は理由を付けたoverrideでしか決めません。
+レビューはuvm_pkgをimportするだけのテストを1件求めました。[`test_uvm_pkg_import_only_reaches_package_items`](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv)は、1.4.5とF.2.2.4が100と定めるUVM_LOWを、importとpackage名の両方から名指しします。
+B.7のversionのmacroのように、package scopeの宣言だけを使う以前のテストもありますが、照合してoverrideで移すまでは段階1のままです。

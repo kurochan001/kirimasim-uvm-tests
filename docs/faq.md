@@ -187,7 +187,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2701 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2702 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1260,9 +1260,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4150 AI drafts cover only a partial decomposition: 4150 requirements link
-directly to 2706 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2762 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4151 AI drafts cover only a partial decomposition: 4151 requirements link
+directly to 2707 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2763 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -3091,7 +3091,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 ### Q193. Why did the compatible guest subset decrease to 1081?
 
 Four original inputs have revised fingerprints: the command-enum citation, Boolean rerandomization observation, virtual-field configure citation and the reraise primary citation. All four were remeasured when changed; the reraise revision was measured at both seeds in the previous expansion. Their stale guest rows are excluded while the historical 1085-record source files remain intact.
-Current reuse covers 1081 inputs, with 1681 unmeasured: 1677 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
+Current reuse covers 1081 inputs, with 1682 unmeasured: 1678 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
 
@@ -3161,10 +3161,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2762 tests run at two seeds?
+### Q201. Did all 2763 tests run at two seeds?
 
-No. There are 2663 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2198 two-seed runtime matches, 94 expected compiler rejections, 458 known
+No. There are 2664 simulation and 99 elaboration fixtures. Ordinary evidence
+has 2199 two-seed runtime matches, 94 expected compiler rejections, 458 known
 simulation differences and five known illegal compile acceptances; the seven
 four-state fixtures are not run by the two-state oracle. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
@@ -3719,7 +3719,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2706 directly linked tests and fifty-six
+The suite has 2707 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3835,7 +3835,7 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 No. Check now runs only the tagged checks whose inputs changed, plus a canary,
 and falls back to the canary with a warning when it cannot cover a change; it
-never stands in for the full selection. Regression runs all 2292 tagged checks
+never stands in for the full selection. Regression runs all 2293 tagged checks
 in 20 disjoint shards, at most 4 concurrent, and the 20 command-line checks and 26 regex-DPI variants in
 separate jobs. The earlier 8-shard Check never finished: its one uninterrupted
 run reached the 150-minute limit on every shard. Runtime seeds 1/73 and
@@ -3996,7 +3996,7 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 
 At that earlier citation repair, the changed fingerprint excluded an old row despite an unchanged body/oracle: 1083 compatible records became 1082. At that checkpoint Ghost retained 206 matches/876 failures per seed and kirimasim retained 1073 unsupported/nine failures, without a guest rerun.
 
-Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1681 unmeasured inputs are 1677 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
+Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1682 unmeasured inputs are 1678 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
 
@@ -4238,8 +4238,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4150 duties link directly
-to 2706 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4151 duties link directly
+to 2707 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5128,7 +5128,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4150 duties all have direct tests and all 2762 tests have links, but those
+The 4151 duties all have direct tests and all 2763 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5393,7 +5393,7 @@ proves independent tests or complete requirements.
 
 Header edits change the input fingerprint under [the update rules](requirements.md#updating-a-test-or-mapping).
 The revised original's old guest row is filtered from 1082 compatible records,
-leaving 1081; the 1681 unmeasured inputs are 1677 additions and four revised
+leaving 1081; the 1682 unmeasured inputs are 1678 additions and four revised
 originals. Ghost's retained failure count becomes 875 and kirimasim's retained
 unsupported count becomes 1072 because that stale row was removed. No guest
 was re-executed, improved or newly passed. The old evidence remains archived,
@@ -6046,3 +6046,29 @@ null map is the library's DEVIATIONS.md issue 2.
 The 123rd expansion changes no test, expectation, stored record or duty. Every
 known difference now has a cause: 319 library, 60 interpretation, 27
 simulator and 57 condition; 406 entries are review candidates.
+
+## kirimasim bring-up stages
+
+### Q448. What are the kirimasim bring-up stages?
+
+They order the parts of UVM that a simulator meets while it learns to run the
+library: 0 uvm_pkg only, 1 minimal run_test, 2 factory, 3 config_db, 4
+sequence, 5 TLM and 6 register layer. `coverage/kirimasim_stages.json` gives
+every test the highest stage whose markers match its own sources, and a short
+set of tagged representatives for each stage, which `tools/kirimasim_stages.py
+short` prints for the kirimasim runner. The current kirimasim records stop at
+the same `uvm_object_wrapper` construct in every stage, so the first stage to
+pass is the next sign of progress. The stages are not the M1 to M4 milestones
+and change no expectation; [the stage guide](kirimasim-stages.md) explains the
+rules and maps the language features of each stage to kirimasim-tests.
+
+### Q449. Why does stage 0 hold only one test?
+
+A marker can tell which part of UVM a test uses, but not whether a test runs
+any library code at all, so stage 0 is set only by an override with a reason.
+The review asked for one test that only imports uvm_pkg:
+[`test_uvm_pkg_import_only_reaches_package_items`](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv) names UVM_LOW
+through the import and through the package name, which 1.4.5 and F.2.2.4 fix
+at 100. Some older tests also use only package-scope declarations, such as the
+version macros of B.7; they stay at stage 1 until a review moves them by
+override.

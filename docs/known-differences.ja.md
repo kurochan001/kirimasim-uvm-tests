@@ -6,7 +6,7 @@
 
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
-現在の2762件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の2763件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。原因は[原因の記録](#既知差分の原因)で別に割り当てており、照合はAIによるものです。
 
 差分の件数は[実測の内訳](results.ja.md#結果の解釈)で確認し、個別の入力を調べるときは[ライブラリの注記](known-differences.ja.md#固定版ライブラリの制約)、[ソースの分類一覧](known-differences.ja.md#specのみのテスト)、[シミュレータとライブラリの条件](known-differences.ja.md#シミュレータとライブラリの組み合わせ)を使ってください。
@@ -497,7 +497,7 @@ event deltaの6入力は最終tag付きで両seedに一致しますが、既知4
 
 `python3 tools/known_causes.py check`は、記録とテストが一致することを確かめます。`:oracle:`にverilator@5.052がない2値テストそれぞれにちょうど1件の記録があること、入力の指紋が現在のものであること、libraryの文字列が固定版のファイルにあること、条項が1800.2-2020のものであること、対照がtag付きのテストであることです。`--results`を付けると、合算したrunner JSONのknownの記録が記録と一致することも確かめます。`reproduce`は再現例をbuildし直し、Verilatorが記録どおりに受理または拒否することを確かめます。Checkは両方を実行します。
 
-kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2383入力と、固定版libraryのためにどのsimulatorでも期待値に届かない379入力（原因がlibraryとinterpretationのもの）を分けて数えます。未分類の入力はありません。測れる入力は、tag付きの2292件、原因がsimulatorとconditionのもの、4値の7件です。`candidates`は、人による照合の候補406件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。分類は終わりましたが、そうした値を加えると記録の形式が変わるため、先に案を示してユーザーの確認を得ます。
+kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2384入力と、固定版libraryのためにどのsimulatorでも期待値に届かない379入力（原因がlibraryとinterpretationのもの）を分けて数えます。未分類の入力はありません。測れる入力は、tag付きの2293件、原因がsimulatorとconditionのもの、4値の7件です。`candidates`は、人による照合の候補406件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。分類は終わりましたが、そうした値を加えると記録の形式が変わるため、先に案を示してユーザーの確認を得ます。
 
 ## 固定版ライブラリの制約
 
@@ -903,7 +903,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは2292件、specのみのテストは470件で、うち7件は4値です。
+スイート全体では、`verilator@5.052`を付けたテストは2293件、specのみのテストは470件で、うち7件は4値です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -912,11 +912,11 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの470件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の7件は[4値の一覧](#4値のspecのみのテスト)にあります。通常のVerilator実行とCIはoracle付き2292件（runtime 2198・compile拒否94）を選びます。
+specのみの470件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の7件は[4値の一覧](#4値のspecのみのテスト)にあります。通常のVerilator実行とCIはoracle付き2293件（runtime 2199・compile拒否94）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時318件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 simulation build 140件には通常runtimeがなく、DPI未linkの61入力（HDL 38／command-line 23）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
-不正compiler受理5件は別のruntimeなし条件です。120回目のユーザーpackageのprofile 5件は両seedで一致し、既知差分を増やしません。
+不正compiler受理5件は別のruntimeなし条件です。120回目のユーザーpackageのprofile 5件は両seedで一致し、既知差分を増やしません。124回目の段階0の入力も同じです。
 
 別HDL条件は全38入力のうち、virtual register／field 4件、register 6件、正時間force_time 8件、primitive force／release 9件、実array memory 3件を含む37件が両seed一致し、保持するE.7 warning／転送なし差分1件はseed 1です。
 別command-line条件は20一致、quit-warning差分1件、正規表現の差分2件を保持し、regex-DPI変種の条件は一覧の26件すべてで一致し、重複条件を合算しません。
@@ -1363,7 +1363,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1081記録、未測定は修正2入力を含む1681件です。
+対応する歴史的guest記録を除外し、互換範囲は1081記録、未測定は修正2入力を含む1682件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -1443,8 +1443,8 @@ command-line条件の2検査系は、固定版libraryが満たさない規格由
 
 以前のfield-configuration filterは互換1083記録を1082へ絞りました。その後のreraise主引用のfilterで1082件から1081件へ減りました。今回は新たなfilterやguest再実行をせず、その記録を保持します。[入力同一性の説明](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で両段階を区別します。
 
-スイートは2762件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1081件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、1681入力は未測定です。
+スイートは2763件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1081件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、1682入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも206件一致・875件不一致で、不一致になるテストも同じです。

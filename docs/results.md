@@ -6,14 +6,14 @@
 
 Runtime matches, compiler rejections and unmeasured inputs describe different execution conditions; [Read a result](reading-guide.md#read-a-result) explains how to read the counts together.
 
-The Verilator snapshot assembled on 2026-11-09 covers all 2755 two-state tests; the seven four-state tests have no Verilator record.
-Guest records retain 1081 compatible current inputs; 1681 inputs are
+The Verilator snapshot assembled on 2026-11-09 covers all 2756 two-state tests; the seven four-state tests have no Verilator record.
+Guest records retain 1081 compatible current inputs; 1682 inputs are
 unmeasured, including four revised old inputs. Each record
 fingerprints its inputs and conditions.
-The suite has 2762 fixtures in 22 directories: 2663 simulation and 99
-elaboration. Milestone totals are M1 1187 (1106/81), M2 633 (626/7) and M3 942
+The suite has 2763 fixtures in 22 directories: 2664 simulation and 99
+elaboration. Milestone totals are M1 1188 (1107/81), M2 633 (626/7) and M3 942
 (931/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
-none records human review. Of 2701 no-DPI fixtures, 99 are illegal elaboration
+none records human review. Of 2702 no-DPI fixtures, 99 are illegal elaboration
 checks. The thirty-eight HDL-DPI and twenty-three command-line/regex-DPI runtime fixtures
 remain separate.
 
@@ -21,16 +21,16 @@ Counts do not establish a reviewed coverage percentage.
 
 Backend rows revisit inputs already included in the ordinary row under different conditions; [the execution setup](testing.md#the-uvm-library) explains why their results are counted separately.
 
-A runtime match at seeds 1/73 still counts as one fixture, while a seed requested in configuration may be skipped after a first mismatch; [the seed-count explanation](faq.md#q201-did-all-2762-tests-run-at-two-seeds) explains how to read the execution scope column.
+A runtime match at seeds 1/73 still counts as one fixture, while a seed requested in configuration may be skipped after a first mismatch; [the seed-count explanation](faq.md#q201-did-all-2763-tests-run-at-two-seeds) explains how to read the execution scope column.
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 2292 `pass`: 2198 runtime + 94 compile rejection; 463 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
+| Verilator 5.052, pinned UVM | 2293 `pass`: 2199 runtime + 94 compile rejection; 463 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
 | Verilator 5.052, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 20 `pass`; 3 `known` | Separate overlapping 23-case condition; matches at seeds 1/73, differences at seed 1 |
 | Verilator 5.052, listed ordinary fixtures with regex and command-line DPI | 26 `pass` | Separate overlapping 26-case condition from `coverage/regex_dpi_variants.txt`; matches at seeds 1/73 |
-| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 unchanged inputs; 1681 inputs unmeasured |
-| Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1681 inputs unmeasured |
+| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 unchanged inputs; 1682 inputs unmeasured |
+| Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1682 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -124,7 +124,8 @@ matches to ordinary results; see [HDL setup](testing.md#verilator-vpi-hdl-subset
 and [known differences](known-differences.md).
 
 kirimasim reports `uvm_object_wrapper` as unsupported on 1072 cases; the other
-nine encounter missing library APIs first. Neither category establishes
+nine encounter missing library APIs first. [The bring-up stages](kirimasim-stages.md#current-kirimasim-records-by-stage)
+count these records by stage: the same construct stops every stage. Neither category establishes
 execution of the UVM behavior beyond those blockers. Ghost's bundled
 mismatches do not identify whether the simulator or its library caused them,
 and they do not establish results for the pinned library. Ghost's annex E matches cover only the
@@ -147,47 +148,42 @@ A fingerprint identifies the exact inputs behind a reused record, so [Execution 
 
 Here an unmeasured input has no compatible current record, even if an older version was run; [Q15](faq.md#q15-how-do-i-know-whether-an-old-result-still-applies) explains the checks needed before reusing it.
 
-The snapshot starts from [4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047), retains all 2750 old two-state records,
-and adds five user-package inputs (four M1, one M2) on 2026-11-09 JST; the seven four-state inputs still have no record.
+The snapshot starts from [9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/960138734ce23d521c36a645315044e070487cfa), retains all 2755 old two-state records,
+and adds one stage-0 input (M1) on 2026-11-09 JST; the seven four-state inputs still have no record.
 
 The profiles below check only their stated conditions, so a match under a different premise cannot pass an original difference; [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains the recorded direct/control roles.
 
-The 120th expansion implements the external review's fifth item, user
-packages. Four original packages in `tests/u08/helpers120_pkg/` hold an agent (item, driver,
-sequencer type and agent), a sequence, an environment and extension classes.
-Each test lists them in `:files:` in that order, because 1800-2023 26.3
-requires a package to be compiled before the scopes that import it; the agent
-and sequence packages never import the extension package. Five profiles check
-that utility-macro types in other packages are registered by static
-initialization before run_test, so the factory finds and creates types that no
-code names; that run_test creates a test class declared in a package; that
-type_id::create in the environment, agent and sequence packages builds the
-hierarchy and item flow; that type and instance overrides set through type_id,
-and a by-name type override with creation by name, reach creation in packages
-that do not import the override classes; and that a default-sequence wrapper
-from another package honors an instance override for the sequencer's path.
-All five match seeds 1/73 before and after tagging from the first freeze;
-[the package FAQ](faq.md#q442-what-do-the-user-package-profiles-check) describes them and [the override FAQ](faq.md#q443-why-do-the-by-name-overrides-use-creation-by-name) explains
-why by-name overrides are checked only with creation by name.
+The 124th expansion implements the external review's seventh item, the
+bring-up stages of kirimasim. [`coverage/kirimasim_stages.json`](../coverage/kirimasim_stages.json)
+gives every test a stage from 0 (uvm_pkg only) to 6 (register layer), decided
+by markers of each part of UVM in the test's own sources, and a short set of
+representatives for each stage; `tools/kirimasim_stages.py` checks it in Check
+and prints the short sets for the kirimasim runner. The stages hold 1, 1030,
+95, 111, 326, 250 and 950 tests, and every current kirimasim record stops at
+the same unsupported `uvm_object_wrapper` construct in every stage;
+[the stage guide](kirimasim-stages.md) explains the rules, the short sets and
+the SystemVerilog features that each stage needs, with tests of kirimasim-tests.
+No test header changes, so no input fingerprint changes.
 
-Nine new duties cover these conditions. The total is 4150 AI duties, with all
-4141 old objects and 445 assessments unchanged; 2706 tests have direct links,
-158 have controls and 56 are control-only. All 2750 old ordinary records and
-463 old known inputs remain unchanged. Four inputs count as M1 and one as M2.
-The requirement table also corrects rows 15 and 18, which had each missed one
-duty of the 116th expansion.
+One new stage-0 input in u01 imports uvm_pkg and names UVM_LOW through the
+import and through the package name, without creating a UVM object or calling
+run_test. It matches seeds 1/73 before and after tagging from the first freeze,
+and one new duty covers it. The total is 4151 AI duties, with all 4150 old
+objects and 445 assessments unchanged; 2707 tests have direct links, 158 have
+controls and 56 are control-only. All 2755 old ordinary records and 463 old
+known inputs remain unchanged. The new input counts as M1.
 
-The suite has 2762 tests (2663 simulation/99 elaboration). Ordinary results
-are 2292 matches: 2198 runtime inputs at both seeds and 94 compiler rejections.
+The suite has 2763 tests (2664 simulation/99 elaboration). Ordinary results
+are 2293 matches: 2199 runtime inputs at both seeds and 94 compiler rejections.
 Known inputs total 463: 318 runtime seed 1 differences, 140 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 470
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
 is added to the ordinary totals. No guest run/filter is added: 1081
-compatible records remain byte-identical and 1681 inputs are unmeasured (1677
-additions/four revised originals; 1582 simulation/99 elaboration).
+compatible records remain byte-identical and 1682 inputs are unmeasured (1678
+additions/four revised originals; 1583 simulation/99 elaboration).
 
-Primary-focused identifiers remain 1319; candidates are 1167 zero/764 below
+Primary-focused identifiers are 1320; candidates are 1167 zero/764 below
 target/551 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
@@ -204,11 +200,11 @@ longer available, so no guest rerun is claimed. Historical source files retain
 1085 records. Earlier filters excluded four revisions: command-enum citation,
 Boolean rerandomization, virtual-field configuration and reraise primary citation.
 This increment performs no new filtering. All 1081 compatible records and
-filter metadata are retained byte-identically. Four more additions increase the
-unmeasured set to 1681: 1677 additions and four revised originals. Ghost remains
+filter metadata are retained byte-identically. Later additions increase the
+unmeasured set to 1682: 1678 additions and four revised originals. Ghost remains
 206 pass/875 fail per seed and kirimasim remains 1072 unsupported/nine API failures.
 The latest exclusions are recorded in `out/thin-one-hundred-sixth-guest-exclusions.json`;
-the current scope is in `out/thin-one-hundred-twentieth-evidence-scope.json`.
+the current scope is in `out/thin-one-hundred-twenty-fourth-evidence-scope.json`.
 
 The fingerprints identify different inputs:
 
@@ -230,7 +226,7 @@ Before combining records, check that:
 
 - Verilator IDs cover every current two-state input exactly; the seven
   four-state inputs have no Verilator record. Retained guest IDs match
-  their declared 1081-case subset; 1681 input IDs remain unmeasured.
+  their declared 1081-case subset; 1682 input IDs remain unmeasured.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -245,11 +241,11 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-The [draft ledger](requirements.md) has 4150 AI duties and 0 unassessed
+The [draft ledger](requirements.md) has 4151 AI duties and 0 unassessed
 identifiers: 2062 partial/445 assessed. Chapter 10 is 87/29/0; chapter 18 is
 393/63/0. Their partial contracts and original targets remain open. Direct
-links cover 2706 tests; 56 others have only controls. Guests retain 1081
-compatible inputs; 1681 (1582 simulation/99 elaboration), including four
+links cover 2707 tests; 56 others have only controls. Guests retain 1081
+compatible inputs; 1682 (1583 simulation/99 elaboration), including four
 revised originals, are unmeasured. Scope and denominator remain unapproved.
 
 ## Reproducing and retaining results
@@ -281,9 +277,9 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 140 tool unit tests,
-2762 metadata records, the draft ledger/index and the cause record of the known
-differences. Its Verilator job runs the
+and manual dispatch. It checks pinned-library integrity, 156 tool unit tests,
+2763 metadata records, the draft ledger/index, the cause record of the known
+differences and the [kirimasim bring-up stages](kirimasim-stages.md). Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,
 plus the canary `tests/u09/test_common_phases_run_in_order.sv`, with runtime
 seeds 1/73 ([the selection tool](../tools/ci_select.py)). When the base is
@@ -293,7 +289,7 @@ and a warning asks for Regression. The Verilator job also rebuilds the cause
 record's twelve reproducers. A green Check covers the selected checks only.
 
 [Regression](../.github/workflows/regression.yml) runs on manual dispatch and
-weekly (Saturdays 17:23 UTC). It runs all 2292 tagged ordinary checks (2198
+weekly (Saturdays 17:23 UTC). It runs all 2293 tagged ordinary checks (2199
 runtime cases at seeds 1/73 and 94 compiler rejections without runtime seeds)
 in 20 disjoint shards (seven of 115 and thirteen of 114), at most 4 concurrent so
 that Check and other repositories keep hosted job slots, each limited to 360 minutes, the twenty explicit command-line checks in a

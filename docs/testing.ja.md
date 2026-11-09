@@ -36,11 +36,12 @@ tests/uF/, uG/              文字列utility・command-lineの照会
 docs/testing*.md            テスト形式・実行・変更時の規則
 docs/results*.md            現在の測定条件と記録
 docs/requirements*.md       範囲の案・要求の対応付け・棚卸し
-coverage/*.json             版管理する範囲・要求台帳・番号の分類・テスト索引・既知差分の原因
+coverage/*.json             版管理する範囲・要求台帳・番号の分類・テスト索引・既知差分の原因・kirimasimの段階
 docs/provenance*.md         関連リポジトリとソースの由来
 docs/glossary*.md            用語集
 docs/faq*.md                 よくある質問
 docs/known-differences*.md   現在の制約とspecのみの期待値
+docs/kirimasim-stages*.md   kirimasimの立ち上げ段階・短いセット・言語機能
 docs/handoff*.md            作業の引継ぎと再開手順
 docs/history*.md             過去の追加作業と測定
 third_party/uvm.lock         固定したライブラリ：リリース、取得元、コミット、指紋
@@ -54,6 +55,7 @@ tools/suite_results.py       判定と結果JSON（kirimasim-testsから写し�
 tools/lint_metadata.py       メタデータとテストの形式の検査
 tools/requirements.py        要求台帳の案の検査と棚卸し
 tools/known_causes.py        既知差分の原因の記録の検査と集計
+tools/kirimasim_stages.py    kirimasimの段階の検査と短いセットの出力
 tools/ci_select.py           CIで実行する変更分またはshard分のタグ付き検査を選ぶ
 tools/sv_lifetimes.py        初期化付き手続き内ローカル変数の字句チェック
 tools/clauses_1800_2.txt     1800.2-2020の条項番号（番号だけ）
@@ -462,7 +464,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の2701件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
+- 現在の2702件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -577,7 +579,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の2292件（runtime 2198・期待compiler拒否94）です。`--all`を付けるとspecのみの463件も含めます。
+Verilatorの既定の対象はoracle付き・2値の2293件（runtime 2199・期待compiler拒否94）です。`--all`を付けるとspecのみの463件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -639,9 +641,10 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 python3 tools/known_causes.py check
+python3 tools/kirimasim_stages.py check
 ```
 
-現在のツールの単体テストは140件、メタデータの対象はテスト2762件（simulation 2663件・elaboration 99件）です。
+現在のツールの単体テストは156件、メタデータの対象はテスト2763件（simulation 2664件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
@@ -650,8 +653,10 @@ UVMの全要求や全シミュレータの成功を示すものではありま�
 
 [原因の検査](known-differences.ja.md#既知差分の原因)は、既知差分ごとに現在の入力の指紋を持つ記録が1件あることを確かめるため、specのみのテストを変えたら診断し直す必要があります。Checkは`python3 tools/known_causes.py reproduce`で、記録にあるUVMを使わない再現例もbuildし直します。
 
+[段階の検査](kirimasim-stages.ja.md#段階を最新に保つ)は、各テストが`coverage/kirimasim_stages.json`のmarkerとoverrideの与えるkirimasimの立ち上げ段階を持つことを確かめます。そのため、テストの追加や変更、helperの変更の後は`python3 tools/kirimasim_stages.py update`を実行し、変更を見直す必要があります。各短いセットは、自分の段階のtag付きの実行テストを保つ必要があります。
+
 Checkは記録入力が変わったタグ付き検査とcanaryを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻ります。
-Regressionは手動と毎週、タグ付き2292件を重複しない20 shardで、command-line 20件、regex-DPI変種26件と合わせて実行します。
+Regressionは手動と毎週、タグ付き2293件を重複しない20 shardで、command-line 20件、regex-DPI変種26件と合わせて実行します。
 戻る条件と上限、以前の8 shard版Checkが完了しなかった理由は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 runner、library lock、多数の入力を変えた後は、Checkに頼らずRegressionを手動実行します。
 

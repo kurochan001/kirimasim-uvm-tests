@@ -7,8 +7,8 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4150件は、すべて2706テストへ直接対応し、
-追加の56テストはcontrol専用です。全2762テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案4151件は、すべて2707テストへ直接対応し、
+追加の56テストはcontrol専用です。全2763テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
@@ -32,7 +32,7 @@ control専用テストは補助的な前提を検査するもので、その一�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-4150件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+4151件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -62,7 +62,7 @@ directとcontrolは、義務を直接検査するか、準備や条件の評価�
 ![条項の引用、明示的な要求の対応付け、別途測定する実行の証拠の関係。](images/requirement-evidence.ja.svg)
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は1319件、どちらかの引用がある番号は2,096件です。
+catalogのうち主引用がある番号は1320件、どちらかの引用がある番号は2,096件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
 対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,167、1件が764、2件以上が551です。
@@ -86,7 +86,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2762件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2763件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -110,7 +110,7 @@ schemaの版はJSONの項目構成を識別するもので、UVMライブラリ�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2762件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2763件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -203,11 +203,11 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 
 1つのテストが複数の義務、1つの義務が複数のテストに対応するため、主引用テスト数を要求案の数で割ってcoverageを計算できないことは[対応付けの例](#引用要求実行の証拠)で確認できます。
 
-表には文脈・保留を含む全catalog rootを残し、文脈root 1のnamespace、乱数状態、真偽返却、継承、名前のcaseの義務はそれぞれ主引用F.1、1.4.6、1.4.2、1.4.3、1.4のテストで検査するため、要求件数と主引用テスト件数が異なる理由は[対応付けの説明](#引用要求実行の証拠)で確認できます。
+表には文脈・保留を含む全catalog rootを残し、文脈root 1のnamespace、乱数状態、真偽返却、継承、名前のcaseの義務はそれぞれ主引用F.1、1.4.6、1.4.2、1.4.3、1.4のテストで、段階0のimportの義務は主引用1.4.5のテストで検査するため、要求件数と主引用テスト件数が異なる理由は[対応付けの説明](#引用要求実行の証拠)で確認できます。
 
 | Root | 要求案 | 主引用テスト | 対応のないテスト | 分類済みの番号 | 未評価の番号 |
 | --- | --- | --- | --- | --- | --- |
-| 1 | 20 | 38 | 0 | 6 | 0 |
+| 1 | 21 | 39 | 0 | 6 | 0 |
 | 2 | 0 | 0 | 0 | 1 | 0 |
 | 3 | 0 | 0 | 0 | 3 | 0 |
 | 4 | 0 | 0 | 0 | 1 | 0 |
@@ -238,23 +238,21 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
 部分2062識別子は残る義務と適用条件を[完了条件](#m4の残作業と承認)に従って確認する必要があります。
-範囲は提案、4150件のレビューはすべて`ai`、分母は未承認です。
+範囲は提案、4151件のレビューはすべて`ai`、分母は未承認です。
 
-120回目は、外部レビューの5番目の項目であるユーザーpackageを扱います。`tests/u08/helpers120_pkg/`の独自の4 packageは、agent（item、driver、sequencerの型、agent）、sequence、environment、extensionのclassをそれぞれ持ちます。
-1800-2023の26.3はpackageをimportするscopeより先にそのpackageをcompileすることを求めるため、各テストは`:files:`にこの順で並べ、agentとsequenceのpackageはextensionのpackageをimportしません。
-5 profileは次を検査します。別のpackageのutility macroによる型がrun_testより前に静的初期化で登録され、どのcodeも名指ししない型をfactoryが見つけて生成できること。run_testがpackageで宣言したtest classを生成すること。environment、agent、sequenceの各packageのtype_id::createが階層とitemの流れを作ること。
-type_idで設定した型とinstanceのoverride、名前による生成と組み合わせた名前による型overrideが、override先のclassをimportしないpackageでの生成に届くこと。別のpackageのdefault sequenceのwrapperが、sequencerのpathに対するinstance overrideに従うことです。
-5件とも最初の凍結のまま、tag付けの前後でseed 1／73が一致しました。各profileは[packageのFAQ](faq.ja.md#q442-ユーザーpackageのprofileは何を検査しますか)、名前によるoverrideを名前による生成だけで確かめる理由は[overrideのFAQ](faq.ja.md#q443-名前によるoverrideを名前による生成で確かめるのはなぜですか)で説明しています。
+124回目は、外部レビューの7番目の項目であるkirimasimの立ち上げ段階を扱います。[`coverage/kirimasim_stages.json`](../coverage/kirimasim_stages.json)は、テスト自身のsourceにあるUVMの各部分のmarkerから、各テストに0（uvm_pkgだけ）から6（register層）までの段階を割り当て、段階ごとに代表の短いセットを持ちます。
+`tools/kirimasim_stages.py`がCheckでこれを検査し、kirimasimのrunnerに渡す短いセットを出力します。段階ごとのテストは1、1030、95、111、326、250、950件で、kirimasimの現在の記録はどの段階でも同じ`uvm_object_wrapper`のunsupportedで止まっています。
+規則、短いセット、各段階で必要なSystemVerilogの機能とkirimasim-testsのテストとの対応は[段階のガイド](kirimasim-stages.ja.md)で説明しています。テストのheaderは変えないため、入力の指紋は変わりません。
 
-これらの条件を新しい義務9件で扱います。AI義務は4150件で、旧要求4141件と分類445件はすべて同一です。直接対応は2706テスト、control対応は158テスト、controlのみは56テストです。
-元の通常2750記録と旧既知463入力は全て維持します。4入力はM1、1入力はM2に数えます。要求の表では、116回目の義務を1件ずつ数え漏らしていた15と18の行も訂正しました。
+u01の新しい段階0の入力1件は、uvm_pkgをimportし、UVM_LOWをimportとpackage名の両方から名指しするだけで、UVM objectを作らず、run_testも呼びません。最初の凍結のまま、tag付けの前後でseed 1／73が一致し、新しい義務1件で扱います。
+AI義務は4151件で、旧要求4150件と分類445件はすべて同一です。直接対応は2707テスト、control対応は158テスト、controlのみは56テストです。元の通常2755記録と旧既知463入力は全て維持します。新しい入力はM1に数えます。
 
-全体は2762テスト（simulation 2663／elaboration 99）です。通常一致は2292件で、runtime両seed 2198入力とcompiler拒否94件です。
+全体は2763テスト（simulation 2664／elaboration 99）です。通常一致は2293件で、runtime両seed 2199入力とcompiler拒否94件です。
 既知は463入力で、runtime seed 1差分318件、simulation build 140件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて470件です。
-command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1681入力です。
-追加1677件と修正した元入力4件で、simulation 1582／elaboration 99です。
+command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1682入力です。
+追加1678件と修正した元入力4件で、simulation 1583／elaboration 99です。
 
-主引用がある番号は1319のままで、candidateは0件1167／目標未満764／2件以上551です。
+主引用がある番号は1320で、candidateは0件1167／目標未満764／2件以上551です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
@@ -513,4 +511,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる4150要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる4151要求案と直接の対応は、その条件を満たしていません。

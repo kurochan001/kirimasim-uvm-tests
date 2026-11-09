@@ -42,11 +42,12 @@ tests/uF/, uG/              string utilities and command-line queries
 docs/testing*.md            test format, execution and contribution rules
 docs/results*.md            current measurement conditions and evidence
 docs/requirements*.md       draft scope, requirement mapping and census
-coverage/*.json             versioned scope, requirements, assessments, test index and known-difference causes
+coverage/*.json             versioned scope, requirements, assessments, test index, known-difference causes and kirimasim stages
 docs/provenance*.md         related repositories and source attribution
 docs/glossary*.md            terminology
 docs/faq*.md                 common questions
 docs/known-differences*.md   current limitations and spec-only expectations
+docs/kirimasim-stages*.md   kirimasim bring-up stages, short sets and language features
 docs/handoff*.md            development handoff and restart workflow
 docs/history*.md             earlier increments and measurements
 third_party/uvm.lock         the pinned library: release, source, commit, digest
@@ -60,6 +61,7 @@ tools/suite_results.py       judgment and result JSON, copied from kirimasim-tes
 tools/lint_metadata.py       checks of the metadata and the form of the tests
 tools/requirements.py        validates and inventories the draft requirement ledger
 tools/known_causes.py        checks and summarizes the causes of the known differences
+tools/kirimasim_stages.py    checks the kirimasim stages and prints the short sets
 tools/ci_select.py           selects the changed or sharded tagged checks for CI
 tools/sv_lifetimes.py        lexical guard for initialized procedural locals
 tools/clauses_1800_2.txt     clause numbers of 1800.2-2020 (numbers only)
@@ -632,7 +634,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2701 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
+- 2702 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -787,7 +789,7 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 2292 tagged two-state checks: 2198 runtime
+By default, Verilator selects 2293 tagged two-state checks: 2199 runtime
 cases and 94 expected compiler rejections. To include
 the 463 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
@@ -855,10 +857,11 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 python3 tools/known_causes.py check
+python3 tools/kirimasim_stages.py check
 ```
 
-The current tool suite has 140 unit tests; metadata validation checks all
-2762 tests (2663 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+The current tool suite has 156 unit tests; metadata validation checks all
+2763 tests (2664 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
 [Regression](../.github/workflows/regression.yml) shards, uses
@@ -871,9 +874,14 @@ current input fingerprint for each known difference, so a changed spec-only test
 diagnosis. Check also rebuilds the record's reproducers, which use no UVM, with
 `python3 tools/known_causes.py reproduce`.
 
+[The stage check](kirimasim-stages.md#keeping-the-stages-current) requires every test to have the
+kirimasim bring-up stage that the markers and overrides of `coverage/kirimasim_stages.json` give,
+so a new or changed test, or a changed helper, needs `python3 tools/kirimasim_stages.py update`
+and a review of the change. Each short set must keep tagged simulation tests of its own stage.
+
 Check runs the tagged checks whose recorded inputs changed, plus a canary, and
 falls back to the canary alone with a warning when it cannot cover a change.
-Regression runs all 2292 tagged checks in 20 disjoint shards, the 20
+Regression runs all 2293 tagged checks in 20 disjoint shards, the 20
 command-line checks and the 26 regex-DPI variants, manually and weekly. [The CI section](results.md#continuous-integration)
 gives the fallbacks and limits, and why the earlier 8-shard Check never finished.
 After a change to the runner, the library lock or many inputs, dispatch

@@ -10558,6 +10558,10 @@
       "primary_clause": "1.4",
       "inputs_sha256": "b4546504fa98cedc2a14506c3be6be68f291a4e315b1bd5552a064360b3ac3bd"
     },
+    "u01/test_uvm_pkg_import_only_reaches_package_items": {
+      "primary_clause": "1.4.5",
+      "inputs_sha256": "cbacb87660b2bbab281114996b256bd62ba25b116365f363309f448ee054846e"
+    },
     "uB/test_callback_named_lifecycle_0_0_102": {
       "primary_clause": "B.4",
       "inputs_sha256": "da35e01bf891a4e42e34daed6207d76e716ee61c8c24ca2ab943f619d5514c38"

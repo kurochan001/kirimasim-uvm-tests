@@ -6,8 +6,9 @@ name: Check
 # cases use two seeds; illegal elaboration cases require compiler rejection
 # with the declared diagnostic and do not run a binary. Each expectation must
 # match the fixed simulator/library condition. The tools job also checks the
-# record of causes of the known differences (coverage/known_causes.json), and
-# the Verilator job rebuilds its simulator reproducers (tools/known_causes.py).
+# record of causes of the known differences (coverage/known_causes.json) and
+# the bring-up stages of kirimasim (coverage/kirimasim_stages.json), and the
+# Verilator job rebuilds the simulator reproducers (tools/known_causes.py).
 #
 # This quick check does not replace the full selection: the whole tagged set
 # and the explicit command-line checks run in the Regression workflow
@@ -54,6 +55,11 @@ jobs:
 
       - name: Causes of the known differences
         run: python3 tools/known_causes.py check
+
+      # Every test has the stage its markers give, and each short set holds
+      # tagged tests of its own stage (tools/kirimasim_stages.py).
+      - name: Bring-up stages of kirimasim
+        run: python3 tools/kirimasim_stages.py check
 
   verilator:
     runs-on: ubuntu-24.04

@@ -546,6 +546,12 @@ A clause citation locates a reference but does not establish a tested duty; [Cit
 UVM, TLM/sequences/callbacks, register layer, then a reviewed requirement ledger.
 Starting a later stage does not certify completion of the previous stage.
 
+**Bring-up stage** — The [kirimasim bring-up stage](kirimasim-stages.md) that a
+test needs, from 0 (uvm_pkg only) to 6 (register layer), recorded in
+`coverage/kirimasim_stages.json`. The stages order the parts of UVM that a
+simulator meets while it learns to run the library; they are not the M0–M4
+development stages and change no expectation.
+
 **Clause citation / requirement coverage / match count** — A reference in
 metadata / evidence that defined requirements and conditions are exercised /
 the number of tests matching in a specified execution. These have different

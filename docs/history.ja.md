@@ -4169,3 +4169,14 @@ apply_config_settingsの既定のmodeの2入力は、DEVIATIONS.mdの3番目に�
 nullのmapを渡すget_local_mapの入力は、DEVIATIONS.mdの2番目に当たります。分かったことは[Q447](faq.ja.md#q447-原因の最後のbatchでは何が分かりましたか)にまとめています。
 
 テスト、期待値、保存した記録、義務はどれも変わりません。原因の記録は完成し、library 319件、interpretation 60件、simulator 27件、condition 57件で、未分類の記録はありません。kirimasimについては、2383入力が規格の期待値で測れ、379入力は固定版libraryのために期待値に届きません。
+
+## 124回目の拡充：kirimasimの立ち上げ段階（外部レビューの項目7）
+
+124回目は、ユーザーが承認したとおりに7番目の項目を実装します。別の追跡ファイル`coverage/kirimasim_stages.json`は、各テストに0（uvm_pkgだけ）から6（register層）までの立ち上げ段階を与えます。テストと、テストが集めるfileをcommentとstringを除いて調べ、markerが一致する最も高い段階、どれも一致しなければ段階1です。英語と日本語の理由を付けたoverrideが段階0の入力を置きます。テストのheaderは変えないため、入力の指紋は変わりません。
+`tools/kirimasim_stages.py`はCheckで記録を検査し、変更の後に書き直し（`update`）、kirimasimのrunnerに渡す短いセットを出力し（`short`）、runnerのJSONを段階ごとに数えます（`summary --results`）。単体テストを16件加えました。
+
+段階ごとのテストは1、1030、95、111、326、250、950件で、各段階はtag付きの実行テストの短いセットを持ちます。段階0は1件、他の段階は5件ずつです。kirimasimの現在の記録1081件を段階ごとに数えると、どの段階でも同じ`uvm_object_wrapper`のunsupportedで止まっています。
+新しい入力[`test_uvm_pkg_import_only_reaches_package_items`](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv)は、uvm_pkgをimportし、1.4.5とF.2.2.4から導いたUVM_LOWを、importとpackage名の両方から名指しします。tag付けの前後でseed 1／73が一致し、義務1件で扱います。
+
+[段階のガイド](kirimasim-stages.ja.md)は、各段階のSystemVerilogの機能を、固定版libraryの使用箇所と、`829671c2`のkirimasim-testsに対応付けます。段階5のTLMのimpが必要とする、型parameterを型とするhandleを通したmethodの呼出しを行う実行テストは、kirimasim-testsにありません。段階の要点は[Q448](faq.ja.md#q448-kirimasimの立ち上げ段階とは何ですか)と[Q449](faq.ja.md#q449-段階0のテストが1件だけなのはなぜですか)にまとめています。
+スイートは2763テスト、4151義務、通常一致2293件です。既知差分463件とguestの記録は変わりません。

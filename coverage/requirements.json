@@ -156277,6 +156277,40 @@
       ]
     },
     {
+      "id": "UVM-PACKAGE-IMPORT-ONLY-STAGE0",
+      "clause": "1.4.5",
+      "statement": {
+        "en": "Importing uvm_pkg alone makes its package-scope items reachable, both through the import and through the package name.",
+        "ja": "uvm_pkgをimportするだけで、package scopeの項目にimportとpackage名の両方から到達できる。"
+      },
+      "conditions": {
+        "en": "A module imports uvm_pkg, creates no UVM object and does not call run_test; it names UVM_LOW through the import and as uvm_pkg::UVM_LOW.",
+        "ja": "moduleはuvm_pkgをimportし、UVM objectを作らず、run_testを呼ばない。UVM_LOWをimportで名指しし、uvm_pkg::UVM_LOWとしても名指しする。"
+      },
+      "expected": {
+        "en": "Both names give 100, the value that F.2.2.4 fixes for UVM_LOW.",
+        "ja": "どちらの名前も、F.2.2.4がUVM_LOWに定める値100になる。"
+      },
+      "limitations": {
+        "en": "One enumeration value of one package-scope type. This is the stage-0 input of the kirimasim bring-up stages; it checks neither classes, run_test nor any other export of uvm_pkg, which UVM-PACKAGE-IMPORTED-QUALIFIED-ACCESS-94 samples separately.",
+        "ja": "package scopeの1つの型の、1つのenum値だけを見る。kirimasimの立ち上げ段階0の入力で、class、run_test、uvm_pkgの他の公開項目は検査しない。これらはUVM-PACKAGE-IMPORTED-QUALIFIED-ACCESS-94が別に抜き取って調べる。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u01/test_uvm_pkg_import_only_reaches_package_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stage0 imported 100 qualified 100"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-ROOT-NULL-PARENT-LIVE-HIERARCHY-94",
       "clause": "F.7",
       "statement": {

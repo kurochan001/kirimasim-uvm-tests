@@ -6856,3 +6856,31 @@ No test, expectation, stored record or duty changes. The cause record is
 complete: 319 library, 60 interpretation, 27 simulator and 57 condition, with
 no entry unassigned; for kirimasim, 2383 inputs are measurable against the
 standard and 379 are kept from their expectation by the pinned library.
+
+## 124th expansion: kirimasim bring-up stages (external review item 7)
+
+The 124th expansion implements the seventh item as the user approved it. A
+separate tracked record, `coverage/kirimasim_stages.json`, gives every test a
+bring-up stage from 0 (uvm_pkg only) to 6 (register layer): the highest stage
+whose markers match the test and the files it collects, with comments and
+strings removed, or stage 1; an override with a bilingual reason places the
+stage-0 input. No test header changes, so no input fingerprint changes.
+`tools/kirimasim_stages.py` checks the record in Check, rewrites it after a
+change (`update`), prints a short set for the kirimasim runner (`short`) and
+counts a runner JSON by stage (`summary --results`); 16 unit tests cover it.
+
+The stages hold 1, 1030, 95, 111, 326, 250 and 950 tests, and each keeps a
+short set of tagged simulation tests: one at stage 0 and five at each other
+stage. Counted by stage, the 1081 current kirimasim records stop at the same
+unsupported `uvm_object_wrapper` construct in every stage. One new input,
+[`test_uvm_pkg_import_only_reaches_package_items`](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv), imports
+uvm_pkg and names UVM_LOW through the import and through the package name,
+derived from 1.4.5 and F.2.2.4; it matches seeds 1/73 before and after
+tagging, and one duty covers it.
+
+[The stage guide](kirimasim-stages.md) maps the SystemVerilog features of each
+stage to places in the pinned library and to kirimasim-tests at `829671c2`. No
+simulation test of kirimasim-tests calls a method through a handle whose type
+is a type parameter, which the TLM imps of stage 5 need; [Q448](faq.md#q448-what-are-the-kirimasim-bring-up-stages) and
+[Q449](faq.md#q449-why-does-stage-0-hold-only-one-test) summarize the stages. The suite has 2763 tests, 4151 duties and
+2293 ordinary matches; 463 known differences and the guest records are unchanged.

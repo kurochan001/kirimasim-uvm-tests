@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4150 AI-drafted requirements, all with direct links to 2706 tests.
-Fifty-six tests have only control links. All 2762 tests have a requirement link.
+contains 4151 AI-drafted requirements, all with direct links to 2707 tests.
+Fifty-six tests have only control links. All 2763 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4150 draft entries span several areas,
+a heading is not an obligation. The 4151 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -75,7 +75,7 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1319
+references are **supporting citations**. Of the catalog identifiers, 1320
 have a primary-focus test and 2,096 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2762-test
+known difference. It is not a pass or a conformance claim. The current 2763-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2762 reviewed requirement mappings.
+  index is an inventory, not 2763 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -263,11 +263,11 @@ Each row counts requirements by their own clause and tests by their primary cita
 
 Do not divide primary-focus tests by draft requirements to calculate coverage: one test can link to several duties and one duty to several tests, as shown by [the mapping examples](#citations-requirements-and-execution-evidence).
 
-The table retains every catalog root, including context and deferred roots; context root 1 has namespace, random-stability, Boolean-return, inheritance and name-case duties, whose primary tests use F.1, 1.4.6, 1.4.2, 1.4.3 and 1.4 respectively, and [the mapping guide](#citations-requirements-and-execution-evidence) explains why requirement counts and primary-test counts differ.
+The table retains every catalog root, including context and deferred roots; context root 1 has namespace, random-stability, Boolean-return, inheritance and name-case duties, whose primary tests use F.1, 1.4.6, 1.4.2, 1.4.3 and 1.4 respectively, and the stage-0 import duty, whose test uses 1.4.5, and [the mapping guide](#citations-requirements-and-execution-evidence) explains why requirement counts and primary-test counts differ.
 
 | Root | Draft requirements | Primary-focus tests | Tests without links | Assessed identifiers | Unassessed identifiers |
 | --- | --- | --- | --- | --- | --- |
-| 1 | 20 | 38 | 0 | 6 | 0 |
+| 1 | 21 | 39 | 0 | 6 | 0 |
 | 2 | 0 | 0 | 0 | 1 | 0 |
 | 3 | 0 | 0 | 0 | 3 | 0 |
 | 4 | 0 | 0 | 0 | 1 | 0 |
@@ -298,45 +298,40 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4150 reviews are `ai` and
+Scope is proposed, all 4151 reviews are `ai` and
 the denominator remains unapproved.
 
-The 120th expansion implements the external review's fifth item, user
-packages. Four original packages in `tests/u08/helpers120_pkg/` hold an agent (item, driver,
-sequencer type and agent), a sequence, an environment and extension classes.
-Each test lists them in `:files:` in that order, because 1800-2023 26.3
-requires a package to be compiled before the scopes that import it; the agent
-and sequence packages never import the extension package. Five profiles check
-that utility-macro types in other packages are registered by static
-initialization before run_test, so the factory finds and creates types that no
-code names; that run_test creates a test class declared in a package; that
-type_id::create in the environment, agent and sequence packages builds the
-hierarchy and item flow; that type and instance overrides set through type_id,
-and a by-name type override with creation by name, reach creation in packages
-that do not import the override classes; and that a default-sequence wrapper
-from another package honors an instance override for the sequencer's path.
-All five match seeds 1/73 before and after tagging from the first freeze;
-[the package FAQ](faq.md#q442-what-do-the-user-package-profiles-check) describes them and [the override FAQ](faq.md#q443-why-do-the-by-name-overrides-use-creation-by-name) explains
-why by-name overrides are checked only with creation by name.
+The 124th expansion implements the external review's seventh item, the
+bring-up stages of kirimasim. [`coverage/kirimasim_stages.json`](../coverage/kirimasim_stages.json)
+gives every test a stage from 0 (uvm_pkg only) to 6 (register layer), decided
+by markers of each part of UVM in the test's own sources, and a short set of
+representatives for each stage; `tools/kirimasim_stages.py` checks it in Check
+and prints the short sets for the kirimasim runner. The stages hold 1, 1030,
+95, 111, 326, 250 and 950 tests, and every current kirimasim record stops at
+the same unsupported `uvm_object_wrapper` construct in every stage;
+[the stage guide](kirimasim-stages.md) explains the rules, the short sets and
+the SystemVerilog features that each stage needs, with tests of kirimasim-tests.
+No test header changes, so no input fingerprint changes.
 
-Nine new duties cover these conditions. The total is 4150 AI duties, with all
-4141 old objects and 445 assessments unchanged; 2706 tests have direct links,
-158 have controls and 56 are control-only. All 2750 old ordinary records and
-463 old known inputs remain unchanged. Four inputs count as M1 and one as M2.
-The requirement table also corrects rows 15 and 18, which had each missed one
-duty of the 116th expansion.
+One new stage-0 input in u01 imports uvm_pkg and names UVM_LOW through the
+import and through the package name, without creating a UVM object or calling
+run_test. It matches seeds 1/73 before and after tagging from the first freeze,
+and one new duty covers it. The total is 4151 AI duties, with all 4150 old
+objects and 445 assessments unchanged; 2707 tests have direct links, 158 have
+controls and 56 are control-only. All 2755 old ordinary records and 463 old
+known inputs remain unchanged. The new input counts as M1.
 
-The suite has 2762 tests (2663 simulation/99 elaboration). Ordinary results
-are 2292 matches: 2198 runtime inputs at both seeds and 94 compiler rejections.
+The suite has 2763 tests (2664 simulation/99 elaboration). Ordinary results
+are 2293 matches: 2199 runtime inputs at both seeds and 94 compiler rejections.
 Known inputs total 463: 318 runtime seed 1 differences, 140 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 470
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
 is added to the ordinary totals. No guest run/filter is added: 1081
-compatible records remain byte-identical and 1681 inputs are unmeasured (1677
-additions/four revised originals; 1582 simulation/99 elaboration).
+compatible records remain byte-identical and 1682 inputs are unmeasured (1678
+additions/four revised originals; 1583 simulation/99 elaboration).
 
-Primary-focused identifiers remain 1319; candidates are 1167 zero/764 below
+Primary-focused identifiers are 1320; candidates are 1167 zero/764 below
 target/551 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
@@ -757,4 +752,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4150 AI drafts and their direct links do not satisfy that gate.
+The current 4151 AI drafts and their direct links do not satisfy that gate.
