@@ -726,7 +726,10 @@ The index binds a mapping to exact test inputs rather than only a filename; [Q78
 A shared helper change may invalidate several tests at once, so [the result-reuse checklist](results.md#evidence-assembly) must be applied to every dependent record as well as to the edited fixture.
 
 There is deliberately no command that silently certifies existing mappings
-when their inputs change. The regression tests cover stale expected/helper/
+when their inputs change. The one exception is an edit that adds only comments or
+line breaks: `python3 tools/code_identity.py refresh --base BASE` moves a
+fingerprint forward only after it shows that every edited input keeps its code
+([readability edits](testing.md#readability-edits)). The regression tests cover stale expected/helper/
 lock inputs, direct/control distinctions, citation non-promotion, duplicate
 or invalid data, scope claims and generated-output protection. Check CI runs
 this validation alongside the existing metadata and library checks.

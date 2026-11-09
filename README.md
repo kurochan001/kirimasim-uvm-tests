@@ -145,7 +145,7 @@ runs tool, metadata, library, ledger, cause-record and bring-up-stage checks and
 the tagged ordinary Verilator checks whose inputs changed plus one canary.
 [Regression](.github/workflows/regression.yml) runs all 2293 tagged ordinary
 checks in 20 shards, the twenty explicit command-line checks and the twenty-six
-regex-DPI variants, manually and weekly. Neither runs kirimasim or Ghost, and there is no automatic result publication.
+regex-DPI variants, manually and weekly; a manual run can be narrowed to directories under `tests/`. Neither runs kirimasim or Ghost, and there is no automatic result publication.
 
 ## Documentation
 

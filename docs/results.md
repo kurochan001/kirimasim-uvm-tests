@@ -241,6 +241,13 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
+A guest record cannot be measured again without the private executables. When
+an edit only adds comments or line breaks, [the code-identity check](testing.md#readability-edits)
+shows that the edited inputs keep every token, metadata field, directive,
+metacomment and `` `__LINE__ `` distance; such a record is carried forward to
+the new fingerprint, keeps its old one in `carried_from`, and is not a new
+measurement. Verilator results of the edited inputs are measured again.
+
 The [draft ledger](requirements.md) has 4151 AI duties and 0 unassessed
 identifiers: 2062 partial/445 assessed. Chapter 10 is 87/29/0; chapter 18 is
 393/63/0. Their partial contracts and original targets remain open. Direct
@@ -277,7 +284,7 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 156 tool unit tests,
+and manual dispatch. It checks pinned-library integrity, 168 tool unit tests,
 2763 metadata records, the draft ledger/index, the cause record of the known
 differences and the [kirimasim bring-up stages](kirimasim-stages.md). Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,
@@ -294,7 +301,11 @@ runtime cases at seeds 1/73 and 94 compiler rejections without runtime seeds)
 in 20 disjoint shards (seven of 115 and thirteen of 114), at most 4 concurrent so
 that Check and other repositories keep hosted job slots, each limited to 360 minutes, the twenty explicit command-line checks in a
 separate job under their condition, and the twenty-six regex-DPI variants in another job. Its gate requires all three. A newer request
-waits for a run in progress instead of cancelling it.
+waits for a run in progress instead of cancelling it. A manual run can be
+narrowed to directories under `tests/` (input `directories`); a plan job then
+selects the checks that collect a file from them, in one shard for every 115
+checks, and runs the command-line and regex-DPI jobs only for their fixtures
+there. The weekly run is never narrowed.
 
 The former single Check ran the whole selection on every push. Its unsharded
 [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)

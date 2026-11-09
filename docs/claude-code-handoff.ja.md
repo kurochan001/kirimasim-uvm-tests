@@ -4,7 +4,7 @@
 
 ## 最初に読むこと
 
-2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)で113回目の拡充を公開しました。その後、最初のRegressionでhostedのrunnerにz3制約solverがないことが分かり、準備用actionで導入して、[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)で114回目の拡充を公開しました。その後、[eeda25d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/eeda25d9b378773a2841076706f8e8029d87c08d)で115回目の拡充を公開しました。2026-11-08にユーザーは外部レビューを示し、その最初の項目であるRTLとの結合を、[c314982](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c314982e5c42e5333790b7ba7bb00bbaef8da2f7)で116回目の拡充として公開し、2番目の項目である4値の経路を[46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624)で117回目の拡充として公開し、3番目の項目である乱数化の性質を[8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8)で118回目の拡充として公開し、4番目の項目であるDPIの構成を[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)で119回目の拡充として公開し、5番目の項目であるユーザーpackageを[9c57290](https://github.com/kurochan001/kirimasim-uvm-tests/commit/9c572904a247a92a4445c0d9bfe7b1208eeb975a)で120回目の拡充として公開し、6番目の項目である既知差分の原因の最初のbatchを[a578650](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a5786504883a87b7928084098a7fada0a9f7efce)で121回目の拡充として、2番目のbatchを[e5bd032](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e5bd032245789f643e9a45a65bbebd19b0a5efc0)で122回目の拡充として、3番目で最後のbatchを[9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/960138734ce23d521c36a645315044e070487cfa)で123回目の拡充として公開し、7番目の項目であるkirimasimの立ち上げ段階を、この文面を含むcommitで124回目の拡充として公開しました。**goalは継続中で、完了していません。**
+2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)で113回目の拡充を公開しました。その後、最初のRegressionでhostedのrunnerにz3制約solverがないことが分かり、準備用actionで導入して、[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)で114回目の拡充を公開しました。その後、[eeda25d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/eeda25d9b378773a2841076706f8e8029d87c08d)で115回目の拡充を公開しました。2026-11-08にユーザーは外部レビューを示し、その最初の項目であるRTLとの結合を、[c314982](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c314982e5c42e5333790b7ba7bb00bbaef8da2f7)で116回目の拡充として公開し、2番目の項目である4値の経路を[46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624)で117回目の拡充として公開し、3番目の項目である乱数化の性質を[8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8)で118回目の拡充として公開し、4番目の項目であるDPIの構成を[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)で119回目の拡充として公開し、5番目の項目であるユーザーpackageを[9c57290](https://github.com/kurochan001/kirimasim-uvm-tests/commit/9c572904a247a92a4445c0d9bfe7b1208eeb975a)で120回目の拡充として公開し、6番目の項目である既知差分の原因の最初のbatchを[a578650](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a5786504883a87b7928084098a7fada0a9f7efce)で121回目の拡充として、2番目のbatchを[e5bd032](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e5bd032245789f643e9a45a65bbebd19b0a5efc0)で122回目の拡充として、3番目で最後のbatchを[9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/960138734ce23d521c36a645315044e070487cfa)で123回目の拡充として公開し、7番目の項目であるkirimasimの立ち上げ段階を[235713d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/235713d30d9940a06c591850218db6caaaf67ca6)で124回目の拡充として公開しました。8番目の項目である読みやすさは125回目の拡充で、この文面を含むcommitの基盤の後に、directoryごとに公開します。**goalは継続中で、完了していません。**
 
 編集前に実際のbranchと作業ツリーを確認してください。121〜123回目は期待値の測定を追加せず（122回目はruntimeの既知入力をseed 1で診断用に実行し、123回目はDPIの実行条件の既知入力4件をそれぞれのrunnerで実行しました）、124回目のnative測定（段階0の入力を、tag付けの前後にseed 1／73で実行）はすべて終了済みで、117回目の4値の入力にはnative測定がありません。
 
@@ -45,7 +45,7 @@ hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していま�
 - 項目5（ユーザーpackage）：形式を変えずに、下記の120回目で実装しました。
 - 項目6（既知入力の原因分類）：ユーザーが案（別の追跡ファイル`coverage/known_causes.json`とCheckでの検査）を承認し、libraryの出力値は記録しないA1を選びました。下記の121回目が最初のbatch（build、不正designの受理、DPIの実行条件）で、122回目と123回目がruntime差分をdirectoryごとに分類し、記録は完成しました。
 - 項目7（kirimasimの立ち上げ段階）：ユーザーが案（別の追跡ファイル`coverage/kirimasim_stages.json`とCheckでの検査、既存のrunnerに渡す短いセット、段階0の入力1件、日英の言語機能の表）を承認し、下記の124回目で実装しました。
-- 項目8（読みやすさ）：次の項目で、先に案を示します。コメントとhelperの変更で大半の入力の指紋が変わります。各directoryで13時間の全件実行をしなくて済むよう、Regressionの手動起動にdirectoryで絞る入力を提案します。
+- 項目8（読みやすさ）：ユーザーが案（directoryごとに進める。台帳の義務から書くコメント、番号付きのfamilyの変種の説明、helperの1行1文。指紋を持ち越しguestの記録も持ち越すcodeの同一性のtool（G1）。Regressionをdirectoryに絞る入力）を承認しました。125回目はその基盤から始めます。
 
 ## 維持する判断
 
@@ -109,7 +109,7 @@ guest記録は[詳細ハンドオフ](handoff.ja.md#実測記録と直近の差�
 
 承認済みの範囲ではなく提案です。選ぶ前にbacklogを再生成します。
 
-- 項目8（読みやすさ）：先に案を示します。directoryごとに、helperを1行1文に整え、各テストに何を確かめるかと期待値をどの条項からどう導いたかのコメントを足し、動作は変えず、directoryごとにRegressionで確かめます。項目7は完了し、短いセットのkirimasimでの実行には許可された実行fileが必要で、段階0のテストと各段階に対応付けた言語のテストが、kirimasimの止まる所を示します。項目6は完了しました。照合の候補406件は人の照合を待っています。libraryの出力値を記録するか（A1では記録していません）と、UVM_NO_DPIのために測れない通常の検査系3件をDPIの実行条件の一覧に加えるかは、形式または構成の変更なので、案を示してから決めます。
+- 項目8（読みやすさ）：小さいdirectoryから順に、コメントと変種の説明を足し、helperを1行1文に整え、`tools/code_identity.py check`と`refresh`を実行し、そのdirectoryの入力をVerilatorのseed 1／73で測り直し、guestの記録を持ち越して公開し、そのdirectoryに絞ったRegressionの結果を待ってから次へ進みます。項目7は完了し、短いセットのkirimasimでの実行には許可された実行fileが必要で、段階0のテストと各段階に対応付けた言語のテストが、kirimasimの止まる所を示します。項目6は完了しました。照合の候補406件は人の照合を待っています。libraryの出力値を記録するか（A1では記録していません）と、UVM_NO_DPIのために測れない通常の検査系3件をDPIの実行条件の一覧に加えるかは、形式または構成の変更なので、案を示してから決めます。
 - 18.12.4.2の、範囲と同時にmode／localityを変えるreconfigureや他のbyte幅。
 - 112回目のunpackの列挙setterの問題：規格と照合し、library証拠を理由にknownをpassへ変更しません。
 - 第18章の他の部分条件（部分393番号）と全体の部分2062番号を、元のM1〜M3目標と比べます。
@@ -130,6 +130,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 python3 tools/known_causes.py check
 python3 tools/kirimasim_stages.py check
+python3 tools/code_identity.py check --base HEAD
 python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 python3 -m unittest discover -s tools -p 'test_*.py'

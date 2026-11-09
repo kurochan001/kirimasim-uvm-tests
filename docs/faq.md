@@ -6072,3 +6072,17 @@ through the import and through the package name, which 1.4.5 and F.2.2.4 fix
 at 100. Some older tests also use only package-scope declarations, such as the
 version macros of B.7; they stay at stage 1 until a review moves them by
 override.
+
+## Readability edits
+
+### Q450. Why can a record survive a comment-only edit?
+
+A comment or a line break changes a test's input fingerprint, so a stored
+result no longer names the inputs it was measured with. `tools/code_identity.py`
+shows that every edited file keeps what a simulator reads: its tokens without
+comments and whitespace, its metadata fields, its compiler directives, its
+metacomments and the line distances around `` `__LINE__ ``. Only then does it
+move the fingerprints of the ledger index and the cause record, and of a guest
+record that cannot be measured again, which keeps its old fingerprint in
+`carried_from`. Verilator results of the edited inputs are measured again, and
+a Regression narrowed to the edited directory confirms the tagged checks.

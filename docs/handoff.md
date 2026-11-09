@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-Current transfer: the user resumed the goal on 2026-11-07, and the 124th expansion, the seventh item of an external review, is published. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
+Current transfer: the user resumed the goal on 2026-11-07, and the 124th expansion, the seventh item of an external review, is published; the 125th expansion, the eighth item, is in progress directory by directory, starting with its tooling. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
@@ -152,6 +152,14 @@ API/type names, one time-decrement argument default, two type-default declaratio
 two inherited type_id registry specializations, one protected-access build, two unlisted-pure-hook builds and 61 unlinked DPI cases. Two qualified virtual-abstraction overview-base builds and two printed dedicated-pool return-type builds also remain. Three additional legal builds retain the enum-collection T interpretation. Seven more builds retain strict attribute/enum-unpack arities. Separate HDL/command-line evidence is reported independently.
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
+
+The 125th expansion implements the eighth item, readability, as the user approved it: directory by
+directory, one statement per helper line and comments on what each test checks and how its
+expectation follows from its clauses, without changing behavior. Its tooling comes first:
+`tools/code_identity.py` shows that an edit keeps the code and moves fingerprints forward, guest
+records are carried forward under that rule (option G1), and a manual Regression can be narrowed
+to directories. Each directory is measured again with Verilator at seeds 1/73 and confirmed by a
+narrowed Regression before the next one.
 
 The 124th expansion implements the seventh item, the bring-up stages of kirimasim. Every test
 has a stage from 0 to 6 in `coverage/kirimasim_stages.json`, decided by markers in its own

@@ -62,6 +62,7 @@ tools/lint_metadata.py       checks of the metadata and the form of the tests
 tools/requirements.py        validates and inventories the draft requirement ledger
 tools/known_causes.py        checks and summarizes the causes of the known differences
 tools/kirimasim_stages.py    checks the kirimasim stages and prints the short sets
+tools/code_identity.py       checks that a readability edit keeps the code, moves fingerprints
 tools/ci_select.py           selects the changed or sharded tagged checks for CI
 tools/sv_lifetimes.py        lexical guard for initialized procedural locals
 tools/clauses_1800_2.txt     clause numbers of 1800.2-2020 (numbers only)
@@ -860,7 +861,7 @@ python3 tools/known_causes.py check
 python3 tools/kirimasim_stages.py check
 ```
 
-The current tool suite has 156 unit tests; metadata validation checks all
+The current tool suite has 168 unit tests; metadata validation checks all
 2763 tests (2664 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
@@ -871,7 +872,7 @@ selected, not that every UVM requirement or every simulator passes.
 
 [The cause check](known-differences.md#causes-of-the-known-differences) keeps one entry with the
 current input fingerprint for each known difference, so a changed spec-only test needs a new
-diagnosis. Check also rebuilds the record's reproducers, which use no UVM, with
+diagnosis, unless [the code-identity check](#readability-edits) shows that the change keeps its code. Check also rebuilds the record's reproducers, which use no UVM, with
 `python3 tools/known_causes.py reproduce`.
 
 [The stage check](kirimasim-stages.md#keeping-the-stages-current) requires every test to have the
@@ -885,7 +886,10 @@ Regression runs all 2293 tagged checks in 20 disjoint shards, the 20
 command-line checks and the 26 regex-DPI variants, manually and weekly. [The CI section](results.md#continuous-integration)
 gives the fallbacks and limits, and why the earlier 8-shard Check never finished.
 After a change to the runner, the library lock or many inputs, dispatch
-Regression rather than relying on Check.
+Regression rather than relying on Check. A manual Regression can be narrowed to
+directories under `tests/` (input `directories`, such as `u17 uG`); it then runs
+the checks that collect a file from those directories, in one shard for every
+115 checks.
 
 ## Adding or correcting a test
 
@@ -908,6 +912,29 @@ Use explicit lifetimes for initialized procedural locals (SystemVerilog 6.21),
 keep shared fork state alive, and bound blocking observations with watchdogs.
 Run metadata and tool checks; reproduce new fixed-release oracles at both
 seeds before adding the tag. The standard PDFs remain local and ignored by Git.
+
+### Readability edits
+
+A comment or a line break changes the input fingerprint of every test that
+collects the edited file, although no simulator reads it. Such an edit is
+checked, and the records are moved forward, with the base revision it starts
+from:
+
+```sh
+python3 tools/code_identity.py check --base BASE
+python3 tools/code_identity.py refresh --base BASE
+python3 tools/code_identity.py carry --base BASE --record OLD.json --output NEW.json
+```
+
+`check` requires every edited file under `tests/` to keep its tokens without
+comments and whitespace, its metadata fields, its compiler-directive lines, its
+metacomments (comments that a tool may read, such as `// verilator ...`) and the
+line distances around each `` `__LINE__ ``; any other file must be unchanged.
+`refresh` then moves the fingerprints of `coverage/test_index.json` and
+`coverage/known_causes.json` that were current at the base, and `carry` does
+the same for a runner JSON that cannot be measured again, marking each moved
+record. Verilator results of the edited inputs are measured again; [evidence
+assembly](results.md#evidence-assembly) gives the rule for the guest records.
 
 ## Rights and sources
 

@@ -4507,3 +4507,10 @@ kirimasimの現在の記録はどの段階でも同じ`uvm_object_wrapper`で止
 markerはテストがUVMのどの部分を使うかは分かりますが、libraryのcodeをまったく実行しないかどうかは分からないため、段階0は理由を付けたoverrideでしか決めません。
 レビューはuvm_pkgをimportするだけのテストを1件求めました。[`test_uvm_pkg_import_only_reaches_package_items`](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv)は、1.4.5とF.2.2.4が100と定めるUVM_LOWを、importとpackage名の両方から名指しします。
 B.7のversionのmacroのように、package scopeの宣言だけを使う以前のテストもありますが、照合してoverrideで移すまでは段階1のままです。
+
+## 読みやすさの編集
+
+### Q450. commentだけの編集の後も記録が残るのはなぜですか？
+
+commentや改行はテストの入力の指紋を変えるため、保存した結果は測ったときの入力を指さなくなります。`tools/code_identity.py`は、編集した各fileがsimulatorの読むものを保つこと、つまりcommentと空白を除いた字句、metadataの項目、compiler directive、metacomment、`` `__LINE__ ``の周りの行の距離を保つことを示します。
+そのうえで、台帳の索引と原因の記録の指紋、もう一度は測れないguestの記録の指紋を持ち越します。guestの記録は古い指紋を`carried_from`に残します。編集した入力のVerilatorの結果は測り直し、編集したdirectoryに絞ったRegressionでtag付きの検査を確かめます。

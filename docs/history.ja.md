@@ -4180,3 +4180,10 @@ nullのmapを渡すget_local_mapの入力は、DEVIATIONS.mdの2番目に当た�
 
 [段階のガイド](kirimasim-stages.ja.md)は、各段階のSystemVerilogの機能を、固定版libraryの使用箇所と、`829671c2`のkirimasim-testsに対応付けます。段階5のTLMのimpが必要とする、型parameterを型とするhandleを通したmethodの呼出しを行う実行テストは、kirimasim-testsにありません。段階の要点は[Q448](faq.ja.md#q448-kirimasimの立ち上げ段階とは何ですか)と[Q449](faq.ja.md#q449-段階0のテストが1件だけなのはなぜですか)にまとめています。
 スイートは2763テスト、4151義務、通常一致2293件です。既知差分463件とguestの記録は変わりません。
+
+## 125回目の拡充：読みやすさ（外部レビューの項目8）
+
+125回目は、ユーザーが承認したとおりに8番目の項目を実装します。directoryごとに、各テストへ、何を確かめるかと期待値をどの条項からどう導いたかのコメントを台帳の義務から書き足し、番号付きの変種のfamilyには各変種が何を変えるかの説明を足し、helperは1行1文に整えます。動作は変えません。
+
+最初に基盤を用意します。`tools/code_identity.py`は、編集した各sourceが字句、metadataの項目、compiler directive、metacomment、`` `__LINE__ ``の距離を保つことを確かめてから、台帳の索引と原因の記録の指紋を持ち越し、もう一度は測れないguestの記録も持ち越します（G1）。
+手動のRegressionは計画のjobでdirectoryに絞れ、毎週の実行は引き続き全件を20 shardで実行します。単体テストを12件加えました。持ち越した記録については[Q450](faq.ja.md#q450-commentだけの編集の後も記録が残るのはなぜですか)で説明しています。

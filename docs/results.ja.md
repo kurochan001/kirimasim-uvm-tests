@@ -159,6 +159,8 @@ SHA-256は記録した内容から計算する識別値であり、1つの識別
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
+guestの記録は、非公開の実行fileがなければ測り直せません。編集がcommentと改行の追加だけのときは、[codeの同一性の検査](testing.ja.md#読みやすさの編集)で、編集した入力が字句、metadataの項目、directive、metacomment、`` `__LINE__ ``の距離をすべて保つことを示します。そのような記録は新しい指紋へ持ち越し、古い指紋を`carried_from`に残し、新しい測定とは扱いません。編集した入力のVerilatorの結果は測り直します。
+
 [要求台帳の案](requirements.ja.md)はAI義務4151件と未評価0番号、部分2062／分類445です。
 第10章は87／29／0、第18章は393／63／0で、部分契約と元の目標は未完です。
 直接対応2707テスト、他の56テストはcontrol専用です。guestは互換1081入力を保持し、修正した元入力4件を含む1682（simulation 1583／elaboration 99）は未測定です。
@@ -192,13 +194,13 @@ JSON出力は選択した実行のローカル記録であり、公開されるC
 shardは選んだテストを重複なく分担する単位で、最後のgateは全shardの成功を要求し、検査範囲との関係は[Q268](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)で説明しています。
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト156件、metadata 2763件、要求台帳の案／テスト索引、既知差分の原因の記録、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。
+固定ライブラリの整合性、ツールの単体テスト168件、metadata 2763件、要求台帳の案／テスト索引、既知差分の原因の記録、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。
 Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
 基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Verilator jobは、原因の記録にある再現例12個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
 
 [Regression](../.github/workflows/regression.yml)は手動実行と毎週（土曜17:23 UTC）に動きます。
 タグ付き通常検査2293件（seed 1／73のruntime 2199・実行時seedなしのcompiler拒否94）を重複しない20 shard（115件が7、114件が13）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
-別条件の明示command-line 20件とregex-DPI変種26件はそれぞれ別jobで実行し、gateは3つすべての成功を要求します。新しい要求は実行中のrunを取り消さずに待ちます。
+別条件の明示command-line 20件とregex-DPI変種26件はそれぞれ別jobで実行し、gateは3つすべての成功を要求します。新しい要求は実行中のrunを取り消さずに待ちます。手動の実行は`tests/`の下のdirectoryに絞れます（入力`directories`）。そのときは計画のjobが、それらのdirectoryのfileを集める検査を115件ごとに1 shardで選び、command-lineとregex-DPIのjobはそこにある検査系だけを実行します。毎週の実行は絞りません。
 
 以前の単一Checkはpushごとに全選択を実行していました。分割前の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は150分のjob上限を超え、その後の8 shard版も完了していません。
 新しいpushで置き換えられなかった唯一の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)では8 shardすべてが150分の上限に達し、2026-10-31より後の他の実行は新しいpushで取り消されました。

@@ -56,6 +56,7 @@ tools/lint_metadata.py       メタデータとテストの形式の検査
 tools/requirements.py        要求台帳の案の検査と棚卸し
 tools/known_causes.py        既知差分の原因の記録の検査と集計
 tools/kirimasim_stages.py    kirimasimの段階の検査と短いセットの出力
+tools/code_identity.py       読みやすさの編集がcodeを保つことの検査と、指紋の持ち越し
 tools/ci_select.py           CIで実行する変更分またはshard分のタグ付き検査を選ぶ
 tools/sv_lifetimes.py        初期化付き手続き内ローカル変数の字句チェック
 tools/clauses_1800_2.txt     1800.2-2020の条項番号（番号だけ）
@@ -644,21 +645,21 @@ python3 tools/known_causes.py check
 python3 tools/kirimasim_stages.py check
 ```
 
-現在のツールの単体テストは156件、メタデータの対象はテスト2763件（simulation 2664件・elaboration 99件）です。
+現在のツールの単体テストは168件、メタデータの対象はテスト2763件（simulation 2664件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
 各モデルを一度ビルドして2回使います。実行の成功はその実行が選んだ検査の成功を示し、
 UVMの全要求や全シミュレータの成功を示すものではありません。
 
-[原因の検査](known-differences.ja.md#既知差分の原因)は、既知差分ごとに現在の入力の指紋を持つ記録が1件あることを確かめるため、specのみのテストを変えたら診断し直す必要があります。Checkは`python3 tools/known_causes.py reproduce`で、記録にあるUVMを使わない再現例もbuildし直します。
+[原因の検査](known-differences.ja.md#既知差分の原因)は、既知差分ごとに現在の入力の指紋を持つ記録が1件あることを確かめるため、specのみのテストを変えたら診断し直す必要があります。ただし、[codeの同一性の検査](#読みやすさの編集)で変更がcodeを保つと示せた場合は除きます。Checkは`python3 tools/known_causes.py reproduce`で、記録にあるUVMを使わない再現例もbuildし直します。
 
 [段階の検査](kirimasim-stages.ja.md#段階を最新に保つ)は、各テストが`coverage/kirimasim_stages.json`のmarkerとoverrideの与えるkirimasimの立ち上げ段階を持つことを確かめます。そのため、テストの追加や変更、helperの変更の後は`python3 tools/kirimasim_stages.py update`を実行し、変更を見直す必要があります。各短いセットは、自分の段階のtag付きの実行テストを保つ必要があります。
 
 Checkは記録入力が変わったタグ付き検査とcanaryを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻ります。
 Regressionは手動と毎週、タグ付き2293件を重複しない20 shardで、command-line 20件、regex-DPI変種26件と合わせて実行します。
 戻る条件と上限、以前の8 shard版Checkが完了しなかった理由は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
-runner、library lock、多数の入力を変えた後は、Checkに頼らずRegressionを手動実行します。
+runner、library lock、多数の入力を変えた後は、Checkに頼らずRegressionを手動実行します。手動のRegressionは`tests/`の下のdirectory（入力`directories`、たとえば`u17 uG`）に絞れます。そのときは、それらのdirectoryのfileを集める検査を、115件ごとに1 shardで実行します。
 
 ## テストの追加・修正
 
@@ -676,6 +677,19 @@ source、helper、期待値を変えると入力同一性が変わるため、�
 forkの共有状態が生存するようにし、blockingの観測にはwatchdogを設けます。
 メタデータとツールを検査し、固定版のoracleタグは両seedで再現してから付けます。
 規格PDFはローカルに置き、Gitの対象にしません。
+
+### 読みやすさの編集
+
+commentや改行はsimulatorが読まないものですが、編集したfileを集めるすべてのテストの入力の指紋を変えます。このような編集は、出発点の版を指定して検査し、記録を持ち越します。
+
+```sh
+python3 tools/code_identity.py check --base BASE
+python3 tools/code_identity.py refresh --base BASE
+python3 tools/code_identity.py carry --base BASE --record OLD.json --output NEW.json
+```
+
+`check`は、`tests/`の下で編集したfileが、commentと空白を除いた字句、metadataの項目、compiler directiveの行、metacomment（`// verilator ...`のようにtoolが読むcomment）、各`` `__LINE__ ``の周りの行の距離を保つことを求め、それ以外のfileは変えないことを求めます。
+`refresh`は、出発点で現在のものだった`coverage/test_index.json`と`coverage/known_causes.json`の指紋を持ち越し、`carry`は、もう一度は測れないrunnerのJSONで同じことを行い、持ち越した記録に印を付けます。編集した入力のVerilatorの結果は測り直します。guestの記録の規則は[記録の合算](results.ja.md#記録の合算)にあります。
 
 ## 権利と出典
 

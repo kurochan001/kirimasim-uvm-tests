@@ -2,7 +2,7 @@
 
 [English](handoff.md) · [README](../README.ja.md) · [要求台帳](requirements.ja.md)
 
-現在の引継ぎ：ユーザーが2026-11-07にgoalを再開し、外部レビューの7番目の項目である124回目の拡充を公開しました。公開済みcheckpoint・次の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
+現在の引継ぎ：ユーザーが2026-11-07にgoalを再開し、外部レビューの7番目の項目である124回目の拡充を公開しました。8番目の項目である125回目は、基盤から始めてdirectoryごとに進めています。公開済みcheckpoint・次の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
 
 このページは開発の再開を支える資料なので、最初のテストを動かしたり理解したりしたい場合は[読み方ガイド](reading-guide.ja.md)から始めてください。
 
@@ -128,6 +128,8 @@ Checkはtool、metadata、台帳、library、原因の記録と、入力が変�
 buildはAPI／型名欠落43、time減算引数既定値1、型既定宣言2、依存visitor既定型3、印刷signature食違い2、継承type_id registry特殊化2、protected access 1、記載外pure-hook 2、DPI未link 61です。限定したvirtual抽象overview基底型のbuild 2件と、専用poolの印刷返却型build 2件も保持します。追加の合法build 3件はenum-collection T解釈です。ほか7 buildは厳密なattribute／enum-unpackの引数を保持します。印刷具象callback facadeの合法構築1件はabstractとして拒否されます。別HDL／command-line evidenceは独立に記録します。
 
 残るsimulation build失敗6件は未登録packetのpredictor型名4件とサイズ／flag宣言2件で、規格に登録の前提条件を追加しない扱いと各実行条件は[結果の内訳](results.ja.md#結果の解釈)で説明しています。
+
+125回目は、ユーザーが承認したとおりに8番目の項目である読みやすさを実装します。directoryごとに、helperを1行1文に整え、各テストに何を確かめるかと期待値をどの条項からどう導いたかのコメントを足し、動作は変えません。最初に基盤を用意します。`tools/code_identity.py`は編集がcodeを保つことを示して指紋を持ち越し、guestの記録はこの規則で持ち越し（G1）、手動のRegressionはdirectoryに絞れます。各directoryはVerilatorのseed 1／73で測り直し、絞ったRegressionで確かめてから次へ進みます。
 
 124回目は、7番目の項目であるkirimasimの立ち上げ段階を実装します。各テストは`coverage/kirimasim_stages.json`に、テスト自身のsourceのmarkerで決まる0〜6の段階を持ち、各段階にはtag付きの代表の短いセットがあり、`tools/kirimasim_stages.py short`がkirimasimのrunnerに渡せる形で出力します。Checkは`tools/kirimasim_stages.py check`を実行します。新しい段階0の入力[`tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv`](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv)は、tag付けの前後でseed 1／73が一致しました。[段階のガイド](kirimasim-stages.ja.md)は各段階のSystemVerilogの機能をkirimasim-testsに対応付けます。段階5のTLMのimpが必要とする、型parameterを型とするhandleを通したmethodの呼出しを行う実行テストは、kirimasim-testsにありません。
 

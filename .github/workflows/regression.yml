@@ -8,9 +8,20 @@ name: Regression
 # The full selection takes hours, longer than the interval between pushes, so
 # it runs manually and weekly rather than on every push, and a newer request
 # waits instead of cancelling a run in progress.
+#
+# A manual run can be narrowed to directories under tests/ (input
+# "directories", such as "u17 uG"): it then runs the tagged checks, the
+# command-line checks and the regex-DPI variants that collect a file from those
+# directories, in one shard for every 115 checks (tools/ci_select.py --plan).
+# This confirms a directory whose inputs changed without the full selection.
 
 on:
   workflow_dispatch:
+    inputs:
+      directories:
+        description: Directories under tests/ to narrow the run to (empty runs everything)
+        required: false
+        default: ''
   schedule:
     - cron: '23 17 * * 6' # Saturdays 17:23 UTC
 
@@ -22,8 +33,30 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  plan:
+    name: plan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      shards: ${{ steps.plan.outputs.shards }}
+      count: ${{ steps.plan.outputs.count }}
+      cmdline: ${{ steps.plan.outputs.cmdline }}
+      cmdline_tests: ${{ steps.plan.outputs.cmdline_tests }}
+      regex: ${{ steps.plan.outputs.regex }}
+      regex_tests: ${{ steps.plan.outputs.regex_tests }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Plan the shards and jobs
+        id: plan
+        env:
+          DIRECTORIES: ${{ inputs.directories }}
+        run: python3 tools/ci_select.py --plan --directories "$DIRECTORIES" --output "$GITHUB_OUTPUT"
+
   cmdline:
     name: command-line checks
+    needs: plan
+    if: ${{ needs.plan.outputs.cmdline == 'true' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
@@ -31,14 +64,22 @@ jobs:
 
       - uses: ./.github/actions/setup-verilator
 
+      # TESTS is empty for a whole run, which selects every command-line check.
       - name: Explicit command-line checks, seeds 1 and 73
-        run: python3 tools/run_verilator_cmdline.py --seeds 1 73 --build-jobs 2 -j 2
+        env:
+          TESTS: ${{ needs.plan.outputs.cmdline_tests }}
+        run: |
+          read -ra tests <<< "$TESTS"
+          python3 tools/run_verilator_cmdline.py --seeds 1 73 --build-jobs 2 -j 2 "${tests[@]}"
 
   regex:
     name: regex-DPI variants
     # After the command-line job, so the run holds no more hosted slots at
     # once than before (the account's slots are shared with other projects).
-    needs: cmdline
+    needs: [plan, cmdline]
+    if: >-
+      ${{ !cancelled() && needs.plan.outputs.regex == 'true'
+          && (needs.cmdline.result == 'success' || needs.cmdline.result == 'skipped') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     steps:
@@ -49,10 +90,16 @@ jobs:
       # Listed ordinary fixtures rebuilt with the pinned regex DPI and the
       # original command-line VPI bridge (coverage/regex_dpi_variants.txt).
       - name: Listed fixtures with regex and command-line DPI, seeds 1 and 73
-        run: python3 tools/run_verilator_regex.py --seeds 1 73 --build-jobs 2 -j 2
+        env:
+          TESTS: ${{ needs.plan.outputs.regex_tests }}
+        run: |
+          read -ra tests <<< "$TESTS"
+          python3 tools/run_verilator_regex.py --seeds 1 73 --build-jobs 2 -j 2 "${tests[@]}"
 
   verilator_shards:
     name: verilator (${{ matrix.shard }})
+    needs: plan
+    if: ${{ needs.plan.outputs.count != '0' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 360
     strategy:
@@ -61,7 +108,7 @@ jobs:
       # repositories, so the shards run four at a time.
       max-parallel: 4
       matrix:
-        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+        shard: ${{ fromJSON(needs.plan.outputs.shards) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -70,7 +117,11 @@ jobs:
       - name: Select this shard of the tagged checks
         env:
           SHARD: ${{ matrix.shard }}
-        run: python3 tools/ci_select.py --shard "$SHARD/20" --output out/verilator-shard.paths
+          COUNT: ${{ needs.plan.outputs.count }}
+          DIRECTORIES: ${{ inputs.directories }}
+        run: >-
+          python3 tools/ci_select.py --shard "$SHARD/$COUNT" --directories "$DIRECTORIES"
+          --output out/verilator-shard.paths
 
       - name: Tagged Verilator checks (runtime seeds 1 and 73)
         run: |
@@ -80,16 +131,22 @@ jobs:
             --json out/verilator-shard.json "${cases[@]}"
 
   verilator:
-    needs: [cmdline, regex, verilator_shards]
+    needs: [plan, cmdline, regex, verilator_shards]
     if: ${{ always() }}
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
-      - name: Require the command-line checks, regex-DPI variants and every shard to succeed
+      # A job that the plan did not select is skipped; every selected job must succeed.
+      - name: Require the plan and every selected job to succeed
         env:
+          PLAN_RESULT: ${{ needs.plan.result }}
           CMDLINE_RESULT: ${{ needs.cmdline.result }}
+          CMDLINE_PLANNED: ${{ needs.plan.outputs.cmdline }}
           REGEX_RESULT: ${{ needs.regex.result }}
+          REGEX_PLANNED: ${{ needs.plan.outputs.regex }}
           SHARDS_RESULT: ${{ needs.verilator_shards.result }}
+          SHARDS_PLANNED: ${{ needs.plan.outputs.count != '0' }}
         run: |
-          test "$CMDLINE_RESULT" = success && test "$REGEX_RESULT" = success &&
-            test "$SHARDS_RESULT" = success
+          ok() { test "$1" = success || { test "$1" = skipped && test "$2" != true; }; }
+          test "$PLAN_RESULT" = success && ok "$CMDLINE_RESULT" "$CMDLINE_PLANNED" &&
+            ok "$REGEX_RESULT" "$REGEX_PLANNED" && ok "$SHARDS_RESULT" "$SHARDS_PLANNED"

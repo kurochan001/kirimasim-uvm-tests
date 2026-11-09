@@ -69,5 +69,46 @@ class Shards(unittest.TestCase):
             ci_select.shard(["a"], 1, 2)
 
 
+
+class Directories(unittest.TestCase):
+    def setUp(self):
+        self.tests = ci_select.tagged()
+
+    def test_a_directory_selects_its_tests_and_the_users_of_its_helpers(self):
+        helper = ROOT / "tests/u19/helpers116_rtl/rf_env116.svh"
+        users = [t for t in self.tests if helper in suite_results.input_files(t)]
+        outside = [t for t in users if t.parent.name != "u19"]
+        self.assertTrue(outside)
+        selected = ci_select.in_directories(self.tests, ["u19"])
+        self.assertTrue(set(users) <= set(selected))
+        own = [t for t in self.tests if t.parent.name == "u19"]
+        self.assertTrue(set(own) <= set(selected))
+        self.assertFalse(any(t.parent.name == "u05" for t in selected))
+
+    def test_unknown_directories_are_rejected(self):
+        for name in ("u99", "../tools", "u05/helpers"):
+            with self.assertRaises(ValueError):
+                ci_select.in_directories(self.tests, [name])
+
+    def test_shard_count_follows_the_narrowed_size(self):
+        self.assertEqual(ci_select.shard_count(2293, False), ci_select.SHARDS)
+        self.assertEqual(ci_select.shard_count(6, True), 1)
+        self.assertEqual(ci_select.shard_count(ci_select.SHARD_SIZE + 1, True), 2)
+        self.assertEqual(ci_select.shard_count(10 ** 6, True), ci_select.SHARDS)
+        self.assertEqual(ci_select.shard_count(0, True), 0)
+
+    def test_the_plan_narrows_every_job(self):
+        whole = ci_select.regression_plan([])
+        self.assertEqual(whole["count"], str(ci_select.SHARDS))
+        self.assertEqual((whole["cmdline"], whole["cmdline_tests"]), ("true", ""))
+        self.assertEqual((whole["regex"], whole["regex_tests"]), ("true", ""))
+        narrow = ci_select.regression_plan(["u17"])
+        self.assertEqual(narrow["shards"], "[0]")
+        self.assertEqual((narrow["cmdline"], narrow["regex"]), ("false", "false"))
+        uc = ci_select.regression_plan(["uC"])
+        self.assertEqual(uc["cmdline"], "true")
+        self.assertTrue(all(name.startswith("tests/") for name in uc["cmdline_tests"].split()))
+
+
 if __name__ == "__main__":
     unittest.main()

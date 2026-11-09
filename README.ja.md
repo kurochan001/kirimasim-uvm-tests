@@ -134,7 +134,7 @@ API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](doc
 詳しい実行条件と記録の範囲は[実行結果と測定方法](docs/results.ja.md)、ライブラリの制約とspecのみのケースは
 [既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・台帳・原因の記録・立ち上げ段階を検査し、
 pushとpull requestごとに入力が変わった通常oracle付きVerilator検査と固定canary 1件を実行します。
-[Regression](.github/workflows/regression.yml)は手動と毎週、タグ付き通常検査2293件を20 shardで、明示command-line 20件とregex-DPI変種26件を別jobで実行します。
+[Regression](.github/workflows/regression.yml)は手動と毎週、タグ付き通常検査2293件を20 shardで、明示command-line 20件とregex-DPI変種26件を別jobで実行します。手動の実行は`tests/`の下のdirectoryに絞れます。
 どちらもkirimasimとGhostは実行せず、結果の自動公開はありません。
 
 ## ドキュメント

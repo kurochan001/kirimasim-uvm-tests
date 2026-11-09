@@ -6884,3 +6884,20 @@ simulation test of kirimasim-tests calls a method through a handle whose type
 is a type parameter, which the TLM imps of stage 5 need; [Q448](faq.md#q448-what-are-the-kirimasim-bring-up-stages) and
 [Q449](faq.md#q449-why-does-stage-0-hold-only-one-test) summarize the stages. The suite has 2763 tests, 4151 duties and
 2293 ordinary matches; 463 known differences and the guest records are unchanged.
+
+## 125th expansion: readability (external review item 8)
+
+The 125th expansion implements the eighth item as the user approved it:
+directory by directory, each test gains comments on what it checks and how
+its expectation follows from its clauses, written from the duties of the
+ledger, the numbered variant families gain notes on what each variant
+changes, and the helpers get one statement on each line. No behavior changes.
+
+The tooling comes first. `tools/code_identity.py` checks that an edit keeps
+the tokens, metadata fields, compiler directives, metacomments and
+`` `__LINE__ `` distances of every edited source, then moves the fingerprints
+of the ledger index and the cause record, and carries guest records that
+cannot be measured again (option G1). A manual Regression can be narrowed to
+directories through a plan job; the weekly run still takes everything in 20
+shards. Twelve unit tests cover the tooling; [Q450](faq.md#q450-why-can-a-record-survive-a-comment-only-edit)
+explains the carried records.
