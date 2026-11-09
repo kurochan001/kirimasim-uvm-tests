@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_domain_runtime_selected_different_preserves_the_selected_start_end_relationships.expected
 */
+// What it checks:
+// with_phase may synchronize different phases across domains.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.8.1 (UVM-PHASE-RUNTIME-SYNC-EXPLICIT-DIFFERENT) gives the
+// rule above. Setup: Two assigned domains execute original workers with
+// unequal positive pre-reset/reset/main delays. Expected: A main and B reset
+// start/end together; B main follows its reset.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_domain_runtime_selected_different_preserves_the_selected_start_end_relationships;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

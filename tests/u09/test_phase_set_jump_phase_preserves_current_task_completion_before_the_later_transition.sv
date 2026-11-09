@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_set_jump_phase_preserves_current_task_completion_before_the_later_transition.expected
 */
+// What it checks:
+// 1. Selecting the next phase does not prematurely terminate the current
+//    phase.
+// 2. The selected target is available after set_jump_phase.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.9.2 (UVM-PHASE-CONTRACT-SET-JUMP-DEFERRED) gives rule 1
+//    above. Setup: The first main selects pre_main, waits two units and drops
+//    its objection before the second execution. Expected: Both delayed main
+//    bodies finish before their transitions.
+// 2. 1800.2-2020 9.3.1.9.4 (UVM-PHASE-CONTRACT-SET-JUMP-TARGET) gives rule 2
+//    above. Setup: The first main selects pre_main, waits two units and drops
+//    its objection before the second execution. Expected: target is true and
+//    the selected path executes twice.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_phase_set_jump_phase_preserves_current_task_completion_before_the_later_transition;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

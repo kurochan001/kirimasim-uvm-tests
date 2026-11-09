@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_runtime_phases_keep_their_default_order_do_not_overlap_and_join_before_extract.expected
 */
+// What it checks:
+// 1. The predefined runtime phases follow their default execution order.
+// 2. The predefined runtime phases do not overlap within the selected domain.
+// 3. Runtime phases start only after start_of_simulation completes.
+// 4. extract does not start before the runtime schedule ends.
+// 5. The runtime schedule runs concurrently with the common run phase.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.8.2 (UVM-PHASE-RUNTIME-RUNTIME-DEFAULT-ORDER) gives rule 1
+//    above. Setup: One real default domain executes all twelve hooks, each
+//    held by an objection for two positive delay units. Expected: All twelve
+//    starts and ends occur in order.
+// 2. 1800.2-2020 9.8.2 (UVM-PHASE-RUNTIME-RUNTIME-NONOVERLAP) gives rule 2
+//    above. Setup: One real default domain executes all twelve hooks, each
+//    held by an objection for two positive delay units. Expected: At most one
+//    runtime phase is active and none remains active at extract.
+// 3. 1800.2-2020 9.8.2 (UVM-PHASE-RUNTIME-RUNTIME-AFTER-START) gives rule 3
+//    above. Setup: One real default domain executes all twelve hooks, each
+//    held by an objection for two positive delay units. Expected: Every
+//    runtime start sees the completed start-of-simulation hook.
+// 4. 1800.2-2020 9.8.2 (UVM-PHASE-RUNTIME-RUNTIME-BEFORE-EXTRACT) gives rule 4
+//    above. Setup: One real default domain executes all twelve hooks, each
+//    held by an objection for two positive delay units. Expected: Twelve
+//    runtime ends precede extract and its time is no earlier than the last
+//    end.
+// 5. 1800.2-2020 9.8 (UVM-PHASE-RUNTIME-COMMON-RUNTIME-CONCURRENT) gives rule
+//    5 above. Setup: The common run node is captured and its original task
+//    advances a heartbeat every unit; all twelve runtime tasks sample it two
+//    positive units apart. Expected: Each runtime sample sees the run body
+//    entered, an advancing heartbeat and an EXECUTING or READY_TO_END run
+//    node.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_runtime_phases_keep_their_default_order_do_not_overlap_and_join_before_extract;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

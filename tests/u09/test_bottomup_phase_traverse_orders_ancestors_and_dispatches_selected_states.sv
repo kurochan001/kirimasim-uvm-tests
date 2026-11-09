@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_bottomup_phase_traverse_orders_ancestors_and_dispatches_selected_states.expected
 */
+// What it checks:
+// 1. The original bottomup extension is initialized as an IMP.
+// 2. The selected state traversal visits descendants before ancestors.
+// 3. execute delegates to the original exec_func with component and phase
+//    context.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.5.2.1 (UVM-PHASE-CONTRACT-BOTTOMUP-CTOR-IMP) gives rule 1
+//    above. Setup: A four-component subtree is traversed for STARTED,
+//    EXECUTING and ENDED using a node attached to the components' domain.
+//    Expected: implementation_kind is true.
+// 2. 1800.2-2020 9.5.2.2 (UVM-PHASE-CONTRACT-BOTTOMUP-TRAVERSE) gives rule 2
+//    above. Setup: A four-component subtree is traversed for STARTED,
+//    EXECUTING and ENDED using a node attached to the components' domain.
+//    Expected: All four selected handles occur once in each state with
+//    ancestor order and no peer.
+// 3. 1800.2-2020 9.5.2.3 (UVM-PHASE-CONTRACT-BOTTOMUP-EXECUTE) gives rule 3
+//    above. Setup: A four-component subtree is traversed for STARTED,
+//    EXECUTING and ENDED using a node attached to the components' domain.
+//    Expected: The execution queue has the expected handles and each call
+//    retains the context node.
+// It also supports, as a control, the setup or conditions of
+// UVM-PHASE-CONTRACT-BOTTOMUP-VIRTUAL.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Traverse a selected subtree; no sibling iteration order is imposed.
 module test_bottomup_phase_traverse_orders_ancestors_and_dispatches_selected_states;
   import uvm_pkg::*;

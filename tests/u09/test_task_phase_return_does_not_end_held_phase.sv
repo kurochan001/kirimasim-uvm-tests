@@ -13,6 +13,17 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_task_phase_return_does_not_end_held_phase.expected
 */
+// What it checks:
+// A component task returning does not end a task phase held by another
+// objection.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.6 (UVM-TASK-PHASE-RETURN-WITH-OBJECTION) gives the rule above.
+// Setup: One child task returns immediately while the test retains an
+// objection until time 3. Expected: The returned child is observed while the
+// phase is still active and extraction starts at time 3.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The child returns immediately. The test holds a main-phase objection
 // and observes the return after time advances before dropping its objection.
 

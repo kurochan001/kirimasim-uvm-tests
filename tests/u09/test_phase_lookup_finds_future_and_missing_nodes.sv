@@ -13,6 +13,29 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_phase_lookup_finds_future_and_missing_nodes.expected
 */
+// What it checks:
+// 1. Phase name lookup finds the matching node within the selected
+//    schedule/domain scope.
+// 2. The phase order predicate identifies whether one node is earlier than
+//    another.
+// 3. The phase order predicate identifies whether one node is later than
+//    another.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.4.3 (UVM-PHASE-FIND-BY-NAME) gives rule 1 above. Setup:
+//    Search prior/future common phases or an isolated schedule by explicit
+//    names. Expected: Present names resolve to the expected nodes and the
+//    selected absent name resolves to null.
+// 2. 1800.2-2020 9.3.1.4.6 (UVM-PHASE-ORDER-BEFORE) gives rule 2 above. Setup:
+//    Compare prior/current/future nodes of the common schedule in both
+//    directions. Expected: True/false relations agree with schedule order
+//    rather than numeric state values.
+// 3. 1800.2-2020 9.3.1.4.7 (UVM-PHASE-ORDER-AFTER) gives rule 3 above. Setup:
+//    Compare prior/current/future nodes of the common schedule in both
+//    directions. Expected: True/false relations agree with schedule order
+//    rather than numeric state values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The common-phase schedule can be searched before final executes.
 // Check both directions of ordering and a name absent from that schedule.
 

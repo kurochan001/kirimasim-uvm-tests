@@ -13,6 +13,20 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_bottom_up_connect_visits_descendants_first.expected
 */
+// What it checks:
+// 1. Bottom-up function phases visit descendants before their ancestors.
+// 2. Common phases preceding run execute at simulation time zero.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.5 (UVM-PHASE-BOTTOM-UP) gives rule 1 above. Setup: Use a
+//    single component chain and inspect connect/common bottom-up callbacks.
+//    Expected: Leaf/child callbacks precede their parent callbacks without
+//    fixing sibling ordering.
+// 2. 1800.2-2020 9.8.1 (UVM-PHASE-PRE-RUN-ZERO-TIME) gives rule 2 above.
+//    Setup: Observe build and connect callbacks along a component chain.
+//    Expected: Every selected callback reports time zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A bottom-up function phase runs on descendants before their ancestors.
 // Each callback records its place in a chain and that time has not advanced.
 

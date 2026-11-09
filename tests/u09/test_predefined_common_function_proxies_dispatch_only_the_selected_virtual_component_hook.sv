@@ -12,6 +12,69 @@
 :expected_exit: 0
 :expected_stdout: @test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook.expected
 */
+// What it checks:
+// 1. The build phase function proxy calls the corresponding virtual component
+//    hook.
+// 2. The connect phase function proxy calls the corresponding virtual
+//    component hook.
+// 3. The end_of_elaboration phase function proxy calls the corresponding
+//    virtual component hook.
+// 4. The start_of_simulation phase function proxy calls the corresponding
+//    virtual component hook.
+// 5. The extract phase function proxy calls the corresponding virtual
+//    component hook.
+// 6. The check phase function proxy calls the corresponding virtual component
+//    hook.
+// 7. The report phase function proxy calls the corresponding virtual component
+//    hook.
+// 8. The final phase function proxy calls the corresponding virtual component
+//    hook.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.8.1.1 (UVM-PHASE-RUNTIME-BUILD-FUNCTION-DELEGATE) gives
+//    rule 1 above. Setup: A base phase view invokes exec_func on one original
+//    component with an explicit context node; its build hook records the call.
+//    Expected: Only the selected callback count changes, no peer callback
+//    changes, and the context handle is preserved.
+// 2. 1800.2-2020 9.8.1.2 (UVM-PHASE-RUNTIME-CONNECT-FUNCTION-DELEGATE) gives
+//    rule 2 above. Setup: A base phase view invokes exec_func on one original
+//    component with an explicit context node; its connect hook records the
+//    call. Expected: Only the selected callback count changes, no peer
+//    callback changes, and the context handle is preserved.
+// 3. 1800.2-2020 9.8.1.3
+//    (UVM-PHASE-RUNTIME-END-OF-ELABORATION-FUNCTION-DELEGATE) gives rule 3
+//    above. Setup: A base phase view invokes exec_func on one original
+//    component with an explicit context node; its end_of_elaboration hook
+//    records the call. Expected: Only the selected callback count changes, no
+//    peer callback changes, and the context handle is preserved.
+// 4. 1800.2-2020 9.8.1.4
+//    (UVM-PHASE-RUNTIME-START-OF-SIMULATION-FUNCTION-DELEGATE) gives rule 4
+//    above. Setup: A base phase view invokes exec_func on one original
+//    component with an explicit context node; its start_of_simulation hook
+//    records the call. Expected: Only the selected callback count changes, no
+//    peer callback changes, and the context handle is preserved.
+// 5. 1800.2-2020 9.8.1.6 (UVM-PHASE-RUNTIME-EXTRACT-FUNCTION-DELEGATE) gives
+//    rule 5 above. Setup: A base phase view invokes exec_func on one original
+//    component with an explicit context node; its extract hook records the
+//    call. Expected: Only the selected callback count changes, no peer
+//    callback changes, and the context handle is preserved.
+// 6. 1800.2-2020 9.8.1.7 (UVM-PHASE-RUNTIME-CHECK-FUNCTION-DELEGATE) gives
+//    rule 6 above. Setup: A base phase view invokes exec_func on one original
+//    component with an explicit context node; its check hook records the call.
+//    Expected: Only the selected callback count changes, no peer callback
+//    changes, and the context handle is preserved.
+// 7. 1800.2-2020 9.8.1.8 (UVM-PHASE-RUNTIME-REPORT-FUNCTION-DELEGATE) gives
+//    rule 7 above. Setup: A base phase view invokes exec_func on one original
+//    component with an explicit context node; its report hook records the
+//    call. Expected: Only the selected callback count changes, no peer
+//    callback changes, and the context handle is preserved.
+// 8. 1800.2-2020 9.8.1.9 (UVM-PHASE-RUNTIME-FINAL-FUNCTION-DELEGATE) gives
+//    rule 8 above. Setup: A base phase view invokes exec_func on one original
+//    component with an explicit context node; its final hook records the call.
+//    Expected: Only the selected callback count changes, no peer callback
+//    changes, and the context handle is preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook;
   import uvm_pkg::*;
   uvm_phase wanted;

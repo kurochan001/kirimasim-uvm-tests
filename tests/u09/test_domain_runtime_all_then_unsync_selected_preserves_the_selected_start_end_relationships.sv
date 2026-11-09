@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_domain_runtime_all_then_unsync_selected_preserves_the_selected_start_end_relationships.expected
 */
+// What it checks:
+// 1. Omitting phase adds domain synchronization relationships, including the
+//    selected reset and post-main controls.
+// 2. Removing a selected same-name phase relationship leaves other domain
+//    relationships in place.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.8.1 (UVM-PHASE-RUNTIME-SYNC-ALL-DEFAULT-CONTROLS) gives
+//    rule 1 above. Setup: Two assigned domains execute original workers with
+//    unequal positive pre-reset/reset/main delays. Expected: After removing
+//    main alone, reset endpoints and post-main starts still agree.
+// 2. 1800.2-2020 9.3.1.8.2 (UVM-PHASE-RUNTIME-UNSYNC-SELECTED-SAME) gives rule
+//    2 above. Setup: Two assigned domains execute original workers with
+//    unequal positive pre-reset/reset/main delays. Expected: main ends become
+//    independent while reset endpoints and the later join remain synchronized.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_domain_runtime_all_then_unsync_selected_preserves_the_selected_start_end_relationships;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

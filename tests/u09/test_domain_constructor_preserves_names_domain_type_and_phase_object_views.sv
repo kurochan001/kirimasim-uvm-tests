@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_domain_constructor_preserves_names_domain_type_and_phase_object_views.expected
 */
+// What it checks:
+// 1. A newly named domain has DOMAIN phase type.
+// 2. A domain extends uvm_phase.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.4.2.1 (UVM-PHASE-CONTRACT-DOMAIN-NEW-TYPE) gives rule 1
+//    above. Setup: Two uniquely named domains are constructed and
+//    round-tripped through phase/object views. Expected: The selected name,
+//    domain type and distinct handles match.
+// 2. 1800.2-2020 9.4.1 (UVM-PHASE-CONTRACT-DOMAIN-BASE-VIEW) gives rule 2
+//    above. Setup: Two uniquely named domains are constructed and
+//    round-tripped through phase/object views. Expected: Phase/object views
+//    cast back to the original domain.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_domain_constructor_preserves_names_domain_type_and_phase_object_views;
   import uvm_pkg::*;
   initial begin

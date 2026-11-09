@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_run_phase_timeout_reports_fatal_at_the_locked_absolute_limit.expected
 */
+// What it checks:
+// 1. Expiration of the run-phase timeout reports FATAL.
+// 2. A non-overridable timeout ignores subsequent replacement calls.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.8.1.5 (UVM-PHASE-RUNTIME-GLOBAL-TIMEOUT-FATAL) gives rule 1
+//    above. Setup: Before run starts, the global limit is locked at five and a
+//    task holds an objection beyond it. Expected: The catcher observes FATAL
+//    at the configured absolute time.
+// 2. 1800.2-2020 F.7.3.3 (UVM-PHASE-RUNTIME-TIMEOUT-LOCK) gives rule 2 above.
+//    Setup: set_timeout(5,0) is followed by set_timeout(30,1) before run.
+//    Expected: The fatal timeout is still observed at five.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_run_phase_timeout_reports_fatal_at_the_locked_absolute_limit;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

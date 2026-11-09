@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_parallel_order_queries_preserve_both_join_relationships.expected
 */
+// What it checks:
+// 1. Parallel phases are unordered by before and both precede a common join.
+// 2. Parallel phases are unordered by after and a common join follows both.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.4.6 (UVM-PHASE-PARALLEL-BEFORE-JOIN) gives rule 1
+//    above. Setup: Insert connect alongside build, then append
+//    end_of_elaboration. Expected: Both sibling before queries are false and
+//    both before-join queries are true.
+// 2. 1800.2-2020 9.3.1.4.7 (UVM-PHASE-PARALLEL-AFTER-JOIN) gives rule 2 above.
+//    Setup: Use two parallel nodes and one common successor. Expected: Both
+//    sibling after queries are false and both join-after queries are true.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect local phase metadata and graphs without executing phase callbacks.
 // Do not interpret get_schedule return typing or the get_imp NODE/IMP wording.
 module test_phase_parallel_order_queries_preserve_both_join_relationships;

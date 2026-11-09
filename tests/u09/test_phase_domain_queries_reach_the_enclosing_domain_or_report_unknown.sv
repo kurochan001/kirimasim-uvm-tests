@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_domain_queries_reach_the_enclosing_domain_or_report_unknown.expected
 */
+// What it checks:
+// 1. Nested phase domain lookup reaches its enclosing domain or null.
+// 2. Domain-name lookup returns the enclosing name or unknown.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.6.6 (UVM-PHASE-ENCLOSING-DOMAIN-LOOKUP) gives rule 1
+//    above. Setup: Query the two schedules, leaf and an orphan node. Expected:
+//    All nested handles resolve to alpha and the orphan resolves to null.
+// 2. 1800.2-2020 9.3.1.6.8 (UVM-PHASE-DOMAIN-NAME-OR-UNKNOWN) gives rule 2
+//    above. Setup: Inspect a nested schedule/leaf and a domainless node.
+//    Expected: Nested names are alpha and the domainless name is unknown.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect local phase metadata and graphs without executing phase callbacks.
 // Do not interpret get_schedule return typing or the get_imp NODE/IMP wording.
 module test_phase_domain_queries_reach_the_enclosing_domain_or_report_unknown;

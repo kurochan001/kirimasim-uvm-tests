@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_domain_add_uvm_phases_appends_runtime_nodes_after_selected_existing_content.expected
 */
+// What it checks:
+// 1. add_uvm_phases appends the selected built-in runtime phases.
+// 2. Appending preserves the selected existing prefix before the runtime
+//    order.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.4.2.3 (UVM-PHASE-CONTRACT-DOMAIN-APPEND-NODES) gives rule 1
+//    above. Setup: A schedule already containing one custom phase receives the
+//    built-in runtime phase set. Expected: All twelve runtime nodes are found
+//    and the custom node remains.
+// 2. 1800.2-2020 9.4.2.3 (UVM-PHASE-CONTRACT-DOMAIN-APPEND-ORDER) gives rule 2
+//    above. Setup: A schedule already containing one custom phase receives the
+//    built-in runtime phase set. Expected: The custom node precedes pre_reset
+//    and the twelve runtime nodes remain ordered.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Selected runtime subset only; extra common-phase applicability remains open.
 module test_domain_add_uvm_phases_appends_runtime_nodes_after_selected_existing_content;
   import uvm_pkg::*;

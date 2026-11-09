@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_task_nodes_keep_objections_independent.expected
 */
+// What it checks:
+// 1. A task-phase node exposes its own termination-gating objection object.
+// 2. The task-phase raise API operates on that node objection.
+// 3. The task-phase drop API operates on that node objection.
+// 4. The task-phase count query API operates on that node objection.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.7.1 (UVM-PHASE-NODE-OBJECTION) gives rule 1 above.
+//    Setup: Create isolated task nodes and raise for the same source on
+//    different nodes. Expected: Objection handles and counts remain
+//    independent between nodes.
+// 2. 1800.2-2020 9.3.1.7.2 (UVM-PHASE-NODE-RAISE) gives rule 2 above. Setup:
+//    Raise and partially drop explicit source counts before clearing isolated
+//    nodes. Expected: Node-level counts agree with direct objection queries
+//    while other nodes retain their state.
+// 3. 1800.2-2020 9.3.1.7.3 (UVM-PHASE-NODE-DROP) gives rule 3 above. Setup:
+//    Raise and partially drop explicit source counts before clearing isolated
+//    nodes. Expected: Node-level counts agree with direct objection queries
+//    while other nodes retain their state.
+// 4. 1800.2-2020 9.3.1.7.4 (UVM-PHASE-NODE-COUNT) gives rule 4 above. Setup:
+//    Raise and partially drop explicit source counts before clearing isolated
+//    nodes. Expected: Node-level counts agree with direct objection queries
+//    while other nodes retain their state.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Create two task nodes in one isolated schedule. Raise for the same
 // source object and observe each node separately without ending a phase.
 

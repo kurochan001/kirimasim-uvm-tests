@@ -12,6 +12,47 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_state_descriptors_track_current_previous_state_and_precede_implementation_execution.expected
 */
+// What it checks:
+// 1. A transition descriptor returns the phase's newly entered state.
+// 2. The descriptor identifies the state before the observed transition.
+// 3. A descriptor outside a jump returns no jump target.
+// 4. A transition descriptor extends uvm_object.
+// 5. State-change callbacks precede execution of the implementation.
+// 6. The default phase-state callback has no effect.
+// 7. Phase state changes trigger state callbacks.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.2.2.1 (UVM-PHASE-CONTRACT-DESCRIPTOR-CURRENT) gives rule
+//    1 above. Setup: A type-wide observer follows normal main transitions
+//    while an objection holds the body for two delay units. Expected: Every
+//    selected callback agrees with phase.get_state.
+// 2. 1800.2-2020 9.3.2.2.2 (UVM-PHASE-CONTRACT-DESCRIPTOR-PREVIOUS) gives rule
+//    2 above. Setup: A type-wide observer follows normal main transitions
+//    while an objection holds the body for two delay units. Expected: After
+//    the first observation, previous state equals the preceding observed
+//    state.
+// 3. 1800.2-2020 9.3.2.2.3 (UVM-PHASE-CONTRACT-DESCRIPTOR-NO-JUMP) gives rule
+//    3 above. Setup: A type-wide observer follows normal main transitions
+//    while an objection holds the body for two delay units. Expected: jump_to
+//    remains null throughout the selected normal transitions.
+// 4. 1800.2-2020 9.3.2.1 (UVM-PHASE-CONTRACT-DESCRIPTOR-OBJECT-VIEW) gives
+//    rule 4 above. Setup: A type-wide observer follows normal main transitions
+//    while an objection holds the body for two delay units. Expected: Each
+//    callback descriptor round-trips through the object view.
+// 5. 1800.2-2020 9.3.3.2.2 (UVM-PHASE-CONTRACT-CALLBACK-BEFORE-BODY) gives
+//    rule 5 above. Setup: A type-wide observer follows normal main transitions
+//    while an objection holds the body for two delay units. Expected: The
+//    EXECUTING callback sees main_entered still false.
+// 6. 1800.2-2020 9.3.3.2.2 (UVM-PHASE-CONTRACT-CALLBACK-DEFAULT-NOOP) gives
+//    rule 6 above. Setup: A type-wide observer follows normal main transitions
+//    while an objection holds the body for two delay units. Expected: Calling
+//    super preserves current phase and descriptor state.
+// 7. 1800.2-2020 9.3.1.1.3 (UVM-PHASE-CONTRACT-TRANSITION-NOTIFICATIONS) gives
+//    rule 7 above. Setup: A type-wide observer follows normal main transitions
+//    while an objection holds the body for two delay units. Expected: STARTED,
+//    EXECUTING, READY_TO_END, ENDED and DONE are observed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_phase_state_descriptors_track_current_previous_state_and_precede_implementation_execution;
   import uvm_pkg::*;

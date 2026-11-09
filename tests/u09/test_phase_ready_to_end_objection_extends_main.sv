@@ -13,6 +13,17 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_phase_ready_to_end_objection_extends_main.expected
 */
+// What it checks:
+// An objection raised from ready_to_end defers ending and permits a later
+// ready-to-end iteration.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.1.4.3.2 (UVM-PHASE-READY-REOBJECTION) gives the rule above.
+// Setup: The first main ready callback raises, then drops after a positive
+// delay. Expected: A second ready callback occurs after the delay and the
+// phase elapsed time is 3.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The first ready callback raises an objection and forks a delayed drop.
 // A second ready iteration occurs after that objection has been dropped.
 

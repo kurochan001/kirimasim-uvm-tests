@@ -12,6 +12,105 @@
 :expected_exit: 0
 :expected_stdout: @test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return.expected
 */
+// What it checks:
+// 1. The run phase task proxy calls and awaits the corresponding virtual
+//    component task.
+// 2. The pre_reset phase task proxy calls and awaits the corresponding virtual
+//    component task.
+// 3. The reset phase task proxy calls and awaits the corresponding virtual
+//    component task.
+// 4. The post_reset phase task proxy calls and awaits the corresponding
+//    virtual component task.
+// 5. The pre_configure phase task proxy calls and awaits the corresponding
+//    virtual component task.
+// 6. The configure phase task proxy calls and awaits the corresponding virtual
+//    component task.
+// 7. The post_configure phase task proxy calls and awaits the corresponding
+//    virtual component task.
+// 8. The pre_main phase task proxy calls and awaits the corresponding virtual
+//    component task.
+// 9. The main phase task proxy calls and awaits the corresponding virtual
+//    component task.
+// 10. The post_main phase task proxy calls and awaits the corresponding
+//     virtual component task.
+// 11. The pre_shutdown phase task proxy calls and awaits the corresponding
+//     virtual component task.
+// 12. The shutdown phase task proxy calls and awaits the corresponding virtual
+//     component task.
+// 13. The post_shutdown phase task proxy calls and awaits the corresponding
+//     virtual component task.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.8.1.5 (UVM-PHASE-RUNTIME-RUN-TASK-DELEGATE) gives rule 1
+//    above. Setup: exec_task is called directly through a base phase view; the
+//    original run hook waits two positive delay units. Expected: Only the
+//    selected hook enters and completes; the peer stays silent, the context
+//    matches and return follows the delayed completion.
+// 2. 1800.2-2020 9.8.2.1 (UVM-PHASE-RUNTIME-PRE-RESET-TASK-DELEGATE) gives
+//    rule 2 above. Setup: exec_task is called directly through a base phase
+//    view; the original pre_reset hook waits two positive delay units.
+//    Expected: Only the selected hook enters and completes; the peer stays
+//    silent, the context matches and return follows the delayed completion.
+// 3. 1800.2-2020 9.8.2.2 (UVM-PHASE-RUNTIME-RESET-TASK-DELEGATE) gives rule 3
+//    above. Setup: exec_task is called directly through a base phase view; the
+//    original reset hook waits two positive delay units. Expected: Only the
+//    selected hook enters and completes; the peer stays silent, the context
+//    matches and return follows the delayed completion.
+// 4. 1800.2-2020 9.8.2.3 (UVM-PHASE-RUNTIME-POST-RESET-TASK-DELEGATE) gives
+//    rule 4 above. Setup: exec_task is called directly through a base phase
+//    view; the original post_reset hook waits two positive delay units.
+//    Expected: Only the selected hook enters and completes; the peer stays
+//    silent, the context matches and return follows the delayed completion.
+// 5. 1800.2-2020 9.8.2.4 (UVM-PHASE-RUNTIME-PRE-CONFIGURE-TASK-DELEGATE) gives
+//    rule 5 above. Setup: exec_task is called directly through a base phase
+//    view; the original pre_configure hook waits two positive delay units.
+//    Expected: Only the selected hook enters and completes; the peer stays
+//    silent, the context matches and return follows the delayed completion.
+// 6. 1800.2-2020 9.8.2.5 (UVM-PHASE-RUNTIME-CONFIGURE-TASK-DELEGATE) gives
+//    rule 6 above. Setup: exec_task is called directly through a base phase
+//    view; the original configure hook waits two positive delay units.
+//    Expected: Only the selected hook enters and completes; the peer stays
+//    silent, the context matches and return follows the delayed completion.
+// 7. 1800.2-2020 9.8.2.6 (UVM-PHASE-RUNTIME-POST-CONFIGURE-TASK-DELEGATE)
+//    gives rule 7 above. Setup: exec_task is called directly through a base
+//    phase view; the original post_configure hook waits two positive delay
+//    units. Expected: Only the selected hook enters and completes; the peer
+//    stays silent, the context matches and return follows the delayed
+//    completion.
+// 8. 1800.2-2020 9.8.2.7 (UVM-PHASE-RUNTIME-PRE-MAIN-TASK-DELEGATE) gives rule
+//    8 above. Setup: exec_task is called directly through a base phase view;
+//    the original pre_main hook waits two positive delay units. Expected: Only
+//    the selected hook enters and completes; the peer stays silent, the
+//    context matches and return follows the delayed completion.
+// 9. 1800.2-2020 9.8.2.8 (UVM-PHASE-RUNTIME-MAIN-TASK-DELEGATE) gives rule 9
+//    above. Setup: exec_task is called directly through a base phase view; the
+//    original main hook waits two positive delay units. Expected: Only the
+//    selected hook enters and completes; the peer stays silent, the context
+//    matches and return follows the delayed completion.
+// 10. 1800.2-2020 9.8.2.9 (UVM-PHASE-RUNTIME-POST-MAIN-TASK-DELEGATE) gives
+//     rule 10 above. Setup: exec_task is called directly through a base phase
+//     view; the original post_main hook waits two positive delay units.
+//     Expected: Only the selected hook enters and completes; the peer stays
+//     silent, the context matches and return follows the delayed completion.
+// 11. 1800.2-2020 9.8.2.10 (UVM-PHASE-RUNTIME-PRE-SHUTDOWN-TASK-DELEGATE)
+//     gives rule 11 above. Setup: exec_task is called directly through a base
+//     phase view; the original pre_shutdown hook waits two positive delay
+//     units. Expected: Only the selected hook enters and completes; the peer
+//     stays silent, the context matches and return follows the delayed
+//     completion.
+// 12. 1800.2-2020 9.8.2.11 (UVM-PHASE-RUNTIME-SHUTDOWN-TASK-DELEGATE) gives
+//     rule 12 above. Setup: exec_task is called directly through a base phase
+//     view; the original shutdown hook waits two positive delay units.
+//     Expected: Only the selected hook enters and completes; the peer stays
+//     silent, the context matches and return follows the delayed completion.
+// 13. 1800.2-2020 9.8.2.12 (UVM-PHASE-RUNTIME-POST-SHUTDOWN-TASK-DELEGATE)
+//     gives rule 13 above. Setup: exec_task is called directly through a base
+//     phase view; the original post_shutdown hook waits two positive delay
+//     units. Expected: Only the selected hook enters and completes; the peer
+//     stays silent, the context matches and return follows the delayed
+//     completion.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return;
   import uvm_pkg::*;
   uvm_phase wanted;

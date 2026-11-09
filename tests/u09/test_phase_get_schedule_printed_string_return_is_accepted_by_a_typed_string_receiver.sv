@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver.expected
 */
+// What it checks:
+// The printed get_schedule prototype declares string.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.6.4 (UVM-PHASE-CONTRACT-SCHEDULE-PRINTED-TYPE) gives the
+// rule above. Setup: A node call is passed to a string receiver and
+// independently queried with SystemVerilog $typename. Expected: The
+// expression's $typename is string and the receiver is called once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Qualified printed string return, not the prose parent-node return type.
 module test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver;
   import uvm_pkg::*;

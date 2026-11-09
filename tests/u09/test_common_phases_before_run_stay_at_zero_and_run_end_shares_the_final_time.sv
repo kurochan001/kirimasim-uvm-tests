@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_common_phases_before_run_stay_at_zero_and_run_end_shares_the_final_time.expected
 */
+// What it checks:
+// 1. Common phases preceding run execute at time zero.
+// 2. The run phase begins at simulation time zero.
+// 3. The end of run has the same simulation time as final completion.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.8.1 (UVM-PHASE-RUNTIME-COMMON-PRE-RUN-ZERO) gives rule 1
+//    above. Setup: Four overridden common hooks execute through the real phase
+//    engine. Expected: All four hooks are observed and all their time samples
+//    are zero.
+// 2. 1800.2-2020 9.8.1.5 (UVM-PHASE-RUNTIME-RUN-START-ZERO) gives rule 2
+//    above. Setup: A phase-start callback observes run before an
+//    objection-held three-unit task. Expected: run_start_zero is true.
+// 3. 1800.2-2020 9.8.1.5 (UVM-PHASE-RUNTIME-RUN-FINAL-ENDPOINT) gives rule 3
+//    above. Setup: An objection holds run for positive time; its ended
+//    callback records time and final samples it. Expected: Run has ended, its
+//    end time equals final time and duration is positive.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_common_phases_before_run_stay_at_zero_and_run_end_shares_the_final_time;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

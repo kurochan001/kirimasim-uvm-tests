@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_domain_duplicate_name_reports_an_error_without_prescribing_post_error_registry_state.expected
 */
+// What it checks:
+// Constructing a duplicate domain name reports an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.4.2.1 (UVM-PHASE-CONTRACT-DOMAIN-DUPLICATE-ERROR) gives the
+// rule above. Setup: A report catcher observes creation of a second domain
+// with an already registered name. Expected: At least one ERROR is observed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Do not require an exact diagnostic count, text or duplicate post-state.
 module test_domain_duplicate_name_reports_an_error_without_prescribing_post_error_registry_state;
   import uvm_pkg::*;

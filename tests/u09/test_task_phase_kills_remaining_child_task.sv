@@ -13,6 +13,17 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_task_phase_kills_remaining_child_task.expected
 */
+// What it checks:
+// Tasks still running under a task phase are terminated when that phase
+// finishes.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.6 (UVM-PHASE-KILL-CHILD) gives the rule above. Setup: A phase
+// child starts a delayed write; objections end the phase at time 5. Expected:
+// The child entered, its late write never occurs, and the observed elapsed
+// time is 5.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The child starts during a held pre-reset phase, then waits beyond its
 // end. A later phase advances past that wait before inspecting the child.
 // The pinned-library run on Verilator 5.052 leaves the child task alive.

@@ -13,6 +13,16 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_phase_callbacks_observe_their_phase_states.expected
 */
+// What it checks:
+// get_state reports the current state of the phase node.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.4.1 (UVM-PHASE-STATE-QUERY) gives the rule above. Setup:
+// Query main from its start/ready/end callbacks and executing task body.
+// Expected: The observations match started, executing, ready-to-end and ended
+// states.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Capture states only for main. A positive objection interval ensures
 // the task is executing before its ready and ended callbacks are inspected.
 

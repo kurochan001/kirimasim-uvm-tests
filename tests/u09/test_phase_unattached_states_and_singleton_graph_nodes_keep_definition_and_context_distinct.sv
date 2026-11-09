@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_unattached_states_and_singleton_graph_nodes_keep_definition_and_context_distinct.expected
 */
+// What it checks:
+// 1. An unattached implementation has UNINITIALIZED state.
+// 2. An unattached node remains UNINITIALIZED; attached inactive nodes are
+//    DORMANT.
+// 3. A custom task phase can be defined as a reusable singleton
+//    implementation.
+// 4. Each schedule use has its own node context.
+// 5. A phase is an object and retains identity through its base view.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.1.3 (UVM-PHASE-CONTRACT-INITIAL-IMP-STATE) gives rule 1
+//    above. Setup: An original task-phase singleton is added to two distinct
+//    schedules; a separate NODE remains unattached. Expected:
+//    imp_uninitialized is true.
+// 2. 1800.2-2020 F.2.5.2 (UVM-PHASE-CONTRACT-UNATTACHED-NODE-STATE) gives rule
+//    2 above. Setup: An original task-phase singleton is added to two distinct
+//    schedules; a separate NODE remains unattached. Expected: The bare node is
+//    UNINITIALIZED and both attached nodes are DORMANT.
+// 3. 1800.2-2020 9.3.1.1.1 (UVM-PHASE-CONTRACT-CUSTOM-SINGLETON) gives rule 3
+//    above. Setup: An original task-phase singleton is added to two distinct
+//    schedules; a separate NODE remains unattached. Expected: Repeated get
+//    returns the original implementation handle.
+// 4. 1800.2-2020 9.3.1.1.2 (UVM-PHASE-CONTRACT-SEPARATE-GRAPH-CONTEXT) gives
+//    rule 4 above. Setup: An original task-phase singleton is added to two
+//    distinct schedules; a separate NODE remains unattached. Expected:
+//    Distinct nonnull nodes retain their respective schedule parents.
+// 5. 1800.2-2020 9.3.1.2 (UVM-PHASE-CONTRACT-PHASE-OBJECT-VIEW) gives rule 5
+//    above. Setup: An original task-phase singleton is added to two distinct
+//    schedules; a separate NODE remains unattached. Expected: The node casts
+//    back from uvm_object to the same handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_phase_unattached_states_and_singleton_graph_nodes_keep_definition_and_context_distinct;
   import uvm_pkg::*;
   class task_imp extends uvm_task_phase;

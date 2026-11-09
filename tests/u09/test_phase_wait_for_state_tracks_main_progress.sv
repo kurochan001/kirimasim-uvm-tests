@@ -13,6 +13,17 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_phase_wait_for_state_tracks_main_progress.expected
 */
+// What it checks:
+// wait_for_state blocks until the phase state satisfies its selected
+// comparison.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.8.3 (UVM-PHASE-WAIT-STATE) gives the rule above. Setup: An
+// external observer waits for executing and then ended while a run objection
+// keeps it alive. Expected: Executing is seen at elapsed zero and ended is
+// reached after the two-unit active interval.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An external observer waits on the main phase node. A run objection
 // keeps the test alive until the observer has recorded both state transitions.
 

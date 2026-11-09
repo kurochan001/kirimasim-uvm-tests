@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_schedule_parallel_nodes_share_a_successor.expected
 */
+// What it checks:
+// Schedule add places a phase with an existing phase.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.6.1 (UVM-PHASE-SCHEDULE-PARALLEL) gives the rule above.
+// Setup: Build an isolated schedule graph without executing its phase
+// implementations. Expected: Parallel nodes are unordered relative to each
+// other and both precede the shared successor.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A with_phase insertion shares predecessor and successor positions.
 // Count predecessor membership without fixing associative iteration order.
 

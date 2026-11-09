@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_domain_jump_restarts_both_active_parallel_branches_with_a_shared_predecessor.expected
 */
+// What it checks:
+// A domain jump to a shared predecessor affects both active related branches.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.4.2.4 (UVM-PHASE-RUNTIME-DOMAIN-JUMP-ACTIVE-BRANCHES) gives
+// the rule above. Setup: An original schedule forks two active task phases
+// with a shared predecessor and successor; the common run controller jumps to
+// the predecessor. Expected: The predecessor and both branches execute twice,
+// the join once, and an independent peer completes once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_domain_jump_restarts_both_active_parallel_branches_with_a_shared_predecessor;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

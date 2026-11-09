@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_function_phase_rejects_raise_and_drop_objections.expected
 */
+// What it checks:
+// 1. Using the raise objection operation on a non-task phase reports an error.
+// 2. Using the drop objection operation on a non-task phase reports an error.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.7 (UVM-FUNCTION-PHASE-RAISE-ERROR) gives rule 1 above.
+//    Setup: Use a function phase with no associated objection and discard
+//    invalid returned values. Expected: The operation increases error counts
+//    without requiring particular diagnostic text.
+// 2. 1800.2-2020 9.3.1.7 (UVM-FUNCTION-PHASE-DROP-ERROR) gives rule 2 above.
+//    Setup: Use a function phase with no associated objection and discard
+//    invalid returned values. Expected: The operation increases error counts
+//    without requiring particular diagnostic text.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Function phases have no objection. Observe error-count increases,
 // without depending on report identifiers, wording or the number of reports.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_full_name_includes_domain_and_nested_schedules.expected
 */
+// What it checks:
+// Phase full names include their domain-to-node hierarchy while singleton
+// implementations have no hierarchy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.6.3 (UVM-PHASE-DOMAIN-TO-NODE-FULL-NAME) gives the rule
+// above. Setup: Use alpha.outer.inner.leaf and the build singleton. Expected:
+// Each nested name includes its enclosing path; build remains build with a
+// null parent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect local phase metadata and graphs without executing phase callbacks.
 // Do not interpret get_schedule return typing or the get_imp NODE/IMP wording.
 module test_phase_full_name_includes_domain_and_nested_schedules;

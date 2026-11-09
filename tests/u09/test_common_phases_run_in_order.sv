@@ -12,6 +12,27 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_common_phases_run_in_order.expected
 */
+// What it checks:
+// 1. Bottom-up function phases visit descendants before their ancestors.
+// 2. Common phases execute in their standard-defined order.
+// 3. A selected top-down function phase completes its applicable hierarchy
+//    before the next phase.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.5 (UVM-PHASE-BOTTOM-UP) gives rule 1 above. Setup: Use a
+//    single component chain and inspect connect/common bottom-up callbacks.
+//    Expected: Leaf/child callbacks precede their parent callbacks without
+//    fixing sibling ordering.
+// 2. 1800.2-2020 9.8.1 (UVM-PHASE-COMMON-ORDER) gives rule 2 above. Setup: Run
+//    one test with a child and hold a run objection for a positive interval.
+//    Expected: Build through final callbacks follow the expected common-phase
+//    sequence.
+// 3. 1800.2-2020 9.7 (UVM-PHASE-RUNTIME-TOPDOWN-COMPLETION-CONTROL) gives rule
+//    3 above. Setup: An unchanged existing fixture creates a child during
+//    build and then observes the following connect phase. Expected: Parent and
+//    child build observations precede child and parent connect observations.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // IEEE 1800.2-2020 §9.8.1 describes the common phases in the order they run:
 // build, connect, end_of_elaboration, start_of_simulation, run, extract,
 // check, report and final, the phases before run all at time 0. build and

@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_task_phase_execute_forks_the_original_proxy_and_returns_before_its_delayed_completion.expected
 */
+// What it checks:
+// 1. An original task-phase extension is initialized as an IMP.
+// 2. execute forks the task proxy and returns before its delayed completion.
+// 3. The task proxy receives the originating component and phase context.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.6.2.1 (UVM-PHASE-CONTRACT-TASK-CTOR-IMP) gives rule 1
+//    above. Setup: An original task proxy is executed from an objection-held
+//    main; delayed entry/completion markers observe its asynchronous
+//    execution. Expected: implementation_kind is true.
+// 2. 1800.2-2020 9.6.2.3 (UVM-PHASE-CONTRACT-TASK-EXECUTE-FORK) gives rule 2
+//    above. Setup: An original task proxy is executed from an objection-held
+//    main; delayed entry/completion markers observe its asynchronous
+//    execution. Expected: returned_early, entered, not_yet_done and finished
+//    are true.
+// 3. 1800.2-2020 9.3.1.5.2 (UVM-PHASE-CONTRACT-EXEC-TASK-CONTEXT) gives rule 3
+//    above. Setup: An original task proxy is executed from an objection-held
+//    main; delayed entry/completion markers observe its asynchronous
+//    execution. Expected: arguments is true for the exact supplied handles.
+// It also supports, as a control, the setup or conditions of
+// UVM-PHASE-CONTRACT-TASK-VIRTUAL.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_task_phase_execute_forks_the_original_proxy_and_returns_before_its_delayed_completion;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

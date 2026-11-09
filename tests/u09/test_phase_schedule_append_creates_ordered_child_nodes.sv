@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_schedule_append_creates_ordered_child_nodes.expected
 */
+// What it checks:
+// 1. Phase name lookup finds the matching node within the selected
+//    schedule/domain scope.
+// 2. Schedule add places a phase without alignment arguments.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.4.3 (UVM-PHASE-FIND-BY-NAME) gives rule 1 above. Setup:
+//    Search prior/future common phases or an isolated schedule by explicit
+//    names. Expected: Present names resolve to the expected nodes and the
+//    selected absent name resolves to null.
+// 2. 1800.2-2020 9.3.1.6.1 (UVM-PHASE-SCHEDULE-APPEND) gives rule 2 above.
+//    Setup: Build an isolated schedule graph without executing its phase
+//    implementations. Expected: New nodes follow the existing tail and belong
+//    to the same schedule.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Build a local schedule without executing its phases. Node identity,
 // parentage and ordering follow the graph created by consecutive add calls.
 

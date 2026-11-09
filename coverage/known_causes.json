@@ -1856,7 +1856,7 @@
     },
     {
       "test": "u09/test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances",
-      "inputs_sha256": "1c9cfc429f3d0e8efb8a38ffceda084b5262d66f4bd6c71170574f05e00fcd4e",
+      "inputs_sha256": "820140a612de552d7e6453c67da3ec823068c7431e1094ae50d7446e66f3e58b",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -1882,7 +1882,7 @@
     },
     {
       "test": "u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads",
-      "inputs_sha256": "05fac228d26692d2407c8560b325d2595cc7f6db4d9407a39665ff364bde07e2",
+      "inputs_sha256": "1c4227a6bcf24c6fcbb7e9cb8eb3616bb68a23fa4f263095dff8d8e2d4521bdf",
       "kind": "runtime",
       "cause": "simulator",
       "evidence": {
@@ -1900,7 +1900,7 @@
     },
     {
       "test": "u09/test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose",
-      "inputs_sha256": "b90a2342645c4d0cea2e59be4f52884565c0d59c650d0d15bc146b2db44f02f0",
+      "inputs_sha256": "ec4a54296756487e2ce76e876e1592f1ad14809252666fb9db5032994a8a6c73",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -1930,7 +1930,7 @@
     },
     {
       "test": "u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver",
-      "inputs_sha256": "d2d697412ee24cc79e207c911624c05c4e2ee82f8f2eadc3628e19de30900b42",
+      "inputs_sha256": "4af2f4b0956e55806221c92a427415ccd7395a594292cb14c2fa73af6fe76231",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -1960,7 +1960,7 @@
     },
     {
       "test": "u09/test_phase_implementation_lookup_stays_within_each_local_schedule",
-      "inputs_sha256": "91f1428c3cf89b1ec16517d8c90ad86bf4ad6e26bb6b40b08a57e4eb9d8812e6",
+      "inputs_sha256": "d8841a61edab2984c338a67c095af459b4d3042b6c7466c7cfaaa82edcd83167",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -1986,7 +1986,7 @@
     },
     {
       "test": "u09/test_task_phase_kills_remaining_child_task",
-      "inputs_sha256": "a0cfab3f5c92fff1f3b33751cf46d6fc5e507cd3721d7c39566ba4f64eab7036",
+      "inputs_sha256": "e67e663819fc1cb9dc8e0cf460234e42b1ccf3f2a21e71921e5209fe86d1f4a8",
       "kind": "runtime",
       "cause": "simulator",
       "evidence": {

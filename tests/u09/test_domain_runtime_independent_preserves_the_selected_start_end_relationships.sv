@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_domain_runtime_independent_preserves_the_selected_start_end_relationships.expected
 */
+// What it checks:
+// 1. Separate domains can advance their phase schedules independently.
+// 2. Graph nodes sharing a phase implementation retain independent execution
+//    state.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.4 (UVM-PHASE-RUNTIME-DOMAIN-INDEPENDENT-BRANCHES) gives
+//    rule 1 above. Setup: Two newly assigned domains run different positive
+//    pre-reset/reset/main durations without adding synchronization. Expected:
+//    A enters and ends main earlier than B, with one call per worker and
+//    retained domain assignments.
+// 2. 1800.2-2020 9.3.1.1.3 (UVM-PHASE-RUNTIME-NODE-STATE-INDEPENDENCE) gives
+//    rule 2 above. Setup: The actual main nodes in two assigned domains are
+//    compared during A main before B main starts. Expected: Distinct nodes
+//    simultaneously show A EXECUTING and B not EXECUTING.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_domain_runtime_independent_preserves_the_selected_start_end_relationships;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

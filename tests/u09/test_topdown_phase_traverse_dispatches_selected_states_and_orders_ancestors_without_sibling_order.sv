@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_topdown_phase_traverse_dispatches_selected_states_and_orders_ancestors_without_sibling_order.expected
 */
+// What it checks:
+// 1. The original topdown extension is initialized as an IMP.
+// 2. The selected state traversal visits ancestors before descendants.
+// 3. execute delegates to the original exec_func with component and phase
+//    context.
+// 4. The function proxy receives the originating component and phase context.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.7.2.1 (UVM-PHASE-CONTRACT-TOPDOWN-CTOR-IMP) gives rule 1
+//    above. Setup: A four-component subtree is traversed for STARTED,
+//    EXECUTING and ENDED using a node attached to the components' domain.
+//    Expected: implementation_kind is true.
+// 2. 1800.2-2020 9.7.2.2 (UVM-PHASE-CONTRACT-TOPDOWN-TRAVERSE) gives rule 2
+//    above. Setup: A four-component subtree is traversed for STARTED,
+//    EXECUTING and ENDED using a node attached to the components' domain.
+//    Expected: All four selected handles occur once in each state with
+//    ancestor order and no peer.
+// 3. 1800.2-2020 9.7.2.3 (UVM-PHASE-CONTRACT-TOPDOWN-EXECUTE) gives rule 3
+//    above. Setup: A four-component subtree is traversed for STARTED,
+//    EXECUTING and ENDED using a node attached to the components' domain.
+//    Expected: The execution queue has the expected handles and each call
+//    retains the context node.
+// 4. 1800.2-2020 9.3.1.5.1 (UVM-PHASE-CONTRACT-EXEC-FUNC-CONTEXT) gives rule 4
+//    above. Setup: A four-component subtree is traversed for STARTED,
+//    EXECUTING and ENDED using a node attached to the components' domain.
+//    Expected: The selected execution handles and context comparisons match.
+// It also supports, as a control, the setup or conditions of
+// UVM-PHASE-CONTRACT-TOPDOWN-VIRTUAL.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Traverse a selected subtree; no sibling iteration order is imposed.
 module
   test_topdown_phase_traverse_dispatches_selected_states_and_orders_ancestors_without_sibling_order;

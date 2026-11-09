@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_constructor_retains_default_and_explicit_node_types.expected
 */
+// What it checks:
+// 1. A default phase has the prescribed name, schedule type and no parent.
+// 2. Phase type queries retain the selected constructor kind.
+// 3. The phase-kind type supplies the named IMP,NODE,SCHEDULE and DOMAIN
+//    designators.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.3.1 (UVM-PHASE-CONSTRUCTOR-DEFAULT-METADATA) gives rule
+//    1 above. Setup: Construct a phase without arguments. Expected: The name
+//    is uvm_phase, the type is SCHEDULE and the parent is null.
+// 2. 1800.2-2020 9.3.1.3.2 (UVM-PHASE-TYPE-QUERY-EXPLICIT-KINDS) gives rule 2
+//    above. Setup: Construct IMP, NODE, SCHEDULE and DOMAIN phase objects.
+//    Expected: Each query equals its explicitly supplied kind.
+// 3. 1800.2-2020 F.2.5.1 (UVM-PKG-PHASE-KIND-DESIGNATORS-91) gives rule 3
+//    above. Setup: Two independent original inputs create topdown/bottomup IMP
+//    objects and nodes in two schedules. They capture each isolated schedule
+//    node before joining both schedules to the component domain,then check
+//    types,parent/domain identities and manual selected-subtree traversal.
+//    Original post-attachment lookup inputs remain separate controls for the
+//    stricter scope interpretation. Expected: Actual selected
+//    implementation,node,schedule and domain objects report their named
+//    kinds;the unchanged explicit-constructor input supplies a separate
+//    compatible type observation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect local phase metadata and graphs without executing phase callbacks.
 // Do not interpret get_schedule return typing or the get_imp NODE/IMP wording.
 module test_phase_constructor_retains_default_and_explicit_node_types;

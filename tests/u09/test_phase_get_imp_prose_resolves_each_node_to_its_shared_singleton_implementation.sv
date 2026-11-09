@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_get_imp_prose_resolves_each_node_to_its_shared_singleton_implementation.expected
 */
+// What it checks:
+// Under the node-resolution sentence, get_imp returns the node's
+// implementation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.6.7 (UVM-PHASE-CONTRACT-GET-IMP-NODE-PROSE) gives the rule
+// above. Setup: Two schedule nodes refer to the same original task
+// implementation. Expected: Both distinct nodes resolve to the shared
+// singleton.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Keep the node-implementation prose and non-IMP-null sentence distinct.
 module test_phase_get_imp_prose_resolves_each_node_to_its_shared_singleton_implementation;
   import uvm_pkg::*;

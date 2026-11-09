@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_implementation_lookup_stays_within_each_local_schedule.expected
 */
+// What it checks:
+// Default implementation lookup stays within the local schedule.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.4.4 (UVM-PHASE-IMPLEMENTATION-LOOKUP-SCOPE) gives the rule
+// above. Setup: Give the left schedule build/connect and the right schedule
+// build only. Expected: Lookups return the correct local handles; missing
+// implementations return null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library returns the IMP, not its node, for a current-node
 // implementation lookup. Retain the required node handle from 9.3.1.4.4.
 // Inspect local phase metadata and graphs without executing phase callbacks.

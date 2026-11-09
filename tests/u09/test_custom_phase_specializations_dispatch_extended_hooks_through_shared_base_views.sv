@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_custom_phase_specializations_dispatch_extended_hooks_through_shared_base_views.expected
 */
+// What it checks:
+// A custom phase can specialize its proxy for an extended component hook while
+// retaining a homogeneous phase base.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.1.1 (UVM-PHASE-RUNTIME-SPECIALIZED-COMPONENT-PROXY) gives
+// the rule above. Setup: Two original component subtypes use parameterized
+// singleton proxies through top-down base views and separate graph nodes.
+// Expected: Each extended hook is called once with its context, the per-type
+// singleton is reused and the two proxy types/nodes are distinct.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_custom_phase_specializations_dispatch_extended_hooks_through_shared_base_views;
   import uvm_pkg::*;
   uvm_phase wanted;

@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_schedule_adjacency_excludes_transitive_neighbors.expected
 */
+// What it checks:
+// 1. The adjacency query returns immediate predecessor nodes rather than
+//    transitive neighbors.
+// 2. The adjacency query returns immediate successor nodes rather than
+//    transitive neighbors.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.6.9 (UVM-PHASE-ADJACENT-PREDECESSORS) gives rule 1
+//    above. Setup: Inspect the middle of a three-node serial schedule.
+//    Expected: Only the immediate neighbor appears even though a longer before
+//    relationship exists.
+// 2. 1800.2-2020 9.3.1.6.10 (UVM-PHASE-ADJACENT-SUCCESSORS) gives rule 2
+//    above. Setup: Inspect the middle of a three-node serial schedule.
+//    Expected: Only the immediate neighbor appears even though a longer before
+//    relationship exists.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // In a three-node serial path, the middle node has one immediate
 // predecessor and successor even though the first also precedes the third.
 

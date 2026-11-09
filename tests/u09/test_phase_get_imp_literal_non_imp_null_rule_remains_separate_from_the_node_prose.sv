@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose.expected
 */
+// What it checks:
+// Under the literal final sentence, a non-IMP phase returns null.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.6.7 (UVM-PHASE-CONTRACT-GET-IMP-LITERAL-NULL) gives the
+// rule above. Setup: A NODE is explicitly tested against the last sentence of
+// get_imp, separately from its node-resolution prose. Expected: The explicit
+// NODE satisfies non_imp_null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Keep the node-implementation prose and non-IMP-null sentence distinct.
 module test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose;
   import uvm_pkg::*;

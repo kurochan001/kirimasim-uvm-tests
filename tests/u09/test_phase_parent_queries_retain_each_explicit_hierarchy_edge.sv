@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_parent_queries_retain_each_explicit_hierarchy_edge.expected
 */
+// What it checks:
+// Phase parent queries expose each immediate hierarchy edge.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.6.2 (UVM-PHASE-PARENT-HIERARCHY-EDGES) gives the rule
+// above. Setup: Create a domain, outer/inner schedules, a leaf and an orphan.
+// Expected: The three supplied parent handles match exactly and both roots
+// have null parents.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect local phase metadata and graphs without executing phase callbacks.
 // Do not interpret get_schedule return typing or the get_imp NODE/IMP wording.
 module test_phase_parent_queries_retain_each_explicit_hierarchy_edge;

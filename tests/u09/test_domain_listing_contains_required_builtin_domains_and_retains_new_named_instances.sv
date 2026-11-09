@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances.expected
 */
+// What it checks:
+// 1. The domain list always includes common and uvm entries.
+// 2. A new domain is registered under its name.
+// 3. Listing all domains preserves earlier registered entries.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.4.2.2 (UVM-PHASE-CONTRACT-DOMAIN-ALWAYS-BUILTINS) gives
+//    rule 1 above. Setup: get_domains is called before explicit
+//    built-in-domain initialization and again after constructing one uniquely
+//    named domain. Expected: Both required entries exist and are nonnull
+//    before explicit initialization.
+// 2. 1800.2-2020 9.4.2.1 (UVM-PHASE-CONTRACT-DOMAIN-REGISTER-NEW) gives rule 2
+//    above. Setup: get_domains is called before explicit built-in-domain
+//    initialization and again after constructing one uniquely named domain.
+//    Expected: The custom entry equals the newly constructed domain.
+// 3. 1800.2-2020 9.4.2.2 (UVM-PHASE-CONTRACT-DOMAIN-LIST-RETAINS) gives rule 3
+//    above. Setup: get_domains is called before explicit built-in-domain
+//    initialization and again after constructing one uniquely named domain.
+//    Expected: Every prior entry remains mapped to the same handle after the
+//    new domain.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Require built-in entries without assuming that only two domains exist.
 module test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances;
   import uvm_pkg::*;

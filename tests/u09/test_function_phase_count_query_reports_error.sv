@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_function_phase_count_query_reports_error.expected
 */
+// What it checks:
+// Using the count objection operation on a non-task phase reports an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.7 (UVM-FUNCTION-PHASE-COUNT-ERROR) gives the rule above.
+// Setup: Use a function phase with no associated objection and discard invalid
+// returned values. Expected: The operation increases error counts without
+// requiring particular diagnostic text.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Discard the count returned by an invalid query. Only the required
 // error is observed; no value after the error is prescribed.
 

@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads.expected
 */
+// What it checks:
+// 1. end_prematurely causes the phase to end.
+// 2. Premature ending alone does not select a jump target.
+// 3. Remaining task-phase threads terminate when the phase ends.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.9.3 (UVM-PHASE-CONTRACT-PREMATURE-ADVANCE) gives rule 1
+//    above. Setup: An objection-held main requests premature ending without a
+//    target; a concurrent run observer later checks the original ticking task.
+//    Expected: The successor post_main is reached.
+// 2. 1800.2-2020 9.3.1.9.3 (UVM-PHASE-CONTRACT-PREMATURE-NO-TARGET) gives rule
+//    2 above. Setup: An objection-held main requests premature ending without
+//    a target; a concurrent run observer later checks the original ticking
+//    task. Expected: The ended-phase observer sees no target.
+// 3. 1800.2-2020 9.6 (UVM-PHASE-CONTRACT-PREMATURE-TASK-TERMINATION) gives
+//    rule 3 above. Setup: An objection-held main requests premature ending
+//    without a target; a concurrent run observer later checks the original
+//    ticking task. Expected: The original ticking task stops before the two
+//    later observer samples.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

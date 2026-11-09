@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_schedule_insert_between_existing_nodes.expected
 */
+// What it checks:
+// Schedule add places a phase between existing after/before neighbors.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.6.1 (UVM-PHASE-SCHEDULE-INSERT) gives the rule above.
+// Setup: Build an isolated schedule graph without executing its phase
+// implementations. Expected: The inserted node lies after its predecessor and
+// before its successor.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The explicit neighbors are already schedule nodes. Inserting a new
 // implementation between them changes the graph order without executing it.
 

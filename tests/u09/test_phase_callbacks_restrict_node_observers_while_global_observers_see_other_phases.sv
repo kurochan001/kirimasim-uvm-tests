@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_callbacks_restrict_node_observers_while_global_observers_see_other_phases.expected
 */
+// What it checks:
+// 1. A node-specific callback observes that node.
+// 2. A type-wide phase callback can observe multiple phase nodes.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.3 (UVM-PHASE-CONTRACT-CALLBACK-NODE-SCOPE) gives rule 1
+//    above. Setup: A type-wide callback and a callback registered on the
+//    actual main node observe the same run. Expected: Required states are
+//    present and local_other_none/selected_context are true.
+// 2. 1800.2-2020 9.3.3 (UVM-PHASE-CONTRACT-CALLBACK-ALL-NODES) gives rule 2
+//    above. Setup: A type-wide callback and a callback registered on the
+//    actual main node observe the same run. Expected: The global callback
+//    observes main states and other phases.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_phase_callbacks_restrict_node_observers_while_global_observers_see_other_phases;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

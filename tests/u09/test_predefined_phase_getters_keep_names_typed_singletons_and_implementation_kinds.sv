@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_predefined_phase_getters_keep_names_typed_singletons_and_implementation_kinds.expected
 */
+// What it checks:
+// 1. Each selected predefined phase has its class-derived name.
+// 2. Each predefined phase getter returns its singleton handle.
+// 3. A predefined getter returns a handle compatible with that phase's own
+//    class.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.8 (UVM-PHASE-CONTRACT-PREDEFINED-NAMES) gives rule 1 above.
+//    Setup: One matrix fixture calls all nine common and twelve runtime phase
+//    getters using exact class-typed receivers. Expected: Every one of the
+//    twenty-one name comparisons is true.
+// 2. 1800.2-2020 9.8 (UVM-PHASE-CONTRACT-PREDEFINED-SINGLETONS) gives rule 2
+//    above. Setup: One matrix fixture calls all nine common and twelve runtime
+//    phase getters using exact class-typed receivers. Expected: Repeated get
+//    calls compare equal in all twenty-one rows.
+// 3. 1800.2-2020 9.8 (UVM-PHASE-CONTRACT-PREDEFINED-TYPED-GETTERS) gives rule
+//    3 above. Setup: One matrix fixture calls all nine common and twelve
+//    runtime phase getters using exact class-typed receivers. Expected: Exact
+//    typed receivers compile and all retrieved implementations have IMP kind.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // One matrix fixture, not twenty-one independent fixtures or full delegates.
 module test_predefined_phase_getters_keep_names_typed_singletons_and_implementation_kinds;
   import uvm_pkg::*;

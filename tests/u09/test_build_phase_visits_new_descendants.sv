@@ -13,6 +13,20 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_build_phase_visits_new_descendants.expected
 */
+// What it checks:
+// 1. A top-down phase traverses ancestors before their descendants.
+// 2. Common phases preceding run execute at simulation time zero.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.7.2.2 (UVM-PHASE-TOPDOWN-BUILD) gives rule 1 above. Setup:
+//    Build creates a single branch and then its leaf, avoiding sibling-order
+//    assumptions. Expected: Observed build order is test, branch, leaf; all
+//    observations are at time zero.
+// 2. 1800.2-2020 9.8.1 (UVM-PHASE-PRE-RUN-ZERO-TIME) gives rule 2 above.
+//    Setup: Observe build and connect callbacks along a component chain.
+//    Expected: Every selected callback reports time zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Build can create children which are then built. A single chain avoids
 // any dependency on the order in which siblings are visited.
 

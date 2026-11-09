@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_task_phase_traverse_dispatches_started_execute_ready_and_ended_over_the_selected_subtree.expected
 */
+// What it checks:
+// 1. Task traversal for STARTED dispatches phase_started to applicable subtree
+//    components.
+// 2. Task traversal for EXECUTING dispatches execute and the original
+//    exec_task to applicable subtree components.
+// 3. Task traversal for READY_TO_END dispatches phase_ready_to_end to
+//    applicable subtree components.
+// 4. Task traversal for ENDED dispatches phase_ended to applicable subtree
+//    components.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.6.2.2 (UVM-PHASE-RUNTIME-TASK-TRAVERSE-STARTED) gives rule
+//    1 above. Setup: A four-component subtree has a matching domain-attached
+//    phase node and an excluded peer; the task implementation delays
+//    completion. Expected: Each selected handle occurs once in the named state
+//    queue, the peer is absent and context matches.
+// 2. 1800.2-2020 9.6.2.2 (UVM-PHASE-RUNTIME-TASK-TRAVERSE-EXECUTING) gives
+//    rule 2 above. Setup: A four-component subtree has a matching
+//    domain-attached phase node and an excluded peer; the task implementation
+//    delays completion. Expected: Each selected handle occurs once in the
+//    named state queue, the peer is absent and context matches.
+// 3. 1800.2-2020 9.6.2.2 (UVM-PHASE-RUNTIME-TASK-TRAVERSE-READY-TO-END) gives
+//    rule 3 above. Setup: A four-component subtree has a matching
+//    domain-attached phase node and an excluded peer; the task implementation
+//    delays completion. Expected: Each selected handle occurs once in the
+//    named state queue, the peer is absent and context matches.
+// 4. 1800.2-2020 9.6.2.2 (UVM-PHASE-RUNTIME-TASK-TRAVERSE-ENDED) gives rule 4
+//    above. Setup: A four-component subtree has a matching domain-attached
+//    phase node and an excluded peer; the task implementation delays
+//    completion. Expected: Each selected handle occurs once in the named state
+//    queue, the peer is absent and context matches.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_task_phase_traverse_dispatches_started_execute_ready_and_ended_over_the_selected_subtree;
   import uvm_pkg::*;

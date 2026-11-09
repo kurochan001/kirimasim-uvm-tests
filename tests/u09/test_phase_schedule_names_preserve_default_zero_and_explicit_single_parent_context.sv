@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_schedule_names_preserve_default_zero_and_explicit_single_parent_context.expected
 */
+// What it checks:
+// 1. get_schedule_name identifies the enclosing schedule context.
+// 2. The schedule-name hierarchy argument defaults to zero.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.6.5 (UVM-PHASE-CONTRACT-SCHEDULE-NAME-CONTEXT) gives
+//    rule 1 above. Setup: Each of two schedules has exactly one enclosing
+//    schedule level and a node for the original implementation. Expected:
+//    left/right names identify their respective single parent.
+// 2. 1800.2-2020 9.3.1.6.5 (UVM-PHASE-CONTRACT-SCHEDULE-NAME-DEFAULT) gives
+//    rule 2 above. Setup: Each of two schedules has exactly one enclosing
+//    schedule level and a node for the original implementation. Expected:
+//    Default and explicit zero agree; explicit one gives the same single-level
+//    name.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // One schedule ancestor avoids choosing among ambiguous nested prose.
 module test_phase_schedule_names_preserve_default_zero_and_explicit_single_parent_context;
   import uvm_pkg::*;

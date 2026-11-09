@@ -248,7 +248,7 @@ metacomment and `` `__LINE__ `` distance; such a record is carried forward to
 the new fingerprint, keeps its old one in `carried_from`, and is not a new
 measurement. Verilator results of the edited inputs are measured again.
 
-Readability progress: 7 of 22 directories are finished: u17 (11 inputs), u11 (20 inputs), uG (23 inputs), uD (28 inputs), u07 (35 inputs), u01 (38 inputs), u13 (58 inputs). Each finished directory's inputs, and every input elsewhere that collects one of its files, were measured again at seeds 1/73 with every status unchanged; their fingerprints moved forward with `tools/code_identity.py` and their guest records were carried forward. The other 15 directories remain.
+Readability progress: 8 of 22 directories are finished: u17 (11 inputs), u11 (20 inputs), uG (23 inputs), uD (28 inputs), u07 (35 inputs), u01 (38 inputs), u13 (58 inputs), u09 (63 inputs). Each finished directory's inputs, and every input elsewhere that collects one of its files, were measured again at seeds 1/73 with every status unchanged; their fingerprints moved forward with `tools/code_identity.py` and their guest records were carried forward. The other 14 directories remain.
 
 The [draft ledger](requirements.md) has 4151 AI duties and 0 unassessed
 identifiers: 2062 partial/445 assessed. Chapter 10 is 87/29/0; chapter 18 is

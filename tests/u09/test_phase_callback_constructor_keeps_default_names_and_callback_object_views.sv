@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_callback_constructor_keeps_default_names_and_callback_object_views.expected
 */
+// What it checks:
+// 1. The callback constructor preserves its printed default and explicit
+//    names.
+// 2. A phase callback extends uvm_callback.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.3.2.1 (UVM-PHASE-CONTRACT-CALLBACK-NEW-NAMES) gives rule
+//    1 above. Setup: Default and explicitly named callback objects are viewed
+//    through callback/object handles. Expected: Default unnamed-uvm_phase_cb
+//    and explicit chosen53 names both match.
+// 2. 1800.2-2020 9.3.3.1 (UVM-PHASE-CONTRACT-CALLBACK-BASE-VIEW) gives rule 2
+//    above. Setup: Default and explicitly named callback objects are viewed
+//    through callback/object handles. Expected: Callback/object views cast
+//    back to the same callback.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_phase_callback_constructor_keeps_default_names_and_callback_object_views;
   import uvm_pkg::*;
   initial begin

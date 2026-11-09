@@ -12,6 +12,16 @@
 :should_fail_because: direct construction of a standard-declared virtual phase class is illegal
 :expected_stderr_regex: (?i)^(?=.*test_uvm_topdown_phase_virtual_declaration_rejects_direct_construction\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:virtual|abstract)\b)(?=.*\buvm_topdown_phase\b).*error
 */
+// What it checks:
+// Direct construction of the declared virtual uvm_topdown_phase is illegal.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.7.1 (UVM-PHASE-CONTRACT-TOPDOWN-VIRTUAL) gives the rule above.
+// Setup: A minimal negative fixture directly constructs the base; the separate
+// legal extension supplies a runtime control. Expected: Compilation rejects
+// the named virtual class at the fixture location.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Compiler rejection only; no runtime seed or expected stdout exists.
 module test_uvm_topdown_phase_virtual_declaration_rejects_direct_construction;
   import uvm_pkg::*;

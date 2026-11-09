@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_backward_jump_reexecutes_nodes_and_counts_runs_independently_of_component_calls.expected
 */
+// What it checks:
+// 1. get_run_count counts phase executions rather than component delegate
+//    calls.
+// 2. A legal predecessor jump re-enters the selected phase path.
+// 3. get_jump_target identifies the target during the JUMPING callback.
+// 4. A JUMPING descriptor identifies the jump target.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.4.2 (UVM-PHASE-CONTRACT-RUN-COUNT-PER-NODE) gives rule
+//    1 above. Setup: Two components execute main; the first main requests a
+//    backward jump to the actual pre_main node. Expected: Two main executions
+//    with two participants yield node_runs 2 and matching ended counts.
+// 2. 1800.2-2020 9.3.1.9.1 (UVM-PHASE-CONTRACT-BACKWARD-JUMP) gives rule 2
+//    above. Setup: Two components execute main; the first main requests a
+//    backward jump to the actual pre_main node. Expected: pre_main and both
+//    main participants run twice.
+// 3. 1800.2-2020 9.3.1.9.4 (UVM-PHASE-CONTRACT-JUMP-TARGET-GETTER) gives rule
+//    3 above. Setup: Two components execute main; the first main requests a
+//    backward jump to the actual pre_main node. Expected: The callback getter
+//    is the actual pre_main target handle.
+// 4. 1800.2-2020 9.3.2.2.3 (UVM-PHASE-CONTRACT-DESCRIPTOR-JUMP-TARGET) gives
+//    rule 4 above. Setup: Two components execute main; the first main requests
+//    a backward jump to the actual pre_main node. Expected: descriptor is true
+//    for the actual selected predecessor.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_phase_backward_jump_reexecutes_nodes_and_counts_runs_independently_of_component_calls;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

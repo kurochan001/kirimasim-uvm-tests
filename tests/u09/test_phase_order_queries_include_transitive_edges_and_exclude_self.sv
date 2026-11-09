@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_order_queries_include_transitive_edges_and_exclude_self.expected
 */
+// What it checks:
+// 1. Phase before-order includes transitive predecessors and excludes self and
+//    reverse order.
+// 2. Phase after-order includes transitive successors and excludes self and
+//    reverse order.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.4.6 (UVM-PHASE-BEFORE-TRANSITIVE-AND-IRREFLEXIVE) gives
+//    rule 1 above. Setup: Append build, connect and end_of_elaboration to a
+//    local schedule. Expected: Adjacent/transitive before queries are true;
+//    reverse/self queries are false.
+// 2. 1800.2-2020 9.3.1.4.7 (UVM-PHASE-AFTER-TRANSITIVE-AND-IRREFLEXIVE) gives
+//    rule 2 above. Setup: Append three phases to a local schedule. Expected:
+//    Adjacent/transitive after queries are true; reverse/self queries are
+//    false.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect local phase metadata and graphs without executing phase callbacks.
 // Do not interpret get_schedule return typing or the get_imp NODE/IMP wording.
 module test_phase_order_queries_include_transitive_edges_and_exclude_self;

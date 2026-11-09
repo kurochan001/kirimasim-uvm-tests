@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_identity_distinguishes_nodes_and_matches_their_implementation.expected
 */
+// What it checks:
+// A phase node identifies itself and its implementation, but not an unrelated
+// implementation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 9.3.1.4.5 (UVM-PHASE-NODE-SELF-AND-IMPLEMENTATION-IDENTITY)
+// gives the rule above. Setup: Add the build singleton to two distinct
+// schedules. Expected: The nodes are distinct handles; each matches build, and
+// the first does not match connect.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect local phase metadata and graphs without executing phase callbacks.
 // Do not interpret get_schedule return typing or the get_imp NODE/IMP wording.
 module test_phase_identity_distinguishes_nodes_and_matches_their_implementation;
