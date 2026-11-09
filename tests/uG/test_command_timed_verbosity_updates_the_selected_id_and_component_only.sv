@@ -19,6 +19,26 @@
 :args: +uvm_set_verbosity=uvm_test_top.leaf,picked,UVM_HIGH,time,3 +uvm_set_verbosity=uvm_test_top.leaf,picked,UVM_LOW,time,6
 :expected_stdout: @test_command_timed_verbosity_updates_the_selected_id_and_component_only.expected
 */
+// What it checks:
+// 1. A timed verbosity option updates its selected component and ID at the
+//    scheduled time.
+// 2. A later timed option replaces the earlier verbosity for the same selected
+//    key.
+// 3. Timed component/ID settings preserve unmatched IDs and components.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.2.3 (UVM-CMDLINE-TIMED-VERBOSITY-FIRST-SETTING) gives rule
+//    1 above. Setup: HIGH is scheduled at time 3 and observed at time 4.
+//    Expected: Before the setting the default remains; afterwards the selected
+//    ID is HIGH.
+// 2. 1800.2-2020 G.2.3 (UVM-CMDLINE-TIMED-VERBOSITY-LATER-SETTING) gives rule
+//    2 above. Setup: LOW is scheduled at time 6 after HIGH at time 3.
+//    Expected: The observation at time 7 sees LOW.
+// 3. 1800.2-2020 G.2.3 (UVM-CMDLINE-TIMED-VERBOSITY-ISOLATION) gives rule 3
+//    above. Setup: Another ID and a peer are queried after both scheduled
+//    updates. Expected: Both controls retain default MEDIUM verbosity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe after, rather than exactly at, each scheduled time. Selected
 // component/ID changes must preserve another ID and an outside peer.
 // Non-run phase settings and equal-time ordering remain separate conditions.

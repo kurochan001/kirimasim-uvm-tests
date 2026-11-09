@@ -19,6 +19,20 @@
 :args: +kr_plus=alpha +kr_second=beta -kr_dash=gamma
 :expected_stdout: @test_command_vpi_plusargs_exclude_dash_arguments_and_replace_caller_contents.expected
 */
+// What it checks:
+// 1. get_plusargs includes supplied plus arguments.
+// 2. get_plusargs excludes arguments without a plus prefix.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.1.3.2 (UVM-CMDLINE-PLUSARG-INCLUSION) gives rule 1 above.
+//    Setup: Two selected plus arguments accompany a dash argument. Expected:
+//    Each selected plus string occurs once.
+// 2. 1800.2-2020 G.1.3.2 (UVM-CMDLINE-PLUSARG-EXCLUSION) gives rule 2 above.
+//    Setup: A dash argument and a caller sentinel accompany actual plus
+//    arguments. Expected: Neither the dash argument nor the sentinel remains;
+//    every returned entry begins with plus.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe selected argument membership and exclusion. Simulator-owned plus
 // arguments may also be returned, so the full queue length is not fixed.
 module test_command_vpi_plusargs_exclude_dash_arguments_and_replace_caller_contents;

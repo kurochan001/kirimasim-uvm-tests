@@ -19,6 +19,21 @@
 :args: +uvm_set_action=uvm_test_top.leaf,picked,UVM_WARNING,UVM_NO_ACTION
 :expected_stdout: @test_command_action_setting_is_scoped_to_the_selected_component_and_id.expected
 */
+// What it checks:
+// 1. The command-line action option supplies the equivalent selected report
+//    action.
+// 2. An action option restricted by component and ID preserves unmatched
+//    controls.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.2.4 (UVM-CMDLINE-ACTION-SETTING) gives rule 1 above. Setup:
+//    The literal leaf/picked/WARNING key is set to NO_ACTION. Expected: The
+//    public action query returns NO_ACTION for that key.
+// 2. 1800.2-2020 G.2.4 (UVM-CMDLINE-ACTION-ISOLATION) gives rule 2 above.
+//    Setup: Another ID on the leaf and the same ID on a peer remain unmatched.
+//    Expected: Both controls retain their default DISPLAY action.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe effective public action settings without formatted output. The
 // selected literal component/ID condition does not test ALL or action unions.
 module test_command_action_setting_is_scoped_to_the_selected_component_and_id;

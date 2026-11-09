@@ -12731,7 +12731,7 @@
     },
     {
       "test": "uG/test_command_action_setting_is_scoped_to_the_selected_component_and_id",
-      "inputs_sha256": "5e80597528d22f08f4c5ca86e72778deef120227414246dcb7cf0d484e6ede28",
+      "inputs_sha256": "5c3da479b912cc7d5b46978e78c737f9b58078ef6b0154cf81c15d80770ec079",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12748,7 +12748,7 @@
     },
     {
       "test": "uG/test_command_arg_values_clear_on_no_match_and_repeat_without_appending",
-      "inputs_sha256": "ebd5cecc714ee9bd20740f602872909e9ae7058b156939a45c488605e28d05b3",
+      "inputs_sha256": "4f84119cf800c8eab7b37c1a7c78b442b1093e1ba866c648818647e16b5a9a14",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -12775,7 +12775,7 @@
     },
     {
       "test": "uG/test_command_arg_values_collect_matching_suffixes_without_stale_entries",
-      "inputs_sha256": "5c85556926723694223eabe051aa96d529dd00a502480d87656126c54d88ca67",
+      "inputs_sha256": "66fbc9a535f68f94688be6352048b11d609aaf34830e6109ff5ee086669b2993",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -12802,7 +12802,7 @@
     },
     {
       "test": "uG/test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope",
-      "inputs_sha256": "52e63ba902bb062960931a51af61914330da1424b213e6c9194397755db1692d",
+      "inputs_sha256": "d8363bd24ad4cfa639c96c98e3a68f211e272948056563980e3c73f46937a363",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12819,7 +12819,7 @@
     },
     {
       "test": "uG/test_command_default_sequence_runs_on_the_named_sequencer_and_phase",
-      "inputs_sha256": "84d282c57fc55232756e585859ec5e30fe1f32889ec128ab917e1a9a338b26ee",
+      "inputs_sha256": "756a88c289af4b6fc01ccbb9dc14416db14fdebc4010dd8b65087536ef6886a9",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12836,7 +12836,7 @@
     },
     {
       "test": "uG/test_command_factory_instance_override_precedes_the_type_override_for_its_target",
-      "inputs_sha256": "756e4b9d2d1c1e046c11718b6eeb76bbd187cf839009e05c32336f6d447a4c7b",
+      "inputs_sha256": "6e2e7969ff4af4f24db7ab7cbfdf537edb957c4f181fdf9a3b6458f16713f287",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12853,7 +12853,7 @@
     },
     {
       "test": "uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction",
-      "inputs_sha256": "d706b8e62c5fd55e83658a4d6c01b37a7d8e10474ded717b3e57584ac1ea89a9",
+      "inputs_sha256": "4f1a052aa460bf71649d781f43eee4f7afa7d4951a52c17165ee48b3ce7a9844",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12870,7 +12870,7 @@
     },
     {
       "test": "uG/test_command_initial_verbosity_applies_to_components_created_in_build",
-      "inputs_sha256": "75c0cdb09f887aaa7c1d5b340330985c63810bb16829cfdd2b180f84987a35e7",
+      "inputs_sha256": "48fe08abe203abc70d5918383a8bfce1cc3f1c4fcd6a9ebc496f40097e2997f7",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12887,7 +12887,7 @@
     },
     {
       "test": "uG/test_command_max_quit_count_allows_a_later_user_setting",
-      "inputs_sha256": "92c056f5bc143c356840583c06403c7ab6e48deb773efee23db5e6c5098271fe",
+      "inputs_sha256": "e67171b3a6ccbed45a5601900ca944d307a3cd85b71d95da414fd13f20ea6bf1",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12904,7 +12904,7 @@
     },
     {
       "test": "uG/test_command_max_quit_count_rejects_a_later_user_setting",
-      "inputs_sha256": "28538048d2d2a60ff58ca28cf6fdf59b3047218e360acba07fe4db1e980dd581",
+      "inputs_sha256": "a15907b2568f3a6a910d2d7d6df26e7e8671fc3fda3897df7f47519435652ead",
       "kind": "build",
       "condition": "cmdline",
       "cause": "library",
@@ -12931,7 +12931,7 @@
     },
     {
       "test": "uG/test_command_severity_override_changes_the_selected_report_and_preserves_controls",
-      "inputs_sha256": "771704a6ad4277c70c729e1e77d53b0c23fd057a07ca2515a068d8e182f8c210",
+      "inputs_sha256": "613509444199ea1a6a6875764882b02a5b03a44b1641eb4e1771fe9b63129f32",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12948,7 +12948,7 @@
     },
     {
       "test": "uG/test_command_testname_creates_the_first_registered_test_and_warns_for_duplicates",
-      "inputs_sha256": "a9fcdb92afb0e68b9d820b410b48e01cb9e9507dc7a11613a8453ad60e721e39",
+      "inputs_sha256": "f2cca0df7b906f407567dae0f10c2c3dc9387615cf29bcda63bd8d767363c3b2",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12965,7 +12965,7 @@
     },
     {
       "test": "uG/test_command_timed_verbosity_updates_the_selected_id_and_component_only",
-      "inputs_sha256": "099ba4ac96c4c21abb8ae8e7d36894590e78444c2973f5ed86d4893d13a552da",
+      "inputs_sha256": "080dfa09e449cc5faa908cda120d650b4cc0e0130658b5f8e274b8acb052f906",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12982,7 +12982,7 @@
     },
     {
       "test": "uG/test_command_vpi_all_values_keep_empty_and_comma_suffixes_without_stale_entries",
-      "inputs_sha256": "175f9276a681e666205a3d11a37e428a093ea69117644441c3b4d8d7384c61c1",
+      "inputs_sha256": "1813ddbfaeaedb835c5381829ecc986c878fcf803055537549d6a5754f2cc3de",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12999,7 +12999,7 @@
     },
     {
       "test": "uG/test_command_vpi_extended_regex_matches_grouped_alternatives_and_clears_queries",
-      "inputs_sha256": "0f61be661fe23050f114e8f041029fec8993a854bf8353ed728a0f7753c65144",
+      "inputs_sha256": "93d6a8313a61071018fdc56a5530ddc04667cf9a22213c48be05815eb0e73633",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13016,7 +13016,7 @@
     },
     {
       "test": "uG/test_command_vpi_first_value_preserves_the_first_suffix_and_counts_all_matches",
-      "inputs_sha256": "5cca038b5cb7e7110f10dc944d4b9e17f906068a086657b1b33e3485374e958b",
+      "inputs_sha256": "515dafa33490308b7eb5899eb394c285d12dd1557363739233f3d2160c7c3c18",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13033,7 +13033,7 @@
     },
     {
       "test": "uG/test_command_vpi_plusargs_exclude_dash_arguments_and_replace_caller_contents",
-      "inputs_sha256": "7a04e3081d3f2edede630335c03514643c878118417fb366333a27c9d64e65f0",
+      "inputs_sha256": "f65dd0b7bc310f55755a97514c5d72c51fee26f643ee69be9d0c12fef705f3db",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13050,7 +13050,7 @@
     },
     {
       "test": "uG/test_command_vpi_prefix_matches_replace_queues_and_clear_missing_queries",
-      "inputs_sha256": "79285a056717f04f6c424d9da1b505c86593282738a7c0681c1ff0cc8483b584",
+      "inputs_sha256": "b2a534a254e50233f927a079f8f611715f8a2961b6d435dda7a2bb6121da82f6",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13067,7 +13067,7 @@
     },
     {
       "test": "uG/test_command_vpi_singleton_and_all_arguments_preserve_supplied_membership",
-      "inputs_sha256": "7f623b772ff5ae7d81d6166a6c319178d312eb27879e35c58d97dc931c7f9331",
+      "inputs_sha256": "8bc8dd703ace0edf3c74e6b8ea23d35eb1f3e37a9d0bc10f06479bce5e05942a",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13084,7 +13084,7 @@
     },
     {
       "test": "uG/test_command_vpi_uvm_arguments_accept_mixed_case_keywords_and_both_prefixes",
-      "inputs_sha256": "c146630a17021a937411dcecec2d7f987a7019678c65b0ab780f31cb31f29ce1",
+      "inputs_sha256": "8299c5fdc57b1feb7cf6d5bb552e562c7cb5e97278d7c59115ebe7f6103d3cd9",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13101,7 +13101,7 @@
     },
     {
       "test": "uG/test_regex_cmdline_get_arg_matches_119",
-      "inputs_sha256": "9b767056b3dd1d434f79db347e66cd4e48cecb7311407c19704c4121cba3dfc3",
+      "inputs_sha256": "511dd6884594dd22a3491056ae18f0ae523db3eb932e44317223fe5a68baed74",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",

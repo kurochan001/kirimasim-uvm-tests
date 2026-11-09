@@ -19,6 +19,22 @@
 :args: +kr_rx=red +kr_rx=blue +kr_rx=green +other_kr_rx=red
 :expected_stdout: @test_command_vpi_extended_regex_matches_grouped_alternatives_and_clears_queries.expected
 */
+// What it checks:
+// 1. Slash-delimited match expressions support selected extended-regex
+//    alternation and anchors.
+// 2. Successive regex queries replace old matches and clear on no match.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.1.3.4 (UVM-CMDLINE-REGEX-ALTERNATION-AND-ANCHORS) gives
+//    rule 1 above. Setup: The anchored pattern selects red or blue and
+//    excludes green and a different leading prefix. Expected: Only red and
+//    blue are returned, with count two and no stale entry.
+// 2. 1800.2-2020 G.1.3.4 (UVM-CMDLINE-REGEX-QUEUE-REPLACEMENT) gives rule 2
+//    above. Setup: A two-result query is followed by one green match and a
+//    missing expression. Expected: The fresh queue contains only green, then
+//    becomes empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independent expected membership follows anchored extended regex syntax.
 // Only selected alternation/anchor cases are checked, not malformed
 // expressions

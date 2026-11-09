@@ -19,6 +19,22 @@
 :args: +kr_pick=alpha +kr_pick_more=beta +other_kr_pick=ignored
 :expected_stdout: @test_command_vpi_prefix_matches_replace_queues_and_clear_missing_queries.expected
 */
+// What it checks:
+// 1. A literal match string selects arguments that begin with that string.
+// 2. get_arg_matches replaces prior queue contents for each literal-prefix
+//    query.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.1.3.4 (UVM-CMDLINE-PREFIX-MATCH-MEMBERSHIP) gives rule 1
+//    above. Setup: Two arguments begin with the selected prefix and one
+//    contains it later. Expected: The two beginning matches are returned and
+//    counted without the unrelated argument.
+// 2. 1800.2-2020 G.1.3.4 (UVM-CMDLINE-PREFIX-QUEUE-REPLACEMENT) gives rule 2
+//    above. Setup: A populated query is followed by missing and repeated
+//    queries. Expected: Missing returns zero and an empty queue; repeating
+//    returns two entries without appending.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Literal beginning-of-argument matches only. Pinned regex DPI is linked,
 // but these observations do not establish extended regex semantics.
 module test_command_vpi_prefix_matches_replace_queues_and_clear_missing_queries;

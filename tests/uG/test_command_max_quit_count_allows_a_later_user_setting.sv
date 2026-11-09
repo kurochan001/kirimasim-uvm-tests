@@ -19,6 +19,19 @@
 :args: +UVM_MAX_QUIT_COUNT=7,YES
 :expected_stdout: @test_command_max_quit_count_allows_a_later_user_setting.expected
 */
+// What it checks:
+// 1. The quit-count option sets the report-server maximum before user changes.
+// 2. The YES overridable choice controls later procedural maximum changes.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.2.6 (UVM-CMDLINE-QUIT-YES-INITIAL) gives rule 1 above.
+//    Setup: The invocation supplies count 7 and overridable=YES. Expected: The
+//    initial public maximum query returns 7.
+// 2. 1800.2-2020 G.2.6 (UVM-CMDLINE-QUIT-YES-USER-CHANGE) gives rule 2 above.
+//    Setup: After command-line setup, user code attempts to set the maximum to
+//    9. Expected: The maximum after the attempt is 9.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The command line controls later procedural changes. Capture only whether a
 // warning occurs; no warning text, report counts or quit termination is fixed.
 module test_command_max_quit_count_allows_a_later_user_setting;

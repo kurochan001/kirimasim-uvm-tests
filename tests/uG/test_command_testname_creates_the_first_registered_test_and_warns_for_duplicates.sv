@@ -19,6 +19,21 @@
 :args: +UVM_TESTNAME=selected_test +UVM_TESTNAME=other_test
 :expected_stdout: @test_command_testname_creates_the_first_registered_test_and_warns_for_duplicates.expected
 */
+// What it checks:
+// 1. The first testname option selects the factory-created UVM test.
+// 2. Additional testname settings produce a warning while the first remains
+//    selected.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.2.1 (UVM-CMDLINE-TESTNAME-FIRST-SELECTION) gives rule 1
+//    above. Setup: Two registered test names are supplied, with selected_test
+//    first and no procedural test name. Expected: Only selected_test runs its
+//    observation.
+// 2. 1800.2-2020 G.2.1 (UVM-CMDLINE-TESTNAME-DUPLICATE-WARNING) gives rule 2
+//    above. Setup: The invocation supplies a second different registered
+//    testname. Expected: A warning is counted without fixing its text or ID.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Select the test through real command-line factory lookup. Warning text and
 // IDs are not fixed; only a warning is required for the duplicate option.
 // The final block observes the server count after run_test terminates.

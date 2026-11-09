@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_cmdline_singleton_shared_state_0_100.expected
 */
+// What it checks:
+// Current singleton accessors share object identity and mutable report state
+// across independent caller functions.
+//
+// Variant: The two inputs differ only in order. Input 1 swaps which accessor
+// fills each view slot and starts the alternating updates from the other slot,
+// so each accessor is updated at the opposite steps.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 G.1.2 (UVM-CMDLINE-SINGLETON-SHARED-STATE-100) gives the rule
+// above. Setup: Use imported/qualified accessors under the ordinary no-DPI
+// setup, reverse caller order, alternate four explicit report verbosity
+// settings, and keep a separate report-object peer. Expected: Accessor views
+// retain the same lifetime identity and see each assigned verbosity while the
+// independent peer remains unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_cmdline_singleton_shared_state_0_100;
   import uvm_pkg::*;
   function automatic uvm_cmdline_processor first100();

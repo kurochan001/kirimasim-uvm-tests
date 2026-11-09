@@ -19,6 +19,33 @@
 :args: +uvm_set_config_int=uvm_test_top.leaf,hex_value,0x2d +uvm_set_config_int=uvm_test_top.leaf,binary_value,0b10110 +uvm_set_config_int=uvm_test_top.leaf,octal_value,'o17 +uvm_set_config_string=uvm_test_top.leaf,label,selected
 :expected_stdout: @test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope.expected
 */
+// What it checks:
+// 1. The configuration-int option recognizes the selected hexadecimal base
+//    prefix.
+// 2. The configuration-int option recognizes the selected binary base prefix.
+// 3. The configuration-int option recognizes the selected octal base prefix.
+// 4. The configuration-string option supplies the selected string value.
+// 5. Literal configuration targets do not populate an unmatched peer scope.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.2.8 (UVM-CMDLINE-CONFIG-HEX-VALUE) gives rule 1 above.
+//    Setup: The literal target field is supplied as 0x2d. Expected: A
+//    successful public config query returns 45.
+// 2. 1800.2-2020 G.2.8 (UVM-CMDLINE-CONFIG-BINARY-VALUE) gives rule 2 above.
+//    Setup: The literal target field is supplied as 0b10110. Expected: A
+//    successful public config query returns 22.
+// 3. 1800.2-2020 G.2.8 (UVM-CMDLINE-CONFIG-OCTAL-VALUE) gives rule 3 above.
+//    Setup: The literal target field uses the documented apostrophe-o
+//    spelling. Expected: A successful public config query returns 15.
+// 4. 1800.2-2020 G.2.8 (UVM-CMDLINE-CONFIG-STRING-VALUE) gives rule 4 above.
+//    Setup: The leaf label field is supplied as selected. Expected: A
+//    successful string config query returns selected.
+// 5. 1800.2-2020 G.2.8 (UVM-CMDLINE-CONFIG-SCOPE-ISOLATION) gives rule 5
+//    above. Setup: Only leaf hex_value is configured; peer queries the same
+//    field. Expected: The peer lookup fails without asserting its output
+//    value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use explicit hex, binary and octal spellings plus a string. Observe through
 // public config queries; failed output values and unrelated syntax are open.
 module test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope;

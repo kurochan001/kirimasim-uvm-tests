@@ -19,6 +19,19 @@
 :args: +uvm_set_severity=uvm_test_top.leaf,picked,UVM_ERROR,UVM_WARNING
 :expected_stdout: @test_command_severity_override_changes_the_selected_report_and_preserves_controls.expected
 */
+// What it checks:
+// 1. The command-line severity option changes the selected original severity.
+// 2. A scoped severity option preserves unmatched reports.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.2.5 (UVM-CMDLINE-SEVERITY-SETTING) gives rule 1 above.
+//    Setup: One leaf/picked ERROR is configured to WARNING. Expected: The
+//    catcher receives the selected report as WARNING.
+// 2. 1800.2-2020 G.2.5 (UVM-CMDLINE-SEVERITY-ISOLATION) gives rule 2 above.
+//    Setup: Another ID and a peer emit ERROR controls. Expected: Both controls
+//    reach the catcher as ERROR.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An original catcher observes severity after override and suppresses output.
 // No server formatting, ALL keyword or multiple-override ordering is inferred.
 module test_command_severity_override_changes_the_selected_report_and_preserves_controls;

@@ -19,6 +19,21 @@
 :args: +uvm_set_type_override=base_packet,type_packet +uvm_set_inst_override=base_packet,instance_packet,uvm_test_top.target
 :expected_stdout: @test_command_factory_instance_override_precedes_the_type_override_for_its_target.expected
 */
+// What it checks:
+// 1. The type-override option configures name-based factory replacement.
+// 2. The instance-override option configures name-based replacement at its
+//    full path.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.2.7 (UVM-CMDLINE-FACTORY-TYPE-OVERRIDE) gives rule 1 above.
+//    Setup: The base-to-type_packet override has no explicit replace argument.
+//    Expected: The unmatched peer request creates type_packet.
+// 2. 1800.2-2020 G.2.7 (UVM-CMDLINE-FACTORY-INSTANCE-OVERRIDE) gives rule 2
+//    above. Setup: The target path selects instance_packet while a type
+//    override also exists. Expected: The target creates instance_packet while
+//    its peer follows the type override.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe actual factory-created dynamic proxies. These literal paths do not
 // test replacement-flag variants, wildcards or override loops.
 module test_command_factory_instance_override_precedes_the_type_override_for_its_target;

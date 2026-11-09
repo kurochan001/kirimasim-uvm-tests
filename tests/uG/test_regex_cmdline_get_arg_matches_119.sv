@@ -19,6 +19,18 @@
 :args: +mode119=fast +mode119=slow +mode119x
 :expected_stdout: @test_regex_cmdline_get_arg_matches_119.expected
 */
+// What it checks:
+// get_arg_matches applies a slash-delimited extended regular expression to
+// each argument and otherwise matches a prefix.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 G.1.3.4 (UVM-REGEX-CMDLINE-ARG-MATCHES) gives the rule above.
+// Setup: The process receives +mode119=fast, +mode119=slow and +mode119x;
+// match an anchored alternation, the plain prefix +mode119 and an absent
+// value. Expected: The alternation returns the first two, the prefix all
+// three, and the absent value none.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The process receives +mode119=fast, +mode119=slow and +mode119x. An anchored
 // regular expression with an alternation must select the first two, the plain
 // prefix must select all three, and a regular expression for an absent value

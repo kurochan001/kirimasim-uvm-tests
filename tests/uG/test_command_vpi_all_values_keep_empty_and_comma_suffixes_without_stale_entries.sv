@@ -19,6 +19,22 @@
 :args: +kr_many=alpha,beta +kr_many= +kr_many=tail +kr_other=ignored
 :expected_stdout: @test_command_vpi_all_values_keep_empty_and_comma_suffixes_without_stale_entries.expected
 */
+// What it checks:
+// 1. get_arg_values returns every selected argument suffix and its total
+//    count.
+// 2. Each get_arg_values query replaces rather than appends caller contents.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.1.4.2 (UVM-CMDLINE-ALL-SUFFIX-MEMBERSHIP) gives rule 1
+//    above. Setup: Three matching arguments include a comma-containing, empty
+//    and simple suffix. Expected: All three suffixes appear once and the count
+//    and size are three.
+// 2. 1800.2-2020 G.1.4.2 (UVM-CMDLINE-ALL-SUFFIX-REPLACEMENT) gives rule 2
+//    above. Setup: A sentinel, no-match query and repeated populated query
+//    exercise reuse. Expected: No stale value remains; missing is empty and
+//    repeating restores three entries.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Literal prefixes select all suffixes, including empty and comma-containing
 // values. Membership is checked without prescribing iteration order.
 module test_command_vpi_all_values_keep_empty_and_comma_suffixes_without_stale_entries;

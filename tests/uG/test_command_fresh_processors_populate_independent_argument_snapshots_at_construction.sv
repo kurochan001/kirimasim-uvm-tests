@@ -19,6 +19,28 @@
 :args: +kr_construct=one +kr_construct=two
 :expected_stdout: @test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.expected
 */
+// What it checks:
+// 1. Construction populates a command-line processor from the invocation
+//    arguments.
+// 2. Constructing another processor does not erase the earlier processor
+//    argument snapshot.
+// 3. The command-line processor is usable through its report-object base type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.1 (UVM-CMDLINE-CONSTRUCTION-ARGUMENT-SNAPSHOT) gives rule 1
+//    above. Setup: Two fresh processors and the singleton inspect the same
+//    supplied repeated prefix. Expected: Each newly constructed processor and
+//    the singleton find both supplied arguments.
+// 2. 1800.2-2020 G.1 (UVM-CMDLINE-CONSTRUCTION-PRESERVES-EARLIER-SNAPSHOT)
+//    gives rule 2 above. Setup: Sequential construction reinitializes argument
+//    retrieval, then all instances are queried. Expected: Both fresh instances
+//    and the preexisting singleton retain two matches.
+// 3. 1800.2-2020 G.1.1 (UVM-CMDLINE-REPORT-OBJECT-INHERITANCE) gives rule 3
+//    above. Setup: A fresh processor is assigned to a uvm_report_object
+//    handle. Expected: The base handle is nonnull and denotes the same
+//    processor.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Construct multiple public processor objects from the same actual command
 // line. Reinitializing the bridge stream must not erase earlier UVM queues.
 // No mutable process argv or exact executable path is assumed.

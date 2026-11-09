@@ -19,6 +19,23 @@
 :args: +uvm_set_default_sequence=uvm_test_top.sequencer,main_phase,configured_sequence
 :expected_stdout: @test_command_default_sequence_runs_on_the_named_sequencer_and_phase.expected
 */
+// What it checks:
+// 1. The default-sequence option selects the named sequence wrapper for its
+//    phase scope.
+// 2. The command-line selected default sequence executes on its named
+//    sequencer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.2.9 (UVM-CMDLINE-DEFAULT-SEQUENCE-WRAPPER-SELECTION) gives
+//    rule 1 above. Setup: A registered sequence type is supplied for the
+//    selected sequencer main_phase. Expected: That sequence body runs once
+//    under the selected phase condition.
+// 2. 1800.2-2020 G.2.9 (UVM-CMDLINE-DEFAULT-SEQUENCE-CONTEXT) gives rule 2
+//    above. Setup: A peer sequencer has no default option while the target
+//    does. Expected: The single execution observes the exact target sequencer
+//    handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe command-line wrapper selection and actual sequence execution on the
 // named sequencer in main_phase. No item traffic, randomization content or
 // other default-resource precedence is inferred.

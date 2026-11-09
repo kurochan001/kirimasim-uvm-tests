@@ -13,6 +13,17 @@
 :args: +KR_UVM_PICK=alpha +KR_UVM_OTHER=ignored +KR_UVM_PICK=beta
 :expected_stdout: @test_command_arg_values_collect_matching_suffixes_without_stale_entries.expected
 */
+// What it checks:
+// get_arg_values replaces the output queue with matching argument suffixes and
+// returns the match count.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 G.1.4.2 (UVM-COMMAND-ARG-VALUES) gives the rule above. Setup:
+// Pass distinct matching/irrelevant arguments and prepopulate the output queue
+// before multiple, missing or repeated queries. Expected: Only matching
+// suffixes remain and the returned count equals their number.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Count membership without prescribing the order of matching arguments.
 module test_command_arg_values_collect_matching_suffixes_without_stale_entries;
   import uvm_pkg::*;

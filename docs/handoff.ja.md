@@ -131,7 +131,7 @@ buildはAPI／型名欠落43、time減算引数既定値1、型既定宣言2、�
 
 125回目は、ユーザーが承認したとおりに8番目の項目である読みやすさを実装します。directoryごとに、helperを1行1文に整え、各テストに何を確かめるかと期待値をどの条項からどう導いたかのコメントを足し、動作は変えません。最初に基盤を用意します。`tools/code_identity.py`は編集がcodeを保つことを示して指紋を持ち越し、guestの記録はこの規則で持ち越し（G1）、手動のRegressionはdirectoryに絞れます。各directoryはVerilatorのseed 1／73で測り直し、絞ったRegressionで確かめてから次へ進みます。
 
-読みやすさの進み具合：22のdirectoryのうち2つを終えました（u17（11入力）、u11（20入力））。終えたdirectoryの入力と、そのfileを集める他のdirectoryの入力は、seed 1／73で測り直してすべての状態が変わらず、指紋は`tools/code_identity.py`で持ち越し、guestの記録も持ち越しました。残りは20のdirectoryです。
+読みやすさの進み具合：22のdirectoryのうち3つを終えました（u17（11入力）、u11（20入力）、uG（23入力））。終えたdirectoryの入力と、そのfileを集める他のdirectoryの入力は、seed 1／73で測り直してすべての状態が変わらず、指紋は`tools/code_identity.py`で持ち越し、guestの記録も持ち越しました。残りは19のdirectoryです。
 
 124回目は、7番目の項目であるkirimasimの立ち上げ段階を実装します。各テストは`coverage/kirimasim_stages.json`に、テスト自身のsourceのmarkerで決まる0〜6の段階を持ち、各段階にはtag付きの代表の短いセットがあり、`tools/kirimasim_stages.py short`がkirimasimのrunnerに渡せる形で出力します。Checkは`tools/kirimasim_stages.py check`を実行します。新しい段階0の入力[`tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv`](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv)は、tag付けの前後でseed 1／73が一致しました。[段階のガイド](kirimasim-stages.ja.md)は各段階のSystemVerilogの機能をkirimasim-testsに対応付けます。段階5のTLMのimpが必要とする、型parameterを型とするhandleを通したmethodの呼出しを行う実行テストは、kirimasim-testsにありません。
 
@@ -169,15 +169,15 @@ seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋�
 現在のhostでは、互換なlocal記録は次にあります。
 
 ```text
-out/thin-one-hundred-twenty-fifth-u11-verilator-combined.json
-out/thin-one-hundred-twenty-fifth-u11-ghost-1.json
-out/thin-one-hundred-twenty-fifth-u11-ghost-73.json
-out/thin-one-hundred-twenty-fifth-u11-kirimasim.json
+out/thin-one-hundred-twenty-fifth-uG-verilator-combined.json
+out/thin-one-hundred-twenty-fifth-uG-ghost-1.json
+out/thin-one-hundred-twenty-fifth-uG-ghost-73.json
+out/thin-one-hundred-twenty-fifth-uG-kirimasim.json
 out/thin-one-hundred-twenty-fourth-inventory.json
 out/thin-one-hundred-twenty-fourth-backlog.json
-out/thin-one-hundred-twenty-fifth-u11-evidence-scope.json
-out/thin-one-hundred-sixth-hdl-combined.json
-out/thin-one-hundred-sixth-cmdline-final.json
+out/thin-one-hundred-twenty-fifth-uG-evidence-scope.json
+out/thin-one-hundred-twelfth-hdl-combined.json
+out/thin-one-hundred-twenty-fifth-uG-cmdline-combined.json
 ```
 
 再利用前に、宣言した全件／部分の対象ごとのtest ID集合の完全一致、現在の`inputs_sha256`、simulatorの版／設定／libraryの同一性、

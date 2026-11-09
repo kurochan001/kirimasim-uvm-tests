@@ -19,6 +19,15 @@
 :args: +UVM_VERBOSITY=UVM_HIGH
 :expected_stdout: @test_command_initial_verbosity_applies_to_components_created_in_build.expected
 */
+// What it checks:
+// The verbosity option supplies initial verbosity to all selected components.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 G.2.2 (UVM-CMDLINE-INITIAL-VERBOSITY) gives the rule above.
+// Setup: One HIGH setting precedes test and child construction. Expected: The
+// test and both independently created children have HIGH maximum verbosity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe initial component settings, including components constructed during
 // build. This does not test duplicate-option warnings or timed changes.
 module test_command_initial_verbosity_applies_to_components_created_in_build;

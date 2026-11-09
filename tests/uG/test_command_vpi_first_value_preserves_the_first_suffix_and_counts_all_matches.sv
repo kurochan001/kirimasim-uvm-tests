@@ -19,6 +19,25 @@
 :args: +kr_value=alpha,beta +kr_value=second +kr_empty=
 :expected_stdout: @test_command_vpi_first_value_preserves_the_first_suffix_and_counts_all_matches.expected
 */
+// What it checks:
+// 1. get_arg_value returns the first matching suffix and the number of all
+//    matches.
+// 2. An exactly matching prefix can return an empty suffix.
+// 3. get_arg_value returns zero when the selected prefix has no match.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.1.4.1 (UVM-CMDLINE-FIRST-SUFFIX-AND-TOTAL-COUNT) gives rule
+//    1 above. Setup: Two ordered matching arguments supply different suffixes.
+//    Expected: The first suffix is alpha,beta and the returned count is two.
+// 2. 1800.2-2020 G.1.4.1 (UVM-CMDLINE-FIRST-EMPTY-SUFFIX) gives rule 2 above.
+//    Setup: One supplied argument ends immediately after the queried prefix.
+//    Expected: Count is one and the scalar suffix is empty.
+// 3. 1800.2-2020 G.1.4.1 (UVM-CMDLINE-FIRST-MISSING-COUNT) gives rule 3 above.
+//    Setup: A missing literal prefix is queried after successful queries.
+//    Expected: The count is zero; the unspecified scalar output is not
+//    asserted.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The command line gives an explicit first occurrence. A comma remains
 // inside its suffix. The unmatched scalar value is not constrained.
 module test_command_vpi_first_value_preserves_the_first_suffix_and_counts_all_matches;

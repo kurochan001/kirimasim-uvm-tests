@@ -18,6 +18,23 @@
 :args: +UVM_MAX_QUIT_COUNT=7,NO
 :expected_stdout: @test_command_max_quit_count_rejects_a_later_user_setting.expected
 */
+// What it checks:
+// 1. The quit-count option sets the report-server maximum before user changes.
+// 2. The NO overridable choice controls later procedural maximum changes.
+// 3. A user change rejected by the NO option issues a warning.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 G.2.6 (UVM-CMDLINE-QUIT-NO-INITIAL) gives rule 1 above.
+//    Setup: The invocation supplies count 7 and overridable=NO. Expected: The
+//    initial public maximum query returns 7.
+// 2. 1800.2-2020 G.2.6 (UVM-CMDLINE-QUIT-NO-USER-CHANGE) gives rule 2 above.
+//    Setup: After command-line setup, user code attempts to set the maximum to
+//    9. Expected: The maximum after the attempt is 7.
+// 3. 1800.2-2020 G.2.6 (UVM-CMDLINE-QUIT-NO-WARNING) gives rule 3 above.
+//    Setup: User code attempts to change a non-overridable maximum. Expected:
+//    The original catcher sees a warning without fixing its diagnostic text.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The command line controls later procedural changes. Capture only whether a
 // warning occurs; no warning text, report counts or quit termination is fixed.
 module test_command_max_quit_count_rejects_a_later_user_setting;
