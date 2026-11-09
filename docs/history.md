@@ -6831,3 +6831,28 @@ No test, expectation, record or duty changes. Causes are 105 library, 19
 interpretation, 14 simulator, 57 condition and 268 unassigned; for kirimasim,
 2370 inputs are measurable against the standard and 124 are kept from their
 expectation by the pinned library.
+
+## 123rd expansion: runtime causes, last batch (external review item 6)
+
+The 123rd expansion is the third and last batch of the sixth item. It
+classifies the other 264 runtime differences, in u05, u12, u14 to u16, u18,
+u19, uB, uC, uE and uF, by checking every differing row of the saved seed-1
+outputs against the pinned library source and the cited clauses. The four
+inputs that still differ under their DPI condition were run through their
+own runners and their whole outputs saved; all four have library causes.
+
+The batch adds 214 library, 41 interpretation and 13 simulator causes. Six
+new reproducers without UVM, which check their own results, show that
+Verilator lets $cast pass between same-name parameterized classes of two
+packages (four TLM package inputs), releases a process waiting on an event
+that is then assigned (two inputs), resumes the caller after $finish (three
+uvm_root inputs), loses two queue-size constraints in randomization (one FIFO
+register input each) and calls post_randomize after a failed randomize (two
+memory-manager inputs). The get_local_map input with a null map carries
+DEVIATIONS.md issue 2; [Q447](faq.md#q447-what-did-the-last-cause-batch-find)
+summarizes the findings.
+
+No test, expectation, stored record or duty changes. The cause record is
+complete: 319 library, 60 interpretation, 27 simulator and 57 condition, with
+no entry unassigned; for kirimasim, 2383 inputs are measurable against the
+standard and 379 are kept from their expectation by the pinned library.

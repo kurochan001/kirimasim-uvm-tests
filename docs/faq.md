@@ -6026,3 +6026,23 @@ library follows.
 The 122nd expansion changes no test, expectation, record or duty. Causes are
 105 library, 19 interpretation, 14 simulator, 57 condition and 268
 unassigned; 138 entries are review candidates.
+
+### Q447. What did the last cause batch find?
+
+Thirteen more differences come from Verilator, each shown by a reproducer
+without UVM: $cast between same-name parameterized classes of two packages,
+an event assignment that releases a process already waiting on the event, a
+caller that resumes after $finish, two queue-size constraints that are lost
+in randomization, and post_randomize called after a failed randomize. Most
+of the other differences are library causes with a named source line, such
+as a translation that returns no byte count, big-endian accesses that
+reverse the bytes of the whole 64-bit data, a FIFO register whose field is
+created only by a nonstandard build method, and hooks called in an order the
+standard reverses. Forty-one interpretations keep the test's reading next to the
+one the library follows, such as the "lower than" boundary of the uvm_info macro
+and the comparison value of a checked FIFO mirror. The get_local_map input with a
+null map is the library's DEVIATIONS.md issue 2.
+
+The 123rd expansion changes no test, expectation, stored record or duty. Every
+known difference now has a cause: 319 library, 60 interpretation, 27
+simulator and 57 condition; 406 entries are review candidates.

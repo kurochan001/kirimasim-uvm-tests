@@ -47,7 +47,7 @@ runtimeの出力差分では`reason`が最初に異なる選択行を示すた�
 不正design 5件はsubscriberのwrite、visitorのvisit、proxyのget_immediate_children、adapterのacceptの欠落、印字virtual builtin dispatcherの直接生成を受理し、拒否oracleを既知差分として保持します。
 受理されてもruntimeは実行せず、simulationの予期しないbuild 140件は別です。passには宣言した期待との一致が必要です。
 
-これらの差分の原因は、下の症状の分類とは別に[原因の記録](known-differences.ja.md#既知差分の原因)で割り当てます。現時点ではlibrary 105件、interpretation 19件、simulator 14件、DPIの実行条件57件で、runtime差分264件を含む268件は未分類です。
+これらの差分の原因は、下の症状の分類とは別に[原因の記録](known-differences.ja.md#既知差分の原因)で割り当てます。library 319件、interpretation 60件、simulator 27件、DPIの実行条件57件で、未分類の記録はありません。
 
 測定したspecのみの463件は規格由来の出力またはcompile診断期待を保持し（4値のspecのみ7件にはVerilatorの記録がありません）、不正compiler受理5件とsimulation 458件です。
 simulationのうち318件はseed 1で最初に異なり、seed 73結果はありません。API／型名欠落build 43件はtime API 1、sequence-library API 14、HDL slice-view 12、named-concat constructor 1、object active-policy API 5、catcher message-handle 3、印刷されたbase記録状態getter 1、印刷report callback typedef 1、built-in type_id 2、typed resource-DB helper 3です。
@@ -196,7 +196,7 @@ shardは選んだテストを重複なく分担する単位で、最後のgate�
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
 固定ライブラリの整合性、ツールの単体テスト140件、metadata 2762件、要求台帳の案／テスト索引、既知差分の原因の記録を検査します。
 Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
-基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Verilator jobは、原因の記録にある再現例6つもbuildし直します。Checkの成功は選んだ検査だけの成功です。
+基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Verilator jobは、原因の記録にある再現例12個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
 
 [Regression](../.github/workflows/regression.yml)は手動実行と毎週（土曜17:23 UTC）に動きます。
 タグ付き通常検査2292件（seed 1／73のruntime 2198・実行時seedなしのcompiler拒否94）を重複しない20 shard（115件が7、114件が13）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。

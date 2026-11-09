@@ -4160,3 +4160,12 @@ traversalのbuild 3件は最初はlibraryが原因に見えましたが、librar
 apply_config_settingsの既定のmodeの2入力は、DEVIATIONS.mdの3番目に当たります。DPIの実行条件を選ばずにcommand lineまたはregexのDPIを必要とする通常の検査系3件は、UVM_NO_DPIの構成でのlibraryの原因として数えます。分かったことは[Q446](faq.ja.md#q446-原因の2番目のbatchでは何が分かりましたか)にまとめています。
 
 テスト、期待値、記録、義務はどれも変わりません。原因はlibrary 105件、interpretation 19件、simulator 14件、condition 57件、未分類268件で、kirimasimについては、2370入力が規格の期待値で測れ、124入力は固定版libraryのために期待値に届きません。
+
+## 123回目の拡充：runtimeの原因、最後のbatch（外部レビューの項目6）
+
+123回目は、6番目の項目の3番目で最後のbatchです。保存したseed 1の出力の違う行をすべて、固定版libraryのsourceと引用した条項に照らして確かめ、残るruntime差分264件（u05、u12、u14〜u16、u18、u19、uB、uC、uE、uF）を分類しました。DPIの実行条件の下でも違いが残る4件は、それぞれのrunnerで実行して全出力を保存しました。4件とも原因はlibraryです。
+
+このbatchでは、library 214件、interpretation 41件、simulator 13件を加えました。自分で結果を確かめる、UVMを使わない再現例を6つ加えました。Verilatorが、2つのpackageの同じ名前のparameter付きclassの間の$castを通すこと（TLMのpackageの4入力）、eventで待っているprocessをそのeventへの代入で解放すること（2入力）、$finishの後に呼出し元を再開すること（uvm_rootの3入力）、乱数化でqueueの大きさの2つの制約を失うこと（FIFO registerの各1入力）、乱数化が失敗した後にpost_randomizeを呼ぶこと（memory managerの2入力）を示します。
+nullのmapを渡すget_local_mapの入力は、DEVIATIONS.mdの2番目に当たります。分かったことは[Q447](faq.ja.md#q447-原因の最後のbatchでは何が分かりましたか)にまとめています。
+
+テスト、期待値、保存した記録、義務はどれも変わりません。原因の記録は完成し、library 319件、interpretation 60件、simulator 27件、condition 57件で、未分類の記録はありません。kirimasimについては、2383入力が規格の期待値で測れ、379入力は固定版libraryのために期待値に届きません。

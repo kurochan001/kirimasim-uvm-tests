@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-Current transfer: the user resumed the goal on 2026-11-07, and the 122nd expansion, the second batch of an external review's sixth item, is published. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
+Current transfer: the user resumed the goal on 2026-11-07, and the 123rd expansion, the third and last batch of an external review's sixth item, is published. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
@@ -10,8 +10,8 @@ This page supports resuming development; if you want to run or understand a firs
 
 The base commit below identifies the starting point for the described work, so check uncommitted changes before treating saved results as evidence for the current files; [the input-update procedure](requirements.md#updating-a-test-or-mapping) explains how to review their compatibility.
 
-Updated on 2026-11-09 for the 122nd expansion, based on
-[a578650](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a5786504883a87b7928084098a7fada0a9f7efce)
+Updated on 2026-11-09 for the 123rd expansion, based on
+[e5bd032](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e5bd032245789f643e9a45a65bbebd19b0a5efc0)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -153,6 +153,15 @@ two inherited type_id registry specializations, one protected-access build, two 
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
 
+The 123rd expansion is the third and last batch of the sixth item. It classifies the other 264
+runtime differences (u05, u12, u14 to u16, u18, u19, uB, uC, uE and uF), checking every differing
+row of the saved seed-1 outputs, and the four inputs that still differ under their DPI condition,
+whose whole outputs were saved by running them through their own runners. It adds 214 library, 41
+interpretation and 13 simulator causes and six reproducers without UVM; the record is complete
+with 319 library, 60 interpretation, 27 simulator, 57 condition and no unassigned entry, and the
+kirimasim targets are 2383 measurable and 379 kept from the expectation by the pinned library. No
+test, expectation, stored record or duty changes.
+
 The 122nd expansion is the second batch of the sixth item. It classifies 54 runtime differences
 (all of those in u01, u06 to u11, u13, uD and uG, and three each in uC and uE), using a seed-1
 diagnostic run that saved the whole output of each under `out/`. Six are simulator
@@ -268,7 +277,7 @@ Unassessed counts and partial obligations track different remaining work; [Read 
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.
 At activation there were 1,463 unassessed identifiers, zero unlinked tests and
-zero requirements without direct tests. 94 iterations retain zero unassessed, a decrease of 1463 since activation. The user resumed the paused goal on 2026-11-07. The 113th to 115th iterations split CI, fixed the missing z3 solver on hosted runners and added twelve M3 memory-manager inputs. On 2026-11-08 the user supplied an external review with eight items; the 116th to 118th iterations added RTL integration, four-state and randomization-property inputs, the 119th added a regex-DPI variant condition and five regular-expression fixtures, the 120th added five user-package inputs that match both seeds, the 121st added the cause record of the known differences with its first batch, and the 122nd adds the second batch, neither changing any duty. Nine new duties produce 4150 duties, with all 4141 old objects identical. All 2750 old ordinary records, 463 old known inputs and 445 assessments remain. Guests retain 1081 compatible/1681 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is not complete.
+zero requirements without direct tests. 95 iterations retain zero unassessed, a decrease of 1463 since activation. The user resumed the paused goal on 2026-11-07. The 113th to 115th iterations split CI, fixed the missing z3 solver on hosted runners and added twelve M3 memory-manager inputs. On 2026-11-08 the user supplied an external review with eight items; the 116th to 118th iterations added RTL integration, four-state and randomization-property inputs, the 119th added a regex-DPI variant condition and five regular-expression fixtures, the 120th added five user-package inputs that match both seeds, the 121st added the cause record of the known differences with its first batch, the 122nd added the second batch, and the 123rd adds the third, none changing any duty. Nine new duties produce 4150 duties, with all 4141 old objects identical. All 2750 old ordinary records, 463 old known inputs and 445 assessments remain. Guests retain 1081 compatible/1681 unmeasured. All 2062 partial contracts, applicability, original targets, human review and scope/denominator approval remain open; the goal is not complete.
 
 The separate earlier 12.2.9.2 reassessment did not reduce unassessed. Do not mark
 the goal complete before the final audit. Zero unassessed in chapter 12 does not complete its 169 partial

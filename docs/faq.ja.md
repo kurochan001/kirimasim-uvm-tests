@@ -4486,3 +4486,10 @@ classのmemberのeventの2つの形では起動が失われます。同じproces
 残る差分の多くは、sourceの行を名指しできるlibraryの原因です。たとえば、名前の表をlockのときにだけ埋めること、report handlerのresetがseverityとIDの組の表を残すこと、memory walkのsequenceがaccess testのresourceを調べることです。既定のmodeの設定の2入力は、library自身のDEVIATIONS.mdの3番目に当たります。interpretationの9件は、テストの読み方と、libraryが従う読み方を並べて残します。
 
 122回目は、テスト、期待値、記録、義務のどれも変えません。原因はlibrary 105件、interpretation 19件、simulator 14件、condition 57件、未分類268件で、照合の候補は138件です。
+
+### Q447. 原因の最後のbatchでは何が分かりましたか？
+
+さらに13件の差分がVerilatorによるもので、それぞれUVMを使わない再現例で示しています。2つのpackageの同じ名前のparameter付きclassの間の$cast、eventで待っているprocessをそのeventへの代入で解放すること、$finishの後に再開する呼出し元、乱数化で失われるqueueの大きさの2つの制約、乱数化が失敗した後のpost_randomizeの呼出しです。
+残る差分の多くは、sourceの行を名指しできるlibraryの原因です。たとえば、byte数を返さない変換、64 bitのdata全体のbyteを入れ替えるbig endianのaccess、規格にないbuild methodでしかfieldを作らないFIFO register、規格と逆の順で呼ぶhookです。interpretationの41件は、uvm_info macroの「より低い」という境界や、checkを伴うFIFOのmirrorで比べる値のように、テストの読み方とlibraryが従う読み方を並べて残します。nullのmapを渡すget_local_mapの入力は、library自身のDEVIATIONS.mdの2番目に当たります。
+
+123回目は、テスト、期待値、保存した記録、義務のどれも変えません。すべての既知差分に原因があり、library 319件、interpretation 60件、simulator 27件、condition 57件で、照合の候補は406件です。

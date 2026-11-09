@@ -4,9 +4,9 @@
 
 ## 最初に読むこと
 
-2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)で113回目の拡充を公開しました。その後、最初のRegressionでhostedのrunnerにz3制約solverがないことが分かり、準備用actionで導入して、[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)で114回目の拡充を公開しました。その後、[eeda25d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/eeda25d9b378773a2841076706f8e8029d87c08d)で115回目の拡充を公開しました。2026-11-08にユーザーは外部レビューを示し、その最初の項目であるRTLとの結合を、[c314982](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c314982e5c42e5333790b7ba7bb00bbaef8da2f7)で116回目の拡充として公開し、2番目の項目である4値の経路を[46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624)で117回目の拡充として公開し、3番目の項目である乱数化の性質を[8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8)で118回目の拡充として公開し、4番目の項目であるDPIの構成を[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)で119回目の拡充として公開し、5番目の項目であるユーザーpackageを[9c57290](https://github.com/kurochan001/kirimasim-uvm-tests/commit/9c572904a247a92a4445c0d9bfe7b1208eeb975a)で120回目の拡充として公開し、6番目の項目である既知差分の原因の最初のbatchを[a578650](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a5786504883a87b7928084098a7fada0a9f7efce)で121回目の拡充として、2番目のbatchを、この文面を含むcommitで122回目の拡充として公開しました。**goalは継続中で、完了していません。**
+2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)で113回目の拡充を公開しました。その後、最初のRegressionでhostedのrunnerにz3制約solverがないことが分かり、準備用actionで導入して、[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)で114回目の拡充を公開しました。その後、[eeda25d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/eeda25d9b378773a2841076706f8e8029d87c08d)で115回目の拡充を公開しました。2026-11-08にユーザーは外部レビューを示し、その最初の項目であるRTLとの結合を、[c314982](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c314982e5c42e5333790b7ba7bb00bbaef8da2f7)で116回目の拡充として公開し、2番目の項目である4値の経路を[46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624)で117回目の拡充として公開し、3番目の項目である乱数化の性質を[8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8)で118回目の拡充として公開し、4番目の項目であるDPIの構成を[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)で119回目の拡充として公開し、5番目の項目であるユーザーpackageを[9c57290](https://github.com/kurochan001/kirimasim-uvm-tests/commit/9c572904a247a92a4445c0d9bfe7b1208eeb975a)で120回目の拡充として公開し、6番目の項目である既知差分の原因の最初のbatchを[a578650](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a5786504883a87b7928084098a7fada0a9f7efce)で121回目の拡充として、2番目のbatchを[e5bd032](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e5bd032245789f643e9a45a65bbebd19b0a5efc0)で122回目の拡充として、3番目で最後のbatchを、この文面を含むcommitで123回目の拡充として公開しました。**goalは継続中で、完了していません。**
 
-編集前に実際のbranchと作業ツリーを確認してください。121回目と122回目は期待値の測定を追加せず（122回目はruntimeの既知入力をseed 1で診断用に実行しました）、120回目のnative測定はすべて終了済みで、117回目の4値の入力にはnative測定がありません。
+編集前に実際のbranchと作業ツリーを確認してください。121〜123回目は期待値の測定を追加せず（122回目はruntimeの既知入力をseed 1で診断用に実行し、123回目はDPIの実行条件の既知入力4件をそれぞれのrunnerで実行しました）、120回目のnative測定はすべて終了済みで、117回目の4値の入力にはnative測定がありません。
 
 最初に現在のworkspaceの指示を読みます。ユーザーのagent向け指示は`RTK.md`を参照するため、現在の環境で解決してください。非公開設定やユーザーの絶対パスを公開ファイルへ記載しません。
 
@@ -17,7 +17,7 @@
 - テスト：22 directoryに2762件 = simulation 2663 + elaboration 99。M1：1187（1106/81）、M2：633（626/7）、M3：942（931/11）。うち7件はVerilatorの記録のない4値（`:fourstate: yes`）のspecのみ入力です。
 - AI要求：4150件すべてを2706テストへ直接対応。control専用は56テストです。人のレビューは主張しません。
 - 通常のpass入力：2292件 = seed 1/73でruntime一致2198 + 期待したcompiler rejection 94。
-- 既知差分：463件 = runtime差分318 + simulation build失敗140 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。specのみは4値の7入力を含めて470件です。[原因の記録](../coverage/known_causes.json)は既知差分を、library 105、interpretation 19、simulator 14、DPIの実行条件57、未分類268（runtime 264と、DPIの実行条件の下でも違いが残る4）に分類します。
+- 既知差分：463件 = runtime差分318 + simulation build失敗140 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。specのみは4値の7入力を含めて470件です。[原因の記録](../coverage/known_causes.json)は既知差分を、すべて、library 319、interpretation 60、simulator 27、DPIの実行条件57に分類し、未分類はありません。
 - 別の条件：command-line 23検査系（20件がseed 1／73で一致、3件は既知）、regex-DPI変種26件（すべて一致）。
 - guest証拠：互換1081記録、未測定1681入力（追加1677 + 改訂した元入力4）。112〜120回目にguest測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
 - 候補の配置：primaryテスト0件が1167番号、1件が764番号、2件以上が551番号です。条項の網羅や独立した検査の成功を証明する件数ではありません。
@@ -43,7 +43,7 @@ hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していま�
 - 項目3（乱数化の性質）：下記の118回目で実装しました。
 - 項目4（DPIの構成）：ユーザーが案（別のregex-DPI runnerと変種の一覧、metadataのfieldは追加しない）を承認した後、下記の119回目で実装しました。
 - 項目5（ユーザーpackage）：形式を変えずに、下記の120回目で実装しました。
-- 項目6（既知入力の原因分類）：ユーザーが案（別の追跡ファイル`coverage/known_causes.json`とCheckでの検査）を承認し、libraryの出力値は記録しないA1を選びました。下記の121回目が最初のbatch（build、不正designの受理、DPIの実行条件）で、runtime差分はdirectoryごとに続けます。
+- 項目6（既知入力の原因分類）：ユーザーが案（別の追跡ファイル`coverage/known_causes.json`とCheckでの検査）を承認し、libraryの出力値は記録しないA1を選びました。下記の121回目が最初のbatch（build、不正designの受理、DPIの実行条件）で、122回目と123回目がruntime差分をdirectoryごとに分類し、記録は完成しました。
 - 項目7（kirimasimの段階）：先に案を示し、ユーザーの確認を待ちます。段階tagは、headerのfieldにすると全入力の指紋が変わるため、別の追跡ファイルとして提案します。
 - 項目8（読みやすさ）：コメントとhelperの変更で大半の入力の指紋が変わります。各directoryで13時間の全件実行をしなくて済むよう、Regressionの手動起動にdirectoryで絞る入力を提案します。
 
@@ -57,6 +57,8 @@ hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していま�
 - `tools/run_verilator.py`、`tools/suite_results.py`、`tools/uvm_common.py`を安易に変更しません。これらはrunner指紋を構成し、変更すると保存済みの全記録が無効になります。`tools/ci_select.py`とworkflowのファイルは指紋の外にあります。
 
 ## 最新実装と限界
+
+123回目は項目6の3番目で最後のbatchです。保存したseed 1の出力の違う行をすべて確かめて、残るruntime差分264件（u05、u12、u14〜u16、u18、u19、uB、uC、uE、uF）を分類しました。DPIの実行条件の下でも違いが残る4件は、それぞれのrunnerで実行して全出力を`out/thin-one-hundred-twenty-third-diag-cond/`に保存してから分類し、4件とも原因はlibraryです。library 214件、interpretation 41件、simulator 13件を加えました。自分で結果を確かめる新しい再現例6つは、Verilatorが、2つのpackageの同じ名前のparameter付きclassの間の$castを通すこと、eventで待っているprocessをそのeventへの代入で解放すること、$finishの後に呼出し元を再開すること、classも大きさを制約するとinlineのqueueの大きさの制約を無視すること、packageの基底classが禁じる大きさを受け入れること、乱数化が失敗した後にpost_randomizeを呼ぶことを示します。nullのmapを渡すget_local_mapの入力は、DEVIATIONS.mdの2番目に当たります。記録のstatusはcompleteで、library 319、interpretation 60、simulator 27、condition 57、未分類0です。kirimasimの目標は測れる2383、固定版libraryのために届かない379で、人による照合の候補は406件です。
 
 122回目は項目6の2番目のbatchです。runtimeの既知入力をseed 1で診断用に実行し、全出力とUT行の差分を`out/thin-one-hundred-twenty-first-diag/`に保存します。このbatchの入力はすべて済んでいるので、最初の行だけでなく違う行をすべて確かめています。runtime差分54件（u01、u06〜u11、u13、uD、uGのすべてと、uCとuEの3件ずつ）を分類し、library 39、interpretation 9、simulator 6です。新しい再現例は、Verilatorのkill()がforkした子processを動かし続けること（固定版のhopperは9.7のとおりphaseのprocessをkillします）と、classのmemberのeventの2つの形で起動が失われることを示し、自分で結果を確かめて$fatalを呼びます。apply_config_settingsの既定のmodeの2入力は、DEVIATIONS.mdの3番目に当たります。DPIの実行条件を選ばずにDPIを必要とする通常の検査系3件（command line 2、regex 1）は、UVM_NO_DPIの構成でのlibraryの原因として数えます。uCのprecedenceと検索の警告の3入力と、uEの除外の残り3入力は、さらに読む必要があるため未分類のままです。
 
@@ -95,7 +97,7 @@ out/thin-one-hundred-twentieth-backlog.json
 out/thin-one-hundred-twentieth-doc-contents-effective.json
 ```
 
-121回目は`out/thin-one-hundred-twenty-first-causes-generator-used.py`、`-docs-used.py`、`-summary.json`、`-candidates.json`、`-reproducers.txt`を、122回目は`out/thin-one-hundred-twenty-first-diag/`（seed 1の診断出力）、`out/thin-one-hundred-twenty-second-batch-used.py`、`-apply-used.py`、`-docs-used.py`、`-summary.json`、`-candidates.json`、`-reproducers.txt`を加えます。原因の記録そのものは`coverage/known_causes.json`で版管理します。
+121回目は`out/thin-one-hundred-twenty-first-causes-generator-used.py`、`-docs-used.py`、`-summary.json`、`-candidates.json`、`-reproducers.txt`を、122回目は`out/thin-one-hundred-twenty-first-diag/`（seed 1の診断出力）、`out/thin-one-hundred-twenty-second-batch-used.py`、`-apply-used.py`、`-docs-used.py`、`-summary.json`、`-candidates.json`、`-reproducers.txt`を、123回目は`out/thin-one-hundred-twenty-third-diag-cond/`（DPIの実行条件の出力）、`out/thin-one-hundred-twenty-third-batch3-used.py`〜`-batch6-used.py`、`-diag-cond-used.py`、`-docs-used.py`、`-summary.json`、`-candidates.json`、`-reproducers.txt`を加えます。原因の記録そのものは`coverage/known_causes.json`で版管理します。
 
 119回目のファイルは同じ名前の`nineteenth`版で、`cmdline-pretag.json`、`cmdline-final.json`、`cmdline-combined.json`、`regex-variants.json`、`diag-cmdline-known.txt`を含み、evidence scopeはlocalでbuild 140件へ訂正しました。118回目のファイルは同じ名前の`eighteenth`版で、`verilator-pretag.json`を含みます。117回目のファイルは同じ名前の`seventeenth`版で、4値の入力には`freeze.json`と2値の診断logだけがあり、batchはありません。116回目のファイルは同じ名前の`sixteenth`版で、pretag／finalのbatchと`before-identifier-fix/`を含みます。115回目のファイルは同じ名前の`fifteenth`版です。114回目のファイルは同じ名前の`fourteenth`版で、他に`out/thin-one-hundred-fourteenth-regression-42359747603.json`と`out/thin-one-hundred-fourteenth-before-owner-split/`があります。
 
@@ -105,7 +107,7 @@ guest記録は[詳細ハンドオフ](handoff.ja.md#実測記録と直近の差�
 
 承認済みの範囲ではなく提案です。選ぶ前にbacklogを再生成します。
 
-- 項目6の次のbatch：保存した診断出力を使い、残るruntime差分264件をdirectoryごとに診断し（u18 109件、u16 28件、uF 25件、u14 20件、uB 18件、u05 17件、u19 15件、u12 14件、u15 12件、uC 3件、uE 3件）、DPIの実行条件の下での差分4件も診断してから、kirimasimの目標件数を数え直します。その後は項目7で、先に案を示します。
+- 項目7（kirimasimの段階）：先に案を示します。その後に項目8です。項目6は完了しました。照合の候補406件は人の照合を待っています。libraryの出力値を記録するか（A1では記録していません）と、UVM_NO_DPIのために測れない通常の検査系3件をDPIの実行条件の一覧に加えるかは、形式または構成の変更なので、案を示してから決めます。
 - 18.12.4.2の、範囲と同時にmode／localityを変えるreconfigureや他のbyte幅。
 - 112回目のunpackの列挙setterの問題：規格と照合し、library証拠を理由にknownをpassへ変更しません。
 - 第18章の他の部分条件（部分393番号）と全体の部分2062番号を、元のM1〜M3目標と比べます。
