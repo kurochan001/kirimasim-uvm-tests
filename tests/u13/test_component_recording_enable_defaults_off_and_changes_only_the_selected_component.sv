@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_component_recording_enable_defaults_off_and_changes_only_the_selected_component.expected
 */
+// What it checks:
+// 1. A component that has not enabled recording reports it disabled.
+// 2. Recording enable changes the selected component independently.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.14 (UVM-COMPONENT-RECORDING-DEFAULT-OFF) gives rule 1
+//    above. Setup: Construct two independent components. Expected: Both
+//    recording-enabled queries return zero.
+// 2. 1800.2-2020 13.1.7.13 (UVM-COMPONENT-RECORDING-ENABLE-ISOLATION) gives
+//    rule 2 above. Setup: Enable the first, then disable it and enable its
+//    peer. Expected: The states change from one/zero to zero/one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use local in-memory recording hooks, explicit timestamps and named objects.
 // No external database format, vendor attributes, events or DPI are observed.
 module test_component_recording_enable_defaults_off_and_changes_only_the_selected_component;

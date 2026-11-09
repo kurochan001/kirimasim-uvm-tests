@@ -12,6 +12,42 @@
 :expected_exit: 0
 :expected_stdout: @test_component_print_enable_controls_automatic_descendants_and_direct_root_printing.expected
 */
+// What it checks:
+// 1. Selected new children have print_enabled set to one.
+// 2. Disabling one child suppresses its automatic printing and descendants
+//    while an enabled peer remains printed.
+// 3. A child disabled for its parent can still be printed directly as a root
+//    with its enabled descendant.
+// 4. The component UVM_PRINT field-operation stage prints enabled children
+//    even when its own user hook is suppressed.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.2.2 (UVM-COMPONENT-AUDIT-PRINT-DEFAULT-ENABLED) gives
+//    rule 1 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: Selected new children have
+//    print_enabled set to one.
+// 2. 1800.2-2020 13.1.2.2 (UVM-COMPONENT-AUDIT-PRINT-DISABLED-SUBTREE) gives
+//    rule 2 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: Disabling one child suppresses its
+//    automatic printing and descendants while an enabled peer remains printed.
+// 3. 1800.2-2020 13.1.2.2 (UVM-COMPONENT-AUDIT-PRINT-DISABLED-DIRECT-ROOT)
+//    gives rule 3 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: A child disabled for its parent can
+//    still be printed directly as a root with its enabled descendant.
+// 4. 1800.2-2020 13.1.2.3 (UVM-COMPONENT-AUDIT-PRINT-FIELD-OP-CHILDREN) gives
+//    rule 4 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The component UVM_PRINT field-operation
+//    stage prints enabled children even when its own user hook is suppressed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_print_enable_controls_automatic_descendants_and_direct_root_printing;
   import uvm_pkg::*;
   class observer_printer extends uvm_printer;

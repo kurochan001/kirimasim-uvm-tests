@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_test_argument_selection_creates_the_registered_test_under_the_implicit_root.expected
 */
+// What it checks:
+// A registered test selected by the run_test argument is instantiated as the
+// root child uvm_test_top and executes its selected subtype.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.2 (UVM-COMPONENT-EXT-TEST-ARGUMENT-SELECTION) gives the rule
+// above. Setup: Use the linked original fixtures and their explicit public
+// phase, factory or hierarchy calls. Preserve the declared original types,
+// scope, arguments and expected observations; no private implementation state
+// supplies an oracle. Expected: A registered test selected by the run_test
+// argument is instantiated as the root child uvm_test_top and executes its
+// selected subtype.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_test_argument_selection_creates_the_registered_test_under_the_implicit_root;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

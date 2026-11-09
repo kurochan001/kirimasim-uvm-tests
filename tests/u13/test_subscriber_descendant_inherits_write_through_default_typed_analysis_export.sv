@@ -12,6 +12,53 @@
 :expected_exit: 0
 :expected_stdout: @test_subscriber_descendant_inherits_write_through_default_typed_analysis_export.expected
 */
+// What it checks:
+// 1. A concrete subscriber receives emitted transactions through its analysis
+//    export.
+// 2. The omitted subscriber type parameter is int and the concrete leaf is
+//    usable through the corresponding subscriber base.
+// 3. The subscriber exposes an analysis implementation specialized with its
+//    selected transaction type and subscriber base.
+// 4. The subscriber constructor forwards its component name and null parent to
+//    normal root parenting.
+// 5. A concrete subscriber may inherit an implemented write, reachable by
+//    outside analysis-export calls.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.9 (UVM-SUBSCRIBER-DELIVERY) gives rule 1 above. Setup: Use
+//    two leaves that inherit write from an original subscriber with omitted
+//    type parameter; connect independent int analysis ports and send 13/27 to
+//    one and 41 to the peer. Expected: Selected delivery has two values in
+//    order and peer delivery has one. Exact base/export assignments compile;
+//    constructor names and root parenting are preserved.
+// 2. 1800.2-2020 13.9.1 (UVM-SUBSCRIBER-DEFAULT-TYPE-BASE) gives rule 2 above.
+//    Setup: Use two leaves that inherit write from an original subscriber with
+//    omitted type parameter; connect independent int analysis ports and send
+//    13/27 to one and 41 to the peer. Expected: Selected delivery has two
+//    values in order and peer delivery has one. Exact base/export assignments
+//    compile; constructor names and root parenting are preserved.
+// 3. 1800.2-2020 13.9.2 (UVM-SUBSCRIBER-EXACT-EXPORT-TYPE) gives rule 3 above.
+//    Setup: Use two leaves that inherit write from an original subscriber with
+//    omitted type parameter; connect independent int analysis ports and send
+//    13/27 to one and 41 to the peer. Expected: Selected delivery has two
+//    values in order and peer delivery has one. Exact base/export assignments
+//    compile; constructor names and root parenting are preserved.
+// 4. 1800.2-2020 13.9.3.1 (UVM-SUBSCRIBER-CONSTRUCTOR) gives rule 4 above.
+//    Setup: Use two leaves that inherit write from an original subscriber with
+//    omitted type parameter; connect independent int analysis ports and send
+//    13/27 to one and 41 to the peer. Expected: Selected delivery has two
+//    values in order and peer delivery has one. Exact base/export assignments
+//    compile; constructor names and root parenting are preserved.
+// 5. 1800.2-2020 13.9.3.2 (UVM-SUBSCRIBER-INHERITED-WRITE) gives rule 5 above.
+//    Setup: Use two leaves that inherit write from an original subscriber with
+//    omitted type parameter; connect independent int analysis ports and send
+//    13/27 to one and 41 to the peer. Expected: Selected delivery has two
+//    values in order and peer delivery has one. Exact base/export assignments
+//    compile; constructor names and root parenting are preserved.
+// It also supports, as a control, the setup or conditions of
+// UVM-NEGATIVE-SUBSCRIBER-CONCRETE-SUBCLASS-MUST-IMPLEMENT-WRITE.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_subscriber_descendant_inherits_write_through_default_typed_analysis_export;
   import uvm_pkg::*;
   // No write override in the leaf; calls enter through the public export.

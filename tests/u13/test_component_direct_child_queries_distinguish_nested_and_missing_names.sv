@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_component_direct_child_queries_distinguish_nested_and_missing_names.expected
 */
+// What it checks:
+// 1. Direct child lookup returns the named immediate child or null for an
+//    absent direct name.
+// 2. has_child tests a direct local child name rather than a descendant path.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.3.4 (UVM-COMPONENT-DIRECT-CHILD-HANDLE) gives rule 1
+//    above. Setup: Query local child names on both branches and an absent
+//    name. Expected: Returned handles identify the correct branch-local child;
+//    an absent child returns null.
+// 2. 1800.2-2020 13.1.3.6 (UVM-COMPONENT-DIRECT-CHILD-MEMBERSHIP) gives rule 2
+//    above. Setup: Query a direct name, a repeated descendant name, a dotted
+//    path and an absent name. Expected: Only the direct child name is present
+//    under the top node.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit names and handles make hierarchy membership observable. No traversal
 // order is imposed, and hierarchy changes occur before each fresh iteration.
 module test_component_direct_child_queries_distinguish_nested_and_missing_names;

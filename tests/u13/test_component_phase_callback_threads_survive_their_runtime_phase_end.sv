@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_component_phase_callback_threads_survive_their_runtime_phase_end.expected
 */
+// What it checks:
+// 1. The selected thread spawned in phase_started survives that runtime phase
+//    ending.
+// 2. The selected thread spawned in phase_ready_to_end survives that runtime
+//    phase ending.
+// 3. The selected thread spawned in phase_ended survives that runtime phase
+//    ending.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.4.3 (UVM-COMPONENT-EXT-CALLBACK-STARTED-THREAD-PERSISTS)
+//    gives rule 1 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The selected thread
+//    spawned in phase_started survives that runtime phase ending.
+// 2. 1800.2-2020 13.1.4.3 (UVM-COMPONENT-EXT-CALLBACK-READY-THREAD-PERSISTS)
+//    gives rule 2 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The selected thread
+//    spawned in phase_ready_to_end survives that runtime phase ending.
+// 3. 1800.2-2020 13.1.4.3 (UVM-COMPONENT-EXT-CALLBACK-ENDED-THREAD-PERSISTS)
+//    gives rule 3 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The selected thread
+//    spawned in phase_ended survives that runtime phase ending.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_phase_callback_threads_survive_their_runtime_phase_end;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

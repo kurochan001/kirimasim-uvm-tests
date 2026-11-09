@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_component_interleaved_child_iterators_keep_parent_membership_separate.expected
 */
+// What it checks:
+// Child iteration preserves the name when empty or exhausted and advances
+// within the selected parent.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.1.3.4 (UVM-COMPONENT-CHILD-ITERATION-CURSOR) gives the rule
+// above. Setup: Inspect empty/singleton boundaries and interleave two parent
+// traversals. Expected: Sentinel/final names survive zero returns and each
+// parent yields its own two members once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit names and handles make hierarchy membership observable. No traversal
 // order is imposed, and hierarchy changes occur before each fresh iteration.
 module test_component_interleaved_child_iterators_keep_parent_membership_separate;

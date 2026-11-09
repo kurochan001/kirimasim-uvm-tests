@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_component_lookup_resolves_relative_and_absolute_paths_from_a_descendant.expected
 */
+// What it checks:
+// 1. Component relative lookup starts at the receiver component.
+// 2. A leading-dot lookup starts at the implicit hierarchy root.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.3.7 (UVM-COMPONENT-RELATIVE-LOOKUP) gives rule 1 above.
+//    Setup: Query a local slot and a nested branch path with no leading dot.
+//    Expected: Each query returns the intended descendant of its own receiver.
+// 2. 1800.2-2020 13.1.3.7 (UVM-COMPONENT-ABSOLUTE-LOOKUP) gives rule 2 above.
+//    Setup: Perform cross-branch absolute lookups from a branch and a leaf.
+//    Expected: Both absolute paths return the named leaf independent of the
+//    calling branch.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit names and handles make hierarchy membership observable. No traversal
 // order is imposed, and hierarchy changes occur before each fresh iteration.
 module test_component_lookup_resolves_relative_and_absolute_paths_from_a_descendant;

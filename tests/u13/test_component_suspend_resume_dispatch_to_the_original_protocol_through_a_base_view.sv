@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_component_suspend_resume_dispatch_to_the_original_protocol_through_a_base_view.expected
 */
+// What it checks:
+// 1. The public suspend task dispatches through a component base view to the
+//    user-implemented protocol.
+// 2. The public resume task dispatches through a component base view to the
+//    user-implemented protocol.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.4.5.1 (UVM-COMPONENT-AUDIT-SUSPEND-VIRTUAL-PROTOCOL)
+//    gives rule 1 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The public suspend task dispatches
+//    through a component base view to the user-implemented protocol.
+// 2. 1800.2-2020 13.1.4.5.2 (UVM-COMPONENT-AUDIT-RESUME-VIRTUAL-PROTOCOL)
+//    gives rule 2 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The public resume task dispatches
+//    through a component base view to the user-implemented protocol.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_suspend_resume_dispatch_to_the_original_protocol_through_a_base_view;
   import uvm_pkg::*;
   class protocol_actor extends uvm_component;

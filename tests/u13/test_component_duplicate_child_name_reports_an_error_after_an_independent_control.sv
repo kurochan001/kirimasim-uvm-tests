@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_component_duplicate_child_name_reports_an_error_after_an_independent_control.expected
 */
+// What it checks:
+// Constructing a second child with the same name under one parent generates an
+// error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.1.2.1 (UVM-COMPONENT-AUDIT-DUPLICATE-CHILD-ERROR) gives the
+// rule above. Setup: Use the selected original concrete component subtypes,
+// legal unique names, declared public types and linked observations. Construct
+// the hierarchy before phasing where phase callbacks are observed. Expected:
+// Constructing a second child with the same name under one parent generates an
+// error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_duplicate_child_name_reports_an_error_after_an_independent_control;
   import uvm_pkg::*;
   class actor extends uvm_component;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_phase_ready_iteration_cap_2_bounds_repeated_raise_drop_callbacks.expected
 */
+// What it checks:
+// The ready-to-end iteration cap forces progress to phase_ended despite
+// repeated new objections.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.1.4.3.2 (UVM-PHASE-READY-ITERATION-CAP) gives the rule above.
+// Setup: Raise and later drop an objection from every ready callback through
+// the configured maximum. Expected: The capped iteration reaches phase_ended
+// without unbounded callback retries.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Every ready callback raises and schedules a delayed drop. Without the
 // cap this would repeat forever. Count callbacks and observe phase_ended.
 module test_phase_ready_iteration_cap_2_bounds_repeated_raise_drop_callbacks;

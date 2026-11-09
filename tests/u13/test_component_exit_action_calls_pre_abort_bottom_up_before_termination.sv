@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_component_exit_action_calls_pre_abort_bottom_up_before_termination.expected
 */
+// What it checks:
+// 1. A UVM_EXIT report invokes component pre_abort hooks before simulation
+//    termination.
+// 2. The selected pre_abort chain is called from descendant to ancestor.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.4.6 (UVM-COMPONENT-AUDIT-EXIT-PRE-ABORT) gives rule 1
+//    above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: A UVM_EXIT report invokes component pre_abort hooks
+//    before simulation termination.
+// 2. 1800.2-2020 13.1.4.6 (UVM-COMPONENT-AUDIT-PRE-ABORT-BOTTOM-UP) gives rule
+//    2 above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: The selected pre_abort chain is called from
+//    descendant to ancestor.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_exit_action_calls_pre_abort_bottom_up_before_termination;
   import uvm_pkg::*;
   class abort_actor extends uvm_component;

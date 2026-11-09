@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_component_config_application_matches_scope_and_passes_exact_resource.expected
 */
+// What it checks:
+// 1. Configuration application selects matching component-instance scopes and
+//    ignores unmatched scopes.
+// 2. Each matching resource is dispatched through do_execute_op as UVM_SET
+//    with that exact resource as rhs.
+// 3. An enabled user hook receives the resource through set_local after its
+//    field operation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.5.1 (UVM-COMPONENT-CONFIG-SCOPE-SELECTION) gives rule 1
+//    above. Setup: Register resources for target and elsewhere, then apply to
+//    target and an unmatched peer. Expected: Target processes its resource
+//    once; the peer has no operations or local writes and retains its value.
+// 2. 1800.2-2020 13.1.5.1 (UVM-COMPONENT-CONFIG-SET-OPERATION-EXACT-RHS) gives
+//    rule 2 above. Setup: Compare the callback rhs handle and operation type
+//    with the registered selected resource. Expected: One operation observes
+//    the exact handle and UVM_SET.
+// 3. 1800.2-2020 13.1.5.1 (UVM-COMPONENT-CONFIG-SET-LOCAL-AFTER-OPERATION)
+//    gives rule 3 above. Setup: Count per-resource callback order and read the
+//    integer resource in the user hook. Expected: set_local follows the
+//    operation exactly once and installs value 37.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned default name-filter mode skips resources not registered by
 // field macros. Retain the normative all-matching-resource expectation.
 module test_component_config_application_matches_scope_and_passes_exact_resource;

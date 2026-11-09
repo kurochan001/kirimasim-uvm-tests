@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_component_failed_lookup_keeps_hierarchy_and_does_not_search_by_leaf_suffix.expected
 */
+// What it checks:
+// 1. A component child count includes immediate children only.
+// 2. An unmatched component lookup returns null and leaves the hierarchy
+//    unchanged.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.3.5 (UVM-COMPONENT-IMMEDIATE-CHILD-COUNT) gives rule 1
+//    above. Setup: Use top, branch and leaf nodes and edit a returned list
+//    independently. Expected: Counts remain two at top, one per branch and
+//    zero at the leaf.
+// 2. 1800.2-2020 13.1.3.7 (UVM-COMPONENT-MISSING-LOOKUP) gives rule 2 above.
+//    Setup: Query missing relative, nested and absolute paths before valid
+//    lookups. Expected: All failed paths return null; valid branch-specific
+//    paths and child counts are retained.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit names and handles make hierarchy membership observable. No traversal
 // order is imposed, and hierarchy changes occur before each fresh iteration.
 module test_component_failed_lookup_keeps_hierarchy_and_does_not_search_by_leaf_suffix;

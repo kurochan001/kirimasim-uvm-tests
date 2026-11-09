@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_component_permitted_leaf_names_register_without_changing_their_characters.expected
 */
+// What it checks:
+// The selected permitted letters, digits and special characters are preserved
+// in registered leaf names.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.1.2.1 (UVM-COMPONENT-AUDIT-PERMITTED-LEAF-CHARACTERS) gives
+// the rule above. Setup: Use the selected original concrete component
+// subtypes, legal unique names, declared public types and linked observations.
+// Construct the hierarchy before phasing where phase callbacks are observed.
+// Expected: The selected permitted letters, digits and special characters are
+// preserved in registered leaf names.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_permitted_leaf_names_register_without_changing_their_characters;
   import uvm_pkg::*;
   class actor extends uvm_component;

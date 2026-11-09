@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_push_driver_export_dispatches_an_override_before_the_default_put_error.expected
 */
+// What it checks:
+// 1. The push request export dispatches blocking put to an original derived
+//    implementation.
+// 2. The default push-driver put implementation produces an error.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.8.2.1 (UVM-COMPONENT-AUDIT-PUSH-OVERRIDE-DISPATCH) gives
+//    rule 1 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The push request export dispatches
+//    blocking put to an original derived implementation.
+// 2. 1800.2-2020 13.8.2.1 (UVM-COMPONENT-AUDIT-PUSH-DEFAULT-PUT-ERROR) gives
+//    rule 2 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The default push-driver put
+//    implementation produces an error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_push_driver_export_dispatches_an_override_before_the_default_put_error;
   import uvm_pkg::*;
   class request_item extends uvm_sequence_item; endclass

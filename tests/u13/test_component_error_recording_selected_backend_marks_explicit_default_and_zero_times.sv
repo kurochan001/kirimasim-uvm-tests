@@ -12,6 +12,44 @@
 :expected_exit: 0
 :expected_stdout: @test_component_error_recording_selected_backend_marks_explicit_default_and_zero_times.expected
 */
+// What it checks:
+// 1. The selected explicit error timestamp is marked through the original
+//    recording backend.
+// 2. Omitting the error time marks the current simulation time in the selected
+//    backend.
+// 3. Explicit zero error time selects the current simulation time with both
+//    selected keep-active values.
+// 4. Omitting keep_active records a zero-length error transaction at the
+//    selected explicit or current timestamp.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.7 (UVM-RECORDING-AUDIT-ERROR-EXPLICIT-TIME) gives rule
+//    1 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The selected explicit error
+//    timestamp is marked through the original recording backend.
+// 2. 1800.2-2020 13.1.7.7 (UVM-RECORDING-AUDIT-ERROR-OMITTED-TIME) gives rule
+//    2 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: Omitting the error time marks
+//    the current simulation time in the selected backend.
+// 3. 1800.2-2020 13.1.7.7 (UVM-RECORDING-AUDIT-ERROR-ZERO-TIME) gives rule 3
+//    above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: Explicit zero error time selects
+//    the current simulation time with both selected keep-active values.
+// 4. 1800.2-2020 13.1.7.7 (UVM-RECORDING-AUDIT-ERROR-DEFAULT-ZERO-LENGTH)
+//    gives rule 4 above. Setup: Use the linked original fixtures, selected
+//    public arguments, explicit declared types and exact expected
+//    observations. The recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: Omitting keep_active records a
+//    zero-length error transaction at the selected explicit or current
+//    timestamp.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_error_recording_selected_backend_marks_explicit_default_and_zero_times;
   import uvm_pkg::*;
   time wanted_time;

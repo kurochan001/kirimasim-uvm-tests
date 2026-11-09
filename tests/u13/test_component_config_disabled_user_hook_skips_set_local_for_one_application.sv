@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_component_config_disabled_user_hook_skips_set_local_for_one_application.expected
 */
+// What it checks:
+// 1. Disabling the field-operation user hook suppresses the following
+//    set_local call.
+// 2. A subsequent configuration application can use its enabled user hook
+//    after an earlier suppression.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.5.1 (UVM-COMPONENT-CONFIG-DISABLED-USER-HOOK-SKIP) gives
+//    rule 1 above. Setup: Disable the hook in do_execute_op for one matching
+//    resource application. Expected: The operation occurs once but no local
+//    call occurs and value three is retained.
+// 2. 1800.2-2020 13.1.5.1 (UVM-COMPONENT-CONFIG-USER-HOOK-REUSE) gives rule 2
+//    above. Setup: Remove the suppression and apply the same resource again.
+//    Expected: Two total operations lead to one local write of value 43.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned default name-filter mode skips resources not registered by
 // field macros. Retain the normative all-matching-resource expectation.
 module test_component_config_disabled_user_hook_skips_set_local_for_one_application;

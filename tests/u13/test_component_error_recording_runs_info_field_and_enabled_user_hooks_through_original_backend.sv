@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_component_error_recording_runs_info_field_and_enabled_user_hooks_through_original_backend.expected
 */
+// What it checks:
+// 1. Error recording records the selected original info property through its
+//    UVM_RECORD field-operation hook.
+// 2. Error recording records the selected info property supplied by its
+//    enabled do_record hook.
+// 3. The info field operation can suppress its subsequent user recording hook
+//    without suppressing its selected field property.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.7 (UVM-RECORDING-AUDIT-ERROR-INFO-FIELD-OP) gives rule
+//    1 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: Error recording records the
+//    selected original info property through its UVM_RECORD field-operation
+//    hook.
+// 2. 1800.2-2020 13.1.7.7 (UVM-RECORDING-AUDIT-ERROR-INFO-USER-HOOK) gives
+//    rule 2 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: Error recording records the
+//    selected info property supplied by its enabled do_record hook.
+// 3. 1800.2-2020 16.4.7.7 (UVM-RECORDING-AUDIT-ERROR-INFO-USER-SUPPRESSION)
+//    gives rule 3 above. Setup: Use the linked original fixtures, selected
+//    public arguments, explicit declared types and exact expected
+//    observations. The recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The info field operation can
+//    suppress its subsequent user recording hook without suppressing its
+//    selected field property.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_component_error_recording_runs_info_field_and_enabled_user_hooks_through_original_backend;
   import uvm_pkg::*;

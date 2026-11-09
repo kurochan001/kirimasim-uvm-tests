@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_component_recording_stream_cache_keys_name_type_and_component_scope.expected
 */
+// What it checks:
+// 1. Component stream caching distinguishes the name/type pair and the owning
+//    component.
+// 2. New component streams carry their requested name/type and the component
+//    full-name scope.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.9 (UVM-COMPONENT-STREAM-CACHE-PAIR-IDENTITY) gives
+//    rule 1 above. Setup: Request repeated and differing name/type pairs on
+//    two components. Expected: Repeated requests reuse identity; differing
+//    names, types and component scopes create distinct streams with four
+//    creations.
+// 2. 1800.2-2020 13.1.7.9 (UVM-COMPONENT-STREAM-CREATION-METADATA) gives rule
+//    2 above. Setup: Request main/packet streams on first and peer, including
+//    a replacement. Expected: Names/types match and scopes are first or peer
+//    as appropriate.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use local in-memory recording hooks, explicit timestamps and named objects.
 // No external database format, vendor attributes, events or DPI are observed.
 module test_component_recording_stream_cache_keys_name_type_and_component_scope;

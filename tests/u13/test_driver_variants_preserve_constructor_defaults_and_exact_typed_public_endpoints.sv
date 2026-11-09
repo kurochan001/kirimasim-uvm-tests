@@ -12,6 +12,101 @@
 :expected_exit: 0
 :expected_stdout: @test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints.expected
 */
+// What it checks:
+// 1. The selected pull driver is usable through uvm_component.
+// 2. The omitted pull driver request type is uvm_sequence_item.
+// 3. The omitted pull driver response type follows its selected request type.
+// 4. The pull driver constructor preserves its supplied name and component
+//    parent.
+// 5. The pull driver creates its declared exact request/response-specific
+//    request endpoint.
+// 6. The pull driver creates its declared exact request/response-specific
+//    response analysis port.
+// 7. The selected push driver is usable through uvm_component.
+// 8. The omitted push driver request type is uvm_sequence_item.
+// 9. The omitted push driver response type follows its selected request type.
+// 10. The push driver constructor preserves its supplied name and component
+//     parent.
+// 11. The push driver creates its declared exact request/response-specific
+//     request endpoint.
+// 12. The push driver creates its declared exact request/response-specific
+//     response analysis port.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.7.1 (UVM-COMPONENT-AUDIT-PULL-DRIVER-BASE-TYPE) gives rule
+//    1 above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: The selected pull driver is usable through
+//    uvm_component.
+// 2. 1800.2-2020 13.7.1 (UVM-COMPONENT-AUDIT-PULL-DRIVER-DEFAULT-REQUEST)
+//    gives rule 2 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The omitted pull driver request type is
+//    uvm_sequence_item.
+// 3. 1800.2-2020 13.7.1 (UVM-COMPONENT-AUDIT-PULL-DRIVER-DEFAULT-RESPONSE)
+//    gives rule 3 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The omitted pull driver response type
+//    follows its selected request type.
+// 4. 1800.2-2020 13.7.3 (UVM-COMPONENT-AUDIT-PULL-DRIVER-CONSTRUCTOR) gives
+//    rule 4 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The pull driver constructor preserves
+//    its supplied name and component parent.
+// 5. 1800.2-2020 13.7.2.1 (UVM-COMPONENT-AUDIT-PULL-DRIVER-REQUEST-TYPE) gives
+//    rule 5 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The pull driver creates its declared
+//    exact request/response-specific request endpoint.
+// 6. 1800.2-2020 13.7.2.2 (UVM-COMPONENT-AUDIT-PULL-DRIVER-RESPONSE-TYPE)
+//    gives rule 6 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The pull driver creates its declared
+//    exact request/response-specific response analysis port.
+// 7. 1800.2-2020 13.8.1 (UVM-COMPONENT-AUDIT-PUSH-DRIVER-BASE-TYPE) gives rule
+//    7 above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: The selected push driver is usable through
+//    uvm_component.
+// 8. 1800.2-2020 13.8.1 (UVM-COMPONENT-AUDIT-PUSH-DRIVER-DEFAULT-REQUEST)
+//    gives rule 8 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The omitted push driver request type is
+//    uvm_sequence_item.
+// 9. 1800.2-2020 13.8.1 (UVM-COMPONENT-AUDIT-PUSH-DRIVER-DEFAULT-RESPONSE)
+//    gives rule 9 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The omitted push driver response type
+//    follows its selected request type.
+// 10. 1800.2-2020 13.8.3 (UVM-COMPONENT-AUDIT-PUSH-DRIVER-CONSTRUCTOR) gives
+//     rule 10 above. Setup: Use the selected original concrete component
+//     subtypes, legal unique names, declared public types and linked
+//     observations. Construct the hierarchy before phasing where phase
+//     callbacks are observed. Expected: The push driver constructor preserves
+//     its supplied name and component parent.
+// 11. 1800.2-2020 13.8.2.1 (UVM-COMPONENT-AUDIT-PUSH-DRIVER-REQUEST-TYPE)
+//     gives rule 11 above. Setup: Use the selected original concrete component
+//     subtypes, legal unique names, declared public types and linked
+//     observations. Construct the hierarchy before phasing where phase
+//     callbacks are observed. Expected: The push driver creates its declared
+//     exact request/response-specific request endpoint.
+// 12. 1800.2-2020 13.8.2.2 (UVM-COMPONENT-AUDIT-PUSH-DRIVER-RESPONSE-TYPE)
+//     gives rule 12 above. Setup: Use the selected original concrete component
+//     subtypes, legal unique names, declared public types and linked
+//     observations. Construct the hierarchy before phasing where phase
+//     callbacks are observed. Expected: The push driver creates its declared
+//     exact request/response-specific response analysis port.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints;
   import uvm_pkg::*;
   class request_item extends uvm_sequence_item; endclass

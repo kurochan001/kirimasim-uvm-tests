@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_component_begin_transaction_without_recording_passes_zero_handle_after_begin.expected
 */
+// What it checks:
+// 1. Component begin returns zero without invoking its hook for null.
+// 2. Component begin starts the supplied transaction before its component
+//    hook.
+// 3. A recording-disabled component supplies zero as its begin hook recorder
+//    handle.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.3 (UVM-COMPONENT-BEGIN-NULL-GUARD) gives rule 1 above.
+//    Setup: Call begin with null and explicit stream/time arguments. Expected:
+//    The returned handle is zero and the hook count is zero.
+// 2. 1800.2-2020 13.1.7.3 (UVM-COMPONENT-BEGIN-TRANSACTION-FORWARDING) gives
+//    rule 2 above. Setup: Disable both recording paths and begin at time 23 on
+//    traffic. Expected: The transaction is active with time 23, one hook
+//    observes the same handle/time, and no properties are recorded.
+// 3. 1800.2-2020 13.1.7.4 (UVM-COMPONENT-BEGIN-DISABLED-HOOK-HANDLE) gives
+//    rule 3 above. Setup: Begin on explicitly named stream traffic while
+//    disabled. Expected: The hook handle is zero and stream name is traffic.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use local in-memory recording hooks, explicit timestamps and named objects.
 // No external database format, vendor attributes, events or DPI are observed.
 module test_component_begin_transaction_without_recording_passes_zero_handle_after_begin;

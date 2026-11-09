@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_component_free_recording_stream_invalidates_only_its_cached_pair.expected
 */
+// What it checks:
+// 1. New component streams carry their requested name/type and the component
+//    full-name scope.
+// 2. Releasing a cached stream reference causes its next request to create a
+//    fresh stream.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.9 (UVM-COMPONENT-STREAM-CREATION-METADATA) gives rule
+//    1 above. Setup: Request main/packet streams on first and peer, including
+//    a replacement. Expected: Names/types match and scopes are first or peer
+//    as appropriate.
+// 2. 1800.2-2020 13.1.7.10 (UVM-COMPONENT-STREAM-REFERENCE-RELEASE) gives rule
+//    2 above. Setup: Release main/packet while retaining side/packet.
+//    Expected: The replacement is distinct and cached, the peer pair is stable
+//    and total creations are three.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned release removes a stream by object type name instead of its
 // stream-type cache key. Retain the fresh-stream requirement of 13.1.7.10.
 // Use local in-memory recording hooks, explicit timestamps and named objects.

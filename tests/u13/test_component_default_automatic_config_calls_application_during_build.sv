@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_component_default_automatic_config_calls_application_during_build.expected
 */
+// What it checks:
+// 1. Automatic configuration is enabled by default.
+// 2. Enabled build configuration calls the virtual application method with
+//    default verbosity zero.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.5.2 (UVM-COMPONENT-AUTOMATIC-CONFIG-DEFAULT-ENABLED)
+//    gives rule 1 above. Setup: Use an ordinary derived component without
+//    overriding use_automatic_config. Expected: The query returns one and
+//    build invokes application once.
+// 2. 1800.2-2020 13.1.5.1 (UVM-COMPONENT-CONFIG-BUILD-VIRTUAL-DISPATCH) gives
+//    rule 2 above. Setup: Count overridden calls and then explicitly apply
+//    once more. Expected: Build gives one application; explicit reuse gives
+//    two, both with zero verbosity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_default_automatic_config_calls_application_during_build;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

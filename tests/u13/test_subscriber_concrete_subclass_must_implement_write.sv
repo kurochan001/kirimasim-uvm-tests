@@ -12,6 +12,19 @@
 :should_fail_because: a concrete subclass must implement the selected pure virtual method
 :expected_stderr_regex: (?i)^(?=.*test_subscriber_concrete_subclass_must_implement_write\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:pure|virtual|abstract|missing implementation)\b)(?=.*\bwrite\b).*error
 */
+// What it checks:
+// A concrete subtype cannot leave the declared pure virtual write method
+// unimplemented.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.9.3.2
+// (UVM-NEGATIVE-SUBSCRIBER-CONCRETE-SUBCLASS-MUST-IMPLEMENT-WRITE) gives the
+// rule above. Setup: Instantiate an original nonvirtual subtype with this one
+// pure method missing; all other required methods have bodies. Expected:
+// Compilation rejects the fixture with an error identifying the missing pure
+// method; no runtime seed executes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Isolate one forbidden condition; other interfaces have original bodies.
 // Rejection must identify this fixture and the selected method or parameter.
 // This is a compile-stage expectation, without a runtime binary or seed.

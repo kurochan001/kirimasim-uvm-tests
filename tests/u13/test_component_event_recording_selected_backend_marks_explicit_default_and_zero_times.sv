@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_component_event_recording_selected_backend_marks_explicit_default_and_zero_times.expected
 */
+// What it checks:
+// 1. The selected explicit event timestamp is marked through the original
+//    recording backend.
+// 2. Omitting the event time marks the current simulation time in the selected
+//    backend.
+// 3. Explicit zero event time selects the current simulation time with both
+//    selected keep-active values.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.8 (UVM-RECORDING-AUDIT-EVENT-EXPLICIT-TIME) gives rule
+//    1 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The selected explicit event
+//    timestamp is marked through the original recording backend.
+// 2. 1800.2-2020 13.1.7.8 (UVM-RECORDING-AUDIT-EVENT-OMITTED-TIME) gives rule
+//    2 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: Omitting the event time marks
+//    the current simulation time in the selected backend.
+// 3. 1800.2-2020 13.1.7.8 (UVM-RECORDING-AUDIT-EVENT-ZERO-TIME) gives rule 3
+//    above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: Explicit zero event time selects
+//    the current simulation time with both selected keep-active values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_event_recording_selected_backend_marks_explicit_default_and_zero_times;
   import uvm_pkg::*;
   time wanted_time;

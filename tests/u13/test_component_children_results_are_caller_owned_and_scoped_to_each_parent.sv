@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_component_children_results_are_caller_owned_and_scoped_to_each_parent.expected
 */
+// What it checks:
+// 1. get_children appends immediate children to the supplied queue.
+// 2. A component child count includes immediate children only.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.3.3 (UVM-COMPONENT-CHILDREN-APPEND) gives rule 1 above.
+//    Setup: Retain a prefix and reuse a caller-edited result queue. Expected:
+//    Prefixes survive and each appended result contains immediate children
+//    rather than descendants.
+// 2. 1800.2-2020 13.1.3.5 (UVM-COMPONENT-IMMEDIATE-CHILD-COUNT) gives rule 2
+//    above. Setup: Use top, branch and leaf nodes and edit a returned list
+//    independently. Expected: Counts remain two at top, one per branch and
+//    zero at the leaf.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit names and handles make hierarchy membership observable. No traversal
 // order is imposed, and hierarchy changes occur before each fresh iteration.
 module test_component_children_results_are_caller_owned_and_scoped_to_each_parent;

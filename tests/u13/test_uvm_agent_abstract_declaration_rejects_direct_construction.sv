@@ -12,6 +12,17 @@
 :should_fail_because: the declared virtual component base cannot be directly constructed
 :expected_stderr_regex: (?i)(?=.*(?:virtual|abstract))(?=.*\bclass\s+[\'\"]?uvm_agent\b).*
 */
+// What it checks:
+// The declared virtual uvm_agent rejects direct construction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.4.1 (UVM-COMPONENT-AUDIT-AGENT-ABSTRACT) gives the rule
+// above. Setup: Use the selected original concrete component subtypes, legal
+// unique names, declared public types and linked observations. Construct the
+// hierarchy before phasing where phase callbacks are observed. Expected: The
+// declared virtual uvm_agent rejects direct construction.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_uvm_agent_abstract_declaration_rejects_direct_construction;
   import uvm_pkg::*;
   initial begin

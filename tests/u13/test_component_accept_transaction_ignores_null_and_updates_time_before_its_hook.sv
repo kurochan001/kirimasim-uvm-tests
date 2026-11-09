@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_component_accept_transaction_ignores_null_and_updates_time_before_its_hook.expected
 */
+// What it checks:
+// 1. Component accept returns without invoking its hook for a null
+//    transaction.
+// 2. Component acceptance forwards the supplied time to the transaction.
+// 3. The component acceptance hook runs after transaction acceptance with the
+//    original handle.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.1 (UVM-COMPONENT-ACCEPT-NULL-GUARD) gives rule 1
+//    above. Setup: Pass null with explicit acceptance time. Expected: The
+//    component acceptance-hook count remains zero.
+// 2. 1800.2-2020 13.1.7.1 (UVM-COMPONENT-ACCEPT-TIME-FORWARDING) gives rule 2
+//    above. Setup: Accept a concrete transaction at time 17. Expected: The
+//    transaction acceptance time is 17.
+// 3. 1800.2-2020 13.1.7.2 (UVM-COMPONENT-POST-ACCEPT-HOOK) gives rule 3 above.
+//    Setup: Accept one transaction while leaving a peer component untouched.
+//    Expected: One hook sees the exact transaction and time 17; the peer has
+//    no call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use local in-memory recording hooks, explicit timestamps and named objects.
 // No external database format, vendor attributes, events or DPI are observed.
 module test_component_accept_transaction_ignores_null_and_updates_time_before_its_hook;

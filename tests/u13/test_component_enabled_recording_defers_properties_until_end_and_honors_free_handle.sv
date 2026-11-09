@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_component_enabled_recording_defers_properties_until_end_and_honors_free_handle.expected
 */
+// What it checks:
+// 1. Enabled component begin opens a recorder without recording transaction
+//    properties.
+// 2. Enabled component end records properties after its post-end hook.
+// 3. Ending with free_handle zero closes the recorder without freeing it.
+// 4. Default component end frees its recorder after closing it.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.3 (UVM-COMPONENT-BEGIN-DEFERS-PROPERTY-RECORDING)
+//    gives rule 1 above. Setup: Enable component recording but disable
+//    transaction self-recording. Expected: The recorder is open, the begin
+//    hook receives its nonzero handle and property-hook count remains zero.
+// 2. 1800.2-2020 13.1.7.5 (UVM-COMPONENT-END-RECORDS-AFTER-POST-HOOK) gives
+//    rule 2 above. Setup: End two transactions with the same local stream.
+//    Expected: Each transaction records once and the first post-end hook
+//    observes no prior property record.
+// 3. 1800.2-2020 13.1.7.5 (UVM-COMPONENT-END-RETAINS-CLOSED-RECORDER) gives
+//    rule 3 above. Setup: End the first transaction with free_handle
+//    explicitly zero. Expected: The recorder is closed, has no free hook and
+//    its handle still resolves exactly.
+// 4. 1800.2-2020 13.1.7.5 (UVM-COMPONENT-END-DEFAULT-FREES-RECORDER) gives
+//    rule 4 above. Setup: End a second transaction without a free_handle
+//    argument. Expected: There is one close and one free, its old handle
+//    becomes invalid and the retained peer remains valid.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use local in-memory recording hooks, explicit timestamps and named objects.
 // No external database format, vendor attributes, events or DPI are observed.
 module test_component_enabled_recording_defers_properties_until_end_and_honors_free_handle;

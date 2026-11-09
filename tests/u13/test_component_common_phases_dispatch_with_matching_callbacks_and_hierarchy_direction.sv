@@ -12,6 +12,118 @@
 :expected_exit: 0
 :expected_stdout: @test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction.expected
 */
+// What it checks:
+// 1. The common build phase invokes the matching component method between its
+//    phase callbacks in the selected hierarchy. Its function traversal is
+//    top-down.
+// 2. The common connect phase invokes the matching component method between
+//    its phase callbacks in the selected hierarchy. Its function traversal is
+//    bottom-up.
+// 3. The common end_of_elaboration phase invokes the matching component method
+//    between its phase callbacks in the selected hierarchy. Its function
+//    traversal is bottom-up.
+// 4. The common start_of_simulation phase invokes the matching component
+//    method between its phase callbacks in the selected hierarchy. Its
+//    function traversal is bottom-up.
+// 5. The common run phase invokes the matching component method between its
+//    phase callbacks in the selected hierarchy.
+// 6. The common extract phase invokes the matching component method between
+//    its phase callbacks in the selected hierarchy. Its function traversal is
+//    bottom-up.
+// 7. The common check phase invokes the matching component method between its
+//    phase callbacks in the selected hierarchy. Its function traversal is
+//    bottom-up.
+// 8. The common report phase invokes the matching component method between its
+//    phase callbacks in the selected hierarchy. Its function traversal is
+//    bottom-up.
+// 9. The common final phase invokes the matching component method between its
+//    phase callbacks in the selected hierarchy. Its function traversal is
+//    top-down.
+// 10. The selected common and run-time phase start callbacks identify their
+//     phase before its component method.
+// 11. The selected common and run-time phase end callbacks identify their
+//     phase after its component method.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.4.1.1 (UVM-COMPONENT-AUDIT-COMMON-BUILD-DISPATCH) gives
+//    rule 1 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The common build phase invokes the
+//    matching component method between its phase callbacks in the selected
+//    hierarchy. Its function traversal is top-down.
+// 2. 1800.2-2020 13.1.4.1.2 (UVM-COMPONENT-AUDIT-COMMON-CONNECT-DISPATCH)
+//    gives rule 2 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The common connect phase invokes the
+//    matching component method between its phase callbacks in the selected
+//    hierarchy. Its function traversal is bottom-up.
+// 3. 1800.2-2020 13.1.4.1.3
+//    (UVM-COMPONENT-AUDIT-COMMON-END-OF-ELABORATION-DISPATCH) gives rule 3
+//    above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: The common end_of_elaboration phase invokes the
+//    matching component method between its phase callbacks in the selected
+//    hierarchy. Its function traversal is bottom-up.
+// 4. 1800.2-2020 13.1.4.1.4
+//    (UVM-COMPONENT-AUDIT-COMMON-START-OF-SIMULATION-DISPATCH) gives rule 4
+//    above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: The common start_of_simulation phase invokes the
+//    matching component method between its phase callbacks in the selected
+//    hierarchy. Its function traversal is bottom-up.
+// 5. 1800.2-2020 13.1.4.1.5 (UVM-COMPONENT-AUDIT-COMMON-RUN-DISPATCH) gives
+//    rule 5 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The common run phase invokes the
+//    matching component method between its phase callbacks in the selected
+//    hierarchy.
+// 6. 1800.2-2020 13.1.4.1.6 (UVM-COMPONENT-AUDIT-COMMON-EXTRACT-DISPATCH)
+//    gives rule 6 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The common extract phase invokes the
+//    matching component method between its phase callbacks in the selected
+//    hierarchy. Its function traversal is bottom-up.
+// 7. 1800.2-2020 13.1.4.1.7 (UVM-COMPONENT-AUDIT-COMMON-CHECK-DISPATCH) gives
+//    rule 7 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The common check phase invokes the
+//    matching component method between its phase callbacks in the selected
+//    hierarchy. Its function traversal is bottom-up.
+// 8. 1800.2-2020 13.1.4.1.8 (UVM-COMPONENT-AUDIT-COMMON-REPORT-DISPATCH) gives
+//    rule 8 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The common report phase invokes the
+//    matching component method between its phase callbacks in the selected
+//    hierarchy. Its function traversal is bottom-up.
+// 9. 1800.2-2020 13.1.4.1.9 (UVM-COMPONENT-AUDIT-COMMON-FINAL-DISPATCH) gives
+//    rule 9 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The common final phase invokes the
+//    matching component method between its phase callbacks in the selected
+//    hierarchy. Its function traversal is top-down.
+// 10. 1800.2-2020 13.1.4.3.1 (UVM-COMPONENT-AUDIT-PHASE-START-CALLBACK) gives
+//     rule 10 above. Setup: Use the selected original concrete component
+//     subtypes, legal unique names, declared public types and linked
+//     observations. Construct the hierarchy before phasing where phase
+//     callbacks are observed. Expected: The selected common and run-time phase
+//     start callbacks identify their phase before its component method.
+// 11. 1800.2-2020 13.1.4.3.3 (UVM-COMPONENT-AUDIT-PHASE-END-CALLBACK) gives
+//     rule 11 above. Setup: Use the selected original concrete component
+//     subtypes, legal unique names, declared public types and linked
+//     observations. Construct the hierarchy before phasing where phase
+//     callbacks are observed. Expected: The selected common and run-time phase
+//     end callbacks identify their phase after its component method.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction;
   import uvm_pkg::*;
   string traces[string];

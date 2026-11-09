@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_agent_activity_defaults_to_active_for_independent_instances.expected
 */
+// What it checks:
+// 1. An agent with no configuration override reports UVM_ACTIVE by default.
+// 2. The active/passive enum supplies the named activity designators used by
+//    typed agent configuration and status.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.4.2.2 (UVM-AGENT-DEFAULT-ACTIVE) gives rule 1 above.
+//    Setup: Construct two independent derived agents without configuring
+//    is_active. Expected: Both status queries return UVM_ACTIVE.
+// 2. 1800.2-2020 F.2.1.7 (UVM-PKG-ACTIVE-PASSIVE-DESIGNATORS-89) gives rule 2
+//    above. Setup: Reuse unchanged already-measured tests that explicitly cite
+//    F.2.1.7. One configures two independent agents using the enum type and
+//    opposite named values;the other observes active defaults in independent
+//    agents. Current source fingerprints and the pinned ordinary configuration
+//    remain compatible. Expected: The typed passive/active selections and
+//    separate active defaults retain their selected enum status.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Configure children before their build callbacks run. No driver is needed
 // to inspect agent activity; the status API itself is the observation.
 module test_agent_activity_defaults_to_active_for_independent_instances;

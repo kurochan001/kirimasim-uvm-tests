@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_component_run_phase_return_does_not_end_an_objection_held_phase.expected
 */
+// What it checks:
+// 1. A returned component run task does not end a phase held by another
+//    component objection.
+// 2. The component phase interface separates objection-controlled phase
+//    lifetime from task return and ends selected task processes with the
+//    phase.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.4.1.5 (UVM-COMPONENT-EXT-COMMON-RETURN-NOT-END) gives
+//    rule 1 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: A returned component
+//    run task does not end a phase held by another component objection.
+// 2. 1800.2-2020 13.1.4 (UVM-COMPONENT-EXT-TASK-LIFETIME-INTERFACE) gives rule
+//    2 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The component phase
+//    interface separates objection-controlled phase lifetime from task return
+//    and ends selected task processes with the phase.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_run_phase_return_does_not_end_an_objection_held_phase;
   import uvm_pkg::*;
   class returned_worker extends uvm_component;

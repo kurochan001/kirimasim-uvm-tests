@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_component_disabled_automatic_config_preserves_explicit_application.expected
 */
+// What it checks:
+// 1. An override returning zero disables automatic configuration application.
+// 2. Disabling automatic build application preserves explicit application.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.5.2 (UVM-COMPONENT-AUTOMATIC-CONFIG-DISABLE-OVERRIDE)
+//    gives rule 1 above. Setup: Override the query and count virtual apply
+//    calls during build. Expected: The query returns zero and build makes no
+//    apply call.
+// 2. 1800.2-2020 13.1.5.1 (UVM-COMPONENT-CONFIG-DISABLED-MANUAL-APPLICATION)
+//    gives rule 2 above. Setup: Call the overridden application method after a
+//    disabled build. Expected: The count moves from zero to one with default
+//    verbosity zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_disabled_automatic_config_preserves_explicit_application;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

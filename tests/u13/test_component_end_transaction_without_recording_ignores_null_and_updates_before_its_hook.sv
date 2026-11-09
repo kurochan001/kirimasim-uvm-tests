@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_component_end_transaction_without_recording_ignores_null_and_updates_before_its_hook.expected
 */
+// What it checks:
+// 1. Component end ignores null without invoking its hook.
+// 2. Component end updates the transaction end time before the component hook.
+// 3. Component post-end receives the original transaction and a zero handle
+//    when recording is disabled.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.5 (UVM-COMPONENT-END-NULL-GUARD) gives rule 1 above.
+//    Setup: Call end with null after starting a separate transaction.
+//    Expected: The end-hook count remains zero.
+// 2. 1800.2-2020 13.1.7.5 (UVM-COMPONENT-END-TRANSACTION-FORWARDING) gives
+//    rule 2 above. Setup: End a recording-disabled transaction at time 29
+//    after begin 23. Expected: Transaction and hook times are 29 and the
+//    transaction becomes inactive without recording properties.
+// 3. 1800.2-2020 13.1.7.6 (UVM-COMPONENT-POST-END-DISABLED-HOOK) gives rule 3
+//    above. Setup: End one transaction with component recording off. Expected:
+//    One hook receives the original transaction, time 29 and handle zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use local in-memory recording hooks, explicit timestamps and named objects.
 // No external database format, vendor attributes, events or DPI are observed.
 module test_component_end_transaction_without_recording_ignores_null_and_updates_before_its_hook;

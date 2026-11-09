@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant.expected
 */
+// What it checks:
+// 1. An ended runtime phase kills its selected unreturned component task.
+// 2. An ended runtime phase kills the selected descendant forked by its
+//    component task.
+// 3. The component phase interface separates objection-controlled phase
+//    lifetime from task return and ends selected task processes with the
+//    phase.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.4.2 (UVM-COMPONENT-EXT-RUNTIME-TASK-KILL) gives rule 1
+//    above. Setup: Use the linked original fixtures and their explicit public
+//    phase, factory or hierarchy calls. Preserve the declared original types,
+//    scope, arguments and expected observations; no private implementation
+//    state supplies an oracle. Expected: An ended runtime phase kills its
+//    selected unreturned component task.
+// 2. 1800.2-2020 13.1.4.2 (UVM-COMPONENT-EXT-RUNTIME-DESCENDANT-KILL) gives
+//    rule 2 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: An ended runtime phase
+//    kills the selected descendant forked by its component task.
+// 3. 1800.2-2020 13.1.4 (UVM-COMPONENT-EXT-TASK-LIFETIME-INTERFACE) gives rule
+//    3 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The component phase
+//    interface separates objection-controlled phase lifetime from task return
+//    and ends selected task processes with the phase.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

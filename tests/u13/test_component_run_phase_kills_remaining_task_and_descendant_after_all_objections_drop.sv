@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_component_run_phase_kills_remaining_task_and_descendant_after_all_objections_drop.expected
 */
+// What it checks:
+// 1. The common run phase can end without its selected task returning and
+//    kills its later write.
+// 2. The ended common run phase kills its selected task descendant instead of
+//    permitting later counter updates.
+// 3. The component phase interface separates objection-controlled phase
+//    lifetime from task return and ends selected task processes with the
+//    phase.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.4.1.5 (UVM-COMPONENT-EXT-COMMON-TASK-KILL) gives rule 1
+//    above. Setup: Use the linked original fixtures and their explicit public
+//    phase, factory or hierarchy calls. Preserve the declared original types,
+//    scope, arguments and expected observations; no private implementation
+//    state supplies an oracle. Expected: The common run phase can end without
+//    its selected task returning and kills its later write.
+// 2. 1800.2-2020 13.1.4.1.5 (UVM-COMPONENT-EXT-COMMON-DESCENDANT-KILL) gives
+//    rule 2 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The ended common run
+//    phase kills its selected task descendant instead of permitting later
+//    counter updates.
+// 3. 1800.2-2020 13.1.4 (UVM-COMPONENT-EXT-TASK-LIFETIME-INTERFACE) gives rule
+//    3 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The component phase
+//    interface separates objection-controlled phase lifetime from task return
+//    and ends selected task processes with the phase.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_run_phase_kills_remaining_task_and_descendant_after_all_objections_drop;
   import uvm_pkg::*;
   class lifetime_worker extends uvm_component;

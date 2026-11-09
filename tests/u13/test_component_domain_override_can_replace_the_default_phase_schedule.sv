@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_component_domain_override_can_replace_the_default_phase_schedule.expected
 */
+// What it checks:
+// An original define_domain override can replace the inherited schedule
+// through a component base view.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.1.4.4.3 (UVM-COMPONENT-AUDIT-DOMAIN-OVERRIDE-REPLACE) gives
+// the rule above. Setup: Use the selected original concrete component
+// subtypes, legal unique names, declared public types and linked observations.
+// Construct the hierarchy before phasing where phase callbacks are observed.
+// Expected: An original define_domain override can replace the inherited
+// schedule through a component base view.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_domain_override_can_replace_the_default_phase_schedule;
   import uvm_pkg::*;
   class custom_actor extends uvm_component;

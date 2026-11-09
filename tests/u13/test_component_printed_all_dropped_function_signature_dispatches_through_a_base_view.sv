@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_component_printed_all_dropped_function_signature_dispatches_through_a_base_view.expected
 */
+// What it checks:
+// The printed component all_dropped function declaration supports its selected
+// nonblocking override and function caller.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.1.6.3 (UVM-COMPONENT-EXT-PRINTED-ALL-DROPPED-FUNCTION) gives
+// the rule above. Setup: Use the linked original fixtures and their explicit
+// public phase, factory or hierarchy calls. Preserve the declared original
+// types, scope, arguments and expected observations; no private implementation
+// state supplies an oracle. Expected: The printed component all_dropped
+// function declaration supports its selected nonblocking override and function
+// caller.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_printed_all_dropped_function_signature_dispatches_through_a_base_view;
   import uvm_pkg::*;
   class hook_actor extends uvm_component;

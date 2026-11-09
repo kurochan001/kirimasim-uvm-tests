@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_component_recording_database_selection_is_local_and_preserves_the_core_default.expected
 */
+// What it checks:
+// 1. An unconfigured component returns the core service default recording
+//    database.
+// 2. An explicit component recording database does not replace peers or the
+//    core default.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.7.12 (UVM-COMPONENT-RECORDING-DATABASE-DEFAULT) gives
+//    rule 1 above. Setup: Query two fresh components and the core default.
+//    Expected: Both component handles equal the exact default database.
+// 2. 1800.2-2020 13.1.7.11 (UVM-COMPONENT-RECORDING-DATABASE-SELECTION) gives
+//    rule 2 above. Setup: Assign one local database to the first component.
+//    Expected: The first returns the assigned handle while its peer and core
+//    retain the default.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use local in-memory recording hooks, explicit timestamps and named objects.
 // No external database format, vendor attributes, events or DPI are observed.
 module test_component_recording_database_selection_is_local_and_preserves_the_core_default;

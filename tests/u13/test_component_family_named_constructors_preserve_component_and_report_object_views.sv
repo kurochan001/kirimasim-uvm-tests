@@ -12,6 +12,111 @@
 :expected_exit: 0
 :expected_stdout: @test_component_family_named_constructors_preserve_component_and_report_object_views.expected
 */
+// What it checks:
+// 1. A concrete component subtype is usable through uvm_report_object.
+// 2. The component constructor preserves its selected legal leaf name.
+// 3. A new component is registered under its supplied parent with the same
+//    handle.
+// 4. A legal concrete uvm_test subtype retains the component base.
+// 5. The uvm_test constructor preserves its explicit name and component
+//    parent.
+// 6. A legal concrete uvm_env subtype retains the component base.
+// 7. The uvm_env constructor preserves its explicit name and component parent.
+// 8. A legal concrete uvm_agent subtype retains the component base.
+// 9. The uvm_agent constructor preserves its explicit name and component
+//    parent.
+// 10. A legal concrete uvm_monitor subtype retains the component base.
+// 11. The uvm_monitor constructor preserves its explicit name and component
+//     parent.
+// 12. A legal concrete uvm_scoreboard subtype retains the component base.
+// 13. The uvm_scoreboard constructor preserves its explicit name and component
+//     parent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.1 (UVM-COMPONENT-AUDIT-REPORT-BASE-TYPE) gives rule 1
+//    above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: A concrete component subtype is usable through
+//    uvm_report_object.
+// 2. 1800.2-2020 13.1.2.1 (UVM-COMPONENT-AUDIT-CONSTRUCTOR-NAME) gives rule 2
+//    above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: The component constructor preserves its selected
+//    legal leaf name.
+// 3. 1800.2-2020 13.1.2.1 (UVM-COMPONENT-AUDIT-CONSTRUCTOR-CHILD-INSERTION)
+//    gives rule 3 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: A new component is registered under its
+//    supplied parent with the same handle.
+// 4. 1800.2-2020 13.2.1 (UVM-COMPONENT-AUDIT-TEST-COMPONENT-BASE) gives rule 4
+//    above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: A legal concrete uvm_test subtype retains the
+//    component base.
+// 5. 1800.2-2020 13.2.2 (UVM-COMPONENT-AUDIT-TEST-NAMED-CONSTRUCTOR) gives
+//    rule 5 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The uvm_test constructor preserves its
+//    explicit name and component parent.
+// 6. 1800.2-2020 13.3.1 (UVM-COMPONENT-AUDIT-ENV-COMPONENT-BASE) gives rule 6
+//    above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: A legal concrete uvm_env subtype retains the
+//    component base.
+// 7. 1800.2-2020 13.3.2 (UVM-COMPONENT-AUDIT-ENV-NAMED-CONSTRUCTOR) gives rule
+//    7 above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: The uvm_env constructor preserves its explicit name
+//    and component parent.
+// 8. 1800.2-2020 13.4.1 (UVM-COMPONENT-AUDIT-AGENT-COMPONENT-BASE) gives rule
+//    8 above. Setup: Use the selected original concrete component subtypes,
+//    legal unique names, declared public types and linked observations.
+//    Construct the hierarchy before phasing where phase callbacks are
+//    observed. Expected: A legal concrete uvm_agent subtype retains the
+//    component base.
+// 9. 1800.2-2020 13.4.2.1 (UVM-COMPONENT-AUDIT-AGENT-NAMED-CONSTRUCTOR) gives
+//    rule 9 above. Setup: Use the selected original concrete component
+//    subtypes, legal unique names, declared public types and linked
+//    observations. Construct the hierarchy before phasing where phase
+//    callbacks are observed. Expected: The uvm_agent constructor preserves its
+//    explicit name and component parent.
+// 10. 1800.2-2020 13.5.1 (UVM-COMPONENT-AUDIT-MONITOR-COMPONENT-BASE) gives
+//     rule 10 above. Setup: Use the selected original concrete component
+//     subtypes, legal unique names, declared public types and linked
+//     observations. Construct the hierarchy before phasing where phase
+//     callbacks are observed. Expected: A legal concrete uvm_monitor subtype
+//     retains the component base.
+// 11. 1800.2-2020 13.5.2 (UVM-COMPONENT-AUDIT-MONITOR-NAMED-CONSTRUCTOR) gives
+//     rule 11 above. Setup: Use the selected original concrete component
+//     subtypes, legal unique names, declared public types and linked
+//     observations. Construct the hierarchy before phasing where phase
+//     callbacks are observed. Expected: The uvm_monitor constructor preserves
+//     its explicit name and component parent.
+// 12. 1800.2-2020 13.6.1 (UVM-COMPONENT-AUDIT-SCOREBOARD-COMPONENT-BASE) gives
+//     rule 12 above. Setup: Use the selected original concrete component
+//     subtypes, legal unique names, declared public types and linked
+//     observations. Construct the hierarchy before phasing where phase
+//     callbacks are observed. Expected: A legal concrete uvm_scoreboard
+//     subtype retains the component base.
+// 13. 1800.2-2020 13.6.2 (UVM-COMPONENT-AUDIT-SCOREBOARD-NAMED-CONSTRUCTOR)
+//     gives rule 13 above. Setup: Use the selected original concrete component
+//     subtypes, legal unique names, declared public types and linked
+//     observations. Construct the hierarchy before phasing where phase
+//     callbacks are observed. Expected: The uvm_scoreboard constructor
+//     preserves its explicit name and component parent.
+// It also supports, as a control, the setup or conditions of
+// UVM-COMPONENT-AUDIT-TEST-ABSTRACT, UVM-COMPONENT-AUDIT-ENV-ABSTRACT,
+// UVM-COMPONENT-AUDIT-AGENT-ABSTRACT, UVM-COMPONENT-AUDIT-MONITOR-ABSTRACT,
+// UVM-COMPONENT-AUDIT-SCOREBOARD-ABSTRACT.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_family_named_constructors_preserve_component_and_report_object_views;
   import uvm_pkg::*;
   class actor extends uvm_component;

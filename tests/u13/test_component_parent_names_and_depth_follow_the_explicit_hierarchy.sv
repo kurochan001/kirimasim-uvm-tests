@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_component_parent_names_and_depth_follow_the_explicit_hierarchy.expected
 */
+// What it checks:
+// 1. A component parent query returns its actual hierarchy parent.
+// 2. A component full name composes its parent path and local name with dots.
+// 3. Component depth counts levels from the implicit root at depth zero.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.3.1 (UVM-COMPONENT-PARENT-HANDLE) gives rule 1 above.
+//    Setup: Create two branches with identically named leaves. Expected: Each
+//    branch and leaf returns the configured parent handle.
+// 2. 1800.2-2020 13.1.3.2 (UVM-COMPONENT-FULL-NAME) gives rule 2 above. Setup:
+//    Use top, left/right branches and repeated slot leaf names. Expected: Full
+//    names include the parent chain and distinguish the equal local leaf
+//    names.
+// 3. 1800.2-2020 13.1.3.8 (UVM-COMPONENT-HIERARCHY-DEPTH) gives rule 3 above.
+//    Setup: Inspect root, top, branch and leaf nodes. Expected: The observed
+//    depths are zero, one, two and three.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit names and handles make hierarchy membership observable. No traversal
 // order is imposed, and hierarchy changes occur before each fresh iteration.
 module test_component_parent_names_and_depth_follow_the_explicit_hierarchy;

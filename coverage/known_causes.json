@@ -2866,7 +2866,7 @@
     },
     {
       "test": "u13/test_component_config_application_matches_scope_and_passes_exact_resource",
-      "inputs_sha256": "85ca31bb85bd8f6500ae5be4f4a65abfbf2b5c6b25f1fe9ba95344622c53a6da",
+      "inputs_sha256": "fb7fe16e8c1a3663ac3e3444e11f8000bf9f83500d89910cfdcc22d654934e6e",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2901,7 +2901,7 @@
     },
     {
       "test": "u13/test_component_config_disabled_user_hook_skips_set_local_for_one_application",
-      "inputs_sha256": "8f66904e471743bfaf5fb5275568bf4c6083a1ee5de62446ce3926d426d134fb",
+      "inputs_sha256": "af6589d14599b1167ff8225790cb5dd6cc68aefc2851fb6640dbf686f28e820d",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2936,7 +2936,7 @@
     },
     {
       "test": "u13/test_component_free_recording_stream_invalidates_only_its_cached_pair",
-      "inputs_sha256": "84d286c42a2993fbf09d3886ec38baf78f8f000d09e8bd8ce948afba695ac7a2",
+      "inputs_sha256": "544c560fa0915d3dc57071e677abe6d0056c895cb0ae508f02ba35bbbbb5045a",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2962,7 +2962,7 @@
     },
     {
       "test": "u13/test_component_phase_callback_threads_survive_their_runtime_phase_end",
-      "inputs_sha256": "67a2c1a97e4b2532353b0137d17ba931a24d6e811cf0b11ce94120c1a9def8c4",
+      "inputs_sha256": "0fac98783bf4cf4fffd38992a79fdcd2408ff12bc389ba2937d7072c50d449b3",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2993,7 +2993,7 @@
     },
     {
       "test": "u13/test_component_printed_all_dropped_function_signature_dispatches_through_a_base_view",
-      "inputs_sha256": "38cd0fc878c86807c438de6c5b91303612551dfc902724a07faf091dfe987eba",
+      "inputs_sha256": "f9a99eb40ac1c9b4f346b6aaca2cec650ff65fd2742c184666750d70570f0bbf",
       "kind": "build",
       "cause": "interpretation",
       "evidence": {
@@ -3025,7 +3025,7 @@
     },
     {
       "test": "u13/test_component_run_phase_kills_remaining_task_and_descendant_after_all_objections_drop",
-      "inputs_sha256": "f2e7474ff78e9c31feade85ca645c6ffda6f945ac036e3e60cb979419c80c7eb",
+      "inputs_sha256": "d30d40baf0c5b3de5049ecb2ec7b336e413511e12c7933fcf521fe67703b24bd",
       "kind": "runtime",
       "cause": "simulator",
       "evidence": {
@@ -3043,7 +3043,7 @@
     },
     {
       "test": "u13/test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant",
-      "inputs_sha256": "2560b00cd6b1235bcf26c76d5ba345c06f682329c01ce69de6eac2c1a0201aa8",
+      "inputs_sha256": "b60643c874c49d386824d14e98e152ed9164abc31a115b57f0b5426280cee829",
       "kind": "runtime",
       "cause": "simulator",
       "evidence": {
@@ -3061,7 +3061,7 @@
     },
     {
       "test": "u13/test_component_strict_config_application_matches_scope_and_passes_exact_resource",
-      "inputs_sha256": "6f8e10cda7ac715ab259729ed547b0be7456f040eba34cd1abc9f59eef41e7b7",
+      "inputs_sha256": "e3b7497b8ade94b57f89085441d5167bd7749d14c9c85540a9de3ff2980616b0",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -3095,7 +3095,7 @@
     },
     {
       "test": "u13/test_component_strict_config_disabled_user_hook_skips_set_local_for_one_application",
-      "inputs_sha256": "64b4c110c39fd30d4cb1244bf0467a0687e80c500781af2182a470347d1a65da",
+      "inputs_sha256": "6d3488356e74e32072545e4a2ebb78b93dac4c8b98f3114758dbc72f5f3a2ff7",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -3129,7 +3129,7 @@
     },
     {
       "test": "u13/test_subscriber_concrete_subclass_must_implement_write",
-      "inputs_sha256": "6411988f6a2bec5f188583dfa199dcb1a66da184d98e2f56be119ec5a33dd600",
+      "inputs_sha256": "ae6a66d44807d2a5c9e1291f04fec4c0ff6448bb21b70fbf1cba7199509cba89",
       "kind": "accepted-illegal",
       "cause": "simulator",
       "evidence": {

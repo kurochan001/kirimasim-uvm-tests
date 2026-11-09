@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_agent_activity_accepts_independent_string_configuration_before_build.expected
 */
+// What it checks:
+// Agent activity supports independent valid string configuration values before
+// build.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.4.2.2 (UVM-COMPONENT-AUDIT-AGENT-STRING-ACTIVITY) gives the
+// rule above. Setup: Use the selected original concrete component subtypes,
+// legal unique names, declared public types and linked observations. Construct
+// the hierarchy before phasing where phase callbacks are observed. Expected:
+// Agent activity supports independent valid string configuration values before
+// build.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_agent_activity_accepts_independent_string_configuration_before_build;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

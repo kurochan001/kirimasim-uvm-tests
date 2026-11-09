@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_component_child_iteration_preserves_empty_and_exhausted_name_cursors.expected
 */
+// What it checks:
+// 1. Direct child lookup returns the named immediate child or null for an
+//    absent direct name.
+// 2. Child iteration preserves the name when empty or exhausted and advances
+//    within the selected parent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 13.1.3.4 (UVM-COMPONENT-DIRECT-CHILD-HANDLE) gives rule 1
+//    above. Setup: Query local child names on both branches and an absent
+//    name. Expected: Returned handles identify the correct branch-local child;
+//    an absent child returns null.
+// 2. 1800.2-2020 13.1.3.4 (UVM-COMPONENT-CHILD-ITERATION-CURSOR) gives rule 2
+//    above. Setup: Inspect empty/singleton boundaries and interleave two
+//    parent traversals. Expected: Sentinel/final names survive zero returns
+//    and each parent yields its own two members once.
+// It also supports, as a control, the setup or conditions of
+// UVM-ABSTRACT-COMPONENT-DIRECT-CONSTRUCTION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit names and handles make hierarchy membership observable. No traversal
 // order is imposed, and hierarchy changes occur before each fresh iteration.
 module test_component_child_iteration_preserves_empty_and_exhausted_name_cursors;
