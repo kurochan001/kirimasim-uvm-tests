@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_killing_one_sequence_preserves_other_response_route.expected
 */
+// What it checks:
+// Killing one response route leaves another active sequence able to receive
+// its own reply.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.5.2.9 (UVM-RESPONSE-KILLED-ROUTE-ISOLATION) gives the rule
+// above. Setup: Kill first after both requests complete, submit its stale
+// response then the survivor response. Expected: The stale response warns,
+// first is STOPPED and the survivor finishes with exact reply handle and
+// payload 99.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Keep two sequences active after completing their requests. Kill only
 // the first, submit a stale reply for it, then deliver the second reply.
 // The survivor must receive its own handle and payload normally.

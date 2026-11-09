@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_arbitration_modes_default_and_update_per_instance.expected
 */
+// What it checks:
+// The arbitration query defaults to FIFO and returns the current per-sequencer
+// mode.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.18 (UVM-SEQUENCER-ARBITRATION-MODE-QUERY) gives the rule
+// above. Setup: Change one instance to strict FIFO and another to random
+// without issuing requests. Expected: Initial modes are FIFO and later
+// settings remain independent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect configured modes only. Random mode selection is not executed
 // and no ordering among simultaneous requests is assumed.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_fifo_lock_does_not_overtake_earlier_pending_item.expected
 */
+// What it checks:
+// Lock requests participate in ordinary request arbitration order.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.10 (UVM-SEQUENCER-LOCK-FIFO-REQUEST-POSITION) gives the
+// rule above. Setup: Queue an ordinary item before a lock under FIFO
+// arbitration. Expected: The earlier request 22 precedes lock-owner request
+// 11.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Queue an ordinary request before requesting a lock, then start the
 // driver. Under FIFO arbitration the earlier request must precede the
 // lock owner. The pinned library bypasses it; keep the normative order.

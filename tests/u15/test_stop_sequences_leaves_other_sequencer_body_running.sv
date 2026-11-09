@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_stop_sequences_leaves_other_sequencer_body_running.expected
 */
+// What it checks:
+// Stopping one sequencer leaves a body on an independent sequencer running.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.14 (UVM-SEQUENCER-STOP-PEER-ISOLATION) gives the rule
+// above. Setup: Start one delayed body on each of two sequencers and stop only
+// first. Expected: First stops with no late write while peer stays in BODY and
+// later finishes naturally with its write.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Run independent bodies on two sequencers. Stop only one, inspect
 // the other while still in its body, then allow it to finish naturally.
 // The selected body must never reach its delayed write.

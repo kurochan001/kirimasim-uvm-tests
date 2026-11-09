@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_and_sequence_current_item_clear_after_item_done.expected
 */
+// What it checks:
+// 1. Current-item queries retain a request from get_next_item or peek until
+//    item_done or get completes it.
+// 2. The sequence current-item query returns the exact request currently held
+//    by its sequencer.
+// 3. The sequence current-item query returns null when its sequencer is not
+//    executing an item.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.4.1 (UVM-SEQUENCER-CURRENT-ITEM-LIFETIME) gives rule 1
+//    above. Setup: Observe idle, held and completed requests through sequencer
+//    and sequence queries. Expected: Idle/completed queries are null; held
+//    queries identify the request and repeated peeks leave it current.
+// 2. 1800.2-2020 14.3.3.2 (UVM-SEQUENCE-CURRENT-ITEM-ACTIVE-HANDLE) gives rule
+//    2 above. Setup: Existing fixtures hold a request through get_next_item or
+//    peek before acknowledging/consuming it. Expected: Both public
+//    current-item views identify the held request.
+// 3. 1800.2-2020 14.3.3.2 (UVM-SEQUENCE-CURRENT-ITEM-IDLE-NULL) gives rule 3
+//    above. Setup: Existing fixtures query the bound idle sequencer and query
+//    again after item_done or get. Expected: The sequence-side query is null
+//    before a request and after the tested completion operations.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Query both public current-item APIs before a request, while its driver
 // holds it, and after acknowledgement. Do not inspect internal FIFOs.
 // Associate the sequence with the idle sequencer before its initial query.

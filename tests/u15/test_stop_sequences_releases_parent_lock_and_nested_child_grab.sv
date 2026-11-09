@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_stop_sequences_releases_parent_lock_and_nested_child_grab.expected
 */
+// What it checks:
+// Stopping removes both parent locks and nested child grabs.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.14 (UVM-SEQUENCER-STOP-OWNERSHIP-CLEAR) gives the rule
+// above. Setup: Acquire a parent lock and child grab before stopping their
+// active tree. Expected: Both nodes stop and no lock/grab or current owner
+// remains.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Let a child grab beneath its parent lock before stopping the tree.
 // Check both ownership and the current owner become empty; neither body
 // can reach its ordinary release calls.

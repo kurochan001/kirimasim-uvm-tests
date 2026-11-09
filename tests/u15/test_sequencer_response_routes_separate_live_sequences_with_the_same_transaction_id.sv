@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_response_routes_separate_live_sequences_with_the_same_transaction_id.expected
 */
+// What it checks:
+// Responses are routed to their originating live sequence, not merely by
+// transaction ID.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.5.2.9 (UVM-SEQUENCER-LIVE-RESPONSE-ISOLATION) gives the rule
+// above. Setup: Two live sequences wait with equal transaction IDs; send the
+// second sequence reply first. Expected: Only the intended receiver wakes, and
+// both eventually receive their original handles/data.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Request arrival order is unconstrained; payloads identify the two origins.
 // Both receivers are blocked before the second response is sent first.
 module test_sequencer_response_routes_separate_live_sequences_with_the_same_transaction_id;

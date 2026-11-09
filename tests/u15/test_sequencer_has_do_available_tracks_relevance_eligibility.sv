@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_has_do_available_tracks_relevance_eligibility.expected
 */
+// What it checks:
+// has_do_available requires pending work to be unblocked and relevant.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.17 (UVM-SEQUENCER-AVAILABLE-LOCK-AND-RELEVANCE) gives the
+// rule above. Setup: Gate a pending worker with a lock or relevance bit, then
+// open the gate and consume it. Expected: Availability changes zero/one/zero
+// and the worker value 22 is delivered and completed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Queue a request before the driver starts. Observe availability while
 // it is ineligible and immediately after opening its gate. The driver
 // then consumes the request, leaving no available work.

@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_zero_request_history_keeps_delivery_and_can_be_reenabled.expected
 */
+// What it checks:
+// 1. The history capacity query reports the configured size independently for
+//    each sequencer.
+// 2. Zero history capacity preserves item delivery and can be changed to
+//    retain later items.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.3.3.2.2 (UVM-REQUEST-HISTORY-CAPACITY-QUERY) gives rule 1
+//    above. Setup: Observe default capacity one and transition a separate
+//    history from zero to two during traffic. Expected: Queries report one for
+//    independent peers and zero/two for the changed history.
+// 2. 1800.2-2020 15.3.3.2.1 (UVM-REQUEST-ZERO-HISTORY-TRAFFIC-AND-REENABLE)
+//    gives rule 2 above. Setup: Transfer two items with zero capacity, then
+//    three with capacity two. Expected: Traffic counters advance two then
+//    five, delivery retains exact handles and the final two-item window is
+//    newest-first.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_zero_request_history_keeps_delivery_and_can_be_reenabled;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

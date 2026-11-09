@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_last_item_buffer_sizes_default_and_update_independently.expected
 */
+// What it checks:
+// 1. Request-history capacity defaults to one, accepts in-range settings and
+//    clamps oversized settings to 1024 with a warning.
+// 2. Response-history capacity defaults to one, accepts in-range settings and
+//    clamps oversized settings to 1024 with a warning.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.3.3.2.1 (UVM-SEQUENCER-REQUEST-HISTORY-CAPACITY) gives
+//    rule 1 above. Setup: Set capacities three/zero independently and request
+//    2048 on another sequencer. Expected: Getters reflect local settings and
+//    the oversized request reports 1024 with an increased warning count.
+// 2. 1800.2-2020 15.3.4.2.2 (UVM-SEQUENCER-RESPONSE-HISTORY-CAPACITY) gives
+//    rule 2 above. Setup: Set capacities two/four independently and request
+//    4096 on another sequencer. Expected: Getters reflect local settings
+//    independently of request capacities; overflow yields 1024 and a warning.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use in-range buffer sizes including zero and inspect two separate
 // sequencers. This case does not claim to inspect buffer contents.
 

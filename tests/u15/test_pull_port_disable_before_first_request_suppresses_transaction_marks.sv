@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_pull_port_disable_before_first_request_suppresses_transaction_marks.expected
 */
+// What it checks:
+// 1. Disabling automatic recording before the first request suppresses
+//    automatic begin/end notifications.
+// 2. Disabling automatic recording leaves transaction timing under driver
+//    control.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.2.1.2.10 (UVM-SEQUENCER-AUDIT-DISABLE-EVENTS) gives rule 1
+//    above. Setup: Disable through the connected pull port before its first
+//    get_next_item, then complete a real positive-delay transfer. Expected:
+//    Traffic completes with the same item and disabled flag, while neither
+//    observer is invoked.
+// 2. 1800.2-2020 15.2.1 (UVM-SEQUENCER-AUDIT-DISABLE-TIMES) gives rule 2
+//    above. Setup: Disable through the connected pull port before its first
+//    get_next_item, then complete a real positive-delay transfer. Expected:
+//    With no explicit driver marks, both timestamps remain equal to their
+//    captured pre-traffic values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the named transaction-pool events through standard typed callbacks.
 // Creating observers does not certify initial event-pool membership. No record
 // handle value, database format, callback payload or sibling order is assumed.

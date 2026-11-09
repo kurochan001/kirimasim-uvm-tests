@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_interface_get_next_item_blocks_before_a_sequence_can_supply_its_first_item.expected
 */
+// What it checks:
+// get_next_item blocks before any sequence can supply an item and returns
+// after a real producer supplies it.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.2.1.2.1 (UVM-SQR-AUDIT-INTERFACE-GET-NEXT-BLOCKS) gives the
+// rule above. Setup: Use the selected original fixture, declared type
+// arguments, public endpoint/base views and linked stage observations.
+// Requests satisfy the grant precondition before send_request and response IDs
+// are copied from the actual request. Expected: get_next_item blocks before
+// any sequence can supply an item and returns after a real producer supplies
+// it.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_interface_get_next_item_blocks_before_a_sequence_can_supply_its_first_item;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

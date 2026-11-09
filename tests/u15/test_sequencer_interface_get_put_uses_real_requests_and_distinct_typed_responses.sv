@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_interface_get_put_uses_real_requests_and_distinct_typed_responses.expected
 */
+// What it checks:
+// 1. get returns the actual request and acknowledges it without an item_done
+//    call.
+// 2. put returns without advancing time even before the live issuing sequence
+//    starts its response waiter.
+// 3. put routes the exact typed response to the live issuing sequence.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.2.1.2.6 (UVM-SQR-AUDIT-INTERFACE-GET-ACK) gives rule 1
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: get returns the actual request
+//    and acknowledges it without an item_done call.
+// 2. 1800.2-2020 15.2.1.2.8 (UVM-SQR-AUDIT-INTERFACE-PUT-NONBLOCKING) gives
+//    rule 2 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: put returns without
+//    advancing time even before the live issuing sequence starts its response
+//    waiter.
+// 3. 1800.2-2020 15.2.1.2.8 (UVM-SQR-AUDIT-INTERFACE-PUT-RESPONSE) gives rule
+//    3 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: put routes the exact
+//    typed response to the live issuing sequence.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_interface_get_put_uses_real_requests_and_distinct_typed_responses;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

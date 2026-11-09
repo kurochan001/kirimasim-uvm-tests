@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_stop_sequences_cancels_queued_lock_and_grab_before_fresh_transfer.expected
 */
+// What it checks:
+// Sequencer stop removes active ownership and pending lock/grab requests
+// before new traffic.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.14 (UVM-SEQUENCER-STOP-PENDING-OWNERSHIP) gives the rule
+// above. Setup: Stop an owner plus blocked lock/grab waiters, then start a
+// fresh sequence through the driver. Expected: All stopped sequences stay
+// stopped, ownership clears and fresh payload 66 completes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Hold ownership before starting waiters. Positive delays prove they remain
 // blocked before cancellation. A real fresh transfer tests queue cleanup;
 // the fixture never inspects a sequencer's private arbitration queue.

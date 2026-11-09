@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_random_arbitration_delivers_each_pending_request_once.expected
 */
+// What it checks:
+// Random arbitration selects eligible pending requests without losing or
+// duplicating them.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.4.1 (UVM-SEQUENCER-RANDOM-REQUEST-MEMBERSHIP) gives the rule
+// above. Setup: Queue equal-priority values 11 and 22 and consume two items.
+// Expected: Both values occur once with sum 33 and both sequences finish,
+// without requiring order.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Separate request arrival times by one time unit and start the driver
 // after both requests have waited. Compare only the order prescribed by
 // the selected mode; random-mode output reports membership instead.

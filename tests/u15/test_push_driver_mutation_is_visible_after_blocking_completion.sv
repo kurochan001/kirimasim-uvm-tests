@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_push_driver_mutation_is_visible_after_blocking_completion.expected
 */
+// What it checks:
+// Push sequencing completes finish_item only after the driver blocking put
+// returns.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.6.3.3 (UVM-PUSH-SEQUENCER-BLOCKING-COMPLETION) gives the rule
+// above. Setup: Delay inside driver put and optionally modify the original
+// request before returning. Expected: The producer is pending during put and
+// observes completed driver work and the original mutated request afterwards.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Mutate the request inside put before returning. The producer must see
 // the same handle and the completed mutation when finish_item returns.
 

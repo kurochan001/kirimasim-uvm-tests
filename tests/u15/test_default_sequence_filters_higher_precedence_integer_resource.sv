@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_filters_higher_precedence_integer_resource.expected
 */
+// What it checks:
+// Default selection filters unrelated resource types before applying
+// precedence.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-FILTER-WRONG-TYPES) gives the rule
+// above. Setup: Supply a higher-precedence integer or null plain-object
+// resource above a valid candidate. Expected: The valid instance or wrapper
+// runs once with its prescribed randomization hooks.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An integer resource at higher build precedence must be removed before
 // selection. The lower-precedence valid sequence instance is the default.
 

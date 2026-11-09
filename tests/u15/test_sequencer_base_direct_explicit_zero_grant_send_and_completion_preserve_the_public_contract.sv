@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_base_direct_explicit_zero_grant_send_and_completion_preserve_the_public_contract.expected
 */
+// What it checks:
+// Omitted and explicit-zero rerandomize flags preserve the original request
+// handle/value without randomization.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.20 (UVM-SQR-AUDIT-BASE-SEND-ZERO) gives the rule above.
+// Setup: Use the selected original fixture, declared type arguments, public
+// endpoint/base views and linked stage observations. Requests satisfy the
+// grant precondition before send_request and response IDs are copied from the
+// actual request. Expected: Omitted and explicit-zero rerandomize flags
+// preserve the original request handle/value without randomization.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_sequencer_base_direct_explicit_zero_grant_send_and_completion_preserve_the_public_contract;
   import uvm_pkg::*;

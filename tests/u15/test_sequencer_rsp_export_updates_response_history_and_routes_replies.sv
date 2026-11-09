@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_rsp_export_updates_response_history_and_routes_replies.expected
 */
+// What it checks:
+// 1. The sequencer response export accepts connected driver analysis responses
+//    for the requesting sequence.
+// 2. Response history preserves newest-first entries independently of sequence
+//    queue retrieval.
+// 3. The received-response counter counts replies received by the sequencer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.4.3.1 (UVM-SEQUENCER-ANALYSIS-RESPONSE-ROUTE) gives rule 1
+//    above. Setup: Write two correctly identified responses through the
+//    connected driver response port. Expected: The sequence receives two
+//    replies and sequencer history contains the latest two response values and
+//    IDs.
+// 2. 1800.2-2020 15.4.3.2 (UVM-SEQUENCER-RESPONSE-HISTORY-ORDER) gives rule 2
+//    above. Setup: Write and retrieve two responses, then inspect a two-entry
+//    history and a strictly oversized index. Expected: History retains
+//    payloads 22/11 and IDs 102/101 after retrieval; the oversized index is
+//    null.
+// 3. 1800.2-2020 15.3.4.1 (UVM-SEQUENCER-RESPONSE-RECEIVED-COUNT) gives rule 3
+//    above. Setup: Deliver two analysis replies and retrieve both from the
+//    sequence. Expected: The sequencer received count and sequence retrieved
+//    count are both two.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The driver analysis response port sends replies with copied request IDs.
 // Inspect history after retrieval without assuming response handle copying.
 

@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_interface_explicit_request_and_response_views_preserve_exact_identity.expected
 */
+// What it checks:
+// 1. An omitted interface response type follows its explicit request type.
+// 2. A legal interface subtype supports distinct request and response types
+//    derived from sequence items.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.2.1.1 (UVM-SQR-AUDIT-INTERFACE-DEFAULT-RESPONSE) gives
+//    rule 1 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: An omitted interface
+//    response type follows its explicit request type.
+// 2. 1800.2-2020 15.2.1.1 (UVM-SQR-AUDIT-INTERFACE-EXPLICIT-TYPES) gives rule
+//    2 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: A legal interface
+//    subtype supports distinct request and response types derived from
+//    sequence items.
+// It also supports, as a control, the setup or conditions of
+// UVM-SQR-AUDIT-UVM-SQR-IF-BASE-ABSTRACT.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_interface_explicit_request_and_response_views_preserve_exact_identity;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

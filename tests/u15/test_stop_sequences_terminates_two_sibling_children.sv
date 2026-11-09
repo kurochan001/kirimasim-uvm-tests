@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_stop_sequences_terminates_two_sibling_children.expected
 */
+// What it checks:
+// Stopping includes active child sequences throughout the selected hierarchy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.14 (UVM-SEQUENCER-STOP-ACTIVE-DESCENDANTS) gives the rule
+// above. Setup: Exercise parent/child, three-level and sibling-child active
+// trees. Expected: Every observed node is STOPPED with one kill and no late
+// write; parent start returns.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Keep all three bodies active in one sequencer hierarchy. Observe
 // only per-object stopped states, hook counts and late-write flags; no
 // sibling termination order or numerical sequence ID is prescribed.

@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_grab_can_be_released_with_unlock.expected
 */
+// What it checks:
+// 1. unlock removes a grab held by the specified sequence.
+// 2. is_grabbed indicates whether any sequence holds a lock or grab.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.3.2.12 (UVM-SEQUENCER-UNLOCK-RELEASES-GRAB) gives rule 1
+//    above. Setup: Grab with one bound sequence and release it through
+//    sequencer unlock. Expected: Ownership/blocking flags clear and no current
+//    grabber remains.
+// 2. 1800.2-2020 15.3.2.15 (UVM-SEQUENCER-OWNERSHIP-PRESENCE-QUERY) gives rule
+//    2 above. Setup: Query held and released ownership through direct and
+//    nested cases. Expected: Held ownership reports one and final fully
+//    released ownership reports zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Bind both sequence objects to an idle sequencer. Inspect ownership
 // and blocking through sequence and sequencer APIs; no item arbitration
 // or running sequence body is needed to request these locks.

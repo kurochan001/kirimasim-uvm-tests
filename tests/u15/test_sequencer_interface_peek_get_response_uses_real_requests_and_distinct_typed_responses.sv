@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_interface_peek_get_response_uses_real_requests_and_distinct_typed_responses.expected
 */
+// What it checks:
+// 1. Repeated peek returns the same current request before get retrieves it.
+// 2. put_response routes the typed response to the sequence that issued the
+//    request.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.2.1.2.7 (UVM-SQR-AUDIT-INTERFACE-PEEK-CURRENT) gives rule
+//    1 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: Repeated peek returns
+//    the same current request before get retrieves it.
+// 2. 1800.2-2020 15.2.1.2.9 (UVM-SQR-AUDIT-INTERFACE-PUT-RESPONSE-FUNCTION)
+//    gives rule 2 above. Setup: Use the selected original fixture, declared
+//    type arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: put_response routes the
+//    typed response to the sequence that issued the request.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_interface_peek_get_response_uses_real_requests_and_distinct_typed_responses;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_push_sequencer_connects_typed_request_and_response_ports.expected
 */
+// What it checks:
+// 1. The typed push request port resolves to the driver blocking-put endpoint.
+// 2. The push sequencer constructor retains its configured component parent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.6.2 (UVM-PUSH-SEQUENCER-TYPED-ENDPOINTS) gives rule 1
+//    above. Setup: Connect a push sequencer and driver with distinct
+//    request/response types. Expected: Request and response ports each resolve
+//    to one endpoint.
+// 2. 1800.2-2020 15.6.3.2 (UVM-PUSH-SEQUENCER-CONSTRUCTOR-PARENT) gives rule 2
+//    above. Setup: Construct the typed sequencer and driver under a test
+//    component. Expected: Both hierarchy parent queries return the test
+//    component.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Connect distinct request and response types through the public push
 // ports. Check resolved endpoints and constructor hierarchy before traffic.
 

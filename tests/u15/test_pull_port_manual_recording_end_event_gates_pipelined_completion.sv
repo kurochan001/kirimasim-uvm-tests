@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_pull_port_manual_recording_end_event_gates_pipelined_completion.expected
 */
+// What it checks:
+// 1. The driver can release finish_item before modeled transaction completion.
+// 2. Explicit component end_tr notifies a sequence waiting on the item-pool
+//    end event.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.2.1 (UVM-SEQUENCER-AUDIT-PIPELINE-RELEASE) gives rule 1
+//    above. Setup: Disable automatic marks before first request; use component
+//    begin_tr, early item_done, then a distinct later component end_tr.
+//    Expected: After item_done the producer is released while its named
+//    end-event wait is still pending.
+// 2. 1800.2-2020 15.2.1 (UVM-SEQUENCER-AUDIT-PIPELINE-END) gives rule 2 above.
+//    Setup: Disable automatic marks before first request; use component
+//    begin_tr, early item_done, then a distinct later component end_tr.
+//    Expected: The later explicit end mark releases the producer; named
+//    begin/end callbacks occur once and timestamps match the selected driver
+//    times.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the named transaction-pool events through standard typed callbacks.
 // Creating observers does not certify initial event-pool membership. No record
 // handle value, database format, callback payload or sibling order is assumed.

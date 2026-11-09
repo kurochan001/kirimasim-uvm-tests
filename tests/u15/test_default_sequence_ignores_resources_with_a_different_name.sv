@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_ignores_resources_with_a_different_name.expected
 */
+// What it checks:
+// A differently named resource does not configure a phase default.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-REQUIRED-RESOURCE-NAME) gives the
+// rule above. Setup: Supply a valid instance at the correct scope under
+// other_name. Expected: No body or randomization hook runs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Place a valid sequence instance at the right phase scope but under a
 // different resource name. No default exists for the required name, so
 // neither a body nor randomization hooks may run.

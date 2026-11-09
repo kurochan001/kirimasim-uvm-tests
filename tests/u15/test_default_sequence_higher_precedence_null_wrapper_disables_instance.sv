@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_higher_precedence_null_wrapper_disables_instance.expected
 */
+// What it checks:
+// A selected null value explicitly disables the phase default.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-SELECTED-NULL-DISABLES) gives the
+// rule above. Setup: Place a higher-precedence null instance or null wrapper
+// above a valid opposite-type resource. Expected: No body or randomization
+// hook runs; selection does not fall through.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A selected null wrapper disables the default, just as a null sequence
 // resource does. It must not fall through to the lower valid instance.
 

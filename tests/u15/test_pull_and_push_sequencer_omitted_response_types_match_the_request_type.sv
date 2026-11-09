@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_pull_and_push_sequencer_omitted_response_types_match_the_request_type.expected
 */
+// What it checks:
+// 1. The omitted pull request type is uvm_sequence_item.
+// 2. The omitted pull response type follows the selected request type.
+// 3. The omitted push request type is uvm_sequence_item.
+// 4. The omitted push response type follows the selected request type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.5.1 (UVM-SQR-AUDIT-PULL-DEFAULT-REQUEST) gives rule 1
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: The omitted pull request type
+//    is uvm_sequence_item.
+// 2. 1800.2-2020 15.5.1 (UVM-SQR-AUDIT-PULL-DEFAULT-RESPONSE) gives rule 2
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: The omitted pull response type
+//    follows the selected request type.
+// 3. 1800.2-2020 15.6.1 (UVM-SQR-AUDIT-PUSH-DEFAULT-REQUEST) gives rule 3
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: The omitted push request type
+//    is uvm_sequence_item.
+// 4. 1800.2-2020 15.6.1 (UVM-SQR-AUDIT-PUSH-DEFAULT-RESPONSE) gives rule 4
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: The omitted push response type
+//    follows the selected request type.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_pull_and_push_sequencer_omitted_response_types_match_the_request_type;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

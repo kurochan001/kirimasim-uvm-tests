@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_is_killed_when_its_phase_ends.expected
 */
+// What it checks:
+// A default sequence still running at phase end is killed.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-PHASE-END-KILLS) gives the rule
+// above. Setup: Let its body outlast main and keep the run phase alive beyond
+// its planned finish. Expected: The sequence runs once, receives one kill,
+// becomes STOPPED and never reaches its delayed finish.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Let the default body outlive main without an automatic objection.
 // The test holds run beyond the original body delay, so a missing kill
 // cannot hide its delayed completion.

@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_interface_wait_for_sequences_stays_blocked_until_a_producer_is_available.expected
 */
+// What it checks:
+// The interface wait_for_sequences call waits until a producer becomes
+// available.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.2.1.2.4 (UVM-SQR-AUDIT-INTERFACE-WAIT-SEQUENCES) gives the
+// rule above. Setup: Use the selected original fixture, declared type
+// arguments, public endpoint/base views and linked stage observations.
+// Requests satisfy the grant precondition before send_request and response IDs
+// are copied from the actual request. Expected: The interface
+// wait_for_sequences call waits until a producer becomes available.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_interface_wait_for_sequences_stays_blocked_until_a_producer_is_available;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

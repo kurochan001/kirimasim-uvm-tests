@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_pull_port_custom_transaction_events_gate_address_and_data_completion.expected
 */
+// What it checks:
+// 1. A transaction pool can carry a custom intermediate driver notification.
+// 2. Separate custom transaction events can gate successive modeled execution
+//    stages.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.2.1 (UVM-SEQUENCER-AUDIT-CUSTOM-ADDRESS) gives rule 1
+//    above. Setup: With automatic marks disabled, create original
+//    address59/data59 pool entries and trigger them at separate positive times
+//    after the early acknowledgement. Expected: After item_done the producer
+//    waits; triggering address59 releases only its first gate.
+// 2. 1800.2-2020 15.2.1 (UVM-SEQUENCER-AUDIT-CUSTOM-DATA) gives rule 2 above.
+//    Setup: With automatic marks disabled, create original address59/data59
+//    pool entries and trigger them at separate positive times after the early
+//    acknowledgement. Expected: A distinct data59 trigger completes the
+//    producer after the address stage; no automatic begin/end callback occurs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the named transaction-pool events through standard typed callbacks.
 // Creating observers does not certify initial event-pool membership. No record
 // handle value, database format, callback payload or sibling order is assumed.

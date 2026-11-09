@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_stop_sequences_drops_automatic_objection_for_parent_and_child.expected
 */
+// What it checks:
+// Sequencer stopping drops automatic starting-phase objections for killed
+// active sequences.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.14 (UVM-SEQUENCER-STOP-AUTOMATIC-OBJECTION-DROP) gives
+// the rule above. Setup: Use isolated phase nodes with automatic objections on
+// one sequence or both parent/child. Expected: All initial counts are one and
+// become zero after stop, with stopped states and no late writes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Stopping sequences is defined through kill, which must drop the
 // automatic starting-phase objection. The pinned stop path bypasses the
 // root drop. Preserve counts as spec-only and clear the isolated objection

@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_stop_sequences_discards_held_request_and_accepts_fresh_item.expected
 */
+// What it checks:
+// Stopping removes a held request and allows fresh traffic on the same
+// sequencer.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.14 (UVM-SEQUENCER-STOP-HELD-REQUEST-FLUSH) gives the rule
+// above. Setup: Stop while the driver holds the old item and submit a fresh
+// sequence without acknowledging the old item. Expected: Old sequence
+// stops/returns with one kill, fresh item 22 completes and current item
+// becomes null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Stop while the driver holds the old request. Do not acknowledge that
 // flushed item; instead retrieve and acknowledge a newly started request
 // through the same port. Shared fork state belongs to the test object.

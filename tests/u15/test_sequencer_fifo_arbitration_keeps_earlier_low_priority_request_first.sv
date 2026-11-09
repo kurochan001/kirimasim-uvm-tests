@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_fifo_arbitration_keeps_earlier_low_priority_request_first.expected
 */
+// What it checks:
+// 1. FIFO arbitration grants requests in arrival order independent of their
+//    priorities.
+// 2. Selecting FIFO versus STRICT_FIFO changes which of the two
+//    unequal-priority pending requests is granted first.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.4.1 (UVM-SEQUENCER-FIFO-ARRIVAL-ARBITRATION) gives rule 1
+//    above. Setup: Reverse which lower-priority sequence arrives first in two
+//    fixtures. Expected: Orders are 11/22 and 22/11 respectively and both
+//    sequences complete.
+// 2. 1800.2-2020 15.3.2.19 (UVM-SQR-AUDIT-BASE-ARBITRATION-SET-EFFECT) gives
+//    rule 2 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: Selecting FIFO versus
+//    STRICT_FIFO changes which of the two unequal-priority pending requests is
+//    granted first.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Separate request arrival times by one time unit and start the driver
 // after both requests have waited. Compare only the order prescribed by
 // the selected mode; random-mode output reports membership instead.

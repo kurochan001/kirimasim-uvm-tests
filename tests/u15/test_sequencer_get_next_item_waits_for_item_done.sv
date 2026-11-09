@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_get_next_item_waits_for_item_done.expected
 */
+// What it checks:
+// A retrieved request remains pending until the driver acknowledges it with
+// item_done.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.5.2.3 (UVM-SEQUENCER-PULL-REQUEST-ACKNOWLEDGEMENT) gives the
+// rule above. Setup: Retrieve one request handle and wait a positive delay
+// before acknowledgement. Expected: The driver receives the original payload
+// 42; finish_item remains pending before acknowledgement and completes
+// afterwards.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Read the original request handle, wait a positive delay, and observe
 // that the sequence has not finished before item_done is called.
 

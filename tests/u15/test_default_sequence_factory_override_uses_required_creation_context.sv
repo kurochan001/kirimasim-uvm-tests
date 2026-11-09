@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_factory_override_uses_required_creation_context.expected
 */
+// What it checks:
+// Wrapper creation uses the standard sequencer path and wrapper type name as
+// factory context.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-FACTORY-CREATION-CONTEXT) gives the
+// rule above. Setup: Install an instance override at the required context and
+// configure the base wrapper. Expected: The derived instance executes and
+// completes exactly once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Install an instance override at the standard factory path: sequencer
 // full name followed by the supplied wrapper type name. The derived body
 // proves the default sequence used that creation context.

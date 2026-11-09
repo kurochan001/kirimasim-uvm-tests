@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_parent_lock_allows_child_items_before_unrelated_sequence.expected
 */
+// What it checks:
+// Parent ownership admits its child while child ownership can block the parent
+// and unrelated sequences.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.8 (UVM-SEQUENCER-PARENT-CHILD-BLOCKING) gives the rule
+// above. Setup: Use direct ancestry with nested ownership and real
+// parent/child item delivery. Expected: The child is eligible under its
+// parent, nested child ownership blocks the parent, and expected traffic
+// resumes after release.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A child sends an item under its parent lock without taking another
 // lock. The parent then sends its own item before releasing the unrelated
 // sequence. Observe real driver traffic rather than only eligibility bits.

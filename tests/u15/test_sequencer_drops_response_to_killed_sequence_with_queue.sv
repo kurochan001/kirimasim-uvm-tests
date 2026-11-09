@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_drops_response_to_killed_sequence_with_queue.expected
 */
+// What it checks:
+// Responses to killed/stopped sequences are dropped with warnings in either
+// response mode.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.5.2.9 (UVM-RESPONSE-STOPPED-DROP-HANDLER-QUEUE) gives the
+// rule above. Setup: Complete a real request, kill directly or stop its
+// sequencer and send a copied-ID late reply. Expected: State is STOPPED, a
+// warning occurs, no handler runs and bounded queue probes return nothing.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Copy IDs from a real request before retiring its sequence. A late
 // response must produce a warning and reach neither a queue nor a handler.
 // Queue probes are bounded and cancelled after observing non-completion;

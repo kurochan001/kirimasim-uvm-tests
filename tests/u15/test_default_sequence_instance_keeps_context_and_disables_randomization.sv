@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_instance_keeps_context_and_disables_randomization.expected
 */
+// What it checks:
+// A configured instance is started with sequencer/phase context and honors
+// disabled randomization.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-INSTANCE-CONTEXT-NO-RANDOMIZE)
+// gives the rule above. Setup: Configure the exact instance for main with
+// randomization disabled. Expected: That instance finishes once, sees the
+// configured sequencer/main phase and has zero randomization hooks.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Configure one sequence instance for main. Disable its automatic
 // randomization and inspect that same object after natural completion.
 // Phase objections keep observation independent of callback start order.

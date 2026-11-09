@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_drops_response_to_finished_sequence_with_queue.expected
 */
+// What it checks:
+// A response to a finished sequence is dropped with a warning.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.5.2.9 (UVM-RESPONSE-FINISHED-DROP) gives the rule above.
+// Setup: Complete a real request and its sequence, then submit a copied-ID
+// response in handler and queue modes. Expected: A warning is reported, no
+// handler runs and the bounded queue probe receives no reply.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Copy IDs from a real request before retiring its sequence. A late
 // response must produce a warning and reach neither a queue nor a handler.
 // Queue probes are bounded and cancelled after observing non-completion;

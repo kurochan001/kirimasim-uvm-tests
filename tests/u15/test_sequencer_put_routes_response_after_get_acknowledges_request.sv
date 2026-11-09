@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_put_routes_response_after_get_acknowledges_request.expected
 */
+// What it checks:
+// 1. put routes a correctly identified response after get has acknowledged its
+//    request.
+// 2. Concrete get supports the selected request/response transaction without a
+//    separate item_done call.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.5.2.8 (UVM-SEQUENCER-PUT-RESPONSE-AFTER-GET) gives rule 1
+//    above. Setup: Retrieve with get, copy routing IDs and send response
+//    payload 73 using sequencer put. Expected: The waiting sequence receives
+//    the original response handle, payload 73 and transaction ID 23.
+// 2. 1800.2-2020 15.5.2.6 (UVM-SQR-AUDIT-PULL-GET-TRANSACTION) gives rule 2
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: Concrete get supports the
+//    selected request/response transaction without a separate item_done call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Get acknowledges the request. The sequence waits for a response
 // while the driver copies IDs and sends it using the sequencer put API.
 

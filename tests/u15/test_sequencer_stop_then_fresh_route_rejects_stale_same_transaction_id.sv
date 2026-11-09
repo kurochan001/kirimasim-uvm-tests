@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_stop_then_fresh_route_rejects_stale_same_transaction_id.expected
 */
+// What it checks:
+// A fresh route does not accept a retired route response sharing its
+// transaction ID.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.5.2.9 (UVM-RESPONSE-STOP-FRESH-SAME-TRANSACTION) gives the
+// rule above. Setup: Stop the old sequence, start another using transaction ID
+// 101, then send stale and fresh replies. Expected: The stale reply warns and
+// only the fresh exact handle with payload 99 and transaction ID 101 reaches
+// completion.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Stop the old sequence and start a different one reusing its explicit
 // transaction ID. Only the fresh request routing ID may receive the reply.
 // A stale reply must warn and must not replace the fresh response.

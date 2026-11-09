@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_zero_time_relevance_virtual_setter_dispatch.expected
 */
+// What it checks:
+// The relevance-bound setter is virtual through a sequencer-base view.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.21 (UVM-SEQUENCER-AUDIT-ZERO-TIME-VIRTUAL) gives the rule
+// above. Setup: An original typed subclass increments a dispatch counter and
+// delegates to super; call it via uvm_sequencer_base with four. Expected: The
+// error is observed at the selected boundary in the same simulation time,
+// without fallback, grant or driver receipt; the original override count
+// matches the call route.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The maximum bounds completed zero-time relevance callbacks. Notification at
 // the limit or first excess is accepted; no exact report ID/text is assumed.
 // A stopped/fallback callback blocks, allowing the positive-time owner to run.

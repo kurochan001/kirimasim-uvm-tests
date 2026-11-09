@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_user_arbitration_can_prefer_later_lower_priority_request.expected
 */
+// What it checks:
+// 1. USER arbitration delegates the eligible candidate choice to
+//    user_priority_arbitration.
+// 2. Arbitration candidate indices resolve to their sequence handles.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.3.2.3 (UVM-SEQUENCER-USER-COMPETING-SELECTION) gives rule
+//    1 above. Setup: Prefer either the earlier or the later lower-priority
+//    sequence with two candidates. Expected: The override is called with
+//    competing candidates and its selected sequence is delivered first.
+// 2. 1800.2-2020 15.3.2.4 (UVM-SEQUENCER-ARBITRATION-CANDIDATE-HANDLES) gives
+//    rule 2 above. Setup: Resolve every supplied candidate index inside a
+//    two-candidate USER override. Expected: Each candidate handle is non-null
+//    and permits the intended sequence selection.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Separate request arrival times by one time unit and start the driver
 // after both requests have waited. Compare only the order prescribed by
 // the selected mode; random-mode output reports membership instead.

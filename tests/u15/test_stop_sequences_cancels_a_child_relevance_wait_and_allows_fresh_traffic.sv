@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_stop_sequences_cancels_a_child_relevance_wait_and_allows_fresh_traffic.expected
 */
+// What it checks:
+// 1. Stopping includes active child sequences throughout the selected
+//    hierarchy.
+// 2. Sequencer stop invokes do_kill on each selected active sequence.
+// 3. Sequencer stop clears a relevance-blocked child request together with its
+//    active parent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.3.2.14 (UVM-SEQUENCER-STOP-ACTIVE-DESCENDANTS) gives rule
+//    1 above. Setup: Exercise parent/child, three-level and sibling-child
+//    active trees. Expected: Every observed node is STOPPED with one kill and
+//    no late write; parent start returns.
+// 2. 1800.2-2020 14.2.5.12 (UVM-SEQUENCE-DO-KILL-HOOK-SEQUENCER-STOP) gives
+//    rule 2 above. Setup: Two original sequence bodies are active on the same
+//    sequencer before stop_sequences. Expected: Both active sequences observe
+//    one do_kill callback.
+// 3. 1800.2-2020 15.3.2.14 (UVM-SEQ-REVIEW-STOP-CHILD-RELEVANCE-REQUEST) gives
+//    rule 3 above. Setup: The driver waits for an item from a child whose
+//    parent is executing start. Expected: Both parent and child stop and fresh
+//    traffic completes without the old child resuming.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A parent runs a child whose real item request is held by relevance. Stop
 // through the public sequencer API, observe both states and hooks, and then
 // complete actual fresh traffic. No private request list or exact hook count

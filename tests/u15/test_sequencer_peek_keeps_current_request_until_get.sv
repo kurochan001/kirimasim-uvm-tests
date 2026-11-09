@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_peek_keeps_current_request_until_get.expected
 */
+// What it checks:
+// Repeated peeks return the same pending request until get implicitly
+// acknowledges it.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.5.2.7 (UVM-SEQUENCER-REPEATED-PEEK-ACKNOWLEDGEMENT) gives the
+// rule above. Setup: Peek twice while finish_item remains blocked, then
+// consume with get. Expected: Both peeks and get identify the same object;
+// sequence completion follows get.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe repeated peeks while finish_item is blocked. Get implicitly
 // acknowledges the request, so item_done is not called afterwards.
 

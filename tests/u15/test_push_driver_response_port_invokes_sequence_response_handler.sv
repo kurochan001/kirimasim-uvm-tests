@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_push_driver_response_port_invokes_sequence_response_handler.expected
 */
+// What it checks:
+// The enabled sequence response handler receives analysis replies routed
+// through a push sequencer.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.7.3 (UVM-PUSH-ANALYSIS-RESPONSE-HANDLER) gives the rule
+// above. Setup: Enable the handler and write one response during the blocking
+// driver put. Expected: The handler observes one value 1007 and sequencer
+// received count is one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Enable the sequence response handler instead of dequeueing a reply.
 // The push driver writes a response while completing its blocking put.
 

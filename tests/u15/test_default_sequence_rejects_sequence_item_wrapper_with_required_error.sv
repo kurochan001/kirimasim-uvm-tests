@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_rejects_sequence_item_wrapper_with_required_error.expected
 */
+// What it checks:
+// A wrapper producing a nonsequence reports an error without starting a
+// default.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-INVALID-WRAPPER-ERROR) gives the
+// rule above. Setup: Configure a plain-object or sequence-item wrapper.
+// Expected: An ERROR is added and no default body starts.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The configured wrapper creates an object that is not a sequence.
 // The standard requires an error and no default start. The pinned library
 // only warns; preserve the required error count as spec-only.

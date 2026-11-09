@@ -12,6 +12,70 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_pull_port_export_and_imp_resolve_typed_real_sequencer_endpoints.expected
 */
+// What it checks:
+// 1. The selected typed pull port participates in a resolved port/export/imp
+//    path to the real sequencer.
+// 2. The selected pull port standard constructor retains its name and
+//    component parent.
+// 3. The selected typed pull export participates in a resolved port/export/imp
+//    path to the real sequencer.
+// 4. The selected pull export standard constructor retains its name and
+//    component parent.
+// 5. The selected typed pull imp participates in a resolved port/export/imp
+//    path to the real sequencer.
+// 6. The selected pull imp standard constructor retains its name and component
+//    parent.
+// 7. seq_item_export exposes the declared request/response-specific pull
+//    implementation type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.2.2.1 (UVM-SQR-AUDIT-PULL-PORT-TYPED-CONNECTION) gives
+//    rule 1 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: The selected typed pull
+//    port participates in a resolved port/export/imp path to the real
+//    sequencer.
+// 2. 1800.2-2020 15.2.2.1 (UVM-SQR-AUDIT-PULL-PORT-CONSTRUCTOR) gives rule 2
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: The selected pull port standard
+//    constructor retains its name and component parent.
+// 3. 1800.2-2020 15.2.2.2 (UVM-SQR-AUDIT-PULL-EXPORT-TYPED-CONNECTION) gives
+//    rule 3 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: The selected typed pull
+//    export participates in a resolved port/export/imp path to the real
+//    sequencer.
+// 4. 1800.2-2020 15.2.2.2 (UVM-SQR-AUDIT-PULL-EXPORT-CONSTRUCTOR) gives rule 4
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: The selected pull export
+//    standard constructor retains its name and component parent.
+// 5. 1800.2-2020 15.2.2.3 (UVM-SQR-AUDIT-PULL-IMP-TYPED-CONNECTION) gives rule
+//    5 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: The selected typed pull
+//    imp participates in a resolved port/export/imp path to the real
+//    sequencer.
+// 6. 1800.2-2020 15.2.2.3 (UVM-SQR-AUDIT-PULL-IMP-CONSTRUCTOR) gives rule 6
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: The selected pull imp standard
+//    constructor retains its name and component parent.
+// 7. 1800.2-2020 15.5.2.2 (UVM-SQR-AUDIT-PULL-EXPOSED-IMP) gives rule 7 above.
+//    Setup: Use the selected original fixture, declared type arguments, public
+//    endpoint/base views and linked stage observations. Requests satisfy the
+//    grant precondition before send_request and response IDs are copied from
+//    the actual request. Expected: seq_item_export exposes the declared
+//    request/response-specific pull implementation type.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequence_pull_port_export_and_imp_resolve_typed_real_sequencer_endpoints;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

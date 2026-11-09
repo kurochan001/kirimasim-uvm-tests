@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_higher_precedence_instance_beats_wrapper.expected
 */
+// What it checks:
+// Default selection uses resource precedence across the two permitted resource
+// types.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-CROSS-TYPE-PRECEDENCE) gives the
+// rule above. Setup: Configure opposite root/test-context precedence for an
+// instance and wrapper. Expected: The higher-precedence candidate runs once
+// regardless of its resource type.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use the inverse typed-resource ordering: a root-context instance
 // outranks the test-context wrapper. Keep its configured randomization
 // disabled and prove that exact object ran.

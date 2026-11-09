@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_push_sequencer_common_response_history_counts_analysis_replies.expected
 */
+// What it checks:
+// The push sequencer implements common response-history retention and
+// received-response counting.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.6.3.1 (UVM-PUSH-SEQUENCER-RESPONSE-HISTORY) gives the rule
+// above. Setup: Return/retrieve three analysis responses using a two-entry
+// sequencer response history. Expected: Received count is three;
+// newest/previous identify replies three/two and the oldest has been evicted.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Return three responses and retain the newest two in the sequencer.
 // Removing replies from the sequence queue must not erase response history.
 

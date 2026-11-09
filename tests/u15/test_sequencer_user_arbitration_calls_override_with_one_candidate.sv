@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_user_arbitration_calls_override_with_one_candidate.expected
 */
+// What it checks:
+// USER arbitration invokes the override even with one eligible sequence.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.3 (UVM-SEQUENCER-USER-SINGLETON-CALLBACK) gives the rule
+// above. Setup: Start one requester under USER mode with a callback inspecting
+// the candidate source. Expected: The override is called, candidate mapping
+// matches and the request sequence finishes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The standard requires the USER callback even for one candidate. The
 // pinned library returns that candidate before the callback; preserve this
 // spec-only expectation and check the callback mapping when it is invoked.

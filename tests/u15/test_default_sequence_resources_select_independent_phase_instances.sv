@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_resources_select_independent_phase_instances.expected
 */
+// What it checks:
+// Each sequencer/phase pair selects its separately configured instance.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-PHASE-PAIR-INDEPENDENCE) gives the
+// rule above. Setup: Configure independent pre-reset and main instances on one
+// sequencer. Expected: Both instances complete once with their respective
+// starting phases and the same sequencer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Configure separate instances for pre-reset and main on one sequencer.
 // Each must run once with its own starting phase and preserve instance
 // identity and configuration.

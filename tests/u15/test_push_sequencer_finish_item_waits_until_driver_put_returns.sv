@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_push_sequencer_finish_item_waits_until_driver_put_returns.expected
 */
+// What it checks:
+// Push sequencing completes finish_item only after the driver blocking put
+// returns.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.6.3.3 (UVM-PUSH-SEQUENCER-BLOCKING-COMPLETION) gives the rule
+// above. Setup: Delay inside driver put and optionally modify the original
+// request before returning. Expected: The producer is pending during put and
+// observes completed driver work and the original mutated request afterwards.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Hold the blocking driver put for three ticks. Sample after one positive
 // delay and require finish_item to return only after that put completes.
 // The sequence never calls a pull-port acknowledgement.

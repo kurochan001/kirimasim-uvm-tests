@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_item_done_routes_response_with_copied_ids.expected
 */
+// What it checks:
+// item_done routes a supplied response with correct copied IDs to the
+// requesting sequence.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.5.2.5 (UVM-SEQUENCER-DONE-RESPONSE) gives the rule above.
+// Setup: A driver copies request IDs into a response with payload 99 and
+// completes the item. Expected: The sequence receives that response handle,
+// payload 99 and transaction ID 23.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use an explicit transaction ID and copy all routing IDs with
 // set_id_info. Internal sequence ID values are never printed.
 

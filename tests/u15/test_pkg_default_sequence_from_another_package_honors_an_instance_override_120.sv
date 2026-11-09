@@ -13,6 +13,20 @@
 :expected_stdout: @test_pkg_default_sequence_from_another_package_honors_an_instance_override_120.expected
 :files: ../u08/helpers120_pkg/agent_pkg120.sv ../u08/helpers120_pkg/seq_pkg120.sv ../u08/helpers120_pkg/env_pkg120.sv ../u08/helpers120_pkg/ext_pkg120.sv
 */
+// What it checks:
+// A default sequence given as the wrapper of a sequence from another package
+// is created with the sequencer's full name as context and the wrapper's type
+// name as name, so instance overrides for that path apply.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-USER-PACKAGE-DEFAULT-SEQUENCE-WRAPPER) gives the
+// rule above. Setup: Both sequencers of the agent package get the wrapper of
+// seq120 for main_phase; the test sets an instance override to ext_seq120 for
+// env.a1.sqr.seq120 relative to itself. Expected: a0 runs seq120 and a1 runs
+// ext_seq120, both named seq120 and started in the main phase; the drivers
+// receive 10 and 11, and 20 and 21.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The test gives the wrapper of seq120 as the main_phase default sequence of
 // both sequencers and sets an instance override to ext_seq120 for the path that
 // the second sequencer forms from its full name and the wrapper's type name.

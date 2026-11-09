@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_strict_random_arbitration_selects_unique_highest_priority.expected
 */
+// What it checks:
+// Strict random arbitration chooses from highest-priority requests.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.4.1 (UVM-SEQUENCER-STRICT-RANDOM-UNIQUE-MAXIMUM) gives the
+// rule above. Setup: Provide one unique highest-priority request and an
+// earlier lower-priority request. Expected: The unique high-priority value 22
+// precedes 11.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Separate request arrival times by one time unit and start the driver
 // after both requests have waited. Compare only the order prescribed by
 // the selected mode; random-mode output reports membership instead.

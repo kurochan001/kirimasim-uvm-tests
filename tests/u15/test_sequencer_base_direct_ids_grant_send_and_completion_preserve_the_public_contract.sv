@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_base_direct_ids_grant_send_and_completion_preserve_the_public_contract.expected
 */
+// What it checks:
+// Direct completion waits distinguish the two selected transaction IDs.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.7 (UVM-SQR-AUDIT-BASE-DONE-IDENTIFIED) gives the rule
+// above. Setup: Use the selected original fixture, declared type arguments,
+// public endpoint/base views and linked stage observations. Requests satisfy
+// the grant precondition before send_request and response IDs are copied from
+// the actual request. Expected: Direct completion waits distinguish the two
+// selected transaction IDs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_base_direct_ids_grant_send_and_completion_preserve_the_public_contract;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_push_sequencer_delivers_each_request_once_in_sequence_order.expected
 */
+// What it checks:
+// The push run phase continuously delivers successive available sequence items
+// through its request port.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.6.3.3 (UVM-PUSH-SEQUENCER-CONTINUOUS-REQUESTS) gives the rule
+// above. Setup: Send distinct values 11, 22 and 33 from one sequential
+// producer. Expected: Driver receives and completes three requests in sequence
+// order and the sent counter is three.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Send three distinct requests from one sequence. Require one put per
 // request, ordered values and a request counter of three after completion.
 

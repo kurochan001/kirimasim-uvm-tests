@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_try_next_item_returns_null_when_no_sequence_is_ready.expected
 */
+// What it checks:
+// try_next_item returns a null request when no sequence can supply an item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.5.2.4 (UVM-SEQUENCER-EMPTY-TRY) gives the rule above. Setup:
+// An idle sequencer receives two nonblocking requests with no active producer.
+// Expected: Both requests and the current item remain null; no request is
+// generated.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Poll an idle connected sequencer twice, first with a non-null sentinel.
 // A null result does not require an item_done acknowledgement.
 

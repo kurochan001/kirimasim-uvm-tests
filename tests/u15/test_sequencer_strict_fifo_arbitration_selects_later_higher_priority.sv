@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_strict_fifo_arbitration_selects_later_higher_priority.expected
 */
+// What it checks:
+// 1. Strict FIFO selects requests at the highest available priority before
+//    lower-priority requests.
+// 2. Selecting FIFO versus STRICT_FIFO changes which of the two
+//    unequal-priority pending requests is granted first.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.4.1 (UVM-SEQUENCER-STRICT-FIFO-PRIORITY-SELECTION) gives
+//    rule 1 above. Setup: Queue an earlier low-priority and later
+//    high-priority request before driving. Expected: The later high-priority
+//    value 22 is delivered before 11.
+// 2. 1800.2-2020 15.3.2.19 (UVM-SQR-AUDIT-BASE-ARBITRATION-SET-EFFECT) gives
+//    rule 2 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: Selecting FIFO versus
+//    STRICT_FIFO changes which of the two unequal-priority pending requests is
+//    granted first.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Separate request arrival times by one time unit and start the driver
 // after both requests have waited. Compare only the order prescribed by
 // the selected mode; random-mode output reports membership instead.

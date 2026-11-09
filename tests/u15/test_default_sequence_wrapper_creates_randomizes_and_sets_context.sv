@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_wrapper_creates_randomizes_and_sets_context.expected
 */
+// What it checks:
+// A configured wrapper creates and randomizes a default sequence with the
+// phase context.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-WRAPPER-CONTEXT-RANDOMIZE) gives
+// the rule above. Setup: Configure a valid wrapper without disabling
+// randomization. Expected: One created sequence completes with the configured
+// sequencer/main phase and one pre/post-randomize pair.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Supply a sequence wrapper and leave randomization enabled. Count the
 // standard pre/post-randomize hooks, not random values, and inspect the
 // created object after the phase has completed.

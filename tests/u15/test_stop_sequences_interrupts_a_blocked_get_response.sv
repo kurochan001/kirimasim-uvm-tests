@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_stop_sequences_interrupts_a_blocked_get_response.expected
 */
+// What it checks:
+// Stopping interrupts a response wait rather than allowing its body to resume
+// on a late reply.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.14 (UVM-SEQUENCER-STOP-BLOCKED-RESPONSE-WAIT) gives the
+// rule above. Setup: Acknowledge a real request, wait inside get_response,
+// stop and send its late response. Expected: The sequence stops with one kill,
+// start returns, the read does not return and the late response warns.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Acknowledge the request but provide no response. Stop only after the
 // sequence is waiting in get_response. The waiter must be killed and
 // a later matched response must be dropped with a warning.

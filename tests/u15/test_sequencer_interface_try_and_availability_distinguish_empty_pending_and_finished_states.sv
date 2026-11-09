@@ -12,6 +12,43 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_interface_try_and_availability_distinguish_empty_pending_and_finished_states.expected
 */
+// What it checks:
+// 1. try_next_item returns null when no sequence can supply an item, before
+//    and after selected traffic.
+// 2. try_next_item returns the selected pending request without acknowledging
+//    it.
+// 3. The selected empty and ready try_next_item calls do not advance
+//    simulation time.
+// 4. has_do_available distinguishes empty/finished traffic from an eligible
+//    pending sequence.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.2.1.2.2 (UVM-SQR-AUDIT-INTERFACE-TRY-EMPTY) gives rule 1
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: try_next_item returns null when
+//    no sequence can supply an item, before and after selected traffic.
+// 2. 1800.2-2020 15.2.1.2.2 (UVM-SQR-AUDIT-INTERFACE-TRY-PENDING) gives rule 2
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: try_next_item returns the
+//    selected pending request without acknowledging it.
+// 3. 1800.2-2020 15.2.1.2.2 (UVM-SQR-AUDIT-INTERFACE-TRY-NO-TIME) gives rule 3
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: The selected empty and ready
+//    try_next_item calls do not advance simulation time.
+// 4. 1800.2-2020 15.2.1.2.5 (UVM-SQR-AUDIT-INTERFACE-AVAILABLE) gives rule 4
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: has_do_available distinguishes
+//    empty/finished traffic from an eligible pending sequence.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_interface_try_and_availability_distinguish_empty_pending_and_finished_states;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

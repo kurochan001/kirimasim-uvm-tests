@@ -12,6 +12,41 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_base_direct_default_grant_send_and_completion_preserve_the_public_contract.expected
 */
+// What it checks:
+// 1. A direct base grant request waits until the driver initiates retrieval.
+// 2. The omitted direct grant lock_request does not acquire a lock.
+// 3. An explicit minus-one transaction completion wait stays blocked until
+//    driver acknowledgement.
+// 4. Omitted and explicit-zero rerandomize flags preserve the original request
+//    handle/value without randomization.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.3.2.6 (UVM-SQR-AUDIT-BASE-GRANT-BLOCKS) gives rule 1
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: A direct base grant request
+//    waits until the driver initiates retrieval.
+// 2. 1800.2-2020 15.3.2.6 (UVM-SQR-AUDIT-BASE-GRANT-DEFAULT-NO-LOCK) gives
+//    rule 2 above. Setup: Use the selected original fixture, declared type
+//    arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: The omitted direct
+//    grant lock_request does not acquire a lock.
+// 3. 1800.2-2020 15.3.2.7 (UVM-SQR-AUDIT-BASE-DONE-NEXT) gives rule 3 above.
+//    Setup: Use the selected original fixture, declared type arguments, public
+//    endpoint/base views and linked stage observations. Requests satisfy the
+//    grant precondition before send_request and response IDs are copied from
+//    the actual request. Expected: An explicit minus-one transaction
+//    completion wait stays blocked until driver acknowledgement.
+// 4. 1800.2-2020 15.3.2.20 (UVM-SQR-AUDIT-BASE-SEND-ZERO) gives rule 4 above.
+//    Setup: Use the selected original fixture, declared type arguments, public
+//    endpoint/base views and linked stage observations. Requests satisfy the
+//    grant precondition before send_request and response IDs are copied from
+//    the actual request. Expected: Omitted and explicit-zero rerandomize flags
+//    preserve the original request handle/value without randomization.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_base_direct_default_grant_send_and_completion_preserve_the_public_contract;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_lock_waits_until_previously_granted_item_completes.expected
 */
+// What it checks:
+// Lock grant waits for previously granted item requests to complete.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.10 (UVM-SEQUENCER-LOCK-WAITS-FOR-GRANTED-COMPLETION)
+// gives the rule above. Setup: Request a lock while the driver holds an
+// earlier unacknowledged item. Expected: The owner has not acquired the lock
+// before acknowledgement; both sequences later finish.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The first request is already held by the driver when another sequence
 // requests a lock. The lock must wait for acknowledgement. The pinned
 // library grants it early; retain the required waiting flag as spec-only.

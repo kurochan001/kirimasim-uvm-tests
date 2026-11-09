@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_strict_fifo_arbitration_orders_equal_priorities_by_arrival.expected
 */
+// What it checks:
+// Strict FIFO orders equal highest-priority requests by arrival.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.4.1 (UVM-SEQUENCER-STRICT-FIFO-EQUAL-PRIORITY-ORDER) gives
+// the rule above. Setup: Queue equal-priority values with 22 arriving before
+// 11. Expected: The driver sees 22 then 11 and both finish.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Separate request arrival times by one time unit and start the driver
 // after both requests have waited. Compare only the order prescribed by
 // the selected mode; random-mode output reports membership instead.

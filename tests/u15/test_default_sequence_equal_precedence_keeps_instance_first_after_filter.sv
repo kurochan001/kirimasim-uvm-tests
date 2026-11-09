@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_default_sequence_equal_precedence_keeps_instance_first_after_filter.expected
 */
+// What it checks:
+// Type filtering preserves relative resource order for equal-precedence
+// selection.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.5 (UVM-DEFAULT-SEQUENCE-FILTER-STABLE-EQUAL-PRECEDENCE)
+// gives the rule above. Setup: Place an unrelated resource between valid
+// instance and wrapper resources in either order. Expected: The first valid
+// resource wins in each order, with exact instance or created-wrapper
+// identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Add separate resources with equal default precedence using the
 // low-priority pool API, preserving explicit queue order. Remove an
 // interposed wrong-type resource without reordering the two valid entries.

@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_stop_sequences_stops_two_active_bodies.expected
 */
+// What it checks:
+// 1. Stopping terminates all active bodies on the selected sequencer.
+// 2. Sequencer stop invokes do_kill on each selected active sequence.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.3.2.14 (UVM-SEQUENCER-STOP-ALL-ACTIVE-BODIES) gives rule 1
+//    above. Setup: Wait for two independent bodies to enter, then stop before
+//    their delayed writes. Expected: Both stop, receive one kill, release
+//    start and never perform the delayed writes.
+// 2. 1800.2-2020 14.2.5.12 (UVM-SEQUENCE-DO-KILL-HOOK-SEQUENCER-STOP) gives
+//    rule 2 above. Setup: Two original sequence bodies are active on the same
+//    sequencer before stop_sequences. Expected: Both active sequences observe
+//    one do_kill callback.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Start two bodies on the same sequencer and stop only after both enter.
 // Observe each kill hook and stopped state, then check that neither body
 // performs its delayed write.

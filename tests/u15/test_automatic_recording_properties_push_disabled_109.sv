@@ -13,6 +13,53 @@
 :expected_stdout: @test_automatic_recording_properties_push_disabled_109.expected
 :files: helpers109_recording/automatic109.svh
 */
+// What it checks:
+// 1. The base recording-disable API changes the selected sequencer state
+//    without disabling an independent peer.
+// 2. Default automatic item recording records the actual enabled request
+//    through its custom record hook and recorder property API during pull/push
+//    execution.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.3.2.22 (UVM-SQR-AUDIT-BASE-RECORDING-DISABLE) gives rule 1
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Additionally disable twice through a base
+//    handle before first connected pull/push traffic, with selected driver
+//    marks omitted or explicitly supplied and an independent peer completing
+//    its own request. Also disable the selected base before real pull/push
+//    traffic while recording storage is explicitly enabled and an independent
+//    peer remains in default automatic mode. Expected: The base
+//    recording-disable API changes the selected sequencer state without
+//    disabling an independent peer. Added no-mark inputs retain captured
+//    transaction begin/end times and deliver no named begin/end notification.
+//    Added manual inputs still accept exactly one explicit component begin/end
+//    mark at the captured driver times. Both selected and peer traffic retain
+//    the original request and block completion until their delayed driver work
+//    returns; the added profiles do not assert peer automatic recording
+//    counts. The added enabled-backend inputs deliver both original requests
+//    but invoke no selected request custom-record hook or named property-field
+//    hook; the peer still records its own distinct stable property through the
+//    original backend.
+// 2. 1800.2-2020 15.3.2.22
+//    (UVM-SEQUENCER-AUTOMATIC-REQUEST-PROPERTY-RECORDING-109) gives rule 2
+//    above. Setup: Use connected pull get_next_item/item_done or push
+//    req_port.put with a positive-delay gated original driver and one real
+//    request per sequencer. Enable component recording and original explicit
+//    transaction streams, binding the same original backend globally and on
+//    both sequencers. The peer always stays in default automatic mode; the
+//    selected instance is additionally checked without disable in the positive
+//    profiles. Keep selected/peer32-bit payloads41/97 stable throughout
+//    execution; no participant manually calls record/begin/end. Expected: Each
+//    non-disabled request has at least one custom record-hook invocation and
+//    its named stable32-bit property reaches the original recorder field hook
+//    with its declared value,size32 and UVM_DEC. The independent peer provides
+//    positive recording evidence even when the selected instance is disabled.
+//    Neither exact repetition counts nor an early/late snapshot rule is
+//    inferred from automatic recording.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original item data is41/97 and never changes during traffic. Recording is
 // enabled through both public component and transaction-stream configuration.
 // Neither driver nor coordinator records an item or manually marks

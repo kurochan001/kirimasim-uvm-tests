@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_last_req_retains_newest_requests_within_capacity.expected
 */
+// What it checks:
+// 1. Request history returns newest and preceding requests within its
+//    configured retention window.
+// 2. The sent-request counter counts requests dispatched by the sequencer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.4.2 (UVM-SEQUENCER-REQUEST-HISTORY-ORDER) gives rule 1
+//    above. Setup: Send three explicit-ID requests through a two-entry
+//    history. Expected: Newest/previous payloads and transaction IDs are 44/43
+//    and 103/102; an index strictly beyond capacity is null.
+// 2. 1800.2-2020 15.3.3.1 (UVM-SEQUENCER-REQUEST-SENT-COUNT) gives rule 2
+//    above. Setup: Complete two sequential requests, or three requests while
+//    retaining only two in history. Expected: The counters are two and three
+//    regardless of history retention length.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Send three requests through a two-entry history, then read indices zero
 // and one. Index three is strictly beyond the configured size.
 

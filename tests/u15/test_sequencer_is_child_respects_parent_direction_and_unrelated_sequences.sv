@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_is_child_respects_parent_direction_and_unrelated_sequences.expected
 */
+// What it checks:
+// is_child recognizes the parent-to-child direction without confusing
+// unrelated sequences.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.2 (UVM-SEQUENCER-IS-CHILD-DIRECTION) gives the rule
+// above. Setup: Set one direct sequence parent and compare forward, reverse
+// and unrelated queries. Expected: Only the direct parent-to-child query
+// returns one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Set a direct sequence parent explicitly and compare both directions
 // and an unrelated sequence. Do not rely on self-ancestry behavior.
 

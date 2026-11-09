@@ -7,14 +7,20 @@ class probe108 extends callback108;
   int calls=0;
   time marked=0;
   bit identity=1;
-  function new(); super.new("probe"); endfunction
+  function new();
+    super.new("probe");
+  endfunction
   virtual function void post_trigger(event108 e, uvm_object data);
-    calls++; marked=$time; identity &= e==selected;
+    calls++;
+    marked=$time;
+    identity &= e==selected;
   endfunction
 endclass
 class packet108 extends uvm_sequence_item;
   `uvm_object_utils(packet108)
-  function new(string name="packet"); super.new(name); endfunction
+  function new(string name="packet");
+    super.new(name);
+  endfunction
 endclass
 class observer108;
   packet108 item;
@@ -24,27 +30,42 @@ class observer108;
   bit entered=0, completed=0, same_item=0, release_gate=0;
   function new(packet108 target);
     item=target;
-    began=item.get_event_pool().get("begin"); ended=item.get_event_pool().get("end");
-    begin_probe=new(); end_probe=new();
-    begin_probe.selected=began; end_probe.selected=ended;
-    callbacks108::add(began,begin_probe); callbacks108::add(ended,end_probe);
-    initial_begin=item.get_begin_time(); initial_end=item.get_end_time();
+    began=item.get_event_pool().get("begin");
+    ended=item.get_event_pool().get("end");
+    begin_probe=new();
+    end_probe=new();
+    begin_probe.selected=began;
+    end_probe.selected=ended;
+    callbacks108::add(began,begin_probe);
+    callbacks108::add(ended,end_probe);
+    initial_begin=item.get_begin_time();
+    initial_end=item.get_end_time();
   endfunction
   function void detach();
-    callbacks108::delete(began,begin_probe); callbacks108::delete(ended,end_probe);
+    callbacks108::delete(began,begin_probe);
+    callbacks108::delete(ended,end_probe);
   endfunction
 endclass
 class producer108 extends uvm_sequence#(packet108);
   packet108 item;
   bit done=0;
-  function new(string name="producer"); super.new(name); item=new("item"); endfunction
-  virtual task body(); start_item(item); finish_item(item); done=1; endtask
+  function new(string name="producer");
+    super.new(name);
+    item=new("item");
+  endfunction
+  virtual task body();
+    start_item(item);
+    finish_item(item);
+    done=1;
+  endtask
 endclass
 
 task automatic serve108(input uvm_component owner, input packet108 item,
                         input observer108 obs, input bit manual_marks);
   int ignored_handle;
-  obs.same_item=item==obs.item; obs.entered=1; obs.driver_begin=$time;
+  obs.same_item=item==obs.item;
+  obs.entered=1;
+  obs.driver_begin=$time;
   if (manual_marks) ignored_handle=owner.begin_tr(item);
   #3;
   wait(obs.release_gate);
@@ -57,7 +78,8 @@ class pull_driver108 extends uvm_component;
   observer108 obs;
   bit open_gate=0, manual_marks=0;
   function new(string name,uvm_component parent);
-    super.new(name,parent); port=new("port",this);
+    super.new(name,parent);
+    port=new("port",this);
   endfunction
   virtual task run_phase(uvm_phase phase);
     packet108 item;
@@ -70,8 +92,12 @@ endclass
 class push_driver108 extends uvm_push_driver#(packet108);
   observer108 obs;
   bit manual_marks=0;
-  function new(string name,uvm_component parent); super.new(name,parent); endfunction
-  virtual task put(packet108 t); serve108(this,t,obs,manual_marks); endtask
+  function new(string name,uvm_component parent);
+    super.new(name,parent);
+  endfunction
+  virtual task put(packet108 t);
+    serve108(this,t,obs,manual_marks);
+  endtask
 endclass
 class t extends uvm_test;
   `uvm_component_utils(t)
@@ -81,18 +107,25 @@ class t extends uvm_test;
   pull_driver108 selected_pull_driver,peer_pull_driver;
   push_driver108 selected_push_driver,peer_push_driver;
   producer108 selected_worker,peer_worker;
-  function new(string name,uvm_component parent); super.new(name,parent); endfunction
+  function new(string name,uvm_component parent);
+    super.new(name,parent);
+  endfunction
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    selected_worker=new("selected_worker"); peer_worker=new("peer_worker");
+    selected_worker=new("selected_worker");
+    peer_worker=new("peer_worker");
     if (PUSH108) begin
-      selected_push=new("selected",this); peer_push=new("peer",this);
-      selected=selected_push; peer=peer_push;
+      selected_push=new("selected",this);
+      peer_push=new("peer",this);
+      selected=selected_push;
+      peer=peer_push;
       selected_push_driver=new("selected_driver",this);
       peer_push_driver=new("peer_driver",this);
     end else begin
-      selected_pull=new("selected",this); peer_pull=new("peer",this);
-      selected=selected_pull; peer=peer_pull;
+      selected_pull=new("selected",this);
+      peer_pull=new("peer",this);
+      selected=selected_pull;
+      peer=peer_pull;
       selected_pull_driver=new("selected_driver",this);
       peer_pull_driver=new("peer_driver",this);
     end
@@ -110,14 +143,17 @@ class t extends uvm_test;
     observer108 chosen,other;
     bit begin_time_ok,end_time_ok;
     phase.raise_objection(this);
-    chosen=new(selected_worker.item); other=new(peer_worker.item);
+    chosen=new(selected_worker.item);
+    other=new(peer_worker.item);
     selected.disable_auto_item_recording();
     selected.disable_auto_item_recording();
     if (PUSH108) begin
-      selected_push_driver.obs=chosen; peer_push_driver.obs=other;
+      selected_push_driver.obs=chosen;
+      peer_push_driver.obs=other;
       selected_push_driver.manual_marks=MANUAL108;
     end else begin
-      selected_pull_driver.obs=chosen; peer_pull_driver.obs=other;
+      selected_pull_driver.obs=chosen;
+      peer_pull_driver.obs=other;
       selected_pull_driver.manual_marks=MANUAL108;
     end
     $display("UT: initial selected_begin %0d selected_end %0d distinct_items %0d",
@@ -125,7 +161,8 @@ class t extends uvm_test;
              selected_worker.item!=peer_worker.item);
     #2;
     if (!PUSH108) begin
-      selected_pull_driver.open_gate=1; peer_pull_driver.open_gate=1;
+      selected_pull_driver.open_gate=1;
+      peer_pull_driver.open_gate=1;
     end
     fork
       selected_worker.start(selected);
@@ -143,7 +180,8 @@ class t extends uvm_test;
              chosen.begin_probe.calls,chosen.end_probe.calls==0,
              begin_time_ok,chosen.begin_probe.identity);
     // Keep the held observation independent of which driver entered first.
-    chosen.release_gate=1; other.release_gate=1;
+    chosen.release_gate=1;
+    other.release_gate=1;
     wait(chosen.completed && other.completed && selected_worker.done && peer_worker.done);
     #1;
     if (MANUAL108) end_time_ok=chosen.item.get_end_time()==chosen.driver_end &&
@@ -154,8 +192,10 @@ class t extends uvm_test;
     $display("UT: selected_end calls %0d time %0d identity %0d",
              chosen.end_probe.calls,end_time_ok,chosen.end_probe.identity);
     $display("DIAG108: peer begin %0d end %0d",other.begin_probe.calls,other.end_probe.calls);
-    chosen.detach(); other.detach();
-    selected.stop_sequences(); peer.stop_sequences();
+    chosen.detach();
+    other.detach();
+    selected.stop_sequences();
+    peer.stop_sequences();
     phase.drop_objection(this);
   endtask
 endclass

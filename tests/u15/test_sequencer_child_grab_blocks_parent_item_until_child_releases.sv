@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_child_grab_blocks_parent_item_until_child_releases.expected
 */
+// What it checks:
+// Parent ownership admits its child while child ownership can block the parent
+// and unrelated sequences.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.8 (UVM-SEQUENCER-PARENT-CHILD-BLOCKING) gives the rule
+// above. Setup: Use direct ancestry with nested ownership and real
+// parent/child item delivery. Expected: The child is eligible under its
+// parent, nested child ownership blocks the parent, and expected traffic
+// resumes after release.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A parent retains its lock while a child grabs and sends an item.
 // The parent request arrives during child ownership and must wait.
 // An unrelated request remains excluded until the parent also releases.

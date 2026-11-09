@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_push_sequencer_common_request_history_keeps_newest_handles.expected
 */
+// What it checks:
+// The push sequencer implements the common request-history API.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.6.3.1 (UVM-PUSH-SEQUENCER-REQUEST-HISTORY) gives the rule
+// above. Setup: Set a two-entry history and send three original request
+// handles. Expected: Capacity is two, newest/previous identify requests
+// three/two and the evicted oldest is unavailable.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Set a two-entry request history and send three items. Check newest-first
 // handle identity and eviction through the common sequencer API.
 

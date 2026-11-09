@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_request_history_shares_exact_handles_without_affecting_a_peer.expected
 */
+// What it checks:
+// 1. The history capacity query reports the configured size independently for
+//    each sequencer.
+// 2. History returns the exact item handle rather than an independent value
+//    snapshot.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.3.3.2.2 (UVM-REQUEST-HISTORY-CAPACITY-QUERY) gives rule 1
+//    above. Setup: Observe default capacity one and transition a separate
+//    history from zero to two during traffic. Expected: Queries report one for
+//    independent peers and zero/two for the changed history.
+// 2. 1800.2-2020 15.4.2 (UVM-REQUEST-HISTORY-EXACT-HANDLE-SHARING) gives rule
+//    2 above. Setup: Keep one item on each of two sequencers and mutate the
+//    retained source handle after completion. Expected: Both history handles
+//    are exact and distinct; mutation is shared only by the selected item
+//    while peer data remains unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_request_history_shares_exact_handles_without_affecting_a_peer;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

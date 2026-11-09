@@ -13,6 +13,68 @@
 :expected_stdout: @test_base_recording_disable_pull_manual_marks_108.expected
 :files: helpers108_recording/recording108.svh
 */
+// What it checks:
+// 1. Transaction begin uses current simulation time when its time argument is
+//    zero or omitted.
+// 2. Transaction begin triggers its named event in the transaction event pool.
+// 3. Transaction end uses current simulation time when its time argument is
+//    zero or omitted.
+// 4. Transaction end triggers its named event in the transaction event pool.
+// 5. The base recording-disable API changes the selected sequencer state
+//    without disabling an independent peer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.4.2.4 (UVM-TRANSACTION-BEGIN-ZERO-TIME) gives rule 1 above.
+//    Setup: Run the three lifecycle calls at separate positive delays with
+//    recording disabled. Also observe explicit zero-time component lifecycle
+//    calls made by a real pull/push driver after automatic recording was
+//    disabled through the sequencer base API. Expected: The fixture records
+//    accept/begin/end times 2, 5 and 9. The transaction time and callback
+//    observation equal the driver time captured at the explicit call.
+// 2. 1800.2-2020 5.4.2.4 (UVM-TRANSACTION-BEGIN-EVENT) gives rule 2 above.
+//    Setup: Acquire the three event handles before running the lifecycle. Also
+//    observe explicit zero-time component lifecycle calls made by a real
+//    pull/push driver after automatic recording was disabled through the
+//    sequencer base API. Expected: Each event becomes on only after its
+//    matching lifecycle call. The selected named callback is invoked once for
+//    the actual transaction event.
+// 3. 1800.2-2020 5.4.2.6 (UVM-TRANSACTION-END-ZERO-TIME) gives rule 3 above.
+//    Setup: Run the three lifecycle calls at separate positive delays with
+//    recording disabled. Also observe explicit zero-time component lifecycle
+//    calls made by a real pull/push driver after automatic recording was
+//    disabled through the sequencer base API. Expected: The fixture records
+//    accept/begin/end times 2, 5 and 9. The transaction time and callback
+//    observation equal the driver time captured at the explicit call.
+// 4. 1800.2-2020 5.4.2.6 (UVM-TRANSACTION-END-EVENT) gives rule 4 above.
+//    Setup: Acquire the three event handles before running the lifecycle. Also
+//    observe explicit zero-time component lifecycle calls made by a real
+//    pull/push driver after automatic recording was disabled through the
+//    sequencer base API. Expected: Each event becomes on only after its
+//    matching lifecycle call. The selected named callback is invoked once for
+//    the actual transaction event.
+// 5. 1800.2-2020 15.3.2.22 (UVM-SQR-AUDIT-BASE-RECORDING-DISABLE) gives rule 5
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Additionally disable twice through a base
+//    handle before first connected pull/push traffic, with selected driver
+//    marks omitted or explicitly supplied and an independent peer completing
+//    its own request. Also disable the selected base before real pull/push
+//    traffic while recording storage is explicitly enabled and an independent
+//    peer remains in default automatic mode. Expected: The base
+//    recording-disable API changes the selected sequencer state without
+//    disabling an independent peer. Added no-mark inputs retain captured
+//    transaction begin/end times and deliver no named begin/end notification.
+//    Added manual inputs still accept exactly one explicit component begin/end
+//    mark at the captured driver times. Both selected and peer traffic retain
+//    the original request and block completion until their delayed driver work
+//    returns; the added profiles do not assert peer automatic recording
+//    counts. The added enabled-backend inputs deliver both original requests
+//    but invoke no selected request custom-record hook or named property-field
+//    hook; the peer still records its own distinct stable property through the
+//    original backend.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Base disable precedes both worker starts and the first pull-driver request.
 // The selected driver alone optionally calls component begin_tr/end_tr.
 // Peer automatic event counts are DIAG108 only, not a default-policy oracle.

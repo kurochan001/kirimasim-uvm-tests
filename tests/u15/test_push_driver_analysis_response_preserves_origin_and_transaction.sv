@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_push_driver_analysis_response_preserves_origin_and_transaction.expected
 */
+// What it checks:
+// The push driver response port returns an identified response to the
+// requesting sequence through the sequencer export.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 13.8.2.2 (UVM-PUSH-DRIVER-ANALYSIS-REPLY) gives the rule above.
+// Setup: Copy request IDs into a distinct response type and retrieve by
+// explicit transaction ID. Expected: The reply carries value 1007, transaction
+// ID 40 and the original request sequence ID.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Return a differently typed response through the analysis port. Copy the
 // request identifiers and match the reply by its explicit transaction ID.
 

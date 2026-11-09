@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_grab_keeps_owner_items_together_before_other_sequence.expected
 */
+// What it checks:
+// A grab request is placed ahead of pending ordinary requests and excludes
+// unrelated work until release.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.11 (UVM-SEQUENCER-GRAB-QUEUE-PRECEDENCE) gives the rule
+// above. Setup: Request a grab after an unrelated item is pending, then send
+// two owner items. Expected: Owner values 11/12 precede unrelated 22 and
+// ownership is cleared after completion.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The owner sends two items while retaining ownership. A competing
 // sequence waits before the driver starts; even the gap before the
 // second owner item must not allow the unrelated request to pass.

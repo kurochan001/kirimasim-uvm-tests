@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_fifo_arbitration_tracks_reversed_request_arrival.expected
 */
+// What it checks:
+// FIFO arbitration grants requests in arrival order independent of their
+// priorities.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.4.1 (UVM-SEQUENCER-FIFO-ARRIVAL-ARBITRATION) gives the rule
+// above. Setup: Reverse which lower-priority sequence arrives first in two
+// fixtures. Expected: Orders are 11/22 and 22/11 respectively and both
+// sequences complete.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Separate request arrival times by one time unit and start the driver
 // after both requests have waited. Compare only the order prescribed by
 // the selected mode; random-mode output reports membership instead.

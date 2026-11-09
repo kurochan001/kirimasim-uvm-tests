@@ -12,6 +12,61 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_constructors_preserve_names_parents_and_selected_component_bases.expected
 */
+// What it checks:
+// 1. The push sequencer constructor retains its configured component parent.
+// 2. A legal concrete sequencer-base subtype retains the component base.
+// 3. The sequencer-base constructor forwards its explicit instance name and
+//    parent.
+// 4. The pull sequencer constructor preserves its explicit name and parent.
+// 5. The typed pull sequencer is usable through uvm_sequencer_base.
+// 6. The typed push sequencer is usable through uvm_sequencer_base.
+// 7. The push sequencer constructor retains its explicit instance name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.6.3.2 (UVM-PUSH-SEQUENCER-CONSTRUCTOR-PARENT) gives rule 1
+//    above. Setup: Construct the typed sequencer and driver under a test
+//    component. Expected: Both hierarchy parent queries return the test
+//    component.
+// 2. 1800.2-2020 15.3.1 (UVM-SQR-AUDIT-BASE-COMPONENT-TYPE) gives rule 2
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: A legal concrete sequencer-base
+//    subtype retains the component base.
+// 3. 1800.2-2020 15.3.2.1 (UVM-SQR-AUDIT-BASE-CONSTRUCTOR) gives rule 3 above.
+//    Setup: Use the selected original fixture, declared type arguments, public
+//    endpoint/base views and linked stage observations. Requests satisfy the
+//    grant precondition before send_request and response IDs are copied from
+//    the actual request. Expected: The sequencer-base constructor forwards its
+//    explicit instance name and parent.
+// 4. 1800.2-2020 15.5.2.1 (UVM-SQR-AUDIT-PULL-CONSTRUCTOR) gives rule 4 above.
+//    Setup: Use the selected original fixture, declared type arguments, public
+//    endpoint/base views and linked stage observations. Requests satisfy the
+//    grant precondition before send_request and response IDs are copied from
+//    the actual request. Expected: The pull sequencer constructor preserves
+//    its explicit name and parent.
+// 5. 1800.2-2020 15.5.1 (UVM-SQR-AUDIT-PULL-BASE-TYPE) gives rule 5 above.
+//    Setup: Use the selected original fixture, declared type arguments, public
+//    endpoint/base views and linked stage observations. Requests satisfy the
+//    grant precondition before send_request and response IDs are copied from
+//    the actual request. Expected: The typed pull sequencer is usable through
+//    uvm_sequencer_base.
+// 6. 1800.2-2020 15.6.1 (UVM-SQR-AUDIT-PUSH-BASE-TYPE) gives rule 6 above.
+//    Setup: Use the selected original fixture, declared type arguments, public
+//    endpoint/base views and linked stage observations. Requests satisfy the
+//    grant precondition before send_request and response IDs are copied from
+//    the actual request. Expected: The typed push sequencer is usable through
+//    uvm_sequencer_base.
+// 7. 1800.2-2020 15.6.3.2 (UVM-SQR-AUDIT-PUSH-CONSTRUCTOR-NAME) gives rule 7
+//    above. Setup: Use the selected original fixture, declared type arguments,
+//    public endpoint/base views and linked stage observations. Requests
+//    satisfy the grant precondition before send_request and response IDs are
+//    copied from the actual request. Expected: The push sequencer constructor
+//    retains its explicit instance name.
+// It also supports, as a control, the setup or conditions of
+// UVM-SQR-AUDIT-UVM-SEQUENCER-BASE-ABSTRACT.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_constructors_preserve_names_parents_and_selected_component_bases;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

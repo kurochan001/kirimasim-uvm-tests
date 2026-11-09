@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_base_printed_recording_query_reports_default_disable_and_peer_state.expected
 */
+// What it checks:
+// The printed is_auto_enabled_recording_enabled API reports enabled and
+// disabled base recording state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.23 (UVM-SQR-AUDIT-BASE-PRINTED-RECORDING-QUERY) gives the
+// rule above. Setup: Use the selected original fixture, declared type
+// arguments, public endpoint/base views and linked stage observations.
+// Requests satisfy the grant precondition before send_request and response IDs
+// are copied from the actual request. Expected: The printed
+// is_auto_enabled_recording_enabled API reports enabled and disabled base
+// recording state.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequencer_base_printed_recording_query_reports_default_disable_and_peer_state;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

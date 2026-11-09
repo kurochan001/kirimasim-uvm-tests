@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_execute_item_waits_for_driver_acknowledgement.expected
 */
+// What it checks:
+// execute_item executes the supplied item through the sequencer and waits for
+// completion.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.2.5 (UVM-SEQUENCER-DIRECT-EXECUTE-ITEM) gives the rule
+// above. Setup: Submit payload 77 directly and hold the driver acknowledgement
+// for a positive delay. Expected: The driver receives the exact submitted
+// handle; execute_item returns only after item_done.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Submit a packet directly with execute_item. Observe the same handle and
 // blocked caller before item_done, without inspecting its synthetic parent.
 

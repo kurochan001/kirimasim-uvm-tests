@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_pull_port_automatic_recording_triggers_named_transaction_events.expected
 */
+// What it checks:
+// 1. A pull-port get_next_item automatically notifies the request transaction
+//    begin event.
+// 2. A pull-port item_done automatically notifies the transaction end event.
+// 3. The begin timestamp exposes the selected automatic transaction mark.
+// 4. The end timestamp exposes the selected delayed automatic transaction
+//    mark.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 15.2.1 (UVM-SEQUENCER-AUDIT-AUTOMATIC-BEGIN) gives rule 1
+//    above. Setup: Use a real connected typed pull port and sequencer, an
+//    original producer item, named begin/end observers and positive delays
+//    before request and acknowledgement. Expected: The exact producer item is
+//    received, begin has one callback and end remains pending.
+// 2. 1800.2-2020 15.2.1 (UVM-SEQUENCER-AUDIT-AUTOMATIC-END) gives rule 2
+//    above. Setup: Use a real connected typed pull port and sequencer, an
+//    original producer item, named begin/end observers and positive delays
+//    before request and acknowledgement. Expected: After the delayed
+//    acknowledgement the producer is released and end has one callback.
+// 3. 1800.2-2020 5.4.2.16 (UVM-SEQUENCER-AUDIT-AUTOMATIC-BEGIN-TIME) gives
+//    rule 3 above. Setup: Use a real connected typed pull port and sequencer,
+//    an original producer item, named begin/end observers and positive delays
+//    before request and acknowledgement. Expected: The transaction begin
+//    timestamp and named-event callback time equal the get-next return time.
+// 4. 1800.2-2020 5.4.2.16 (UVM-SEQUENCER-AUDIT-AUTOMATIC-END-TIME) gives rule
+//    4 above. Setup: Use a real connected typed pull port and sequencer, an
+//    original producer item, named begin/end observers and positive delays
+//    before request and acknowledgement. Expected: The transaction end
+//    timestamp and callback time equal the later item_done call time.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the named transaction-pool events through standard typed callbacks.
 // Creating observers does not certify initial event-pool membership. No record
 // handle value, database format, callback payload or sibling order is assumed.

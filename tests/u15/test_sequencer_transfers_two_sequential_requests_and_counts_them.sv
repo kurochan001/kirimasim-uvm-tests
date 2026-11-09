@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequencer_transfers_two_sequential_requests_and_counts_them.expected
 */
+// What it checks:
+// The sent-request counter counts requests dispatched by the sequencer.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 15.3.3.1 (UVM-SEQUENCER-REQUEST-SENT-COUNT) gives the rule
+// above. Setup: Complete two sequential requests, or three requests while
+// retaining only two in history. Expected: The counters are two and three
+// regardless of history retention length.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Issue one sequence with no competing arbitration requests. Inspect
 // payloads before acknowledging each request and do not compare generated IDs.
 
