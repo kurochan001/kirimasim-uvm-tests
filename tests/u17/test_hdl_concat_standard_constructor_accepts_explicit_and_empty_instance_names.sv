@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_concat_standard_constructor_accepts_explicit_and_empty_instance_names.expected
 */
+// What it checks:
+// 1. The concat constructor accepts an explicit instance-name argument.
+// 2. The concat constructor accepts an explicitly empty name argument.
+// 3. The concat constructor permits omission of its name argument.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 17.2.3.3.1 (UVM-REG-GLOBAL-CONCAT-NAMED-CONSTRUCTION) gives
+//    rule 1 above. Setup: A new expression supplies selected as the name.
+//    Expected: Each selected new expression produces a nonnull distinct concat
+//    instance.
+// 2. 1800.2-2020 17.2.3.3.1 (UVM-REG-GLOBAL-CONCAT-EMPTY-NAME-CONSTRUCTION)
+//    gives rule 2 above. Setup: A new expression supplies an empty string.
+//    Expected: Each selected new expression produces a nonnull distinct concat
+//    instance.
+// 3. 1800.2-2020 17.2.3.3.1 (UVM-REG-GLOBAL-CONCAT-OMITTED-NAME-CONSTRUCTION)
+//    gives rule 3 above. Setup: A new expression omits the optional name.
+//    Expected: Each selected new expression produces a nonnull distinct concat
+//    instance.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Check the standard constructor signature and distinct allocation only. No
 // unprovided name getter or legacy public member is used to infer stored
 // names.

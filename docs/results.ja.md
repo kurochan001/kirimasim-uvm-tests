@@ -130,7 +130,7 @@ kirimasim／Ghost記録は、固定した実行ファイルとseedごとの非�
 歴史的な元fileは1085記録を保持します。以前のfilterでcommand-enum引用、Boolean rerandomization、virtual-field configure引用、reraise主引用の修正入力4件を除外しました。今回は新しいfilterを行いません。
 互換1081記録とfilter metadataをbyte単位で保持し、その後の追加で未測定は1682入力（追加1678件・修正した元入力4件）となります。
 Ghostは各seedでpass 206／fail 875、kirimasimはunsupported 1072／API欠落fail 9のままです。
-直近の除外の出典は`out/thin-one-hundred-sixth-guest-exclusions.json`、現在の範囲は`out/thin-one-hundred-twenty-fourth-evidence-scope.json`に記録します。
+直近の除外の出典は`out/thin-one-hundred-sixth-guest-exclusions.json`、現在の範囲は`out/thin-one-hundred-twenty-fifth-u17-evidence-scope.json`に記録します。
 
 指紋ごとに、識別する入力が異なります。
 
@@ -160,6 +160,8 @@ SHA-256は記録した内容から計算する識別値であり、1つの識別
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
 guestの記録は、非公開の実行fileがなければ測り直せません。編集がcommentと改行の追加だけのときは、[codeの同一性の検査](testing.ja.md#読みやすさの編集)で、編集した入力が字句、metadataの項目、directive、metacomment、`` `__LINE__ ``の距離をすべて保つことを示します。そのような記録は新しい指紋へ持ち越し、古い指紋を`carried_from`に残し、新しい測定とは扱いません。編集した入力のVerilatorの結果は測り直します。
+
+読みやすさの進み具合：22のdirectoryのうち1つを終えました（u17（11入力））。終えたdirectoryの入力と、そのfileを集める他のdirectoryの入力は、seed 1／73で測り直してすべての状態が変わらず、指紋は`tools/code_identity.py`で持ち越し、guestの記録も持ち越しました。残りは21のdirectoryです。
 
 [要求台帳の案](requirements.ja.md)はAI義務4151件と未評価0番号、部分2062／分類445です。
 第10章は87／29／0、第18章は393／63／0で、部分契約と元の目標は未完です。

@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_concat_standard_get_slices_returns_the_appended_most_to_least_order.expected
 */
+// What it checks:
+// 1. The standard get_slices method returns the configured slice array.
+// 2. add_slice appends a valid next slice to the concat.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 17.2.3.3.3 (UVM-HDL-CONCAT-GET-SLICES) gives rule 1 above.
+//    Setup: Prepare a concat using add_slice or set_slices, then call the
+//    standard getter. Expected: The result contains high then low with offsets
+//    eight/zero and sizes eight.
+// 2. 1800.2-2020 17.2.3.3.4 (UVM-HDL-CONCAT-APPEND-SLICES) gives rule 2 above.
+//    Setup: Append high and low slices and inspect with get_slices. Expected:
+//    The resulting array retains the supplied most-to-least order and
+//    geometry.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library lacks this required slice accessor API.
 // Keep the standard slice API rather than substituting library legacy members.
 // These are metadata values; no HDL handle or DPI access is requested.

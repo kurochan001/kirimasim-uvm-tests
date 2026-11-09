@@ -13,6 +13,65 @@
 :expected_stdout: @test_register_global_configured_widths_match_public_type_declarations.expected
 :uvm_defines: UVM_REG_DATA_WIDTH=96 UVM_REG_ADDR_WIDTH=80 UVM_REG_BYTENABLE_WIDTH=16 UVM_REG_CVR_WIDTH=40
 */
+// What it checks:
+// 1. uvm_reg_data_t has the width specified by UVM_REG_DATA_WIDTH.
+// 2. uvm_reg_data_logic_t has the width specified by UVM_REG_DATA_WIDTH.
+// 3. uvm_reg_addr_t has the width specified by UVM_REG_ADDR_WIDTH.
+// 4. uvm_reg_addr_logic_t has the width specified by UVM_REG_ADDR_WIDTH.
+// 5. uvm_reg_byte_en_t has the width specified by UVM_REG_BYTENABLE_WIDTH.
+// 6. uvm_reg_cvr_t has the width specified by UVM_REG_CVR_WIDTH.
+// 7. The selected UVM_REG_ADDR_WIDTH setting determines its public type
+//    extent.
+// 8. The selected UVM_REG_DATA_WIDTH setting determines its public type
+//    extent.
+// 9. The selected UVM_REG_BYTENABLE_WIDTH setting determines its public type
+//    extent.
+// 10. The selected UVM_REG_CVR_WIDTH setting determines its public type
+//     extent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 17.2.1.1 (UVM-REG-GLOBAL-DATA-WIDTH) gives rule 1 above.
+//    Setup: The pinned library is compiled once with defaults and once with
+//    selected independent macro settings. Expected: The declared type width
+//    equals the corresponding active macro in both configurations.
+// 2. 1800.2-2020 17.2.1.2 (UVM-REG-GLOBAL-LOGIC-DATA-WIDTH) gives rule 2
+//    above. Setup: The pinned library is compiled once with defaults and once
+//    with selected independent macro settings. Expected: The declared type
+//    width equals the corresponding active macro in both configurations.
+// 3. 1800.2-2020 17.2.1.3 (UVM-REG-GLOBAL-ADDRESS-WIDTH) gives rule 3 above.
+//    Setup: The pinned library is compiled once with defaults and once with
+//    selected independent macro settings. Expected: The declared type width
+//    equals the corresponding active macro in both configurations.
+// 4. 1800.2-2020 17.2.1.4 (UVM-REG-GLOBAL-LOGIC-ADDRESS-WIDTH) gives rule 4
+//    above. Setup: The pinned library is compiled once with defaults and once
+//    with selected independent macro settings. Expected: The declared type
+//    width equals the corresponding active macro in both configurations.
+// 5. 1800.2-2020 17.2.1.5 (UVM-REG-GLOBAL-BYTE-ENABLE-WIDTH) gives rule 5
+//    above. Setup: The pinned library is compiled once with defaults and once
+//    with selected independent macro settings. Expected: The declared type
+//    width equals the corresponding active macro in both configurations.
+// 6. 1800.2-2020 17.2.1.6 (UVM-REG-GLOBAL-COVERAGE-WIDTH) gives rule 6 above.
+//    Setup: The pinned library is compiled once with defaults and once with
+//    selected independent macro settings. Expected: The declared type width
+//    equals the corresponding active macro in both configurations.
+// 7. 1800.2-2020 B.6.4 (UVM-REG-GLOBAL-ADDRESS-CONFIGURED-MACRO) gives rule 7
+//    above. Setup: The macro is supplied as 80 while other widths are
+//    configured independently. Expected: The associated declared width is 80
+//    bits.
+// 8. 1800.2-2020 B.6.5 (UVM-REG-GLOBAL-DATA-CONFIGURED-MACRO) gives rule 8
+//    above. Setup: The macro is supplied as 96 while other widths are
+//    configured independently. Expected: The associated declared width is 96
+//    bits.
+// 9. 1800.2-2020 B.6.6 (UVM-REG-GLOBAL-BYTE-ENABLE-CONFIGURED-MACRO) gives
+//    rule 9 above. Setup: The macro is supplied as 16 while other widths are
+//    configured independently. Expected: The associated declared width is 16
+//    bits.
+// 10. 1800.2-2020 B.6.7 (UVM-REG-GLOBAL-COVERAGE-CONFIGURED-MACRO) gives rule
+//     10 above. Setup: The macro is supplied as 40 while other widths are
+//     configured independently. Expected: The associated declared width is 40
+//     bits.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Width and representable upper bits are declaration checks. Logic aliases are
 // checked for width only; X/Z storage and four-state execution remain open.
 module test_register_global_configured_widths_match_public_type_declarations;

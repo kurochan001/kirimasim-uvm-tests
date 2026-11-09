@@ -161,6 +161,8 @@ records are carried forward under that rule (option G1), and a manual Regression
 to directories. Each directory is measured again with Verilator at seeds 1/73 and confirmed by a
 narrowed Regression before the next one.
 
+Readability progress: 1 of 22 directories are finished: u17 (11 inputs). Each finished directory's inputs, and every input elsewhere that collects one of its files, were measured again at seeds 1/73 with every status unchanged; their fingerprints moved forward with `tools/code_identity.py` and their guest records were carried forward. The other 21 directories remain.
+
 The 124th expansion implements the seventh item, the bring-up stages of kirimasim. Every test
 has a stage from 0 to 6 in `coverage/kirimasim_stages.json`, decided by markers in its own
 sources, and each stage has a short set of tagged representatives that `tools/kirimasim_stages.py
@@ -262,13 +264,13 @@ remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-one-hundred-twenty-fourth-verilator-combined.json
-out/thin-one-hundred-twelfth-ghost-final-1.json
-out/thin-one-hundred-twelfth-ghost-final-73.json
-out/thin-one-hundred-twelfth-kirimasim-final.json
+out/thin-one-hundred-twenty-fifth-u17-verilator-combined.json
+out/thin-one-hundred-twenty-fifth-u17-ghost-1.json
+out/thin-one-hundred-twenty-fifth-u17-ghost-73.json
+out/thin-one-hundred-twenty-fifth-u17-kirimasim.json
 out/thin-one-hundred-twenty-fourth-inventory.json
 out/thin-one-hundred-twenty-fourth-backlog.json
-out/thin-one-hundred-twenty-fourth-evidence-scope.json
+out/thin-one-hundred-twenty-fifth-u17-evidence-scope.json
 out/thin-one-hundred-sixth-hdl-combined.json
 out/thin-one-hundred-sixth-cmdline-final.json
 ```

@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_register_element_access_and_hierarchy_symbols_are_typed_without_fixed_encodings.expected
 */
+// What it checks:
+// 1. uvm_elem_kind_e makes its documented named alternatives available.
+// 2. uvm_access_e makes its documented named alternatives available.
+// 3. uvm_hier_e makes its documented named alternatives available.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 17.2.2.5 (UVM-REG-GLOBAL-ELEMENT-SYMBOLS) gives rule 1 above.
+//    Setup: Each documented alternative is assigned in turn to a variable of
+//    the public enum type. Expected: The assigned enum value identifies the
+//    selected symbol by its standard SystemVerilog name query.
+// 2. 1800.2-2020 17.2.2.6 (UVM-REG-GLOBAL-ACCESS-SYMBOLS) gives rule 2 above.
+//    Setup: Each documented alternative is assigned in turn to a variable of
+//    the public enum type. Expected: The assigned enum value identifies the
+//    selected symbol by its standard SystemVerilog name query.
+// 3. 1800.2-2020 17.2.2.7 (UVM-REG-GLOBAL-HIERARCHY-SYMBOLS) gives rule 3
+//    above. Setup: Each documented alternative is assigned in turn to a
+//    variable of the public enum type. Expected: The assigned enum value
+//    identifies the selected symbol by its standard SystemVerilog name query.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // This checks the named public declarations. Numeric values, enum cardinality
 // and downstream access/search behavior are outside this oracle.
 module test_register_element_access_and_hierarchy_symbols_are_typed_without_fixed_encodings;

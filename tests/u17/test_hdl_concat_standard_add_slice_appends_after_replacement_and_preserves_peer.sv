@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer.expected
 */
+// What it checks:
+// 1. add_slice appends the supplied value after the existing valid
+//    description.
+// 2. add_slice appends to the current array after replacement by an empty
+//    array.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 17.2.3.3.4 (UVM-REG-GLOBAL-CONCAT-APPEND-AFTER-SET) gives
+//    rule 1 above. Setup: One high slice is installed, then one lower slice is
+//    appended. Expected: The fresh result has high then low; the peer still
+//    has one high slice.
+// 2. 1800.2-2020 17.2.3.3.4 (UVM-REG-GLOBAL-CONCAT-APPEND-AFTER-CLEAR) gives
+//    rule 2 above. Setup: The previous array is cleared and a whole slice is
+//    appended. Expected: The fresh result has only the whole slice and the
+//    peer high remains intact.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Append order and replacement use valid metadata only. These methods may be
 // missing in a library; do not substitute its legacy slices member or set API.
 module test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer;

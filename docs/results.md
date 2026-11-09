@@ -204,7 +204,7 @@ filter metadata are retained byte-identically. Later additions increase the
 unmeasured set to 1682: 1678 additions and four revised originals. Ghost remains
 206 pass/875 fail per seed and kirimasim remains 1072 unsupported/nine API failures.
 The latest exclusions are recorded in `out/thin-one-hundred-sixth-guest-exclusions.json`;
-the current scope is in `out/thin-one-hundred-twenty-fourth-evidence-scope.json`.
+the current scope is in `out/thin-one-hundred-twenty-fifth-u17-evidence-scope.json`.
 
 The fingerprints identify different inputs:
 
@@ -247,6 +247,8 @@ shows that the edited inputs keep every token, metadata field, directive,
 metacomment and `` `__LINE__ `` distance; such a record is carried forward to
 the new fingerprint, keeps its old one in `carried_from`, and is not a new
 measurement. Verilator results of the edited inputs are measured again.
+
+Readability progress: 1 of 22 directories are finished: u17 (11 inputs). Each finished directory's inputs, and every input elsewhere that collects one of its files, were measured again at seeds 1/73 with every status unchanged; their fingerprints moved forward with `tools/code_identity.py` and their guest records were carried forward. The other 21 directories remain.
 
 The [draft ledger](requirements.md) has 4151 AI duties and 0 unassessed
 identifiers: 2062 partial/445 assessed. Chapter 10 is 87/29/0; chapter 18 is

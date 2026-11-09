@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_register_prediction_endianness_and_coverage_symbols_preserve_independent_selection.expected
 */
+// What it checks:
+// 1. uvm_predict_e makes its documented named alternatives available.
+// 2. uvm_endianness_e makes its documented named alternatives available.
+// 3. uvm_coverage_model_e makes its documented named alternatives available.
+// 4. Individual coverage models can be selected together using bitwise OR.
+// 5. The selected individual coverage models remain distinguishable in a
+//    combined set.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 17.2.2.8 (UVM-REG-GLOBAL-PREDICT-SYMBOLS) gives rule 1 above.
+//    Setup: Each documented alternative is assigned in turn to a variable of
+//    the public enum type. Expected: The assigned enum value identifies the
+//    selected symbol by its standard SystemVerilog name query.
+// 2. 1800.2-2020 17.2.2.4 (UVM-REG-GLOBAL-ENDIAN-SYMBOLS) gives rule 2 above.
+//    Setup: Each documented alternative is assigned in turn to a variable of
+//    the public enum type. Expected: The assigned enum value identifies the
+//    selected symbol by its standard SystemVerilog name query.
+// 3. 1800.2-2020 17.2.2.9 (UVM-REG-GLOBAL-COVERAGE-SYMBOLS) gives rule 3
+//    above. Setup: Each documented alternative is assigned in turn to a
+//    variable of the public enum type. Expected: The assigned enum value
+//    identifies the selected symbol by its standard SystemVerilog name query.
+// 4. 1800.2-2020 17.2.2.9 (UVM-REG-GLOBAL-COVERAGE-OR) gives rule 4 above.
+//    Setup: Three distinct documented model identifiers are combined in
+//    uvm_reg_cvr_t. Expected: The combined selection contains register bits,
+//    address map and field values.
+// 5. 1800.2-2020 17.2.2.9 (UVM-REG-GLOBAL-COVERAGE-INDEPENDENT-SELECTION)
+//    gives rule 5 above. Setup: Three distinct documented model identifiers
+//    are combined in uvm_reg_cvr_t. Expected: Clearing the address-map
+//    selection retains the register-bit and field-value selections.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Symbol availability and composable coverage selections are observed without
 // numeric encodings. No covergroup sampling, predictor side effects or
 // physical

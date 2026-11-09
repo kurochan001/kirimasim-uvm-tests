@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_slice_struct_preserves_whole_register_sentinel_and_gapped_fields.expected
 */
+// What it checks:
+// 1. The public slice struct exposes the HDL path string.
+// 2. The public slice struct carries the implemented register LSB offset.
+// 3. The public slice struct carries the number of implemented bits.
+// 4. A whole-register slice can represent offset and size as -1.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 17.2.1.7 (UVM-REG-GLOBAL-SLICE-PATH) gives rule 1 above.
+//    Setup: Original whole and gapped partial descriptions are assigned to the
+//    public struct. Expected: Each selected path string is retained in its
+//    struct value.
+// 2. 1800.2-2020 17.2.1.7 (UVM-REG-GLOBAL-SLICE-OFFSET) gives rule 2 above.
+//    Setup: Original whole and gapped partial descriptions are assigned to the
+//    public struct. Expected: Selected partial slices retain offsets 24 and 0.
+// 3. 1800.2-2020 17.2.1.7 (UVM-REG-GLOBAL-SLICE-SIZE) gives rule 3 above.
+//    Setup: Original whole and gapped partial descriptions are assigned to the
+//    public struct. Expected: Both selected partial slices retain size 8.
+// 4. 1800.2-2020 17.2.1.7 (UVM-REG-GLOBAL-SLICE-WHOLE-SENTINEL) gives rule 4
+//    above. Setup: Original whole and gapped partial descriptions are assigned
+//    to the public struct. Expected: The whole-register metadata retains -1 in
+//    both fields.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe only public struct metadata. A whole-register sentinel uses -1 in
 // both integer fields. Gapped slices do not imply actual HDL/DPI access.
 module test_hdl_slice_struct_preserves_whole_register_sentinel_and_gapped_fields;

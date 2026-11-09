@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_concat_standard_set_slices_initializes_a_split_register_description.expected
 */
+// What it checks:
+// 1. The standard set_slices method initializes a concat from the supplied
+//    slice array.
+// 2. The standard get_slices method returns the configured slice array.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 17.2.3.3.2 (UVM-HDL-CONCAT-SET-SLICES) gives rule 1 above.
+//    Setup: Supply two eight-bit slices at offsets eight and zero in
+//    most-to-least order. Expected: The standard getter returns both supplied
+//    paths, offsets and sizes.
+// 2. 1800.2-2020 17.2.3.3.3 (UVM-HDL-CONCAT-GET-SLICES) gives rule 2 above.
+//    Setup: Prepare a concat using add_slice or set_slices, then call the
+//    standard getter. Expected: The result contains high then low with offsets
+//    eight/zero and sizes eight.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library lacks this required slice accessor API.
 // Keep the standard slice API rather than substituting library legacy members.
 // These are metadata values; no HDL handle or DPI access is requested.

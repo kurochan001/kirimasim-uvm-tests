@@ -43,6 +43,7 @@ assembly").
 
 import argparse
 import datetime
+import functools
 import hashlib
 import json
 from pathlib import Path
@@ -90,6 +91,7 @@ def resolve(rev):
         raise IdentityError(f"unknown revision {rev}") from None
 
 
+@functools.lru_cache(maxsize=None)
 def at(rev, relative):
     """The bytes of a repository path at rev, or None if it does not exist."""
     try:
@@ -229,8 +231,11 @@ class Mover:
             return None
         if test_id not in self.current:
             self.current[test_id] = suite_results.input_digest(test)
+        if recorded == self.current[test_id]:
+            return None
+        if test_id not in self.old:
             self.old[test_id] = digest_at(test, self.base)
-        if recorded == self.current[test_id] or recorded != self.old[test_id]:
+        if recorded != self.old[test_id]:
             return None
         return self.current[test_id]
 
