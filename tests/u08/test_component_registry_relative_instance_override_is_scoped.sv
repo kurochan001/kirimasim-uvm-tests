@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_component_registry_relative_instance_override_is_scoped.expected
 */
+// What it checks:
+// The component registry expands a relative override path using the supplied
+// parent path.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.2.3.2.6 (UVM-REGISTRY-COMPONENT-RELATIVE-OVERRIDE) gives the
+// rule above. Setup: Create the same leaf name under the selected parent and
+// an unrelated parent. Expected: Only the selected parent context receives the
+// replacement type.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Configure a relative leaf override through the registry. The selected
 // and unaffected components still receive their actual constructor parents.
 

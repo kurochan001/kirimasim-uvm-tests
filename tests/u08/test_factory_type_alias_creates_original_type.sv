@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_type_alias_creates_original_type.expected
 */
+// What it checks:
+// A factory alias names the original wrapper for applicable factory requests.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.1.6.1 (UVM-FACTORY-TYPE-ALIAS) gives the rule above. Setup:
+// Create through the alias, with and without a type override; instance aliases
+// use a matching context. Expected: Creation uses the original or overridden
+// type as configured and preserves the requested instance name.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An alias is an additional name for the registered wrapper. Creating
 // through it retains the original type name and requested instance name.
 

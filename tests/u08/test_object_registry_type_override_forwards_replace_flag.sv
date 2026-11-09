@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_object_registry_type_override_forwards_replace_flag.expected
 */
+// What it checks:
+// The object registry type-override helper forwards replacement control to the
+// factory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.2.4.2.5 (UVM-REGISTRY-OBJECT-TYPE-OVERRIDE) gives the rule
+// above. Setup: Install a first override, retain it with replace zero, then
+// replace it with replace one. Expected: Creation first retains
+// first_item/first_env, then selects second_item/second_env as applicable.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the registry convenience method with both replace values.
 // The created dynamic types expose the factory configuration it forwards.
 

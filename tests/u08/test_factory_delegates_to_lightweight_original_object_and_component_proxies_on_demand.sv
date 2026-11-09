@@ -12,6 +12,53 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand.expected
 */
+// What it checks:
+// 1. Lightweight registration does not construct the selected represented
+//    object/component instances.
+// 2. Factory object requests delegate to the selected wrapper.
+// 3. Factory component requests delegate to the selected wrapper.
+// 4. No-override object creation returns the represented object type.
+// 5. No-override component creation returns the represented component type.
+// 6. Created object/components retain the selected requested names.
+// 7. Component creation forwards the selected parent handle.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.2.1
+//    (UVM-FACTORY-AUDIT-REGISTRATION-WITHOUT-REPRESENTED-INSTANCES) gives rule
+//    1 above. Setup: A fresh factory receives original object/component
+//    wrappers; requests enter through both public by-type and by-name creation
+//    APIs. Expected: Both represented constructor counters remain zero after
+//    registration.
+// 2. 1800.2-2020 8.3.2 (UVM-FACTORY-AUDIT-WRAPPER-OBJECT-DISPATCH) gives rule
+//    2 above. Setup: A fresh factory receives original object/component
+//    wrappers; requests enter through both public by-type and by-name creation
+//    APIs. Expected: Two object requests call the object proxy twice and
+//    create two objects.
+// 3. 1800.2-2020 8.3.2 (UVM-FACTORY-AUDIT-WRAPPER-COMPONENT-DISPATCH) gives
+//    rule 3 above. Setup: A fresh factory receives original object/component
+//    wrappers; requests enter through both public by-type and by-name creation
+//    APIs. Expected: Two component requests call the component proxy twice and
+//    create two components.
+// 4. 1800.2-2020 8.3.1.5 (UVM-FACTORY-AUDIT-CREATE-OBJECT-TYPE) gives rule 4
+//    above. Setup: A fresh factory receives original object/component
+//    wrappers; requests enter through both public by-type and by-name creation
+//    APIs. Expected: The selected object casts to the original item subtype.
+// 5. 1800.2-2020 8.3.1.5 (UVM-FACTORY-AUDIT-CREATE-COMPONENT-TYPE) gives rule
+//    5 above. Setup: A fresh factory receives original object/component
+//    wrappers; requests enter through both public by-type and by-name creation
+//    APIs. Expected: The selected component casts to the original node
+//    subtype.
+// 6. 1800.2-2020 8.3.1.5 (UVM-FACTORY-AUDIT-CREATE-REQUESTED-NAMES) gives rule
+//    6 above. Setup: A fresh factory receives original object/component
+//    wrappers; requests enter through both public by-type and by-name creation
+//    APIs. Expected: Both object names and both child names agree with the
+//    original requests.
+// 7. 1800.2-2020 8.3.1.5 (UVM-FACTORY-AUDIT-CREATE-COMPONENT-PARENTS) gives
+//    rule 7 above. Setup: A fresh factory receives original object/component
+//    wrappers; requests enter through both public by-type and by-name creation
+//    APIs. Expected: Both created components retain the supplied parent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand;
   import uvm_pkg::*;
   int object_made=0,component_made=0;

@@ -13,6 +13,26 @@
 :expected_stdout: @test_factory_print_one_reports_only_the_selected_type_and_override_inventory.expected
 :expected_stderr_regex: (?s)\A(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\btype_base55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\btype_alt55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\binst_base55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\binst_alt55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\blisted_only55\b)(?!.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\buvm_sequence_item\b).*FACTORY_CAPTURE_END55
 */
+// What it checks:
+// 1. With all_types one, registered user-defined types with names are
+//    displayed.
+// 2. The all_types-one selection excludes the selected UVM-prefixed builtin
+//    inventory.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.3.1.7.5 (UVM-FACTORY-AUDIT-PRINT-NAMED-USER-TYPES) gives
+//    rule 1 above. Setup: A fresh factory has two independent override pairs,
+//    one named user type without an override and a standard uvm_sequence_item
+//    proxy; print is framed separately on stdout and stderr. Expected: The
+//    override names and unrelated listed_only55 are present.
+// 2. 1800.2-2020 8.3.1.7.5 (UVM-FACTORY-AUDIT-PRINT-ONE-EXCLUDES-BUILTINS)
+//    gives rule 2 above. Setup: A fresh factory has two independent override
+//    pairs, one named user type without an override and a standard
+//    uvm_sequence_item proxy; print is framed separately on stdout and stderr.
+//    Expected: uvm_sequence_item is absent while named user state is
+//    displayed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_factory_print_one_reports_only_the_selected_type_and_override_inventory;
   import uvm_pkg::*;
   class type_base55 extends uvm_object;

@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_wrapper_create_object_uses_its_represented_type.expected
 */
+// What it checks:
+// An object wrapper creates a fresh object of the type it represents with the
+// requested name.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.2.2.1 (UVM-WRAPPER-OBJECT-CREATE) gives the rule above.
+// Setup: Create twice directly through the wrapper, including with a separate
+// factory override installed. Expected: The represented type and independent
+// handles/data are retained without applying registry overrides.
+// It also supports, as a control, the setup or conditions of
+// UVM-ABSTRACT-OBJECT-WRAPPER-DIRECT-CONSTRUCTION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the proxy creation method at the factory boundary. Unlike
 // registry create, this method allocates the type represented by the proxy.
 

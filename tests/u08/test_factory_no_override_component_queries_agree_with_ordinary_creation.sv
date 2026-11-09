@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_no_override_component_queries_agree_with_ordinary_creation.expected
 */
+// What it checks:
+// Override lookup without a matching override returns the wrapper that
+// ordinary creation would use.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.1.7.1 (UVM-FACTORY-NO-OVERRIDE-QUERY) gives the rule above.
+// Setup: Register an ordinary named type and query a path with no
+// instance/type override. Expected: The selected wrapper agrees with ordinary
+// creation rather than requiring an installed override.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Install no overrides. Both lookup spellings must agree with creation.
 module test_factory_no_override_component_queries_agree_with_ordinary_creation;
   import uvm_pkg::*;

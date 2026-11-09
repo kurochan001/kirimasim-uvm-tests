@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_registrations_are_per_factory_instance.expected
 */
+// What it checks:
+// 1. Registering a proxy adds that exact type to the receiving factory.
+// 2. The type-registration query identifies the exact proxy registered in that
+//    factory.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.3.1.3 (UVM-FACTORY-REGISTRATION-LOCAL) gives rule 1 above.
+//    Setup: Use independent local factories and register base/derived wrappers
+//    separately. Expected: Registration is visible only after the relevant
+//    proxy is registered in that factory.
+// 2. 1800.2-2020 8.3.1.7.4 (UVM-FACTORY-PROXY-REGISTRATION-QUERY) gives rule 2
+//    above. Setup: Register one wrapper without its derived wrapper and
+//    compare separate factories. Expected: Inheritance or registration in
+//    another factory does not make an unregistered proxy present.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register one wrapper in two local factories at different times.
 // Neither local factory inherits registrations from the global factory.
 

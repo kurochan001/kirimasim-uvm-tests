@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_registered_name_queries_use_exact_names.expected
 */
+// What it checks:
+// 1. Registered-name lookup returns the wrapper associated with that name
+//    rather than resolving creation overrides.
+// 2. The name-registration query checks the exact registered type name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.3.1.7.2 (UVM-FACTORY-WRAPPER-NAME-LOOKUP) gives rule 1
+//    above. Setup: Query exact object/component names and retain their
+//    original registrations after a type override. Expected: The original
+//    wrapper remains identifiable and distinct from the replacement wrapper.
+// 2. 1800.2-2020 8.3.1.7.3 (UVM-FACTORY-NAME-REGISTRATION-QUERY) gives rule 2
+//    above. Setup: Query before/after explicit registration and vary case,
+//    prefix and suffix. Expected: Only the exact name is registered; similar
+//    strings are not substituted.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register a concrete type name and query several distinct strings.
 // The factory has no aliases or overrides in this case.
 

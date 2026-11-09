@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_instance_override_first_match.expected
 */
+// What it checks:
+// When instance overrides overlap, the earliest registered matching override
+// wins.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.1.4.1 (UVM-FACTORY-FIRST-INSTANCE) gives the rule above.
+// Setup: An exact path override precedes a wildcard override that also matches
+// that path. Expected: The exact path yields first_item and the independent
+// wildcard path yields second_item.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register an exact path before a wildcard. The exact request matches
 // both entries and uses the first; another request uses the wildcard.
 

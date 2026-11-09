@@ -13,6 +13,26 @@
 :expected_stdout: @test_pkg_instance_and_name_overrides_cross_package_boundaries_120.expected
 :files: helpers120_pkg/agent_pkg120.sv helpers120_pkg/seq_pkg120.sv helpers120_pkg/env_pkg120.sv helpers120_pkg/ext_pkg120.sv
 */
+// What it checks:
+// 1. An instance override set through type_id relative to the test replaces
+//    only the matching component that another package creates.
+// 2. A by-name type override applies to by-name creation of a sequence
+//    declared in another package, keeping the given name, with or without a
+//    parent path.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.2.3.2.6 (UVM-USER-PACKAGE-RELATIVE-INSTANCE-OVERRIDE) gives
+//    rule 1 above. Setup: The test sets an override of agent120 by
+//    ext_agent120 for env.a1 relative to itself; the environment package
+//    creates a0 and a1 through type_id. Expected: a0 stays agent120 and a1 is
+//    ext_agent120, whose inherited build still creates driver120.
+// 2. 1800.2-2020 8.3.1.4.2 (UVM-USER-PACKAGE-TYPE-OVERRIDE-BY-NAME) gives rule
+//    2 above. Setup: The test overrides seq120 with ext_seq120 by name and
+//    creates s0 with its own path and s1 with an empty path by the name
+//    seq120. Expected: Both sequences are ext_seq120 named s0 and s1, and both
+//    drivers receive data 20 and 21.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The test sets an instance override for env.a1 relative to itself, so only the
 // second agent that the environment package creates through type_id must be the
 // extension agent; its inherited build still creates the original driver. A by-

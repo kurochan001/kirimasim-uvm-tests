@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_component_registry_type_override_forwards_replace_flag.expected
 */
+// What it checks:
+// The component registry type-override helper forwards replacement control to
+// the factory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.2.3.2.5 (UVM-REGISTRY-COMPONENT-TYPE-OVERRIDE) gives the rule
+// above. Setup: Install a first override, retain it with replace zero, then
+// replace it with replace one. Expected: Creation first retains
+// first_item/first_env, then selects second_item/second_env as applicable.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // All override types derive from the original component type. Distinct
 // leaf names allow both registry creations to coexist under the same parent.
 

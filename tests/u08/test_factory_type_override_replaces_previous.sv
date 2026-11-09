@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_type_override_replaces_previous.expected
 */
+// What it checks:
+// A type override installed with replacement enabled supersedes the previous
+// type override.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.1.4.2 (UVM-FACTORY-REPLACE) gives the rule above. Setup: One
+// requested type has an initial override followed by a replacement override.
+// Expected: Creation changes from first_item to second_item.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicitly replacing a type override changes later creations.
 // The created instance still receives the requested instance name.
 

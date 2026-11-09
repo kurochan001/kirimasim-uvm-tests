@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_wrapper_object_type_name_identifies_represented_type.expected
 */
+// What it checks:
+// A wrapper type-name query identifies its represented type.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.2.2.3 (UVM-WRAPPER-TYPE-NAME) gives the rule above. Setup:
+// Inspect object/component wrappers before and after setting a creation
+// override. Expected: Each wrapper keeps its original type name despite the
+// creation override.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Read type names through common wrapper handles before and after
 // an override. A creation override does not change either proxy identity.
 

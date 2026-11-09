@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_wrapper_create_component_forwards_name_and_parent.expected
 */
+// What it checks:
+// A component wrapper forwards its supplied name and parent to construction of
+// its represented type.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.2.2.2 (UVM-WRAPPER-COMPONENT-CREATE) gives the rule above.
+// Setup: Use the same leaf under two parents and call the proxy directly with
+// an override installed. Expected: Constructed components retain their actual
+// parents, distinct paths and represented type.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Install a factory override, then call the base proxy creation method
 // and observe the concrete component type, leaf name and actual parent.
 

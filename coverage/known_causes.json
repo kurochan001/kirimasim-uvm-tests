@@ -1606,7 +1606,7 @@
     },
     {
       "test": "u08/test_abstract_component_registry_without_override_reports_error_and_returns_null",
-      "inputs_sha256": "938a493aded669175fd4c17e97d1493463dd783815c7b8c5ab15b3c0f4ca4fd8",
+      "inputs_sha256": "13d5180733441b5e63b769b208ca0cb4450c0b0522c1da13d84a9039c90b9a68",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -1632,7 +1632,7 @@
     },
     {
       "test": "u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization",
-      "inputs_sha256": "6a4c14e6a6aec0373641f2617e9603b1dbf574d1625958e0920be03bbbf90146",
+      "inputs_sha256": "8b04c0f9f4cb7b6908714600c6eafb0776a02906ecfeea9954ad940c9e15a50a",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -1658,7 +1658,7 @@
     },
     {
       "test": "u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization",
-      "inputs_sha256": "5268b153c8c74c8c557110ebd86f47132636470e5c197c2cf7865cc51ee1070a",
+      "inputs_sha256": "34e2931067a6ba809c39b7efcf349453b3d3946c47a920039a622a368a863e05",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -1684,7 +1684,7 @@
     },
     {
       "test": "u08/test_builtin_abstract_parameterized_objects_type_id_uses_the_required_registry_specialization",
-      "inputs_sha256": "064d83466850851b303a5e85d32e77982ed769bf4d86f8440a5872eb4bf167b1",
+      "inputs_sha256": "39f716467121ac24aa873748699df4d03c649ff5730866bee62e42d1f4ea6672",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -1710,7 +1710,7 @@
     },
     {
       "test": "u08/test_builtin_report_server_type_id_uses_its_own_named_abstract_registry",
-      "inputs_sha256": "ba7aa0fe7aeeb988da5b9b06d499863d98ddfd23001eba5b9712a2900ea17380",
+      "inputs_sha256": "0f8b586494d210ce0bacbd7f1238d1b3c593adb85d49ce4b241dcc0054c58d85",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -1736,7 +1736,7 @@
     },
     {
       "test": "u08/test_factory_no_override_component_queries_agree_with_ordinary_creation",
-      "inputs_sha256": "d70239fb78bbd63f61f24cae4ce02b655a52bccb40d0b775275dfe6aed7e836d",
+      "inputs_sha256": "e4396a0696e81d02ac092c7e61414e1aace3b7a749be5d50b3989fa6dcb6f396",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -1766,7 +1766,7 @@
     },
     {
       "test": "u08/test_factory_no_override_object_queries_agree_with_ordinary_creation",
-      "inputs_sha256": "47db7b48f7c66b7aae6344c0ee063204998b8432d90a8abba214b1f2dfe5c4ff",
+      "inputs_sha256": "699254ca6a3d0fceb0fec1036d74c2de5f83191d6ffb81c9798ff30ae06790a6",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -1796,7 +1796,7 @@
     },
     {
       "test": "u08/test_factory_unknown_component_name_reports_an_error_and_returns_null_with_a_registered_control",
-      "inputs_sha256": "18569187f010b08af2665f319554a3ee8210572c0fc93d53a0c11953636503e8",
+      "inputs_sha256": "8f5f34eef1607cd34ee84b7e606e5ab3c0423ab5fe4ae4adff0740891aea12f0",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -1826,7 +1826,7 @@
     },
     {
       "test": "u08/test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control",
-      "inputs_sha256": "6b6b9d77e0b454e2edca07bbfad171a4e68dd6bee20741d80cd03a553152ed38",
+      "inputs_sha256": "bf79afff2f6ec61ff7521044eb5070d293184d7ee705bc94d309c3e57272a38d",
       "kind": "runtime",
       "cause": "library",
       "evidence": {

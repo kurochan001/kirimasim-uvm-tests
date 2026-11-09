@@ -784,263 +784,263 @@
     },
     "u08/test_abstract_component_registry_instance_override_precedes_concrete_type_fallback": {
       "primary_clause": "8.2.5.1.5",
-      "inputs_sha256": "b3fa68fab2cbe7cb1316252030e097a9505c6b390b923a5c8f2b4158bdb43fb2"
+      "inputs_sha256": "e51746ee9d9d7d436258259550d952d23436176cb8dd6e898ae1b32c0460fe95"
     },
     "u08/test_abstract_component_registry_singleton_initialization_preserves_names_without_instances": {
       "primary_clause": "8.2.5.1.4",
-      "inputs_sha256": "89b121710823aca457561feca0d8c1ee12a7082a30af00083751d534e3c324b8"
+      "inputs_sha256": "7a47d0256b72fed1afec0d409678374dfe05bb7a1e4e9663c4a2eb25bb95621b"
     },
     "u08/test_abstract_component_registry_with_a_parent_reports_error_and_returns_null": {
       "primary_clause": "8.2.5.1.2",
-      "inputs_sha256": "c9ac72cced1a1a154f474bc88a9fdacb65f0e049de4a55c2e5f8828247e0cd8e"
+      "inputs_sha256": "e2439a6da22536986568bf0dfa62bd6dfe64fc7e12a52b2a0a5af9db20ed1f71"
     },
     "u08/test_abstract_component_registry_without_override_reports_error_and_returns_null": {
       "primary_clause": "8.2.5.1.2",
-      "inputs_sha256": "938a493aded669175fd4c17e97d1493463dd783815c7b8c5ab15b3c0f4ca4fd8"
+      "inputs_sha256": "13d5180733441b5e63b769b208ca0cb4450c0b0522c1da13d84a9039c90b9a68"
     },
     "u08/test_abstract_object_registry_instance_override_precedes_concrete_type_fallback": {
       "primary_clause": "8.2.5.2.5",
-      "inputs_sha256": "ee54d4c1cad8a10f1e830fefe24df36dac40cdb5ce2a9456d08ca99381f091d4"
+      "inputs_sha256": "0183bc4b36ed6a11598c18d19d6947be55ea26b6925663bf4b67f0f283913835"
     },
     "u08/test_abstract_object_registry_singleton_initialization_preserves_names_without_instances": {
       "primary_clause": "8.2.5.2.4",
-      "inputs_sha256": "84d525395700b17a94685d1e08161ae5b3625a506b19f576f2b9191f3e021f4f"
+      "inputs_sha256": "6faf313c4748e2c3f4ca4bb047dd5178aee3701a6936764b4698834d0ed2e8f4"
     },
     "u08/test_abstract_object_registry_without_override_reports_error_and_returns_null": {
       "primary_clause": "8.2.5.2.2",
-      "inputs_sha256": "421cfad7062cd14991fb9d05ec0d80e84a544b97eea395c1e293e62505a0a567"
+      "inputs_sha256": "7590aa20cae64f506bdeaf7a169f6e40c228de5d9e7932c4866be17b94c2de7a"
     },
     "u08/test_builtin_abstract_components_type_id_uses_the_required_registry_specialization": {
       "primary_clause": "8.2.2",
-      "inputs_sha256": "55ddb6df080cf57b0afc9a97a5a3c54e1cf5301afb51ab08341bc18cabfa05c4"
+      "inputs_sha256": "0e2af1a1772fec535b50952a6391e7c338fa5a878ca6a01f2fc9fa672d5d7131"
     },
     "u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization": {
       "primary_clause": "8.2.2",
-      "inputs_sha256": "6a4c14e6a6aec0373641f2617e9603b1dbf574d1625958e0920be03bbbf90146"
+      "inputs_sha256": "8b04c0f9f4cb7b6908714600c6eafb0776a02906ecfeea9954ad940c9e15a50a"
     },
     "u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization": {
       "primary_clause": "8.2.2",
-      "inputs_sha256": "5268b153c8c74c8c557110ebd86f47132636470e5c197c2cf7865cc51ee1070a"
+      "inputs_sha256": "34e2931067a6ba809c39b7efcf349453b3d3946c47a920039a622a368a863e05"
     },
     "u08/test_builtin_abstract_parameterized_objects_type_id_uses_the_required_registry_specialization": {
       "primary_clause": "8.2.2",
-      "inputs_sha256": "064d83466850851b303a5e85d32e77982ed769bf4d86f8440a5872eb4bf167b1"
+      "inputs_sha256": "39f716467121ac24aa873748699df4d03c649ff5730866bee62e42d1f4ea6672"
     },
     "u08/test_builtin_objects_type_id_uses_the_required_registry_specialization": {
       "primary_clause": "8.2.2",
-      "inputs_sha256": "6167e6dc471c9d47a9be5835af15b0c87a1964784221adf9a81ee0aaff18ac0d"
+      "inputs_sha256": "c9f633aa24d6aa86e3c6d3099c22c0f0c42ee642f49ff3a0d04d36ea5112b98f"
     },
     "u08/test_builtin_parameterized_components_type_id_uses_the_required_registry_specialization": {
       "primary_clause": "8.2.2",
-      "inputs_sha256": "4d8f3041aae9ec9ded76241d6a903418bde6d46f72e127fa1ce4f4e82f908eb1"
+      "inputs_sha256": "bc81a20090c3480c4e056852f3c34518e5d6054986301e107d4855cfcb7bd8a0"
     },
     "u08/test_builtin_parameterized_objects_type_id_uses_the_required_registry_specialization": {
       "primary_clause": "8.2.2",
-      "inputs_sha256": "c215c42d274e9548ff1c4e4b2522ad0eb9a7440915e5106f0eedb73258a57a63"
+      "inputs_sha256": "3a43581dd2bed46e7f9ee8b9a7f3786326df5807400a6660b43bb732a77c045d"
     },
     "u08/test_builtin_report_server_type_id_uses_its_own_named_abstract_registry": {
       "primary_clause": "8.2.2",
-      "inputs_sha256": "ba7aa0fe7aeeb988da5b9b06d499863d98ddfd23001eba5b9712a2900ea17380"
+      "inputs_sha256": "0f8b586494d210ce0bacbd7f1238d1b3c593adb85d49ce4b241dcc0054c58d85"
     },
     "u08/test_builtin_sequence_base_type_id_uses_its_own_named_abstract_registry": {
       "primary_clause": "8.2.2",
-      "inputs_sha256": "840175e9fafb331371c58c2b1c611e45e8b9bd9790a6c031f72cbceb3ceef529"
+      "inputs_sha256": "cc8b54491724a09c2b0efcdfb19f34fc007881b80e1e3d5eddb5c904e4a363c7"
     },
     "u08/test_component_registry_context_does_not_reparent": {
       "primary_clause": "8.2.3.2.4",
-      "inputs_sha256": "711a62a317454d044de4d9d7e2626bcc8b09e31adb102cb1f4b464fa673508a7"
+      "inputs_sha256": "03524b79d185cdbe3c4b6013ed07e501e7eb4916c71bdc1038a4479865e3ac78"
     },
     "u08/test_component_registry_initialize_registers_its_proxy_with_the_current_factory": {
       "primary_clause": "8.2.3.2.7",
-      "inputs_sha256": "0d13ddb5a9a4d97044e4c16a8680f8ff383280ca69f13ff65036f01390e9171b"
+      "inputs_sha256": "35cc92e4cedecf1109bdf74390f5b3a043159cd96979de2214c92f8ea6f6ddd8"
     },
     "u08/test_component_registry_preserves_parent_and_leaf_name": {
       "primary_clause": "8.2.3.2.4",
-      "inputs_sha256": "e0acd78e2d8ab6aaa25e328fa9c1520f4700edc555fb44d5da394d83afa94707"
+      "inputs_sha256": "130bf8c626a4480124c35d086924117c6dc35d5b53d50a48b6eb87863c2ac3f3"
     },
     "u08/test_component_registry_relative_instance_override_is_scoped": {
       "primary_clause": "8.2.3.2.6",
-      "inputs_sha256": "162f51429763c58906ac391094515129b246497667d05c1c7d06984af71f3d8f"
+      "inputs_sha256": "084b05240a7495feb72507e024bb88e2a6217be50c13fa422a894bc80363dc7e"
     },
     "u08/test_component_registry_singletons_preserve_specialization_names_without_constructing_items": {
       "primary_clause": "8.2.3.2.3",
-      "inputs_sha256": "dd7c17f036131736dae944cd105f2e8062b546cfc3fb33ff5835766fb6222063"
+      "inputs_sha256": "a48f8edba9e9de155c4815ae0ca193cb63eaca4892ff37e169ba661072810680"
     },
     "u08/test_component_registry_type_override_forwards_replace_flag": {
       "primary_clause": "8.2.3.2.5",
-      "inputs_sha256": "f3ea8a57fcbaa3f48c956cecf1f0ab0b91e2635790eaaf1d5e9e754bdfe42d6e"
+      "inputs_sha256": "de962497824c827b740a6ea87c07a276d06a155e56c7663f43cb276fa9479770"
     },
     "u08/test_default_factory_can_be_extended_and_used_through_the_abstract_factory_view": {
       "primary_clause": "8.3.3",
-      "inputs_sha256": "78fe80271d495de3d13c4dfe10c267ce4850d74864ff6d43e50c2c016eccf30b"
+      "inputs_sha256": "57cdb210e4ea3fad8b77aa9e1273cda2493de301a87061590f8c6cbfd77df7d6"
     },
     "u08/test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand": {
       "primary_clause": "8.3.2",
-      "inputs_sha256": "39e6ea3b29db55df4747420cd82b0f954d682ad26d304fe00c9249e42db48574"
+      "inputs_sha256": "c1960ef4115622b5902f0287895401c9bfa7fc4414de3087fcde23014ede3a8c"
     },
     "u08/test_factory_instance_alias_creates_in_context": {
       "primary_clause": "8.3.1.6.2",
-      "inputs_sha256": "3ad051799d1314e8e7e2e51de946d6dca9626721235a429bc6ed23399c9dc410"
+      "inputs_sha256": "607825cd450195c407df83d0be0603d8a0ab5e26236c61b3f06b5e8793fddbe2"
     },
     "u08/test_factory_instance_alias_obeys_override": {
       "primary_clause": "8.3.1.6.2",
-      "inputs_sha256": "9e04257e3ac3ebdaef09c6b7d99807e2a0b8195aebafff60f8935478139f0bff"
+      "inputs_sha256": "8bf8133ab2569a35a402394d9e4cf256877d6ce9d55f70b32a0ed390990d0c0e"
     },
     "u08/test_factory_instance_override_first_match": {
       "primary_clause": "8.3.1.4.1",
-      "inputs_sha256": "07c1cdae6ea7caa31bcf64d90af6c09e6c6b85d148c4ec208cfbc4b6e9f08617"
+      "inputs_sha256": "c0fa90f3de5ed52d2ec481ce773f29f7ee9378f3c314432939609bf9cf98e125"
     },
     "u08/test_factory_instance_override_is_scoped": {
       "primary_clause": "8.3.1.4.1",
-      "inputs_sha256": "13908ec589896a7e39c91d23a59b98d67be568a1509e76cd6a4dadc9ad937163"
+      "inputs_sha256": "0128f072cf44b603b72363003875dcf559d705ae2caa4e75a299ef9b19266c90"
     },
     "u08/test_factory_lookup_resolves_instance_override": {
       "primary_clause": "8.3.1.7.1",
-      "inputs_sha256": "f3dca6ad95fffadd7e8b723e9529f94c1c71849473a8da3a02aa21074d5bdfd1"
+      "inputs_sha256": "c51308dd141799a7521015e581268388fca3b5e627f9ea2912eaa0603f6aa83a"
     },
     "u08/test_factory_lookup_resolves_override_chain": {
       "primary_clause": "8.3.1.7.1",
-      "inputs_sha256": "2dafb4c6433f26df800fbe295d1fde178215dec68da8431a5c74c4b658a81d26"
+      "inputs_sha256": "965bc7377b95ce9f45a696b7a33b98310a8dbefbc1db6abf9361efaec1603639"
     },
     "u08/test_factory_no_override_component_queries_agree_with_ordinary_creation": {
       "primary_clause": "8.3.1.7.1",
-      "inputs_sha256": "d70239fb78bbd63f61f24cae4ce02b655a52bccb40d0b775275dfe6aed7e836d"
+      "inputs_sha256": "e4396a0696e81d02ac092c7e61414e1aace3b7a749be5d50b3989fa6dcb6f396"
     },
     "u08/test_factory_no_override_object_queries_agree_with_ordinary_creation": {
       "primary_clause": "8.3.1.7.1",
-      "inputs_sha256": "47db7b48f7c66b7aae6344c0ee063204998b8432d90a8abba214b1f2dfe5c4ff"
+      "inputs_sha256": "699254ca6a3d0fceb0fec1036d74c2de5f83191d6ffb81c9798ff30ae06790a6"
     },
     "u08/test_factory_print_default_reports_only_the_selected_type_and_override_inventory": {
       "primary_clause": "8.3.1.7.5",
-      "inputs_sha256": "45ef4a3743a70ae5cb8ce61404935179378640521c517db43df5ed4165f1492e"
+      "inputs_sha256": "972dccc5123e604badf84d652e2735aa62d63a0887ebe81861586e4d132039d8"
     },
     "u08/test_factory_print_one_reports_only_the_selected_type_and_override_inventory": {
       "primary_clause": "8.3.1.7.5",
-      "inputs_sha256": "5635d5e87ca654b48b56a7db78b6fcaa0cd834943c676cee073d9b65b36b62d6"
+      "inputs_sha256": "35a781d07c5cfd57e52bc5ef03bb28371a3e83b602b1f53f27c7611e04f4b5a3"
     },
     "u08/test_factory_print_two_reports_only_the_selected_type_and_override_inventory": {
       "primary_clause": "8.3.1.7.5",
-      "inputs_sha256": "77b3fcd75859536945c83e0d46fe09903cfb805e78e5863e872f0cf4b4101acc"
+      "inputs_sha256": "079bcbba4b0a26f781ed0fcaf62e6f62c823a59ff9f346b222b13f1423902403"
     },
     "u08/test_factory_print_zero_reports_only_the_selected_type_and_override_inventory": {
       "primary_clause": "8.3.1.7.5",
-      "inputs_sha256": "9bdc47d0f52779f63c1dfd89815089525b15cef728b406d5957294658ee935cf"
+      "inputs_sha256": "18c96179c5146a4d2a7e74f3366fc83d2ae046c4d62d2226ca73fae58216a9a1"
     },
     "u08/test_factory_registered_name_queries_use_exact_names": {
       "primary_clause": "8.3.1.7.3",
-      "inputs_sha256": "87f24295941fd8ebc3bcd879d479a1692034f41538ffd56cdcaeaae2021803a6"
+      "inputs_sha256": "e73b78d7a1a586f26abd48c8ec29283e80254a66f527244c00c16e27b3dae5a3"
     },
     "u08/test_factory_registration_distinguishes_base_and_derived_wrappers": {
       "primary_clause": "8.3.1.7.4",
-      "inputs_sha256": "a9b25d6600b05b702bcafb9217fd30e5c079932d5c100a758d1de4aa0b9abd1c"
+      "inputs_sha256": "c7380b76e2d241374dd8798af502c094c8e14a0a8eb903aefc2b056cd1aa940b"
     },
     "u08/test_factory_registration_queries_follow_explicit_registration": {
       "primary_clause": "8.3.1.3",
-      "inputs_sha256": "dceb2ce7b5c7451ea105f4a344dd89da878f008cf41ee9ec1cd2152a5a8a4050"
+      "inputs_sha256": "e28ec06e7de85388a598da0b77ae742b7f75c9b624860b9a7babf95daab6d7af"
     },
     "u08/test_factory_registrations_are_per_factory_instance": {
       "primary_clause": "8.3.1.3",
-      "inputs_sha256": "3601560628012611426277332ece19d378a437c79f4bbf1da45c4336e19c5239"
+      "inputs_sha256": "76d1e6748eae785f9524a46511a105d51addc89ae0cc9cb8320be448c20b2ce0"
     },
     "u08/test_factory_selection_preserves_detached_factory_registrations": {
       "primary_clause": "8.3.1.2.1",
-      "inputs_sha256": "e44a29239d2c6510dc459d3c85c8f4f69647797a57dc43864aa5a4c09bae0d0d"
+      "inputs_sha256": "a1725288a4ea3c92f0cf3869e3fe9f1a2a894d9b13c3bf7d947874b8d8ff2666"
     },
     "u08/test_factory_single_active_service_view_keeps_explicit_local_instances_detached": {
       "primary_clause": "8.1",
-      "inputs_sha256": "9210cdacdc7c136c8f9db94786c020a89c41910e39647e9d131d2a90f90c5d40"
+      "inputs_sha256": "c486107dc15751313e99dbdf354bd0e6bd34d6f0805c6306c9de9ba06ba52291"
     },
     "u08/test_factory_static_accessors_share_core_service_factory": {
       "primary_clause": "8.3.1.2.1",
-      "inputs_sha256": "4cb398ac5db23797b4b80e7ad5c01425f34af378dada13fc0707ee581c993b85"
+      "inputs_sha256": "53ab43b40da3dcfc6c80372ce5429ab1b4a6d13129f1f94e14c39c50dc43d763"
     },
     "u08/test_factory_type_alias_creates_original_type": {
       "primary_clause": "8.3.1.6.1",
-      "inputs_sha256": "1bf6e4d448cbcb42b35f49f23060ff06813d92b89bd6a5d6537947864b7b1d2d"
+      "inputs_sha256": "9360e4ea440c7a84c99418cf29ee42270958f1c243f78b59a701e94567e5c197"
     },
     "u08/test_factory_type_alias_obeys_type_override": {
       "primary_clause": "8.3.1.6.1",
-      "inputs_sha256": "251db3de723171ccedf0540e41bc4e2b422d0b0dea6d53ff4f10438784e8992e"
+      "inputs_sha256": "baef87cf208d0f0cb3668c4e31446aa442cdc386958fcc685319e1317e6ab6d4"
     },
     "u08/test_factory_type_override_preserves_first": {
       "primary_clause": "8.3.1.4.2",
-      "inputs_sha256": "d9a18259d918a531e223c1294feda7963a935c37c8a092c8a38dc2b326465b90"
+      "inputs_sha256": "fd2a754c455c2e66170d0b2535706b095751958d88f07f7780285e4c2fcc2272"
     },
     "u08/test_factory_type_override_replaces_previous": {
       "primary_clause": "8.3.1.4.2",
-      "inputs_sha256": "fd9bba9966f2ef4aa37bc7818bfba54375617a41c63e034b7d63ea3f995bdf85"
+      "inputs_sha256": "ba9a90fd41e4c98b9b853c5476ab88ebf5b0bcfaaef2abbf3459de5db187f981"
     },
     "u08/test_factory_unknown_component_name_reports_an_error_and_returns_null_with_a_registered_control": {
       "primary_clause": "8.3.1.5",
-      "inputs_sha256": "18569187f010b08af2665f319554a3ee8210572c0fc93d53a0c11953636503e8"
+      "inputs_sha256": "8f5f34eef1607cd34ee84b7e606e5ab3c0423ab5fe4ae4adff0740891aea12f0"
     },
     "u08/test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control": {
       "primary_clause": "8.3.1.5",
-      "inputs_sha256": "6b6b9d77e0b454e2edca07bbfad171a4e68dd6bee20741d80cd03a553152ed38"
+      "inputs_sha256": "bf79afff2f6ec61ff7521044eb5070d293184d7ee705bc94d309c3e57272a38d"
     },
     "u08/test_factory_wrapper_lookup_keeps_original_after_type_override": {
       "primary_clause": "8.3.1.7.2",
-      "inputs_sha256": "cee2d20c94c81bce3bdf0e01cb07f703a4efd57dbb5d208219feb15330cbfddd"
+      "inputs_sha256": "7e6778fffcb716b6e508e76953536b0d72a16359331b3503585b436dbeeffa55"
     },
     "u08/test_factory_wrapper_lookup_returns_object_and_component_proxies": {
       "primary_clause": "8.3.1.7.2",
-      "inputs_sha256": "1f8b6599c597d74ddee43e56a4c3ba0f8708497918a106a48515b845e5d063b7"
+      "inputs_sha256": "50ddef4339461244ab9f76e154b4c13055d5ffd1bb6ba4956ab3f6f8712183f2"
     },
     "u08/test_object_registry_create_uses_parent_context": {
       "primary_clause": "8.2.4.2.4",
-      "inputs_sha256": "e116cf9fd52297eb410d141f075d9f5b4aedd923fc6dc57e77b5a952c1643cb1"
+      "inputs_sha256": "c109860e308e15aba7d38e26fdfa6e76fa9d869cf650e2c5f5feeb6598965033"
     },
     "u08/test_object_registry_explicit_context_supersedes_parent": {
       "primary_clause": "8.2.4.2.4",
-      "inputs_sha256": "e5e1c7f1ae6d3536b85fb660230c245be6f264f2eb72da597d3a11baa3f81e6e"
+      "inputs_sha256": "c5648945d0c125f70986cb107c9f5b96fec678fe61a830ed96079f99ec061f11"
     },
     "u08/test_object_registry_initialize_registers_its_proxy_with_the_current_factory": {
       "primary_clause": "8.2.4.2.7",
-      "inputs_sha256": "c1984943e5f7155442e470c8f6559611dc950dd8997eb4a62e89ac86c4b3e01e"
+      "inputs_sha256": "37d9f2b16929f2b203cfd9af0a1851c4de38dcf2b354a6bb87954078f953c82c"
     },
     "u08/test_object_registry_relative_instance_override_is_scoped": {
       "primary_clause": "8.2.4.2.6",
-      "inputs_sha256": "0ebfa097dc59d3e1048c77b73509ef6ef492c5ba258b54c139b770f9e28bfa3a"
+      "inputs_sha256": "8bfd24c6d9a3cf0beb178ebde2185a901978dc2930df7fcc09db1df251468e7e"
     },
     "u08/test_object_registry_singletons_preserve_specialization_names_without_constructing_items": {
       "primary_clause": "8.2.4.2.3",
-      "inputs_sha256": "300724ea889d6305aae5854a0ad9c992e2d6975b35b81034e099eaec74310716"
+      "inputs_sha256": "65a920ee58f67e54291af50d8d46fae8b656f8f5cd62653a39c3809e3569df27"
     },
     "u08/test_object_registry_type_override_forwards_replace_flag": {
       "primary_clause": "8.2.4.2.5",
-      "inputs_sha256": "f7d400c4fb01723b5606c7740d94ccb8bc40a422ee316bbc3101b3f3adf5595b"
+      "inputs_sha256": "51aa89e619abdfa75982b0525a4a886e5b373bffdf9de7aca95275f4cfc682f4"
     },
     "u08/test_uvm_factory_virtual_declaration_rejects_direct_construction": {
       "primary_clause": "8.3.1.1",
-      "inputs_sha256": "c0262bdaaef3bb50f7b528c0038487f5785e09cc02c54bc6674df9b44c8159fa"
+      "inputs_sha256": "7ac878f7af661d8f6d593f7b51b6889942e34a246016cadc173ea54aaca6c969"
     },
     "u08/test_uvm_object_wrapper_abstract_declaration_rejects_direct_construction": {
       "primary_clause": "8.3.2.1",
-      "inputs_sha256": "34d233374ae617dd8612ec400e47f476fe58ef05ef0b76b4bf9b7bb8b85875a6"
+      "inputs_sha256": "f6fe4d7742b1605a7ccdb4f6d31978b5676b62f17a30403d3e5f4f560f4ff9fa"
     },
     "u08/test_wrapper_component_type_name_identifies_represented_type": {
       "primary_clause": "8.3.2.2.3",
-      "inputs_sha256": "7627316af77f797df00ebff811c5cb1313eae9797bbbf6a1dcc36f7d1e8a4c50"
+      "inputs_sha256": "eb2a5482069def26f80e4dea355e2797ea3091ac061b83f15f97e6c37ebc9a4d"
     },
     "u08/test_wrapper_create_component_forwards_name_and_parent": {
       "primary_clause": "8.3.2.2.2",
-      "inputs_sha256": "961bda9c89e9a3ae289a1df7516b1cb5c1bf2a59af91241e0ef0df747e23f1a7"
+      "inputs_sha256": "1e40f3aa97b5680cdcc30e93f471c68a6de1bb6084fd949dc14dc7a6342dd753"
     },
     "u08/test_wrapper_create_component_keeps_parent_contexts_distinct": {
       "primary_clause": "8.3.2.2.2",
-      "inputs_sha256": "3dbce36156056d4891cf1d31e1788c85e7c995afe42f84feb4f1bc6a25638f58"
+      "inputs_sha256": "ed63a64091d135822c94c0284777f48fded659ff52a728160d524c8eacf41a08"
     },
     "u08/test_wrapper_create_object_allocates_independent_instances": {
       "primary_clause": "8.3.2.2.1",
-      "inputs_sha256": "12f4ab814a30923ea61902cbdec8d7fc11b2d0123b52ae06ec2c6c746c1eec25"
+      "inputs_sha256": "c443ee557868cde392ce864a68857106a542217008bfdfb852678537a8a067a3"
     },
     "u08/test_wrapper_create_object_uses_its_represented_type": {
       "primary_clause": "8.3.2.2.1",
-      "inputs_sha256": "3585b7f50b925b8742e90e14d146015129eb042956de46f494461497ecc2a598"
+      "inputs_sha256": "a11ed1ca6e413182c1abd591b787a4350b8d337f7bb928249ef50e030282cb57"
     },
     "u08/test_wrapper_object_type_name_identifies_represented_type": {
       "primary_clause": "8.3.2.2.3",
-      "inputs_sha256": "754ea755cffbafeb95cd34ed7cfb94a9376ea56036772387d19cb91632775ec0"
+      "inputs_sha256": "622fd02aeb5d4eb108cf2a58ee497062ca5a1683b1f7ae0d6f9ecd4d805a8d0d"
     },
     "u09/test_bottom_up_connect_visits_descendants_first": {
       "primary_clause": "9.5",
@@ -11036,19 +11036,19 @@
     },
     "u08/test_pkg_factory_registers_types_declared_in_other_packages_120": {
       "primary_clause": "8.2.3.2.3",
-      "inputs_sha256": "aec33c04538190338c5ad5a92ad3a5a399eee8ecdd03270af0c92cbfddd2d09d"
+      "inputs_sha256": "94a95c613130b9fdf646172c30b6089f2bf9994a6b91be55f5b4199ec1a26890"
     },
     "u08/test_pkg_instance_and_name_overrides_cross_package_boundaries_120": {
       "primary_clause": "8.2.3.2.6",
-      "inputs_sha256": "685c84b031007fd999921122efcdb01418cb4a6bba4f6148b9004c90fb2f910c"
+      "inputs_sha256": "2dacb051f66a694d333acf9391c5952580761f255e78214c864fb6e88a90cca5"
     },
     "u08/test_pkg_type_id_create_builds_a_hierarchy_from_other_packages_120": {
       "primary_clause": "8.2.3.2.4",
-      "inputs_sha256": "75c0e6df82828b83803e618165ff3e7a51f2294af9ccaae1525f8a4a4b289c82"
+      "inputs_sha256": "744e020a48a2ed641145b3caa76f70bd55e7fd25f804b6da8b7d0522f232a50b"
     },
     "u08/test_pkg_type_overrides_from_another_package_apply_to_type_id_create_120": {
       "primary_clause": "8.2.3.2.5",
-      "inputs_sha256": "f8927b66b4b69cd7d2b66d0b55e269f1d46910a88dd8fbe4a018024e779d1841"
+      "inputs_sha256": "92fe98c76b199c847d9b411a8177d1f53d820ae33e6ccaa3d97d024b94102e5f"
     },
     "u15/test_pkg_default_sequence_from_another_package_honors_an_instance_override_120": {
       "primary_clause": "15.3.5",

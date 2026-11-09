@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_abstract_component_registry_without_override_reports_error_and_returns_null.expected
 */
+// What it checks:
+// 1. Creation without a concrete override reports an error and returns null
+//    from the abstract callback.
+// 2. Requests to construct registered abstract classes require concrete
+//    overrides.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.2.5.1.2
+//    (UVM-ABSTRACT-COMPONENT-UNIMPLEMENTED-CALLBACK-ERROR-NULL) gives rule 1
+//    above. Setup: Ask an isolated factory to create through the abstract
+//    wrapper without configuring overrides. Expected: An ERROR is observed,
+//    the result is null and no represented constructor runs.
+// 2. 1800.2-2020 8.2.5 (UVM-ABSTRACT-FACTORY-REQUIRES-CONCRETE-OVERRIDE) gives
+//    rule 2 above. Setup: Attempt object/component creation with their
+//    abstract wrappers and no overrides. Expected: Both attempts report an
+//    error and return null without calling the represented constructors.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned callback formats parent.get_full_name() without checking null.
 // Retain the required error and null return for a parentless request.
 module test_abstract_component_registry_without_override_reports_error_and_returns_null;

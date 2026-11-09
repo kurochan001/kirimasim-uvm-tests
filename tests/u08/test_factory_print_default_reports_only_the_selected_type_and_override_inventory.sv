@@ -13,6 +13,18 @@
 :expected_stdout: @test_factory_print_default_reports_only_the_selected_type_and_override_inventory.expected
 :expected_stderr_regex: (?s)\A(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\btype_base55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\btype_alt55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\binst_base55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\binst_alt55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\blisted_only55\b)(?!.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\buvm_sequence_item\b).*FACTORY_CAPTURE_END55
 */
+// What it checks:
+// The default all_types argument selects the all-types-one inventory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.1.7.5 (UVM-FACTORY-AUDIT-PRINT-DEFAULT-ONE) gives the rule
+// above. Setup: A fresh factory has two independent override pairs, one named
+// user type without an override and a standard uvm_sequence_item proxy; print
+// is framed separately on stdout and stderr. Expected: The default call
+// includes selected named user state and excludes uvm_sequence_item, like
+// explicit one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_factory_print_default_reports_only_the_selected_type_and_override_inventory;
   import uvm_pkg::*;
   class type_base55 extends uvm_object;

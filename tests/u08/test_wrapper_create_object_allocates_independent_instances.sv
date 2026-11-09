@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_wrapper_create_object_allocates_independent_instances.expected
 */
+// What it checks:
+// An object wrapper creates a fresh object of the type it represents with the
+// requested name.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.2.2.1 (UVM-WRAPPER-OBJECT-CREATE) gives the rule above.
+// Setup: Create twice directly through the wrapper, including with a separate
+// factory override installed. Expected: The represented type and independent
+// handles/data are retained without applying registry overrides.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Create two explicitly named objects through the same base wrapper
 // handle and mutate one instance without changing the other.
 

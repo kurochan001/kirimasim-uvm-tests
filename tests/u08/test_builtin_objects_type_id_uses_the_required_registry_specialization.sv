@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_builtin_objects_type_id_uses_the_required_registry_specialization.expected
 */
+// What it checks:
+// Selected named non-parameterized concrete objects use ordinary object
+// registries.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.2.2 (UVM-FACTORY-AUDIT-TYPE-ID-OBJECTS) gives the rule above.
+// Setup: uvm_sequence_item and uvm_tlm_generic_payload use exact represented
+// types and printed class-name parameters. Expected: The declared alias and
+// required registry are statically assignable in both directions, retain one
+// nonnull singleton, and report the explicit class name or default <unknown>
+// as applicable.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_builtin_objects_type_id_uses_the_required_registry_specialization;
   import uvm_pkg::*;
   initial begin

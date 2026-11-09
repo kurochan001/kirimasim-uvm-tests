@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control.expected
 */
+// What it checks:
+// 1. An unrecognized object type name generates an error.
+// 2. An unrecognized object type name returns null.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.3.1.5 (UVM-FACTORY-AUDIT-UNKNOWN-OBJECT-ERROR) gives rule 1
+//    above. Setup: A fresh factory first creates a registered original
+//    control, then is asked for a distinct unregistered name while an ERROR
+//    observer is active. Expected: An ERROR is observed during the unknown
+//    request.
+// 2. 1800.2-2020 8.3.1.5 (UVM-FACTORY-AUDIT-UNKNOWN-OBJECT-NULL) gives rule 2
+//    above. Setup: A fresh factory first creates a registered original
+//    control, then is asked for a distinct unregistered name while an ERROR
+//    observer is active. Expected: The unknown result is null; the earlier
+//    registered control establishes successful valid creation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control;
   import uvm_pkg::*;

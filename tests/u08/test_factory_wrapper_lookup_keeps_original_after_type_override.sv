@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_wrapper_lookup_keeps_original_after_type_override.expected
 */
+// What it checks:
+// Registered-name lookup returns the wrapper associated with that name rather
+// than resolving creation overrides.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.1.7.2 (UVM-FACTORY-WRAPPER-NAME-LOOKUP) gives the rule
+// above. Setup: Query exact object/component names and retain their original
+// registrations after a type override. Expected: The original wrapper remains
+// identifiable and distinct from the replacement wrapper.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Separate registered-name lookup from override resolution. Install
 // an override explicitly before querying the type that creation selects.
 

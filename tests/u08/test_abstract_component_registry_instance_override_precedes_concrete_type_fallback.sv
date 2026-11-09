@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_abstract_component_registry_instance_override_precedes_concrete_type_fallback.expected
 */
+// What it checks:
+// 1. Abstract registry create returns concrete instances selected by factory
+//    overrides.
+// 2. A type override supplies a concrete fallback for an abstract request
+//    without a matching instance override.
+// 3. An abstract-registry instance override is relative to its supplied parent
+//    and takes precedence on a matching path.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.2.5.1.5 (UVM-ABSTRACT-COMPONENT-CREATE-CONCRETE-OVERRIDES)
+//    gives rule 1 above. Setup: Configure concrete type and scoped instance
+//    overrides and create under two contexts. Expected: Distinct concrete
+//    instances have markers two/one, requested names and exact parents.
+// 2. 1800.2-2020 8.2.5.1.6 (UVM-ABSTRACT-COMPONENT-TYPE-OVERRIDE-FALLBACK)
+//    gives rule 2 above. Setup: Create under the second parent outside the
+//    relative instance override. Expected: That creation has fallback marker
+//    one.
+// 3. 1800.2-2020 8.2.5.1.7 (UVM-ABSTRACT-COMPONENT-RELATIVE-INSTANCE-OVERRIDE)
+//    gives rule 3 above. Setup: Override item relative to one of two
+//    independent parents. Expected: The selected path yields marker two while
+//    its peer uses marker one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_abstract_component_registry_instance_override_precedes_concrete_type_fallback;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_object_registry_explicit_context_supersedes_parent.expected
 */
+// What it checks:
+// Object registry creation uses an explicit context when supplied, otherwise
+// the parent context.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.2.4.2.4 (UVM-REGISTRY-OBJECT-CREATE-CONTEXT) gives the rule
+// above. Setup: Install distinct instance overrides for the parent-derived and
+// explicit paths. Expected: The selected replacement follows the chosen
+// context while the plain object retains its leaf name.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two exact instance overrides distinguish the parent-derived context
 // from the explicit context. The registry must select the explicit context.
 

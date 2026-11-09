@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_object_registry_initialize_registers_its_proxy_with_the_current_factory.expected
 */
+// What it checks:
+// 1. Explicit registry initialization registers the exact proxy with the
+//    current factory.
+// 2. The registry creation callback constructs its represented type with the
+//    requested identity.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.2.4.2.7 (UVM-OBJECT-REGISTRY-INITIALIZE-CURRENT-FACTORY)
+//    gives rule 1 above. Setup: Get a proxy, select a fresh factory,
+//    initialize it and query registration and name lookup. Expected: The
+//    selected factory registers that exact handle and restores the original
+//    selection afterwards.
+// 2. 1800.2-2020 8.2.4.2.1 (UVM-OBJECT-REGISTRY-FACTORY-CALLBACK-CREATION)
+//    gives rule 2 above. Setup: Invoke name-based creation through the
+//    explicitly initialized selected factory. Expected: One represented
+//    instance is constructed with its requested name.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_object_registry_initialize_registers_its_proxy_with_the_current_factory;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

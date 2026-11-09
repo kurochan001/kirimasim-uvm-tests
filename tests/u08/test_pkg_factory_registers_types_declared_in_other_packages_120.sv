@@ -13,6 +13,29 @@
 :expected_stdout: @test_pkg_factory_registers_types_declared_in_other_packages_120.expected
 :files: helpers120_pkg/agent_pkg120.sv helpers120_pkg/seq_pkg120.sv helpers120_pkg/env_pkg120.sv helpers120_pkg/ext_pkg120.sv
 */
+// What it checks:
+// 1. Component and object types declared with utility macros in a package are
+//    registered with the factory by static initialization, before run_test and
+//    without any code naming them.
+// 2. Creation by name returns components and objects of types declared in
+//    other packages, with the given names and parent, castable to their base
+//    types from the package that declares the base.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.2.3.2.3 (UVM-USER-PACKAGE-STATIC-REGISTRATION) gives rule 1
+//    above. Setup: Two types of the environment package and two of the
+//    extension package are never named in the test file; one other type of
+//    each package is named. Before run_test, query the factory by the four
+//    type names. Expected: All four names are registered, and the wrappers
+//    found by name report those type names.
+// 2. 1800.2-2020 8.3.1.5 (UVM-USER-PACKAGE-CREATE-BY-NAME) gives rule 2 above.
+//    Setup: In build_phase, create a component and an object of each of the
+//    never-named types, and an extension agent and item, by name with the test
+//    as parent or context. Expected: Each object has the requested type and
+//    name, the components are children of uvm_test_top, and the extension
+//    agent and item cast to agent120 and item120.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Four types live in the environment and extension packages and are never named
 // in this file; the file names one other type of each of those packages, so
 // both are part of the design. Before run_test, the factory must already report

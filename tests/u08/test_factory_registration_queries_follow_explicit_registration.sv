@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_registration_queries_follow_explicit_registration.expected
 */
+// What it checks:
+// 1. Registering a proxy adds that exact type to the receiving factory.
+// 2. The name-registration query checks the exact registered type name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.3.1.3 (UVM-FACTORY-REGISTRATION-LOCAL) gives rule 1 above.
+//    Setup: Use independent local factories and register base/derived wrappers
+//    separately. Expected: Registration is visible only after the relevant
+//    proxy is registered in that factory.
+// 2. 1800.2-2020 8.3.1.7.3 (UVM-FACTORY-NAME-REGISTRATION-QUERY) gives rule 2
+//    above. Setup: Query before/after explicit registration and vary case,
+//    prefix and suffix. Expected: Only the exact name is registered; similar
+//    strings are not substituted.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Registry macros register with the global factory. Use a separate
 // default-factory instance to observe its own explicit registration.
 

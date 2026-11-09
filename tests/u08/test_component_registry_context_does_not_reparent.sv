@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_component_registry_context_does_not_reparent.expected
 */
+// What it checks:
+// Component registry creation applies the selected factory context while using
+// the supplied parent and leaf name.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.2.3.2.4 (UVM-REGISTRY-COMPONENT-CREATE) gives the rule above.
+// Setup: Use a type override or an explicit override context different from
+// the actual constructor parent. Expected: The replacement type is created
+// under the actual parent as env.child.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The explicit context selects an instance override. The resulting
 // component is constructed with the actual parent passed to create.
 

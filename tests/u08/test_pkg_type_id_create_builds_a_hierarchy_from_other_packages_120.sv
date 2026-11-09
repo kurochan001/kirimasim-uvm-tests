@@ -13,6 +13,25 @@
 :expected_stdout: @test_pkg_type_id_create_builds_a_hierarchy_from_other_packages_120.expected
 :files: helpers120_pkg/agent_pkg120.sv helpers120_pkg/seq_pkg120.sv helpers120_pkg/env_pkg120.sv helpers120_pkg/ext_pkg120.sv
 */
+// What it checks:
+// 1. type_id::create calls in the environment, agent and sequence packages
+//    build components and items with the given names and parents and their own
+//    types.
+// 2. run_test creates a test class declared in a package from its type name,
+//    as uvm_test_top.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.2.3.2.4 (UVM-USER-PACKAGE-TYPE-ID-HIERARCHY) gives rule 1
+//    above. Setup: The environment creates two agents, each agent creates a
+//    sequencer and a driver, and a sequence started on each agent creates two
+//    items. Expected: The hierarchy has the expected full names and types, and
+//    each driver receives items 10 and 11 of its own sequence.
+// 2. 1800.2-2020 F.7.3.1 (UVM-USER-PACKAGE-RUN-TEST-PACKAGE-TEST) gives rule 2
+//    above. Setup: The test class sits in a package of the test file that the
+//    module only imports; run_test receives its type name. Expected: The
+//    created test reports its type name and the full name uvm_test_top.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The test class sits in a package of this file that the module only imports,
 // so run_test must find it by name. The environment, agent and sequence
 // packages each create their children or items through type_id. Every component

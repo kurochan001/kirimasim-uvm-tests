@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_type_override_preserves_first.expected
 */
+// What it checks:
+// An existing type override remains intact when a later registration disables
+// replacement.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.1.4.2 (UVM-FACTORY-PRESERVE-OVERRIDE) gives the rule above.
+// Setup: Install first_item, then attempt another override with replace zero.
+// Expected: Creation still returns first_item with the requested name.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A type override selects the replacement for a creation request.
 // Registering a later override with replace zero keeps the earlier one.
 

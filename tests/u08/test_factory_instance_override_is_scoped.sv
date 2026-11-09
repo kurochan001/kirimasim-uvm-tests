@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_instance_override_is_scoped.expected
 */
+// What it checks:
+// A matching instance override selects the replacement before a general type
+// override.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.1.4.1 (UVM-FACTORY-INSTANCE-PRIORITY) gives the rule above.
+// Setup: Install both overrides and create matching and unrelated paths.
+// Expected: The matching path selects second_item while the other selects
+// first_item.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The factory combines the parent path and requested name for instance
 // overrides. A matching instance override precedes the type override.
 

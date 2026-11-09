@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_default_factory_can_be_extended_and_used_through_the_abstract_factory_view.expected
 */
+// What it checks:
+// The default factory can be extended and used through the abstract factory
+// interface.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.3 (UVM-FACTORY-AUDIT-DEFAULT-FACTORY-EXTENSION) gives the
+// rule above. Setup: An original default-factory subclass supplies no
+// replacement methods; registration, creation and a query are called through
+// its base handle. Expected: Construction succeeds, the base view casts back,
+// the wrapper is registered and the named object is created.
+// It also supports, as a control, the setup or conditions of
+// UVM-FACTORY-AUDIT-VIRTUAL-BASE-CONSTRUCTION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_default_factory_can_be_extended_and_used_through_the_abstract_factory_view;
   import uvm_pkg::*;
   class original_factory extends uvm_default_factory;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_object_registry_relative_instance_override_is_scoped.expected
 */
+// What it checks:
+// The object registry expands a relative override path using the supplied
+// parent path.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.2.4.2.6 (UVM-REGISTRY-OBJECT-RELATIVE-OVERRIDE) gives the rule
+// above. Setup: Create the same leaf name under the selected parent and an
+// unrelated parent. Expected: Only the selected parent context receives the
+// replacement type.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The registry prefixes the override path with the parent full name.
 // Creating the same leaf under another parent leaves the base type selected.
 

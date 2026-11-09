@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_object_registry_singletons_preserve_specialization_names_without_constructing_items.expected
 */
+// What it checks:
+// 1. Each registry specialization returns its singleton proxy.
+// 2. Registry get_type_name returns the Tname parameter.
+// 3. An omitted registry Tname defaults to <unknown>.
+// 4. Registry proxies enable registration without constructing an instance of
+//    the represented type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.2.4.2.3 (UVM-OBJECT-REGISTRY-SINGLETON-SPECIALIZATION)
+//    gives rule 1 above. Setup: Repeat get for one Tname and compare different
+//    Tname specializations through the common wrapper base. Expected: Repeated
+//    get returns the same handle; distinct specializations have distinct
+//    handles.
+// 2. 1800.2-2020 8.2.4.2.2 (UVM-OBJECT-REGISTRY-EXPLICIT-TYPE-NAMES) gives
+//    rule 2 above. Setup: Construct named_proxy and other_proxy registry
+//    specializations. Expected: Names are exactly named_proxy and other_proxy.
+// 3. 1800.2-2020 8.2.4.1 (UVM-OBJECT-REGISTRY-DEFAULT-UNKNOWN-TNAME) gives
+//    rule 3 above. Setup: Omit Tname for a concrete represented class.
+//    Expected: Its wrapper name is <unknown>.
+// 4. 1800.2-2020 8.2.4 (UVM-OBJECT-REGISTRY-PROXY-WITHOUT-INSTANCE) gives rule
+//    4 above. Setup: Track only that concrete class constructor while
+//    obtaining three proxy specializations. Expected: No represented
+//    constructor is invoked by proxy retrieval.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_object_registry_singletons_preserve_specialization_names_without_constructing_items;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

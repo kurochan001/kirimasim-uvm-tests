@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_lookup_resolves_override_chain.expected
 */
+// What it checks:
+// Override lookup returns the wrapper that creation would select for the
+// requested path.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.3.1.7.1 (UVM-FACTORY-OVERRIDE-LOOKUP) gives the rule above.
+// Setup: Query by name/type under an instance override, a type fallback and a
+// multi-step override chain. Expected: Name/type queries agree on the final
+// replacement while registered wrapper lookup remains separate.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The override query returns the replacement that creation would choose.
 // A wrapper-by-name query still identifies the originally registered type.
 

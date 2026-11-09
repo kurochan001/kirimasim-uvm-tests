@@ -13,6 +13,30 @@
 :expected_stdout: @test_factory_print_zero_reports_only_the_selected_type_and_override_inventory.expected
 :expected_stderr_regex: (?s)\A(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\btype_base55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\btype_alt55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\binst_base55\b)(?=.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\binst_alt55\b)(?!.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\blisted_only55\b)(?!.*?FACTORY_CAPTURE_BEGIN55(?:(?!FACTORY_CAPTURE_END55).)*\buvm_sequence_item\b).*FACTORY_CAPTURE_END55
 */
+// What it checks:
+// 1. print includes the selected type-override state.
+// 2. print includes the selected instance-override state.
+// 3. With all_types zero, unrelated registered-type inventory is omitted.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.3.1.7.5 (UVM-FACTORY-AUDIT-PRINT-TYPE-OVERRIDES) gives rule
+//    1 above. Setup: A fresh factory has two independent override pairs, one
+//    named user type without an override and a standard uvm_sequence_item
+//    proxy; print is framed separately on stdout and stderr. Expected: The
+//    type_base55 and type_alt55 names occur in framed output.
+// 2. 1800.2-2020 8.3.1.7.5 (UVM-FACTORY-AUDIT-PRINT-INSTANCE-OVERRIDES) gives
+//    rule 2 above. Setup: A fresh factory has two independent override pairs,
+//    one named user type without an override and a standard uvm_sequence_item
+//    proxy; print is framed separately on stdout and stderr. Expected: The
+//    inst_base55 and inst_alt55 names occur in framed output.
+// 3. 1800.2-2020 8.3.1.7.5 (UVM-FACTORY-AUDIT-PRINT-ZERO-NO-REGISTERED-LIST)
+//    gives rule 3 above. Setup: A fresh factory has two independent override
+//    pairs, one named user type without an override and a standard
+//    uvm_sequence_item proxy; print is framed separately on stdout and stderr.
+//    Expected: Neither listed_only55 nor uvm_sequence_item appears in either
+//    framed stream.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_factory_print_zero_reports_only_the_selected_type_and_override_inventory;
   import uvm_pkg::*;
   class type_base55 extends uvm_object;

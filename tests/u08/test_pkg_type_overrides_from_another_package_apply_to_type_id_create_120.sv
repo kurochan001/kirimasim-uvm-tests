@@ -13,6 +13,27 @@
 :expected_stdout: @test_pkg_type_overrides_from_another_package_apply_to_type_id_create_120.expected
 :files: helpers120_pkg/agent_pkg120.sv helpers120_pkg/seq_pkg120.sv helpers120_pkg/env_pkg120.sv helpers120_pkg/ext_pkg120.sv
 */
+// What it checks:
+// 1. A component type override set through type_id to a class of another
+//    package applies when a package that does not import that class creates
+//    the original type.
+// 2. An object type override set through type_id to a class of another package
+//    applies when a sequence package that does not import that class creates
+//    the original item type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.2.3.2.5 (UVM-USER-PACKAGE-COMPONENT-TYPE-OVERRIDE) gives
+//    rule 1 above. Setup: Before building the environment, the test overrides
+//    driver120 with ext_driver120; the agent package creates driver120 through
+//    type_id. Expected: Both drivers are ext_driver120, while both agents stay
+//    agent120.
+// 2. 1800.2-2020 8.2.4.2.5 (UVM-USER-PACKAGE-OBJECT-TYPE-OVERRIDE) gives rule
+//    2 above. Setup: The test overrides item120 with ext_item120; the sequence
+//    package creates item120 through type_id and sets data 10 and 11.
+//    Expected: Every delivered item is ext_item120 with unchanged data, and
+//    the sequences keep their own type and names.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The agent and sequence packages do not import the extension package. The test
 // overrides the driver and item types with extension classes before building
 // the environment, so both drivers must be the extension driver, every

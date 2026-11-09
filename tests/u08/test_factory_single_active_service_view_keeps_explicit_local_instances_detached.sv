@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_factory_single_active_service_view_keeps_explicit_local_instances_detached.expected
 */
+// What it checks:
+// Under the active-service interpretation, factory accessors expose one
+// selected global factory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 8.1 (UVM-FACTORY-AUDIT-ACTIVE-GLOBAL-VIEW) gives the rule above.
+// Setup: Two explicitly allocated local default factories remain detached
+// until selection through static/core-service setters, then the saved handle
+// is restored. Expected: Both accessors agree on the saved, first, second and
+// restored active handles; local allocations alone do not change the service.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_factory_single_active_service_view_keeps_explicit_local_instances_detached;
   import uvm_pkg::*;
   initial begin

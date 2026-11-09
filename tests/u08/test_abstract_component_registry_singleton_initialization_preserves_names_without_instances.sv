@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_abstract_component_registry_singleton_initialization_preserves_names_without_instances.expected
 */
+// What it checks:
+// 1. An abstract registry specialization returns its singleton wrapper.
+// 2. An abstract registry returns its explicit Tname as the represented type
+//    name.
+// 3. An abstract registry with omitted Tname uses <unknown>.
+// 4. An abstract registry represents its virtual type without constructing an
+//    instance.
+// 5. Abstract registry initialization registers its exact proxy with the
+//    current factory.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 8.2.5.1.4 (UVM-ABSTRACT-COMPONENT-SINGLETON) gives rule 1
+//    above. Setup: Repeat get and compare a default-Tname specialization.
+//    Expected: Repeated get returns the same handle and the distinct
+//    specialization has another handle.
+// 2. 1800.2-2020 8.2.5.1.3 (UVM-ABSTRACT-COMPONENT-EXPLICIT-TYPE-NAME) gives
+//    rule 2 above. Setup: Use the subject_proxy specialization. Expected: The
+//    name is subject_proxy.
+// 3. 1800.2-2020 8.2.5.1.1 (UVM-ABSTRACT-COMPONENT-DEFAULT-UNKNOWN-TNAME)
+//    gives rule 3 above. Setup: Obtain a default-name specialization for the
+//    same virtual type. Expected: The default proxy name is <unknown>.
+// 4. 1800.2-2020 8.2.5.1 (UVM-ABSTRACT-COMPONENT-PROXY-WITHOUT-INSTANCE) gives
+//    rule 4 above. Setup: Count the abstract base constructor during singleton
+//    retrieval and explicit registration. Expected: The represented
+//    constructor count stays zero.
+// 5. 1800.2-2020 8.2.5.1.8 (UVM-ABSTRACT-COMPONENT-INITIALIZE-CURRENT-FACTORY)
+//    gives rule 5 above. Setup: Select a fresh factory, explicitly initialize
+//    a retained proxy, query it and restore the original factory. Expected:
+//    The fresh factory reports the exact registered handle and exact name
+//    lookup.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_abstract_component_registry_singleton_initialization_preserves_names_without_instances;
   import uvm_pkg::*;
   `include "uvm_macros.svh"
