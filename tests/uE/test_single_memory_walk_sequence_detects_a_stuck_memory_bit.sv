@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_single_memory_walk_sequence_detects_a_stuck_memory_bit.expected
 */
+// What it checks:
+// Memory walking detects storage that cannot retain the values under test.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.6.1 (UVM-MEMORY-WALK-COMPARE) gives the rule above. Setup:
+// After a clean run, force one modeled memory bit stuck. Expected: The fault
+// run visits memory locations and reports a detected failure.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

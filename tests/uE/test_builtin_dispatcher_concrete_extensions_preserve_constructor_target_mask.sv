@@ -12,6 +12,42 @@
 :expected_exit: 0
 :expected_stdout: @test_builtin_dispatcher_concrete_extensions_preserve_constructor_target_mask.expected
 */
+// What it checks:
+// 1. uvm_reg_mem_built_in_seq construction retains its listed default name and
+//    explicit names.
+// 2. uvm_reg_mem_built_in_seq has the declared register-sequence base
+//    specialization.
+// 3. The model property identifies the selected block, register or memory
+//    using its declared handle type.
+// 4. The dispatcher tests field has the declared sixty-four-bit storage width.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 E.8.3.1 (UVM-BUILTIN-AUDIT-REG-MEM-BUILT-IN-SEQ-CONSTRUCTOR)
+//    gives rule 1 above. Setup: Call the actual constructor with omitted,
+//    explicit nonempty and explicit empty names; the virtual dispatcher uses
+//    two direct original extensions to isolate omitted/explicit base calls.
+//    Expected: Default and explicit names match and separately created objects
+//    have distinct handles.
+// 2. 1800.2-2020 E.8.1 (UVM-BUILTIN-AUDIT-REG-MEM-BUILT-IN-SEQ-ANCESTRY) gives
+//    rule 2 above. Setup: Use implicit assignments through
+//    uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence
+//    base and uvm_object, without casts. Expected: All static receivers
+//    compile and retain the same original handle.
+// 3. 1800.2-2020 E.8.2.1 (UVM-BUILTIN-AUDIT-REG-MEM-BUILT-IN-SEQ-TARGET) gives
+//    rule 3 above. Setup: Original concrete target objects are assigned/read
+//    through the builtin property, with separate sequence instances and static
+//    receiver types. Expected: The exact typed receiver and inherited base
+//    view share the selected model; the peer retains its separately assigned
+//    model.
+// 4. 1800.2-2020 E.8.2.2 (UVM-BUILTIN-AUDIT-DISPATCHER-MASK-WIDTH) gives rule
+//    4 above. Setup: A legal concrete extension writes a value with both
+//    highest and lowest bits set while a peer retains its prior mask.
+//    Expected: The field width is sixty-four, the full value is retained and
+//    the peer is unchanged.
+// It also supports, as a control, the setup or conditions of
+// UVM-BUILTIN-AUDIT-DISPATCHER-VIRTUAL.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two direct concrete extensions isolate the omitted and explicit base new.
 // The virtual builtin itself is never directly constructed by this control.
 module test_builtin_dispatcher_concrete_extensions_preserve_constructor_target_mask;

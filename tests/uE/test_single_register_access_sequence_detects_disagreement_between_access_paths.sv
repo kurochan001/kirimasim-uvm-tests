@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_single_register_access_sequence_detects_disagreement_between_access_paths.expected
 */
+// What it checks:
+// The access sequence detects disagreement between register access paths.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.3.1 (UVM-REGISTER-ACCESS-PATH-MISMATCH) gives the rule above.
+// Setup: Run a clean control before corrupting one access-path read. Expected:
+// The clean run succeeds and the corrupted read produces a detected mismatch.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

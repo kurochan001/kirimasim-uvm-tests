@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_access_wrapper_body_uses_live_declared_child_for_selected_targets.expected
 */
+// What it checks:
+// 1. The protected mem_seq slot stores a uvm_mem_single_access_seq handle for
+//    the selected wrapper.
+// 2. The memory-access body executes its selected per-memory sequence.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 E.5.2.2.2 (UVM-BUILTIN-AUDIT-CHILD-MEMORY-ACCESS) gives rule
+//    1 above. Setup: Original derived accessors use the literal prototype
+//    member name and exact child type, assign/replace/clear the selected slot
+//    and capture a peer baseline; separate original factory children audit
+//    live routing. The live access probes attach original per-target storage
+//    backdoors before starting, satisfying access-test eligibility; their
+//    routing-only child bodies do not invoke those handlers. Expected:
+//    Selected storage matches, the prior child remains valid and the peer
+//    remains unchanged; live probes require the declared slot to identify the
+//    executing child and selected targets.
+// 2. 1800.2-2020 E.5.2.3.2 (UVM-BUILTIN-AUDIT-BODY-MEMORY-ACCESS) gives rule 2
+//    above. Setup: Use the selected model and legal sequence start; original
+//    factory children audit live slots/target identity, while unchanged
+//    full-algorithm fixtures remain separate controls where their citations
+//    differ. The live access probes attach original per-target storage
+//    backdoors before starting, satisfying access-test eligibility; their
+//    routing-only child bodies do not invoke those handlers. Expected: The
+//    declared observations identify the selected targets and completion or
+//    actual existing reset/selection behavior.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The factory-selected child audits wrapper delegation and target identity.
 // It does not certify the builtin access or walking-ones algorithm.
 // Original storage backdoors satisfy access-test eligibility; they are not

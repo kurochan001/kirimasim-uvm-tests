@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_builtin_reg_access_seq_constructor_types_target.expected
 */
+// What it checks:
+// 1. uvm_reg_access_seq construction retains its listed default name and
+//    explicit names.
+// 2. uvm_reg_access_seq has the declared register-sequence base
+//    specialization.
+// 3. The model property identifies the selected block, register or memory
+//    using its declared handle type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 E.3.2.3.1 (UVM-BUILTIN-AUDIT-REG-ACCESS-SEQ-CONSTRUCTOR)
+//    gives rule 1 above. Setup: Call the actual constructor with omitted,
+//    explicit nonempty and explicit empty names; the virtual dispatcher uses
+//    two direct original extensions to isolate omitted/explicit base calls.
+//    Expected: Default and explicit names match and separately created objects
+//    have distinct handles.
+// 2. 1800.2-2020 E.3.2.1 (UVM-BUILTIN-AUDIT-REG-ACCESS-SEQ-ANCESTRY) gives
+//    rule 2 above. Setup: Use implicit assignments through
+//    uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence
+//    base and uvm_object, without casts. Expected: All static receivers
+//    compile and retain the same original handle.
+// 3. 1800.2-2020 E.3.2.2.1 (UVM-BUILTIN-AUDIT-REG-ACCESS-SEQ-TARGET) gives
+//    rule 3 above. Setup: Original concrete target objects are assigned/read
+//    through the builtin property, with separate sequence instances and static
+//    receiver types. Expected: Typed reads retain initial/replacement targets,
+//    an independent peer stays unchanged and null can be stored without
+//    executing the sequence.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Constructor calls are made on the actual builtin class, with real omission,
 // explicit nonempty and explicit empty names. No factory/type_id is required.
 // The target-property checks certify storage/type/aliasing, not execution.

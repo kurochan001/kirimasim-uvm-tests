@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_single_memory_access_sequence_cross_checks_all_locations_through_both_paths.expected
 */
+// What it checks:
+// The access sequence cross-checks a memory through frontdoor writes/backdoor
+// reads and the reverse path.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.5.1 (UVM-MEMORY-ACCESS-CROSS-PATHS) gives the rule above.
+// Setup: Use shared storage with successful custom frontdoor and user-backdoor
+// handlers. Expected: Both paths perform reads/writes and comparisons remain
+// clean.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

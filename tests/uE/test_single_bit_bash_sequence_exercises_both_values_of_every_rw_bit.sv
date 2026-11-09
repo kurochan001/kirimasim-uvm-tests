@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_single_bit_bash_sequence_exercises_both_values_of_every_rw_bit.expected
 */
+// What it checks:
+// Register bit bash attempts both bit values for every writable bit of the
+// selected register.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.2.1 (UVM-BIT-BASH-EVERY-BIT) gives the rule above. Setup: Use
+// an idle eight-bit RW register with modeled storage. Expected: Observed
+// one/zero masks both cover 0xff and checked reads occur without errors.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

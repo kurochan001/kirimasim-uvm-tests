@@ -16,6 +16,19 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time.expected
 */
+// What it checks:
+// The path sequence accepts an accessible path under the default abstraction
+// without advancing time.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.7 (UVM-HDL-PATH-ACCESSIBLE-DEFAULT-ABSTRACTION) gives the rule
+// above. Setup: Configure one register to an actual public HDL variable and
+// leave the abstraction list empty. Expected: There are no warnings/errors,
+// time is unchanged, path checks occur and storage is not changed.
+// It also supports, as a control, the setup or conditions of
+// UVM-HDL-PATH-ACCESSIBILITY.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Accessible-path control; this does not assert the absence of reads.
 // Run with tools/run_verilator_hdl.py; ordinary runs do not link this DPI.
 module test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time;

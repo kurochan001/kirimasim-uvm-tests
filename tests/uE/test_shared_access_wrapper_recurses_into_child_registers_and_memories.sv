@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_shared_access_wrapper_recurses_into_child_registers_and_memories.expected
 */
+// What it checks:
+// The shared-access wrapper applies the respective checks to registers and
+// memories in its block.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.4.3 (UVM-SHARED-ACCESS-WRAPPER-MEMBERS) gives the rule above.
+// Setup: Provide both model families at the root and in a child hierarchy.
+// Expected: Both families and hierarchy levels observe clean shared-map
+// traffic.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

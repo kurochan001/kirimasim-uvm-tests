@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_single_memory_access_sequence_detects_inconsistent_backdoor_read_data.expected
 */
+// What it checks:
+// The access sequence detects disagreement between memory access paths.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.5.1 (UVM-MEMORY-ACCESS-PATH-MISMATCH) gives the rule above.
+// Setup: Run a clean control before corrupting one access-path read. Expected:
+// The clean run succeeds and the corrupted read produces a detected mismatch.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_single_memory_walk_sequence_reads_and_writes_every_location.expected
 */
+// What it checks:
+// A memory walking test accesses the locations of its selected memory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.6.1 (UVM-MEMORY-WALK-LOCATION-ACCESSES) gives the rule above.
+// Setup: Select one four-location modeled memory and record read/write
+// location masks. Expected: Read and write masks cover all four locations and
+// the clean run has no comparison failure.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The observation checks location coverage and consistency without imposing
 // a library-specific walking pattern or transaction order.
 

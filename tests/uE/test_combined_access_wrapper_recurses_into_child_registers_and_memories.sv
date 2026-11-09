@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_combined_access_wrapper_recurses_into_child_registers_and_memories.expected
 */
+// What it checks:
+// The combined access wrapper checks both register and memory members of its
+// block.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.3.3 (UVM-COMBINED-ACCESS-WRAPPER) gives the rule above. Setup:
+// Provide both families with working access paths and invoke the combined
+// wrapper itself. Expected: Both families execute their respective access
+// checks.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_bit_bash_sequence_recurses_into_child_registers.expected
 */
+// What it checks:
+// The block bit-bash wrapper applies single-register testing recursively.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.2.2 (UVM-BIT-BASH-HIERARCHY) gives the rule above. Setup: Use
+// a root register and a child-block register. Expected: Both register
+// locations receive clean bit-bash activity.
+// It also supports, as a control, the setup or conditions of
+// UVM-BUILTIN-AUDIT-BODY-BIT-BASH.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

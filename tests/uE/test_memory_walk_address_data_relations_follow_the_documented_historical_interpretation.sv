@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_walk_address_data_relations_follow_the_documented_historical_interpretation.expected
 */
+// What it checks:
+// 1. The selected memory is tested with the walking-ones algorithm.
+// 2. The memory-walk body applies the qualified algorithm interpretation
+//    independently to every defined map.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 E.6.1 (UVM-MEMORY-WALK-ALGORITHM) gives rule 1 above. Setup:
+//    Observe enough memory data/address relationships to distinguish walking
+//    ones from arbitrary traffic. Expected: The algorithm-specific
+//    relationships hold, beyond simply visiting every location.
+// 2. 1800.2-2020 E.6.1.3.2 (UVM-MEMORY-WALK-BODY-EACH-MAP-RELATIONSHIPS) gives
+//    rule 2 above. Setup: Observe both frontdoors of one shared memory using
+//    independent access histories. Expected: Both maps satisfy the checker
+//    data/address relations and per-location ordering.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // E.6.1 names the algorithm without detailing it. This AI interpretation uses
 // the official UVM 1.2 LRM section 27.7 (printed page 730), not library output.
 // Historical detail is not an approved amendment to IEEE 1800.2-2020.

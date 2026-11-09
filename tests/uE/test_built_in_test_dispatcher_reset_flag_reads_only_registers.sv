@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_built_in_test_dispatcher_reset_flag_reads_only_registers.expected
 */
+// What it checks:
+// 1. UVM_DO_REG_HW_RESET selects the reset built-in family.
+// 2. The builtin dispatcher body executes a selected predefined register test
+//    without memory transfers.
+// 3. The builtin sequence runs a user-selected subset of predefined tests.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 17.2.2.10 (UVM-BUILTIN-SELECT-RESET) gives rule 1 above.
+//    Setup: Provide both register and memory fixtures but select only this
+//    flag. Expected: Only the selected model family has the prescribed access
+//    activity.
+// 2. 1800.2-2020 E.8.3.2 (UVM-BUILTIN-AUDIT-BODY-DISPATCHER) gives rule 2
+//    above. Setup: Use the selected model and legal sequence start; original
+//    factory children audit live slots/target identity, while unchanged
+//    full-algorithm fixtures remain separate controls where their citations
+//    differ. Expected: The declared observations identify the selected targets
+//    and completion or actual existing reset/selection behavior.
+// 3. 1800.2-2020 E.8 (UVM-BUILTIN-AUDIT-DISPATCHER-SELECTION) gives rule 3
+//    above. Setup: The unchanged real-transfer reset-flag fixture selects only
+//    register reset. Expected: Registers are read with no writes or memory
+//    transfers.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

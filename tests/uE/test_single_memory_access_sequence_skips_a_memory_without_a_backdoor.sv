@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_single_memory_access_sequence_skips_a_memory_without_a_backdoor.expected
 */
+// What it checks:
+// The access sequence cannot test a memory without an available backdoor.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.5.1 (UVM-MEMORY-ACCESS-NO-BACKDOOR) gives the rule above.
+// Setup: Configure no user backdoor or HDL path. Expected: Neither access path
+// performs a transfer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // No backdoor or HDL path is installed. Only access absence is prescribed;
 // diagnostic severity, text and count remain unconstrained.
 

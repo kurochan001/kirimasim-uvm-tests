@@ -16,6 +16,17 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access.expected
 */
+// What it checks:
+// The HDL-path sequence checks path accessibility and warns about inaccessible
+// paths without DUT reads/writes.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.7 (UVM-HDL-PATH-ACCESSIBILITY) gives the rule above. Setup: An
+// allowed backend provides HDL access for valid/invalid paths under the
+// default abstraction. Expected: Invalid paths cause warnings in zero
+// simulation time; storage is not transferred.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Actual public HDL storage is accessed through the original VPI backend.
 // Run with tools/run_verilator_hdl.py; ordinary runs do not link this DPI.
 module test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access;

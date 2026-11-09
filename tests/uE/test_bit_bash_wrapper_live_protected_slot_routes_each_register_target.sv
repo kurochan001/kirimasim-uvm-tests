@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_bit_bash_wrapper_live_protected_slot_routes_each_register_target.expected
 */
+// What it checks:
+// 1. The protected reg_seq slot stores a uvm_reg_single_bit_bash_seq handle
+//    for the selected wrapper.
+// 2. The bit-bash wrapper body delegates to its single-register sequence for
+//    selected model registers.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 E.2.2.2.2 (UVM-BUILTIN-AUDIT-CHILD-BIT-BASH) gives rule 1
+//    above. Setup: Original derived accessors use the literal prototype member
+//    name and exact child type, assign/replace/clear the selected slot and
+//    capture a peer baseline; separate original factory children audit live
+//    routing. Expected: Selected storage matches, the prior child remains
+//    valid and the peer remains unchanged; live probes require the declared
+//    slot to identify the executing child and selected targets.
+// 2. 1800.2-2020 E.2.2.3.2 (UVM-BUILTIN-AUDIT-BODY-BIT-BASH) gives rule 2
+//    above. Setup: Use the selected model and legal sequence start; original
+//    factory children audit live slots/target identity, while unchanged
+//    full-algorithm fixtures remain separate controls where their citations
+//    differ. Expected: The declared observations identify the selected targets
+//    and completion or actual existing reset/selection behavior.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A factory-selected original child audits the wrapper's live protected slot
 // and target routing. Payload algorithms, ordering and allocation counts are
 // deliberately not inferred from this delegation-only probe.

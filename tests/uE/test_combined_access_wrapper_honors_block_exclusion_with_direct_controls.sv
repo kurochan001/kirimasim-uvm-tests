@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_combined_access_wrapper_honors_block_exclusion_with_direct_controls.expected
 */
+// What it checks:
+// A matching block access exclusion prevents the combined wrapper from testing
+// that block.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.3.3 (UVM-COMBINED-ACCESS-BLOCK-EXCLUSION) gives the rule
+// above. Setup: Set exact NO_REG_ACCESS_TEST on the block and run direct
+// single-register/single-memory controls afterwards. Expected: The combined
+// window has no accesses, while both direct controls still work.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

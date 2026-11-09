@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_single_memory_walk_sequence_honors_a_memory_specific_exclusion.expected
 */
+// What it checks:
+// A matching NO_MEM_WALK_TEST resource excludes the selected memory from this
+// sequence.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.6.1 (UVM-MEMORY-WALK-ELEMENT-EXCLUSION) gives the rule above.
+// Setup: Install an exact memory-scoped bit resource in REG::, while observing
+// diagnostics and an independent peer/direct control. Expected: The selected
+// target has no accesses while the independent control remains active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

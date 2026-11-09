@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_built_in_test_dispatcher_defaults_to_all_standard_test_flags.expected
 */
+// What it checks:
+// The dispatcher tests property defaults to the standard all-tests mask.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.8.2.2 (UVM-BUILTIN-SELECTION-DEFAULT) gives the rule above.
+// Setup: Construct a concrete derived dispatcher and inspect its property
+// without executing the full mask. Expected: The property is 64 bits and
+// equals UVM_DO_ALL_REG_MEM_TESTS.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

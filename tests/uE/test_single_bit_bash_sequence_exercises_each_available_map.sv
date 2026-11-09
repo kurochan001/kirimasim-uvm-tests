@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_single_bit_bash_sequence_exercises_each_available_map.expected
 */
+// What it checks:
+// Register bit bash exercises each address map containing the register.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.2.1 (UVM-BIT-BASH-ALL-MAPS) gives the rule above. Setup: The
+// same RW register has two modeled interfaces sharing storage. Expected: Both
+// maps see bit-bash activity with clean comparisons.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

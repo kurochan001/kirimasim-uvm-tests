@@ -11296,7 +11296,7 @@
     },
     {
       "test": "uE/test_builtin_dispatcher_virtual_class_rejects_direct_construction",
-      "inputs_sha256": "c5cd0225d79fc0a699398f433b6e4cb1534f3a9d1b6230c66ae6ffd00cfc9a5d",
+      "inputs_sha256": "6a4c7ae2cb7292ec271be42b83be372bcebf47adf048dc26272f17b23e2e4bf4",
       "kind": "accepted-illegal",
       "cause": "library",
       "evidence": {
@@ -11322,7 +11322,7 @@
     },
     {
       "test": "uE/test_builtin_mem_single_access_seq_constructor_types_target",
-      "inputs_sha256": "409c40576a3ebbdcc58c33322711d36ef8757d79407b7f404b0336819000d833",
+      "inputs_sha256": "c35ecd38b8e5bcbf25620bd180cb00714e9b72a771759f536b42c81b003d0be4",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -11348,7 +11348,7 @@
     },
     {
       "test": "uE/test_builtin_mem_single_walk_seq_constructor_types_target",
-      "inputs_sha256": "a5afee319ea96d85cf5653a820d8d0fa0f58bc1fc761ad31b39b7c0be117390d",
+      "inputs_sha256": "4efd11927ce8f0a266c8adf63779674d750a5b8d7ea22bb4f2e14f58f37ea3d3",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -11374,7 +11374,7 @@
     },
     {
       "test": "uE/test_combined_access_wrapper_honors_block_exclusion_with_direct_controls",
-      "inputs_sha256": "924ebe892d3e2375b19b8bbd1c09319db7a1d9001f1c1a2e31c0388cf671ce72",
+      "inputs_sha256": "2c64aca3ce921692fcd0c1d1cc3a27f2f56502346a45505cc0869fd6cc9d99e7",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -11400,7 +11400,7 @@
     },
     {
       "test": "uE/test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time",
-      "inputs_sha256": "3eac42f6619ae567ab416103b74dfbc1b13fc8de6dd3e8a723d4dec5143b5c9c",
+      "inputs_sha256": "4d9e855d17c55982860be3f2f12a2aa290d60beffe9ab3480e8dc100aae71787",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -11417,7 +11417,7 @@
     },
     {
       "test": "uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default",
-      "inputs_sha256": "d07d47bc9bf5bd4673938ee7fc0251783e5505526997c041df89300c70de94db",
+      "inputs_sha256": "21b930befb1db9a971b80e76e87d90d047051617ea5cdd696cddcc24e86f5927",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -11434,7 +11434,7 @@
     },
     {
       "test": "uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty",
-      "inputs_sha256": "3d2ef45357d5f7c1a3fb4d0c405891c908f5c9f024b4425c30cbd531322d4240",
+      "inputs_sha256": "abbaa3c96525a9429140a8a4fee3481aaa63e250edb4546874860c641065e997",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -11451,7 +11451,7 @@
     },
     {
       "test": "uE/test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access",
-      "inputs_sha256": "7196bbf9366ab91615b56eb1ac79bab2cd37ffd7b1e28b3473fdf2c88d4d9588",
+      "inputs_sha256": "feafd02a6744bc3d6cfbdbed54c28e59981d1e7be20647d71c98459dc34abae3",
       "kind": "build",
       "condition": "hdl",
       "cause": "library",
@@ -11482,7 +11482,7 @@
     },
     {
       "test": "uE/test_memory_walk_sequence_honors_a_block_specific_walk_exclusion",
-      "inputs_sha256": "2bb777432852e234c43abece28203b8604fccbdcb31d79787dd629de40a5caf9",
+      "inputs_sha256": "02c07f9b6b3d15217f976d4e279cb6c4b9aec2e2a777443911a6d1240fc660c2",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -11508,7 +11508,7 @@
     },
     {
       "test": "uE/test_single_bit_bash_sequence_skips_user_defined_unknown_policy",
-      "inputs_sha256": "95597827ac8a8bb920cc736c8666482b14c2c5d0ce2fa820607a0dff6851e129",
+      "inputs_sha256": "9e38bb847654c3f7dc1ebec6a8d2224ebdf4313618fb70df150e1bcf7d17b952",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -11539,7 +11539,7 @@
     },
     {
       "test": "uE/test_single_memory_access_sequence_honors_its_shared_access_exclusion_resource",
-      "inputs_sha256": "dca21bc2b0c797b34f477f3ded6db2ec521081d27faf30b8d87ab06107e70c10",
+      "inputs_sha256": "2240831c8b442150aa1cc4c784175760d6e06d912a827ba01ba6ec24702eceb2",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {

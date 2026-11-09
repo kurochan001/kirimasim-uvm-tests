@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_hw_reset_sequence_detects_an_incorrect_storage_reset_value.expected
 */
+// What it checks:
+// Reset checking detects disagreement between read storage and the expected
+// reset value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.1 (UVM-RESET-SEQUENCE-COMPARE) gives the rule above. Setup:
+// Run a clean control, then corrupt one storage reset bit. Expected: The clean
+// control succeeds and the corrupted run produces a detected comparison
+// failure.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A clean run precedes one wrong reset bit. Diagnostic wording, ID and count
 // are not prescribed by the expected output.
 

@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_access_sequence_cross_checks_root_and_child_memories.expected
 */
+// What it checks:
+// The memory-access wrapper runs single-memory checks for memories throughout
+// its block.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.5.2 (UVM-MEMORY-ACCESS-HIERARCHY) gives the rule above. Setup:
+// Provide root/child memories with both modeled access paths. Expected: Both
+// memories receive clean cross-path checks.
+// It also supports, as a control, the setup or conditions of
+// UVM-BUILTIN-AUDIT-BODY-MEMORY-ACCESS.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

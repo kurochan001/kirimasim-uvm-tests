@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_hw_reset_sequence_reads_every_available_register_map.expected
 */
+// What it checks:
+// Reset checking reads registers through every available address map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.1 (UVM-RESET-SEQUENCE-ALL-MAPS) gives the rule above. Setup:
+// One register is available through two readable maps with shared reset
+// storage. Expected: Both interfaces observe reads and comparison stays clean.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

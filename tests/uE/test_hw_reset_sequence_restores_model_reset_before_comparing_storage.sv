@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_hw_reset_sequence_restores_model_reset_before_comparing_storage.expected
 */
+// What it checks:
+// 1. The reset sequence resets its register model before comparing storage to
+//    reset expectations.
+// 2. The reset-sequence body executes selected model-reset and read comparison
+//    duties.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 E.1 (UVM-RESET-SEQUENCE-MODEL-RESET) gives rule 1 above.
+//    Setup: Initialize storage at reset and dirty the mirror before running
+//    the sequence. Expected: The run is clean and the mirror returns to reset
+//    value 0x3c.
+// 2. 1800.2-2020 E.1.2.1.2 (UVM-BUILTIN-AUDIT-BODY-RESET) gives rule 2 above.
+//    Setup: Use the selected model and legal sequence start; original factory
+//    children audit live slots/target identity, while unchanged full-algorithm
+//    fixtures remain separate controls where their citations differ. Expected:
+//    The declared observations identify the selected targets and completion or
+//    actual existing reset/selection behavior.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Storage is initialized at reset before the sequence; no RTL reset hook is
 // assumed. Dirtying the mirror first distinguishes resetting the model from
 // merely comparing against its previous state.

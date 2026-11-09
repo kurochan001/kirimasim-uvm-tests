@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_single_bit_bash_sequence_detects_a_stuck_storage_bit.expected
 */
+// What it checks:
+// Register bit bash detects a read value inconsistent with its expected
+// register state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.2.1 (UVM-BIT-BASH-COMPARE) gives the rule above. Setup: After
+// a clean run, force one modeled storage bit to remain stuck. Expected: The
+// fault run has traffic and a detected comparison failure.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

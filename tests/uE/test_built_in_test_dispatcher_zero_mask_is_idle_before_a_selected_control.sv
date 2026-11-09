@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_built_in_test_dispatcher_zero_mask_is_idle_before_a_selected_control.expected
 */
+// What it checks:
+// A dispatcher with no selected test bits runs no built-in test family.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.8.2.2 (UVM-BUILTIN-SELECTION-ZERO) gives the rule above.
+// Setup: Run a zero mask, then a selected reset control using the same modeled
+// interfaces. Expected: The zero-mask window is idle while the selected
+// control reads registers.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

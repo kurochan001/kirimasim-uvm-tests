@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_single_register_access_sequence_skips_user_defined_unknown_policy.expected
 */
+// What it checks:
+// The register access sequence cannot test registers with unknown field access
+// policies.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.3.1 (UVM-REGISTER-ACCESS-UNKNOWN-POLICY-SKIP) gives the rule
+// above. Setup: Use a register with an unknown field policy and otherwise
+// valid access paths. Expected: The register is omitted from this test.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

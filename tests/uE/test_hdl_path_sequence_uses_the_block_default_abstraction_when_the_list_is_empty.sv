@@ -16,6 +16,17 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty.expected
 */
+// What it checks:
+// An empty abstractions queue uses the configured block default
+// representation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.7.2 (UVM-HDL-PATH-EMPTY-LIST-BLOCK-DEFAULT) gives the rule
+// above. Setup: Configure ALT as block default while leaving an invalid RTL
+// alternative. Expected: Only the accessible choice is tested successfully in
+// zero time and storage is unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Accessible-path control; this does not assert the absence of reads.
 // Run with tools/run_verilator_hdl.py; ordinary runs do not link this DPI.
 module test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty;

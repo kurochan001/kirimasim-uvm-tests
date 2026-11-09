@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_builtin_reg_mem_hdl_paths_seq_constructor_types_target.expected
 */
+// What it checks:
+// 1. uvm_reg_mem_hdl_paths_seq construction retains its listed default name
+//    and explicit names.
+// 2. uvm_reg_mem_hdl_paths_seq has the declared register-sequence base
+//    specialization.
+// 3. The HDL-path sequence abstraction list supports ordered queue insertion
+//    and instance-specific contents.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 E.7.3 (UVM-BUILTIN-AUDIT-REG-MEM-HDL-PATHS-SEQ-CONSTRUCTOR)
+//    gives rule 1 above. Setup: Call the actual constructor with omitted,
+//    explicit nonempty and explicit empty names; the virtual dispatcher uses
+//    two direct original extensions to isolate omitted/explicit base calls.
+//    Expected: Default and explicit names match and separately created objects
+//    have distinct handles.
+// 2. 1800.2-2020 E.7.1 (UVM-BUILTIN-AUDIT-REG-MEM-HDL-PATHS-SEQ-ANCESTRY)
+//    gives rule 2 above. Setup: Use implicit assignments through
+//    uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence
+//    base and uvm_object, without casts. Expected: All static receivers
+//    compile and retain the same original handle.
+// 3. 1800.2-2020 E.7.2 (UVM-BUILTIN-AUDIT-HDL-ABSTRACTION-QUEUE) gives rule 3
+//    above. Setup: Append two selected string abstractions and an independent
+//    peer string without invoking the HDL backend. Expected: Queue order and
+//    size match and the peer has only its own entry.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Constructor calls are made on the actual builtin class, with real omission,
 // explicit nonempty and explicit empty names. No factory/type_id is required.
 // The target-property checks certify storage/type/aliasing, not execution.

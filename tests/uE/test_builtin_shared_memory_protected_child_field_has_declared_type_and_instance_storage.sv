@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_builtin_shared_memory_protected_child_field_has_declared_type_and_instance_storage.expected
 */
+// What it checks:
+// The protected mem_seq slot stores a uvm_mem_shared_access_seq handle for the
+// selected wrapper.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.4.3.2.3 (UVM-BUILTIN-AUDIT-CHILD-SHARED-MEMORY) gives the rule
+// above. Setup: Original derived accessors use the literal prototype member
+// name and exact child type, assign/replace/clear the selected slot and
+// capture a peer baseline; separate original factory children audit live
+// routing. Expected: Selected storage matches, the prior child remains valid
+// and the peer remains unchanged; live probes require the declared slot to
+// identify the executing child and selected targets.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original accessors observe the printed protected member from a legal
 // extension. No default child value or preservation across body() is assumed.
 // Where the heading says req_seq, use the prototype's literal reg_seq.

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_single_register_access_sequence_skips_a_register_without_a_backdoor.expected
 */
+// What it checks:
+// The access sequence cannot test a register without an available backdoor.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.3.1 (UVM-REGISTER-ACCESS-NO-BACKDOOR) gives the rule above.
+// Setup: Configure no user backdoor or HDL path. Expected: Neither access path
+// performs a transfer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // No HDL path or user backdoor is installed. The inability to test this
 // register does not prescribe a diagnostic severity.
 

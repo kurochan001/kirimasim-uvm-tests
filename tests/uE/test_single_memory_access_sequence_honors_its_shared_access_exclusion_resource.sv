@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_single_memory_access_sequence_honors_its_shared_access_exclusion_resource.expected
 */
+// What it checks:
+// The single-memory access sequence skips a memory with its specified
+// NO_MEM_SHARED_ACCESS_TEST resource.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.5.1 (UVM-MEMORY-ACCESS-ELEMENT-EXCLUSION) gives the rule
+// above. Setup: An exact resource selects one memory while an independent peer
+// remains testable. Expected: The clean baseline succeeds, the selected memory
+// skips and the peer control succeeds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // E.5.1 names NO_MEM_SHARED_ACCESS_TEST for the individual memory. The
 // differently named block resource in E.5.2 is not substituted for it.
 

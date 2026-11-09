@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_register_access_wrapper_honors_block_exclusion_before_child_control.expected
 */
+// What it checks:
+// A matching block-scoped NO_REG_ACCESS_TEST resource excludes the block from
+// register access testing.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.3.2 (UVM-REGISTER-ACCESS-BLOCK-EXCLUSION) gives the rule
+// above. Setup: Install an exact block resource and retain a directly selected
+// child control. Expected: The wrapper omits that block while the independent
+// direct control still runs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

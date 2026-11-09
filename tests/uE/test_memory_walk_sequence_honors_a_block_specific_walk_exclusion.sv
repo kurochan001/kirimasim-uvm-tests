@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_walk_sequence_honors_a_block_specific_walk_exclusion.expected
 */
+// What it checks:
+// A block-scoped NO_MEM_WALK_TEST resource excludes that block from the
+// memory-walk wrapper.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.6.2 (UVM-MEMORY-WALK-BLOCK-EXCLUSION) gives the rule above.
+// Setup: An exact block resource is installed, followed by a direct
+// single-memory control. Expected: The baseline is clean, the wrapper skips,
+// and the independent control still accesses memory.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The exact block-scoped NO_MEM_WALK_TEST resource must exclude the block.
 // A direct single-memory walk is a positive control under a different scope.
 

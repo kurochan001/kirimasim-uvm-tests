@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_hw_reset_sequence_recurses_into_a_child_block.expected
 */
+// What it checks:
+// Reset checking includes registers in descendant blocks.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.1 (UVM-RESET-SEQUENCE-HIERARCHY) gives the rule above. Setup:
+// Place one register in the root and another in a child block. Expected: Both
+// root and child registers receive checked reads.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

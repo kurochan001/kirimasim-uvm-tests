@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_shared_memory_sequence_checks_each_location_across_two_maps.expected
 */
+// What it checks:
+// Shared memory testing writes through each map and reads the value through
+// every other readable map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.4.2 (UVM-SHARED-MEMORY-MAP-VISIBILITY) gives the rule above.
+// Setup: Use two or three RW maps over shared storage; memory has four
+// locations. Expected: Every directed writer/reader pair is observed with
+// clean comparison at each tested location.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

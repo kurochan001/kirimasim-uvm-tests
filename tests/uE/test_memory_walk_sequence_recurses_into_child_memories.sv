@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_walk_sequence_recurses_into_child_memories.expected
 */
+// What it checks:
+// The memory-walk wrapper runs single-memory checks for every memory within
+// its block.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.6.2 (UVM-MEMORY-WALK-HIERARCHY) gives the rule above. Setup:
+// Provide one root memory and one child-block memory. Expected: Both hierarchy
+// levels observe clean walking activity.
+// It also supports, as a control, the setup or conditions of
+// UVM-BUILTIN-AUDIT-BODY-MEMORY-WALK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

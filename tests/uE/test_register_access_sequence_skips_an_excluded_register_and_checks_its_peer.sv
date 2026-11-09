@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_register_access_sequence_skips_an_excluded_register_and_checks_its_peer.expected
 */
+// What it checks:
+// A matching NO_REG_ACCESS_TEST resource excludes the selected register from
+// this sequence.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.3.1 (UVM-REGISTER-ACCESS-ELEMENT-EXCLUSION) gives the rule
+// above. Setup: Install an exact register-scoped bit resource in REG::, while
+// observing diagnostics and an independent peer/direct control. Expected: The
+// selected target has no accesses while the independent control remains
+// active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_register_access_sequence_recurses_and_cross_checks_child_paths.expected
 */
+// What it checks:
+// The register access wrapper applies single-register checks throughout its
+// block hierarchy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.3.2 (UVM-REGISTER-ACCESS-HIERARCHY) gives the rule above.
+// Setup: Use root/child registers with both modeled access paths. Expected:
+// Root and child both receive clean cross-path checks.
+// It also supports, as a control, the setup or conditions of
+// UVM-BUILTIN-AUDIT-BODY-REGISTER-ACCESS.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

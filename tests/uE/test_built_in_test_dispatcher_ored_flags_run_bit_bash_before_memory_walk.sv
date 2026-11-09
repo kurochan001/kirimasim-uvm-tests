@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_built_in_test_dispatcher_ored_flags_run_bit_bash_before_memory_walk.expected
 */
+// What it checks:
+// Selected built-in test families run in the prescribed order, with register
+// bit-bash before memory walk.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 17.2.2.10 (UVM-BUILTIN-SELECTION-ORDER) gives the rule above.
+// Setup: A derived dispatcher selects UVM_DO_REG_BIT_BASH | UVM_DO_MEM_WALK
+// with modeled storage. Expected: Both families execute and register activity
+// finishes before memory activity starts.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // 17.2.2.10 orders selected test families. Only their relative order is
 // observed, without prescribing their internal access patterns.
 

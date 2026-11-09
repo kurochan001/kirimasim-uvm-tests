@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_built_in_test_dispatcher_register_access_flag_cross_checks_register_paths_only.expected
 */
+// What it checks:
+// UVM_DO_REG_ACCESS selects the register access built-in family.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 17.2.2.10 (UVM-BUILTIN-SELECT-REGISTER-ACCESS) gives the rule
+// above. Setup: Provide both register and memory fixtures but select only this
+// flag. Expected: Only the selected model family has the prescribed access
+// activity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 

@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_shared_access_wrapper_live_protected_slots_route_register_and_memory_targets.expected
 */
+// What it checks:
+// 1. The protected reg_seq slot stores a uvm_reg_shared_access_seq handle for
+//    the selected wrapper.
+// 2. The protected mem_seq slot stores a uvm_mem_shared_access_seq handle for
+//    the selected wrapper.
+// 3. The shared wrapper body delegates selected registers and memories to
+//    their declared child sequences.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 E.4.3.2.2 (UVM-BUILTIN-AUDIT-CHILD-SHARED-REGISTER) gives
+//    rule 1 above. Setup: Original derived accessors use the literal prototype
+//    member name and exact child type, assign/replace/clear the selected slot
+//    and capture a peer baseline; separate original factory children audit
+//    live routing. Expected: Selected storage matches, the prior child remains
+//    valid and the peer remains unchanged; live probes require the declared
+//    slot to identify the executing child and selected targets.
+// 2. 1800.2-2020 E.4.3.2.3 (UVM-BUILTIN-AUDIT-CHILD-SHARED-MEMORY) gives rule
+//    2 above. Setup: Original derived accessors use the literal prototype
+//    member name and exact child type, assign/replace/clear the selected slot
+//    and capture a peer baseline; separate original factory children audit
+//    live routing. Expected: Selected storage matches, the prior child remains
+//    valid and the peer remains unchanged; live probes require the declared
+//    slot to identify the executing child and selected targets.
+// 3. 1800.2-2020 E.4.3.3.2 (UVM-BUILTIN-AUDIT-BODY-SHARED) gives rule 3 above.
+//    Setup: Use the selected model and legal sequence start; original factory
+//    children audit live slots/target identity, while unchanged full-algorithm
+//    fixtures remain separate controls where their citations differ. Expected:
+//    The declared observations identify the selected targets and completion or
+//    actual existing reset/selection behavior.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A factory-selected original child audits the wrapper's live protected slot
 // and target routing. Payload algorithms, ordering and allocation counts are
 // deliberately not inferred from this delegation-only probe.

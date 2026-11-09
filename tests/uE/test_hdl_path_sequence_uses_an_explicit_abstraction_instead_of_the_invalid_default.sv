@@ -16,6 +16,17 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.expected
 */
+// What it checks:
+// A nonempty abstractions queue selects the specified HDL representation
+// instead of the default.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.7.2 (UVM-HDL-PATH-EXPLICIT-ABSTRACTION-SELECTION) gives the
+// rule above. Setup: Keep an invalid RTL default, add a valid ALT path and
+// request only ALT. Expected: The valid path is checked with no
+// warnings/errors, unchanged storage and no time advance.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Accessible-path control; this does not assert the absence of reads.
 // Run with tools/run_verilator_hdl.py; ordinary runs do not link this DPI.
 module test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default;

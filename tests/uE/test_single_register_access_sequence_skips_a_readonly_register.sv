@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_single_register_access_sequence_skips_a_readonly_register.expected
 */
+// What it checks:
+// A register containing only read-only fields is not tested by the access
+// sequence.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.3.1 (UVM-REGISTER-ACCESS-READONLY) gives the rule above.
+// Setup: Use a read-only register with otherwise available access paths.
+// Expected: Both frontdoor and backdoor remain idle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only the absence of access is required. A skip diagnostic may be emitted
 // without prescribing its severity, text or count.
 

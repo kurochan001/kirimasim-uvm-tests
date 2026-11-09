@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_single_register_access_sequence_cross_checks_frontdoor_and_user_backdoor.expected
 */
+// What it checks:
+// The access sequence cross-checks a register through frontdoor
+// writes/backdoor reads and the reverse path.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.3.1 (UVM-REGISTER-ACCESS-CROSS-PATHS) gives the rule above.
+// Setup: Use shared storage with successful custom frontdoor and user-backdoor
+// handlers. Expected: Both paths perform reads/writes and comparisons remain
+// clean.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

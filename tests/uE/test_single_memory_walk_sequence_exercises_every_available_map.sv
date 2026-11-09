@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_single_memory_walk_sequence_exercises_every_available_map.expected
 */
+// What it checks:
+// Memory walking is applied through every map defining the selected memory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.6.1 (UVM-MEMORY-WALK-ALL-MAPS) gives the rule above. Setup:
+// Define two RW interfaces sharing a four-location memory. Expected: Both
+// interfaces observe clean memory-walk activity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence runs against positive-delay testbench storage, without an RTL
 // DUT, HDL path, DPI or a vendor-specific backend.
 

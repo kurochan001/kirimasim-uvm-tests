@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_shared_memory_sequence_detects_inconsistent_interface_read_data.expected
 */
+// What it checks:
+// Shared memory testing detects inconsistent reads between address maps.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 E.4.2 (UVM-SHARED-MEMORY-MAP-MISMATCH) gives the rule above.
+// Setup: Run clean cross-map controls before corrupting one interface read.
+// Expected: The fault run observes cross-map traffic and detects the
+// inconsistency.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive-delay handlers share testbench storage. Data and access coverage
 // are normalized instead of printing seed-dependent random payloads.
 
