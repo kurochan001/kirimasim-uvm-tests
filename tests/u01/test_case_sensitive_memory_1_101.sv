@@ -13,6 +13,21 @@
 :expected_exit: 0
 :expected_stdout: @test_case_sensitive_memory_1_101.expected
 */
+// What it checks:
+// Block memory queries distinguish case-only simple names in local and
+// descendant scopes.
+//
+// Variant: Inputs 0 and 1 create the objects whose names differ only by case
+// in opposite orders.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 1.4 (UVM-CASE-SENSITIVE-MEMORY-NAMES-101) gives the rule above.
+// Setup: Use the same selected local/descendant and independent-peer name
+// shapes with configured memories, before lock and twice after lock. Expected:
+// Exact names find only the specified-scope memory; missing case variants,
+// ancestor-only and unrelated-peer names do not match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_case_sensitive_memory_1_101;
   import uvm_pkg::*;
   localparam int VARIANT101=1;

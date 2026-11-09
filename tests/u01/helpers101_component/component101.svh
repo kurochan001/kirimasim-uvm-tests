@@ -1,6 +1,8 @@
 // Original hierarchy. Enumeration accepts any order but checks multiplicity.
 class node101 extends uvm_component;
-  function new(string name,uvm_component parent);super.new(name,parent);endfunction
+  function new(string name,uvm_component parent);
+    super.new(name,parent);
+  endfunction
 endclass
 node101 root101,children101[3],leaves101[2];
 string child_names101[3];
@@ -9,22 +11,37 @@ function automatic void show_component101(int stage,int count);
   int seen[3],iter_seen[3],found,visits;
   string cursor,last_cursor;
   bit members,iteration,lookups;
-  seen='{default:0};iter_seen='{default:0};members=1;iteration=1;visits=0;
-  q.push_back(leaves101[0]);root101.get_children(q);
+  seen='{default:0};
+  iter_seen='{default:0};
+  members=1;
+  iteration=1;
+  visits=0;
+  q.push_back(leaves101[0]);
+  root101.get_children(q);
   for(int j=1;j<q.size();j++) begin
-    bit known;known=0;
-    for(int i=0;i<count;i++) if(q[j]==children101[i]) begin seen[i]++;known=1;end
+    bit known;
+    known=0;
+    for(int i=0;i<count;i++) if(q[j]==children101[i]) begin
+      seen[i]++;
+      known=1;
+    end
     members &= known;
   end
   for(int i=0;i<count;i++) members &= seen[i]==1;
   members &= q.size()==count+1 && q[0]==leaves101[0];
-  cursor="start101";found=root101.get_first_child(cursor);last_cursor=cursor;
+  cursor="start101";
+  found=root101.get_first_child(cursor);
+  last_cursor=cursor;
   while(found && visits<5) begin
-    bit known;known=0;
+    bit known;
+    known=0;
     for(int i=0;i<count;i++) if(root101.get_child(cursor)==children101[i]) begin
-      iter_seen[i]++;known=1;
+      iter_seen[i]++;
+      known=1;
     end
-    iteration &= known;visits++;last_cursor=cursor;
+    iteration &= known;
+    visits++;
+    last_cursor=cursor;
     found=root101.get_next_child(cursor);
   end
   for(int i=0;i<count;i++) iteration &= iter_seen[i]==1;
@@ -41,7 +58,9 @@ function automatic void show_component101(int stage,int count);
     VARIANT101,stage,lookups,root101.get_num_children(),members,iteration);
 endfunction
 initial begin
-  root101=new("owner101",null);child_names101[0]="route101";child_names101[1]="Route101";
+  root101=new("owner101",null);
+  child_names101[0]="route101";
+  child_names101[1]="Route101";
   child_names101[2]="ROUTE101";
   for(int j=0;j<2;j++) begin
     automatic int i=VARIANT101==0?j:1-j;
@@ -50,5 +69,7 @@ initial begin
   end
   show_component101(0,2);
   children101[2]=new(child_names101[2],root101);
-  show_component101(1,3);show_component101(2,3);$finish;
+  show_component101(1,3);
+  show_component101(2,3);
+  $finish;
 end

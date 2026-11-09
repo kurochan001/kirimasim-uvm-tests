@@ -13,6 +13,23 @@
 :expected_exit: 0
 :expected_stdout: @test_boolean_return_lock_0_98.expected
 */
+// What it checks:
+// Selected model-lock predicates return literal true for locked blocks and
+// false for unlocked blocks, including the implicit opposite branch.
+//
+// Variant: Inputs 0 and 1 swap which of two independent objects is the
+// selected one and which is the peer, and reverse their construction order.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 1.4.2 (UVM-BOOLEAN-RETURNS-BLOCK-LOCK-98) gives the rule above.
+// Setup: Use independent configured root/child pairs with real maps, registers
+// and submaps. Reverse root construction/selection and observe initial,
+// recursive lock, unlock and relock histories with an independently locked
+// peer. Expected: The raw predicate observations match literal 1/0 for the
+// stated true condition and its valid opposite, preserving selected/peer
+// independence across the declared histories.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_boolean_return_lock_0_98;
   import uvm_pkg::*;
   localparam int FAMILY98=0;

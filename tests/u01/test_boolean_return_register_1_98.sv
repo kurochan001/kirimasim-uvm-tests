@@ -13,6 +13,24 @@
 :expected_exit: 0
 :expected_stdout: @test_boolean_return_register_1_98.expected
 */
+// What it checks:
+// Selected register membership predicates return one for actual map membership
+// and zero for valid maps that do not contain the register.
+//
+// Variant: Inputs 0 and 1 swap which of two independent objects is the
+// selected one and which is the peer, and reverse their construction order.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 1.4.2 (UVM-BOOLEAN-RETURNS-REGISTER-MAP-98) gives the rule
+// above. Setup: Use two configured original registers with fields and two
+// explicit valid maps. Start unmapped, add selected and peer associations, add
+// the selected register to a second map at a distinct offset and repeat after
+// locking; reverse construction/selection between inputs. Expected: The raw
+// predicate observations match literal 1/0 for the stated true condition and
+// its valid opposite, preserving selected/peer independence across the
+// declared histories.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_boolean_return_register_1_98;
   import uvm_pkg::*;
   localparam int FAMILY98=1;

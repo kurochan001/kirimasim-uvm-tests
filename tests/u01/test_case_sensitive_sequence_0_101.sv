@@ -13,6 +13,22 @@
 :expected_exit: 0
 :expected_stdout: @test_case_sensitive_sequence_0_101.expected
 */
+// What it checks:
+// Inactive sequence paths and root names preserve caller-supplied case through
+// parent and name changes.
+//
+// Variant: Inputs 0 and 1 swap which of two sequence chains is reparented and
+// renamed and which supplies the new parent and the renamed root.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 1.4 (UVM-CASE-SENSITIVE-SEQUENCE-NAMES-101) gives the rule
+// above. Setup: Create two case-only three-level sequence chains, reparent the
+// selected tip, rename the current shared root and selected tip, then detach
+// that tip. Expected: Paths are the current supplied names joined by dots;
+// parent/root handles and root names follow the current chain while tip
+// identities remain stable.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_case_sensitive_sequence_0_101;
   import uvm_pkg::*;
   localparam int VARIANT101=0;

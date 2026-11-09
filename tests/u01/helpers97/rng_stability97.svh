@@ -3,7 +3,9 @@ typedef enum int {P97_AMBER=7,P97_INDIGO=19,P97_SILVER=43} palette97_t;
 class sample97 extends uvm_object;
   rand bit [31:0] payload;
   rand bit [15:0] marker;
-  function new(string name);super.new(name);endfunction
+  function new(string name);
+    super.new(name);
+  endfunction
 endclass
 sample97 item97;
 int calls97;
@@ -61,7 +63,11 @@ initial begin
   int success;
   caller=process::self();
   if(caller==null) $fatal(1,"rng97 requires a calling process");
-  values_ok=1;caller_ok=1;object_ok=1;randomize_ok=1;calls97=0;
+  values_ok=1;
+  caller_ok=1;
+  object_ok=1;
+  randomize_ok=1;
+  calls97=0;
   // User construction and optional warmup precede the measured state.
   if(FAMILY97==2) item97=new(LABEL97);
   if(VARIANT97==1) begin
@@ -74,7 +80,8 @@ initial begin
   for(int i=0;i<24;i++) begin
     caller_reference[i]=$urandom();
     if(FAMILY97==2) begin
-      success=item97.randomize();randomize_ok &= success==1;
+      success=item97.randomize();
+      randomize_ok &= success==1;
       object_reference[i]={item97.payload,item97.marker};
     end
   end
@@ -86,9 +93,11 @@ initial begin
       values_ok &= exercise97(47-i);
       values_ok &= exercise97(i+8);
     end
-    actual=$urandom();caller_ok &= actual==caller_reference[i];
+    actual=$urandom();
+    caller_ok &= actual==caller_reference[i];
     if(FAMILY97==2) begin
-      success=item97.randomize();randomize_ok &= success==1;
+      success=item97.randomize();
+      randomize_ok &= success==1;
       object_ok &= {item97.payload,item97.marker}==object_reference[i];
     end
   end
