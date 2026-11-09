@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_report_message_instances_keep_fields_and_references_independent.expected
 */
+// What it checks:
+// 1. Constructing report messages creates separate objects with independent
+//    message fields.
+// 2. The message reporter accessor stores and returns its specified reference.
+// 3. The message handler accessor stores and returns its specified reference.
+// 4. The message server accessor stores and returns its specified reference.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.2.2.1 (UVM-REPORT-MESSAGE-CREATE) gives rule 1 above.
+//    Setup: Assign all observed fields/references explicitly, then mutate only
+//    one message. Expected: The other message retains its own name, fields and
+//    infrastructure handles.
+// 2. 1800.2-2020 6.2.3.1 (UVM-REPORT-MESSAGE-REPORTER) gives rule 2 above.
+//    Setup: Set, replace and clear infrastructure handles without executing a
+//    report. Expected: The selected reference changes while other
+//    references/messages retain their handles.
+// 3. 1800.2-2020 6.2.3.2 (UVM-REPORT-MESSAGE-HANDLER) gives rule 3 above.
+//    Setup: Set, replace and clear infrastructure handles without executing a
+//    report. Expected: The selected reference changes while other
+//    references/messages retain their handles.
+// 4. 1800.2-2020 6.2.3.3 (UVM-REPORT-MESSAGE-SERVER) gives rule 4 above.
+//    Setup: Set, replace and clear infrastructure handles without executing a
+//    report. Expected: The selected reference changes while other
+//    references/messages retain their handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Assign every observed field before comparing two messages. Changing
 // one message does not mutate the other message or shared referenced objects.
 

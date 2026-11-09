@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_preformed_report_reuse_rebinds_origin_and_actions_for_each_reporter.expected
 */
+// What it checks:
+// 1. get_report_message exposes the actual preformed message currently being
+//    caught.
+// 2. Sequential preformed-message reuse updates the report-object reference
+//    for each reporter.
+// 3. Current reporter action configuration applies when a preformed message is
+//    reused.
+// 4. get_client identifies the current reporter during preformed processing
+//    and reuse.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.6.3.10 (UVM-CATCHER-PREFORMED-CURRENT-MESSAGE-IDENTITY)
+//    gives rule 1 above. Setup: The caller retains its supplied handle during
+//    direct processing, live mutation and sequential reuse. Expected: The
+//    catcher handle equals that supplied message in all selected contexts.
+// 2. 1800.2-2020 6.3.3.4 (UVM-PREFORMED-REUSE-REBINDS-ORIGIN) gives rule 2
+//    above. Setup: The same message passes first through one reporter, then
+//    through a second. Expected: Both callbacks see their current reporter;
+//    the final caller reference names the second.
+// 3. 1800.2-2020 6.3.5.2 (UVM-PREFORMED-REUSE-FOLLOWS-CURRENT-ACTIONS) gives
+//    rule 3 above. Setup: Two reporters configure DISPLAY and DISPLAY with
+//    COUNT respectively, and catch before emission. Expected: The callback
+//    sees the selected action from each current reporter.
+// 4. 1800.2-2020 6.6.3.1 (UVM-PREFORMED-CALLBACK-CURRENT-CLIENT-ON-REUSE)
+//    gives rule 4 above. Setup: Reporter-local callbacks process a supplied
+//    message and sequential reporter changes. Expected: The client matches the
+//    current report object, including the second reuse.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Reuse is sequential. Each reporter has its own callback registration and
 // action. The tail catches both; no output or concurrent-reuse claim is made.
 // The pinned release omits required catcher get_report_message.

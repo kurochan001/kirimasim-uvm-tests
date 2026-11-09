@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_report_server_counts_belong_to_each_server.expected
 */
+// What it checks:
+// A manual severity-count update affects only the selected server and
+// severity.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.5.1.2.7 (UVM-REPORT-SERVER-SET-SEVERITY-COUNT) gives the rule
+// above. Setup: Use independent servers and different severity counters
+// without processing reports. Expected: The selected counter changes while
+// other severities and the other server retain their values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Setting an ERROR or FATAL count is a state update, not a report. Reset
 // one server counter and verify the other server and severity are intact.
 

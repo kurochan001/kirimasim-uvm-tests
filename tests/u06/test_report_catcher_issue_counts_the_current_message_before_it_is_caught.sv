@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_report_catcher_issue_counts_the_current_message_before_it_is_caught.expected
 */
+// What it checks:
+// 1. Immediate issue updates report statistics once when normal emission is
+//    caught.
+// 2. The current report ID mutation is visible to immediate issue.
+// 3. CAUGHT prevents later catchers from processing the message.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.6.6.6 (UVM-CATCHER-ISSUE-CAUGHT-COUNT) gives rule 1 above.
+//    Setup: The first catcher changes the ID to issued, calls issue, then
+//    returns CAUGHT. Expected: INFO and issued counts rise by one.
+// 2. 1800.2-2020 6.6.4.3 (UVM-CATCHER-ISSUE-CAUGHT-CURRENT-ID) gives rule 2
+//    above. Setup: The first catcher changes the ID to issued, calls issue,
+//    then returns CAUGHT. Expected: Issued statistics use the changed ID; the
+//    original ID count does not increase.
+// 3. 1800.2-2020 6.6 (UVM-CATCHER-ISSUE-CAUGHT-TAIL) gives rule 3 above.
+//    Setup: The first catcher changes the ID to issued, calls issue, then
+//    returns CAUGHT. Expected: Tail visits are zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Issue observes the changed current ID. CAUGHT suppresses normal emission;
 // THROW also permits normal emission after the tail callback.
 module test_report_catcher_issue_counts_the_current_message_before_it_is_caught;

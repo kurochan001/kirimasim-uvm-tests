@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_report_handler_reset_clears_pair_severity_override.expected
 */
+// What it checks:
+// Resetting a report handler restores default settings and clears severity
+// overrides.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.3.8.3 (UVM-REPORT-HANDLER-RESET) gives the rule above. Setup:
+// Configure shared ID action/verbosity/file settings and a severity/ID
+// override, then reset. Expected: Saved defaults return and the previously
+// overridden report uses its original severity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library retains severity-ID overrides across initialize.
 // Keep the required reset behavior as a spec-only case with count deltas.
 

@@ -12,6 +12,17 @@
 :should_fail_because: a virtual report server cannot be directly constructed
 :expected_stderr_regex: (?i)^(?=.*test_report_server_abstract_declaration_rejects_direct_construction\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:virtual|abstract)\b)(?=.*\buvm_report_server\b).*error
 */
+// What it checks:
+// The declared virtual report server cannot be directly constructed.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.5.1.1 (UVM-REPORT-AUDIT-BASE-ABSTRACT-DECLARATION) gives the
+// rule above. Setup: Use the selected original reporting fixtures and explicit
+// object, severity, ID and action configuration described by their observation
+// anchors. Expected: Compilation rejects direct new with the targeted
+// virtual/abstract class error; no runtime seed executes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_report_server_abstract_declaration_rejects_direct_construction;
   import uvm_pkg::*;
   initial begin

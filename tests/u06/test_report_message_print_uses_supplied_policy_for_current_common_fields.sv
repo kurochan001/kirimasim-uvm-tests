@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_report_message_print_uses_supplied_policy_for_current_common_fields.expected
 */
+// What it checks:
+// 1. A report message supplies its selected common content to the printing
+//    policy.
+// 2. A repeated message print observes updated common content rather than
+//    stale ID/body values.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.2.2.3 (UVM-PRINTER-AUDIT-MESSAGE-CURRENT-FIELDS) gives rule
+//    1 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The supplied
+//    observer sees the selected original field/configuration values and sprint
+//    returns its custom emission marker; the second print has current values
+//    without the stale selected value.
+// 2. 1800.2-2020 6.2.2.3 (UVM-PRINTER-AUDIT-MESSAGE-UPDATED-FIELDS) gives rule
+//    2 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The supplied
+//    observer sees the selected original field/configuration values and sprint
+//    returns its custom emission marker; the second print has current values
+//    without the stale selected value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_report_message_print_uses_supplied_policy_for_current_common_fields;
   import uvm_pkg::*;
   // Inspect supplied policy inputs, not implementation field names or a

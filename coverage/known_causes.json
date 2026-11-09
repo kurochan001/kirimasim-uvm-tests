@@ -1372,7 +1372,7 @@
     },
     {
       "test": "u06/test_preformed_report_reuse_rebinds_origin_and_actions_for_each_reporter",
-      "inputs_sha256": "fba97ac12c3c300d6e61ff80595ffd14cff54ea5891dc35c9ce4eb0e4648ca7f",
+      "inputs_sha256": "e065c80d8babd6d3fd57b406e72a720c63977917fd6a5ff9ff79f60e8088c1a1",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -1398,7 +1398,7 @@
     },
     {
       "test": "u06/test_report_catcher_exposes_the_supplied_preformed_message_and_current_origin",
-      "inputs_sha256": "12ce3c285caea5483ebd0d44973041650b67ab9b14291b8c34d7b01385c5fbe0",
+      "inputs_sha256": "972a9a4fb817def321d4b30747d6fdbc54a790d5681fb7f77c3adfccfd8300b1",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -1424,7 +1424,7 @@
     },
     {
       "test": "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller",
-      "inputs_sha256": "066cd3e2713a9b3164a218512379a54a7f9df2cdd53bfd9ce3381bfed09bd0b5",
+      "inputs_sha256": "547b8e16fa3a6c75d17e5de4188edd9a03392e4866a9d7c222e2944a46ae6478",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -1450,7 +1450,7 @@
     },
     {
       "test": "u06/test_report_handler_reset_clears_pair_severity_override",
-      "inputs_sha256": "cb5d2508822e4024f6358c627dd1865425cf129ae557bbe2c8d7ecc4ed31bcc3",
+      "inputs_sha256": "de39a41d29fc17e9ab9674d5561a4f18726c109d6d5ac454288242b71a9d0333",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -1484,7 +1484,7 @@
     },
     {
       "test": "u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering",
-      "inputs_sha256": "0a435c0d2e8d309c2a42b8c41e4590ab4fd33ff48d26cea25137ddbd1bfdff72",
+      "inputs_sha256": "f6090d3160da87a8f67a7892591b623fbf8c5930d82862887eb4559b04df01ea",
       "kind": "runtime",
       "cause": "library",
       "evidence": {

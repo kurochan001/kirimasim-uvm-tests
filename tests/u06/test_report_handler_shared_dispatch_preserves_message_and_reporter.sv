@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_report_handler_shared_dispatch_preserves_message_and_reporter.expected
 */
+// What it checks:
+// 1. get_report_handler returns the installed processing handler.
+// 2. Two report objects can share one actual processing handler.
+// 3. process_report_message is the handler entry for delegated reporting.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.3.8.1 (UVM-HANDLER-SELECTED-GETTER) gives rule 1 above.
+//    Setup: Local reporters install original handlers and dispatch real
+//    messages. Expected: Queries match the handlers that receive the selected
+//    messages.
+// 2. 1800.2-2020 6.3.8.2 (UVM-HANDLER-SHARED-DISPATCH) gives rule 2 above.
+//    Setup: The reporters send interleaved A, B and C reports to one installed
+//    handler. Expected: The shared handler receives three reports with their
+//    respective origins in order.
+// 3. 1800.2-2020 6.4.7 (UVM-HANDLER-PUBLIC-PROCESSING-HOOK) gives rule 3
+//    above. Setup: An original handler overrides the public processing method.
+//    Expected: The override receives each selected actual message.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An original handler override captures its public processing argument.
 // It does not forward to the default server or use the missing catcher getter.
 module test_report_handler_shared_dispatch_preserves_message_and_reporter;

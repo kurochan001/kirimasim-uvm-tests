@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_report_quit_limit_2_terminates_at_boundary_through_pre_abort.expected
 */
+// What it checks:
+// The server invokes root termination when processed quit actions reach the
+// configured finite limit.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.5.1.2.3 (UVM-REPORT-QUIT-LIMIT-TERMINATION) gives the rule
+// above. Setup: Process UVM_COUNT reports at finite limits one/two, observing
+// real pre_abort traversal and no later-time continuation. Expected: The
+// configured boundary triggers termination rather than only changing a stored
+// counter.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the real pre_abort traversal, not a replacement root or counter
 // getter alone. The guard checks that a later time step is not reached.
 module test_report_quit_limit_2_terminates_at_boundary_through_pre_abort;

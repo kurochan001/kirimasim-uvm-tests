@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_report_catcher_verbosity_mutation_reaches_tail_without_leaking_to_next_report.expected
 */
+// What it checks:
+// 1. A current-message verbosity mutation is visible to a later catcher.
+// 2. The verbosity getter returns the value of the message currently being
+//    processed.
+// 3. A later report exposes its own verbosity value rather than a previous
+//    report mutation.
+// 4. The catcher location getter returns the original report source location.
+// 5. The catcher location getter returns the original report source location.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.6.4.2 (UVM-CATCHER-VERBOSITY-MUTATION-PROPAGATES) gives
+//    rule 1 above. Setup: The first catcher changes verbosity only for its
+//    first report, then returns THROW. Expected: The tail observes HIGH rather
+//    than the initial LOW.
+// 2. 1800.2-2020 6.6.3.4 (UVM-CATCHER-VERBOSITY-GETTER-AFTER-MUTATION) gives
+//    rule 2 above. Setup: The first catcher changes verbosity only for its
+//    first report, then returns THROW. Expected: The first catcher sees the
+//    supplied original value; the tail sees the changed value.
+// 3. 1800.2-2020 6.6.3.4 (UVM-CATCHER-VERBOSITY-FRESH-MESSAGE-STATE) gives
+//    rule 3 above. Setup: The same two catchers receive a second report with
+//    the original explicit verbosity value. Expected: Both callbacks now
+//    observe LOW; each callback has two total visits.
+// 4. 1800.2-2020 6.6.3.8 (UVM-CATCHER-EXPLICIT-SOURCE-FILENAME) gives rule 4
+//    above. Setup: Six separate attribute mutations leave explicit source
+//    location unchanged across two reports. Expected: The supplied origin.sv
+//    filename is preserved.
+// 5. 1800.2-2020 6.6.3.9 (UVM-CATCHER-EXPLICIT-SOURCE-LINE) gives rule 5
+//    above. Setup: Six separate attribute mutations leave explicit source
+//    location unchanged across two reports. Expected: The supplied line number
+//    37 is preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only the first report is changed. The tail catches both before emission.
 // Source location and original state guard against stale-message reuse.
 module test_report_catcher_verbosity_mutation_reaches_tail_without_leaking_to_next_report;

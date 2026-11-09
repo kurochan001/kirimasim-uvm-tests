@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_report_catcher_exposes_the_supplied_preformed_message_and_current_origin.expected
 */
+// What it checks:
+// 1. get_report_message exposes the actual preformed message currently being
+//    caught.
+// 2. Processing a preformed message populates its current report object.
+// 3. uvm_get_report_object on a report object returns that same object.
+// 4. get_client identifies the current reporter during preformed processing
+//    and reuse.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.6.3.10 (UVM-CATCHER-PREFORMED-CURRENT-MESSAGE-IDENTITY)
+//    gives rule 1 above. Setup: The caller retains its supplied handle during
+//    direct processing, live mutation and sequential reuse. Expected: The
+//    catcher handle equals that supplied message in all selected contexts.
+// 2. 1800.2-2020 6.3.3.4 (UVM-PREFORMED-ORIGIN-REPLACES-OLD-REFERENCE) gives
+//    rule 2 above. Setup: The message initially names an obsolete origin
+//    before another reporter processes it. Expected: Callback and caller see
+//    the processing reporter as the origin.
+// 3. 1800.2-2020 6.3.3.1 (UVM-PREFORMED-REPORT-OBJECT-SELF-REFERENCE) gives
+//    rule 3 above. Setup: A concrete local report object is queried after
+//    processing a preformed report. Expected: The returned reference equals
+//    the queried reporter.
+// 4. 1800.2-2020 6.6.3.1 (UVM-PREFORMED-CALLBACK-CURRENT-CLIENT-ON-REUSE)
+//    gives rule 4 above. Setup: Reporter-local callbacks process a supplied
+//    message and sequential reporter changes. Expected: The client matches the
+//    current report object, including the second reuse.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The caller supplies the message and an obsolete origin reference.
 // The tail catches it before server emission; no formatted text is required.
 // The pinned release omits required catcher get_report_message.

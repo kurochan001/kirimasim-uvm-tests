@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_report_message_action_and_file_updates_are_independent.expected
 */
+// What it checks:
+// 1. Message action updates retain the assigned action bits independently of
+//    its file handle.
+// 2. The message file accessor retains its assigned destination handle
+//    independently of action updates.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.2.4.8 (UVM-REPORT-MESSAGE-ACTIONS) gives rule 1 above.
+//    Setup: Set combined actions, select NO_ACTION, then clear the file
+//    handle. Expected: Action queries match the selected bits and file-only
+//    changes do not change them.
+// 2. 1800.2-2020 6.2.4.9 (UVM-REPORT-MESSAGE-FILE) gives rule 2 above. Setup:
+//    Use a real open descriptor, change actions and finally assign a null
+//    descriptor. Expected: Handle identity survives action changes and the
+//    final file query is cleared.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use an actual file descriptor, compare its identity only, and close it
 // after the getters are observed. The message is never executed.
 

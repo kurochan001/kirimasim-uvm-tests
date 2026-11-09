@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal.expected
 */
+// What it checks:
+// 1. INFO above the configured limit is filtered before catching callbacks.
+// 2. INFO at the configured limit is admitted to catching callbacks.
+// 3. WARNING ignores the supplied verbosity for admission.
+// 4. ERROR ignores the supplied verbosity for admission.
+// 5. FATAL ignores the supplied verbosity for admission.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.3.3.3 (UVM-REPORT-ADMISSION-INFO-ABOVE-LIMIT) gives rule 1
+//    above. Setup: A reporter has maximum verbosity NONE, explicit DISPLAY
+//    actions and one catching callback. Expected: An above-limit INFO makes no
+//    callback visit.
+// 2. 1800.2-2020 6.3.3.3 (UVM-REPORT-ADMISSION-INFO-AT-LIMIT) gives rule 2
+//    above. Setup: A reporter has maximum verbosity NONE, explicit DISPLAY
+//    actions and one catching callback. Expected: The INFO at NONE makes one
+//    visit.
+// 3. 1800.2-2020 6.3.3.3 (UVM-REPORT-ADMISSION-WARNING-IGNORES-VERBOSITY)
+//    gives rule 3 above. Setup: A reporter has maximum verbosity NONE,
+//    explicit DISPLAY actions and one catching callback. Expected: The
+//    DEBUG-verbosity warning is caught once despite a NONE threshold.
+// 4. 1800.2-2020 6.3.3.3 (UVM-REPORT-ADMISSION-ERROR-IGNORES-VERBOSITY) gives
+//    rule 4 above. Setup: A reporter has maximum verbosity NONE, explicit
+//    DISPLAY actions and one catching callback. Expected: The DEBUG-verbosity
+//    error is caught once despite a NONE threshold.
+// 5. 1800.2-2020 6.3.3.3 (UVM-REPORT-ADMISSION-FATAL-IGNORES-VERBOSITY) gives
+//    rule 5 above. Setup: A reporter has maximum verbosity NONE, explicit
+//    DISPLAY actions and one catching callback. Expected: The DEBUG-verbosity
+//    fatal is caught once despite a NONE threshold.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // All reports are caught before emission. Only callback admission is checked;
 // no demotion, severity override, formatted diagnostic or fatal exit is tested.
 module test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal;

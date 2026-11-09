@@ -12,6 +12,60 @@
 :expected_exit: 0
 :expected_stdout: @test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller.expected
 */
+// What it checks:
+// 1. get_report_message exposes the actual preformed message currently being
+//    caught.
+// 2. A public message setter changes the shared current-message severity
+//    value.
+// 3. A public message setter changes the shared current-message id value.
+// 4. A public message setter changes the shared current-message text value.
+// 5. A public message setter changes the shared current-message verbosity
+//    value.
+// 6. A public message setter changes the shared current-message filename
+//    value.
+// 7. A public message setter changes the shared current-message line value.
+// 8. A public message setter changes the shared current-message context value.
+// 9. A public message setter changes the shared current-message action value.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.6.3.10 (UVM-CATCHER-PREFORMED-CURRENT-MESSAGE-IDENTITY)
+//    gives rule 1 above. Setup: The caller retains its supplied handle during
+//    direct processing, live mutation and sequential reuse. Expected: The
+//    catcher handle equals that supplied message in all selected contexts.
+// 2. 1800.2-2020 6.2.4.1 (UVM-REPORT-MESSAGE-LIVE-SEVERITY) gives rule 2
+//    above. Setup: The first catcher obtains the current handle and uses the
+//    message setter before THROW. Expected: Tail getters and the caller alias
+//    both observe WARNING.
+// 3. 1800.2-2020 6.2.4.2 (UVM-REPORT-MESSAGE-LIVE-ID) gives rule 3 above.
+//    Setup: The first catcher obtains the current handle and uses the message
+//    setter before THROW. Expected: Tail getters and the caller alias both
+//    observe alias.
+// 4. 1800.2-2020 6.2.4.3 (UVM-REPORT-MESSAGE-LIVE-TEXT) gives rule 4 above.
+//    Setup: The first catcher obtains the current handle and uses the message
+//    setter before THROW. Expected: Tail getters and the caller alias both
+//    observe alias payload.
+// 5. 1800.2-2020 6.2.4.4 (UVM-REPORT-MESSAGE-LIVE-VERBOSITY) gives rule 5
+//    above. Setup: The first catcher obtains the current handle and uses the
+//    message setter before THROW. Expected: Tail getters and the caller alias
+//    both observe HIGH.
+// 6. 1800.2-2020 6.2.4.5 (UVM-REPORT-MESSAGE-LIVE-FILENAME) gives rule 6
+//    above. Setup: The first catcher obtains the current handle and uses the
+//    message setter before THROW. Expected: Tail getters and the caller alias
+//    both observe alias.sv.
+// 7. 1800.2-2020 6.2.4.6 (UVM-REPORT-MESSAGE-LIVE-LINE) gives rule 7 above.
+//    Setup: The first catcher obtains the current handle and uses the message
+//    setter before THROW. Expected: Tail getters and the caller alias both
+//    observe 91.
+// 8. 1800.2-2020 6.2.4.7 (UVM-REPORT-MESSAGE-LIVE-CONTEXT) gives rule 8 above.
+//    Setup: The first catcher obtains the current handle and uses the message
+//    setter before THROW. Expected: Tail getters and the caller alias both
+//    observe alias.ctx.
+// 9. 1800.2-2020 6.2.4.8 (UVM-REPORT-MESSAGE-LIVE-ACTION) gives rule 9 above.
+//    Setup: The first catcher obtains the current handle and uses the message
+//    setter before THROW. Expected: Tail getters and the caller alias both
+//    observe DISPLAY with COUNT.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Mutations use public report-message setters, not catcher setter wrappers.
 // Tail and caller aliases observe the same object; the report is caught.
 // The pinned release omits required catcher get_report_message.

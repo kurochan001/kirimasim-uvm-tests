@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_report_verbosity_specificity_precedence.expected
 */
+// What it checks:
+// 1. Verbosity resolution prefers a severity/ID setting, then an ID setting,
+//    then the general threshold.
+// 2. A report is verbosity-enabled when its requested level does not exceed
+//    the resolved threshold.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.4.3.1 (UVM-REPORT-VERBOSITY-PRIORITY) gives rule 1 above.
+//    Setup: Install distinct thresholds and later update only the general
+//    setting. Expected: Queries follow specificity and specific overrides
+//    survive a general update.
+// 2. 1800.2-2020 6.3.3.2 (UVM-REPORT-VERBOSITY-ENABLED) gives rule 2 above.
+//    Setup: Query at and above the configured threshold, including the NONE
+//    boundary. Expected: The threshold boundary is enabled and a higher
+//    requested level is disabled.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The configured threshold depends on both severity and ID. Query the
 // threshold and the enabled predicate at and above the selected thresholds.
 

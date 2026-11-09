@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_report_server_copy_takes_an_independent_count_snapshot.expected
 */
+// What it checks:
+// Report-server copying transfers current statistic counts without sharing
+// their later updates.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.5.1.2.13 (UVM-REPORT-SERVER-COPY-SNAPSHOT) gives the rule
+// above. Setup: Copy a populated server, update the source, then copy again.
+// Expected: The first snapshot stays unchanged until recopied, when the new
+// ID/count becomes visible.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Populate the source through standard report calls. A separate server
 // receives snapshots, without relying on implementation-only counter setters.
 

@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_report_server_concrete_constructor_exposes_base_names_and_summary_argument_defaults.expected
 */
+// What it checks:
+// 1. The report-server base constructor has default base and preserves
+//    explicit/empty names.
+// 2. The summary virtual interface uses UVM_STDOUT when the file argument is
+//    omitted.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.5.1.2.1 (UVM-REPORT-AUDIT-BASE-SERVER-CONSTRUCTOR) gives
+//    rule 1 above. Setup: Use the selected original reporting fixtures and
+//    explicit object, severity, ID and action configuration described by their
+//    observation anchors. Expected: A concrete subtype without a constructor
+//    exposes base; another subtype forwards selected and empty names with the
+//    exact object/server base.
+// 2. 1800.2-2020 6.5.1.2.17 (UVM-REPORT-AUDIT-SUMMARY-DEFAULT-FILE-SIGNATURE)
+//    gives rule 2 above. Setup: Use the selected original reporting fixtures
+//    and explicit object, severity, ID and action configuration described by
+//    their observation anchors. Expected: An original legal override receives
+//    UVM_STDOUT on an omitted argument and the exact explicit token on the
+//    second call.
+// It also supports, as a control, the setup or conditions of
+// UVM-REPORT-AUDIT-BASE-ABSTRACT-DECLARATION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_report_server_concrete_constructor_exposes_base_names_and_summary_argument_defaults;
   import uvm_pkg::*;
   // Original complete signatures make the base constructible. Stub

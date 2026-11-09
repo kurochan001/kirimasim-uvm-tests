@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_report_server_repeated_copy_merges_ids_and_overwrites_severity_with_zero.expected
 */
+// What it checks:
+// Server statistic copying preserves destination-only IDs and replaces
+// overlapping counts with source values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.5.1.2.13 (UVM-REPORT-SERVER-COPY-MERGE) gives the rule above.
+// Setup: Source and destination have disjoint IDs and an overlapping ID with
+// unequal counts. Expected: Destination-only entries survive, source-only
+// entries appear and overlapping counts equal the source.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit public setters establish both nonzero and zero source severity
 // entries. A zero count is still a value to copy, not an absent entry.
 module test_report_server_repeated_copy_merges_ids_and_overwrites_severity_with_zero;

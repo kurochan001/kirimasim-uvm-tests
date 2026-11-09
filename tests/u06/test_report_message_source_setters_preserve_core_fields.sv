@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_report_message_source_setters_preserve_core_fields.expected
 */
+// What it checks:
+// 1. The message source filename accessor returns the value assigned to that
+//    field.
+// 2. The message source line accessor returns the value assigned to that
+//    field.
+// 3. The message context string accessor returns the value assigned to that
+//    field.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.2.4.5 (UVM-REPORT-MESSAGE-FILENAME) gives rule 1 above.
+//    Setup: Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 2. 1800.2-2020 6.2.4.6 (UVM-REPORT-MESSAGE-LINE) gives rule 2 above. Setup:
+//    Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 3. 1800.2-2020 6.2.4.7 (UVM-REPORT-MESSAGE-CONTEXT) gives rule 3 above.
+//    Setup: Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Update source metadata and clear the optional context without emitting
 // a report or changing the severity, text, ID or verbosity.
 

@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_report_general_verbosity_keeps_specific_overrides.expected
 */
+// What it checks:
+// 1. Verbosity resolution prefers a severity/ID setting, then an ID setting,
+//    then the general threshold.
+// 2. A report is verbosity-enabled when its requested level does not exceed
+//    the resolved threshold.
+// 3. Specific ID and severity-ID verbosity associations survive a general
+//    threshold update.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.4.3.1 (UVM-REPORT-VERBOSITY-PRIORITY) gives rule 1 above.
+//    Setup: Install distinct thresholds and later update only the general
+//    setting. Expected: Queries follow specificity and specific overrides
+//    survive a general update.
+// 2. 1800.2-2020 6.3.3.2 (UVM-REPORT-VERBOSITY-ENABLED) gives rule 2 above.
+//    Setup: Query at and above the configured threshold, including the NONE
+//    boundary. Expected: The threshold boundary is enabled and a higher
+//    requested level is disabled.
+// 3. 1800.2-2020 6.4.3.3 (UVM-HANDLER-CONFIG-VERBOSITY-ASSOCIATIONS) gives
+//    rule 3 above. Setup: Specific thresholds are installed before changing
+//    the general maximum. Expected: The pair stays NONE, ID stays LOW and
+//    other queries use DEBUG.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Changing the general threshold does not replace ID and severity-ID
 // settings. A NONE threshold accepts NONE and rejects a higher verbosity.
 

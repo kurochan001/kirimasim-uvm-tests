@@ -12,6 +12,70 @@
 :expected_exit: 0
 :expected_stdout: @test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases.expected
 */
+// What it checks:
+// 1. The report-object constructor accepts omitted, explicit and empty names.
+// 2. A report object has the declared object base.
+// 3. uvm_get_report_object returns the receiving report object.
+// 4. A report message has the declared object base.
+// 5. The report-message constructor preserves its declared default name and
+//    explicit/empty names.
+// 6. A report handler has the declared object base.
+// 7. The report-handler constructor preserves its declared default and
+//    explicit/empty names.
+// 8. A legal original catcher exposes the declared base default name and
+//    forwarded explicit/empty names.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.3.2 (UVM-REPORT-AUDIT-OBJECT-CONSTRUCTOR) gives rule 1
+//    above. Setup: Use direct concrete objects; a catcher with no constructor
+//    probes the base default, while a separate catcher forwards explicit
+//    names. No subtype default masks the base default. Expected: Default,
+//    named and empty construction retain the declared names, and the selected
+//    exact base/self identity is preserved.
+// 2. 1800.2-2020 6.3.1 (UVM-REPORT-AUDIT-OBJECT-BASE) gives rule 2 above.
+//    Setup: Use direct concrete objects; a catcher with no constructor probes
+//    the base default, while a separate catcher forwards explicit names. No
+//    subtype default masks the base default. Expected: Default, named and
+//    empty construction retain the declared names, and the selected exact
+//    base/self identity is preserved.
+// 3. 1800.2-2020 6.3.3.1 (UVM-REPORT-AUDIT-OBJECT-SELF) gives rule 3 above.
+//    Setup: Use direct concrete objects; a catcher with no constructor probes
+//    the base default, while a separate catcher forwards explicit names. No
+//    subtype default masks the base default. Expected: Default, named and
+//    empty construction retain the declared names, and the selected exact
+//    base/self identity is preserved.
+// 4. 1800.2-2020 6.2.1 (UVM-REPORT-AUDIT-MESSAGE-BASE) gives rule 4 above.
+//    Setup: Use direct concrete objects; a catcher with no constructor probes
+//    the base default, while a separate catcher forwards explicit names. No
+//    subtype default masks the base default. Expected: Default, named and
+//    empty construction retain the declared names, and the selected exact
+//    base/self identity is preserved.
+// 5. 1800.2-2020 6.2.2.1 (UVM-REPORT-AUDIT-MESSAGE-CONSTRUCTOR-NAMES) gives
+//    rule 5 above. Setup: Use direct concrete objects; a catcher with no
+//    constructor probes the base default, while a separate catcher forwards
+//    explicit names. No subtype default masks the base default. Expected:
+//    Default, named and empty construction retain the declared names, and the
+//    selected exact base/self identity is preserved.
+// 6. 1800.2-2020 6.4.1 (UVM-REPORT-AUDIT-HANDLER-BASE) gives rule 6 above.
+//    Setup: Use direct concrete objects; a catcher with no constructor probes
+//    the base default, while a separate catcher forwards explicit names. No
+//    subtype default masks the base default. Expected: Default, named and
+//    empty construction retain the declared names, and the selected exact
+//    base/self identity is preserved.
+// 7. 1800.2-2020 6.4.2.1 (UVM-REPORT-AUDIT-HANDLER-CONSTRUCTOR) gives rule 7
+//    above. Setup: Use direct concrete objects; a catcher with no constructor
+//    probes the base default, while a separate catcher forwards explicit
+//    names. No subtype default masks the base default. Expected: Default,
+//    named and empty construction retain the declared names, and the selected
+//    exact base/self identity is preserved.
+// 8. 1800.2-2020 6.6.2 (UVM-REPORT-AUDIT-CATCHER-CONSTRUCTOR) gives rule 8
+//    above. Setup: Use direct concrete objects; a catcher with no constructor
+//    probes the base default, while a separate catcher forwards explicit
+//    names. No subtype default masks the base default. Expected: Default,
+//    named and empty construction retain the declared names, and the selected
+//    exact base/self identity is preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases;
   import uvm_pkg::*;
   class original_catcher extends uvm_report_catcher;

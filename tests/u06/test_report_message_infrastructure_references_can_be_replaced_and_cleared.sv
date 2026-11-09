@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_report_message_infrastructure_references_can_be_replaced_and_cleared.expected
 */
+// What it checks:
+// 1. The message reporter accessor stores and returns its specified reference.
+// 2. The message handler accessor stores and returns its specified reference.
+// 3. The message server accessor stores and returns its specified reference.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.2.3.1 (UVM-REPORT-MESSAGE-REPORTER) gives rule 1 above.
+//    Setup: Set, replace and clear infrastructure handles without executing a
+//    report. Expected: The selected reference changes while other
+//    references/messages retain their handles.
+// 2. 1800.2-2020 6.2.3.2 (UVM-REPORT-MESSAGE-HANDLER) gives rule 2 above.
+//    Setup: Set, replace and clear infrastructure handles without executing a
+//    report. Expected: The selected reference changes while other
+//    references/messages retain their handles.
+// 3. 1800.2-2020 6.2.3.3 (UVM-REPORT-MESSAGE-SERVER) gives rule 3 above.
+//    Setup: Set, replace and clear infrastructure handles without executing a
+//    report. Expected: The selected reference changes while other
+//    references/messages retain their handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use explicit reporter, handler and concrete server objects. Replacing
 // a reference changes its getter without replacing the other two references.
 

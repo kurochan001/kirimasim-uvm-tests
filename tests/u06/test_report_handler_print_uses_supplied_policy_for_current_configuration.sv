@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_report_handler_print_uses_supplied_policy_for_current_configuration.expected
 */
+// What it checks:
+// 1. A report handler supplies its selected current verbosity configuration to
+//    the printing policy.
+// 2. A repeated handler print reflects the changed general threshold while
+//    retaining the configured ID threshold.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.4.2.2 (UVM-PRINTER-AUDIT-HANDLER-CURRENT-CONFIG) gives rule
+//    1 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The supplied
+//    observer sees the selected original field/configuration values and sprint
+//    returns its custom emission marker; the second print has current values
+//    without the stale selected value.
+// 2. 1800.2-2020 6.4.2.2 (UVM-PRINTER-AUDIT-HANDLER-UPDATED-CONFIG) gives rule
+//    2 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The supplied
+//    observer sees the selected original field/configuration values and sprint
+//    returns its custom emission marker; the second print has current values
+//    without the stale selected value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_report_handler_print_uses_supplied_policy_for_current_configuration;
   import uvm_pkg::*;
   // Inspect supplied policy inputs, not implementation field names or a

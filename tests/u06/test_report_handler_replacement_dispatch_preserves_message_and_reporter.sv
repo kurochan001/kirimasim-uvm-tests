@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_report_handler_replacement_dispatch_preserves_message_and_reporter.expected
 */
+// What it checks:
+// 1. get_report_handler returns the installed processing handler.
+// 2. Replacing one shared handler redirects only that reporter processing.
+// 3. process_report_message is the handler entry for delegated reporting.
+// 4. uvm_process_report_message passes the supplied preformed object to its
+//    handler.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.3.8.1 (UVM-HANDLER-SELECTED-GETTER) gives rule 1 above.
+//    Setup: Local reporters install original handlers and dispatch real
+//    messages. Expected: Queries match the handlers that receive the selected
+//    messages.
+// 2. 1800.2-2020 6.3.8.2 (UVM-HANDLER-REPLACEMENT-REDIRECTS-DISPATCH) gives
+//    rule 2 above. Setup: One reporter replaces the shared handler between
+//    three preformed reports. Expected: Shared receives A/C and replacement
+//    receives B, with original handles preserved.
+// 3. 1800.2-2020 6.4.7 (UVM-HANDLER-PUBLIC-PROCESSING-HOOK) gives rule 3
+//    above. Setup: An original handler overrides the public processing method.
+//    Expected: The override receives each selected actual message.
+// 4. 1800.2-2020 6.3.3.4 (UVM-HANDLER-PREFORMED-ARGUMENT-IDENTITY) gives rule
+//    4 above. Setup: The caller retains handles before direct processing and
+//    replacement routing. Expected: Captured arguments equal the
+//    caller-provided handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An original handler override captures its public processing argument.
 // It does not forward to the default server or use the missing catcher getter.
 module test_report_handler_replacement_dispatch_preserves_message_and_reporter;

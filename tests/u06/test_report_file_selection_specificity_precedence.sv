@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_report_file_selection_specificity_precedence.expected
 */
+// What it checks:
+// 1. File resolution prefers severity/ID, ID, severity, then the default
+//    destination.
+// 2. Configured file associations are retained at default and specific scopes.
+// 3. The public file getter returns the effective file association.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.4.5.1 (UVM-REPORT-FILE-PRIORITY) gives rule 1 above. Setup:
+//    Open distinct files, configure keys and update one ID without changing
+//    another reporter. Expected: Descriptor identities follow specificity
+//    while unrelated keys/reporters retain their destinations.
+// 2. 1800.2-2020 6.4.5.2 (UVM-HANDLER-CONFIG-FILE-ASSOCIATIONS) gives rule 2
+//    above. Setup: Four distinct opened handles are assigned to default,
+//    severity, ID and pair settings. Expected: Each query returns its selected
+//    handle without fixing descriptor numbers.
+// 3. 1800.2-2020 6.3.6.1 (UVM-REPORT-AUDIT-FILE-QUERY-DELEGATION) gives rule 3
+//    above. Setup: Use the selected original reporting fixtures and explicit
+//    object, severity, ID and action configuration described by their
+//    observation anchors. Expected: Opened descriptor identities resolve by
+//    pair, ID, severity and default without fixed numeric handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Open distinct files and compare returned handles, without observing
 // any implementation-specific report formatting or numeric descriptor values.
 

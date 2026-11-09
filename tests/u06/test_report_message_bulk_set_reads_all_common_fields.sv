@@ -12,6 +12,55 @@
 :expected_exit: 0
 :expected_stdout: @test_report_message_bulk_set_reads_all_common_fields.expected
 */
+// What it checks:
+// 1. The message severity accessor returns the value assigned to that field.
+// 2. The message message ID accessor returns the value assigned to that field.
+// 3. The message message text accessor returns the value assigned to that
+//    field.
+// 4. The message verbosity accessor returns the value assigned to that field.
+// 5. The message source filename accessor returns the value assigned to that
+//    field.
+// 6. The message source line accessor returns the value assigned to that
+//    field.
+// 7. The message context string accessor returns the value assigned to that
+//    field.
+// 8. set_report_message assigns all seven common message fields in one call.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.2.4.1 (UVM-REPORT-MESSAGE-SEVERITY) gives rule 1 above.
+//    Setup: Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 2. 1800.2-2020 6.2.4.2 (UVM-REPORT-MESSAGE-ID) gives rule 2 above. Setup:
+//    Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 3. 1800.2-2020 6.2.4.3 (UVM-REPORT-MESSAGE-TEXT) gives rule 3 above. Setup:
+//    Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 4. 1800.2-2020 6.2.4.4 (UVM-REPORT-MESSAGE-VERBOSITY) gives rule 4 above.
+//    Setup: Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 5. 1800.2-2020 6.2.4.5 (UVM-REPORT-MESSAGE-FILENAME) gives rule 5 above.
+//    Setup: Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 6. 1800.2-2020 6.2.4.6 (UVM-REPORT-MESSAGE-LINE) gives rule 6 above. Setup:
+//    Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 7. 1800.2-2020 6.2.4.7 (UVM-REPORT-MESSAGE-CONTEXT) gives rule 7 above.
+//    Setup: Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 8. 1800.2-2020 6.2.4.10 (UVM-REPORT-MESSAGE-BULK-SET) gives rule 8 above.
+//    Setup: Set nonempty values, then replace every field with a second tuple.
+//    Expected: Every getter reflects the new tuple without retaining fields
+//    from the previous call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Read explicit user-supplied fields through getters. No default field
 // values or report presentation are assumed.
 

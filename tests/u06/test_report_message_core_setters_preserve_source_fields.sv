@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_report_message_core_setters_preserve_source_fields.expected
 */
+// What it checks:
+// 1. The message severity accessor returns the value assigned to that field.
+// 2. The message message ID accessor returns the value assigned to that field.
+// 3. The message message text accessor returns the value assigned to that
+//    field.
+// 4. The message verbosity accessor returns the value assigned to that field.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.2.4.1 (UVM-REPORT-MESSAGE-SEVERITY) gives rule 1 above.
+//    Setup: Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 2. 1800.2-2020 6.2.4.2 (UVM-REPORT-MESSAGE-ID) gives rule 2 above. Setup:
+//    Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 3. 1800.2-2020 6.2.4.3 (UVM-REPORT-MESSAGE-TEXT) gives rule 3 above. Setup:
+//    Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// 4. 1800.2-2020 6.2.4.4 (UVM-REPORT-MESSAGE-VERBOSITY) gives rule 4 above.
+//    Setup: Assign common fields in bulk, replace them, and exercise selected
+//    individual setters. Expected: Queried values follow their assignments,
+//    including cleared string/zero values where applicable.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Update the core message fields individually while retaining the
 // previously specified source location and optional context.
 

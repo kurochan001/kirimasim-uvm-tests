@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_report_file_updates_are_local_to_reporter_and_key.expected
 */
+// What it checks:
+// File resolution prefers severity/ID, ID, severity, then the default
+// destination.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.4.5.1 (UVM-REPORT-FILE-PRIORITY) gives the rule above. Setup:
+// Open distinct files, configure keys and update one ID without changing
+// another reporter. Expected: Descriptor identities follow specificity while
+// unrelated keys/reporters retain their destinations.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Update one ID-specific file after a default file is configured.
 // A separate reporter and an unmatched ID retain their own default files.
 

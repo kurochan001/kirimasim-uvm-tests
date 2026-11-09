@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_report_server_used_severity_set_replaces_caller_queue_without_order_assumptions.expected
 */
+// What it checks:
+// The severity-set output lists each exercised standard severity without
+// retaining caller queue contents.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.5.1.2.10 (UVM-REPORT-AUDIT-USED-SEVERITY-SET-OUTPUT) gives the
+// rule above. Setup: Use the selected original reporting fixtures and explicit
+// object, severity, ID and action configuration described by their observation
+// anchors. Expected: After all four severities and one repeated info report,
+// each appears once with no stale value; requery returns four after the caller
+// deletes its copy.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_report_server_used_severity_set_replaces_caller_queue_without_order_assumptions;
   import uvm_pkg::*;
   // Exercise every standard severity. Initial unused membership is not

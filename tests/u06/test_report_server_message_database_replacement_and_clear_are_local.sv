@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_report_server_message_database_replacement_and_clear_are_local.expected
 */
+// What it checks:
+// 1. The message database getter returns the configured database handle.
+// 2. Message database replacement and null clearing affect only the selected
+//    server.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.5.1.2.11 (UVM-REPORT-AUDIT-DATABASE-GET) gives rule 1
+//    above. Setup: Use the selected original reporting fixtures and explicit
+//    object, severity, ID and action configuration described by their
+//    observation anchors. Expected: Exact handles round-trip, replacement is
+//    visible, and clearing one server leaves its peer intact.
+// 2. 1800.2-2020 6.5.1.2.12 (UVM-REPORT-AUDIT-DATABASE-SET-REPLACE-CLEAR)
+//    gives rule 2 above. Setup: Use the selected original reporting fixtures
+//    and explicit object, severity, ID and action configuration described by
+//    their observation anchors. Expected: Exact handles round-trip,
+//    replacement is visible, and clearing one server leaves its peer intact.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_report_server_message_database_replacement_and_clear_are_local;
   import uvm_pkg::*;
   // Original databases are identity tokens; no recording backend runs.

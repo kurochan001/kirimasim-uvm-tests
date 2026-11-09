@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_report_server_overridable_limit_and_count_reset.expected
 */
+// What it checks:
+// 1. An overridable quit limit accepts later maximum values independently of
+//    current quit count.
+// 2. The current quit-count setter updates that count independently of its
+//    maximum.
+// 3. The maximum-quit getter returns the currently configured count.
+// 4. The quit-count getter returns the current explicitly set count
+//    independently of the limit.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.5.1.2.3 (UVM-REPORT-QUIT-LIMIT-UPDATE) gives rule 1 above.
+//    Setup: Change the maximum to 8 and then 0 while current count is 6.
+//    Expected: Queried maximum follows the updates without resetting current
+//    count.
+// 2. 1800.2-2020 6.5.1.2.5 (UVM-REPORT-QUIT-COUNT-UPDATE) gives rule 2 above.
+//    Setup: Set/change/reset current counts with overridable or locked maximum
+//    settings. Expected: Current count follows its assigned values while the
+//    maximum retains its own setting.
+// 3. 1800.2-2020 6.5.1.2.2 (UVM-REPORT-AUDIT-MAX-QUIT-GET) gives rule 3 above.
+//    Setup: Use the selected original reporting fixtures and explicit object,
+//    severity, ID and action configuration described by their observation
+//    anchors. Expected: Queries reflect maximum updates, independent
+//    current-count updates and reset to zero.
+// 4. 1800.2-2020 6.5.1.2.4 (UVM-REPORT-AUDIT-QUIT-COUNT-GET) gives rule 4
+//    above. Setup: Use the selected original reporting fixtures and explicit
+//    object, severity, ID and action configuration described by their
+//    observation anchors. Expected: Queries reflect maximum updates,
+//    independent current-count updates and reset to zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An overridable limit can be changed and then set to zero. Changing the
 // maximum and resetting the count are separate operations.
 

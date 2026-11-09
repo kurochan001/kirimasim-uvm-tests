@@ -12,6 +12,54 @@
 :expected_exit: 0
 :expected_stdout: @test_report_server_global_wrappers_copy_statistics_and_preserve_destination_only_ids.expected
 */
+// What it checks:
+// 1. The report-server getter returns the same selected global instance as the
+//    core service.
+// 2. Replacing the global server copies existing severity and ID statistics to
+//    its destination.
+// 3. Global server replacement preserves destination-only IDs and overwrites
+//    overlapping counts from the current server.
+// 4. Copied global-server statistics do not alias the previous server
+//    counters.
+// 5. A second global replacement copies the latest statistics and retains its
+//    own destination-only ID.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.5.1.2.18 (UVM-REPORT-AUDIT-GLOBAL-GETTER-DELEGATION) gives
+//    rule 1 above. Setup: Use the selected original reporting fixtures and
+//    explicit object, severity, ID and action configuration described by their
+//    observation anchors. Expected: The static getter and core agree after
+//    replacement and the saved server is restored exactly.
+// 2. 1800.2-2020 6.5.1.2.19 (UVM-REPORT-AUDIT-GLOBAL-SET-COUNTS) gives rule 2
+//    above. Setup: Prime three actual default servers under temporarily
+//    selected global setup, with disjoint/overlapping IDs and explicitly set
+//    severity counters; use the public wrapper for both measured replacements.
+//    Expected: Selected severity/ID values match the current server snapshot;
+//    destination-only IDs remain and later source changes do not change the
+//    copied destination.
+// 3. 1800.2-2020 6.5.1.2.19 (UVM-REPORT-AUDIT-GLOBAL-SET-CUMULATIVE-IDS) gives
+//    rule 3 above. Setup: Prime three actual default servers under temporarily
+//    selected global setup, with disjoint/overlapping IDs and explicitly set
+//    severity counters; use the public wrapper for both measured replacements.
+//    Expected: Selected severity/ID values match the current server snapshot;
+//    destination-only IDs remain and later source changes do not change the
+//    copied destination.
+// 4. 1800.2-2020 6.5.1.2.19 (UVM-REPORT-AUDIT-GLOBAL-SET-SNAPSHOT) gives rule
+//    4 above. Setup: Prime three actual default servers under temporarily
+//    selected global setup, with disjoint/overlapping IDs and explicitly set
+//    severity counters; use the public wrapper for both measured replacements.
+//    Expected: Selected severity/ID values match the current server snapshot;
+//    destination-only IDs remain and later source changes do not change the
+//    copied destination.
+// 5. 1800.2-2020 6.5.1.2.19 (UVM-REPORT-AUDIT-GLOBAL-SET-REPEATED) gives rule
+//    5 above. Setup: Prime three actual default servers under temporarily
+//    selected global setup, with disjoint/overlapping IDs and explicitly set
+//    severity counters; use the public wrapper for both measured replacements.
+//    Expected: Selected severity/ID values match the current server snapshot;
+//    destination-only IDs remain and later source changes do not change the
+//    copied destination.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_report_server_global_wrappers_copy_statistics_and_preserve_destination_only_ids;
   import uvm_pkg::*;
   function automatic void issue_to(uvm_report_server server, uvm_report_object reporter, string id);

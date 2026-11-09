@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_report_catcher_info_helper_bypasses_both_catching_callbacks.expected
 */
+// What it checks:
+// 1. A catcher helper report bypasses the entire catching callback chain.
+// 2. The selected helper emits one report with its requested severity and ID.
+// 3. THROW permits the outer report to continue after a catcher emits a helper
+//    report.
+// 4. get_client returns the object that generated the current caught message.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.6.6.4 (UVM-CATCHER-INFO-HELPER-BYPASS) gives rule 1 above.
+//    Setup: An INFO report passes through two callbacks; the first emits one
+//    INFO helper report. Expected: Both callbacks see only the outer report,
+//    once each.
+// 2. 1800.2-2020 6.6.6.4 (UVM-CATCHER-INFO-HELPER-EMISSION) gives rule 2
+//    above. Setup: An INFO report passes through two callbacks; the first
+//    emits one INFO helper report. Expected: Helper ID count rises once and
+//    the requested severity count includes that report.
+// 3. 1800.2-2020 6.6 (UVM-CATCHER-INFO-OUTER-CONTINUES) gives rule 3 above.
+//    Setup: An INFO report passes through two callbacks; the first emits one
+//    INFO helper report. Expected: The outer ID count rises once after the
+//    tail callback is visited.
+// 4. 1800.2-2020 6.6.3.1 (UVM-CATCHER-CURRENT-REPORTER-IDENTITY) gives rule 4
+//    above. Setup: A callback on an explicit local reporter observes an outer
+//    INFO report. Expected: The returned client equals that local reporter in
+//    all three helper fixtures.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only the explicit reporter has these callbacks. All severities use DISPLAY.
 // The visit guard bounds recursion if a helper incorrectly enters callbacks.
 module test_report_catcher_info_helper_bypasses_both_catching_callbacks;

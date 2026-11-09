@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_report_server_copy_merges_disjoint_and_overlapping_ids.expected
 */
+// What it checks:
+// Server statistic copying preserves destination-only IDs and replaces
+// overlapping counts with source values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.5.1.2.13 (UVM-REPORT-SERVER-COPY-MERGE) gives the rule above.
+// Setup: Source and destination have disjoint IDs and an overlapping ID with
+// unequal counts. Expected: Destination-only entries survive, source-only
+// entries appear and overlapping counts equal the source.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Direct public message execution populates independent servers without
 // installing either as the global server or copying during setup.
 module test_report_server_copy_merges_disjoint_and_overlapping_ids;

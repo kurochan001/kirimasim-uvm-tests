@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_report_catcher_warning_helper_preserves_origin_defaults_and_bypasses_both_callbacks.expected
 */
+// What it checks:
+// 1. The warning helper bypasses both registered catching callbacks.
+// 2. The warning helper uses the current reporter with the selected severity
+//    and default filename/line/context.
+// 3. The warning helper actually reaches the server once while the outer
+//    report continues.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.6.6.3 (UVM-REPORT-AUDIT-HELPER-WARNING-BYPASS) gives rule 1
+//    above. Setup: Register two original catchers on one reporter, invoke the
+//    helper only on the first visit, and configure both severities to DISPLAY;
+//    the fatal case requests no EXIT action. Expected: Only the outer report
+//    visits issuer/tail; the helper retains exact origin/body, empty
+//    filename/context and line zero, and both reports contribute once to
+//    counts.
+// 2. 1800.2-2020 6.6.6.3 (UVM-REPORT-AUDIT-HELPER-WARNING-ORIGIN-DEFAULTS)
+//    gives rule 2 above. Setup: Register two original catchers on one
+//    reporter, invoke the helper only on the first visit, and configure both
+//    severities to DISPLAY; the fatal case requests no EXIT action. Expected:
+//    Only the outer report visits issuer/tail; the helper retains exact
+//    origin/body, empty filename/context and line zero, and both reports
+//    contribute once to counts.
+// 3. 1800.2-2020 6.6.6.3 (UVM-REPORT-AUDIT-HELPER-WARNING-ACTUAL-ISSUE) gives
+//    rule 3 above. Setup: Register two original catchers on one reporter,
+//    invoke the helper only on the first visit, and configure both severities
+//    to DISPLAY; the fatal case requests no EXIT action. Expected: Only the
+//    outer report visits issuer/tail; the helper retains exact origin/body,
+//    empty filename/context and line zero, and both reports contribute once to
+//    counts.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_report_catcher_warning_helper_preserves_origin_defaults_and_bypasses_both_callbacks;
   import uvm_pkg::*;
   // The fatal helper uses DISPLAY alone, so no UVM_EXIT is requested.

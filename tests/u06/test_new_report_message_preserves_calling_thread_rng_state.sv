@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_new_report_message_preserves_calling_thread_rng_state.expected
 */
+// What it checks:
+// new_report_message preserves the RNG state of its calling thread.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.2.2.2 (UVM-REPORT-MESSAGE-THREAD-RNG) gives the rule above.
+// Setup: Call twice from an initial process and compare opaque RNG state
+// before/after. Expected: Both calls preserve state and create distinct named
+// messages.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Call from an initial process, not a non-thread context. Compare the
 // opaque process RNG state for equality without prescribing its encoding.
 

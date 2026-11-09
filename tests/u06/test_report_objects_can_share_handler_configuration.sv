@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_report_objects_can_share_handler_configuration.expected
 */
+// What it checks:
+// Setting a report handler replaces the reference and permits sharing one
+// handler across report objects.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.3.8.2 (UVM-REPORT-HANDLER-SELECTION) gives the rule above.
+// Setup: Share a handler, change settings, then detach one object by assigning
+// another handler. Expected: Shared settings are visible to both objects until
+// detachment, after which changes stay separate.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Install one handler on two report objects. Changes through either
 // object are visible through the other object using the same configured keys.
 

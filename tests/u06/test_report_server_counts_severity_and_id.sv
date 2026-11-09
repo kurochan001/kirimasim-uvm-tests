@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_report_server_counts_severity_and_id.expected
 */
+// What it checks:
+// 1. The server reports processed-message counts per severity.
+// 2. The server reports processed-message counts for the requested ID.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.5.1.2.6 (UVM-REPORT-SERVER-SEVERITY-COUNT) gives rule 1
+//    above. Setup: Compare baseline-relative counts for accepted reports and a
+//    verbosity-filtered report. Expected: Accepted messages increment their
+//    severity count; a filtered message adds none.
+// 2. 1800.2-2020 6.5.1.2.8 (UVM-REPORT-SERVER-ID-COUNT) gives rule 2 above.
+//    Setup: Issue messages with one controlled ID, including a filtered call.
+//    Expected: The ID count reflects accepted reports only.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use differences from a baseline so initialization reports do not affect
 // the observation. Count values are checked, not formatted report text.
 

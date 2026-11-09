@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_report_log_routing_executes_pair_id_severity_and_default_file_selection.expected
 */
+// What it checks:
+// 1. Configured file associations are retained at default and specific scopes.
+// 2. All four public file setters configure the handler paths used by real
+//    logging.
+// 3. The handler retains file configuration and delegates actual reports to
+//    the selected server.
+// 4. LOG execution writes the composed payload to the selected report file.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 6.4.5.2 (UVM-HANDLER-CONFIG-FILE-ASSOCIATIONS) gives rule 1
+//    above. Setup: Four distinct opened handles are assigned to default,
+//    severity, ID and pair settings. Expected: Each query returns its selected
+//    handle without fixing descriptor numbers.
+// 2. 1800.2-2020 6.3.6.2 (UVM-REPORT-AUDIT-FILE-SETTER-DELEGATION) gives rule
+//    2 above. Setup: Use the selected original reporting fixtures and explicit
+//    object, severity, ID and action configuration described by their
+//    observation anchors. Expected: Four reports reach only their pair, ID,
+//    severity or default files, respectively.
+// 3. 1800.2-2020 6.4 (UVM-REPORT-AUDIT-HANDLER-STORED-CONFIG-ROUTING) gives
+//    rule 3 above. Setup: Use the selected original reporting fixtures and
+//    explicit object, severity, ID and action configuration described by their
+//    observation anchors. Expected: The public reporter path logs each of four
+//    uniquely marked payloads only to its configured effective file.
+// 4. 1800.2-2020 6.5.1.2.16 (UVM-REPORT-AUDIT-EXECUTE-ACTUAL-FILE-LOG) gives
+//    rule 4 above. Setup: Use the selected original reporting fixtures and
+//    explicit object, severity, ID and action configuration described by their
+//    observation anchors. Expected: Each of four actual files contains only
+//    its uniquely selected payload once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_report_log_routing_executes_pair_id_severity_and_default_file_selection;
   import uvm_pkg::*;
   // Original formatting makes the payload visible without fixing UVM's

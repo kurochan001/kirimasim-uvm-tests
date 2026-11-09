@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_report_id_set_lists_each_used_id_once.expected
 */
+// What it checks:
+// get_id_set returns the set of IDs used by that server.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 6.5.1.2.9 (UVM-REPORT-SERVER-ID-SET) gives the rule above.
+// Setup: Report two IDs with repetition and provide an output queue containing
+// a stale entry. Expected: The output has each used ID once, excludes the
+// stale entry and leaves ID counts available.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use controlled report IDs and compare membership without assuming
 // iteration order. The output queue replaces its earlier caller contents.
 
