@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_stream_close_dispatches_its_hook_before_closing_only_open_recorders.expected
 */
+// What it checks:
+// 1. Stream close calls its own hook before closing all still-open recorders.
+// 2. Stream close invokes its backend hook before closing its open recorders.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.2.4.1 (UVM-STREAM-RECORDER-CLOSE-CASCADE) gives rule 1
+//    above. Setup: Use two open recorders and one previously closed recorder.
+//    Expected: The stream hook runs first; each record has exactly one close
+//    and all become closed.
+// 2. 1800.2-2020 7.2.7.2 (UVM-RECORDING-EXISTING-STREAM-CLOSE-CALLBACK) gives
+//    rule 2 above. Setup: Use the unchanged stream/recorder hook trace
+//    fixture. Expected: The stream hook occurs once and is first in the
+//    observed trace.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // In-memory recorder hooks only: no database file, DPI or vendor attribute
 // macro. Timestamps are explicit recording metadata, not simulation delays.
 module test_stream_close_dispatches_its_hook_before_closing_only_open_recorders;

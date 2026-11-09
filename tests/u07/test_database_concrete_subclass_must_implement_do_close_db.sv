@@ -12,6 +12,19 @@
 :should_fail_because: a concrete subclass must implement the selected pure virtual method
 :expected_stderr_regex: (?i)^(?=.*test_database_concrete_subclass_must_implement_do_close_db\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:pure|virtual|abstract|missing implementation)\b)(?=.*\bdo_close_db\b).*error
 */
+// What it checks:
+// A concrete subtype cannot leave the declared pure virtual do_close_db method
+// unimplemented.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 7.1.6.2
+// (UVM-NEGATIVE-DATABASE-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-CLOSE-DB) gives
+// the rule above. Setup: Instantiate an original nonvirtual subtype with this
+// one pure method missing; all other required methods have bodies. Expected:
+// Compilation rejects the fixture with an error identifying the missing pure
+// method; no runtime seed executes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Isolate one forbidden condition; other interfaces have original bodies.
 // Rejection must identify this fixture and the selected method or parameter.
 // This is a compile-stage expectation, without a runtime binary or seed.

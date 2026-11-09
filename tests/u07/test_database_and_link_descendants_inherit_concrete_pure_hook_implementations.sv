@@ -12,6 +12,92 @@
 :expected_exit: 0
 :expected_stdout: @test_database_and_link_descendants_inherit_concrete_pure_hook_implementations.expected
 */
+// What it checks:
+// 1. An inherited concrete do_open_db implementation satisfies the declared
+//    pure hook and is reached through its public wrapper.
+// 2. An inherited concrete do_close_db implementation satisfies the declared
+//    pure hook and is reached through its public wrapper.
+// 3. An inherited concrete do_open_stream implementation satisfies the
+//    declared pure hook and is reached through its public wrapper.
+// 4. An inherited concrete do_establish_link implementation satisfies the
+//    declared pure hook and is reached through its public wrapper.
+// 5. An inherited concrete do_get_lhs implementation satisfies the declared
+//    pure hook and is reached through its public wrapper.
+// 6. An inherited concrete do_set_lhs implementation satisfies the declared
+//    pure hook and is reached through its public wrapper.
+// 7. An inherited concrete do_get_rhs implementation satisfies the declared
+//    pure hook and is reached through its public wrapper.
+// 8. An inherited concrete do_set_rhs implementation satisfies the declared
+//    pure hook and is reached through its public wrapper.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.1.6.1 (UVM-INHERITED-RECORDING-DO-OPEN-DB) gives rule 1
+//    above. Setup: Construct a leaf without overriding the parent hook bodies;
+//    use exact base views with two valid streams from the same open database
+//    and an original link. Expected: The selected wrapper reaches the
+//    inherited hook: opening/closing succeeds, stream objects and link
+//    identity are preserved, or endpoint setters/getters each run once before
+//    database linking.
+// 2. 1800.2-2020 7.1.6.2 (UVM-INHERITED-RECORDING-DO-CLOSE-DB) gives rule 2
+//    above. Setup: Construct a leaf without overriding the parent hook bodies;
+//    use exact base views with two valid streams from the same open database
+//    and an original link. Expected: The selected wrapper reaches the
+//    inherited hook: opening/closing succeeds, stream objects and link
+//    identity are preserved, or endpoint setters/getters each run once before
+//    database linking.
+// 3. 1800.2-2020 7.1.6.3 (UVM-INHERITED-RECORDING-DO-OPEN-STREAM) gives rule 3
+//    above. Setup: Construct a leaf without overriding the parent hook bodies;
+//    use exact base views with two valid streams from the same open database
+//    and an original link. Expected: The selected wrapper reaches the
+//    inherited hook: opening/closing succeeds, stream objects and link
+//    identity are preserved, or endpoint setters/getters each run once before
+//    database linking.
+// 4. 1800.2-2020 7.1.6.4 (UVM-INHERITED-RECORDING-DO-ESTABLISH-LINK) gives
+//    rule 4 above. Setup: Construct a leaf without overriding the parent hook
+//    bodies; use exact base views with two valid streams from the same open
+//    database and an original link. Expected: The selected wrapper reaches the
+//    inherited hook: opening/closing succeeds, stream objects and link
+//    identity are preserved, or endpoint setters/getters each run once before
+//    database linking.
+// 5. 1800.2-2020 7.3.1.4.1 (UVM-INHERITED-RECORDING-DO-GET-LHS) gives rule 5
+//    above. Setup: Construct a leaf without overriding the parent hook bodies;
+//    use exact base views with two valid streams from the same open database
+//    and an original link. Expected: The selected wrapper reaches the
+//    inherited hook: opening/closing succeeds, stream objects and link
+//    identity are preserved, or endpoint setters/getters each run once before
+//    database linking.
+// 6. 1800.2-2020 7.3.1.4.2 (UVM-INHERITED-RECORDING-DO-SET-LHS) gives rule 6
+//    above. Setup: Construct a leaf without overriding the parent hook bodies;
+//    use exact base views with two valid streams from the same open database
+//    and an original link. Expected: The selected wrapper reaches the
+//    inherited hook: opening/closing succeeds, stream objects and link
+//    identity are preserved, or endpoint setters/getters each run once before
+//    database linking.
+// 7. 1800.2-2020 7.3.1.4.3 (UVM-INHERITED-RECORDING-DO-GET-RHS) gives rule 7
+//    above. Setup: Construct a leaf without overriding the parent hook bodies;
+//    use exact base views with two valid streams from the same open database
+//    and an original link. Expected: The selected wrapper reaches the
+//    inherited hook: opening/closing succeeds, stream objects and link
+//    identity are preserved, or endpoint setters/getters each run once before
+//    database linking.
+// 8. 1800.2-2020 7.3.1.4.4 (UVM-INHERITED-RECORDING-DO-SET-RHS) gives rule 8
+//    above. Setup: Construct a leaf without overriding the parent hook bodies;
+//    use exact base views with two valid streams from the same open database
+//    and an original link. Expected: The selected wrapper reaches the
+//    inherited hook: opening/closing succeeds, stream objects and link
+//    identity are preserved, or endpoint setters/getters each run once before
+//    database linking.
+// It also supports, as a control, the setup or conditions of
+// UVM-NEGATIVE-DATABASE-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-OPEN-DB,
+// UVM-NEGATIVE-DATABASE-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-CLOSE-DB,
+// UVM-NEGATIVE-DATABASE-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-OPEN-STREAM,
+// UVM-NEGATIVE-DATABASE-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-ESTABLISH-LINK,
+// UVM-NEGATIVE-LINK-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-GET-LHS,
+// UVM-NEGATIVE-LINK-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-SET-LHS,
+// UVM-NEGATIVE-LINK-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-GET-RHS,
+// UVM-NEGATIVE-LINK-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-SET-RHS.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_database_and_link_descendants_inherit_concrete_pure_hook_implementations;
   import uvm_pkg::*;
   // Original in-memory endpoints and hook bodies are setup. Only inherited

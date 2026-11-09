@@ -12,6 +12,47 @@
 :expected_exit: 0
 :expected_stdout: @test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links.expected
 */
+// What it checks:
+// 1. The prefilled-link helper uses the specified default link name when its
+//    optional name is omitted.
+// 2. Repeated prefilled-link construction creates independent links
+//    initialized with the supplied endpoint handles.
+// 3. The prefilled-link helper uses the specified default link name when its
+//    optional name is omitted.
+// 4. Repeated prefilled-link construction creates independent links
+//    initialized with the supplied endpoint handles.
+// 5. The prefilled-link helper uses the specified default link name when its
+//    optional name is omitted.
+// 6. Repeated prefilled-link construction creates independent links
+//    initialized with the supplied endpoint handles.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.3.2.2.2 (UVM-PARENT-CHILD-PREFILLED-DEFAULT-NAME) gives
+//    rule 1 above. Setup: The helper receives exact left/right objects with no
+//    name argument. Expected: The resulting link name is pc_link.
+// 2. 1800.2-2020 7.3.2.2.2 (UVM-PARENT-CHILD-PREFILLED-FRESH-INSTANCE) gives
+//    rule 2 above. Setup: Two helpers receive reversed endpoint handles; one
+//    link is then changed through public accessors. Expected: The links are
+//    distinct, the initial endpoints are exact, and the peer retains its
+//    original handles.
+// 3. 1800.2-2020 7.3.3.2.2 (UVM-CAUSE-EFFECT-PREFILLED-DEFAULT-NAME) gives
+//    rule 3 above. Setup: The helper receives exact left/right objects with no
+//    name argument. Expected: The resulting link name is ce_link.
+// 4. 1800.2-2020 7.3.3.2.2 (UVM-CAUSE-EFFECT-PREFILLED-FRESH-INSTANCE) gives
+//    rule 4 above. Setup: Two helpers receive reversed endpoint handles; one
+//    link is then changed through public accessors. Expected: The links are
+//    distinct, the initial endpoints are exact, and the peer retains its
+//    original handles.
+// 5. 1800.2-2020 7.3.4.2.2 (UVM-RELATED-PREFILLED-DEFAULT-NAME) gives rule 5
+//    above. Setup: The helper receives exact left/right objects with no name
+//    argument. Expected: The resulting link name is ce_link.
+// 6. 1800.2-2020 7.3.4.2.2 (UVM-RELATED-PREFILLED-FRESH-INSTANCE) gives rule 6
+//    above. Setup: Two helpers receive reversed endpoint handles; one link is
+//    then changed through public accessors. Expected: The links are distinct,
+//    the initial endpoints are exact, and the peer retains its original
+//    handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Clause 7.3.4.2.2 specifies ce_link in both signature and prose.
 // This explicit default is retained independently of implementation spelling.
 module test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links;

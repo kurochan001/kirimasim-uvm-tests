@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_stream_free_dispatches_its_hook_before_releasing_all_closed_recorders.expected
 */
+// What it checks:
+// 1. Freeing a closed stream invokes its hook before releasing all contained
+//    recorders.
+// 2. Stream free invokes its backend hook before freeing its recorders.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.2.4.2 (UVM-STREAM-RECORDER-FREE-CASCADE) gives rule 1
+//    above. Setup: Close a stream with two records, then free it. Expected:
+//    The stream release hook is first, both recorder hooks run once and both
+//    recorder handles become zero.
+// 2. 1800.2-2020 7.2.7.3 (UVM-RECORDING-EXISTING-STREAM-FREE-CALLBACK) gives
+//    rule 2 above. Setup: Use the unchanged explicit-close then free fixture.
+//    Expected: The stream free hook occurs once before recorder frees.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // In-memory recorder hooks only: no database file, DPI or vendor attribute
 // macro. Timestamps are explicit recording metadata, not simulation delays.
 module test_stream_free_dispatches_its_hook_before_releasing_all_closed_recorders;

@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_stream_recorder_hook_failure_and_retry_preserve_metadata_and_exact_stream.expected
 */
+// What it checks:
+// 1. The recorder backend receives the requested name, opening time and record
+//    type.
+// 2. A null recorder backend result fails without initializing/registering the
+//    candidate and permits a successful retry.
+// 3. A successful recorder backend result invokes its open callback with the
+//    exact stream and supplied metadata.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.2.7.4 (UVM-RECORDING-RECORDER-BACKEND-ARGUMENTS) gives rule
+//    1 above. Setup: Request txn at explicit recording time seventeen with
+//    type packet. Expected: Backend arguments are txn/17/packet.
+// 2. 1800.2-2020 7.2.5.1 (UVM-RECORDING-RECORDER-NULL-RESULT-RETRY) gives rule
+//    2 above. Setup: Return null and then a preconstructed recorder on an open
+//    stream. Expected: Failure has zero opens/registrations; retry returns the
+//    exact recorder with one open and one queue entry.
+// 3. 1800.2-2020 16.4.7.1 (UVM-RECORDING-RECORDER-OPEN-HOOK-STREAM-IDENTITY)
+//    gives rule 3 above. Setup: Retry the failed recorder open with explicit
+//    time/type metadata. Expected: The recorder opens once with the original
+//    stream, time seventeen and packet type.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_stream_recorder_hook_failure_and_retry_preserve_metadata_and_exact_stream;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

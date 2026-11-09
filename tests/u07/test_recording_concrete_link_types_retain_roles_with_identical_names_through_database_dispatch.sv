@@ -12,6 +12,41 @@
 :expected_exit: 0
 :expected_stdout: @test_recording_concrete_link_types_retain_roles_with_identical_names_through_database_dispatch.expected
 */
+// What it checks:
+// 1. The concrete parent-child link retains its link/object bases and selected
+//    typed role through real database dispatch despite identical instance
+//    names.
+// 2. The concrete cause-effect link retains its link/object bases and selected
+//    typed role through real database dispatch despite identical instance
+//    names.
+// 3. The concrete related link retains its link/object bases and selected
+//    typed role through real database dispatch despite identical instance
+//    names.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.3.2.1 (UVM-RECORDING-AUDIT-PARENT-CHILD-LINK-BASE) gives
+//    rule 1 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The concrete parent-child link
+//    retains its link/object bases and selected typed role through real
+//    database dispatch despite identical instance names.
+// 2. 1800.2-2020 7.3.3.1 (UVM-RECORDING-AUDIT-CAUSE-EFFECT-LINK-BASE) gives
+//    rule 2 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The concrete cause-effect link
+//    retains its link/object bases and selected typed role through real
+//    database dispatch despite identical instance names.
+// 3. 1800.2-2020 7.3.4.1 (UVM-RECORDING-AUDIT-RELATED-LINK-BASE) gives rule 3
+//    above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The concrete related link
+//    retains its link/object bases and selected typed role through real
+//    database dispatch despite identical instance names.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_recording_concrete_link_types_retain_roles_with_identical_names_through_database_dispatch;
   import uvm_pkg::*;

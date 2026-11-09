@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_recording_uninitialized_stream_queries_each_report_a_warning.expected
 */
+// What it checks:
+// 1. get_db reports a warning when its stream has not been initialized.
+// 2. get_scope reports a warning when its stream has not been initialized.
+// 3. get_stream_type_name reports a warning when its stream has not been
+//    initialized.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.2.3.1 (UVM-RECORDING-UNINITIALIZED-DATABASE-WARNING) gives
+//    rule 1 above. Setup: Query each accessor on a fresh stream, then use an
+//    opened stream as a control. Expected: The selected pre-initialization
+//    query increases the warning count; initialized control queries do not.
+// 2. 1800.2-2020 7.2.3.2 (UVM-RECORDING-UNINITIALIZED-SCOPE-WARNING) gives
+//    rule 2 above. Setup: Query each accessor on a fresh stream, then use an
+//    opened stream as a control. Expected: The selected pre-initialization
+//    query increases the warning count; initialized control queries do not.
+// 3. 1800.2-2020 7.2.3.3 (UVM-RECORDING-UNINITIALIZED-TYPE-WARNING) gives rule
+//    3 above. Setup: Query each accessor on a fresh stream, then use an opened
+//    stream as a control. Expected: The selected pre-initialization query
+//    increases the warning count; initialized control queries do not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Local hooks supply in-memory streams; no database file or external backend
 // is opened. Recorder creation and record contents are outside these cases.
 // The pinned library leaves its pre-initialization warning gate disabled.

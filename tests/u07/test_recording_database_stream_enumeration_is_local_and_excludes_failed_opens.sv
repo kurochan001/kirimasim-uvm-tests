@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_recording_database_stream_enumeration_is_local_and_excludes_failed_opens.expected
 */
+// What it checks:
+// Database stream enumeration returns its successful streams and their count.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 7.1.4.2 (UVM-RECORDING-DATABASE-STREAM-ENUMERATION) gives the
+// rule above. Setup: Create two streams, reject a third in the hook and create
+// one in a peer database. Expected: The first database returns exactly its two
+// handles and the peer returns only its own stream.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Local hooks supply in-memory streams; no database file or external backend
 // is opened. Recorder creation and record contents are outside these cases.
 // Queue-size prose requires two, but the printed unsigned return signature

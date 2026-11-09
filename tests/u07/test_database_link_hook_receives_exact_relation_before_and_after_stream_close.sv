@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_database_link_hook_receives_exact_relation_before_and_after_stream_close.expected
 */
+// What it checks:
+// 1. Database establish_link dispatches the relation to its backend.
+// 2. The link backend receives the exact relation object without changing its
+//    endpoints.
+// 3. Closing an endpoint without freeing it still permits establishment of a
+//    stream link.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.1.5 (UVM-RECORDING-LINK-DISPATCH-BACKEND) gives rule 1
+//    above. Setup: Submit one relation twice while its endpoints remain live.
+//    Expected: The backend receives two calls for that exact relation.
+// 2. 1800.2-2020 7.1.6.4 (UVM-RECORDING-LINK-BACKEND-EXACT-RELATION) gives
+//    rule 2 above. Setup: Observe a related link between two streams on one
+//    database. Expected: The relation and both endpoint handles remain exact.
+// 3. 1800.2-2020 7.2.4 (UVM-RECORDING-LINK-CLOSED-STREAM-ALLOWED) gives rule 3
+//    above. Setup: Close one of two linked streams, retain both handles and
+//    submit the relation again. Expected: The backend receives the second
+//    exact relation while the closed/open endpoint states remain distinct.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_database_link_hook_receives_exact_relation_before_and_after_stream_close;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

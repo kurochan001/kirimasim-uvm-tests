@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_recording_database_ignores_stream_opens_until_connection_succeeds.expected
 */
+// What it checks:
+// Only an open database accepts stream creation requests.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 7.1.4.1 (UVM-RECORDING-CLOSED-STREAM-OPEN-GUARD) gives the rule
+// above. Setup: Attempt stream creation before opening, after connection
+// failure and after successful opening. Expected: Closed/failed states return
+// null without a stream-hook call; successful opening permits one open stream.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Local hooks supply in-memory streams; no database file or external backend
 // is opened. Recorder creation and record contents are outside these cases.
 // The pinned library implicitly opens a closed database. Independent failed

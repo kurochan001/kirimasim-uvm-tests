@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_database_constructor_forwards_default_and_explicit_names.expected
 */
+// What it checks:
+// 1. The database constructor uses its specified default name when the name
+//    argument is omitted.
+// 2. The database constructor preserves an explicitly supplied instance name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.1.2 (UVM-DATABASE-CONSTRUCTOR-DEFAULT-NAME) gives rule 1
+//    above. Setup: Concrete extensions forward omitted and explicit arguments
+//    to the base constructor. Expected: The omitted-name instance has the name
+//    unnamed-uvm_tr_database.
+// 2. 1800.2-2020 7.1.2 (UVM-DATABASE-CONSTRUCTOR-EXPLICIT-NAME) gives rule 2
+//    above. Setup: Concrete extensions forward omitted and explicit arguments
+//    to the base constructor. Expected: The explicit name is named_db and an
+//    explicitly empty name remains empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The concrete subclass forwards an omitted argument to the abstract base.
 // No recording backend is opened.
 module test_database_constructor_forwards_default_and_explicit_names;

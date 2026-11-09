@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_database_repeated_open_close_preserves_peer_state_and_hook_counts.expected
 */
+// What it checks:
+// 1. Database is_open distinguishes a successful open that is still active
+//    from a closed database.
+// 2. Opening an already open database succeeds without reopening its backend.
+// 3. Closing an already closed database succeeds without calling the close
+//    hook.
+// 4. Repeated opening of an already opened database does not repeat the open
+//    backend callback.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.1.3.3 (UVM-DATABASE-OPEN-STATE) gives rule 1 above. Setup:
+//    A database fixture supplies failed/successful open results and successful
+//    close, including repeated operations and a peer database. Expected:
+//    Status is 1 after successful open and 0 when no open remains.
+// 2. 1800.2-2020 7.1.3.1 (UVM-DATABASE-OPEN-IDEMPOTENCE) gives rule 2 above.
+//    Setup: Use two local hook-backed databases and repeat calls while
+//    preserving the peer state. Expected: The second open returns 1 while the
+//    open-hook count stays 1.
+// 3. 1800.2-2020 7.1.3.2 (UVM-DATABASE-CLOSE-IDEMPOTENCE) gives rule 3 above.
+//    Setup: Use two local hook-backed databases and repeat calls while
+//    preserving the peer state. Expected: A fresh closed database needs zero
+//    close hooks; a repeated close retains one previous close call.
+// 4. 1800.2-2020 7.1.6.1 (UVM-RECORDING-EXISTING-OPEN-BACKEND-IDEMPOTENCE)
+//    gives rule 4 above. Setup: Use the unchanged explicit open/reopen
+//    fixture. Expected: Both operations succeed with one backend open call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Deterministic hooks model connection success without an external database.
 // No stream is created, so stream close/free and recording remain separate.
 module test_database_repeated_open_close_preserves_peer_state_and_hook_counts;

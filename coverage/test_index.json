@@ -644,143 +644,143 @@
     },
     "u07/test_concrete_link_constructors_preserve_default_and_explicit_names": {
       "primary_clause": "7.3.2.2.1",
-      "inputs_sha256": "4b01e1e7ac046894e76abb409241bdc84f7a205dfe47ad261631f33721579b8e"
+      "inputs_sha256": "68ab18b6bbb7421599fc3819d3474ee877ef64aa4d48399505ddec3f76f35715"
     },
     "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations": {
       "primary_clause": "7.1.6.1",
-      "inputs_sha256": "29c395594663cd1cdb4a5c4be9d5623a3337f87532eec3f84089b7da7cbb4ed0"
+      "inputs_sha256": "eeba0287df714a2c2d64450ff582ce1d89a4e552796dd6df6cabbe11c4868dbc"
     },
     "u07/test_database_close_hook_failure_preserves_open_state_until_a_successful_retry": {
       "primary_clause": "7.1.6.2",
-      "inputs_sha256": "eadc21b3471535324e6c21cdc4b346cd9849b7ef5c06d1c4d3be8bb4932ad138"
+      "inputs_sha256": "eb08a81fbc9a771c0ba9a5aa0a3a88b23a93c5979b0cc6dbd413ecab4b3e3110"
     },
     "u07/test_database_concrete_subclass_must_implement_do_close_db": {
       "primary_clause": "7.1.6.2",
-      "inputs_sha256": "fcc4c15a1644c0996bebbe3723c543dbca6b60637c3ec360c632a15eddd71d4a"
+      "inputs_sha256": "0ddca24bd1a5c0f047ee0674aece4469c41a9f8afb8f653243c170678a4ebd34"
     },
     "u07/test_database_concrete_subclass_must_implement_do_establish_link": {
       "primary_clause": "7.1.6.4",
-      "inputs_sha256": "7085c21c4b450d9a593e37957bdc22e24260bd8b24c9907a0551dca50792fc4b"
+      "inputs_sha256": "96fe6c46bca10ca1a0a2045b15747bdaf57bad803b9340d0cef284d327016fb0"
     },
     "u07/test_database_concrete_subclass_must_implement_do_open_db": {
       "primary_clause": "7.1.6.1",
-      "inputs_sha256": "7358e9992cb89a915b569cda8d6a6cfda9517c2c11e88a2b6c8ce58c7a11a4fe"
+      "inputs_sha256": "f527002f4fcf77d3178936a97f68838d8b642498d2c5b65141c7a24a24b49915"
     },
     "u07/test_database_concrete_subclass_must_implement_do_open_stream": {
       "primary_clause": "7.1.6.3",
-      "inputs_sha256": "999a84f02c6b46b405495300502a52cb1dbc2fba6a7d31e418d711fc07500226"
+      "inputs_sha256": "65e4183cb956500be135a82eac9faea68e35e6257c46d2bba2952444ab3031de"
     },
     "u07/test_database_constructor_forwards_default_and_explicit_names": {
       "primary_clause": "7.1.2",
-      "inputs_sha256": "e4500144fd775b2621f78b6658709749c3c7faa2c87a647ef1a3ae57aa7b4d21"
+      "inputs_sha256": "aedda1855af04e2b2a941ae51aa28fec4c88679d12b7b554149dc2def48d50e3"
     },
     "u07/test_database_link_hook_receives_exact_relation_before_and_after_stream_close": {
       "primary_clause": "7.1.6.4",
-      "inputs_sha256": "d1e444a27f6b4a4b82faa27492a160abbeb63123049e8bd4b2f2283bddfe1125"
+      "inputs_sha256": "10f279ca991dd88b9cc7deb5f56f5be394543e755b057b3e37c57742bf779576"
     },
     "u07/test_database_open_state_tracks_failed_and_successful_connections": {
       "primary_clause": "7.1.3.3",
-      "inputs_sha256": "02290960ced5662d68af013db8fc6eb51e7d9f2db6bc91e0c008400fd64cfd87"
+      "inputs_sha256": "4025353f578de0950ddc96ae8a607e28236ea442f6bd34b7d7ef973ab8cdb32b"
     },
     "u07/test_database_repeated_open_close_preserves_peer_state_and_hook_counts": {
       "primary_clause": "7.1.3.1",
-      "inputs_sha256": "b9a5ccf4961585103c13e153e4c8c4562c4ffdad1c67d1c920f1c1940550c714"
+      "inputs_sha256": "67e771ab083b351477311d477bb783ccc54942b2d1df702b8eeb2520393a49e7"
     },
     "u07/test_database_stream_hook_forwards_arguments_and_initializes_only_a_successful_result": {
       "primary_clause": "7.1.6.3",
-      "inputs_sha256": "2fc75d2678bb65912f71a68406d44852ef73bab591f012b63328342f57606abb"
+      "inputs_sha256": "d2572b23f7fbd45b32d6aa801f472dc23455af713f8a9e3678110a1894052530"
     },
     "u07/test_link_concrete_subclass_must_implement_do_get_lhs": {
       "primary_clause": "7.3.1.4.1",
-      "inputs_sha256": "3d244601478984bbe4533d7672e1de765f6d9ef9a05deedb675cb4d5a2fe7ccc"
+      "inputs_sha256": "5884f99623cffc7760a962c97a7ca90a600136ebba3c8c95a216a95d5a4b7665"
     },
     "u07/test_link_concrete_subclass_must_implement_do_get_rhs": {
       "primary_clause": "7.3.1.4.3",
-      "inputs_sha256": "3ffa0eb706c27c2ea7a011e668ba8f558a02f31d94236242842472e573dd6b45"
+      "inputs_sha256": "a7b1b1e6921234f8e734d818dcbe2b23478fcaa643c7f66686b4ba4707d26d36"
     },
     "u07/test_link_concrete_subclass_must_implement_do_set_lhs": {
       "primary_clause": "7.3.1.4.2",
-      "inputs_sha256": "c9a0477814a86082838fcc87250d0acdaf547046d7559c16e6c5402952ffc25a"
+      "inputs_sha256": "73707b5cfe0e2edb3c787dd193cc77ce7ee3fe269cbf293d812a4a0293bb34a8"
     },
     "u07/test_link_concrete_subclass_must_implement_do_set_rhs": {
       "primary_clause": "7.3.1.4.4",
-      "inputs_sha256": "07eb0088269d58becc31056a45d8a18c8d7487ca40aaa3ae818938734aac48f8"
+      "inputs_sha256": "d84cdc5bc2c461eae23f3cfabdd9c3c8a905a9624acd8e0e184d687fcf4295b4"
     },
     "u07/test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links": {
       "primary_clause": "7.3.2.2.2",
-      "inputs_sha256": "2606dd0c12f7d9bce756dd099fbd11f66a4bf5c290863290956cf6b78fb5483f"
+      "inputs_sha256": "b21bdffa71302e860ac538ed7c53cb34f246ffa2a22c4e4c89e95d21ec23175b"
     },
     "u07/test_recorder_creation_is_ignored_on_unopened_and_closed_streams": {
       "primary_clause": "7.2.5.1",
-      "inputs_sha256": "ccdf9e0bf598554af6d6b01d84871c2b280d4635986a49448fd253855ee1cf84"
+      "inputs_sha256": "aaf29f9e323168dc55ba0571da66f4ed84719cedba9035b4d92c2c606f405108"
     },
     "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults": {
       "primary_clause": "7.1.1",
-      "inputs_sha256": "c40687ae5a30117bc1be6ccd3c2845e0716cf9a8c670bc2f8c4ed902be92d5ef"
+      "inputs_sha256": "caab34db3b1a75f168412c9a56db5c0c917565a26e78864ea6f61c007374d02b"
     },
     "u07/test_recording_concrete_link_types_retain_roles_with_identical_names_through_database_dispatch": {
       "primary_clause": "7.3.2.1",
-      "inputs_sha256": "5953987b17c527a395a4aea7399bd5b029aed8e1195dbe5a1c83fe14f0573ffc"
+      "inputs_sha256": "3511d6475d67cdb20e331b4e0428b4d175515ca6797e997812be2625cc7d170a"
     },
     "u07/test_recording_database_ignores_stream_opens_until_connection_succeeds": {
       "primary_clause": "7.1.4.1",
-      "inputs_sha256": "49bebb860dd77a4b07d54bbfa9964771fa93c8d2f04b6c1981989f7dcf809c35"
+      "inputs_sha256": "2e773ba35e7bbdb6483b0f7956cd7231a7c158edd0836a4127f3e551f883962f"
     },
     "u07/test_recording_database_stream_enumeration_is_local_and_excludes_failed_opens": {
       "primary_clause": "7.1.4.2",
-      "inputs_sha256": "171b46c69f5338bbe1683aa22aa0554194ac883e4dc068b2e84dff2817eb42a4"
+      "inputs_sha256": "797c7c07e3c01469303434bd894df416d8ee588a447606e10ff36f86368f1ddd"
     },
     "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities": {
       "primary_clause": "7.3.1.3.5",
-      "inputs_sha256": "f12b9e0448b915d66ea7b541b0562b1f8b4794084105794a8aa2168fff99dc0b"
+      "inputs_sha256": "6269cdff7b3b388503f3acd623e4b0de415b44a5595f20134d80eb3fb3e7f585"
     },
     "u07/test_recording_stream_close_keeps_peer_open_and_retains_closed_metadata": {
       "primary_clause": "7.2.4.1",
-      "inputs_sha256": "0d3ddcb374e479cf7e3d89d355102a43d3e9e502ae881bd1ddefe07f49adf9eb"
+      "inputs_sha256": "10c659384d25d72043a508e5489a7879978bd17f2f4806cd6717c52ee9910344"
     },
     "u07/test_recording_stream_free_invalidates_its_handle_after_explicit_close": {
       "primary_clause": "7.2.4.2",
-      "inputs_sha256": "1b6c97283994038b56c231aa21cfbd3781bce4a80647d64992d69844bb5dec48"
+      "inputs_sha256": "e1934e5c837238b12dde6d83dca849839912ee2ae8a0c58af7b0a00028c7b62d"
     },
     "u07/test_recording_stream_handles_identify_distinct_streams_across_databases": {
       "primary_clause": "7.2.6.2",
-      "inputs_sha256": "0f69a891e1ca7cb25993f3da4d607a907b13f8c9d46f21ce239e2271047c83b4"
+      "inputs_sha256": "be2726b011479a9556c6790f41d77f26700aa1d7fb9c223e879b715675002b42"
     },
     "u07/test_recording_stream_open_preserves_database_scope_type_and_hook_arguments": {
       "primary_clause": "7.2.3.1",
-      "inputs_sha256": "44f20a2378d9df887d776180c80ceee88fecaec1331a33d43dedcb965b8e4990"
+      "inputs_sha256": "95f327bfa34c2f23ba13d015ba3c65f58df2e3fef5d67643a54991295531af42"
     },
     "u07/test_recording_uninitialized_stream_queries_each_report_a_warning": {
       "primary_clause": "7.2.3.2",
-      "inputs_sha256": "1cd56b2b7ee6d6a95fde33f6388c522b8b639347127ce4bf71606ef21cb2f238"
+      "inputs_sha256": "313b8a73db812f1364eb94f467e6251acf294ef5220ead13af4d9c35c50164cf"
     },
     "u07/test_stream_close_dispatches_its_hook_before_closing_only_open_recorders": {
       "primary_clause": "7.2.4.1",
-      "inputs_sha256": "76411ba58d8db38fe4da5c4fe6ce4ecce9a6b0edb3aec8aa39c15260024f8361"
+      "inputs_sha256": "9705632ef538274fe1305cd59055b92536cabfc2be66e79a76bda5150e010d24"
     },
     "u07/test_stream_constructor_forwards_default_and_explicit_names": {
       "primary_clause": "7.2.2",
-      "inputs_sha256": "33c7c6267188fc0dcfd61a08ebf47ba259218ba3c424d78ef9975d3cf640f6de"
+      "inputs_sha256": "18fd870c00f931f6f826ddf5014abd310736ea67ed2f85d7ff261a27c6f8c010"
     },
     "u07/test_stream_free_dispatches_its_hook_before_releasing_all_closed_recorders": {
       "primary_clause": "7.2.4.2",
-      "inputs_sha256": "33a4b6c95a3695fc6a54d314b2b1496905a03530a124481a21191d12e62b25be"
+      "inputs_sha256": "98d42fb54bc7605cad4fa5a8ceccd13eeb8093bec128a4b96f2542f48b7a1ab3"
     },
     "u07/test_stream_recorder_hook_failure_and_retry_preserve_metadata_and_exact_stream": {
       "primary_clause": "7.2.7.4",
-      "inputs_sha256": "2698cf9bbcba642d0cf02147e15803169cf7744bfd8046a730f5eea1b6f8be15"
+      "inputs_sha256": "c21224fc18d9afc508314060eb46b6a8ee9f56901f16b7cd84eeba2771112c84"
     },
     "u07/test_uvm_link_base_abstract_declaration_rejects_direct_construction": {
       "primary_clause": "7.3.1.1",
-      "inputs_sha256": "1ef85a2a78006d8a4f77de91b09612b18b8c1cdf6015b08c032daf530195500e"
+      "inputs_sha256": "bd65b395b5ae3e1c4833a2b86eda7c68f729e4d28d7f89c5863a6646026d664d"
     },
     "u07/test_uvm_tr_database_abstract_declaration_rejects_direct_construction": {
       "primary_clause": "7.1.1",
-      "inputs_sha256": "24056e9711edf55f747bc4953c5d8c2e1ca0979aea98b8cfa460e9e1b2efd113"
+      "inputs_sha256": "e4e3ae8a2ae11942335d18d9312a9da1df954d95a58f6ef04963ccab19ff837c"
     },
     "u07/test_uvm_tr_stream_abstract_declaration_rejects_direct_construction": {
       "primary_clause": "7.2.1",
-      "inputs_sha256": "0430600a889a58bf9dc8878046bf926ea17ac3a4705113bd152ad2c8b6098b73"
+      "inputs_sha256": "8923f85349720c64b19c77dc34699fdcd70f6ecc8857d6716fc11109e6556bdf"
     },
     "u08/test_abstract_component_registry_instance_override_precedes_concrete_type_fallback": {
       "primary_clause": "8.2.5.1.5",

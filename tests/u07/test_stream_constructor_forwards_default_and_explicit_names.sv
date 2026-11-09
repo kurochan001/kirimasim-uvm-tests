@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_stream_constructor_forwards_default_and_explicit_names.expected
 */
+// What it checks:
+// 1. The stream constructor uses its specified default name when the name
+//    argument is omitted.
+// 2. The stream constructor preserves an explicitly supplied instance name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.2.2 (UVM-STREAM-CONSTRUCTOR-DEFAULT-NAME) gives rule 1
+//    above. Setup: Concrete extensions forward omitted and explicit arguments
+//    to the base constructor. Expected: The omitted-name instance has the name
+//    unnamed-uvm_tr_stream.
+// 2. 1800.2-2020 7.2.2 (UVM-STREAM-CONSTRUCTOR-EXPLICIT-NAME) gives rule 2
+//    above. Setup: Concrete extensions forward omitted and explicit arguments
+//    to the base constructor. Expected: The explicit name is named_stream and
+//    an explicitly empty name remains empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only constructor names are observed; no uninitialized metadata query is made.
 module test_stream_constructor_forwards_default_and_explicit_names;
   import uvm_pkg::*;

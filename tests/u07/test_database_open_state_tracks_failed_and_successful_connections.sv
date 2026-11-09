@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_database_open_state_tracks_failed_and_successful_connections.expected
 */
+// What it checks:
+// Database is_open distinguishes a successful open that is still active from a
+// closed database.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 7.1.3.3 (UVM-DATABASE-OPEN-STATE) gives the rule above. Setup: A
+// database fixture supplies failed/successful open results and successful
+// close, including repeated operations and a peer database. Expected: Status
+// is 1 after successful open and 0 when no open remains.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Deterministic hooks model connection success without an external database.
 // No stream is created, so stream close/free and recording remain separate.
 module test_database_open_state_tracks_failed_and_successful_connections;

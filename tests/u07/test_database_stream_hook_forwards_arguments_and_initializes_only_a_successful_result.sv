@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_database_stream_hook_forwards_arguments_and_initializes_only_a_successful_result.expected
 */
+// What it checks:
+// 1. The stream backend receives the requested name, scope and record type.
+// 2. A null backend stream result fails without registering the candidate and
+//    a later retry can succeed.
+// 3. A successful backend stream result triggers do_open with the database and
+//    opening metadata.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.1.6.3 (UVM-RECORDING-STREAM-BACKEND-ARGUMENTS) gives rule 1
+//    above. Setup: Request requested/scope.child/events through open_stream.
+//    Expected: The backend captures those exact strings.
+// 2. 1800.2-2020 7.1.4.1 (UVM-RECORDING-STREAM-NULL-RESULT-RETRY) gives rule 2
+//    above. Setup: Return null, then the same preconstructed candidate from
+//    consecutive stream requests. Expected: First result is null with zero
+//    registrations; retry returns the exact candidate once.
+// 3. 1800.2-2020 7.2.7.1 (UVM-RECORDING-STREAM-OPEN-HOOK-SUCCESS-GATE) gives
+//    rule 3 above. Setup: Observe the same candidate across one failed and one
+//    successful backend result. Expected: No open hook runs on failure;
+//    success runs it once with the exact database, scope and type.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_database_stream_hook_forwards_arguments_and_initializes_only_a_successful_result;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_recording_stream_free_invalidates_its_handle_after_explicit_close.expected
 */
+// What it checks:
+// 1. Stream is_open is true only between opening and closing.
+// 2. Stream is_closed is true after closing and before freeing.
+// 3. Freeing a stream invokes its release hook.
+// 4. Stream handles are unique and remain valid through close until free
+//    invalidates them.
+// 5. Static handle lookup returns the matching stream until that stream is
+//    freed.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.2.4.3 (UVM-RECORDING-STREAM-OPEN-STATE) gives rule 1 above.
+//    Setup: Observe open, closed and freed stream states. Expected: The open
+//    stream reports one and closed/freed states report zero.
+// 2. 1800.2-2020 7.2.4.4 (UVM-RECORDING-STREAM-CLOSED-STATE) gives rule 2
+//    above. Setup: Observe the same stream through open, close and free.
+//    Expected: Closed state is zero while open, one after close and zero after
+//    free.
+// 3. 1800.2-2020 7.2.4.2 (UVM-RECORDING-STREAM-FREE-HOOK) gives rule 3 above.
+//    Setup: Explicitly close an initialized stream before freeing it.
+//    Expected: The release hook runs once and the freed lifecycle state is
+//    visible.
+// 4. 1800.2-2020 7.2.6.1 (UVM-RECORDING-STREAM-UNIQUE-HANDLE) gives rule 4
+//    above. Setup: Use equal stream names in different databases and retain an
+//    old handle across close/free. Expected: Active handles are nonzero,
+//    distinct and stable; a freed stream reports zero.
+// 5. 1800.2-2020 7.2.6.2 (UVM-RECORDING-STREAM-HANDLE-LOOKUP) gives rule 5
+//    above. Setup: Look up two active handles, retain one through close and
+//    query an old freed handle. Expected: Active/closed lookups preserve exact
+//    identities and a freed handle resolves to null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Local hooks supply in-memory streams; no database file or external backend
 // is opened. Recorder creation and record contents are outside these cases.
 module test_recording_stream_free_invalidates_its_handle_after_explicit_close;

@@ -12,6 +12,65 @@
 :expected_exit: 0
 :expected_stdout: @test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults.expected
 */
+// What it checks:
+// 1. The database constructor uses its specified default name when the name
+//    argument is omitted.
+// 2. The stream constructor uses its specified default name when the name
+//    argument is omitted.
+// 3. A legal concrete recording database subtype retains the uvm_object base.
+// 4. A legal concrete transaction stream subtype retains the uvm_object base.
+// 5. A legal concrete link-base subtype retains the uvm_object base.
+// 6. The omitted link-base name selects unnamed-uvm_link_base through a legal
+//    subtype calling super.new with no arguments.
+// 7. The link-base constructor retains the selected explicit name through a
+//    legal subtype.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.1.2 (UVM-DATABASE-CONSTRUCTOR-DEFAULT-NAME) gives rule 1
+//    above. Setup: Concrete extensions forward omitted and explicit arguments
+//    to the base constructor. Expected: The omitted-name instance has the name
+//    unnamed-uvm_tr_database.
+// 2. 1800.2-2020 7.2.2 (UVM-STREAM-CONSTRUCTOR-DEFAULT-NAME) gives rule 2
+//    above. Setup: Concrete extensions forward omitted and explicit arguments
+//    to the base constructor. Expected: The omitted-name instance has the name
+//    unnamed-uvm_tr_stream.
+// 3. 1800.2-2020 7.1.1 (UVM-RECORDING-AUDIT-DATABASE-OBJECT-BASE) gives rule 3
+//    above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: A legal concrete recording
+//    database subtype retains the uvm_object base.
+// 4. 1800.2-2020 7.2.1 (UVM-RECORDING-AUDIT-STREAM-OBJECT-BASE) gives rule 4
+//    above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: A legal concrete transaction
+//    stream subtype retains the uvm_object base.
+// 5. 1800.2-2020 7.3.1.1 (UVM-RECORDING-AUDIT-LINK-OBJECT-BASE) gives rule 5
+//    above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: A legal concrete link-base
+//    subtype retains the uvm_object base.
+// 6. 1800.2-2020 7.3.1.2 (UVM-RECORDING-AUDIT-LINK-BASE-DEFAULT-NAME) gives
+//    rule 6 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The omitted link-base name
+//    selects unnamed-uvm_link_base through a legal subtype calling super.new
+//    with no arguments.
+// 7. 1800.2-2020 7.3.1.2 (UVM-RECORDING-AUDIT-LINK-BASE-EXPLICIT-NAME) gives
+//    rule 7 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The link-base constructor
+//    retains the selected explicit name through a legal subtype.
+// It also supports, as a control, the setup or conditions of
+// UVM-RECORDING-AUDIT-UVM-TR-DATABASE-ABSTRACT,
+// UVM-RECORDING-AUDIT-UVM-TR-STREAM-ABSTRACT,
+// UVM-RECORDING-AUDIT-UVM-LINK-BASE-ABSTRACT.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults;
   import uvm_pkg::*;
   class database_probe extends uvm_tr_database;

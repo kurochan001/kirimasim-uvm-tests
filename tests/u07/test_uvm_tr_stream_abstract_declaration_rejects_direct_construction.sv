@@ -12,6 +12,18 @@
 :should_fail_because: a declared virtual recording base cannot be directly constructed
 :expected_stderr_regex: (?i)(?=.*(?:virtual|abstract))(?=.*\bclass\s+[\'\"]?uvm_tr_stream\b).*
 */
+// What it checks:
+// The declared virtual uvm_tr_stream rejects direct construction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 7.2.1 (UVM-RECORDING-AUDIT-UVM-TR-STREAM-ABSTRACT) gives the
+// rule above. Setup: Use the linked original fixtures, selected public
+// arguments, explicit declared types and exact expected observations. The
+// recording backend is original in-memory setup, not an implementation-derived
+// oracle. Expected: The declared virtual uvm_tr_stream rejects direct
+// construction.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_uvm_tr_stream_abstract_declaration_rejects_direct_construction;
   import uvm_pkg::*;
   initial begin

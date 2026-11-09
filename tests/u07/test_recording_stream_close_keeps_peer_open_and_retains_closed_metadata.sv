@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_recording_stream_close_keeps_peer_open_and_retains_closed_metadata.expected
 */
+// What it checks:
+// 1. An initialized stream retains the scope supplied on opening.
+// 2. Closing a stream invokes its close hook without closing a separate
+//    stream.
+// 3. Stream is_open is true only between opening and closing.
+// 4. Stream is_closed is true after closing and before freeing.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.2.3.2 (UVM-RECORDING-STREAM-SCOPE-METADATA) gives rule 1
+//    above. Setup: Use explicit env.bus and scope values plus an omitted
+//    scope; close one stream. Expected: Explicit scopes survive and an omitted
+//    scope is empty, including retained closed-stream metadata.
+// 2. 1800.2-2020 7.2.4.1 (UVM-RECORDING-STREAM-CLOSE-HOOK) gives rule 2 above.
+//    Setup: Open two local streams and explicitly close one. Expected: The
+//    selected hook runs once and the peer stays open.
+// 3. 1800.2-2020 7.2.4.3 (UVM-RECORDING-STREAM-OPEN-STATE) gives rule 3 above.
+//    Setup: Observe open, closed and freed stream states. Expected: The open
+//    stream reports one and closed/freed states report zero.
+// 4. 1800.2-2020 7.2.4.4 (UVM-RECORDING-STREAM-CLOSED-STATE) gives rule 4
+//    above. Setup: Observe the same stream through open, close and free.
+//    Expected: Closed state is zero while open, one after close and zero after
+//    free.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Local hooks supply in-memory streams; no database file or external backend
 // is opened. Recorder creation and record contents are outside these cases.
 module test_recording_stream_close_keeps_peer_open_and_retains_closed_metadata;

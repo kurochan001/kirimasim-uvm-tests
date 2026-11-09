@@ -12,6 +12,77 @@
 :expected_exit: 0
 :expected_stdout: @test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities.expected
 */
+// What it checks:
+// 1. Link left-endpoint assignment invokes its setter hook.
+// 2. Link right-endpoint assignment invokes its setter hook.
+// 3. Link left-endpoint retrieval invokes its getter hook and returns that
+//    object.
+// 4. Link right-endpoint retrieval invokes its getter hook and returns that
+//    object.
+// 5. Combined link set passes both supplied endpoints through their setter
+//    hooks.
+// 6. The concrete get_link helper creates a link initialized with the supplied
+//    endpoints and name.
+// 7. The concrete get_link helper creates a link initialized with the supplied
+//    endpoints and name.
+// 8. The concrete get_link helper creates a link initialized with the supplied
+//    endpoints and name.
+// 9. The link left get operation dispatches its implementation hook.
+// 10. The link left set operation dispatches its implementation hook.
+// 11. The link right get operation dispatches its implementation hook.
+// 12. The link right set operation dispatches its implementation hook.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.3.1.3.2 (UVM-RECORDING-LINK-LEFT-SET) gives rule 1 above.
+//    Setup: Assign two distinct objects together, replace the endpoints
+//    individually and retrieve both. Expected: Replacement reaches the stored
+//    left endpoint and left setter counts include direct and combined calls.
+// 2. 1800.2-2020 7.3.1.3.4 (UVM-RECORDING-LINK-RIGHT-SET) gives rule 2 above.
+//    Setup: Assign two distinct objects together, replace the endpoints
+//    individually and retrieve both. Expected: Replacement reaches the stored
+//    right endpoint and right setter counts include direct and combined calls.
+// 3. 1800.2-2020 7.3.1.3.1 (UVM-RECORDING-LINK-LEFT-GET) gives rule 3 above.
+//    Setup: Assign two distinct objects together, replace the endpoints
+//    individually and retrieve both. Expected: Both observed left handles
+//    match and the getter count is two.
+// 4. 1800.2-2020 7.3.1.3.3 (UVM-RECORDING-LINK-RIGHT-GET) gives rule 4 above.
+//    Setup: Assign two distinct objects together, replace the endpoints
+//    individually and retrieve both. Expected: Both observed right handles
+//    match and the getter count is two.
+// 5. 1800.2-2020 7.3.1.3.5 (UVM-RECORDING-LINK-COMBINED-SET) gives rule 5
+//    above. Setup: Assign two distinct objects together, replace the endpoints
+//    individually and retrieve both. Expected: Both original handles are
+//    returned and each setter is counted for combined plus direct assignment.
+// 6. 1800.2-2020 7.3.2.2.2 (UVM-RECORDING-PARENT-CHILD-PREFILLED-LINK) gives
+//    rule 6 above. Setup: Pass two distinct object handles and an explicit
+//    helper name. Expected: The resulting link retains both exact handles and
+//    the explicit name.
+// 7. 1800.2-2020 7.3.3.2.2 (UVM-RECORDING-CAUSE-EFFECT-PREFILLED-LINK) gives
+//    rule 7 above. Setup: Pass two distinct object handles and an explicit
+//    helper name. Expected: The resulting link retains both exact handles and
+//    the explicit name.
+// 8. 1800.2-2020 7.3.4.2.2 (UVM-RECORDING-RELATED-PREFILLED-LINK) gives rule 8
+//    above. Setup: Pass two distinct object handles and an explicit helper
+//    name. Expected: The resulting link retains both exact handles and the
+//    explicit name.
+// 9. 1800.2-2020 7.3.1.4.1 (UVM-RECORDING-EXISTING-LINK-LHS-GET) gives rule 9
+//    above. Setup: Use the unchanged combined/individual endpoint replacement
+//    fixture. Expected: Hook counts are two and exact endpoint identities
+//    follow the replacement.
+// 10. 1800.2-2020 7.3.1.4.2 (UVM-RECORDING-EXISTING-LINK-LHS-SET) gives rule
+//     10 above. Setup: Use the unchanged combined/individual endpoint
+//     replacement fixture. Expected: Hook counts are two and exact endpoint
+//     identities follow the replacement.
+// 11. 1800.2-2020 7.3.1.4.3 (UVM-RECORDING-EXISTING-LINK-RHS-GET) gives rule
+//     11 above. Setup: Use the unchanged combined/individual endpoint
+//     replacement fixture. Expected: Hook counts are two and exact endpoint
+//     identities follow the replacement.
+// 12. 1800.2-2020 7.3.1.4.4 (UVM-RECORDING-EXISTING-LINK-RHS-SET) gives rule
+//     12 above. Setup: Use the unchanged combined/individual endpoint
+//     replacement fixture. Expected: Hook counts are two and exact endpoint
+//     identities follow the replacement.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit link names avoid relying on default-name interpretation.
 // A combined set invokes both hooks without prescribing their order.
 module test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities;

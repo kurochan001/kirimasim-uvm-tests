@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_database_close_hook_failure_preserves_open_state_until_a_successful_retry.expected
 */
+// What it checks:
+// 1. The database close backend result is propagated and a failed close can be
+//    retried.
+// 2. A failed backend close leaves the successfully opened database open until
+//    closing succeeds.
+// 3. After a failed close and successful retry, another close succeeds without
+//    reentering the backend.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.1.6.2 (UVM-RECORDING-CLOSE-HOOK-FAILURE-RESULT) gives rule
+//    1 above. Setup: Return zero once and then one from do_close_db on an
+//    opened database. Expected: Results are zero/one and the backend is called
+//    once per attempted close.
+// 2. 1800.2-2020 7.1.3.3 (UVM-RECORDING-FAILED-CLOSE-OPEN-STATUS) gives rule 2
+//    above. Setup: Query status after failed and successful close attempts
+//    without streams. Expected: Status is open after failure and closed after
+//    the successful retry.
+// 3. 1800.2-2020 7.1.3.2 (UVM-RECORDING-CLOSE-RETRY-IDEMPOTENT-SUCCESS) gives
+//    rule 3 above. Setup: Perform three close calls with backend results zero
+//    then one. Expected: The final call returns one and total backend close
+//    calls remain two.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_database_close_hook_failure_preserves_open_state_until_a_successful_retry;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

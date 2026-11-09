@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_creation_is_ignored_on_unopened_and_closed_streams.expected
 */
+// What it checks:
+// Only an open stream creates recorders through its implementation hook.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 7.2.5.1 (UVM-RECORDER-OPEN-STREAM-GUARD) gives the rule above.
+// Setup: Request records on an unopened stream, an open stream and that stream
+// after close. Expected: Unopened/closed requests return null without another
+// hook call; the accepted record is open.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // In-memory recorder hooks only: no database file, DPI or vendor attribute
 // macro. Timestamps are explicit recording metadata, not simulation delays.
 module test_recorder_creation_is_ignored_on_unopened_and_closed_streams;

@@ -1518,7 +1518,7 @@
     },
     {
       "test": "u07/test_recording_database_ignores_stream_opens_until_connection_succeeds",
-      "inputs_sha256": "49bebb860dd77a4b07d54bbfa9964771fa93c8d2f04b6c1981989f7dcf809c35",
+      "inputs_sha256": "2e773ba35e7bbdb6483b0f7956cd7231a7c158edd0836a4127f3e551f883962f",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -1544,7 +1544,7 @@
     },
     {
       "test": "u07/test_recording_database_stream_enumeration_is_local_and_excludes_failed_opens",
-      "inputs_sha256": "171b46c69f5338bbe1683aa22aa0554194ac883e4dc068b2e84dff2817eb42a4",
+      "inputs_sha256": "797c7c07e3c01469303434bd894df416d8ee588a447606e10ff36f86368f1ddd",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -1574,7 +1574,7 @@
     },
     {
       "test": "u07/test_recording_uninitialized_stream_queries_each_report_a_warning",
-      "inputs_sha256": "1cd56b2b7ee6d6a95fde33f6388c522b8b639347127ce4bf71606ef21cb2f238",
+      "inputs_sha256": "313b8a73db812f1364eb94f467e6251acf294ef5220ead13af4d9c35c50164cf",
       "kind": "runtime",
       "cause": "library",
       "evidence": {

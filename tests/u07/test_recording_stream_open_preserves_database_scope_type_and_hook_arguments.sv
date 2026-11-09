@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_recording_stream_open_preserves_database_scope_type_and_hook_arguments.expected
 */
+// What it checks:
+// 1. An initialized stream reports the database that opened it.
+// 2. An initialized stream retains the scope supplied on opening.
+// 3. An initialized stream retains its supplied record type name.
+// 4. A successful stream open invokes do_open with database, scope and stream
+//    type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.2.3.1 (UVM-RECORDING-STREAM-DATABASE-IDENTITY) gives rule 1
+//    above. Setup: Open explicit-metadata and default-metadata streams from
+//    one local database. Expected: Both database queries return the original
+//    database handle.
+// 2. 1800.2-2020 7.2.3.2 (UVM-RECORDING-STREAM-SCOPE-METADATA) gives rule 2
+//    above. Setup: Use explicit env.bus and scope values plus an omitted
+//    scope; close one stream. Expected: Explicit scopes survive and an omitted
+//    scope is empty, including retained closed-stream metadata.
+// 3. 1800.2-2020 7.2.3.3 (UVM-RECORDING-STREAM-TYPE-METADATA) gives rule 3
+//    above. Setup: Open with packet and with an omitted type name. Expected:
+//    Type names are packet and empty respectively.
+// 4. 1800.2-2020 7.2.7.1 (UVM-RECORDING-STREAM-OPEN-HOOK-ARGUMENTS) gives rule
+//    4 above. Setup: Return a new local stream from the database hook.
+//    Expected: The stream hook runs once with the original database and
+//    explicit metadata.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Local hooks supply in-memory streams; no database file or external backend
 // is opened. Recorder creation and record contents are outside these cases.
 module test_recording_stream_open_preserves_database_scope_type_and_hook_arguments;

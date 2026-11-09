@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_recording_stream_handles_identify_distinct_streams_across_databases.expected
 */
+// What it checks:
+// 1. Stream handles are unique and remain valid through close until free
+//    invalidates them.
+// 2. Static handle lookup returns the matching stream until that stream is
+//    freed.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 7.2.6.1 (UVM-RECORDING-STREAM-UNIQUE-HANDLE) gives rule 1
+//    above. Setup: Use equal stream names in different databases and retain an
+//    old handle across close/free. Expected: Active handles are nonzero,
+//    distinct and stable; a freed stream reports zero.
+// 2. 1800.2-2020 7.2.6.2 (UVM-RECORDING-STREAM-HANDLE-LOOKUP) gives rule 2
+//    above. Setup: Look up two active handles, retain one through close and
+//    query an old freed handle. Expected: Active/closed lookups preserve exact
+//    identities and a freed handle resolves to null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Local hooks supply in-memory streams; no database file or external backend
 // is opened. Recorder creation and record contents are outside these cases.
 module test_recording_stream_handles_identify_distinct_streams_across_databases;
