@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_iterator_uses_its_object_context_and_handles_empty_queue.expected
 */
+// What it checks:
+// 1. first starts callback iteration at the enabled endpoint for its object
+//    context.
+// 2. last starts callback iteration at the enabled endpoint for its object
+//    context.
+// 3. get_cb returns the callback selected by the most recent valid iterator
+//    access.
+// 4. Each constructed callback iterator uses its supplied object context.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.1.2.2 (UVM-CALLBACK-ITERATOR-FIRST) gives rule 1 above.
+//    Setup: Use selected-object queues with disabled entries, an empty queue
+//    and a restarted iterator. Expected: The enabled endpoint is selected; an
+//    empty queue returns null and restart selects the endpoint again.
+// 2. 1800.2-2020 D.1.2.3 (UVM-CALLBACK-ITERATOR-LAST) gives rule 2 above.
+//    Setup: Use selected-object queues with disabled entries, an empty queue
+//    and a restarted iterator. Expected: The enabled endpoint is selected; an
+//    empty queue returns null and restart selects the endpoint again.
+// 3. 1800.2-2020 D.1.2.6 (UVM-CALLBACK-ITERATOR-CURRENT) gives rule 3 above.
+//    Setup: Inspect get_cb after successful first/last/next/prev operations,
+//    including two separate iterators. Expected: Each iterator current handle
+//    agrees with its own last successful access.
+// 4. 1800.2-2020 D.1.2.1 (UVM-CALLBACK-ITERATOR-CONTEXT) gives rule 4 above.
+//    Setup: Construct iterators on different contexts or two iterators on the
+//    same context. Expected: Each selects only its context callbacks and
+//    maintains its own traversal position.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use three non-null object contexts with separate registrations.
 // The third context has no callbacks and no typewide callback exists.
 

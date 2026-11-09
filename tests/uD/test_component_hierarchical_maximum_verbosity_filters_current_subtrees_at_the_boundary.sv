@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_component_hierarchical_maximum_verbosity_filters_current_subtrees_at_the_boundary.expected
 */
+// What it checks:
+// 1. Hierarchical maximum verbosity reaches the receiver and current
+//    descendants.
+// 2. Selected subtree reports at the maximum are delivered while reports above
+//    it are filtered.
+// 3. A later maximum update on a child changes its subtree while preserving
+//    the ancestor and outside peer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.2.2.4 (UVM-COMPONENT-EXT-REPORT-MAX-RECURSION) gives rule 1
+//    above. Setup: Use the linked original fixtures and their explicit public
+//    phase, factory or hierarchy calls. Preserve the declared original types,
+//    scope, arguments and expected observations; no private implementation
+//    state supplies an oracle. Expected: Hierarchical maximum verbosity
+//    reaches the receiver and current descendants.
+// 2. 1800.2-2020 D.2.2.4 (UVM-COMPONENT-EXT-REPORT-MAX-BOUNDARY) gives rule 2
+//    above. Setup: Use the linked original fixtures and their explicit public
+//    phase, factory or hierarchy calls. Preserve the declared original types,
+//    scope, arguments and expected observations; no private implementation
+//    state supplies an oracle. Expected: Selected subtree reports at the
+//    maximum are delivered while reports above it are filtered.
+// 3. 1800.2-2020 D.2.2.4 (UVM-COMPONENT-EXT-REPORT-MAX-NARROWING) gives rule 3
+//    above. Setup: Use the linked original fixtures and their explicit public
+//    phase, factory or hierarchy calls. Preserve the declared original types,
+//    scope, arguments and expected observations; no private implementation
+//    state supplies an oracle. Expected: A later maximum update on a child
+//    changes its subtree while preserving the ancestor and outside peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_hierarchical_maximum_verbosity_filters_current_subtrees_at_the_boundary;
   import uvm_pkg::*;
   class node extends uvm_component;

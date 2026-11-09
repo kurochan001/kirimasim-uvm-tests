@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_component_hierarchical_log_routes_current_ancestor_child_and_peer_files.expected
 */
+// What it checks:
+// Reports with LOG use the actual file association selected by current
+// hierarchical file settings.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 D.2.2 (UVM-COMPONENT-EXT-REPORT-HIER-LOG-FILE) gives the rule
+// above. Setup: Use the linked original fixtures and their explicit public
+// phase, factory or hierarchy calls. Preserve the declared original types,
+// scope, arguments and expected observations; no private implementation state
+// supplies an oracle. Expected: Reports with LOG use the actual file
+// association selected by current hierarchical file settings.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_hierarchical_log_routes_current_ancestor_child_and_peer_files;
   import uvm_pkg::*;
   class node extends uvm_component;

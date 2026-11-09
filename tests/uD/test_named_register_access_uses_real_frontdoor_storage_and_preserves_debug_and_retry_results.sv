@@ -12,6 +12,93 @@
 :expected_exit: 0
 :expected_stdout: @test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results.expected
 */
+// What it checks:
+// 1. The named register write chooses the local simple-name match before a
+//    same-name descendant.
+// 2. The named register write preserves the selected supplied data.
+// 3. The named wrapper returns the selected target failure status.
+// 4. A later valid named access returns the new successful target status and
+//    selected data.
+// 5. Changing the debug-only filename and line number preserves the selected
+//    named access functional outcome.
+// 6. The named register read chooses the local simple-name match before a
+//    same-name descendant.
+// 7. The named register read preserves the selected successful returned data.
+// 8. The named wrapper returns the selected target failure status.
+// 9. A later valid named access returns the new successful target status and
+//    selected data.
+// 10. Changing the debug-only filename and line number preserves the selected
+//     named access functional outcome.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-LOCAL-LOOKUP) gives rule 1
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The named register write chooses the local simple-name match before a
+//    same-name descendant.
+// 2. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-DATA) gives rule 2 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: The named
+//    register write preserves the selected supplied data.
+// 3. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-FAILURE-STATUS) gives rule
+//    3 above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The named wrapper returns the selected target failure status.
+// 4. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-RETRY) gives rule 4 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: A later
+//    valid named access returns the new successful target status and selected
+//    data.
+// 5. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-DEBUG-INVARIANCE) gives
+//    rule 5 above. Setup: Use the selected original hierarchical
+//    register/memory models and their explicit public calls. Named wrapper
+//    observations call through a block base view and genuine configured
+//    lookup; actual frontdoor cases use the original adapter, sequencer and
+//    driver storage. Expected: Changing the debug-only filename and line
+//    number preserves the selected named access functional outcome.
+// 6. 1800.2-2020 D.3.2 (UVM-BLOCK-ACCESS-REG-READ-LOCAL-LOOKUP) gives rule 6
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The named register read chooses the local simple-name match before a
+//    same-name descendant.
+// 7. 1800.2-2020 D.3.2 (UVM-BLOCK-ACCESS-REG-READ-DATA) gives rule 7 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: The named
+//    register read preserves the selected successful returned data.
+// 8. 1800.2-2020 D.3.2 (UVM-BLOCK-ACCESS-REG-READ-FAILURE-STATUS) gives rule 8
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The named wrapper returns the selected target failure status.
+// 9. 1800.2-2020 D.3.2 (UVM-BLOCK-ACCESS-REG-READ-RETRY) gives rule 9 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: A later
+//    valid named access returns the new successful target status and selected
+//    data.
+// 10. 1800.2-2020 D.3.2 (UVM-BLOCK-ACCESS-REG-READ-DEBUG-INVARIANCE) gives
+//     rule 10 above. Setup: Use the selected original hierarchical
+//     register/memory models and their explicit public calls. Named wrapper
+//     observations call through a block base view and genuine configured
+//     lookup; actual frontdoor cases use the original adapter, sequencer and
+//     driver storage. Expected: Changing the debug-only filename and line
+//     number preserves the selected named access functional outcome.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

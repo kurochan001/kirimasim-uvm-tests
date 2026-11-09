@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_component_factory_named_instance_override_scopes_exact_objects_and_nested_wildcards.expected
 */
+// What it checks:
+// 1. A relative exact object override selects the matching creation and
+//    preserves other names and outside peers.
+// 2. A relative nested wildcard override selects a descendant component
+//    without changing the outside peer type.
+// 3. Component creation after a relative instance override preserves the
+//    actual calling descendant as parent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.2.1.6
+//    (UVM-COMPONENT-EXT-FACTORY-NAMED-INSTANCE-EXACT-SCOPE) gives rule 1
+//    above. Setup: Use the linked original fixtures and their explicit public
+//    phase, factory or hierarchy calls. Preserve the declared original types,
+//    scope, arguments and expected observations; no private implementation
+//    state supplies an oracle. Expected: A relative exact object override
+//    selects the matching creation and preserves other names and outside
+//    peers.
+// 2. 1800.2-2020 D.2.1.6
+//    (UVM-COMPONENT-EXT-FACTORY-NAMED-INSTANCE-NESTED-WILDCARD) gives rule 2
+//    above. Setup: Use the linked original fixtures and their explicit public
+//    phase, factory or hierarchy calls. Preserve the declared original types,
+//    scope, arguments and expected observations; no private implementation
+//    state supplies an oracle. Expected: A relative nested wildcard override
+//    selects a descendant component without changing the outside peer type.
+// 3. 1800.2-2020 D.2.1.1 (UVM-COMPONENT-EXT-FACTORY-OVERRIDDEN-PARENT) gives
+//    rule 3 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Component creation
+//    after a relative instance override preserves the actual calling
+//    descendant as parent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_factory_named_instance_override_scopes_exact_objects_and_nested_wildcards;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

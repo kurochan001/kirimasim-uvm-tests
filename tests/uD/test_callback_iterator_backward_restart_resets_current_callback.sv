@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_iterator_backward_restart_resets_current_callback.expected
 */
+// What it checks:
+// 1. last starts callback iteration at the enabled endpoint for its object
+//    context.
+// 2. prev advances to an enabled callback and returns null when none remain.
+// 3. get_cb returns the callback selected by the most recent valid iterator
+//    access.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.1.2.3 (UVM-CALLBACK-ITERATOR-LAST) gives rule 1 above.
+//    Setup: Use selected-object queues with disabled entries, an empty queue
+//    and a restarted iterator. Expected: The enabled endpoint is selected; an
+//    empty queue returns null and restart selects the endpoint again.
+// 2. 1800.2-2020 D.1.2.5 (UVM-CALLBACK-ITERATOR-PREVIOUS) gives rule 2 above.
+//    Setup: Traverse registered callbacks in the selected direction with
+//    disabled entries. Expected: Disabled entries are skipped, valid handles
+//    appear in order and exhaustion is null.
+// 3. 1800.2-2020 D.1.2.6 (UVM-CALLBACK-ITERATOR-CURRENT) gives rule 3 above.
+//    Setup: Inspect get_cb after successful first/last/next/prev operations,
+//    including two separate iterators. Expected: Each iterator current handle
+//    agrees with its own last successful access.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exhaust the facade iterator and explicitly restart from its
 // endpoint. Inspect get_cb only after a valid access, without assuming
 // what an invalid or exhausted access retains.

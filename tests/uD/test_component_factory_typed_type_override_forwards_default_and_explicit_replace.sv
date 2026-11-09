@@ -12,6 +12,42 @@
 :expected_exit: 0
 :expected_stdout: @test_component_factory_typed_type_override_forwards_default_and_explicit_replace.expected
 */
+// What it checks:
+// 1. The selected convenience type override replaces the requested original
+//    type.
+// 2. A convenience type override with replace zero preserves the existing
+//    replacement in subsequent name-based creation.
+// 3. Omitting the convenience replace argument replaces the previous override.
+// 4. Explicit convenience replace one replaces the previous override.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.2.1.3 (UVM-COMPONENT-EXT-FACTORY-TYPED-INSTALL) gives rule
+//    1 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The selected
+//    convenience type override replaces the requested original type.
+// 2. 1800.2-2020 D.2.1.3 (UVM-COMPONENT-EXT-FACTORY-TYPED-KEEP-ZERO) gives
+//    rule 2 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: A convenience type
+//    override with replace zero preserves the existing replacement in
+//    subsequent name-based creation.
+// 3. 1800.2-2020 D.2.1.3 (UVM-COMPONENT-EXT-FACTORY-TYPED-DEFAULT-REPLACE)
+//    gives rule 3 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Omitting the
+//    convenience replace argument replaces the previous override.
+// 4. 1800.2-2020 D.2.1.3 (UVM-COMPONENT-EXT-FACTORY-TYPED-EXPLICIT-REPLACE)
+//    gives rule 4 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Explicit convenience
+//    replace one replaces the previous override.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_factory_typed_type_override_forwards_default_and_explicit_replace;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

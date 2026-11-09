@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_component_factory_create_component_preserves_owner_name_and_registered_type.expected
 */
+// What it checks:
+// 1. Component create_component creates the registered requested component
+//    type.
+// 2. Component create_component preserves the leaf name and inserts the same
+//    child under the calling component.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.2.1.1 (UVM-COMPONENT-EXT-FACTORY-COMPONENT-TYPE) gives rule
+//    1 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Component
+//    create_component creates the registered requested component type.
+// 2. 1800.2-2020 D.2.1.1 (UVM-COMPONENT-EXT-FACTORY-COMPONENT-NAME-PARENT)
+//    gives rule 2 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Component
+//    create_component preserves the leaf name and inserts the same child under
+//    the calling component.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_factory_create_component_preserves_owner_name_and_registered_type;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

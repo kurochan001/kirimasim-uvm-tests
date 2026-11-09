@@ -12,6 +12,111 @@
 :expected_exit: 0
 :expected_stdout: @test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance.expected
 */
+// What it checks:
+// 1. The named register write chooses the local simple-name match before a
+//    same-name descendant.
+// 2. The named register write finds the selected descendant when the local
+//    block has no such name.
+// 3. The named register write preserves the selected supplied data.
+// 4. The wrapper forwards UVM_DEFAULT_DOOR when omitted and the selected
+//    explicit door when supplied.
+// 5. The wrapper forwards the omitted null map or the selected explicit map
+//    handle.
+// 6. The wrapper forwards omitted null or the exact supplied parent-sequence
+//    handle.
+// 7. The wrapper forwards the omitted priority minus one and the supplied
+//    explicit priority.
+// 8. The wrapper forwards omitted null or the exact supplied extension handle.
+// 9. The named task waits for the selected delayed target task to complete
+//    before returning.
+// 10. The named wrapper returns the selected target failure status.
+// 11. A later valid named access returns the new successful target status and
+//     selected data.
+// 12. Changing the debug-only filename and line number preserves the selected
+//     named access functional outcome.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-LOCAL-LOOKUP) gives rule 1
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The named register write chooses the local simple-name match before a
+//    same-name descendant.
+// 2. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-NESTED-LOOKUP) gives rule 2
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The named register write finds the selected descendant when the local
+//    block has no such name.
+// 3. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-DATA) gives rule 3 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: The named
+//    register write preserves the selected supplied data.
+// 4. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-PATH) gives rule 4 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: The wrapper
+//    forwards UVM_DEFAULT_DOOR when omitted and the selected explicit door
+//    when supplied.
+// 5. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-MAP) gives rule 5 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: The wrapper
+//    forwards the omitted null map or the selected explicit map handle.
+// 6. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-PARENT) gives rule 6 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: The wrapper
+//    forwards omitted null or the exact supplied parent-sequence handle.
+// 7. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-PRIORITY) gives rule 7
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The wrapper forwards the omitted priority minus one and the supplied
+//    explicit priority.
+// 8. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-EXTENSION) gives rule 8
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The wrapper forwards omitted null or the exact supplied extension handle.
+// 9. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-BLOCKING) gives rule 9
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The named task waits for the selected delayed target task to complete
+//    before returning.
+// 10. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-FAILURE-STATUS) gives rule
+//     10 above. Setup: Use the selected original hierarchical register/memory
+//     models and their explicit public calls. Named wrapper observations call
+//     through a block base view and genuine configured lookup; actual
+//     frontdoor cases use the original adapter, sequencer and driver storage.
+//     Expected: The named wrapper returns the selected target failure status.
+// 11. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-RETRY) gives rule 11
+//     above. Setup: Use the selected original hierarchical register/memory
+//     models and their explicit public calls. Named wrapper observations call
+//     through a block base view and genuine configured lookup; actual
+//     frontdoor cases use the original adapter, sequencer and driver storage.
+//     Expected: A later valid named access returns the new successful target
+//     status and selected data.
+// 12. 1800.2-2020 D.3.1 (UVM-BLOCK-ACCESS-REG-WRITE-DEBUG-INVARIANCE) gives
+//     rule 12 above. Setup: Use the selected original hierarchical
+//     register/memory models and their explicit public calls. Named wrapper
+//     observations call through a block base view and genuine configured
+//     lookup; actual frontdoor cases use the original adapter, sequencer and
+//     driver storage. Expected: Changing the debug-only filename and line
+//     number preserves the selected named access functional outcome.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance;
   import uvm_pkg::*;
   class original_block extends uvm_reg_block;

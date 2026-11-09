@@ -12,6 +12,57 @@
 :expected_exit: 0
 :expected_stdout: @test_component_hierarchical_actions_preserve_pair_id_severity_precedence_and_outside_peers.expected
 */
+// What it checks:
+// 1. The hierarchical severity action reaches the receiver and descendants.
+// 2. The hierarchical ID action reaches the selected subtree.
+// 3. The hierarchical pair action overrides the selected ID and severity
+//    actions.
+// 4. Real reports deliver the selected effective actions while NO_ACTION
+//    reports are suppressed.
+// 5. A descendant severity-action change preserves its ancestor and the more
+//    specific ID action.
+// 6. Selected hierarchical action updates preserve the outside peer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.2.2.2 (UVM-COMPONENT-EXT-REPORT-SEVERITY-ACTION-RECURSION)
+//    gives rule 1 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The hierarchical
+//    severity action reaches the receiver and descendants.
+// 2. 1800.2-2020 D.2.2.2 (UVM-COMPONENT-EXT-REPORT-ID-ACTION-RECURSION) gives
+//    rule 2 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The hierarchical ID
+//    action reaches the selected subtree.
+// 3. 1800.2-2020 D.2.2.2 (UVM-COMPONENT-EXT-REPORT-PAIR-ACTION-PRECEDENCE)
+//    gives rule 3 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The hierarchical pair
+//    action overrides the selected ID and severity actions.
+// 4. 1800.2-2020 D.2.2.2 (UVM-COMPONENT-EXT-REPORT-ACTION-LIVE-DELIVERY) gives
+//    rule 4 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Real reports deliver
+//    the selected effective actions while NO_ACTION reports are suppressed.
+// 5. 1800.2-2020 D.2.2.2 (UVM-COMPONENT-EXT-REPORT-ACTION-NARROWING) gives
+//    rule 5 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: A descendant
+//    severity-action change preserves its ancestor and the more specific ID
+//    action.
+// 6. 1800.2-2020 D.2.2.2 (UVM-COMPONENT-EXT-REPORT-ACTION-PEER-ISOLATION)
+//    gives rule 6 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Selected hierarchical
+//    action updates preserve the outside peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_hierarchical_actions_preserve_pair_id_severity_precedence_and_outside_peers;
   import uvm_pkg::*;
   class node extends uvm_component;

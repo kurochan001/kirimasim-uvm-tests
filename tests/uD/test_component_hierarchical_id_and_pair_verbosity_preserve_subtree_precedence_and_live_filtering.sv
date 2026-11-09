@@ -12,6 +12,67 @@
 :expected_exit: 0
 :expected_stdout: @test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering.expected
 */
+// What it checks:
+// 1. The hierarchical ID verbosity setter reaches the receiver and current
+//    descendants.
+// 2. The hierarchical severity-ID verbosity setter reaches the selected
+//    subtree.
+// 3. The selected severity-ID verbosity takes precedence over ID and general
+//    thresholds.
+// 4. Changing a descendant ID threshold preserves its ancestor and more
+//    specific pair thresholds.
+// 5. The current hierarchical ID threshold admits INFO reports at its boundary
+//    and rejects higher INFO verbosity.
+// 6. Narrowing the selected verbosity subtree preserves the outside peer and
+//    changes live filtering.
+// 7. Actual WARNING reports ignore verbosity even when the selected
+//    severity-ID configuration query reports an exceeded threshold.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.2.2.1 (UVM-COMPONENT-EXT-REPORT-ID-VERBOSITY-RECURSION)
+//    gives rule 1 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The hierarchical ID
+//    verbosity setter reaches the receiver and current descendants.
+// 2. 1800.2-2020 D.2.2.1 (UVM-COMPONENT-EXT-REPORT-PAIR-VERBOSITY-RECURSION)
+//    gives rule 2 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The hierarchical
+//    severity-ID verbosity setter reaches the selected subtree.
+// 3. 1800.2-2020 D.2.2.1 (UVM-COMPONENT-EXT-REPORT-PAIR-VERBOSITY-PRECEDENCE)
+//    gives rule 3 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The selected
+//    severity-ID verbosity takes precedence over ID and general thresholds.
+// 4. 1800.2-2020 D.2.2.1 (UVM-COMPONENT-EXT-REPORT-VERBOSITY-NARROWING) gives
+//    rule 4 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Changing a descendant
+//    ID threshold preserves its ancestor and more specific pair thresholds.
+// 5. 1800.2-2020 D.2.2.1 (UVM-COMPONENT-EXT-REPORT-VERBOSITY-LIVE-FILTER)
+//    gives rule 5 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: The current
+//    hierarchical ID threshold admits INFO reports at its boundary and rejects
+//    higher INFO verbosity.
+// 6. 1800.2-2020 D.2.2.1 (UVM-COMPONENT-EXT-REPORT-VERBOSITY-PEER-ISOLATION)
+//    gives rule 6 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Narrowing the selected
+//    verbosity subtree preserves the outside peer and changes live filtering.
+// 7. 1800.2-2020 6.3.3.3 (UVM-COMPONENT-EXT-WARNING-VERBOSITY-IGNORED) gives
+//    rule 7 above. Setup: Use the original hierarchical reporting fixture with
+//    INFO and WARNING boundary/above-boundary calls and a public
+//    report-enabled query. Expected: Three INFO and six WARNING calls reach
+//    the original execution observer; above-threshold INFO calls do not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering;
   import uvm_pkg::*;

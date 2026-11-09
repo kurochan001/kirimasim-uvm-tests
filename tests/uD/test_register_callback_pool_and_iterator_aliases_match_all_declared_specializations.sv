@@ -12,6 +12,109 @@
 :expected_exit: 0
 :expected_stdout: @test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations.expected
 */
+// What it checks:
+// 1. The declared uvm_reg_cb alias retains its exact object/callback
+//    specialization.
+// 2. The declared uvm_reg_cb_iter alias retains its exact object/callback
+//    specialization.
+// 3. The declared uvm_reg_bd_cb alias retains its exact object/callback
+//    specialization.
+// 4. The declared uvm_reg_bd_cb_iter alias retains its exact object/callback
+//    specialization.
+// 5. The declared uvm_mem_cb alias retains its exact object/callback
+//    specialization.
+// 6. The declared uvm_mem_cb_iter alias retains its exact object/callback
+//    specialization.
+// 7. The declared uvm_reg_field_cb alias retains its exact object/callback
+//    specialization.
+// 8. The declared uvm_reg_field_cb_iter alias retains its exact
+//    object/callback specialization.
+// 9. The declared uvm_vreg_cb alias retains its exact object/callback
+//    specialization.
+// 10. The declared uvm_vreg_cb_iter alias retains its exact object/callback
+//     specialization.
+// 11. The declared uvm_vreg_field_cb alias retains its exact object/callback
+//     specialization.
+// 12. The declared uvm_vreg_field_cb_iter alias retains its exact
+//     object/callback specialization.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.4.5.1 (UVM-RECORDING-AUDIT-ALIAS-UVM-REG-CB) gives rule 1
+//    above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_reg_cb alias
+//    retains its exact object/callback specialization.
+// 2. 1800.2-2020 D.4.5.2 (UVM-RECORDING-AUDIT-ALIAS-UVM-REG-CB-ITER) gives
+//    rule 2 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_reg_cb_iter
+//    alias retains its exact object/callback specialization.
+// 3. 1800.2-2020 D.4.5.3 (UVM-RECORDING-AUDIT-ALIAS-UVM-REG-BD-CB) gives rule
+//    3 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_reg_bd_cb alias
+//    retains its exact object/callback specialization.
+// 4. 1800.2-2020 D.4.5.4 (UVM-RECORDING-AUDIT-ALIAS-UVM-REG-BD-CB-ITER) gives
+//    rule 4 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_reg_bd_cb_iter
+//    alias retains its exact object/callback specialization.
+// 5. 1800.2-2020 D.4.5.5 (UVM-RECORDING-AUDIT-ALIAS-UVM-MEM-CB) gives rule 5
+//    above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_mem_cb alias
+//    retains its exact object/callback specialization.
+// 6. 1800.2-2020 D.4.5.6 (UVM-RECORDING-AUDIT-ALIAS-UVM-MEM-CB-ITER) gives
+//    rule 6 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_mem_cb_iter
+//    alias retains its exact object/callback specialization.
+// 7. 1800.2-2020 D.4.5.7 (UVM-RECORDING-AUDIT-ALIAS-UVM-REG-FIELD-CB) gives
+//    rule 7 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_reg_field_cb
+//    alias retains its exact object/callback specialization.
+// 8. 1800.2-2020 D.4.5.8 (UVM-RECORDING-AUDIT-ALIAS-UVM-REG-FIELD-CB-ITER)
+//    gives rule 8 above. Setup: Use the linked original fixtures, selected
+//    public arguments, explicit declared types and exact expected
+//    observations. The recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared
+//    uvm_reg_field_cb_iter alias retains its exact object/callback
+//    specialization.
+// 9. 1800.2-2020 D.4.5.9 (UVM-RECORDING-AUDIT-ALIAS-UVM-VREG-CB) gives rule 9
+//    above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_vreg_cb alias
+//    retains its exact object/callback specialization.
+// 10. 1800.2-2020 D.4.5.10 (UVM-RECORDING-AUDIT-ALIAS-UVM-VREG-CB-ITER) gives
+//     rule 10 above. Setup: Use the linked original fixtures, selected public
+//     arguments, explicit declared types and exact expected observations. The
+//     recording backend is original in-memory setup, not an
+//     implementation-derived oracle. Expected: The declared uvm_vreg_cb_iter
+//     alias retains its exact object/callback specialization.
+// 11. 1800.2-2020 D.4.5.11 (UVM-RECORDING-AUDIT-ALIAS-UVM-VREG-FIELD-CB) gives
+//     rule 11 above. Setup: Use the linked original fixtures, selected public
+//     arguments, explicit declared types and exact expected observations. The
+//     recording backend is original in-memory setup, not an
+//     implementation-derived oracle. Expected: The declared uvm_vreg_field_cb
+//     alias retains its exact object/callback specialization.
+// 12. 1800.2-2020 D.4.5.12 (UVM-RECORDING-AUDIT-ALIAS-UVM-VREG-FIELD-CB-ITER)
+//     gives rule 12 above. Setup: Use the linked original fixtures, selected
+//     public arguments, explicit declared types and exact expected
+//     observations. The recording backend is original in-memory setup, not an
+//     implementation-derived oracle. Expected: The declared
+//     uvm_vreg_field_cb_iter alias retains its exact object/callback
+//     specialization.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations;
   import uvm_pkg::*;
   // The called generic function checks both implicit class conversions.

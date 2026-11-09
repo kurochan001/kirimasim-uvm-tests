@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_printed_report_callback_typedef_name_matches_the_declared_specialization.expected
 */
+// What it checks:
+// The declared uvm_report_db alias retains its exact object/callback
+// specialization.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 D.4.3 (UVM-RECORDING-AUDIT-ALIAS-UVM-REPORT-DB) gives the rule
+// above. Setup: Use the linked original fixtures, selected public arguments,
+// explicit declared types and exact expected observations. The recording
+// backend is original in-memory setup, not an implementation-derived oracle.
+// Expected: The declared uvm_report_db alias retains its exact object/callback
+// specialization.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printed_report_callback_typedef_name_matches_the_declared_specialization;
   import uvm_pkg::*;
   // The called generic function checks both implicit class conversions.

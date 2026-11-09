@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_component_factory_create_object_preserves_explicit_and_omitted_names.expected
 */
+// What it checks:
+// 1. Component create_object creates the registered original object with its
+//    explicit name.
+// 2. An omitted create_object name can create an independent object whose
+//    original constructor also defaults to an empty name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.2.1.2 (UVM-COMPONENT-EXT-FACTORY-OBJECT-EXPLICIT-NAME)
+//    gives rule 1 above. Setup: Use the linked original fixtures and their
+//    explicit public phase, factory or hierarchy calls. Preserve the declared
+//    original types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Component
+//    create_object creates the registered original object with its explicit
+//    name.
+// 2. 1800.2-2020 D.2.1.2 (UVM-COMPONENT-EXT-FACTORY-OBJECT-OMITTED-NAME) gives
+//    rule 2 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: An omitted
+//    create_object name can create an independent object whose original
+//    constructor also defaults to an empty name.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_factory_create_object_preserves_explicit_and_omitted_names;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

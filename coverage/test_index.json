@@ -7132,115 +7132,115 @@
     },
     "uD/test_callback_iterator_backward_restart_resets_current_callback": {
       "primary_clause": "D.1.2.2",
-      "inputs_sha256": "4e76a15730623cf6314418ae84d73f2ffaa4b49d88df25a85e982c81f917707e"
+      "inputs_sha256": "501700679a5625e95f21a0f1a065c89a3d881c33beb3cf0b1b4c0238844e9fe0"
     },
     "uD/test_callback_iterator_backward_skips_disabled_entries": {
       "primary_clause": "D.1.2.3",
-      "inputs_sha256": "7fde7a1a6ed5dc4e78a2449af59adc7addb0d8c78065f18698c9eb6149b02608"
+      "inputs_sha256": "46a06b09c770f98f6526566297c430cee7844b92758ac8ecca9f65691e8d9a04"
     },
     "uD/test_callback_iterator_forbidden_type_id_access_is_rejected": {
       "primary_clause": "D.1.1",
-      "inputs_sha256": "8f2f91041fa2a8052f5213f5a53551c6229dcb46ba55269cbd11bafa24cdd49c"
+      "inputs_sha256": "eb71aaef8c4d536343d231b1fafe5a5b01675bc79fc7584b27243799eb28e57c"
     },
     "uD/test_callback_iterator_forward_restart_resets_current_callback": {
       "primary_clause": "D.1.2.2",
-      "inputs_sha256": "61deda277dea5e37c20b20cacdb598be6401e6215f7cfaa96009997ce48279e9"
+      "inputs_sha256": "04dfbc743500be839965c731b23a9d9280af936d2ae854df813a0e23c04d2433"
     },
     "uD/test_callback_iterator_forward_skips_disabled_entries": {
       "primary_clause": "D.1.2.2",
-      "inputs_sha256": "e451410417f33d82b41dba41e70a22a83e1b1d18f75ab864064a79f19f873f4c"
+      "inputs_sha256": "d1e692d05165f0fafb47375a537b688669970a066915f2288810fc4813cb62bc"
     },
     "uD/test_callback_iterator_uses_its_object_context_and_handles_empty_queue": {
       "primary_clause": "D.1.2.1",
-      "inputs_sha256": "140ca338a47eaceee5d5aa673a620085da2d3af080532802b82079f0f4fa5a87"
+      "inputs_sha256": "9f52f00c0fde0756e6f6ccaf462a61f5db7ddd878e3e86cf50036d78b105d11a"
     },
     "uD/test_callback_iterators_keep_independent_positions": {
       "primary_clause": "D.1.2.1",
-      "inputs_sha256": "b8a531b054c30b618297b964f626f4cacefdb8423b32d9aa987384f9b56363f7"
+      "inputs_sha256": "8891f86bc8b369fecc45609331a7c32960c1c84114f5348268a14834cc6e6a44"
     },
     "uD/test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations": {
       "primary_clause": "D.4.1",
-      "inputs_sha256": "cdf47c7be39ff6348232b571a5eb509b329ce1852ea543d9994d4302cc74d82b"
+      "inputs_sha256": "42a564b05496f89d5d820a8786f5c51398a47234561646142e25e193f462ede1"
     },
     "uD/test_component_factory_create_component_preserves_owner_name_and_registered_type": {
       "primary_clause": "D.2.1.1",
-      "inputs_sha256": "d024b5ea5e1111894adadee8cee374ed53d0b173d388bda26269f549d7ff31a7"
+      "inputs_sha256": "abd0d1d652e62d8dc69e331262446141e2d4dc4a8d87280658b56b331e6bb956"
     },
     "uD/test_component_factory_create_object_preserves_explicit_and_omitted_names": {
       "primary_clause": "D.2.1.2",
-      "inputs_sha256": "cf8f5c0535b14726d578db471ef8bb22c318f9c3b8d810aaa0fd1df49c9273fe"
+      "inputs_sha256": "820c6b47dc9f7b4074568703b05daaee545f0fa456a674ee244e837157b6bd06"
     },
     "uD/test_component_factory_named_instance_override_scopes_exact_objects_and_nested_wildcards": {
       "primary_clause": "D.2.1.6",
-      "inputs_sha256": "7ba85fef7ebc2c40e9fc69249ff4d6d31788e2c5ffa4dcf111f9b1612a822236"
+      "inputs_sha256": "4afc6020e83434d7b0e213e9270c473a801c627654937b6a07620f1f2b6b330a"
     },
     "uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace": {
       "primary_clause": "D.2.1.5",
-      "inputs_sha256": "d3514ebf7a74552f018cc174e3b9dc9148326ef5ea8ec7517f9b54d0dab0aa88"
+      "inputs_sha256": "cf36033595d114129c63b229a9ff6a4fe404a72637f89a2f158fc11ec1aac668"
     },
     "uD/test_component_factory_typed_instance_override_scopes_exact_objects_and_nested_wildcards": {
       "primary_clause": "D.2.1.4",
-      "inputs_sha256": "48548ad945f2ceeaff71a7b1e7f471b0fc51408a922fab7c1950edc95de8f0ad"
+      "inputs_sha256": "54d2cded1592d664c6ffc5e30bd320a03da8467d53c3a8c890f3687e5c0501f5"
     },
     "uD/test_component_factory_typed_type_override_forwards_default_and_explicit_replace": {
       "primary_clause": "D.2.1.3",
-      "inputs_sha256": "b3f7112bbb5b5c40804b4ebbd865be428ac76accfb69b5e5034dfc32efbae787"
+      "inputs_sha256": "7d898d6fbecb76c905ed6008505f8b66c54d05e90bc0b7178738e53e84ba9f9b"
     },
     "uD/test_component_hierarchical_actions_preserve_pair_id_severity_precedence_and_outside_peers": {
       "primary_clause": "D.2.2.2",
-      "inputs_sha256": "a0e90f73b0fdc5615a7dc3fbaed5546afc054dbb874faf1a6590b5560315872d"
+      "inputs_sha256": "6b50f5ef231de442335c549abeeaec28173d0b67f0ca577d21ee2ea5b3b42c95"
     },
     "uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering": {
       "primary_clause": "D.2.2.1",
-      "inputs_sha256": "cb3935c5d50b995c8d173aafca10eb44d6c3ad94ed953e3fc8ac176b0d665121"
+      "inputs_sha256": "68ffda02d5e7b4657bb146a833d05e13c63a65173a4ab06b1c26842bc7939a4a"
     },
     "uD/test_component_hierarchical_log_routes_current_ancestor_child_and_peer_files": {
       "primary_clause": "D.2.2",
-      "inputs_sha256": "315c99de2e884d1195a396cb8644b4a347e134f5d1e0514ed14cb7c66c9605ea"
+      "inputs_sha256": "38696073841de7d270ad99242423ee8c04430597f50575d84ae9f659946d37bb"
     },
     "uD/test_component_hierarchical_maximum_verbosity_filters_current_subtrees_at_the_boundary": {
       "primary_clause": "D.2.2.4",
-      "inputs_sha256": "10702b7f4eb505f1cd4f5cf54fb6c40fb2fc2e3562e42b33ca9094b6cdd80f19"
+      "inputs_sha256": "1e09a86e61b434ce74e2600eaef4b58aac8bf1de0fe43071fcccc50c4de144f1"
     },
     "uD/test_component_hierarchical_recording_calls_virtual_setters_and_preserves_outside_state": {
       "primary_clause": "D.2.3",
-      "inputs_sha256": "3dc34e848313ea365834cb6c4e62ab0f2c6163dd25923c09d66e23ce4c4994d0"
+      "inputs_sha256": "b8036c72c03ff7bfa824b936ff35feb4d6b1da37f54245f0598a2d31250e0d50"
     },
     "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results": {
       "primary_clause": "D.3.3",
-      "inputs_sha256": "a38c898af78b8ae622e41e5dae7cdf255ff946233f8cc9af3f07bfb6f051b87e"
+      "inputs_sha256": "8e58a41b9807f031e03a3b621fb7bcb4245865ad937203c236cb5b4abb9d657b"
     },
     "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance": {
       "primary_clause": "D.3.4",
-      "inputs_sha256": "9531149bc1805616126c2b5c22008acb5babee02e6f4e0eba328b0946f193426"
+      "inputs_sha256": "3b0298efebc4e1e2cd923d7e8c78c70f8916128930a39310c4d55b36c81bb057"
     },
     "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance": {
       "primary_clause": "D.3.3",
-      "inputs_sha256": "0cbb1388fdb9da3c7119e61a18d21987f61a7fc1bf1470c43c35f027032c8cbb"
+      "inputs_sha256": "6c210669f0e3f468be83c606c5e4e0e5c96f179f3bf26dc5bb201d093dbdc8c4"
     },
     "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results": {
       "primary_clause": "D.3.1",
-      "inputs_sha256": "5f3c4a695a2b5641b60a5d8e5ddf6035b321243a2e5507a42d29d7872d3cbfaa"
+      "inputs_sha256": "185eec398583b8042192f405b40fc1bc81e270c6d103079eaf99f56a72382629"
     },
     "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance": {
       "primary_clause": "D.3.2",
-      "inputs_sha256": "fbefc7a94b0ca5e09811d78a1745fa813cde80177d87f523f69160b3295bd569"
+      "inputs_sha256": "a55757c8c272041713fcbb20280afd40d979d69f85ea4d907a83d0888b6ae91e"
     },
     "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance": {
       "primary_clause": "D.3.1",
-      "inputs_sha256": "80335661f81726021fc27c258f75472bbcc4c385f0153b18d96fcf0b5cb84bb7"
+      "inputs_sha256": "c01335667c20ed8c30a44d088e7476da4b64dbbf7182193cfe01e5d4109bfcbe"
     },
     "uD/test_printed_report_callback_typedef_name_matches_the_declared_specialization": {
       "primary_clause": "D.4.3",
-      "inputs_sha256": "9a96b0680e857aa08fb6e4c51c760a891ff04bc7bcda6411f8773a8180202158"
+      "inputs_sha256": "0fef47a612f4fdd42e63c2356a1f0992d15837feac9cba1833060e33d9a0f44a"
     },
     "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations": {
       "primary_clause": "D.4.5",
-      "inputs_sha256": "7d01879c892fe5159e47580acafe82f97b4c03e2a5b5bdca141b04f7f8b473d5"
+      "inputs_sha256": "a342c30bb90cb5ac7a5aaf7a81b63d436b74a52eacf6be55cdf1e8f59bea461d"
     },
     "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers": {
       "primary_clause": "D.2.2.3",
-      "inputs_sha256": "82a47f3a3524c6b06e9670d0042628e3f50cd4685fc8fa95390e0cacda4e7d2d"
+      "inputs_sha256": "cf01b38d7b17fca907ac1b5a57055a1003a5a7f9a8c29f4faaed97f73e18cfa5"
     },
     "uE/test_bit_bash_sequence_honors_a_block_exclusion_before_a_direct_control": {
       "primary_clause": "E.2.2",

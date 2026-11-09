@@ -12,6 +12,58 @@
 :expected_exit: 0
 :expected_stdout: @test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers.expected
 */
+// What it checks:
+// 1. The hierarchical default-file setter associates the descriptor throughout
+//    the selected subtree.
+// 2. The hierarchical severity-file setter associates the descriptor
+//    throughout the selected subtree.
+// 3. The hierarchical ID-file setter associates the descriptor throughout the
+//    selected subtree.
+// 4. The hierarchical severity-ID-file setter associates the pair descriptor
+//    throughout the subtree.
+// 5. A severity-ID file association takes precedence over less specific
+//    associations.
+// 6. Updating a child subtree leaves its ancestor association unchanged.
+// 7. Updating an ID file association preserves the effective more specific
+//    pair association.
+// 8. Hierarchical file settings leave components outside the selected subtree
+//    unchanged.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.2.2.3 (UVM-REPORT-FILE-HIER-DEFAULT) gives rule 1 above.
+//    Setup: A component, child and grandchild receive the default setting from
+//    their subtree root. Expected: All three resolve an otherwise unconfigured
+//    key to the supplied default descriptor.
+// 2. 1800.2-2020 D.2.2.3 (UVM-REPORT-FILE-HIER-SEVERITY) gives rule 2 above.
+//    Setup: A WARNING-specific descriptor is set at the root of the
+//    three-level subtree. Expected: All three resolve the otherwise
+//    unconfigured WARNING key to that descriptor.
+// 3. 1800.2-2020 D.2.2.3 (UVM-REPORT-FILE-HIER-ID) gives rule 3 above. Setup:
+//    The picked ID descriptor is configured before a more specific pair
+//    setting. Expected: All three resolve INFO/WARNING picked to the ID
+//    descriptor at that stage.
+// 4. 1800.2-2020 D.2.2.3 (UVM-REPORT-FILE-HIER-PAIR) gives rule 4 above.
+//    Setup: A WARNING/picked pair descriptor is applied after default,
+//    severity and ID settings. Expected: The component, child and grandchild
+//    return that pair descriptor.
+// 5. 1800.2-2020 D.2.2.3 (UVM-REPORT-FILE-HIER-PAIR-PRECEDENCE) gives rule 5
+//    above. Setup: Four distinct live descriptors apply to the same subtree at
+//    different specificities. Expected: The pair query resolves to the pair
+//    descriptor.
+// 6. 1800.2-2020 D.2.2.3 (UVM-REPORT-FILE-HIER-NARROWER-SUBTREE) gives rule 6
+//    above. Setup: After root-wide configuration, the child changes its
+//    subtree ID descriptor. Expected: Child and leaf use the new ID descriptor
+//    while the original branch retains its previous one.
+// 7. 1800.2-2020 D.2.2.3 (UVM-REPORT-FILE-HIER-LOWER-PRIORITY-UPDATE) gives
+//    rule 7 above. Setup: The narrowed subtree ID changes after its
+//    WARNING/picked pair was installed. Expected: All three effective pair
+//    descriptors remain the original pair value.
+// 8. 1800.2-2020 D.2.2.3 (UVM-REPORT-FILE-HIER-OUTSIDE-PEER) gives rule 8
+//    above. Setup: An outside peer is queried before all four setters and the
+//    narrower update. Expected: Its default, severity, ID and pair queries
+//    retain their before values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Compare effective descriptors while four distinct files remain open.
 // Only public getter identity is observed; numeric descriptor values, report
 // formatting and written file contents are not part of this oracle.

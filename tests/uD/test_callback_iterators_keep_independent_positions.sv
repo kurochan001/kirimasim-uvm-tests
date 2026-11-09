@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_iterators_keep_independent_positions.expected
 */
+// What it checks:
+// 1. get_cb returns the callback selected by the most recent valid iterator
+//    access.
+// 2. Each constructed callback iterator uses its supplied object context.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.1.2.6 (UVM-CALLBACK-ITERATOR-CURRENT) gives rule 1 above.
+//    Setup: Inspect get_cb after successful first/last/next/prev operations,
+//    including two separate iterators. Expected: Each iterator current handle
+//    agrees with its own last successful access.
+// 2. 1800.2-2020 D.1.2.1 (UVM-CALLBACK-ITERATOR-CONTEXT) gives rule 2 above.
+//    Setup: Construct iterators on different contexts or two iterators on the
+//    same context. Expected: Each selects only its context callbacks and
+//    maintains its own traversal position.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Advance one iterator while observing the other current handle. No
 // callback registration changes occur during iteration.
 

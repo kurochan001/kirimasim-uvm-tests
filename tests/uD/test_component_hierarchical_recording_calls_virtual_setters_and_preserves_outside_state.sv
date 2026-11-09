@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_component_hierarchical_recording_calls_virtual_setters_and_preserves_outside_state.expected
 */
+// What it checks:
+// 1. Hierarchical recording enable invokes the selected nodes virtual
+//    recording setters with the supplied value.
+// 2. Disabling a child recording subtree preserves its enabled ancestor and
+//    untouched outside peer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.2.3 (UVM-COMPONENT-EXT-RECORDING-HIER-VIRTUAL-SETTER) gives
+//    rule 1 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Hierarchical recording
+//    enable invokes the selected nodes virtual recording setters with the
+//    supplied value.
+// 2. 1800.2-2020 D.2.3 (UVM-COMPONENT-EXT-RECORDING-HIER-NARROWING) gives rule
+//    2 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Disabling a child
+//    recording subtree preserves its enabled ancestor and untouched outside
+//    peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_component_hierarchical_recording_calls_virtual_setters_and_preserves_outside_state;
   import uvm_pkg::*;
   class recording_actor extends uvm_component;

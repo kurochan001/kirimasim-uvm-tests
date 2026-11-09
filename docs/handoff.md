@@ -161,7 +161,7 @@ records are carried forward under that rule (option G1), and a manual Regression
 to directories. Each directory is measured again with Verilator at seeds 1/73 and confirmed by a
 narrowed Regression before the next one.
 
-Readability progress: 3 of 22 directories are finished: u17 (11 inputs), u11 (20 inputs), uG (23 inputs). Each finished directory's inputs, and every input elsewhere that collects one of its files, were measured again at seeds 1/73 with every status unchanged; their fingerprints moved forward with `tools/code_identity.py` and their guest records were carried forward. The other 19 directories remain.
+Readability progress: 4 of 22 directories are finished: u17 (11 inputs), u11 (20 inputs), uG (23 inputs), uD (28 inputs). Each finished directory's inputs, and every input elsewhere that collects one of its files, were measured again at seeds 1/73 with every status unchanged; their fingerprints moved forward with `tools/code_identity.py` and their guest records were carried forward. The other 18 directories remain.
 
 The 124th expansion implements the seventh item, the bring-up stages of kirimasim. Every test
 has a stage from 0 to 6 in `coverage/kirimasim_stages.json`, decided by markers in its own

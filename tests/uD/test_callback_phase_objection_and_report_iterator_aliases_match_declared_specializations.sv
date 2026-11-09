@@ -12,6 +12,51 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations.expected
 */
+// What it checks:
+// 1. The declared uvm_phase_cb_pool alias retains its exact object/callback
+//    specialization.
+// 2. The declared uvm_objection_cbs_t alias retains its exact object/callback
+//    specialization.
+// 3. The declared uvm_report_cb_iter alias retains its exact object/callback
+//    specialization.
+// 4. The omitted iterator object parameter is uvm_object.
+// 5. The omitted iterator callback parameter is uvm_callback.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 D.4.1 (UVM-RECORDING-AUDIT-ALIAS-UVM-PHASE-CB-POOL) gives
+//    rule 1 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_phase_cb_pool
+//    alias retains its exact object/callback specialization.
+// 2. 1800.2-2020 D.4.2 (UVM-RECORDING-AUDIT-ALIAS-UVM-OBJECTION-CBS-T) gives
+//    rule 2 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_objection_cbs_t
+//    alias retains its exact object/callback specialization.
+// 3. 1800.2-2020 D.4.4 (UVM-RECORDING-AUDIT-ALIAS-UVM-REPORT-CB-ITER) gives
+//    rule 3 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The declared uvm_report_cb_iter
+//    alias retains its exact object/callback specialization.
+// 4. 1800.2-2020 D.1.1 (UVM-RECORDING-AUDIT-ITERATOR-DEFAULT-OBJECT) gives
+//    rule 4 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The omitted iterator object
+//    parameter is uvm_object.
+// 5. 1800.2-2020 D.1.1 (UVM-RECORDING-AUDIT-ITERATOR-DEFAULT-CALLBACK) gives
+//    rule 5 above. Setup: Use the linked original fixtures, selected public
+//    arguments, explicit declared types and exact expected observations. The
+//    recording backend is original in-memory setup, not an
+//    implementation-derived oracle. Expected: The omitted iterator callback
+//    parameter is uvm_callback.
+// It also supports, as a control, the setup or conditions of
+// UVM-RECORDING-AUDIT-ITERATOR-NO-TYPE-ID.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations;
   import uvm_pkg::*;
   // The called generic function checks both implicit class conversions.
