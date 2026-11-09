@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_fourstate_pool_missing_key_117.expected
 */
+// What it checks:
+// Getting a missing key from a pool of a four-state element type creates the
+// key with an all-X value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 11.2.2.4 (UVM-FOURSTATE-POOL-MISSING-GET-X) gives the rule
+// above. Setup: Get a missing key from a pool of 8-bit logic values and from a
+// pool of 8-bit bit values, then add and get a logic value with X and Z bits.
+// Expected: The logic pool returns all X and creates the key; the bit pool
+// returns zero and creates the key; the stored value returns with the same
+// bits.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Table 7-1 of 1800-2023 gives all X for a missing four-state entry and zero
 // for a two-state one. A logic pool must return all X and create the key; a bit
 // pool is the two-state control; a stored value with X and Z bits must be

@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_queue_insert_shifts_valid_entries_and_rejects_size_and_larger_indexes.expected
 */
+// What it checks:
+// 1. Queue insert places the new item at a valid existing index and shifts
+//    later entries.
+// 2. An insertion at or above queue size warns and leaves the queue unchanged.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 11.3.2.6 (UVM-QUEUE-INSERT-VALID-INDEX) gives rule 1 above.
+//    Setup: Insert at an interior index and then at the front of a nonempty
+//    queue. Expected: The queue grows in the observed order 5, 10, 20, 30
+//    without warnings.
+// 2. 1800.2-2020 11.3.2.6 (UVM-QUEUE-INSERT-OUT-OF-RANGE) gives rule 2 above.
+//    Setup: Call insert at exactly size and at a larger positive index after
+//    valid insertions. Expected: Two warnings are observed and the four stored
+//    values remain unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_queue_insert_shifts_valid_entries_and_rejects_size_and_larger_indexes;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

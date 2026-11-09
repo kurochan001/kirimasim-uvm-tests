@@ -2330,7 +2330,7 @@
     },
     {
       "test": "u11/test_queue_empty_pop_back_warns_returns_default_and_allows_refill",
-      "inputs_sha256": "9c595d6859e0baa0c21943f56828a1f78cccf88c4cc9bd9b2dfb4f8f907ec09f",
+      "inputs_sha256": "e4dcedca4af8d01a9760f40b22f26a003f82a396e12064b169072751c6d154d0",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2361,7 +2361,7 @@
     },
     {
       "test": "u11/test_queue_empty_pop_front_warns_returns_default_and_allows_refill",
-      "inputs_sha256": "3567eb3e02c46e0a6b88d384f2bc6919b142201a5eeca671c604214f005f4999",
+      "inputs_sha256": "476200292fcc8ba322f3b7dd09ec72c9f402acc2e7b5d773d2a53eb9943cb0d7",
       "kind": "runtime",
       "cause": "library",
       "evidence": {

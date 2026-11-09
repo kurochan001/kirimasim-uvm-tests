@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_queue_wait_until_not_empty_reblocks_after_draining_and_back_insertion.expected
 */
+// What it checks:
+// 1. Queue wait_until_not_empty blocks while its queue is empty and returns
+//    after an insertion.
+// 2. Queue wait_until_not_empty returns immediately when an entry is already
+//    available.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 11.3.2.12 (UVM-QUEUE-WAIT-EMPTY) gives rule 1 above. Setup:
+//    Establish an empty wait, mutate a peer, insert at the front/back, drain
+//    and wait again. Expected: Peer insertion does not release the wait; each
+//    own insertion releases it without consuming the entry.
+// 2. 1800.2-2020 11.3.2.12 (UVM-QUEUE-WAIT-NONEMPTY) gives rule 2 above.
+//    Setup: Call wait again while the first inserted entry remains available.
+//    Expected: The call returns at the same simulation time and retains the
+//    entry.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_queue_wait_until_not_empty_reblocks_after_draining_and_back_insertion;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

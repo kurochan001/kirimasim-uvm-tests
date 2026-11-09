@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_queue_delete_shifts_remaining_handles_and_default_delete_clears_only_one_instance.expected
 */
+// What it checks:
+// 1. Queue size reflects its current occupancy across insertion and removal.
+// 2. Indexed deletion removes only the selected entry and retains the
+//    remaining order.
+// 3. Default delete and explicit minus one clear the receiver queue.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 11.3.2.5 (UVM-QUEUE-SIZE-TRACKS-LIFECYCLE) gives rule 1
+//    above. Setup: Query before insertion, after appends, after indexed
+//    deletions and after clearing. Expected: Reported counts match each
+//    fixture occupancy and mutations leave the peer size unchanged.
+// 2. 1800.2-2020 11.3.2.7 (UVM-QUEUE-INDEXED-DELETE-REMAINING-ORDER) gives
+//    rule 2 above. Setup: Delete a middle entry and then both endpoints while
+//    keeping an independent queue. Expected: The surviving handles retain
+//    order and the peer retains its exact entry.
+// 3. 1800.2-2020 11.3.2.7 (UVM-QUEUE-DEFAULT-DELETE-CLEARS-RECEIVER) gives
+//    rule 3 above. Setup: Clear populated storage with omitted index, refill
+//    and clear with minus one. Expected: Both clear operations leave size zero
+//    while the peer still has its one exact item.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_queue_delete_shifts_remaining_handles_and_default_delete_clears_only_one_instance;
   import uvm_pkg::*;
   class item extends uvm_object;

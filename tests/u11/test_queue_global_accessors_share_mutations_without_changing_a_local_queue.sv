@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_queue_global_accessors_share_mutations_without_changing_a_local_queue.expected
 */
+// What it checks:
+// 1. Repeated global-queue access returns the same shared queue instance.
+// 2. Queue get_global retrieves the indexed entry from the singleton queue.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 11.3.2.2 (UVM-QUEUE-GLOBAL-SINGLETON) gives rule 1 above.
+//    Setup: Acquire two global handles and a separate local queue. Expected:
+//    Front/back insertions, indexed deletion and clearing are shared, while
+//    the local queue is unchanged.
+// 2. 1800.2-2020 11.3.2.3 (UVM-QUEUE-GLOBAL-INDEXED-ACCESS) gives rule 2
+//    above. Setup: Push to the back and then the front through separate global
+//    handles. Expected: Indexed global access sees the element displaced to
+//    index one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_queue_global_accessors_share_mutations_without_changing_a_local_queue;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_queue_out_of_range_get_warns_returns_a_two_state_default_and_retains_data.expected
 */
+// What it checks:
+// A get at or above size warns and returns the missing-entry default for the
+// element type.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 11.3.2.4 (UVM-QUEUE-OUT-OF-RANGE-GET-TWO-STATE-DEFAULT) gives
+// the rule above. Setup: Read at size and size plus one from a two-entry
+// two-state bit-vector queue. Expected: There are two warnings, no errors and
+// zero defaults; both original entries remain in order.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_queue_out_of_range_get_warns_returns_a_two_state_default_and_retains_data;
   import uvm_pkg::*;
   class warning_probe extends uvm_report_catcher;

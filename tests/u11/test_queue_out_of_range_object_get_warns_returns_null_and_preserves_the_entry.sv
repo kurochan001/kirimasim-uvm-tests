@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_queue_out_of_range_object_get_warns_returns_null_and_preserves_the_entry.expected
 */
+// What it checks:
+// An out-of-range get on an object queue warns and returns null.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 11.3.2.4 (UVM-QUEUE-OUT-OF-RANGE-GET-OBJECT-DEFAULT) gives the
+// rule above. Setup: Read index one from a singleton object queue. Expected:
+// One warning and no error occur, null returns and the exact singleton
+// remains.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_queue_out_of_range_object_get_warns_returns_null_and_preserves_the_entry;
   import uvm_pkg::*;
   class item extends uvm_object;

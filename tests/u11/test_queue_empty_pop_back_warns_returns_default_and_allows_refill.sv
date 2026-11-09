@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_queue_empty_pop_back_warns_returns_default_and_allows_refill.expected
 */
+// What it checks:
+// Popping an empty queue at the back warns and returns the element type
+// default.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 11.3.2.9 (UVM-QUEUE-EMPTY-POP-BACK) gives the rule above. Setup:
+// Pop an initially empty two-state queue, refill/drain it, and pop again.
+// Expected: Both empty calls return zero and each warns; successful removals
+// retain front/back order.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library omits the required warning on native empty pops.
 module test_queue_empty_pop_back_warns_returns_default_and_allows_refill;
   import uvm_pkg::*;

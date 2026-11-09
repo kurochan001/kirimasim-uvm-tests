@@ -6902,4 +6902,4 @@ directories through a plan job; the weekly run still takes everything in 20
 shards. Twelve unit tests cover the tooling; [Q450](faq.md#q450-why-can-a-record-survive-a-comment-only-edit)
 explains the carried records.
 
-Readability progress: 1 of 22 directories are finished: u17 (11 inputs). Each finished directory's inputs, and every input elsewhere that collects one of its files, were measured again at seeds 1/73 with every status unchanged; their fingerprints moved forward with `tools/code_identity.py` and their guest records were carried forward. The other 21 directories remain.
+Readability progress: 2 of 22 directories are finished: u17 (11 inputs), u11 (20 inputs). Each finished directory's inputs, and every input elsewhere that collects one of its files, were measured again at seeds 1/73 with every status unchanged; their fingerprints moved forward with `tools/code_identity.py` and their guest records were carried forward. The other 20 directories remain.

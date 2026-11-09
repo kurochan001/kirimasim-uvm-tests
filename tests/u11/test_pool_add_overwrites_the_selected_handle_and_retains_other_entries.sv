@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_add_overwrites_the_selected_handle_and_retains_other_entries.expected
 */
+// What it checks:
+// Adding an existing key replaces its item with the supplied exact handle.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 11.2.2.5 (UVM-POOL-ADD-OVERWRITES-SELECTED-HANDLE) gives the
+// rule above. Setup: Replace one keyed object while keeping another entry,
+// then mutate the returned replacement. Expected: Count stays two, the new
+// handle is exact, its change is shared and original/peer objects are
+// unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_pool_add_overwrites_the_selected_handle_and_retains_other_entries;
   import uvm_pkg::*;
   class item extends uvm_object;

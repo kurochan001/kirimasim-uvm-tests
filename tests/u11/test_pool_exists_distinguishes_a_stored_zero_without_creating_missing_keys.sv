@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_exists_distinguishes_a_stored_zero_without_creating_missing_keys.expected
 */
+// What it checks:
+// Pool exists distinguishes stored zero from an absent key without allocating
+// storage.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 11.2.2.8 (UVM-POOL-EXISTS-NONINSERTING-MEMBERSHIP) gives the
+// rule above. Setup: Query a stored zero, repeatedly query an absent key, then
+// delete the stored key. Expected: Exists returns one only before deletion for
+// the stored key; absent queries leave the count unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_pool_exists_distinguishes_a_stored_zero_without_creating_missing_keys;
   import uvm_pkg::*;
   initial begin

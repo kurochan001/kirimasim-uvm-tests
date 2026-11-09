@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_fourstate_queue_missing_entries_117.expected
 */
+// What it checks:
+// 1. An out-of-range get from a queue of a four-state element type warns and
+//    returns an all-X value.
+// 2. Popping from an empty queue of a four-state element type warns and
+//    returns an all-X value.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 11.3.2.4 (UVM-FOURSTATE-QUEUE-OUT-OF-RANGE-GET-X) gives rule
+//    1 above. Setup: Push two 8-bit logic values with X and Z bits, get index
+//    two, then get both stored entries. Expected: The out-of-range get warns,
+//    returns all X and leaves the size at two; the stored entries return with
+//    the same bits.
+// 2. 1800.2-2020 11.3.2.8 (UVM-FOURSTATE-QUEUE-EMPTY-POP-X) gives rule 2
+//    above. Setup: After popping both stored entries from the front and back,
+//    pop the empty queue from the front and then from the back. Expected: The
+//    stored entries pop with the same bits, and each empty pop warns and
+//    returns all X.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Table 7-1 of 1800-2023 gives all X for a missing four-state entry. An out-of-
 // range get must warn, return all X and leave the size unchanged; stored values
 // with X and Z bits must be returned exactly; pops from the emptied queue must

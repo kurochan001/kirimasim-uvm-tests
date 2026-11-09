@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_empty_and_singleton_endpoints_preserve_reference_arguments.expected
 */
+// What it checks:
+// 1. Pool first returns an available first key, or returns zero and leaves the
+//    key unchanged when empty.
+// 2. Pool last returns an available last key, or returns zero and leaves the
+//    key unchanged when empty.
+// 3. Pool next advances to the next available key and preserves the key when
+//    already at the end.
+// 4. Pool prev advances to the previous available key and preserves the key at
+//    the beginning.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 11.2.2.9 (UVM-POOL-FIRST-ENDPOINT) gives rule 1 above. Setup:
+//    Inspect an empty pool, a singleton and a three-key traversal. Expected:
+//    Empty sentinels survive, a singleton key is returned, and traversal
+//    includes all entries.
+// 2. 1800.2-2020 11.2.2.10 (UVM-POOL-LAST-ENDPOINT) gives rule 2 above. Setup:
+//    Inspect empty/singleton endpoints and a backward traversal. Expected:
+//    Empty sentinels survive, a singleton is both endpoints, and backward
+//    traversal reaches each entry.
+// 3. 1800.2-2020 11.2.2.11 (UVM-POOL-NEXT-CURSOR) gives rule 3 above. Setup:
+//    Traverse three entries, remove a middle key before a fresh traversal, and
+//    inspect a singleton boundary. Expected: Every surviving key appears once;
+//    exhaustion returns zero without changing the final cursor.
+// 4. 1800.2-2020 11.2.2.12 (UVM-POOL-PREV-CURSOR) gives rule 4 above. Setup:
+//    Traverse backward before/after deletion and inspect a singleton boundary.
+//    Expected: Every surviving key appears once; the boundary returns zero
+//    without changing the cursor.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_pool_empty_and_singleton_endpoints_preserve_reference_arguments;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

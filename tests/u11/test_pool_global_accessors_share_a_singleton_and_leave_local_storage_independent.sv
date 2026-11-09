@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_accessors_share_a_singleton_and_leave_local_storage_independent.expected
 */
+// What it checks:
+// 1. Repeated global-pool access returns the same shared pool instance.
+// 2. Pool get_global retrieves from the singleton pool by the supplied key.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 11.2.2.2 (UVM-POOL-GLOBAL-SINGLETON) gives rule 1 above.
+//    Setup: Acquire two global handles and create an independent local pool of
+//    the same specialization. Expected: Handles are identical and their
+//    updates/deletion are shared while local contents stay unchanged.
+// 2. 1800.2-2020 11.2.2.3 (UVM-POOL-GLOBAL-KEYED-ACCESS) gives rule 2 above.
+//    Setup: Read a present key and read again after deleting it through a
+//    global handle. Expected: The present value is returned; a later missing
+//    read creates the two-state default entry in the shared pool.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_pool_global_accessors_share_a_singleton_and_leave_local_storage_independent;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

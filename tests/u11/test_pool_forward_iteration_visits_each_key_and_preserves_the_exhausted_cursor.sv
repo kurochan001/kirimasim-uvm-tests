@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_forward_iteration_visits_each_key_and_preserves_the_exhausted_cursor.expected
 */
+// What it checks:
+// 1. Pool first returns an available first key, or returns zero and leaves the
+//    key unchanged when empty.
+// 2. Pool next advances to the next available key and preserves the key when
+//    already at the end.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 11.2.2.9 (UVM-POOL-FIRST-ENDPOINT) gives rule 1 above. Setup:
+//    Inspect an empty pool, a singleton and a three-key traversal. Expected:
+//    Empty sentinels survive, a singleton key is returned, and traversal
+//    includes all entries.
+// 2. 1800.2-2020 11.2.2.11 (UVM-POOL-NEXT-CURSOR) gives rule 2 above. Setup:
+//    Traverse three entries, remove a middle key before a fresh traversal, and
+//    inspect a singleton boundary. Expected: Every surviving key appears once;
+//    exhaustion returns zero without changing the final cursor.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_pool_forward_iteration_visits_each_key_and_preserves_the_exhausted_cursor;
   import uvm_pkg::*;
   `include "uvm_macros.svh"
