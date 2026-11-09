@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_port_base_preserves_names_parents_and_each_interface_role.expected
 */
+// What it checks:
+// 1. A port base returns its configured leaf name for each role.
+// 2. Port full names include their parent hierarchy and leaf names.
+// 3. A port base exposes the exact configured parent component.
+// 4. Role predicates identify port, export and implementation kinds
+//    exclusively.
+// 5. A subtype without a type-name override receives the prescribed generic
+//    role name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.5.2.2 (UVM-PORT-LEAF-NAMES) gives rule 1 above. Setup:
+//    Create three concrete base subclasses with distinct roles and no query
+//    overrides under owner. Expected: Names are p/e/i for the three configured
+//    handles.
+// 2. 1800.2-2020 5.5.2.3 (UVM-PORT-FULL-HIERARCHICAL-NAMES) gives rule 2
+//    above. Setup: Create three concrete base subclasses with distinct roles
+//    and no query overrides under owner. Expected: Full names are
+//    owner.p/owner.e/owner.i.
+// 3. 1800.2-2020 5.5.2.4 (UVM-PORT-EXACT-PARENT-HANDLES) gives rule 3 above.
+//    Setup: Create three concrete base subclasses with distinct roles and no
+//    query overrides under owner. Expected: All three parent queries return
+//    the same exact owner handle.
+// 4. 1800.2-2020 5.5.2.11 (UVM-PORT-ROLE-PREDICATES) gives rule 4 above.
+//    Setup: Create three concrete base subclasses with distinct roles and no
+//    query overrides under owner. Expected: Only the matching predicate is
+//    true for each of the three roles.
+// 5. 1800.2-2020 5.5.2.5 (UVM-PORT-GENERIC-TYPE-NAMES) gives rule 5 above.
+//    Setup: Create three concrete base subclasses with distinct roles and no
+//    query overrides under owner. Expected: Generic names are uvm_port,
+//    uvm_export and uvm_implementation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_port_base_preserves_names_parents_and_each_interface_role;
   import uvm_pkg::*;
   class holder extends uvm_component;

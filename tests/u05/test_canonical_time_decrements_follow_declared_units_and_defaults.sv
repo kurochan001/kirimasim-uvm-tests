@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_canonical_time_decrements_follow_declared_units_and_defaults.expected
 */
+// What it checks:
+// The printed decr seconds argument has the listed one-nanosecond default.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.6.2.7 (UVM-BASE-AUDIT-TIME-DECREMENT-DEFAULT) gives the rule
+// above. Setup: Use a module with explicit 1-ps units/precision, legal
+// 1-ns/1-ps scale literals and a one-picosecond canonical resolution.
+// Expected: Calls omitting secs compile and yield the same selected
+// two-nanosecond value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Keep the standard omitted secs default; a separate explicit-seconds
 // fixture isolates arithmetic from an incompatible implementation default.
 module test_canonical_time_decrements_follow_declared_units_and_defaults;

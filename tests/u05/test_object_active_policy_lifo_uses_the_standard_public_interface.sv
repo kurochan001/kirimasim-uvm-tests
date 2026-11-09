@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_object_active_policy_lifo_uses_the_standard_public_interface.expected
 */
+// What it checks:
+// 1. Push makes the selected policy current and ignores a null request after
+//    reporting.
+// 2. Pop returns the most recently pushed policy and restores its predecessor.
+// 3. The active-policy getter tracks the selected object stack head.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.14.1 (UVM-BASE-AUDIT-ACTIVE-PUSH-HEAD) gives rule 1
+//    above. Setup: Use original concrete objects and two legal copier
+//    policies; empty-only probes require no other stack method. Expected: The
+//    second policy is current; null reports without changing that head and the
+//    peer remains empty.
+// 2. 1800.2-2020 5.3.14.2 (UVM-BASE-AUDIT-ACTIVE-POP-LIFO) gives rule 2 above.
+//    Setup: Use original concrete objects and two legal copier policies;
+//    empty-only probes require no other stack method. Expected: Second then
+//    first are returned; the final extra pop is null.
+// 3. 1800.2-2020 5.3.14.3 (UVM-BASE-AUDIT-ACTIVE-QUERY-HEAD) gives rule 3
+//    above. Setup: Use original concrete objects and two legal copier
+//    policies; empty-only probes require no other stack method. Expected:
+//    Queries follow the second/first/empty transitions independently of a peer
+//    object.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_object_active_policy_lifo_uses_the_standard_public_interface;
   import uvm_pkg::*;
   class original_object extends uvm_object;

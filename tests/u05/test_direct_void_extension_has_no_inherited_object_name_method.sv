@@ -12,6 +12,17 @@
 :should_fail_because: uvm_void does not provide the object get_name member
 :expected_stderr_regex: (?i)^(?=.*test_direct_void_extension_has_no_inherited_object_name_method\.sv:[0-9]+:[0-9]+:)(?=.*\bget_name\b)(?=.*(?:not found|can't find|no member|does not exist|unknown)).*error
 */
+// What it checks:
+// A direct void extension does not inherit the object get_name interface.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.2 (UVM-BASE-AUDIT-VOID-NO-OBJECT-METHOD) gives the rule above.
+// Setup: One minimal illegal construction/member use is isolated with a
+// separately compiled legal extension control. Expected: The declared
+// fixture/type/member diagnostic predicate matches compiler rejection; no
+// runtime seed runs, even if accepted.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_direct_void_extension_has_no_inherited_object_name_method;
   import uvm_pkg::*;
   class plain_extension extends uvm_void; endclass

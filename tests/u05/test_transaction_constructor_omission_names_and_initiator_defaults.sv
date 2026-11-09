@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_constructor_omission_names_and_initiator_defaults.expected
 */
+// What it checks:
+// 1. Transaction construction retains omitted/explicit names and the optional
+//    initiator.
+// 2. An original transaction extension retains the object interface and
+//    selected initiator identity.
+// 3. The selected original object and transaction building blocks retain
+//    object ancestry.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.4.2.1 (UVM-BASE-AUDIT-TRANSACTION-CONSTRUCTOR) gives rule 1
+//    above. Setup: Use direct original subclasses, actual omitted base
+//    constructor calls, explicit nonempty/empty names and static base views.
+//    Expected: The direct omitted call has empty name/null initiator; a named
+//    transaction retains the exact supplied component.
+// 2. 1800.2-2020 5.4 (UVM-BASE-AUDIT-TRANSACTION-ROLE) gives rule 2 above.
+//    Setup: Use direct original subclasses, actual omitted base constructor
+//    calls, explicit nonempty/empty names and static base views. Expected: The
+//    transaction and object views reference the same named original instance.
+// 3. 1800.2-2020 5.1 (UVM-BASE-AUDIT-BASE-ROLE) gives rule 3 above. Setup:
+//    Construct distinct original extensions and view them through the declared
+//    object/void bases. Expected: Identity is retained across the selected
+//    static base receivers.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_transaction_constructor_omission_names_and_initiator_defaults;
   import uvm_pkg::*;
   class transaction_type extends uvm_transaction;

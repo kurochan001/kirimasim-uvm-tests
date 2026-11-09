@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_object_inherited_do_pack_reports_error_for_a_null_policy.expected
 */
+// What it checks:
+// The inherited do_pack hook reports a null packer as an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.10.2 (UVM-BASE-AUDIT-NULL-PACK) gives the rule above. Setup:
+// An original concrete object supplies only its legal creation/type-name
+// hooks, leaving the library packing hook inherited; invoke it via an object
+// base view. Expected: The gated catcher observes an ERROR/FATAL notification
+// for the selected direct null call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_object_inherited_do_pack_reports_error_for_a_null_policy;
   import uvm_pkg::*;
   class original_object extends uvm_object;

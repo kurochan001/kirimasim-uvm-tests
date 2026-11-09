@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_void_containers_hold_direct_extensions_and_object_extensions_with_live_identity.expected
 */
+// What it checks:
+// Void containers can hold direct void extensions and object-derived
+// extensions.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.2 (UVM-BASE-AUDIT-VOID-CONTAINER) gives the rule above. Setup:
+// Use direct original subclasses, actual omitted base constructor calls,
+// explicit nonempty/empty names and static base views. Expected: Both original
+// objects survive casts with identity/live mutation preserved; the plain void
+// extension is not an object subtype.
+// It also supports, as a control, the setup or conditions of
+// UVM-BASE-AUDIT-VOID-VIRTUAL, UVM-BASE-AUDIT-VOID-NO-OBJECT-METHOD.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_void_containers_hold_direct_extensions_and_object_extensions_with_live_identity;
   import uvm_pkg::*;
   class original_object extends uvm_object;

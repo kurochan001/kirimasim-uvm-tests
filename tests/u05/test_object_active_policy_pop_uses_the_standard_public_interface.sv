@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_object_active_policy_pop_uses_the_standard_public_interface.expected
 */
+// What it checks:
+// Popping an empty object policy stack returns null.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.14.2 (UVM-BASE-AUDIT-ACTIVE-EMPTY-POP) gives the rule above.
+// Setup: Use original concrete objects and two legal copier policies;
+// empty-only probes require no other stack method. Expected: The independent
+// pop-only fixture observes null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_object_active_policy_pop_uses_the_standard_public_interface;
   import uvm_pkg::*;
   class original_object extends uvm_object;

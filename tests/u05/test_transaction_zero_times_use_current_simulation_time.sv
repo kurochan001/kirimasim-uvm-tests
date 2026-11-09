@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_zero_times_use_current_simulation_time.expected
 */
+// What it checks:
+// 1. Transaction accept uses current simulation time when its time argument is
+//    zero or omitted.
+// 2. Transaction begin uses current simulation time when its time argument is
+//    zero or omitted.
+// 3. Transaction end uses current simulation time when its time argument is
+//    zero or omitted.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.4.2.2 (UVM-TRANSACTION-ACCEPT-ZERO-TIME) gives rule 1
+//    above. Setup: Run the three lifecycle calls at separate positive delays
+//    with recording disabled. Expected: The fixture records accept/begin/end
+//    times 2, 5 and 9.
+// 2. 1800.2-2020 5.4.2.4 (UVM-TRANSACTION-BEGIN-ZERO-TIME) gives rule 2 above.
+//    Setup: Run the three lifecycle calls at separate positive delays with
+//    recording disabled. Also observe explicit zero-time component lifecycle
+//    calls made by a real pull/push driver after automatic recording was
+//    disabled through the sequencer base API. Expected: The fixture records
+//    accept/begin/end times 2, 5 and 9. The transaction time and callback
+//    observation equal the driver time captured at the explicit call.
+// 3. 1800.2-2020 5.4.2.6 (UVM-TRANSACTION-END-ZERO-TIME) gives rule 3 above.
+//    Setup: Run the three lifecycle calls at separate positive delays with
+//    recording disabled. Also observe explicit zero-time component lifecycle
+//    calls made by a real pull/push driver after automatic recording was
+//    disabled through the sequencer base API. Expected: The fixture records
+//    accept/begin/end times 2, 5 and 9. The transaction time and callback
+//    observation equal the driver time captured at the explicit call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Accept, begin and end after distinct positive delays. Omitted and
 // explicit zero arguments both select the current time in the caller units.
 

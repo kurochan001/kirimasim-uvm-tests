@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_is_inactive_before_first_begin.expected
 */
+// What it checks:
+// Transaction activity is true after begin and before end, and false outside
+// that interval.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.4.2.12 (UVM-TRANSACTION-ACTIVE-STATE) gives the rule above.
+// Setup: Query before first begin, after begin/end and during a reused
+// lifecycle. Expected: The initial and ended states are inactive; each begun
+// interval is active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library tests only its end-time sentinel and reports active
 // before begin. Preserve the normative initial state as a spec-only case.
 

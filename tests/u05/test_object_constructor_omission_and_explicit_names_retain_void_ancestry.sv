@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_object_constructor_omission_and_explicit_names_retain_void_ancestry.expected
 */
+// What it checks:
+// 1. Object construction retains an omitted empty name and explicit names.
+// 2. An original object extension has uvm_void ancestry.
+// 3. An original object extension provides virtual identification and creation
+//    interfaces.
+// 4. The selected original object and transaction building blocks retain
+//    object ancestry.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.2 (UVM-BASE-AUDIT-OBJECT-CONSTRUCTOR) gives rule 1 above.
+//    Setup: Use direct original subclasses, actual omitted base constructor
+//    calls, explicit nonempty/empty names and static base views. Expected: The
+//    direct omitted base call is unnamed; nonempty/empty explicit names are
+//    retained.
+// 2. 1800.2-2020 5.3.1 (UVM-BASE-AUDIT-OBJECT-ANCESTRY) gives rule 2 above.
+//    Setup: Use direct original subclasses, actual omitted base constructor
+//    calls, explicit nonempty/empty names and static base views. Expected:
+//    Implicit object/void receivers retain the same original handle.
+// 3. 1800.2-2020 5.3 (UVM-BASE-AUDIT-OBJECT-INTERFACES) gives rule 3 above.
+//    Setup: Use direct original subclasses, actual omitted base constructor
+//    calls, explicit nonempty/empty names and static base views. Expected: A
+//    base view reaches the original type-name hook and creates a distinct
+//    same-type object with the requested name.
+// 4. 1800.2-2020 5.1 (UVM-BASE-AUDIT-BASE-ROLE) gives rule 4 above. Setup:
+//    Construct distinct original extensions and view them through the declared
+//    object/void bases. Expected: Identity is retained across the selected
+//    static base receivers.
+// It also supports, as a control, the setup or conditions of
+// UVM-BASE-AUDIT-OBJECT-VIRTUAL.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_object_constructor_omission_and_explicit_names_retain_void_ancestry;
   import uvm_pkg::*;
   class original_object extends uvm_object;

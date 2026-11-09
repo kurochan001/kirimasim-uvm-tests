@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_recording_handle_matches_the_open_recorder_and_clears_after_end.expected
 */
+// What it checks:
+// 1. A recorded begin exposes the opened recorder handle.
+// 2. An ended transaction has no live transaction handle.
+// 3. Recorded begin calls object recording on the transaction.
+// 4. The recording-state query reports selected enable/null/disable changes.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.4.2.8 (UVM-BASE-AUDIT-ENABLED-HANDLE) gives rule 1 above.
+//    Setup: Use fresh original transactions and legally opened streams,
+//    positive begin/end times and exact original recorder identities.
+//    Expected: The nonzero begin/getter handles agree and resolve to the exact
+//    original recorder.
+// 2. 1800.2-2020 5.4.2.8 (UVM-BASE-AUDIT-ENDED-HANDLE) gives rule 2 above.
+//    Setup: Use fresh original transactions and legally opened streams,
+//    positive begin/end times and exact original recorder identities.
+//    Expected: The getter returns zero; the default free releases the recorder
+//    handle and ID lookup becomes null.
+// 3. 1800.2-2020 5.4.2.4 (UVM-BASE-AUDIT-BEGIN-RECORD-OBJECT) gives rule 3
+//    above. Setup: Use fresh original transactions and legally opened streams,
+//    positive begin/end times and exact original recorder identities.
+//    Expected: The original recorder object hook observes the exact
+//    transaction handle.
+// 4. 1800.2-2020 5.4.2.11 (UVM-BASE-AUDIT-RECORDING-QUERY) gives rule 4 above.
+//    Setup: Use fresh original transactions and legally opened streams,
+//    positive begin/end times and exact original recorder identities.
+//    Expected: Enabled state and peer isolation follow the selected
+//    stream-control calls.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_transaction_recording_handle_matches_the_open_recorder_and_clears_after_end;
   import uvm_pkg::*;
   class transaction_type extends uvm_transaction;

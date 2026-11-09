@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_reuse_updates_times_and_active_state.expected
 */
+// What it checks:
+// 1. Transaction accept records an explicitly supplied nonzero lifecycle time.
+// 2. Transaction begin records an explicitly supplied nonzero lifecycle time.
+// 3. Transaction end records an explicitly supplied nonzero lifecycle time.
+// 4. Transaction activity is true after begin and before end, and false
+//    outside that interval.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.4.2.2 (UVM-TRANSACTION-ACCEPT-EXPLICIT-TIME) gives rule 1
+//    above. Setup: Recording is disabled; valid explicit times are supplied,
+//    including a second lifecycle. Expected: Queried lifecycle times equal the
+//    supplied values.
+// 2. 1800.2-2020 5.4.2.4 (UVM-TRANSACTION-BEGIN-EXPLICIT-TIME) gives rule 2
+//    above. Setup: Recording is disabled; valid explicit times are supplied,
+//    including a second lifecycle. Expected: Queried lifecycle times equal the
+//    supplied values.
+// 3. 1800.2-2020 5.4.2.6 (UVM-TRANSACTION-END-EXPLICIT-TIME) gives rule 3
+//    above. Setup: Recording is disabled; valid explicit times are supplied,
+//    including a second lifecycle. Expected: Queried lifecycle times equal the
+//    supplied values.
+// 4. 1800.2-2020 5.4.2.12 (UVM-TRANSACTION-ACTIVE-STATE) gives rule 4 above.
+//    Setup: Query before first begin, after begin/end and during a reused
+//    lifecycle. Expected: The initial and ended states are inactive; each
+//    begun interval is active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A second begin makes a previously ended transaction active again.
 // Observe the new lifecycle times rather than an internal inactive sentinel.
 

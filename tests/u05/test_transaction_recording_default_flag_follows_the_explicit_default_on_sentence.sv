@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_recording_default_flag_follows_the_explicit_default_on_sentence.expected
 */
+// What it checks:
+// The selected literal reading of the recording-on default applies to a fresh
+// transaction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.4.2.9 (UVM-BASE-AUDIT-RECORDING-DEFAULT) gives the rule above.
+// Setup: Use fresh original transactions and legally opened streams, positive
+// begin/end times and exact original recorder identities. Expected: The
+// initial public recording-enabled flag is true.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_transaction_recording_default_flag_follows_the_explicit_default_on_sentence;
   import uvm_pkg::*;
   class transaction_type extends uvm_transaction;

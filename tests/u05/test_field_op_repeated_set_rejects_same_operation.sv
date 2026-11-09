@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_field_op_repeated_set_rejects_same_operation.expected
 */
+// What it checks:
+// Calling set again without an intervening flush reports an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.7.2.2 (UVM-FIELD-OP-REJECT-REPEATED-SET) gives the rule above.
+// Setup: Repeat either the same or a different operation before flushing.
+// Expected: Both repeated-set cases report an error; a flushed valid control
+// still works.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Do not inspect the state after the invalid set. Flush before
 // reusing the operation, then observe the new valid name and type.
 

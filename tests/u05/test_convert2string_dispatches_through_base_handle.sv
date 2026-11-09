@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_convert2string_dispatches_through_base_handle.expected
 */
+// What it checks:
+// convert2string dispatches to a derived virtual hook.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.6.4 (UVM-OBJECT-STRING-DISPATCH) gives the rule above.
+// Setup: A base handle refers to an object with a custom text hook; update its
+// fields. Expected: The hook observes updated name and payload in the
+// fixture-defined text format.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The fixture defines its own text layout. A base handle observes the
 // updated object fields through virtual dispatch without invoking a printer.
 

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_default_convert2string_is_empty_with_field_macros.expected
 */
+// What it checks:
+// The unextended convert2string hook returns an empty string.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.6.4 (UVM-OBJECT-STRING-DEFAULT) gives the rule above. Setup:
+// Change fields and name of an object using field macros without overriding
+// the hook. Expected: The returned string remains empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Field automation does not replace the default virtual string hook.
 // Change both payload and name and check the default return value again.
 

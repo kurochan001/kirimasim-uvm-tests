@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_object_create_allocates_independent_default_data.expected
 */
+// What it checks:
+// Object create allocates a fresh object of its own dynamic type.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.5.1 (UVM-OBJECT-CREATE-TYPE) gives the rule above. Setup:
+// Create from a derived object with a separate factory override installed.
+// Expected: The new object has the source type and independent default data;
+// registry creation may use its override.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Create two objects from one dynamic source. Mutating the first new
 // object leaves the second object and the source payload independently stored.
 

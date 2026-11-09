@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_initiator_and_identifier_are_independent.expected
 */
+// What it checks:
+// 1. The initiator query returns the component currently assigned to the
+//    transaction.
+// 2. The transaction ID query returns the assigned identifier, with -1 before
+//    assignment.
+// 3. The initiator setter replaces the selected component handle.
+// 4. The transaction identifier defaults to minus one and retains selected
+//    explicit IDs.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.4.2.15 (UVM-TRANSACTION-INITIATOR) gives rule 1 above.
+//    Setup: Construct with one component, then set another initiator and
+//    change transaction IDs. Expected: The selected initiator handle is
+//    preserved independently of the numeric ID.
+// 2. 1800.2-2020 5.4.2.18 (UVM-TRANSACTION-NUMERIC-ID) gives rule 2 above.
+//    Setup: Inspect a new transaction, then assign IDs 37 and 0. Expected: The
+//    observed IDs are -1, 37 and 0.
+// 3. 1800.2-2020 5.4.2.14 (UVM-BASE-AUDIT-INITIATOR-SET) gives rule 3 above.
+//    Setup: Reassess the unchanged original initiator/identifier fixture and
+//    its compatible measurement; no new execution is claimed merely from a
+//    link. Expected: The existing source changes first to second without
+//    changing the selected identifier.
+// 4. 1800.2-2020 5.4.2.17 (UVM-BASE-AUDIT-TRANSACTION-ID) gives rule 4 above.
+//    Setup: Reassess the unchanged original initiator/identifier fixture and
+//    its compatible measurement; no new execution is claimed merely from a
+//    link. Expected: The existing fixture observes minus one, thirty-seven and
+//    zero while initiator state remains independent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Compare initiator handles and explicit transaction identifiers. Do not
 // confuse transaction identifiers with implementation-assigned object IDs.
 

@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_disable_and_enable_null_are_equivalent_before_an_active_interval.expected
 */
+// What it checks:
+// 1. The recording-state query reports selected enable/null/disable changes.
+// 2. Disable is equivalent to enabling null before an active interval.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.4.2.11 (UVM-BASE-AUDIT-RECORDING-QUERY) gives rule 1 above.
+//    Setup: Use fresh original transactions and legally opened streams,
+//    positive begin/end times and exact original recorder identities.
+//    Expected: Enabled state and peer isolation follow the selected
+//    stream-control calls.
+// 2. 1800.2-2020 5.4.2.10 (UVM-BASE-AUDIT-RECORDING-DISABLE-NULL) gives rule 2
+//    above. Setup: Use fresh original transactions and legally opened streams,
+//    positive begin/end times and exact original recorder identities.
+//    Expected: Both calls turn off only the selected transaction, keep its
+//    peer enabled and open no recorder.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_transaction_disable_and_enable_null_are_equivalent_before_an_active_interval;
   import uvm_pkg::*;
   class transaction_type extends uvm_transaction;

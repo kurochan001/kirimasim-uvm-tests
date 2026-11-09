@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_enable_recording_reports_error_after_begin_before_end.expected
 */
+// What it checks:
+// enable recording after begin and before end generates an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.4.2.9 (UVM-BASE-AUDIT-RECORDING-ENABLE-AFTER-BEGIN) gives the
+// rule above. Setup: Use a valid stream and a positive-time accept/begin mark
+// before the single forbidden control call. The enable and disable fixtures
+// start in their relevant opposite states. Expected: An ERROR/FATAL
+// notification is observed without requiring an exact severity/ID/text/count.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_transaction_enable_recording_reports_error_after_begin_before_end;
   import uvm_pkg::*;
   class transaction_type extends uvm_transaction;

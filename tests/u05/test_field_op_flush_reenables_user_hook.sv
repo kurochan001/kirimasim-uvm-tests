@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_field_op_flush_reenables_user_hook.expected
 */
+// What it checks:
+// 1. A fresh or reset field operation enables its user hook by default.
+// 2. disable_user_hook prevents the selected operation from calling its user
+//    hook.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.7.2.7 (UVM-FIELD-OP-HOOK-DEFAULT) gives rule 1 above.
+//    Setup: Disable the hook for one operation, then flush or perform another
+//    copy operation. Expected: The later operation starts enabled and can
+//    invoke its user hook.
+// 2. 1800.2-2020 5.7.2.8 (UVM-FIELD-OP-HOOK-DISABLE) gives rule 2 above.
+//    Setup: Disable explicitly or from do_execute_op before the copier reaches
+//    do_copy. Expected: The enabled bit becomes zero and the suppressed copy
+//    hook leaves the fixture payload unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the enabled bit only after set, disable it for that operation,
 // then flush and set a new operation to observe the restored default.
 // The pinned library rejects user_hook_enabled before set or after flush,

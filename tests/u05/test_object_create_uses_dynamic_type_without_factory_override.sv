@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_object_create_uses_dynamic_type_without_factory_override.expected
 */
+// What it checks:
+// 1. Object create allocates a fresh object of its own dynamic type.
+// 2. Type-name queries identify direct dynamic creation separately from
+//    overridden registry creation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.5.1 (UVM-OBJECT-CREATE-TYPE) gives rule 1 above. Setup:
+//    Create from a derived object with a separate factory override installed.
+//    Expected: The new object has the source type and independent default
+//    data; registry creation may use its override.
+// 2. 1800.2-2020 5.3.4.7 (UVM-OBJECT-TRAIT-EXISTING-CREATED-TYPE-NAME) gives
+//    rule 2 above. Setup: An unchanged fixture uses direct object create and
+//    registry create under override. Expected: Types are derived_value and
+//    replacement_value respectively.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Object create allocates a new object of its own type. Registering a
 // factory override changes registry creation while object create keeps its
 // type.

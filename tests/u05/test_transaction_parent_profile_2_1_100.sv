@@ -13,6 +13,40 @@
 :expected_stdout: @test_transaction_parent_profile_2_1_100.expected
 :files: helpers100/transaction_parent100.svh
 */
+// What it checks:
+// 1. A recorded begin with a live nonzero parent handle establishes a typed
+//    parent-child relation to the selected parent recorder.
+// 2. Recording and any requested parent relation are ready before the begin
+//    hook, which precedes the named begin event.
+// 3. A new begin after end starts another recording while unrelated live
+//    parent and peer recordings retain their handles.
+//
+// Variant: Inputs 0 and 1 swap which of two transactions is the selected one
+// and which is the peer, and reverse their construction order; the profile
+// number before them selects how the transactions begin.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.4.2.4 (UVM-TRANSACTION-BEGIN-PARENT-RELATION-100) gives
+//    rule 1 above. Setup: Keep two parent recordings open, select each through
+//    explicit handles, and begin two children and a repeated selected child
+//    with reversed construction/selection. Expected: Each child has a
+//    parent-child relation whose two endpoints are exactly its new recorder
+//    and the selected parent recorder, without a relation to another parent.
+// 2. 1800.2-2020 5.4.2.4
+//    (UVM-TRANSACTION-BEGIN-RECORDING-BEFORE-HOOK-EVENT-100) gives rule 2
+//    above. Setup: Observe standard protected do_begin_tr and a typed callback
+//    on the transaction pool begin event for three sequential begin calls.
+//    Expected: At the hook, the new recorder/handle and required relation
+//    exist with the same begin time; event callbacks observe the completed
+//    hook count.
+// 3. 1800.2-2020 5.4.2.4 (UVM-TRANSACTION-BEGIN-REOPEN-INDEPENDENT-100) gives
+//    rule 3 above. Setup: End the selected child, begin it again, and retain
+//    the peer child and both parents throughout; use explicit nonzero begin
+//    times in the parent-linked profiles. Expected: Each begin calls
+//    open_recorder once and returns that recorder handle; explicit times agree
+//    and the live peer handles remain independent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_transaction_parent_profile_2_1_100;
   import uvm_pkg::*;
   localparam int MODE100=2,VARIANT100=1;

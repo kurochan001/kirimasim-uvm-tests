@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_explicit_deep_recording_links_the_selected_recorder_handle.expected
 */
+// What it checks:
+// 1. A recorded begin exposes the opened recorder handle.
+// 2. An ended transaction has no live transaction handle.
+// 3. Recorded begin calls object recording on the transaction.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.4.2.8 (UVM-BASE-AUDIT-ENABLED-HANDLE) gives rule 1 above.
+//    Setup: Use fresh original transactions and legally opened streams,
+//    positive begin/end times and exact original recorder identities.
+//    Expected: The nonzero begin/getter handles agree and resolve to the exact
+//    original recorder.
+// 2. 1800.2-2020 5.4.2.8 (UVM-BASE-AUDIT-ENDED-HANDLE) gives rule 2 above.
+//    Setup: Use fresh original transactions and legally opened streams,
+//    positive begin/end times and exact original recorder identities.
+//    Expected: The getter returns zero; the default free releases the recorder
+//    handle and ID lookup becomes null.
+// 3. 1800.2-2020 5.4.2.4 (UVM-BASE-AUDIT-BEGIN-RECORD-OBJECT) gives rule 3
+//    above. Setup: Use fresh original transactions and legally opened streams,
+//    positive begin/end times and exact original recorder identities.
+//    Expected: The original recorder object hook observes the exact
+//    transaction handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_transaction_explicit_deep_recording_links_the_selected_recorder_handle;
   import uvm_pkg::*;
   class transaction_type extends uvm_transaction;

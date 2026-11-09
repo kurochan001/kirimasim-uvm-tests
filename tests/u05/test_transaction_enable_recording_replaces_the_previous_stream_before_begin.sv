@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_enable_recording_replaces_the_previous_stream_before_begin.expected
 */
+// What it checks:
+// The most recently enabled stream replaces the prior stream.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.4.2.9 (UVM-BASE-AUDIT-RECORDING-REPLACE) gives the rule above.
+// Setup: Use fresh original transactions and legally opened streams, positive
+// begin/end times and exact original recorder identities. Expected: Only the
+// second stream opens a recorder and its handle is returned.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_transaction_enable_recording_replaces_the_previous_stream_before_begin;
   import uvm_pkg::*;
   class transaction_type extends uvm_transaction;

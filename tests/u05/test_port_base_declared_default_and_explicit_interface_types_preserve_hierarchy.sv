@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_port_base_declared_default_and_explicit_interface_types_preserve_hierarchy.expected
 */
+// What it checks:
+// 1. The port base defaults IF to uvm_void and extends an explicit selected
+//    IF.
+// 2. A base port retains selected component-like name/path/parent properties.
+// 3. The selected generic port constructor defaults minimum/maximum
+//    connections to zero/one.
+// 4. Without a concrete name override the base exposes its generic
+//    port/export/implementation names.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.5.1 (UVM-BASE-AUDIT-PORT-INTERFACE) gives rule 1 above.
+//    Setup: Original default/explicit-IF extensions implement the listed query
+//    hooks with matching formal names; inspect constructor metadata before
+//    binding. Expected: Exact default receiver assignment works and the
+//    selected interface marker is inherited.
+// 2. 1800.2-2020 5.5 (UVM-BASE-AUDIT-PORT-ROLE) gives rule 2 above. Setup:
+//    Original default/explicit-IF extensions implement the listed query hooks
+//    with matching formal names; inspect constructor metadata before binding.
+//    Expected: The leaf/full name and parent match the original owner
+//    hierarchy.
+// 3. 1800.2-2020 5.5.2.1 (UVM-BASE-AUDIT-PORT-DEFAULTS) gives rule 3 above.
+//    Setup: Original default/explicit-IF extensions implement the listed query
+//    hooks with matching formal names; inspect constructor metadata before
+//    binding. Expected: Public min_size/max_size report zero/one.
+// 4. 1800.2-2020 5.5.2.5 (UVM-BASE-AUDIT-PORT-GENERIC-NAMES) gives rule 4
+//    above. Setup: Original default/explicit-IF extensions implement the
+//    listed query hooks with matching formal names; inspect constructor
+//    metadata before binding. Expected: The three constructed kinds report the
+//    listed generic names.
+// It also supports, as a control, the setup or conditions of
+// UVM-BASE-AUDIT-PORT-VIRTUAL.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_port_base_declared_default_and_explicit_interface_types_preserve_hierarchy;
   import uvm_pkg::*;
   class owner extends uvm_component;

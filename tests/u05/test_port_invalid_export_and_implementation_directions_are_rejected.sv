@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_port_invalid_export_and_implementation_directions_are_rejected.expected
 */
+// What it checks:
+// 1. An export cannot form an outgoing connection to a port.
+// 2. An implementation bound at construction cannot form another outgoing
+//    binding.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.5.2.14 (UVM-PORT-EXPORT-TO-PORT-REJECTED) gives rule 1
+//    above. Setup: Attempt an otherwise compatible blocking-put export-to-port
+//    binding. Expected: No outgoing binding is retained.
+// 2. 1800.2-2020 5.5.2.14 (UVM-PORT-IMPLEMENTATION-OUTGOING-REJECTED) gives
+//    rule 2 above. Setup: Attempt to connect one implementation to a peer
+//    implementation. Expected: The implementation retains no outgoing binding.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_port_invalid_export_and_implementation_directions_are_rejected;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

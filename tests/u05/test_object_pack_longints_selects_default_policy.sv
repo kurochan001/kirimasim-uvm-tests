@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_object_pack_longints_selects_default_policy.expected
 */
+// What it checks:
+// 1. Object pack selects the default packer when its policy argument is
+//    omitted.
+// 2. Object unpack selects the default packer when its policy argument is
+//    omitted.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.10.1 (UVM-OBJECT-PACK-DEFAULT) gives rule 1 above. Setup:
+//    Install a counting default policy and use a longint stream. Expected:
+//    Each default-policy hook runs once and the scalar payload is restored.
+// 2. 1800.2-2020 5.3.11.1 (UVM-OBJECT-UNPACK-DEFAULT) gives rule 2 above.
+//    Setup: Install a counting default policy and use a longint stream.
+//    Expected: Each default-policy hook runs once and the scalar payload is
+//    restored.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An explicit default policy records the pack and unpack calls. Its
 // custom counters are independent of the policy internal stream state.
 

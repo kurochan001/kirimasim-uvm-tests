@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_object_do_print_virtual_hook_uses_each_supplied_policy_without_stale_state.expected
 */
+// What it checks:
+// 1. do_print supports the declared virtual hook dispatch through a base
+//    object handle.
+// 2. The direct virtual hook receives the supplied printer policy object.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.6.3 (UVM-OBJECT-TRAIT-DO-PRINT-VIRTUAL-DISPATCH) gives
+//    rule 1 above. Setup: The same derived object is called through uvm_object
+//    with two original capture printers. Expected: The derived hook runs once
+//    per selected direct call.
+// 2. 1800.2-2020 5.3.6.3 (UVM-OBJECT-TRAIT-DO-PRINT-POLICY-ARGUMENT) gives
+//    rule 2 above. Setup: The same derived object is called through uvm_object
+//    with two original capture printers. Expected: The first and second calls
+//    see their respective supplied policies.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Call the virtual UVM hook through a base-typed handle. The original
 // printer captures public arguments; no formatted output or outer-print
 // lifecycle

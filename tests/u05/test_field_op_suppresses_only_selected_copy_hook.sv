@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_field_op_suppresses_only_selected_copy_hook.expected
 */
+// What it checks:
+// 1. A fresh or reset field operation enables its user hook by default.
+// 2. disable_user_hook prevents the selected operation from calling its user
+//    hook.
+// 3. The selected virtual copy hook copies rhs payload through its original
+//    typed extension.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.7.2.7 (UVM-FIELD-OP-HOOK-DEFAULT) gives rule 1 above.
+//    Setup: Disable the hook for one operation, then flush or perform another
+//    copy operation. Expected: The later operation starts enabled and can
+//    invoke its user hook.
+// 2. 1800.2-2020 5.7.2.8 (UVM-FIELD-OP-HOOK-DISABLE) gives rule 2 above.
+//    Setup: Disable explicitly or from do_execute_op before the copier reaches
+//    do_copy. Expected: The enabled bit becomes zero and the suppressed copy
+//    hook leaves the fixture payload unchanged.
+// 3. 1800.2-2020 5.3.8.2 (UVM-BASE-AUDIT-COPY-HOOK) gives rule 3 above. Setup:
+//    Reassess the unchanged real copier fixture with disabled then enabled
+//    user-hook phases. Expected: Suppression leaves payload three; the later
+//    enabled hook copies twenty-nine once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // do_execute_op can disable the following do_copy call. A later operation
 // starts with the hook enabled and copies the new payload normally.
 

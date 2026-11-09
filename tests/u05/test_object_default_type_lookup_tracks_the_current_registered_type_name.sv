@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_object_default_type_lookup_tracks_the_current_registered_type_name.expected
 */
+// What it checks:
+// 1. Default get_object_type returns null for an unregistered virtual type
+//    name.
+// 2. Default get_object_type looks up the current virtual type-name result in
+//    the factory.
+// 3. The default proxy lookup uses type name independently of instance name.
+// 4. Changing one default-lookup object does not change its peer type-name
+//    lookup.
+// 5. Returning to an unregistered type name clears the formerly resolved proxy
+//    result.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.4.6 (UVM-OBJECT-TRAIT-DEFAULT-UNKNOWN-NULL) gives rule 1
+//    above. Setup: The lookup object initially reports a unique unregistered
+//    type name. Expected: Its proxy is null, as is the independent peer proxy.
+// 2. 1800.2-2020 5.3.4.6 (UVM-OBJECT-TRAIT-DEFAULT-REGISTERED-LOOKUP) gives
+//    rule 2 above. Setup: The controlled type-name result changes to
+//    registered_value. Expected: The returned proxy matches the registered
+//    wrapper.
+// 3. 1800.2-2020 5.3.4.6 (UVM-OBJECT-TRAIT-DEFAULT-INSTANCE-NAME-INDEPENDENCE)
+//    gives rule 3 above. Setup: Instance name changes while virtual type name
+//    remains registered_value. Expected: Lookup still returns the registered
+//    proxy.
+// 4. 1800.2-2020 5.3.4.6 (UVM-OBJECT-TRAIT-DEFAULT-LOOKUP-PEER-ISOLATION)
+//    gives rule 4 above. Setup: One object changes its lookup name while the
+//    peer remains unregistered. Expected: The changed object resolves and the
+//    peer remains null.
+// 5. 1800.2-2020 5.3.4.6 (UVM-OBJECT-TRAIT-DEFAULT-LOOKUP-REFRESH) gives rule
+//    5 above. Setup: The same object changes from known type name back to the
+//    unknown name. Expected: The new query returns null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The lookup class inherits default get_object_type. It exposes
 // a controlled type-name string, while the registered peer uses standard
 // macros.

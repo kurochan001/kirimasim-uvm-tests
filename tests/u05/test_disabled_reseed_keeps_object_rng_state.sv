@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_disabled_reseed_keeps_object_rng_state.expected
 */
+// What it checks:
+// reseed leaves object RNG state unchanged while UVM seeding is disabled.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.3.3 (UVM-RESEED-DISABLED) gives the rule above. Setup:
+// Compare one object state before/after disabled reseed, including after
+// rename. Expected: Opaque RNG states compare equal without fixing their
+// serialization or random values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the opaque RNG state only for equality on the same object.
 // No serialized state contents or generated random values are prescribed.
 

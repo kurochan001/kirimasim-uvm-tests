@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_port_binding_resolution_returns_distinct_implementation_handles_after_elaboration.expected
 */
+// What it checks:
+// Automatic binding resolution follows an export fanout to its distinct final
+// implementations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.5.2.15 (UVM-PORT-EXPORT-FANOUT-RESOLUTION) gives the rule
+// above. Setup: Connect one export to two distinct implementations, then query
+// only after elaboration. Expected: Resolved size is two; both indexed handles
+// are the exact distinct implementations and default get_if agrees with index
+// zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_port_binding_resolution_returns_distinct_implementation_handles_after_elaboration;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

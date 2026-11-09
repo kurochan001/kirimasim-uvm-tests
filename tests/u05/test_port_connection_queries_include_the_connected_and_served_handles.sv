@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_port_connection_queries_include_the_connected_and_served_handles.expected
 */
+// What it checks:
+// 1. Connection queries include each exact immediate provider handle.
+// 2. A provider query includes the exact client port served by the export.
+// 3. Compatible typed port/export/implementation bindings establish the
+//    selected provider chain.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.5.2.9 (UVM-PORT-CONNECTED-PROVIDER-MEMBERSHIP) gives rule 1
+//    above. Setup: Connect one int blocking-put port to an export and that
+//    export to a matching implementation. Expected: Port lists its export and
+//    export lists its implementation.
+// 2. 1800.2-2020 5.5.2.10 (UVM-PORT-PROVIDED-CLIENT-MEMBERSHIP) gives rule 2
+//    above. Setup: Connect one int blocking-put port to an export and that
+//    export to a matching implementation. Expected: The export provided-to
+//    list contains the exact requesting port.
+// 3. 1800.2-2020 5.5.2.14 (UVM-PORT-COMPATIBLE-CONNECTION-CHAIN) gives rule 3
+//    above. Setup: Connect one int blocking-put port to an export and that
+//    export to a matching implementation. Expected: Exact provider, client and
+//    implementation memberships are observed after connect.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_port_connection_queries_include_the_connected_and_served_handles;
   import uvm_pkg::*;
   class sink extends uvm_component;

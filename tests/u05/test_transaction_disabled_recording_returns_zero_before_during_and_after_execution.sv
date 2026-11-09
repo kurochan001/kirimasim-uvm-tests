@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_disabled_recording_returns_zero_before_during_and_after_execution.expected
 */
+// What it checks:
+// A nonrecording transaction has a zero transaction handle before/during/after
+// execution.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.4.2.8 (UVM-BASE-AUDIT-DISABLED-HANDLE) gives the rule above.
+// Setup: Use fresh original transactions and legally opened streams, positive
+// begin/end times and exact original recorder identities. Expected: The begin
+// return and handle getter are zero while selected lifecycle-state
+// observations remain separate.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_transaction_disabled_recording_returns_zero_before_during_and_after_execution;
   import uvm_pkg::*;
   class transaction_type extends uvm_transaction;

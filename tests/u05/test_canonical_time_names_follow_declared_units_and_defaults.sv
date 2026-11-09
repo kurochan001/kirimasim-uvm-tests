@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_canonical_time_names_follow_declared_units_and_defaults.expected
 */
+// What it checks:
+// 1. Canonical time exposes its default and explicit instance names.
+// 2. The canonical time class is constructible with the declared selected
+//    parameters.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.6.2.3 (UVM-BASE-AUDIT-TIME-NAMES) gives rule 1 above.
+//    Setup: Use a module with explicit 1-ps units/precision, legal 1-ns/1-ps
+//    scale literals and a one-picosecond canonical resolution. Expected: The
+//    default name is uvm_time and the peer retains peer61.
+// 2. 1800.2-2020 5.6.1 (UVM-BASE-AUDIT-TIME-DECLARATION) gives rule 2 above.
+//    Setup: Use a module with explicit 1-ps units/precision, legal 1-ns/1-ps
+//    scale literals and a one-picosecond canonical resolution. Expected:
+//    Omitted/named constructions and the initial zero absolute value are
+//    available.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_canonical_time_names_follow_declared_units_and_defaults;
   timeunit 1ps; timeprecision 1ps;
   import uvm_pkg::*;

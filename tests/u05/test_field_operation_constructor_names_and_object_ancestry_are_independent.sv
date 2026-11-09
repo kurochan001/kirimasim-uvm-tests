@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_field_operation_constructor_names_and_object_ancestry_are_independent.expected
 */
+// What it checks:
+// 1. A field operation retains omitted/explicit names.
+// 2. The field-operation descriptor derives from uvm_object.
+// 3. A field operation carries the selected operation, policy and rhs for
+//    field processing.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.7.2.1 (UVM-BASE-AUDIT-FIELD-NEW) gives rule 1 above. Setup:
+//    Construct three original descriptors, then initialize one valid copy
+//    operation with an original source/copier. Expected: Omitted and explicit
+//    empty names are empty, the named object is named61.
+// 2. 1800.2-2020 5.7.1 (UVM-BASE-AUDIT-FIELD-ANCESTRY) gives rule 2 above.
+//    Setup: Construct three original descriptors, then initialize one valid
+//    copy operation with an original source/copier. Expected: The static
+//    object receiver retains the same field-operation handle.
+// 3. 1800.2-2020 5.7 (UVM-BASE-AUDIT-FIELD-ROLE) gives rule 3 above. Setup:
+//    Construct three original descriptors, then initialize one valid copy
+//    operation with an original source/copier. Expected: The selected copy
+//    descriptor reports copy/UVM_COPY and the exact original policy/source.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_field_operation_constructor_names_and_object_ancestry_are_independent;
   import uvm_pkg::*;
   class original_object extends uvm_object;

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_object_compare_honors_hook_return.expected
 */
+// What it checks:
+// Object compare propagates the comparison policy result.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.9.1 (UVM-OBJECT-COMPARE-RETURN) gives the rule above. Setup:
+// A user comparison hook rejects or accepts without incrementing miscompare
+// counts. Expected: The result follows the hook even when the counter is zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A do_compare hook can reject a comparison independently of the policy
 // miscompare counter. Its return value must participate in the final result.
 

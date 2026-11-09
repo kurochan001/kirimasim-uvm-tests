@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_clone_results_are_independent.expected
 */
+// What it checks:
+// Copied scalar state in separate clones remains independent after subsequent
+// updates.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.5.2 (UVM-CLONE-INDEPENDENT) gives the rule above. Setup: Two
+// clones start from scalar value 63, then the source and one clone change.
+// Expected: All handles differ; resulting scalar values are 91, 12 and 63.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Clause 5.3.5.2 specifies the clone result, without requiring a particular
 // sequence of creation and copy callbacks. Two clones must retain the copied
 // payload independently when either the source or another clone is modified.

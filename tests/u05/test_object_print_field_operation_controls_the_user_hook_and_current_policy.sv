@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_object_print_field_operation_controls_the_user_hook_and_current_policy.expected
 */
+// What it checks:
+// 1. The original print customization uses the supplied printer API for
+//    fields.
+// 2. Field-operation dispatch precedes the selected user print hook.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.6 (UVM-BASE-AUDIT-PRINT-POLICY-API) gives rule 1 above.
+//    Setup: Use an original emit string and field observer with real sprint
+//    entry calls. Expected: The selected field and custom emit result
+//    propagate through the policy.
+// 2. 1800.2-2020 5.3.13 (UVM-BASE-AUDIT-FIELD-PRINT-ORDER) gives rule 2 above.
+//    Setup: The original do_execute_op checks UVM_PRINT/current policy and
+//    conditionally disables the user hook. Expected: The disabled trace is E
+//    with no user field; the next enabled operation is EP with the selected
+//    payload.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_object_print_field_operation_controls_the_user_hook_and_current_policy;
   import uvm_pkg::*;
   class original_object extends uvm_object;

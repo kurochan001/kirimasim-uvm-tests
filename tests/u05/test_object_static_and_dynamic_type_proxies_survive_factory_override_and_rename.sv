@@ -12,6 +12,61 @@
 :expected_exit: 0
 :expected_stdout: @test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename.expected
 */
+// What it checks:
+// 1. Static get_type identifies its declared type independently of a factory
+//    override.
+// 2. Virtual get_object_type identifies the allocated dynamic object type.
+// 3. get_type_name returns the defined type name of the current dynamic
+//    object.
+// 4. Instance renaming preserves its dynamic type proxy.
+// 5. Instance renaming leaves the defined type name unchanged.
+// 6. Object utility macros implement the static type-proxy API.
+// 7. Object utility macros implement an instance proxy for its actual type.
+// 8. Object utility macros implement get_type_name using the supplied type
+//    name.
+// 9. Component utility macros implement get_type_name using the supplied type
+//    name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.4.5 (UVM-OBJECT-TRAIT-STATIC-PROXY-STABILITY) gives rule
+//    1 above. Setup: Registered base/child object types and one component type
+//    are queried around a base-to-child factory override. Expected: Base and
+//    child static proxies retain their saved, distinct identities.
+// 2. 1800.2-2020 5.3.4.6 (UVM-OBJECT-TRAIT-DYNAMIC-PROXY-ACTUAL-TYPE) gives
+//    rule 2 above. Setup: Registered base/child object types and one component
+//    type are queried around a base-to-child factory override. Expected:
+//    Direct base returns base proxy; a factory-created child through a base
+//    handle returns child proxy.
+// 3. 1800.2-2020 5.3.4.7 (UVM-OBJECT-TRAIT-DYNAMIC-TYPE-NAME) gives rule 3
+//    above. Setup: Registered base/child object types and one component type
+//    are queried around a base-to-child factory override. Expected: The direct
+//    and created instances identify base_value and child_value.
+// 4. 1800.2-2020 5.3.4.6 (UVM-OBJECT-TRAIT-RENAME-PRESERVES-PROXY) gives rule
+//    4 above. Setup: Registered base/child object types and one component type
+//    are queried around a base-to-child factory override. Expected: Renamed
+//    child still returns the child proxy.
+// 5. 1800.2-2020 5.3.4.7 (UVM-OBJECT-TRAIT-RENAME-PRESERVES-TYPE-NAME) gives
+//    rule 5 above. Setup: Registered base/child object types and one component
+//    type are queried around a base-to-child factory override. Expected:
+//    Renamed instance still identifies child_value.
+// 6. 1800.2-2020 B.2.1.2 (UVM-OBJECT-TRAIT-OBJECT-MACRO-STATIC-PROXY) gives
+//    rule 6 above. Setup: Registered base/child object types and one component
+//    type are queried around a base-to-child factory override. Expected:
+//    Macro-generated base/child proxies retain distinct identity.
+// 7. 1800.2-2020 B.2.1.2 (UVM-OBJECT-TRAIT-OBJECT-MACRO-DYNAMIC-PROXY) gives
+//    rule 7 above. Setup: Registered base/child object types and one component
+//    type are queried around a base-to-child factory override. Expected: The
+//    allocated child proxy is returned through a base object handle.
+// 8. 1800.2-2020 B.2.1.2 (UVM-OBJECT-TRAIT-OBJECT-MACRO-TYPE-NAME) gives rule
+//    8 above. Setup: Registered base/child object types and one component type
+//    are queried around a base-to-child factory override. Expected: Generated
+//    type strings identify base_value and child_value.
+// 9. 1800.2-2020 B.2.1.3 (UVM-OBJECT-TRAIT-COMPONENT-MACRO-TYPE-NAME) gives
+//    rule 9 above. Setup: Registered base/child object types and one component
+//    type are queried around a base-to-child factory override. Expected: The
+//    component type string identifies component_value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Keep direct construction separate from registry construction under
 // override.
 // Only proxy identity and defined type strings are checked, not numeric IDs.

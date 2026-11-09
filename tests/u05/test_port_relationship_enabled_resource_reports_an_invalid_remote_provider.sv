@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_port_relationship_enabled_resource_reports_an_invalid_remote_provider.expected
 */
+// What it checks:
+// 1. Port hierarchy relationship checks are disabled by default.
+// 2. A nonzero matching typed relationship resource enables hierarchy checks
+//    and invalid hierarchy generates a warning.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.5.2.14 (UVM-PORT-RELATIONSHIP-DEFAULT-DISABLED) gives rule
+//    1 above. Setup: Connect a compatible implementation below a remote branch
+//    without a resource setting. Expected: No warning or error is issued for
+//    that hierarchy.
+// 2. 1800.2-2020 5.5.2.14 (UVM-PORT-RELATIONSHIP-NONZERO-ENABLE-WARNING) gives
+//    rule 2 above. Setup: Use value seven for a port whose provider is neither
+//    parent port nor sibling export/imp. Expected: One warning, no error, and
+//    the type-compatible connection are observed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_port_relationship_enabled_resource_reports_an_invalid_remote_provider;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

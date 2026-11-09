@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_object_compare_flushes_previous_result.expected
 */
+// What it checks:
+// Top-level object comparison flushes the comparer before starting a new
+// comparison.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.9.1 (UVM-OBJECT-COMPARE-FLUSH) gives the rule above. Setup:
+// Use the same comparer for a mismatch followed by an equal comparison at
+// active depth zero. Expected: The equal comparison has no retained
+// miscompares or mismatch text.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The object comparison entry point flushes the comparer before a new
 // operation. Compare both fields even when the first one differs.
 

@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_canonical_time_explicit_decrement_seconds_preserve_units_and_peer.expected
 */
+// What it checks:
+// 1. Explicit seconds decrement the selected canonical time and preserve a
+//    peer.
+// 2. Absolute getters express the selected canonical value in requested
+//    seconds units.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.6.2.7 (UVM-BASE-AUDIT-TIME-DECREMENT-EXPLICIT) gives rule 1
+//    above. Setup: Use a module with explicit 1-ps units/precision, legal
+//    1-ns/1-ps scale literals and a one-picosecond canonical resolution.
+//    Expected: Five minus two minus one gives two nanoseconds; the peer
+//    remains seven.
+// 2. 1800.2-2020 5.6.2.8 (UVM-BASE-AUDIT-TIME-ABSOLUTE) gives rule 2 above.
+//    Setup: Use a module with explicit 1-ps units/precision, legal 1-ns/1-ps
+//    scale literals and a one-picosecond canonical resolution. Expected: The
+//    selected ps/ns observations agree with the independently calculated
+//    values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit seconds isolate arithmetic from the separate omitted-default probe.
 module test_canonical_time_explicit_decrement_seconds_preserve_units_and_peer;
   timeunit 1ps; timeprecision 1ps;

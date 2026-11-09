@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_object_rename_updates_identity.expected
 */
+// What it checks:
+// 1. set_name replaces the selected object instance name.
+// 2. A plain object full name follows its instance name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.4.1 (UVM-OBJECT-RENAME) gives rule 1 above. Setup: Rename
+//    or clear one object name while another has the same original name.
+//    Expected: Only the selected object name changes.
+// 2. 1800.2-2020 5.3.4.3 (UVM-OBJECT-PLAIN-FULL-NAME) gives rule 2 above.
+//    Setup: Use objects without component hierarchy and change their names.
+//    Expected: get_name and get_full_name agree, including the empty name.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The name accessors follow set_name. A plain object has no component
 // hierarchy, so its full name follows its instance name as well.
 

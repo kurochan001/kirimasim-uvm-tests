@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_object_copy_uses_explicit_policy_each_time.expected
 */
+// What it checks:
+// Object copy uses the supplied copier, or the default when none is supplied.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.8.1 (UVM-OBJECT-COPY-POLICY) gives the rule above. Setup:
+// Install a counting default copier, supply another explicitly and repeat a
+// copy after changing data. An additional fixture alternates explicit copier
+// subtypes A/B/A with fresh recorder operations between copies and source
+// bytes 31/52/73 hexadecimal. Expected: Each selected policy is invoked for
+// its operation and copies current scalar data. The additional selected copier
+// receives exact lhs/rhs handles, the other observer stays idle, and each
+// current byte reaches the target.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The copy entry point calls the supplied copier for each operation. A
 // second copy of the same pair observes an updated source payload.
 

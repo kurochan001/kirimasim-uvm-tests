@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_object_set_local_virtual_extension_selects_named_resource_properties.expected
 */
+// What it checks:
+// A designer-defined set_local hook can select accessible properties by
+// resource name.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.12 (UVM-BASE-AUDIT-CONFIGURATION-HOOK) gives the rule above.
+// Setup: The original override accepts only chosen61 and reads the exact typed
+// resource through a base-view call. Expected: The chosen value changes, an
+// unselected property/peer is preserved and the original hook sees the exact
+// resource handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_object_set_local_virtual_extension_selects_named_resource_properties;
   import uvm_pkg::*;
   class original_object extends uvm_object;

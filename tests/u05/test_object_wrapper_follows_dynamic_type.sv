@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_object_wrapper_follows_dynamic_type.expected
 */
+// What it checks:
+// The virtual object type query identifies the allocated object type proxy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.4.6 (UVM-OBJECT-DYNAMIC-TYPE-PROXY) gives the rule above.
+// Setup: Query registered base/derived objects through static and base
+// handles. Expected: Object and matching static wrappers agree, while base and
+// derived wrappers differ.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The virtual type query follows the allocated object. The base class
 // static wrapper remains distinct from the derived class static wrapper.
 

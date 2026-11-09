@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_object_record_ignores_null_policies_and_delegates_the_same_object_to_a_supplied_recorder.expected
 */
+// What it checks:
+// 1. Omitted and explicit-null record policies are silently ignored by the
+//    object record wrapper.
+// 2. With a supplied recorder, the object record wrapper passes that same
+//    object to the selected recorder operation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.7.1 (UVM-RECORDING-AUDIT-OBJECT-RECORD-NULL-IGNORED)
+//    gives rule 1 above. Setup: Call the actual object record wrapper. Null
+//    cases observe original report and object hooks; the nonnull case uses an
+//    opened original recorder with explicit DEEP recursion and a
+//    do_record_object observer. Expected: Omitted and explicit-null record
+//    policies are silently ignored by the object record wrapper.
+// 2. 1800.2-2020 5.3.7.1 (UVM-RECORDING-AUDIT-OBJECT-RECORD-SAME-DELEGATION)
+//    gives rule 2 above. Setup: Call the actual object record wrapper. Null
+//    cases observe original report and object hooks; the nonnull case uses an
+//    opened original recorder with explicit DEEP recursion and a
+//    do_record_object observer. Expected: With a supplied recorder, the object
+//    record wrapper passes that same object to the selected recorder
+//    operation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_object_record_ignores_null_policies_and_delegates_the_same_object_to_a_supplied_recorder;
   import uvm_pkg::*;

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_field_operation_hook_enabled_after_flush_before_next_set.expected
 */
+// What it checks:
+// Resetting a field operation restores its default hook-enable state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.7.2.9 (UVM-BASE-AUDIT-FIELD-FLUSH-HOOK) gives the rule above.
+// Setup: Set a copy operation, disable its hook, flush, and query the hook bit
+// before another set. Expected: The hook bit is true without an error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_field_operation_hook_enabled_after_flush_before_next_set;
   import uvm_pkg::*;
   class reports extends uvm_report_catcher;

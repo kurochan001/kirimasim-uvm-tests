@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_port_binding_resolution_checks_lower_and_upper_cardinality_bounds.expected
 */
+// What it checks:
+// Resolution checks both required minimum and maximum connection
+// cardinalities.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.5.2.15 (UVM-PORT-RESOLUTION-CARDINALITY-BOUNDS) gives the rule
+// above. Setup: Use an empty minimum-one export, a maximum-one export with two
+// imps and a valid one-to-two control. Expected: Resolved sizes are 0/2/2;
+// each invalid port reports its violation and the valid control remains
+// diagnostic-free.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_port_binding_resolution_checks_lower_and_upper_cardinality_bounds;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

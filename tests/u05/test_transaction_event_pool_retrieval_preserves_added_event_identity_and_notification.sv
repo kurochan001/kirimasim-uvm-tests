@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_event_pool_retrieval_preserves_added_event_identity_and_notification.expected
 */
+// What it checks:
+// Repeated associated-pool access retains an added event and its notification.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.4.2.13 (UVM-BASE-AUDIT-TRANSACTION-EVENT-POOL) gives the rule
+// above. Setup: Create one original custom event through the transaction pool;
+// a positively delayed trigger releases a waiter reached through another
+// getter view. Expected: Pool/event identity is stable and the waiter is
+// pending before the trigger, resumed afterward.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // No initial pool membership or exclusive per-transaction ownership is assumed.
 module test_transaction_event_pool_retrieval_preserves_added_event_identity_and_notification;
   import uvm_pkg::*;

@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_port_relationship_checks_default_off_and_explicit_zero_allow_remote_providers.expected
 */
+// What it checks:
+// 1. Port hierarchy relationship checks are disabled by default.
+// 2. A matching typed relationship resource with value zero disables checking.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.5.2.14 (UVM-PORT-RELATIONSHIP-DEFAULT-DISABLED) gives rule
+//    1 above. Setup: Connect a compatible implementation below a remote branch
+//    without a resource setting. Expected: No warning or error is issued for
+//    that hierarchy.
+// 2. 1800.2-2020 5.5.2.14 (UVM-PORT-RELATIONSHIP-ZERO-DISABLED) gives rule 2
+//    above. Setup: Set check_connection_relationships to zero for owner.p
+//    before construction. Expected: The remote connection is retained without
+//    warning or error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library treats a present zero-valued setting as enabled.
 module test_port_relationship_checks_default_off_and_explicit_zero_allow_remote_providers;
   import uvm_pkg::*;

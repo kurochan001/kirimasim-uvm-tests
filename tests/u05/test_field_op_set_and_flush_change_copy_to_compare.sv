@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_field_op_set_and_flush_change_copy_to_compare.expected
 */
+// What it checks:
+// 1. A valid field-operation set associates the selected operation, policy and
+//    optional rhs.
+// 2. Flush permits a new operation to replace the old descriptor state.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.7.2.2 (UVM-FIELD-OP-SET-ASSOCIATIONS) gives rule 1 above.
+//    Setup: Query only after set and flush between operations, including null
+//    rhs. Expected: Operation, policy and rhs queries match each newly
+//    supplied association.
+// 2. 1800.2-2020 5.7.2.9 (UVM-BASE-AUDIT-FIELD-FLUSH-REUSE) gives rule 2
+//    above. Setup: Reassess the existing unchanged field-operation fixture and
+//    compatible record. Expected: The old copy becomes compare with the newly
+//    selected policy/rhs identities.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Operation names are specified by Table 1. Query only after set, and
 // flush before changing the operation, policy and right-hand-side object.
 

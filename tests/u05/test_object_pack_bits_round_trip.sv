@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_object_pack_bits_round_trip.expected
 */
+// What it checks:
+// Object unpack restores fields from a matching packed stream using the
+// specified field order.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.11.1 (UVM-OBJECT-UNPACK-FIELDS) gives the rule above. Setup:
+// Use paired custom pack/unpack hooks with bit and byte arrays. Expected:
+// Selected payloads round-trip and packed/unpacked bit counts are positive and
+// equal.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The fixed entry points invoke the user pack and unpack hooks.
 // Observe field values and returned bit counts, without fixing stream layout.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_object_pack_ints_reuses_policy_without_appending.expected
 */
+// What it checks:
+// Top-level object packing replaces prior packer state after flushing it.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.10.1 (UVM-OBJECT-PACK-FLUSH) gives the rule above. Setup:
+// Reuse the same integer stream and policy after changing two fields.
+// Expected: Unpacking the second stream yields the second payload rather than
+// the first.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Each top-level pack starts a new operation. Reusing the policy and
 // stream must expose the second payload without retaining the first one.
 

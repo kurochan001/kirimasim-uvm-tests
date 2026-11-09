@@ -12,6 +12,17 @@
 :should_fail_because: direct construction of the virtual port base is illegal
 :expected_stderr_regex: (?i)^(?=.*test_port_base_virtual_declaration_rejects_direct_construction\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:virtual|abstract)\b)(?=.*\buvm_port_base\b).*error
 */
+// What it checks:
+// Direct construction of the virtual port base is illegal.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.5.1 (UVM-BASE-AUDIT-PORT-VIRTUAL) gives the rule above. Setup:
+// One minimal illegal construction/member use is isolated with a separately
+// compiled legal extension control. Expected: The declared fixture/type/member
+// diagnostic predicate matches compiler rejection; no runtime seed runs, even
+// if accepted.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_port_base_virtual_declaration_rejects_direct_construction;
   import uvm_pkg::*;
   initial begin

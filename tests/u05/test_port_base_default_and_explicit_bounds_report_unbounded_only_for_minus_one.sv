@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_port_base_default_and_explicit_bounds_report_unbounded_only_for_minus_one.expected
 */
+// What it checks:
+// 1. Omitted base constructor bounds default to zero minimum and one maximum.
+// 2. Minimum-bound queries preserve the configured lower limits.
+// 3. Maximum-bound queries preserve finite, zero and unbounded settings.
+// 4. Only a maximum of minus one makes the configured port unbounded.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.5.2.1 (UVM-PORT-CONSTRUCTOR-DEFAULT-BOUNDS) gives rule 1
+//    above. Setup: Query a default constructor that omits base bounds and
+//    explicit 2/3, 0/-1 and 0/0 configurations before resolution. Expected:
+//    The default probe reports minimum zero and maximum one.
+// 2. 1800.2-2020 5.5.2.6 (UVM-PORT-MINIMUM-BOUND-QUERY) gives rule 2 above.
+//    Setup: Query a default constructor that omits base bounds and explicit
+//    2/3, 0/-1 and 0/0 configurations before resolution. Expected: The
+//    default/bounded/unlimited/closed minima are 0/2/0/0.
+// 3. 1800.2-2020 5.5.2.7 (UVM-PORT-MAXIMUM-BOUND-QUERY) gives rule 3 above.
+//    Setup: Query a default constructor that omits base bounds and explicit
+//    2/3, 0/-1 and 0/0 configurations before resolution. Expected: The maxima
+//    are 1/3/-1/0 for the four probes.
+// 4. 1800.2-2020 5.5.2.8 (UVM-PORT-UNBOUNDED-MINUS-ONE) gives rule 4 above.
+//    Setup: Query a default constructor that omits base bounds and explicit
+//    2/3, 0/-1 and 0/0 configurations before resolution. Expected: Only the
+//    minus-one probe reports unbounded; zero and positive limits do not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_port_base_default_and_explicit_bounds_report_unbounded_only_for_minus_one;
   import uvm_pkg::*;
   class holder extends uvm_component;

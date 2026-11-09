@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_object_id_survives_rename_and_clone.expected
 */
+// What it checks:
+// Instance IDs distinguish live objects and remain stable over each object
+// lifetime.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.4.4 (UVM-OBJECT-INSTANCE-ID) gives the rule above. Setup:
+// Hold all handles live while aliasing, renaming and cloning objects.
+// Expected: Aliases retain an ID, different objects have different IDs, and
+// rename preserves the source ID.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An ID remains unique to its object throughout its lifetime. Hold both
 // handles so ID reuse after garbage collection cannot affect this check.
 

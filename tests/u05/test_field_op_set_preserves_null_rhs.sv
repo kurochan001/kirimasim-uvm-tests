@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_field_op_set_preserves_null_rhs.expected
 */
+// What it checks:
+// A valid field-operation set associates the selected operation, policy and
+// optional rhs.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.7.2.2 (UVM-FIELD-OP-SET-ASSOCIATIONS) gives the rule above.
+// Setup: Query only after set and flush between operations, including null
+// rhs. Expected: Operation, policy and rhs queries match each newly supplied
+// association.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Print and unpack can carry their selected policies without an rhs.
 // Flush separates the two operations and removes the preceding association.
 

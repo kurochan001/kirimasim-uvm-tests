@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_transaction_lifecycle_triggers_named_events.expected
 */
+// What it checks:
+// 1. Transaction accept triggers its named event in the transaction event
+//    pool.
+// 2. Transaction begin triggers its named event in the transaction event pool.
+// 3. Transaction end triggers its named event in the transaction event pool.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.4.2.2 (UVM-TRANSACTION-ACCEPT-EVENT) gives rule 1 above.
+//    Setup: Acquire the three event handles before running the lifecycle.
+//    Expected: Each event becomes on only after its matching lifecycle call.
+// 2. 1800.2-2020 5.4.2.4 (UVM-TRANSACTION-BEGIN-EVENT) gives rule 2 above.
+//    Setup: Acquire the three event handles before running the lifecycle. Also
+//    observe explicit zero-time component lifecycle calls made by a real
+//    pull/push driver after automatic recording was disabled through the
+//    sequencer base API. Expected: Each event becomes on only after its
+//    matching lifecycle call. The selected named callback is invoked once for
+//    the actual transaction event.
+// 3. 1800.2-2020 5.4.2.6 (UVM-TRANSACTION-END-EVENT) gives rule 3 above.
+//    Setup: Acquire the three event handles before running the lifecycle. Also
+//    observe explicit zero-time component lifecycle calls made by a real
+//    pull/push driver after automatic recording was disabled through the
+//    sequencer base API. Expected: Each event becomes on only after its
+//    matching lifecycle call. The selected named callback is invoked once for
+//    the actual transaction event.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Obtain the three events from the transaction event pool before use.
 // Observe their persistent on state after each matching lifecycle operation.
 

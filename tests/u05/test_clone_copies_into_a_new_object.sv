@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_clone_copies_into_a_new_object.expected
 */
+// What it checks:
+// A successful clone creates a separate object with copied state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.5.2 (UVM-CLONE-DISTINCT) gives the rule above. Setup: A
+// registered object with a working create/copy implementation and scalar value
+// 37. Expected: The clone is a distinct handle and initially holds 37.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A clone returns a separate object containing the source payload.
 // Observe its type, payload and distinct handle without assuming an ID.
 

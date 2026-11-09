@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_object_do_record_virtual_hook_uses_current_recorder_policy_fields.expected
 */
+// What it checks:
+// 1. The virtual recording hook receives each supplied recorder policy.
+// 2. The original recording hook records fields through the recorder policy
+//    API.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.7.2 (UVM-BASE-AUDIT-RECORD-HOOK) gives rule 1 above.
+//    Setup: Call the original hook through an object base with two legally
+//    opened original recorders. An additional outer record input uses fresh
+//    legally opened A/B/A recorder subtypes after alternating copies and
+//    captures the selected eight-bit field through the public recording API.
+//    Expected: Policy identity and successive payload values match while the
+//    first policy remains unchanged. The additional object hook and backend
+//    field hook use the current recorder and observe copied values 31/52/73
+//    hexadecimal.
+// 2. 1800.2-2020 5.3.7 (UVM-BASE-AUDIT-RECORD-POLICY-API) gives rule 2 above.
+//    Setup: Use record_field_int for an eight-bit original payload in a direct
+//    user hook. Expected: The original backend captures the selected field
+//    value/width/radix via the standard policy route.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_object_do_record_virtual_hook_uses_current_recorder_policy_fields;
   import uvm_pkg::*;
   class original_object extends uvm_object;

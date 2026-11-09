@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_field_op_accessors_report_errors_after_flush.expected
 */
+// What it checks:
+// 1. get_op_name reports an error if no current set operation exists.
+// 2. get_op_type reports an error if no current set operation exists.
+// 3. get_policy reports an error if no current set operation exists.
+// 4. get_rhs reports an error if no current set operation exists.
+// 5. After flush, descriptor get_* methods report errors before another set.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.7.2.3 (UVM-FIELD-OP-NAME-INVALID) gives rule 1 above.
+//    Setup: Query both a fresh field operation and one flushed since its last
+//    set. Expected: Both invalid queries increase the error count; their
+//    return values are discarded.
+// 2. 1800.2-2020 5.7.2.4 (UVM-FIELD-OP-TYPE-INVALID) gives rule 2 above.
+//    Setup: Query both a fresh field operation and one flushed since its last
+//    set. Expected: Both invalid queries increase the error count; their
+//    return values are discarded.
+// 3. 1800.2-2020 5.7.2.5 (UVM-FIELD-OP-POLICY-INVALID) gives rule 3 above.
+//    Setup: Query both a fresh field operation and one flushed since its last
+//    set. Expected: Both invalid queries increase the error count; their
+//    return values are discarded.
+// 4. 1800.2-2020 5.7.2.6 (UVM-FIELD-OP-RHS-INVALID) gives rule 4 above. Setup:
+//    Query both a fresh field operation and one flushed since its last set.
+//    Expected: Both invalid queries increase the error count; their return
+//    values are discarded.
+// 5. 1800.2-2020 5.7.2.9 (UVM-BASE-AUDIT-FIELD-FLUSH-GETTERS) gives rule 5
+//    above. Setup: Reassess the existing unchanged field-operation fixture and
+//    compatible record. Expected: Name/type/policy/rhs accessors independently
+//    report errors.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Discard invalid return values and observe error-count increases.
 // The pinned library omits the required get_op_name error; its normative
 // expectation is retained as a spec-only case.

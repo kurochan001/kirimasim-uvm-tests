@@ -12,6 +12,17 @@
 :should_fail_because: direct construction of the virtual uvm_object is illegal
 :expected_stderr_regex: (?i)^(?=.*test_object_virtual_base_rejects_direct_construction\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:virtual|abstract)\b)(?=.*\buvm_object\b).*error
 */
+// What it checks:
+// Direct construction of virtual uvm_object is illegal.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.1 (UVM-BASE-AUDIT-OBJECT-VIRTUAL) gives the rule above.
+// Setup: One minimal illegal construction/member use is isolated with a
+// separately compiled legal extension control. Expected: The declared
+// fixture/type/member diagnostic predicate matches compiler rejection; no
+// runtime seed runs, even if accepted.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_object_virtual_base_rejects_direct_construction;
   import uvm_pkg::*;
   initial begin

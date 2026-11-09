@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_uvm_seeding_accessors_delegate_to_core_service.expected
 */
+// What it checks:
+// 1. The object seeding query reads the core-service enable setting.
+// 2. The object seeding setter updates the shared core-service setting.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.3.1 (UVM-SEEDING-GET) gives rule 1 above. Setup: Toggle
+//    the setting through different object types and the core service.
+//    Expected: Every query observes the same setting; the original setting can
+//    be restored.
+// 2. 1800.2-2020 5.3.3.2 (UVM-SEEDING-SET) gives rule 2 above. Setup: Set
+//    through one object type and query through another API. Expected:
+//    Disabling and enabling are visible across those accessors.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Set through the core service and read through the object helper, then
 // reverse the direction. No observation depends on generated random values.
 

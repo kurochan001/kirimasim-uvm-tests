@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_field_operation_hook_enabled_before_first_set.expected
 */
+// What it checks:
+// The user-hook enabled bit is initially one without a set precondition.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.7.2.7 (UVM-BASE-AUDIT-FIELD-HOOK-INITIAL) gives the rule
+// above. Setup: Query user_hook_enabled on a fresh descriptor with a gated
+// report catcher. Expected: The bit is true and no error notification is
+// generated.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_field_operation_hook_enabled_before_first_set;
   import uvm_pkg::*;
   class reports extends uvm_report_catcher;

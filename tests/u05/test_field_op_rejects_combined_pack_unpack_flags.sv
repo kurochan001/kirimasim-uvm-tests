@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_field_op_rejects_combined_pack_unpack_flags.expected
 */
+// What it checks:
+// set reports an error when reserved bits select multiple field operations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.7.2.2 (UVM-FIELD-OP-REJECT-COMBINED) gives the rule above.
+// Setup: Combine copy/compare or pack/unpack flags, then flush before a valid
+// control. Expected: Invalid calls increase error counts and a later valid
+// operation is reusable.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Combine two reserved operation bits. Discard the invalid state,
 // flush, and demonstrate reuse with one valid operation.
 
