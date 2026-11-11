@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_test_sequence_super_body_warns_and_stays_blocked_without_upstream.expected
 */
+// What it checks:
+// A user test sequence calling the base body without upstream emits a warning
+// and does not return.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.4.1.4.2 (UVM-REG-PIPELINE-TEST-SUPER-BODY-WARNING-BLOCK)
+// gives the rule above. Setup: An original test-body override calls super.body
+// on a compatible bound sequencer without reg_seqr. Expected: After a positive
+// delay one warning occurred, start has not returned and the sequence remains
+// in BODY; kill is cleanup only.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An original test body incorrectly calls super.body on a compatible bound
 // sequencer without an upstream reg_seqr. Observe the required warning and
 // nonreturn after a positive delay; then kill only for cleanup. Warning

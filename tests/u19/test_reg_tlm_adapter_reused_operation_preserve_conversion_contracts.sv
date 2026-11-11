@@ -12,6 +12,41 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_reused_operation_preserve_conversion_contracts.expected
 */
+// What it checks:
+// 1. Successful conversion replaces a previous failed operation status.
+// 2. Reusing rw replaces its operation kind with the current payload command.
+// 3. Reusing rw replaces a stale address with the current payload address.
+// 4. Successful reuse converts the current valid data portion.
+// 5. Successful conversion updates enabled valid byte lanes.
+// 6. An error conversion replaces a previous successful generic status.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.2.6 (UVM-TLM-ADAPTER-REUSED-OP-SUCCESS) gives rule 1
+//    above. Setup: One supplied rw object receives successful read, failed
+//    read and successful write conversions. Expected: The initial read and
+//    retry write both report IS_OK.
+// 2. 1800.2-2020 19.1.2.1 (UVM-TLM-ADAPTER-REUSED-OP-COMMAND) gives rule 2
+//    above. Setup: One supplied rw object receives successful read, failed
+//    read and successful write conversions. Expected: The kind changes from
+//    READ to WRITE.
+// 3. 1800.2-2020 19.1.2.2 (UVM-TLM-ADAPTER-REUSED-OP-ADDRESS) gives rule 3
+//    above. Setup: One supplied rw object receives successful read, failed
+//    read and successful write conversions. Expected: Addresses become 0x700
+//    then 0x710.
+// 4. 1800.2-2020 19.1.2.3 (UVM-TLM-ADAPTER-REUSED-OP-DATA) gives rule 4 above.
+//    Setup: One supplied rw object receives successful read, failed read and
+//    successful write conversions. Expected: Low sixteen bits become 0x3c3c
+//    then 0xa7a7.
+// 5. 1800.2-2020 19.1.2.5 (UVM-TLM-ADAPTER-REUSED-OP-ENABLES) gives rule 5
+//    above. Setup: One supplied rw object receives successful read, failed
+//    read and successful write conversions. Expected: Both valid lanes are
+//    enabled after starting with mask zero.
+// 6. 1800.2-2020 19.1.2.6 (UVM-TLM-ADAPTER-REUSED-OP-FAILURE) gives rule 6
+//    above. Setup: One supplied rw object receives successful read, failed
+//    read and successful write conversions. Expected: The intervening address
+//    error reports NOT_OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Uniform data/enable bytes avoid imposing numeric byte ordering.
 // Failed-read data and unused upper data/mask bits are not constrained.
 // The payload does not encode a sub-byte valid-bit count. No inverse

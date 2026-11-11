@@ -12,6 +12,19 @@
 :should_fail_because: a const-reference input cannot be assigned by the adapter implementation
 :expected_stderr_regex: (?i)^(?=.*test_reg_adapter_reg2bus_const_reference_rejects_input_mutation\.sv:[0-9]+:[0-9]+:)(?=.*\bconst(?:ant)?\b)(?=.*\brw\b).*error
 */
+// What it checks:
+// The declared const-reference reg2bus input cannot be assigned by its
+// implementation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.2.1.2.5
+// (UVM-NEGATIVE-REG-ADAPTER-REG2BUS-CONST-REFERENCE-REJECTS-INPUT-MUTATION)
+// gives the rule above. Setup: Use a complete original adapter with exact
+// converter signatures, then assign rw.data in reg2bus. Expected: Compilation
+// rejects the fixture with an error identifying its const reference rw; no
+// runtime seed executes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Isolate one forbidden condition; other interfaces have original bodies.
 // Rejection must identify this fixture and the selected method or parameter.
 // This is a compile-stage expectation, without a runtime binary or seed.

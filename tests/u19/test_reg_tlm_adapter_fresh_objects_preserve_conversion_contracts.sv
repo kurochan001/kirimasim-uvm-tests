@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_fresh_objects_preserve_conversion_contracts.expected
 */
+// What it checks:
+// 1. Each reg2bus conversion allocates a fresh payload object.
+// 2. reg2bus preserves the generic operation command.
+// 3. Converted bus addresses follow the generic operation address.
+// 4. A sixteen-bit conversion carries two valid data bytes.
+// 5. Write conversion transports the supplied valid data.
+// 6. Changing an earlier converted payload leaves the later payload
+//    independent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.1.2.5 (UVM-TLM-ADAPTER-FRESH-PAYLOADS) gives rule 1
+//    above. Setup: One adapter converts distinct sixteen-bit read/write
+//    operations. Expected: The two returned payload handles differ.
+// 2. 1800.2-2020 19.2.2.2.1 (UVM-TLM-ADAPTER-CONVERTED-COMMANDS) gives rule 2
+//    above. Setup: One adapter converts distinct sixteen-bit read/write
+//    operations. Expected: The first payload is READ and the second WRITE.
+// 3. 1800.2-2020 19.1.2.2 (UVM-TLM-ADAPTER-CONVERTED-ADDRESSES) gives rule 3
+//    above. Setup: One adapter converts distinct sixteen-bit read/write
+//    operations. Expected: The payload addresses are 0x120 and 0x240.
+// 4. 1800.2-2020 19.1.2.4 (UVM-TLM-ADAPTER-CONVERTED-WIDTH) gives rule 4
+//    above. Setup: One adapter converts distinct sixteen-bit read/write
+//    operations. Expected: Both payload lengths are 2.
+// 5. 1800.2-2020 19.1.2.3 (UVM-TLM-ADAPTER-CONVERTED-WRITE-DATA) gives rule 5
+//    above. Setup: One adapter converts distinct sixteen-bit read/write
+//    operations. Expected: The second payload contains two 0x5a bytes.
+// 6. 1800.2-2020 19.2.2.2.1 (UVM-TLM-ADAPTER-PAYLOAD-INSTANCE-ISOLATION) gives
+//    rule 6 above. Setup: One adapter converts distinct sixteen-bit read/write
+//    operations. Expected: Changing first address/data leaves second address
+//    0x240 and its two 0x5a bytes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Uniform data/enable bytes avoid imposing numeric byte ordering.
 // Failed-read data and unused upper data/mask bits are not constrained.
 module test_reg_tlm_adapter_fresh_objects_preserve_conversion_contracts;

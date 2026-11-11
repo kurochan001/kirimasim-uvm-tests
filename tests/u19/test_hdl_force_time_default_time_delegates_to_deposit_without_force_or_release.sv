@@ -16,6 +16,17 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release.expected
 */
+// What it checks:
+// Omitted force_time defaults to zero and delegates to deposit.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.6.2.4 (UVM-HDL-FORCE-TIME-DEFAULT-DEPOSIT-DELEGATION) gives
+// the rule above. Setup: Call the task without its time argument on a real
+// variable and observe backend operation counts. Expected: Exactly one
+// deposit, no force/release/read calls and no elapsed time occur; the selected
+// value changes while its peer is retained.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // This exercises the UVM zero-time wrapper, not force/release backend support.
 // The standard declares a task, so no return-value assertion is invented.
 module test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release;

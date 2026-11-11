@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_parent_and_extension_replacement_and_clear_are_instance_local.expected
 */
+// What it checks:
+// 1. Parent-sequence metadata retains exact replacement/null handles per
+//    descriptor.
+// 2. Extension metadata retains exact replacement/null object handles per
+//    descriptor.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.1.2.10 (UVM-REG-ITEM-PARENT-REPLACEMENT-CLEAR) gives
+//    rule 1 above. Setup: Select alpha, beta and null on first while peer
+//    retains alpha. Expected: First follows all three selections and peer
+//    still identifies alpha.
+// 2. 1800.2-2020 19.1.1.2.12 (UVM-REG-ITEM-EXTENSION-REPLACEMENT-CLEAR) gives
+//    rule 2 above. Setup: Select two tokens then null while peer retains the
+//    first token. Expected: First follows both exact tokens and clears; peer
+//    retains the original token.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the descriptor public API directly, without bus or DUT access.
 // Undefined initial enum/data values are never observed. UVM_HAS_X here is
 // an explicitly assigned status enum, not a four-state data observation.

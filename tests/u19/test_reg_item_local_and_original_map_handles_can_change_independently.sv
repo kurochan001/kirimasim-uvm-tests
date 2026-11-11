@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_local_and_original_map_handles_can_change_independently.expected
 */
+// What it checks:
+// 1. Local-map selection and clearing do not replace the original-map
+//    selection.
+// 2. Original-map selection is independent of local map and may be cleared.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.1.2.7 (UVM-REG-ITEM-LOCAL-MAP-INDEPENDENCE) gives rule 1
+//    above. Setup: Replace alpha with beta as local map, then clear it while
+//    separately selecting the original map. Expected: Local map follows each
+//    supplied handle/null, original map retains its separately supplied value
+//    and peer maps remain gamma.
+// 2. 1800.2-2020 19.1.1.2.8 (UVM-REG-ITEM-ORIGINAL-MAP-INDEPENDENCE) gives
+//    rule 2 above. Setup: Set original beta then alpha and null around
+//    local-map updates. Expected: Queries identify the selected original
+//    handles and final null without changing peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the descriptor public API directly, without bus or DUT access.
 // Undefined initial enum/data values are never observed. UVM_HAS_X here is
 // an explicitly assigned status enum, not a four-state data observation.

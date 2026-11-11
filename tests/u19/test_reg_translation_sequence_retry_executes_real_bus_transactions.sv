@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_translation_sequence_retry_executes_real_bus_transactions.expected
 */
+// What it checks:
+// 1. A translation sequence uses a BASE compatible with its bus sequencer item
+//    type.
+// 2. Translated operation results propagate back to supplied register items
+//    across a failed write and later retry.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.2 (UVM-REG-PIPELINE-BUS-COMPATIBLE-BASE) gives rule 1
+//    above. Setup: Bind a register sequence over a packet sequence to the
+//    actual packet bus sequencer. Expected: The delayed driver receives
+//    correctly routed packet transfers and execution completes.
+// 2. 1800.2-2020 19.4.1.4.3 (UVM-REG-PIPELINE-DIRECT-FAILURE-AND-RETRY) gives
+//    rule 2 above. Setup: Fail the first original driver write, then perform a
+//    read, successful retry write and read. Expected: The failed status is
+//    preserved, the first read sees old storage and the second sees the
+//    successful retry value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise real bus sequencer/driver handshakes and a configured standard
 // translation sequence. An original XOR protocol makes selected adapter use
 // observable. The layered case pulls actual upstream register items; direct

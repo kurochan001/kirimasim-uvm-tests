@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_user_backdoor_peek_samples_without_read_clear_side_effects.expected
 */
+// What it checks:
+// Register peek samples storage without physical read-clear side effects.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.12 (UVM-REGISTER-BACKDOOR-PEEK-NO-CLEAR) gives the rule
+// above. Setup: Use a selected register, explicit user-backdoor storage and
+// the stated access or handler configuration. Expected: Returned value and
+// storage remain a6 while the mirror updates to a6.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Peek samples the storage directly. It does not apply the read-clear policy
 // used by a physical-style read.
 

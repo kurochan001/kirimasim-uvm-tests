@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_adapter_get_item_is_null_outside_translation_callback.expected
 */
+// What it checks:
+// Adapter get_item returns null outside library-driven reg2bus translation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.2.1.2.7 (UVM-ADAPTER-OUTSIDE-CONTEXT) gives the rule above.
+// Setup: Use standalone conversion and a real adapter/sequencer/driver
+// register access. Expected: Before/after calls and bus2reg context are null
+// where observed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The public context accessor is queried before and after standalone
 // conversion.
 

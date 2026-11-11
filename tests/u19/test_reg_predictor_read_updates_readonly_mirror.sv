@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_read_updates_readonly_mirror.expected
 */
+// What it checks:
+// 1. The predictor publishes the observed transaction as a generic register
+//    item.
+// 2. A physical read observation updates a read-only register mirror.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.3.2.2 (UVM-PREDICTOR-PUBLICATION-METADATA) gives rule 1
+//    above. Setup: Observe a known register read/write through an analysis
+//    monitor. Expected: Publication values and the checked element/map/kind
+//    identify the observed operation.
+// 2. 1800.2-2020 19.3.2.1 (UVM-PREDICTOR-READONLY-READ) gives rule 2 above.
+//    Setup: Read observed a6 from a configured read-only field. Expected: The
+//    mirror and published read value become a6.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An observed read updates a read-only mirror without performing a bus read.
 
 module test_reg_predictor_read_updates_readonly_mirror;

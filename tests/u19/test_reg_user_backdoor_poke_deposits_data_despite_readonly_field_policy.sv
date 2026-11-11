@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_user_backdoor_poke_deposits_data_despite_readonly_field_policy.expected
 */
+// What it checks:
+// Register poke deposits data as-is despite a read-only field policy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.11 (UVM-REGISTER-BACKDOOR-POKE-READONLY) gives the rule
+// above. Setup: Use a selected register, explicit user-backdoor storage and
+// the stated access or handler configuration. Expected: Storage and the
+// mirrored value become a6.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Poke deposits raw data rather than applying the field write policy. The user
 // backdoor models storage and calls the required pre/post dispatch helpers
 // without DPI.

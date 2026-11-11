@@ -16,6 +16,36 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_force_time_wire8_distinct_targets.expected
 */
+// What it checks:
+// 1. A positive force_time keeps the requested value forced on its selected
+//    path for the specified period.
+// 2. The positive-duration force ends after its specified period so normal
+//    updates can resume.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.6.2.4 (UVM-HDL-FORCE-TIME-HOLDS-DURING-POSITIVE-INTERVAL)
+//    gives rule 1 above. Setup: Real public forceable 8/40-bit procedurally
+//    assigned regs and continuously driven wires under the shared
+//    compilation-default time unit; sequential durations 5 and 13 on one
+//    target or two distinct targets, with an idle forceable target and an
+//    unforced peer. The unchanged original backend and separate HDL runner are
+//    explicitly selected. No call overlaps another call to the package task.
+//    Expected: Each requested value is visible at the selected interior times
+//    despite opposing assignments or changed drivers, while the dormant target
+//    and independent peer retain their values.
+// 2. 1800.2-2020 19.6.2.4
+//    (UVM-HDL-FORCE-TIME-RELEASES-AFTER-POSITIVE-INTERVAL) gives rule 2 above.
+//    Setup: Real public forceable 8/40-bit procedurally assigned regs and
+//    continuously driven wires under the shared compilation-default time unit;
+//    sequential durations 5 and 13 on one target or two distinct targets, with
+//    an idle forceable target and an unforced peer. The unchanged original
+//    backend and separate HDL runner are explicitly selected. No call overlaps
+//    another call to the package task. Expected: After each period the reg
+//    retains its forced value until reassigned and the driven wire resolves to
+//    its driver; a later normal update becomes visible, including after reuse
+//    or selection of a second target.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original positive-duration observers, independent of task return timing.
 // Both scopes use the compilation default time unit; no ns value is assumed.
 // Calls do not overlap; package task argument lifetime is a separate premise.

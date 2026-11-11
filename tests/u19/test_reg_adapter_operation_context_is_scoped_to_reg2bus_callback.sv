@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_adapter_operation_context_is_scoped_to_reg2bus_callback.expected
 */
+// What it checks:
+// 1. Adapter get_item returns null outside library-driven reg2bus translation.
+// 2. Library-driven reg2bus can inspect the initiating operation descriptor.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.1.2.7 (UVM-ADAPTER-OUTSIDE-CONTEXT) gives rule 1 above.
+//    Setup: Use standalone conversion and a real adapter/sequencer/driver
+//    register access. Expected: Before/after calls and bus2reg context are
+//    null where observed.
+// 2. 1800.2-2020 19.2.1.2.7 (UVM-ADAPTER-INSIDE-CONTEXT) gives rule 2 above.
+//    Setup: Use standalone conversion and a real adapter/sequencer/driver
+//    register access. Expected: The callback sees the supplied element,
+//    extension, map, kind and frontdoor path.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Read the adapter context without modifying it. Check element,
 // extension, map and access type during conversion and null outside its scope.
 

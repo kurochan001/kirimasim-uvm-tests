@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_write_response_updates_generic_operation_fields.expected
 */
+// What it checks:
+// The TLM adapter translates a successful write payload into generic operation
+// fields.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.2.2.2.2 (UVM-TLM-ADAPTER-WRITE-RESPONSE) gives the rule
+// above. Setup: Provide explicit generic fields or a constructed payload and
+// inspect the returned conversion. Expected: WRITE kind, address 320, dede
+// data, byte mask three and UVM_IS_OK agree.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Initialize the destination operation and use repeated bytes so numeric
 // byte ordering cannot determine the result. Observe the response status.
 

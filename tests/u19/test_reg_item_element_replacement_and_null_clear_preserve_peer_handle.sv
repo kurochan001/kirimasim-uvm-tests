@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_element_replacement_and_null_clear_preserve_peer_handle.expected
 */
+// What it checks:
+// The descriptor element handle follows replacement and null clearing.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.1.1.2.2 (UVM-REG-ITEM-ELEMENT-REPLACEMENT-CLEAR) gives the
+// rule above. Setup: Select register then field, clear first and retain a
+// memory on peer. Expected: Exact register/field handles are selected, first
+// clears to null and peer retains its exact memory.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the descriptor public API directly, without bus or DUT access.
 // Undefined initial enum/data values are never observed. UVM_HAS_X here is
 // an explicitly assigned status enum, not a four-state data observation.

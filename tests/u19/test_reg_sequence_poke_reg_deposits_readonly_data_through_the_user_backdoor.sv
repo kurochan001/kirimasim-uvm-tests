@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_poke_reg_deposits_readonly_data_through_the_user_backdoor.expected
 */
+// What it checks:
+// 1. poke_reg deposits data without enforcing a readonly field policy.
+// 2. The poke_reg convenience method supplies the calling sequence as parent
+//    and forwards explicit transaction metadata.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.5.3 (UVM-REG-SEQUENCE-POKE-REG) gives rule 1 above.
+//    Setup: Poke a6 hex through a user backdoor on an RO register. Expected:
+//    Status is OK, storage/mirror become a6, one backdoor write occurs and no
+//    bus write occurs.
+// 2. 1800.2-2020 19.4.1.5.3 (UVM-REG-SEQUENCE-POKE-REG-CALL-CONTEXT) gives
+//    rule 2 above. Setup: Observe the adapter item or user-backdoor item for
+//    the access. Expected: Every observed item has the exact parent, element
+//    and extension; frontdoor items retain map/priority 23, backdoor items
+//    retain GATE kind, and memory items retain the selected offset.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Run the default specialization as a virtual test sequence without a
 // sequencer. Maps supply the delayed bus; user backdoors model storage.
 // Observe the implicit parent plus explicit metadata without RTL or DPI.

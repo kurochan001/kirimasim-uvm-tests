@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_peek_mem_samples_each_location_without_modifying_storage.expected
 */
+// What it checks:
+// peek_mem samples locations without modifying modeled storage.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.4.1.5.10 (UVM-REG-SEQUENCE-PEEK-MEM-NONDESTRUCTIVE) gives the
+// rule above. Setup: Peek two initialized locations in succession. Expected:
+// Values are 12ab/34cd hex, storage stays unchanged and only two reads occur.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Default register-sequence specialization used as a virtual test sequence.
 // User backdoors model 16-bit memory locations with required pre/post hooks.
 // No HDL/DPI, physical bus, memory mirror or failed-read data is asserted.

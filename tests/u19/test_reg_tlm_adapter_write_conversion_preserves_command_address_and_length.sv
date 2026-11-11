@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_write_conversion_preserves_command_address_and_length.expected
 */
+// What it checks:
+// The TLM adapter translates generic write command/address/data into a
+// payload.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.2.2.2.1 (UVM-TLM-ADAPTER-WRITE-CONVERSION) gives the rule
+// above. Setup: Provide explicit generic fields or a constructed payload and
+// inspect the returned conversion. Expected: Write command, address 120,
+// length two and repeated a5 bytes agree.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Repeated data bytes avoid assuming a numeric byte serialization order.
 
 module test_reg_tlm_adapter_write_conversion_preserves_command_address_and_length;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_big_endian_collects_complete_wide_register.expected
 */
+// What it checks:
+// A wide-register predictor waits for all required bus words before updating
+// and publishing that value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.3.2.1 (UVM-PREDICTOR-WIDE-COMPLETION) gives the rule above.
+// Setup: Observe two 16-bit words of 32-bit registers using little/big-endian
+// maps. Expected: Partial observations leave the mirror/publication count
+// unchanged; completion assembles the configured value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A wide register must not publish or update until both bus words
 // arrive. Addresses select data significance under the configured endian.
 

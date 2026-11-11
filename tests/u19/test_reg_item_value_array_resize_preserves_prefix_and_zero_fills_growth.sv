@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_value_array_resize_preserves_prefix_and_zero_fills_growth.expected
 */
+// What it checks:
+// 1. A new register item contains one value element.
+// 2. Resizing a register item retains the surviving value prefix.
+// 3. New value elements introduced by growth are initialized to zero.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.1.2.4 (UVM-REG-ITEM-DEFAULT-VALUE-SIZE) gives rule 1
+//    above. Setup: Inspect default size and explicit grow/shrink/regrow
+//    operations on one item. Expected: The initial value array size is one.
+// 2. 1800.2-2020 19.1.1.2.4 (UVM-REG-ITEM-RESIZE-PREFIX) gives rule 2 above.
+//    Setup: Inspect default size and explicit grow/shrink/regrow operations on
+//    one item. Expected: Existing surviving values remain a5 and 42 through
+//    shrink/regrow.
+// 3. 1800.2-2020 19.1.1.2.4 (UVM-REG-ITEM-GROW-ZERO) gives rule 3 above.
+//    Setup: Inspect default size and explicit grow/shrink/regrow operations on
+//    one item. Expected: Growth and regrowth create zero-valued new entries.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe default size, growth and shrink/regrowth through the public API.
 // Discarded data must not reappear when the array grows again.
 

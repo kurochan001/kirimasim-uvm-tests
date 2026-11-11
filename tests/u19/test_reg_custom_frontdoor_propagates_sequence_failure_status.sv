@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_custom_frontdoor_propagates_sequence_failure_status.expected
 */
+// What it checks:
+// The status supplied through a custom frontdoor operation is returned to the
+// initiating register access.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.4.2.2.1 (UVM-CUSTOM-FRONTDOOR-FAILURE-STATUS) gives the rule
+// above. Setup: Run the explicitly selected custom-frontdoor fixture with
+// controlled descriptor fields and storage. Expected: The deliberately failed
+// sequence returns UVM_NOT_OK and the rejecting fixture storage stays
+// unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The custom sequence rejects the write and preserves its own storage. Only the
 // returned status and sequence activity are asserted.
 

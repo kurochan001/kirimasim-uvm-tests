@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_user_backdoor_write_applies_write_one_clear_policy.expected
 */
+// What it checks:
+// Backdoor register write emulates physical write-one-clear behavior.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.9 (UVM-REGISTER-BACKDOOR-WRITE-ONE-CLEAR) gives the rule
+// above. Setup: Use a selected register, explicit user-backdoor storage and
+// the stated access or handler configuration. Expected: Writing f0 into ff
+// storage leaves f in storage and mirror.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The physical-style backdoor write clears the selected one bits and predicts
 // the post-policy result rather than the command mask.
 

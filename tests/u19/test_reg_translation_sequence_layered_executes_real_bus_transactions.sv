@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_translation_sequence_layered_executes_real_bus_transactions.expected
 */
+// What it checks:
+// 1. A translation sequence uses a BASE compatible with its bus sequencer item
+//    type.
+// 2. The translation sequence adapter converts abstract register operations
+//    into the selected physical item protocol.
+// 3. reg_seqr identifies the upstream register sequencer from which
+//    translation pulls abstract items.
+// 4. The default translation body repeatedly retrieves upstream register items
+//    and executes them.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.2 (UVM-REG-PIPELINE-BUS-COMPATIBLE-BASE) gives rule 1
+//    above. Setup: Bind a register sequence over a packet sequence to the
+//    actual packet bus sequencer. Expected: The delayed driver receives
+//    correctly routed packet transfers and execution completes.
+// 2. 1800.2-2020 19.4.1.3.2 (UVM-REG-PIPELINE-CONFIGURED-TRANSLATION-ADAPTER)
+//    gives rule 2 above. Setup: Use a configured XOR converter for direct and
+//    upstream-driven register transactions. Expected: The converter runs once
+//    per selected beat and the original driver stores/returns the decoded
+//    values.
+// 3. 1800.2-2020 19.4.1.3.3 (UVM-REG-PIPELINE-CONFIGURED-UPSTREAM-SEQUENCER)
+//    gives rule 3 above. Setup: A real producer performs write then read item
+//    handshakes on the configured upstream sequencer. Expected: Both abstract
+//    operations complete via downstream bus traffic with the selected upstream
+//    handle.
+// 4. 1800.2-2020 19.4.1.4.2 (UVM-REG-PIPELINE-DEFAULT-BODY-REPEATED-PULL)
+//    gives rule 4 above. Setup: Run the actual default body with configured
+//    upstream and adapter, submitting a write then a read. Expected: Both
+//    upstream item handshakes return and two actual bus operations complete
+//    with matching status/read data.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise real bus sequencer/driver handshakes and a configured standard
 // translation sequence. An original XOR protocol makes selected adapter use
 // observable. The layered case pulls actual upstream register items; direct

@@ -16,6 +16,16 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release.expected
 */
+// What it checks:
+// An explicit zero force_time calls deposit without starting a timed force.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.6.2.4 (UVM-HDL-FORCE-TIME-EXPLICIT-ZERO-DEPOSIT) gives the
+// rule above. Setup: Pass time zero and a replacement value to the UVM
+// wrapper. Expected: One deposit is used with no force/release/read calls or
+// time advance; actual target/peer values match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // This exercises the UVM zero-time wrapper, not force/release backend support.
 // The standard declares a task, so no return-value assertion is invented.
 module test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release;

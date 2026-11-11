@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_adapter_separate_response_controls_failed_memory_read_retry.expected
 */
+// What it checks:
+// 1. With provides_responses selected, the register layer consumes the
+//    separate driver response.
+// 2. bus2reg is given the separate response object for the selected response
+//    path.
+// 3. get_item returns null during response-side bus2reg conversion.
+// 4. A failed separate memory response is returned as a failed read status.
+// 5. A subsequent memory read returns data from its fresh response at the new
+//    location.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.1.2.3 (UVM-ADAPTER-SEPARATE-FAILED-MEMORY-READ-RETRY)
+//    gives rule 1 above. Setup: A failed memory read at offset 3 precedes a
+//    successful read at offset 9. Expected: The failed response produces
+//    failure; the fresh successful response returns 0x9c.
+// 2. 1800.2-2020 19.2.1.2.6 (UVM-ADAPTER-BUS2REG-SEPARATE-IDENTITY) gives rule
+//    2 above. Setup: Four write/read/retry fixtures capture original request,
+//    returned response and converted object handles. Expected: Each converted
+//    object is the exact returned response and differs from its request.
+// 3. 1800.2-2020 19.2.1.2.7
+//    (UVM-ADAPTER-GET-ITEM-NULL-DURING-SEPARATE-BUS2REG) gives rule 3 above.
+//    Setup: The adapter queries get_item in every bus2reg call across the four
+//    separate-response fixtures. Expected: All conversion-time queries are
+//    null.
+// 4. 1800.2-2020 18.6.5.2 (UVM-SEPARATE-RESPONSE-MEMORY-FAILURE-STATUS) gives
+//    rule 4 above. Setup: Offset 3 receives NOT_OK in the response while the
+//    request says IS_OK. Expected: The first read reports failure without
+//    constraining its undefined returned data.
+// 5. 1800.2-2020 18.6.5.2 (UVM-SEPARATE-RESPONSE-MEMORY-RETRY-DATA) gives rule
+//    5 above. Setup: After a failed offset-3 read, offset 9 contains 0x9c.
+//    Expected: The second read succeeds at bus address 0x29 and returns 0x9c.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The driver returns fresh response objects with copied routing IDs.
 // Only response state is authoritative; failed read values are not asserted.
 module test_adapter_separate_response_controls_failed_memory_read_retry;

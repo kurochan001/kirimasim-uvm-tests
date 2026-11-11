@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_read_reg_returns_bus_data_with_the_calling_sequence_context.expected
 */
+// What it checks:
+// 1. read_reg returns bus data and updates the register mirror.
+// 2. The read_reg convenience method supplies the calling sequence as parent
+//    and forwards explicit transaction metadata.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.5.2 (UVM-REG-SEQUENCE-READ-REG) gives rule 1 above.
+//    Setup: Place 6c hex in bus storage and read through the map. Expected:
+//    Status is OK, returned value/mirror are 6c and address is 20 hex.
+// 2. 1800.2-2020 19.4.1.5.2 (UVM-REG-SEQUENCE-READ-REG-CALL-CONTEXT) gives
+//    rule 2 above. Setup: Observe the adapter item or user-backdoor item for
+//    the access. Expected: Every observed item has the exact parent, element
+//    and extension; frontdoor items retain map/priority 23, backdoor items
+//    retain GATE kind, and memory items retain the selected offset.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Run the default specialization as a virtual test sequence without a
 // sequencer. Maps supply the delayed bus; user backdoors model storage.
 // Observe the implicit parent plus explicit metadata without RTL or DPI.

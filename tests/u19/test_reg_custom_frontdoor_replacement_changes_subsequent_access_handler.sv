@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_custom_frontdoor_replacement_changes_subsequent_access_handler.expected
 */
+// What it checks:
+// Replacing the register frontdoor selects the new access handler for
+// subsequent operations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.5.2 (UVM-CUSTOM-FRONTDOOR-REPLACEMENT) gives the rule
+// above. Setup: Run the explicitly selected custom-frontdoor fixture with
+// controlled descriptor fields and storage. Expected: The next read uses only
+// the replacement, with the new value and selected handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // After replacing the map-specific frontdoor, a second read uses the
 // replacement sequence and leaves the original call count unchanged.
 

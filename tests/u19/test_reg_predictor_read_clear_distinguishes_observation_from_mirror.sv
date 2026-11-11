@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_read_clear_distinguishes_observation_from_mirror.expected
 */
+// What it checks:
+// Read-clear prediction distinguishes sampled data from post-read mirror
+// state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.3.2.1 (UVM-PREDICTOR-READ-CLEAR) gives the rule above. Setup:
+// Observe the explicitly configured access policy without active bus
+// operations. Expected: The published observation is a5 while the post-read
+// mirror is zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sampled read value remains in the published transaction while
 // read-clear policy leaves the mirror at zero.
 

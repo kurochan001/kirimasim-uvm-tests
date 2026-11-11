@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_user_backdoor_write_preserves_readonly_bits.expected
 */
+// What it checks:
+// Backdoor register write leaves read-only field bits unchanged.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.9 (UVM-REGISTER-BACKDOOR-WRITE-READONLY) gives the rule
+// above. Setup: Use a selected register, explicit user-backdoor storage and
+// the stated access or handler configuration. Expected: Storage and mirror
+// retain 11 despite a6 write data.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A write through the backdoor mimics physical field access, so read-only bits
 // retain their previous storage value.
 

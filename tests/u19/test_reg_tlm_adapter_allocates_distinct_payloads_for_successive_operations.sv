@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_allocates_distinct_payloads_for_successive_operations.expected
 */
+// What it checks:
+// Each reg2bus conversion allocates a new bus-specific item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.2.1.2.5 (UVM-ADAPTER-FRESH-BUS-ITEM) gives the rule above.
+// Setup: Provide explicit generic fields or a constructed payload and inspect
+// the returned conversion. Expected: Successive payload handles differ and the
+// first address survives the next conversion.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Allocation is observed by handle identity and independent address state.
 
 module test_reg_tlm_adapter_allocates_distinct_payloads_for_successive_operations;

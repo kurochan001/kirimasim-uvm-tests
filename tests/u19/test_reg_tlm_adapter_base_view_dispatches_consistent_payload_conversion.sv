@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_base_view_dispatches_consistent_payload_conversion.expected
 */
+// What it checks:
+// The TLM register adapter derives from the generic adapter.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.2.2.1 (UVM-REG-INTERACTION-TLM-ADAPTER-BASE) gives the rule
+// above. Setup: Use the actual TLM adapter through a generic-adapter handle
+// for a selected sixteen-bit round trip. Expected: The base denotes the
+// concrete adapter and dispatches consistent kind, address, valid data/enables
+// and successful status conversion.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Call the concrete library adapter through its abstract base. Paired
 // conversion checks valid fields, not independent one-way byte order, padding,
 // inverse n_bits reconstruction or a parent_sequence cloning interpretation.

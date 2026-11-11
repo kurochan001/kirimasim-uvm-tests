@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_user_backdoor_inheritance_yields_to_a_register_specific_handler.expected
 */
+// What it checks:
+// A register-specific backdoor takes precedence over its inherited block
+// handler.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.6.1 (UVM-REGISTER-BACKDOOR-INHERITANCE) gives the rule
+// above. Setup: Use a selected register, explicit user-backdoor storage and
+// the stated access or handler configuration. Expected: Inherited access
+// returns bc; installing a local handler selects it and returns 77 without
+// reusing the inherited handler.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Without a local handler the register uses its block backdoor. A local handler
 // then takes precedence for subsequent peeks.
 

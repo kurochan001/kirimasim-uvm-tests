@@ -14,6 +14,37 @@
 :expected_stdout: @test_busop_access_register_write_big_wide64.expected
 :files: helpers73/busop_fixture73.svh
 */
+// What it checks:
+// 1. Each physical bus descriptor reports the number of model bits carried by
+//    that beat.
+// 2. A selected full-width map carries the complete object in one bus
+//    operation.
+// 3. A single-cycle canonical write carries the abstract access value
+//    unchanged.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.2.4 (UVM-MEMORY-PARTIAL-BEAT-WIDTH) gives rule 1 above.
+//    Setup: Compare adjacent 20-bit locations on an 8-bit bus with 24-bit
+//    locations on a 16-bit bus. Also inspect 48/64-bit register and
+//    first-memory-location reads/writes on 32/64-bit byte-addressed
+//    little/big-endian buses. Expected: The logical-bit interpretation expects
+//    widths 8, 8, 4 for 20 bits and byte-aligned widths 16, 8 for 24 bits,
+//    preserving declared data. New full-width profiles carry 64 bits once or
+//    32/32 bits; a 48-bit split carries 32/16 bits in data-significance order.
+//    Observer rows are sorted by address, not execution order.
+// 2. 1800.2-2020 19.1.2 (UVM-BUSOP-ACCESS-SINGLE-CYCLE-COUNT) gives rule 2
+//    above. Setup: Use a 64-bit register or first memory location on a 64-bit
+//    byte-addressed bus, both directions and endian modes. Expected: The
+//    access has one canonical request and one driver operation with successful
+//    status.
+// 3. 1800.2-2020 19.1.2 (UVM-BUSOP-ACCESS-SINGLE-WRITE-VALUE) gives rule 3
+//    above. Setup: Use full 64-bit writes with distinct byte values through
+//    original numeric-word adapters. Expected: The sole canonical write
+//    descriptor contains the full supplied 64-bit value.
+// It also supports, as a control, the setup or conditions of
+// UVM-BUSOP-ACCESS-SPLIT-CYCLE-COUNT.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Numeric-word adapter observations do not pass builtin TLM-byte conversions.
 // Sort completed observer rows by address; no temporal bus order is asserted.
 // Read inputs are preseeded independently, without a write roundtrip.

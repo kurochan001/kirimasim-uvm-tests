@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_peek_mem_returns_full_location_with_parent_offset_and_extension.expected
 */
+// What it checks:
+// 1. peek_mem returns the full value of the selected modeled location.
+// 2. The memory convenience method supplies the calling sequence as parent and
+//    forwards the selected access context.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.5.10 (UVM-REG-SEQUENCE-PEEK-MEM-VALUE) gives rule 1
+//    above. Setup: Place 6c9e hex at location three and peek it. Expected:
+//    Status is OK and returned/storage values are both 6c9e.
+// 2. 1800.2-2020 19.4.1.5.10 (UVM-REG-SEQUENCE-PEEK-MEM-CALL-CONTEXT) gives
+//    rule 2 above. Setup: Observe the user-backdoor operation item with
+//    explicit GATE kind and extension. Expected: Parent, memory element/kind,
+//    offset, extension, access kind and backdoor door/kind all match exactly.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Default register-sequence specialization used as a virtual test sequence.
 // User backdoors model 16-bit memory locations with required pre/post hooks.
 // No HDL/DPI, physical bus, memory mirror or failed-read data is asserted.

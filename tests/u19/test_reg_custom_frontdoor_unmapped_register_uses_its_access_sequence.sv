@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_custom_frontdoor_unmapped_register_uses_its_access_sequence.expected
 */
+// What it checks:
+// An unmapped register can be accessed using its supplied custom frontdoor.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.3.3 (UVM-UNMAPPED-REGISTER-CUSTOM-FRONTDOOR) gives the rule
+// above. Setup: Run the explicitly selected custom-frontdoor fixture with
+// controlled descriptor fields and storage. Expected: The sequence handles the
+// write despite the absence of a physical address mapping.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An unmapped register is accessible using its explicitly associated custom
 // frontdoor. Its sequence does not depend on a linear bus address.
 

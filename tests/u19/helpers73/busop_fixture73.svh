@@ -12,26 +12,37 @@ class packet73 extends uvm_sequence_item;
   int bits = 0;
   uvm_reg_byte_en_t enables = '1;
   uvm_status_e status = UVM_IS_OK;
-  function new(string name = "packet73"); super.new(name); endfunction
+  function new(string name = "packet73");
+    super.new(name);
+  endfunction
 endclass
 class word_adapter73 extends uvm_reg_adapter;
   uvm_reg_bus_op requests[$];
   int responses = 0;
-  function new(); super.new("word_adapter73"); endfunction
+  function new();
+    super.new("word_adapter73");
+  endfunction
   virtual function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
     packet73 item;
     item = new("bus73");
     requests.push_back(rw);
-    item.kind = rw.kind; item.address = rw.addr; item.data = rw.data;
-    item.bits = rw.n_bits; item.enables = rw.byte_en;
+    item.kind = rw.kind;
+    item.address = rw.addr;
+    item.data = rw.data;
+    item.bits = rw.n_bits;
+    item.enables = rw.byte_en;
     return item;
   endfunction
   virtual function void bus2reg(uvm_sequence_item bus_item, ref uvm_reg_bus_op rw);
     packet73 item;
     if (!$cast(item, bus_item) || item == null) $fatal(1, "wrong original bus item");
     responses++;
-    rw.kind = item.kind; rw.addr = item.address; rw.data = item.data;
-    rw.n_bits = item.bits; rw.byte_en = item.enables; rw.status = item.status;
+    rw.kind = item.kind;
+    rw.addr = item.address;
+    rw.data = item.data;
+    rw.n_bits = item.bits;
+    rw.byte_en = item.enables;
+    rw.status = item.status;
   endfunction
   function void dump_requests(bit reading);
     uvm_reg_bus_op swap;
@@ -39,7 +50,9 @@ class word_adapter73 extends uvm_reg_adapter;
     foreach (requests[i]) begin
       for (int j = i + 1; j < requests.size(); j++) begin
         if (requests[j].addr < requests[i].addr) begin
-          swap = requests[i]; requests[i] = requests[j]; requests[j] = swap;
+          swap = requests[i];
+          requests[i] = requests[j];
+          requests[j] = swap;
         end
       end
     end
@@ -55,15 +68,21 @@ class word_adapter73 extends uvm_reg_adapter;
   endfunction
 endclass
 class model_block73 extends uvm_reg_block;
-  function new(); super.new("block73", UVM_NO_COVERAGE); endfunction
+  function new();
+    super.new("block73", UVM_NO_COVERAGE);
+  endfunction
 endclass
 class model_register73 extends uvm_reg;
-  function new(int width); super.new("register73", width, UVM_NO_COVERAGE); endfunction
+  function new(int width);
+    super.new("register73", width, UVM_NO_COVERAGE);
+  endfunction
 endclass
 class bus_driver73 extends uvm_driver#(packet73);
   uvm_reg_data_t storage[uvm_reg_addr_t];
   int calls = 0;
-  function new(string name, uvm_component parent); super.new(name, parent); endfunction
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
   task run_phase(uvm_phase phase);
     packet73 request;
     forever begin

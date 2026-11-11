@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_read_response_updates_generic_operation_fields.expected
 */
+// What it checks:
+// The TLM adapter translates a failed read payload into generic read
+// status/context.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.2.2.2.2 (UVM-TLM-ADAPTER-READ-RESPONSE) gives the rule above.
+// Setup: Provide explicit generic fields or a constructed payload and inspect
+// the returned conversion. Expected: The result has READ kind, address 320 and
+// UVM_NOT_OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the command, address and failure status. Do not prescribe the
 // data returned for an unsuccessful read operation.
 

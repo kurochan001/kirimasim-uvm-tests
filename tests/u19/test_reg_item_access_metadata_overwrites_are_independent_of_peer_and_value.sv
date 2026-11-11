@@ -12,6 +12,41 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_access_metadata_overwrites_are_independent_of_peer_and_value.expected
 */
+// What it checks:
+// 1. The descriptor offset getter retains its most recent assignment
+//    independently of peer and data.
+// 2. The descriptor priority getter retains its most recent assignment
+//    independently of peer and data.
+// 3. The descriptor backdoor kind getter retains its most recent assignment
+//    independently of peer and data.
+// 4. The descriptor source filename getter retains its most recent assignment
+//    independently of peer and data.
+// 5. The descriptor source line getter retains its most recent assignment
+//    independently of peer and data.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.1.2.5 (UVM-REG-ITEM-OFFSET-LATEST-METADATA) gives rule 1
+//    above. Setup: Assign metadata on first/peer and overwrite first.
+//    Expected: First returns its updated metadata, peer retains original
+//    metadata and data remains 5a hex.
+// 2. 1800.2-2020 19.1.1.2.11 (UVM-REG-ITEM-PRIORITY-LATEST-METADATA) gives
+//    rule 2 above. Setup: Assign metadata on first/peer and overwrite first.
+//    Expected: First returns its updated metadata, peer retains original
+//    metadata and data remains 5a hex.
+// 3. 1800.2-2020 19.1.1.2.13 (UVM-REG-ITEM-BD-KIND-LATEST-METADATA) gives rule
+//    3 above. Setup: Assign metadata on first/peer and overwrite first.
+//    Expected: First returns its updated metadata, peer retains original
+//    metadata and data remains 5a hex.
+// 4. 1800.2-2020 19.1.1.2.14 (UVM-REG-ITEM-FNAME-LATEST-METADATA) gives rule 4
+//    above. Setup: Assign metadata on first/peer and overwrite first.
+//    Expected: First returns its updated metadata, peer retains original
+//    metadata and data remains 5a hex.
+// 5. 1800.2-2020 19.1.1.2.15 (UVM-REG-ITEM-LINE-LATEST-METADATA) gives rule 5
+//    above. Setup: Assign metadata on first/peer and overwrite first.
+//    Expected: First returns its updated metadata, peer retains original
+//    metadata and data remains 5a hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the descriptor public API directly, without bus or DUT access.
 // Undefined initial enum/data values are never observed. UVM_HAS_X here is
 // an explicitly assigned status enum, not a four-state data observation.

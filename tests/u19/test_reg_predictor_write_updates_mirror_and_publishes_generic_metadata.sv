@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_write_updates_mirror_and_publishes_generic_metadata.expected
 */
+// What it checks:
+// The predictor publishes the observed transaction as a generic register item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.3.2.2 (UVM-PREDICTOR-PUBLICATION-METADATA) gives the rule
+// above. Setup: Observe a known register read/write through an analysis
+// monitor. Expected: Publication values and the checked element/map/kind
+// identify the observed operation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Supply an observed write through the public analysis connection and
 // snapshot published metadata inside the subscriber callback.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_all_enabled_and_disabled_byte_masks_are_converted.expected
 */
+// What it checks:
+// The TLM adapter translates enabled/disabled generic byte lanes into payload
+// masks.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.2.2.2.1 (UVM-TLM-ADAPTER-BYTE-MASKS) gives the rule above.
+// Setup: Provide explicit generic fields or a constructed payload and inspect
+// the returned conversion. Expected: All-enabled bytes become ff and
+// all-disabled bytes become zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Uniform masks avoid an assumption about numeric lane ordering.
 
 module test_reg_tlm_adapter_all_enabled_and_disabled_byte_masks_are_converted;

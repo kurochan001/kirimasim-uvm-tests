@@ -16,6 +16,51 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_force_release_read_wire40.expected
 */
+// What it checks:
+// 1. HDL force reports one for a successful operation and zero when the call
+//    fails.
+// 2. A forced value overrides subsequent ordinary procedural or
+//    continuous-driver updates until release.
+// 3. HDL release-and-read reports one for success and zero when the call
+//    fails.
+// 4. For a continuously driven wire, release-and-read returns the resolved
+//    value after removing force.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.6.2.3 (UVM-HDL-FORCE-RETURN-STATUS) gives rule 1 above.
+//    Setup: Actual public forceable 8/40-bit reg and wire signals, one
+//    independent unforced peer, opposing procedural assignments or changed
+//    continuous drivers, plain release or immediate release-and-read, and
+//    missing/uninstrumented failure targets. Public VPI force/release flags
+//    implement the separately fingerprinted backend; ordinary runs do not link
+//    it. Expected: Instrumented valid paths return one; missing/uninstrumented
+//    paths return zero and the independent valid control succeeds.
+// 2. 1800.2-2020 19.6.2.3 (UVM-HDL-FORCE-HOLDS-VALUE) gives rule 2 above.
+//    Setup: Actual public forceable 8/40-bit reg and wire signals, one
+//    independent unforced peer, opposing procedural assignments or changed
+//    continuous drivers, plain release or immediate release-and-read, and
+//    missing/uninstrumented failure targets. Public VPI force/release flags
+//    implement the separately fingerprinted backend; ordinary runs do not link
+//    it. Expected: The selected forced value remains while the opposing
+//    assignment/driver changes, and the unforced peer is unchanged.
+// 3. 1800.2-2020 19.6.2.5 (UVM-HDL-RELEASE-READ-RETURN-STATUS) gives rule 3
+//    above. Setup: Actual public forceable 8/40-bit reg and wire signals, one
+//    independent unforced peer, opposing procedural assignments or changed
+//    continuous drivers, plain release or immediate release-and-read, and
+//    missing/uninstrumented failure targets. Public VPI force/release flags
+//    implement the separately fingerprinted backend; ordinary runs do not link
+//    it. Expected: Valid forced paths return one; missing/uninstrumented paths
+//    return zero without prescribing failed output data.
+// 4. 1800.2-2020 19.6.2.5 (UVM-HDL-RELEASE-READ-WIRE-VALUE) gives rule 4
+//    above. Setup: Actual public forceable 8/40-bit reg and wire signals, one
+//    independent unforced peer, opposing procedural assignments or changed
+//    continuous drivers, plain release or immediate release-and-read, and
+//    missing/uninstrumented failure targets. Public VPI force/release flags
+//    implement the separately fingerprinted backend; ordinary runs do not link
+//    it. Expected: Immediate returned data matches the changed continuous
+//    driver; the wire follows that value and a later driver update.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original live HDL signals; forceable is the documented compiler interface.
 // Settled force observations and immediate release readback stay distinct.
 module test_hdl_force_release_read_wire40;

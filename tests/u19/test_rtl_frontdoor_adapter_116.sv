@@ -14,6 +14,39 @@
 :expected_stdout: @test_rtl_frontdoor_adapter_116.expected
 :files: helpers116_rtl/rf_rtl116.sv helpers116_rtl/rf_env116.svh
 */
+// What it checks:
+// 1. With auto-prediction enabled, frontdoor operations against the design
+//    update the register mirrors.
+// 2. Register-model frontdoor writes converted by reg2bus update the design
+//    registers.
+// 3. Register-model frontdoor reads return the design value that bus2reg
+//    copies from the completed bus item.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.5.2 (UVM-RTL-AUTO-PREDICT-FRONTDOOR-MIRROR) gives rule 1
+//    above. Setup: A test top places the interface of an original
+//    register-file design in the configuration database for the agent scope;
+//    the driver and monitor use only its clocking blocks. Auto-prediction is
+//    enabled before the model writes CTRL and DATA and reads CTRL, ID and
+//    COUNT; two raw reads follow. Expected: Seven bus operations are
+//    monitored, the map reports auto-prediction on, and the mirrors hold the
+//    written and read values.
+// 2. 1800.2-2020 19.2.1.2.5 (UVM-RTL-FRONTDOOR-WRITE-REACHES-DESIGN) gives
+//    rule 2 above. Setup: A test top places the interface of an original
+//    register-file design in the configuration database for the agent scope;
+//    the driver and monitor use only its clocking blocks. The model writes
+//    CTRL and DATA through the map sequencer and adapter; raw bus reads then
+//    bypass the model. Expected: The raw reads return the values the model
+//    wrote.
+// 3. 1800.2-2020 19.2.1.2.6 (UVM-RTL-FRONTDOOR-READ-RETURNS-DESIGN) gives rule
+//    3 above. Setup: A test top places the interface of an original
+//    register-file design in the configuration database for the agent scope;
+//    the driver and monitor use only its clocking blocks. After two model
+//    writes, the model reads CTRL, the constant ID and the write-counting
+//    COUNT. Expected: All five operations report UVM_IS_OK and the reads
+//    return the written CTRL value, 8'hA5 and two.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // With auto-prediction enabled, the register model writes CTRL and DATA and
 // reads CTRL, ID and COUNT through the map sequencer and adapter. Raw bus reads
 // then return the design values written by the model, seven bus operations are

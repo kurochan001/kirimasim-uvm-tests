@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_custom_frontdoor_receives_extension_map_element_and_sequencer_context.expected
 */
+// What it checks:
+// 1. The custom frontdoor operation descriptor identifies the accessed model,
+//    map and path.
+// 2. The custom frontdoor exposes the sequencer executing its operation.
+// 3. The operation descriptor carries the extension supplied to the initiating
+//    access.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.2.2.1 (UVM-CUSTOM-FRONTDOOR-OPERATION-CONTEXT) gives
+//    rule 1 above. Setup: Run the explicitly selected custom-frontdoor fixture
+//    with controlled descriptor fields and storage. Expected: The descriptor
+//    holds the supplied register, map and frontdoor path.
+// 2. 1800.2-2020 19.4.2.2.2 (UVM-CUSTOM-FRONTDOOR-SEQUENCER) gives rule 2
+//    above. Setup: Run the explicitly selected custom-frontdoor fixture with
+//    controlled descriptor fields and storage. Expected: The executing
+//    sequence and public sequencer handle agree with the configured sequencer.
+// 3. 1800.2-2020 19.1.1.2.12 (UVM-CUSTOM-FRONTDOOR-EXTENSION) gives rule 3
+//    above. Setup: Run the explicitly selected custom-frontdoor fixture with
+//    controlled descriptor fields and storage. Expected: The frontdoor
+//    observes the same extension handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The operation descriptor preserves the supplied extension, map, element and
 // frontdoor path. The sequence runs on the associated sequencer.
 

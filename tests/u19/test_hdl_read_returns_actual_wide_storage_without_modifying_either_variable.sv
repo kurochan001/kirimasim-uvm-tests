@@ -16,6 +16,23 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable.expected
 */
+// What it checks:
+// 1. A successful HDL read returns the current selected object value without
+//    modifying storage.
+// 2. An HDL read of a missing path returns failure.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.6.2.7 (UVM-HDL-READ-CURRENT-VALUE) gives rule 1 above.
+//    Setup: Read a 40-bit variable twice around a direct HDL reassignment,
+//    with an independent peer. Expected: Both reads succeed with the
+//    respective current value; selected and peer storage remain unchanged by
+//    each read.
+// 2. 1800.2-2020 19.6.2.7 (UVM-HDL-READ-MISSING-PATH-FAILURE) gives rule 2
+//    above. Setup: Read a nonexistent leaf after two successful reads.
+//    Expected: Return is zero and both real variables are unchanged; failed
+//    output data is unconstrained.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Sample actual storage directly; failed-read output is deliberately unused.
 module test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable;
   import uvm_pkg::*;

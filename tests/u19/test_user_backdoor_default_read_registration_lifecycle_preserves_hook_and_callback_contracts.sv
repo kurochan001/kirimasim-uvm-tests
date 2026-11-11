@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_user_backdoor_default_read_registration_lifecycle_preserves_hook_and_callback_contracts.expected
 */
+// What it checks:
+// 1. The default backdoor read delegates its peek step to the virtual
+//    read_func extension.
+// 2. The protected pre-read helper executes the registered pre-read callbacks.
+// 3. The protected post-read helper executes the registered post-read
+//    callbacks.
+// 4. Registered post-read callbacks precede the user post-read hook after the
+//    peek.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.5.2.7 (UVM-REG-INTERACTION-DEFAULT-READ-FUNCTION-DISPATCH)
+//    gives rule 1 above. Setup: Invoke the inherited read task through a base
+//    handle with success, failure and callback lifecycle cases. Expected: The
+//    same supplied descriptor reaches the original function once per read and
+//    retains its selected success or failure result.
+// 2. 1800.2-2020 19.5.2.2 (UVM-REG-INTERACTION-READ-PRE-HELPER-CALLBACKS)
+//    gives rule 2 above. Setup: The default read uses a registered callback,
+//    then the same callback is removed and readded. Expected: A registered
+//    callback occurs before the peek; deletion removes that invocation and
+//    readdition restores it.
+// 3. 1800.2-2020 19.5.2.3 (UVM-REG-INTERACTION-READ-POST-HELPER-CALLBACKS)
+//    gives rule 3 above. Setup: The same descriptor is read with a callback
+//    registered, removed and readded. Expected: A registered post callback
+//    occurs after the peek; its selected value change is visible to the later
+//    post hook.
+// 4. 1800.2-2020 19.5.2.10 (UVM-REG-INTERACTION-READ-POST-HOOK-ORDER) gives
+//    rule 4 above. Setup: The post callback modifies successful data before
+//    the original post hook inspects it. Expected: Trace and the post-value
+//    check show the callback change at the final hook.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The library default read task wraps an original read_func implementation.
 // Trace only original hooks/callbacks and compare the exact supplied
 // descriptor.

@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_category_setters_preserve_latest_values_per_instance.expected
 */
+// What it checks:
+// 1. The descriptor element kind getter returns the most recently assigned
+//    value for its instance.
+// 2. The descriptor access kind getter returns the most recently assigned
+//    value for its instance.
+// 3. The descriptor status getter returns the most recently assigned value for
+//    its instance.
+// 4. The descriptor door getter returns the most recently assigned value for
+//    its instance.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.1.2.1 (UVM-REG-ITEM-ELEMENT-KIND-LATEST-INSTANCE-VALUE)
+//    gives rule 1 above. Setup: Assign peer settings, set first values and
+//    overwrite first with different enum values. Expected: Both first
+//    snapshots match their selected values while peer retains its own enum
+//    values.
+// 2. 1800.2-2020 19.1.1.2.3 (UVM-REG-ITEM-ACCESS-KIND-LATEST-INSTANCE-VALUE)
+//    gives rule 2 above. Setup: Assign peer settings, set first values and
+//    overwrite first with different enum values. Expected: Both first
+//    snapshots match their selected values while peer retains its own enum
+//    values.
+// 3. 1800.2-2020 19.1.1.2.6 (UVM-REG-ITEM-STATUS-LATEST-INSTANCE-VALUE) gives
+//    rule 3 above. Setup: Assign peer settings, set first values and overwrite
+//    first with different enum values. Expected: Both first snapshots match
+//    their selected values while peer retains its own enum values.
+// 4. 1800.2-2020 19.1.1.2.9 (UVM-REG-ITEM-DOOR-LATEST-INSTANCE-VALUE) gives
+//    rule 4 above. Setup: Assign peer settings, set first values and overwrite
+//    first with different enum values. Expected: Both first snapshots match
+//    their selected values while peer retains its own enum values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the descriptor public API directly, without bus or DUT access.
 // Undefined initial enum/data values are never observed. UVM_HAS_X here is
 // an explicitly assigned status enum, not a four-state data observation.

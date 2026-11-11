@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_poke_mem_deposits_readonly_data_with_parent_offset_and_extension.expected
 */
+// What it checks:
+// 1. poke_mem deposits the selected location without enforcing readonly
+//    physical access.
+// 2. The memory convenience method supplies the calling sequence as parent and
+//    forwards the selected access context.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.5.9 (UVM-REG-SEQUENCE-POKE-MEM-RO-DEPOSIT) gives rule
+//    1 above. Setup: Poke a55a hex into location two of a readonly memory with
+//    neighbor 1122 hex. Expected: Status is OK, selected storage is a55a and
+//    the neighbor remains 1122.
+// 2. 1800.2-2020 19.4.1.5.9 (UVM-REG-SEQUENCE-POKE-MEM-CALL-CONTEXT) gives
+//    rule 2 above. Setup: Observe the user-backdoor operation item with
+//    explicit GATE kind and extension. Expected: Parent, memory element/kind,
+//    offset, extension, access kind and backdoor door/kind all match exactly.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Default register-sequence specialization used as a virtual test sequence.
 // User backdoors model 16-bit memory locations with required pre/post hooks.
 // No HDL/DPI, physical bus, memory mirror or failed-read data is asserted.

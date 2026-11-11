@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_constructor_names_and_sequence_item_base_preserve_identity.expected
 */
+// What it checks:
+// 1. A register item derives from the sequence-item base.
+// 2. The register-item constructor accepts an optional name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.1.1 (UVM-REG-INTERACTION-ITEM-BASE) gives rule 1 above.
+//    Setup: Assign a named register item to a sequence-item handle. Expected:
+//    The nonnull base view denotes the same object.
+// 2. 1800.2-2020 19.1.1.3.1 (UVM-REG-INTERACTION-ITEM-NAMES) gives rule 2
+//    above. Setup: Construct omitted-name, selected-name and explicitly
+//    empty-name objects. Expected: Names are respectively empty, selected and
+//    empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe public construction and base identity only. No default undefined
 // kind/data/enum value, numeric identity or formatted diagnostic is asserted.
 module test_reg_item_constructor_names_and_sequence_item_base_preserve_identity;

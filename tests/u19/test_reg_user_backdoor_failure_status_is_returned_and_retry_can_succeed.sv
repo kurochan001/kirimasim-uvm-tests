@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_user_backdoor_failure_status_is_returned_and_retry_can_succeed.expected
 */
+// What it checks:
+// Register peek returns the user-backdoor success/failure status.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.12 (UVM-REGISTER-BACKDOOR-PEEK-STATUS) gives the rule
+// above. Setup: Use a selected register, explicit user-backdoor storage and
+// the stated access or handler configuration. Expected: A failed peek is
+// followed by successful retry returning bc.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The custom backdoor returns a failure status, then succeeds on retry. Failed-
 // read data is deliberately unconstrained.
 

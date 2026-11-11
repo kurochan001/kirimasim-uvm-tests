@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_custom_frontdoor_read_returns_value_and_updates_mirror.expected
 */
+// What it checks:
+// Custom register frontdoors receive the operation data through rw_info.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.4.2.2.1 (UVM-REGISTER-CUSTOM-FRONTDOOR-DESCRIPTOR) gives the
+// rule above. Setup: Run the explicitly selected custom-frontdoor fixture with
+// controlled descriptor fields and storage. Expected: The sequence consumes
+// the requested write value or supplies the returned read value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The custom sequence returns the stored value through rw_info. Auto-prediction
 // updates the register mirror after the sequence completes.
 

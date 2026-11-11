@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_adapter_descendant_inherits_both_converters_and_preserves_reference_directions.expected
 */
+// What it checks:
+// 1. The inherited reg2bus implementation is callable through the declared
+//    adapter base and preserves its argument direction.
+// 2. The inherited bus2reg implementation is callable through the declared
+//    adapter base and preserves its argument direction.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.1.2.5 (UVM-ADAPTER-INHERITED-REG2BUS) gives rule 1
+//    above. Setup: A leaf inherits both exact converter signatures from an
+//    original adapter. Initialize every operation member, convert twice, then
+//    change one original bus item before copying back to an existing
+//    operation. Expected: Two forward calls produce separate items containing
+//    the input operation without modifying it. The reverse call updates the
+//    caller operation to the selected item and leaves the original input and
+//    peer item unchanged.
+// 2. 1800.2-2020 19.2.1.2.6 (UVM-ADAPTER-INHERITED-BUS2REG) gives rule 2
+//    above. Setup: A leaf inherits both exact converter signatures from an
+//    original adapter. Initialize every operation member, convert twice, then
+//    change one original bus item before copying back to an existing
+//    operation. Expected: Two forward calls produce separate items containing
+//    the input operation without modifying it. The reverse call updates the
+//    caller operation to the selected item and leaves the original input and
+//    peer item unchanged.
+// It also supports, as a control, the setup or conditions of
+// UVM-NEGATIVE-REG-ADAPTER-CONCRETE-SUBCLASS-MUST-IMPLEMENT-REG2BUS,
+// UVM-NEGATIVE-REG-ADAPTER-CONCRETE-SUBCLASS-MUST-IMPLEMENT-BUS2REG,
+// UVM-NEGATIVE-REG-ADAPTER-REG2BUS-CONST-REFERENCE-REJECTS-INPUT-MUTATION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_reg_adapter_descendant_inherits_both_converters_and_preserves_reference_directions;
   import uvm_pkg::*;
   // Original payload copying selects a legal implementation. The oracle

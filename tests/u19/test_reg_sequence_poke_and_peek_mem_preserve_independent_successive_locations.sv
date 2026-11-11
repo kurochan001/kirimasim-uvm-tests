@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_poke_and_peek_mem_preserve_independent_successive_locations.expected
 */
+// What it checks:
+// Successive convenience accesses retain independent selected memory
+// locations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.4.1.5.9 (UVM-REG-SEQUENCE-MEM-LOCATION-INDEPENDENCE) gives
+// the rule above. Setup: Poke 1234/abcd hex into locations one/two, then peek
+// both. Expected: Each read returns its own value and all four calls retain
+// the expected access context.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Default register-sequence specialization used as a virtual test sequence.
 // User backdoors model 16-bit memory locations with required pre/post hooks.
 // No HDL/DPI, physical bus, memory mirror or failed-read data is asserted.

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_poke_mem_propagates_backdoor_failure_and_allows_a_retry.expected
 */
+// What it checks:
+// poke_mem returns the user-backdoor failure status and permits a later
+// successful retry.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.4.1.5.9 (UVM-REG-SEQUENCE-POKE-MEM-FAILURE-RETRY) gives the
+// rule above. Setup: Return NOT_OK on the first write and OK on the second.
+// Expected: The failure status is returned, then retry stores 5678 hex with
+// two writes and correct context.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Default register-sequence specialization used as a virtual test sequence.
 // User backdoors model 16-bit memory locations with required pre/post hooks.
 // No HDL/DPI, physical bus, memory mirror or failed-read data is asserted.

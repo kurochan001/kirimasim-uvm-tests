@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_adapter_separate_response_controls_write.expected
 */
+// What it checks:
+// 1. With provides_responses selected, the register layer consumes the
+//    separate driver response.
+// 2. bus2reg is given the separate response object for the selected response
+//    path.
+// 3. get_item returns null during response-side bus2reg conversion.
+// 4. Successful separate-response writes update an auto-predicted mirror.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.1.2.3 (UVM-ADAPTER-SEPARATE-WRITE) gives rule 1 above.
+//    Setup: One register write receives OK in a separate response and NOT_OK
+//    in its request. Expected: The write reports success and the fixture
+//    stores 0x5a.
+// 2. 1800.2-2020 19.2.1.2.6 (UVM-ADAPTER-BUS2REG-SEPARATE-IDENTITY) gives rule
+//    2 above. Setup: Four write/read/retry fixtures capture original request,
+//    returned response and converted object handles. Expected: Each converted
+//    object is the exact returned response and differs from its request.
+// 3. 1800.2-2020 19.2.1.2.7
+//    (UVM-ADAPTER-GET-ITEM-NULL-DURING-SEPARATE-BUS2REG) gives rule 3 above.
+//    Setup: The adapter queries get_item in every bus2reg call across the four
+//    separate-response fixtures. Expected: All conversion-time queries are
+//    null.
+// 4. 1800.2-2020 18.2.5.2 (UVM-SEPARATE-RESPONSE-WRITE-MIRROR) gives rule 4
+//    above. Setup: An RW register with reset 0x11 is written with 0x5a.
+//    Expected: The mirror is 0x5a on return.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The driver returns fresh response objects with copied routing IDs.
 // Only response state is authoritative; failed read values are not asserted.
 module test_adapter_separate_response_controls_write;

@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_nonuniform_payload_arrays_remain_independent_across_conversions.expected
 */
+// What it checks:
+// 1. An earlier payload retains its data/enable arrays after the source struct
+//    is reused.
+// 2. Public array mutation on one converted payload leaves the other payload
+//    unchanged.
+// 3. Successive conversions return distinct payload objects with their own
+//    addresses.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.2.2.1 (UVM-TLM-ROUNDTRIP-EARLIER-ARRAY-SNAPSHOT) gives
+//    rule 1 above. Setup: A second nonuniform conversion uses changed scalar
+//    data, address and mask. Expected: Earlier arrays equal their entry
+//    snapshots.
+// 2. 1800.2-2020 19.2.2.2.1 (UVM-TLM-ROUNDTRIP-PEER-ARRAY-ISOLATION) gives
+//    rule 2 above. Setup: After two conversions, first data and enable arrays
+//    are replaced. Expected: Second data and enable arrays retain their
+//    snapshots.
+// 3. 1800.2-2020 19.2.1.2.5 (UVM-TLM-ROUNDTRIP-FRESH-ARRAY-OWNERS) gives rule
+//    3 above. Setup: One adapter converts two nonuniform source structs with
+//    different addresses. Expected: Handles differ and addresses remain 0x120
+//    and 0x240.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Snapshots compare opaque byte-array sequences without numeric byte
 // ordering.
 // Source-struct reuse and later public mutation must not alter a peer

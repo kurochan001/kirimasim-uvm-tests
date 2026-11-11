@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_peek_reg_samples_read_clear_storage_without_its_side_effect.expected
 */
+// What it checks:
+// 1. peek_reg samples storage without the read-clear side effect.
+// 2. The peek_reg convenience method supplies the calling sequence as parent
+//    and forwards explicit transaction metadata.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.5.4 (UVM-REG-SEQUENCE-PEEK-REG) gives rule 1 above.
+//    Setup: Peek a user-backed RC register containing 6c hex. Expected: Value,
+//    unchanged storage and mirror are 6c with one backdoor read and no write.
+// 2. 1800.2-2020 19.4.1.5.4 (UVM-REG-SEQUENCE-PEEK-REG-CALL-CONTEXT) gives
+//    rule 2 above. Setup: Observe the adapter item or user-backdoor item for
+//    the access. Expected: Every observed item has the exact parent, element
+//    and extension; frontdoor items retain map/priority 23, backdoor items
+//    retain GATE kind, and memory items retain the selected offset.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Run the default specialization as a virtual test sequence without a
 // sequencer. Maps supply the delayed bus; user backdoors model storage.
 // Observe the implicit parent plus explicit metadata without RTL or DPI.

@@ -12,6 +12,49 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context.expected
 */
+// What it checks:
+// 1. The standard-adapter extension sees the abstract read context during
+//    reg2bus.
+// 2. get_item is null during bus2reg and after the operation.
+// 3. The frontdoor sends the fresh objects returned by standard reg2bus to the
+//    driver.
+// 4. Frontdoor reads through the standard TLM adapter return driver response
+//    data.
+// 5. Auto-prediction updates mirrors from standard-adapter reads.
+// 6. The physical payload address corresponds to the mapped register.
+// 7. A generic frontdoor read produces a TLM READ payload.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.1.2.7 (UVM-TLM-ADAPTER-FRONTDOOR-CONTEXT) gives rule 1
+//    above. Setup: A sixteen-bit model uses the standard adapter, in-place
+//    driver responses and a two-byte map. Expected: Context is non-null,
+//    identifies the model register and has READ kind.
+// 2. 1800.2-2020 19.2.1.2.7 (UVM-TLM-ADAPTER-FRONTDOOR-OUTSIDE-CONTEXT) gives
+//    rule 2 above. Setup: A sixteen-bit model uses the standard adapter,
+//    in-place driver responses and a two-byte map. Expected: Every
+//    response-side and outside query returns null.
+// 3. 1800.2-2020 19.2.2.2.1 (UVM-TLM-ADAPTER-FRONTDOOR-PAYLOAD-IDENTITY) gives
+//    rule 3 above. Setup: A sixteen-bit model uses the standard adapter,
+//    in-place driver responses and a two-byte map. Expected: Two distinct
+//    generated handles match the two received payload handles.
+// 4. 1800.2-2020 18.4.4.10 (UVM-TLM-ADAPTER-FRONTDOOR-READ-DATA) gives rule 4
+//    above. Setup: A sixteen-bit model uses the standard adapter, in-place
+//    driver responses and a two-byte map. Expected: Reads succeed with 0x3c3c
+//    then 0x9292.
+// 5. 1800.2-2020 18.2.5.2 (UVM-TLM-ADAPTER-FRONTDOOR-PREDICTION) gives rule 5
+//    above. Setup: A sixteen-bit model uses the standard adapter, in-place
+//    driver responses and a two-byte map. Expected: Mirrors become 0x3c3c then
+//    0x9292.
+// 6. 1800.2-2020 19.1.2.2 (UVM-TLM-ADAPTER-FRONTDOOR-ADDRESS) gives rule 6
+//    above. Setup: A sixteen-bit model uses the standard adapter, in-place
+//    driver responses and a two-byte map. Expected: Both requests use address
+//    0x20.
+// 7. 1800.2-2020 19.2.2.2.1 (UVM-TLM-ADAPTER-FRONTDOOR-COMMAND) gives rule 7
+//    above. Setup: A sixteen-bit model uses the standard adapter, in-place
+//    driver responses and a two-byte map. Expected: Both received payloads
+//    identify READ.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The standard adapter performs conversions; the original driver supplies
 // uniform response bytes in place. No HDL storage or byte-order assumption
 // is introduced, and get_item is queried only through its public API.

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_convert2string_dispatches_to_the_current_subtype_contents.expected
 */
+// What it checks:
+// The transaction string formatter is virtual and can represent current
+// subtype contents.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.1.1.3.2 (UVM-REG-INTERACTION-ITEM-VIRTUAL-STRING) gives the
+// rule above. Setup: Call an original formatter through a register-item base
+// view before and after changing name and data. Expected: Each call reflects
+// current original contents; an earlier string value stays unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The string layout is the original subtype formatter, not a default-library
 // text expectation. This checks virtual dispatch with live public values;
 // default formatting/completeness remains separate review work.

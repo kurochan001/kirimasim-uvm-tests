@@ -12,6 +12,46 @@
 :expected_exit: 0
 :expected_stdout: @test_user_backdoor_write_success_propagates_pre_hook_changes_and_post_callbacks.expected
 */
+// What it checks:
+// 1. A user-defined backdoor write reports its selected deposit result after
+//    pre/post processing.
+// 2. The pre-write helper invoked first by a user write executes its pre
+//    callbacks before deposit.
+// 3. The post-write helper invoked last by a user write executes its post
+//    callbacks after deposit.
+// 4. The user pre-write hook precedes registered pre-write callbacks.
+// 5. Changing the written value in pre processing changes the value supplied
+//    to the deposit.
+// 6. Registered post-write callbacks precede the user post-write hook after
+//    deposit.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.5.2.6 (UVM-REG-INTERACTION-USER-WRITE-RESULT) gives rule 1
+//    above. Setup: Invoke an original successful or failing backdoor write
+//    through register write. Expected: Success stores transformed value 0x20
+//    and reports OK; failure preserves original storage and reports NOT_OK.
+// 2. 1800.2-2020 19.5.2.4 (UVM-REG-INTERACTION-WRITE-PRE-HELPER-CALLBACKS)
+//    gives rule 2 above. Setup: The original write starts with do_pre_write on
+//    the register layer supplied descriptor. Expected: Trace and identity
+//    checks place the callback before the original storage operation.
+// 3. 1800.2-2020 19.5.2.5 (UVM-REG-INTERACTION-WRITE-POST-HELPER-CALLBACKS)
+//    gives rule 3 above. Setup: The original write ends with do_post_write
+//    after selecting its result status. Expected: Trace places the callback
+//    after the body for both selected statuses.
+// 4. 1800.2-2020 19.5.2.11 (UVM-REG-INTERACTION-WRITE-PRE-HOOK-ORDER) gives
+//    rule 4 above. Setup: The hook adds 0x10 to input 0x13 and the callback
+//    checks that intermediate value. Expected: The callback sees 0x23 and
+//    precedes the write body on the same descriptor.
+// 5. 1800.2-2020 19.5.2.11 (UVM-REG-INTERACTION-WRITE-MODIFIED-VALUE) gives
+//    rule 5 above. Setup: The user hook and original callback transform 0x13
+//    into 0x20. Expected: The write body receives 0x20; successful storage
+//    contains 0x20.
+// 6. 1800.2-2020 19.5.2.12 (UVM-REG-INTERACTION-WRITE-POST-HOOK-ORDER) gives
+//    rule 6 above. Setup: The original body selects its status before calling
+//    the protected post helper. Expected: Trace WCBcw and descriptor/value
+//    checks show callback then hook after the body.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Invoke the original user write through public register access. Its first
 // statement calls the standard protected pre helper and its last calls the
 // post helper. Only original storage, callback order and propagated status are

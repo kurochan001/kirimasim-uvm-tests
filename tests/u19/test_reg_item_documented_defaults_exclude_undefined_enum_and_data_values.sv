@@ -12,6 +12,51 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values.expected
 */
+// What it checks:
+// 1. The initial register-item element handle is null.
+// 2. The initial register-item offset is zero.
+// 3. The initial register-item local map is null.
+// 4. The initial register-item original map is null.
+// 5. The initial register-item parent sequence is null.
+// 6. The initial register-item priority is minus one.
+// 7. The initial register-item extension is null.
+// 8. The initial register-item backdoor kind is empty.
+// 9. The initial register-item filename is empty.
+// 10. The initial register-item line number is zero.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.1.2.2 (UVM-REG-ITEM-DEFAULT-ELEMENT) gives rule 1 above.
+//    Setup: Query a freshly constructed descriptor before any setter.
+//    Expected: The documented element handle is null.
+// 2. 1800.2-2020 19.1.1.2.5 (UVM-REG-ITEM-DEFAULT-OFFSET) gives rule 2 above.
+//    Setup: Query a freshly constructed descriptor before any setter.
+//    Expected: The documented offset is zero.
+// 3. 1800.2-2020 19.1.1.2.7 (UVM-REG-ITEM-DEFAULT-LOCAL-MAP) gives rule 3
+//    above. Setup: Query a freshly constructed descriptor before any setter.
+//    Expected: The documented local map is null.
+// 4. 1800.2-2020 19.1.1.2.8 (UVM-REG-ITEM-DEFAULT-MAP) gives rule 4 above.
+//    Setup: Query a freshly constructed descriptor before any setter.
+//    Expected: The documented original map is null.
+// 5. 1800.2-2020 19.1.1.2.10 (UVM-REG-ITEM-DEFAULT-PARENT) gives rule 5 above.
+//    Setup: Query a freshly constructed descriptor before any setter.
+//    Expected: The documented parent sequence is null.
+// 6. 1800.2-2020 19.1.1.2.11 (UVM-REG-ITEM-DEFAULT-PRIORITY) gives rule 6
+//    above. Setup: Query a freshly constructed descriptor before any setter.
+//    Expected: The documented priority is minus one.
+// 7. 1800.2-2020 19.1.1.2.12 (UVM-REG-ITEM-DEFAULT-EXTENSION) gives rule 7
+//    above. Setup: Query a freshly constructed descriptor before any setter.
+//    Expected: The documented extension is null.
+// 8. 1800.2-2020 19.1.1.2.13 (UVM-REG-ITEM-DEFAULT-BD-KIND) gives rule 8
+//    above. Setup: Query a freshly constructed descriptor before any setter.
+//    Expected: The documented backdoor kind is empty.
+// 9. 1800.2-2020 19.1.1.2.14 (UVM-REG-ITEM-DEFAULT-FNAME) gives rule 9 above.
+//    Setup: Query a freshly constructed descriptor before any setter.
+//    Expected: The documented filename is empty.
+// 10. 1800.2-2020 19.1.1.2.15 (UVM-REG-ITEM-DEFAULT-LINE) gives rule 10 above.
+//     Setup: Query a freshly constructed descriptor before any setter.
+//     Expected: The documented line number is zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the descriptor public API directly, without bus or DUT access.
 // Undefined initial enum/data values are never observed. UVM_HAS_X here is
 // an explicitly assigned status enum, not a four-state data observation.

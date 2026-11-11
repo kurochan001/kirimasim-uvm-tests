@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_interleaved_little_endian_registers_keep_partial_values_independent.expected
 */
+// What it checks:
+// 1. Partial observations for different wide registers keep independent
+//    data/completion state.
+// 2. A wide-register predictor waits for all required bus words before
+//    updating and publishing that value.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.3.2.1 (UVM-PREDICTOR-PARTIAL-ISOLATION) gives rule 1
+//    above. Setup: Interleave two 32-bit registers on a 16-bit bus in
+//    little/big-endian maps. Expected: Completing one register leaves the
+//    other unmodified until its own last beat; each publishes its own value.
+// 2. 1800.2-2020 19.3.2.1 (UVM-PREDICTOR-WIDE-COMPLETION) gives rule 2 above.
+//    Setup: Observe two 16-bit words of 32-bit registers using
+//    little/big-endian maps. Expected: Partial observations leave the
+//    mirror/publication count unchanged; completion assembles the configured
+//    value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe only mirrors and public analysis publications. The fixture does
 // not inspect the predictor's private pending map or use active prediction.
 

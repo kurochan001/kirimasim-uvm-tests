@@ -14,6 +14,25 @@
 :expected_exit: 0
 :expected_stdout: @test_predictor_check_registered_pending_big_1_registers_88.expected
 */
+// What it checks:
+// Under the observable-check interpretation, predictor check_phase detects
+// queued incomplete register transfers separately from a completed control.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.3.3.3 (UVM-PREDICTOR-PENDING-CHECK-88) gives the rule above.
+// Setup: Original registered packet controls use two independent
+// predictors,blocks,maps and 32-bit registers behind16-bit little/big-endian
+// observations. One predictor completes both registers; the other receives
+// only first beats for1/2registers. The actual bottom-up check phase runs
+// before the parent check observer. All predictor reports are captured as
+// CAUGHT without fixing severity/ID/text/count. Four bare unregistered packet
+// inputs stay unchanged as build-level control-only probes of the library
+// registration dependency, not IEEE-required registration. Expected: The
+// completed model retains both full mirrors and two publications without new
+// error/fatal; the incomplete model has no publication and produces some
+// report during actual check phase.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_predictor_check_registered_pending_big_1_registers_88;
   timeunit 1ns; timeprecision 1ps;
   import uvm_pkg::*;

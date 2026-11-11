@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_user_backdoor_constructor_preserves_optional_names_and_object_base_identity.expected
 */
+// What it checks:
+// 1. A concrete user backdoor derives from the object base.
+// 2. The user-backdoor constructor accepts the declared optional name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.5.1 (UVM-REG-INTERACTION-BACKDOOR-BASE) gives rule 1
+//    above. Setup: Upcast an original user backdoor to an object handle.
+//    Expected: The base view denotes the same backdoor.
+// 2. 1800.2-2020 19.5.2.1 (UVM-REG-INTERACTION-BACKDOOR-NAMES) gives rule 2
+//    above. Setup: An implicit subtype constructor and explicit forwarding
+//    constructors select omitted, named and empty cases. Expected: Names are
+//    empty, selected and empty.
+// It also supports, as a control, the setup or conditions of
+// UVM-ABSTRACT-REG-BACKDOOR-DIRECT-CONSTRUCTION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original concrete subtypes expose the base constructor defaults and explicit
 // forwarding. No default data, backend availability or physical HDL is
 // inferred.

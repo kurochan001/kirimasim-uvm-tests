@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_user_backdoor_poke_and_peek_use_the_selected_readonly_location.expected
 */
+// What it checks:
+// 1. Memory poke deposits the supplied value as-is at the selected location.
+// 2. Memory peek returns the selected stored value.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.5.5 (UVM-MEMORY-BACKDOOR-POKE) gives rule 1 above.
+//    Setup: Use explicit locations in a read-only memory with a user backdoor.
+//    Expected: Read-only storage takes a6 while its neighboring location stays
+//    33.
+// 2. 1800.2-2020 18.6.5.6 (UVM-MEMORY-BACKDOOR-PEEK) gives rule 2 above.
+//    Setup: Use explicit locations in a read-only memory with a user backdoor.
+//    Expected: The selected peek succeeds and returns a6.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Memory poke/peek use the selected location without enforcing the read-only
 // physical access policy. The memory keeps no per-location UVM mirror.
 

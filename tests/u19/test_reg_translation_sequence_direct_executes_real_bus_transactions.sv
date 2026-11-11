@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_translation_sequence_direct_executes_real_bus_transactions.expected
 */
+// What it checks:
+// 1. A translation sequence uses a BASE compatible with its bus sequencer item
+//    type.
+// 2. The translation sequence adapter converts abstract register operations
+//    into the selected physical item protocol.
+// 3. do_reg_item executes the supplied abstract operation through the sequence
+//    bus sequencer using its adapter.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.2 (UVM-REG-PIPELINE-BUS-COMPATIBLE-BASE) gives rule 1
+//    above. Setup: Bind a register sequence over a packet sequence to the
+//    actual packet bus sequencer. Expected: The delayed driver receives
+//    correctly routed packet transfers and execution completes.
+// 2. 1800.2-2020 19.4.1.3.2 (UVM-REG-PIPELINE-CONFIGURED-TRANSLATION-ADAPTER)
+//    gives rule 2 above. Setup: Use a configured XOR converter for direct and
+//    upstream-driven register transactions. Expected: The converter runs once
+//    per selected beat and the original driver stores/returns the decoded
+//    values.
+// 3. 1800.2-2020 19.4.1.4.3 (UVM-REG-PIPELINE-DIRECT-REGISTER-ITEM-EXECUTION)
+//    gives rule 3 above. Setup: An original finite body directly submits one
+//    register write and one read. Expected: The write changes original driver
+//    storage and the read returns that value with successful status.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise real bus sequencer/driver handshakes and a configured standard
 // translation sequence. An original XOR protocol makes selected adapter use
 // observable. The layered case pulls actual upstream register items; direct

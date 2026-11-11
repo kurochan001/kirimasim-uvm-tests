@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_virtual_sequence_model_selects_the_accessed_block_without_a_sequencer.expected
 */
+// What it checks:
+// 1. The model property identifies the block on which a user-defined test
+//    sequence operates.
+// 2. The default BASE is adequate for a virtual user test sequence without a
+//    sequencer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.3.1 (UVM-REG-PIPELINE-TEST-MODEL-SELECTION) gives rule
+//    1 above. Setup: Run the same original body on two independently supplied
+//    blocks. Expected: Real write/read convenience operations affect only the
+//    selected block storage each time.
+// 2. 1800.2-2020 19.4.1.2 (UVM-REG-PIPELINE-DEFAULT-VIRTUAL-BASE) gives rule 2
+//    above. Setup: Start the same default-BASE subtype with null sequencer on
+//    two selected models. Expected: Both register write/read bodies complete
+//    with correct values and null sequencer context.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The user-defined body obtains its target from the public model property and
 // uses real convenience APIs and independent user-backed registers. The same
 // default-BASE sequence runs virtually on two selected blocks. Model selection

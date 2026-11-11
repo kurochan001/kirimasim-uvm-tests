@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_adapter_constructor_forwards_names_and_inherits_the_object_base.expected
 */
+// What it checks:
+// 1. A concrete register-adapter extension is usable as an object.
+// 2. The register-adapter constructor accepts an optional name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.1.1 (UVM-REG-INTERACTION-ADAPTER-BASE) gives rule 1
+//    above. Setup: Assign a concrete converter to an object base view.
+//    Expected: The view retains the adapter identity.
+// 2. 1800.2-2020 19.2.1.2.1 (UVM-REG-INTERACTION-ADAPTER-NAMES) gives rule 2
+//    above. Setup: A subtype without a constructor uses the omitted base name;
+//    another forwards selected or empty names. Expected: The observed names
+//    are empty, selected and empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Concrete original converters satisfy the abstract base interface. The
 // implicit subtype constructor invokes the omitted base name, without a
 // subtype default masking it. Converter implementation is setup, not its

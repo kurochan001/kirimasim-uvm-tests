@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_memory_accessors_keep_concurrent_parent_and_backdoor_contexts_independent.expected
 */
+// What it checks:
+// Independent concurrent accessor sequences retain their own parent, extension
+// and backdoor contexts.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.4.1.5.10 (UVM-REG-SEQUENCE-MEM-CONCURRENT-CONTEXT-ISOLATION)
+// gives the rule above. Setup: Run two virtual sequences against distinct
+// memories/backdoors at the same offset. Expected: Each has one read/write,
+// exact independent context and its own 5aa5/3cc3 hex value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Default register-sequence specialization used as a virtual test sequence.
 // User backdoors model 16-bit memory locations with required pre/post hooks.
 // No HDL/DPI, physical bus, memory mirror or failed-read data is asserted.

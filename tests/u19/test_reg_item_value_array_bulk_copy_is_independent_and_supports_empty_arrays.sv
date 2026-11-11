@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_value_array_bulk_copy_is_independent_and_supports_empty_arrays.expected
 */
+// What it checks:
+// 1. Bulk value-array set/get copy values without aliasing the caller arrays.
+// 2. Empty bulk arrays produce zero size and later growth initializes new
+//    values to zero.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.1.2.4 (UVM-REG-ITEM-BULK-ARRAY-COPY-INDEPENDENCE) gives
+//    rule 1 above. Setup: Supply three values, mutate input after set, then
+//    mutate returned array after get. Expected: Returned values remain
+//    11/22/33 and internal first value stays 11 despite caller mutations.
+// 2. 1800.2-2020 19.1.1.2.4 (UVM-REG-ITEM-BULK-ARRAY-EMPTY-REGROW) gives rule
+//    2 above. Setup: Set an empty array, retrieve it and grow to one entry.
+//    Expected: Internal/returned sizes are zero, then size one holds zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the descriptor public API directly, without bus or DUT access.
 // Undefined initial enum/data values are never observed. UVM_HAS_X here is
 // an explicitly assigned status enum, not a four-state data observation.

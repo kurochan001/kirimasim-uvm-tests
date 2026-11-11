@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_user_backdoor_default_read_failure_preserves_hook_and_callback_contracts.expected
 */
+// What it checks:
+// 1. The default backdoor read delegates its peek step to the virtual
+//    read_func extension.
+// 2. A function-based backdoor supplies the current value and operation status
+//    through its descriptor.
+// 3. The user pre-read hook precedes registered callbacks and the backdoor
+//    peek.
+// 4. Registered post-read callbacks precede the user post-read hook after the
+//    peek.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.5.2.7 (UVM-REG-INTERACTION-DEFAULT-READ-FUNCTION-DISPATCH)
+//    gives rule 1 above. Setup: Invoke the inherited read task through a base
+//    handle with success, failure and callback lifecycle cases. Expected: The
+//    same supplied descriptor reaches the original function once per read and
+//    retains its selected success or failure result.
+// 2. 1800.2-2020 19.5.2.8 (UVM-REG-INTERACTION-READ-FUNCTION-RESULT) gives
+//    rule 2 above. Setup: The default read invokes an original function using
+//    the offset selected by pre processing. Expected: Success returns the
+//    selected stored value after the original callback transform; failure
+//    returns NOT_OK without constraining data.
+// 3. 1800.2-2020 19.5.2.9 (UVM-REG-INTERACTION-READ-PRE-HOOK-ORDER) gives rule
+//    3 above. Setup: An original hook sets offset one and a callback verifies
+//    it before changing it to two. Expected: Trace RCFcr and the body-offset
+//    check show hook, callback and function ordering with the same descriptor.
+// 4. 1800.2-2020 19.5.2.10 (UVM-REG-INTERACTION-READ-POST-HOOK-ORDER) gives
+//    rule 4 above. Setup: The post callback modifies successful data before
+//    the original post hook inspects it. Expected: Trace and the post-value
+//    check show the callback change at the final hook.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The library default read task wraps an original read_func implementation.
 // Trace only original hooks/callbacks and compare the exact supplied
 // descriptor.

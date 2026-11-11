@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_user_backdoor_read_applies_read_clear_after_sampling.expected
 */
+// What it checks:
+// A register backdoor read emulates physical read-clear effects after sampling
+// the value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.10 (UVM-BACKDOOR-READ-CLEAR) gives the rule above. Setup:
+// An RC register uses a successful user backdoor whose stored value is 0xa6.
+// Expected: The read returns 0xa6 and leaves backdoor storage at zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A physical-style read returns the sampled value, then clears read-clear
 // storage and updates the register mirror to the post-read value.
 

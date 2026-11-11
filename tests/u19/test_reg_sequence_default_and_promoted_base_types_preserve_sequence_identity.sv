@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_default_and_promoted_base_types_preserve_sequence_identity.expected
 */
+// What it checks:
+// 1. The omitted BASE selects a sequence of register items.
+// 2. An original register sequence can promote BASE and extend a supplied user
+//    base sequence.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.1 (UVM-REG-PIPELINE-SEQUENCE-DEFAULT-BASE) gives rule
+//    1 above. Setup: Assign an original default specialization to the exact
+//    uvm_sequence of uvm_reg_item type. Expected: The exact base view denotes
+//    the same sequence.
+// 2. 1800.2-2020 19.4.1.2 (UVM-REG-PIPELINE-SEQUENCE-PROMOTED-BASE) gives rule
+//    2 above. Setup: Supply an original packet-typed sequence base with an
+//    inherited marker. Expected: Exact custom and packet-sequence views retain
+//    identity and the inherited marker.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive default and explicitly promoted BASE compatibility only. Real
 // sequencer execution is checked in separate translation cases; malformed
 // base types and arbitrary user inheritance chains are not certified.

@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_write_reg_forwards_parent_map_priority_and_extension.expected
 */
+// What it checks:
+// 1. write_reg writes through the selected register interface.
+// 2. The write_reg convenience method supplies the calling sequence as parent
+//    and forwards explicit transaction metadata.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.5.1 (UVM-REG-SEQUENCE-WRITE-REG) gives rule 1 above.
+//    Setup: Write 5a hex through the explicit frontdoor map. Expected: Status
+//    is OK, storage/mirror are 5a and physical address is 20 hex.
+// 2. 1800.2-2020 19.4.1.5.1 (UVM-REG-SEQUENCE-WRITE-REG-CALL-CONTEXT) gives
+//    rule 2 above. Setup: Observe the adapter item or user-backdoor item for
+//    the access. Expected: Every observed item has the exact parent, element
+//    and extension; frontdoor items retain map/priority 23, backdoor items
+//    retain GATE kind, and memory items retain the selected offset.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Run the default specialization as a virtual test sequence without a
 // sequencer. Maps supply the delayed bus; user backdoors model storage.
 // Observe the implicit parent plus explicit metadata without RTL or DPI.

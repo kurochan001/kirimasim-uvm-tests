@@ -12,6 +12,45 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts.expected
 */
+// What it checks:
+// 1. A generic error response converts to a failed generic operation.
+// 2. A address error response converts to a failed generic operation.
+// 3. A command error response converts to a failed generic operation.
+// 4. A burst error response converts to a failed generic operation.
+// 5. A byte-enable error response converts to a failed generic operation.
+// 6. Error response conversion still identifies the read operation.
+// 7. Error response conversion identifies the supplied bus address.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.2.6 (UVM-TLM-ADAPTER-ERROR-GENERIC-STATUS) gives rule 1
+//    above. Setup: A completed read payload has the selected negative error
+//    status; rw starts as IS_OK. Expected: The generic status becomes
+//    UVM_NOT_OK.
+// 2. 1800.2-2020 19.1.2.6 (UVM-TLM-ADAPTER-ERROR-ADDRESS-STATUS) gives rule 2
+//    above. Setup: A completed read payload has the selected negative error
+//    status; rw starts as IS_OK. Expected: The generic status becomes
+//    UVM_NOT_OK.
+// 3. 1800.2-2020 19.1.2.6 (UVM-TLM-ADAPTER-ERROR-COMMAND-STATUS) gives rule 3
+//    above. Setup: A completed read payload has the selected negative error
+//    status; rw starts as IS_OK. Expected: The generic status becomes
+//    UVM_NOT_OK.
+// 4. 1800.2-2020 19.1.2.6 (UVM-TLM-ADAPTER-ERROR-BURST-STATUS) gives rule 4
+//    above. Setup: A completed read payload has the selected negative error
+//    status; rw starts as IS_OK. Expected: The generic status becomes
+//    UVM_NOT_OK.
+// 5. 1800.2-2020 19.1.2.6 (UVM-TLM-ADAPTER-ERROR-BYTE-ENABLE-STATUS) gives
+//    rule 5 above. Setup: A completed read payload has the selected negative
+//    error status; rw starts as IS_OK. Expected: The generic status becomes
+//    UVM_NOT_OK.
+// 6. 1800.2-2020 19.2.2.2.2 (UVM-TLM-ADAPTER-ERROR-READ-COMMAND) gives rule 6
+//    above. Setup: The same valid read payload is reused across five negative
+//    response statuses. Expected: All selected error responses convert to
+//    READ.
+// 7. 1800.2-2020 19.1.2.2 (UVM-TLM-ADAPTER-ERROR-ADDRESS) gives rule 7 above.
+//    Setup: The same valid read payload is reused across five negative
+//    response statuses. Expected: All selected responses retain address 0x500.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Uniform data/enable bytes avoid imposing numeric byte ordering.
 // Failed-read data and unused upper data/mask bits are not constrained.
 module test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts;

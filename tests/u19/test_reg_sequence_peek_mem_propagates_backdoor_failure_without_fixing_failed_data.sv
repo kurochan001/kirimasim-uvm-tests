@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_peek_mem_propagates_backdoor_failure_without_fixing_failed_data.expected
 */
+// What it checks:
+// peek_mem returns a failure status without fixing failed data and allows
+// retry.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.4.1.5.10 (UVM-REG-SEQUENCE-PEEK-MEM-FAILURE-RETRY) gives the
+// rule above. Setup: Return NOT_OK once, then read initialized location two
+// successfully. Expected: First status is NOT_OK, then OK returns 789a hex
+// with unchanged storage and correct context.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Default register-sequence specialization used as a virtual test sequence.
 // User backdoors model 16-bit memory locations with required pre/post hooks.
 // No HDL/DPI, physical bus, memory mirror or failed-read data is asserted.

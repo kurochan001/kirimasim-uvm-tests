@@ -16,6 +16,22 @@
 :expected_exit: 0
 :expected_stdout: @test_hdl_deposit_sets_only_the_selected_variable_and_reports_missing_paths.expected
 */
+// What it checks:
+// 1. HDL deposit sets the selected HDL object value and reports whether the
+//    operation succeeded.
+// 2. HDL path checks distinguish an accessible object from a missing path.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.6.2.2 (UVM-HDL-DEPOSIT) gives rule 1 above. Setup: An
+//    allowed backend provides linked HDL DPI and both valid and invalid HDL
+//    paths. Expected: A successful deposit returns 1 and changes the target; a
+//    failed deposit returns 0.
+// 2. 1800.2-2020 19.6.2.1 (UVM-HDL-CHECK-PATH-PRESENCE) gives rule 2 above.
+//    Setup: Provide a public packed variable and a nonexistent leaf under the
+//    same module. Expected: The valid path returns one and the missing path
+//    zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Actual public HDL storage is accessed through the original VPI backend.
 // Run with tools/run_verilator_hdl.py; ordinary runs do not link this DPI.
 module test_hdl_deposit_sets_only_the_selected_variable_and_reports_missing_paths;

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_independent_maps_use_configuration_selected_before_run.expected
 */
+// What it checks:
+// Prediction uses the map configured before run to resolve bus addresses.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.3.2.3 (UVM-REG-INTERACTION-PREDICTOR-CONFIGURED-MAP) gives
+// the rule above. Setup: Two predictors use independent maps containing
+// registers at different addresses. Expected: Each observation updates and
+// publishes only the register found by that predictor map.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Both public map/adapter configurations precede run. Original XOR-coded
 // packets define the fixture bus protocol; actual predictor outputs and
 // mirrors

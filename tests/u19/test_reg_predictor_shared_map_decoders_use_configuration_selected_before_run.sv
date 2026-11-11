@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_shared_map_decoders_use_configuration_selected_before_run.expected
 */
+// What it checks:
+// Prediction converts incoming bus items through the adapter configured before
+// run.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.3.2.4 (UVM-REG-INTERACTION-PREDICTOR-CONFIGURED-ADAPTER)
+// gives the rule above. Setup: Two predictors share one map but use
+// independently selected XOR decoders. Expected: The same raw observation
+// produces the selected decoded mirror/publication values while the earlier
+// sink snapshot stays unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Both public map/adapter configurations precede run. Original XOR-coded
 // packets define the fixture bus protocol; actual predictor outputs and
 // mirrors

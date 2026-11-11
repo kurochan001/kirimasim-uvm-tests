@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_ignores_memory_and_unmapped_bus_observations.expected
 */
+// What it checks:
+// Bus observations not mapped to registers do not predict a register value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.3.2.1 (UVM-PREDICTOR-IGNORE-NONREGISTER) gives the rule
+// above. Setup: Send memory-address and unmapped-address observations beside a
+// known register. Expected: The register mirror remains 55 and no register
+// item is published.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The standard predictor excludes memory accesses. Neither a mapped
 // memory address nor an unrelated address may publish a register transaction.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_write_one_clear_distinguishes_observation_from_mirror.expected
 */
+// What it checks:
+// Write-one-clear prediction applies the observed mask to the prior mirror.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.3.2.1 (UVM-PREDICTOR-WRITE-ONE-CLEAR) gives the rule above.
+// Setup: Observe the explicitly configured access policy without active bus
+// operations. Expected: The published write mask is f and the resulting mirror
+// is f0.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The published transaction carries write data; the mirror reflects
 // write-one-clear policy effects on its prior state.
 

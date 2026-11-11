@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_user_backdoor_task_read_failure_uses_first_and_last_protected_helpers.expected
 */
+// What it checks:
+// 1. A user task-read extension calls the protected pre-read helper first.
+// 2. A user task-read extension calls the protected post-read helper last.
+// 3. A task-based read override can supply a delayed backdoor read through a
+//    base handle.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.5.2.2 (UVM-REG-PIPELINE-TASK-READ-PRE-BOUNDARY) gives rule
+//    1 above. Setup: Call an original delayed read override with success and
+//    failure cases. Expected: The pre hook/callback execute before the delayed
+//    peek on the exact supplied descriptor.
+// 2. 1800.2-2020 19.5.2.3 (UVM-REG-PIPELINE-TASK-READ-POST-BOUNDARY) gives
+//    rule 2 above. Setup: Call an original delayed read override with success
+//    and failure cases. Expected: The delayed body is followed by post
+//    callback and user post hook before returning its selected status.
+// 3. 1800.2-2020 19.5.2.7 (UVM-REG-PIPELINE-TASK-READ-VIRTUAL-DISPATCH) gives
+//    rule 3 above. Setup: Call an original delayed read override with success
+//    and failure cases. Expected: Both selected calls consume the original
+//    two-unit delay and preserve success data or failure status.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Override the task-based read with the protected pre helper as its first
 // statement
 // and the post helper as its last. A positive delay requires task execution.

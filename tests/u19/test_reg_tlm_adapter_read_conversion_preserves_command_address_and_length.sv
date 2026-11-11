@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_tlm_adapter_read_conversion_preserves_command_address_and_length.expected
 */
+// What it checks:
+// The TLM adapter translates a generic read into a read payload.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.2.2.2.1 (UVM-TLM-ADAPTER-READ-CONVERSION) gives the rule
+// above. Setup: Provide explicit generic fields or a constructed payload and
+// inspect the returned conversion. Expected: Read command, address 240 and
+// length four are retained.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Do not assert the data buffer contents of an uncompleted read.
 
 module test_reg_tlm_adapter_read_conversion_preserves_command_address_and_length;

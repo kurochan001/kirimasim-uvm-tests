@@ -14,6 +14,29 @@
 :expected_stdout: @test_rtl_explicit_predictor_116.expected
 :files: helpers116_rtl/rf_rtl116.sv helpers116_rtl/rf_env116.svh
 */
+// What it checks:
+// 1. A predictor connected to the design's bus monitor updates mirrors from
+//    every observed register access, subject to access policy.
+// 2. The predictor publishes one register item for each observed access that
+//    maps to a register.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.3.2.1 (UVM-RTL-EXPLICIT-PREDICTOR-MIRRORS) gives rule 1
+//    above. Setup: A test top places the interface of an original
+//    register-file design in the configuration database for the agent scope;
+//    the driver and monitor use only its clocking blocks. Auto-prediction
+//    keeps its default. The model writes CTRL; raw traffic writes DATA and the
+//    read-only ID and reads COUNT. Expected: The default is off, the model
+//    write succeeds, the read-write mirrors hold the written values, the ID
+//    mirror is unchanged and the COUNT mirror holds the design count of two.
+// 2. 1800.2-2020 19.3.2.2 (UVM-RTL-PREDICTOR-REG-AP-PER-ACCESS) gives rule 2
+//    above. Setup: A test top places the interface of an original
+//    register-file design in the configuration database for the agent scope;
+//    the driver and monitor use only its clocking blocks. The predictor
+//    observes one model write and three raw accesses, each to a mapped
+//    register. Expected: Four register items are published.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Auto-prediction keeps its default. The model writes CTRL, raw traffic writes
 // DATA and the read-only ID and reads COUNT, and a predictor connected to the
 // monitor updates the mirrors: written values for the read-write registers, the

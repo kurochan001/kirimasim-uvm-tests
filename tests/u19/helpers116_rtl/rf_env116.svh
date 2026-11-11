@@ -38,7 +38,8 @@ class rf_driver116 extends uvm_driver #(rf_item116);
   // the clock after the design registers it.
   task run_phase(uvm_phase phase);
     rf_item116 req;
-    do @(vif.drv_cb); while (!vif.drv_cb.rst_n);
+    do @(vif.drv_cb);
+    while (!vif.drv_cb.rst_n);
     forever begin
       seq_item_port.get_next_item(req);
       @(vif.drv_cb);

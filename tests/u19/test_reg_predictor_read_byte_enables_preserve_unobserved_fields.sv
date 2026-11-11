@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_read_byte_enables_preserve_unobserved_fields.expected
 */
+// What it checks:
+// Passive prediction respects enabled byte lanes when updating corresponding
+// fields.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.3.2.1 (UVM-PREDICTOR-BYTE-ENABLE-FIELDS) gives the rule
+// above. Setup: Observe low-only, high-only and all-disabled lanes of two
+// byte-aligned fields, using RW writes and RO reads. Expected: Only enabled
+// field bytes update; an all-disabled observation leaves the mirror unchanged
+// while publishing its transaction.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe only mirrors and public analysis publications. The fixture does
 // not inspect the predictor's private pending map or use active prediction.
 

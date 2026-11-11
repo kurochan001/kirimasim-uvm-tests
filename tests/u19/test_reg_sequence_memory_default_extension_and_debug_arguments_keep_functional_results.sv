@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_memory_default_extension_and_debug_arguments_keep_functional_results.expected
 */
+// What it checks:
+// 1. Memory convenience defaults supply null extension while retaining the
+//    calling sequence context.
+// 2. Debug filename and line arguments have no functional effect on memory
+//    convenience accesses.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.4.1.5.9 (UVM-REG-SEQUENCE-MEM-DEFAULT-EXTENSION) gives
+//    rule 1 above. Setup: Omit kind and extension for poke/peek calls.
+//    Expected: Operations return selected data with exact
+//    parent/element/offset and null extension.
+// 2. 1800.2-2020 19.4.1.5.10 (UVM-REG-SEQUENCE-MEM-DEBUG-NEUTRAL) gives rule 2
+//    above. Setup: Supply different inert filename/line arguments to poke and
+//    peek. Expected: Status remains OK, selected value is 5678 hex and all
+//    four accesses have correct context.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Default register-sequence specialization used as a virtual test sequence.
 // User backdoors model 16-bit memory locations with required pre/post hooks.
 // No HDL/DPI, physical bus, memory mirror or failed-read data is asserted.

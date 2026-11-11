@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_predictor_pre_predict_redirects_the_target_and_modified_value.expected
 */
+// What it checks:
+// pre_predict may redirect the register target and modify the value before
+// prediction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.3.3.2 (UVM-PREDICTOR-REDIRECT) gives the rule above. Setup: A
+// custom hook redirects one observed transaction from the source to another
+// register. Expected: The source stays at 0x55; the target becomes 0x77 with
+// one redirected hook call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The hook changes the public target handle and value. The original
 // register must retain its mirror while the redirected target is predicted.
 

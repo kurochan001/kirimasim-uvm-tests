@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_item_invalid_value_indices_warn_without_changing_existing_data.expected
 */
+// What it checks:
+// 1. Out-of-range value writes warn and leave the data and size unchanged.
+// 2. Out-of-range value reads warn and return zero.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.1.1.2.4 (UVM-REG-ITEM-INVALID-VALUE-SET-IGNORED) gives
+//    rule 1 above. Setup: Write at count and count plus one on a two-value
+//    item, then at zero on an empty item. Expected: Each invalid write warns;
+//    valid data remain 11/22 and the empty item stays size zero.
+// 2. 1800.2-2020 19.1.1.2.4 (UVM-REG-ITEM-INVALID-VALUE-GET-ZERO) gives rule 2
+//    above. Setup: Read at count, count plus one and zero on an empty item.
+//    Expected: All three reads return zero; combined invalid read/write
+//    warning counts are four then six.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library expands out-of-range writes and omits index warnings.
 // Preserve the required warning/ignore behavior with bounded indices 2/3.
 // Read and write probes use separate items so expansion cannot mask reads.

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_custom_frontdoor_write_receives_the_selected_location.expected
 */
+// What it checks:
+// Custom memory frontdoors receive the selected location and operation data.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.4.2.2.1 (UVM-MEMORY-CUSTOM-FRONTDOOR-DESCRIPTOR) gives the
+// rule above. Setup: Run the explicitly selected custom-frontdoor fixture with
+// controlled descriptor fields and storage. Expected: Offset 5 selects the
+// requested storage and read/write value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The memory API supplies the selected location index to the custom sequence.
 // The sequence uses that index as its storage key.
 

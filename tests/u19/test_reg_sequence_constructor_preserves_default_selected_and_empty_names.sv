@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_sequence_constructor_preserves_default_selected_and_empty_names.expected
 */
+// What it checks:
+// The register-sequence constructor provides its declared optional name.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 19.4.1.4.1 (UVM-REG-PIPELINE-SEQUENCE-CONSTRUCTOR-NAMES) gives
+// the rule above. Setup: Construct omitted, selected and explicitly empty
+// names. Expected: Names match the declared default, selected name and empty
+// string.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only the declared optional constructor names are observed. No default
 // translation execution, factory path or unspecified field default is
 // inferred.
