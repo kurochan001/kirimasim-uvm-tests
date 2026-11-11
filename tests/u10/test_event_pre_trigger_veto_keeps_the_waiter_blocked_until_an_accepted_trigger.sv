@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_event_pre_trigger_veto_keeps_the_waiter_blocked_until_an_accepted_trigger.expected
 */
+// What it checks:
+// 1. A nonzero pre-trigger callback return prevents that trigger and its
+//    post-trigger callbacks.
+// 2. Post-trigger callbacks observe the activated event and accepted trigger
+//    data.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.2.2.2 (UVM-EVENT-CALLBACK-VETO) gives rule 1 above. Setup:
+//    Veto value 17 with a waiting process, then accept value 42. Expected: The
+//    veto leaves the waiter blocked and event off; the accepted trigger
+//    releases it with data 42.
+// 2. 1800.2-2020 10.2.2.3 (UVM-EVENT-POST-CALLBACK-ACTIVATION) gives rule 2
+//    above. Setup: Trigger twice around a reset with one callback and explicit
+//    data. Expected: Pre/post counts and identity match; post-trigger sees
+//    is_on and the supplied latest data.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard typed callbacks and explicit positive-delay waiting states.
 // No compatibility add_callback wrapper or waiter release order is required.
 module test_event_pre_trigger_veto_keeps_the_waiter_blocked_until_an_accepted_trigger;

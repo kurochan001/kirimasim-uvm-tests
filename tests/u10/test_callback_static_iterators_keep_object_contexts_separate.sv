@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_static_iterators_keep_object_contexts_separate.expected
 */
+// What it checks:
+// get_next advances its iterator through enabled callbacks and remains null
+// after exhaustion until reset.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.2.4.3 (UVM-CALLBACK-STATIC-NEXT) gives the rule above.
+// Setup: Traverse in the selected direction with disabled entries, independent
+// iterators and typewide-only queries. Expected: Valid entries follow the
+// selected queue; exhausted calls stay null and separate positions remain
+// independent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use separate integer iterators for different object queues, each with
 // one callback. Exhaust and restart without moving or leaking entries
 // between object contexts.

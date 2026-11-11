@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_clear_source_argument_omits_all_dropped_hooks_and_preserves_peer.expected
 */
+// What it checks:
+// Clearing objection state does not execute the normal dropped callback.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.1.3.5 (UVM-OBJECTION-CLEAR-NO-DROPPED-CALLBACK) gives the
+// rule above. Setup: Install a dropped-callback probe, raise objections and
+// then clear directly. Expected: State resets while the dropped callback count
+// stays unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Clear two sources while another objection instance stays raised.
 // Normal partial drops on both sources establish a working callback control.
 module test_objection_clear_source_argument_omits_all_dropped_hooks_and_preserves_peer;

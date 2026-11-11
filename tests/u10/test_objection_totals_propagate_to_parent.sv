@@ -13,6 +13,16 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_objection_totals_propagate_to_parent.expected
 */
+// What it checks:
+// Raising an objection increases the source count and propagated totals of its
+// ancestors.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.1.3.3 (UVM-OBJECTION-PROPAGATE) gives the rule above.
+// Setup: A child raises one objection under a parent with no local objection.
+// Expected: Child count is 1, parent local count is 0 and parent total is 1.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A child owns the local objection. Its parent sees the propagated total
 // while the child waits, and extraction follows the child final drop.
 

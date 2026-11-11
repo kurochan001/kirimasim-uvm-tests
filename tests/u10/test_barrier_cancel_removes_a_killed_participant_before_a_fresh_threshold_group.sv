@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_barrier_cancel_removes_a_killed_participant_before_a_fresh_threshold_group.expected
 */
+// What it checks:
+// Barrier cancel removes a waiting participant from threshold accounting.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.3.2.8 (UVM-BARRIER-CANCEL-KILLED-PARTICIPANT) gives the rule
+// above. Setup: Use threshold three, kill/cancel one of two waiters, then add
+// two fresh live callers. Expected: Counts change two/one/two and only three
+// live participants complete the threshold group.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Establish waiters with positive delays, then kill one and explicitly
 // remove its count. Surviving processes retain their waiting state.
 module test_barrier_cancel_removes_a_killed_participant_before_a_fresh_threshold_group;

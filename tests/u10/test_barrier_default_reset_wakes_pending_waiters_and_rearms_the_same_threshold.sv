@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_barrier_default_reset_wakes_pending_waiters_and_rearms_the_same_threshold.expected
 */
+// What it checks:
+// Default barrier reset wakes pending callers, clears the count and rearms
+// with the unchanged threshold.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.3.2.3 (UVM-BARRIER-RESET-WAKE-REARM) gives the rule above.
+// Setup: Reset two pending callers below threshold three, then run a fresh
+// three-participant round. Expected: Reset releases both and retains threshold
+// three; the fresh round blocks until its third caller.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays establish waiting states. The fixtures do not require a
 // particular order among processes released at the same synchronization point.
 module test_barrier_default_reset_wakes_pending_waiters_and_rearms_the_same_threshold;

@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_barrier_raised_threshold_keeps_waiters_and_peer_progress_independent.expected
 */
+// What it checks:
+// 1. Barrier waiter counts report current blocked callers independently per
+//    barrier.
+// 2. Raising a pending barrier threshold keeps existing callers blocked until
+//    the new threshold is reached.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.3.2.7 (UVM-SYNC-REVIEW-BARRIER-ACTUAL-WAITER-COUNT) gives
+//    rule 1 above. Setup: Hold two callers on one barrier and one on another,
+//    then add selected arrivals. Expected: Counts progress through two/one,
+//    three/one and zero/zero without releasing the other barrier early.
+// 2. 1800.2-2020 10.3.2.6 (UVM-SYNC-REVIEW-BARRIER-RAISED-THRESHOLD) gives
+//    rule 2 above. Setup: Raise three to four while only two callers are
+//    waiting, then admit a third and fourth. Expected: Three remain blocked;
+//    all four release only at the fourth arrival while a peer completes
+//    independently.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Raise a pending threshold before the old threshold is reached; a distinct
 // barrier completes while this one remains blocked. Observe public counts only
 // after positive settling delays, without fixing released-process order or

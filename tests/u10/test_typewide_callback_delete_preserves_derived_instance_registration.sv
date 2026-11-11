@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_typewide_callback_delete_preserves_derived_instance_registration.expected
 */
+// What it checks:
+// Callback deletion removes the selected context registration while retaining
+// independent registrations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.2.3.3 (UVM-CALLBACK-DELETE-REGISTRATION) gives the rule
+// above. Setup: Delete from an instance or the typewide queue while sharing
+// handles or retaining local/derived entries. Expected: Removed registrations
+// no longer execute and independent entries still do.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Install the instance callback through the registered derived type
 // pair. Delete the inherited global callback before invoking either object.
 

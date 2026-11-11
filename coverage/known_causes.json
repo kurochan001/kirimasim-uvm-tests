@@ -2004,7 +2004,7 @@
     },
     {
       "test": "u10/test_callback_static_next_exhausted_growth_local_103",
-      "inputs_sha256": "7eba7d04af07b7268c91d2e8e8ef2dbd3a426ce9d98ac87ae0e7cc6873bce1a0",
+      "inputs_sha256": "b340ae0831118390dd218423e44280c23c2fc59dc31a52f7e55417d706f512ca",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2030,7 +2030,7 @@
     },
     {
       "test": "u10/test_callback_static_next_exhausted_growth_typewide_103",
-      "inputs_sha256": "91eb87910a50f9d46f408fe1d640c4fa2bcffce4c4969e1e8d6808649bb178c7",
+      "inputs_sha256": "e585f724d052b0f3ecad296c13ae689befbd994c51056e0b4451f977965d26e1",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2056,7 +2056,7 @@
     },
     {
       "test": "u10/test_event_default_reset_preserves_mixed_waiters_for_a_fresh_trigger",
-      "inputs_sha256": "b076f5227bf7fa4870455da6502e17061fe077d4f38ea06d94f7660faf4a2398",
+      "inputs_sha256": "7c915a10bd69564501b12448208073ad0b9b16b0b3d567b6222a7784d34b6912",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2087,7 +2087,7 @@
     },
     {
       "test": "u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers",
-      "inputs_sha256": "6fef1ea6050037ec97fc5412337a92335164654c55ce237a88328fc002a85b6e",
+      "inputs_sha256": "d05e95e4e65950c53cdf66b655b69f847b57a10da32a03a4c1fa021eb883e50b",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -2119,7 +2119,7 @@
     },
     {
       "test": "u10/test_event_pool_initial_membership_contains_begin_accept_and_end_without_lazy_get",
-      "inputs_sha256": "4609d00480ef3d716c930409d4fd613182ccd9bdfbc0093e51dc9ebb031140a4",
+      "inputs_sha256": "0de2df9fc1f9d0c188dd9bfad56534a94ce658d4bcac39d75c74581a1842a103",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2145,7 +2145,7 @@
     },
     {
       "test": "u10/test_event_raw_trigger_wait_distinguishes_early_and_same_slice_late_calls",
-      "inputs_sha256": "0863a9ba5b3c38d5b0e17f0e28cc6809f939cbce9377a4f99a3e16643ae98779",
+      "inputs_sha256": "79abc3e66078cf71fe8615fc5648899622ae21ccb5c696f15f1a3436262805cc",
       "kind": "runtime",
       "cause": "simulator",
       "evidence": {
@@ -2163,7 +2163,7 @@
     },
     {
       "test": "u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch",
-      "inputs_sha256": "43390a28394bcecd79fa5b89acf2a98aa13c647ca55016ab19f3cdc3fdf4880b",
+      "inputs_sha256": "ec3ef1f3fff8f8c03c85298c3aaf6d773de7811f02da3e140b867f2602753221",
       "kind": "runtime",
       "cause": "simulator",
       "evidence": {
@@ -2181,7 +2181,7 @@
     },
     {
       "test": "u10/test_heartbeat_default_start_reuses_its_event_while_running_and_after_stop",
-      "inputs_sha256": "be3f484d4b4d31ef5fd9300faacc6068ae6f867d42b341770f4e0d3904b5efef",
+      "inputs_sha256": "e95c6f0519b248218205a839c486ad745ce2d9f0bd6ce455081f1f96f93cd5d9",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2207,7 +2207,7 @@
     },
     {
       "test": "u10/test_objection_objectors_list_removes_dropped_source",
-      "inputs_sha256": "520b61a2e3540ac27e8085372ed3d579235c8a63f6f24ff0cb0fc8a2c9ab283f",
+      "inputs_sha256": "f8a37d89efc6a076fc54f61cbb9fa7898383d3d44379fa20becbfd931fa47ad3",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2237,7 +2237,7 @@
     },
     {
       "test": "u10/test_objection_skipped_propagation_delivers_default_and_registered_hooks_with_context",
-      "inputs_sha256": "43b3c1d9a2d6d4a21bf353ff04dbb4be48a4fc5574d604b0be800aeb2aefa8cd",
+      "inputs_sha256": "c9e2d3e9e3456415a8801335b53eafa7e2ceea90a51dd5657fe8a2ef09bd17ca",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -2268,7 +2268,7 @@
     },
     {
       "test": "u10/test_pool_global_barrier_printed_pool_return_type",
-      "inputs_sha256": "1f831a6fda0b25d9b9e65ef9f584669b277d22c033880420e1622be34e06a145",
+      "inputs_sha256": "65d6d804092e1d4a7af26244968257d3486c62e0cf7af544f47b97106abd369c",
       "kind": "build",
       "cause": "interpretation",
       "evidence": {
@@ -2299,7 +2299,7 @@
     },
     {
       "test": "u10/test_pool_global_event_printed_pool_return_type",
-      "inputs_sha256": "9f0f6bd43b03cc579ab4249d731a893d0a430e3b3fa88d5af8593c914c3b70ce",
+      "inputs_sha256": "4b0153093b6d4144ba206f6bd0a5953faa2c9fe17aca2471a957b70a1a3a3bd6",
       "kind": "build",
       "cause": "interpretation",
       "evidence": {

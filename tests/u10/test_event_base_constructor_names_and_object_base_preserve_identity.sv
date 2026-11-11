@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_event_base_constructor_names_and_object_base_preserve_identity.expected
 */
+// What it checks:
+// 1. The event-base constructor accepts an optional empty-default name.
+// 2. The event base derives from the object base.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.1.1.2.1 (UVM-SYNC-REVIEW-EVENT-BASE-NAMES) gives rule 1
+//    above. Setup: Concrete extensions use implicit construction or forward
+//    selected/empty names. Expected: Names are empty, selected and empty.
+// 2. 1800.2-2020 10.1.1.1 (UVM-SYNC-REVIEW-EVENT-BASE-OBJECT) gives rule 2
+//    above. Setup: Upcast an original concrete event-base subtype to an object
+//    handle. Expected: The object view preserves identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Concrete original subtypes expose optional base construction without
 // creating
 // the abstract class itself. Only selected names and positive inheritance are

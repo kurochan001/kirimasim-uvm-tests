@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_heartbeat_rejects_a_different_running_event_but_accepts_it_after_stop.expected
 */
+// What it checks:
+// 1. A running heartbeat reports an error when start specifies a different
+//    trigger event.
+// 2. After stopping, start accepts a newly selected heartbeat trigger event.
+// 3. Stopping a heartbeat permits a subsequent start with a different trigger
+//    event.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.6.2.6 (UVM-HEARTBEAT-RUNNING-EVENT-REPLACEMENT-ERROR)
+//    gives rule 1 above. Setup: The first event is active before a second
+//    event is supplied. Expected: The replacement attempt adds one error.
+// 2. 1800.2-2020 10.6.2.6 (UVM-HEARTBEAT-STOPPED-EVENT-REPLACEMENT) gives rule
+//    2 above. Setup: The first monitor is stopped and allowed to finish before
+//    the second event is selected. Expected: The stopped-event replacement
+//    adds no error.
+// 3. 1800.2-2020 10.6.2.7 (UVM-HEARTBEAT-STOP-PERMITS-NEW-EVENT-START) gives
+//    rule 3 above. Setup: A running-event replacement first errors; stop
+//    precedes a fresh start with that same replacement. Expected: The fresh
+//    start adds no replacement error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Events are not triggered, so this case tests configuration guards only.
 // Positive delays let the stopped process finish before a fresh start.
 module test_heartbeat_rejects_a_different_running_event_but_accepts_it_after_stop;

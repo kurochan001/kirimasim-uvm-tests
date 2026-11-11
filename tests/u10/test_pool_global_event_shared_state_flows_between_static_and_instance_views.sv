@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_event_shared_state_flows_between_static_and_instance_views.expected
 */
+// What it checks:
+// Static and instance global views expose the same live item state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.1.2.3 (UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-SHARED-STATE-
+// FLOWS-BETWEEN-STATIC-AND-INSTANCE-VIEWS) gives the rule above. Setup: Mutate
+// through one returned handle and observe through the original/global view,
+// then repeat. Expected: The linked static-admission, identity, live-state or
+// bounded-wait observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_pool_global_event_shared_state_flows_between_static_and_instance_views;

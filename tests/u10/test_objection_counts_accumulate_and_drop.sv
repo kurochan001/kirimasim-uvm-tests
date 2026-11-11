@@ -13,6 +13,22 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_objection_counts_accumulate_and_drop.expected
 */
+// What it checks:
+// 1. Raising by an explicit count increments that source and total count by
+//    the requested amount.
+// 2. A partial objection drop decreases counts without completing a still-held
+//    phase.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.5.1.3.3 (UVM-OBJECTION-SOURCE-COUNT-RAISE) gives rule 1
+//    above. Setup: Raise two objections for one source in a held task phase.
+//    Expected: Local and total counts both become 2.
+// 2. 1800.2-2020 10.5.1.3.4 (UVM-OBJECTION-PARTIAL-DROP) gives rule 2 above.
+//    Setup: Drop one of two objections, then drop the last one later.
+//    Expected: Counts fall to 1 after the partial drop and extraction waits
+//    for the final drop.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Raising by a count increments the local and total objections. A partial
 // drop retains the phase; extract starts only after the final drop.
 

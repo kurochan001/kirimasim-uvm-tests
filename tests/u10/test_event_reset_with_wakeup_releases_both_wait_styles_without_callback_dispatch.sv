@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch.expected
 */
+// What it checks:
+// Wakeup reset activates existing trigger waiters, turns the event off and
+// invokes no trigger callbacks.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.1.1.2.8 (UVM-EVENT-RESET-WAKEUP-CALLBACKS) gives the rule
+// above. Setup: Block one wait_trigger and one wait_ptrigger, reset with
+// wakeup, then wait for a later real trigger. Expected: Both old waiters
+// return without callback dispatch; a fresh waiter remains blocked until
+// trigger 99.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard typed callbacks and explicit positive-delay waiting states.
 // No compatibility add_callback wrapper or waiter release order is required.
 // The pinned Verilator run does not wake these established waiters.

@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_event_trigger_time_state_and_last_data_follow_accept_veto_reset_and_peer_isolation.expected
 */
+// What it checks:
+// 1. The trigger-time query reports the latest accepted trigger, or zero
+//    initially and after reset.
+// 2. The on-state query reflects acceptance since the last reset independently
+//    per event.
+// 3. A vetoed candidate does not replace data from the last accepted trigger.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.1.1.2.6 (UVM-SYNC-REVIEW-TRIGGER-TIME-HISTORY) gives rule
+//    1 above. Setup: Use accepted triggers, a vetoed candidate, selected-event
+//    reset and an independently triggered peer. Expected: The veto keeps times
+//    two/three, reset changes only the selected time to zero and reacceptance
+//    records six.
+// 2. 1800.2-2020 10.1.1.2.7 (UVM-SYNC-REVIEW-ON-STATE-HISTORY) gives rule 2
+//    above. Setup: Trigger two events, veto a candidate on one, reset only
+//    that event and trigger it again. Expected: Accepted events are on, a
+//    reset event is off and the untouched peer remains on.
+// 3. 1800.2-2020 10.1.2.2.5 (UVM-SYNC-REVIEW-LAST-DATA-VETO-PRESERVATION)
+//    gives rule 3 above. Setup: A callback vetoes value twenty-one after
+//    accepted value eleven. Expected: The stored data remains eleven while the
+//    peer retains thirty-one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use only accepted-trigger data and positive times. A veto is not a trigger
 // and reset changes only the selected event. No trigger-data value after reset
 // or before the first accepted trigger is constrained. Callback IDs and

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_event_replacement_binding_keeps_old_reference_independent.expected
 */
+// What it checks:
+// After explicit replacement, global lookup returns the new bound item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.1.2.3 (UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-REPLACEMENT-
+// BINDING-KEEPS-OLD-REFERENCE-INDEPENDENT) gives the rule above. Setup: Retain
+// a reference to the old item while add overwrites its key with a fresh item.
+// Expected: The linked static-admission, identity, live-state or bounded-wait
+// observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_pool_global_event_replacement_binding_keeps_old_reference_independent;

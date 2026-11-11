@@ -13,6 +13,16 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_objection_wait_for_is_scoped_to_target_object.expected
 */
+// What it checks:
+// An objection event waiter is scoped to its selected target object.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.1.5.2 (UVM-OBJECTION-WAIT-TARGET) gives the rule above.
+// Setup: Drop unrelated and matching source objections separately while both
+// retain nonzero counts. Expected: The unrelated event does not wake the
+// waiter; the matching event does.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Both sources retain nonzero counts after their drops. Inspect the
 // waiter one time unit after the unrelated drop and before the matching drop.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_mode_change_while_raised_reports_error_and_preserves_mode.expected
 */
+// What it checks:
+// Changing propagation mode while objections are raised reports an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.1.3.2 (UVM-OBJECTION-CB-REVIEW-RAISED-MODE-CHANGE-ERROR)
+// gives the rule above. Setup: Attempt zero mode with a real outstanding
+// source objection. Expected: One ERROR occurs, mode stays one and outstanding
+// totals remain; the same change succeeds after idle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Make an actual raised or positive-drain condition before changing mode.
 // Catch the required ERROR without depending on its ID or text. The mode must
 // remain unchanged until idle, when the selected change succeeds. No fatal

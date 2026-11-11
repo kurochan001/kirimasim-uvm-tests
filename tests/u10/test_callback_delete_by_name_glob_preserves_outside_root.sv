@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_delete_by_name_glob_preserves_outside_root.expected
 */
+// What it checks:
+// Name-based callback deletion removes matching registrations within its
+// search root.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.2.3.4 (UVM-CALLBACK-DELETE-BY-NAME) gives the rule above.
+// Setup: Register the same callback on inside/outside leaves and delete by
+// exact path or glob. Expected: Matched inside entries stop executing while
+// outside/nonmatching registrations remain.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Install the same callback on inside and outside leaves. Delete the
 // inside subtree by name, then invoke all three leaves explicitly.
 

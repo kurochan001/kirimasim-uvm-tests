@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_callback_inherits_callback_identity_and_explicit_enable_queries.expected
 */
+// What it checks:
+// An objection callback derives from the callback base.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.2.1 (UVM-OBJECTION-CB-REVIEW-OBJECTION-CALLBACK-BASE) gives
+// the rule above. Setup: Use a named objection callback through a callback
+// base handle and explicit modes. Expected: Identity and enabled-state queries
+// agree through the base.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use only explicit enable/disable arguments and base identity. The omitted
 // callback_mode argument has conflicting signature/prose defaults; no
 // constructor

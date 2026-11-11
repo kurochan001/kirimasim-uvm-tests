@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_event_cancel_removes_a_killed_waiter_without_releasing_the_survivor.expected
 */
+// What it checks:
+// Event cancel decrements the count after a waiting process is killed.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.1.1.2.9 (UVM-EVENT-CANCEL-KILLED-WAITER) gives the rule
+// above. Setup: Kill one of two waiters, cancel it, then trigger the surviving
+// waiter. In additional independent profiles, establish three actual
+// wait_trigger, wait_ptrigger, wait_on or wait_off callers on one event,
+// kill/cancel two selected callers sequentially and release the survivor using
+// the appropriate trigger/reset. Repeat on the same event with an
+// independently held peer. Expected: The count falls from two to one without
+// releasing the survivor, then reaches zero after its trigger. The added
+// three-caller histories report 3 before cancellation, 2 after the first
+// kill/cancel, 1 after the second and 0 after the survivor returns. Both
+// terminated callers remain unreturned, the survivor stays blocked until its
+// release, and the peer remains one until independently released to zero, in
+// both reuse rounds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Establish waiters with positive delays, then kill one and explicitly
 // remove its count. Surviving processes retain their waiting state.
 module test_event_cancel_removes_a_killed_waiter_without_releasing_the_survivor;

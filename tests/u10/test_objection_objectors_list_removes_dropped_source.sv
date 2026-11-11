@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_objectors_list_removes_dropped_source.expected
 */
+// What it checks:
+// The objector list contains sources with outstanding local objections.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.1.5.1 (UVM-OBJECTION-OBJECTORS) gives the rule above.
+// Setup: Two sources raise; the first drops its last objection. Expected: The
+// list shrinks from two to one, retaining only the second source.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect source membership after one source drops its complete count.
 // No expectation depends on asynchronous ancestor drain propagation.
 // The pinned library retains the zero-count source until drain cleanup.

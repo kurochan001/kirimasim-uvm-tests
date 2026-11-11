@@ -11,8 +11,12 @@ class monitor106;
   bit entered = 0, release_old = 0;
   bit old_context = 1, old_drained = 1, last_context = 0;
   function void reset();
-    entries = 0; entered = 0; release_old = 0;
-    old_context = 1; old_drained = 1; last_context = 0;
+    entries = 0;
+    entered = 0;
+    release_old = 0;
+    old_context = 1;
+    old_drained = 1;
+    last_context = 0;
   endfunction
   task visit(uvm_object source, string description, int count);
     entries++;
@@ -29,7 +33,9 @@ endclass
 monitor106 monitor_value106;
 
 class subject106 extends uvm_objection;
-  function new(); super.new("subject"); endfunction
+  function new();
+    super.new("subject");
+  endfunction
   virtual task all_dropped(uvm_object obj, uvm_object source_obj,
                            string description, int count);
     if (!REGISTERED106 && obj == gate_base106)
@@ -42,15 +48,20 @@ class observer106 extends uvm_objection_callback;
   int again_raises = 0, again_calls = 0, again_drops = 0;
   bit again_context = 1;
   function new();
-    super.new("observer"); void'(callback_mode(1));
+    super.new("observer");
+    void'(callback_mode(1));
   endfunction
   function void reset();
-    again_raises = 0; again_calls = 0; again_drops = 0; again_context = 1;
+    again_raises = 0;
+    again_calls = 0;
+    again_drops = 0;
+    again_context = 1;
   endfunction
   virtual function void raised(uvm_objection objection, uvm_object obj,
                                uvm_object source_obj, string description, int count);
     if (objection == subject_base106 && obj == upper_base106 && description == "again") begin
-      again_raises += count; again_calls++;
+      again_raises += count;
+      again_calls++;
       again_context &= source_obj == renewed_source106;
     end
   endfunction
@@ -67,7 +78,9 @@ class observer106 extends uvm_objection_callback;
 endclass
 
 class node106 extends uvm_component;
-  function new(string name, uvm_component parent); super.new(name, parent); endfunction
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
 endclass
 
 class t extends uvm_test;
@@ -76,16 +89,25 @@ class t extends uvm_test;
   subject106 subject;
   uvm_objection other;
   observer106 observer;
-  function new(string name, uvm_component parent); super.new(name, parent); endfunction
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    upper = new("upper", this); gate = new("gate", upper);
-    leaf = new("leaf", gate); peer = new("peer", this);
-    subject = new(); other = new("other"); observer = new();
-    monitor_value106 = new(); subject_base106 = subject;
-    gate_base106 = gate; upper_base106 = upper;
+    upper = new("upper", this);
+    gate = new("gate", upper);
+    leaf = new("leaf", gate);
+    peer = new("peer", this);
+    subject = new();
+    other = new("other");
+    observer = new();
+    monitor_value106 = new();
+    subject_base106 = subject;
+    gate_base106 = gate;
+    upper_base106 = upper;
     renewed_source106 = DESCENDANT106 ? leaf : gate;
-    subject.set_propagate_mode(1); subject.set_drain_time(gate, DRAIN106);
+    subject.set_propagate_mode(1);
+    subject.set_drain_time(gate, DRAIN106);
     uvm_objection_cbs_t::add(subject, observer);
   endfunction
   function void snapshot(int round_number, string stage);
@@ -105,7 +127,8 @@ class t extends uvm_test;
     $display("UT: config mode %0d drain %0d", subject.get_propagate_mode(),
              subject.get_drain_time(gate));
     for (int round_number = 0; round_number < 2; round_number++) begin
-      monitor_value106.reset(); observer.reset();
+      monitor_value106.reset();
+      observer.reset();
       subject.raise_objection(peer, "peer", PEER106);
       subject.raise_objection(gate, "initial", OLD106);
       snapshot(round_number, "raised");

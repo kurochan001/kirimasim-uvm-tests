@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_barrier_without_auto_reset_remains_open_until_explicit_reset.expected
 */
+// What it checks:
+// With auto-reset disabled a reached barrier remains open until an explicit
+// reset.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.3.2.4 (UVM-BARRIER-DISABLED-AUTO-RESET) gives the rule above.
+// Setup: Reach a threshold of two, call through the open gate, reset and
+// repeat. Expected: The open call returns at the same time; reset makes the
+// next call wait for a second participant again.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays establish waiting states. The fixtures do not require a
 // particular order among processes released at the same synchronization point.
 module test_barrier_without_auto_reset_remains_open_until_explicit_reset;

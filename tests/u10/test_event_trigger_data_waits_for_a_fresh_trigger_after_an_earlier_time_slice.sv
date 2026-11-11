@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_event_trigger_data_waits_for_a_fresh_trigger_after_an_earlier_time_slice.expected
 */
+// What it checks:
+// Event wait_trigger_data returns data from a new trigger after an older time
+// slice.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.1.2.2.2 (UVM-EVENT-FRESH-TRIGGER-DATA) gives the rule above.
+// Setup: Trigger data 17, advance time, start a wait and then trigger data 42.
+// Expected: The earlier on-state/data does not release the wait; the new
+// trigger returns 42 and updates trigger time.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays establish waiting states. The fixtures do not require a
 // particular order among processes released at the same synchronization point.
 module test_event_trigger_data_waits_for_a_fresh_trigger_after_an_earlier_time_slice;

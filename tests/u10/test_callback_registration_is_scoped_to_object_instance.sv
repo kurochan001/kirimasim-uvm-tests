@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_registration_is_scoped_to_object_instance.expected
 */
+// What it checks:
+// An instance callback registration applies to its selected object context.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.2.3.1 (UVM-CALLBACK-INSTANCE-REGISTRATION) gives the rule
+// above. Setup: Register different callbacks on two objects without any
+// typewide entry. Expected: Invoking either object calls only its registered
+// callback.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Invoke two context objects independently and inspect which callbacks
 // ran. No typewide callback is registered.
 

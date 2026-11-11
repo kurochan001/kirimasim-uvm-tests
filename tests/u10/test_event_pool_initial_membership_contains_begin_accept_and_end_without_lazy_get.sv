@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_event_pool_initial_membership_contains_begin_accept_and_end_without_lazy_get.expected
 */
+// What it checks:
+// A new event pool contains the three predefined begin, accept and end
+// entries.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.1 (UVM-SYNC-REVIEW-EVENT-POOL-INITIAL-MEMBERS) gives the
+// rule above. Setup: Inspect two newly constructed pools with exists before
+// any get can create an entry. Expected: All three named keys already exist in
+// both pools.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Check initial named membership before any get that could lazily create it.
 // The standard names three default events; this asserts neither an exact total
 // size nor default object identity, global membership or event state.

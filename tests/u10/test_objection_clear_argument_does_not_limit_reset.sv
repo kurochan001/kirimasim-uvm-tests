@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_clear_argument_does_not_limit_reset.expected
 */
+// What it checks:
+// clear immediately resets all objection counts regardless of its debug-only
+// object argument.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.1.3.5 (UVM-OBJECTION-CLEAR-ALL) gives the rule above.
+// Setup: Raise from multiple sources, clear with/without a selected object and
+// reuse the objection. Expected: All source/total counts and objector
+// membership clear; later raises start fresh.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Passing one source to clear still resets every source. A subsequent
 // raise starts a fresh count without inheriting any cleared total.
 

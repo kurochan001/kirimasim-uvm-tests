@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_typed_event_constructor_names_default_parameter_and_base_preserve_identity.expected
 */
+// What it checks:
+// 1. The typed event constructor accepts an optional empty-default name.
+// 2. The omitted event data parameter selects the object type.
+// 3. A typed event extends the abstract event base.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.1.2.2.1 (UVM-SYNC-REVIEW-EVENT-NAMES) gives rule 1 above.
+//    Setup: Create omitted-name, selected-name and explicitly empty-name
+//    events. Expected: The supplied names are retained.
+// 2. 1800.2-2020 10.1.2.1 (UVM-SYNC-REVIEW-EVENT-DEFAULT-TYPE) gives rule 2
+//    above. Setup: Assign the default event to the exact object-data
+//    specialization. Expected: The exact specialization denotes the same
+//    event.
+// 3. 1800.2-2020 10.1.2.1 (UVM-SYNC-REVIEW-EVENT-BASE-INHERITANCE) gives rule
+//    3 above. Setup: Upcast an integer-data event to the event base. Expected:
+//    The base denotes the same typed event.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe optional names, the omitted object-data specialization and a
 // concrete
 // integer-data specialization through the event base. Data before any accepted

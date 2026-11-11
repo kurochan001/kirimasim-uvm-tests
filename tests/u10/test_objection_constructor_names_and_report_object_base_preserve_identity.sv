@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_constructor_names_and_report_object_base_preserve_identity.expected
 */
+// What it checks:
+// 1. The objection constructor accepts an optional empty-default name.
+// 2. An objection derives from the report-object base.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.5.1.2 (UVM-OBJECTION-CB-REVIEW-OBJECTION-NAMES) gives rule
+//    1 above. Setup: Create omitted-name, selected-name and empty-name
+//    objections. Expected: Names are empty, selected and empty.
+// 2. 1800.2-2020 10.5.1.1 (UVM-OBJECTION-CB-REVIEW-OBJECTION-REPORT-BASE)
+//    gives rule 2 above. Setup: Assign the actual objection to report-object
+//    and object views. Expected: Both views retain the objection identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe declared optional names and positive report-object inheritance. No
 // factory behavior, default propagation or unspecified internal state is
 // inferred.

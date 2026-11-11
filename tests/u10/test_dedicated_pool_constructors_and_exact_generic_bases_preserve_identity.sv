@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_dedicated_pool_constructors_and_exact_generic_bases_preserve_identity.expected
 */
+// What it checks:
+// 1. The event-pool constructor accepts an optional empty-default name.
+// 2. The event pool specializes a string-keyed generic pool of object-data
+//    events.
+// 3. The barrier-pool constructor accepts an optional empty-default name.
+// 4. The barrier pool specializes a string-keyed generic pool of barriers.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.4.1.2.1 (UVM-SYNC-REVIEW-EVENT-POOL-NAMES) gives rule 1
+//    above. Setup: Create omitted, named and explicitly empty event pools.
+//    Expected: All selected names are retained.
+// 2. 1800.2-2020 10.4.1.1 (UVM-SYNC-REVIEW-EVENT-POOL-GENERIC-BASE) gives rule
+//    2 above. Setup: Assign an event pool to its exact generic pool base.
+//    Expected: The generic view preserves identity.
+// 3. 1800.2-2020 10.4.2.2.1 (UVM-SYNC-REVIEW-BARRIER-POOL-NAMES) gives rule 3
+//    above. Setup: Create omitted, named and explicitly empty barrier pools.
+//    Expected: All selected names are retained.
+// 4. 1800.2-2020 10.4.2.1 (UVM-SYNC-REVIEW-BARRIER-POOL-GENERIC-BASE) gives
+//    rule 4 above. Setup: Assign a barrier pool to its exact generic pool
+//    base. Expected: The generic view preserves identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive dedicated-to-generic pool compatibility and optional names only.
 // Initial membership has a separate fixture. The printed get_global return
 // signature versus item-return prose is not resolved by these assignments.

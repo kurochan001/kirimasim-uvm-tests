@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_add_by_name_selects_exact_full_path.expected
 */
+// What it checks:
+// Name-based callback addition searches matching existing components from the
+// supplied root.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.2.3.2 (UVM-CALLBACK-ADD-BY-NAME) gives the rule above.
+// Setup: Use an exact full path and a glob that also matches a component
+// outside the search root. Expected: Only the matching components within the
+// search root receive the callback.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Create the component hierarchy first and use its full path in the
 // match expression. Invoke matching and nonmatching objects explicitly.
 

@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_event_explicitly_added_item_identity.expected
 */
+// What it checks:
+// Under the item-return prose, global lookup returns the explicitly added
+// item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.1.2.3
+// (UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-EXPLICITLY-ADDED-ITEM-IDENTITY) gives
+// the rule above. Setup: Seed the singleton through add, then use an
+// item-typed static lookup. Expected: The linked static-admission, identity,
+// live-state or bounded-wait observations match.
+// It also supports, as a control, the setup or conditions of
+// UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-PRINTED-POOL-RETURN-TYPE.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_pool_global_event_explicitly_added_item_identity;

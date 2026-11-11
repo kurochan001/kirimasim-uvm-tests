@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_barrier_constructor_names_threshold_defaults_and_object_base_are_instance_local.expected
 */
+// What it checks:
+// 1. The barrier constructor accepts the declared optional name.
+// 2. The omitted barrier threshold defaults to zero.
+// 3. A barrier derives from the object base.
+// 4. The barrier threshold getter returns its current per-instance setting.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.3.2.1 (UVM-SYNC-REVIEW-BARRIER-NAMES) gives rule 1 above.
+//    Setup: Construct omitted, selected and empty names with legal selected
+//    thresholds. Expected: Names are empty, selected and empty.
+// 2. 1800.2-2020 10.3.2.1 (UVM-SYNC-REVIEW-BARRIER-DEFAULT-THRESHOLD) gives
+//    rule 2 above. Setup: Construct one omitted threshold and two explicit
+//    thresholds. Expected: Getters report zero, three and five respectively.
+// 3. 1800.2-2020 10.3.1 (UVM-SYNC-REVIEW-BARRIER-OBJECT-BASE) gives rule 3
+//    above. Setup: Assign the selected barrier to an object handle. Expected:
+//    The base retains identity.
+// 4. 1800.2-2020 10.3.2.5 (UVM-SYNC-REVIEW-BARRIER-CURRENT-THRESHOLD) gives
+//    rule 4 above. Setup: Change only one of three separately constructed
+//    barrier thresholds. Expected: That getter reports seven while peers
+//    retain zero and five.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect declared optional names, zero threshold default, selected thresholds
 // and current getter values per instance. No zero/negative-threshold wait
 // semantics, waiter scheduling or object layout is inferred.

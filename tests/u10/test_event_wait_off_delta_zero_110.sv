@@ -13,6 +13,22 @@
 :expected_stdout: @test_event_wait_off_delta_zero_110.expected
 :files: helpers110_event_delta/event_delta110.svh
 */
+// What it checks:
+// Event wait_off returns immediately when off and waits for reset when on.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.1.1.2.3 (UVM-EVENT-WAIT-OFF-RESET) gives the rule above.
+// Setup: Inspect the initially off event, then wait after a trigger and reset
+// it. Also exercise omitted and explicit-zero delta forms over two
+// already-satisfied and freshly blocked/released rounds, with a deferred-child
+// scheduler witness and an independent peer. Expected: The initial wait is
+// immediate; the active wait returns only after reset and the event is off. An
+// already-satisfied zero/default call returns without starting its deferred
+// child or advancing time/realtime. An unsatisfied call remains blocked until
+// the controlled trigger/reset and returns with the desired state at that
+// transition; peer waits remain independent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Fork children start only when their parent blocks or ends. The fresh-child
 // witness is separate from the unspecified order of already active waiters.
 // Ready-waiter completion order is DIAG110 only. A queued NBA distinguishes

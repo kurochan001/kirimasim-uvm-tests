@@ -13,6 +13,21 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_objection_drain_time_delays_extract.expected
 */
+// What it checks:
+// 1. set_drain_time configures a source drain interval used after its last
+//    drop.
+// 2. get_drain_time reports the interval configured for the selected source.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.5.1.3.7 (UVM-OBJECTION-DRAIN-CONFIGURATION) gives rule 1
+//    above. Setup: Set a positive interval and observe phase completion after
+//    the source reaches zero. Expected: The phase waits the configured
+//    interval before completing.
+// 2. 1800.2-2020 10.5.1.3.6 (UVM-OBJECTION-DRAIN-QUERY) gives rule 2 above.
+//    Setup: Set source drain time to 3 and query it before dropping. Expected:
+//    The query returns 3.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Drain time starts after the last objection is dropped. The phase stays
 // active for the configured interval before extraction can start.
 

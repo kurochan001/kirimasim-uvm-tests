@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_duplicate_registration_reports_warning.expected
 */
+// What it checks:
+// Adding a callback already registered for the object issues a warning.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.2.3.1 (UVM-CALLBACK-DUPLICATE-WARNING) gives the rule
+// above. Setup: Add the same nonnull callback twice to one context. Expected:
+// The duplicate operation produces a warning.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the required warning without prescribing the treatment of
 // a duplicate entry or a particular diagnostic identifier.
 

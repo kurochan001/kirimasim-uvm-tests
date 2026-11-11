@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_barrier_returned_handle_shares_real_synchronization.expected
 */
+// What it checks:
+// The globally returned item participates in synchronization with its stored
+// reference.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.2.2.3 (UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-RETURNED-
+// HANDLE-SHARES-REAL-SYNCHRONIZATION) gives the rule above. Setup: Start a
+// static-handle waiter at time two, inspect it at four and release via the
+// stored handle at five. Expected: The linked static-admission, identity,
+// live-state or bounded-wait observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_pool_global_barrier_returned_handle_shares_real_synchronization;

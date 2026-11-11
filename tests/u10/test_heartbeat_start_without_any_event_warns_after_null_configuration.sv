@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_heartbeat_start_without_any_event_warns_after_null_configuration.expected
 */
+// What it checks:
+// Starting a heartbeat without a current or supplied trigger event emits a
+// warning.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.6.2.6 (UVM-HEARTBEAT-MISSING-EVENT-WARNING) gives the rule
+// above. Setup: An initial null-event configuration is followed by start, stop
+// and another start. Expected: Each start with no event adds one warning.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A null initial event does not activate a monitor.
 // Only warning counts are compared, without diagnostic text or identifiers.
 module test_heartbeat_start_without_any_event_warns_after_null_configuration;

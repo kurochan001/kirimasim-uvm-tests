@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_event_raw_trigger_wait_distinguishes_early_and_same_slice_late_calls.expected
 */
+// What it checks:
+// 1. A raw trigger waiter established before a trigger resumes on that
+//    trigger.
+// 2. A raw wait called after a trigger in the same slice requires a fresh
+//    trigger.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.1.1.2.4 (UVM-SYNC-REVIEW-RAW-TRIGGER-EARLY-WAITER) gives
+//    rule 1 above. Setup: One process is already blocked before the first
+//    accepted trigger. Expected: The early waiter has returned when observed
+//    in the next time slice.
+// 2. 1800.2-2020 10.1.1.2.4 (UVM-SYNC-REVIEW-RAW-TRIGGER-LATE-WAITER) gives
+//    rule 2 above. Setup: The triggering process calls wait_trigger
+//    immediately after trigger returns. Expected: It stays blocked with one
+//    waiter until a later fresh trigger releases it.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A positive delay establishes the early raw waiter; one process then triggers
 // and calls the late raw wait sequentially in the same time slice. No relative
 // ordering between independently released processes or delta-cycle scheduler

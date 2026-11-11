@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_event_raw_persistent_wait_is_immediate_in_slice_but_waits_in_a_later_slice.expected
 */
+// What it checks:
+// 1. A persistent wait called after trigger in the same time slice returns
+//    immediately.
+// 2. A persistent wait in a later slice requires a new trigger even while the
+//    event remains on.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.1.1.2.5 (UVM-SYNC-REVIEW-PERSISTENT-SAME-SLICE) gives rule
+//    1 above. Setup: The triggering process directly calls wait_ptrigger
+//    without advancing time. Expected: The call returns at the same time with
+//    zero waiters.
+// 2. 1800.2-2020 10.1.1.2.5 (UVM-SYNC-REVIEW-PERSISTENT-LATER-SLICE) gives
+//    rule 2 above. Setup: Call wait_ptrigger after a positive delay from the
+//    first trigger. Expected: It remains blocked/on with one waiter, then
+//    returns with the fresh trigger data.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Call the raw persistent wait in the triggering process, then in a later
 // positive time slice. An on event is not an indefinitely persistent trigger.
 // No arbitrary scheduling order, four-state payload or reset wakeup is tested.

@@ -12,6 +12,40 @@
 :expected_exit: 0
 :expected_stdout: @test_event_default_reset_preserves_mixed_waiters_for_a_fresh_trigger.expected
 */
+// What it checks:
+// 1. The event waiter query reports the processes actually blocked on that
+//    event.
+// 2. Default event reset does not request activation of existing trigger
+//    waiters.
+// 3. A later fresh trigger releases raw waiters that remained blocked across a
+//    no-wakeup reset.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.1.1.2.10 (UVM-SYNC-REVIEW-EVENT-ACTUAL-WAITER-COUNT) gives
+//    rule 1 above. Setup: Reset the selected off event without wakeup while
+//    its mixed waiters remain blocked. In additional independent profiles,
+//    establish three actual wait_trigger, wait_ptrigger, wait_on or wait_off
+//    callers on one event, kill/cancel two selected callers sequentially and
+//    release the survivor using the appropriate trigger/reset. Repeat on the
+//    same event with an independently held peer. Expected: Three selected wait
+//    styles and one peer off-wait produce counts three/one; no-wakeup reset
+//    preserves the three blocked callers. The added three-caller histories
+//    report 3 before cancellation, 2 after the first kill/cancel, 1 after the
+//    second and 0 after the survivor returns. Both terminated callers remain
+//    unreturned, the survivor stays blocked until its release, and the peer
+//    remains one until independently released to zero, in both reuse rounds.
+// 2. 1800.2-2020 10.1.1.2.8 (UVM-SYNC-REVIEW-EVENT-DEFAULT-RESET-BLOCKED)
+//    gives rule 2 above. Setup: Reset the selected off event without wakeup
+//    while its mixed waiters remain blocked. Expected: The selected event
+//    remains off with its three old callers blocked while the separate on peer
+//    off-wait returns.
+// 3. 1800.2-2020 10.1.1.2.4 (UVM-SYNC-REVIEW-EVENT-FRESH-TRIGGER-POST-RESET)
+//    gives rule 3 above. Setup: Reset the selected off event without wakeup
+//    while its mixed waiters remain blocked. Expected: The fresh trigger
+//    releases all three selected callers with value thirty-three and leaves no
+//    waiters.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays establish raw-trigger, persistent-trigger and on-state
 // waiters plus an independent off-state peer. Default reset does not request
 // trigger wakeup. The waiter query still reports blocked processes, and a

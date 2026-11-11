@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_event_on_off_waits_follow_reset_and_a_second_trigger.expected
 */
+// What it checks:
+// 1. Event wait_on waits for activation and returns immediately while the
+//    event remains on.
+// 2. Event wait_off returns immediately when off and waits for reset when on.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.1.1.2.2 (UVM-EVENT-WAIT-ON-PERSISTENCE) gives rule 1
+//    above. Setup: Wait before a trigger, call again while on, reset and
+//    establish a fresh wait. Also exercise omitted and explicit-zero delta
+//    forms over two already-satisfied and freshly blocked/released rounds,
+//    with a deferred-child scheduler witness and an independent peer.
+//    Expected: Each inactive wait blocks until its own trigger; the already-on
+//    call returns without advancing time. An already-satisfied zero/default
+//    call returns without starting its deferred child or advancing
+//    time/realtime. An unsatisfied call remains blocked until the controlled
+//    trigger/reset and returns with the desired state at that transition; peer
+//    waits remain independent.
+// 2. 1800.2-2020 10.1.1.2.3 (UVM-EVENT-WAIT-OFF-RESET) gives rule 2 above.
+//    Setup: Inspect the initially off event, then wait after a trigger and
+//    reset it. Also exercise omitted and explicit-zero delta forms over two
+//    already-satisfied and freshly blocked/released rounds, with a
+//    deferred-child scheduler witness and an independent peer. Expected: The
+//    initial wait is immediate; the active wait returns only after reset and
+//    the event is off. An already-satisfied zero/default call returns without
+//    starting its deferred child or advancing time/realtime. An unsatisfied
+//    call remains blocked until the controlled trigger/reset and returns with
+//    the desired state at that transition; peer waits remain independent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays establish waiting states. The fixtures do not require a
 // particular order among processes released at the same synchronization point.
 module test_event_on_off_waits_follow_reset_and_a_second_trigger;

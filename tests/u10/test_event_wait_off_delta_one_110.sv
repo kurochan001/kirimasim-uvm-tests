@@ -13,6 +13,23 @@
 :expected_stdout: @test_event_wait_off_delta_one_110.expected
 :files: helpers110_event_delta/event_delta110.svh
 */
+// What it checks:
+// An already-satisfied wait_off with delta1 yields in zero physical time and
+// resumes before a pending NBA update, as required by the printed #0 control.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.1.1.2.3 (UVM-EVENT-WAIT-OFF-ALREADY-DELTA-YIELD-110) gives
+// the rule above. Setup: For wait_off, first block one default waiter in the
+// opposite state, then make the state satisfy the wait. Queue an NBA through
+// an original always process and acknowledge its setup in Active, then spawn a
+// fresh deferred child and immediately call the actual wait with explicit1.
+// Repeat after a new lifecycle round and retain an independent on-state peer.
+// Expected: At return the fresh deferred child has run, the queued NBA update
+// remains invisible, the requested state is satisfied and both time/realtime
+// equal their pre-call values. A later positive drain observes the NBA update
+// and waiter completion. Existing waiter order is not prescribed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Fork children start only when their parent blocks or ends. The fresh-child
 // witness is separate from the unspecified order of already active waiters.
 // Ready-waiter completion order is DIAG110 only. A queued NBA distinguishes

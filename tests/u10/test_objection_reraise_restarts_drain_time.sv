@@ -13,6 +13,32 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_objection_reraise_restarts_drain_time.expected
 */
+// What it checks:
+// 1. set_drain_time configures a source drain interval used after its last
+//    drop.
+// 2. A new objection during drain cancels the pending zero-count propagation.
+//    The pending chain also terminates when the object or a descendant raises
+//    during all_dropped.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.5.1.3.7 (UVM-OBJECTION-DRAIN-CONFIGURATION) gives rule 1
+//    above. Setup: Set a positive interval and observe phase completion after
+//    the source reaches zero. Expected: The phase waits the configured
+//    interval before completing.
+// 2. 1800.2-2020 10.5.1.3.4 (UVM-OBJECTION-RERAISE-CANCELS-DRAIN) gives rule 2
+//    above. Setup: Raise again during a three-unit drain, then drop again
+//    later. Retain that original phase case and additionally re-raise a
+//    standalone objection for the gated object or its descendant during a
+//    two-unit drain or a gated objection/registered all_dropped task. Use
+//    equal/greater/fewer new counts and repeat after completed cleanup.
+//    Expected: Extraction waits a full fresh drain and occurs at time 6. In
+//    the added standalone cases, the old zero-count chain does not later clear
+//    the held branch; after releasing the old gate, selected and ancestor
+//    totals retain the new objections, peer state remains separate and a final
+//    drop completes a fresh drain/callback cycle. Those added cases do not
+//    assert the original extraction time.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A new raise during drain cancels that drain iteration. The final drop
 // starts a full new drain interval; extraction must wait for its completion.
 

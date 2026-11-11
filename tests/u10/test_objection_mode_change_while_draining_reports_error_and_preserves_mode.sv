@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_mode_change_while_draining_reports_error_and_preserves_mode.expected
 */
+// What it checks:
+// Changing propagation mode while objections are draining reports an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.1.3.2 (UVM-OBJECTION-CB-REVIEW-DRAINING-MODE-CHANGE-ERROR)
+// gives the rule above. Setup: Drop the last source objection with a positive
+// drain and attempt a mode change before root propagation completes. Expected:
+// Source total is zero but root remains one; ERROR preserves mode one until
+// drain finishes and idle mode zero succeeds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Make an actual raised or positive-drain condition before changing mode.
 // Catch the required ERROR without depending on its ID or text. The mode must
 // remain unchanged until idle, when the selected change succeeds. No fatal

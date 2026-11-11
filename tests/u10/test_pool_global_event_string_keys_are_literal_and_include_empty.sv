@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_event_string_keys_are_literal_and_include_empty.expected
 */
+// What it checks:
+// Global lookup treats supplied string keys literally, including the empty
+// key.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.1.2.3 (UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-STRING-KEYS-ARE-
+// LITERAL-AND-INCLUDE-EMPTY) gives the rule above. Setup: Explicitly bind
+// empty, dotted/wildcard-looking and neighboring string keys to distinct
+// items. Expected: The linked static-admission, identity, live-state or
+// bounded-wait observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_pool_global_event_string_keys_are_literal_and_include_empty;

@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_barrier_instance_get_seeded_item_identity.expected
 */
+// What it checks:
+// Under the item-return prose, static lookup shares a key populated by
+// instance get.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.2.2.3
+// (UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-INSTANCE-GET-SEEDED-ITEM-IDENTITY)
+// gives the rule above. Setup: Explicitly populate the key through the
+// dedicated global instance get before the static call. Expected: The linked
+// static-admission, identity, live-state or bounded-wait observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_pool_global_barrier_instance_get_seeded_item_identity;

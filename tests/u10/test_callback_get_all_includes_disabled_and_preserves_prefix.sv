@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_get_all_includes_disabled_and_preserves_prefix.expected
 */
+// What it checks:
+// get_all appends all applicable registered callbacks, including disabled
+// entries.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.2.5 (UVM-CALLBACK-GET-ALL) gives the rule above. Setup: Use
+// null/instance contexts and a queue with a caller-owned prefix. Expected:
+// Instance queries combine typewide/local entries, null selects only typewide,
+// and the prefix is retained.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The queue prefix contains a callback that is not registered. Compare
 // membership after the prefix without depending on collection order.
 

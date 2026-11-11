@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_typewide_callback_inheritance_reaches_derived_object.expected
 */
+// What it checks:
+// Registering a super-type relationship lets derived objects inherit base
+// typewide callbacks.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.4.2 (UVM-CALLBACK-TYPEWIDE-INHERITANCE) gives the rule above.
+// Setup: Declare the relationship with the standard macro and invoke
+// base/derived objects. A new original object-family case combines inherited
+// base typewide membership with an independent derived-local callback and
+// observes the actual receiver. Expected: The callback runs for both without
+// prescribing inherited queue order.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register the superclass relation with the standard macro and invoke
 // base and derived objects separately. No inherited callback order is assumed.
 

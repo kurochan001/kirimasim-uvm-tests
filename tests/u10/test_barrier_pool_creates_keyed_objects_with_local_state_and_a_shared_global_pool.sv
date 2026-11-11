@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_barrier_pool_creates_keyed_objects_with_local_state_and_a_shared_global_pool.expected
 */
+// What it checks:
+// 1. Dedicated pool get creates a missing keyed object and reuses that local
+//    key binding.
+// 2. The dedicated global pool is a shared singleton of its pool type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.4.2.2.4 (UVM-BARRIER-POOL-KEYED-CREATION) gives rule 1
+//    above. Setup: Use two keys in one pool and the same key in another pool.
+//    Expected: Objects are non-null, repeated keys retain identity and state
+//    changes stay local to one keyed object.
+// 2. 1800.2-2020 10.4.2.2.2 (UVM-BARRIER-POOL-GLOBAL-SINGLETON) gives rule 2
+//    above. Setup: Fetch the global pool twice and query one key through each
+//    handle. Expected: Both pool handles and keyed object handles agree,
+//    independently of local pools.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_barrier_pool_creates_keyed_objects_with_local_state_and_a_shared_global_pool;
   import uvm_pkg::*;
   initial begin

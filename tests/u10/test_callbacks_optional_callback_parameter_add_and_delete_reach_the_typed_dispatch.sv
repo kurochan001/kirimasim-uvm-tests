@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_callbacks_optional_callback_parameter_add_and_delete_reach_the_typed_dispatch.expected
 */
+// What it checks:
+// 1. The registry accepts an object-derived associated context type.
+// 2. The registry accepts a callback-derived interface type.
+// 3. The CB parameter may be omitted when using callback add/delete
+//    interfaces.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.7.2.2.1 (UVM-OBJECTION-CB-REVIEW-CALLBACKS-OBJECT-TYPE)
+//    gives rule 1 above. Setup: Use original context/callback subtypes and a
+//    valid macro-registered pair. Expected: The selected typed registry
+//    constructs and a registered component context accepts actual callback
+//    dispatch.
+// 2. 1800.2-2020 10.7.2.2.2 (UVM-OBJECTION-CB-REVIEW-CALLBACKS-CALLBACK-TYPE)
+//    gives rule 2 above. Setup: Use original context/callback subtypes and a
+//    valid macro-registered pair. Expected: The selected interface type
+//    constructs, enumerates the supplied callback and dispatches its original
+//    hook.
+// 3. 1800.2-2020 10.7.2.2.2 (UVM-OBJECTION-CB-REVIEW-OPTIONAL-CB-ADD-DELETE)
+//    gives rule 3 above. Setup: Register an original valid pair and use only T
+//    in add/delete, with typed enumeration and dispatch. Expected: Typed
+//    get_all sees the same callback and one hook invocation; deletion removes
+//    registration without another invocation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register a valid original object/callback pair, then omit only CB when using
 // add/delete. Typed enumeration and the standard typed dispatch macro observe
 // the actual shared registration. No invalid-pair diagnostic, omitted T

@@ -13,6 +13,17 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_objection_wait_for_dropped_observes_partial_drop.expected
 */
+// What it checks:
+// Waiting for dropped returns after corresponding callbacks for that event
+// finish.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.1.5.2 (UVM-OBJECTION-WAIT-DROPPED) gives the rule above.
+// Setup: Arm the waiter before a positive-delay producer triggers the selected
+// event. Expected: The waiter returns after the dropped callback with one
+// objection still outstanding.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Leave one source objection outstanding so the observed event is a
 // partial drop and does not depend on zero-count drain cleanup.
 

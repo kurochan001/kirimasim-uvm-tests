@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_heartbeat_declared_object_base_preserves_selected_name_and_identity.expected
 */
+// What it checks:
+// A heartbeat derives from the object base.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.6.1 (UVM-OBJECTION-CB-REVIEW-HEARTBEAT-OBJECT-BASE) gives the
+// rule above. Setup: Construct it with a selected name and actual component
+// context, without starting monitoring. Expected: The object view retains
+// identity and selected name.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Construct a heartbeat in an actual component context without starting its
 // monitor. This checks declared object inheritance/name only, not monitoring,
 // window activity, private context fields or factory behavior.

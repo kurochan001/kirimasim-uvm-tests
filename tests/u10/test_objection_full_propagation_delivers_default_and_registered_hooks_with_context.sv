@@ -12,6 +12,87 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_full_propagation_delivers_default_and_registered_hooks_with_context.expected
 */
+// What it checks:
+// 1. The default raised hook dispatches to each reached component raised
+//    method.
+// 2. The default dropped hook dispatches to each reached component dropped
+//    method.
+// 3. The default all_dropped hook dispatches to reached zero-total component
+//    methods.
+// 4. Objection raised dispatch invokes the registered raised callback with its
+//    originating context.
+// 5. Objection dropped dispatch invokes the registered dropped callback with
+//    its originating context.
+// 6. Objection all_dropped dispatch invokes the registered task callback.
+// 7. Source all_dropped hooks run after drain and finish before zero-count
+//    propagation to the root.
+// 8. Default objection raised dispatch reaches the selected component hooks
+//    with exact objection/source/description/count.
+// 9. Default objection dropped dispatch reaches the selected component hooks
+//    for partial and final drops.
+// 10. Default objection all_dropped dispatch reaches the selected component
+//     hooks with the original context after drain.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.5.1.4.1
+//    (UVM-OBJECTION-CB-REVIEW-DEFAULT-RAISED-COMPONENT-HOOK) gives rule 1
+//    above. Setup: Raise by two, partially drop one, then finally drop one in
+//    default hierarchical mode. Expected: Each selected component sees one
+//    raise with the original source, description and count two.
+// 2. 1800.2-2020 10.5.1.4.2
+//    (UVM-OBJECTION-CB-REVIEW-DEFAULT-DROPPED-COMPONENT-HOOK) gives rule 2
+//    above. Setup: Raise by two, partially drop one, then finally drop one in
+//    default hierarchical mode. Expected: Each selected component sees partial
+//    and final drops with the original source, descriptions and count one.
+// 3. 1800.2-2020 10.5.1.4.3
+//    (UVM-OBJECTION-CB-REVIEW-DEFAULT-ALL-DROPPED-COMPONENT-HOOK) gives rule 3
+//    above. Setup: Raise by two, partially drop one, then finally drop one in
+//    default hierarchical mode. Expected: Each selected component sees one
+//    final all_dropped hook with the originating context.
+// 4. 1800.2-2020 10.5.2.2.1
+//    (UVM-OBJECTION-CB-REVIEW-REGISTERED-RAISED-CONTEXT) gives rule 4 above.
+//    Setup: Raise by two, partially drop one, then finally drop one in default
+//    hierarchical mode. Expected: The registered callback sees the selected
+//    objection, target, source, description and count at each reached level.
+// 5. 1800.2-2020 10.5.2.2.2
+//    (UVM-OBJECTION-CB-REVIEW-REGISTERED-DROPPED-CONTEXT) gives rule 5 above.
+//    Setup: Raise by two, partially drop one, then finally drop one in default
+//    hierarchical mode. Expected: The registered callback sees both selected
+//    drops with the same objection/source and corresponding description/count.
+// 6. 1800.2-2020 10.5.2.2.3
+//    (UVM-OBJECTION-CB-REVIEW-REGISTERED-ALL-DROPPED-CONTEXT) gives rule 6
+//    above. Setup: Raise by two, partially drop one, then finally drop one in
+//    default hierarchical mode. Expected: The registered callback completes
+//    once at each selected reached zero-total level with final-drop metadata.
+// 7. 1800.2-2020 10.5.1.4.3
+//    (UVM-OBJECTION-CB-REVIEW-DRAIN-AND-CALLBACK-PROPAGATION-ORDER) gives rule
+//    7 above. Setup: Raise by two, partially drop one, then finally drop one
+//    in default hierarchical mode. Expected: Both original task callbacks
+//    observe source drain completion, keep root total one while delayed and
+//    leave final root total zero.
+// 8. 1800.2-2020 13.1.6.1 (UVM-COMPONENT-EXT-OBJECTION-RAISED-HOOK) gives rule
+//    8 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Default objection
+//    raised dispatch reaches the selected component hooks with exact
+//    objection/source/description/count.
+// 9. 1800.2-2020 13.1.6.2 (UVM-COMPONENT-EXT-OBJECTION-DROPPED-HOOK) gives
+//    rule 9 above. Setup: Use the linked original fixtures and their explicit
+//    public phase, factory or hierarchy calls. Preserve the declared original
+//    types, scope, arguments and expected observations; no private
+//    implementation state supplies an oracle. Expected: Default objection
+//    dropped dispatch reaches the selected component hooks for partial and
+//    final drops.
+// 10. 1800.2-2020 13.1.6.3 (UVM-COMPONENT-EXT-OBJECTION-ALL-DROPPED-HOOK)
+//     gives rule 10 above. Setup: Use the linked original fixtures and their
+//     explicit public phase, factory or hierarchy calls. Preserve the declared
+//     original types, scope, arguments and expected observations; no private
+//     implementation state supplies an oracle. Expected: Default objection
+//     all_dropped dispatch reaches the selected component hooks with the
+//     original context after drain.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use the actual default objection hooks, original component hooks and a
 // registered callback, with source/description/count identity and real drain
 // and callback delays. Mode zero skips intermediate callbacks; the public

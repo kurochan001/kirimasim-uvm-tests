@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_constructor_default_selected_and_empty_names_preserve_object_identity.expected
 */
+// What it checks:
+// 1. The callback constructor provides its declared optional name.
+// 2. A callback derives from the object base.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.7.1.2.1 (UVM-OBJECTION-CB-REVIEW-CALLBACK-NAMES) gives
+//    rule 1 above. Setup: Construct omitted, selected and explicitly empty
+//    names. Expected: The names match the declared default, selected name and
+//    empty string.
+// 2. 1800.2-2020 10.7.1.1 (UVM-OBJECTION-CB-REVIEW-CALLBACK-OBJECT-BASE) gives
+//    rule 2 above. Setup: Assign a selected callback to an object view.
+//    Expected: The view retains identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the declared optional callback name and object base. No initial
 // enable state, omitted mode argument, registration or callback dispatch is
 // inferred.

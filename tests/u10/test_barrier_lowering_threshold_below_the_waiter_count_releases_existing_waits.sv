@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_barrier_lowering_threshold_below_the_waiter_count_releases_existing_waits.expected
 */
+// What it checks:
+// Lowering a barrier threshold below its pending count releases the waiters
+// and retains the new threshold.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.3.2.6 (UVM-BARRIER-LOWERED-THRESHOLD-RELEASE) gives the rule
+// above. Setup: Two processes wait against threshold four; lower it to one.
+// Expected: Both waiting processes complete; the next singleton round uses
+// threshold one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays establish waiting states. The fixtures do not require a
 // particular order among processes released at the same synchronization point.
 module test_barrier_lowering_threshold_below_the_waiter_count_releases_existing_waits;

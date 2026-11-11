@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_heartbeat_default_start_reuses_its_event_while_running_and_after_stop.expected
 */
+// What it checks:
+// 1. An omitted start event reuses the selected event rather than requesting a
+//    different event while running.
+// 2. Starting with an omitted event after stop reuses the previously
+//    configured event.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.6.2.6 (UVM-HEARTBEAT-ACTIVE-DEFAULT-EVENT-REUSE) gives
+//    rule 1 above. Setup: Stopped reuse and explicit same-event controls
+//    precede an omitted-event call on the running monitor. Expected: The
+//    running default-event reuse returns without adding an error.
+// 2. 1800.2-2020 10.6.2.6 (UVM-HEARTBEAT-STOPPED-DEFAULT-EVENT-REUSE) gives
+//    rule 2 above. Setup: A configured event is stopped, then start is called
+//    without an argument. Expected: Stopped default reuse adds no error; the
+//    explicit same-event control also returns normally.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An omitted event selects the previous event, rather than a new event.
 // Observe stopped and explicit-event controls before the running default call.
 // The pinned running guard dereferences the omitted event while forming

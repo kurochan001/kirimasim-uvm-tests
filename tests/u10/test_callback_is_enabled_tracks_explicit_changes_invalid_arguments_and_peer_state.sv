@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_is_enabled_tracks_explicit_changes_invalid_arguments_and_peer_state.expected
 */
+// What it checks:
+// is_enabled reports the callback current enabled state independently per
+// instance.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.1.2.3 (UVM-OBJECTION-CB-REVIEW-CALLBACK-ENABLED-QUERY)
+// gives the rule above. Setup: Use explicit zero/one modes on two callbacks,
+// then invalid non-toggle arguments and restoration. Expected: Queries follow
+// explicit changes, ignore non-toggle arguments and preserve peer state.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Set every initial state explicitly, then query the actual is_enabled API.
 // No omitted callback_mode argument or initial-enable guarantee is assumed.
 // Callback dispatch and registration are separate conditions.

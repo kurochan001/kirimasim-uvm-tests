@@ -13,6 +13,17 @@
 :args: +UVM_TESTNAME=t
 :expected_stdout: @test_objection_wait_for_raised_observes_callback_and_count.expected
 */
+// What it checks:
+// Waiting for raised returns after corresponding callbacks for that event
+// finish.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.1.5.2 (UVM-OBJECTION-WAIT-RAISED) gives the rule above.
+// Setup: Arm the waiter before a positive-delay producer triggers the selected
+// event. Expected: The waiter returns after its raised callback and observes
+// source count 2.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Run the custom objection under run_test. A delayed producer arms the
 // waiter before raising, avoiding a same-time trigger and wait ordering race.
 

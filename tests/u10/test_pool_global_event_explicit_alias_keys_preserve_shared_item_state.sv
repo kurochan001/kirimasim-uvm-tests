@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_event_explicit_alias_keys_preserve_shared_item_state.expected
 */
+// What it checks:
+// Two keys explicitly bound to one item return that same shared item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.1.2.3 (UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-EXPLICIT-ALIAS-
+// KEYS-PRESERVE-SHARED-ITEM-STATE) gives the rule above. Setup: Use add to
+// bind the same caller-supplied handle under two distinct global keys.
+// Expected: The linked static-admission, identity, live-state or bounded-wait
+// observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_pool_global_event_explicit_alias_keys_preserve_shared_item_state;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_event_repeated_calls_preserve_existing_identity.expected
 */
+// What it checks:
+// Repeated global lookup of an existing key preserves the stored item
+// identity.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.1.2.3 (UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-REPEATED-CALLS-
+// PRESERVE-EXISTING-IDENTITY) gives the rule above. Setup: Perform two static
+// lookups after one explicit binding without rebinding. Expected: The linked
+// static-admission, identity, live-state or bounded-wait observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_pool_global_event_repeated_calls_preserve_existing_identity;

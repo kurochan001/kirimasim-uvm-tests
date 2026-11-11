@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_heartbeat_mode_queries_preserve_explicit_modes_and_peer_state.expected
 */
+// What it checks:
+// 1. Heartbeat construction preserves its supplied instance name.
+// 2. Calling set_mode without an argument retrieves the current selected mode.
+// 3. The explicit UVM_NO_HB_MODE query preserves and returns the selected
+//    heartbeat mode.
+// 4. An explicitly changed heartbeat mode affects that object independently of
+//    a peer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.6.2.1 (UVM-HEARTBEAT-CONSTRUCTOR-NAME) gives rule 1 above.
+//    Setup: Two heartbeat objects share a valid context and supplied
+//    objection. Expected: Their names remain first and second.
+// 2. 1800.2-2020 10.6.2.2 (UVM-HEARTBEAT-MODE-OMITTED-QUERY) gives rule 2
+//    above. Setup: ALL_ACTIVE and ONE_ACTIVE are explicitly selected on two
+//    objects before querying. Expected: The omitted-argument queries return
+//    the two selected modes.
+// 3. 1800.2-2020 10.6.2.2 (UVM-HEARTBEAT-MODE-EXPLICIT-QUERY-SENTINEL) gives
+//    rule 3 above. Setup: The peer has explicitly selected ONE_ACTIVE.
+//    Expected: The explicit query still returns ONE_ACTIVE.
+// 4. 1800.2-2020 10.6.2.2 (UVM-HEARTBEAT-MODE-INSTANCE-LOCAL-UPDATE) gives
+//    rule 4 above. Setup: The first object changes from ALL_ACTIVE to
+//    ANY_ACTIVE while the peer remains ONE_ACTIVE. Expected: Queries show
+//    ANY_ACTIVE for the first and ONE_ACTIVE for the peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicitly select modes before querying; no constructor mode is assumed.
 // The return value of a mode-changing call is deliberately not asserted.
 module test_heartbeat_mode_queries_preserve_explicit_modes_and_peer_state;

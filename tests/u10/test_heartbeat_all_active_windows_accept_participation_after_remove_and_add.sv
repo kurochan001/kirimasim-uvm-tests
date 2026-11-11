@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_heartbeat_all_active_windows_accept_participation_after_remove_and_add.expected
 */
+// What it checks:
+// 1. A configured heartbeat event and participating list accept the tested
+//    healthy activity windows.
+// 2. Removing a component from an active heartbeat excludes its later
+//    nonparticipation from the monitored list.
+// 3. Adding a currently participating component to an active heartbeat does
+//    not invalidate a healthy all-active window.
+// 4. The tested all-active heartbeat condition is satisfied when every
+//    currently tracked component raises or drops the synchronizing objection.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.6.2.3
+//    (UVM-HEARTBEAT-CONFIGURED-PARTICIPANTS-HEALTHY-WINDOWS) gives rule 1
+//    above. Setup: Two listed descendants raise/drop the supplied objection
+//    between separated event triggers. Expected: The three selected healthy
+//    windows add no error or fatal.
+// 2. 1800.2-2020 10.6.2.5 (UVM-HEARTBEAT-REMOVE-ACTIVE-PARTICIPANT) gives rule
+//    2 above. Setup: After a healthy two-participant window, the second
+//    component is removed and only the first participates. Expected: The next
+//    selected window remains healthy.
+// 3. 1800.2-2020 10.6.2.4 (UVM-HEARTBEAT-ADD-HEALTHY-PARTICIPANT) gives rule 3
+//    above. Setup: The removed component is added again and both components
+//    participate before the next trigger. Expected: The selected
+//    added-participant window has no error or fatal.
+// 4. 1800.2-2020 10.6 (UVM-HEARTBEAT-ALL-ACTIVE-POSITIVE-PARTICIPATION) gives
+//    rule 4 above. Setup: All current participants are active in each of three
+//    windows, including remove/add transitions. Expected: No error or fatal is
+//    generated in the selected healthy windows.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original objection/event stimulus with separated simulation times.
 // Only healthy ALL_ACTIVE windows are observed; missed-window severity is open.
 module test_heartbeat_all_active_windows_accept_participation_after_remove_and_add;

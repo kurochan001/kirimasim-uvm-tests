@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_repeated_delete_reports_warning.expected
 */
+// What it checks:
+// Deleting an already removed callback registration issues a warning.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.2.3.3 (UVM-CALLBACK-REPEATED-DELETE-WARNING) gives the rule
+// above. Setup: Delete one valid nonnull registration, then delete it again.
+// Expected: The repeated delete produces a warning without requiring exact
+// diagnostic wording.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Remove a valid registration before attempting the repeated delete.
 // Observe warning occurrence without depending on its wording or count.
 

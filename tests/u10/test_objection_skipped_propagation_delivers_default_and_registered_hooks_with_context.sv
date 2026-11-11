@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_skipped_propagation_delivers_default_and_registered_hooks_with_context.expected
 */
+// What it checks:
+// 1. Propagation mode zero skips intermediate callbacks between source and
+//    top.
+// 2. Skipping intermediate callbacks does not change the total query
+//    definition for those ancestors.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.5.1.3.2
+//    (UVM-OBJECTION-CB-REVIEW-SKIPPED-INTERMEDIATE-CALLBACKS) gives rule 1
+//    above. Setup: Run actual source raises, partial/final drops and
+//    registered hooks on a three-node hierarchy in mode zero. Expected: Source
+//    and implicit-root hooks run, while both intermediate component and
+//    registered hooks are absent.
+// 2. 1800.2-2020 10.5.1.5.4
+//    (UVM-OBJECTION-CB-REVIEW-TOTALS-WITH-SKIPPED-CALLBACKS) gives rule 2
+//    above. Setup: Set propagation mode zero before a source raises two and
+//    partially drops one. Expected: Intermediate totals still include the two
+//    then one outstanding descendant objections.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use the actual default objection hooks, original component hooks and a
 // registered callback, with source/description/count identity and real drain
 // and callback delays. Mode zero skips intermediate callbacks; the public

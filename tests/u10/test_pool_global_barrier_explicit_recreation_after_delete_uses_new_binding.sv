@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_barrier_explicit_recreation_after_delete_uses_new_binding.expected
 */
+// What it checks:
+// Global lookup follows an explicitly recreated binding after deletion.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.2.2.3 (UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-EXPLICIT-
+// RECREATION-AFTER-DELETE-USES-NEW-BINDING) gives the rule above. Setup:
+// Delete the key, recreate it through dedicated instance get, then use static
+// lookup. Expected: The linked static-admission, identity, live-state or
+// bounded-wait observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_pool_global_barrier_explicit_recreation_after_delete_uses_new_binding;

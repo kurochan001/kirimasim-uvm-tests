@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_objectors_list_contains_each_source_once.expected
 */
+// What it checks:
+// The objector list identifies each outstanding source once rather than once
+// per objection.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.5.1.5.1 (UVM-OBJECTION-OBJECTOR-UNIQUENESS) gives the rule
+// above. Setup: Two sources raise different counts, 2 and 1. Expected: The
+// list has two distinct sources while local counts remain 2 and 1.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two objects raise different counts. Check list membership without
 // assuming the iteration order of an implementation associative array.
 

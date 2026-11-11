@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers.expected
 */
+// What it checks:
+// Disabling a registered callback prevents its hooks until it is enabled
+// again.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.1.2.2 (UVM-EVENT-DISABLED-CALLBACK-DISPATCH) gives the rule
+// above. Setup: Disable, enable and disable the same callback around three
+// distinct triggers. Expected: Only the enabled trigger increments pre/post
+// counts; event activation and latest data still update.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard typed callbacks and explicit positive-delay waiting states.
 // No compatibility add_callback wrapper or waiter release order is required.
 // The pinned event dispatch does not filter disabled callbacks.

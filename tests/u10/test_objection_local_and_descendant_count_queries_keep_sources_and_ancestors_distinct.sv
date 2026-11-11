@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_local_and_descendant_count_queries_keep_sources_and_ancestors_distinct.expected
 */
+// What it checks:
+// 1. The local count getter reports objections raised by that object itself.
+// 2. The total getter includes the object own objections and all descendant
+//    objections.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.5.1.5.3 (UVM-OBJECTION-CB-REVIEW-LOCAL-SOURCE-COUNT) gives
+//    rule 1 above. Setup: Two children raise two/three while their parent
+//    raises one, then one child partially drops. Expected: Local counts remain
+//    distinct at two/three/one and one/three/one, then return to zero.
+// 2. 1800.2-2020 10.5.1.5.4 (UVM-OBJECTION-CB-REVIEW-DESCENDANT-TOTAL-COUNT)
+//    gives rule 2 above. Setup: Use two child sources and a local parent
+//    source in default hierarchical mode. Expected: Parent/root totals are six
+//    then five after a partial drop, and zero after final drops.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Real source raises and partial/final drops distinguish local counts from
 // descendant totals. The root is supplied explicitly; no undocumented null-
 // query

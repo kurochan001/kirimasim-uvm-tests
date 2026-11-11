@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_typewide_callback_applies_to_existing_and_future_objects.expected
 */
+// What it checks:
+// A context-free callback registration applies typewide, including
+// subsequently created objects.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.2.3.1 (UVM-CALLBACK-TYPEWIDE-REGISTRATION) gives the rule
+// above. Setup: Register a null-context entry and invoke an existing object
+// plus one created afterwards. Expected: Both invocations reach the same
+// registered callback handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use a null registration context for a callback with a registered
 // type pair. Both invocations use the same callback handle.
 

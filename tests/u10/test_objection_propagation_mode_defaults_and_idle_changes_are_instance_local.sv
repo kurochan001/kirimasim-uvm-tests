@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_objection_propagation_mode_defaults_and_idle_changes_are_instance_local.expected
 */
+// What it checks:
+// 1. The propagation getter returns one before any setter call.
+// 2. The getter reflects the latest legal propagation mode independently per
+//    objection.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.5.1.3.1 (UVM-OBJECTION-CB-REVIEW-PROPAGATION-DEFAULT)
+//    gives rule 1 above. Setup: Construct two independent objections and query
+//    both before changes. Expected: Both modes are one.
+// 2. 1800.2-2020 10.5.1.3.1 (UVM-OBJECTION-CB-REVIEW-IDLE-MODE-QUERY) gives
+//    rule 2 above. Setup: Disable then restore one idle objection while
+//    leaving a peer untouched. Expected: The selected mode changes zero then
+//    one; the peer remains one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // No objections are raised or draining. The standard explicitly defines the
 // initial getter value and permits idle changes; active-mode changes are
 // tested

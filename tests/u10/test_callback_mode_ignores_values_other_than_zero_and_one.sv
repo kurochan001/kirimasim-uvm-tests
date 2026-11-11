@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_mode_ignores_values_other_than_zero_and_one.expected
 */
+// What it checks:
+// Changing callback mode returns the previous state; a non-toggle query leaves
+// the state intact.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.1.2.2 (UVM-CALLBACK-MODE) gives the rule above. Setup:
+// Disable/enable an explicitly enabled callback and query with non-toggle
+// arguments in both states. Expected: Every call returns the prior state.
+// Zero/one select disabled/enabled mode; other values preserve the current
+// state.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Query both disabled and enabled states with explicit out-of-range
 // arguments. The return value remains the prior enable state.
 

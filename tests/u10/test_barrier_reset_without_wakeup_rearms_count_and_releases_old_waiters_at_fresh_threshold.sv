@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold.expected
 */
+// What it checks:
+// 1. Barrier reset without wakeup clears the count and preserves threshold
+//    without activating old callers.
+// 2. When a reset barrier reaches its retained threshold again, all blocked
+//    callers are released.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.3.2.3 (UVM-SYNC-REVIEW-BARRIER-SILENT-RESET-COUNT) gives
+//    rule 1 above. Setup: Reset two blocked callers explicitly with wakeup
+//    zero at threshold three. Expected: Count becomes zero, threshold stays
+//    three and both old callers remain blocked.
+// 2. 1800.2-2020 10.3.2.2 (UVM-SYNC-REVIEW-BARRIER-FRESH-RELEASE-AFTER-RESET)
+//    gives rule 2 above. Setup: After silent reset, admit a fresh
+//    threshold-sized group while old callers remain blocked. Expected: Two
+//    fresh arrivals remain blocked; the third releases the fresh three and old
+//    two, leaving count zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit reset(0) resets count without activating the two old waiters. Three
 // fresh arrivals reach the retained threshold and release all waiting callers.
 // No wakeup-default substitution, private queue access or exact release order

@@ -13,6 +13,23 @@
 :expected_stdout: @test_event_wait_on_delta_omitted_110.expected
 :files: helpers110_event_delta/event_delta110.svh
 */
+// What it checks:
+// Event wait_on waits for activation and returns immediately while the event
+// remains on.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.1.1.2.2 (UVM-EVENT-WAIT-ON-PERSISTENCE) gives the rule above.
+// Setup: Wait before a trigger, call again while on, reset and establish a
+// fresh wait. Also exercise omitted and explicit-zero delta forms over two
+// already-satisfied and freshly blocked/released rounds, with a deferred-child
+// scheduler witness and an independent peer. Expected: Each inactive wait
+// blocks until its own trigger; the already-on call returns without advancing
+// time. An already-satisfied zero/default call returns without starting its
+// deferred child or advancing time/realtime. An unsatisfied call remains
+// blocked until the controlled trigger/reset and returns with the desired
+// state at that transition; peer waits remain independent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Fork children start only when their parent blocks or ends. The fresh-child
 // witness is separate from the unspecified order of already active waiters.
 // Ready-waiter completion order is DIAG110 only. A queued NBA distinguishes

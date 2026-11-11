@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_barrier_default_auto_reset_requires_a_fresh_threshold_on_each_round.expected
 */
+// What it checks:
+// 1. A barrier blocks callers until the configured number reach the
+//    synchronization point, then releases them all.
+// 2. A barrier automatically rearms after reaching its threshold by default.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 10.3.2.2 (UVM-BARRIER-THRESHOLD-GATE) gives rule 1 above.
+//    Setup: Two processes wait at a threshold of three, then the third
+//    arrives. Expected: Two waiters remain blocked before the last arrival;
+//    all three complete afterward.
+// 2. 1800.2-2020 10.3.2.4 (UVM-BARRIER-DEFAULT-AUTO-RESET) gives rule 2 above.
+//    Setup: Complete two consecutive rounds with three participants each
+//    without setting auto-reset. Expected: Both rounds require a fresh third
+//    participant and finish with zero pending waiters.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays establish waiting states. The fixtures do not require a
 // particular order among processes released at the same synchronization point.
 module test_barrier_default_auto_reset_requires_a_fresh_threshold_on_each_round;

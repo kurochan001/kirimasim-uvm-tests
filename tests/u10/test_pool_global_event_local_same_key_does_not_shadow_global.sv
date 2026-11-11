@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_pool_global_event_local_same_key_does_not_shadow_global.expected
 */
+// What it checks:
+// A same-key binding in a local pool does not replace the global lookup
+// target.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.4.1.2.3
+// (UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-LOCAL-SAME-KEY-DOES-NOT-SHADOW-GLOBAL)
+// gives the rule above. Setup: Use the same string key in the singleton and an
+// independently constructed local pool. Expected: The linked static-admission,
+// identity, live-state or bounded-wait observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_pool_global_event_local_same_key_does_not_shadow_global;
