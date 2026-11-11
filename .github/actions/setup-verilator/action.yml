@@ -50,7 +50,13 @@ runs:
             break
           fi
           echo "::warning::installing z3 failed (attempt $attempt); trying again"
-          sleep 60
+          sleep 30
+          # The runner's default mirror list can stay unresolvable; fall back
+          # to the Ubuntu archive itself.
+          if [ "$attempt" -ge 2 ] && [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
+            sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|' \
+              /etc/apt/sources.list.d/ubuntu.sources
+          fi
           sudo apt-get update || echo "::warning::apt-get update failed for some sources"
         done
         z3 --version
