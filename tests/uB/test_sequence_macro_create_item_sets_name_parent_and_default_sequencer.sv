@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_macro_create_item_sets_name_parent_and_default_sequencer.expected
 */
+// What it checks:
+// The create action initializes the named child through create_item with the
+// selected sequencer.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.1.1 (UVM-SEQUENCE-MACRO-CREATE-CONTEXT) gives the rule
+// above. Setup: Create either an item with the default sequencer or a sequence
+// with an alternate sequencer. Expected: Name, parent and sequencer agree;
+// creation alone does not execute or randomize the child.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Create an item without sending or randomizing it. Check the macro
 // argument name, parent sequence and default sequencer context.
 

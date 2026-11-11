@@ -13,6 +13,24 @@
 :expected_exit: 0
 :expected_stdout: @test_registry_component_0_94.expected
 */
+// What it checks:
+// The low-level component registration macro associates its T class with the
+// supplied lookup string S for factory creation.
+//
+// Variant: Inputs 0 and 1 create the two witnesses, and make the two creations
+// by name, in opposite orders.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.2.1.5 (UVM-LOWLEVEL-COMPONENT-REGISTRY-LOOKUP-94) gives the
+// rule above. Setup: Use two concrete original classes with lookup strings
+// different from their class names and only low-level registration macros.
+// Construct witnesses, then create by each custom alias and repeat one alias
+// under opposite ordering histories; components receive explicit parents.
+// Expected: Each alias is registered and selects its actual concrete class,
+// constructor marker and requested name; repeated results are fresh, with the
+// selected component parent or independent object state.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_registry_component_0_94;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

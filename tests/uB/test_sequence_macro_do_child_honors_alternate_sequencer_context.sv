@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_macro_do_child_honors_alternate_sequencer_context.expected
 */
+// What it checks:
+// The combined action creates a child then processes it with randomized send.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.1.4 (UVM-SEQUENCE-MACRO-DO) gives the rule above. Setup:
+// Start with a null item or sequence, optionally selecting an alternate
+// sequencer. Expected: Creation, constrained randomization and execution occur
+// with the requested parent/sequencer context.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Create and execute a child on another sequencer without sending items.
 // Check both the explicit sequencer and the original parent-sequence context.
 

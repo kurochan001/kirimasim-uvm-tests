@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_macro_create_item_uses_factory_type_override.expected
 */
+// What it checks:
+// create_item uses the factory to create and initialize the requested sequence
+// or item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.1 (UVM-SEQUENCE-MACRO-CREATE-FACTORY) gives the rule
+// above. Setup: Install an item or child-sequence type override before
+// invoking the creation macro. Expected: The created handle has the
+// replacement type and retains the requested name/context.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Override the item type before creating it through the macro. Check the
 // returned subtype and the requested name and context, without executing it.
 

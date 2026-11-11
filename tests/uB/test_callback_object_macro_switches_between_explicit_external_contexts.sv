@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_object_macro_switches_between_explicit_external_contexts.expected
 */
+// What it checks:
+// The explicit-object callback macro dispatches callbacks associated with its
+// supplied external object.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.4.4 (UVM-CALLBACK-MACRO-EXTERNAL-CONTEXT) gives the rule
+// above. Setup: Keep separate dispatcher/object registrations, include a
+// typewide callback and switch between two objects. Expected:
+// Selected-object/typewide entries execute with the supplied context;
+// dispatcher-only entries do not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Call one dispatcher with two external objects. Each invocation must
 // select that object registration and pass the requested context argument.
 

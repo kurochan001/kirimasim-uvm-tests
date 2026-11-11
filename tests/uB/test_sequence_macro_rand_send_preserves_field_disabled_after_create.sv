@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_macro_rand_send_preserves_field_disabled_after_create.expected
 */
+// What it checks:
+// The randomized send action randomizes an item after start_item and before
+// finish_item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.1.3 (UVM-SEQUENCE-MACRO-RAND-SEND-ITEM) gives the rule
+// above. Setup: Use singleton inline constraints, hook traces and one field
+// with randomization disabled. Expected: Randomization occurs once before
+// delivery; constraints or a disabled field mode determine the payload.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Disable randomization on the code field after creation. Randomizing the
 // item still calls post_randomize while preserving the manually assigned code.
 

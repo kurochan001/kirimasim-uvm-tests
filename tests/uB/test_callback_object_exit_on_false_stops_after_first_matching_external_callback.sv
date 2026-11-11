@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_object_exit_on_false_stops_after_first_matching_external_callback.expected
 */
+// What it checks:
+// Explicit-object exit dispatch stops at the selected result in the supplied
+// object callback list.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.4.6 (UVM-CALLBACK-MACRO-EXTERNAL-EXIT) gives the rule above.
+// Setup: Test both selected bit values with distinct dispatcher and
+// external-object contexts. Expected: The result, early termination and
+// callback context agree with the external object selection.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use true, false and true callbacks on the explicit object. The false
 // result must return before the final callback and preserve the chosen context.
 

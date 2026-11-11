@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_macro_send_child_skips_randomization_and_body_hooks.expected
 */
+// What it checks:
+// The send action starts a child sequence with parent, priority and optional
+// body hooks disabled.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.1.2 (UVM-SEQUENCE-MACRO-SEND-CHILD) gives the rule above.
+// Setup: Send a pre-created child with manual code and explicit priority.
+// Expected: The body runs once without randomization, pre_body or post_body;
+// parent and priority are preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Send a pre-created child at explicit priority. Check manual data, body
 // execution, parent context and suppressed pre_body and post_body hooks.
 

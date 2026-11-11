@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_size_version_field_flag_default_extent_83.expected
 */
+// What it checks:
+// The default field-flag macro defines its public type extent and accommodates
+// the reserved bits.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.6.1 (UVM-SIZE-VERSION-FLAG-DEFAULT-EXTENT) gives the rule
+// above. Setup: Unmodified public UVM types/macros and default packer
+// implementation. Flag overrides use the actual reserved-count parameter
+// plus17 or129,without fixing its implementation-dependent value. Capacity
+// inputs explicitly flush and retain32768 bits via independent
+// original8/64-bit payload patterns. Version inputs use public
+// package/preprocessor access;the illegal parameter assignment has no runtime.
+// Expected: The type width equals the macro and the selected default extent is
+// at least the reserved-count parameter.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations derived from IEEE.
 // No implementation-specific lower-bit layout or version text is assumed.
 `include "uvm_macros.svh"

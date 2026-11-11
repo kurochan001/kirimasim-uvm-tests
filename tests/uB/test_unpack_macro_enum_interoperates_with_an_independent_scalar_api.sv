@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_unpack_macro_enum_interoperates_with_an_independent_scalar_api.expected
 */
+// What it checks:
+// The selected scalar macro restores a value packed through an independent
+// public API.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.2.5.7 (UVM-MACRO-IO-AUDIT-UNPACK-ENUM) gives the rule above.
+// Setup: Invoke the scalar macro inside its named object hook with a
+// compatible pinned packer instance; the other direction uses the public
+// scalar API, followed by an independent seven-bit trailer. Selected element
+// width is 17; N arguments are positive compile-time constants. Retain the
+// one-argument form printed in B.2.5.7, while its prose also requires a type;
+// this is an explicit unresolved signature/prose premise. Expected: The
+// selected scalar value and separate trailer match, with no bits left to
+// unpack.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Expected values are original; no serialized stream layout is prescribed.
 module
   test_unpack_macro_enum_interoperates_with_an_independent_scalar_api;

@@ -13,6 +13,19 @@
 :expected_stdout: @test_rand_send_child_rand_mode_118.expected
 :files: helpers118_rand/rand118.svh
 */
+// What it checks:
+// uvm_rand_send randomizes a child sequence before starting it and keeps a
+// field whose rand_mode is off.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.1.3 (UVM-RAND-PROPERTY-CHILD-RAND-MODE) gives the rule
+// above. Setup: Create eight child sequences, set one field and turn off its
+// rand_mode, then send each with an inline constraint on the other field.
+// Expected: The body sees the kept value and an in-range value, and each child
+// logs pre_randomize, post_randomize, pre_start, body and post_start without
+// body hooks.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Eight child sequences are created; one field is set and its rand_mode turned
 // off, and the child is sent with an inline constraint on the other field. The
 // body must see the kept value and an in-range value, and each child must log

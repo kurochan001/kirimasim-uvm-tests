@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_analysis_imp_decl_preserves_object_handles_and_selected_input.expected
 */
+// What it checks:
+// The analysis declaration macro provides separately named write inputs on one
+// analysis component.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.5.22 (UVM-TLM-ANALYSIS-IMP-DECL) gives the rule above. Setup:
+// Drive two suffixed inputs with integers or shared class handles. Expected:
+// Each input records only its own calls and retains the supplied transaction
+// handle identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Send distinct class transactions through two generated inputs and then
 // reuse one handle on the other input. Observe identity without expecting
 // cloning or mutation of the transaction.

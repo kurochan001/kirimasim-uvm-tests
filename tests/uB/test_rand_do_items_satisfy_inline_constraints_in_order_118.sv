@@ -13,6 +13,24 @@
 :expected_stdout: @test_rand_do_items_satisfy_inline_constraints_in_order_118.expected
 :files: helpers118_rand/rand118.svh
 */
+// What it checks:
+// 1. For each item, randomization falls between the start_item and finish_item
+//    steps, before driver delivery.
+// 2. Every item created and sent by uvm_do satisfies its inline constraint and
+//    is randomized once.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.3.1.3 (UVM-RAND-PROPERTY-DO-ITEM-ORDER) gives rule 1 above.
+//    Setup: Twenty-four uvm_do calls log pre_do, pre_randomize,
+//    post_randomize, mid_do, the driver delivery and post_do. Expected: The
+//    log repeats those six events in that order for every item, and
+//    twenty-four items are delivered.
+// 2. 1800.2-2020 B.3.1.4 (UVM-RAND-PROPERTY-DO-INLINE-CONSTRAINT) gives rule 2
+//    above. Setup: Twenty-four uvm_do calls use an inline constraint that
+//    refers to sequence bounds 10 and 20. Expected: All twenty-four items lie
+//    within the bounds, and each calls pre_randomize and post_randomize once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Twenty-four uvm_do calls use an inline constraint that refers to the sequence
 // bounds 10 and 20. Every item must lie within them and be randomized exactly
 // once, and each item must log pre_do, pre_randomize, post_randomize, mid_do,

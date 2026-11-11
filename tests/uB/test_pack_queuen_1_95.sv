@@ -13,6 +13,33 @@
 :expected_exit: 0
 :expected_stdout: @test_pack_queuen_1_95.expected
 */
+// What it checks:
+// The selected packing macro preserves its integral collection as data
+// recoverable by the corresponding macro with a compatible packer.
+//
+// Variant: Input 0 uses 2 elements of 9-bit values in 109-bit storage; input 1
+// uses 4 elements of 97-bit values in the same storage, with a different value
+// pattern.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.2.4.5 (UVM-COLLECTION-MACRO-PACK-QUEUEN-INTEROPERABILITY-95)
+// gives the rule above. Setup: Use original do_pack/do_unpack overrides with a
+// nonempty, pre-sized queue of two or four unsigned elements. N is a positive
+// constant 9 or 97 with 109-bit storage and an independently set high bit
+// outside the selected width. Static-array cases use distinct nonzero
+// ascending/descending index ranges. Packing-focused paired inputs decode on
+// the same policy; unpacking-focused paired inputs transfer untouched
+// get_packed_bits state into set_packed_bits of a fresh identically typed
+// compatible policy. Separate static-array inputs also retain qualified
+// one-way scalar-API probes. All inputs carry an independent seven-bit trailer
+// and separate object/policy peers. Expected: Each restored element equals its
+// independently chosen value and the pre-sized shape is retained. The selected
+// trailer remains and is consumed independently; source values, unrelated
+// fields and peer state remain intact. Opaque-state consumers do not consume
+// the original source packer. Static one-way probes additionally compare the
+// corresponding scalar API.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_pack_queuen_1_95;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_object_macro_excludes_dispatcher_instance_registration.expected
 */
+// What it checks:
+// The explicit-object callback macro dispatches callbacks associated with its
+// supplied external object.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.4.4 (UVM-CALLBACK-MACRO-EXTERNAL-CONTEXT) gives the rule
+// above. Setup: Keep separate dispatcher/object registrations, include a
+// typewide callback and switch between two objects. Expected:
+// Selected-object/typewide entries execute with the supplied context;
+// dispatcher-only entries do not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register separate callbacks on the dispatcher and selected external
 // object. Only the explicit object registration participates in dispatch.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_object_exit_on_empty_context_does_not_use_dispatcher_callbacks.expected
 */
+// What it checks:
+// Explicit-object exit dispatch visits the selected list until a match or its
+// end.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.4.6 (UVM-CALLBACK-MACRO-EXTERNAL-NO-MATCH) gives the rule
+// above. Setup: Use an all-nonmatching list or an empty external context while
+// the dispatcher has an entry. Expected: Nonmatching entries are all visited
+// and an empty external context never invokes dispatcher entries.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register a matching callback only on the dispatcher and select an empty
 // external object. The dispatcher entry must not execute. Ignore the
 // no-match function result rather than assigning an unstated default.

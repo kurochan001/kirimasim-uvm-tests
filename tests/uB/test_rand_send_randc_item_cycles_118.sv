@@ -13,6 +13,18 @@
 :expected_stdout: @test_rand_send_randc_item_cycles_118.expected
 :files: helpers118_rand/rand118.svh
 */
+// What it checks:
+// Repeated uvm_rand_send of one item cycles its randc field through every
+// value before repeating.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.1.3 (UVM-RAND-PROPERTY-RANDC-REPEATED-SEND) gives the rule
+// above. Setup: Create one item with a two-bit randc field once and send it
+// eight times without inline constraints. Expected: Each block of four
+// consecutive values is a permutation of 0 to 3, and eight items are
+// delivered.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // One item with a two-bit randc field is created once and sent eight times
 // without inline constraints. Each block of four consecutive values must be a
 // permutation of 0 to 3. Results are judged by properties, such as satisfied

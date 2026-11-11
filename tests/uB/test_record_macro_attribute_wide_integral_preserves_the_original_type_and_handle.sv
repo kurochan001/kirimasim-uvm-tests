@@ -13,6 +13,34 @@
 :expected_exit: 0
 :expected_stdout: @test_record_macro_attribute_wide_integral_preserves_the_original_type_and_handle.expected
 */
+// What it checks:
+// 1. The enabled recording macro forwards the original typed value to the
+//    user-specific attribute API.
+// 2. The selected user-specific recording path preserves type information
+//    beyond the ordinary bitstream width.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.2.3.2 (UVM-MACRO-IO-AUDIT-RECORD-ATTRIBUTE-WIDE-INTEGRAL)
+//    gives rule 1 above. Setup: Enable recorder attribute support and provide
+//    an original user-specific attribute macro whose VALUE binds to an exact
+//    const-ref type. Use a valid transaction recorder and an overridden tool
+//    handle, without changing the surrounding recording macro. Keep the
+//    printed three-argument attribute definition; the separate compatibility
+//    control tolerates an unlisted fourth recorder argument and does not pass
+//    this original premise. Expected: The exact typed value and name reach the
+//    original capture function with the overridden tool handle, without
+//    recorder-policy fallback.
+// 2. 1800.2-2020 B.2.3 (UVM-MACRO-IO-AUDIT-RECORD-TYPE-WIDTH) gives rule 2
+//    above. Setup: Enable recorder attribute support and provide an original
+//    user-specific attribute macro whose VALUE binds to an exact const-ref
+//    type. Use a valid transaction recorder and an overridden tool handle,
+//    without changing the surrounding recording macro. Keep the printed
+//    three-argument attribute definition; the separate compatibility control
+//    tolerates an unlisted fourth recorder argument and does not pass this
+//    original premise. Expected: The original 4301-bit value retains its upper
+//    boundary bit through an exact const-ref backend.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Expected values are original; no serialized stream layout is prescribed.
 module
   test_record_macro_attribute_wide_integral_preserves_the_original_type_and_handle;

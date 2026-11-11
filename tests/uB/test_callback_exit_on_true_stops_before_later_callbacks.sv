@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_exit_on_true_stops_before_later_callbacks.expected
 */
+// What it checks:
+// The callback exit macro returns when the first callback produces the
+// selected bit value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.4.5 (UVM-CALLBACK-MACRO-EXIT-ON) gives the rule above. Setup:
+// Test both exit-on-zero and exit-on-one with a later callback registered.
+// Expected: The matching callback runs once, later callbacks do not run and
+// the enclosing function returns that value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use callbacks with explicit boolean results. The enclosing
 // function returns the selected value and later callbacks must not execute.
 

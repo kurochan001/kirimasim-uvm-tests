@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_transport_imp_decl_routes_distinct_request_response_pairs.expected
 */
+// What it checks:
+// The declaration macro supplies a suffix-specific implementation type for
+// blocking and nonblocking transport.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.5.21 (UVM-TLM-TRANSPORT-IMP-DECL) gives the rule above. Setup:
+// Instantiate two suffixes with independent modeled handlers and exercise
+// their declared interface methods. Expected: Recorded arguments, successful
+// outputs and readiness/acceptance results where applicable belong to the
+// selected suffix.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Provide suffix-specific transport methods and typed responses.
 // Blocking handlers delay before completing; a not-ready nonblocking
 // handler returns zero. Do not observe its failed response output.

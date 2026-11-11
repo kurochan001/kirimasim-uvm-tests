@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_field_utils_block_keeps_manual_create_type_name_and_factory_registration_separate.expected
 */
+// What it checks:
+// 1. A field-utils block leaves custom create behavior to the original class.
+// 2. A field-utils block leaves the class type-name implementation to its
+//    user.
+// 3. A field-utils block does not register the original class with the
+//    factory.
+// 4. Field macros provide the selected data-operation implementation without a
+//    user hook.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.2.1.1 (UVM-FIELD-MACRO-AUDIT-FIELD-UTILS-CUSTOM-CREATE)
+//    gives rule 1 above. Setup: Use a manually named/created class with a
+//    field-utils block, no object-utils registration and no
+//    do-copy/do-execute-op override. Expected: Clone calls the original create
+//    method once and returns a distinct object with the copied payload.
+// 2. 1800.2-2020 B.2.1.1 (UVM-FIELD-MACRO-AUDIT-FIELD-UTILS-CUSTOM-TYPE) gives
+//    rule 2 above. Setup: Use a manually named/created class with a
+//    field-utils block, no object-utils registration and no
+//    do-copy/do-execute-op override. Expected: The copied original class
+//    retains its manually implemented type-name result.
+// 3. 1800.2-2020 B.2.1.1 (UVM-FIELD-MACRO-AUDIT-FIELD-UTILS-NO-REGISTRATION)
+//    gives rule 3 above. Setup: Use a manually named/created class with a
+//    field-utils block, no object-utils registration and no
+//    do-copy/do-execute-op override. Expected: The selected unique manual
+//    class type name remains absent from factory registration.
+// 4. 1800.2-2020 5.3.13 (UVM-FIELD-MACRO-AUDIT-FIELD-OP-DEFAULT) gives rule 4
+//    above. Setup: Use a manually named/created class with a field-utils
+//    block, no object-utils registration and no do-copy/do-execute-op
+//    override. Expected: The manual-create clone copies payload
+//    one-hundred-ninety-seven using only the field-utils block.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_field_utils_block_keeps_manual_create_type_name_and_factory_registration_separate;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

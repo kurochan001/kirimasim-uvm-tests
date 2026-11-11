@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_field_macro_omitted_default_and_all_on_enable_the_same_copy_and_compare_fields.expected
 */
+// What it checks:
+// An omitted FLAG and explicit DEFAULT are functionally identical to ALL_ON
+// for selected operations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.1.10 (UVM-FIELD-MACRO-AUDIT-DEFAULT-ALL-ON-EQUIVALENCE)
+// gives the rule above. Setup: Use distinct enabled/excluded fields or
+// omitted/explicit flags in an original registered class without user
+// operation hooks; independently initialize source and target. Expected: All
+// three fields copy their distinct source values and each independent mutation
+// makes comparison false.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_field_macro_omitted_default_and_all_on_enable_the_same_copy_and_compare_fields;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

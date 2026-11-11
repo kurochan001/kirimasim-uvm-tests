@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_field_macro_explicit_unpack_flag_control_preserves_the_selected_roundtrip.expected
 */
+// What it checks:
+// It is a control: it supports the setup or conditions of these duties, which
+// other tests check directly:
+// 1. PACK enables both packing and unpacking of the selected field.
+// 2. NOPACK overrides selected positive flags and suppresses both directions.
+// 3. NOPACK removes the selected field from both packing and unpacking.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.2.2 (UVM-FIELD-MACRO-AUDIT-PACK-ENABLES-UNPACK) gives rule
+//    1 above. Setup: Use distinct enabled/excluded fields or omitted/explicit
+//    flags in an original registered class without user operation hooks;
+//    independently initialize source and target. Expected: The PACK-only field
+//    returns to the selected original value after unpack using a compatible
+//    private stream.
+// 2. 1800.2-2020 B.2.2 (UVM-FIELD-MACRO-AUDIT-NOPACK-PAIRED-OVERRIDE) gives
+//    rule 2 above. Setup: Use distinct enabled/excluded fields or
+//    omitted/explicit flags in an original registered class without user
+//    operation hooks; independently initialize source and target. Expected:
+//    The excluded target retains its independent sentinel after unpack while
+//    the enabled field transfers.
+// 3. 1800.2-2020 F.2.1.9 (UVM-FIELD-MACRO-AUDIT-NOPACK-MEANING) gives rule 3
+//    above. Setup: Use distinct enabled/excluded fields or omitted/explicit
+//    flags in an original registered class without user operation hooks;
+//    independently initialize source and target. Expected: The selected
+//    suppressed field does not overwrite the target sentinel.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Control-only: explicitly add UNPACK without changing the original oracle.
 module test_field_macro_explicit_unpack_flag_control_preserves_the_selected_roundtrip;
   import uvm_pkg::*;

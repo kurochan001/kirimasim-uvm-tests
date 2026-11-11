@@ -13,6 +13,69 @@
 :expected_exit: 0
 :expected_stdout: @test_report_macro_warning_routed_action_81.expected
 */
+// What it checks:
+// 1. Reporting macros supply the source filename and line of the macro
+//    invocation.
+// 2. Warning, error and fatal macros enforce UVM_NONE as their message
+//    verbosity.
+// 3. Each reporting macro expands to a complete SystemVerilog statement.
+// 4. Reporting macros introduce no time-consuming statement.
+// 5. uvm_warning delegates its ID, message and severity to the associated
+//    reporting context.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.1 (UVM-REPORT-MACRO-AUTOMATIC-SOURCE-LOCATION) gives rule 1
+//    above. Setup: Actual basic/context reporting macros run in original
+//    report-object functions. Explicit context objects have independent
+//    verbosity/action configuration. An original report-server execution hook
+//    snapshots scalar message fields and source identity without default
+//    DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs,
+//    true/false unbraced branches and a positive simulation time expose
+//    selected filtering, grammar and time behavior. Expected: Executed
+//    messages match independently captured file and next-line tokens at the
+//    actual caller for basic and explicit-context macros.
+// 2. 1800.2-2020 B.1 (UVM-REPORT-MACRO-NONINFO-NONE-VERBOSITY) gives rule 2
+//    above. Setup: Actual basic/context reporting macros run in original
+//    report-object functions. Explicit context objects have independent
+//    verbosity/action configuration. An original report-server execution hook
+//    snapshots scalar message fields and source identity without default
+//    DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs,
+//    true/false unbraced branches and a positive simulation time expose
+//    selected filtering, grammar and time behavior. Expected: All six
+//    ordinary/context severity forms deliver UVM_NONE under both uniform and
+//    ID-specific admission conditions.
+// 3. 1800.2-2020 B.1 (UVM-REPORT-MACRO-COMPLETE-STATEMENT) gives rule 3 above.
+//    Setup: Actual basic/context reporting macros run in original
+//    report-object functions. Explicit context objects have independent
+//    verbosity/action configuration. An original report-server execution hook
+//    snapshots scalar message fields and source identity without default
+//    DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs,
+//    true/false unbraced branches and a positive simulation time expose
+//    selected filtering, grammar and time behavior. Expected: The macro
+//    compiles as an unbraced if branch paired with else; the false branch only
+//    increments else and the true branch delivers once.
+// 4. 1800.2-2020 B.1 (UVM-REPORT-MACRO-NO-TIME-CONSUMPTION) gives rule 4
+//    above. Setup: Actual basic/context reporting macros run in original
+//    report-object functions. Explicit context objects have independent
+//    verbosity/action configuration. An original report-server execution hook
+//    snapshots scalar message fields and source identity without default
+//    DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs,
+//    true/false unbraced branches and a positive simulation time expose
+//    selected filtering, grammar and time behavior. Expected: Class-function
+//    use builds legally and all selected visible, filtered and statement-form
+//    calls retain the positive caller simulation time.
+// 5. 1800.2-2020 B.1.1.2 (UVM-REPORT-MACRO-UVM-WARNING-DELEGATION) gives rule
+//    5 above. Setup: Actual basic/context reporting macros run in original
+//    report-object functions. Explicit context objects have independent
+//    verbosity/action configuration. An original report-server execution hook
+//    snapshots scalar message fields and source identity without default
+//    DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs,
+//    true/false unbraced branches and a positive simulation time expose
+//    selected filtering, grammar and time behavior. Expected: The actual
+//    execution hook receives one WARNING message with the supplied ID/body and
+//    the calling report-object origin.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit report-object contexts; no optional-RO or default fatal-exit claim.
 module test_report_macro_warning_routed_action_81;
   timeunit 1ns; timeprecision 1ns;

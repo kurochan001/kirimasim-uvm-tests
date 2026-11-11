@@ -12,6 +12,17 @@
 :should_fail_because: field macro ARG must be a nonconstant variable, not a const property
 :expected_stderr_regex: (?i)^(?=.*test_field_macro_constant_property_is_not_a_legal_data_operation_argument\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:const|constant|read.only)\b).*error
 */
+// What it checks:
+// A field macro ARG must not be a const property.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.2.2 (UVM-FIELD-MACRO-AUDIT-CONSTANT-ARGUMENT) gives the rule
+// above. Setup: Declare one const integral class property and pass it to the
+// COPY field macro in an otherwise original utils-registered class. Expected:
+// Compilation rejects this fixture with a diagnostic identifying its
+// const/constant restriction; no runtime binary is executed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_field_macro_constant_property_is_not_a_legal_data_operation_argument;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

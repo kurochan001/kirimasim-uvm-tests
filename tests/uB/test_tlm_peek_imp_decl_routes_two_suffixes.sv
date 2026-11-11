@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_peek_imp_decl_routes_two_suffixes.expected
 */
+// What it checks:
+// The declaration macro supplies a suffix-specific implementation type for
+// blocking and nonblocking peek.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.5.9 (UVM-TLM-PEEK-IMP-DECL) gives the rule above. Setup:
+// Instantiate two suffixes with independent modeled handlers and exercise
+// their declared interface methods. Expected: Recorded arguments, successful
+// outputs and readiness/acceptance results where applicable belong to the
+// selected suffix.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use both peek variants through each generated imp. Both calls must
 // observe the selected lane without removing its transaction.
 // Declare two suffixed imp classes on one component, which has no unsuffixed

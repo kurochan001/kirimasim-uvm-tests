@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_nonblocking_put_imp_decl_routes_two_suffixes.expected
 */
+// What it checks:
+// The declaration macro supplies a suffix-specific implementation type for
+// nonblocking put.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.5.2 (UVM-TLM-NONBLOCKING-PUT-IMP-DECL) gives the rule above.
+// Setup: Instantiate two suffixes with independent modeled handlers and
+// exercise their declared interface methods. Expected: Recorded arguments,
+// successful outputs and readiness/acceptance results where applicable belong
+// to the selected suffix.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Preload one lane so readiness differs. Check boolean acceptance before
 // and after freeing that lane, with independent stored values.
 // Declare two suffixed imp classes on one component, which has no unsuffixed

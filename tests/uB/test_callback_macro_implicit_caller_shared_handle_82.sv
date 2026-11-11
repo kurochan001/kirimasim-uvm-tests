@@ -13,6 +13,23 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_macro_implicit_caller_shared_handle_82.expected
 */
+// What it checks:
+// The implicit callback macro selects callbacks associated with the actual
+// calling object.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.4.3 (UVM-CALLBACK-MACRO-IMPLICIT-CALLING-OBJECT) gives the
+// rule above. Setup: Original legal object/callback derivatives use actual
+// registration and implicit dispatch macros. Cases include global/class-local
+// aliases of parameterized callbacks, shared handles in separate instance
+// queues, explicit mode0/1, related/unrelated callback families, inherited
+// typewide state and completed-call reconfiguration. METHOD receives original
+// object/token and mutable reference arguments. No factory-utility
+// prerequisite is added. Expected: Separate callers sharing a callback handle
+// still deliver their own context and local membership without invoking the
+// other caller local callback.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original callback arithmetic/trace is stimulus; no private registration bits.
 module test_callback_macro_implicit_caller_shared_handle_82;
   import uvm_pkg::*;

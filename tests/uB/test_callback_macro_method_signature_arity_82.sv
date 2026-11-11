@@ -13,6 +13,23 @@
 :should_fail_because: callback METHOD must have the required hook82 signature
 :expected_stderr_regex: (?i)^(?=.*test_callback_macro_method_signature_arity_82\.sv:[0-9]+:[0-9]+:)(?=.*\bhook82\b)(?=.*(?:argument|too many|pin)).*error
 */
+// What it checks:
+// The CB class method signature must accept the METHOD invocation supplied to
+// the macro.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.4.3 (UVM-CALLBACK-MACRO-METHOD-SIGNATURE-CONSTRAINT) gives the
+// rule above. Setup: Original legal object/callback derivatives use actual
+// registration and implicit dispatch macros. Cases include global/class-local
+// aliases of parameterized callbacks, shared handles in separate instance
+// queues, explicit mode0/1, related/unrelated callback families, inherited
+// typewide state and completed-call reconfiguration. METHOD receives original
+// object/token and mutable reference arguments. No factory-utility
+// prerequisite is added. Expected: Missing-method and incompatible-argument
+// designs reject with the declared fixture/member diagnostic and execute no
+// runtime seed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original callback arithmetic/trace is stimulus; no private registration bits.
 module test_callback_macro_method_signature_arity_82;
   import uvm_pkg::*;

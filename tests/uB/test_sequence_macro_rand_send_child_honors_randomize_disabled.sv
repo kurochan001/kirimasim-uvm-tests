@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_macro_rand_send_child_honors_randomize_disabled.expected
 */
+// What it checks:
+// 1. Randomized child send skips randomization when the sequence disables it.
+// 2. Automatic rand-send execution skips randomization when the child sequence
+//    disables randomization.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.3.1.3 (UVM-SEQUENCE-MACRO-RAND-SEND-DISABLED) gives rule 1
+//    above. Setup: Disable child randomization and supply a conflicting inline
+//    constraint. Expected: Manual code 44 is retained, randomization count is
+//    zero and the body executes once.
+// 2. 1800.2-2020 14.2.2.3 (UVM-SEQUENCE-RAND-SEND-DISABLED-RANDOMIZATION)
+//    gives rule 2 above. Setup: An existing macro fixture sets code to 44,
+//    disables randomization and supplies a conflicting inline constraint.
+//    Expected: The child body executes once, code stays 44 and its
+//    randomization count remains zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Disable child-sequence randomization and retain a manually assigned
 // value even though the inline constraint requests a different value.
 

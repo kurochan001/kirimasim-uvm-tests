@@ -13,6 +13,20 @@
 :expected_stdout: @test_rand_constraint_mode_after_create_118.expected
 :files: helpers118_rand/rand118.svh
 */
+// What it checks:
+// A class constraint disabled with constraint_mode after uvm_create stays
+// disabled when uvm_rand_send randomizes the item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.1.1 (UVM-RAND-PROPERTY-CONSTRAINT-MODE-AFTER-CREATE) gives
+// the rule above. Setup: In sixteen rounds, disable the class constraint data
+// < 16 of one created item and send it with the inline constraint data >= 200;
+// send a second created item unchanged. Expected: Every disabled item
+// satisfies the inline constraint and reports the constraint off; every
+// unchanged item satisfies the class constraint; thirty-two items are
+// delivered.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Sixteen rounds each create two items. The first has its class constraint data
 // < 16 disabled and is sent with the inline constraint data >= 200, which only
 // a disabled class constraint allows; the second is sent unchanged and must

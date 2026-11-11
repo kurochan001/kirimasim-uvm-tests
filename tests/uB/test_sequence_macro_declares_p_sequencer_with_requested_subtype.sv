@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_macro_declares_p_sequencer_with_requested_subtype.expected
 */
+// What it checks:
+// The sequencer declaration macro declares p_sequencer with the requested
+// type.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.3 (UVM-SEQUENCE-TYPED-P-SEQUENCER) gives the rule above.
+// Setup: Explicitly cast the current sequencer into the declared variable and
+// access a subtype member. Expected: The typed handle matches the sequencer
+// and exposes marker 73.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicitly cast the current sequencer into the declared variable and
 // access a member of the requested subtype. No automatic initialization
 // policy for p_sequencer is assumed by this declaration-focused case.

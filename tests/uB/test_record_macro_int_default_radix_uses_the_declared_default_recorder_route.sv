@@ -13,6 +13,23 @@
 :expected_exit: 0
 :expected_stdout: @test_record_macro_int_default_radix_uses_the_declared_default_recorder_route.expected
 */
+// What it checks:
+// The default recording macro forwards the selected name/value and metadata to
+// its declared recorder interface.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.2.3.2 (UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-INT-DEFAULT-RADIX)
+// gives the rule above. Setup: Use the unmodified default recording macros
+// with attribute support disabled, an open original recorder and a live handle
+// obtained through transaction begin_tr. Keep a separate peer recorder. Select
+// default radix UVM_BIN and omit the macro RADIX argument. The backend may
+// retain the no-radix marker or receive the configured default under
+// 16.4.6.1/16.4.2.3; do not require a particular internal normalization.
+// Expected: The selected original recording hook receives the exact value/name
+// and applicable size/radix or required generic conversion, preserving the
+// other recorder.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Expected values are original; no serialized stream layout is prescribed.
 module
   test_record_macro_int_default_radix_uses_the_declared_default_recorder_route;

@@ -13,6 +13,18 @@
 :expected_stdout: @test_rand_send_inline_constraint_scope_118.expected
 :files: helpers118_rand/rand118.svh
 */
+// What it checks:
+// Names in a uvm_rand_send inline constraint resolve in the item first, and
+// local:: resolves them in the calling sequence.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.1.3 (UVM-RAND-PROPERTY-INLINE-CONSTRAINT-SCOPE) gives the
+// rule above. Setup: The item and the sequence each declare limit, 20 and 200;
+// sixteen rounds send one item with data < limit and another with data >
+// local::limit. Expected: All unqualified items stay below 20, all local::
+// items exceed 200, and thirty-two items are delivered.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The item and the sequence each declare limit, 20 in the item and 200 in the
 // sequence. An unqualified limit in the inline constraint must use the item
 // value and local::limit must use the sequence value, over sixteen rounds of

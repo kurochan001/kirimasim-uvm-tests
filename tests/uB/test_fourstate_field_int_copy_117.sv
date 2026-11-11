@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_fourstate_field_int_copy_117.expected
 */
+// What it checks:
+// Field-macro copy and clone of logic properties preserve their X and Z bits.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.2.2.1.1 (UVM-FOURSTATE-FIELD-MACRO-COPY-XZ) gives the rule
+// above. Setup: Copy and clone an object whose uvm_field_int properties are an
+// 8-bit and a 100-bit logic value with X and Z bits. Expected: The copied and
+// cloned properties hold the same bits.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An object with narrow and wide logic fields holding X and Z bits is copied
 // into another instance and cloned. Both results must hold the same bits,
 // compared with case equality. The expectation comes from the cited clauses; a

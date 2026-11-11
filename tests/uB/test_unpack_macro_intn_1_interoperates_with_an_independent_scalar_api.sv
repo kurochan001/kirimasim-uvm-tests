@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_unpack_macro_intn_1_interoperates_with_an_independent_scalar_api.expected
 */
+// What it checks:
+// 1. The selected scalar macro restores a value packed through an independent
+//    public API.
+// 2. A selected positive constant N supplies the explicit packing width.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.2.5.1 (UVM-MACRO-IO-AUDIT-UNPACK-INTN-1) gives rule 1
+//    above. Setup: Invoke the scalar macro inside its named object hook with a
+//    compatible pinned packer instance; the other direction uses the public
+//    scalar API, followed by an independent seven-bit trailer. Selected
+//    element width is 1; N arguments are positive compile-time constants.
+//    Expected: The selected scalar value and separate trailer match, with no
+//    bits left to unpack.
+// 2. 1800.2-2020 B.2.5 (UVM-MACRO-IO-AUDIT-UNPACK-N-CONSTANT) gives rule 2
+//    above. Setup: Invoke the scalar macro inside its named object hook with a
+//    compatible pinned packer instance; the other direction uses the public
+//    scalar API, followed by an independent seven-bit trailer. Selected
+//    element width is 1; N arguments are positive compile-time constants.
+//    Expected: The selected one-bit value is handled before an independent
+//    trailer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Expected values are original; no serialized stream layout is prescribed.
 module
   test_unpack_macro_intn_1_interoperates_with_an_independent_scalar_api;

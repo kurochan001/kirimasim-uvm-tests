@@ -13,6 +13,45 @@
 :expected_exit: 0
 :expected_stdout: @test_report_macro_info_literal_info_boundary_81.expected
 */
+// What it checks:
+// 1. Each reporting macro expands to a complete SystemVerilog statement.
+// 2. Reporting macros introduce no time-consuming statement.
+// 3. Under the qualified literal lower-than macro reading, equal INFO
+//    verbosity is filtered before formatting.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.1 (UVM-REPORT-MACRO-COMPLETE-STATEMENT) gives rule 1 above.
+//    Setup: Actual basic/context reporting macros run in original
+//    report-object functions. Explicit context objects have independent
+//    verbosity/action configuration. An original report-server execution hook
+//    snapshots scalar message fields and source identity without default
+//    DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs,
+//    true/false unbraced branches and a positive simulation time expose
+//    selected filtering, grammar and time behavior. Expected: The macro
+//    compiles as an unbraced if branch paired with else; the false branch only
+//    increments else and the true branch delivers once.
+// 2. 1800.2-2020 B.1 (UVM-REPORT-MACRO-NO-TIME-CONSUMPTION) gives rule 2
+//    above. Setup: Actual basic/context reporting macros run in original
+//    report-object functions. Explicit context objects have independent
+//    verbosity/action configuration. An original report-server execution hook
+//    snapshots scalar message fields and source identity without default
+//    DISPLAY/COUNT/EXIT effects. MSG functions count formatting; disjoint IDs,
+//    true/false unbraced branches and a positive simulation time expose
+//    selected filtering, grammar and time behavior. Expected: Class-function
+//    use builds legally and all selected visible, filtered and statement-form
+//    calls retain the positive caller simulation time.
+// 3. 1800.2-2020 B.1.1.1 (UVM-REPORT-MACRO-INFO-LITERAL-STRICT-BOUNDARY) gives
+//    rule 3 above. Setup: Actual basic/context reporting macros run in
+//    original report-object functions. Explicit context objects have
+//    independent verbosity/action configuration. An original report-server
+//    execution hook snapshots scalar message fields and source identity
+//    without default DISPLAY/COUNT/EXIT effects. MSG functions count
+//    formatting; disjoint IDs, true/false unbraced branches and a positive
+//    simulation time expose selected filtering, grammar and time behavior.
+//    Expected: The equal boundary leaves execution/format counters zero; a
+//    separate strictly lower call still routes once to the selected context.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit report-object contexts; no optional-RO or default fatal-exit claim.
 module test_report_macro_info_literal_info_boundary_81;
   timeunit 1ns; timeprecision 1ns;

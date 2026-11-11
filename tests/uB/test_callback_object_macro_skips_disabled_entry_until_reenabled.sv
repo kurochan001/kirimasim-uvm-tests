@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_object_macro_skips_disabled_entry_until_reenabled.expected
 */
+// What it checks:
+// A disabled callback is omitted from dispatch until enabled again.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.1.2.2 (UVM-CALLBACK-MODE-EXECUTION-GATE) gives the rule
+// above. Setup: Disable one registered entry, dispatch, enable it and dispatch
+// again. Expected: The disabled entry is skipped initially and invoked after
+// enabling, with the other entry unaffected.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Disable one registered callback, dispatch, then reenable and dispatch
 // again. Observe independent invocation counts without modifying registration.
 

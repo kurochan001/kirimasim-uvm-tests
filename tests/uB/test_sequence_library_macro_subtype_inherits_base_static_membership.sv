@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_macro_subtype_inherits_base_static_membership.expected
 */
+// What it checks:
+// 1. Static sequence-library registration makes its member available in
+//    instances of the selected library type.
+// 2. The required library-utils invocation names each extension type and
+//    enables its static member sequence list.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.3.2.1 (UVM-SEQUENCE-LIBRARY-STATIC-MEMBERSHIP) gives rule 1
+//    above. Setup: Construct multiple libraries, two library types or a
+//    subtype; add an instance-only member separately. Expected: Public
+//    enumeration includes the static member in each applicable library while
+//    local additions stay local.
+// 2. 1800.2-2020 B.3.2.2 (UVM-SEQUENCER-AUDIT-LIBRARY-UTILS-STATIC) gives rule
+//    2 above. Setup: Existing fixtures invoke uvm_sequence_library_utils with
+//    the exact library type, including the derived subtype, and combine it
+//    with the printed uvm_add_to_seq_lib macro; constructors only call
+//    super.new. Expected: The existing public enumeration observations
+//    preserve static membership across two instances/types and the selected
+//    local-addition/subtype conditions.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register on a base library and construct both base and derived libraries.
 // The subtype utilities must retain base membership without queue inspection.
 // Use the standard constructor pattern with super.new and the required

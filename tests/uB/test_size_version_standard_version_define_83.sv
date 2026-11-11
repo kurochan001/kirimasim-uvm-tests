@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_size_version_standard_version_define_83.expected
 */
+// What it checks:
+// The UVM version define identifies the specified2020 standard revision.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.7.1 (UVM-SIZE-VERSION-STANDARD-REVISION-DEFINE) gives the rule
+// above. Setup: Unmodified public UVM types/macros and default packer
+// implementation. Flag overrides use the actual reserved-count parameter
+// plus17 or129,without fixing its implementation-dependent value. Capacity
+// inputs explicitly flush and retain32768 bits via independent
+// original8/64-bit payload patterns. Version inputs use public
+// package/preprocessor access;the illegal parameter assignment has no runtime.
+// Expected: The define is present and expands to2020 without requiring an
+// implementation version text format.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations derived from IEEE.
 // No implementation-specific lower-bit layout or version text is assumed.
 `include "uvm_macros.svh"

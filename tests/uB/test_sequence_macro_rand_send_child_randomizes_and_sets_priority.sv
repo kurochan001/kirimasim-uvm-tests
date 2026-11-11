@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_macro_rand_send_child_randomizes_and_sets_priority.expected
 */
+// What it checks:
+// Randomized child send randomizes an enabled sequence before starting it with
+// the requested priority.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.1.3 (UVM-SEQUENCE-MACRO-RAND-SEND-CHILD) gives the rule
+// above. Setup: An enabled child uses a singleton constraint and explicit
+// priority. Expected: One randomization precedes the body; optional pre/post
+// body hooks remain disabled.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Randomize an enabled child under a singleton constraint. Start it with
 // explicit priority and call_pre_post zero, as required by the action.
 

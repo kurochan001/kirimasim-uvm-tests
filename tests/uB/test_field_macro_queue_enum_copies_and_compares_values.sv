@@ -12,6 +12,48 @@
 :expected_exit: 0
 :expected_stdout: @test_field_macro_queue_enum_copies_and_compares_values.expected
 */
+// What it checks:
+// 1. The selected enum queue field macro copies its selected values and
+//    collection shape.
+// 2. The selected enum queue field macro compares copied equal data
+//    successfully.
+// 3. The selected enum queue field macro detects the selected value change.
+// 4. The selected field-macro family supplies data operations for its declared
+//    queue properties.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.2.2.4.4 (UVM-FIELD-MACRO-AUDIT-B-2-2-4-4-COPY) gives rule 1
+//    above. Setup: An original class declares one enum queue property with
+//    COPY and COMPARE flags and no do-copy/compare implementation. Values,
+//    sparse keys or two selected elements are initialized independently; the
+//    destination may contain stale entries. An unregistered peer differs
+//    between source and target. Expected: The destination has exactly the
+//    selected values and shape, including the chosen high bits or signed/wide
+//    key membership; stale associative entries disappear where applicable.
+// 2. 1800.2-2020 B.2.2.4.4 (UVM-FIELD-MACRO-AUDIT-B-2-2-4-4-COMPARE-EQUAL)
+//    gives rule 2 above. Setup: An original class declares one enum queue
+//    property with COPY and COMPARE flags and no do-copy/compare
+//    implementation. Values, sparse keys or two selected elements are
+//    initialized independently; the destination may contain stale entries. An
+//    unregistered peer differs between source and target. Expected: The copied
+//    source/target compare equal despite their different unregistered peer
+//    property.
+// 3. 1800.2-2020 B.2.2.4.4 (UVM-FIELD-MACRO-AUDIT-B-2-2-4-4-COMPARE-MUTATION)
+//    gives rule 3 above. Setup: An original class declares one enum queue
+//    property with COPY and COMPARE flags and no do-copy/compare
+//    implementation. Values, sparse keys or two selected elements are
+//    initialized independently; the destination may contain stale entries. An
+//    unregistered peer differs between source and target. Expected: Changing
+//    one destination value makes comparison false while the original source
+//    values and both unregistered peers retain their selected states.
+// 4. 1800.2-2020 B.2.2.4 (UVM-FIELD-MACRO-AUDIT-B-2-2-4-APPLICABILITY) gives
+//    rule 4 above. Setup: Use independently constructed original properties of
+//    the declared scalar or one-dimensional collection type; no user
+//    data-operation hook substitutes for macro execution. Expected: Each
+//    selected shape completes copying and positive/negative comparison on its
+//    original values and chosen keys.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe exact values and key membership without traversal order.
 // Enum collections use the collection typedef described by printed T text.
 module test_field_macro_queue_enum_copies_and_compares_values;

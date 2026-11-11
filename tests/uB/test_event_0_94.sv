@@ -13,6 +13,26 @@
 :expected_exit: 0
 :expected_stdout: @test_event_0_94.expected
 */
+// What it checks:
+// Under the bare SystemVerilog event reading, the event field macro copies an
+// enabled synchronization handle while respecting a selected negative copy
+// flag.
+//
+// Variant: Input 1 also copies a peer event into the target before the checks
+// and triggers the original event before the waiters are checked; input 0 does
+// neither.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.2.2.1.6 (UVM-BARE-EVENT-MACRO-COPY-NOTIFICATION-94) gives the
+// rule above. Setup: Use original objects with default-created event
+// properties, COPY and COPY|NOCOPY flags. Arm original target waiters before
+// copying and new waiters after copying, with positive-time separation; one
+// input replaces the enabled source a second time. Expected: The enabled event
+// aliases the selected source and wakes its new waiter, while the pre-copy
+// enabled waiter stays quiet. The excluded target retains its original
+// notification queue independently of the source, with one notification each.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_event_0_94;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

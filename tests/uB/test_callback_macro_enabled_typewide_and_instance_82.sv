@@ -13,6 +13,34 @@
 :expected_exit: 0
 :expected_stdout: @test_callback_macro_enabled_typewide_and_instance_82.expected
 */
+// What it checks:
+// 1. Implicit dispatch executes the currently enabled applicable callbacks.
+// 2. Implicit dispatch includes applicable typewide and calling-instance
+//    callbacks.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.4.3 (UVM-CALLBACK-MACRO-ENABLED-CURRENT-CALLBACKS) gives
+//    rule 1 above. Setup: Original legal object/callback derivatives use
+//    actual registration and implicit dispatch macros. Cases include
+//    global/class-local aliases of parameterized callbacks, shared handles in
+//    separate instance queues, explicit mode0/1, related/unrelated callback
+//    families, inherited typewide state and completed-call reconfiguration.
+//    METHOD receives original object/token and mutable reference arguments. No
+//    factory-utility prerequisite is added. Expected: An explicitly disabled
+//    entry is skipped and resumes after explicit enabling on a later completed
+//    invocation.
+// 2. 1800.2-2020 B.4.3 (UVM-CALLBACK-MACRO-APPLICABLE-TYPEWIDE-AND-LOCAL)
+//    gives rule 2 above. Setup: Original legal object/callback derivatives use
+//    actual registration and implicit dispatch macros. Cases include
+//    global/class-local aliases of parameterized callbacks, shared handles in
+//    separate instance queues, explicit mode0/1, related/unrelated callback
+//    families, inherited typewide state and completed-call reconfiguration.
+//    METHOD receives original object/token and mutable reference arguments. No
+//    factory-utility prerequisite is added. Expected: Selected calls visit
+//    both memberships and preserve peer isolation without prescribing their
+//    cross-queue enumeration order.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original callback arithmetic/trace is stimulus; no private registration bits.
 module test_callback_macro_enabled_typewide_and_instance_82;
   import uvm_pkg::*;

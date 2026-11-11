@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_macro_send_item_preserves_manual_value_without_randomizing.expected
 */
+// What it checks:
+// The send action processes an item through start_item then finish_item
+// without randomizing it.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.3.1.2 (UVM-SEQUENCE-MACRO-SEND-ITEM) gives the rule above.
+// Setup: Send a pre-created item with a manual value and trace parent/driver
+// hooks. Expected: The same item reaches the driver; execution hooks run
+// without randomization hooks.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Assign a value after creation and send the item. The action must use
 // start_item and finish_item without calling randomize.
 

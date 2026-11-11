@@ -13,6 +13,20 @@
 :expected_exit: 0
 :expected_stdout: @test_record_macro_field_struct_uses_the_declared_default_recorder_route.expected
 */
+// What it checks:
+// The default recording macro forwards the selected name/value and metadata to
+// its declared recorder interface.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.2.3.6 (UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-FIELD-STRUCT) gives
+// the rule above. Setup: Use the unmodified default recording macros with
+// attribute support disabled, an open original recorder and a live handle
+// obtained through transaction begin_tr. Keep a separate peer recorder.
+// Expected: The selected original recording hook receives the exact value/name
+// and applicable size/radix or required generic conversion, preserving the
+// other recorder.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Expected values are original; no serialized stream layout is prescribed.
 module
   test_record_macro_field_struct_uses_the_declared_default_recorder_route;

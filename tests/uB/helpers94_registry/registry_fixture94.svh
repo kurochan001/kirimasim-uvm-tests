@@ -2,25 +2,35 @@
 class object_a94 extends uvm_object;
   int marker=19;
   `uvm_object_registry(object_a94,"lookup_amber94")
-  function new(string name="a94");super.new(name);endfunction
+  function new(string name="a94");
+    super.new(name);
+  endfunction
 endclass
 class object_b94 extends uvm_object;
   int marker=47;
   `uvm_object_registry(object_b94,"lookup_blue94")
-  function new(string name="b94");super.new(name);endfunction
+  function new(string name="b94");
+    super.new(name);
+  endfunction
 endclass
 class component_a94 extends uvm_component;
   int marker=23;
   `uvm_component_registry(component_a94,"lookup_cedar94")
-  function new(string name,uvm_component parent);super.new(name,parent);endfunction
+  function new(string name,uvm_component parent);
+    super.new(name,parent);
+  endfunction
 endclass
 class component_b94 extends uvm_component;
   int marker=61;
   `uvm_component_registry(component_b94,"lookup_dune94")
-  function new(string name,uvm_component parent);super.new(name,parent);endfunction
+  function new(string name,uvm_component parent);
+    super.new(name,parent);
+  endfunction
 endclass
 class parent94 extends uvm_component;
-  function new(string name,uvm_component parent);super.new(name,parent);endfunction
+  function new(string name,uvm_component parent);
+    super.new(name,parent);
+  endfunction
 endclass
 initial begin
   uvm_factory factory;
@@ -33,11 +43,24 @@ initial begin
   uvm_component raw_c1,raw_c2,raw_d;
   factory=uvm_factory::get();
   if(COMPONENT94) begin
-    host=new("host94",null);peer=new("peer94",null);
-    if(VARIANT==0) begin component_witness_a=new("witness_a94",host);component_witness_b=new("witness_b94",host);end
-    else begin component_witness_b=new("witness_b94",host);component_witness_a=new("witness_a94",host);end
-    if(VARIANT==0) begin raw_c1=factory.create_component_by_name("lookup_cedar94","", "made_a94",host);raw_d=factory.create_component_by_name("lookup_dune94","", "made_b94",peer);end
-    else begin raw_d=factory.create_component_by_name("lookup_dune94","", "made_b94",peer);raw_c1=factory.create_component_by_name("lookup_cedar94","", "made_a94",host);end
+    host=new("host94",null);
+    peer=new("peer94",null);
+    if(VARIANT==0) begin
+      component_witness_a=new("witness_a94",host);
+      component_witness_b=new("witness_b94",host);
+    end
+    else begin
+      component_witness_b=new("witness_b94",host);
+      component_witness_a=new("witness_a94",host);
+    end
+    if(VARIANT==0) begin
+      raw_c1=factory.create_component_by_name("lookup_cedar94","", "made_a94",host);
+      raw_d=factory.create_component_by_name("lookup_dune94","", "made_b94",peer);
+    end
+    else begin
+      raw_d=factory.create_component_by_name("lookup_dune94","", "made_b94",peer);
+      raw_c1=factory.create_component_by_name("lookup_cedar94","", "made_a94",host);
+    end
     raw_c2=factory.create_component_by_name("lookup_cedar94","", "made_again94",peer);
     if(!$cast(c1,raw_c1) || !$cast(c2,raw_c2) || !$cast(d,raw_d) || c1==null || c2==null || d==null) $fatal(1,"registry94 component lookup");
     $display("UT: registry94 component %0d aliases %0d values %0d",VARIANT,
@@ -48,10 +71,22 @@ initial begin
       c1.get_parent()==host && c2.get_parent()==peer && d.get_parent()==peer,
       c1!=c2 && c1!=component_witness_a && d!=component_witness_b);
   end else begin
-    if(VARIANT==0) begin object_witness_a=new();object_witness_b=new();end
-    else begin object_witness_b=new();object_witness_a=new();end
-    if(VARIANT==0) begin raw_a1=factory.create_object_by_name("lookup_amber94","", "made_a94");raw_b=factory.create_object_by_name("lookup_blue94","", "made_b94");end
-    else begin raw_b=factory.create_object_by_name("lookup_blue94","", "made_b94");raw_a1=factory.create_object_by_name("lookup_amber94","", "made_a94");end
+    if(VARIANT==0) begin
+      object_witness_a=new();
+      object_witness_b=new();
+    end
+    else begin
+      object_witness_b=new();
+      object_witness_a=new();
+    end
+    if(VARIANT==0) begin
+      raw_a1=factory.create_object_by_name("lookup_amber94","", "made_a94");
+      raw_b=factory.create_object_by_name("lookup_blue94","", "made_b94");
+    end
+    else begin
+      raw_b=factory.create_object_by_name("lookup_blue94","", "made_b94");
+      raw_a1=factory.create_object_by_name("lookup_amber94","", "made_a94");
+    end
     raw_a2=factory.create_object_by_name("lookup_amber94","", "made_again94");
     if(!$cast(a1,raw_a1) || !$cast(a2,raw_a2) || !$cast(b,raw_b) || a1==null || a2==null || b==null) $fatal(1,"registry94 object lookup");
     $display("UT: registry94 object %0d aliases %0d values %0d",VARIANT,

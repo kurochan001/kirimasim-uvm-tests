@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_size_version_packer_minimum_capacity_64_83.expected
 */
+// What it checks:
+// The default packer implementation can store at least the default minimum
+// number of bits.
+//
+// Variant: The number, 8 or 64, is the width in bits of each packed element;
+// the element count is chosen so that both inputs fill the same minimum packer
+// capacity.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.6.3 (UVM-SIZE-VERSION-PACKER-MINIMUM-RETENTION) gives the rule
+// above. Setup: Unmodified public UVM types/macros and default packer
+// implementation. Flag overrides use the actual reserved-count parameter
+// plus17 or129,without fixing its implementation-dependent value. Capacity
+// inputs explicitly flush and retain32768 bits via independent
+// original8/64-bit payload patterns. Version inputs use public
+// package/preprocessor access;the illegal parameter assignment has no runtime.
+// Expected: Separate8-bit and64-bit histories each retain32768 nonuniform
+// payload bits;every decoded value and remaining-bit count matches through
+// complete consumption.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations derived from IEEE.
 // No implementation-specific lower-bit layout or version text is assumed.
 `include "uvm_macros.svh"

@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_master_imp_decl_delegates_suffixed_methods_to_split_sibling_implementations.expected
 */
+// What it checks:
+// The declaration macro supplies a suffix-specific implementation type for
+// blocking and nonblocking master.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.5.15 (UVM-TLM-MASTER-IMP-DECL) gives the rule above. Setup:
+// Instantiate two suffixes with independent handlers; master/slave use typed
+// request/response directions, with an additional split-implementation master
+// fixture. Expected: Recorded arguments, successful outputs and
+// readiness/acceptance results where applicable belong to the selected suffix.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Bind two generated master imps to sibling request and response objects.
 // The parent supplies no transfer methods. Both blocking and nonblocking
 // operations must select the correct sibling and suffix.

@@ -13,6 +13,23 @@
 :expected_exit: 0
 :expected_stdout: @test_record_macro_attribute_dynamic_array_preserves_the_original_type_and_handle.expected
 */
+// What it checks:
+// The enabled recording macro forwards the original typed value to the
+// user-specific attribute API.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 B.2.3.6 (UVM-MACRO-IO-AUDIT-RECORD-ATTRIBUTE-DYNAMIC-ARRAY)
+// gives the rule above. Setup: Enable recorder attribute support and provide
+// an original user-specific attribute macro whose VALUE binds to an exact
+// const-ref type. Use a valid transaction recorder and an overridden tool
+// handle, without changing the surrounding recording macro. Keep the printed
+// three-argument attribute definition; the separate compatibility control
+// tolerates an unlisted fourth recorder argument and does not pass this
+// original premise. Expected: The exact typed value and name reach the
+// original capture function with the overridden tool handle, without
+// recorder-policy fallback.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Expected values are original; no serialized stream layout is prescribed.
 module
   test_record_macro_attribute_dynamic_array_preserves_the_original_type_and_handle;
