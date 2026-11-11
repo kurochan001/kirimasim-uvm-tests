@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_nonblocking_slave_imp_routes_request_availability_and_response_capacity.expected
 */
+// What it checks:
+// Nonblocking master/slave imps delegate availability and traffic to the
+// supplied request/response implementations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.7.2.2 (UVM-TLM1-SPLIT-NONBLOCKING-IMP-IMPLEMENTATIONS)
+// gives the rule above. Setup: Independently fill request/response siblings,
+// then peek and get through the imp. Expected: Capacity/rejection and typed
+// head values stay with their selected sibling; unavailable reads return
+// false.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Probe an empty request FIFO without observing its failed output. Read a
 // provided request and fill only the response FIFO, checking correct routing.
 

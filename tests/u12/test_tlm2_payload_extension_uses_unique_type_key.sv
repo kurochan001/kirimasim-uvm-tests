@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_extension_uses_unique_type_key.expected
 */
+// What it checks:
+// 1. The static extension ID returns a stable unique type key.
+// 2. Installing an unbound extension stores that exact instance under its type
+//    and returns null.
+// 3. Extension retrieval uses the type key and returns null when that type is
+//    absent.
+// 4. The extension count reflects distinct currently installed
+//    instance-specific types.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.5.4 (UVM-EXTENSION-STATIC-TYPE-KEY) gives rule 1
+//    above. Setup: Compare repeated static IDs with polymorphic same-type keys
+//    and another type. Expected: Repeated/same-type IDs agree and
+//    different-type IDs do not.
+// 2. 1800.2-2020 12.3.4.2.44 (UVM-GP-EXTENSION-INSERTION) gives rule 2 above.
+//    Setup: Insert through concrete/base handles with a fresh payload.
+//    Expected: Previous is null, the extension count is one and retrieval
+//    returns the supplied handle.
+// 3. 1800.2-2020 12.3.4.2.43 (UVM-GP-EXTENSION-KEYED-RETRIEVAL) gives rule 3
+//    above. Setup: Retrieve an installed/replaced type and another uninstalled
+//    type. Expected: The installed current handle is returned and the absent
+//    type yields null.
+// 4. 1800.2-2020 12.3.4.2.42 (UVM-GP-EXTENSION-COUNT) gives rule 4 above.
+//    Setup: Insert, selectively clear, fully clear and reuse payload extension
+//    bindings. Expected: Counts change with the observed current set and
+//    remain local to each payload.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Compare extension type keys through their common base type and
 // retrieve the exact inserted handle. No numeric ID value is prescribed.
 

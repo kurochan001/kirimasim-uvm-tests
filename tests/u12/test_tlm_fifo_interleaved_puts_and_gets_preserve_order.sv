@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_interleaved_puts_and_gets_preserve_order.expected
 */
+// What it checks:
+// 1. Nonblocking get reports availability and consumes a transaction when
+//    successful.
+// 2. FIFO retrieval follows transaction arrival order.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.4.2.6 (UVM-FIFO-NONBLOCKING-GET) gives rule 1 above.
+//    Setup: Use empty and populated FIFOs with interleaved calls. Expected:
+//    Unavailable gets return 0; successful gets return 1 and the expected next
+//    value.
+// 2. 1800.2-2020 12.2.8.2 (UVM-FIFO-ARRIVAL-ORDER) gives rule 2 above. Setup:
+//    Interleave puts, gets and a non-consuming peek. Expected: Retrieved
+//    values remain in arrival order even with the intervening peek.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Remove the first entry, append another, then peek and consume the
 // remaining entries. Query results are observed after each call.
 

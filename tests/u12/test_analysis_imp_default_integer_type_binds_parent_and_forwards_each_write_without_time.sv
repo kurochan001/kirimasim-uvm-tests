@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_analysis_imp_default_integer_type_binds_parent_and_forwards_each_write_without_time.expected
 */
+// What it checks:
+// 1. The analysis imp defaults T to int with an explicitly selected
+//    implementation type.
+// 2. The analysis imp constructor binds its supplied implementation as parent
+//    with the selected name.
+// 3. The analysis imp uses implementation role and one-to-one bounds.
+// 4. An analysis imp invokes write in its supplied subscriber implementation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.10.2.1 (UVM-TLM-DECL-ANALYSIS-IMP-DEFAULT-T) gives rule
+//    1 above. Setup: Select an actual receiver IMP, omit T, construct two imps
+//    and call their real write methods with read-only receivers. Expected: The
+//    exact integer interface port-base view retains imp identity.
+// 2. 1800.2-2020 12.2.10.2.2 (UVM-TLM-DECL-ANALYSIS-IMP-CTOR-IDENTITY) gives
+//    rule 2 above. Setup: Select an actual receiver IMP, omit T, construct two
+//    imps and call their real write methods with read-only receivers.
+//    Expected: The selected name and implementation parent match.
+// 3. 1800.2-2020 12.2.10.2.2 (UVM-TLM-DECL-ANALYSIS-IMP-ROLE-BOUNDS) gives
+//    rule 3 above. Setup: Select an actual receiver IMP, omit T, construct two
+//    imps and call their real write methods with read-only receivers.
+//    Expected: The actual imp reports implementation role and one/one bounds.
+// 4. 1800.2-2020 12.2.10.2 (UVM-TLM-DECL-ANALYSIS-IMP-WRITE-DELEGATION) gives
+//    rule 4 above. Setup: Select an actual receiver IMP, omit T, construct two
+//    imps and call their real write methods with read-only receivers.
+//    Expected: Thirteen and twenty-seven reach only the selected receiver,
+//    forty-one its peer, without time advance.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Omit only T and explicitly select the actual implementation component type.
 // Read-only original subscribers record actual imp forwarding and isolation.
 // The nominal IMP=int default is not instantiated or certified here.

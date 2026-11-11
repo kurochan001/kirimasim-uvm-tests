@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_rejected_put_keeps_existing_entry.expected
 */
+// What it checks:
+// A nonblocking put rejected by a full FIFO returns failure without inserting
+// the item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.4.2.4 (UVM-FIFO-REJECT-FULL) gives the rule above. Setup: A
+// capacity-one FIFO contains 11 before a second put is attempted. Expected:
+// The second put returns 0; peek/get still return 11 and the final FIFO is
+// empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use the constructor default capacity of one, attempt a second put,
 // and inspect the retained head through peek and get.
 

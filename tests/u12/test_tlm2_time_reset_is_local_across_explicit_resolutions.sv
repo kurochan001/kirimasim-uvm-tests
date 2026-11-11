@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_time_reset_is_local_across_explicit_resolutions.expected
 */
+// What it checks:
+// Reset clears only the receiving canonical delay.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.6.2.4 (UVM-TLM-TIME-INSTANCE-RESET) gives the rule above.
+// Setup: Give two distinct resolutions the same twelve-nanosecond value and
+// reset first. Expected: Initial values agree; first becomes zero while peer
+// remains twelve.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use two explicit canonical resolutions with exactly representable
 // values. Reset only one object and keep the other value. No rounding
 // policy for a sub-resolution value is assumed.

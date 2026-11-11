@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families.expected
 */
+// What it checks:
+// Under a literal printed-list interpretation, the blocking target relay
+// accepts the two listed nonblocking provider families.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.5.8.4 (UVM-TLM2-TYPES-BLOCKING-TARGET-PRINTED-PROVIDERS)
+// gives the rule above. Setup: Before elaboration, call the blocking target
+// relay connect with both nonblocking provider families printed in 12.3.5.8.4.
+// Expected: Both listed default-typed connects are accepted without an error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Before elaboration, invoke connect with each literal listed provider family.
 // No runtime transport or backward resolution is claimed. This is a qualified
 // printed-list interpretation: the blocking heading and

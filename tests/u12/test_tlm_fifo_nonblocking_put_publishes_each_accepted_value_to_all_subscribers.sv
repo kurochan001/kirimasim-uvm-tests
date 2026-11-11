@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_nonblocking_put_publishes_each_accepted_value_to_all_subscribers.expected
 */
+// What it checks:
+// Accepted FIFO puts publish the transaction to every connected put-analysis
+// subscriber.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.8.1.5 (UVM-FIFO-PUT-ANALYSIS) gives the rule above. Setup:
+// Use blocking/nonblocking puts, a full rejection, availability-only queries
+// and class handles. Expected: All subscribers see accepted values/handles
+// only; failed puts and availability queries add no transactions.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use try_put through a combined put port. Both subscribers receive every
 // accepted value while the FIFO stores the same number of transactions.
 

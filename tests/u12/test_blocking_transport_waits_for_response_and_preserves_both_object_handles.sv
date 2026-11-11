@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_blocking_transport_waits_for_response_and_preserves_both_object_handles.expected
 */
+// What it checks:
+// Blocking transport waits for its reply and preserves both object handles.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-BLOCKING-TRANSPORT-WAITS-FOR-REPLY) gives the
+// rule above. Setup: Submit payload 41 and return a delayed response carrying
+// 42. Expected: The call is incomplete before the reply and returns 42 with
+// exact request/reply identities.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use typed blocking ports and public transport-channel interfaces.
 // Positive response delays establish wait/completion observations.
 // No same-channel overlapping callers or protocol-specific matching is claimed.

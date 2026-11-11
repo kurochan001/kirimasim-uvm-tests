@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_analysis_nested_exports_broadcast_each_live_handle_to_all_bound_implementations.expected
 */
+// What it checks:
+// Analysis exports forward writes through a selected export hierarchy to all
+// bound imp subscribers.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.10.3 (UVM-TLM-DECL-ANALYSIS-NESTED-FANOUT) gives the rule
+// above. Setup: Bind a real writer through two actual exports to two read-only
+// imps; write the same object before and after mutation. Expected: Each
+// subscriber receives thirteen then twenty-seven without time advance,
+// retaining the same live handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use two actual exports and two read-only implementation endpoints.
 // Each subscriber preserves its own write order and the live object identity.
 // No relative subscriber callback order or modifying subscriber is assumed.

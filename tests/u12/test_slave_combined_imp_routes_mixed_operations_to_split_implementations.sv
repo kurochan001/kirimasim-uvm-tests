@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_slave_combined_imp_routes_mixed_operations_to_split_implementations.expected
 */
+// What it checks:
+// A slave interface delegates request reads and response writes to the
+// selected implementations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.7.2.2 (UVM-TLM1-SPLIT-SLAVE-MIXED) gives the rule above.
+// Setup: Read/peek requests 51/52 and write alpha/beta through a direct imp or
+// export. Expected: Peek retains request 52; both response writes succeed,
+// storage is reusable and request storage ends empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Mix request reads and response writes on one slave interface. Verify
 // peek retention and independent storage reuse through sibling implementations.
 

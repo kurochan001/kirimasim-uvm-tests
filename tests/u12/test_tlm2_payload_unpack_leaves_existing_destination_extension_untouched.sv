@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_unpack_leaves_existing_destination_extension_untouched.expected
 */
+// What it checks:
+// Default generic-payload unpacking leaves preinstalled destination extensions
+// untouched.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.4.2.5 (UVM-GP-DEFAULT-UNPACK-PRESERVES-EXTENSIONS) gives
+// the rule above. Setup: Unpack ordinary payload fields into a target with an
+// existing valued extension. In additional independent profiles, apply a
+// hand-written typed packer stream to a plain or original observed payload,
+// with empty/nonempty active arrays, retained extension value 63 and two
+// rounds on the same target. Expected: Address updates while extension
+// identity/value remain and its unpack hook is not called. After each added
+// unpack, the original extension handle and value 63 remain and its unpack
+// hook has not run, while ordinary scalar and active-prefix fields receive the
+// incoming values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Preinstall an extension at the destination and unpack an ordinary
 // payload. The extension is outside the default serialized fields; its
 // identity, value and unpack hook remain unchanged.

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_unpack_roundtrip_preserves_scalar_fields.expected
 */
+// What it checks:
+// Payload unpack restores the scalar fields supplied by pack.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.4.2.4 (UVM-TLM2-PAYLOAD-UNPACK-SCALAR-ROUNDTRIP) gives the
+// rule above. Setup: Round-trip an IGNORE payload with empty arrays and
+// nondefault scalars. Expected: Address, IGNORE command, DMI, response status
+// and width nineteen are retained.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Round-trip an IGNORE payload with empty arrays. Compare scalar values
 // through their public accessors without relying on binary stream encoding.
 

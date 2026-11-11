@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_request_response_channel_omitted_sizes_provide_one_independent_slot_per_direction.expected
 */
+// What it checks:
+// 1. The default request FIFO capacity is one.
+// 2. The default response FIFO capacity is one.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.9.1.11 (UVM-TLM-DECL-CHANNEL-DEFAULT-REQUEST-CAPACITY)
+//    gives rule 1 above. Setup: Bind four actual nonblocking ports to an
+//    all-default request/response channel; fill and drain each direction.
+//    Expected: One value is accepted, the second refused, and consumption
+//    restores only its own capacity.
+// 2. 1800.2-2020 12.2.9.1.11 (UVM-TLM-DECL-CHANNEL-DEFAULT-RESPONSE-CAPACITY)
+//    gives rule 2 above. Setup: Bind four actual nonblocking ports to an
+//    all-default request/response channel; fill and drain each direction.
+//    Expected: One value is accepted, the second refused, and consumption
+//    restores only its own capacity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Bind real public channel interfaces with omitted FIFO size arguments.
 // Both directions accept one entry, reject a second and recover independently.
 // No response pairing, arbitration winner or transport call is inferred.

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_capacity_and_flags_follow_occupancy.expected
 */
+// What it checks:
+// A positive configured FIFO size bounds its capacity.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.8.2.1 (UVM-FIFO-BOUNDED-CAPACITY) gives the rule above.
+// Setup: Fill capacity two and remove both entries while querying
+// used/empty/full state. Expected: Used/full/can_put follow the two-entry
+// bound and return to empty after removal.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use direct FIFO interface methods and observe state after each call.
 // No transaction value is read after an unsuccessful get.
 

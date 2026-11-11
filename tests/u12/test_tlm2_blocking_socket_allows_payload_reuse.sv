@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_blocking_socket_allows_payload_reuse.expected
 */
+// What it checks:
+// A caller may reuse transaction and delay objects across completed blocking
+// calls.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.2.2.3 (UVM-TLM2-BLOCKING-PAYLOAD-REUSE) gives the rule
+// above. Setup: Change address and reset response status between two reads on
+// the same handles. Expected: The target receives the same handles at
+// addresses 100/200 hex, returning first bytes one/two with OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Reuse the transaction and delay handles while changing the address
 // and resetting response status between completed calls.
 

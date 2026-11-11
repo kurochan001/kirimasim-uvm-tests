@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_positive_capacity_queries_follow_fill_peek_get_and_flush.expected
 */
+// What it checks:
+// 1. The size query reports the configured positive FIFO capacity rather than
+//    occupancy.
+// 2. The used query reports current stored entries.
+// 3. is_empty reports whether there are zero stored entries.
+// 4. For a positive bounded size, is_full reports occupancy equal to capacity.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.8.2.2 (UVM-TLM1-REVIEW-FIFO-POSITIVE-CAPACITY-QUERY)
+//    gives rule 1 above. Setup: Fill, peek, consume and flush a three-entry
+//    FIFO. Expected: Size remains three throughout occupancy changes.
+// 2. 1800.2-2020 12.2.8.2.3 (UVM-TLM1-REVIEW-FIFO-USED-CURRENT-ENTRIES) gives
+//    rule 2 above. Setup: Use a bounded fill/peek/get/flush and an unbounded
+//    growth/drain. Expected: Counts follow accepted insertion/removal, survive
+//    peek unchanged and reach zero after draining.
+// 3. 1800.2-2020 12.2.8.2.4 (UVM-TLM1-REVIEW-FIFO-EMPTY-QUERY) gives rule 3
+//    above. Setup: Observe empty, filled, partially consumed and flushed FIFO
+//    states. Expected: Empty is true only at zero occupancy.
+// 4. 1800.2-2020 12.2.8.2.5 (UVM-TLM1-REVIEW-FIFO-POSITIVE-FULL-QUERY) gives
+//    rule 4 above. Setup: Fill a capacity-three FIFO, peek, remove one entry
+//    and flush. Expected: Full is true at three entries, stays true across
+//    peek and becomes false after removal.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive bounded capacity distinguishes capacity from occupancy, emptiness
 // and fullness. Successful peek does not consume; full rejection does not add
 // data. Zero-capacity is_full interpretation and failed-get output remain

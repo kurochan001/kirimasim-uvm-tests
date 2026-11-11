@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nonblocking_socket_binding_selects_explicit_and_parent_implementations.expected
 */
+// What it checks:
+// 1. An explicit target socket implementation is selected instead of its
+//    parent hook.
+// 2. An omitted target socket implementation defaults to its compatible
+//    parent.
+// 3. An explicit initiator implementation receives the backward method instead
+//    of its parent hook.
+// 4. An omitted initiator implementation defaults its backward method to the
+//    compatible parent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.5.3.3 (UVM-TLM2-TYPES-TARGET-EXPLICIT-IMP) gives rule 1
+//    above. Setup: Use two real socket pairs: distinct explicit implementation
+//    components versus omitted implementation arguments with compatible
+//    parents. Expected: Only the selected hooks run; unused parent/worker
+//    hooks remain uncalled and handles/statuses match.
+// 2. 1800.2-2020 12.3.5.3.3 (UVM-TLM2-TYPES-TARGET-OMITTED-IMP) gives rule 2
+//    above. Setup: Use two real socket pairs: distinct explicit implementation
+//    components versus omitted implementation arguments with compatible
+//    parents. Expected: Only the selected hooks run; unused parent/worker
+//    hooks remain uncalled and handles/statuses match.
+// 3. 1800.2-2020 12.3.5.4.3 (UVM-TLM2-TYPES-INITIATOR-EXPLICIT-IMP) gives rule
+//    3 above. Setup: Use two real socket pairs: distinct explicit
+//    implementation components versus omitted implementation arguments with
+//    compatible parents. Expected: Only the selected hooks run; unused
+//    parent/worker hooks remain uncalled and handles/statuses match.
+// 4. 1800.2-2020 12.3.5.4.3 (UVM-TLM2-TYPES-INITIATOR-OMITTED-IMP) gives rule
+//    4 above. Setup: Use two real socket pairs: distinct explicit
+//    implementation components versus omitted implementation arguments with
+//    compatible parents. Expected: Only the selected hooks run; unused
+//    parent/worker hooks remain uncalled and handles/statuses match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two actual socket pairs select distinct explicit IMPs or omitted parent
 // IMPs.
 // Unused worker/parent hooks must remain uncalled; actual connect also wires

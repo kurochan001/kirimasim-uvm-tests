@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_custom_phase_socket_relays_preserve_both_paths_and_reference_phase_updates.expected
 */
+// What it checks:
+// 1. Selected nonblocking relay sockets carry forward and backward calls
+//    across component boundaries.
+// 2. The selected initiator relay connect wires both paths for compatible
+//    custom transaction/phase declarations.
+// 3. The selected target relay connect wires both paths for compatible custom
+//    transaction/phase declarations.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.5 (UVM-TLM2-TYPES-NONBLOCKING-HIERARCHICAL-PAIR) gives
+//    rule 1 above. Setup: Connect actual nonblocking terminators through both
+//    relay families across component boundaries with a custom message and
+//    phase enum. Expected: Custom transaction/phase identities, reference
+//    updates and shared delay mutations survive both paths.
+// 2. 1800.2-2020 12.3.5.5.4 (UVM-TLM2-TYPES-INITIATOR-RELAY-CUSTOM-P) gives
+//    rule 2 above. Setup: Connect actual nonblocking terminators through both
+//    relay families across component boundaries with a custom message and
+//    phase enum. Expected: Both actual connected relays return updated forward
+//    and completed backward states through the custom enum.
+// 3. 1800.2-2020 12.3.5.6.4 (UVM-TLM2-TYPES-TARGET-RELAY-CUSTOM-P) gives rule
+//    3 above. Setup: Connect actual nonblocking terminators through both relay
+//    families across component boundaries with a custom message and phase
+//    enum. Expected: Both actual connected relays return updated forward and
+//    completed backward states through the custom enum.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Actual two-way socket relays cross real component boundaries with custom
 // T/P.
 // The class-declaration type parameters and selected forwarding are tested;

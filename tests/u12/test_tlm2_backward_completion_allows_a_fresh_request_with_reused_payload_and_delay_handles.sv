@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_backward_completion_allows_a_fresh_request_with_reused_payload_and_delay_handles.expected
 */
+// What it checks:
+// Backward socket forwarding preserves completion results across reuse of the
+// same payload and delay handles.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.2.2.2 (UVM-TLM2-BACKWARD-COMPLETION-REUSE) gives the rule
+// above. Setup: Complete two successive requests via backward BEGIN_RESP and
+// reinitialize response/annotation between them. Expected: Each round reaches
+// the intended callbacks and returns COMPLETED with its own fresh annotation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Testbench code drives selected protocol histories with positive delays.
 // Socket forwarding is checked; UVM is not required to invent a scheduler,
 // enforce every base-protocol rule or own outstanding-transaction state.

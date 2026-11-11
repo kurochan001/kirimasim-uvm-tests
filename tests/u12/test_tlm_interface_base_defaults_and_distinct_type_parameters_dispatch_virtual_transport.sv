@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_interface_base_defaults_and_distinct_type_parameters_dispatch_virtual_transport.expected
 */
+// What it checks:
+// 1. The omitted interface T1 parameter defaults to int.
+// 2. The omitted interface T2 parameter defaults to int.
+// 3. The omitted T2 remains int when only T1 is explicitly changed.
+// 4. Distinct request and response parameters are supported by the virtual
+//    interface.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.4.1 (UVM-TLM1-REVIEW-INTERFACE-DEFAULT-T1) gives rule 1
+//    above. Setup: Use an original concrete default interface through the
+//    exact int/int base. Expected: The base retains identity and dispatches
+//    the selected integer request.
+// 2. 1800.2-2020 12.2.4.1 (UVM-TLM1-REVIEW-INTERFACE-DEFAULT-T2) gives rule 2
+//    above. Setup: Call an original default specialization through an exact
+//    integer response interface. Expected: The declared integer response is
+//    received through the base.
+// 3. 1800.2-2020 12.2.4.1 (UVM-TLM1-REVIEW-INTERFACE-T2-INDEPENDENT-DEFAULT)
+//    gives rule 3 above. Setup: An original concrete interface selects string
+//    requests and omits T2. Expected: The exact string/int base accepts the
+//    instance and returns an integer.
+// 4. 1800.2-2020 12.2.4.1 (UVM-TLM1-REVIEW-INTERFACE-DISTINCT-PARAMETERS)
+//    gives rule 4 above. Setup: Call an original int/string extension through
+//    its exact base specialization. Expected: Identity and the original string
+//    response are preserved through virtual dispatch.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original concrete interface extensions expose default T1/T2 and
 // independently
 // defaulted T2 when T1 changes. Original response algorithms are setup; only

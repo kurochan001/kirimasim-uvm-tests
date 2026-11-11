@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_base_response_queries_dispatch_virtual_methods_for_all_statuses.expected
 */
+// What it checks:
+// 1. The response-string query is a virtual string-returning accessor.
+// 2. The standard response enumeration exposes OK, incomplete and five named
+//    error states.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.2.40 (UVM-TLM-DECL-PAYLOAD-RESPONSE-STRING-VIRTUAL)
+//    gives rule 1 above. Setup: Query all seven explicit standard response
+//    states through a base payload with original virtual counters/prefix;
+//    count selected external calls only. Expected: All seven base-typed calls
+//    reach the original override and retain its prefix.
+// 2. 1800.2-2020 12.3.4.1.2 (UVM-TLM-DECL-PAYLOAD-RESPONSE-ENUMERATION) gives
+//    rule 2 above. Setup: Query all seven explicit standard response states
+//    through a base payload with original virtual counters/prefix; count
+//    selected external calls only. Expected: Real predicates identify only OK
+//    as successful for all seven explicit states.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The original prefix and counters check virtual response-string dispatch.
 // no exact spelling or format from the underlying standard getter is presumed.
 // Real base predicates are checked for every named standard status. Default

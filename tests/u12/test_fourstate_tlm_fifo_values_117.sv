@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_fourstate_tlm_fifo_values_117.expected
 */
+// What it checks:
+// TLM FIFOs deliver four-state transactions in order with their X and Z bits
+// unchanged.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.4.2.2 (UVM-FOURSTATE-TLM-FIFO-PRESERVES-XZ) gives the rule
+// above. Setup: Put two 8-bit logic values with X and Z bits into a two-entry
+// FIFO and write a third to an analysis FIFO, then get them. Expected: The
+// values return in order with the same bits, and the analysis FIFO try_get
+// succeeds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A two-entry FIFO receives two values with X and Z bits and an analysis FIFO
 // receives a third. The values must come back in order with the same bits,
 // compared with case equality. The expectation comes from the cited clauses; a

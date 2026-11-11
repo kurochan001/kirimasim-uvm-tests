@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_zero_capacity_is_unbounded.expected
 */
+// What it checks:
+// A FIFO size of zero removes the storage upper bound.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.8.2.1 (UVM-FIFO-ZERO-UNBOUNDED) gives the rule above.
+// Setup: Insert four entries into a zero-size FIFO. Expected: All entries fit,
+// full stays false, and capacity remains reported as zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A size of zero selects unbounded storage. Inspect full only after
 // entries have been written, avoiding an empty size-equality observation.
 

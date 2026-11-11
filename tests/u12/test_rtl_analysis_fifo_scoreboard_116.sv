@@ -14,6 +14,21 @@
 :expected_stdout: @test_rtl_analysis_fifo_scoreboard_116.expected
 :files: ../u19/helpers116_rtl/rf_rtl116.sv ../u19/helpers116_rtl/rf_env116.svh
 */
+// What it checks:
+// An analysis FIFO buffers every monitored design transaction until its reader
+// drains them in order.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.8.3 (UVM-RTL-ANALYSIS-FIFO-BUFFERS-MONITOR) gives the rule
+// above. Setup: A test top places the interface of an original register-file
+// design in the configuration database for the agent scope; the driver and
+// monitor use only its clocking blocks. The scoreboard does not read its
+// analysis FIFO until two writes and four reads have been monitored, then
+// drains it into a reference model of the design. Expected: The FIFO holds six
+// transactions, all six are drained, the FIFO is then empty, and the four read
+// results match the reference model.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The scoreboard does not read its analysis FIFO until six transactions have
 // been monitored. The FIFO must then hold all six, the scoreboard must drain
 // them, the FIFO must be empty, and the reference model must match the four

@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_request_response_channel_full_request_put_waits_for_request_space_only.expected
 */
+// What it checks:
+// 1. The channel master interface puts requests and retrieves responses from
+//    their respective queues.
+// 2. A blocking put to a full direction waits until that queue has space.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.9.1.9 (UVM-TLM1-CHANNEL-MASTER-DIRECTION-ROUTING) gives
+//    rule 1 above. Setup: Use combined ports with nonblocking traffic and
+//    blocked request-put/response-get calls. Expected: Values reach the
+//    correct typed direction and opposite traffic does not satisfy a pending
+//    response get.
+// 2. 1800.2-2020 12.2.4.2.1 (UVM-TLM1-CHANNEL-BLOCKED-PUT-CAPACITY) gives rule
+//    2 above. Setup: Fill both one-entry directions and launch a second put in
+//    one direction. Expected: The put remains pending, returns after its own
+//    queue drains and preserves both original direction values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays establish a blocked caller before opposite-direction traffic.
 // Only one caller waits per direction; no simultaneous-winner order is assumed.
 module test_request_response_channel_full_request_put_waits_for_request_space_only;

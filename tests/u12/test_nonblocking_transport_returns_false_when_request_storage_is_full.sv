@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_nonblocking_transport_returns_false_when_request_storage_is_full.expected
 */
+// What it checks:
+// Nonblocking transport cannot complete when request storage cannot accept its
+// request.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-TLM1-NB-TRANSPORT-REQUEST-FULL) gives the rule
+// above. Setup: Fill the one-entry request FIFO and stage an older reply
+// before a fresh request. Expected: Both setup writes succeed but the fresh
+// transport returns false.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Fill the one-entry request FIFO and stage its older response before
 // attempting a new request. No receiver frees the request slot during the
 // call. Observe setup success and completion, not failed-call output data.

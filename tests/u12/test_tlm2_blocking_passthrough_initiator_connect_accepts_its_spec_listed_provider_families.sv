@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.expected
 */
+// What it checks:
+// Under a literal printed-list interpretation, the blocking initiator relay
+// accepts the three listed nonblocking provider families.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.5.7.4 (UVM-TLM2-TYPES-BLOCKING-INITIATOR-PRINTED-PROVIDERS)
+// gives the rule above. Setup: Before elaboration, call the blocking initiator
+// relay connect with all three nonblocking provider families printed in
+// 12.3.5.7.4. Expected: Every listed default-typed connect is accepted without
+// an error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Before elaboration, invoke connect with each literal listed provider family.
 // No runtime transport or backward resolution is claimed. This is a qualified
 // printed-list interpretation: the blocking heading and

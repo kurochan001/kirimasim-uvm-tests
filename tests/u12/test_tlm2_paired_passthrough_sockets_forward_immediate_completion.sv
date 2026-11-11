@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_paired_passthrough_sockets_forward_immediate_completion.expected
 */
+// What it checks:
+// Compatible passthrough socket topologies propagate immediate forward
+// completion.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.5.5.4 (UVM-TLM2-PASSTHROUGH-IMMEDIATE-COMPLETION) gives the
+// rule above. Setup: Use initiator-side, target-side and paired socket relays
+// for a nonwaiting IGNORE target. Expected: Forward identity/phase/annotation
+// are preserved, COMPLETED and OK return, no backward callback or time advance
+// occurs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use proper parent-port and child-export hierarchy and let socket
 // connect methods wire the backward path. Transfer one IGNORE payload
 // and one canonical delay handle; callbacks annotate time without

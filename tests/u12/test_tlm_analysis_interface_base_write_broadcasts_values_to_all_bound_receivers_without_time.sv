@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_analysis_interface_base_write_broadcasts_values_to_all_bound_receivers_without_time.expected
 */
+// What it checks:
+// Interface write broadcasts the supplied transaction to all bound listeners
+// without blocking.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.4.2.12 (UVM-TLM1-REVIEW-INTERFACE-WRITE-BROADCAST) gives
+// the rule above. Setup: Upcast an actual analysis port to the default
+// interface and write two values to two subscribers. Expected: Both
+// subscribers receive thirteen then twenty-seven without time advance.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Upcast the actual analysis port to the default integer interface and call
 // its
 // virtual write. Both real bound subscribers receive each supplied value

@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_blocking_peek_publishes_each_observation_without_consuming.expected
 */
+// What it checks:
+// 1. Blocking peek returns the head without consuming it.
+// 2. Successful FIFO gets and peeks publish each observed transaction to all
+//    get-analysis subscribers.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.4.2.3 (UVM-FIFO-BLOCKING-PEEK) gives rule 1 above.
+//    Setup: Peek twice at one stored entry, then get it. Expected: Both peeks
+//    and the later get return 61, with occupancy unchanged by peeks.
+// 2. 1800.2-2020 12.2.8.1.6 (UVM-FIFO-GET-PEEK-ANALYSIS) gives rule 2 above.
+//    Setup: Use blocking/nonblocking removal and repeated non-consuming
+//    observation, including empty calls. Expected: Every successful
+//    observation publishes, including peeks; failed empty calls publish
+//    nothing and handles are preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Peek twice at one queued value and inspect get_ap before consuming it.
 // The standard includes peek notifications; the pinned library omits them.
 // Retain both required notifications as a spec-only expectation.

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_two_waiting_peekers_share_one_arrival_without_consuming_it.expected
 */
+// What it checks:
+// Blocking peek returns the head without consuming it.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.4.2.3 (UVM-FIFO-BLOCKING-PEEK) gives the rule above. Setup:
+// Peek twice at one stored entry, then get it. Expected: Both peeks and the
+// later get return 61, with occupancy unchanged by peeks.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays establish waiting/completion states. No winner or fairness
 // is required between simultaneous consumers or observers.
 module test_tlm_fifo_two_waiting_peekers_share_one_arrival_without_consuming_it;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_extension_replacement_returns_previous_handle.expected
 */
+// What it checks:
+// Installing an extension replaces the extension of the same type and returns
+// its previous handle.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.4.2.44 (UVM-PAYLOAD-REPLACE-EXTENSION) gives the rule
+// above. Setup: A payload receives two different extension instances of the
+// same registered type. Expected: The returned handle is the old instance;
+// lookup gives the new one and the count stays 1.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Insert two distinct instances of one extension type. Retained
 // application handles remain available after replacement.
 

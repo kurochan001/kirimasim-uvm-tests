@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_blocking_transport_sequential_calls_reuse_channel_without_losing_requests_or_replies.expected
 */
+// What it checks:
+// A transport channel supports sequential blocking exchanges without losing
+// requests or replies.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-BLOCKING-TRANSPORT-SEQUENTIAL-REUSE) gives the
+// rule above. Setup: Complete requests 11 and 22 in succession, each with a
+// newly allocated reply. Expected: Responses are 21/32, and both observed
+// requests and replies retain their exact handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use typed blocking ports and public transport-channel interfaces.
 // Positive response delays establish wait/completion observations.
 // No same-channel overlapping callers or protocol-specific matching is claimed.

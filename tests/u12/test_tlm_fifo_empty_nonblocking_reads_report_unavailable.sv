@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_empty_nonblocking_reads_report_unavailable.expected
 */
+// What it checks:
+// 1. Nonblocking get reports availability and consumes a transaction when
+//    successful.
+// 2. Nonblocking peek reports availability without consuming a successful head
+//    observation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.4.2.6 (UVM-FIFO-NONBLOCKING-GET) gives rule 1 above.
+//    Setup: Use empty and populated FIFOs with interleaved calls. Expected:
+//    Unavailable gets return 0; successful gets return 1 and the expected next
+//    value.
+// 2. 1800.2-2020 12.2.4.2.8 (UVM-FIFO-NONBLOCKING-PEEK) gives rule 2 above.
+//    Setup: Use empty queues and repeated peeks before a get. Expected: Empty
+//    peeks return 0; successful repeated peeks retain the same head and
+//    occupancy.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe status and queue state only. Output-argument preservation
 // on unavailable reads is outside this case and is not inferred from it.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_failed_try_peek_preserves_object_handle_before_success.expected
 */
+// What it checks:
+// An unavailable nonblocking peek leaves the caller output unchanged.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.4.2.8 (UVM-FIFO-FAILED-PEEK-OUTPUT) gives the rule above.
+// Setup: Call on an empty FIFO with a nondefault two-state value or nonnull
+// handle, then enqueue a different transaction and retry. Expected: The failed
+// call returns 0 and preserves the sentinel; the successful control returns
+// the queued value and the specified occupancy.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Preserve the standard's unchanged-output requirement despite the method's
 // output formal. A successful call separately establishes a live FIFO.
 module test_tlm_fifo_failed_try_peek_preserves_object_handle_before_success;

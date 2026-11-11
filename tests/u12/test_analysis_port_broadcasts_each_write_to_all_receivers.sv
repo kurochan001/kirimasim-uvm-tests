@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_analysis_port_broadcasts_each_write_to_all_receivers.expected
 */
+// What it checks:
+// Analysis write sends the supplied value to every connected receiver.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.10.1.4 (UVM-TLM1-ANALYSIS-BOUND-BROADCAST) gives the rule
+// above. Setup: Connect two FIFO receivers and write ordered scalar values or
+// one object handle. Expected: Both receivers see every value in source order
+// and the original object handle without modification.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Resolve bindings through normal UVM elaboration. Receiver queues
 // are read after write returns, without assuming subscriber call order.
 

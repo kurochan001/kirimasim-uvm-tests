@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_bidirectional_export_constructors_preserve_default_bounds_roles_names_and_parents.expected
 */
+// What it checks:
+// Bidirectional export constructors preserve names, parent handles, export
+// roles and default bounds.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.6.2 (UVM-TLM1-BIDIRECTIONAL-EXPORT-CONSTRUCTORS) gives the
+// rule above. Setup: Construct all nine REQ/RSP transport/master/slave
+// variants before resolution. Expected: All nine have the configured identity
+// and export role with min/max both one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_bidirectional_export_constructors_preserve_default_bounds_roles_names_and_parents;
   import uvm_pkg::*;
   class owner extends uvm_component;

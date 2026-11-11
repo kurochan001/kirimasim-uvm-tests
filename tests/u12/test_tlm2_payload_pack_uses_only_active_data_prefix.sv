@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_pack_uses_only_active_data_prefix.expected
 */
+// What it checks:
+// Only the active data prefix is packed without modifying the source backing
+// array.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.4.2.4 (UVM-TLM2-PAYLOAD-PACK-DATA-PREFIX) gives the rule
+// above. Setup: Supply four bytes but declare two, then unpack into a fresh
+// payload. Expected: Decoded length/prefix are two and 00/fe hex; original
+// size is four and tail remains 93 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Provide four backing bytes but declare two active bytes. Unpack into a
 // fresh payload and inspect the active prefix and unchanged source array.
 

@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_constructor_names_and_initial_response_preserve_sequence_item_identity.expected
 */
+// What it checks:
+// 1. The generic payload derives from the sequence-item base.
+// 2. The payload constructor defaults its name to empty and accepts an
+//    explicit name.
+// 3. The payload initial response status is incomplete.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.2.1 (UVM-TLM-DECL-PAYLOAD-SEQUENCE-ITEM-BASE) gives
+//    rule 1 above. Setup: Create omitted-name and named payloads after
+//    configuring a separate peer, and assign the fresh payload to a
+//    sequence-item view. Expected: The exact sequence-item view retains the
+//    new payload identity.
+// 2. 1800.2-2020 12.3.4.2.3 (UVM-TLM-DECL-PAYLOAD-CONSTRUCTOR-NAME) gives rule
+//    2 above. Setup: Create omitted-name and named payloads after configuring
+//    a separate peer, and assign the fresh payload to a sequence-item view.
+//    Expected: Fresh omitted-name and named objects retain the respective
+//    names without mutating a peer.
+// 3. 1800.2-2020 12.3.4.2.11 (UVM-TLM-DECL-PAYLOAD-INITIAL-RESPONSE) gives
+//    rule 3 above. Setup: Create omitted-name and named payloads after
+//    configuring a separate peer, and assign the fresh payload to a
+//    sequence-item view. Expected: Both fresh objects have incomplete status
+//    while the configured peer retains its address error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only the declared default/explicit name, sequence-item inheritance and
 // stated
 // incomplete response default are asserted. Fresh construction preserves a

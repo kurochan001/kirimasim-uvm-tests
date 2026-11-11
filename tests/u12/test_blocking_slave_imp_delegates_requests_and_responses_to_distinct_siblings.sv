@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_blocking_slave_imp_delegates_requests_and_responses_to_distinct_siblings.expected
 */
+// What it checks:
+// Blocking master/slave imps delegate request and response methods to their
+// supplied implementation objects.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.7.2.2 (UVM-TLM1-SPLIT-BLOCKING-IMP-IMPLEMENTATIONS) gives
+// the rule above. Setup: Use different request/response types and separate
+// sibling FIFO implementations. Expected: Master puts request 11 and reads
+// answer; slave reads request 17 and puts reply through the correct siblings.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A slave gets and peeks requests, but puts responses. Bind sibling FIFOs
 // with different types and verify both constructor-selected directions.
 

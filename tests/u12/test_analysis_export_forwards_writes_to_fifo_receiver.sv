@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_analysis_export_forwards_writes_to_fifo_receiver.expected
 */
+// What it checks:
+// An analysis export forwards writes to its terminal receiver.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.10.3 (UVM-TLM1-ANALYSIS-EXPORT-FORWARDING) gives the rule
+// above. Setup: Connect a port through one export to an analysis FIFO and
+// write 71 then 41. Expected: Each binding resolves to one receiver and
+// exactly two queued values are retrieved in order.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Build a port-export-implementation chain and observe it after UVM
 // resolves bindings. Each source write must reach the terminal queue once.
 

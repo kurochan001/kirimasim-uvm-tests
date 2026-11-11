@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_bidirectional_request_only_parameter_keeps_declared_integer_response_default.expected
 */
+// What it checks:
+// The declared RSP default stays int when only REQ is overridden.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.3.3 (UVM-TLM1-REVIEW-BIDIRECTIONAL-RSP-INDEPENDENT-DEFAULT)
+// gives the rule above. Setup: Instantiate nine selected ports with string REQ
+// and omit RSP, using exact string/int base arguments. Expected: The
+// standard-declared specializations compile and retain constructor metadata.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Constructor/type inspection before binding resolution. Selected regular
 // port families use their declared default types and 1/1 bounds; analysis
 // ports

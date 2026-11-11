@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_availability_queries_preserve_object_head_and_peer_storage.expected
 */
+// What it checks:
+// 1. can_get reports immediate transaction availability without consuming the
+//    head.
+// 2. can_peek reports immediate transaction availability without consuming the
+//    head.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.4.2.7 (UVM-TLM1-REVIEW-FIFO-CAN-GET-AVAILABILITY) gives
+//    rule 1 above. Setup: Query an actual object FIFO repeatedly through a
+//    bound get port across insertion/removal/reuse. Expected: Empty queries
+//    are false, held-entry queries true and the same object remains for get.
+// 2. 1800.2-2020 12.2.4.2.9 (UVM-TLM1-REVIEW-FIFO-CAN-PEEK-AVAILABILITY) gives
+//    rule 2 above. Setup: Query a bound peek port repeatedly and observe the
+//    live original object head. Expected: Availability follows storage and the
+//    original head/peer state is preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Actual put/get/peek ports bind the combined FIFO interfaces. Repeated
 // availability queries must not consume the object head or alter a peer.
 // Object identity follows ordinary handle values. No failing output argument,

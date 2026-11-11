@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_blocking_get_publishes_each_removed_value_to_all_subscribers.expected
 */
+// What it checks:
+// Successful FIFO gets and peeks publish each observed transaction to all
+// get-analysis subscribers.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.8.1.6 (UVM-FIFO-GET-PEEK-ANALYSIS) gives the rule above.
+// Setup: Use blocking/nonblocking removal and repeated non-consuming
+// observation, including empty calls. Expected: Every successful observation
+// publishes, including peeks; failed empty calls publish nothing and handles
+// are preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Fill two slots then retrieve through the public get/peek export. Each
 // observer sees both removed values in FIFO order after the calls return.
 

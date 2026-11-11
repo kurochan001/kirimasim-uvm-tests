@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nested_blocking_exports_forward_annotation_without_advancing_time.expected
 */
+// What it checks:
+// Nested blocking exports preserve identity and annotation without imposing a
+// simulation wait.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.7.1 (UVM-TLM2-NESTED-BLOCKING-ANNOTATION) gives the rule
+// above. Setup: Bind two exports to a nonwaiting annotating implementation.
+// Expected: Simulation time is unchanged, one callback sees both exact handles
+// and annotation propagates.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use parent-to-child exports ending at an implementation. Annotation
 // updates alone consume no simulation time when the target does not wait.
 

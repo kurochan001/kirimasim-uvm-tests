@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_paired_passthrough_sockets_return_backward_updated_phase.expected
 */
+// What it checks:
+// Paired passthrough sockets return a backward UPDATED phase change to the
+// target.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.5.5.4 (UVM-TLM2-PASSTHROUGH-BACKWARD-UPDATED) gives the
+// rule above. Setup: Accept a forward transaction and have its backward
+// receiver return UPDATED/END_RESP. Expected: Exact identities, one call per
+// path, updated phase, final annotation and OK propagate without waiting.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use proper parent-port and child-export hierarchy and let socket
 // connect methods wire the backward path. Transfer one IGNORE payload
 // and one canonical delay handle; callbacks annotate time without

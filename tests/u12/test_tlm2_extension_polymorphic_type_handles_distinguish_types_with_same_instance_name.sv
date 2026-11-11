@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_extension_polymorphic_type_handles_distinguish_types_with_same_instance_name.expected
 */
+// What it checks:
+// Polymorphic extension type handles identify a type rather than a named
+// instance.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.4.4.4 (UVM-EXTENSION-POLYMORPHIC-TYPE-KEY) gives the rule
+// above. Setup: Compare same/different types, replace a named instance and
+// clear through another same-type key. Expected: Same-type keys remain equal
+// across instances/renames and different types remain distinct.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Give two extension types the same instance name and compare their keys
 // through common base handles. Instance naming must not merge type identity.
 

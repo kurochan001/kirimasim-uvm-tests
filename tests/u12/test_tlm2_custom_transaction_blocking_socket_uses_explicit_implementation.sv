@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_custom_transaction_blocking_socket_uses_explicit_implementation.expected
 */
+// What it checks:
+// A blocking target socket delivers custom-transaction calls to its explicit
+// implementation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.5.1.3 (UVM-TLM2-CUSTOM-BLOCKING-EXPLICIT-IMPLEMENTATION)
+// gives the rule above. Setup: Bind one custom-typed initiator socket to a
+// target; supply a separate child implementation handle. Expected: One call
+// preserves transaction/delay identity, returns reply 42 and completion,
+// waits, and leaves annotation 5 ns.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use a transaction unrelated to the generic payload and a standard delay.
 // The implementation completes after positive delay and annotates separately.
 module test_tlm2_custom_transaction_blocking_socket_uses_explicit_implementation;

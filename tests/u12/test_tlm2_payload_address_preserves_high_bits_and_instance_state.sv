@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_address_preserves_high_bits_and_instance_state.expected
 */
+// What it checks:
+// 1. Payload address accessors preserve all assigned address bits
+//    independently per instance.
+// 2. The public setter specifies the selected payload address.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.2.22 (UVM-GP-ADDRESS-STATE) gives rule 1 above. Setup:
+//    Assign distinct high-bit 64-bit addresses and zero one payload. Expected:
+//    Both original addresses are exact and the unchanged payload retains its
+//    address.
+// 2. 1800.2-2020 12.3.4.2.23 (UVM-PAYLOAD-SET-ADDRESS-EXPLICIT-UPDATE) gives
+//    rule 2 above. Setup: An unchanged accessor fixture assigns explicit
+//    values and reads them back through public methods. Expected: Both
+//    selected 64-bit addresses retain their high bits; replacing one with zero
+//    preserves the peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use unsigned 64-bit addresses with high bits set, then update only
 // one payload. Addresses are data here, without a modeled target memory.
 

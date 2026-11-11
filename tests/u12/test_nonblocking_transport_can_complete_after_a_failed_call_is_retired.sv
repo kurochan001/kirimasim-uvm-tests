@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_nonblocking_transport_can_complete_after_a_failed_call_is_retired.expected
 */
+// What it checks:
+// A subsequent transport can complete after a failed call has been retired.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-TLM1-NB-TRANSPORT-AFTER-RETIRED-FAILURE) gives
+// the rule above. Setup: Suppress the first response, retire any remaining
+// request through try_get, then enable replies. Expected: First completion is
+// false; the next returns reply_9 and request 9 can be retired.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // First suppress the response, then retire any request left by that
 // failed call through try_get without asserting whether one was queued.
 // Enable the responder and require the subsequent fresh request to complete.

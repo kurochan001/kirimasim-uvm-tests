@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_time_standard_default_resolution_api_constructs_delay.expected
 */
+// What it checks:
+// The standard default-resolution setter configures later delay construction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.6.2.2 (UVM-TLM-TIME-STANDARD-DEFAULT-RESOLUTION) gives the
+// rule above. Setup: Set a nanosecond resolution, construct/query a delay and
+// restore the default. Expected: The configured seven-nanosecond value
+// round-trips.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use the standard default-resolution setter before constructing a delay
 // and restore the standard default afterwards. The pinned library lacks
 // this API spelling, so this normative case is spec-only and cannot build.

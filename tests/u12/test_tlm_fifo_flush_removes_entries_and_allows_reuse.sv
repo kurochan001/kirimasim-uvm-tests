@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_flush_removes_entries_and_allows_reuse.expected
 */
+// What it checks:
+// FIFO flush removes all entries from that instance without changing
+// configured size.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.8.2.6 (UVM-FIFO-FLUSH-LOCAL) gives the rule above. Setup:
+// Flush one populated FIFO, retain a second FIFO, then reuse the cleared
+// instance. Expected: Used becomes zero and empty true; the peer retains order
+// and a later put/get succeeds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Flush populated storage, then accept and consume a fresh value.
 // No blocked reader or writer is active during flush.
 

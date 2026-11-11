@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_unbounded_fifo_size_and_used_queries_track_growth_and_consumption.expected
 */
+// What it checks:
+// 1. The used query reports current stored entries.
+// 2. is_empty reports whether there are zero stored entries.
+// 3. The size query returns zero for unbounded FIFO capacity.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.8.2.3 (UVM-TLM1-REVIEW-FIFO-USED-CURRENT-ENTRIES) gives
+//    rule 1 above. Setup: Use a bounded fill/peek/get/flush and an unbounded
+//    growth/drain. Expected: Counts follow accepted insertion/removal, survive
+//    peek unchanged and reach zero after draining.
+// 2. 1800.2-2020 12.2.8.2.4 (UVM-TLM1-REVIEW-FIFO-EMPTY-QUERY) gives rule 2
+//    above. Setup: Observe empty, filled, partially consumed and flushed FIFO
+//    states. Expected: Empty is true only at zero occupancy.
+// 3. 1800.2-2020 12.2.8.2.2 (UVM-TLM1-REVIEW-FIFO-UNBOUNDED-SIZE-QUERY) gives
+//    rule 3 above. Setup: Accept and consume five items in an explicitly
+//    zero-sized FIFO. Expected: Size remains zero while occupancy grows to
+//    five and drains to zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A zero size means unbounded capacity, while used counts current entries.
 // Do not infer is_full's zero-capacity interpretation from the selected
 // implementation; its literal equality wording and no-limit semantics need

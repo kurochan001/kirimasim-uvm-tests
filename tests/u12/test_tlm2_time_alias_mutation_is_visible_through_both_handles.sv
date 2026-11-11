@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_time_alias_mutation_is_visible_through_both_handles.expected
 */
+// What it checks:
+// The canonical and TLM time aliases refer to the same mutable object.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.9 (UVM-TLM-TIME-ALIAS-MUTATION) gives the rule above.
+// Setup: Assign through the base alias and reset through the TLM alias.
+// Expected: Both views observe nine nanoseconds then zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Assign the delay to its canonical base alias, modify through that
 // handle and reset through the TLM alias. Both views must observe the
 // same object, without copying an implementation-specific representation.

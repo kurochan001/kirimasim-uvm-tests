@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_analysis_fifo_write_preserves_arrival_order.expected
 */
+// What it checks:
+// Analysis FIFO writes buffer transactions in an unbounded FIFO.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.8.3 (UVM-ANALYSIS-FIFO-WRITE-STORAGE) gives the rule above.
+// Setup: Interleave writes/reads/peeks, exceed the ordinary bounded capacity,
+// flush and compare two instances. Expected: Writes preserve arrival order,
+// peeks retain the head, instances stay independent and flush permits fresh
+// writes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use the nonblocking write interface and retrieve entries through
 // the inherited FIFO get interface.
 

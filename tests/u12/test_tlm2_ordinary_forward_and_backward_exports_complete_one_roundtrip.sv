@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_ordinary_forward_and_backward_exports_complete_one_roundtrip.expected
 */
+// What it checks:
+// Ordinary forward/backward exports preserve one transaction round trip.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.7.2 (UVM-TLM2-ORDINARY-EXPORT-ROUNDTRIP) gives the rule
+// above. Setup: Forward an IGNORE request, then explicitly initiate its
+// backward response. Expected: ACCEPTED then COMPLETED/END_RESP propagate with
+// one call each, exact handles, OK and annotation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Send an accepted request through the forward export and return a later
 // response through a separately connected backward export. Preserve shared
 // handles and annotations without relying on socket connection side effects.

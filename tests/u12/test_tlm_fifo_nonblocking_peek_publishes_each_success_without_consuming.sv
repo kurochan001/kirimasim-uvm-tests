@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_nonblocking_peek_publishes_each_success_without_consuming.expected
 */
+// What it checks:
+// 1. Nonblocking peek reports availability without consuming a successful head
+//    observation.
+// 2. Successful FIFO gets and peeks publish each observed transaction to all
+//    get-analysis subscribers.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.4.2.8 (UVM-FIFO-NONBLOCKING-PEEK) gives rule 1 above.
+//    Setup: Use empty queues and repeated peeks before a get. Expected: Empty
+//    peeks return 0; successful repeated peeks retain the same head and
+//    occupancy.
+// 2. 1800.2-2020 12.2.8.1.6 (UVM-FIFO-GET-PEEK-ANALYSIS) gives rule 2 above.
+//    Setup: Use blocking/nonblocking removal and repeated non-consuming
+//    observation, including empty calls. Expected: Every successful
+//    observation publishes, including peeks; failed empty calls publish
+//    nothing and handles are preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use two successful try_peek calls before a consuming try_get. The pinned
 // library omits the required peek notifications; preserve the standard count
 // without converting observations into removals.

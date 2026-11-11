@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_pack_does_not_serialize_source_extensions.expected
 */
+// What it checks:
+// Default generic-payload packing does not serialize its extensions.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.4.2.4 (UVM-GP-DEFAULT-PACK-EXCLUDES-EXTENSIONS) gives the
+// rule above. Setup: Pack a source with an extension whose pack/unpack hooks
+// are observable. Expected: Source binding is retained, hooks stay unused and
+// unpacking creates no destination extension.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Attach a source extension with observable pack hooks. Default payload
 // packing must not invoke those hooks or create an extension in the receiver.
 

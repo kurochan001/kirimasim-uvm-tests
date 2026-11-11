@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_nonblocking_transport_reuses_request_and_response_slots.expected
 */
+// What it checks:
+// Retiring accepted requests allows transport request/response storage to be
+// reused.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-TLM1-NB-TRANSPORT-REUSE) gives the rule above.
+// Setup: Send request 4, retire it, then send and retire request 9. Expected:
+// Both complete with reply_4/reply_9 and two responder calls.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Retire each accepted request before sending the next. Each response is
 // computed from that request during its accepted-write analysis callback.
 // No previous response or internal FIFO is used to manufacture completion.

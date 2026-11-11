@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nonblocking_socket_constructors_preserve_kind_bounds_and_parent.expected
 */
+// What it checks:
+// 1. The socket constructor retains its specified port role and one-to-one
+//    connection bounds.
+// 2. The socket constructor retains its specified port role and one-to-one
+//    connection bounds.
+// 3. The socket constructor retains its specified port role and one-to-one
+//    connection bounds.
+// 4. The socket constructor retains its specified port role and one-to-one
+//    connection bounds.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.5.3.3 (UVM-TLM2-NONBLOCKING-TARGET-CONSTRUCTOR) gives
+//    rule 1 above. Setup: Construct the socket under a compatible parent and
+//    query role, min/max sizes and parent. Expected: The expected
+//    implementation/port/export predicate is true, both bounds are one and
+//    parent identity matches.
+// 2. 1800.2-2020 12.3.5.4.3 (UVM-TLM2-NONBLOCKING-INITIATOR-CONSTRUCTOR) gives
+//    rule 2 above. Setup: Construct the socket under a compatible parent and
+//    query role, min/max sizes and parent. Expected: The expected
+//    implementation/port/export predicate is true, both bounds are one and
+//    parent identity matches.
+// 3. 1800.2-2020 12.3.5.6.3 (UVM-TLM2-NONBLOCKING-RELAY-TARGET-CONSTRUCTOR)
+//    gives rule 3 above. Setup: Construct the socket under a compatible parent
+//    and query role, min/max sizes and parent. Expected: The expected
+//    implementation/port/export predicate is true, both bounds are one and
+//    parent identity matches.
+// 4. 1800.2-2020 12.3.5.5.3 (UVM-TLM2-NONBLOCKING-RELAY-INITIATOR-CONSTRUCTOR)
+//    gives rule 4 above. Setup: Construct the socket under a compatible parent
+//    and query role, min/max sizes and parent. Expected: The expected
+//    implementation/port/export predicate is true, both bounds are one and
+//    parent identity matches.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Constructor metadata only, before binding resolution. Omitted IMP uses
 // a compatible parent; no transport execution or backward binding is claimed.
 module test_tlm2_nonblocking_socket_constructors_preserve_kind_bounds_and_parent;

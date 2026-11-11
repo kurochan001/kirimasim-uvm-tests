@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_request_response_channel_analysis_ports_publish_accepted_writes.expected
 */
+// What it checks:
+// 1. Accepted request writes are broadcast through the channel request
+//    analysis port.
+// 2. Accepted response writes are broadcast through the channel response
+//    analysis port.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.9.1.7 (UVM-TLM1-CHANNEL-REQUEST-ANALYSIS-NOTIFICATION)
+//    gives rule 1 above. Setup: Connect a typed monitor and accept request
+//    values 11 then 22. Expected: The request monitor receives exactly two
+//    ordered notifications with those values.
+// 2. 1800.2-2020 12.2.9.1.8 (UVM-TLM1-CHANNEL-RESPONSE-ANALYSIS-NOTIFICATION)
+//    gives rule 2 above. Setup: Connect a typed monitor and accept done1 then
+//    done2. Expected: The response monitor receives exactly two ordered
+//    notifications with those values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Connect separate typed analysis FIFO monitors. Inspect each monitor
 // after write completion, without depending on subscriber call order.
 

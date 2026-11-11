@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_blocking_socket_relays_forward_custom_transactions_until_target_completion.expected
 */
+// What it checks:
+// 1. Under the declared blocking-interface interpretation, the selected relay
+//    forwards blocking calls until the target completes.
+// 2. Under the declared blocking-interface interpretation, the selected relay
+//    forwards blocking calls until the target completes.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.5.7 (UVM-TLM2-TYPES-BLOCKING-INITIATOR-RELAY-COMPLETION)
+//    gives rule 1 above. Setup: Reuse a custom transaction/delay through
+//    actual blocking initiator and target relays and an original delayed
+//    target. Expected: Two reused custom transactions return matching replies
+//    after the selected two-unit target delay.
+// 2. 1800.2-2020 12.3.5.8 (UVM-TLM2-TYPES-BLOCKING-TARGET-RELAY-COMPLETION)
+//    gives rule 2 above. Setup: Reuse a custom transaction/delay through
+//    actual blocking initiator and target relays and an original delayed
+//    target. Expected: Two reused custom transactions return matching replies
+//    after the selected two-unit target delay.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Operational blocking-path control using declared blocking IS-A interfaces.
 // Actual relays preserve custom handles and wait for the original target body.
 // This does not certify the conflicting printed nonblocking provider lists in

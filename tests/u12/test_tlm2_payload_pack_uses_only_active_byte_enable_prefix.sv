@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_pack_uses_only_active_byte_enable_prefix.expected
 */
+// What it checks:
+// Only the active byte-enable prefix is packed, preserving the following field
+// alignment.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.4.2.4 (UVM-TLM2-PAYLOAD-PACK-ENABLE-PREFIX) gives the rule
+// above. Setup: Declare two active enable bytes from a three-byte array and
+// round-trip the payload. Expected: Enable length two, bytes ff/00 and
+// streaming width one are returned.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Pack a two-byte enable pattern from a larger backing array. Check the
 // active enable values, length and a following field to expose misalignment.
 

@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_four_phase_socket_history_preserves_delayed_forward_and_backward_annotations.expected
 */
+// What it checks:
+// 1. Nonblocking socket routing preserves forward/backward calls and shared
+//    timing annotation across a four-phase history.
+// 2. The standard phase type supports request/response begin/end identities
+//    across selected forward/backward calls.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.2.2.1 (UVM-TLM2-FOUR-PHASE-FORWARDING) gives rule 1
+//    above. Setup: Drive BEGIN_REQ, END_REQ, BEGIN_RESP and END_RESP at
+//    successive times. Expected: Callbacks receive the supplied
+//    handles/phases, return accepted/completed status and retain accumulated
+//    annotation.
+// 2. 1800.2-2020 12.3.3.1 (UVM-TLM-DECL-TLM2-PHASE-ENUMERATION) gives rule 2
+//    above. Setup: Use unchanged real standard-interface fixtures with
+//    explicit selected enum states. Expected: The unchanged real socket
+//    history preserves all four selected named phases.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Testbench code drives selected protocol histories with positive delays.
 // Socket forwarding is checked; UVM is not required to invent a scheduler,
 // enforce every base-protocol rule or own outstanding-transaction state.

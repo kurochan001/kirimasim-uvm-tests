@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_blocking_transport_interface_forwards_distinct_value_types_and_delayed_completion.expected
 */
+// What it checks:
+// 1. Blocking transport forwards a request and returns its response after
+//    implementation completion.
+// 2. A selected bidirectional imp delegates request/response methods to its
+//    supplied component.
+// 3. The transport imp constructor binds its supplied implementation handle.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.4.2.10 (UVM-TLM1-REVIEW-BLOCKING-TRANSPORT-COMPLETION)
+//    gives rule 1 above. Setup: Invoke the actual bound port through its
+//    interface base, then reuse the typed port with a second request.
+//    Expected: Distinct packed values and the original two-unit delay reach
+//    the caller, with matching sequential responses.
+// 2. 1800.2-2020 12.2.7.2 (UVM-TLM1-REVIEW-BIDIRECTIONAL-IMP-DELEGATION) gives
+//    rule 2 above. Setup: Bind actual blocking/nonblocking ports to an
+//    original combined transport imp. Expected: The original component
+//    receives the request and its response/status/delay returns through the
+//    interface.
+// 3. 1800.2-2020 12.2.7.2.1
+//    (UVM-TLM1-REVIEW-TRANSPORT-IMP-CONSTRUCTOR-BINDING) gives rule 3 above.
+//    Setup: Construct a combined imp in an original target and connect an
+//    actual transport port. Expected: Observed target calls and values
+//    identify the selected implementation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A real blocking port and combined imp forward distinct packed
 // request/response
 // value types. The original backend defines its two-unit delay and arithmetic;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_transport_channel_waits_for_matching_response.expected
 */
+// What it checks:
+// Blocking transport returns its request response and supports subsequent
+// sequential transactions.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-TLM1-CHANNEL-BLOCKING-TRANSPORT-RESPONSE) gives
+// the rule above. Setup: Delay a single response, then run two sequential
+// request/response pairs. Expected: The caller remains blocked until the
+// response and sequential requests 11/22 return first/second respectively.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Keep shared values in the test object. The target waits a positive
 // delay before observing the blocked transport and returning its response.
 

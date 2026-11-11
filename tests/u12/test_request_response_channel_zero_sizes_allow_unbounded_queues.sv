@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_request_response_channel_zero_sizes_allow_unbounded_queues.expected
 */
+// What it checks:
+// A zero-sized request FIFO is unbounded.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.8.2.1 (UVM-TLM1-CHANNEL-ZERO-SIZED-REQUEST-FIFO) gives the
+// rule above. Setup: Configure both channel queues with size zero and accept
+// three requests before retrieval. Expected: Further request puts remain
+// possible and the first head is zero with more data available.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Write several entries to both queues before reading. Availability
 // remains true and the first values preserve their source order.
 

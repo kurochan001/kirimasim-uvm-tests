@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_pack_field_order_is_decodable_by_public_packer.expected
 */
+// What it checks:
+// Payload packing emits declared fields in their prescribed order.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.4.2.4 (UVM-TLM2-PAYLOAD-PACK-FIELD-ORDER) gives the rule
+// above. Setup: Pack an initialized WRITE payload and decode each field
+// through the public packer. Expected: Address, command, active data, DMI,
+// status, enables and streaming width decode to their supplied values in
+// order.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Call the payload pack hook directly so no object marker is involved.
 // Decode fields in their prescribed order with their declared widths.
 // The stream bits and byte-order representation are not inspected.

@@ -3,8 +3,12 @@ class tag112 extends uvm_tlm_extension#(tag112);
   `uvm_object_utils(tag112)
   int value=63;
   int unpack_calls=0;
-  function new(string name="tag112"); super.new(name); endfunction
-  virtual function void do_unpack(uvm_packer packer); unpack_calls++; endfunction
+  function new(string name="tag112");
+    super.new(name);
+  endfunction
+  virtual function void do_unpack(uvm_packer packer);
+    unpack_calls++;
+  endfunction
 endclass
 class observed112 extends uvm_tlm_generic_payload;
   bit capture=0;
@@ -12,10 +16,13 @@ class observed112 extends uvm_tlm_generic_payload;
   string first="";
   int calls[9];
   function new(string name="observed112");
-    super.new(name); reset_capture(0);
+    super.new(name);
+    reset_capture(0);
   endfunction
   function void reset_capture(bit enable);
-    capture=enable; seen=0; first="";
+    capture=enable;
+    seen=0;
+    first="";
     foreach(calls[i]) calls[i]=0;
   endfunction
   function void visit112(int index,string field_name);
@@ -23,36 +30,46 @@ class observed112 extends uvm_tlm_generic_payload;
       calls[index]++;
       if (!seen[index]) begin
         if (first.len()!=0) first={first," "};
-        first={first,field_name}; seen[index]=1;
+        first={first,field_name};
+        seen[index]=1;
       end
     end
   endfunction
   virtual function void set_address(bit [63:0] addr);
-    visit112(0,"address"); super.set_address(addr);
+    visit112(0,"address");
+    super.set_address(addr);
   endfunction
   virtual function void set_command(uvm_tlm_command_e command);
-    visit112(1,"command"); super.set_command(command);
+    visit112(1,"command");
+    super.set_command(command);
   endfunction
   virtual function void set_data_length(int unsigned length);
-    visit112(2,"length"); super.set_data_length(length);
+    visit112(2,"length");
+    super.set_data_length(length);
   endfunction
   virtual function void set_dmi_allowed(bit dmi);
-    visit112(3,"dmi"); super.set_dmi_allowed(dmi);
+    visit112(3,"dmi");
+    super.set_dmi_allowed(dmi);
   endfunction
   virtual function void set_data(ref byte unsigned p[]);
-    visit112(4,"data"); super.set_data(p);
+    visit112(4,"data");
+    super.set_data(p);
   endfunction
   virtual function void set_response_status(uvm_tlm_response_status_e status);
-    visit112(5,"response"); super.set_response_status(status);
+    visit112(5,"response");
+    super.set_response_status(status);
   endfunction
   virtual function void set_byte_enable_length(int unsigned length);
-    visit112(6,"enable_length"); super.set_byte_enable_length(length);
+    visit112(6,"enable_length");
+    super.set_byte_enable_length(length);
   endfunction
   virtual function void set_byte_enable(ref byte unsigned p[]);
-    visit112(7,"enables"); super.set_byte_enable(p);
+    visit112(7,"enables");
+    super.set_byte_enable(p);
   endfunction
   virtual function void set_streaming_width(int unsigned width);
-    visit112(8,"width"); super.set_streaming_width(width);
+    visit112(8,"width");
+    super.set_streaming_width(width);
   endfunction
 endclass
 function automatic bit [63:0] address112(int round);
@@ -64,9 +81,15 @@ endfunction
 function automatic uvm_tlm_response_status_e status112();
   return EMPTY112 ? UVM_TLM_BURST_ERROR_RESPONSE : UVM_TLM_ADDRESS_ERROR_RESPONSE;
 endfunction
-function automatic int unsigned length112(); return EMPTY112 ? 0 : 3; endfunction
-function automatic int unsigned mask_length112(); return EMPTY112 ? 0 : 2; endfunction
-function automatic int unsigned width112(); return EMPTY112 ? 0 : 2; endfunction
+function automatic int unsigned length112();
+  return EMPTY112 ? 0 : 3;
+endfunction
+function automatic int unsigned mask_length112();
+  return EMPTY112 ? 0 : 2;
+endfunction
+function automatic int unsigned width112();
+  return EMPTY112 ? 0 : 2;
+endfunction
 function automatic byte unsigned data112(int round,int index);
   return 8'h20+round+index;
 endfunction
@@ -106,19 +129,26 @@ task automatic exercise112();
   automatic byte unsigned sentinel_mask[]='{8'h00};
   uvm_packer packer;
   byte unsigned data[],enables[];
-  if (OBSERVE112) begin observer=new("target"); target=observer; end
+  if (OBSERVE112) begin
+    observer=new("target");
+    target=observer;
+  end
   else target=new("target");
   void'(target.set_extension(extension_value));
   for (int round=1;round<=2;round++) begin
     if (OBSERVE112) observer.reset_capture(1);
     // Deliberately reverse the nine direct calls to calibrate dispatch.
     target.set_streaming_width(19);
-    target.set_byte_enable(sentinel_mask); target.set_byte_enable_length(1);
+    target.set_byte_enable(sentinel_mask);
+    target.set_byte_enable_length(1);
     target.set_response_status(UVM_TLM_INCOMPLETE_RESPONSE);
-    target.set_data(sentinel_data); target.set_dmi_allowed(0);
-    target.set_data_length(1); target.set_command(UVM_TLM_READ_COMMAND);
+    target.set_data(sentinel_data);
+    target.set_dmi_allowed(0);
+    target.set_data_length(1);
+    target.set_command(UVM_TLM_READ_COMMAND);
     target.set_address(99);
-    target.get_data(data); target.get_byte_enable(enables);
+    target.get_data(data);
+    target.get_byte_enable(enables);
     $display("UT: round %0d setup values %0d",round,
              target.get_address()==99 && target.get_command()==UVM_TLM_READ_COMMAND &&
              target.get_data_length()==1 && !target.is_dmi_allowed() &&
@@ -133,7 +163,8 @@ task automatic exercise112();
     packer=stream112(round);
     target.do_unpack(packer);
     if (OBSERVE112) observer.capture=0;
-    target.get_data(data); target.get_byte_enable(enables);
+    target.get_data(data);
+    target.get_byte_enable(enables);
     $display("UT: round %0d scalars address %0d command %0d length %0d dmi %0d status %0d width %0d",
              round,target.get_address()==address112(round),target.get_command()==command112(),
              target.get_data_length()==length112(),target.is_dmi_allowed(),

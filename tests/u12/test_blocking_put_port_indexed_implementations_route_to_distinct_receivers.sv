@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_blocking_put_port_indexed_implementations_route_to_distinct_receivers.expected
 */
+// What it checks:
+// 1. Resolved port size counts the final implementation destinations.
+// 2. get_if returns the resolved implementation port at a valid index.
+// 3. Blocking puts through resolved interfaces deliver data to the selected
+//    implementation.
+// 4. A unidirectional imp delegates interface calls to its supplied
+//    implementation component.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.5.2.12 (UVM-PORT-RESOLVED-IMPLEMENTATION-COUNT) gives rule
+//    1 above. Setup: Connect directly to two implementations or reach them
+//    through one parent port. Expected: Size is two after elaboration,
+//    including the child port with only one direct parent connection.
+// 2. 1800.2-2020 5.5.2.16 (UVM-PORT-INDEXED-IMPLEMENTATION-HANDLES) gives rule
+//    2 above. Setup: Inspect both indexes only after resolution and invoke
+//    their supported methods. Expected: The two handles are distinct final
+//    implementations and methods reach their selected endpoints.
+// 3. 1800.2-2020 12.2.4.2.1 (UVM-TLM1-INDEXED-BLOCKING-PUT) gives rule 3
+//    above. Setup: Use a default call and explicit implementation calls with
+//    delayed receiver methods. Expected: The default reaches index zero,
+//    indexed values reach distinct receivers, and blocking return follows
+//    receiver work.
+// 4. 1800.2-2020 12.2.7.1 (UVM-TLM1-REVIEW-UNIDIRECTIONAL-IMP-DELEGATION)
+//    gives rule 4 above. Setup: Use unchanged actual blocking-put imps through
+//    default and indexed resolved interfaces. Expected: Each original receiver
+//    records only the values routed to its implementation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Access indexed implementations only after automatic binding resolution.
 // Handle membership determines expectations; provider index order is
 // unspecified.

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_blocking_transport_prequeued_response_still_enqueues_the_original_request.expected
 */
+// What it checks:
+// A prequeued reply does not suppress enqueueing the transport request.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-BLOCKING-TRANSPORT-PREQUEUED-REPLY) gives the
+// rule above. Setup: Queue reply 31, then transport request 11 and consume the
+// request FIFO. Expected: Transport returns the exact queued reply and the
+// request FIFO yields the exact request with value 11.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use typed blocking ports and public transport-channel interfaces.
 // Positive response delays establish wait/completion observations.
 // No same-channel overlapping callers or protocol-specific matching is claimed.

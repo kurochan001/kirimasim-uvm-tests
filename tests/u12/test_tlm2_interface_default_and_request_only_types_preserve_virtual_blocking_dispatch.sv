@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_interface_default_and_request_only_types_preserve_virtual_blocking_dispatch.expected
 */
+// What it checks:
+// 1. The omitted TLM 2 interface transaction type is the generic payload.
+// 2. The omitted TLM 2 phase type is uvm_tlm_phase_e even when only T changes.
+// 3. The TLM 2 base interface supports selected blocking and nonblocking
+//    transaction transport forms.
+// 4. The selected transport methods accept transaction and delay object
+//    handles.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.2.1 (UVM-TLM-DECL-TLM2-DEFAULT-T) gives rule 1 above.
+//    Setup: Call original default and T-only concrete TLM 2 interfaces through
+//    exact base views with real payload/delay handles. Expected: The exact
+//    generic-payload/phase base view retains identity and dispatches its
+//    blocking task.
+// 2. 1800.2-2020 12.3.2.1 (UVM-TLM-DECL-TLM2-DEFAULT-P) gives rule 2 above.
+//    Setup: Call original default and T-only concrete TLM 2 interfaces through
+//    exact base views with real payload/delay handles. Expected: Both default
+//    and custom-T instances fit exact standard-phase base views.
+// 3. 1800.2-2020 12.3.2 (UVM-TLM-DECL-TLM2-TRANSPORT-INTERFACE-FORMS) gives
+//    rule 3 above. Setup: Call original default/T-only blocking and custom-T/P
+//    nonblocking concrete interfaces through exact declared base views.
+//    Expected: Exact concrete base views accept the selected virtual method
+//    definitions and calls.
+// 4. 1800.2-2020 12.3.2.2 (UVM-TLM-DECL-TLM2-TRANSACTION-DELAY-HANDLES) gives
+//    rule 4 above. Setup: Call original default and T-only concrete TLM 2
+//    interfaces through exact base views with real payload/delay handles.
+//    Expected: Callee mutations and completion are observed through the
+//    original caller handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original concrete interface implementations check declared default types,
 // independent default phase type and virtual dispatch through exact base
 // views.

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_blocking_get_waits_until_put.expected
 */
+// What it checks:
+// Blocking get waits for an available transaction and consumes it.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.4.2.2 (UVM-FIFO-BLOCKING-GET) gives the rule above. Setup:
+// Start get on an empty FIFO, then put value 7 after a positive delay.
+// Expected: Get blocks initially, then returns 7 and leaves the FIFO empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Keep shared state in the test object. A producer waits a positive
 // delay before observing the blocked reader and providing one entry.
 

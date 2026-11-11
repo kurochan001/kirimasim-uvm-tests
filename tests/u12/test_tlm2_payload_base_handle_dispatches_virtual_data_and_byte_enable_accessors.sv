@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_base_handle_dispatches_virtual_data_and_byte_enable_accessors.expected
 */
+// What it checks:
+// 1. A base-typed generic-payload call to set_data dispatches to its derived
+//    override.
+// 2. A base-typed generic-payload call to get_data dispatches to its derived
+//    override.
+// 3. A base-typed generic-payload call to set_byte_enable dispatches to its
+//    derived override.
+// 4. A base-typed generic-payload call to get_byte_enable dispatches to its
+//    derived override.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-SET-DATA) gives rule 1
+//    above. Setup: A derived payload forwards to the standard implementation;
+//    counters are reset after construction and each selected public method is
+//    called once. Expected: The set_data override records one call and the
+//    selected values are preserved.
+// 2. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-GET-DATA) gives rule 2
+//    above. Setup: A derived payload forwards to the standard implementation;
+//    counters are reset after construction and each selected public method is
+//    called once. Expected: The get_data override records one call and the
+//    selected values are preserved.
+// 3. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-SET-BYTE-ENABLE) gives rule
+//    3 above. Setup: A derived payload forwards to the standard
+//    implementation; counters are reset after construction and each selected
+//    public method is called once. Expected: The set_byte_enable override
+//    records one call and the selected values are preserved.
+// 4. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-GET-BYTE-ENABLE) gives rule
+//    4 above. Setup: A derived payload forwards to the standard
+//    implementation; counters are reset after construction and each selected
+//    public method is called once. Expected: The get_byte_enable override
+//    records one call and the selected values are preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The derived methods forward to standard array accessors.
 // Array lengths, packing and streaming transfers are separate obligations.
 module test_tlm2_payload_base_handle_dispatches_virtual_data_and_byte_enable_accessors;

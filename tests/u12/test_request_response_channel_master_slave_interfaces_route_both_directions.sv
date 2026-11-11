@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_request_response_channel_master_slave_interfaces_route_both_directions.expected
 */
+// What it checks:
+// 1. The channel master interface puts requests and retrieves responses from
+//    their respective queues.
+// 2. The channel slave interface reads or peeks requests and puts responses in
+//    their respective queues.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.9.1.9 (UVM-TLM1-CHANNEL-MASTER-DIRECTION-ROUTING) gives
+//    rule 1 above. Setup: Use combined ports with nonblocking traffic and
+//    blocked request-put/response-get calls. Expected: Values reach the
+//    correct typed direction and opposite traffic does not satisfy a pending
+//    response get.
+// 2. 1800.2-2020 12.2.9.1.10 (UVM-TLM1-CHANNEL-SLAVE-DIRECTION-ROUTING) gives
+//    rule 2 above. Setup: Use combined ports with a blocked response put or
+//    request peek. Expected: Values and blocking behavior remain
+//    direction-local; response writes do not release a request peeker.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Connect combined nonblocking ports and observe both typed directions.
 // Peek calls retain the same value for the following consuming get.
 

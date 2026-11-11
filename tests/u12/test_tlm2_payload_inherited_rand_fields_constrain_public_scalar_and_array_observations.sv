@@ -12,6 +12,61 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_inherited_rand_fields_constrain_public_scalar_and_array_observations.expected
 */
+// What it checks:
+// 1. The payload exposes an inherited 64-bit rand address for constraints.
+// 2. The payload command member can be constrained as a rand command
+//    enumeration.
+// 3. The payload data is an inherited rand unsigned-byte array.
+// 4. The payload transfer length is an inherited rand unsigned integer.
+// 5. The payload response member can be constrained as a rand status
+//    enumeration.
+// 6. The byte-enable member is an inherited rand unsigned-byte array.
+// 7. The byte-enable length is an inherited rand unsigned integer.
+// 8. The streaming-width member is an inherited rand unsigned integer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.2.7 (UVM-TLM-DECL-PAYLOAD-RAND-ADDRESS) gives rule 1
+//    above. Setup: Randomize an original derived payload with every observed
+//    inherited rand member fixed by constraints; read real base accessors.
+//    Expected: The constrained high-bit address is observed exactly through
+//    the base getter.
+// 2. 1800.2-2020 12.3.4.2.8 (UVM-TLM-DECL-PAYLOAD-RAND-COMMAND) gives rule 2
+//    above. Setup: Randomize an original derived payload with every observed
+//    inherited rand member fixed by constraints; read real base accessors.
+//    Expected: The constrained WRITE command is observed through the actual
+//    predicate.
+// 3. 1800.2-2020 12.3.4.2.9 (UVM-TLM-DECL-PAYLOAD-RAND-DATA) gives rule 3
+//    above. Setup: Randomize an original derived payload with every observed
+//    inherited rand member fixed by constraints; read real base accessors.
+//    Expected: The selected three bytes are observed as unsigned 165, zero and
+//    255.
+// 4. 1800.2-2020 12.3.4.2.10 (UVM-TLM-DECL-PAYLOAD-RAND-LENGTH) gives rule 4
+//    above. Setup: Randomize an original derived payload with every observed
+//    inherited rand member fixed by constraints; read real base accessors.
+//    Expected: The constrained three-byte length is observed with a
+//    matching-size data array.
+// 5. 1800.2-2020 12.3.4.2.11 (UVM-TLM-DECL-PAYLOAD-RAND-STATUS) gives rule 5
+//    above. Setup: Randomize an original derived payload with every observed
+//    inherited rand member fixed by constraints; read real base accessors.
+//    Expected: The selected incomplete status is observed through the real
+//    base getter.
+// 6. 1800.2-2020 12.3.4.2.12 (UVM-TLM-DECL-PAYLOAD-RAND-BYTE-ENABLE) gives
+//    rule 6 above. Setup: Randomize an original derived payload with every
+//    observed inherited rand member fixed by constraints; read real base
+//    accessors. Expected: The selected two-element mask is observed as
+//    unsigned 255 and zero.
+// 7. 1800.2-2020 12.3.4.2.13 (UVM-TLM-DECL-PAYLOAD-RAND-ENABLE-LENGTH) gives
+//    rule 7 above. Setup: Randomize an original derived payload with every
+//    observed inherited rand member fixed by constraints; read real base
+//    accessors. Expected: The constrained value two is observed with a
+//    matching-size enable array.
+// 8. 1800.2-2020 12.3.4.2.14 (UVM-TLM-DECL-PAYLOAD-RAND-STREAM-WIDTH) gives
+//    rule 8 above. Setup: Randomize an original derived payload with every
+//    observed inherited rand member fixed by constraints; read real base
+//    accessors. Expected: The selected two-byte width is returned by the
+//    actual base getter.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Constrain inherited rand members only within an original derived constraint,
 // then observe through real base accessors. Every reported value is
 // constrained,

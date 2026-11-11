@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_analysis_fifo_export_accepts_bound_port_and_interface_view_writes_in_order.expected
 */
+// What it checks:
+// The analysis FIFO export accepts writes from connected ports and its public
+// interface.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.8.3.1 (UVM-TLM1-REVIEW-ANALYSIS-FIFO-EXPORT-WRITE) gives
+// the rule above. Setup: Write thirteen via a bound analysis port and
+// forty-one via the export interface view. Expected: Both writes complete
+// without time advance and are retrieved in arrival order.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Actual analysis and get ports bind the FIFO; a public interface view invokes
 // the same write interface directly. Writes are nonblocking and preserve
 // arrival

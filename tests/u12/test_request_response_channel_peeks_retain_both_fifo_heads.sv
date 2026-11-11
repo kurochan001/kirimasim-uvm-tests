@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_request_response_channel_peeks_retain_both_fifo_heads.expected
 */
+// What it checks:
+// 1. Repeated response peeks retain the response head until a get consumes it.
+// 2. Repeated request peeks retain the request head until a get consumes it.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.9.1.4 (UVM-TLM1-CHANNEL-RESPONSE-PEEK-RETENTION) gives
+//    rule 1 above. Setup: Peek a response twice then retrieve it. Expected:
+//    Both peeks and get return ok and the response queue becomes empty only
+//    after get.
+// 2. 1800.2-2020 12.2.9.1.5 (UVM-TLM1-CHANNEL-REQUEST-PEEK-RETENTION) gives
+//    rule 2 above. Setup: Peek request 7 twice then retrieve it. Expected:
+//    Both peeks and get return 7 and request availability persists through
+//    peeks.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe repeated peeks on both typed interfaces and compare the
 // following get values. No internal FIFO handles are inspected.
 

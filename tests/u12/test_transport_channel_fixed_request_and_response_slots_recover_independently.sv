@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_transport_channel_fixed_request_and_response_slots_recover_independently.expected
 */
+// What it checks:
+// 1. The coupled transport channel fixes its request FIFO size to one.
+// 2. The coupled transport channel fixes its response FIFO size to one.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.9.2 (UVM-TLM-DECL-TRANSPORT-FIXED-REQUEST-CAPACITY)
+//    gives rule 1 above. Setup: Use real channel exports with one accepted and
+//    one refused value in each direction, then consume each head
+//    independently. Expected: One entry fills the selected queue; refusal
+//    preserves its head and draining restores space independently.
+// 2. 1800.2-2020 12.2.9.2 (UVM-TLM-DECL-TRANSPORT-FIXED-RESPONSE-CAPACITY)
+//    gives rule 2 above. Setup: Use real channel exports with one accepted and
+//    one refused value in each direction, then consume each head
+//    independently. Expected: One entry fills the selected queue; refusal
+//    preserves its head and draining restores space independently.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Bind real public channel interfaces with omitted FIFO size arguments.
 // Both directions accept one entry, reject a second and recover independently.
 // No response pairing, arbitration winner or transport call is inferred.

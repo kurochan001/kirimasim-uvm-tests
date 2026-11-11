@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_nonblocking_put_port_indexed_capacity_and_rejection_are_endpoint_local.expected
 */
+// What it checks:
+// 1. Resolved port size counts the final implementation destinations.
+// 2. get_if returns the resolved implementation port at a valid index.
+// 3. Indexed can_put reflects the selected implementation capacity
+//    independently.
+// 4. A full indexed FIFO implementation rejects a nonblocking put without
+//    overwriting its queued value.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.5.2.12 (UVM-PORT-RESOLVED-IMPLEMENTATION-COUNT) gives rule
+//    1 above. Setup: Connect directly to two implementations or reach them
+//    through one parent port. Expected: Size is two after elaboration,
+//    including the child port with only one direct parent connection.
+// 2. 1800.2-2020 5.5.2.16 (UVM-PORT-INDEXED-IMPLEMENTATION-HANDLES) gives rule
+//    2 above. Setup: Inspect both indexes only after resolution and invoke
+//    their supported methods. Expected: The two handles are distinct final
+//    implementations and methods reach their selected endpoints.
+// 3. 1800.2-2020 12.2.4.2.5 (UVM-TLM1-INDEXED-PUT-CAPACITY) gives rule 3
+//    above. Setup: Use two one-entry FIFO implementations and fill each
+//    separately. Expected: Each is initially available and becomes unavailable
+//    only after its own accepted put.
+// 4. 1800.2-2020 12.2.4.2.4 (UVM-TLM1-INDEXED-PUT-REJECTION) gives rule 4
+//    above. Setup: Accept one distinct value per endpoint then attempt value
+//    99 while full. Expected: Rejected attempts return zero and later gets
+//    return the original selected values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Access indexed implementations only after automatic binding resolution.
 // Handle membership determines expectations; provider index order is
 // unspecified.

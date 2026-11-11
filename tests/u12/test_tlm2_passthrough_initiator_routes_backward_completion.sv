@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_passthrough_initiator_routes_backward_completion.expected
 */
+// What it checks:
+// Socket connect establishes backward routing through single and nested
+// passthrough relays.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.5.5.4 (UVM-TLM2-PASSTHROUGH-BACKWARD-COMPLETION) gives the
+// rule above. Setup: Accept a forward request, then issue the stored
+// transaction backward without waiting. Expected: Both paths preserve
+// handles/phases/annotations; one backward callback returns COMPLETED with
+// END_RESP and OK without advancing time.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use proper parent-port and child-export hierarchy and let socket
 // connect methods wire the backward path. Transfer one IGNORE payload
 // and one canonical delay handle; callbacks annotate time without

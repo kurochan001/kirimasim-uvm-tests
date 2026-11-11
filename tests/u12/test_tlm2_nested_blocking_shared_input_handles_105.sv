@@ -14,6 +14,24 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nested_blocking_shared_input_handles_105.expected
 */
+// What it checks:
+// The input object-handle forms of the TLM 2 transport methods retain caller
+// bindings when a callee rebinds its formal handles.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.2.2 (UVM-TLM2-TRANSPORT-INPUT-HANDLE-REBINDING-105) gives
+// the rule above. Setup: Call blocking, forward or backward transport through
+// a resolved ordinary port/two-export/imp route. Reenter the same port before
+// the outer call returns, using shared or distinct input objects and two
+// successive rounds. Mutate the supplied objects, rebind each endpoint formal
+// to independent replacements and mutate those replacements. Expected:
+// Original object mutations remain visible through the exact caller handles.
+// Formal rebinding and replacement mutations do not replace caller handles or
+// modify an unselected peer. The outer activation retains its own local
+// replacements across the nested call, and both rounds retain their
+// independently declared data and delay results.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two exports route outer and nested calls through the same resolved port.
 // Endpoint input-handle rebinding must retain the caller's original handles.
 // Shared/distinct objects expose aliasing and peer isolation independently.

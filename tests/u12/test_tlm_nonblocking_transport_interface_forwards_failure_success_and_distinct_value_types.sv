@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_nonblocking_transport_interface_forwards_failure_success_and_distinct_value_types.expected
 */
+// What it checks:
+// 1. Nonblocking transport returns zero immediately when the implementation
+//    cannot complete the operation.
+// 2. Nonblocking transport forwards a successful response without blocking.
+// 3. A selected bidirectional imp delegates request/response methods to its
+//    supplied component.
+// 4. The transport imp constructor binds its supplied implementation handle.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.4.2.11 (UVM-TLM1-REVIEW-NONBLOCKING-TRANSPORT-FAILURE)
+//    gives rule 1 above. Setup: Keep the original backend not ready and call
+//    the actual port interface. Expected: The request reaches the backend and
+//    false returns without time advance; failure data is uninspected.
+// 2. 1800.2-2020 12.2.4.2.11 (UVM-TLM1-REVIEW-NONBLOCKING-TRANSPORT-SUCCESS)
+//    gives rule 2 above. Setup: Make the original backend ready after a
+//    refused call and supply a new request. Expected: The selected
+//    response/status returns immediately and the second backend invocation is
+//    observed.
+// 3. 1800.2-2020 12.2.7.2 (UVM-TLM1-REVIEW-BIDIRECTIONAL-IMP-DELEGATION) gives
+//    rule 3 above. Setup: Bind actual blocking/nonblocking ports to an
+//    original combined transport imp. Expected: The original component
+//    receives the request and its response/status/delay returns through the
+//    interface.
+// 4. 1800.2-2020 12.2.7.2.1
+//    (UVM-TLM1-REVIEW-TRANSPORT-IMP-CONSTRUCTOR-BINDING) gives rule 4 above.
+//    Setup: Construct a combined imp in an original target and connect an
+//    actual transport port. Expected: Observed target calls and values
+//    identify the selected implementation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A real nonblocking port and combined imp forward explicit distinct request/
 // response types and original availability/status. Failure data is not
 // inspected.

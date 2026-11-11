@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nested_blocking_exports_return_an_error_then_reuse_the_same_transaction.expected
 */
+// What it checks:
+// 1. A completed blocking transaction carries its execution status and can be
+//    reused for a later call.
+// 2. Compatible blocking transport exports forward through nested exports to
+//    their implementation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.2.2.3 (UVM-TLM2-BLOCKING-ERROR-REUSE) gives rule 1
+//    above. Setup: Reuse one payload/delay after an address error, correct the
+//    address and retry through nested exports. Expected: Both calls block
+//    until target completion; error then OK status and cumulative annotation
+//    return on the original handles.
+// 2. 1800.2-2020 12.3.7.1 (UVM-TLM2-BLOCKING-NESTED-EXPORT-TYPES) gives rule 2
+//    above. Setup: Bind a port to outer/inner exports and an endpoint imp with
+//    generic or custom transaction type. Expected: Callee observations and
+//    completed caller results retain the original payload/delay identities
+//    across the chain.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The target rejects the first address, then accepts a corrected retry.
 // A blocking call returns no sync enum: status remains in the payload.
 

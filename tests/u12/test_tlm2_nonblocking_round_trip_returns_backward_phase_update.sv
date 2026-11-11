@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nonblocking_round_trip_returns_backward_phase_update.expected
 */
+// What it checks:
+// A forward-accepted transaction can complete through the bound backward
+// interface.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.2.2.1 (UVM-TLM2-NONBLOCKING-RETURN-PATH) gives the rule
+// above. Setup: Retain the request handles and issue one backward response.
+// Expected: Forward returns ACCEPTED; backward returns COMPLETED with
+// END_RESP, OK and one callback.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Perform one forward request and one backward response using public
 // ports and imps. The same payload and delay handles travel both paths.
 

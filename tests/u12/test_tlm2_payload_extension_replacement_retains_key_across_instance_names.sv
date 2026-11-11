@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_extension_replacement_retains_key_across_instance_names.expected
 */
+// What it checks:
+// 1. Polymorphic extension type handles identify a type rather than a named
+//    instance.
+// 2. Extension retrieval uses the type key and returns null when that type is
+//    absent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.4.4 (UVM-EXTENSION-POLYMORPHIC-TYPE-KEY) gives rule 1
+//    above. Setup: Compare same/different types, replace a named instance and
+//    clear through another same-type key. Expected: Same-type keys remain
+//    equal across instances/renames and different types remain distinct.
+// 2. 1800.2-2020 12.3.4.2.43 (UVM-GP-EXTENSION-KEYED-RETRIEVAL) gives rule 2
+//    above. Setup: Retrieve an installed/replaced type and another uninstalled
+//    type. Expected: The installed current handle is returned and the absent
+//    type yields null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Obtain a key from the original instance, replace it with another name,
 // and retrieve through that durable key. The returned prior handle is exact.
 

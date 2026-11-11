@@ -12,6 +12,46 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_base_handle_dispatches_virtual_address_and_command_accessors.expected
 */
+// What it checks:
+// 1. A base-typed generic-payload call to set_address dispatches to its
+//    derived override.
+// 2. A base-typed generic-payload call to get_address dispatches to its
+//    derived override.
+// 3. A base-typed generic-payload call to set_command dispatches to its
+//    derived override.
+// 4. A base-typed generic-payload call to get_command dispatches to its
+//    derived override.
+// 5. The public setter specifies the selected payload command.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-SET-ADDRESS) gives rule 1
+//    above. Setup: A derived payload forwards to the standard implementation;
+//    counters are reset after construction and each selected public method is
+//    called once. Expected: The set_address override records one call and the
+//    selected values are preserved.
+// 2. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-GET-ADDRESS) gives rule 2
+//    above. Setup: A derived payload forwards to the standard implementation;
+//    counters are reset after construction and each selected public method is
+//    called once. Expected: The get_address override records one call and the
+//    selected values are preserved.
+// 3. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-SET-COMMAND) gives rule 3
+//    above. Setup: A derived payload forwards to the standard implementation;
+//    counters are reset after construction and each selected public method is
+//    called once. Expected: The set_command override records one call and the
+//    selected values are preserved.
+// 4. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-GET-COMMAND) gives rule 4
+//    above. Setup: A derived payload forwards to the standard implementation;
+//    counters are reset after construction and each selected public method is
+//    called once. Expected: The get_command override records one call and the
+//    selected values are preserved.
+// 5. 1800.2-2020 12.3.4.2.17 (UVM-PAYLOAD-SET-COMMAND-EXPLICIT-UPDATE) gives
+//    rule 5 above. Setup: The existing accessor fixture selects IGNORE; the
+//    new base-typed virtual-accessor fixture explicitly selects WRITE and
+//    reads it back. Expected: IGNORE reads back with read/write predicates
+//    false; the new explicit WRITE call reads back as WRITE with the exact
+//    override argument.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Call the public API through a base-typed handle to the derived payload.
 // Counters are reset after construction; no bus target behavior is inferred.
 module test_tlm2_payload_base_handle_dispatches_virtual_address_and_command_accessors;

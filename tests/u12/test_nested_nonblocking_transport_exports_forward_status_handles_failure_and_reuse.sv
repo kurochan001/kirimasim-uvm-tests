@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_nested_nonblocking_transport_exports_forward_status_handles_failure_and_reuse.expected
 */
+// What it checks:
+// 1. Nested nonblocking exports propagate successful custom requests/responses
+//    across repeated calls.
+// 2. Nested nonblocking exports propagate a failing implementation completion
+//    status.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.6.2 (UVM-TLM1-NESTED-NONBLOCKING-EXPORT-CUSTOM-REUSE)
+//    gives rule 1 above. Setup: Send two distinct request objects, change the
+//    reply handle and reuse the path after one failed call. Expected: Success
+//    and exact handles propagate, the first reply remains intact and the
+//    reenabled call succeeds.
+// 2. 1800.2-2020 12.2.6.2 (UVM-TLM1-NESTED-NONBLOCKING-EXPORT-FAILURE) gives
+//    rule 2 above. Setup: Disable the endpoint for one call between successful
+//    calls. Expected: That call returns false and reaches the endpoint exactly
+//    once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_nested_nonblocking_transport_exports_forward_status_handles_failure_and_reuse;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

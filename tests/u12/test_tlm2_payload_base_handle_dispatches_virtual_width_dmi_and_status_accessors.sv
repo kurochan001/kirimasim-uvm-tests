@@ -12,6 +12,53 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_base_handle_dispatches_virtual_width_dmi_and_status_accessors.expected
 */
+// What it checks:
+// 1. A base-typed generic-payload call to set_streaming_width dispatches to
+//    its derived override.
+// 2. A base-typed generic-payload call to get_streaming_width dispatches to
+//    its derived override.
+// 3. A base-typed generic-payload call to set_dmi_allowed dispatches to its
+//    derived override.
+// 4. A base-typed generic-payload call to is_dmi_allowed dispatches to its
+//    derived override.
+// 5. A base-typed generic-payload call to set_response_status dispatches to
+//    its derived override.
+// 6. A base-typed generic-payload call to get_response_status dispatches to
+//    its derived override.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-SET-STREAMING-WIDTH) gives
+//    rule 1 above. Setup: A derived payload forwards to the standard
+//    implementation; counters are reset after construction and each selected
+//    public method is called once. Expected: The set_streaming_width override
+//    records one call and the selected values are preserved.
+// 2. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-GET-STREAMING-WIDTH) gives
+//    rule 2 above. Setup: A derived payload forwards to the standard
+//    implementation; counters are reset after construction and each selected
+//    public method is called once. Expected: The get_streaming_width override
+//    records one call and the selected values are preserved.
+// 3. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-SET-DMI-ALLOWED) gives rule
+//    3 above. Setup: A derived payload forwards to the standard
+//    implementation; counters are reset after construction and each selected
+//    public method is called once. Expected: The set_dmi_allowed override
+//    records one call and the selected values are preserved.
+// 4. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-IS-DMI-ALLOWED) gives rule 4
+//    above. Setup: A derived payload forwards to the standard implementation;
+//    counters are reset after construction and each selected public method is
+//    called once. Expected: The is_dmi_allowed override records one call and
+//    the selected values are preserved.
+// 5. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-SET-RESPONSE-STATUS) gives
+//    rule 5 above. Setup: A derived payload forwards to the standard
+//    implementation; counters are reset after construction and each selected
+//    public method is called once. Expected: The set_response_status override
+//    records one call and the selected values are preserved.
+// 6. 1800.2-2020 12.3.4.2.15 (UVM-PAYLOAD-VIRTUAL-GET-RESPONSE-STATUS) gives
+//    rule 6 above. Setup: A derived payload forwards to the standard
+//    implementation; counters are reset after construction and each selected
+//    public method is called once. Expected: The get_response_status override
+//    records one call and the selected values are preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Virtual-dispatch observations are separate from transport and DMI mappings.
 // Only direct public calls are counted after construction.
 module test_tlm2_payload_base_handle_dispatches_virtual_width_dmi_and_status_accessors;

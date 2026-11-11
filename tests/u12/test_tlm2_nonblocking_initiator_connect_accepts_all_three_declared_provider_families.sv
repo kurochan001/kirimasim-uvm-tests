@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nonblocking_initiator_connect_accepts_all_three_declared_provider_families.expected
 */
+// What it checks:
+// The nonblocking initiator connect accepts its target, initiator-relay and
+// target-relay provider families.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.5.4.4 (UVM-TLM2-TYPES-NONBLOCKING-INITIATOR-PROVIDERS)
+// gives the rule above. Setup: Before elaboration, call independent default
+// nonblocking initiator sockets with target, initiator-relay and target-relay
+// providers. Expected: Each selected compatible default provider connects
+// without an error before elaboration.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Before elaboration, invoke connect with each literal listed provider family.
 // No runtime transport or backward resolution is claimed. The selected legal
 // nonblocking defaults use matching generic payload and

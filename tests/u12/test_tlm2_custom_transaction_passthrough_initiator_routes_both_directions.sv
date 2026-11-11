@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_custom_transaction_passthrough_initiator_routes_both_directions.expected
 */
+// What it checks:
+// 1. A custom-typed pass-through initiator socket routes the forward call.
+// 2. Pass-through connect automatically wires the custom-transaction backward
+//    route.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.5.5.4 (UVM-TLM2-CUSTOM-INITIATOR-FORWARD-ROUTE) gives
+//    rule 1 above. Setup: Resolve normal hierarchy bindings and call BEGIN_REQ
+//    with one custom object. Expected: The endpoint receives the original
+//    handles/phase once, writes reply 42 and returns ACCEPTED.
+// 2. 1800.2-2020 12.3.5.5.4 (UVM-TLM2-CUSTOM-INITIATOR-BACKWARD-ROUTE) gives
+//    rule 2 above. Setup: Send BEGIN_RESP from the bound target after the
+//    accepted request. Expected: The original caller receives the original
+//    handles once; COMPLETED, END_RESP, completion and a 9 ns annotation
+//    return without waiting.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use a custom object transaction with the standard phase enumeration.
 // One pass-through node must also establish the automatic backward route.
 // This is an interface-routing probe, not a full timed base-protocol model.

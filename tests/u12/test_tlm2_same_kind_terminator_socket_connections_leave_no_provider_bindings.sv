@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings.expected
 */
+// What it checks:
+// 1. Under a no-binding interpretation, a initiator terminator cannot connect
+//    to another initiator terminator.
+// 2. Under a no-binding interpretation, a target terminator cannot connect to
+//    another target terminator.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.5 (UVM-TLM2-TYPES-SAME-KIND-INITIATOR-REJECTION) gives
+//    rule 1 above. Setup: Attempt same-kind terminator connects in blocking
+//    and nonblocking families, then query each direct provider list. Expected:
+//    Both selected blocking and nonblocking same-kind connects leave no direct
+//    provider binding.
+// 2. 1800.2-2020 12.3.5 (UVM-TLM2-TYPES-SAME-KIND-TARGET-REJECTION) gives rule
+//    2 above. Setup: Attempt same-kind terminator connects in blocking and
+//    nonblocking families, then query each direct provider list. Expected:
+//    Both selected blocking and nonblocking same-kind connects leave no direct
+//    provider binding.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Attempt same-kind terminator connects, then query direct provider entries.
 // This is a qualified no-binding interpretation of the general restriction.
 // The standard does not specify direct-list state after an invalid call.

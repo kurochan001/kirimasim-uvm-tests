@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_flush_releases_capacity_to_an_already_blocked_producer.expected
 */
+// What it checks:
+// Blocking put waits until storage can accept its transaction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.4.2.1 (UVM-FIFO-BLOCKING-PUT) gives the rule above. Setup:
+// Fill a one-entry FIFO, issue put, then remove the old entry after a delay.
+// Expected: Put stays blocked while full and completes with the new value
+// stored after space is freed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays establish waiting/completion states. No winner or fairness
 // is required between simultaneous consumers or observers.
 module test_tlm_fifo_flush_releases_capacity_to_an_already_blocked_producer;

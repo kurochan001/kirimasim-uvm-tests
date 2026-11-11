@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_time_absolute_units_convert_and_replace_value.expected
 */
+// What it checks:
+// Absolute time assignment replaces the old value and supports unit
+// conversion.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.6.2.9 (UVM-TLM-TIME-ABSOLUTE-CONVERSION-REPLACEMENT) gives the
+// rule above. Setup: Set 2.5 microseconds, query nanoseconds, then assign
+// seven nanoseconds. Expected: Queries return 2.5 microseconds/2500
+// nanoseconds, then seven nanoseconds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Set absolute time in microseconds and observe both microseconds and
 // nanoseconds. A later absolute assignment replaces the previous value.
 // Compare reals with a small relative tolerance, not formatting or bits.

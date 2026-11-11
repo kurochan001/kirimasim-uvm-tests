@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nonblocking_forward_export_propagates_updated_phase.expected
 */
+// What it checks:
+// Forward exports propagate the phase reference, handles, annotation and
+// returned status.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.7.2 (UVM-TLM2-FORWARD-EXPORT-PHASE-UPDATE) gives the rule
+// above. Setup: Connect an export to an implementation returning UPDATED.
+// Expected: Input/output phases, exact payload/delay and one callback with
+// updated annotation match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Bind a nonblocking port through an ordinary export to its implementation.
 // The implementation updates the phase by reference and annotates the same
 // delay object. No automatic socket backward connection is involved.

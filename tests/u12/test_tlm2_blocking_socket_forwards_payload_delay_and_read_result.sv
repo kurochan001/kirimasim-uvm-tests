@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_blocking_socket_forwards_payload_delay_and_read_result.expected
 */
+// What it checks:
+// Blocking sockets forward original transaction/delay handles and return the
+// completed read data.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.2.2.3 (UVM-TLM2-BLOCKING-SOCKET-READ) gives the rule above.
+// Setup: Execute one valid two-byte read through ordinary sockets. Expected:
+// Target sees both exact handles once; caller gets OK and bytes 01/80 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Initialize a valid two-byte read request and pass one delay object.
 // The target fills read data and sets response status before returning.
 

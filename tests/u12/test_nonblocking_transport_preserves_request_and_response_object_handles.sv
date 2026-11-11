@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_nonblocking_transport_preserves_request_and_response_object_handles.expected
 */
+// What it checks:
+// Transport preserves the supplied request handle and returns the generated
+// response handle.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-TLM1-NB-TRANSPORT-OBJECT-IDENTITY) gives the
+// rule above. Setup: Use an object request 41 and a distinct object reply 42
+// through public ports. Expected: Both exact handles and the retired request
+// identity match; completion and reply acceptance succeed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The analysis responder receives an object request, creates a distinct
 // reply and puts that handle through the response export. Compare typed
 // handle values and payloads, not policy-specific clone or copy behavior.

@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_unidirectional_port_defaults_preserve_integer_interface_and_constructor_metadata.expected
 */
+// What it checks:
+// 1. The selected unidirectional port families default T to int.
+// 2. The regular unidirectional port minimum defaults to one.
+// 3. The regular unidirectional port maximum defaults to one.
+// 4. Regular unidirectional port construction retains its selected name and
+//    parent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.2.3 (UVM-TLM1-REVIEW-UNIDIRECTIONAL-PORT-DEFAULT-T)
+//    gives rule 1 above. Setup: Construct twelve regular put/get/peek
+//    combinations without a type argument. Expected: Each is compatible with
+//    the exact integer interface base.
+// 2. 1800.2-2020 12.2.5.1 (UVM-TLM1-REVIEW-UNIDIRECTIONAL-PORT-DEFAULT-MIN)
+//    gives rule 2 above. Setup: Inspect twelve selected regular port
+//    constructors before binding. Expected: Each minimum is one.
+// 3. 1800.2-2020 12.2.5.1 (UVM-TLM1-REVIEW-UNIDIRECTIONAL-PORT-DEFAULT-MAX)
+//    gives rule 3 above. Setup: Inspect twelve selected regular port
+//    constructors before binding. Expected: Each maximum is one.
+// 4. 1800.2-2020 12.2.5.1 (UVM-TLM1-REVIEW-UNIDIRECTIONAL-PORT-NAME-PARENT)
+//    gives rule 4 above. Setup: Supply unique names under an actual component
+//    owner. Expected: All selected names, parents and port roles match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Constructor/type inspection before binding resolution. Selected regular
 // port families use their declared default types and 1/1 bounds; analysis
 // ports

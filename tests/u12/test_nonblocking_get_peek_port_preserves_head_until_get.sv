@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_nonblocking_get_peek_port_preserves_head_until_get.expected
 */
+// What it checks:
+// Compatible nonblocking ports forward availability, acceptance and get/peek
+// results.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.5.1 (UVM-TLM1-BOUND-NONBLOCKING-PORT-TRANSFERS) gives the
+// rule above. Setup: Use a one-entry put FIFO and a two-entry get/peek FIFO.
+// Expected: A full put is rejected without replacement; successful peek/get
+// values and capacity transitions match their endpoint.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Peek the connected FIFO head before consuming it. Availability
 // queries become false after both queued entries have been removed.
 

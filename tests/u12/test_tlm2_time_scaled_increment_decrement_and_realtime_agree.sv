@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_time_scaled_increment_decrement_and_realtime_agree.expected
 */
+// What it checks:
+// Scaled increments, decrements and realtime queries represent consistent
+// canonical values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.6.2.6 (UVM-TLM-TIME-SCALED-ARITHMETIC) gives the rule above.
+// Setup: Use a legal 100-second scale, add two plus three units, then subtract
+// two. Expected: Canonical and realtime views agree at five then three units.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use 100 seconds as the scale literal, covering every legal time unit
 // without a zero-valued scale. Express inputs in caller units using that
 // literal and supply seconds explicitly. Values stay positive and exact

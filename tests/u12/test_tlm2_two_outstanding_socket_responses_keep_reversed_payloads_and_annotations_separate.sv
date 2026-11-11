@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_two_outstanding_socket_responses_keep_reversed_payloads_and_annotations_separate.expected
 */
+// What it checks:
+// Backward socket forwarding preserves separately supplied transaction
+// contexts when responses arrive in reverse order.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.2.2.2 (UVM-TLM2-REVERSED-RESPONSE-CONTEXT) gives the rule
+// above. Setup: End each request phase before issuing the next, then respond
+// to the second before the first. Expected: The observed response order is 42
+// then 17, while each payload status and delay remains independent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Testbench code drives selected protocol histories with positive delays.
 // Socket forwarding is checked; UVM is not required to invent a scheduler,
 // enforce every base-protocol rule or own outstanding-transaction state.

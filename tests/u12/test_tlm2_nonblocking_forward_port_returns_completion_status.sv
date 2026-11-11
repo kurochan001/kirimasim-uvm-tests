@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nonblocking_forward_port_returns_completion_status.expected
 */
+// What it checks:
+// A forward transport port propagates completion status and transaction
+// changes.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.2.2.1 (UVM-TLM2-FORWARD-PORT-COMPLETION) gives the rule
+// above. Setup: Send an IGNORE payload through a normal forward port.
+// Expected: Exact handles and BEGIN_REQ reach the target; COMPLETED, retained
+// phase and OK return.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use an IGNORE transaction with no data transfer. The target completes
 // the request in the function call; no timing annotation is interpreted.
 

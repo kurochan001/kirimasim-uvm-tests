@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_streaming_width_and_dmi_hint_are_independent.expected
 */
+// What it checks:
+// 1. The streaming-width getter returns the latest assigned local width.
+// 2. The DMI hint query reflects its assigned local enable bit.
+// 3. The public setter specifies the selected payload streaming width.
+// 4. The public setter specifies the selected payload DMI hint.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.2.28 (UVM-GP-STREAMING-WIDTH-CONTROL) gives rule 1
+//    above. Setup: Set widths two/four on separate payloads then change only
+//    the first to one. Expected: The first returns one while the second
+//    retains four.
+// 2. 1800.2-2020 12.3.4.2.35 (UVM-GP-DMI-HINT-CONTROL) gives rule 2 above.
+//    Setup: Enable the first payload, disable the second and later clear the
+//    first. Expected: Hint values reflect the local settings independently of
+//    streaming widths.
+// 3. 1800.2-2020 12.3.4.2.29 (UVM-PAYLOAD-SET-STREAMING-WIDTH-EXPLICIT-UPDATE)
+//    gives rule 3 above. Setup: An unchanged accessor fixture assigns explicit
+//    values and reads them back through public methods. Expected: Widths
+//    two/four and the subsequent one/four update are retained independently.
+// 4. 1800.2-2020 12.3.4.2.34 (UVM-PAYLOAD-SET-DMI-HINT-EXPLICIT-UPDATE) gives
+//    rule 4 above. Setup: An unchanged accessor fixture assigns explicit
+//    values and reads them back through public methods. Expected: The first
+//    hint is one, the peer hint zero, and disabling the first preserves the
+//    peer width.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect the configured fields on two payload instances. This case
 // does not execute streaming accesses or grant a DMI mapping.
 

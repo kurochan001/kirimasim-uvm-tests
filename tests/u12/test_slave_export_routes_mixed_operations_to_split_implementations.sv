@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_slave_export_routes_mixed_operations_to_split_implementations.expected
 */
+// What it checks:
+// 1. A slave interface delegates request reads and response writes to the
+//    selected implementations.
+// 2. A slave export preserves request-read and response-write direction with
+//    distinct REQ/RSP types.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.7.2.2 (UVM-TLM1-SPLIT-SLAVE-MIXED) gives rule 1 above.
+//    Setup: Read/peek requests 51/52 and write alpha/beta through a direct imp
+//    or export. Expected: Peek retains request 52; both response writes
+//    succeed, storage is reusable and request storage ends empty.
+// 2. 1800.2-2020 12.2.6.2 (UVM-TLM1-SLAVE-EXPORT-MIXED-TYPED-DIRECTION) gives
+//    rule 2 above. Setup: Use the existing int-request/string-response mixed
+//    slave fixture through its export. Expected: Requests 51/52 and alpha/beta
+//    replies retain their direction, peek data and completion bits.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Mix request reads and response writes on one slave interface. Verify
 // peek retention and independent storage reuse through sibling implementations
 // and an intervening export.

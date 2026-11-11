@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_blocking_export_routes_distinct_payloads_on_repeated_calls.expected
 */
+// What it checks:
+// Repeated blocking-export calls route each supplied transaction
+// independently.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.7.1 (UVM-TLM2-BLOCKING-EXPORT-REPEATED) gives the rule
+// above. Setup: Send distinct payloads at addresses 101/202 and reuse the
+// delay handle. Expected: Two calls see ordered addresses, the final exact
+// payload, both OK and accumulated annotation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Send two payloads through one export and reuse the delay handle. Observe
 // ordered addresses, the final payload identity and accumulated annotation.
 

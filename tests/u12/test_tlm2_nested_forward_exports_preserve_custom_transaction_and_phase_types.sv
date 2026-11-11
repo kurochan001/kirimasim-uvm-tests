@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nested_forward_exports_preserve_custom_transaction_and_phase_types.expected
 */
+// What it checks:
+// Nested forward exports preserve custom transaction and phase
+// specializations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.7.2 (UVM-TLM2-CUSTOM-FORWARD-EXPORT-TYPES) gives the rule
+// above. Setup: Send a custom value-nine message through two exports and
+// update it to thirteen. Expected: One call returns UPDATED, the custom output
+// phase, exact handles and the updated annotation/value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use a custom transaction and phase enum through two hierarchical
 // exports. Observe the typed reference update and handle identity; this is
 // a generic transport binding check, not a base-protocol phase sequence.

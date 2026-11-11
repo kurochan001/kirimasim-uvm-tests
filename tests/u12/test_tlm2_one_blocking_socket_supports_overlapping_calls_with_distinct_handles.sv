@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_one_blocking_socket_supports_overlapping_calls_with_distinct_handles.expected
 */
+// What it checks:
+// 1. Each blocking transport call retains its own arguments and returns after
+//    its callee completes.
+// 2. Blocking socket connections forward to their connected target without
+//    mixing independent channels.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.2.2.3 (UVM-TLM2-BLOCKING-OVERLAPPING-CALLS) gives rule 1
+//    above. Setup: Overlap a longer and a shorter target task with distinct
+//    payload/delay handles. Expected: Both calls initially block; the shorter
+//    returns first and each receives its own status, mutation and annotation.
+// 2. 1800.2-2020 12.3.5.2.4 (UVM-TLM2-BLOCKING-SOCKET-CHANNELS) gives rule 2
+//    above. Setup: Exercise two concurrent calls through one socket and
+//    through two separately bound socket pairs. Expected: Exactly two calls
+//    reach the intended handles; separate targets produce their own address
+//    and annotation changes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Target waits deliberately overlap; the endpoint chooses response order.
 // Distinct payload/delay objects avoid shared-transaction races. No bus is
 // modeled.

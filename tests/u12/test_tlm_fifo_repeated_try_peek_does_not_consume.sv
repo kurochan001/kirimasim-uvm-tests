@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_repeated_try_peek_does_not_consume.expected
 */
+// What it checks:
+// Nonblocking peek reports availability without consuming a successful head
+// observation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.4.2.8 (UVM-FIFO-NONBLOCKING-PEEK) gives the rule above.
+// Setup: Use empty queues and repeated peeks before a get. Expected: Empty
+// peeks return 0; successful repeated peeks retain the same head and
+// occupancy.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Compare peeked values with the following get and inspect occupancy
 // before and after consumption.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_time_explicit_name_zero_and_base_alias.expected
 */
+// What it checks:
+// An explicitly named canonical delay starts at zero and retains alias
+// identity.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.6.2.1 (UVM-TLM-TIME-EXPLICIT-NAME-ZERO-ALIAS) gives the rule
+// above. Setup: Construct alpha with a positive resolution and assign its base
+// alias. Expected: Alias handles are identical, name is alpha and time is
+// zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Construct an explicitly named delay and assign it to the canonical
 // base type. Observe the zero value and handle identity, without any
 // assumption about the enclosing design time scale.

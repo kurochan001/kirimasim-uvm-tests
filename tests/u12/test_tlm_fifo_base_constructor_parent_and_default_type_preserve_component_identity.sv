@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_base_constructor_parent_and_default_type_preserve_component_identity.expected
 */
+// What it checks:
+// 1. The FIFO base defaults its stored transaction type to int.
+// 2. The FIFO base derives from the component base.
+// 3. The FIFO-base constructor permits an omitted parent for static use.
+// 4. FIFO-base construction associates the supplied component name and parent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.8.1.1 (UVM-TLM1-REVIEW-FIFO-BASE-DEFAULT-TYPE) gives
+//    rule 1 above. Setup: Upcast a concrete default-base probe to the exact
+//    int specialization. Expected: The exact view retains identity.
+// 2. 1800.2-2020 12.2.8.1.1 (UVM-TLM1-REVIEW-FIFO-BASE-COMPONENT) gives rule 2
+//    above. Setup: Assign a named concrete FIFO-base child to a component
+//    handle. Expected: The component view retains identity.
+// 3. 1800.2-2020 12.2.8.1.7 (UVM-TLM1-REVIEW-FIFO-BASE-OMITTED-PARENT) gives
+//    rule 3 above. Setup: An original concrete subtype calls the base
+//    constructor with only its selected name. Expected: Construction succeeds
+//    and retains the selected local name.
+// 4. 1800.2-2020 12.2.8.1.7 (UVM-TLM1-REVIEW-FIFO-BASE-NAME-PARENT) gives rule
+//    4 above. Setup: Construct a concrete child under an actual owner
+//    component. Expected: Local/full name, parent and component identity
+//    match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Concrete original probes call the declared base constructor with an omitted
 // parent or an explicit actual component parent. Default T is checked through
 // an exact base view. No base default method algorithm, abstract construction,

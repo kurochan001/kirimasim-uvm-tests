@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_request_response_channel_preserves_typed_fifo_order.expected
 */
+// What it checks:
+// 1. The request export stores accepted requests in its configured FIFO.
+// 2. The response export stores accepted responses independently in its
+//    configured FIFO.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.9.1.3 (UVM-TLM1-CHANNEL-REQUEST-FIFO-ORDER) gives rule 1
+//    above. Setup: Queue two ordered int requests or fill a one-entry request
+//    queue. Expected: Reads preserve source order; a full queue rejects an
+//    extra request and retains its first value.
+// 2. 1800.2-2020 12.2.9.1.6 (UVM-TLM1-CHANNEL-RESPONSE-FIFO-ORDER) gives rule
+//    2 above. Setup: Queue two strings and try an extra response at capacity.
+//    Expected: Responses retain source order and rejection preserves the
+//    existing response head.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use only public exports through connected ports. Requests and
 // responses have different types and independently queued values.
 

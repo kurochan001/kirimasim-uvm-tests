@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_analysis_port_without_subscribers_accepts_write.expected
 */
+// What it checks:
+// The analysis port permits zero receivers with an unbounded maximum.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.10.1.3 (UVM-TLM1-ANALYSIS-ZERO-SUBSCRIBERS) gives the rule
+// above. Setup: Construct an unconnected analysis port and write after
+// elaboration. Expected: Bounds are zero/minimum zero/maximum minus one and
+// write returns without a new error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect the constructor-defined connection bounds after elaboration.
 // A write with no subscribers must return without a delivery error.
 

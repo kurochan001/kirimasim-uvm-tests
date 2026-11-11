@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_interface_custom_phase_reference_and_status_dispatch_in_both_directions.expected
 */
+// What it checks:
+// 1. The TLM 2 base interface supports selected blocking and nonblocking
+//    transaction transport forms.
+// 2. The TLM 2 interface accepts explicitly distinct custom transaction and
+//    phase types.
+// 3. The TLM 2 status type exposes accepted, updated and completed states.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.2 (UVM-TLM-DECL-TLM2-TRANSPORT-INTERFACE-FORMS) gives
+//    rule 1 above. Setup: Call original default/T-only blocking and custom-T/P
+//    nonblocking concrete interfaces through exact declared base views.
+//    Expected: Exact concrete base views accept the selected virtual method
+//    definitions and calls.
+// 2. 1800.2-2020 12.3.2.1 (UVM-TLM-DECL-TLM2-CUSTOM-T-P) gives rule 2 above.
+//    Setup: Call both original virtual directions through an exact custom
+//    transaction/phase interface, returning all three standard status types.
+//    Expected: The exact base dispatches both virtual functions and preserves
+//    reference phase changes.
+// 3. 1800.2-2020 12.3.3.2 (UVM-TLM-DECL-TLM2-SYNC-ENUMERATION) gives rule 3
+//    above. Setup: Call both original virtual directions through an exact
+//    custom transaction/phase interface, returning all three standard status
+//    types. Expected: All three named statuses are returned through the
+//    declared virtual interface functions.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit custom transaction/phase types exercise both declared virtual
 // paths,
 // reference phase mutation, shared object/delay handles and standard status

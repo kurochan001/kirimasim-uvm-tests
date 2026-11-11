@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_nonblocking_transport_channels_keep_immediate_responses_independent.expected
 */
+// What it checks:
+// Independent transport channels retain their own immediate responders and
+// requests.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-TLM1-NB-TRANSPORT-CHANNEL-ISOLATION) gives the
+// rule above. Setup: Send request one to two channels with different responder
+// offsets. Expected: Replies are reply_101/reply_201, each request is one and
+// each responder runs once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Connect two channels to distinct responders with different offsets.
 // Send the same request to both and inspect each response and request
 // through its own public interfaces.

@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_nonblocking_get_publishes_successes_and_omits_empty_reads.expected
 */
+// What it checks:
+// 1. Nonblocking get reports availability and consumes a transaction when
+//    successful.
+// 2. Successful FIFO gets and peeks publish each observed transaction to all
+//    get-analysis subscribers.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.4.2.6 (UVM-FIFO-NONBLOCKING-GET) gives rule 1 above.
+//    Setup: Use empty and populated FIFOs with interleaved calls. Expected:
+//    Unavailable gets return 0; successful gets return 1 and the expected next
+//    value.
+// 2. 1800.2-2020 12.2.8.1.6 (UVM-FIFO-GET-PEEK-ANALYSIS) gives rule 2 above.
+//    Setup: Use blocking/nonblocking removal and repeated non-consuming
+//    observation, including empty calls. Expected: Every successful
+//    observation publishes, including peeks; failed empty calls publish
+//    nothing and handles are preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Retrieve two available values and then try get and peek on the empty
 // FIFO. Failed-read output arguments are ignored; no transaction can be
 // published for either failed read.

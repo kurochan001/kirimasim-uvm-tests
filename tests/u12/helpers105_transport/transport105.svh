@@ -13,7 +13,9 @@ endfunction
 
 class message105 extends uvm_object;
   int value;
-  function new(string name); super.new(name); endfunction
+  function new(string name);
+    super.new(name);
+  endfunction
 endclass
 
 class context105;
@@ -22,8 +24,10 @@ class context105;
   phase105 outer_phase, inner_phase;
   int round_number;
   function new();
-    a = new("a"); b = new("b");
-    da = new("da", 1.0e-12); db = new("db", 1.0e-12);
+    a = new("a");
+    b = new("b");
+    da = new("da", 1.0e-12);
+    db = new("db", 1.0e-12);
     inner_value = SHARED105 ? a : b;
     inner_delay = SHARED105 ? da : db;
   endfunction
@@ -83,13 +87,15 @@ class endpoint105 extends uvm_component;
     automatic int level = depth;
     automatic bit incoming = phase == (level == 0 ? OUTER_BEGIN105 : INNER_BEGIN105);
     uvm_tlm_sync_e nested;
-    depth++; calls++;
+    depth++;
+    calls++;
     enter105(value, delay, level);
     phase = level == 0 ? OUTER_ACTIVE105 : INNER_DONE105;
     $display("UT: round %0d phase level %0d incoming %0d live %0d",
              state.round_number, level, incoming,
              phase == (level == 0 ? state.outer_phase : state.inner_phase));
-    value = shadow[level]; delay = shadow_delay[level];
+    value = shadow[level];
+    delay = shadow_delay[level];
     rebound105(value, delay, original, original_delay, level);
     if (level == 0) begin
       nested = invoke105(state.inner_value, state.inner_phase, state.inner_delay);
@@ -98,7 +104,8 @@ class endpoint105 extends uvm_component;
                nested == UVM_TLM_UPDATED, depth);
       $display("UT: round %0d resume_phase outer %0d inner %0d", state.round_number,
                phase == OUTER_ACTIVE105, state.inner_phase == INNER_DONE105);
-      original.value += 100; original_delay.set_abstime(17.0, 1.0e-9);
+      original.value += 100;
+      original_delay.set_abstime(17.0, 1.0e-9);
       phase = OUTER_DONE105;
       $display("UT: round %0d final_phase live %0d", state.round_number,
                state.outer_phase == OUTER_DONE105);
@@ -114,13 +121,15 @@ class endpoint105 extends uvm_component;
     automatic int level = depth;
     automatic bit incoming = phase == (level == 0 ? OUTER_BEGIN105 : INNER_BEGIN105);
     uvm_tlm_sync_e nested;
-    depth++; calls++;
+    depth++;
+    calls++;
     enter105(value, delay, level);
     phase = level == 0 ? OUTER_ACTIVE105 : INNER_DONE105;
     $display("UT: round %0d phase level %0d incoming %0d live %0d",
              state.round_number, level, incoming,
              phase == (level == 0 ? state.outer_phase : state.inner_phase));
-    value = shadow[level]; delay = shadow_delay[level];
+    value = shadow[level];
+    delay = shadow_delay[level];
     rebound105(value, delay, original, original_delay, level);
     if (level == 0) begin
       nested = invoke105(state.inner_value, state.inner_phase, state.inner_delay);
@@ -129,7 +138,8 @@ class endpoint105 extends uvm_component;
                nested == UVM_TLM_UPDATED, depth);
       $display("UT: round %0d resume_phase outer %0d inner %0d", state.round_number,
                phase == OUTER_ACTIVE105, state.inner_phase == INNER_DONE105);
-      original.value += 100; original_delay.set_abstime(17.0, 1.0e-9);
+      original.value += 100;
+      original_delay.set_abstime(17.0, 1.0e-9);
       phase = OUTER_DONE105;
       $display("UT: round %0d final_phase live %0d", state.round_number,
                state.outer_phase == OUTER_DONE105);
@@ -142,9 +152,11 @@ class endpoint105 extends uvm_component;
     automatic message105 original = value;
     automatic uvm_tlm_time original_delay = delay;
     automatic int level = depth;
-    depth++; calls++;
+    depth++;
+    calls++;
     enter105(value, delay, level);
-    value = shadow[level]; delay = shadow_delay[level];
+    value = shadow[level];
+    delay = shadow_delay[level];
     rebound105(value, delay, original, original_delay, level);
     if (level == 0) begin
       #1;
@@ -152,7 +164,8 @@ class endpoint105 extends uvm_component;
       $display("UT: round %0d resume outer_locals %0d depth %0d",
                state.round_number, value == shadow[0] && delay == shadow_delay[0], depth);
       #1;
-      original.value += 100; original_delay.set_abstime(17.0, 1.0e-9);
+      original.value += 100;
+      original_delay.set_abstime(17.0, 1.0e-9);
     end
     else #2;
     depth--;
@@ -178,19 +191,25 @@ class t extends uvm_test;
   uvm_tlm_nb_transport_bw_port#(message105, phase105) backward_port;
   relay105 outer, inner;
   endpoint105 target;
-  function new(string name, uvm_component parent); super.new(name, parent); endfunction
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    outer = new("outer", this); inner = new("inner", outer);
+    outer = new("outer", this);
+    inner = new("inner", outer);
     target = new("target", inner);
     if (KIND105 == 0) begin
-      blocking_port = new("blocking_port", this); target.blocking_port = blocking_port;
+      blocking_port = new("blocking_port", this);
+      target.blocking_port = blocking_port;
     end
     if (KIND105 == 1) begin
-      forward_port = new("forward_port", this); target.forward_port = forward_port;
+      forward_port = new("forward_port", this);
+      target.forward_port = forward_port;
     end
     if (KIND105 == 2) begin
-      backward_port = new("backward_port", this); target.backward_port = backward_port;
+      backward_port = new("backward_port", this);
+      target.backward_port = backward_port;
     end
   endfunction
   function void connect_phase(uvm_phase phase);
@@ -226,7 +245,8 @@ class t extends uvm_test;
       state.b.value = round_number == 0 ? 31 : 47;
       state.da.set_abstime(round_number == 0 ? 2.0 : 4.0, 1.0e-9);
       state.db.set_abstime(round_number == 0 ? 3.0 : 6.0, 1.0e-9);
-      state.outer_phase = OUTER_BEGIN105; state.inner_phase = INNER_BEGIN105;
+      state.outer_phase = OUTER_BEGIN105;
+      state.inner_phase = INNER_BEGIN105;
       before_time = $time;
       if (KIND105 == 0) blocking_port.b_transport(state.a, state.da);
       else if (KIND105 == 1)

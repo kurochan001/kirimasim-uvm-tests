@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_blocking_delay_annotation_updates_without_advancing_time.expected
 */
+// What it checks:
+// Mutating a transported delay object annotates time without requiring
+// simulation time to advance.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.9 (UVM-TLM2-DELAY-ANNOTATION-NO-SCHEDULED-WAIT) gives the
+// rule above. Setup: A normal socket target adds five nanoseconds to an
+// initial two without waiting. Expected: The same delay reports seven
+// nanoseconds, simulation time is unchanged and response is OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Pass one delay through normal blocking sockets. The target adds an
 // absolute annotation and completes an IGNORE transaction without waiting.
 // Observe the returned annotation, identity and unchanged simulation time.

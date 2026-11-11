@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_nonblocking_transport_combined_port_returns_analysis_generated_response.expected
 */
+// What it checks:
+// Nonblocking transport returns an immediately generated response through
+// either compatible port variant.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-TLM1-NB-TRANSPORT-IMMEDIATE-RESPONSE) gives the
+// rule above. Setup: An accepted request synchronously invokes an analysis
+// responder, then retire the request. Expected: Completion is true with
+// reply_42; request 42 is available exactly once and the one responder reply
+// is accepted.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Accepted request analysis synchronously invokes one responder, which
 // computes and returns a reply through the public response put port. The
 // request is retired through its public get export after transport returns.

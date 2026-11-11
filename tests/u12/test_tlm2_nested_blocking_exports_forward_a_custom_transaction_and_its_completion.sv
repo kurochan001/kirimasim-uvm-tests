@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nested_blocking_exports_forward_a_custom_transaction_and_its_completion.expected
 */
+// What it checks:
+// 1. Blocking transport permits a caller-selected transaction class and its
+//    caller-visible mutations.
+// 2. Compatible blocking transport exports forward through nested exports to
+//    their implementation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.2.2.3 (UVM-TLM2-BLOCKING-CUSTOM-TRANSACTION) gives rule
+//    1 above. Setup: Parameterize port, exports and imp with a custom object
+//    containing request, reply and status. Expected: The caller remains
+//    pending during target work, then sees success, reply 42 and the same
+//    delay handle.
+// 2. 1800.2-2020 12.3.7.1 (UVM-TLM2-BLOCKING-NESTED-EXPORT-TYPES) gives rule 2
+//    above. Setup: Bind a port to outer/inner exports and an endpoint imp with
+//    generic or custom transaction type. Expected: Callee observations and
+//    completed caller results retain the original payload/delay identities
+//    across the chain.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Custom fields/status belong to the transaction type, not generic payload.
 // The implementation supplies the work and wait; exports must forward both.
 

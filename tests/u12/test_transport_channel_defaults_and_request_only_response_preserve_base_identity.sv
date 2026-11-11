@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_transport_channel_defaults_and_request_only_response_preserve_base_identity.expected
 */
+// What it checks:
+// 1. The transport channel defaults REQ to int.
+// 2. The transport channel defaults RSP to REQ.
+// 3. The transport channel derives from its matching request/response channel.
+// 4. The transport constructor permits omitted parent for static use.
+// 5. The transport constructor retains its selected component name and parent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.9.2.1 (UVM-TLM-DECL-TRANSPORT-DEFAULT-REQ) gives rule 1
+//    above. Setup: Construct default and REQ-only transport channels,
+//    assigning exact request/response parent views and explicit parents.
+//    Expected: The exact int/int transport view retains identity.
+// 2. 1800.2-2020 12.2.9.2.1 (UVM-TLM-DECL-TRANSPORT-DEFAULT-RSP) gives rule 2
+//    above. Setup: Construct default and REQ-only transport channels,
+//    assigning exact request/response parent views and explicit parents.
+//    Expected: The REQ-only string channel fits the exact string/string parent
+//    view.
+// 3. 1800.2-2020 12.2.9.2.1 (UVM-TLM-DECL-TRANSPORT-CHANNEL-BASE) gives rule 3
+//    above. Setup: Construct default and REQ-only transport channels,
+//    assigning exact request/response parent views and explicit parents.
+//    Expected: REQ-only and distinct-type exact parent views retain channel
+//    identity.
+// 4. 1800.2-2020 12.2.9.2.3 (UVM-TLM-DECL-TRANSPORT-STATIC-PARENT) gives rule
+//    4 above. Setup: Construct default and REQ-only transport channels,
+//    assigning exact request/response parent views and explicit parents.
+//    Expected: Construction succeeds and the local name is retained.
+// 5. 1800.2-2020 12.2.9.2.3 (UVM-TLM-DECL-TRANSPORT-NAME-PARENT) gives rule 5
+//    above. Setup: Construct default and REQ-only transport channels,
+//    assigning exact request/response parent views and explicit parents.
+//    Expected: Explicit children retain names and actual parent identities.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The channel RSP default is REQ, unlike the regular port summary default.
 // Exact subtype/base assignments check defaults and explicit distinct types.
 // Constructor checks precede elaboration; transport behavior has separate

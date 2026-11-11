@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_updated_request_and_response_phases_survive_a_delayed_socket_round_trip.expected
 */
+// What it checks:
+// Nonblocking routing returns phase-reference updates and UPDATED results from
+// both directions.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.2.2.1 (UVM-TLM2-RETURNED-PHASE-UPDATES) gives the rule
+// above. Setup: Return END_REQ in the forward call and END_RESP in a later
+// backward response. Expected: Both phase updates reach the callers with the
+// original handles and correct accumulated annotation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Testbench code drives selected protocol histories with positive delays.
 // Socket forwarding is checked; UVM is not required to invent a scheduler,
 // enforce every base-protocol rule or own outstanding-transaction state.

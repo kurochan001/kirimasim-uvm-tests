@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_extension_type_handle_names_distinguish_different_types.expected
 */
+// What it checks:
+// The polymorphic type name identifies the extension type independently of the
+// instance name.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.4.4.5 (UVM-EXTENSION-POLYMORPHIC-TYPE-NAME) gives the rule
+// above. Setup: Rename an instance and compare two types given equal instance
+// names. Expected: Type names are nonempty, stable within a type and distinct
+// across these two types.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use identical instance names but distinct extension types. Compare
 // nonempty and distinct returned strings, not literal qualified type names.
 

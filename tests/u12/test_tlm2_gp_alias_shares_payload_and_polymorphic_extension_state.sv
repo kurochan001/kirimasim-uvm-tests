@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_gp_alias_shares_payload_and_polymorphic_extension_state.expected
 */
+// What it checks:
+// 1. Clearing all extensions removes that payload bindings without affecting a
+//    different payload.
+// 2. The short payload typedef is the same type as the canonical generic
+//    payload.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.4.2.46 (UVM-GP-ALL-EXTENSIONS-CLEAR) gives rule 1 above.
+//    Setup: Use two payloads and reinsert a retained extension after clearing
+//    one. Expected: The cleared set is empty, the peer remains bound and fresh
+//    insertion returns null.
+// 2. 1800.2-2020 12.3.4.3 (UVM-GP-TYPEDEF-ALIAS-IDENTITY) gives rule 2 above.
+//    Setup: Assign an alias handle to the canonical type and mutate extensions
+//    through each. Expected: Both handles identify the same object and observe
+//    the same extension set.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Assign the short payload alias to the canonical type and mutate bindings
 // through both handles. Observe identity and the same polymorphic type key.
 

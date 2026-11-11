@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_nested_blocking_transport_exports_preserve_custom_handles_and_block_until_return.expected
 */
+// What it checks:
+// Nested blocking exports preserve custom handle delivery and keep the caller
+// blocked until implementation return.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.6.2 (UVM-TLM1-NESTED-BLOCKING-EXPORT-CUSTOM-HANDLES) gives
+// the rule above. Setup: Route a custom request through two exports to a
+// delayed implementation returning a separate response object. Expected: The
+// mid-delay caller is blocked; one call returns the exact response and
+// observes the exact request/value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_nested_blocking_transport_exports_preserve_custom_handles_and_block_until_return;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

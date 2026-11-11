@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_blocking_export_preserves_handles_and_waits_for_implementation_return.expected
 */
+// What it checks:
+// A blocking export forwards handles and keeps its caller blocked until
+// implementation return.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.7.1 (UVM-TLM2-BLOCKING-EXPORT-WAITS) gives the rule above.
+// Setup: Call through an export into an implementation with a positive delay.
+// Expected: Caller remains blocked during the delay; one call returns exact
+// handles, OK and updated annotation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Bind a normal port through an export to an implementation with a positive
 // delay. Observe the caller still blocked during that delay and inspect the
 // returned payload status and canonical annotation.

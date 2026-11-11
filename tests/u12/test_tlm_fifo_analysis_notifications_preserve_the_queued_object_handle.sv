@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_fifo_analysis_notifications_preserve_the_queued_object_handle.expected
 */
+// What it checks:
+// 1. Accepted FIFO puts publish the transaction to every connected
+//    put-analysis subscriber.
+// 2. Successful FIFO gets and peeks publish each observed transaction to all
+//    get-analysis subscribers.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.8.1.5 (UVM-FIFO-PUT-ANALYSIS) gives rule 1 above. Setup:
+//    Use blocking/nonblocking puts, a full rejection, availability-only
+//    queries and class handles. Expected: All subscribers see accepted
+//    values/handles only; failed puts and availability queries add no
+//    transactions.
+// 2. 1800.2-2020 12.2.8.1.6 (UVM-FIFO-GET-PEEK-ANALYSIS) gives rule 2 above.
+//    Setup: Use blocking/nonblocking removal and repeated non-consuming
+//    observation, including empty calls. Expected: Every successful
+//    observation publishes, including peeks; failed empty calls publish
+//    nothing and handles are preserved.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe a class transaction on both FIFO analysis ports and at the
 // reader. Compare handles and data without requiring an implicit clone
 // or an analysis-subscriber invocation order.

@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_master_export_routes_mixed_operations_to_split_implementations.expected
 */
+// What it checks:
+// 1. A master interface delegates request and response methods to its distinct
+//    configured implementations.
+// 2. A master export preserves request-write and response-read direction with
+//    distinct REQ/RSP types.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.7.2.2 (UVM-TLM1-SPLIT-MASTER-MIXED) gives rule 1 above.
+//    Setup: Mix blocking/nonblocking writes and response peek/get through a
+//    direct imp or intervening export. Expected: Requests are 41/42; responses
+//    remain alpha/beta with retained peek data, reusable request storage and
+//    empty response storage.
+// 2. 1800.2-2020 12.2.6.2 (UVM-TLM1-MASTER-EXPORT-MIXED-TYPED-DIRECTION) gives
+//    rule 2 above. Setup: Use the existing int-request/string-response mixed
+//    blocking/nonblocking fixture through an export. Expected: Requests 41/42
+//    and alpha/beta responses reach the selected split implementations with
+//    peek retention and reuse.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Mix blocking and nonblocking methods on one master interface. Verify
 // request/response routing and storage reuse through the configured sibling
 // implementations and an intervening export.

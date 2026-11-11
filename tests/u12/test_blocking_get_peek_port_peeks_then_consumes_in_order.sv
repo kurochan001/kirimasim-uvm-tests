@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_blocking_get_peek_port_peeks_then_consumes_in_order.expected
 */
+// What it checks:
+// Compatible blocking port variants forward their supported put/get/peek
+// methods.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.5.1 (UVM-TLM1-BOUND-BLOCKING-PORT-TRANSFERS) gives the rule
+// above. Setup: Bind put or combined get/peek ports to two-entry FIFOs.
+// Expected: Puts retain 13/29, peeks retain 11 without consuming and gets
+// drain 11/22.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Provide both entries before the blocking calls. Two peeks retain
 // the head and occupancy; successive gets consume both entries.
 

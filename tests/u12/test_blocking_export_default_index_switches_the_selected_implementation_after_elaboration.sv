@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_blocking_export_default_index_switches_the_selected_implementation_after_elaboration.expected
 */
+// What it checks:
+// 1. A typed blocking export forwards an interface call to its resolved
+//    implementation.
+// 2. An export without explicit selection uses implementation index zero.
+// 3. Changing an export default index after elaboration changes the invoked
+//    implementation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.6.1 (UVM-TLM1-EXPORT-TYPED-IMPLEMENTATION-FORWARDING)
+//    gives rule 1 above. Setup: Resolve one export to two distinct int sinks,
+//    identify indices by handles, then call default, index one and index zero.
+//    Expected: One completed call delivers value eleven to exactly the
+//    implementation at index zero.
+// 2. 1800.2-2020 5.5.2.13 (UVM-PORT-EXPORT-DEFAULT-INDEX-ZERO) gives rule 2
+//    above. Setup: Resolve one export to two distinct int sinks, identify
+//    indices by handles, then call default, index one and index zero.
+//    Expected: The first call is delivered exactly once to the handle obtained
+//    at index zero.
+// 3. 1800.2-2020 5.5.2.13 (UVM-PORT-EXPORT-DEFAULT-INDEX-RESELECTION) gives
+//    rule 3 above. Setup: Resolve one export to two distinct int sinks,
+//    identify indices by handles, then call default, index one and index zero.
+//    Expected: Index one receives twenty-two once, then index zero receives
+//    thirty-three on reuse; total calls reach three.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_blocking_export_default_index_switches_the_selected_implementation_after_elaboration;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

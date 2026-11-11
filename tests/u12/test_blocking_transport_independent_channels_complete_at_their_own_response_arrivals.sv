@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_blocking_transport_independent_channels_complete_at_their_own_response_arrivals.expected
 */
+// What it checks:
+// Independent transport channels complete according to their own reply
+// arrivals.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-BLOCKING-TRANSPORT-CHANNEL-INDEPENDENCE) gives
+// the rule above. Setup: Start two transports concurrently, replying after two
+// and four delay units. Expected: Only the first is complete at the
+// intermediate probe; both finish with 15/25 and exact handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use typed blocking ports and public transport-channel interfaces.
 // Positive response delays establish wait/completion observations.
 // No same-channel overlapping callers or protocol-specific matching is claimed.

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_payload_pack_rejects_short_data_array.expected
 */
+// What it checks:
+// Packing reports FATAL when a backing array is shorter than its declared
+// active length.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.4.2.4 (UVM-TLM2-PAYLOAD-PACK-SHORT-ARRAY-FATAL) gives the
+// rule above. Setup: Provide one data or enable byte while declaring two
+// active bytes. Expected: The catcher observes FATAL and ends the simulation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Declare more active bytes than the supplied data array holds.
 // Observe the required fatal severity and request finish in the catcher;
 // no behavior after a suppressed fatal or implementation message is assumed.

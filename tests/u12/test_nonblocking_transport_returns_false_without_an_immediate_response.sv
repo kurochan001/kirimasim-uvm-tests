@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_nonblocking_transport_returns_false_without_an_immediate_response.expected
 */
+// What it checks:
+// A nonblocking transport without an available immediate reply returns false.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.2.9.2.2 (UVM-TLM1-NB-TRANSPORT-NO-IMMEDIATE-REPLY) gives the
+// rule above. Setup: Disable the only responder before making the call.
+// Expected: The completion bit is zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Disable the only responder and call through a nonblocking transport
 // port. Observe the completion bit only: failed-call response arguments
 // and partial queue effects are not specified by this expectation.

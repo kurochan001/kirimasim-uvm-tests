@@ -12,6 +12,149 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types.expected
 */
+// What it checks:
+// 1. The selected nonblocking target socket exposes the forward implementation
+//    role.
+// 2. The nonblocking target socket defaults its transaction type to generic
+//    payload.
+// 3. The nonblocking target socket supports the selected explicit transaction
+//    type through its declared port base.
+// 4. The nonblocking socket phase parameter defaults independently to
+//    uvm_tlm_phase_e.
+// 5. The nonblocking socket supports an explicitly selected custom phase type.
+// 6. The selected nonblocking initiator socket exposes the forward port role.
+// 7. The nonblocking initiator socket defaults its transaction type to generic
+//    payload.
+// 8. The nonblocking initiator socket supports the selected explicit
+//    transaction type through its declared port base.
+// 9. The nonblocking socket phase parameter defaults independently to
+//    uvm_tlm_phase_e.
+// 10. The nonblocking socket supports an explicitly selected custom phase
+//     type.
+// 11. The selected nonblocking initiator relay socket exposes the forward port
+//     role.
+// 12. The nonblocking initiator relay socket defaults its transaction type to
+//     generic payload.
+// 13. The nonblocking initiator relay socket supports the selected explicit
+//     transaction type through its declared port base.
+// 14. The nonblocking socket phase parameter defaults independently to
+//     uvm_tlm_phase_e.
+// 15. The nonblocking socket supports an explicitly selected custom phase
+//     type.
+// 16. The selected nonblocking target relay socket exposes the forward export
+//     role.
+// 17. The nonblocking target relay socket defaults its transaction type to
+//     generic payload.
+// 18. The nonblocking target relay socket supports the selected explicit
+//     transaction type through its declared port base.
+// 19. The nonblocking socket phase parameter defaults independently to
+//     uvm_tlm_phase_e.
+// 20. The nonblocking socket supports an explicitly selected custom phase
+//     type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.5.3 (UVM-TLM2-TYPES-SOCKET-3-FORWARD-ROLE) gives rule 1
+//    above. Setup: Construct four selected nonblocking socket families with
+//    default T/P, custom T only and explicit custom T/P; inspect exact views
+//    before binding. Expected: The exact socket view reports its specified
+//    role with matching constructor metadata.
+// 2. 1800.2-2020 12.3.5.3.1 (UVM-TLM2-TYPES-SOCKET-3-DEFAULT-T) gives rule 2
+//    above. Setup: Construct four selected nonblocking socket families with
+//    default T/P, custom T only and explicit custom T/P; inspect exact views
+//    before binding. Expected: The default family fits the exact
+//    generic-payload/standard-phase base.
+// 3. 1800.2-2020 12.3.5.3.1 (UVM-TLM2-TYPES-SOCKET-3-CUSTOM-T-BASE) gives rule
+//    3 above. Setup: Construct four selected nonblocking socket families with
+//    default T/P, custom T only and explicit custom T/P; inspect exact views
+//    before binding. Expected: The explicit custom transaction view retains
+//    exact type compatibility and selected metadata.
+// 4. 1800.2-2020 12.3.5.3.1 (UVM-TLM2-TYPES-SOCKET-3-DEFAULT-P) gives rule 4
+//    above. Setup: Construct four selected nonblocking socket families with
+//    default T/P, custom T only and explicit custom T/P; inspect exact views
+//    before binding. Expected: Both default and T-only selections fit exact
+//    standard-phase views.
+// 5. 1800.2-2020 12.3.5.3.1 (UVM-TLM2-TYPES-SOCKET-3-CUSTOM-P) gives rule 5
+//    above. Setup: Construct four selected nonblocking socket families with
+//    default T/P, custom T only and explicit custom T/P; inspect exact views
+//    before binding. Expected: Exact custom transaction/phase base arguments
+//    accept all four selected socket families.
+// 6. 1800.2-2020 12.3.5.4 (UVM-TLM2-TYPES-SOCKET-4-FORWARD-ROLE) gives rule 6
+//    above. Setup: Construct four selected nonblocking socket families with
+//    default T/P, custom T only and explicit custom T/P; inspect exact views
+//    before binding. Expected: The exact socket view reports its specified
+//    role with matching constructor metadata.
+// 7. 1800.2-2020 12.3.5.4.1 (UVM-TLM2-TYPES-SOCKET-4-DEFAULT-T) gives rule 7
+//    above. Setup: Construct four selected nonblocking socket families with
+//    default T/P, custom T only and explicit custom T/P; inspect exact views
+//    before binding. Expected: The default family fits the exact
+//    generic-payload/standard-phase base.
+// 8. 1800.2-2020 12.3.5.4.1 (UVM-TLM2-TYPES-SOCKET-4-CUSTOM-T-BASE) gives rule
+//    8 above. Setup: Construct four selected nonblocking socket families with
+//    default T/P, custom T only and explicit custom T/P; inspect exact views
+//    before binding. Expected: The explicit custom transaction view retains
+//    exact type compatibility and selected metadata.
+// 9. 1800.2-2020 12.3.5.4.1 (UVM-TLM2-TYPES-SOCKET-4-DEFAULT-P) gives rule 9
+//    above. Setup: Construct four selected nonblocking socket families with
+//    default T/P, custom T only and explicit custom T/P; inspect exact views
+//    before binding. Expected: Both default and T-only selections fit exact
+//    standard-phase views.
+// 10. 1800.2-2020 12.3.5.4.1 (UVM-TLM2-TYPES-SOCKET-4-CUSTOM-P) gives rule 10
+//     above. Setup: Construct four selected nonblocking socket families with
+//     default T/P, custom T only and explicit custom T/P; inspect exact views
+//     before binding. Expected: Exact custom transaction/phase base arguments
+//     accept all four selected socket families.
+// 11. 1800.2-2020 12.3.5.5 (UVM-TLM2-TYPES-SOCKET-5-FORWARD-ROLE) gives rule
+//     11 above. Setup: Construct four selected nonblocking socket families
+//     with default T/P, custom T only and explicit custom T/P; inspect exact
+//     views before binding. Expected: The exact socket view reports its
+//     specified role with matching constructor metadata.
+// 12. 1800.2-2020 12.3.5.5.1 (UVM-TLM2-TYPES-SOCKET-5-DEFAULT-T) gives rule 12
+//     above. Setup: Construct four selected nonblocking socket families with
+//     default T/P, custom T only and explicit custom T/P; inspect exact views
+//     before binding. Expected: The default family fits the exact
+//     generic-payload/standard-phase base.
+// 13. 1800.2-2020 12.3.5.5.1 (UVM-TLM2-TYPES-SOCKET-5-CUSTOM-T-BASE) gives
+//     rule 13 above. Setup: Construct four selected nonblocking socket
+//     families with default T/P, custom T only and explicit custom T/P;
+//     inspect exact views before binding. Expected: The explicit custom
+//     transaction view retains exact type compatibility and selected metadata.
+// 14. 1800.2-2020 12.3.5.5.1 (UVM-TLM2-TYPES-SOCKET-5-DEFAULT-P) gives rule 14
+//     above. Setup: Construct four selected nonblocking socket families with
+//     default T/P, custom T only and explicit custom T/P; inspect exact views
+//     before binding. Expected: Both default and T-only selections fit exact
+//     standard-phase views.
+// 15. 1800.2-2020 12.3.5.5.1 (UVM-TLM2-TYPES-SOCKET-5-CUSTOM-P) gives rule 15
+//     above. Setup: Construct four selected nonblocking socket families with
+//     default T/P, custom T only and explicit custom T/P; inspect exact views
+//     before binding. Expected: Exact custom transaction/phase base arguments
+//     accept all four selected socket families.
+// 16. 1800.2-2020 12.3.5.6 (UVM-TLM2-TYPES-SOCKET-6-FORWARD-ROLE) gives rule
+//     16 above. Setup: Construct four selected nonblocking socket families
+//     with default T/P, custom T only and explicit custom T/P; inspect exact
+//     views before binding. Expected: The exact socket view reports its
+//     specified role with matching constructor metadata.
+// 17. 1800.2-2020 12.3.5.6.1 (UVM-TLM2-TYPES-SOCKET-6-DEFAULT-T) gives rule 17
+//     above. Setup: Construct four selected nonblocking socket families with
+//     default T/P, custom T only and explicit custom T/P; inspect exact views
+//     before binding. Expected: The default family fits the exact
+//     generic-payload/standard-phase base.
+// 18. 1800.2-2020 12.3.5.6.1 (UVM-TLM2-TYPES-SOCKET-6-CUSTOM-T-BASE) gives
+//     rule 18 above. Setup: Construct four selected nonblocking socket
+//     families with default T/P, custom T only and explicit custom T/P;
+//     inspect exact views before binding. Expected: The explicit custom
+//     transaction view retains exact type compatibility and selected metadata.
+// 19. 1800.2-2020 12.3.5.6.1 (UVM-TLM2-TYPES-SOCKET-6-DEFAULT-P) gives rule 19
+//     above. Setup: Construct four selected nonblocking socket families with
+//     default T/P, custom T only and explicit custom T/P; inspect exact views
+//     before binding. Expected: Both default and T-only selections fit exact
+//     standard-phase views.
+// 20. 1800.2-2020 12.3.5.6.1 (UVM-TLM2-TYPES-SOCKET-6-CUSTOM-P) gives rule 20
+//     above. Setup: Construct four selected nonblocking socket families with
+//     default T/P, custom T only and explicit custom T/P; inspect exact views
+//     before binding. Expected: Exact custom transaction/phase base arguments
+//     accept all four selected socket families.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Construct selected default and explicit typed sockets before resolution.
 // Exact interface-base arguments check declared T/P defaults and inheritance;
 // metadata checks select roles, bounds, names and actual parents. Terminator

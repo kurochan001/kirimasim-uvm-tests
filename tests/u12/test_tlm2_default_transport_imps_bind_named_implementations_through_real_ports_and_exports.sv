@@ -12,6 +12,71 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports.expected
 */
+// What it checks:
+// 1. The blocking imp defaults its transaction type to generic payload when
+//    only IMP is selected.
+// 2. The blocking imp delegates its selected transport method to the supplied
+//    implementation.
+// 3. The forward imp defaults its transaction type to generic payload when
+//    only IMP is selected.
+// 4. The forward imp defaults its phase type to uvm_tlm_phase_e.
+// 5. The forward imp delegates its selected transport method to the supplied
+//    implementation.
+// 6. The backward imp defaults its transaction type to generic payload when
+//    only IMP is selected.
+// 7. The backward imp defaults its phase type to uvm_tlm_phase_e.
+// 8. The backward imp delegates its selected transport method to the supplied
+//    implementation.
+// 9. The imp constructor installs the supplied implementation object.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.3.8.1 (UVM-TLM2-TYPES-IMP-1-DEFAULT-T) gives rule 1 above.
+//    Setup: Bind real default ports through actual exports to three imps with
+//    only IMP explicitly named; call blocking, forward and backward
+//    transports. Expected: The exact generic-payload base accepts the imp and
+//    real typed forwarding reaches the implementation.
+// 2. 1800.2-2020 12.3.8.1 (UVM-TLM2-TYPES-IMP-1-DELEGATION) gives rule 2
+//    above. Setup: Bind real default ports through actual exports to three
+//    imps with only IMP explicitly named; call blocking, forward and backward
+//    transports. Expected: The original implementation receives matching
+//    handles and returns its selected completion/status/data/annotation.
+// 3. 1800.2-2020 12.3.8.2 (UVM-TLM2-TYPES-IMP-2-DEFAULT-T) gives rule 3 above.
+//    Setup: Bind real default ports through actual exports to three imps with
+//    only IMP explicitly named; call blocking, forward and backward
+//    transports. Expected: The exact generic-payload base accepts the imp and
+//    real typed forwarding reaches the implementation.
+// 4. 1800.2-2020 12.3.8.2 (UVM-TLM2-TYPES-IMP-2-DEFAULT-P) gives rule 4 above.
+//    Setup: Bind real default ports through actual exports to three imps with
+//    only IMP explicitly named; call blocking, forward and backward
+//    transports. Expected: The exact phase type compiles and its selected
+//    reference update returns through the bound interface.
+// 5. 1800.2-2020 12.3.8.2 (UVM-TLM2-TYPES-IMP-2-DELEGATION) gives rule 5
+//    above. Setup: Bind real default ports through actual exports to three
+//    imps with only IMP explicitly named; call blocking, forward and backward
+//    transports. Expected: The original implementation receives matching
+//    handles and returns its selected completion/status/data/annotation.
+// 6. 1800.2-2020 12.3.8.3 (UVM-TLM2-TYPES-IMP-3-DEFAULT-T) gives rule 6 above.
+//    Setup: Bind real default ports through actual exports to three imps with
+//    only IMP explicitly named; call blocking, forward and backward
+//    transports. Expected: The exact generic-payload base accepts the imp and
+//    real typed forwarding reaches the implementation.
+// 7. 1800.2-2020 12.3.8.3 (UVM-TLM2-TYPES-IMP-3-DEFAULT-P) gives rule 7 above.
+//    Setup: Bind real default ports through actual exports to three imps with
+//    only IMP explicitly named; call blocking, forward and backward
+//    transports. Expected: The exact phase type compiles and its selected
+//    reference update returns through the bound interface.
+// 8. 1800.2-2020 12.3.8.3 (UVM-TLM2-TYPES-IMP-3-DELEGATION) gives rule 8
+//    above. Setup: Bind real default ports through actual exports to three
+//    imps with only IMP explicitly named; call blocking, forward and backward
+//    transports. Expected: The original implementation receives matching
+//    handles and returns its selected completion/status/data/annotation.
+// 9. 1800.2-2020 12.3.8 (UVM-TLM2-TYPES-IMP-CONSTRUCTOR-BINDING) gives rule 9
+//    above. Setup: Bind real default ports through actual exports to three
+//    imps with only IMP explicitly named; call blocking, forward and backward
+//    transports. Expected: All three actual ports/exports reach their selected
+//    bound original implementation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Actual default ports/exports bind imps whose IMP alone is explicitly named.
 // Original read data/status/delay implementations identify delegation and
 // completion; their algorithms are setup. The forward port is invoked through

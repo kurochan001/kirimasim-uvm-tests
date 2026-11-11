@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm_bidirectional_port_defaults_preserve_request_response_and_constructor_metadata.expected
 */
+// What it checks:
+// 1. The selected bidirectional port families default REQ to int.
+// 2. The selected bidirectional port families default RSP to int.
+// 3. The regular bidirectional port minimum defaults to one.
+// 4. The regular bidirectional port maximum defaults to one.
+// 5. Regular bidirectional port construction retains its selected name and
+//    parent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 12.2.3.3 (UVM-TLM1-REVIEW-BIDIRECTIONAL-PORT-DEFAULT-REQ)
+//    gives rule 1 above. Setup: Construct nine selected regular port families
+//    without type arguments. Expected: Each is compatible with the exact
+//    int/int interface base.
+// 2. 1800.2-2020 12.2.3.3 (UVM-TLM1-REVIEW-BIDIRECTIONAL-PORT-DEFAULT-RSP)
+//    gives rule 2 above. Setup: Construct nine selected default
+//    request/response specializations. Expected: All default response
+//    interface types are integer-compatible.
+// 3. 1800.2-2020 12.2.5.2 (UVM-TLM1-REVIEW-BIDIRECTIONAL-PORT-DEFAULT-MIN)
+//    gives rule 3 above. Setup: Inspect nine selected regular port
+//    constructors before binding. Expected: Each minimum is one.
+// 4. 1800.2-2020 12.2.5.2 (UVM-TLM1-REVIEW-BIDIRECTIONAL-PORT-DEFAULT-MAX)
+//    gives rule 4 above. Setup: Inspect nine selected regular port
+//    constructors before binding. Expected: Each maximum is one.
+// 5. 1800.2-2020 12.2.5.2 (UVM-TLM1-REVIEW-BIDIRECTIONAL-PORT-NAME-PARENT)
+//    gives rule 5 above. Setup: Supply unique names under an actual component
+//    owner. Expected: All selected names, parents and port roles match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Constructor/type inspection before binding resolution. Selected regular
 // port families use their declared default types and 1/1 bounds; analysis
 // ports

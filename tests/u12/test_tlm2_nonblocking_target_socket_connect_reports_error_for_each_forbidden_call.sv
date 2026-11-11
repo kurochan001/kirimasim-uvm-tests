@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_tlm2_nonblocking_target_socket_connect_reports_error_for_each_forbidden_call.expected
 */
+// What it checks:
+// Calling connect on a target termination socket reports an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 12.3.5.3.4 (UVM-TLM2-NONBLOCKING-TARGET-CONNECT-ERROR) gives the
+// rule above. Setup: Call twice with compatible initiator and relay-target
+// provider handles. Expected: Each call increases the ERROR count; role and
+// declared bounds remain available.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A target terminator cannot initiate connect. Two compatible provider
 // handles distinguish repeated required errors without fixing report text.
 module test_tlm2_nonblocking_target_socket_connect_reports_error_for_each_forbidden_call;
