@@ -43,10 +43,16 @@ runs:
     - name: Install the z3 constraint solver
       shell: bash
       run: |
-        if ! sudo apt-get install -y z3; then
+        # The package mirror of a hosted runner is sometimes unreachable for a
+        # few minutes, so the installation is tried again before the job fails.
+        for attempt in 1 2 3 4 5 6; do
+          if sudo apt-get install -y z3; then
+            break
+          fi
+          echo "::warning::installing z3 failed (attempt $attempt); trying again"
+          sleep 60
           sudo apt-get update || echo "::warning::apt-get update failed for some sources"
-          sudo apt-get install -y z3
-        fi
+        done
         z3 --version
 
     # No ccache: the model of a UVM test is built with a precompiled header
