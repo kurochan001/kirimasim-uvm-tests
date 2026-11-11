@@ -43,22 +43,31 @@ runs:
     - name: Install the z3 constraint solver
       shell: bash
       run: |
-        # The package mirror of a hosted runner is sometimes unreachable for a
-        # few minutes, so the installation is tried again before the job fails.
-        for attempt in 1 2 3 4 5 6; do
+        # The package mirror of a hosted runner is sometimes unreachable, so
+        # the installation is tried again, then with the Ubuntu archive itself.
+        for attempt in 1 2 3; do
           if sudo apt-get install -y z3; then
             break
           fi
           echo "::warning::installing z3 failed (attempt $attempt); trying again"
           sleep 30
-          # The runner's default mirror list can stay unresolvable; fall back
-          # to the Ubuntu archive itself.
           if [ "$attempt" -ge 2 ] && [ -f /etc/apt/sources.list.d/ubuntu.sources ]; then
             sudo sed -i 's|mirror+file:/etc/apt/apt-mirrors.txt|http://archive.ubuntu.com/ubuntu/|' \
               /etc/apt/sources.list.d/ubuntu.sources
           fi
           sudo apt-get update || echo "::warning::apt-get update failed for some sources"
         done
+        # Last resort when no Ubuntu package source resolves: the same z3
+        # release (4.8.12, MIT) from its publisher, checked by digest.
+        if ! command -v z3 > /dev/null; then
+          echo "::warning::apt could not install z3; using the Z3 4.8.12 release"
+          curl -fsSL --retry 5 -o "$RUNNER_TEMP/z3.zip" \
+            https://github.com/Z3Prover/z3/releases/download/z3-4.8.12/z3-4.8.12-x64-glibc-2.31.zip
+          echo "648e8a7afb57445440ad711b733bd675e3888da2767c14ae5122582c924d8d52  $RUNNER_TEMP/z3.zip" \
+            | sha256sum -c -
+          unzip -q "$RUNNER_TEMP/z3.zip" -d "$RUNNER_TEMP/z3"
+          sudo install -m 755 "$RUNNER_TEMP/z3/z3-4.8.12-x64-glibc-2.31/bin/z3" /usr/local/bin/z3
+        fi
         z3 --version
 
     # No ccache: the model of a UVM test is built with a precompiled header
