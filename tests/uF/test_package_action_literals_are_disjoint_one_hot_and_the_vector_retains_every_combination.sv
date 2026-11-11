@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_package_action_literals_are_disjoint_one_hot_and_the_vector_retains_every_combination.expected
 */
+// What it checks:
+// 1. The six nonzero report-action literals are mutually disjoint one-hot
+//    values; NO_ACTION is zero.
+// 2. uvm_action retains arbitrary OR combinations of the specified action
+//    literals.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.2.2 (UVM-PACKAGE-AUDIT-ACTION-ONE-HOT) gives rule 1
+//    above. Setup: DISPLAY, LOG, COUNT, EXIT, STOP and RM_RECORD are combined
+//    without executing termination/interactive actions. Expected: Every
+//    nonzero literal has one set bit, all distinct pairs have no common bit
+//    and NO_ACTION equals zero.
+// 2. 1800.2-2020 F.2.2.3 (UVM-PACKAGE-AUDIT-ACTION-CAPACITY) gives rule 2
+//    above. Setup: DISPLAY, LOG, COUNT, EXIT, STOP and RM_RECORD are combined
+//    without executing termination/interactive actions. Expected: For all 64
+//    subsets, every selected action bit is present and every unselected action
+//    bit is absent after storage.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_package_action_literals_are_disjoint_one_hot_and_the_vector_retains_every_combination;
   import uvm_pkg::*;
   initial begin

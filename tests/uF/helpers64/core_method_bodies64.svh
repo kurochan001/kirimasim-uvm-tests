@@ -14,7 +14,10 @@ uvm_resource_pool pool_state;
 int limit_state;
 int unsigned precedence_state;
 bit seeding_state;
-function new(); super.new(); root_state=uvm_root::get(); endfunction
+function new();
+  super.new();
+  root_state=uvm_root::get();
+endfunction
 `ifndef AUDIT64_OMIT_GET_ROOT
 virtual function uvm_root get_root();
   calls[0]++;

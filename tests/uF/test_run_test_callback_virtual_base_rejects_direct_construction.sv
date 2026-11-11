@@ -12,6 +12,16 @@
 :should_fail_because: direct construction of the standard virtual run-test callback base is illegal
 :expected_stderr_regex: (?i)^(?=.*test_run_test_callback_virtual_base_rejects_direct_construction.sv:[0-9]+:[0-9]+:)(?=.*\b(?:virtual|abstract)\b)(?=.*\buvm_run_test_callback\b).*error
 */
+// What it checks:
+// Direct construction of the virtual run-test callback base is illegal.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.6.1 (UVM-PACKAGE-AUDIT-CALLBACK-VIRTUAL-BASE) gives the rule
+// above. Setup: A minimal illegal design directly constructs
+// uvm_run_test_callback. Expected: The compiler rejects the named virtual
+// class at the fixture location.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_run_test_callback_virtual_base_rejects_direct_construction;
   import uvm_pkg::*;
   initial begin

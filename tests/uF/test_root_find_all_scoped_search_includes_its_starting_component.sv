@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_root_find_all_scoped_search_includes_its_starting_component.expected
 */
+// What it checks:
+// A matching starting component is included in its scoped search.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.4.1 (UVM-ROOT-FIND-ALL-INCLUDES-START) gives the rule above.
+// Setup: Use alpha as both the starting component and exact full-name pattern.
+// Expected: The sole result is alpha itself.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit finite component tree; only exact handles and set membership.
 // No sibling traversal order, global root enumeration or print format is fixed.
 module test_root_find_all_scoped_search_includes_its_starting_component;

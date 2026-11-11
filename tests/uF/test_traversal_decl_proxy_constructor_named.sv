@@ -13,6 +13,17 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_proxy_constructor_named.expected
 */
+// What it checks:
+// The proxy constructor preserves the named name and declared ancestry.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.2.2.1 (UVM-TRAVERSAL-DECL-PROXY-CONSTRUCTOR-NAMED) gives the
+// rule above. Setup: A direct original subtype calls super.new with the
+// selected argument form; all pure methods have complete bodies. The exact
+// tested call is super.new("named69"). Expected: The name is exactly named69.
+// The typed ancestor and object views retain the same constructed handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_proxy_constructor_named;

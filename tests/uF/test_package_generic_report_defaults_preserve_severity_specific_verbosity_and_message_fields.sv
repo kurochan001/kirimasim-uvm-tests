@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_package_generic_report_defaults_preserve_severity_specific_verbosity_and_message_fields.expected
 */
+// What it checks:
+// 1. The generic package report uses MEDIUM for omitted INFO verbosity and
+//    NONE for the other severities.
+// 2. The generic package report forwards ID/payload and empty filename/context
+//    plus line zero defaults.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.3.2.3 (UVM-PACKAGE-AUDIT-GENERIC-DEFAULTS) gives rule 1
+//    above. Setup: A standalone module temporarily installs an original root
+//    handler and restores the saved handler after the selected calls.
+//    Expected: All four captured severities have their prescribed default
+//    verbosity.
+// 2. 1800.2-2020 F.3.2.3 (UVM-PACKAGE-AUDIT-GENERIC-MESSAGE-DEFAULTS) gives
+//    rule 2 above. Setup: A standalone module temporarily installs an original
+//    root handler and restores the saved handler after the selected calls.
+//    Expected: Each captured message retains its requested fields/defaults and
+//    root origin.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An original handler captures delegation before server actions or emission.
 module test_package_generic_report_defaults_preserve_severity_specific_verbosity_and_message_fields;
   import uvm_pkg::*;

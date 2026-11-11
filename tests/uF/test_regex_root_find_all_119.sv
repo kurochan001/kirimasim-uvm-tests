@@ -18,6 +18,18 @@
 :expected_exit: 0
 :expected_stdout: @test_regex_root_find_all_119.expected
 */
+// What it checks:
+// Component lookup by a regular expression or simplified plus returns exactly
+// the components whose full names match.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.4.1 (UVM-REGEX-ROOT-FIND) gives the rule above. Setup: Under
+// one component with children ag1, ag2, ag3 and other, find_all
+// /^env119\.ag[13]$/ and env119.ag+, and find /^env119\.oth.*$/. Expected: The
+// regular expression returns ag1 and ag3, the plus returns the three ag
+// children, and find returns other.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Four children ag1, ag2, ag3 and other sit under one component. A regular
 // expression with a character class must find ag1 and ag3, the simplified
 // expression ending in plus must find the three ag children, and find with a

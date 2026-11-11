@@ -14,6 +14,34 @@
 :expected_exit: 0
 :expected_stdout: @test_root_finish_getter_history_88.expected
 */
+// What it checks:
+// 1. The root finish-on-completion getter returns1 before any setter call.
+// 2. The root finish-on-completion getter follows the latest zero/one setter
+//    value, including repeated sets.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.7.3.5 (UVM-ROOT-FINISH-DEFAULT-GETTER-88) gives rule 1
+//    above. Setup: Use the actual singleton root, default/latest getter
+//    histories and real run_test through a small component that raises an
+//    objection, waits positive time and reaches final_phase. Independent
+//    default/reenabled controls observe completion before a later
+//    positive-time marker while the watchdog still schedules future activity;
+//    caller-owned mode observes run_test return and an explicit later finish.
+//    The stricter original no-same-time-return probes are control-only, not
+//    the definition of the finish flag. Expected: The first default getter
+//    observation is true.
+// 2. 1800.2-2020 F.7.3.5 (UVM-ROOT-FINISH-LATEST-GETTER-88) gives rule 2
+//    above. Setup: Use the actual singleton root, default/latest getter
+//    histories and real run_test through a small component that raises an
+//    objection, waits positive time and reaches final_phase. Independent
+//    default/reenabled controls observe completion before a later
+//    positive-time marker while the watchdog still schedules future activity;
+//    caller-owned mode observes run_test return and an explicit later finish.
+//    The stricter original no-same-time-return probes are control-only, not
+//    the definition of the finish flag. Expected: Independent zero,one and
+//    repeated-zero observations match their selected values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_root_finish_getter_history_88;
   timeunit 1ns; timeprecision 1ps;
   import uvm_pkg::*;

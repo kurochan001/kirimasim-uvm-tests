@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_root_find_all_appends_and_repeated_calls_retain_the_caller_prefix.expected
 */
+// What it checks:
+// Root find_all preserves existing queue entries and appends on each call.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.4.1 (UVM-ROOT-FIND-ALL-PREFIX-AND-REPEAT) gives the rule
+// above. Setup: Start with a beta prefix and perform the same two-leaf search
+// twice. Expected: Sizes are three then five, prefix remains beta and each
+// leaf occurs once then twice.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit finite component tree; only exact handles and set membership.
 // No sibling traversal order, global root enumeration or print format is fixed.
 module test_root_find_all_appends_and_repeated_calls_retain_the_caller_prefix;

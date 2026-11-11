@@ -13,6 +13,19 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_bottom_up_default_types_traverses_through_the_declared_base.expected
 */
+// What it checks:
+// The bottom_up adapter preserves its default_types specialization through a
+// live base-view traversal.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.5.1 (UVM-TRAVERSAL-DECL-BOTTOM-UP-DEFAULT-TYPES-TRAVERSES-
+// THROUGH-THE-DECLARED-BASE) gives the rule above. Setup: Use the selected
+// printed type defaults or explicit types and traverse an acyclic original
+// tree through its supplied proxy. Expected: The builtin default
+// specialization is assignable to the exact component/visitor base and visits
+// both root and child once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_bottom_up_default_types_traverses_through_the_declared_base;

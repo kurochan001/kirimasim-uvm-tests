@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_string_split_preserves_consecutive_and_edge_empty_fields.expected
 */
+// What it checks:
+// String splitting preserves empty fields created by adjacent or edge
+// separators.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.3.3.2 (UVM-STRING-SPLIT-EMPTY-FIELDS) gives the rule above.
+// Setup: Inputs include adjacent separators, leading/trailing separators and
+// an empty string. Expected: Result size is separator count plus one; empty
+// input yields one empty field.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect positions only after checking the queue size. No whitespace or
 // regular-expression interpretation is needed for the single-byte delimiter.
 module test_string_split_preserves_consecutive_and_edge_empty_fields;

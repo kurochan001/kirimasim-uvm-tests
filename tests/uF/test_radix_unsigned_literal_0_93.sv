@@ -14,6 +14,26 @@
 :expected_exit: 0
 :expected_stdout: @test_radix_unsigned_literal_0_93.expected
 */
+// What it checks:
+// It is a control: it supports the setup or conditions of this duty, which
+// other tests check directly:
+// UVM_UNSIGNED selects unsigned-decimal integral formatting under the textual
+// reading.
+//
+// Variant: Input 0 uses 32-bit values and 16-character text; input 1 uses
+// 64-bit values, 32-character text and other values, with binary instead of
+// hex as the printer's default radix.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.1.5 (UVM-RADIX-UNSIGNED-93) gives the rule above. Setup:
+// Original scalar field macros use one named radix with UVM_PRINT and mutable
+// properties of the appropriate type. A derived printer observes public
+// element values through push_element and get_top_element,after explicitly
+// setting empty radix prefixes. Two inputs choose different values,widths or
+// format histories;no complete emitted layout is fixed. Expected: The decimal
+// text preserves the selected high-bit unsigned value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original typed field macros and public stack/recording observers. Numeric
 // formats are parsed,not matched as a full layout. Unsigned decimal prose
 // versus literal %u is qualified;literal controls cannot pass the textual

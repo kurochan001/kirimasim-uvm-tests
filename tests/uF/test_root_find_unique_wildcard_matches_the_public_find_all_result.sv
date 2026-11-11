@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_root_find_unique_wildcard_matches_the_public_find_all_result.expected
 */
+// What it checks:
+// Root find agrees with find_all when the pattern has one matching component.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.4.1 (UVM-ROOT-FIND-UNIQUE-ENUMERATION-AGREEMENT) gives the
+// rule above. Setup: Use a wildcard uniquely selecting alpha leaf. Expected:
+// Enumeration has one exact leaf and find returns that same handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit finite component tree; only exact handles and set membership.
 // No sibling traversal order, global root enumeration or print format is fixed.
 module test_root_find_unique_wildcard_matches_the_public_find_all_result;

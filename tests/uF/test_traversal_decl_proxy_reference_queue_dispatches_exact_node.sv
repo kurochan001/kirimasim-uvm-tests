@@ -13,6 +13,22 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_proxy_reference_queue_dispatches_exact_node.expected
 */
+// What it checks:
+// The declared proxy method receives the selected node and propagates its
+// reference queue.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.2.2.2
+// (UVM-TRAVERSAL-DECL-PROXY-REFERENCE-QUEUE-DISPATCHES-EXACT-NODE) gives the
+// rule above. Setup: Call the exact pure-method signature through a typed base
+// with a seeded caller queue and an original complete body. Expected: One call
+// reaches the original complete proxy body; its reference queue replaces the
+// caller sentinel with the selected direct child while preserving the source
+// collection.
+// It also supports, as a control, the setup or conditions of
+// UVM-TRAVERSAL-DECL-PROXY-MISSING-CHILDREN-REQUIRES-COMPILE-REJECTION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_proxy_reference_queue_dispatches_exact_node;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_visitor_component_proxy_returns_only_immediate_children.expected
 */
+// What it checks:
+// The component proxy enumerates immediate children without including deeper
+// descendants.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.7 (UVM-VISITOR-COMPONENT-IMMEDIATE-CHILDREN) gives the rule
+// above. Setup: Query a root, one child and a leaf in a five-node tree.
+// Expected: Root has exactly a/b, a has its exact leaf, and a leaf has no
+// children.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Traverse a finite tree through public adapters and a component proxy.
 // Check parent/level relationships and membership without sibling ordering.
 module test_visitor_component_proxy_returns_only_immediate_children;

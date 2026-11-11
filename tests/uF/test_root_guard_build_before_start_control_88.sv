@@ -14,6 +14,24 @@
 :expected_exit: 0
 :expected_stdout: @test_root_guard_build_before_start_control_88.expected
 */
+// What it checks:
+// The root end-of-elaboration error check generates a fatal for existing
+// default-server errors before start-of-simulation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.3.6 (UVM-ROOT-EOE-ERROR-GUARD-88) gives the rule above.
+// Setup: Inject an original report error during build or child
+// end-of-elaboration. The real root and default report server are used. A
+// root-only fatal catcher observes severity and returns THROW without
+// modifying the message/action. The build control only requires fatal before
+// start-of-simulation; the late-child input directly tests the printed
+// bottom-up end-of-elaboration/API grouping. The original build probe that
+// additionally requires child EOE before fatal is control-only. Expected: An
+// original error is recorded and a fatal is observed before
+// start-of-simulation; the selected late-child grouping retains its separate
+// expectation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_root_guard_build_before_start_control_88;
   timeunit 1ns; timeprecision 1ps;
   import uvm_pkg::*;

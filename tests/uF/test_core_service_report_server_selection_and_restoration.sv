@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_core_service_report_server_selection_and_restoration.expected
 */
+// What it checks:
+// 1. The core service replaces its selected report server handle.
+// 2. The report server getter reflects restoration of a saved service.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.4.1.4.5 (UVM-CORE-REPORT-SERVER-REPLACEMENT) gives rule 1
+//    above. Setup: Set two distinct concrete services in succession. Expected:
+//    Queries identify the first then the second service, without retaining the
+//    first selection.
+// 2. 1800.2-2020 F.4.1.4.4 (UVM-CORE-REPORT-SERVER-GETTER-RESTORATION) gives
+//    rule 2 above. Setup: Save the original, perform two replacements and
+//    restore the original. Expected: The getter returns the exact saved
+//    handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Swap valid concrete service instances and restore the saved handle.
 // No factory creation, override execution or report-count migration is claimed.
 module test_core_service_report_server_selection_and_restoration;

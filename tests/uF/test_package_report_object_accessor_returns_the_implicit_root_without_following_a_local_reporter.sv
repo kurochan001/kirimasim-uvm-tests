@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_package_report_object_accessor_returns_the_implicit_root_without_following_a_local_reporter.expected
 */
+// What it checks:
+// The package reporter accessor returns the implicit top-level root as a
+// report object.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.3.2.1 (UVM-PACKAGE-AUDIT-GLOBAL-REPORTER) gives the rule
+// above. Setup: A root view and a separate original local reporter coexist in
+// a standalone module. Expected: The accessor is stable and equal to the root
+// view, distinct from the local reporter.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_package_report_object_accessor_returns_the_implicit_root_without_following_a_local_reporter;
   import uvm_pkg::*;

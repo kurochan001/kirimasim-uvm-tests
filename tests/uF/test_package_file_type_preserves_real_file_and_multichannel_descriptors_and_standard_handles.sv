@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_package_file_type_preserves_real_file_and_multichannel_descriptors_and_standard_handles.expected
 */
+// What it checks:
+// 1. UVM_FILE can carry real file and multichannel descriptors.
+// 2. Standard UVM stream handles have the specified SystemVerilog descriptor
+//    values.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.8 (UVM-PACKAGE-AUDIT-FILE-DESCRIPTORS) gives rule 1
+//    above. Setup: Temporary actual files are opened, written, closed and
+//    reopened for reading in the runner working directory. Expected: A file
+//    descriptor writes one payload; an ORed pair of MCD handles writes the
+//    same payload into both selected files.
+// 2. 1800.2-2020 F.2.9 (UVM-PACKAGE-AUDIT-STANDARD-HANDLES) gives rule 2
+//    above. Setup: Temporary actual files are opened, written, closed and
+//    reopened for reading in the runner working directory. Expected:
+//    STDIN/STDOUT/STDERR match 80000000/80000001/80000002 hex; an actual
+//    STDOUT write is observed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Actual temporary files, created in the runner working directory.
 module test_package_file_type_preserves_real_file_and_multichannel_descriptors_and_standard_handles;
   import uvm_pkg::*;

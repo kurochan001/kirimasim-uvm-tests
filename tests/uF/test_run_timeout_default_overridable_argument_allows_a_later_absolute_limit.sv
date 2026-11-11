@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_run_timeout_default_overridable_argument_allows_a_later_absolute_limit.expected
 */
+// What it checks:
+// The timeout overridable argument defaults to enabled.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.3.3 (UVM-PHASE-RUNTIME-TIMEOUT-DEFAULT-OVERRIDABLE) gives
+// the rule above. Setup: Calls omitting the second argument change the limit
+// from five to twenty; the real run completes at eight. Expected: Execution
+// crosses the former limit, completes and remains before the replacement
+// limit.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_run_timeout_default_overridable_argument_allows_a_later_absolute_limit;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

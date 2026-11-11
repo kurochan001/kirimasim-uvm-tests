@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_root_find_missing_name_returns_null_without_changing_later_lookup.expected
 */
+// What it checks:
+// Root find returns null when no component matches.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.4.1 (UVM-ROOT-FIND-MISSING-NULL) gives the rule above.
+// Setup: Query a missing name then an existing full name. Expected: The
+// missing query is null and the later existing query still returns its exact
+// leaf.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit finite component tree; only exact handles and set membership.
 // No sibling traversal order, global root enumeration or print format is fixed.
 module test_root_find_missing_name_returns_null_without_changing_later_lookup;

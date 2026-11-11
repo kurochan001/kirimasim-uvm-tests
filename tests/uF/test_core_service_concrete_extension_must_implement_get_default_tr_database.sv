@@ -13,6 +13,19 @@
 :should_fail_because: a concrete core-service extension omits the pure get_default_tr_database
 :expected_stderr_regex: (?i)^(?=.*test_core_service_concrete_extension_must_implement_get_default_tr_database\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:pure|virtual|abstract|missing implementation)\b)(?=.*\bget_default_tr_database\b).*error
 */
+// What it checks:
+// A concrete core-service extension must implement the pure
+// get_default_tr_database method.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.4.1.4.6 (UVM-CORE-DECL-AUDIT-GET-DEFAULT-TR-DATABASE-PURE)
+// gives the rule above. Setup: An original extension implements the other
+// twenty-five printed pure methods and the pinned release extra phase-hopper
+// hook, omitting only this selected printed method. Expected: Compilation
+// rejects the concrete extension and identifies this input and
+// get_default_tr_database; no runtime binary is executed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exactly one listed pure method is omitted; the extra pinned hook has a body.
 // A compiler acceptance is not a runtime pass.
 `define AUDIT64_OMIT_GET_DEFAULT_TR_DATABASE

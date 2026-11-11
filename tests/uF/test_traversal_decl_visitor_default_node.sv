@@ -13,6 +13,20 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_visitor_default_node.expected
 */
+// What it checks:
+// The visitor declaration preserves the selected NODE specialization and
+// object base view.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.1.1 (UVM-TRAVERSAL-DECL-VISITOR-DEFAULT-NODE) gives the rule
+// above. Setup: Use a complete original visitor with default node; call
+// through the exact typed base. Expected: The exact typed visitor and object
+// base views identify the same subtype, and one visit delivers the original
+// selected node once.
+// It also supports, as a control, the setup or conditions of
+// UVM-TRAVERSAL-DECL-VISITOR-VIRTUAL-REQUIRES-COMPILE-REJECTION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_visitor_default_node;

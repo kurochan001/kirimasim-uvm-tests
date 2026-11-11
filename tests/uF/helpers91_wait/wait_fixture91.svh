@@ -18,7 +18,8 @@ initial begin
   automatic uvm_phase peer=new("peer91",UVM_PHASE_IMP);
   uvm_phase_state initial_state;
   string labels[6];
-  stable91=new("stable91",UVM_PHASE_IMP); initial_state=stable91.get_state();
+  stable91=new("stable91",UVM_PHASE_IMP);
+  initial_state=stable91.get_state();
   threshold91=MODE==0 ? initial_state : UVM_PHASE_DONE;
   operations91='{UVM_EQ,UVM_NE,UVM_LT,UVM_LTE,UVM_GT,UVM_GTE};
   labels='{"eq","ne","lt","lte","gt","gte"};
@@ -27,7 +28,8 @@ initial begin
     fork
       begin
         stable91.wait_for_state(threshold91,operations91[slot]);
-        returned91[slot]=1; returned_at91[slot]=$time;
+        returned91[slot]=1;
+        returned_at91[slot]=$time;
       end
     join_none
   end

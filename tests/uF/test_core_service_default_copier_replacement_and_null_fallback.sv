@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_core_service_default_copier_replacement_and_null_fallback.expected
 */
+// What it checks:
+// 1. The core service selects each explicitly supplied default copier policy.
+// 2. The default copier getter supplies an implementation default initially
+//    and after a null reset.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.4.1.4.18 (UVM-CORE-DEFAULT-COPIER-SELECTION) gives rule 1
+//    above. Setup: Replace the default with two distinct concrete policy
+//    instances. Expected: Each getter returns the exact most recently supplied
+//    handle.
+// 2. 1800.2-2020 F.4.1.4.19 (UVM-CORE-DEFAULT-COPIER-NULL-FALLBACK) gives rule
+//    2 above. Setup: Query before any setter, select custom policies, then set
+//    null. Expected: Both default queries are non-null and the fallback is
+//    distinct from the two custom instances.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Check public core-service policy identity, not the default concrete type.
 // A null reset must supply an implementation default, without prescribing IDs.
 module test_core_service_default_copier_replacement_and_null_fallback;

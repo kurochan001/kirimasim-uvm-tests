@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_package_preformed_report_processing_delegates_the_exact_message_and_rebinds_root_origin.expected
 */
+// What it checks:
+// 1. Package preformed-message processing delegates the exact object to the
+//    root-selected handler.
+// 2. Package preformed processing replaces an obsolete origin with the
+//    implicit root.
+// 3. Package preformed delegation preserves the selected input message fields.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.3.2.3 (UVM-PACKAGE-AUDIT-PREFORMED-IDENTITY) gives rule 1
+//    above. Setup: A standalone module temporarily installs an original root
+//    handler and restores the saved handler after the selected calls.
+//    Expected: One call contains the same public message handle.
+// 2. 1800.2-2020 F.3.2.3 (UVM-PACKAGE-AUDIT-PREFORMED-ORIGIN) gives rule 2
+//    above. Setup: A standalone module temporarily installs an original root
+//    handler and restores the saved handler after the selected calls.
+//    Expected: The caller-visible message and captured handler origin both
+//    identify the root.
+// 3. 1800.2-2020 F.3.2.3 (UVM-PACKAGE-AUDIT-PREFORMED-CONTENT) gives rule 3
+//    above. Setup: A standalone module temporarily installs an original root
+//    handler and restores the saved handler after the selected calls.
+//    Expected: ID, payload, verbosity, filename, line and context remain the
+//    original values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_package_preformed_report_processing_delegates_the_exact_message_and_rebinds_root_origin;
   import uvm_pkg::*;
 

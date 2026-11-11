@@ -2,8 +2,10 @@
 initial begin
   string sep_text,input_text,values[$];
   bit positions;
-  sep_text="x";sep_text.putc(0,SEPARATOR100);
-  values.push_back("stale100");values.push_back("another100");
+  sep_text="x";
+  sep_text.putc(0,SEPARATOR100);
+  values.push_back("stale100");
+  values.push_back("another100");
   input_text={"north100",sep_text,sep_text,"south100",sep_text};
   uvm_string_split(input_text,SEPARATOR100,values);
   positions=values.size()==4;

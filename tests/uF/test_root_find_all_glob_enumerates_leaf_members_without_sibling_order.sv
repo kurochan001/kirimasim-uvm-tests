@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_root_find_all_glob_enumerates_leaf_members_without_sibling_order.expected
 */
+// What it checks:
+// Root find_all appends every matching component.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.4.1 (UVM-ROOT-FIND-ALL-MATCHING-MEMBERS) gives the rule
+// above. Setup: Match two same-named leaves on separate branches with a
+// simplified wildcard. Expected: The result has exactly two entries, each
+// expected leaf occurring once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit finite component tree; only exact handles and set membership.
 // No sibling traversal order, global root enumeration or print format is fixed.
 module test_root_find_all_glob_enumerates_leaf_members_without_sibling_order;

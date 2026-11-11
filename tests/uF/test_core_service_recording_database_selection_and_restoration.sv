@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_core_service_recording_database_selection_and_restoration.expected
 */
+// What it checks:
+// 1. The core service replaces its selected recording database handle.
+// 2. The recording database getter reflects restoration of a saved service.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.4.1.4.7 (UVM-CORE-RECORDING-DATABASE-REPLACEMENT) gives
+//    rule 1 above. Setup: Set two distinct concrete services in succession.
+//    Expected: Queries identify the first then the second service, without
+//    retaining the first selection.
+// 2. 1800.2-2020 F.4.1.4.6 (UVM-CORE-RECORDING-DATABASE-GETTER-RESTORATION)
+//    gives rule 2 above. Setup: Save the original, perform two replacements
+//    and restore the original. Expected: The getter returns the exact saved
+//    handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only the selected database handle is observed; no database is opened.
 // Concrete hooks allow construction without choosing an external file format.
 module test_core_service_recording_database_selection_and_restoration;

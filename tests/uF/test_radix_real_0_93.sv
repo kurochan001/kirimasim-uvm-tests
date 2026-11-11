@@ -14,6 +14,55 @@
 :expected_exit: 0
 :expected_stdout: @test_radix_real_0_93.expected
 */
+// What it checks:
+// 1. UVM_REAL selects the selected general real notation.
+// 2. UVM_REAL_DEC selects decimal notation for the selected typed real macro
+//    fields.
+// 3. UVM_REAL_EXP selects exponential notation for the selected typed real
+//    macro fields.
+// 4. One named radix flag combined with UVM_PRINT governs the selected
+//    compatible scalar property operation.
+//
+// Variant: Input 0 uses 32-bit values and 16-character text; input 1 uses
+// 65-bit values, 32-character text and other values (125000000.0,
+// -3500000000.0 and -2.5 instead of 1.25, 125000000.0 and 1.25).
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.1.5 (UVM-RADIX-REAL-93) gives rule 1 above. Setup:
+//    Original scalar field macros use one named radix with UVM_PRINT and
+//    mutable properties of the appropriate type. A derived printer observes
+//    public element values through push_element and get_top_element,after
+//    explicitly setting empty radix prefixes. Two inputs choose different
+//    values,widths or format histories;no complete emitted layout is fixed.
+//    Expected: Selected small/large values parse correctly and use the shorter
+//    decimal/exponential notation for these chosen values.
+// 2. 1800.2-2020 F.2.1.5 (UVM-RADIX-REAL-DEC-93) gives rule 2 above. Setup:
+//    Original scalar field macros use one named radix with UVM_PRINT and
+//    mutable properties of the appropriate type. A derived printer observes
+//    public element values through push_element and get_top_element,after
+//    explicitly setting empty radix prefixes. Two inputs choose different
+//    values,widths or format histories;no complete emitted layout is fixed.
+//    Expected: The chosen large exact integer-valued reals remain numerically
+//    correct and contain no exponential marker.
+// 3. 1800.2-2020 F.2.1.5 (UVM-RADIX-REAL-EXP-93) gives rule 3 above. Setup:
+//    Original scalar field macros use one named radix with UVM_PRINT and
+//    mutable properties of the appropriate type. A derived printer observes
+//    public element values through push_element and get_top_element,after
+//    explicitly setting empty radix prefixes. Two inputs choose different
+//    values,widths or format histories;no complete emitted layout is fixed.
+//    Expected: The selected binary-exact small values remain numerically
+//    correct and contain an exponent marker.
+// 4. 1800.2-2020 B.2.2 (UVM-SCALAR-MACRO-TYPED-RADIX-SELECTION-93) gives rule
+//    4 above. Setup: Original scalar field macros use one named radix with
+//    UVM_PRINT and mutable properties of the appropriate type. A derived
+//    printer observes public element values through push_element and
+//    get_top_element,after explicitly setting empty radix prefixes. Two inputs
+//    choose different values,widths or format histories;no complete emitted
+//    layout is fixed. Expected: The selected integer,string,real,time and
+//    enumeration properties produce the expected named-format
+//    observations;omission is equivalent toNORADIX for the selected defaults.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original typed field macros and public stack/recording observers. Numeric
 // formats are parsed,not matched as a full layout. Unsigned decimal prose
 // versus literal %u is qualified;literal controls cannot pass the textual

@@ -15,6 +15,42 @@
 :expected_exit: 0
 :expected_stdout: @test_library_legacy_user_1_92.expected
 */
+// What it checks:
+// It is a control: it supports the setup or conditions of these duties, which
+// other tests check directly:
+// 1. UVM_SEQ_LIB_USER uses the original select_sequence override to choose
+//    each next child.
+// 2. The selected mode is set and retrieved through the printed APIs and
+//    governs subsequent library execution.
+//
+// Variant: Inputs 0 and 1 add the two sequences in opposite orders. The user
+// selection of input 0 alternates between the two entries; that of input 1
+// takes the first entry on every third call and the second otherwise.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.4.3 (UVM-PKG-SEQUENCE-LIB-MODE-USER-92) gives rule 1
+//    above. Setup: Two registration/selection histories use two distinct
+//    original child sequence types,a real sequencer/driver pair and an idle
+//    peer. Standard inputs configure the named enum through the printed
+//    setter/getter;default RAND inputs keep the constructor mode and no mode
+//    accessor is replaced. The default legal budget10 is retained. Independent
+//    subtype constraints and original USER choices define the selected
+//    observations without fixing unspecified registration order. Expected: Ten
+//    hook calls receive max1,return valid alternating or modulo3 indices,and
+//    the ten actual child bodies match their chosen wrappers without item
+//    transfers.
+// 2. 1800.2-2020 14.4.4.1 (UVM-SEQUENCE-LIB-MODE-API-EXECUTION-92) gives rule
+//    2 above. Setup: Two registration/selection histories use two distinct
+//    original child sequence types,a real sequencer/driver pair and an idle
+//    peer. Standard inputs configure the named enum through the printed
+//    setter/getter;default RAND inputs keep the constructor mode and no mode
+//    accessor is replaced. The default legal budget10 is retained. Independent
+//    subtype constraints and original USER choices define the selected
+//    observations without fixing unspecified registration order. Expected:
+//    Each of the four explicit named modes reads back as selected and exhibits
+//    its mode-specific child,cyclic,item or USER-hook behavior.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Additional-premise control using the diagnosed nonstandard public field.
 // Original real child-sequence and item-driver observations. Standard API
 // inputs retain missing-accessor failures; default RAND inputs never replace

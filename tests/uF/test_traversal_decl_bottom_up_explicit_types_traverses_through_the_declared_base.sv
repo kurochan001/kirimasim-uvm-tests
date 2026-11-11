@@ -13,6 +13,22 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_bottom_up_explicit_types_traverses_through_the_declared_base.expected
 */
+// What it checks:
+// The bottom_up adapter preserves its explicit_types specialization through a
+// live base-view traversal.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.5.1 (UVM-TRAVERSAL-DECL-BOTTOM-UP-EXPLICIT-TYPES-TRAVERSES-
+// THROUGH-THE-DECLARED-BASE) gives the rule above. Setup: Use the selected
+// printed type defaults or explicit types and traverse an acyclic original
+// tree through its supplied proxy. Expected: The exact selected base
+// specialization retains identity; all four tree nodes are visited once, the
+// selected parent/depth partial order holds, begin/end bracket the visits
+// once, and the supplied proxy is queried.
+// It also supports, as a control, the setup or conditions of UVM-TRAVERSAL-
+// DECL-BOTTOM-UP-DEFAULT-VISITOR-TRAVERSES-THROUGH-THE-DECLARED-BASE.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_bottom_up_explicit_types_traverses_through_the_declared_base;

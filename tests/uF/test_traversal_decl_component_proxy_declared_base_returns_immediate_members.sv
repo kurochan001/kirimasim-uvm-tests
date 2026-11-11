@@ -13,6 +13,19 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_component_proxy_declared_base_returns_immediate_members.expected
 */
+// What it checks:
+// The component proxy retains its specified structure-proxy base and immediate
+// component members.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.7.1
+// (UVM-TRAVERSAL-DECL-COMPONENT-PROXY-DECLARED-BASE-RETURNS-IMMEDIATE-MEMBERS)
+// gives the rule above. Setup: Construct the builtin component proxy directly
+// and call its exact typed base on a root with a child and grandchild.
+// Expected: The exact structure-proxy and object views identify the component
+// proxy, and the query returns the immediate child without the grandchild.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_component_proxy_declared_base_returns_immediate_members;

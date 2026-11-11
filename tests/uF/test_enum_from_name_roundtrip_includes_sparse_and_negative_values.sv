@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_enum_from_name_roundtrip_includes_sparse_and_negative_values.expected
 */
+// What it checks:
+// Exact enumerator names convert to their corresponding sparse signed values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.3.4.2 (UVM-ENUM-NAME-SPARSE-SIGNED-VALUES) gives the rule
+// above. Setup: Convert three names with negative, positive and nonadjacent
+// values. Expected: Every call succeeds and produces the exact enum identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe exact enum identity only after successful conversion.
 // The output reference after failed conversion is not prescribed.
 module test_enum_from_name_roundtrip_includes_sparse_and_negative_values;

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_visitor_reused_visitor_traverses_only_each_selected_subtree.expected
 */
+// What it checks:
+// Each accept traverses its selected structure even when reusing a visitor.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.3.2.2 (UVM-VISITOR-ACCEPT-SELECTED-SUBTREE-REUSE) gives the
+// rule above. Setup: Visit the whole tree top-down, then only branch a
+// bottom-up with the same visitor. Expected: There are seven visits; only a
+// and its leaf occur twice, with two begin/end pairs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Traverse a finite tree through public adapters and a component proxy.
 // Check parent/level relationships and membership without sibling ordering.
 module test_visitor_reused_visitor_traverses_only_each_selected_subtree;

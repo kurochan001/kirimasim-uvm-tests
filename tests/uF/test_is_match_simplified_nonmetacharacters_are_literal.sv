@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_is_match_simplified_nonmetacharacters_are_literal.expected
 */
+// What it checks:
+// Other simplified-notation characters retain their literal meaning.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.3.3.1 (UVM-MATCH-NONMETA-LITERALS) gives the rule above.
+// Setup: Compare dots, brackets and parentheses literally and against
+// regex-like alternatives. Expected: Literal strings match;
+// wildcard/class/group-like alternatives do not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Simplified notation only; no slash-delimited POSIX expression or DPI.
 module test_is_match_simplified_nonmetacharacters_are_literal;
   import uvm_pkg::*;

@@ -14,6 +14,23 @@
 :expected_exit: 0
 :expected_stdout: @test_root_finish_reenabled_positive_time_control_88.expected
 */
+// What it checks:
+// Default or explicitly reenabled finish-on-completion terminates after the
+// selected final phase before caller-owned positive-time activity.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.3.4 (UVM-ROOT-FINISH-AUTOMATIC-88) gives the rule above.
+// Setup: Use the actual singleton root, default/latest getter histories and
+// real run_test through a small component that raises an objection, waits
+// positive time and reaches final_phase. Independent default/reenabled
+// controls observe completion before a later positive-time marker while the
+// watchdog still schedules future activity; caller-owned mode observes
+// run_test return and an explicit later finish. The stricter original
+// no-same-time-return probes are control-only, not the definition of the
+// finish flag. Expected: The final-phase marker is present; no new
+// positive-time marker occurs and no error/fatal accounts for termination.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_root_finish_reenabled_positive_time_control_88;
   timeunit 1ns; timeprecision 1ps;
   import uvm_pkg::*;

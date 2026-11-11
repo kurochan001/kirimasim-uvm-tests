@@ -13,6 +13,24 @@
 :expected_exit: 0
 :expected_stdout: @test_enum_state_severity_generic_above_threshold_84.expected
 */
+// What it checks:
+// Public severity-specific and generic reporting preserve the selected message
+// kind.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.2.1 (UVM-ENUM-STATE-SEVERITY-MESSAGE-KIND) gives the rule
+// above. Setup: Original message execution observers receive actual public
+// reporting API calls;the separate error-continuation input uses the
+// unmodified default server with a positive100 quit limit. Standard INFO
+// levels0/100/200/300/400 are tested with global,ID,severity-ID and
+// independent reporter settings. Original unbound sequences expose actual
+// state getters inside hooks,positive body delays,optional hook
+// control,kill,peer isolation and restart. No UVM state is assigned by the
+// fixture. Expected: Execution snapshots preserve the selected
+// severity,origin,ID,body and default or explicitly supplied
+// verbosity;non-INFO generic calls ignore the selected verbosity bound.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard-derived observations; no enum bit positions or report layout fixed.
 module test_enum_state_severity_generic_above_threshold_84;
   import uvm_pkg::*;

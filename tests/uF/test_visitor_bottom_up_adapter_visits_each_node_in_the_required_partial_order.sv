@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_visitor_bottom_up_adapter_visits_each_node_in_the_required_partial_order.expected
 */
+// What it checks:
+// 1. Bottom-up traversal visits descendants before their ancestors.
+// 2. Accept invokes begin/end by default around the complete traversal.
+// 3. The visitor begin callback precedes the first visit.
+// 4. The visitor end callback follows the final visit.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.5.5 (UVM-VISITOR-BOTTOM-UP-PARTIAL-ORDER) gives rule 1
+//    above. Setup: Traverse a five-component tree with two branches. Expected:
+//    Every node is visited once and each child precedes its parent.
+// 2. 1800.2-2020 F.5.3.2.2 (UVM-VISITOR-ACCEPT-DEFAULT-CALLBACKS) gives rule 2
+//    above. Setup: Omit invoke_begin_end for all three concrete traversal
+//    adapters. Expected: Each has one begin and one end enclosing all visits.
+// 3. 1800.2-2020 F.5.1.2.1 (UVM-VISITOR-BEGIN-BEFORE-FIRST-VISIT) gives rule 3
+//    above. Setup: Record callback/visit traces for three traversal
+//    strategies. Expected: Every trace starts with its one begin callback.
+// 4. 1800.2-2020 F.5.1.2.2 (UVM-VISITOR-END-AFTER-LAST-VISIT) gives rule 4
+//    above. Setup: Record callback/visit traces for three traversal
+//    strategies. Expected: Every trace ends with its one end callback.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Traverse a finite tree through public adapters and a component proxy.
 // Check parent/level relationships and membership without sibling ordering.
 module test_visitor_bottom_up_adapter_visits_each_node_in_the_required_partial_order;

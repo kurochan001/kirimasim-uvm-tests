@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_package_integral_type_is_signed_sixty_four_bits_and_sign_extends.expected
 */
+// What it checks:
+// uvm_integral_t is a signed 64-bit type.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.1.4 (UVM-PACKAGE-AUDIT-INTEGRAL-TYPE) gives the rule above.
+// Setup: A selected top-bit-set pattern is shifted into a typed receiver and
+// assigned to a wider signed 96-bit receiver. Expected: Width, negative
+// comparison, arithmetic shift and upper-word sign extension all retain the
+// declared signed type.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // No four-state preservation claim is made by this two-state probe.
 module test_package_integral_type_is_signed_sixty_four_bits_and_sign_extends;
   import uvm_pkg::*;

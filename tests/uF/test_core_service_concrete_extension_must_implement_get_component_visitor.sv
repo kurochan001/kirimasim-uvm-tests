@@ -13,6 +13,19 @@
 :should_fail_because: a concrete core-service extension omits the pure get_component_visitor
 :expected_stderr_regex: (?i)^(?=.*test_core_service_concrete_extension_must_implement_get_component_visitor\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:pure|virtual|abstract|missing implementation)\b)(?=.*\bget_component_visitor\b).*error
 */
+// What it checks:
+// A concrete core-service extension must implement the pure
+// get_component_visitor method.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.4.1.4.8 (UVM-CORE-DECL-AUDIT-GET-COMPONENT-VISITOR-PURE) gives
+// the rule above. Setup: An original extension implements the other
+// twenty-five printed pure methods and the pinned release extra phase-hopper
+// hook, omitting only this selected printed method. Expected: Compilation
+// rejects the concrete extension and identifies this input and
+// get_component_visitor; no runtime binary is executed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exactly one listed pure method is omitted; the extra pinned hook has a body.
 // A compiler acceptance is not a runtime pass.
 `define AUDIT64_OMIT_GET_COMPONENT_VISITOR

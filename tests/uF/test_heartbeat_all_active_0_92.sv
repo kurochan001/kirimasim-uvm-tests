@@ -14,6 +14,26 @@
 :expected_exit: 0
 :expected_stdout: @test_heartbeat_all_active_0_92.expected
 */
+// What it checks:
+// UVM_ALL_ACTIVE accepts activity from all tracked components during each
+// selected window.
+//
+// Variant: Input 1 uses a helper that lists the two actors, and has them
+// object, in the opposite order; input 0 uses the shared helper.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.11 (UVM-PKG-HEARTBEAT-MODE-ALL-92) gives the rule above.
+// Setup: Two original histories monitor actor_a and actor_b through a chosen
+// synchronizing objection. Three positive-time windows contain repeated
+// balanced activity from selected tracked actors and from an untracked
+// outsider. A context-bound original catcher requests termination on a nonINFO
+// report;no post-failure state or recovery is asserted. An unstarted peer
+// retains its explicitly selected mode. The ALL variants reverse watch-list
+// and participation order and use counts A2/B1 versus A1/B3. Expected: Both
+// tracked actors participate in every window without a nonINFO report,balanced
+// counts return to zero,and peer mode is unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original positive-time heartbeat windows observe selected tracked components
 // and an untracked outsider. Catch the first non-INFO report and terminate
 // without assuming severity, exact text, count or recovery. NO_HB_MODE disable

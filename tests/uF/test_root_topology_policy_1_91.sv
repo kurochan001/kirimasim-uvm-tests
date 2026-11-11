@@ -14,6 +14,25 @@
 :expected_exit: 0
 :expected_stdout: @test_root_topology_policy_1_91.expected
 */
+// What it checks:
+// An omitted root topology printer argument uses the current default printer
+// policy.
+//
+// Variant: Input 0 prints the topology with an explicit printer, input 1 with
+// the default printer that it sets first, and input 2 with a null printer
+// argument.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.4.2 (UVM-ROOT-TOPOLOGY-PRINTER-OMITTED-91) gives the rule
+// above. Setup: Two original printers and five original components form two
+// hierarchy branches. Across two calls,explicit selection opposes the default
+// or omitted/null selection follows its replacement. Original do_print hooks
+// record policy identity and membership;emitters only observe the selected
+// sink. Restore the prior global default afterwards. Expected: Every selected
+// user component is visited with the selected policy and only its emitter is
+// used;the hierarchy and restored prior default remain intact.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original do_print hooks record visited user components and printer identity.
 // Explicit,omitted and null calls use two policy selections. No exact
 // formatted text,sibling order or callback invocation count is imposed.

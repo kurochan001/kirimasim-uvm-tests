@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_enum_from_name_rejects_case_space_prefix_and_empty_names.expected
 */
+// What it checks:
+// Enum name conversion requires exact case-sensitive names.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.3.4.2 (UVM-ENUM-NAME-EXACT-CASE) gives the rule above. Setup:
+// Try lowercase, padded, extended and empty names before a valid name.
+// Expected: All invalid calls return zero; the subsequent valid call succeeds
+// with HOT.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe exact enum identity only after successful conversion.
 // The output reference after failed conversion is not prescribed.
 module test_enum_from_name_rejects_case_space_prefix_and_empty_names;

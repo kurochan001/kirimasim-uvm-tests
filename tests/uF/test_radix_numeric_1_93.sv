@@ -14,6 +14,82 @@
 :expected_exit: 0
 :expected_stdout: @test_radix_numeric_1_93.expected
 */
+// What it checks:
+// 1. UVM_BIN selects binary integral formatting.
+// 2. UVM_OCT selects octal integral formatting.
+// 3. UVM_HEX selects hexadecimal integral formatting.
+// 4. UVM_DEC selects decimal integral formatting under the selected
+//    unsigned-property reading.
+// 5. UVM_UNSIGNED selects unsigned-decimal integral formatting under the
+//    textual reading.
+// 6. UVM_NORADIX selects the selected printer default when radix information
+//    is absent.
+// 7. One named radix flag combined with UVM_PRINT governs the selected
+//    compatible scalar property operation.
+//
+// Variant: Input 0 uses 32-bit values and 16-character text; input 1 uses
+// 65-bit values, 32-character text and other values, from a separate
+// wide-value helper, with binary instead of hex as the printer's default
+// radix.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.1.5 (UVM-RADIX-BIN-93) gives rule 1 above. Setup:
+//    Original scalar field macros use one named radix with UVM_PRINT and
+//    mutable properties of the appropriate type. A derived printer observes
+//    public element values through push_element and get_top_element,after
+//    explicitly setting empty radix prefixes. Two inputs choose different
+//    values,widths or format histories;no complete emitted layout is fixed.
+//    Expected: The selected binary text parses to the original unsigned value.
+// 2. 1800.2-2020 F.2.1.5 (UVM-RADIX-OCT-93) gives rule 2 above. Setup:
+//    Original scalar field macros use one named radix with UVM_PRINT and
+//    mutable properties of the appropriate type. A derived printer observes
+//    public element values through push_element and get_top_element,after
+//    explicitly setting empty radix prefixes. Two inputs choose different
+//    values,widths or format histories;no complete emitted layout is fixed.
+//    Expected: The selected octal text parses to the original unsigned value.
+// 3. 1800.2-2020 F.2.1.5 (UVM-RADIX-HEX-93) gives rule 3 above. Setup:
+//    Original scalar field macros use one named radix with UVM_PRINT and
+//    mutable properties of the appropriate type. A derived printer observes
+//    public element values through push_element and get_top_element,after
+//    explicitly setting empty radix prefixes. Two inputs choose different
+//    values,widths or format histories;no complete emitted layout is fixed.
+//    Expected: The selected hexadecimal text parses to the original unsigned
+//    value without fixing case or padding.
+// 4. 1800.2-2020 F.2.1.5 (UVM-RADIX-DEC-93) gives rule 4 above. Setup:
+//    Original scalar field macros use one named radix with UVM_PRINT and
+//    mutable properties of the appropriate type. A derived printer observes
+//    public element values through push_element and get_top_element,after
+//    explicitly setting empty radix prefixes. Two inputs choose different
+//    values,widths or format histories;no complete emitted layout is fixed.
+//    Expected: The decimal text parses to the original
+//    declared-unsigned32/65bit value.
+// 5. 1800.2-2020 F.2.1.5 (UVM-RADIX-UNSIGNED-93) gives rule 5 above. Setup:
+//    Original scalar field macros use one named radix with UVM_PRINT and
+//    mutable properties of the appropriate type. A derived printer observes
+//    public element values through push_element and get_top_element,after
+//    explicitly setting empty radix prefixes. Two inputs choose different
+//    values,widths or format histories;no complete emitted layout is fixed.
+//    Expected: The decimal text preserves the selected high-bit unsigned
+//    value.
+// 6. 1800.2-2020 F.2.1.5 (UVM-RADIX-NORADIX-93) gives rule 6 above. Setup:
+//    Original scalar field macros use one named radix with UVM_PRINT and
+//    mutable properties of the appropriate type. A derived printer observes
+//    public element values through push_element and get_top_element,after
+//    explicitly setting empty radix prefixes. Two inputs choose different
+//    values,widths or format histories;no complete emitted layout is fixed.
+//    Expected: Explicit NORADIX and omission use the selectedHEX/BIN default
+//    and leave the untouched peer atHEX.
+// 7. 1800.2-2020 B.2.2 (UVM-SCALAR-MACRO-TYPED-RADIX-SELECTION-93) gives rule
+//    7 above. Setup: Original scalar field macros use one named radix with
+//    UVM_PRINT and mutable properties of the appropriate type. A derived
+//    printer observes public element values through push_element and
+//    get_top_element,after explicitly setting empty radix prefixes. Two inputs
+//    choose different values,widths or format histories;no complete emitted
+//    layout is fixed. Expected: The selected integer,string,real,time and
+//    enumeration properties produce the expected named-format
+//    observations;omission is equivalent toNORADIX for the selected defaults.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original typed field macros and public stack/recording observers. Numeric
 // formats are parsed,not matched as a full layout. Unsigned decimal prose
 // versus literal %u is qualified;literal controls cannot pass the textual

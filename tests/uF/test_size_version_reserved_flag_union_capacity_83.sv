@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_size_version_reserved_flag_union_capacity_83.expected
 */
+// What it checks:
+// 1. The implementation-reserved field count is available as a package
+//    parameter.
+// 2. The reserved region can store the bitwise union of the radix,recursion
+//    and field macro flag representations.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.1.1 (UVM-SIZE-VERSION-RESERVED-COUNT-PARAMETER) gives
+//    rule 1 above. Setup: Unmodified public UVM types/macros and default
+//    packer implementation. Flag overrides use the actual reserved-count
+//    parameter plus17 or129,without fixing its implementation-dependent value.
+//    Capacity inputs explicitly flush and retain32768 bits via independent
+//    original8/64-bit payload patterns. Version inputs use public
+//    package/preprocessor access;the illegal parameter assignment has no
+//    runtime. Expected: A package-qualified constant expression defines the
+//    positive reserved count without fixing its numeric value.
+// 2. 1800.2-2020 F.2.1.1 (UVM-SIZE-VERSION-RESERVED-UNION-CAPACITY) gives rule
+//    2 above. Setup: Unmodified public UVM types/macros and default packer
+//    implementation. Flag overrides use the actual reserved-count parameter
+//    plus17 or129,without fixing its implementation-dependent value. Capacity
+//    inputs explicitly flush and retain32768 bits via independent
+//    original8/64-bit payload patterns. Version inputs use public
+//    package/preprocessor access;the illegal parameter assignment has no
+//    runtime. Expected: Zero-extended declared enum values and listed
+//    positive/negative operation flags fit below the reserved boundary and
+//    survive field-type storage.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations derived from IEEE.
 // No implementation-specific lower-bit layout or version text is assumed.
 `include "uvm_macros.svh"

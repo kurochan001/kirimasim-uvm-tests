@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_is_match_plus_requires_at_least_one_character.expected
 */
+// What it checks:
+// Simplified plus matches one or more characters.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.3.3.1 (UVM-MATCH-PLUS-ONE-OR-MORE) gives the rule above.
+// Setup: Try zero, one and several inserted characters, plus unmatched outside
+// text. Expected: Zero characters do not match; one/several do, and outside
+// prefix/suffix do not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned UVM_NO_DPI fallback treats plus as a literal character.
 // Preserve the one-or-more semantics from Table F.1 as spec-only.
 // Simplified notation only; no slash-delimited POSIX expression or DPI.

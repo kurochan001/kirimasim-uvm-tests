@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_package_report_enabled_queries_use_root_severity_id_thresholds_and_info_defaults.expected
 */
+// What it checks:
+// 1. Global report-enabled uses the root general threshold and default INFO
+//    severity/empty ID.
+// 2. Global report-enabled honors selected root ID and severity/ID thresholds.
+// 3. A local reporter setting does not replace the global report-enabled root
+//    configuration.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.3.2.2 (UVM-PACKAGE-AUDIT-ENABLED-GENERAL-DEFAULTS) gives
+//    rule 1 above. Setup: Root uses LOW general, HIGH selected ID and MEDIUM
+//    selected WARNING/ID; an independent reporter uses DEBUG. Expected: The
+//    omitted-argument LOW boundary is enabled and one above is disabled.
+// 2. 1800.2-2020 F.3.2.2 (UVM-PACKAGE-AUDIT-ENABLED-SPECIFICITY) gives rule 2
+//    above. Setup: Root uses LOW general, HIGH selected ID and MEDIUM selected
+//    WARNING/ID; an independent reporter uses DEBUG. Expected: Selected
+//    INFO/HIGH succeeds; WARNING/MEDIUM succeeds but one above that pair
+//    threshold fails.
+// 3. 1800.2-2020 F.3.2.2 (UVM-PACKAGE-AUDIT-ENABLED-LOCAL-ISOLATION) gives
+//    rule 3 above. Setup: Root uses LOW general, HIGH selected ID and MEDIUM
+//    selected WARNING/ID; an independent reporter uses DEBUG. Expected: The
+//    DEBUG peer admits its query while the global DEBUG query is false.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_package_report_enabled_queries_use_root_severity_id_thresholds_and_info_defaults;
   import uvm_pkg::*;
   initial begin

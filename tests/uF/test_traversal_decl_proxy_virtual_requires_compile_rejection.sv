@@ -12,6 +12,17 @@
 :should_fail_because: Directly construct the printed virtual base without a derived wrapper.
 :expected_stderr_regex: (?i)^(?=.*test_traversal_decl_proxy_virtual_requires_compile_rejection\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:pure|virtual|abstract|missing implementation)\b)(?=.*\buvm_structure_proxy\b).*error
 */
+// What it checks:
+// The printed virtual uvm_structure_proxy base rejects direct construction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.2.1
+// (UVM-TRAVERSAL-DECL-PROXY-VIRTUAL-REQUIRES-COMPILE-REJECTION) gives the rule
+// above. Setup: Directly construct the printed virtual base without a derived
+// wrapper. Expected: The compiler rejects the selected illegal condition with
+// its fixture/type/method diagnostic.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_proxy_virtual_requires_compile_rejection;

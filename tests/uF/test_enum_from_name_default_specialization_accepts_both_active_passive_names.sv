@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_enum_from_name_default_specialization_accepts_both_active_passive_names.expected
 */
+// What it checks:
+// The default enum wrapper specialization uses the active/passive enumeration.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.3.4.1 (UVM-ENUM-WRAPPER-DEFAULT-TYPE) gives the rule above.
+// Setup: Omit the type parameter and convert both standard mode names plus an
+// unrelated name. Expected: ACTIVE/PASSIVE succeed with exact identities and
+// HOT is rejected.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe exact enum identity only after successful conversion.
 // The output reference after failed conversion is not prescribed.
 module test_enum_from_name_default_specialization_accepts_both_active_passive_names;

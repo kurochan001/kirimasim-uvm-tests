@@ -13,6 +13,22 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_adapter_complete_subtype_dispatches_signature.expected
 */
+// What it checks:
+// A complete adapter subtype retains its typed object ancestry and declared
+// accept interface.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.3.1
+// (UVM-TRAVERSAL-DECL-ADAPTER-COMPLETE-SUBTYPE-DISPATCHES-SIGNATURE) gives the
+// rule above. Setup: Use explicit structure/visitor types derived from the
+// printed visitor base and a complete original accept body delegating to the
+// public top-down adapter. Expected: Base/object views retain the same
+// complete adapter; accept receives the original structure, visitor, proxy and
+// default flag one, and delegated top-down traversal visits root then child.
+// It also supports, as a control, the setup or conditions of
+// UVM-TRAVERSAL-DECL-ADAPTER-MISSING-ACCEPT-REQUIRES-COMPILE-REJECTION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_adapter_complete_subtype_dispatches_signature;

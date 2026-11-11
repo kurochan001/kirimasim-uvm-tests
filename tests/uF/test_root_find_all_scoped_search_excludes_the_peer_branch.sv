@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_root_find_all_scoped_search_excludes_the_peer_branch.expected
 */
+// What it checks:
+// A non-null search start restricts find_all to that subtree.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.4.1 (UVM-ROOT-FIND-ALL-SUBTREE-SCOPE) gives the rule above.
+// Setup: Search a two-branch matching pattern from alpha only. Expected: Only
+// alpha leaf is returned; the peer leaf is absent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit finite component tree; only exact handles and set membership.
 // No sibling traversal order, global root enumeration or print format is fixed.
 module test_root_find_all_scoped_search_excludes_the_peer_branch;

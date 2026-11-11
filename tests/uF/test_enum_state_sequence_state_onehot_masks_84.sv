@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_enum_state_sequence_state_onehot_masks_84.expected
 */
+// What it checks:
+// The declared sequence states have distinct one-hot encodings usable in state
+// masks.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.4.2 (UVM-ENUM-STATE-SEQUENCE-ONEHOT-MASKS) gives the rule
+// above. Setup: Original message execution observers receive actual public
+// reporting API calls;the separate error-continuation input uses the
+// unmodified default server with a positive100 quit limit. Standard INFO
+// levels0/100/200/300/400 are tested with global,ID,severity-ID and
+// independent reporter settings. Original unbound sequences expose actual
+// state getters inside hooks,positive body delays,optional hook
+// control,kill,peer isolation and restart. No UVM state is assigned by the
+// fixture. Expected: Each of nine named states is one-hot,and all512 selected
+// subsets retain independent membership in the public integer-mask
+// representation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard-derived observations; no enum bit positions or report layout fixed.
 module test_enum_state_sequence_state_onehot_masks_84;
   import uvm_pkg::*;

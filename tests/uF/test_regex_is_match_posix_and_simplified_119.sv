@@ -17,6 +17,29 @@
 :expected_exit: 0
 :expected_stdout: @test_regex_is_match_posix_and_simplified_119.expected
 */
+// What it checks:
+// 1. uvm_is_match evaluates an expression surrounded by slashes as a POSIX
+//    regular expression.
+// 2. In simplified notation, plus matches one or more characters, star zero or
+//    more and question mark exactly one.
+// 3. Simplified notation has only three meta-characters, so a dot, a caret and
+//    a dollar sign match themselves.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.3.3.1 (UVM-REGEX-IS-MATCH-POSIX) gives rule 1 above. Setup:
+//    Match anchored expressions with a digit class and one-or-more repetition,
+//    and with an alternation, against matching and nonmatching names.
+//    Expected: The matching names match and the nonmatching name does not.
+// 2. 1800.2-2020 F.3.3.1 (UVM-REGEX-IS-MATCH-SIMPLIFIED-METACHARACTERS) gives
+//    rule 2 above. Setup: Match env.ag+ against env.ag1 and env.ag, env.ag*
+//    against env.ag, and env.a? against env.ag. Expected: Plus needs at least
+//    one character, star accepts none and question mark accepts one.
+// 3. 1800.2-2020 F.3.3.1 (UVM-REGEX-IS-MATCH-SIMPLIFIED-LITERALS) gives rule 3
+//    above. Setup: Match env.ag against envXag, and the unslashed ^env$
+//    against the literal string ^env$ and against env. Expected: The dot does
+//    not match another character, and ^env$ matches only its literal string.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Slash-delimited anchored expressions use a character class with one-or-more
 // repetition and an alternation. Simplified expressions use plus for one or
 // more characters, star and question mark, while a dot, a caret and a dollar

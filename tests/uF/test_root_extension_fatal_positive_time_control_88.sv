@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_root_extension_fatal_positive_time_control_88.expected
 */
+// What it checks:
+// Constructing a root extension after the singleton exists generates a fatal.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.2.1 (UVM-ROOT-EXTENSION-FATAL-88) gives the rule above.
+// Setup: Use the supplied non-public root constructor from an external scope
+// or from a minimal original subtype after obtaining the singleton. A global
+// fatal observer returns THROW. A positive-time extension control observes
+// fatal production/termination without requiring absence of same-time
+// constructor return; the stricter original return probe is control-only.
+// Expected: An attempted extension produces fatal and does not reach later
+// positive-time activity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_root_extension_fatal_positive_time_control_88;
   timeunit 1ns; timeprecision 1ps;
   import uvm_pkg::*;

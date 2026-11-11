@@ -14,6 +14,23 @@
 :expected_exit: 0
 :expected_stdout: @test_heartbeat_no_hb_mode_0_92.expected
 */
+// What it checks:
+// Under the literal disabled reading,explicit UVM_NO_HB_MODE selection
+// disables heartbeat monitoring.
+//
+// Variant: Input 0 starts in UVM_ALL_ACTIVE mode with both actors active
+// before the heartbeat is disabled; input 1 starts in UVM_ONE_ACTIVE mode with
+// only the first actor active.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.11 (UVM-PKG-HEARTBEAT-NO-MODE-DISABLED-READING-92) gives the
+// rule above. Setup: After one healthy ALL or ONE window,pass an explicit
+// UVM_NO_HB_MODE argument and trigger two empty positive-time windows.
+// Separate stop controls call the printed stop API instead of changing mode.
+// Expected: The selected disabled value reads back and the empty windows emit
+// no nonINFO report;the peer mode and balanced counts remain intact.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original positive-time heartbeat windows observe selected tracked components
 // and an untracked outsider. Catch the first non-INFO report and terminate
 // without assuming severity, exact text, count or recovery. NO_HB_MODE disable

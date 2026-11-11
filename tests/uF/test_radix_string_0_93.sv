@@ -14,6 +14,35 @@
 :expected_exit: 0
 :expected_stdout: @test_radix_string_0_93.expected
 */
+// What it checks:
+// 1. UVM_STRING selects string representation of compatible packed ASCII and
+//    native string fields.
+// 2. One named radix flag combined with UVM_PRINT governs the selected
+//    compatible scalar property operation.
+//
+// Variant: Input 0 uses 32-bit values and 16-character text; input 1 uses
+// 65-bit values, 32-character text and other values.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.1.5 (UVM-RADIX-STRING-93) gives rule 1 above. Setup:
+//    Original scalar field macros use one named radix with UVM_PRINT and
+//    mutable properties of the appropriate type. A derived printer observes
+//    public element values through push_element and get_top_element,after
+//    explicitly setting empty radix prefixes. Two inputs choose different
+//    values,widths or format histories;no complete emitted layout is fixed.
+//    Expected: Both representations preserve the original nonNUL text in the
+//    selected fields.
+// 2. 1800.2-2020 B.2.2 (UVM-SCALAR-MACRO-TYPED-RADIX-SELECTION-93) gives rule
+//    2 above. Setup: Original scalar field macros use one named radix with
+//    UVM_PRINT and mutable properties of the appropriate type. A derived
+//    printer observes public element values through push_element and
+//    get_top_element,after explicitly setting empty radix prefixes. Two inputs
+//    choose different values,widths or format histories;no complete emitted
+//    layout is fixed. Expected: The selected integer,string,real,time and
+//    enumeration properties produce the expected named-format
+//    observations;omission is equivalent toNORADIX for the selected defaults.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original typed field macros and public stack/recording observers. Numeric
 // formats are parsed,not matched as a full layout. Unsigned decimal prose
 // versus literal %u is qualified;literal controls cannot pass the textual

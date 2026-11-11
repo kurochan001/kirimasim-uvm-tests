@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_core_disabled_reseed_preserves_two_type_rng_streams_and_the_calling_process.expected
 */
+// What it checks:
+// 1. Core disable globally suppresses reseeding of preexisting objects of
+//    distinct types.
+// 2. Disabled reseed performs no function on the selected object and caller
+//    RNGs.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.4.1.4.26 (UVM-CORE-DECL-AUDIT-SEEDING-GLOBAL-EFFECT) gives
+//    rule 1 above. Setup: Use a fresh process and two original registered
+//    classes. The RNG probe explicitly seeds independent pairs, renames the
+//    selected objects before snapshots and restores the saved global flag.
+//    Expected: Two reseeds per renamed object preserve both RNG states and
+//    three later randomized payloads agree with independently seeded reference
+//    streams.
+// 2. 1800.2-2020 5.3.3.3 (UVM-CORE-DECL-AUDIT-DISABLED-RESEED-NOOP) gives rule
+//    2 above. Setup: Use a fresh process and two original registered classes.
+//    The RNG probe explicitly seeds independent pairs, renames the selected
+//    objects before snapshots and restores the saved global flag. Expected:
+//    The two object states and calling-process state are byte-equal before and
+//    after the four disabled calls; the reference payload streams remain
+//    equal.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // No random number, serialized state format or backend seed encoding is fixed.
 module test_core_disabled_reseed_preserves_two_type_rng_streams_and_the_calling_process;
   import uvm_pkg::*;

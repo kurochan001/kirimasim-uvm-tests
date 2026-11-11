@@ -13,6 +13,25 @@
 :expected_exit: 0
 :expected_stdout: @test_namespace_1_94.expected
 */
+// What it checks:
+// Selected public UVM classes, types, enum values and global methods are
+// accessible through import and package qualification with the same
+// identities.
+//
+// Variant: Input 0 takes the first of each pair of choices (the value
+// 16'h3a71, UVM_HEX and the object q); input 1 takes the second (16'h8c25,
+// UVM_OCT and the object i).
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 1.4.5 (UVM-PACKAGE-IMPORTED-QUALIFIED-ACCESS-94) gives the rule
+// above. Setup: Use two separately compiled original packages; one has no UVM
+// wildcard import and fully qualifies its UVM references, while the other
+// imports uvm_pkg. Transfer original objects and typed words across both
+// views, in opposite object directions. Expected: Cross-view object access
+// retains the same live handle and independent peer; a selected high bit/value
+// and named radix agree; root and package report-object accessors agree.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_namespace_1_94;
   initial begin
     qualified94::packet94 q;

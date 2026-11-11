@@ -14,6 +14,46 @@
 :expected_exit: 0
 :expected_stdout: @test_pkg_port_roles_1_91.expected
 */
+// What it checks:
+// 1. UVM_PORT designates a port requiring its typed interface.
+// 2. UVM_EXPORT designates interface provision through a connected export or
+//    implementation.
+// 3. UVM_IMPLEMENTATION designates an interface bound to its implementing
+//    component.
+//
+// Variant: Inputs 0 and 1 swap which port is selected and which is the peer;
+// input 0 sends 23 and -17, input 1 sends 467 and -39.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.3 (UVM-PKG-PORT-ROLE-PORT-91) gives rule 1 above. Setup:
+//    Two original inputs pass all three typed role designators to a concrete
+//    port-base constructor probe and inspect role predicates. Original empty
+//    connection-query bodies only complete that subtype. Actual analysis
+//    port/export/imp objects separately forward two ordered integer values
+//    through opposite selected child providers,with an untouched peer and
+//    resolved size checks. Expected: The typed constructor selection reports
+//    only is_port and the actual analysis port delivers both values to its
+//    connected provider.
+// 2. 1800.2-2020 F.2.3 (UVM-PKG-PORT-ROLE-EXPORT-91) gives rule 2 above.
+//    Setup: Two original inputs pass all three typed role designators to a
+//    concrete port-base constructor probe and inspect role predicates.
+//    Original empty connection-query bodies only complete that subtype. Actual
+//    analysis port/export/imp objects separately forward two ordered integer
+//    values through opposite selected child providers,with an untouched peer
+//    and resolved size checks. Expected: The typed constructor selection
+//    reports only is_export and the actual export forwards both values to its
+//    child implementation.
+// 3. 1800.2-2020 F.2.3 (UVM-PKG-PORT-ROLE-IMPLEMENTATION-91) gives rule 3
+//    above. Setup: Two original inputs pass all three typed role designators
+//    to a concrete port-base constructor probe and inspect role predicates.
+//    Original empty connection-query bodies only complete that subtype. Actual
+//    analysis port/export/imp objects separately forward two ordered integer
+//    values through opposite selected child providers,with an untouched peer
+//    and resolved size checks. Expected: The typed constructor selection
+//    reports only is_imp and the selected actual implementation calls its
+//    original component write method,leaving the peer unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Typed constructor selections and original analysis forwarding inspect named
 // roles. Dummy query bodies only make the constructor probe concrete;actual
 // traffic uses standard analysis classes. No enum numeric encoding or generic

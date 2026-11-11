@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_enum_from_name_specializations_keep_enum_name_sets_independent.expected
 */
+// What it checks:
+// Enum wrapper name sets follow their receiving specialization.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.3.4.2 (UVM-ENUM-NAME-SPECIALIZATION-ISOLATION) gives the rule
+// above. Setup: Interleave two different enum types and try the other type
+// names. Expected: Own names succeed with exact values, foreign names fail and
+// later own conversion still succeeds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe exact enum identity only after successful conversion.
 // The output reference after failed conversion is not prescribed.
 module test_enum_from_name_specializations_keep_enum_name_sets_independent;

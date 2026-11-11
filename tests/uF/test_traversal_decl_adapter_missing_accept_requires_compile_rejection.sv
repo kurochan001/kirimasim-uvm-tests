@@ -12,6 +12,17 @@
 :should_fail_because: Omit exactly the selected pure method in a directly instantiated concrete subtype.
 :expected_stderr_regex: (?i)^(?=.*test_traversal_decl_adapter_missing_accept_requires_compile_rejection\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:pure|virtual|abstract|missing implementation)\b)(?=.*\baccept\b).*error
 */
+// What it checks:
+// A concrete subtype implements the declared pure accept method.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.3.2.2
+// (UVM-TRAVERSAL-DECL-ADAPTER-MISSING-ACCEPT-REQUIRES-COMPILE-REJECTION) gives
+// the rule above. Setup: Omit exactly the selected pure method in a directly
+// instantiated concrete subtype. Expected: The compiler rejects the selected
+// illegal condition with its fixture/type/method diagnostic.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_adapter_missing_accept_requires_compile_rejection;

@@ -13,6 +13,19 @@
 :should_fail_because: a concrete core-service extension omits the pure get_global_seed
 :expected_stderr_regex: (?i)^(?=.*test_core_service_concrete_extension_must_implement_get_global_seed\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:pure|virtual|abstract|missing implementation)\b)(?=.*\bget_global_seed\b).*error
 */
+// What it checks:
+// A concrete core-service extension must implement the pure get_global_seed
+// method.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.4.1.4.20 (UVM-CORE-DECL-AUDIT-GET-GLOBAL-SEED-PURE) gives the
+// rule above. Setup: An original extension implements the other twenty-five
+// printed pure methods and the pinned release extra phase-hopper hook,
+// omitting only this selected printed method. Expected: Compilation rejects
+// the concrete extension and identifies this input and get_global_seed; no
+// runtime binary is executed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exactly one listed pure method is omitted; the extra pinned hook has a body.
 // A compiler acceptance is not a runtime pass.
 `define AUDIT64_OMIT_GET_GLOBAL_SEED

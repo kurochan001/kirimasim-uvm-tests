@@ -15,6 +15,39 @@
 :expected_exit: 0
 :expected_stdout: @test_library_standard_rand_0_92.expected
 */
+// What it checks:
+// 1. UVM_SEQ_LIB_RAND selects child sequences using the constrained random
+//    index.
+// 2. The selected mode is set and retrieved through the printed APIs and
+//    governs subsequent library execution.
+//
+// Variant: Input 0 constrains the random selection to the first sequence and
+// input 1 to the second; each input also reads back the entry with its own
+// number.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.4.3 (UVM-PKG-SEQUENCE-LIB-MODE-RAND-92) gives rule 1
+//    above. Setup: Two registration/selection histories use two distinct
+//    original child sequence types,a real sequencer/driver pair and an idle
+//    peer. Standard inputs configure the named enum through the printed
+//    setter/getter;default RAND inputs keep the constructor mode and no mode
+//    accessor is replaced. The default legal budget10 is retained. Independent
+//    subtype constraints and original USER choices define the selected
+//    observations without fixing unspecified registration order. Expected: Ten
+//    completed child bodies match the wrapper selected by the independently
+//    constrained valid index;no user-selector hook or item transfer occurs.
+// 2. 1800.2-2020 14.4.4.1 (UVM-SEQUENCE-LIB-MODE-API-EXECUTION-92) gives rule
+//    2 above. Setup: Two registration/selection histories use two distinct
+//    original child sequence types,a real sequencer/driver pair and an idle
+//    peer. Standard inputs configure the named enum through the printed
+//    setter/getter;default RAND inputs keep the constructor mode and no mode
+//    accessor is replaced. The default legal budget10 is retained. Independent
+//    subtype constraints and original USER choices define the selected
+//    observations without fixing unspecified registration order. Expected:
+//    Each of the four explicit named modes reads back as selected and exhibits
+//    its mode-specific child,cyclic,item or USER-hook behavior.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original real child-sequence and item-driver observations. Standard API
 // inputs retain missing-accessor failures; default RAND inputs never replace
 // setters/getters. No fixed enum encoding, arbitrary random trace,

@@ -13,6 +13,22 @@
 :expected_exit: 0
 :expected_stdout: @test_enum_state_verbosity_id_limits_and_peer_84.expected
 */
+// What it checks:
+// Named verbosity levels use the effective report-specific configured limit.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.2.4 (UVM-ENUM-STATE-INFO-EFFECTIVE-LIMITS) gives the rule
+// above. Setup: Original message execution observers receive actual public
+// reporting API calls;the separate error-continuation input uses the
+// unmodified default server with a positive100 quit limit. Standard INFO
+// levels0/100/200/300/400 are tested with global,ID,severity-ID and
+// independent reporter settings. Original unbound sequences expose actual
+// state getters inside hooks,positive body delays,optional hook
+// control,kill,peer isolation and restart. No UVM state is assigned by the
+// fixture. Expected: Selected severity-ID,ID-only and global limits route the
+// named levels as configured,while another reporter remains independent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard-derived observations; no enum bit positions or report layout fixed.
 module test_enum_state_verbosity_id_limits_and_peer_84;
   import uvm_pkg::*;

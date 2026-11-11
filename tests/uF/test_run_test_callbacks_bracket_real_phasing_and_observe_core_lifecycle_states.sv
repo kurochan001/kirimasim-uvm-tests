@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_run_test_callbacks_bracket_real_phasing_and_observe_core_lifecycle_states.expected
 */
+// What it checks:
+// Removing a later registered callback preserves earlier peers during real run
+// notifications.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.6.2.6 (UVM-PACKAGE-AUDIT-CALLBACK-DELETE-DELIVERY) gives the
+// rule above. Setup: Three distinct callbacks are registered in order, the
+// third is deleted, then an actual test is phased with finish disabled.
+// Expected: Both earlier callbacks receive pre/post exactly once; the deleted
+// callback receives neither, and the test phases complete.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_run_test_callbacks_bracket_real_phasing_and_observe_core_lifecycle_states;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

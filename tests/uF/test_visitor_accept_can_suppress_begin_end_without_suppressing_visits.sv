@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_visitor_accept_can_suppress_begin_end_without_suppressing_visits.expected
 */
+// What it checks:
+// Disabling accept callbacks suppresses begin/end without suppressing node
+// visits.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.3.2.2 (UVM-VISITOR-ACCEPT-CALLBACK-SUPPRESSION) gives the
+// rule above. Setup: Call top-down accept with invoke_begin_end zero.
+// Expected: All five nodes are visited once, with zero begin/end and five
+// visit-only trace entries.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Traverse a finite tree through public adapters and a component proxy.
 // Check parent/level relationships and membership without sibling ordering.
 module test_visitor_accept_can_suppress_begin_end_without_suppressing_visits;

@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_package_report_helpers_forward_default_verbosity_and_explicit_debug_context.expected
 */
+// What it checks:
+// 1. Package severity helpers use their declared default verbosity.
+// 2. All four package severity helpers forward explicit payload, verbosity,
+//    filename, line and context.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.3.2.3 (UVM-PACKAGE-AUDIT-HELPER-DEFAULTS) gives rule 1
+//    above. Setup: A standalone module temporarily installs an original root
+//    handler and restores the saved handler after the selected calls.
+//    Expected: INFO uses MEDIUM and WARNING/ERROR/FATAL use NONE through the
+//    root handler.
+// 2. 1800.2-2020 F.3.2.3 (UVM-PACKAGE-AUDIT-HELPER-EXPLICIT-FIELDS) gives rule
+//    2 above. Setup: A standalone module temporarily installs an original root
+//    handler and restores the saved handler after the selected calls.
+//    Expected: Every explicit row has its requested severity and fields and
+//    reaches the root handler.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_package_report_helpers_forward_default_verbosity_and_explicit_debug_context;
   import uvm_pkg::*;
 

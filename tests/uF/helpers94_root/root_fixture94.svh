@@ -1,5 +1,7 @@
 class node94 extends uvm_component;
-  function new(string name,uvm_component parent);super.new(name,parent);endfunction
+  function new(string name,uvm_component parent);
+    super.new(name,parent);
+  endfunction
 endclass
 initial begin
   uvm_root root,recovered;
@@ -9,8 +11,10 @@ initial begin
   if(VARIANT==0) first=new("first94",null);
   root=uvm_root::get();
   if(VARIANT!=0) first=new("first94",null);
-  second=new("second94",null);leaf=new("leaf94",VARIANT==0?first:second);
-  component_view=root;object_view=component_view;
+  second=new("second94",null);
+  leaf=new("leaf94",VARIANT==0?first:second);
+  component_view=root;
+  object_view=component_view;
   if(!$cast(recovered,object_view) || recovered==null) $fatal(1,"root94 base-view cast");
   $display("UT: root94 %0d base_views %0d identity %0d",VARIANT,
     component_view==root && object_view==root,recovered==root && recovered==uvm_root::get());

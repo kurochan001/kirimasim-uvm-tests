@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_package_checked_report_argument_bypasses_only_the_selected_info_admission_check.expected
 */
+// What it checks:
+// An explicitly prechecked package INFO report bypasses the admission query;
+// the default unchecked call is filtered.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.3.2.3 (UVM-PACKAGE-AUDIT-CHECKED-INFO) gives the rule above.
+// Setup: A standalone module temporarily installs an original root handler and
+// restores the saved handler after the selected calls. Expected: The unchecked
+// HIGH report has no handler call under NONE; the checked report arrives once
+// with the original HIGH verbosity and payload.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_package_checked_report_argument_bypasses_only_the_selected_info_admission_check;
   import uvm_pkg::*;
 

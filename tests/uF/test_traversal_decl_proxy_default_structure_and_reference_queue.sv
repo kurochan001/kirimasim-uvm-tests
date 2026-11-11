@@ -13,6 +13,19 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_proxy_default_structure_and_reference_queue.expected
 */
+// What it checks:
+// The proxy default STRUCTURE is compatible with the component-specialized
+// base.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.2.1
+// (UVM-TRAVERSAL-DECL-PROXY-DEFAULT-STRUCTURE-AND-REFERENCE-QUEUE) gives the
+// rule above. Setup: A complete subtype leaves STRUCTURE omitted; its original
+// method delegates to the public component proxy. Expected: The default proxy
+// is assignable to the component-specialized base and object view; its
+// delegated call returns the two direct child handles in either sibling order.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_proxy_default_structure_and_reference_queue;

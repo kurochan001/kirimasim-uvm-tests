@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_run_test_pre_abort_callbacks_follow_component_cleanup_and_precede_final_aborted_state.expected
 */
+// What it checks:
+// 1. Registered pre-abort callbacks execute before root termination.
+// 2. die notifies component/callback cleanup and records ABORTED before
+//    terminating simulation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.6.2.4 (UVM-PACKAGE-AUDIT-CALLBACK-PRE-ABORT) gives rule 1
+//    above. Setup: A standalone original component and registered callback
+//    precede a direct die call; a SystemVerilog final block observes
+//    termination. Expected: The callback runs once in PRE_ABORT after the
+//    selected component pre_abort hook.
+// 2. 1800.2-2020 F.7.3.2 (UVM-PACKAGE-AUDIT-ROOT-ABORT-PROGRESSION) gives rule
+//    2 above. Setup: A standalone original component and registered callback
+//    precede a direct die call; a SystemVerilog final block observes
+//    termination. Expected: Both selected hooks run in PRE_ABORT, component
+//    before callback; final sees ABORTED and the delayed continuation never
+//    runs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Direct die terminates the run; the final block observes completion.
 module test_run_test_pre_abort_callbacks_follow_component_cleanup_and_precede_final_aborted_state;
   import uvm_pkg::*;

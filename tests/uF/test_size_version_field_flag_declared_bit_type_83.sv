@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_size_version_field_flag_declared_bit_type_83.expected
 */
+// What it checks:
+// The field-flag typedef is the declared unsigned packed bit vector indexed
+// from its selected size minus one to zero.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.1.2 (UVM-SIZE-VERSION-FLAG-DECLARED-BIT-TYPE) gives the rule
+// above. Setup: Unmodified public UVM types/macros and default packer
+// implementation. Flag overrides use the actual reserved-count parameter
+// plus17 or129,without fixing its implementation-dependent value. Capacity
+// inputs explicitly flush and retain32768 bits via independent
+// original8/64-bit payload patterns. Version inputs use public
+// package/preprocessor access;the illegal parameter assignment has no runtime.
+// Expected: The type accepts an exact bit-vector ref argument,has the declared
+// left/right bounds and retains independently written edge bits with an
+// unsigned all-ones value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations derived from IEEE.
 // No implementation-specific lower-bit layout or version text is assumed.
 `include "uvm_macros.svh"

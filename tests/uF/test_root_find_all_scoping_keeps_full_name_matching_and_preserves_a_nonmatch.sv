@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_root_find_all_scoping_keeps_full_name_matching_and_preserves_a_nonmatch.expected
 */
+// What it checks:
+// Scoped find_all matches full names and preserves the caller queue on a
+// nonmatch.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.7.4.1 (UVM-ROOT-FIND-ALL-SCOPED-FULL-NAME) gives the rule
+// above. Setup: Search relative leaf text then the full path from alpha with a
+// beta prefix. Expected: Relative text appends nothing; full path appends the
+// exact alpha leaf after the unchanged prefix.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit finite component tree; only exact handles and set membership.
 // No sibling traversal order, global root enumeration or print format is fixed.
 module test_root_find_all_scoping_keeps_full_name_matching_and_preserves_a_nonmatch;

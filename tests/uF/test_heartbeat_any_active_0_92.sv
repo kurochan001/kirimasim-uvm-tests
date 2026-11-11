@@ -14,6 +14,25 @@
 :expected_exit: 0
 :expected_stdout: @test_heartbeat_any_active_0_92.expected
 */
+// What it checks:
+// UVM_ANY_ACTIVE accepts one or more tracked components participating in the
+// selected window.
+//
+// Variant: Each window has the first actor, the second actor or both active in
+// a repeating pattern; input 1 shifts the pattern by one window.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.2.11 (UVM-PKG-HEARTBEAT-MODE-ANY-92) gives the rule above.
+// Setup: Two original histories monitor actor_a and actor_b through a chosen
+// synchronizing objection. Three positive-time windows contain repeated
+// balanced activity from selected tracked actors and from an untracked
+// outsider. A context-bound original catcher requests termination on a nonINFO
+// report;no post-failure state or recovery is asserted. An unstarted peer
+// retains its explicitly selected mode. Expected: Windows containing actor_a
+// only,actor_b only or both remain quiet with balanced counts and an untouched
+// peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original positive-time heartbeat windows observe selected tracked components
 // and an untracked outsider. Catch the first non-INFO report and terminate
 // without assuming severity, exact text, count or recovery. NO_HB_MODE disable

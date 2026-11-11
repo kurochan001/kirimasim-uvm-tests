@@ -12,6 +12,49 @@
 :expected_exit: 0
 :expected_stdout: @test_run_test_callbacks_without_deletion_observe_each_registered_hook_and_core_states.expected
 */
+// What it checks:
+// 1. All registered pre-run callbacks execute before real component phasing.
+// 2. All registered post-run callbacks execute after phasing and before
+//    run_test returns.
+// 3. Selected core lifecycle enum states describe the observed run boundaries.
+// 4. The package run_test convenience task drives the implicit root test
+//    execution.
+// 5. Root run execution brackets phasing with pre/post notifications and
+//    finishes before return.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.6.2.2 (UVM-PACKAGE-AUDIT-CALLBACK-PRE-RUN) gives rule 1
+//    above. Setup: Two registered callbacks and one unregistered control
+//    surround an actual factory-created test with build and delayed run
+//    phases; finish_on_completion is explicitly false. Expected: Both active
+//    callbacks run once before either observed phase visit; the unregistered
+//    callback remains absent.
+// 2. 1800.2-2020 F.6.2.3 (UVM-PACKAGE-AUDIT-CALLBACK-POST-RUN) gives rule 2
+//    above. Setup: Two registered callbacks and one unregistered control
+//    surround an actual factory-created test with build and delayed run
+//    phases; finish_on_completion is explicitly false. Expected: Both active
+//    callbacks run once after both phase visits; the unregistered callback
+//    remains absent.
+// 3. 1800.2-2020 F.2.10 (UVM-PACKAGE-AUDIT-CORE-RUN-STATES) gives rule 3
+//    above. Setup: Two registered callbacks and one unregistered control
+//    surround an actual factory-created test with build and delayed run
+//    phases; finish_on_completion is explicitly false. Expected: Pre callbacks
+//    observe PRE_RUN, phase bodies RUNNING, post callbacks POST_RUN and the
+//    caller FINISHED.
+// 4. 1800.2-2020 F.3.1.2 (UVM-PACKAGE-AUDIT-GLOBAL-RUN-DELEGATION) gives rule
+//    4 above. Setup: Two registered callbacks and one unregistered control
+//    surround an actual factory-created test with build and delayed run
+//    phases; finish_on_completion is explicitly false. Expected: The named
+//    factory test executes both selected phases and registered run callbacks,
+//    then returns under the explicit finish control.
+// 5. 1800.2-2020 F.7.3.1 (UVM-PACKAGE-AUDIT-ROOT-RUN-BOUNDARIES) gives rule 5
+//    above. Setup: Two registered callbacks and one unregistered control
+//    surround an actual factory-created test with build and delayed run
+//    phases; finish_on_completion is explicitly false. Expected: Observed
+//    notifications, running phases and caller state follow the prescribed
+//    PRE_RUN/RUNNING/POST_RUN/FINISHED progression.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_run_test_callbacks_without_deletion_observe_each_registered_hook_and_core_states;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

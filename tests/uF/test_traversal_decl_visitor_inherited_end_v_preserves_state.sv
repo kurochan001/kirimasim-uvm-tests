@@ -13,6 +13,19 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_visitor_inherited_end_v_preserves_state.expected
 */
+// What it checks:
+// The inherited visitor end_v base body leaves selected original state
+// unchanged.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.1.2.2
+// (UVM-TRAVERSAL-DECL-VISITOR-INHERITED-END-V-PRESERVES-STATE) gives the rule
+// above. Setup: Override only visit; inherit the selected default hook and
+// call it after one live visit. Expected: The inherited hook preserves the one
+// prior visit, selected node and quiet69 name; the following visit advances
+// the count to two and keeps the same base view.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_visitor_inherited_end_v_preserves_state;

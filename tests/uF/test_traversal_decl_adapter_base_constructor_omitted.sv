@@ -13,6 +13,19 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_adapter_base_constructor_omitted.expected
 */
+// What it checks:
+// The adapter_base constructor preserves the omitted name and declared
+// ancestry.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.3.2.1 (UVM-TRAVERSAL-DECL-ADAPTER-BASE-CONSTRUCTOR-OMITTED)
+// gives the rule above. Setup: A direct original subtype calls super.new with
+// the selected argument form; all pure methods have complete bodies. The exact
+// tested call is super.new(). Expected: The omitted base constructor name is
+// the empty string. The typed ancestor and object views retain the same
+// constructed handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_adapter_base_constructor_omitted;

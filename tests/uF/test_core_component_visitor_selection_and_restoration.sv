@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_core_component_visitor_selection_and_restoration.expected
 */
+// What it checks:
+// 1. The core service selects the component visitor supplied to its setter.
+// 2. The component visitor getter reflects restoration of the saved selection.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.4.1.4.9 (UVM-CORE-COMPONENT-VISITOR-SELECTION) gives rule 1
+//    above. Setup: Select two concrete visitors successively. Expected: The
+//    getter identifies each selected handle; selection itself performs no
+//    visit.
+// 2. 1800.2-2020 F.4.1.4.8 (UVM-CORE-COMPONENT-VISITOR-RESTORATION) gives rule
+//    2 above. Setup: Save the current handle, swap visitors and restore the
+//    saved handle. Expected: The getter returns the exact saved handle,
+//    including a possible null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Check service selection independently of automatic end-of-elaboration
 // traversal or component-name validation; no default visitor type is assumed.
 module test_core_component_visitor_selection_and_restoration;

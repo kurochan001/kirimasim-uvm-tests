@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_default_core_service_no_argument_construction_preserves_a_legal_extension_and_base_view.expected
 */
+// What it checks:
+// 1. The default core service supplies a concrete implementation and permits a
+//    legal extension.
+// 2. The default core service extends the core-service base.
+// 3. The default service and its legal extension support no-argument
+//    construction.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.4.2 (UVM-CORE-DECL-AUDIT-DEFAULT-CONCRETE) gives rule 1
+//    above. Setup: Use fresh simulation state, exact public base views and
+//    original objects; do not install an extra custom global service or assume
+//    an implementation default concrete type. Expected: Two distinct concrete
+//    objects can be constructed and the original override dispatches once.
+// 2. 1800.2-2020 F.4.2.1 (UVM-CORE-DECL-AUDIT-DEFAULT-ANCESTRY) gives rule 2
+//    above. Setup: Use fresh simulation state, exact public base views and
+//    original objects; do not install an extra custom global service or assume
+//    an implementation default concrete type. Expected: Implicit base
+//    assignments preserve both concrete object identities.
+// 3. 1800.2-2020 F.4.2.2 (UVM-CORE-DECL-AUDIT-DEFAULT-NOARG-CONSTRUCTOR) gives
+//    rule 3 above. Setup: Use fresh simulation state, exact public base views
+//    and original objects; do not install an extra custom global service or
+//    assume an implementation default concrete type. Expected: Both non-null,
+//    distinct objects are constructed without constructor arguments.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_default_core_service_no_argument_construction_preserves_a_legal_extension_and_base_view;
   import uvm_pkg::*;
   class extended_service extends uvm_default_coreservice_t;

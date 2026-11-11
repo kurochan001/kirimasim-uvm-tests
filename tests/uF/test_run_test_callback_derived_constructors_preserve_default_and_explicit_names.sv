@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_run_test_callback_derived_constructors_preserve_default_and_explicit_names.expected
 */
+// What it checks:
+// Run-test callback construction preserves omitted, explicit and empty names.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.6.2.1 (UVM-PACKAGE-AUDIT-CALLBACK-CONSTRUCTOR) gives the rule
+// above. Setup: Original legal concrete extensions call only super.new, with
+// the default omitted in one extension. Expected: The default is
+// uvm_run_test_callback, explicit/empty names are preserved and the instance
+// is a uvm_callback.
+// It also supports, as a control, the setup or conditions of
+// UVM-PACKAGE-AUDIT-CALLBACK-VIRTUAL-BASE.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_run_test_callback_derived_constructors_preserve_default_and_explicit_names;
   import uvm_pkg::*;
   class default_callback extends uvm_run_test_callback;

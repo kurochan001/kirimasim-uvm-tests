@@ -13,6 +13,26 @@
 :expected_exit: 0
 :expected_stdout: @test_core_phase_default_limit_bounds_real_ready_to_end_reentry.expected
 */
+// What it checks:
+// 1. The core-selected global limit bounds actual ready-to-end reentry.
+// 2. The phase stops reentering readiness at its selected maximum despite
+//    further objections.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.4.1.4.10 (UVM-CORE-DECL-AUDIT-LIMIT-REAL-REENTRY) gives
+//    rule 1 above. Setup: Set the core default before new node construction or
+//    run_test. Keep explicit node limits separate. The live probe raises on
+//    every main readiness callback and drops after one nanosecond. Expected:
+//    Repeated positive-time objections in the real main phase cause exactly
+//    three ready callbacks with a selected core maximum of three.
+// 2. 1800.2-2020 13.1.4.3.2 (UVM-CORE-DECL-AUDIT-LIMIT-READY-BOUND) gives rule
+//    2 above. Setup: Set the core default before new node construction or
+//    run_test. Keep explicit node limits separate. The live probe raises on
+//    every main readiness callback and drops after one nanosecond. Expected:
+//    The real main phase reaches extraction after the third ready callback
+//    without hitting the original watchdog.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only main raises ready objections; all drops finish before the next callback.
 module test_core_phase_default_limit_bounds_real_ready_to_end_reentry;
   timeunit 1ns; timeprecision 1ps;

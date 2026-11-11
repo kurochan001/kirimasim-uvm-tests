@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_visitor_adapter_uses_a_custom_noncomponent_structure_proxy.expected
 */
+// What it checks:
+// Top-down traversal obtains a custom noncomponent tree through its supplied
+// proxy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.4 (UVM-VISITOR-CUSTOM-STRUCTURE-PROXY) gives the rule above.
+// Setup: Supply four custom object nodes and a direct-child proxy. Expected:
+// All four nodes occur once, proxy use is observed and required
+// parent-before-child relations hold.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Generic object nodes, a custom proxy and public visitor dispatch only.
 // Tree construction is fixture code; the adapter supplies traversal.
 module test_visitor_adapter_uses_a_custom_noncomponent_structure_proxy;

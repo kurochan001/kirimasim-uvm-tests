@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_core_service_global_seed_is_immutable_within_one_simulation.expected
 */
+// What it checks:
+// 1. Successive core-service get calls identify the current shared service
+//    instance.
+// 2. The core global seed remains unchanged within one simulation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.4.1.3 (UVM-CORE-SERVICE-INSTANCE-STABILITY) gives rule 1
+//    above. Setup: Query around service selection, object construction, random
+//    draws and a delay. Expected: Each get returns the same service handle.
+// 2. 1800.2-2020 F.4.1.4.20 (UVM-CORE-GLOBAL-SEED-IMMUTABILITY) gives rule 2
+//    above. Setup: Take four process-random draws, construct objects and
+//    advance time. Expected: Every seed query equals the initial query.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe equality within one simulation only, never a particular seed value
 // or equality between separate seed-1/seed-73 processes or RNG algorithms.
 module test_core_service_global_seed_is_immutable_within_one_simulation;

@@ -15,6 +15,24 @@
 :expected_exit: 0
 :expected_stdout: @test_heartbeat_stop_0_92.expected
 */
+// What it checks:
+// An explicit stop ends the selected heartbeat monitoring even when its old
+// event is triggered again.
+//
+// Variant: Input 0 starts in UVM_ALL_ACTIVE mode with both actors active
+// before the heartbeat is disabled; input 1 starts in UVM_ONE_ACTIVE mode with
+// only the first actor active.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.6.2.7 (UVM-HEARTBEAT-STOP-QUIET-TRIGGERS-92) gives the rule
+// above. Setup: First complete a healthy ALL or ONE window with two tracked
+// components,then call stop and trigger the same event twice without tracked
+// activity. Expected: The later empty windows do not produce a nonINFO
+// report;counts remain zero and the unstarted peer retains its selected mode.
+// It also supports, as a control, the setup or conditions of
+// UVM-PKG-HEARTBEAT-NO-MODE-DISABLED-READING-92.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Separate explicit-stop control: does not assert NO_HB_MODE disables.
 // Original positive-time heartbeat windows observe selected tracked components
 // and an untracked outsider. Catch the first non-INFO report and terminate

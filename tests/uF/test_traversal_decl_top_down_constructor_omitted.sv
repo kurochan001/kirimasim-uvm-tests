@@ -13,6 +13,17 @@
 :expected_exit: 0
 :expected_stdout: @test_traversal_decl_top_down_constructor_omitted.expected
 */
+// What it checks:
+// The top_down constructor preserves the omitted name and declared ancestry.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 F.5.4.2 (UVM-TRAVERSAL-DECL-TOP-DOWN-CONSTRUCTOR-OMITTED) gives
+// the rule above. Setup: Construct the builtin class directly with the
+// selected argument form. The exact tested call is new(). Expected: The
+// omitted base constructor name is the empty string. The typed ancestor and
+// object views retain the same constructed handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original declarations and observations derived from the cited standards.
 module
   test_traversal_decl_top_down_constructor_omitted;

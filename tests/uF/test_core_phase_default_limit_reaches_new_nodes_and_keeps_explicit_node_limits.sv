@@ -12,6 +12,40 @@
 :expected_exit: 0
 :expected_stdout: @test_core_phase_default_limit_reaches_new_nodes_and_keeps_explicit_node_limits.expected
 */
+// What it checks:
+// 1. The initial global ready-to-end maximum is twenty.
+// 2. The core setter changes the global default used by phases.
+// 3. The core getter returns the selected global ready-to-end default.
+// 4. An explicit per-node maximum remains independent of subsequent global
+//    default changes.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 9.3.1.3.5 (UVM-CORE-DECL-AUDIT-LIMIT-INITIAL-DEFAULT) gives
+//    rule 1 above. Setup: Set the core default before new node construction or
+//    run_test. Keep explicit node limits separate. The live probe raises on
+//    every main readiness callback and drops after one nanosecond. Expected:
+//    The selected core and phase default accessors initially both return
+//    twenty.
+// 2. 1800.2-2020 F.4.1.4.10 (UVM-CORE-DECL-AUDIT-LIMIT-CORE-SET) gives rule 2
+//    above. Setup: Set the core default before new node construction or
+//    run_test. Keep explicit node limits separate. The live probe raises on
+//    every main readiness callback and drops after one nanosecond. Expected:
+//    The core and phase defaults agree at seven and then nine; a new
+//    unmodified node inherits seven.
+// 3. 1800.2-2020 F.4.1.4.11 (UVM-CORE-DECL-AUDIT-LIMIT-CORE-GET) gives rule 3
+//    above. Setup: Set the core default before new node construction or
+//    run_test. Keep explicit node limits separate. The live probe raises on
+//    every main readiness callback and drops after one nanosecond. Expected:
+//    The getter initially returns twenty, then seven, and retains the saved
+//    value after restoration.
+// 4. 1800.2-2020 9.3.1.3.3 (UVM-CORE-DECL-AUDIT-LIMIT-EXPLICIT-INSTANCE) gives
+//    rule 4 above. Setup: Set the core default before new node construction or
+//    run_test. Keep explicit node limits separate. The live probe raises on
+//    every main readiness callback and drops after one nanosecond. Expected:
+//    The first node retains three while a new peer inherits seven and the
+//    global default becomes nine.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_core_phase_default_limit_reaches_new_nodes_and_keeps_explicit_node_limits;
   import uvm_pkg::*;
   initial begin

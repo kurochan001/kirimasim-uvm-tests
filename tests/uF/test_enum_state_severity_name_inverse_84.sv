@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_enum_state_severity_name_inverse_84.expected
 */
+// What it checks:
+// 1. The four named severity literals represent distinct selectable report
+//    kinds.
+// 2. The enum wrapper converts declared names back to their corresponding enum
+//    values.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 F.2.2.1 (UVM-ENUM-STATE-SEVERITY-LITERALS) gives rule 1
+//    above. Setup: Original message execution observers receive actual public
+//    reporting API calls;the separate error-continuation input uses the
+//    unmodified default server with a positive100 quit limit. Standard INFO
+//    levels0/100/200/300/400 are tested with global,ID,severity-ID and
+//    independent reporter settings. Original unbound sequences expose actual
+//    state getters inside hooks,positive body delays,optional hook
+//    control,kill,peer isolation and restart. No UVM state is assigned by the
+//    fixture. Expected: Named INFO/WARNING/ERROR/FATAL values are distinct and
+//    each maps to its exact declared enum name without fixing numeric values.
+// 2. 1800.2-2020 F.3.4 (UVM-ENUM-STATE-ENUM-NAME-INVERSE) gives rule 2 above.
+//    Setup: Original message execution observers receive actual public
+//    reporting API calls;the separate error-continuation input uses the
+//    unmodified default server with a positive100 quit limit. Standard INFO
+//    levels0/100/200/300/400 are tested with global,ID,severity-ID and
+//    independent reporter settings. Original unbound sequences expose actual
+//    state getters inside hooks,positive body delays,optional hook
+//    control,kill,peer isolation and restart. No UVM state is assigned by the
+//    fixture. Expected: All four literal severity names invert the language
+//    name method and a lowercase variant is rejected without constraining the
+//    failed output reference.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard-derived observations; no enum bit positions or report layout fixed.
 module test_enum_state_severity_name_inverse_84;
   import uvm_pkg::*;
