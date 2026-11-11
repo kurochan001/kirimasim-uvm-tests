@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_kill_stops_unbound_body_and_releases_start.expected
 */
+// What it checks:
+// Killing an active bound or unbound sequence stops its body and releases
+// start.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.5.11 (UVM-SEQUENCE-KILL-ACTIVE-STOP-RETURN) gives the rule
+// above. Setup: Kill during a positive body delay and observe beyond its
+// original deadline. Expected: State is STOPPED, one kill hook runs, start
+// returns and no delayed write occurs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Kill after the body has entered, then allow a positive settling
 // delay before observing state and start return. Sample the body flag
 // after its original delay would have completed.

@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_state_stopped_mask_returns_on_kill_and_again_when_already_stopped.expected
 */
+// What it checks:
+// 1. A STOPPED-or-FINISHED wait accepts a killed sequence STOPPED state.
+// 2. A state wait returns immediately when already in the selected STOPPED
+//    state.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.2.5 (UVM-SEQUENCE-STATE-STOPPED-WAIT) gives rule 1
+//    above. Setup: Kill during a delayed body after observing BODY. Expected:
+//    State is STOPPED, waiter and start return, and body exit remains zero.
+// 2. 1800.2-2020 14.2.2.5 (UVM-SEQUENCE-STATE-ALREADY-MATCHING-STOPPED) gives
+//    rule 2 above. Setup: Call a STOPPED wait after the kill has settled.
+//    Expected: The matching wait returns without another state transition.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Unbound virtual sequences with positive body delays; no driver or phases.
 // Only mask/state behavior is asserted, not kill post-hook ordering.
 module test_sequence_state_stopped_mask_returns_on_kill_and_again_when_already_stopped;

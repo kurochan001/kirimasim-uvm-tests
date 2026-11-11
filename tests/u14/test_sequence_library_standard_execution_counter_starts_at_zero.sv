@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_standard_execution_counter_starts_at_zero.expected
 */
+// What it checks:
+// The standard execution counter starts at zero before any member runs.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.4 (UVM-LIBRARY-EXECUTION-COUNTER-INITIAL-ZERO) gives the
+// rule above. Setup: Register a type without starting the library. Expected:
+// The standard counter getter returns zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library lacks the standard accessor methods. Keep the
 // required API spelling and its expectation as a spec-only build case.
 

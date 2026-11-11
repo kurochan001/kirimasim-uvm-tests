@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_start_item_null_argument_reports_error_and_returns.expected
 */
+// What it checks:
+// start_item with a null item reports an error and returns without entering
+// item processing.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.2 (UVM-SEQUENCE-NULL-START) gives the rule above. Setup:
+// An error/fatal-counting fixture calls start_item(null). Expected: The call
+// returns, pre hooks stay at zero, and one error but no fatal is observed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Pass a null item from an unbound sequence. The argument check must
 // report an error and return without dereferencing the item or requesting a
 // grant.

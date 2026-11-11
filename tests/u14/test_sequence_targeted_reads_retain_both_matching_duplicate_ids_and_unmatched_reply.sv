@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_targeted_reads_retain_both_matching_duplicate_ids_and_unmatched_reply.expected
 */
+// What it checks:
+// Repeated targeted reads retrieve distinct matching queued replies without
+// discarding another ID.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.3.3.3 (UVM-SEQUENCE-MATCHING-DUPLICATE-RESPONSES) gives the
+// rule above. Setup: Two replies share an explicit transaction ID and one has
+// another ID. Expected: Both matching handles are returned once and the
+// unmatched handle remains; matching tie order is unconstrained.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays distinguish a real wait from delta-cycle scheduling.
 // Responses copy both routing IDs from real acknowledged requests.
 module test_sequence_targeted_reads_retain_both_matching_duplicate_ids_and_unmatched_reply;

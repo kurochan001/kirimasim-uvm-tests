@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_lock_waits_for_existing_owner_to_unlock.expected
 */
+// What it checks:
+// A lock waits while an existing owner blocks it and returns after
+// acquisition.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.5.5 (UVM-SEQUENCE-LOCK-WAIT-FOR-OWNER) gives the rule
+// above. Setup: Hold first lock, request second lock, probe before release and
+// after transfer. Expected: Second remains blocked initially, becomes exact
+// owner after release, and final release clears ownership.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Hold the first lock before starting a competing acquisition. Sample
 // the waiting flag after a positive delay, then release and observe the
 // new owner before its own delayed release. Fork state lives in the test.

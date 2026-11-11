@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_kill_of_queued_lock_preserves_another_waiter.expected
 */
+// What it checks:
+// 1. Sequence kill removes its pending lock/grab requests from the default
+//    sequencer.
+// 2. Killing one pending sequence leaves another sequence ownership request
+//    intact.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.5.11 (UVM-SEQUENCE-KILL-PENDING-OWNERSHIP) gives rule 1
+//    above. Setup: Hold ownership, arm a blocked waiter, kill it before grant,
+//    then permit an actual transfer. Expected: The killed waiter stays STOPPED
+//    without acquiring; a fresh or surviving request completes.
+// 2. 1800.2-2020 14.2.5.11 (UVM-SEQUENCE-KILL-PENDING-SCOPE) gives rule 2
+//    above. Setup: Two independent lock waiters block behind an owner before
+//    one is killed. Expected: The surviving waiter acquires after release and
+//    delivers payload 66.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Hold ownership before starting waiters. Positive delays prove they remain
 // blocked before cancellation. A real fresh transfer tests queue cleanup;
 // the fixture never inspects a sequencer's private arbitration queue.

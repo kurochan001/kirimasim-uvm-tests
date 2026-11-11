@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_get_response_waits_for_a_matching_reply_and_retains_earlier_nonmatches.expected
 */
+// What it checks:
+// A specific-ID response wait retains earlier nonmatching replies.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.3.3.3 (UVM-RESPONSE-ID-WAIT-RETAINS-NONMATCHES) gives the
+// rule above. Setup: Queue replies 101/103, wait for 102 and deliver 102
+// later. Expected: No reply is returned early; results are exact handles for
+// 102/101/103 with values 22/11/33.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Copy routing IDs from real requests while the receiver remains active.
 // Positive delays separate queue operations from observation; no internal
 // response queue or numeric sequence-routing ID is inspected.

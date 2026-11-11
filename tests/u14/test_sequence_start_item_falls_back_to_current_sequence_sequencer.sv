@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_start_item_falls_back_to_current_sequence_sequencer.expected
 */
+// What it checks:
+// start_item falls back to its current sequence sequencer when other
+// references are null.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.2 (UVM-SEQUENCE-START-CURRENT-SEQUENCER-FALLBACK) gives
+// the rule above. Setup: Omit explicit and item sequencer references.
+// Expected: Only the parent/current sequencer receives the grant and context
+// identifies that sequencer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Leave both item and explicit sequencer references null. The running
 // sequence supplies the request context and the selected driver acknowledges.
 

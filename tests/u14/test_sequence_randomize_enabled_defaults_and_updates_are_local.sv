@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_randomize_enabled_defaults_and_updates_are_local.expected
 */
+// What it checks:
+// 1. The sequence randomization-enable getter defaults to one and reflects
+//    local updates.
+// 2. The randomization-enable setter updates the current sequence control
+//    independently of a peer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.2.2 (UVM-SEQUENCE-RANDOMIZE-ENABLE-CONTROL) gives rule 1
+//    above. Setup: Read two new sequences and independently disable/re-enable
+//    them. Expected: Defaults are one/one and updates affect only the chosen
+//    sequence.
+// 2. 1800.2-2020 14.2.2.3 (UVM-SEQUENCE-RANDOMIZATION-ENABLE-SETTER) gives
+//    rule 2 above. Setup: Two existing sequence instances are disabled and
+//    reenabled through public setters. Expected: The disabled/reconfigured
+//    controls read back as 0/1 and then 1/0.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect only the enable controls. This case does not randomize data
 // or claim to cover the macros that perform automatic randomization.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_automatic_objection_raises_and_drops_starting_phase_objection.expected
 */
+// What it checks:
+// Enabled automatic phase objection spans pre_start through post_start and
+// drops after start returns.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.4.3 (UVM-SEQUENCE-AUTOMATIC-OBJECTION-LIFETIME) gives the
+// rule above. Setup: Use enabled/disabled sequences against an isolated
+// starting task-phase node. Expected: Enabled counts are one inside the hooks
+// and zero afterward; disabled counts stay zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use an isolated task-phase node as the starting phase. Observe own
 // counts inside pre_start, body and post_start, then after start returns.
 // No phase engine or asynchronous objector-list assertion is involved.

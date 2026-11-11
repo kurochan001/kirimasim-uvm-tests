@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_start_item_uses_item_sequencer_before_parent_fallback.expected
 */
+// What it checks:
+// Without an explicit argument start_item prefers the item sequencer over its
+// parent sequence sequencer.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.2 (UVM-SEQUENCE-START-ITEM-SEQUENCER-PRECEDENCE) gives
+// the rule above. Setup: Set distinct item and parent sequencers. Expected:
+// Only the item sequencer receives the grant and the request completes
+// normally.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Give the item a sequencer distinct from the running parent and leave the
 // explicit argument null. Only the item sequencer may receive the request.
 

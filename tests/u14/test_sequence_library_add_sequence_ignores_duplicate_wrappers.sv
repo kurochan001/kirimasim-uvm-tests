@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_add_sequence_ignores_duplicate_wrappers.expected
 */
+// What it checks:
+// Instance registration silently ignores duplicate wrappers.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.5.3 (UVM-LIBRARY-INSTANCE-REGISTRATION-DEDUPLICATION) gives
+// the rule above. Setup: Register alpha twice and beta once. Expected: There
+// are two distinct indexed wrappers with one occurrence each and no
+// warning/error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register two sequence types, including one duplicate. Compare membership
 // and public indexed access without requiring an insertion order.
 

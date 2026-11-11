@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_wait_for_grant_lock_request_holds_lock_until_explicit_unlock.expected
 */
+// What it checks:
+// Sequence grant waiting forwards lock_request and obtains ownership before
+// item delivery.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.4 (UVM-SEQUENCE-GRANT-LOCK-REQUEST-FORWARDING) gives the
+// rule above. Setup: Request a lock with the grant and unlock after
+// acknowledgement. Expected: The forwarded lock bit and held-lock flag are one
+// at delivery and ownership is zero after release.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Request a lock with the grant and inspect ownership while the driver
 // holds the item. The producer unlocks after acknowledgement. There are no
 // competing requests whose arbitration ordering would be ambiguous.

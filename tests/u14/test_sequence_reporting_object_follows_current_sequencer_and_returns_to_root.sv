@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_reporting_object_follows_current_sequencer_and_returns_to_root.expected
 */
+// What it checks:
+// Sequence/item reporting selects the current sequencer or the implicit root.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.1.3.1 (UVM-SEQUENCE-REPORT-OBJECT-CURRENT-CONTEXT) gives the
+// rule above. Setup: Bind, rebind and clear sequencer references on one
+// sequence and item. Expected: Exact reporter identities track each binding
+// and return to root when cleared.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit reporting context only: no driver, item arbitration or report text
 // formatting is assumed. Probe overrides are distinct from handler routing.
 module test_sequence_reporting_object_follows_current_sequencer_and_returns_to_root;

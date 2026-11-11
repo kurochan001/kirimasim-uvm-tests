@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_response_handler_can_switch_back_to_queue.expected
 */
+// What it checks:
+// Disabling response handling routes later responses through the queue.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.7.1 (UVM-RESPONSE-HANDLER-TO-QUEUE-SWITCH) gives the rule
+// above. Setup: Deliver first to the handler, disable handling and retrieve
+// second through get_response. Expected: Final mode is zero, the handled value
+// is 11 and queued value is 22.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Deliver the first reply to the handler, change the public mode bit,
 // and deliver the second before allowing one get_response call.
 

@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_relevance_relevant_peer_releases_only_eligible_requests.expected
 */
+// What it checks:
+// 1. A relevant request can finish while a queued peer remains irrelevant.
+// 2. A remaining irrelevant request waits and resumes after its gate opens.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.5.3 (UVM-RELEVANCE-RELEVANT-PEER-CAN-PROCEED) gives rule
+//    1 above. Setup: The second request is relevant and the first gate is
+//    initially closed. Expected: The second finishes first and final order is
+//    22 then 11.
+// 2. 1800.2-2020 14.2.5.4 (UVM-RELEVANCE-LAST-IRRELEVANT-WAITER) gives rule 2
+//    above. Setup: An eligible peer has completed, leaving one closed request.
+//    Expected: Its wait method participates before it completes after opening.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Queue requests before the delayed driver arbitrates. Gates and positive
 // delays establish order; exact internal polling/wait counts are not fixed.
 module test_sequence_relevance_relevant_peer_releases_only_eligible_requests;

@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_default_rand_executes_unforced_selection.expected
 */
+// What it checks:
+// 1. A default-budget library executes ten registered member sequences.
+// 2. A default library can execute its legal registered choices without
+//    forcing a winner.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.4.4.6 (UVM-LIBRARY-DEFAULT-EXECUTION-BUDGET) gives rule 1
+//    above. Setup: Use one registered type or two unconstrained registered
+//    choices. Expected: Exactly ten child bodies complete, without fixing the
+//    unforced winners.
+// 2. 1800.2-2020 14.4 (UVM-SEQ-REVIEW-UNFORCED-RAND-COMPLETION) gives rule 2
+//    above. Setup: An unchanged fixture registers two child types and leaves
+//    their selection unconstrained. Expected: Ten registered child bodies
+//    complete without fixing which type wins.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register members through the instance API and keep the default legal
 // ten-iteration count. Observe completed child bodies without assuming
 // a random distribution or execution order.

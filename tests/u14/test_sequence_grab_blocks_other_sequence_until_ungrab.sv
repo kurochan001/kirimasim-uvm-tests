@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_grab_blocks_other_sequence_until_ungrab.expected
 */
+// What it checks:
+// A granted grab excludes unrelated sequences until its release.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.5.6 (UVM-SEQUENCE-GRAB-IDLE-EXCLUSION) gives the rule
+// above. Setup: Request ownership on an idle bound sequencer and then release
+// it. Expected: The owner holds the lock, its peer is blocked, and all
+// ownership/blocking clears after release.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Bind both sequence objects to an idle sequencer. Inspect ownership
 // and blocking through sequence and sequencer APIs; no item arbitration
 // or running sequence body is needed to request these locks.

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_typewide_queue_registration_deduplicates_future_membership.expected
 */
+// What it checks:
+// Bulk typewide registration adds unique wrappers only to future instances.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.5.2 (UVM-LIBRARY-BULK-TYPEWIDE-FUTURE-MEMBERSHIP) gives the
+// rule above. Setup: Register alpha/beta/alpha after one library already
+// exists. Expected: The old library remains empty; a future library has two
+// unique members and the input queue retains size three.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use the typewide queue API after constructing one library. New instances
 // receive both unique wrappers while the existing instance stays unchanged.
 

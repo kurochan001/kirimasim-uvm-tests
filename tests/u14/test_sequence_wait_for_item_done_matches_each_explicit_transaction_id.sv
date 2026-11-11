@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_wait_for_item_done_matches_each_explicit_transaction_id.expected
 */
+// What it checks:
+// Explicit-ID completion waits follow each corresponding acknowledgement.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.6 (UVM-SEQUENCE-ITEM-DONE-EXPLICIT-IDS) gives the rule
+// above. Setup: Send items 50/51, acknowledge first and hold second before its
+// acknowledgement. Expected: Only one completion exists while second is held;
+// final completion/sent counts are two.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use two explicit IDs and acknowledge them separately. Sample while the
 // second item is held, before its own acknowledgement. No completed ID is
 // passed to a waiter after its acknowledgement.

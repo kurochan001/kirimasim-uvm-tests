@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_wait_for_item_done_default_stays_blocked_until_acknowledgement.expected
 */
+// What it checks:
+// 1. The default completion wait remains blocked until item acknowledgement.
+// 2. The optional item_done response can be omitted while acknowledging the
+//    request.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.6.6 (UVM-SEQUENCE-ITEM-DONE-DEFAULT-WAIT) gives rule 1
+//    above. Setup: Hold a retrieved item for two positive delays before
+//    item_done. Expected: Completion/done remain zero while held and both
+//    become one after acknowledgement.
+// 2. 1800.2-2020 15.2.1.2.3 (UVM-SQR-AUDIT-INTERFACE-DONE-OMITTED-RESPONSE)
+//    gives rule 2 above. Setup: Use the selected original fixture, declared
+//    type arguments, public endpoint/base views and linked stage observations.
+//    Requests satisfy the grant precondition before send_request and response
+//    IDs are copied from the actual request. Expected: The optional item_done
+//    response can be omitted while acknowledging the request.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Hold the retrieved item for two positive ticks. Observe the low-level
 // completion waiter before and after the driver calls item_done.
 

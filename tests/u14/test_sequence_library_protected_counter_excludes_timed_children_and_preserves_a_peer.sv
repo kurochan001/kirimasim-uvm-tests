@@ -12,6 +12,44 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_protected_counter_excludes_timed_children_and_preserves_a_peer.expected
 */
+// What it checks:
+// 1. A default-budget library executes ten registered member sequences.
+// 2. The protected execution counter indicates no completed child before
+//    execution.
+// 3. The execution counter excludes a currently executing child.
+// 4. The counter includes completed children while excluding the next active
+//    child.
+// 5. The protected field reports the completed child count after the library
+//    returns.
+// 6. Executing one library leaves an unstarted peer completion counter
+//    unchanged.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.4.4.6 (UVM-LIBRARY-DEFAULT-EXECUTION-BUDGET) gives rule 1
+//    above. Setup: Use one registered type or two unconstrained registered
+//    choices. Expected: Exactly ten child bodies complete, without fixing the
+//    unforced winners.
+// 2. 1800.2-2020 14.4.4.5 (UVM-SEQ-REVIEW-COUNTER-FIELD-INITIAL-ZERO) gives
+//    rule 2 above. Setup: An active and an unstarted peer library are queried
+//    before start. Expected: Both field values are zero.
+// 3. 1800.2-2020 14.4.4.5 (UVM-SEQ-REVIEW-COUNTER-FIELD-EXCLUDES-ACTIVE) gives
+//    rule 3 above. Setup: Sample while the first child is held by a positive
+//    delay or explicit gate. Expected: One body has started, none has
+//    finished, and the completed count is zero.
+// 4. 1800.2-2020 14.4.4.5 (UVM-SEQ-REVIEW-COUNTER-FIELD-COMPLETED-PREFIX)
+//    gives rule 4 above. Setup: The first child completes and the second
+//    remains active. Expected: Two bodies have started, one has finished, and
+//    the completed count is one.
+// 5. 1800.2-2020 14.4.4.5 (UVM-SEQ-REVIEW-COUNTER-FIELD-FINAL-COUNT) gives
+//    rule 5 above. Setup: The default legal budget completes all ten member
+//    bodies. Expected: The final field, started and finished counts are all
+//    ten.
+// 6. 1800.2-2020 14.4.4.5 (UVM-SEQ-REVIEW-COUNTER-FIELD-INSTANCE-ISOLATION)
+//    gives rule 6 above. Setup: Only one of two independently constructed
+//    libraries runs. Expected: The peer field remains zero during and after
+//    the active execution.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe only the standard protected sequences_executed member through an
 // original subtype probe. The missing public getter tests remain separate and
 // unchanged. Use the default legal ten-member budget and one registered type;

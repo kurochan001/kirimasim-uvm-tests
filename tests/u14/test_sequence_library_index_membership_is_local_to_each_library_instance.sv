@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_index_membership_is_local_to_each_library_instance.expected
 */
+// What it checks:
+// Indexed library membership follows its receiving instance.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.10 (UVM-LIBRARY-INDEX-INSTANCE-SCOPE) gives the rule
+// above. Setup: Register alpha on first and beta on peer, then add beta only
+// to first. Expected: First grows to two correct wrappers while peer retains
+// its one beta wrapper.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Query registered type wrappers without executing member sequences.
 // Enumeration defines valid indices; no registration ordering is prescribed.
 // Invalid probes exceed the count, avoiding the printed equal-count boundary.

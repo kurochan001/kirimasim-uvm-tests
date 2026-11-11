@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_default_print_visits_replacement_items.expected
 */
+// What it checks:
+// 1. Default sequence printing follows the current req field.
+// 2. Default sequence printing follows the current req field.
+// 3. Default sequence printing follows the current rsp field.
+// 4. Default sequence printing follows the current rsp field.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.3.2.1 (UVM-SEQUENCE-DEFAULT-PRINT-REQ-REPLACED) gives rule
+//    1 above. Setup: Both fields are printed, replaced with distinct fresh
+//    items, then printed again. Expected: The replacement req item is visited
+//    once and the former item is not revisited.
+// 2. 1800.2-2020 14.3.2.1 (UVM-SEQUENCE-DEFAULT-PRINT-REQ-CLEARED) gives rule
+//    2 above. Setup: After printing original and replacement items, both
+//    fields are cleared before another print. Expected: Neither former req
+//    item is visited after clearing.
+// 3. 1800.2-2020 14.3.2.2 (UVM-SEQUENCE-DEFAULT-PRINT-RSP-REPLACED) gives rule
+//    3 above. Setup: Both fields are printed, replaced with distinct fresh
+//    items, then printed again. Expected: The replacement rsp item is visited
+//    once and the former item is not revisited.
+// 4. 1800.2-2020 14.3.2.2 (UVM-SEQUENCE-DEFAULT-PRINT-RSP-CLEARED) gives rule
+//    4 above. Setup: After printing original and replacement items, both
+//    fields are cleared before another print. Expected: Neither former rsp
+//    item is visited after clearing.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence keeps its default do_print. Deep, unlimited recursion is
 // explicit. Item hooks identify reached objects without text assumptions.
 module test_sequence_default_print_visits_replacement_items;

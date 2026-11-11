@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_automatic_objection_setting_changes_apply_to_each_completed_sequence_reuse.expected
 */
+// What it checks:
+// 1. Automatic phase objection selection can change between completed sequence
+//    executions.
+// 2. For each enabled execution, automatic objection is already raised at
+//    pre_start and released after completion.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.4.4 (UVM-SEQUENCE-AUTOMATIC-OBJECTION-REUSE-CONTROL)
+//    gives rule 1 above. Setup: Run enabled, disabled and enabled on a fixed
+//    starting-phase node. Expected: pre_start objection counts follow
+//    one/zero/one and each execution releases its objection.
+// 2. 1800.2-2020 14.2.4.3 (UVM-SEQUENCE-AUTOMATIC-OBJECTION-REUSED-LIFETIME)
+//    gives rule 2 above. Setup: Observe three completed executions with enable
+//    states one/zero/one. Expected: Counts at pre_start are one/zero/one and
+//    all post-start totals are zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_automatic_objection_setting_changes_apply_to_each_completed_sequence_reuse;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

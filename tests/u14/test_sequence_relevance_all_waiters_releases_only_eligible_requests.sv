@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_relevance_all_waiters_releases_only_eligible_requests.expected
 */
+// What it checks:
+// 1. When all pending requests are irrelevant, each sequence is asked to wait
+//    for relevance.
+// 2. Returning from one relevance wait allows arbitration of its now-eligible
+//    request.
+// 3. The remaining waiter can later resume and complete after its own gate
+//    opens.
+// 4. An irrelevant peer is not selected while another request becomes
+//    eligible.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.5.4 (UVM-RELEVANCE-ALL-PENDING-WAITERS) gives rule 1
+//    above. Setup: Two requests are queued before the driver arbitrates, with
+//    both gates closed. Expected: Both wait methods participate and no item is
+//    delivered.
+// 2. 1800.2-2020 14.2.5.4 (UVM-RELEVANCE-FIRST-WAITER-REARBITRATION) gives
+//    rule 2 above. Setup: Only the first gate opens after both waits begin.
+//    Expected: The first sequence completes and only one item has been
+//    delivered.
+// 3. 1800.2-2020 14.2.5.4 (UVM-RELEVANCE-SECOND-WAITER-REARBITRATION) gives
+//    rule 3 above. Setup: The second gate stays closed until the first
+//    sequence completes. Expected: Both complete, with items 11 then 22.
+// 4. 1800.2-2020 14.2.5.3 (UVM-RELEVANCE-CLOSED-PEER-NOT-GRANTED) gives rule 4
+//    above. Setup: The first gate opens while the second remains closed.
+//    Expected: The second sequence remains unfinished after the first
+//    finishes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Queue requests before the delayed driver arbitrates. Gates and positive
 // delays establish order; exact internal polling/wait counts are not fixed.
 module test_sequence_relevance_all_waiters_releases_only_eligible_requests;

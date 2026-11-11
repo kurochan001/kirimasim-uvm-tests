@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_type_defaults_and_distinct_request_response_parameters_preserve_fields.expected
 */
+// What it checks:
+// 1. The omitted request parameter selects uvm_sequence_item.
+// 2. The omitted response parameter defaults to the selected request type.
+// 3. Distinct item-derived request and response parameters are supported.
+// 4. A parameterized sequence derives from uvm_sequence_base.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.3.1 (UVM-SEQ-REVIEW-DEFAULT-REQUEST-TYPE) gives rule 1
+//    above. Setup: A concrete sequence omits both type arguments and accepts
+//    derived item handles. Expected: An exact default specialization view
+//    preserves the supplied req field.
+// 2. 1800.2-2020 14.3.1 (UVM-SEQ-REVIEW-DEFAULT-RESPONSE-TYPE) gives rule 2
+//    above. Setup: Only a concrete request type is supplied to the sequence
+//    specialization. Expected: The exact same-request/response specialization
+//    accepts both supplied request objects.
+// 3. 1800.2-2020 14.3.1 (UVM-SEQ-REVIEW-EXPLICIT-REQUEST-RESPONSE-TYPES) gives
+//    rule 3 above. Setup: The sequence supplies different concrete
+//    item-derived types for REQ and RSP. Expected: The req/rsp fields retain
+//    their correctly typed supplied handles.
+// 4. 1800.2-2020 14.3.1 (UVM-SEQ-REVIEW-PARAMETERIZED-SEQUENCE-BASE) gives
+//    rule 4 above. Setup: A distinct-response sequence is assigned to a
+//    sequence-base handle. Expected: The base view denotes the same concrete
+//    sequence.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exact generic base assignments check REQ and RSP defaults at compile time;
 // public fields check supplied handle identity. No transfer protocol, invalid
 // parameter rejection or fixed random values are inferred.

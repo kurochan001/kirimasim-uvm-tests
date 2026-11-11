@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_finish_item_passes_explicit_transaction_id_to_completion_wait.expected
 */
+// What it checks:
+// finish_item forwards each explicit item transaction ID to completion
+// waiting.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.3 (UVM-SEQUENCE-FINISH-EXPLICIT-COMPLETION-ID) gives the
+// rule above. Setup: Use one item ID 33 and two sequential item IDs 41/42.
+// Expected: Sequencer wait observations are 33 and then 41/42 in the
+// corresponding fixtures.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the public sequencer completion API and delegate to its normal
 // wait. The required explicit ID is preserved; the pinned library passes -1.
 

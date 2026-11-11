@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_reporting_methods_populate_messages_and_filter_before_virtual_processing.expected
 */
+// What it checks:
+// 1. Sequence reporting methods populate a message and call virtual
+//    processing.
+// 2. A disabled report does not invoke virtual message processing.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.3.3 (UVM-SEQUENCE-REPORT-MESSAGE-FIELD-CONSTRUCTION)
+//    gives rule 1 above. Setup: Call generic and four severity-specific
+//    methods with explicit identical source/context arguments. Expected: Five
+//    messages preserve their supplied fields and the correct severity order.
+// 2. 1800.2-2020 14.1.3.3 (UVM-SEQUENCE-REPORT-FILTER-BEFORE-PROCESSING) gives
+//    rule 2 above. Setup: Follow five enabled calls with INFO verbosity 101
+//    against reporter threshold 100. Expected: The virtual processing count
+//    stays five.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit reporting context only: no driver, item arbitration or report text
 // formatting is assumed. Probe overrides are distinct from handler routing.
 module test_sequence_reporting_methods_populate_messages_and_filter_before_virtual_processing;

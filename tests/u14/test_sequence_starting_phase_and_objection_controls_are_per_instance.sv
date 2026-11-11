@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_starting_phase_and_objection_controls_are_per_instance.expected
 */
+// What it checks:
+// 1. The starting-phase getter returns the phase assigned to that sequence.
+// 2. Automatic-objection settings are retained independently per sequence.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.4.1 (UVM-SEQUENCE-STARTING-PHASE-CONTROL) gives rule 1
+//    above. Setup: Assign distinct phase handles before the first getter
+//    calls. Expected: Each sequence returns its own configured handle.
+// 2. 1800.2-2020 14.2.4.4 (UVM-SEQUENCE-AUTO-OBJECTION-CONTROL) gives rule 2
+//    above. Setup: Set enabled/disabled controls before reading their
+//    potentially locked values. Expected: The two sequences return one and
+//    zero respectively.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Assign controls before reading them because getters may lock their
 // values. Do not execute a sequence against these isolated phase handles.
 

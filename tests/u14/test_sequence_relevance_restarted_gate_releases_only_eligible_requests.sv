@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_relevance_restarted_gate_releases_only_eligible_requests.expected
 */
+// What it checks:
+// 1. A restarted sequence with its gate reset waits again for relevance.
+// 2. Returning from the new relevance wait lets each restarted request
+//    complete.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.5.4 (UVM-RELEVANCE-RESTARTED-GATE-NEW-WAIT) gives rule 1
+//    above. Setup: The same sequence is started twice, resetting its gate
+//    between starts. Expected: Each round observes a new wait before the
+//    corresponding item is delivered.
+// 2. 1800.2-2020 14.2.5.4 (UVM-RELEVANCE-RESTARTED-GATE-REARBITRATION) gives
+//    rule 2 above. Setup: Two starts supply fresh items with values 10 and 20.
+//    Expected: Both rounds complete once with their current item values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Queue requests before the delayed driver arbitrates. Gates and positive
 // delays establish order; exact internal polling/wait counts are not fixed.
 module test_sequence_relevance_restarted_gate_releases_only_eligible_requests;

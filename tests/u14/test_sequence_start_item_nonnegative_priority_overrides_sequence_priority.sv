@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_start_item_nonnegative_priority_overrides_sequence_priority.expected
 */
+// What it checks:
+// A nonnegative start_item priority replaces the sequence priority.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.2 (UVM-SEQUENCE-START-NONNEGATIVE-PRIORITY-OVERRIDE)
+// gives the rule above. Setup: Use item priority 13 with sequence priority 78.
+// Expected: The selected grant priority is 13 and the request completes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Start the producer at priority 78 but explicitly request item priority 13.
 // Observe the argument on the real sequencer grant API and complete the item.
 

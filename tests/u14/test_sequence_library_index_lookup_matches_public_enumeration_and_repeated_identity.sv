@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_index_lookup_matches_public_enumeration_and_repeated_identity.expected
 */
+// What it checks:
+// Valid library indices resolve to the wrappers supplied by public
+// enumeration.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.10 (UVM-LIBRARY-INDEX-ENUMERATION-IDENTITY) gives the
+// rule above. Setup: Register alpha/beta and query every enumerated index
+// repeatedly. Expected: Two indices match their exact enumerated wrappers,
+// with one alpha and one beta.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Query registered type wrappers without executing member sequences.
 // Enumeration defines valid indices; no registration ordering is prescribed.
 // Invalid probes exceed the count, avoiding the printed equal-count boundary.

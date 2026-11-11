@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_state_body_waiters_follow_their_own_sequence_instances.expected
 */
+// What it checks:
+// State waits follow their receiving sequence instances independently.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.2.5 (UVM-SEQUENCE-STATE-WAIT-INSTANCE-ISOLATION) gives the
+// rule above. Setup: Wait for BODY on two sequences, starting first before
+// peer. Expected: Only first waiter returns before peer starts; both return
+// after their own body entries.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Unbound virtual sequences with positive body delays; no driver or phases.
 // Only mask/state behavior is asserted, not kill post-hook ordering.
 module test_sequence_state_body_waiters_follow_their_own_sequence_instances;

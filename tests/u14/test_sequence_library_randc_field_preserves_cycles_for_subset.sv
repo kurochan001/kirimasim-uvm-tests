@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_randc_field_preserves_cycles_for_subset.expected
 */
+// What it checks:
+// 1. The standard select_randc field has sixteen bits.
+// 2. An extension can constrain the cyclic selector to a legal subset of
+//    registered indices.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.4.4.8 (UVM-SEQ-REVIEW-RANDC-FIELD-WIDTH) gives rule 1
+//    above. Setup: Inspect the public field in singleton, three-index and
+//    subset configurations. Expected: Each declaration reports width sixteen.
+// 2. 1800.2-2020 14.4.4.8 (UVM-SEQ-REVIEW-RANDC-EXTENSION-CONSTRAINT) gives
+//    rule 2 above. Setup: A subtype adds the subset {0,2} within three
+//    registered indices. Expected: Each two-draw cycle includes zero and two
+//    once, excluding one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Randomize the standard public randc field directly against registered type
 // indices. Check membership/frequency within two cycles without fixing random
 // order. No legacy selection_mode member is used; RANDC library execution via

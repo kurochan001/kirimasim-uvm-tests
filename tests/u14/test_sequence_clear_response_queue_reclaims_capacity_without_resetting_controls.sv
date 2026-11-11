@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_clear_response_queue_reclaims_capacity_without_resetting_controls.expected
 */
+// What it checks:
+// 1. Clearing a full response queue reclaims its bounded storage.
+// 2. Clearing queue contents retains separately selected response controls.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.7.8 (UVM-RESPONSE-CLEAR-RECLAIMS-CAPACITY) gives rule 1
+//    above. Setup: Fill a depth-two queue, clear twice, refill with two fresh
+//    replies and retrieve them. Expected: Both exact fresh handles return in
+//    arrival order with values 55/66 and no additional error.
+// 2. 1800.2-2020 14.2.7.8 (UVM-RESPONSE-CLEAR-PRESERVES-CONTROLS) gives rule 2
+//    above. Setup: Select depth two and queue mode, snapshot reporting, then
+//    clear twice. Expected: Depth remains two and handler/reporting getters
+//    retain their earlier values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Copy routing IDs from real requests while the receiver remains active.
 // Positive delays separate queue operations from observation; no internal
 // response queue or numeric sequence-routing ID is inspected.

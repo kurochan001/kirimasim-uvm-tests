@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_wait_for_grant_forwards_priority_and_sequence_to_current_sequencer.expected
 */
+// What it checks:
+// Sequence grant waiting forwards its priority and originating sequence to the
+// current sequencer.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.4 (UVM-SEQUENCE-GRANT-PRIORITY-ORIGIN-FORWARDING) gives
+// the rule above. Setup: Request priority 123 on a bound sequence. Expected:
+// The sequencer sees priority 123 and the exact origin; delivered context
+// identifies that sequencer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the public sequencer API arguments in an override that delegates
 // to the normal arbitration implementation. Deliver and acknowledge a real
 // request, without substituting a mocked grant.

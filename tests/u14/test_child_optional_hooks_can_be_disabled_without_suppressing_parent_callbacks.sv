@@ -12,6 +12,54 @@
 :expected_exit: 0
 :expected_stdout: @test_child_optional_hooks_can_be_disabled_without_suppressing_parent_callbacks.expected
 */
+// What it checks:
+// 1. call_pre_post controls child pre_body independently for each start.
+// 2. call_pre_post controls child post_body independently for each start.
+// 3. Disabling child optional hooks retains parent pre_do with is_item zero
+//    for a child sequence.
+// 4. Parent mid_do receives the exact child on each execution, including
+//    optional-hook suppression and reuse.
+// 5. Disabling optional child hooks does not suppress execution of its user
+//    body.
+// 6. Parent post_do receives the exact executed child for each selected
+//    parent.
+// 7. pre_start remains active when pre_body/post_body are disabled.
+// 8. post_start remains active when pre_body/post_body are disabled.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.3.3 (UVM-CHILD-PRE-BODY-PER-START-CONTROL) gives rule 1
+//    above. Setup: Run with zero, then reuse under another parent with one.
+//    Expected: pre_body is skipped with zero and executes once across zero/one
+//    reuse.
+// 2. 1800.2-2020 14.2.3.8 (UVM-CHILD-POST-BODY-PER-START-CONTROL) gives rule 2
+//    above. Setup: Run a child with zero and then one. Expected: post_body is
+//    skipped for zero and invoked once for the enabled reuse.
+// 3. 1800.2-2020 14.2.3.4 (UVM-CHILD-PARENT-PRE-DO-INDEPENDENT-OPTIONAL-HOOKS)
+//    gives rule 3 above. Setup: Start a finite child under an explicit parent
+//    with call_pre_post zero. Expected: Parent pre_do runs once with is_item
+//    zero.
+// 4. 1800.2-2020 14.2.3.5 (UVM-CHILD-PARENT-MID-DO-EXACT-REUSED-CHILD) gives
+//    rule 4 above. Setup: Execute one child under two independent parents.
+//    Expected: Each selected parent has one mid_do callback with the original
+//    child handle.
+// 5. 1800.2-2020 14.2.3.6
+//    (UVM-CHILD-BODY-DISPATCH-DURING-OPTIONAL-SUPPRESSION) gives rule 5 above.
+//    Setup: Perform one disabled start and two reused starts. Expected: Body
+//    counts match completed starts: one and two respectively.
+// 6. 1800.2-2020 14.2.3.7 (UVM-CHILD-PARENT-POST-DO-EXACT-REUSED-CHILD) gives
+//    rule 6 above. Setup: Suppress optional hooks, then reuse the child with
+//    another parent. Expected: Each parent gets one post_do call with the same
+//    child handle.
+// 7. 1800.2-2020 14.2.3.2
+//    (UVM-CHILD-PRE-START-PRESERVED-WITHOUT-OPTIONAL-HOOKS) gives rule 7
+//    above. Setup: Compare a disabled start with zero/one reused starts.
+//    Expected: pre_start counts one per completed start.
+// 8. 1800.2-2020 14.2.3.9
+//    (UVM-CHILD-POST-START-PRESERVED-WITHOUT-OPTIONAL-HOOKS) gives rule 8
+//    above. Setup: Compare disabled and reenabled child executions. Expected:
+//    post_start counts one per completed start.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_child_optional_hooks_can_be_disabled_without_suppressing_parent_callbacks;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

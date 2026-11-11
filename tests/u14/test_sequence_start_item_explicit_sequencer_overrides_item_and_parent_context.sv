@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_start_item_explicit_sequencer_overrides_item_and_parent_context.expected
 */
+// What it checks:
+// An explicit start_item sequencer takes precedence over item and parent
+// contexts.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.2 (UVM-SEQUENCE-START-EXPLICIT-SEQUENCER-PRECEDENCE)
+// gives the rule above. Setup: Supply three distinct sequencers and a
+// compatible bound driver for each. Expected: Only the explicit sequencer
+// receives the grant; the item retains its sequence parent and value 17
+// completes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Provide three distinct sequencers and request through the explicit one.
 // Observe normal arbitration, item context and pre/mid/post hooks; only the
 // selected driver requests and acknowledges the transaction.

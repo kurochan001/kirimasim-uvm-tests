@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_cross_release_releases_selected_ownership.expected
 */
+// What it checks:
+// 1. ungrab also releases a lock and lets an eligible pending lock complete.
+// 2. unlock also releases a grab and lets an eligible pending grab complete.
+// 3. A pending peer is blocked while another sequence retains lock or grab
+//    ownership.
+// 4. After the peer releases its acquired ownership, both sequences report no
+//    default lock.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.5.8 (UVM-SEQUENCE-UNGRAB-RELEASES-LOCK-WAITER) gives
+//    rule 1 above. Setup: A peer lock call waits while another sequence owns a
+//    lock on the same sequencer. Expected: After owner ungrab, the peer call
+//    returns and the peer owns the lock.
+// 2. 1800.2-2020 14.2.5.7 (UVM-SEQUENCE-UNLOCK-RELEASES-GRAB-WAITER) gives
+//    rule 2 above. Setup: A peer grab call waits while another sequence owns a
+//    grab on the same sequencer. Expected: After owner unlock, the peer call
+//    returns and the peer owns the grab.
+// 3. 1800.2-2020 14.2.5.9
+//    (UVM-SEQUENCE-PENDING-PEER-IS-BLOCKED-BY-LOCK-OR-GRAB) gives rule 3
+//    above. Setup: The peer enters a lock/grab request while an owner has
+//    matching ownership. Expected: The peer call has not returned and
+//    is_blocked is true before release.
+// 4. 1800.2-2020 14.2.5.10 (UVM-SEQUENCE-CROSS-RELEASE-CLEAN-FINAL-OWNERSHIP)
+//    gives rule 4 above. Setup: A peer acquires after each cross-release and
+//    releases its final grab. Expected: Neither sequence has a lock and the
+//    peer is not blocked.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use sequence-side release APIs on idle public sequencers.
 // Positive delays separate queued-peer observations from release completion.
 module test_sequence_cross_release_releases_selected_ownership;

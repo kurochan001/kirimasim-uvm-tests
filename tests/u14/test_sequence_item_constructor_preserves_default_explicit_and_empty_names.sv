@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_item_constructor_preserves_default_explicit_and_empty_names.expected
 */
+// What it checks:
+// 1. The sequence item constructor uses its specified default name when the
+//    name argument is omitted.
+// 2. The sequence item constructor preserves an explicitly supplied instance
+//    name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.2.1 (UVM-SEQUENCE-ITEM-CONSTRUCTOR-DEFAULT-NAME) gives
+//    rule 1 above. Setup: Independent instances are constructed with omitted
+//    and explicit name arguments. Expected: The omitted-name instance has the
+//    name uvm_sequence_item.
+// 2. 1800.2-2020 14.1.2.1 (UVM-SEQUENCE-ITEM-CONSTRUCTOR-EXPLICIT-NAME) gives
+//    rule 2 above. Setup: Independent instances are constructed with omitted
+//    and explicit name arguments. Expected: The explicit name is named_item
+//    and an explicitly empty name remains empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequence_item_constructor_preserves_default_explicit_and_empty_names;
   import uvm_pkg::*;
   initial begin

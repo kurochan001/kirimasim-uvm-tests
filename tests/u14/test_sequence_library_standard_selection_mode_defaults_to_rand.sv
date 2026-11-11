@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_standard_selection_mode_defaults_to_rand.expected
 */
+// What it checks:
+// The standard selection-mode getter defaults to RAND.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.1 (UVM-LIBRARY-SELECTION-MODE-DEFAULT-RAND) gives the
+// rule above. Setup: Query a fresh library through the standard API. Expected:
+// The returned mode is UVM_SEQ_LIB_RAND.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library lacks the standard accessor methods. Keep the
 // required API spelling and its expectation as a spec-only build case.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_parent_chain_determines_automatic_depth.expected
 */
+// What it checks:
+// Sequence depth follows the parent chain when no explicit override is
+// installed.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.1.2.9 (UVM-SEQUENCE-AUTOMATIC-DEPTH) gives the rule above.
+// Setup: Build the full root/child/grandchild chain before querying depth.
+// Expected: Root, child and grandchild depths are one, two and three.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Build the entire parent chain before asking for depth. No explicit
 // depth override or sequence execution is involved.
 

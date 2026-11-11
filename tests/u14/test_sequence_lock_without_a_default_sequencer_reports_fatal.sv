@@ -13,6 +13,17 @@
 :expected_stderr_regex: fixture observed required UVM_FATAL
 :expected_stdout: @test_sequence_lock_without_a_default_sequencer_reports_fatal.expected
 */
+// What it checks:
+// lock reports fatal when neither an explicit nor a default sequencer is
+// available.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.5.5 (UVM-SEQUENCE-LOCK-MISSING-DEFAULT-FATAL) gives the
+// rule above. Setup: An unbound sequence calls lock without an argument after
+// confirming a null default. Expected: The original report severity is
+// UVM_FATAL.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // End through a testbench fatal after observing original UVM_FATAL severity.
 // The declared nonzero exit and unique fixture sentinel avoid post-fatal
 // continuation and do not constrain the library diagnostic or its exit code.

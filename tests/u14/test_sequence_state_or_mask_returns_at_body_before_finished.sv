@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_state_or_mask_returns_at_body_before_finished.expected
 */
+// What it checks:
+// An OR-mask state wait returns on the first matching current state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.2.5 (UVM-SEQUENCE-STATE-OR-FIRST-MATCH) gives the rule
+// above. Setup: Wait for BODY or FINISHED before running a delayed sequence.
+// Expected: The first return observes BODY before any body exit; later
+// FINISHED has one entry and exit.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Unbound virtual sequences with positive body delays; no driver or phases.
 // Only mask/state behavior is asserted, not kill post-hook ordering.
 module test_sequence_state_or_mask_returns_at_body_before_finished;

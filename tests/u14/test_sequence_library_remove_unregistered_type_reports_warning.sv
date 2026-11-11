@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_remove_unregistered_type_reports_warning.expected
 */
+// What it checks:
+// Removing an unregistered sequence wrapper reports a warning.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.5.5 (UVM-LIBRARY-ABSENT-REMOVAL-WARNING) gives the rule
+// above. Setup: Retain alpha and attempt to remove absent beta. Expected: One
+// warning is added and alpha membership remains one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Remove an absent wrapper and count the required warning. The pinned
 // library silently returns instead; retain the normative warning as spec-only.
 

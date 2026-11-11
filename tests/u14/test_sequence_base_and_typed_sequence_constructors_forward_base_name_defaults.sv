@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_base_and_typed_sequence_constructors_forward_base_name_defaults.expected
 */
+// What it checks:
+// 1. The sequence base constructor uses its specified default name when the
+//    name argument is omitted.
+// 2. The sequence base constructor preserves an explicitly supplied instance
+//    name.
+// 3. The typed sequence constructor uses its specified default name when the
+//    name argument is omitted.
+// 4. The typed sequence constructor preserves an explicitly supplied instance
+//    name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.2.1 (UVM-SEQUENCE-BASE-CONSTRUCTOR-DEFAULT-NAME) gives
+//    rule 1 above. Setup: Concrete extensions forward omitted and explicit
+//    arguments to the base constructor. Expected: The omitted-name instance
+//    has the name uvm_sequence.
+// 2. 1800.2-2020 14.2.2.1 (UVM-SEQUENCE-BASE-CONSTRUCTOR-EXPLICIT-NAME) gives
+//    rule 2 above. Setup: Concrete extensions forward omitted and explicit
+//    arguments to the base constructor. Expected: The explicitly named base
+//    extension keeps base_named.
+// 3. 1800.2-2020 14.3.3.1 (UVM-TYPED-SEQUENCE-CONSTRUCTOR-DEFAULT-NAME) gives
+//    rule 3 above. Setup: Concrete extensions forward omitted and explicit
+//    arguments to the base constructor. Expected: The omitted-name instance
+//    has the name uvm_sequence.
+// 4. 1800.2-2020 14.3.3.1 (UVM-TYPED-SEQUENCE-CONSTRUCTOR-EXPLICIT-NAME) gives
+//    rule 4 above. Setup: Concrete extensions forward omitted and explicit
+//    arguments to the base constructor. Expected: The explicitly empty name
+//    stays empty in the typed extension.
+// It also supports, as a control, the setup or conditions of
+// UVM-ABSTRACT-SEQUENCE-DIRECT-CONSTRUCTION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Concrete extensions forward omitted arguments to their base constructors.
 // No sequence is started or randomized in this constructor-only fixture.
 module test_sequence_base_and_typed_sequence_constructors_forward_base_name_defaults;

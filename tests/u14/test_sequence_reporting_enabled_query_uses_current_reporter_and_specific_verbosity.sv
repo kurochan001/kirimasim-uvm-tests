@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_reporting_enabled_query_uses_current_reporter_and_specific_verbosity.expected
 */
+// What it checks:
+// Report-enabled queries use the current reporter verbosity and its
+// ID/severity overrides.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.1.3.2 (UVM-SEQUENCE-REPORT-ENABLED-DELEGATION) gives the rule
+// above. Setup: Use root threshold 10, first threshold 20 with ID 40 and
+// severity/ID 50, and peer threshold 30. Expected: Equal thresholds enable and
+// one-above thresholds disable; first-specific overrides do not leak to the
+// peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit reporting context only: no driver, item arbitration or report text
 // formatting is assumed. Probe overrides are distinct from handler routing.
 module test_sequence_reporting_enabled_query_uses_current_reporter_and_specific_verbosity;

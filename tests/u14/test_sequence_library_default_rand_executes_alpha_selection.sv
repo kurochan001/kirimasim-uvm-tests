@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_default_rand_executes_alpha_selection.expected
 */
+// What it checks:
+// 1. RAND selection uses the constrained public selection index.
+// 2. Default RAND library selection creates and executes the registered type
+//    selected by its constrained index.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.4.4.7 (UVM-LIBRARY-RAND-CONSTRAINED-MEMBER-SELECTION)
+//    gives rule 1 above. Setup: Find each wrapper index through enumeration
+//    and constrain alpha or beta selection. Expected: The selected member runs
+//    ten times while the other does not run.
+// 2. 1800.2-2020 14.4 (UVM-SEQ-REVIEW-DEFAULT-RAND-DISPATCH) gives rule 2
+//    above. Setup: Two unchanged fixtures constrain the public selection index
+//    to the publicly enumerated alpha or beta type. Expected: Only the
+//    selected registered type executes its ten child bodies.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register members through the instance API and keep the default legal
 // ten-iteration count. Constrain the public selection variable to the
 // index found by public enumeration; no registration order is assumed.

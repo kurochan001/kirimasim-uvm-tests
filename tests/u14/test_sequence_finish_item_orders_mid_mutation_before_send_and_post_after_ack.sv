@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_finish_item_orders_mid_mutation_before_send_and_post_after_ack.expected
 */
+// What it checks:
+// 1. finish_item invokes mid_do before request submission with the original
+//    item.
+// 2. finish_item invokes post_do after sequencer acknowledgement with the
+//    original item.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.6.3 (UVM-SEQUENCE-FINISH-MID-BEFORE-SUBMISSION) gives
+//    rule 1 above. Setup: Let mid_do mutate the request value from 17 to 55.
+//    Expected: One mid hook has the original handle and both
+//    submitted/delivered data are 55.
+// 2. 1800.2-2020 14.2.6.3 (UVM-SEQUENCE-FINISH-POST-AFTER-ACKNOWLEDGEMENT)
+//    gives rule 2 above. Setup: Acknowledge the driver item after positive
+//    delay. Expected: One post hook receives the original handle and observes
+//    acknowledgement already complete.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Mutate the request in mid_do, snapshot it at the public sequencer send
 // API, and acknowledge after a positive delay. Inspect the exact hook
 // arguments and post-do acknowledgement state without changing wait behavior.

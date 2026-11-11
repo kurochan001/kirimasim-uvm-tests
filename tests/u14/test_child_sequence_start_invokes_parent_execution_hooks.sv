@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_child_sequence_start_invokes_parent_execution_hooks.expected
 */
+// What it checks:
+// Starting a child sequence invokes its parent pre_do, mid_do and post_do
+// around the child body.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.3.1 (UVM-SEQUENCE-CHILD-PARENT-HOOKS) gives the rule above.
+// Setup: Use explicit child priority and parent/child handles without item
+// traffic. Expected: The ordered trace identifies a sequence pre_do and the
+// exact child/parent handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use an explicit child priority so no priority is inherited from an
 // inactive parent. Observe callback order and the exact child handle.
 

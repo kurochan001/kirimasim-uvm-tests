@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_item_context_sets_parent_and_sequencer.expected
 */
+// What it checks:
+// Item context assignment installs the supplied parent sequence and sequencer.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.1.2.2 (UVM-ITEM-EXPLICIT-EXECUTION-CONTEXT) gives the rule
+// above. Setup: Assign both arguments explicitly, including replacement while
+// old handles remain live. Expected: Queries return the newly supplied handles
+// rather than the previous context.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Supply both context arguments explicitly. No expectation depends on
 // implicit sequencer inheritance or generated instance identifiers.
 

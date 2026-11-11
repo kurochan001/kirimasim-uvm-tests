@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_default_selectors_have_independent_positions.expected
 */
+// What it checks:
+// Default selector state is independent across library instances.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.9 (UVM-LIBRARY-DEFAULT-SELECTOR-INSTANCE-STATE) gives the
+// rule above. Setup: Advance one max-one selector, a fresh peer and a max-zero
+// singleton. Expected: First selects zero/one/zero, the fresh peer starts at
+// zero and the singleton always returns zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Advance one selector while a second has not been used. Exercise a
 // single-choice range on a third instance without changing any active range.
 

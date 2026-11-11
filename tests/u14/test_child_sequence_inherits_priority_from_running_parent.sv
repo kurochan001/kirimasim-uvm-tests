@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_child_sequence_inherits_priority_from_running_parent.expected
 */
+// What it checks:
+// 1. Start selects root default, explicit and inherited child priorities.
+// 2. get_priority returns the selected current sequence priority.
+// 3. get_priority returns the selected current sequence priority.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.3.1 (UVM-SEQUENCE-START-PRIORITY-SELECTION) gives rule 1
+//    above. Setup: Start independent roots and a live parent/child with
+//    explicit parent priority 37. Expected: Root default is 100, explicit root
+//    is 23 and the child inherits 37.
+// 2. 1800.2-2020 14.2.5.1 (UVM-SEQUENCE-GET-PRIORITY-RUNNING-ROOT) gives rule
+//    2 above. Setup: The root sequence starts at explicit priority 37.
+//    Expected: Its live priority getter returns 37.
+// 3. 1800.2-2020 14.2.5.1 (UVM-SEQUENCE-GET-PRIORITY-RUNNING-CHILD) gives rule
+//    3 above. Setup: A running parent at priority 37 starts a child with the
+//    default priority argument. Expected: The child getter returns its
+//    inherited priority 37.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Start a parent at explicit priority 37 and let its body start a child
 // with the default priority argument. Observe the live parent link.
 

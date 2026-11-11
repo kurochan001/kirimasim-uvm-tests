@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_get_response_selects_transaction_id_without_losing_other_reply.expected
 */
+// What it checks:
+// Response retrieval with a transaction ID selects the matching response.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.3.3.3 (UVM-RESPONSE-SELECT-ID) gives the rule above. Setup:
+// Two queued responses carry IDs 101 and 102; ID 102 is requested first.
+// Expected: Retrieval yields ID/value 102/22 followed by the retained 101/11.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Queue replies for requests 101 and 102, then retrieve 102 first.
 // The transaction IDs are explicitly assigned by the test sequence.
 

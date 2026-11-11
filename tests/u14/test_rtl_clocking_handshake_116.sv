@@ -14,6 +14,30 @@
 :expected_stdout: @test_rtl_clocking_handshake_116.expected
 :files: ../u19/helpers116_rtl/rf_rtl116.sv ../u19/helpers116_rtl/rf_env116.svh
 */
+// What it checks:
+// 1. finish_item returns only after the driver that took the item from the
+//    sequencer signals item_done.
+// 2. Items that a clocking-block driver takes with get_next_item reach the
+//    design in sequence order on the next clock.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.6.3 (UVM-RTL-FINISH-AFTER-DRIVER-DONE) gives rule 1
+//    above. Setup: A test top places the interface of an original
+//    register-file design in the configuration database for the agent scope;
+//    the driver and monitor use only its clocking blocks. A sequence starts
+//    two writes and three reads; the driver stores completion data in each
+//    item before item_done. Expected: Every item already holds its completion
+//    record when finish_item returns.
+// 2. 1800.2-2020 15.2.1.2.1 (UVM-RTL-PULL-DRIVER-CLOCKED-ORDER) gives rule 2
+//    above. Setup: A test top places the interface of an original
+//    register-file design in the configuration database for the agent scope;
+//    the driver and monitor use only its clocking blocks. Two writes and three
+//    reads are driven with zero output skew and observed with one-step input
+//    sampling. Expected: Five transactions are monitored in sequence order
+//    with the design values; each request is observed one clock after it is
+//    driven and each read result one clock after its request.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two writes and three reads run through a driver that drives with zero output
 // skew and samples one step before each edge. Each request must be observed one
 // clock after it is driven, a read result one clock after its request,

@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_root_queries_and_path_follow_parent_chain.expected
 */
+// What it checks:
+// 1. The root-sequence name query returns the topmost parent name.
+// 2. The root-sequence handle query returns the topmost parent object.
+// 3. The sequence path joins sequence names through the parent chain with
+//    dots.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.2.12 (UVM-SEQUENCE-ROOT-NAME) gives rule 1 above. Setup:
+//    Query a named leaf under root and middle sequences. Expected: The root
+//    name is root.
+// 2. 1800.2-2020 14.1.2.13 (UVM-SEQUENCE-ROOT-HANDLE) gives rule 2 above.
+//    Setup: Query the leaf of a three-sequence chain. Expected: The handle
+//    equals the root sequence object.
+// 3. 1800.2-2020 14.1.2.14 (UVM-SEQUENCE-HIERARCHICAL-PATH) gives rule 3
+//    above. Setup: Use explicit root, middle and leaf names. Expected: The
+//    path is root.middle.leaf.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use explicit sequence names and query a descendant. The sequencer
 // component hierarchy is not part of the sequence path.
 

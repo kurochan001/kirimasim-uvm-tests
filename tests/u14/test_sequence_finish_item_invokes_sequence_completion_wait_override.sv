@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_finish_item_invokes_sequence_completion_wait_override.expected
 */
+// What it checks:
+// finish_item calls the sequence virtual completion wait with the item ID.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.3 (UVM-SEQUENCE-FINISH-VIRTUAL-WAIT-DISPATCH) gives the
+// rule above. Setup: Override completion waiting for transaction 33. Expected:
+// The sequence override runs once with transaction 33.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the sequence completion-wait override while still delegating to
 // the normal implementation. The pinned library bypasses this override;
 // keep the required invocation and explicit transaction ID as spec-only.

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_standard_selection_mode_updates_are_per_instance.expected
 */
+// What it checks:
+// Standard selection-mode updates affect only the receiving instance.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.1 (UVM-LIBRARY-SELECTION-MODE-INSTANCE-UPDATES) gives the
+// rule above. Setup: Set first to USER then RANDC while retaining a fresh
+// peer. Expected: First follows both updates while peer remains RAND.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library lacks the standard accessor methods. Keep the
 // required API spelling and its expectation as a spec-only build case.
 

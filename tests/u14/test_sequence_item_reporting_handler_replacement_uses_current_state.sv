@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_item_reporting_handler_replacement_uses_current_state.expected
 */
+// What it checks:
+// 1. Report eligibility follows the current bound sequencer handler
+//    configuration.
+// 2. A newly filtered item report creates no handler traffic.
+// 3. An at-limit item report reaches the newly installed handler.
+// 4. Direct handler maximum settings control item reporting admission.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.3.2 (UVM-SEQ-REPORT-LIVE-HANDLER-ELIGIBILITY) gives rule
+//    1 above. Setup: Its handler changes from LOW to a replacement with NONE
+//    while a peer keeps the original. Expected: LOW becomes disabled for the
+//    changed item and stays enabled for the peer.
+// 2. 1800.2-2020 14.1.3.3 (UVM-SEQ-REPORT-LIVE-HANDLER-FILTER) gives rule 2
+//    above. Setup: After replacement with NONE, the item submits a LOW INFO.
+//    Expected: The replacement receives zero reports before the at-limit call.
+// 3. 1800.2-2020 14.1.3.3 (UVM-SEQ-REPORT-LIVE-HANDLER-AT-LIMIT) gives rule 3
+//    above. Setup: The changed item reports at NONE after its LOW report was
+//    filtered. Expected: The replacement receives visible, while the retained
+//    handler receives peer.
+// 4. 1800.2-2020 6.4.3.2 (UVM-SEQ-REPORT-HANDLER-THRESHOLD-SETTING) gives rule
+//    4 above. Setup: Original handler maximum is LOW and replacement maximum
+//    is NONE. Expected: LOW remains admitted only through the original
+//    handler.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Public handler arguments capture identity and context at entry.
 // The root handler is restored. No arbitration, catcher getter, server
 // formatting

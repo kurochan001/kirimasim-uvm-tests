@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_info_flags_default_off_and_are_per_instance.expected
 */
+// What it checks:
+// The sequence-info control defaults to zero and retains per-instance updates.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.1.2.3 (UVM-ITEM-SEQUENCE-INFO-CONTROL) gives the rule above.
+// Setup: Inspect a new item and sequence before using context setters.
+// Expected: Both defaults are zero and independent set/clear operations remain
+// local.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Change flags directly without executing an item context setter,
 // which can also initialize sequence metadata.
 

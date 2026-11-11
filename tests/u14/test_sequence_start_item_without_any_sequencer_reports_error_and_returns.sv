@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_start_item_without_any_sequencer_reports_error_and_returns.expected
 */
+// What it checks:
+// start_item reports an error and returns when no sequencer can be resolved.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.2 (UVM-SEQUENCE-START-MISSING-SEQUENCER-ERROR) gives the
+// rule above. Setup: Leave explicit, item and current sequencer references
+// null. Expected: The call returns with one ERROR, no FATAL and no pre_do
+// call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Pass a valid item with no sequencer from an unbound parent sequence.
 // The missing-context check must report an error and return before pre_do.
 // Count the original severity without changing it. Catch reports only so

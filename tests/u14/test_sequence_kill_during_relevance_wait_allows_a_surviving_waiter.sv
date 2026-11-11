@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_kill_during_relevance_wait_allows_a_surviving_waiter.expected
 */
+// What it checks:
+// 1. Direct sequence kill invokes its do_kill hook for bound and unbound
+//    running bodies.
+// 2. Kill changes a relevance-blocked sequence to STOPPED and releases its
+//    start invocation.
+// 3. Killing one relevance waiter preserves another sequence pending request.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.5.12 (UVM-SEQUENCE-DO-KILL-HOOK-BOUND-AND-UNBOUND) gives
+//    rule 1 above. Setup: The original body is entered before kill and its
+//    hook increments a counter. Expected: Each killed sequence observes one
+//    do_kill callback.
+// 2. 1800.2-2020 14.2.5.11 (UVM-SEQ-REVIEW-KILL-RELEVANCE-STOP-RETURN) gives
+//    rule 2 above. Setup: The body is blocked before its item grant. Expected:
+//    After a settling delay the sequence is stopped, start returned, and its
+//    item body did not finish.
+// 3. 1800.2-2020 14.2.5.11 (UVM-SEQ-REVIEW-KILL-RELEVANCE-SURVIVOR) gives rule
+//    3 above. Setup: Both closed-gate requests have entered relevance waits
+//    before only one is killed. Expected: The survivor remains in BODY, then
+//    completes its own transfer after its gate opens.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Wait until the driver has triggered the custom relevance wait before kill.
 // A real peer transfer demonstrates request cleanup without private queue
 // access. No exact polling count, random arbitration or post-kill hook

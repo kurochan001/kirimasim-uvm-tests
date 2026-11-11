@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_get_sequences_appends_after_caller_prefix.expected
 */
+// What it checks:
+// Sequence enumeration appends the registered list without replacing the
+// caller prefix.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.5.6 (UVM-LIBRARY-ENUMERATION-APPENDS-CALLER-QUEUE) gives
+// the rule above. Setup: Start with an unrelated prefix and enumerate
+// alpha/beta twice. Expected: The queue has five entries, retains the prefix
+// and contains alpha/beta twice each.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Begin enumeration with an unrelated prefix and call twice. Preserve that
 // prefix and append a fresh copy of the registered list on each call.
 

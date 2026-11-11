@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_clear_response_queue_leaves_a_live_peer_queue_unchanged.expected
 */
+// What it checks:
+// Clearing one live sequence queue leaves a peer queue available.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.7.8 (UVM-RESPONSE-CLEAR-INSTANCE-ISOLATION) gives the rule
+// above. Setup: Queue replies for two live sequences, clear first and retrieve
+// peer before sending first a fresh reply. Expected: Peer receives its exact
+// reply 77; first remains waiting and later receives only its fresh reply 22.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Copy routing IDs from real requests while the receiver remains active.
 // Positive delays separate queue operations from observation; no internal
 // response queue or numeric sequence-routing ID is inspected.

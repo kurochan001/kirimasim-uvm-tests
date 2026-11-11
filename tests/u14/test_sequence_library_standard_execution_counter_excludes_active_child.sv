@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_standard_execution_counter_excludes_active_child.expected
 */
+// What it checks:
+// The execution counter excludes an active child and includes completed
+// children.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.4 (UVM-LIBRARY-EXECUTION-COUNTER-EXCLUDES-ACTIVE) gives
+// the rule above. Setup: Run two delayed children and sample inside the first
+// body and after return. Expected: The active count is zero and the final
+// count is two, matching finished child counts.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library lacks the standard accessor methods. Keep the
 // required API spelling and its expectation as a spec-only build case.
 // Run only one registered type and sample inside its positive body delay.

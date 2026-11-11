@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_item_sequencer_reference_can_change_while_inactive.expected
 */
+// What it checks:
+// Setting an inactive item sequencer takes effect immediately and does not
+// replace its parent.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.1.2.6 (UVM-ITEM-INACTIVE-SEQUENCER-REFERENCE) gives the rule
+// above. Setup: Set two sequencer handles and null without active item
+// communication. Expected: Each query sees the current handle/null and retains
+// the parent handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Do not change a sequencer during active communication. Parent
 // sequence identity is retained across independent sequencer updates.
 

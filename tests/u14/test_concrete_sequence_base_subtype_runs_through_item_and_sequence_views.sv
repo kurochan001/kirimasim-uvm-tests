@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_concrete_sequence_base_subtype_runs_through_item_and_sequence_views.expected
 */
+// What it checks:
+// 1. The virtual is_item predicate distinguishes an item from a derived
+//    sequence.
+// 2. Sequence start returns after natural completion and can be invoked again
+//    on a completed sequence.
+// 3. A concrete sequence-base subtype is usable as a sequence item.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.2.11 (UVM-ITEM-SEQUENCE-PREDICATE) gives rule 1 above.
+//    Setup: Call directly and through base item handles. Expected: An item
+//    returns one and a sequence zero through both call forms.
+// 2. 1800.2-2020 14.2.3.1 (UVM-SEQUENCE-NATURAL-START-COMPLETION) gives rule 2
+//    above. Setup: Run no-item bodies and restart a counter sequence
+//    sequentially. Expected: Returns observe FINISHED and each sequential
+//    invocation executes the body once.
+// 3. 1800.2-2020 14.2.1 (UVM-SEQ-REVIEW-SEQUENCE-ITEM-BASE) gives rule 3
+//    above. Setup: An original concrete body subtype is upcast through
+//    sequence and item bases. Expected: Item and transaction views retain the
+//    sequence handle identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A concrete test subtype implements the virtual base body. This observes
 // positive inheritance and direct unbound execution, not arbitrary subclass
 // validity, request traffic or a fixed formatted state name.

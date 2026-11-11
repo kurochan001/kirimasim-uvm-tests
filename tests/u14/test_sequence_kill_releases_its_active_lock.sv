@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_kill_releases_its_active_lock.expected
 */
+// What it checks:
+// Killing removes the sequence active lock before its ordinary unlock can
+// execute.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.5.11 (UVM-SEQUENCE-KILL-RELEASES-LOCK) gives the rule
+// above. Setup: Acquire a lock inside the body and kill before the delayed
+// unlock. Expected: Lock ownership is cleared and current owner is null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Let an active body acquire a lock before killing it. Required queue
 // cleanup must release ownership even though the body never reaches its
 // own unlock call.

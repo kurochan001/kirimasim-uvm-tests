@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_fifo_response_wait_blocks_again_after_draining_its_first_reply.expected
 */
+// What it checks:
+// A FIFO response retrieval blocks whenever no response is queued, including
+// after prior consumption.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.3.3.3 (UVM-SEQUENCE-EMPTY-RESPONSE-REWAIT) gives the rule
+// above. Setup: Let the first waiting call consume its only reply, then begin
+// a second empty wait. Expected: Both waits remain blocked until their fresh
+// arrivals and return the supplied handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays distinguish a real wait from delta-cycle scheduling.
 // Responses copy both routing IDs from real acknowledged requests.
 module test_sequence_fifo_response_wait_blocks_again_after_draining_its_first_reply;

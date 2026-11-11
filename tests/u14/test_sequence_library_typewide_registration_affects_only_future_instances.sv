@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_typewide_registration_affects_only_future_instances.expected
 */
+// What it checks:
+// Typewide registration applies to future instances and ignores duplicates.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.5.1 (UVM-LIBRARY-TYPEWIDE-FUTURE-INSTANCES) gives the rule
+// above. Setup: Construct one library, register alpha twice and construct a
+// second. Expected: The existing instance stays empty and the future instance
+// contains alpha once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Construct a library before typewide registration and another afterwards.
 // Check duplicate suppression and that the existing instance is unchanged.
 

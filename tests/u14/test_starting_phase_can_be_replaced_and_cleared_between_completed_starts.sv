@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_starting_phase_can_be_replaced_and_cleared_between_completed_starts.expected
 */
+// What it checks:
+// 1. set_starting_phase replaces or clears the context between completed
+//    sequence starts.
+// 2. get_starting_phase reflects each execution context across reuse.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.4.2 (UVM-SEQUENCE-STARTING-PHASE-REUSED-ASSIGNMENT)
+//    gives rule 1 above. Setup: Set main, then shutdown, then null on one
+//    reused sequence. Expected: Three executions observe the exact supplied
+//    contexts and the final getter returns null.
+// 2. 1800.2-2020 14.2.4.1 (UVM-SEQUENCE-STARTING-PHASE-GETTER-DURING-REUSE)
+//    gives rule 2 above. Setup: Inspect the getter in pre_start for two
+//    explicit nodes and a cleared context. Expected: Every observed handle is
+//    exact across all three starts.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_starting_phase_can_be_replaced_and_cleared_between_completed_starts;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

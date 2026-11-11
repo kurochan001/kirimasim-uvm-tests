@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_standard_count_bounds_default_to_ten.expected
 */
+// What it checks:
+// 1. The standard minimum count defaults to ten.
+// 2. The standard maximum count defaults to ten.
+// 3. The initial sequence_count is ten.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.4.4.2 (UVM-LIBRARY-MINIMUM-COUNT-DEFAULT) gives rule 1
+//    above. Setup: Query a fresh library through the standard minimum getter.
+//    Expected: The minimum getter returns ten.
+// 2. 1800.2-2020 14.4.4.3 (UVM-LIBRARY-MAXIMUM-COUNT-DEFAULT) gives rule 2
+//    above. Setup: Query a fresh library through the standard maximum getter.
+//    Expected: The maximum getter returns ten.
+// 3. 1800.2-2020 14.4.4.6 (UVM-LIBRARY-INITIAL-SEQUENCE-COUNT) gives rule 3
+//    above. Setup: Inspect a fresh library sequence_count. Expected: The
+//    public count field is ten.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library lacks the standard accessor methods. Keep the
 // required API spelling and its expectation as a spec-only build case.
 

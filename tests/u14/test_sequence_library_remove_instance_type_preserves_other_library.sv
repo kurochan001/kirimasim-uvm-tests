@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_remove_instance_type_preserves_other_library.expected
 */
+// What it checks:
+// Removing an instance-registered wrapper leaves independently registered
+// peers unchanged.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.5.5 (UVM-LIBRARY-INSTANCE-REMOVAL-ISOLATION) gives the rule
+// above. Setup: Register alpha on two libraries and remove it on one.
+// Expected: The receiving library becomes empty and its peer retains one
+// alpha.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register the same wrapper independently on two libraries and remove it
 // from one. Observe membership through public enumeration, not internal queues.
 

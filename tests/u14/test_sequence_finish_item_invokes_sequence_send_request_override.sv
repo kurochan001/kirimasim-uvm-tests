@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_finish_item_invokes_sequence_send_request_override.expected
 */
+// What it checks:
+// finish_item calls the sequence virtual send_request with rerandomize zero.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.3 (UVM-SEQUENCE-FINISH-VIRTUAL-SEND-DISPATCH) gives the
+// rule above. Setup: Override sequence sending while retaining normal driver
+// completion. Expected: The override runs once with rerandomize zero and value
+// 17 reaches the driver.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Override the sequence submission API only to observe and delegate its
 // call. The pinned implementation bypasses that virtual method and calls the
 // sequencer directly, so retain the required invocation as spec-only.

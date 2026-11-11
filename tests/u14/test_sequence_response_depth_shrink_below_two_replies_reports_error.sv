@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_response_depth_shrink_below_two_replies_reports_error.expected
 */
+// What it checks:
+// Setting maximum response depth below queued occupancy reports an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.7.7 (UVM-SEQUENCE-RESPONSE-UNDERSIZED-DEPTH-ERROR) gives
+// the rule above. Setup: Shrink two pending replies to one or one pending
+// reply to zero, then clear without reading post-error contents. Expected: An
+// ERROR is reported and the sequence can finish after cleanup.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library only assigns the depth and omits this required
 // error. Preserve the normative expectation as spec-only, clear the queue
 // without reading post-error contents, then allow natural completion.

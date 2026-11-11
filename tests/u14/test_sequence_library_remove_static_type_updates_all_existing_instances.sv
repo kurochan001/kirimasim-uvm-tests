@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_remove_static_type_updates_all_existing_instances.expected
 */
+// What it checks:
+// Removing a statically registered wrapper updates all existing library
+// instances.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.5.5 (UVM-LIBRARY-STATIC-REMOVAL-ALL-INSTANCES) gives the
+// rule above. Setup: Construct two libraries after typewide alpha registration
+// and remove through one. Expected: Both existing libraries become empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Construct two libraries after typewide registration and remove through
 // one instance. The required removal from the other instance is spec-only;
 // the pinned library changes only the receiving instance.

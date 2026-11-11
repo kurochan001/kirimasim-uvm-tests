@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_finish_item_null_input_reports_error_before_mid_do.expected
 */
+// What it checks:
+// finish_item rejects null with ERROR and returns before mid_do.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.3 (UVM-SEQUENCE-FINISH-NULL-ERROR-RETURN) gives the rule
+// above. Setup: Pass null to an unbound sequence finish call. Expected: The
+// call returns with one ERROR, no FATAL and no mid_do call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the required argument/context guard before any submission.
 // Count original report severity and require an immediate return. The
 // pinned library lacks these guards; retain the normative ERROR and return

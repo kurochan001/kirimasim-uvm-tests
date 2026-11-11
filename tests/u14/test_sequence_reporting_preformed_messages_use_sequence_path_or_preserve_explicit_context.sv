@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_reporting_preformed_messages_use_sequence_path_or_preserve_explicit_context.expected
 */
+// What it checks:
+// 1. Preformed sequence messages use the handler of the current report object.
+// 2. Preformed message processing fills empty context with sequence path and
+//    retains explicit context.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.3.4 (UVM-SEQUENCE-PREFORMED-REPORT-HANDLER-ROUTING)
+//    gives rule 1 above. Setup: Process messages while bound to first, peer
+//    and then root. Expected: Three caught messages have the exact expected
+//    clients.
+// 2. 1800.2-2020 14.1.3.4 (UVM-SEQUENCE-PREFORMED-REPORT-CONTEXT-FILL) gives
+//    rule 2 above. Setup: Use parent_sequence.item and empty/manual/empty
+//    contexts across reporter changes. Expected: Contexts are
+//    parent_sequence.item, manual and parent_sequence.item in both catcher and
+//    messages.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit reporting context only: no driver, item arbitration or report text
 // formatting is assumed. Probe overrides are distinct from handler routing.
 module test_sequence_reporting_preformed_messages_use_sequence_path_or_preserve_explicit_context;

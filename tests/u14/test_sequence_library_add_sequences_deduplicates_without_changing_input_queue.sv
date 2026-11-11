@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_add_sequences_deduplicates_without_changing_input_queue.expected
 */
+// What it checks:
+// Bulk instance registration deduplicates wrappers and preserves the caller
+// queue.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.5.4 (UVM-LIBRARY-BULK-INSTANCE-REGISTRATION) gives the rule
+// above. Setup: Supply alpha/beta/alpha as a three-entry queue. Expected:
+// Membership contains alpha/beta once each and the supplied queue still has
+// three entries with the repeated wrapper.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Supply a queue containing a repeated wrapper. Check the resulting set
 // and verify that registration leaves the caller queue intact.
 

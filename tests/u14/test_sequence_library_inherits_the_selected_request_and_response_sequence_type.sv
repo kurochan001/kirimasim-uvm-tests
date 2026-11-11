@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_inherits_the_selected_request_and_response_sequence_type.expected
 */
+// What it checks:
+// The sequence library derives from the sequence specialization selected by
+// REQ and RSP.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.1 (UVM-SEQ-REVIEW-LIBRARY-PARAMETERIZED-BASE) gives the
+// rule above. Setup: An original library subtype uses distinct request and
+// response types. Expected: The exact sequence specialization and
+// sequence-base views preserve identity and typed fields.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original subtype declaration and public type/field observations only.
 // Macro inclusion is fixture setup, not proof of every static registration
 // contract. This does not substitute a legacy member for a missing API.

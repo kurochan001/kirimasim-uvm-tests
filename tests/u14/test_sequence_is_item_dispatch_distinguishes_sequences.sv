@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_is_item_dispatch_distinguishes_sequences.expected
 */
+// What it checks:
+// The virtual is_item predicate distinguishes an item from a derived sequence.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.1.2.11 (UVM-ITEM-SEQUENCE-PREDICATE) gives the rule above.
+// Setup: Call directly and through base item handles. Expected: An item
+// returns one and a sequence zero through both call forms.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Call the virtual predicate through uvm_sequence_item handles to
 // observe dynamic dispatch without implementation-specific type checks.
 

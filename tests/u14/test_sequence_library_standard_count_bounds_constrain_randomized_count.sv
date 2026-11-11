@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_standard_count_bounds_constrain_randomized_count.expected
 */
+// What it checks:
+// Standard count setters constrain the receiver count without changing its
+// peer.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.2 (UVM-LIBRARY-SINGLETON-RANDOM-COUNT-BOUNDS) gives the
+// rule above. Setup: Set minimum/maximum to three and randomize with one
+// registered type. Expected: Randomization succeeds with count/min/max three,
+// and the peer bounds remain ten.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library lacks the standard accessor methods. Keep the
 // required API spelling and its expectation as a spec-only build case.
 // Use a singleton legal range so no selected random value is assumed.

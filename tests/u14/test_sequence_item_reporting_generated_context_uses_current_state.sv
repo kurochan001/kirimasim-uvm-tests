@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_item_reporting_generated_context_uses_current_state.expected
 */
+// What it checks:
+// 1. The selected report object follows the current sequencer or root
+//    fallback.
+// 2. Separately generated item messages retain their own populated contexts.
+// 3. An empty generated context is filled from the current sequence path.
+// 4. Explicit generated context is retained during root-fallback reporting.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.3.1 (UVM-SEQ-REPORT-CURRENT-REPORTER) gives rule 1
+//    above. Setup: Generated reports bind to first, then second, then clear
+//    the item sequencer. Expected: Captured origins identify first, second and
+//    the root respectively.
+// 2. 1800.2-2020 14.1.3.3 (UVM-SEQ-REPORT-GENERATED-CONTEXT-SNAPSHOT) gives
+//    rule 2 above. Setup: Parent/item names and reporter change between
+//    generated messages. Expected: Earlier message contexts retain their prior
+//    strings.
+// 3. 1800.2-2020 14.1.3.4 (UVM-SEQ-REPORT-GENERATED-EMPTY-CONTEXT-FILL) gives
+//    rule 3 above. Setup: Parent/item names change from parent/item to
+//    changed/child before the next report. Expected: Contexts are parent.item
+//    then changed.child.
+// 4. 1800.2-2020 14.1.3.4 (UVM-SEQ-REPORT-GENERATED-EXPLICIT-CONTEXT) gives
+//    rule 4 above. Setup: After clearing the sequencer, the report explicitly
+//    supplies manual. Expected: The root-routed message keeps manual.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Public handler arguments capture identity and context at entry.
 // The root handler is restored. No arbitration, catcher getter, server
 // formatting

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_finish_item_missing_sequencer_input_reports_error_before_mid_do.expected
 */
+// What it checks:
+// finish_item rejects an item without a sequencer before mid_do.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.3 (UVM-SEQUENCE-FINISH-MISSING-SEQUENCER-ERROR) gives the
+// rule above. Setup: Pass an ordinary item whose sequencer is null. Expected:
+// The call returns with one ERROR, no FATAL and no mid_do call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Exercise the required argument/context guard before any submission.
 // Count original report severity and require an immediate return. The
 // pinned library lacks these guards; retain the normative ERROR and return

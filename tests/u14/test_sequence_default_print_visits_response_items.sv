@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_default_print_visits_response_items.expected
 */
+// What it checks:
+// Default sequence printing follows the current rsp field.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.3.2.2 (UVM-SEQUENCE-DEFAULT-PRINT-RSP-INITIAL) gives the rule
+// above. Setup: Only rsp holds a non-null typed item. Expected: The current
+// rsp item print hook is visited once.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence keeps its default do_print. Deep, unlimited recursion is
 // explicit. Item hooks identify reached objects without text assumptions.
 module test_sequence_default_print_visits_response_items;

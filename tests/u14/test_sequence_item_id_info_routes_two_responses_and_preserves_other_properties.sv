@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_item_id_info_routes_two_responses_and_preserves_other_properties.expected
 */
+// What it checks:
+// 1. set_id_info copies the internal sequence identifier needed to route a
+//    response to the requesting sequence.
+// 2. set_id_info copies the transaction identifier value independently of
+//    subsequent source changes.
+// 3. ID information copying leaves unrelated response properties intact.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.2.4 (UVM-ITEM-ID-INFO-SEQUENCE-ROUTING) gives rule 1
+//    above. Setup: Hold two sequences awaiting replies and deliver copied-ID
+//    responses in reverse order. Expected: Each sequence receives its own
+//    exact response object.
+// 2. 1800.2-2020 14.1.2.4 (UVM-ITEM-ID-INFO-TRANSACTION-VALUE-COPY) gives rule
+//    2 above. Setup: Copy IDs 11/22, then change source request transaction
+//    IDs to 99 before delivering replies. Expected: Replies retain IDs 11/22
+//    and targeted response waits succeed while source IDs are both 99.
+// 3. 1800.2-2020 14.1.2.4 (UVM-ITEM-ID-INFO-PRESERVES-OTHER-PROPERTIES) gives
+//    rule 3 above. Setup: Initialize reply payloads and names before copying
+//    IDs. Expected: Reply payloads remain 901/902 and names remain
+//    reply_one/reply_two.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_sequence_item_id_info_routes_two_responses_and_preserves_other_properties;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

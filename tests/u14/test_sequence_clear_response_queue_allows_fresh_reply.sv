@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_clear_response_queue_allows_fresh_reply.expected
 */
+// What it checks:
+// Clearing a sequence response queue discards its queued replies before later
+// retrieval.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.7.8 (UVM-SEQUENCE-RESPONSE-QUEUE-CLEAR) gives the rule
+// above. Setup: Queue two real-ID replies without a reader, clear, then
+// deliver and read a fresh third reply. Expected: The retrieval returns the
+// third handle, payload 33 and transaction ID 103.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Complete three requests, queue two replies, clear through the public
 // API and then deliver the third. No reader runs during the clear.
 

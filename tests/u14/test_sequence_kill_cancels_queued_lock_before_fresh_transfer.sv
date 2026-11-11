@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_kill_cancels_queued_lock_before_fresh_transfer.expected
 */
+// What it checks:
+// Sequence kill removes its pending lock/grab requests from the default
+// sequencer.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.5.11 (UVM-SEQUENCE-KILL-PENDING-OWNERSHIP) gives the rule
+// above. Setup: Hold ownership, arm a blocked waiter, kill it before grant,
+// then permit an actual transfer. Expected: The killed waiter stays STOPPED
+// without acquiring; a fresh or surviving request completes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Hold ownership before starting waiters. Positive delays prove they remain
 // blocked before cancellation. A real fresh transfer tests queue cleanup;
 // the fixture never inspects a sequencer's private arbitration queue.

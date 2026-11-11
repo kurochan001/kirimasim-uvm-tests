@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_default_selector_increments_and_wraps_at_inclusive_max.expected
 */
+// What it checks:
+// The default selector visits zero through its inclusive maximum and wraps.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.9 (UVM-LIBRARY-DEFAULT-SELECTOR-INCLUSIVE-WRAP) gives the
+// rule above. Setup: Call four times with maximum two. Expected: Selections
+// are zero, one, two, zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Call the default selection hook directly with a stable maximum. Store
 // results before printing so side effects have an explicit execution order.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_default_rand_executes_single_selection.expected
 */
+// What it checks:
+// A default-budget library executes ten registered member sequences.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.6 (UVM-LIBRARY-DEFAULT-EXECUTION-BUDGET) gives the rule
+// above. Setup: Use one registered type or two unconstrained registered
+// choices. Expected: Exactly ten child bodies complete, without fixing the
+// unforced winners.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register members through the instance API and keep the default legal
 // ten-iteration count. Observe completed child bodies without assuming
 // a random distribution or execution order.

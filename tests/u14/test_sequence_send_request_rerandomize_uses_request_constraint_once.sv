@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_send_request_rerandomize_uses_request_constraint_once.expected
 */
+// What it checks:
+// Sequence send_request forwards the rerandomize request before driver
+// delivery.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.5 (UVM-SEQUENCE-SEND-RERANDOMIZATION-FORWARDING) gives
+// the rule above. Setup: Acquire a grant and send with rerandomize one and a
+// unique-value item constraint. Expected: The same handle arrives with
+// constrained code 91 and at least one post_randomize call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicitly enable rerandomization on send_request. The singleton
 // constraint supplies a deterministic value and at least one callback.
 // The randomized observation is Boolean; the contract does not fix retries.

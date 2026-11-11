@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_start_item_sequence_argument_reports_error_and_returns.expected
 */
+// What it checks:
+// start_item rejects a sequence argument before pre_do.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.2 (UVM-SEQUENCE-START-SEQUENCE-ARGUMENT-ERROR) gives the
+// rule above. Setup: Pass an unbound child sequence as the item argument.
+// Expected: The call returns with one ERROR, no FATAL and no pre_do call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Pass a sequence whose is_item query returns zero. The convenience API
 // must reject it before selecting a sequencer or invoking pre_do.
 // Count the original severity without changing it. Catch reports only so

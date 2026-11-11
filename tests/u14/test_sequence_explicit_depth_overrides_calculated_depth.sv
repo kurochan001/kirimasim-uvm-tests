@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_explicit_depth_overrides_calculated_depth.expected
 */
+// What it checks:
+// 1. Explicit sequence depth overrides automatic depth and the most recent
+//    value is returned.
+// 2. Sequence depth follows the parent chain when no explicit override is
+//    installed.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.2.10 (UVM-SEQUENCE-EXPLICIT-DEPTH) gives rule 1 above.
+//    Setup: Read automatic depth then set nine and four on the same child.
+//    Expected: Depth changes from two to nine to four without changing the
+//    parent.
+// 2. 1800.2-2020 14.1.2.9 (UVM-SEQUENCE-AUTOMATIC-DEPTH) gives rule 2 above.
+//    Setup: Build the full root/child/grandchild chain before querying depth.
+//    Expected: Root, child and grandchild depths are one, two and three.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Read automatic depth first, then apply two explicit values without
 // changing the parent chain.
 

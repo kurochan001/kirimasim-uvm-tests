@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_wait_for_grant_blocks_until_driver_requests_an_item.expected
 */
+// What it checks:
+// Sequence grant waiting remains blocked until the driver requests an item.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.4 (UVM-SEQUENCE-GRANT-WAIT-DRIVER-BLOCKING) gives the
+// rule above. Setup: Start one producer and delay driver polling. Expected: No
+// grant/completion occurs before polling; one of each occurs after
+// acknowledgement.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Start the sequence before the driver requests work and sample after a
 // positive delay. Once granted, send_request follows without a time delay.
 // Delay acknowledgement so the completion waiter is established.

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_start_item_any_negative_priority_inherits_sequence_priority.expected
 */
+// What it checks:
+// Any negative start_item priority inherits the sequence priority.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.2 (UVM-SEQUENCE-START-NEGATIVE-PRIORITY-INHERITANCE)
+// gives the rule above. Setup: Use argument minus seven with sequence priority
+// 78. Expected: The selected grant priority is 78 and pre_do receives is_item
+// one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use a negative item priority other than the default sentinel. The rule
 // uses the current sequence priority for every negative argument.
 

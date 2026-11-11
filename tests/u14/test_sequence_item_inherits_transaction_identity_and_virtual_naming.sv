@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_item_inherits_transaction_identity_and_virtual_naming.expected
 */
+// What it checks:
+// 1. The virtual is_item predicate distinguishes an item from a derived
+//    sequence.
+// 2. A sequence item derives from the transaction base type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.2.11 (UVM-ITEM-SEQUENCE-PREDICATE) gives rule 1 above.
+//    Setup: Call directly and through base item handles. Expected: An item
+//    returns one and a sequence zero through both call forms.
+// 2. 1800.2-2020 14.1.1 (UVM-SEQ-REVIEW-ITEM-TRANSACTION-BASE) gives rule 2
+//    above. Setup: A concrete item is assigned to transaction and object base
+//    handles. Expected: Both nonnull base views denote the same item.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use public base handles to observe the declared transaction inheritance.
 // No numeric identity, object layout or actual transaction transport is
 // asserted.

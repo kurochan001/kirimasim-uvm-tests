@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_targeted_response_wait_ignores_two_unmatched_arrivals.expected
 */
+// What it checks:
+// A targeted response wait blocks until the requested transaction ID arrives.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.3.3.3 (UVM-SEQUENCE-TARGETED-RESPONSE-WAIT) gives the rule
+// above. Setup: Queue two nonmatching replies around an established wait, then
+// send the matching one. Expected: Neither nonmatching arrival completes the
+// wait; both remain available in their FIFO order.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Positive delays distinguish a real wait from delta-cycle scheduling.
 // Responses copy both routing IDs from real acknowledged requests.
 module test_sequence_targeted_response_wait_ignores_two_unmatched_arrivals;

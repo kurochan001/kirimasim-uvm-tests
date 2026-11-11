@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_response_queue_overflow_reports_error.expected
 */
+// What it checks:
+// Explicitly enabled reporting emits an error on response overflow.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.7.5 (UVM-SEQUENCE-RESPONSE-OVERFLOW-REPORT-ENABLED) gives
+// the rule above. Setup: Enable reporting and send two replies to a depth-one
+// queue before reading. Expected: The overflow error is reported and cleanup
+// allows completion.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Queue two valid replies at depth one while retrieval is blocked.
 // Observe only error reporting, not which reply is retained after overflow.
 // Enable reporting explicitly to test the setter independently of its

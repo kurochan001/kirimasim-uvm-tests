@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_start_selects_default_and_explicit_priorities.expected
 */
+// What it checks:
+// 1. Start selects root default, explicit and inherited child priorities.
+// 2. Setting a valid sequence priority updates the value returned by its
+//    getter.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.3.1 (UVM-SEQUENCE-START-PRIORITY-SELECTION) gives rule 1
+//    above. Setup: Start independent roots and a live parent/child with
+//    explicit parent priority 37. Expected: Root default is 100, explicit root
+//    is 23 and the child inherits 37.
+// 2. 1800.2-2020 14.2.5.2 (UVM-SEQUENCE-PRIORITY-CONTROL-UPDATE) gives rule 2
+//    above. Setup: Set priority seven after the observed sequence completes.
+//    Expected: The getter returns seven; no arbitration behavior is claimed by
+//    this fixture.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe priority while the body is executing, then update the
 // completed sequence explicitly. No arbitration or random selection occurs.
 

@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_constructor_distinguishes_omitted_and_explicit_names.expected
 */
+// What it checks:
+// 1. The sequence library constructor uses its specified default name when the
+//    name argument is omitted.
+// 2. The sequence library constructor preserves an explicitly supplied
+//    instance name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.4.3 (UVM-SEQUENCE-LIBRARY-CONSTRUCTOR-DEFAULT-NAME) gives
+//    rule 1 above. Setup: Independent instances are constructed with omitted
+//    and explicit name arguments. Expected: The omitted-name instance has an
+//    empty name.
+// 2. 1800.2-2020 14.4.3 (UVM-SEQUENCE-LIBRARY-CONSTRUCTOR-EXPLICIT-NAME) gives
+//    rule 2 above. Setup: Independent instances are constructed with omitted
+//    and explicit name arguments. Expected: The explicit name is named_library
+//    and an explicitly empty name remains empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // No static registrations or sequence selection are requested.
 // The default control calls the library constructor without a name.
 module test_sequence_library_constructor_distinguishes_omitted_and_explicit_names;

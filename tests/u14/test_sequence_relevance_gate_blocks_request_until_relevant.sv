@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_relevance_gate_blocks_request_until_relevant.expected
 */
+// What it checks:
+// An irrelevant requesting sequence is withheld until relevance becomes true.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.5.3 (UVM-SEQUENCE-RELEVANCE-GATED-REQUEST) gives the rule
+// above. Setup: Start a request with a custom relevance wait and open the gate
+// after a positive delay. Expected: Driver receives nothing before opening and
+// later receives payload 42 with completion.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A custom wait_for_relevant waits on a shared class flag. The driver
 // waits for a request while a positive-delay observer opens that gate.
 // Do not assert internal polling or callback counts.

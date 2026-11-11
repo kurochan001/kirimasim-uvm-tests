@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_clear_response_queue_discards_pending_replies_and_waits_for_a_fresh_reply.expected
 */
+// What it checks:
+// Clearing removes pending responses and allows a later response to satisfy
+// the next wait.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.7.8 (UVM-RESPONSE-CLEAR-REMOVES-PENDING) gives the rule
+// above. Setup: Queue two responses, clear them, begin reading and later
+// deliver a third. Expected: The read waits after clear and returns only the
+// exact third response with ID 103 and value 33.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Copy routing IDs from real requests while the receiver remains active.
 // Positive delays separate queue operations from observation; no internal
 // response queue or numeric sequence-routing ID is inspected.

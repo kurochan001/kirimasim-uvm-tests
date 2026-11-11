@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_send_request_default_preserves_manual_data_and_handle.expected
 */
+// What it checks:
+// Sequence send_request forwards the original item with its default
+// rerandomize disabled.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.5 (UVM-SEQUENCE-SEND-DEFAULT-NO-RERANDOMIZATION) gives
+// the rule above. Setup: Manually set code 37 on an item constrained to 91,
+// acquire a grant and use the default send call. Expected: The same handle
+// arrives with code 37, no randomization and transaction ID 50.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Leave a manually assigned value outside the enabled random constraint.
 // The default send must preserve that value and skip randomization callbacks.
 

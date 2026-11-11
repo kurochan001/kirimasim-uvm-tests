@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_kill_drops_automatic_objection_to_starting_phase.expected
 */
+// What it checks:
+// Kill drops the automatic starting-phase objection.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.4.3 (UVM-SEQUENCE-KILL-AUTOMATIC-OBJECTION) gives the rule
+// above. Setup: Assign an isolated phase node, enable automatic objection and
+// kill during the body. Expected: Count changes from one to zero, sequence
+// stops and no delayed write occurs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Assign an isolated task-phase node and enable automatic objection.
 // Observe its count inside the active body and after kill, without
 // depending on asynchronous objector-list cleanup.

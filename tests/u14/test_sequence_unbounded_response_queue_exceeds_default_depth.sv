@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_unbounded_response_queue_exceeds_default_depth.expected
 */
+// What it checks:
+// Depth minus one permits more replies than the default capacity without a
+// maximum-depth error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.7.6 (UVM-SEQUENCE-RESPONSE-UNBOUNDED-STORAGE) gives the
+// rule above. Setup: Queue nine matched replies at depth minus one before
+// retrieval. Expected: No error is added, all nine return and endpoint values
+// are 11/99.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Complete nine requests and send their matched replies before allowing
 // reads. A depth of minus one disables the maximum-depth check.
 

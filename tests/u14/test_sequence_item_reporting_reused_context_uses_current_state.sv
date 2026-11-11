@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_item_reporting_reused_context_uses_current_state.expected
 */
+// What it checks:
+// 1. Nonempty preformed context survives reporter and path changes.
+// 2. Clearing a reused preformed context causes refill from the current path.
+// 3. Default preformed processing forwards the same message handle on each
+//    selected call.
+// 4. Reused preformed message origin is populated for the currently selected
+//    reporter.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.1.3.4 (UVM-SEQ-REPORT-REUSED-CONTEXT-PRESERVED) gives rule
+//    1 above. Setup: The first call fills an empty context; the same message
+//    is reused after rename/rebinding. Expected: Both entry snapshots retain
+//    parent.item.
+// 2. 1800.2-2020 14.1.3.4 (UVM-SEQ-REPORT-EMPTY-CONTEXT-REFILL) gives rule 2
+//    above. Setup: After a preserved reuse, the caller sets context to empty
+//    before processing again. Expected: Handler and caller then see
+//    changed.child.
+// 3. 1800.2-2020 14.1.3.4 (UVM-SEQ-REPORT-REUSED-HANDLE-IDENTITY) gives rule 3
+//    above. Setup: One message is processed three times through two sequencer
+//    handlers. Expected: Every captured argument equals the caller handle.
+// 4. 1800.2-2020 14.1.3.4 (UVM-SEQ-REPORT-REUSED-ORIGIN-REBINDING) gives rule
+//    4 above. Setup: The item rebinds from first to second while retaining the
+//    same message. Expected: Entry origins change to second and the caller
+//    retains that current origin.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Public handler arguments capture identity and context at entry.
 // The root handler is restored. No arbitration, catcher getter, server
 // formatting

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_response_handler_receives_each_routed_reply.expected
 */
+// What it checks:
+// Enabled response handling receives every routed reply without queued reads.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.7.3 (UVM-RESPONSE-HANDLER-EXACT-DELIVERY) gives the rule
+// above. Setup: Enable handling, deliver two copied-ID responses and retain
+// typed handles in the callback. Expected: Two handler calls retain the exact
+// reply handles and values 11/22.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence waits until replies are delivered and performs no
 // queued reads. The handler stores typed handles without modifying them.
 

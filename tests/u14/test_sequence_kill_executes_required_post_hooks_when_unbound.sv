@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_kill_executes_required_post_hooks_when_unbound.expected
 */
+// What it checks:
+// 1. Killing a sequence executes its required post_body callback.
+// 2. Killing a sequence executes its required post_start callback.
+// 3. Direct sequence kill invokes its do_kill hook for bound and unbound
+//    running bodies.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 14.2.5.11 (UVM-SEQUENCE-KILL-REQUIRED-POST-BODY) gives rule 1
+//    above. Setup: Kill bound and unbound active sequences with zero-delay
+//    hook counters. Expected: Each fixture records one post_body call.
+// 2. 1800.2-2020 14.2.5.11 (UVM-SEQUENCE-KILL-REQUIRED-POST-START) gives rule
+//    2 above. Setup: Kill bound and unbound active sequences with zero-delay
+//    hook counters. Expected: Each fixture records one post_start call.
+// 3. 1800.2-2020 14.2.5.12 (UVM-SEQUENCE-DO-KILL-HOOK-BOUND-AND-UNBOUND) gives
+//    rule 3 above. Setup: The original body is entered before kill and its
+//    hook increments a counter. Expected: Each killed sequence observes one
+//    do_kill callback.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The standard requires the post-body and post-start hooks on kill.
 // These zero-delay hooks only increment counters. The pinned library
 // omits them; keep their required calls as spec-only after settling.

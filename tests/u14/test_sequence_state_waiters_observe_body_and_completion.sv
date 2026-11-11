@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_state_waiters_observe_body_and_completion.expected
 */
+// What it checks:
+// State waiting returns when a selected state is reached and accepts an
+// already matching state mask.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.2.5 (UVM-SEQUENCE-STATE-WAIT) gives the rule above. Setup:
+// Make BODY observable with a delay, then wait for FINISHED and a matching OR
+// mask. Expected: The waiters observe BODY and FINISHED and execution reaches
+// the matching-mask return marker.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The sequence handle has module lifetime for forked access. A
 // positive body delay makes BODY observable; a watchdog bounds the wait.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_state_body_and_finished_waits_track_a_restarted_sequence.expected
 */
+// What it checks:
+// State waits observe a new execution on a reused sequence handle.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.2.5 (UVM-SEQUENCE-STATE-WAIT-RESTART) gives the rule above.
+// Setup: Complete one run, restart the same handle and wait for BODY then
+// FINISHED. Expected: The second BODY precedes its exit, and final entry/exit
+// counts are both two.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Unbound virtual sequences with positive body delays; no driver or phases.
 // Only mask/state behavior is asserted, not kill post-hook ordering.
 module test_sequence_state_body_and_finished_waits_track_a_restarted_sequence;

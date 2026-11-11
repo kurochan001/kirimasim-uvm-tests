@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_wait_for_item_done_returns_when_get_implicitly_acknowledges.expected
 */
+// What it checks:
+// A driver get acknowledgement releases the completion wait without separate
+// item_done.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.2.6.6 (UVM-SEQUENCE-ITEM-DONE-IMPLICIT-GET) gives the rule
+// above. Setup: Retrieve the sent item using get. Expected: The exact item
+// handle/code 37 is observed and one completion is recorded.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Retrieve and acknowledge in one get call. The low-level completion
 // waiter must return without a separate item_done call.
 

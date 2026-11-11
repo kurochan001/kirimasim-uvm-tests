@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_get_response_preserves_arrival_order.expected
 */
+// What it checks:
+// Default response retrieval preserves arrival order and exact reply handles.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.3.3.3 (UVM-SEQUENCE-RESPONSE-FIFO-HANDLE-ORDER) gives the
+// rule above. Setup: Queue two matched replies before allowing two default
+// reads. Expected: Values 11/22 return with both exact handles and sequence
+// completion.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Complete two requests, copy their routing IDs and queue both replies
 // before allowing retrieval. Internal sequence ID numbers are not printed.
 

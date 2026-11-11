@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_sequence_library_index_invalid_probes_preserve_valid_types.expected
 */
+// What it checks:
+// An index beyond the registered count reports an error and returns null.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 14.4.4.10 (UVM-LIBRARY-INDEX-OUT-OF-RANGE-ERROR) gives the rule
+// above. Setup: Probe count plus one and maximum unsigned, then query valid
+// index zero. Expected: Each invalid call yields one ERROR and null; the
+// original valid alpha remains available.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Query registered type wrappers without executing member sequences.
 // Enumeration defines valid indices; no registration ordering is prescribed.
 // Invalid probes exceed the count, avoiding the printed equal-count boundary.
