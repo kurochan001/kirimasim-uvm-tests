@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_clear_extension_preserves_other_types.expected
 */
+// What it checks:
+// 1. Extension presence is reported for the requested type key.
+// 2. Clearing one extension removes that type and silently ignores an absent
+//    type.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.1.2.3.1 (UVM-POLICY-EXTENSION-PRESENCE) gives rule 1
+//    above. Setup: Query installed, missing and removed extension types.
+//    Expected: Presence changes only for the selected type and absent types
+//    report false.
+// 2. 1800.2-2020 16.1.2.3.4 (UVM-POLICY-EXTENSION-CLEAR-ONE) gives rule 2
+//    above. Setup: Remove one of two installed types and repeatedly clear an
+//    absent slot. Expected: The selected type disappears, the other handle
+//    remains and absent clears emit no report.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Install two types then remove one. Presence and retrieval of the
 // removed type change while the other extension retains its original handle.
 

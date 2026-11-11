@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_clear_absent_extension_is_silent.expected
 */
+// What it checks:
+// Clearing one extension removes that type and silently ignores an absent
+// type.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.1.2.3.4 (UVM-POLICY-EXTENSION-CLEAR-ONE) gives the rule
+// above. Setup: Remove one of two installed types and repeatedly clear an
+// absent slot. Expected: The selected type disappears, the other handle
+// remains and absent clears emit no report.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Resolve the wrapper before sampling report counts. Repeated deletion
 // of that absent slot is ignored without emitting any report severity.
 

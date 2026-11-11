@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_history_keeps_failed_result_and_flushes_pairs.expected
 */
+// What it checks:
+// 1. Comparer flush clears miscompare counts, text and remembered comparison
+//    state.
+// 2. Comparison history tracks an ordered object pair under its recursion
+//    policy, with results only after completion.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.3.2.2 (UVM-COMPARER-FLUSH-STATE) gives rule 1 above.
+//    Setup: Accumulate failures, inspect completed history, then flush and
+//    reuse the policy. Expected: Count becomes zero, text empty and previous
+//    pairs return to unseen state.
+// 2. 1800.2-2020 16.3.3.5 (UVM-COMPARER-HISTORY) gives rule 2 above. Setup:
+//    Query before/during/after success or failure, reverse the pair and flush.
+//    Expected: States move NEVER to STARTED to FINISHED; unfinished results
+//    are zero and completed results match comparison.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use different values to finish with a failed result. The reverse pair
 // remains unseen, and flush makes the original pair unseen as well.
 

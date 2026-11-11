@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_array_window_defaults_and_negative_bound.expected
 */
+// What it checks:
+// Printer array-window getters retain configured begin/end values and default
+// to 5.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.6 (UVM-PRINTER-ARRAY-WINDOW-CONFIGURATION) gives the rule
+// above. Setup: Use two printers, explicit negative/zero bounds and setters
+// with omitted arguments. Expected: The controls stay instance-local and
+// omitted arguments restore 5/5.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe only control values. A negative begin bound selects all array
 // elements without requiring any particular built-in array output layout.
 

@@ -12,6 +12,17 @@
 :should_fail_because: the virtual base cannot be directly constructed
 :expected_stderr_regex: (?i)^(?=.*test_uvm_printer_abstract_declaration_rejects_direct_construction\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:virtual|abstract)\b)(?=.*\buvm_printer\b).*error
 */
+// What it checks:
+// The declared virtual uvm_printer cannot be directly constructed.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.1 (UVM-PRINTER-AUDIT-UVM-PRINTER-DIRECT-CONSTRUCTION) gives
+// the rule above. Setup: Use the original selected fixtures and explicit API
+// arguments represented by the observation anchors. Expected: The compiler
+// rejects direct new with the targeted virtual/abstract error and no runtime
+// seed execution.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_uvm_printer_abstract_declaration_rejects_direct_construction;
   import uvm_pkg::*;
   initial begin

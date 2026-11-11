@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_miscompare_uses_configured_severity.expected
 */
+// What it checks:
+// Comparer-generated mismatch messages use its configured severity.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.3.5.3 (UVM-COMPARER-MESSAGE-SEVERITY) gives the rule above.
+// Setup: Allow a mismatch message at verbosity NONE and set severity WARNING.
+// Expected: A mismatch produces one WARNING delta and no INFO delta in this
+// controlled fixture.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Allow one miscompare message at verbosity NONE. Count server severity
 // deltas while observing the boolean result and the policy mismatch count.
 

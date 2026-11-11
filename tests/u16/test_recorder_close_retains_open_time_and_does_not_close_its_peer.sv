@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_close_retains_open_time_and_does_not_close_its_peer.expected
 */
+// What it checks:
+// 1. The recorder open-time query returns its recorded opening timestamp.
+// 2. Recorder is_open is true only while the record is open.
+// 3. Recorder is_closed is true after close and before free.
+// 4. Recorder close invokes its closing hook and leaves its peer open.
+// 5. The recorder close-time query returns the supplied closing timestamp.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.4.4.5 (UVM-RECORDER-EXPLICIT-OPEN-TIME) gives rule 1
+//    above. Setup: Supply time 17 and inspect it before and after closing.
+//    Expected: The opening timestamp remains 17.
+// 2. 1800.2-2020 16.4.4.4 (UVM-RECORDER-OPEN-STATE-LIFETIME) gives rule 2
+//    above. Setup: Inspect opened, closed and freed records. Expected: The
+//    open flag is one before close and zero after close/free.
+// 3. 1800.2-2020 16.4.4.6 (UVM-RECORDER-CLOSED-STATE-LIFETIME) gives rule 3
+//    above. Setup: Inspect the record through open, close and free. Expected:
+//    Closed state is zero while open, one while closed and zero after free.
+// 4. 1800.2-2020 16.4.4.2 (UVM-RECORDER-EXPLICIT-CLOSE-HOOK) gives rule 4
+//    above. Setup: Open two records and close the first with time 29.
+//    Expected: One close hook receives 29; the selected record closes and its
+//    peer remains open.
+// 5. 1800.2-2020 16.4.4.7 (UVM-RECORDER-EXPLICIT-CLOSE-TIME) gives rule 5
+//    above. Setup: Close a record with time 29. Expected: The getter and
+//    implementation hook both observe 29.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // In-memory recorder hooks only: no database file, DPI or vendor attribute
 // macro. Timestamps are explicit recording metadata, not simulation delays.
 module test_recorder_close_retains_open_time_and_does_not_close_its_peer;

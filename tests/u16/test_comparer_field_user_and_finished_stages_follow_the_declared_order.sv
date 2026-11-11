@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_field_user_and_finished_stages_follow_the_declared_order.expected
 */
+// What it checks:
+// 1. Comparison history tracks an ordered object pair under its recursion
+//    policy, with results only after completion.
+// 2. The comparer field hook receives the selected operation and exact policy
+//    while the target is active and STARTED.
+// 3. The comparer completes its remembered state before popping the active
+//    target.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.3.3.5 (UVM-COMPARER-HISTORY) gives rule 1 above. Setup:
+//    Query before/during/after success or failure, reverse the pair and flush.
+//    Expected: States move NEVER to STARTED to FINISHED; unfinished results
+//    are zero and completed results match comparison.
+// 2. 1800.2-2020 16.3.3.4 (UVM-POLICY-AUDIT-COMPARER-FIELD-OP) gives rule 2
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The comparer field hook receives the
+//    selected operation and exact policy while the target is active and
+//    STARTED.
+// 3. 1800.2-2020 16.3.3.4 (UVM-POLICY-AUDIT-COMPARER-FINISH-BEFORE-POP) gives
+//    rule 3 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: The comparer completes
+//    its remembered state before popping the active target.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_comparer_field_user_and_finished_stages_follow_the_declared_order;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

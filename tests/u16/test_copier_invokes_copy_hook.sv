@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_copier_invokes_copy_hook.expected
 */
+// What it checks:
+// Copier object copying invokes the destination copy hook for the selected
+// pair.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.6.4.1 (UVM-COPIER-COPY-HOOK) gives the rule above. Setup:
+// Copy scalar data from one source into one or two distinct targets. Expected:
+// Each destination receives the payload independently and the source remains
+// unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A copier transfers a user payload through do_copy. The source stays
 // unchanged; the destination retains the name chosen at construction.
 

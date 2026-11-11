@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_copier_flush_preserves_extension_and_resets_history.expected
 */
+// What it checks:
+// 1. Policy flush resets operation state without removing extensions.
+// 2. Copy history is local to a policy and ordered object pair under its
+//    recursion mode.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.1.2.3 (UVM-POLICY-FLUSH-KEEPS-EXTENSIONS) gives rule 1
+//    above. Setup: Flush copier/comparer operations while retaining a mutable
+//    extension handle. Expected: History/miscompare state resets while the
+//    same extension remains usable.
+// 2. 1800.2-2020 16.6.4.2 (UVM-COPIER-HISTORY) gives rule 2 above. Setup:
+//    Query before/during/after a copy, reverse the pair, compare another
+//    policy and flush. Expected: Only the selected pair/policy becomes STARTED
+//    then FINISHED; flush restores NEVER.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An extension survives the policy operation reset. Observe the copied
 // pair returning to NEVER while the stored extension remains the same object.
 

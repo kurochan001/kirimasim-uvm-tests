@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_wide_fields_round_trip_boundary_bits_before_a_separate_tail.expected
 */
+// What it checks:
+// 1. get_packed_size reports the remaining number of unpackable bits.
+// 2. Wide packing preserves selected boundary bits and does not consume the
+//    separate seven-bit tail.
+// 3. Wide unpack restores fields of 64, 65, 129 and maximum stream bits before
+//    reading the separate tail.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.5.3.3 (UVM-PACKER-AVAILABLE-BITS) gives rule 1 above.
+//    Setup: Inspect producers and consumers before/after field reads.
+//    Expected: Only the consumer size decreases with reads, reaching zero
+//    after all fields are consumed.
+// 2. 1800.2-2020 16.5.4.8 (UVM-POLICY-AUDIT-PACKER-WIDE-PACK) gives rule 2
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: Wide packing preserves selected
+//    boundary bits and does not consume the separate seven-bit tail.
+// 3. 1800.2-2020 16.5.4.16 (UVM-POLICY-AUDIT-PACKER-WIDE-UNPACK) gives rule 3
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: Wide unpack restores fields of 64,
+//    65, 129 and maximum stream bits before reading the separate tail.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_packer_wide_fields_round_trip_boundary_bits_before_a_separate_tail;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_disabled_user_hook_finishes_history_and_unwinds_the_active_object.expected
 */
+// What it checks:
+// Disabling user recording omits do_record while preserving field execution,
+// FINISHED history and active-stack cleanup.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.4.7.7 (UVM-POLICY-AUDIT-RECORDER-DISABLED-HOOK) gives the
+// rule above. Setup: Use the selected original fixtures, explicit arguments
+// and stage observations in the linked anchors; each fresh policy and peer is
+// independently constructed. Expected: Disabling user recording omits
+// do_record while preserving field execution, FINISHED history and
+// active-stack cleanup.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_recorder_disabled_user_hook_finishes_history_and_unwinds_the_active_object;
   import uvm_pkg::*;
   string order="";

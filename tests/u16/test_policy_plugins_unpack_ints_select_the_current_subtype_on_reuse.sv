@@ -13,6 +13,30 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_plugins_unpack_ints_select_the_current_subtype_on_reuse.expected
 */
+// What it checks:
+// 1. Each object unpacking entry point uses the supplied packer for its
+//    operation.
+// 2. Before processing fields, object unpacking assigns policy state using the
+//    matching stream-type method.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.11.1 (UVM-OBJECT-UNPACK-EXPLICIT-POLICY) gives rule 1
+//    above. Setup: Same unchanged original subject class; explicit packer
+//    subtypes A/B/A and eight-bit payloads 11/22/33 hexadecimal, separately
+//    for bit/byte/int/longint streams. Observer flags identify the selected
+//    hook and typed state method, with monotonic original callback ticks
+//    recording the selected order. Expected: The selected subtype receives the
+//    typed assignment and object hook, while the other policy stays idle at
+//    each A/B/A selection.
+// 2. 1800.2-2020 5.3.11.1 (UVM-OBJECT-UNPACK-STREAM-TYPE) gives rule 2 above.
+//    Setup: Same unchanged original subject class; explicit packer subtypes
+//    A/B/A and eight-bit payloads 11/22/33 hexadecimal, separately for
+//    bit/byte/int/longint streams. Observer flags identify the selected hook
+//    and typed state method, with monotonic original callback ticks recording
+//    the selected order. Expected: The matching setter is called before the
+//    custom field unpacking hook, and the selected original value is restored.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Streams are opaque and paired with the same policy and stream type.
 // The roundtrip guards data, not an independent encoding or decoder proof.
 module test_policy_plugins_unpack_ints_select_the_current_subtype_on_reuse;

@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_default_wrappers_share_the_core_service_selected_instance.expected
 */
+// What it checks:
+// 1. The printer default setter selects the same instance through the core
+//    service.
+// 2. The printer default getter returns the core-service-selected instance.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.2.2 (UVM-PRINTER-AUDIT-CORE-DEFAULT-SET-WRAPPER) gives
+//    rule 1 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected:
+//    Wrapper-to-core and core-to-wrapper identity updates match, then the
+//    saved handle is restored.
+// 2. 1800.2-2020 16.2.2.3 (UVM-PRINTER-AUDIT-CORE-DEFAULT-GET-WRAPPER) gives
+//    rule 2 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected:
+//    Wrapper-to-core and core-to-wrapper identity updates match, then the
+//    saved handle is restored.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_default_wrappers_share_the_core_service_selected_instance;
   import uvm_pkg::*;
   initial begin

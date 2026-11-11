@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_copier_default_wrappers_share_core_selection_and_restore_exact_identity.expected
 */
+// What it checks:
+// 1. Setting the default copier through its wrapper selects the exact instance
+//    in the core service.
+// 2. The copier default getter returns the instance selected through the core
+//    service and restores the saved selection.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.6.2.3 (UVM-POLICY-AUDIT-COPIER-SET-DEFAULT) gives rule 1
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: Setting the default copier through
+//    its wrapper selects the exact instance in the core service.
+// 2. 1800.2-2020 16.6.2.4 (UVM-POLICY-AUDIT-COPIER-GET-DEFAULT) gives rule 2
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The copier default getter returns
+//    the instance selected through the core service and restores the saved
+//    selection.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_policy_copier_default_wrappers_share_core_selection_and_restore_exact_identity;
   import uvm_pkg::*;
   initial begin

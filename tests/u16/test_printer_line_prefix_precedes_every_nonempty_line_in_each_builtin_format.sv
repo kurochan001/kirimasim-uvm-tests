@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_line_prefix_precedes_every_nonempty_line_in_each_builtin_format.expected
 */
+// What it checks:
+// 1. Fresh built-in printer kinds have an empty line prefix.
+// 2. Every nonempty emitted line begins with the configured line prefix.
+// 3. The built-in printer instances are usable through the common printer
+//    interface.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.5.12 (UVM-PRINTER-AUDIT-LINE-PREFIX-DEFAULT) gives rule
+//    1 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: All three
+//    concrete kinds return the empty default.
+// 2. 1800.2-2020 16.2.5.12 (UVM-PRINTER-AUDIT-LINE-PREFIX-ACTUAL-EMISSION)
+//    gives rule 2 above. Setup: Use the original selected fixtures and
+//    explicit API arguments represented by the observation anchors. Expected:
+//    Table/tree/line emissions are nonempty and every observed nonempty line
+//    starts P42|.
+// 3. 1800.2-2020 16.2 (UVM-PRINTER-AUDIT-COMMON-PRINTER-INTERFACE) gives rule
+//    3 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The three
+//    typed base views accept construction of a small array and emit their
+//    configured prefixed output.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_line_prefix_precedes_every_nonempty_line_in_each_builtin_format;
   import uvm_pkg::*;
   function automatic void inspect(string text,string prefix,output int lines,bad);

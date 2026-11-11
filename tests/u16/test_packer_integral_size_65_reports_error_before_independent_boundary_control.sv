@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_integral_size_65_reports_error_before_independent_boundary_control.expected
 */
+// What it checks:
+// Integral packing reports an error for a requested size above 64 bits.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.5.4.9 (UVM-PACKER-INTEGRAL-OVERSIZE-ERROR) gives the rule
+// above. Setup: Call pack_field_int with a size greater than 64. Expected: The
+// invalid call emits an error without assuming a resulting packed
+// representation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A fresh valid packer round-trips 64 bits. No size, data or recovery
 // behavior is assumed for the packer that received an oversize request.
 module test_packer_integral_size_65_reports_error_before_independent_boundary_control;

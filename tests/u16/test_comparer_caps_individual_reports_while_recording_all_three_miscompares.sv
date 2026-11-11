@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_caps_individual_reports_while_recording_all_three_miscompares.expected
 */
+// What it checks:
+// The comparer limits generated miscompare messages to its configured maximum.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.3.5.1 (UVM-COMPARER-MESSAGE-CAP) gives the rule above. Setup:
+// Cause more mismatches than a small configured message limit within one
+// comparison. Expected: Message generation is capped while mismatch state
+// still records all compared failures.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Catch only reports emitted inside do_compare; framework rollups lie
 // outside that window. Compare every field without short-circuiting.
 module test_comparer_caps_individual_reports_while_recording_all_three_miscompares;

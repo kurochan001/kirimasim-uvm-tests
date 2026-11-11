@@ -12,6 +12,72 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases.expected
 */
+// What it checks:
+// 1. The declared printer base is compatible with uvm_policy through a legal
+//    concrete subtype.
+// 2. The printer constructor defaults to unnamed and preserves forwarded
+//    explicit/empty names.
+// 3. The table printer is usable through the declared printer base.
+// 4. The table printer constructor accepts default, named and empty names.
+// 5. The table printer returns its specified type-name string.
+// 6. The tree printer is usable through the declared printer base.
+// 7. The tree printer constructor accepts default, named and empty names.
+// 8. The tree printer returns its specified type-name string.
+// 9. The line printer is usable through the declared printer base.
+// 10. The line printer constructor accepts default, named and empty names.
+// 11. The line printer returns its specified type-name string.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.1 (UVM-PRINTER-AUDIT-PRINTER-POLICY-BASE) gives rule 1
+//    above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The
+//    corresponding default/named/empty and exact base identity observations
+//    match.
+// 2. 1800.2-2020 16.2.2.1 (UVM-PRINTER-AUDIT-PRINTER-CONSTRUCTOR) gives rule 2
+//    above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The
+//    corresponding default/named/empty and exact base identity observations
+//    match.
+// 3. 1800.2-2020 16.2.10.1 (UVM-PRINTER-AUDIT-TABLE-BASE) gives rule 3 above.
+//    Setup: Use the original selected fixtures and explicit API arguments
+//    represented by the observation anchors. Expected: All selected
+//    constructor-name, type-name and base identity observations match.
+// 4. 1800.2-2020 16.2.10.2.1 (UVM-PRINTER-AUDIT-TABLE-CONSTRUCTOR) gives rule
+//    4 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: All selected
+//    constructor-name, type-name and base identity observations match.
+// 5. 1800.2-2020 16.2.10.2.2 (UVM-PRINTER-AUDIT-TABLE-TYPE-NAME) gives rule 5
+//    above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: All selected
+//    constructor-name, type-name and base identity observations match.
+// 6. 1800.2-2020 16.2.11.1 (UVM-PRINTER-AUDIT-TREE-BASE) gives rule 6 above.
+//    Setup: Use the original selected fixtures and explicit API arguments
+//    represented by the observation anchors. Expected: All selected
+//    constructor-name, type-name and base identity observations match.
+// 7. 1800.2-2020 16.2.11.2.1 (UVM-PRINTER-AUDIT-TREE-CONSTRUCTOR) gives rule 7
+//    above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: All selected
+//    constructor-name, type-name and base identity observations match.
+// 8. 1800.2-2020 16.2.11.2.2 (UVM-PRINTER-AUDIT-TREE-TYPE-NAME) gives rule 8
+//    above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: All selected
+//    constructor-name, type-name and base identity observations match.
+// 9. 1800.2-2020 16.2.12.1 (UVM-PRINTER-AUDIT-LINE-BASE) gives rule 9 above.
+//    Setup: Use the original selected fixtures and explicit API arguments
+//    represented by the observation anchors. Expected: All selected
+//    constructor-name, type-name and base identity observations match.
+// 10. 1800.2-2020 16.2.12.2.1 (UVM-PRINTER-AUDIT-LINE-CONSTRUCTOR) gives rule
+//     10 above. Setup: Use the original selected fixtures and explicit API
+//     arguments represented by the observation anchors. Expected: All selected
+//     constructor-name, type-name and base identity observations match.
+// 11. 1800.2-2020 16.2.12.2.2 (UVM-PRINTER-AUDIT-LINE-TYPE-NAME) gives rule 11
+//     above. Setup: Use the original selected fixtures and explicit API
+//     arguments represented by the observation anchors. Expected: All selected
+//     constructor-name, type-name and base identity observations match.
+// It also supports, as a control, the setup or conditions of
+// UVM-PRINTER-AUDIT-UVM-PRINTER-DIRECT-CONSTRUCTION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases;
   import uvm_pkg::*;
   class omitted_printer extends uvm_printer;

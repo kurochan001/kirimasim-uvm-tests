@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_ints_state_restores_scalar_fields.expected
 */
+// What it checks:
+// 1. Typed packer state assignment preserves data for compatible same-type
+//    stream operations.
+// 2. Typed packer state retrieval preserves data for compatible same-type
+//    stream operations.
+// 3. get_packed_size reports the remaining number of unpackable bits.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.5.3.1 (UVM-PACKER-STATE-ASSIGN) gives rule 1 above. Setup:
+//    Transfer bit/byte/int/longint snapshots between instances of one packer
+//    implementation. Expected: The consumer restores fields in order without
+//    consuming the producer state.
+// 2. 1800.2-2020 16.5.3.2 (UVM-PACKER-STATE-RETRIEVE) gives rule 2 above.
+//    Setup: Transfer bit/byte/int/longint snapshots between instances of one
+//    packer implementation. Expected: The consumer restores fields in order
+//    without consuming the producer state.
+// 3. 1800.2-2020 16.5.3.3 (UVM-PACKER-AVAILABLE-BITS) gives rule 3 above.
+//    Setup: Inspect producers and consumers before/after field reads.
+//    Expected: Only the consumer size decreases with reads, reaching zero
+//    after all fields are consumed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Both instances use the same packer implementation. Its own typed
 // state snapshot is transferred without prescribing array size or encoding.
 

@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_array_header_range_and_footer_keep_nested_element_structure.expected
 */
+// What it checks:
+// 1. An array header opens a nested element with default type array.
+// 2. An explicit array type is passed into the opened array element.
+// 3. A skipped array range adds an ellipsis element and restores the active
+//    array.
+// 4. The array footer completes the nested array and restores its enclosing
+//    element.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.3.5 (UVM-PRINTER-AUDIT-ARRAY-HEADER-DEFAULT-TYPE) gives
+//    rule 1 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    array type, parent identity, one range push/pop, ellipsis and three
+//    immediate children match without fixing footer text.
+// 2. 1800.2-2020 16.2.3.5 (UVM-PRINTER-AUDIT-ARRAY-HEADER-EXPLICIT-TYPE) gives
+//    rule 2 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    array type, parent identity, one range push/pop, ellipsis and three
+//    immediate children match without fixing footer text.
+// 3. 1800.2-2020 16.2.3.6 (UVM-PRINTER-AUDIT-ARRAY-RANGE-ELLIPSIS) gives rule
+//    3 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    array type, parent identity, one range push/pop, ellipsis and three
+//    immediate children match without fixing footer text.
+// 4. 1800.2-2020 16.2.3.7 (UVM-PRINTER-AUDIT-ARRAY-FOOTER-RESTORE) gives rule
+//    4 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    array type, parent identity, one range push/pop, ellipsis and three
+//    immediate children match without fixing footer text.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_array_header_range_and_footer_keep_nested_element_structure;
   import uvm_pkg::*;
   class stack_printer extends uvm_printer;

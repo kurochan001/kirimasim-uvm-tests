@@ -12,6 +12,53 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices.expected
 */
+// What it checks:
+// 1. A fresh printer reports 'd as the defined DEC prefix.
+// 2. A fresh printer reports 'b as the defined BIN prefix.
+// 3. A fresh printer reports 'o as the defined OCT prefix.
+// 4. A fresh printer reports 'd as the defined UNSIGNED prefix.
+// 5. A fresh printer reports 'h as the defined HEX prefix.
+// 6. Prefix updates are selected by radix and printer instance.
+// 7. A new printer defaults its unspecified integral radix to HEX.
+// 8. The default-radix setter updates only its selected printer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.5.6 (UVM-PRINTER-AUDIT-DEFAULT-RADIX-STRING-DEC) gives
+//    rule 1 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    defined-radix getter matches its declared prefix before configuration.
+// 2. 1800.2-2020 16.2.5.6 (UVM-PRINTER-AUDIT-DEFAULT-RADIX-STRING-BIN) gives
+//    rule 2 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    defined-radix getter matches its declared prefix before configuration.
+// 3. 1800.2-2020 16.2.5.6 (UVM-PRINTER-AUDIT-DEFAULT-RADIX-STRING-OCT) gives
+//    rule 3 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    defined-radix getter matches its declared prefix before configuration.
+// 4. 1800.2-2020 16.2.5.6 (UVM-PRINTER-AUDIT-DEFAULT-RADIX-STRING-UNSIGNED)
+//    gives rule 4 above. Setup: Use the original selected fixtures and
+//    explicit API arguments represented by the observation anchors. Expected:
+//    The selected defined-radix getter matches its declared prefix before
+//    configuration.
+// 5. 1800.2-2020 16.2.5.6 (UVM-PRINTER-AUDIT-DEFAULT-RADIX-STRING-HEX) gives
+//    rule 5 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    defined-radix getter matches its declared prefix before configuration.
+// 6. 1800.2-2020 16.2.5.6 (UVM-PRINTER-AUDIT-RADIX-STRING-UPDATE-ISOLATION)
+//    gives rule 6 above. Setup: Use the original selected fixtures and
+//    explicit API arguments represented by the observation anchors. Expected:
+//    HEX/DEC updates leave BIN/UNSIGNED and an independent peer at their
+//    original prefixes.
+// 7. 1800.2-2020 16.2.5.7 (UVM-PRINTER-AUDIT-DEFAULT-RADIX-HEX) gives rule 7
+//    above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: Default HEX,
+//    selected BIN and unchanged peer HEX getters match.
+// 8. 1800.2-2020 16.2.5.7 (UVM-PRINTER-AUDIT-DEFAULT-RADIX-UPDATE) gives rule
+//    8 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: Default HEX,
+//    selected BIN and unchanged peer HEX getters match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices;
   import uvm_pkg::*;
   initial begin

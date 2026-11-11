@@ -12,6 +12,66 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_default_object_hook_orders_field_user_history_and_active_pop.expected
 */
+// What it checks:
+// 1. record_object passes the explicit field name and exact object to its
+//    default implementation hook once.
+// 2. The default recorder hook supplies UVM_RECORD and the exact policy to
+//    field execution before user recording.
+// 3. The enabled recorder user hook receives the exact recorder while the
+//    target is active and STARTED.
+// 4. A never-recorded object has NEVER history for the selected recursion.
+// 5. The object recording history is STARTED during field execution.
+// 6. The selected object recording history becomes FINISHED on return.
+// 7. Recording becomes FINISHED before the active object is popped and the
+//    stack is restored.
+// 8. The recursion enum distinguishes never processed, processing and
+//    completed stages in the selected recording operation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.4.6.4 (UVM-POLICY-AUDIT-RECORDER-OBJECT-DISPATCH) gives
+//    rule 1 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: record_object passes the
+//    explicit field name and exact object to its default implementation hook
+//    once.
+// 2. 1800.2-2020 16.4.7.7 (UVM-POLICY-AUDIT-RECORDER-FIELD-OP) gives rule 2
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The default recorder hook supplies
+//    UVM_RECORD and the exact policy to field execution before user recording.
+// 3. 1800.2-2020 16.4.7.7 (UVM-POLICY-AUDIT-RECORDER-USER-HOOK) gives rule 3
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The enabled recorder user hook
+//    receives the exact recorder while the target is active and STARTED.
+// 4. 1800.2-2020 16.4.7.8 (UVM-POLICY-AUDIT-RECORDER-HISTORY-NEVER) gives rule
+//    4 above. Setup: Use the selected original fixtures, explicit arguments
+//    and stage observations in the linked anchors; each fresh policy and peer
+//    is independently constructed. Expected: A never-recorded object has NEVER
+//    history for the selected recursion.
+// 5. 1800.2-2020 16.4.7.8 (UVM-POLICY-AUDIT-RECORDER-HISTORY-STARTED) gives
+//    rule 5 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: The object recording
+//    history is STARTED during field execution.
+// 6. 1800.2-2020 16.4.7.8 (UVM-POLICY-AUDIT-RECORDER-HISTORY-FINISHED) gives
+//    rule 6 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: The selected object
+//    recording history becomes FINISHED on return.
+// 7. 1800.2-2020 16.4.6.4 (UVM-POLICY-AUDIT-RECORDER-FINISH-BEFORE-POP) gives
+//    rule 7 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: Recording becomes
+//    FINISHED before the active object is popped and the stack is restored.
+// 8. 1800.2-2020 16.1.4 (UVM-POLICY-AUDIT-COMMON-RECURSION-STATES) gives rule
+//    8 above. Setup: Use the selected original fixtures, explicit arguments
+//    and stage observations in the linked anchors; each fresh policy and peer
+//    is independently constructed. Expected: The recursion enum distinguishes
+//    never processed, processing and completed stages in the selected
+//    recording operation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_recorder_default_object_hook_orders_field_user_history_and_active_pop;
   import uvm_pkg::*;
   string order="";

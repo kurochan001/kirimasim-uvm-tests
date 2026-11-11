@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_flush_clears_element_stack_before_reuse.expected
 */
+// What it checks:
+// Printer flush clears its element stack and makes top and bottom null.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.4.2 (UVM-PRINTER-FLUSH-ELEMENTS) gives the rule above.
+// Setup: Flush a populated stack, push a fresh element and flush again.
+// Expected: Each flush empties top/bottom and reuse exposes only freshly
+// assigned fields.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Do not inspect any element handle obtained before flush: the printer
 // may recycle it. Inspect only the currently returned element after reuse.
 

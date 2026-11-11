@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_explicit_policy_supersedes_default.expected
 */
+// What it checks:
+// Object print uses the explicit printer when supplied, otherwise its
+// configured default printer.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 5.3.6.1 (UVM-OBJECT-PRINT-POLICY) gives the rule above. Setup:
+// Install a default and provide a different explicit printer with separate
+// output files. Expected: Each operation emits through its chosen printer and
+// the saved default can be restored.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Send one print through the default and another through an explicit
 // printer. Each emits its own payload into a separate controlled file.
 

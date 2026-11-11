@@ -13,6 +13,28 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_plugins_alternate_print_and_compare_without_redefining_the_object.expected
 */
+// What it checks:
+// 1. Object sprint returns the text emitted by its selected printer.
+// 2. The virtual compare hook receives the selected rhs and comparer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.6.2 (UVM-OBJECT-SPRINT-EMISSION) gives rule 1 above.
+//    Setup: The custom printer captures field inputs and returns a controlled
+//    string. An additional unchanged class alternates printer A/B/A with
+//    comparisons between prints; custom emit formats differ by subtype.
+//    Expected: Captured values match the object and sprint returns captured.
+//    The additional fixture returns A:165/B:165/A:165, uses the selected
+//    printer and leaves the other observer idle.
+// 2. 1800.2-2020 5.3.9.2 (UVM-BASE-AUDIT-COMPARE-HOOK) gives rule 2 above.
+//    Setup: Use same-type original objects and compare equal then unequal
+//    eight-bit values through a base view. An additional fixture alternates
+//    strict and high-nibble-mask comparer subtypes A/B/A between prints on
+//    payloads A5/A6 hexadecimal. Expected: The two hook calls retain exact
+//    policy identity and return equal/unequal results. The additional hook
+//    retains each exact comparer and returns 0/1/0 with the other observer
+//    idle and payloads unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Own printer text and comparison masks define this original fixture.
 // Reuse A after B and another operation family; retain the object class.
 module test_policy_plugins_alternate_print_and_compare_without_redefining_the_object;

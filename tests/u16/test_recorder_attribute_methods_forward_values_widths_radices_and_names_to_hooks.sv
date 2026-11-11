@@ -12,6 +12,45 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks.expected
 */
+// What it checks:
+// 1. Recording a wide integral field forwards its supplied name and value to
+//    its hook.
+// 2. Recording a small integral field forwards its supplied name and value to
+//    its hook.
+// 3. Recording a real field forwards its supplied name and value to its hook.
+// 4. Recording a string field forwards its supplied name and value to its
+//    hook.
+// 5. Recording a time field forwards its supplied name and value to its hook.
+// 6. Recording a generic field forwards its supplied name and value to its
+//    hook.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.4.6.1 (UVM-RECORDER-FIELD-ATTRIBUTE-HOOK) gives rule 1
+//    above. Setup: Use one opened recorder and explicit width/radix or type
+//    metadata where applicable. Expected: The selected implementation hook
+//    observes the expected name, value and applicable metadata.
+// 2. 1800.2-2020 16.4.6.2 (UVM-RECORDER-FIELD-INT-ATTRIBUTE-HOOK) gives rule 2
+//    above. Setup: Use one opened recorder and explicit width/radix or type
+//    metadata where applicable. Expected: The selected implementation hook
+//    observes the expected name, value and applicable metadata.
+// 3. 1800.2-2020 16.4.6.3 (UVM-RECORDER-REAL-ATTRIBUTE-HOOK) gives rule 3
+//    above. Setup: Use one opened recorder and explicit width/radix or type
+//    metadata where applicable. Expected: The selected implementation hook
+//    observes the expected name, value and applicable metadata.
+// 4. 1800.2-2020 16.4.6.5 (UVM-RECORDER-STRING-ATTRIBUTE-HOOK) gives rule 4
+//    above. Setup: Use one opened recorder and explicit width/radix or type
+//    metadata where applicable. Expected: The selected implementation hook
+//    observes the expected name, value and applicable metadata.
+// 5. 1800.2-2020 16.4.6.6 (UVM-RECORDER-TIME-ATTRIBUTE-HOOK) gives rule 5
+//    above. Setup: Use one opened recorder and explicit width/radix or type
+//    metadata where applicable. Expected: The selected implementation hook
+//    observes the expected name, value and applicable metadata.
+// 6. 1800.2-2020 16.4.6.7 (UVM-RECORDER-GENERIC-ATTRIBUTE-HOOK) gives rule 6
+//    above. Setup: Use one opened recorder and explicit width/radix or type
+//    metadata where applicable. Expected: The selected implementation hook
+//    observes the expected name, value and applicable metadata.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // In-memory recorder hooks only: no database file, DPI or vendor attribute
 // macro. Timestamps are explicit recording metadata, not simulation delays.
 module test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks;

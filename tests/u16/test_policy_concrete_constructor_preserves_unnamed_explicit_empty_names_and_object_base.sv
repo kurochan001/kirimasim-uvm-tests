@@ -12,6 +12,26 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_concrete_constructor_preserves_unnamed_explicit_empty_names_and_object_base.expected
 */
+// What it checks:
+// 1. A legal concrete policy subtype retains the declared object base.
+// 2. The policy constructor defaults to unnamed and preserves forwarded
+//    explicit/empty names.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.1.1 (UVM-PRINTER-AUDIT-POLICY-OBJECT-BASE) gives rule 1
+//    above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The
+//    corresponding default/named/empty and exact base identity observations
+//    match.
+// 2. 1800.2-2020 16.1.2.1 (UVM-PRINTER-AUDIT-POLICY-CONSTRUCTOR) gives rule 2
+//    above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The
+//    corresponding default/named/empty and exact base identity observations
+//    match.
+// It also supports, as a control, the setup or conditions of
+// UVM-PRINTER-AUDIT-UVM-POLICY-DIRECT-CONSTRUCTION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_policy_concrete_constructor_preserves_unnamed_explicit_empty_names_and_object_base;
   import uvm_pkg::*;
   class omitted_policy extends uvm_policy;

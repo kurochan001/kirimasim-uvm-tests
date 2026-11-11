@@ -12,6 +12,86 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_scalar_methods_push_one_child_then_restore_the_parent_element.expected
 */
+// What it checks:
+// 1. The selected GENERIC print API creates one child element then restores
+//    its parent.
+// 2. The selected GENERIC-ELEMENT print API creates one child element then
+//    restores its parent.
+// 3. The selected FIELD print API creates one child element then restores its
+//    parent.
+// 4. The selected FIELD-INT print API creates one child element then restores
+//    its parent.
+// 5. The selected STRING print API creates one child element then restores its
+//    parent.
+// 6. The selected TIME print API creates one child element then restores its
+//    parent.
+// 7. The selected REAL print API creates one child element then restores its
+//    parent.
+// 8. print_generic_element preserves the four caller-supplied textual
+//    attributes in the child element.
+// 9. Scalar printing preserves root encapsulation while accumulating new
+//    children.
+// 10. The bottom-element accessor continues to identify the outermost root.
+// 11. The top-element accessor returns the restored current parent after each
+//     scalar print.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.3.3 (UVM-PRINTER-AUDIT-SCALAR-GENERIC-ELEMENT) gives
+//    rule 1 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: One push/pop
+//    is observed, the top/bottom return to the root, and the proxy contains
+//    exactly the new element once.
+// 2. 1800.2-2020 16.2.3.4 (UVM-PRINTER-AUDIT-SCALAR-GENERIC-ELEMENT-ELEMENT)
+//    gives rule 2 above. Setup: Use the original selected fixtures and
+//    explicit API arguments represented by the observation anchors. Expected:
+//    One push/pop is observed, the top/bottom return to the root, and the
+//    proxy contains exactly the new element once.
+// 3. 1800.2-2020 16.2.3.8 (UVM-PRINTER-AUDIT-SCALAR-FIELD-ELEMENT) gives rule
+//    3 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: One push/pop
+//    is observed, the top/bottom return to the root, and the proxy contains
+//    exactly the new element once.
+// 4. 1800.2-2020 16.2.3.9 (UVM-PRINTER-AUDIT-SCALAR-FIELD-INT-ELEMENT) gives
+//    rule 4 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: One push/pop
+//    is observed, the top/bottom return to the root, and the proxy contains
+//    exactly the new element once.
+// 5. 1800.2-2020 16.2.3.10 (UVM-PRINTER-AUDIT-SCALAR-STRING-ELEMENT) gives
+//    rule 5 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: One push/pop
+//    is observed, the top/bottom return to the root, and the proxy contains
+//    exactly the new element once.
+// 6. 1800.2-2020 16.2.3.11 (UVM-PRINTER-AUDIT-SCALAR-TIME-ELEMENT) gives rule
+//    6 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: One push/pop
+//    is observed, the top/bottom return to the root, and the proxy contains
+//    exactly the new element once.
+// 7. 1800.2-2020 16.2.3.12 (UVM-PRINTER-AUDIT-SCALAR-REAL-ELEMENT) gives rule
+//    7 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: One push/pop
+//    is observed, the top/bottom return to the root, and the proxy contains
+//    exactly the new element once.
+// 8. 1800.2-2020 16.2.3.4 (UVM-PRINTER-AUDIT-GENERIC-ELEMENT-EXACT-FIELDS)
+//    gives rule 8 above. Setup: Use the original selected fixtures and
+//    explicit API arguments represented by the observation anchors. Expected:
+//    The child retains direct, opaqueType, many and direct42 exactly.
+// 9. 1800.2-2020 16.2.7 (UVM-PRINTER-AUDIT-SCALAR-STACK-ENCAPSULATION) gives
+//    rule 9 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: All seven
+//    selected scalar APIs retain the root top/bottom identity and add one
+//    distinct reachable child each.
+// 10. 1800.2-2020 16.2.7.1 (UVM-PRINTER-AUDIT-BOTTOM-ELEMENT-QUERY) gives rule
+//     10 above. Setup: Use the original selected fixtures and explicit API
+//     arguments represented by the observation anchors. Expected: All seven
+//     selected scalar APIs retain the root top/bottom identity and add one
+//     distinct reachable child each.
+// 11. 1800.2-2020 16.2.7.2 (UVM-PRINTER-AUDIT-TOP-ELEMENT-QUERY) gives rule 11
+//     above. Setup: Use the original selected fixtures and explicit API
+//     arguments represented by the observation anchors. Expected: All seven
+//     selected scalar APIs retain the root top/bottom identity and add one
+//     distinct reachable child each.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_scalar_methods_push_one_child_then_restore_the_parent_element;
   import uvm_pkg::*;
   class stack_printer extends uvm_printer;

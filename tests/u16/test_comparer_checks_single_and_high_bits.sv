@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_checks_single_and_high_bits.expected
 */
+// What it checks:
+// Integral comparison uses only the specified bit width up to 64 bits.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.3.3.2 (UVM-COMPARER-INTEGRAL-WIDTH) gives the rule above.
+// Setup: Compare differing low/high bits under widths 1, 8, 32 and 64.
+// Expected: Ignored high bits do not cause mismatch, while included
+// differences do.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // One-bit comparison ignores higher bits but observes bit zero. A 64-bit
 // comparison must also observe the most significant bit.
 

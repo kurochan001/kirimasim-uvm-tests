@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_verbosity_filters_messages_without_hiding_mismatches.expected
 */
+// What it checks:
+// Configured comparer verbosity controls reporting without hiding comparison
+// failures.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.3.5.2 (UVM-COMPARER-MESSAGE-VERBOSITY) gives the rule above.
+// Setup: Filter one high-verbosity mismatch, then permit a NONE-verbosity
+// mismatch. Expected: Both mismatches update policy state, but only the
+// enabled message reaches the report server.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A high-verbosity mismatch is filtered by the root report object. A
 // second mismatch at verbosity NONE is reported within the two-message limit.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_unpack_object_orders_hooks_inside_active_stack.expected
 */
+// What it checks:
+// Object unpack calls its operation hook before the enabled user hook while
+// the target is active.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.5.4.4 (UVM-PACKER-UNPACK-HOOK-ORDER) gives the rule above.
+// Setup: Unpack a valid nonnull stream into an allocated target that records
+// policy/active-object identities. Expected: Both hooks see the same
+// target/policy at depth 1, the payload restores and the stack returns empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Produce a valid non-null stream, then observe the allocated target
 // during unpack. No callbacks are observed for the source packing step.
 

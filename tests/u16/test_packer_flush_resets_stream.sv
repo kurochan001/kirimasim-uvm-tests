@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_flush_resets_stream.expected
 */
+// What it checks:
+// 1. Integral packing processes exactly the requested field width up to 64
+//    bits.
+// 2. Integral unpacking processes exactly the requested field width up to 64
+//    bits.
+// 3. Packer flush discards previously packed data for later reuse.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.5.4.9 (UVM-PACKER-INTEGRAL-PACK) gives rule 1 above.
+//    Setup: Use successive unequal field widths and a full-width 64-bit
+//    payload. Expected: Values and consumed bit counts agree with the selected
+//    widths without prescribing byte layout.
+// 2. 1800.2-2020 16.5.4.17 (UVM-PACKER-INTEGRAL-UNPACK) gives rule 2 above.
+//    Setup: Use successive unequal field widths and a full-width 64-bit
+//    payload. Expected: Values and consumed bit counts agree with the selected
+//    widths without prescribing byte layout.
+// 3. 1800.2-2020 16.5.2.2 (UVM-PACKER-FLUSH-STREAM) gives rule 3 above. Setup:
+//    Pack data, flush, then pack a new 64-bit value. Expected: Size is zero
+//    after flush and the new stream contains only the new value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // After flush, the packed size is zero and a new field starts a new
 // stream. Use 64 bits to exercise the integral method upper boundary.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_pack_object_honors_disabled_user_hook.expected
 */
+// What it checks:
+// Object pack omits do_pack when do_execute_op disables the user hook.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.5.4.2 (UVM-PACKER-PACK-HOOK-GATE) gives the rule above.
+// Setup: The operation hook disables itself while the object is active.
+// Expected: Operation hook count is 1, do_pack count 0 and the active stack is
+// restored.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The execute method disables its user hook. Check callback counts and
 // stack cleanup without depending on the remaining packed representation.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_null_active_push_reports_error_without_creating_an_entry.expected
 */
+// What it checks:
+// Pushing null onto the active-object stack reports an error and ignores the
+// request.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.1.3.1 (UVM-POLICY-NULL-ACTIVE-PUSH) gives the rule above.
+// Setup: Push null into empty and nonempty policy stacks. Expected: An error
+// occurs and the stack retains its previous objects/depth.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Count the original ERROR severity without changing it or constraining IDs.
 // Public policy-side stack queries and real pops establish ignored insertion.
 module test_policy_null_active_push_reports_error_without_creating_an_entry;

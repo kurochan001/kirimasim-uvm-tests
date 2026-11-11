@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_copier_reference_copy_reports_error_for_an_aliased_object.expected
 */
+// What it checks:
+// Calling copy_object under UVM_REFERENCE recursion reports an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.6.4.1 (UVM-COPIER-REFERENCE-MODE-ERROR) gives the rule above.
+// Setup: Set reference mode and call the object-copy entry point rather than
+// assigning a handle. Expected: The call reports an error; its undefined copy
+// result is not inspected.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The invalid copy result and both invalid operands are left uninspected.
 // A different copier and fresh operands provide an independent deep control.
 module test_copier_reference_copy_reports_error_for_an_aliased_object;

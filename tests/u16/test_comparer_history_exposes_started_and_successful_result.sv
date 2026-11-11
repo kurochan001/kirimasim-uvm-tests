@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_history_exposes_started_and_successful_result.expected
 */
+// What it checks:
+// Comparison history tracks an ordered object pair under its recursion policy,
+// with results only after completion.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.3.3.5 (UVM-COMPARER-HISTORY) gives the rule above. Setup:
+// Query before/during/after success or failure, reverse the pair and flush.
+// Expected: States move NEVER to STARTED to FINISHED; unfinished results are
+// zero and completed results match comparison.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Query one ordered pair before, during and after a deep comparison.
 // A non-finished history state reports zero through its result output.
 

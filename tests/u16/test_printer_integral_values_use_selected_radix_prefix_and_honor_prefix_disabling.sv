@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_integral_values_use_selected_radix_prefix_and_honor_prefix_disabling.expected
 */
+// What it checks:
+// 1. The wide integral print path preserves the selected 65-bit value.
+// 2. The integral-int print path uses the explicitly selected binary radix.
+// 3. An omitted integral radix uses the changed default radix.
+// 4. Disabling radix emission omits the configured radix prefix.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.3.8 (UVM-PRINTER-AUDIT-WIDE-FIELD-RADIX-VALUE) gives
+//    rule 1 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The custom
+//    prefix is selected appropriately and the numeric payload round-trips
+//    where asserted; the disabled case has no configured prefix.
+// 2. 1800.2-2020 16.2.3.9 (UVM-PRINTER-AUDIT-FIELD-INT-EXPLICIT-RADIX) gives
+//    rule 2 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The custom
+//    prefix is selected appropriately and the numeric payload round-trips
+//    where asserted; the disabled case has no configured prefix.
+// 3. 1800.2-2020 16.2.5.7 (UVM-PRINTER-AUDIT-DEFAULT-RADIX-EMISSION) gives
+//    rule 3 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The custom
+//    prefix is selected appropriately and the numeric payload round-trips
+//    where asserted; the disabled case has no configured prefix.
+// 4. 1800.2-2020 16.2.5.5 (UVM-PRINTER-AUDIT-DISABLED-RADIX-EMISSION) gives
+//    rule 4 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The custom
+//    prefix is selected appropriately and the numeric payload round-trips
+//    where asserted; the disabled case has no configured prefix.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_integral_values_use_selected_radix_prefix_and_honor_prefix_disabling;
   import uvm_pkg::*;
   class stack_printer extends uvm_printer;

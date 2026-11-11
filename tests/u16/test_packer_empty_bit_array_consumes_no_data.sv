@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_empty_bit_array_consumes_no_data.expected
 */
+// What it checks:
+// 1. Bit-array pack uses bit counts rather than element counts when size is
+//    specified.
+// 2. Bit-array unpack uses bit counts rather than element counts when size is
+//    specified.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.5.4.1 (UVM-PACKER-BITS-PACK) gives rule 1 above. Setup:
+//    Use matching arrays for whole-array transfer and selected prefixes,
+//    followed by a scalar where applicable. Expected: Selected data and
+//    trailing fields are restored without consuming beyond the selected bit
+//    count.
+// 2. 1800.2-2020 16.5.4.18 (UVM-PACKER-BITS-UNPACK) gives rule 2 above. Setup:
+//    Use matching arrays for whole-array transfer and selected prefixes,
+//    followed by a scalar where applicable. Expected: Selected data and
+//    trailing fields are restored without consuming beyond the selected bit
+//    count.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Packing an empty source and explicitly unpacking zero bits contribute no
 // data. The following two-bit array remains at the same stream position.
 

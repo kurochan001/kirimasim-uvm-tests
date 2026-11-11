@@ -13,6 +13,40 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_plugins_pack_bytes_select_the_current_subtype_on_reuse.expected
 */
+// What it checks:
+// 1. Each object packing entry point uses the supplied packer for its
+//    operation.
+// 2. After processing fields, object packing retrieves policy state using the
+//    matching stream-type method.
+// 3. Each object packing entry point returns the packed bit count reported by
+//    the selected packer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 5.3.10.1 (UVM-OBJECT-PACK-EXPLICIT-POLICY) gives rule 1
+//    above. Setup: Same unchanged original subject class; explicit packer
+//    subtypes A/B/A and eight-bit payloads 11/22/33 hexadecimal, separately
+//    for bit/byte/int/longint streams. Observer flags identify the selected
+//    hook and typed state method, with monotonic original callback ticks
+//    recording the selected order. Expected: The selected subtype receives the
+//    object hook and typed retrieval call; the other policy stays idle at each
+//    A/B/A selection.
+// 2. 1800.2-2020 5.3.10.1 (UVM-OBJECT-PACK-STREAM-TYPE) gives rule 2 above.
+//    Setup: Same unchanged original subject class; explicit packer subtypes
+//    A/B/A and eight-bit payloads 11/22/33 hexadecimal, separately for
+//    bit/byte/int/longint streams. Observer flags identify the selected hook
+//    and typed state method, with monotonic original callback ticks recording
+//    the selected order. Expected: The matching getter is called after the
+//    custom field packing hook, and a compatible roundtrip restores the
+//    selected value.
+// 3. 1800.2-2020 5.3.10.1 (UVM-OBJECT-PACK-RETURN-SIZE) gives rule 3 above.
+//    Setup: Same unchanged original subject class; explicit packer subtypes
+//    A/B/A and eight-bit payloads 11/22/33 hexadecimal, separately for
+//    bit/byte/int/longint streams. Observer flags identify the selected hook
+//    and typed state method, with monotonic original callback ticks recording
+//    the selected order. Expected: Before unpack consumes state, the return
+//    value equals the selected packer get_packed_size result.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Streams are opaque and paired with the same policy and stream type.
 // The roundtrip guards data, not an independent encoding or decoder proof.
 module test_policy_plugins_pack_bytes_select_the_current_subtype_on_reuse;

@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_open_retains_stream_timestamp_and_implementation_hook_arguments.expected
 */
+// What it checks:
+// 1. An initialized recorder returns the stream that created it.
+// 2. Recorder opening invokes its hook with stream, time and record type.
+// 3. The recorder open-time query returns its recorded opening timestamp.
+// 4. Recorder is_open is true only while the record is open.
+// 5. Recorder is_closed is true after close and before free.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.4.3 (UVM-RECORDER-PARENT-STREAM-IDENTITY) gives rule 1
+//    above. Setup: Open a recorder through a local stream. Expected: The
+//    stream query returns the exact original stream handle.
+// 2. 1800.2-2020 16.4.7.1 (UVM-RECORDER-OPEN-HOOK-ARGUMENTS) gives rule 2
+//    above. Setup: Open with explicit time 17 and type packet. Expected: The
+//    hook runs once with the exact stream, time 17 and packet type.
+// 3. 1800.2-2020 16.4.4.5 (UVM-RECORDER-EXPLICIT-OPEN-TIME) gives rule 3
+//    above. Setup: Supply time 17 and inspect it before and after closing.
+//    Expected: The opening timestamp remains 17.
+// 4. 1800.2-2020 16.4.4.4 (UVM-RECORDER-OPEN-STATE-LIFETIME) gives rule 4
+//    above. Setup: Inspect opened, closed and freed records. Expected: The
+//    open flag is one before close and zero after close/free.
+// 5. 1800.2-2020 16.4.4.6 (UVM-RECORDER-CLOSED-STATE-LIFETIME) gives rule 5
+//    above. Setup: Inspect the record through open, close and free. Expected:
+//    Closed state is zero while open, one while closed and zero after free.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // In-memory recorder hooks only: no database file, DPI or vendor attribute
 // macro. Timestamps are explicit recording metadata, not simulation delays.
 module test_recorder_open_retains_stream_timestamp_and_implementation_hook_arguments;

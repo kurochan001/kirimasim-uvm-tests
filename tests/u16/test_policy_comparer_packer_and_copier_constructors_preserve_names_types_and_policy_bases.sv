@@ -12,6 +12,68 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.expected
 */
+// What it checks:
+// 1. The concrete comparer is usable through its declared uvm_policy base.
+// 2. The comparer constructor defaults to unnamed and preserves explicit and
+//    empty names.
+// 3. The comparer returns the fixed type name uvm_comparer.
+// 4. The concrete packer is usable through its declared uvm_policy base.
+// 5. The packer constructor defaults to unnamed and preserves explicit and
+//    empty names.
+// 6. The packer returns the fixed type name uvm_packer.
+// 7. The concrete copier is usable through its declared uvm_policy base.
+// 8. The copier constructor defaults to unnamed and preserves explicit and
+//    empty names.
+// 9. The copier returns the fixed type name uvm_copier.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.3.1 (UVM-POLICY-AUDIT-COMPARER-BASE) gives rule 1 above.
+//    Setup: Use the selected original fixtures, explicit arguments and stage
+//    observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The concrete comparer is usable
+//    through its declared uvm_policy base.
+// 2. 1800.2-2020 16.3.2.1 (UVM-POLICY-AUDIT-COMPARER-CONSTRUCTOR) gives rule 2
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The comparer constructor defaults to
+//    unnamed and preserves explicit and empty names.
+// 3. 1800.2-2020 16.3.2.3 (UVM-POLICY-AUDIT-COMPARER-TYPE) gives rule 3 above.
+//    Setup: Use the selected original fixtures, explicit arguments and stage
+//    observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The comparer returns the fixed type
+//    name uvm_comparer.
+// 4. 1800.2-2020 16.5.1 (UVM-POLICY-AUDIT-PACKER-BASE) gives rule 4 above.
+//    Setup: Use the selected original fixtures, explicit arguments and stage
+//    observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The concrete packer is usable
+//    through its declared uvm_policy base.
+// 5. 1800.2-2020 16.5.2.1 (UVM-POLICY-AUDIT-PACKER-CONSTRUCTOR) gives rule 5
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The packer constructor defaults to
+//    unnamed and preserves explicit and empty names.
+// 6. 1800.2-2020 16.5.2.3 (UVM-POLICY-AUDIT-PACKER-TYPE) gives rule 6 above.
+//    Setup: Use the selected original fixtures, explicit arguments and stage
+//    observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The packer returns the fixed type
+//    name uvm_packer.
+// 7. 1800.2-2020 16.6.1 (UVM-POLICY-AUDIT-COPIER-BASE) gives rule 7 above.
+//    Setup: Use the selected original fixtures, explicit arguments and stage
+//    observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The concrete copier is usable
+//    through its declared uvm_policy base.
+// 8. 1800.2-2020 16.6.2.1 (UVM-POLICY-AUDIT-COPIER-CONSTRUCTOR) gives rule 8
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The copier constructor defaults to
+//    unnamed and preserves explicit and empty names.
+// 9. 1800.2-2020 16.6.2.2 (UVM-POLICY-AUDIT-COPIER-TYPE) gives rule 9 above.
+//    Setup: Use the selected original fixtures, explicit arguments and stage
+//    observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: The copier returns the fixed type
+//    name uvm_copier.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases;
   import uvm_pkg::*;
   initial begin

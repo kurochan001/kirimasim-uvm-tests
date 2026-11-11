@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_reporting_controls_are_per_instance.expected
 */
+// What it checks:
+// 1. The comparer message limit accessor retains its per-instance setting,
+//    defaulting to 1.
+// 2. The comparer verbosity accessor retains its per-instance setting,
+//    defaulting to UVM_LOW.
+// 3. The comparer severity accessor retains its per-instance setting,
+//    defaulting to UVM_INFO.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.3.5.1 (UVM-COMPARER-MESSAGE-LIMIT-CONFIGURATION) gives
+//    rule 1 above. Setup: Read defaults, configure one comparer and inspect
+//    another independent instance. Expected: Updated settings belong to the
+//    selected comparer while the other retains defaults.
+// 2. 1800.2-2020 16.3.5.2 (UVM-COMPARER-VERBOSITY-CONFIGURATION) gives rule 2
+//    above. Setup: Read defaults, configure one comparer and inspect another
+//    independent instance. Expected: Updated settings belong to the selected
+//    comparer while the other retains defaults.
+// 3. 1800.2-2020 16.3.5.3 (UVM-COMPARER-SEVERITY-CONFIGURATION) gives rule 3
+//    above. Setup: Read defaults, configure one comparer and inspect another
+//    independent instance. Expected: Updated settings belong to the selected
+//    comparer while the other retains defaults.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A configured policy compares a mismatching scalar while a second
 // policy retains its default reporting controls and empty comparison result.
 

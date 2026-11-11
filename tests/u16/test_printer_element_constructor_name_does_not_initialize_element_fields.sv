@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_element_constructor_name_does_not_initialize_element_fields.expected
 */
+// What it checks:
+// Constructing a printer element gives its object the supplied name.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.8.2.1 (UVM-PRINTER-ELEMENT-CONSTRUCTOR-NAME) gives the rule
+// above. Setup: Construct two named elements before assigning any element
+// fields. Expected: Object names reflect constructor arguments without
+// substituting them for element-field values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The constructor names the object. Its element fields still have
 // their documented empty values until set or individual setters are called.
 

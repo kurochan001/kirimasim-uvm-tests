@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_clear_all_extensions_allows_reuse.expected
 */
+// What it checks:
+// Clearing extensions removes every slot in that policy without clearing
+// another policy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.1.2.3.5 (UVM-POLICY-EXTENSION-CLEAR-ALL) gives the rule
+// above. Setup: Store multiple types and separate-policy instances, clear
+// repeatedly and insert again. Expected: All selected-policy slots empty; the
+// other policy retains its handle and new insertion behaves as first
+// insertion.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Install two types and clear the policy. A later insertion is a first
 // insertion again, returning null without reviving the other cleared type.
 

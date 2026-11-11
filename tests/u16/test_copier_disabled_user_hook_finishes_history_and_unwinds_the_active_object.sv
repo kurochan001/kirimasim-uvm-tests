@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_copier_disabled_user_hook_finishes_history_and_unwinds_the_active_object.expected
 */
+// What it checks:
+// 1. Copy history is local to a policy and ordered object pair under its
+//    recursion mode.
+// 2. Disabling the copier user hook still completes history and restores the
+//    active stack.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.6.4.2 (UVM-COPIER-HISTORY) gives rule 1 above. Setup:
+//    Query before/during/after a copy, reverse the pair, compare another
+//    policy and flush. Expected: Only the selected pair/policy becomes STARTED
+//    then FINISHED; flush restores NEVER.
+// 2. 1800.2-2020 16.6.4.1 (UVM-POLICY-AUDIT-COPIER-DISABLED-HOOK-CLEANUP)
+//    gives rule 2 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: Disabling the copier
+//    user hook still completes history and restores the active stack.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_copier_disabled_user_hook_finishes_history_and_unwinds_the_active_object;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

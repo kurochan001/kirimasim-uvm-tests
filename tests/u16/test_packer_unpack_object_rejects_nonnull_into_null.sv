@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_unpack_object_rejects_nonnull_into_null.expected
 */
+// What it checks:
+// Object unpack reports an error when target nullness disagrees with the next
+// object marker.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.5.4.4 (UVM-PACKER-UNPACK-INCOMPATIBLE-NULL) gives the rule
+// above. Setup: Test both null-target/non-null-stream and
+// non-null-target/null-stream combinations. Expected: Both incompatible cases
+// report an error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use a stream produced by pack_object and an incompatible target.
 // After the required error, do not call any further unpack op.
 

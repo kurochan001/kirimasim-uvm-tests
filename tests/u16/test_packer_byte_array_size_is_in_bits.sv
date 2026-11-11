@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_byte_array_size_is_in_bits.expected
 */
+// What it checks:
+// 1. Byte-array pack uses bit counts rather than element counts when size is
+//    specified.
+// 2. Byte-array unpack uses bit counts rather than element counts when size is
+//    specified.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.5.4.10 (UVM-PACKER-BYTES-PACK) gives rule 1 above. Setup:
+//    Use matching arrays for whole-array transfer and selected prefixes,
+//    followed by a scalar where applicable. Expected: Selected data and
+//    trailing fields are restored without consuming beyond the selected bit
+//    count.
+// 2. 1800.2-2020 16.5.4.19 (UVM-PACKER-BYTES-UNPACK) gives rule 2 above.
+//    Setup: Use matching arrays for whole-array transfer and selected
+//    prefixes, followed by a scalar where applicable. Expected: Selected data
+//    and trailing fields are restored without consuming beyond the selected
+//    bit count.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A size of sixteen selects two complete bytes from a longer source.
 // The next scalar follows those sixteen bits and is unpacked independently.
 

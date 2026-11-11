@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_disabled_user_hook_finishes_history_and_unwinds_the_active_object.expected
 */
+// What it checks:
+// 1. Comparison history tracks an ordered object pair under its recursion
+//    policy, with results only after completion.
+// 2. Disabling the comparer user hook still completes history and restores the
+//    active stack.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.3.3.5 (UVM-COMPARER-HISTORY) gives rule 1 above. Setup:
+//    Query before/during/after success or failure, reverse the pair and flush.
+//    Expected: States move NEVER to STARTED to FINISHED; unfinished results
+//    are zero and completed results match comparison.
+// 2. 1800.2-2020 16.3.3.4 (UVM-POLICY-AUDIT-COMPARER-DISABLED-HOOK-CLEANUP)
+//    gives rule 2 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: Disabling the comparer
+//    user hook still completes history and restores the active stack.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_comparer_disabled_user_hook_finishes_history_and_unwinds_the_active_object;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

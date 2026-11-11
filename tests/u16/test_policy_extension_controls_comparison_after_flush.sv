@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_extension_controls_comparison_after_flush.expected
 */
+// What it checks:
+// 1. Extension lookup returns its stored handle by type, or null when absent.
+// 2. Policy flush resets operation state without removing extensions.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.1.2.3.3 (UVM-POLICY-EXTENSION-GET) gives rule 1 above.
+//    Setup: Query from policy hooks, mutate stored extensions in place and
+//    start later operations. Expected: Hooks observe the same current
+//    extension object, including its changed control values.
+// 2. 1800.2-2020 16.1.2.3 (UVM-POLICY-FLUSH-KEEPS-EXTENSIONS) gives rule 2
+//    above. Setup: Flush copier/comparer operations while retaining a mutable
+//    extension handle. Expected: History/miscompare state resets while the
+//    same extension remains usable.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An ignored field compares equal, then a mutation of the same extension
 // enables the field comparison. Each object compare starts a fresh operation.
 

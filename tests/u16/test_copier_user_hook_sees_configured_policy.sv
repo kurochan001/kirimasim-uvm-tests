@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_copier_user_hook_sees_configured_policy.expected
 */
+// What it checks:
+// Copying makes the target active in its policy during the copy hook and
+// restores the stack afterwards.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.6.4.1 (UVM-COPIER-ACTIVE-TARGET) gives the rule above. Setup:
+// Expose a shallow-configured copier to the target hook and inspect depth
+// before/during/after. Expected: The hook sees the target at depth 1 with its
+// configured mode, then depth returns to zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // copy_object pushes the target onto its policy's active-object stack.
 // Give the hook a handle to that policy so it can observe the active target,
 // stack depth and configured recursion mode while copying a scalar payload.

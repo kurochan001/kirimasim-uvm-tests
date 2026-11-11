@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_element_proxy_preserves_existing_queue_prefix.expected
 */
+// What it checks:
+// The element proxy appends immediate children without changing the caller
+// queue prefix.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.9.2.2 (UVM-PRINTER-ELEMENT-CHILDREN) gives the rule above.
+// Setup: Query a root with grandchildren, repeat a query and query a leaf with
+// a nonempty queue. Expected: Only immediate children append; existing entries
+// remain, repeats append again and leaves add nothing.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Prefill the queue with duplicate sentinel handles. Existing values
 // remain in place and both immediate children are appended in any order.
 

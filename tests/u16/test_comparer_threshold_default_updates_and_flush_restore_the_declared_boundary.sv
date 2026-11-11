@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_threshold_default_updates_and_flush_restore_the_declared_boundary.expected
 */
+// What it checks:
+// 1. A fresh comparer threshold is one.
+// 2. The comparer threshold accepts zero and five independently of a fresh
+//    peer.
+// 3. Flush restores the declared comparer threshold of one.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.3.6 (UVM-POLICY-AUDIT-COMPARER-THRESHOLD-INITIAL) gives
+//    rule 1 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: A fresh comparer
+//    threshold is one.
+// 2. 1800.2-2020 16.3.6 (UVM-POLICY-AUDIT-COMPARER-THRESHOLD-UPDATE) gives
+//    rule 2 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: The comparer threshold
+//    accepts zero and five independently of a fresh peer.
+// 3. 1800.2-2020 16.3.6 (UVM-POLICY-AUDIT-COMPARER-THRESHOLD-FLUSH) gives rule
+//    3 above. Setup: Use the selected original fixtures, explicit arguments
+//    and stage observations in the linked anchors; each fresh policy and peer
+//    is independently constructed. Expected: Flush restores the declared
+//    comparer threshold of one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_comparer_threshold_default_updates_and_flush_restore_the_declared_boundary;
   import uvm_pkg::*;
   initial begin

@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_depth_already_above_limit_uses_reference_without_touching_caller_stack.expected
 */
+// What it checks:
+// An already active scope above the maximum prints the next object as a
+// reference.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.5.10 (UVM-PRINTER-AUDIT-DEPTH-ALREADY-EXCEEDED) gives the
+// rule above. Setup: Use the original selected fixtures and explicit API
+// arguments represented by the observation anchors. Expected: With two caller
+// entries, limits zero/one cause no field/user hook, while limit three is a
+// recursing control; both caller entries remain intact.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_depth_already_above_limit_uses_reference_without_touching_caller_stack;
   import uvm_pkg::*;
   // Two caller-owned active entries already exceed limits zero and one.

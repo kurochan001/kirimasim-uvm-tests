@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_max_depth_uses_reference_behavior_beyond_each_selected_boundary.expected
 */
+// What it checks:
+// Under the entry-depth reading, only objects whose entry scope exceeds the
+// maximum are references.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.5.10
+// (UVM-PRINTER-AUDIT-DEPTH-ENTRY-BOUNDARY-INTERPRETATION) gives the rule
+// above. Setup: Use the original selected fixtures and explicit API arguments
+// represented by the observation anchors. Expected: The retained -1/0/1/2
+// matrix recurses all nodes, root only, root/child and all nodes,
+// respectively.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_max_depth_uses_reference_behavior_beyond_each_selected_boundary;
   import uvm_pkg::*;
   // This probe reads scope depth at print_object entry. Keep its boundary

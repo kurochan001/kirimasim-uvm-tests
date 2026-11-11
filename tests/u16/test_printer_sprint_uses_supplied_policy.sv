@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_sprint_uses_supplied_policy.expected
 */
+// What it checks:
+// 1. Printer object processing invokes the enabled object print hook for each
+//    operation.
+// 2. Object sprint returns the text emitted by its selected printer.
+// 3. A user print hook contributes its field to the supplied sprint policy.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.3.1 (UVM-PRINTER-OBJECT-USER-HOOK) gives rule 1 above.
+//    Setup: Use a custom capture printer, then change a field and reuse it.
+//    Expected: Hook calls see the supplied printer and current payload on both
+//    operations.
+// 2. 1800.2-2020 5.3.6.2 (UVM-OBJECT-SPRINT-EMISSION) gives rule 2 above.
+//    Setup: The custom printer captures field inputs and returns a controlled
+//    string. An additional unchanged class alternates printer A/B/A with
+//    comparisons between prints; custom emit formats differ by subtype.
+//    Expected: Captured values match the object and sprint returns captured.
+//    The additional fixture returns A:165/B:165/A:165, uses the selected
+//    printer and leaves the other observer idle.
+// 3. 1800.2-2020 5.3.6.3 (UVM-OBJECT-TRAIT-EXISTING-SPRINT-USER-HOOK) gives
+//    rule 3 above. Setup: An unchanged fixture uses only the original do_print
+//    hook for its payload field. Expected: The supplied printer sees one
+//    payload field with value 46 and size 32.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A custom printer captures the inputs instead of relying on a built-in
 // text layout. sprint returns the string produced by that printer.
 

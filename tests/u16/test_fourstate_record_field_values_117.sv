@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_fourstate_record_field_values_117.expected
 */
+// What it checks:
+// 1. Field-macro recording of logic properties delivers their X and Z bits
+//    unchanged to the recorder.
+// 2. Recording an integral field delivers its four-state value to the recorder
+//    hook with X and Z bits unchanged.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 B.2.2.1.1 (UVM-FOURSTATE-FIELD-MACRO-RECORD-XZ) gives rule 1
+//    above. Setup: Record an object whose uvm_field_int properties are an
+//    8-bit and a 100-bit logic value with X and Z bits. Expected: The hook
+//    captures for both fields hold the same bits.
+// 2. 1800.2-2020 16.4.6.1 (UVM-FOURSTATE-RECORD-FIELD-PRESERVES-XZ) gives rule
+//    2 above. Setup: An original database, stream and recorder capture the
+//    values passed to the field hooks; record_field and record_field_int are
+//    called directly with X and Z bits. Expected: Both hooks receive the same
+//    low-order bits.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An original database, stream and recorder capture what each recording hook
 // receives. Direct record_field and record_field_int calls and field-macro
 // recording of an object with logic fields must deliver the same X and Z bits

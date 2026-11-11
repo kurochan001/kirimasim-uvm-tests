@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_copier_history_tracks_started_finished_and_flush.expected
 */
+// What it checks:
+// Copy history is local to a policy and ordered object pair under its
+// recursion mode.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.6.4.2 (UVM-COPIER-HISTORY) gives the rule above. Setup: Query
+// before/during/after a copy, reverse the pair, compare another policy and
+// flush. Expected: Only the selected pair/policy becomes STARTED then
+// FINISHED; flush restores NEVER.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The target hook queries the exact ordered pair under the active
 // recursion policy. Flush restores the never-copied state for later reuse.
 

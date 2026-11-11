@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_element_stack_restores_parent_and_keeps_root.expected
 */
+// What it checks:
+// 1. Pushing an element makes it the top and creates a child of the previous
+//    top when present.
+// 2. Popping an element restores its parent, but popping the root is ignored.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.7.3 (UVM-PRINTER-ELEMENT-PUSH) gives rule 1 above.
+//    Setup: Push root then child while exposing protected top/bottom queries.
+//    Expected: The root remains bottom while the child becomes a distinct top.
+// 2. 1800.2-2020 16.2.7.4 (UVM-PRINTER-ELEMENT-POP) gives rule 2 above. Setup:
+//    Pop a child and then attempt to pop the root. Expected: The parent
+//    returns as top and the root remains after the final ignored pop.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Expose the protected top and bottom accessors through a test printer.
 // Compare stack handles without depending on internal child representation.
 

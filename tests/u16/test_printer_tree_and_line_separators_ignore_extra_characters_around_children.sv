@@ -12,6 +12,50 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_tree_and_line_separators_ignore_extra_characters_around_children.expected
 */
+// What it checks:
+// 1. The selected built-in emitters return a representation of the constructed
+//    child structure.
+// 2. The selected tree format renders a named child within its parent
+//    separators.
+// 3. The selected line printer renders its structure on one nonempty line.
+// 4. A flushed selected printer can be reused without stale structural output.
+// 5. The tree printer uses the first two separator characters and ignores the
+//    rest.
+// 6. The line printer uses the first two separator characters and ignores the
+//    rest.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.4.1 (UVM-PRINTER-AUDIT-EMIT-STRUCTURED-CHILD) gives rule
+//    1 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The emitted
+//    child marker occurs between the selected opening/closing separators, with
+//    ignored separator suffix absent.
+// 2. 1800.2-2020 16.2.11 (UVM-PRINTER-AUDIT-TREE-NESTED-OUTPUT) gives rule 2
+//    above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The emitted
+//    child marker occurs between the selected opening/closing separators, with
+//    ignored separator suffix absent.
+// 3. 1800.2-2020 16.2.12 (UVM-PRINTER-AUDIT-LINE-SINGLE-LINE-OUTPUT) gives
+//    rule 3 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    parent/child emission contains one nonempty line.
+// 4. 1800.2-2020 16.1.2.2 (UVM-PRINTER-AUDIT-POLICY-FLUSH-PRINT-REUSE) gives
+//    rule 4 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: Rebuilding
+//    the same structure after flush gives the same output when only ignored
+//    separator characters differ.
+// 5. 1800.2-2020 16.2.11.3.2 (UVM-PRINTER-AUDIT-TREE-SEPARATOR-SUFFIX-IGNORED)
+//    gives rule 5 above. Setup: Use the original selected fixtures and
+//    explicit API arguments represented by the observation anchors. Expected:
+//    [] and []EXTRA42 produce the same selected structure with the child
+//    inside brackets.
+// 6. 1800.2-2020 16.2.12.3 (UVM-PRINTER-AUDIT-LINE-SEPARATOR-SUFFIX-IGNORED)
+//    gives rule 6 above. Setup: Use the original selected fixtures and
+//    explicit API arguments represented by the observation anchors. Expected:
+//    [] and []EXTRA42 produce the same selected structure with the child
+//    inside brackets.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_tree_and_line_separators_ignore_extra_characters_around_children;
   import uvm_pkg::*;
   function automatic int find_token(string text,string token);

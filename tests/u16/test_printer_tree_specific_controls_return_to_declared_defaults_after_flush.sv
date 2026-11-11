@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_tree_specific_controls_return_to_declared_defaults_after_flush.expected
 */
+// What it checks:
+// 1. The tree indentation getter starts at two and updates independently.
+// 2. A tree printer flush restores its declared indentation default.
+// 3. The tree separator getter starts at braces and updates independently.
+// 4. A tree printer flush restores its declared separator default.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.11.3.1 (UVM-PRINTER-AUDIT-TREE-INDENT-GET-SET) gives
+//    rule 1 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    indentation changes to five while its independent peer remains two.
+// 2. 1800.2-2020 16.2.11.3.1 (UVM-PRINTER-AUDIT-TREE-INDENT-FLUSH) gives rule
+//    2 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: Without
+//    another indentation setter after flush, the getter returns two.
+// 3. 1800.2-2020 16.2.11.3.2 (UVM-PRINTER-AUDIT-TREE-SEPARATORS-GET-SET) gives
+//    rule 3 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: The selected
+//    separators change to [] while its peer remains {}.
+// 4. 1800.2-2020 16.2.11.3.2 (UVM-PRINTER-AUDIT-TREE-SEPARATORS-FLUSH) gives
+//    rule 4 above. Setup: Use the original selected fixtures and explicit API
+//    arguments represented by the observation anchors. Expected: Without
+//    another separator setter after flush, the getter returns {}.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_tree_specific_controls_return_to_declared_defaults_after_flush;
   import uvm_pkg::*;
   initial begin

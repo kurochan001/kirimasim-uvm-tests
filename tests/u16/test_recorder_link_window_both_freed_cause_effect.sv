@@ -13,6 +13,18 @@
 :expected_stdout: @test_recorder_link_window_both_freed_cause_effect.expected
 :files: helpers72/recorder_link_fixture72.svh
 */
+// What it checks:
+// Establishing a database link after freeing an endpoint recorder reports an
+// error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.4.4 (UVM-RECORDER-LINK-WINDOW-BOTH-FREED-CAUSE-EFFECT) gives
+// the rule above. Setup: both endpoints freed with retained object references;
+// use original in-memory callbacks and a cause_effect link. Expected: An ERROR
+// or FATAL occurs during establish_link; the original catcher stops the
+// simulation immediately.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Stop inside the original catcher on ERROR/FATAL, without assuming recovery.
 // No diagnostic wording, count, or post-error backend behavior is fixed.
 module test_recorder_link_window_both_freed_cause_effect;

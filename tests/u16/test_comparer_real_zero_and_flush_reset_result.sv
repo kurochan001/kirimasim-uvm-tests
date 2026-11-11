@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_real_zero_and_flush_reset_result.expected
 */
+// What it checks:
+// Real comparison distinguishes equal and different finite real values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.3.3.3 (UVM-COMPARER-REAL-VALUE) gives the rule above. Setup:
+// Use exactly representable positive/negative values and zeros, flushing after
+// a mismatch. Expected: Equal values succeed, different values fail and a
+// post-flush equal zero has no retained mismatch.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // After a finite real mismatch, flush the policy and compare two zero
 // values. No NaN, infinity, tolerance or textual formatting rule is assumed.
 

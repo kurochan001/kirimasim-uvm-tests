@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_name_emission_is_local_across_line_printer_reuse.expected
 */
+// What it checks:
+// The field-name enable control affects inclusion of field names during
+// printer emission.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.5.1 (UVM-PRINTER-NAME-EMISSION) gives the rule above.
+// Setup: Emit equivalent fields with name printing enabled and disabled. Two
+// fields use distinct caller-supplied textual name/type/size/value attributes
+// through print_generic_element. Actual table/tree/line printers each exercise
+// all eight name/type/size masks. One path sets controls before object sprint;
+// another collects under the opposite mask and changes controls only before
+// emit. Reuse changes values and checks an independent fresh peer policy.
+// Default-peer inputs retain their omitted-setting premise. Four separately
+// named tree/line controls explicitly enable peer settings; their matches
+// cannot pass the default-peer inputs. Expected: The enabled form includes
+// names and the disabled form omits them.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two policies render the same object, then a changed payload. Membership
 // avoids relying on indentation, line endings or object presentation.
 module test_printer_name_emission_is_local_across_line_printer_reuse;

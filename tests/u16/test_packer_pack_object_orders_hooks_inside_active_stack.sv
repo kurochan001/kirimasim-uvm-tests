@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_pack_object_orders_hooks_inside_active_stack.expected
 */
+// What it checks:
+// Object packing invokes the operation hook before do_pack while the object is
+// active, then restores the stack.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.5.4.2 (UVM-PACKER-OBJECT-HOOKS) gives the rule above. Setup:
+// A pack-enabled object records policy identity, active object and stack depth
+// in both hooks. Expected: Both hooks see the same active object at depth 1;
+// afterward the stack is empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe only the documented operation policy, hook order and active
 // object stack. The packed object marker representation is not inspected.
 

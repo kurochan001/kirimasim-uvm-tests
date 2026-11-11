@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_negative_end_renders_all_elements_without_stale_empty_output.expected
 */
+// What it checks:
+// A negative array begin/end control selects all array elements for printing.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.6 (UVM-PRINTER-ARRAY-ALL-ELEMENTS) gives the rule above.
+// Setup: Print an array with a negative window bound and inspect element
+// membership rather than layout. Expected: Every array element is represented
+// without omitted middle elements.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The field macro supplies automatic array traversal to a built-in printer.
 // Check distinct decimal values, not an implementation-specific text layout.
 module test_printer_negative_end_renders_all_elements_without_stale_empty_output;

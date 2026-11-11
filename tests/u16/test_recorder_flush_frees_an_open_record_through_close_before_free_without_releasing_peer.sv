@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_flush_frees_an_open_record_through_close_before_free_without_releasing_peer.expected
 */
+// What it checks:
+// 1. Flushing an open recorder closes and frees that record while leaving its
+//    independent peer open.
+// 2. Closing through open-record flush triggers do_close once before the free
+//    callback.
+// 3. Freeing through open-record flush triggers do_free once after automatic
+//    close.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.4.4.1 (UVM-POLICY-AUDIT-RECORDER-OPEN-FLUSH) gives rule 1
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: Flushing an open recorder closes and
+//    frees that record while leaving its independent peer open.
+// 2. 1800.2-2020 16.4.7.2 (UVM-POLICY-AUDIT-RECORDER-CLOSE-CALLBACK) gives
+//    rule 2 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: Closing through
+//    open-record flush triggers do_close once before the free callback.
+// 3. 1800.2-2020 16.4.7.3 (UVM-POLICY-AUDIT-RECORDER-FREE-CALLBACK) gives rule
+//    3 above. Setup: Use the selected original fixtures, explicit arguments
+//    and stage observations in the linked anchors; each fresh policy and peer
+//    is independently constructed. Expected: Freeing through open-record flush
+//    triggers do_free once after automatic close.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_recorder_flush_frees_an_open_record_through_close_before_free_without_releasing_peer;
   import uvm_pkg::*;
   string order="";

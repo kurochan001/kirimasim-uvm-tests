@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_attribute_defaults_match_the_public_handle_and_allow_separate_virtual_overrides.expected
 */
+// What it checks:
+// 1. The default recorder reports attribute-macro support disabled.
+// 2. The default record-attribute handle equals the public record handle.
+// 3. A legal recorder override can advertise attribute support through a base
+//    view.
+// 4. A legal recorder override supplies its separate handle through virtual
+//    dispatch.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.4.6.8 (UVM-POLICY-AUDIT-RECORDER-ATTRIBUTE-DEFAULT) gives
+//    rule 1 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: The default recorder
+//    reports attribute-macro support disabled.
+// 2. 1800.2-2020 16.4.6.9 (UVM-POLICY-AUDIT-RECORDER-ATTRIBUTE-HANDLE) gives
+//    rule 2 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: The default
+//    record-attribute handle equals the public record handle.
+// 3. 1800.2-2020 16.4.6.8
+//    (UVM-POLICY-AUDIT-RECORDER-ATTRIBUTE-SUPPORT-OVERRIDE) gives rule 3
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: A legal recorder override can
+//    advertise attribute support through a base view.
+// 4. 1800.2-2020 16.4.6.9
+//    (UVM-POLICY-AUDIT-RECORDER-ATTRIBUTE-HANDLE-OVERRIDE) gives rule 4 above.
+//    Setup: Use the selected original fixtures, explicit arguments and stage
+//    observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: A legal recorder override supplies
+//    its separate handle through virtual dispatch.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_recorder_attribute_defaults_match_the_public_handle_and_allow_separate_virtual_overrides;
   import uvm_pkg::*;

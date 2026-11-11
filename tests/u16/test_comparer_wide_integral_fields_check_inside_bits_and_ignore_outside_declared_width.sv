@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_wide_integral_fields_check_inside_bits_and_ignore_outside_declared_width.expected
 */
+// What it checks:
+// 1. Wide comparison distinguishes equality from an in-range mismatch at
+//    widths one, 64, 65, 129 and the stream maximum.
+// 2. Bits outside the declared comparison width are ignored where that width
+//    is below the stream maximum.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.3.3.1 (UVM-POLICY-AUDIT-COMPARER-WIDE-IN-RANGE) gives rule
+//    1 above. Setup: Use the selected original fixtures, explicit arguments
+//    and stage observations in the linked anchors; each fresh policy and peer
+//    is independently constructed. Expected: Wide comparison distinguishes
+//    equality from an in-range mismatch at widths one, 64, 65, 129 and the
+//    stream maximum.
+// 2. 1800.2-2020 16.3.3.1 (UVM-POLICY-AUDIT-COMPARER-WIDE-OUTSIDE) gives rule
+//    2 above. Setup: Use the selected original fixtures, explicit arguments
+//    and stage observations in the linked anchors; each fresh policy and peer
+//    is independently constructed. Expected: Bits outside the declared
+//    comparison width are ignored where that width is below the stream
+//    maximum.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_comparer_wide_integral_fields_check_inside_bits_and_ignore_outside_declared_width;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

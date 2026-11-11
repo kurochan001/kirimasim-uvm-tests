@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_wide_oversize_reports_error_before_an_independent_maximum_width_control.expected
 */
+// What it checks:
+// pack_field reports an error for a size above UVM_MAX_STREAMBITS.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.5.4.8 (UVM-POLICY-AUDIT-PACKER-WIDE-OVERSIZE) gives the rule
+// above. Setup: Use the selected original fixtures, explicit arguments and
+// stage observations in the linked anchors; each fresh policy and peer is
+// independently constructed. Expected: pack_field reports an error for a size
+// above UVM_MAX_STREAMBITS.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_packer_wide_oversize_reports_error_before_an_independent_maximum_width_control;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

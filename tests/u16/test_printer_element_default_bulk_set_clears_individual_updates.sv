@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_element_default_bulk_set_clears_individual_updates.expected
 */
+// What it checks:
+// Printer-element set assigns all four fields and uses empty defaults for
+// omitted arguments.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.8.2.2 (UVM-PRINTER-ELEMENT-BULK-SET) gives the rule above.
+// Setup: Populate all fields, then call with one named argument or no
+// arguments. Expected: Previously assigned omitted fields clear rather than
+// retaining old values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Assign all fields individually, then call set with no arguments.
 // Every argument defaults to the empty string.
 

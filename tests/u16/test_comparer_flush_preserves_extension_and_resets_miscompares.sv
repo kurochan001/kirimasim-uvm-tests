@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_flush_preserves_extension_and_resets_miscompares.expected
 */
+// What it checks:
+// 1. Policy flush resets operation state without removing extensions.
+// 2. Comparer flush clears miscompare counts, text and remembered comparison
+//    state.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.1.2.3 (UVM-POLICY-FLUSH-KEEPS-EXTENSIONS) gives rule 1
+//    above. Setup: Flush copier/comparer operations while retaining a mutable
+//    extension handle. Expected: History/miscompare state resets while the
+//    same extension remains usable.
+// 2. 1800.2-2020 16.3.2.2 (UVM-COMPARER-FLUSH-STATE) gives rule 2 above.
+//    Setup: Accumulate failures, inspect completed history, then flush and
+//    reuse the policy. Expected: Count becomes zero, text empty and previous
+//    pairs return to unseen state.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Cause a scalar mismatch before reset. The result and miscompare text
 // are cleared without removing the policy extension or its mutable value.
 

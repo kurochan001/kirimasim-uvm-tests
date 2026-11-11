@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_extension_replacement_returns_previous_handle.expected
 */
+// What it checks:
+// Extensions use dynamic type-proxy keys, with replacement returning the
+// previous handle.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.1.2.3.2 (UVM-POLICY-EXTENSION-TYPE-KEY) gives the rule above.
+// Setup: Use base/derived handles, same/different names, first insertion and
+// same-type replacement. Expected: Different types coexist; first insertion
+// returns null and replacement selects the new handle for that type.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The two extensions have the same registered type. Mutating the old
 // object after replacement does not change the newly selected extension.
 

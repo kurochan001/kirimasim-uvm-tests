@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_is_null_peeks_without_consuming_object_then_null.expected
 */
+// What it checks:
+// is_null inspects the next object marker without consuming packer state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.5.4.3 (UVM-PACKER-NULL-PEEK) gives the rule above. Setup:
+// Produce null/non-null object streams in both orders and query repeatedly.
+// Expected: Repeated results agree, available size stays unchanged and
+// subsequent object/tail reads succeed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use the packer to produce its own object stream. Repeated null
 // queries must not consume data; no marker width or encoding is assumed.
 

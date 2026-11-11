@@ -13,6 +13,20 @@
 :expected_stdout: @test_recorder_link_window_closed_stream_cause_effect.expected
 :files: helpers72/recorder_link_fixture72.svh
 */
+// What it checks:
+// Establishing a database link is permitted while endpoint recorders are
+// opened and not freed.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.4.4 (UVM-RECORDER-LINK-WINDOW-CLOSED-STREAM-CAUSE-EFFECT)
+// gives the rule above. Setup: records closed by their owning stream; use
+// original in-memory callbacks and a cause_effect link. Expected: The actual
+// database dispatches the exact link once, retaining both recorder endpoints
+// without ERROR/FATAL.
+// It also supports, as a control, the setup or conditions of
+// UVM-RECORDER-LINK-WINDOW-FREED-OTHER-STREAM-CAUSE-EFFECT.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Closed recorders remain linkable until free; only public APIs are used.
 module test_recorder_link_window_closed_stream_cause_effect;
   import uvm_pkg::*;

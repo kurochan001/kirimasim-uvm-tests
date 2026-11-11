@@ -13,6 +13,20 @@
 :expected_stdout: @test_recorder_link_window_open_related.expected
 :files: helpers72/recorder_link_fixture72.svh
 */
+// What it checks:
+// Establishing a database link is permitted while endpoint recorders are
+// opened and not freed.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.4.4 (UVM-RECORDER-LINK-WINDOW-OPEN-RELATED) gives the rule
+// above. Setup: same-stream open endpoints; use original in-memory callbacks
+// and a related link. Expected: The actual database dispatches the exact link
+// once, retaining both recorder endpoints without ERROR/FATAL.
+// It also supports, as a control, the setup or conditions of
+// UVM-RECORDER-LINK-WINDOW-FREED-LEFT-RELATED,
+// UVM-RECORDER-LINK-WINDOW-FLUSHED-LEFT-RELATED.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Closed recorders remain linkable until free; only public APIs are used.
 module test_recorder_link_window_open_related;
   import uvm_pkg::*;

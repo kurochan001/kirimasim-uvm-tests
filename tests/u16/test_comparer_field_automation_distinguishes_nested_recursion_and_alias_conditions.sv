@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_field_automation_distinguishes_nested_recursion_and_alias_conditions.expected
 */
+// What it checks:
+// 1. Reference comparison uses handle identity while deep comparison inspects
+//    object fields.
+// 2. SHALLOW compares child handles while DEEP compares selected child fields.
+// 3. UVM_DEFAULT_POLICY comparison treats the selected equal distinct children
+//    as DEEP.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.3.4.1 (UVM-COMPARER-RECURSION-MODE) gives rule 1 above.
+//    Setup: Compare an alias and a distinct equal-valued object with
+//    independent comparers. Expected: Only the alias passes reference
+//    comparison; equal fields can pass deep comparison.
+// 2. 1800.2-2020 16.3.4.1 (UVM-POLICY-AUDIT-COMPARER-SHALLOW-CHILD-IDENTITY)
+//    gives rule 2 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: SHALLOW compares child
+//    handles while DEEP compares selected child fields.
+// 3. 1800.2-2020 16.3.4.1 (UVM-POLICY-AUDIT-COMPARER-DEFAULT-AS-DEEP) gives
+//    rule 3 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: UVM_DEFAULT_POLICY
+//    comparison treats the selected equal distinct children as DEEP.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_comparer_field_automation_distinguishes_nested_recursion_and_alias_conditions;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -14,6 +14,24 @@
 :expected_exit: 0
 :expected_stdout: @test_table_rows_0_93.expected
 */
+// What it checks:
+// Under the selected short-cell tabular reading,each field retains its four
+// caller-supplied attributes in one output row.
+//
+// Variant: Input 0 prints two fields in insertion order with 32-bit values and
+// 16-character text; input 1 adds a third field, uses 65-bit values and
+// 32-character text, and prints the fields in reverse order.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.10 (UVM-TABLE-PRINTER-SHORT-ROW-ASSOCIATION-93) gives the
+// rule above. Setup: Actual uvm_table_printer instances print original objects
+// containing two or three fields with unequal-length unique
+// name,type,size,value strings. Inputs reverse the insertion order;an
+// independent peer prints disjoint cells. Expected: Each selected name appears
+// once in a row containing its own type,size and value,without another field
+// name/value in that row;the independent peer retains only its own cells.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Qualified short-cell reading of tabular output: four caller-supplied cell
 // values remain row-associated. No fixed header,field order,column
 // width,punctuation,indentation or universal multi-line/wrapping layout is

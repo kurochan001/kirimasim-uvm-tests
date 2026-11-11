@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_extension_insert_get_and_presence.expected
 */
+// What it checks:
+// 1. Extension presence is reported for the requested type key.
+// 2. Extensions use dynamic type-proxy keys, with replacement returning the
+//    previous handle.
+// 3. Extension lookup returns its stored handle by type, or null when absent.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.1.2.3.1 (UVM-POLICY-EXTENSION-PRESENCE) gives rule 1
+//    above. Setup: Query installed, missing and removed extension types.
+//    Expected: Presence changes only for the selected type and absent types
+//    report false.
+// 2. 1800.2-2020 16.1.2.3.2 (UVM-POLICY-EXTENSION-TYPE-KEY) gives rule 2
+//    above. Setup: Use base/derived handles, same/different names, first
+//    insertion and same-type replacement. Expected: Different types coexist;
+//    first insertion returns null and replacement selects the new handle for
+//    that type.
+// 3. 1800.2-2020 16.1.2.3.3 (UVM-POLICY-EXTENSION-GET) gives rule 3 above.
+//    Setup: Query from policy hooks, mutate stored extensions in place and
+//    start later operations. Expected: Hooks observe the same current
+//    extension object, including its changed control values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Set one extension and query both its type and an absent type. A first
 // insertion returns null and retrieval returns the same object handle.
 

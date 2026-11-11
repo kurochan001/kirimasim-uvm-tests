@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_reuse_observes_updated_fields.expected
 */
+// What it checks:
+// Printer object processing invokes the enabled object print hook for each
+// operation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.3.1 (UVM-PRINTER-OBJECT-USER-HOOK) gives the rule above.
+// Setup: Use a custom capture printer, then change a field and reuse it.
+// Expected: Hook calls see the supplied printer and current payload on both
+// operations.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Reusing an explicit printer must dispatch the object print hook on
 // each call. The second operation observes the updated payload.
 

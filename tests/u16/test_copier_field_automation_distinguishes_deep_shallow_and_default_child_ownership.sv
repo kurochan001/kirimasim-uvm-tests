@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_copier_field_automation_distinguishes_deep_shallow_and_default_child_ownership.expected
 */
+// What it checks:
+// 1. Deep copy recursively copies object fields instead of sharing the child
+//    reference.
+// 2. SHALLOW copies the root field and aliases the original child handle.
+// 3. UVM_DEFAULT_POLICY copy creates an independent selected child as DEEP
+//    does.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.6.3 (UVM-COPIER-DEEP-CHILD) gives rule 1 above. Setup:
+//    Copy one nested child with deep policy and mutate the copied child.
+//    Expected: Child handles differ, initial payload is 55 and the source
+//    child retains its value.
+// 2. 1800.2-2020 16.6.3 (UVM-POLICY-AUDIT-COPIER-SHALLOW-CHILD-ALIAS) gives
+//    rule 2 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: SHALLOW copies the root
+//    field and aliases the original child handle.
+// 3. 1800.2-2020 16.6.3 (UVM-POLICY-AUDIT-COPIER-DEFAULT-AS-DEEP) gives rule 3
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: UVM_DEFAULT_POLICY copy creates an
+//    independent selected child as DEEP does.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_copier_field_automation_distinguishes_deep_shallow_and_default_child_ownership;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

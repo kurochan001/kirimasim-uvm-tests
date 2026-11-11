@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_copier_deep_policy_allocates_independent_child.expected
 */
+// What it checks:
+// Deep copy recursively copies object fields instead of sharing the child
+// reference.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.6.3 (UVM-COPIER-DEEP-CHILD) gives the rule above. Setup: Copy
+// one nested child with deep policy and mutate the copied child. Expected:
+// Child handles differ, initial payload is 55 and the source child retains its
+// value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Set recursion after constructing the copier and call its copy method
 // directly. Deep copy preserves the child payload without sharing a handle.
 

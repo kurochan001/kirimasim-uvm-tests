@@ -12,6 +12,43 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_print_msg_appends_ordered_messages_counts_reports_and_flushes_state.expected
 */
+// What it checks:
+// 1. Comparer flush clears miscompare counts, text and remembered comparison
+//    state.
+// 2. Each direct print_msg contributes one mismatch count.
+// 3. Two print_msg strings are retained in call order with a newline between
+//    them.
+// 4. Two selected messages below a maximum of five report at the configured
+//    severity and verbosity.
+// 5. A fresh comparer has zero counted miscompares.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.3.2.2 (UVM-COMPARER-FLUSH-STATE) gives rule 1 above.
+//    Setup: Accumulate failures, inspect completed history, then flush and
+//    reuse the policy. Expected: Count becomes zero, text empty and previous
+//    pairs return to unseen state.
+// 2. 1800.2-2020 16.3.3.7 (UVM-POLICY-AUDIT-COMPARER-PRINT-MSG-COUNT) gives
+//    rule 2 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: Each direct print_msg
+//    contributes one mismatch count.
+// 3. 1800.2-2020 16.3.3.8 (UVM-POLICY-AUDIT-COMPARER-MISCOMPARE-TEXT) gives
+//    rule 3 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: Two print_msg strings
+//    are retained in call order with a newline between them.
+// 4. 1800.2-2020 16.3.3.7 (UVM-POLICY-AUDIT-COMPARER-PRINT-MSG-REPORT) gives
+//    rule 4 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: Two selected messages
+//    below a maximum of five report at the configured severity and verbosity.
+// 5. 1800.2-2020 16.3.3.9 (UVM-POLICY-AUDIT-COMPARER-GET-RESULT-INITIAL) gives
+//    rule 5 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: A fresh comparer has
+//    zero counted miscompares.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_comparer_print_msg_appends_ordered_messages_counts_reports_and_flushes_state;
   import uvm_pkg::*;
   // A limit of five keeps both calls away from the limit-boundary reading.

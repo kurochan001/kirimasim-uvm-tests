@@ -13,6 +13,23 @@
 :expected_exit: 0
 :expected_stdout: @test_record_macro_control_direct_small_field_preserves_default_and_explicit_radices.expected
 */
+// What it checks:
+// A direct small-width record_field call reaches its specified field backend
+// hook.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.4.6.1 (UVM-MACRO-IO-AUDIT-DIRECT-FIELD-33) gives the rule
+// above. Setup: A valid transaction recorder, original field/int hooks and a
+// thirty-three-bit value. Select UVM_BIN as the configured default and observe
+// omitted radix and explicit UVM_HEX in separate counter windows. Expected:
+// Both calls preserve name/value/width and use the field hook rather than the
+// int hook; omitted radix can retain the marker or resolve to the configured
+// default, while explicit HEX is retained.
+// It also supports, as a control, the setup or conditions of
+// UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-INT-DEFAULT-RADIX,
+// UVM-MACRO-IO-AUDIT-RECORD-INT-33-EXPLICIT-RADIX.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original policy hooks distinguish public field calls from macro dispatch.
 module test_record_macro_control_direct_small_field_preserves_default_and_explicit_radices;
   import uvm_pkg::*;

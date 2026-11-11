@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_disabled_type_check_still_compares_fields.expected
 */
+// What it checks:
+// Type checking defaults enabled and can be disabled without disabling field
+// comparison.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.3.4.2 (UVM-COMPARER-TYPE-CHECK) gives the rule above. Setup:
+// Compare base/derived objects with equal and differing base fields. Expected:
+// Enabled checks reject differing types; disabled checks compare the field
+// values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The same base and derived pair first differs by a field, then agrees.
 // Flush the comparison state before comparing the changed field again.
 

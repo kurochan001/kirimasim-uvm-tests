@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_extension_controls_copy_user_hook.expected
 */
+// What it checks:
+// Extension lookup returns its stored handle by type, or null when absent.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.1.2.3.3 (UVM-POLICY-EXTENSION-GET) gives the rule above.
+// Setup: Query from policy hooks, mutate stored extensions in place and start
+// later operations. Expected: Hooks observe the same current extension object,
+// including its changed control values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The object reads a gate extension during do_execute_op. Updating that
 // extension in place enables a later copy without reinstalling the extension.
 

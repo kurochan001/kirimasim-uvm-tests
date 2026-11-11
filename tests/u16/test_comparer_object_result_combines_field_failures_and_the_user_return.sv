@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_object_result_combines_field_failures_and_the_user_return.expected
 */
+// What it checks:
+// Comparison succeeds only when fields add no mismatch and the enabled user
+// hook returns true.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.3.3.4 (UVM-POLICY-AUDIT-COMPARER-RESULT-GATE) gives the rule
+// above. Setup: Use the selected original fixtures, explicit arguments and
+// stage observations in the linked anchors; each fresh policy and peer is
+// independently constructed. Expected: Comparison succeeds only when fields
+// add no mismatch and the enabled user hook returns true.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_comparer_object_result_combines_field_failures_and_the_user_return;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

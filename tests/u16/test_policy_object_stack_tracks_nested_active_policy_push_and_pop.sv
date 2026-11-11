@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_object_stack_tracks_nested_active_policy_push_and_pop.expected
 */
+// What it checks:
+// 1. Pushing an active object also pushes that policy onto the object
+//    active-policy stack.
+// 2. Popping an active object also pops the policy from that object
+//    active-policy stack.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.1.3.1 (UVM-POLICY-ACTIVE-POLICY-SYNC) gives rule 1 above.
+//    Setup: Observe both the policy-side object stack and the object-side
+//    policy stack. Expected: Both sides identify the same newly active
+//    object/policy relationship.
+// 2. 1800.2-2020 16.1.3.2 (UVM-POLICY-POP-ACTIVE-POLICY-SYNC) gives rule 2
+//    above. Setup: Push one object through two distinct policies, then pop the
+//    second and first in order. Expected: Object active policy restores the
+//    first then null; popped objects are exact and each emptied policy reports
+//    null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe both sides of the stack using the standard public APIs.
 // The pinned library lacks get_active_policy; retain the normative calls
 // and expected handles rather than substituting policy-side depth checks.

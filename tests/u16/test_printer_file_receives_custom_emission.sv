@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_file_receives_custom_emission.expected
 */
+// What it checks:
+// The printer file setting selects where object print output is directed.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.5.11 (UVM-PRINTER-OUTPUT-FILE) gives the rule above. Setup:
+// Use an open file and a custom printer with deterministic complete emission
+// text. Expected: The selected handle is retained and receives the custom
+// emission.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A custom printer controls the complete emitted string. Check its file
 // content without depending on any built-in printer layout.
 

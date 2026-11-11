@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_disabled_user_hook_still_finishes_history_and_unwinds_active_stack.expected
 */
+// What it checks:
+// Disabling the user hook skips do_print while completing history and
+// unwinding the active entry.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.2.3.1 (UVM-PRINTER-AUDIT-PRINT-USER-HOOK-DISABLED) gives the
+// rule above. Setup: Use the original selected fixtures and explicit API
+// arguments represented by the observation anchors. Expected: Selected hook
+// order, exact policy/active identity, depth one during hooks and empty depth
+// zero after return match; FINISHED is visible before the active pop.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_printer_disabled_user_hook_still_finishes_history_and_unwinds_active_stack;
   import uvm_pkg::*;
   class original_printer extends uvm_printer;

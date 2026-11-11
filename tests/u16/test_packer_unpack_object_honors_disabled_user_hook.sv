@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_unpack_object_honors_disabled_user_hook.expected
 */
+// What it checks:
+// Object unpack omits do_unpack when its operation hook disables user
+// processing.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.5.4.4 (UVM-PACKER-UNPACK-HOOK-GATE) gives the rule above.
+// Setup: Only the disabled unpack hook could otherwise alter the target
+// payload. Expected: The operation hook runs once, do_unpack stays at zero and
+// payload/stack remain as expected.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only the user unpack hook changes payload in this test class.
 // Disable it on the target, then observe callback counts and stack cleanup.
 

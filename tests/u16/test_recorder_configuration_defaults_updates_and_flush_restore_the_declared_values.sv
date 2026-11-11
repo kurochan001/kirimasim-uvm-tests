@@ -12,6 +12,83 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values.expected
 */
+// What it checks:
+// 1. A legal concrete recorder retains its declared uvm_policy base.
+// 2. A fresh recorder recursion getter returns UVM_DEFAULT_POLICY.
+// 3. A selected recorder recursion setter changes its getter while a fresh
+//    peer keeps its default.
+// 4. Recorder flush restores the declared recursion default
+//    UVM_DEFAULT_POLICY.
+// 5. A fresh recorder id getter returns one.
+// 6. A selected recorder id setter changes its getter while a fresh peer keeps
+//    its default.
+// 7. Recorder flush restores the declared id default one.
+// 8. A fresh recorder radix getter returns UVM_HEX.
+// 9. A selected recorder radix setter changes its getter while a fresh peer
+//    keeps its default.
+// 10. Recorder flush restores the declared radix default UVM_HEX.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.4.1 (UVM-POLICY-AUDIT-RECORDER-BASE) gives rule 1 above.
+//    Setup: Use the selected original fixtures, explicit arguments and stage
+//    observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: A legal concrete recorder retains
+//    its declared uvm_policy base.
+// 2. 1800.2-2020 16.4.2.1 (UVM-POLICY-AUDIT-RECORDER-RECURSION-INITIAL) gives
+//    rule 2 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: A fresh recorder
+//    recursion getter returns UVM_DEFAULT_POLICY.
+// 3. 1800.2-2020 16.4.2.1 (UVM-POLICY-AUDIT-RECORDER-RECURSION-UPDATE) gives
+//    rule 3 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: A selected recorder
+//    recursion setter changes its getter while a fresh peer keeps its default.
+// 4. 1800.2-2020 16.4.2.1 (UVM-POLICY-AUDIT-RECORDER-RECURSION-FLUSH) gives
+//    rule 4 above. Setup: Use the selected original fixtures, explicit
+//    arguments and stage observations in the linked anchors; each fresh policy
+//    and peer is independently constructed. Expected: Recorder flush restores
+//    the declared recursion default UVM_DEFAULT_POLICY.
+// 5. 1800.2-2020 16.4.2.2 (UVM-POLICY-AUDIT-RECORDER-ID-INITIAL) gives rule 5
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: A fresh recorder id getter returns
+//    one.
+// 6. 1800.2-2020 16.4.2.2 (UVM-POLICY-AUDIT-RECORDER-ID-UPDATE) gives rule 6
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: A selected recorder id setter
+//    changes its getter while a fresh peer keeps its default.
+// 7. 1800.2-2020 16.4.2.2 (UVM-POLICY-AUDIT-RECORDER-ID-FLUSH) gives rule 7
+//    above. Setup: Use the selected original fixtures, explicit arguments and
+//    stage observations in the linked anchors; each fresh policy and peer is
+//    independently constructed. Expected: Recorder flush restores the declared
+//    id default one.
+// 8. 1800.2-2020 16.4.2.3 (UVM-POLICY-AUDIT-RECORDER-RADIX-INITIAL) gives rule
+//    8 above. Setup: Use the selected original fixtures, explicit arguments
+//    and stage observations in the linked anchors; each fresh policy and peer
+//    is independently constructed. Expected: A fresh recorder radix getter
+//    returns UVM_HEX.
+// 9. 1800.2-2020 16.4.2.3 (UVM-POLICY-AUDIT-RECORDER-RADIX-UPDATE) gives rule
+//    9 above. Setup: Use the selected original fixtures, explicit arguments
+//    and stage observations in the linked anchors; each fresh policy and peer
+//    is independently constructed. Expected: A selected recorder radix setter
+//    changes its getter while a fresh peer keeps its default.
+// 10. 1800.2-2020 16.4.2.3 (UVM-POLICY-AUDIT-RECORDER-RADIX-FLUSH) gives rule
+//     10 above. Setup: Use the selected original fixtures, explicit arguments
+//     and stage observations in the linked anchors; each fresh policy and peer
+//     is independently constructed. Expected: Recorder flush restores the
+//     declared radix default UVM_HEX.
+// It also supports, as a control, the setup or conditions of
+// UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-FIELD,
+// UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-FIELD-INT,
+// UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-FIELD-REAL,
+// UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-STRING,
+// UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-TIME,
+// UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-GENERIC,
+// UVM-POLICY-AUDIT-RECORDER-ILLEGAL-ABSTRACT.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values;
   import uvm_pkg::*;
   string order="";

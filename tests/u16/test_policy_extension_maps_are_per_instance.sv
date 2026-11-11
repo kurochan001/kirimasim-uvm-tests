@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_policy_extension_maps_are_per_instance.expected
 */
+// What it checks:
+// Clearing extensions removes every slot in that policy without clearing
+// another policy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.1.2.3.5 (UVM-POLICY-EXTENSION-CLEAR-ALL) gives the rule
+// above. Setup: Store multiple types and separate-policy instances, clear
+// repeatedly and insert again. Expected: All selected-policy slots empty; the
+// other policy retains its handle and new insertion behaves as first
+// insertion.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two policies store different extensions of the same type. Clearing
 // one policy twice does not remove or replace the other policy extension.
 

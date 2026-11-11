@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_printer_element_instances_keep_independent_fields.expected
 */
+// What it checks:
+// 1. The element name getter starts empty and returns its latest field
+//    assignment.
+// 2. The element type name getter starts empty and returns its latest field
+//    assignment.
+// 3. The element size getter starts empty and returns its latest field
+//    assignment.
+// 4. The element value getter starts empty and returns its latest field
+//    assignment.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.2.8.2.3 (UVM-PRINTER-ELEMENT-NAME) gives rule 1 above.
+//    Setup: Query fresh elements, update fields individually and mutate one of
+//    two populated elements. Expected: Only the selected field/element changes
+//    and unrelated values remain intact.
+// 2. 1800.2-2020 16.2.8.2.4 (UVM-PRINTER-ELEMENT-TYPE) gives rule 2 above.
+//    Setup: Query fresh elements, update fields individually and mutate one of
+//    two populated elements. Expected: Only the selected field/element changes
+//    and unrelated values remain intact.
+// 3. 1800.2-2020 16.2.8.2.5 (UVM-PRINTER-ELEMENT-SIZE) gives rule 3 above.
+//    Setup: Query fresh elements, update fields individually and mutate one of
+//    two populated elements. Expected: Only the selected field/element changes
+//    and unrelated values remain intact.
+// 4. 1800.2-2020 16.2.8.2.6 (UVM-PRINTER-ELEMENT-VALUE) gives rule 4 above.
+//    Setup: Query fresh elements, update fields individually and mutate one of
+//    two populated elements. Expected: Only the selected field/element changes
+//    and unrelated values remain intact.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Populate both instances explicitly, replace one, and observe the
 // other through its retained handle.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_comparer_reference_policy_checks_handle_identity.expected
 */
+// What it checks:
+// Reference comparison uses handle identity while deep comparison inspects
+// object fields.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.3.4.1 (UVM-COMPARER-RECURSION-MODE) gives the rule above.
+// Setup: Compare an alias and a distinct equal-valued object with independent
+// comparers. Expected: Only the alias passes reference comparison; equal
+// fields can pass deep comparison.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // One alias refers to the original object while another object has the
 // same fields. A reference policy accepts only the alias.
 

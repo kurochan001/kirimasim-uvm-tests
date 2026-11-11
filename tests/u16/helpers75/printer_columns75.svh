@@ -10,7 +10,9 @@ function automatic bit visible75(string text, string a, string b, bit enabled);
 endfunction
 class subject75 extends uvm_object;
   int revision = 0;
-  function new(string name = "root75"); super.new(name); endfunction
+  function new(string name = "root75");
+    super.new(name);
+  endfunction
   virtual function void do_print(uvm_printer printer);
     printer.print_generic_element("N75_ALPHA", "T75_ALPHA", "S75_ALPHA",
                                  $sformatf("V75_ALPHA_%0d_END", revision));
@@ -23,9 +25,18 @@ function automatic uvm_printer make_printer75(int kind);
   uvm_tree_printer tree_value;
   uvm_line_printer line_value;
   case (kind)
-    0: begin table_value = new; return table_value; end
-    1: begin tree_value = new; return tree_value; end
-    2: begin line_value = new; return line_value; end
+    0: begin
+      table_value = new;
+      return table_value;
+    end
+    1: begin
+      tree_value = new;
+      return tree_value;
+    end
+    2: begin
+      line_value = new;
+      return line_value;
+    end
     default: $fatal(1, "unexpected printer kind");
   endcase
   return null;

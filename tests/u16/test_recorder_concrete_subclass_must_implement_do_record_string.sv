@@ -12,6 +12,18 @@
 :should_fail_because: the virtual or incomplete recorder cannot be constructed
 :expected_stderr_regex: (?i)^(?=.*test_recorder_concrete_subclass_must_implement_do_record_string\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:pure|virtual|abstract|missing implementation)\b)(?=.*\bdo_record_string\b).*error
 */
+// What it checks:
+// A concrete recorder must implement the pure do_record_string hook.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 16.4.7.9 (UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-STRING)
+// gives the rule above. Setup: Use the selected original fixtures, explicit
+// arguments and stage observations in the linked anchors; each fresh policy
+// and peer is independently constructed. Expected: Compile rejects the
+// targeted abstract construction or isolated missing hook with the declared
+// diagnostic; no runtime seeds execute.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_recorder_concrete_subclass_must_implement_do_record_string;
   import uvm_pkg::*;
   class incomplete_recorder extends uvm_recorder;

@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_packer_round_trips_integral_fields.expected
 */
+// What it checks:
+// 1. get_packed_size reports the remaining number of unpackable bits.
+// 2. Integral packing processes exactly the requested field width up to 64
+//    bits.
+// 3. Integral unpacking processes exactly the requested field width up to 64
+//    bits.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.5.3.3 (UVM-PACKER-AVAILABLE-BITS) gives rule 1 above.
+//    Setup: Inspect producers and consumers before/after field reads.
+//    Expected: Only the consumer size decreases with reads, reaching zero
+//    after all fields are consumed.
+// 2. 1800.2-2020 16.5.4.9 (UVM-PACKER-INTEGRAL-PACK) gives rule 2 above.
+//    Setup: Use successive unequal field widths and a full-width 64-bit
+//    payload. Expected: Values and consumed bit counts agree with the selected
+//    widths without prescribing byte layout.
+// 3. 1800.2-2020 16.5.4.17 (UVM-PACKER-INTEGRAL-UNPACK) gives rule 3 above.
+//    Setup: Use successive unequal field widths and a full-width 64-bit
+//    payload. Expected: Values and consumed bit counts agree with the selected
+//    widths without prescribing byte layout.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Pack two fields with distinct widths, then read them back in the same
 // order. Check payload values without prescribing a byte stream layout.
 

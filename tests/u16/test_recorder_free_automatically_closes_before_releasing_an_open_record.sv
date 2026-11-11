@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_free_automatically_closes_before_releasing_an_open_record.expected
 */
+// What it checks:
+// 1. Recorder is_open is true only while the record is open.
+// 2. Recorder is_closed is true after close and before free.
+// 3. Freeing an open recorder closes it before invoking its release hook.
+// 4. Recorder handles are nonzero unique identifiers until freeing invalidates
+//    them.
+// 5. Static recorder lookup retains identity across close and returns null
+//    after free.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.4.4.4 (UVM-RECORDER-OPEN-STATE-LIFETIME) gives rule 1
+//    above. Setup: Inspect opened, closed and freed records. Expected: The
+//    open flag is one before close and zero after close/free.
+// 2. 1800.2-2020 16.4.4.6 (UVM-RECORDER-CLOSED-STATE-LIFETIME) gives rule 2
+//    above. Setup: Inspect the record through open, close and free. Expected:
+//    Closed state is zero while open, one while closed and zero after free.
+// 3. 1800.2-2020 16.4.4.3 (UVM-RECORDER-FREE-AUTOMATIC-CLOSE) gives rule 3
+//    above. Setup: Free a still-open record with explicit close time 31.
+//    Expected: Close then free hooks run once with time 31; the recorder
+//    handle becomes invalid and its stream remains open.
+// 4. 1800.2-2020 16.4.5.1 (UVM-RECORDER-UNIQUE-HANDLE-VALIDITY) gives rule 4
+//    above. Setup: Open two same-named records and free one. Expected: The
+//    live handles are distinct/nonzero and a freed record reports zero.
+// 5. 1800.2-2020 16.4.5.2 (UVM-RECORDER-HANDLE-LOOKUP-LIFETIME) gives rule 5
+//    above. Setup: Look up two handles, close/free the first and retain the
+//    second. Expected: Closed and peer handles resolve exactly; the freed
+//    handle resolves to null without affecting the peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // In-memory recorder hooks only: no database file, DPI or vendor attribute
 // macro. Timestamps are explicit recording metadata, not simulation delays.
 module test_recorder_free_automatically_closes_before_releasing_an_open_record;

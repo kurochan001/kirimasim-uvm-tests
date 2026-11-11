@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_recorder_handles_and_stream_membership_preserve_two_distinct_record_identities.expected
 */
+// What it checks:
+// 1. Recorder handles are nonzero unique identifiers until freeing invalidates
+//    them.
+// 2. Static recorder lookup retains identity across close and returns null
+//    after free.
+// 3. Stream recorder enumeration supplies the record handles belonging to that
+//    stream.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 16.4.5.1 (UVM-RECORDER-UNIQUE-HANDLE-VALIDITY) gives rule 1
+//    above. Setup: Open two same-named records and free one. Expected: The
+//    live handles are distinct/nonzero and a freed record reports zero.
+// 2. 1800.2-2020 16.4.5.2 (UVM-RECORDER-HANDLE-LOOKUP-LIFETIME) gives rule 2
+//    above. Setup: Look up two handles, close/free the first and retain the
+//    second. Expected: Closed and peer handles resolve exactly; the freed
+//    handle resolves to null without affecting the peer.
+// 3. 1800.2-2020 7.2.5.2 (UVM-STREAM-RECORDER-QUEUE-MEMBERSHIP) gives rule 3
+//    above. Setup: Open two distinct same-named recorders and inspect a fresh
+//    queue. Expected: The queue has exactly the two original handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // In-memory recorder hooks only: no database file, DPI or vendor attribute
 // macro. Timestamps are explicit recording metadata, not simulation delays.
 module test_recorder_handles_and_stream_membership_preserve_two_distinct_record_identities;
