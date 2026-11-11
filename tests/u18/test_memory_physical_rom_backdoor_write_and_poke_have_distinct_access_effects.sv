@@ -16,6 +16,18 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_physical_rom_backdoor_write_and_poke_have_distinct_access_effects.expected
 */
+// What it checks:
+// A modeled backdoor write preserves actual ROM storage while poke directly
+// deposits into it.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.5.1 (UVM-MEMORY-AUDIT-PHYSICAL-ROM-POLICY) gives the rule
+// above. Setup: A 16-bit RO memory maps an actual public four-location HDL
+// array; selected and peer words begin distinct. Expected: write leaves
+// selected/peer cells unchanged; poke changes only the selected cell with
+// success; read and peek return that physical value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Read-only modeled writes and direct deposits use actual HDL array cells.
 module test_memory_physical_rom_backdoor_write_and_poke_have_distinct_access_effects;
   import uvm_pkg::*;

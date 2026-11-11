@@ -14,6 +14,22 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_hdl_full_explicit_kind_member_view_control79.expected
 */
+// What it checks:
+// It is a control: it supports the setup or conditions of this duty, which
+// other tests check directly:
+// An explicit full-path abstraction selects that abstraction despite different
+// ancestor defaults.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.6.9 (UVM-REG-HDL-FULL-PATH-EXPLICIT-KIND) gives the rule
+// above. Setup: Original 16-bit register/block models, legal most-to-least
+// nonoverlapping slices, named abstractions, isolated peers and fresh query
+// queues. Standard-view inputs use get_slices; separately declared controls
+// project the pinned library public slices member, an explicitly nonstandard
+// observability premise. No HDL storage is accessed. Expected: The explicit
+// COMMON query produces dut_X.bank_X.reg_X while retaining mixed defaults.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit nonstandard view control; no standard API pass is inferred.
 // Symbolic metadata only; no physical HDL access or DPI calls.
 module test_reg_hdl_full_explicit_kind_member_view_control79;

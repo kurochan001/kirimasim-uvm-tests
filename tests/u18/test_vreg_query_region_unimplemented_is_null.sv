@@ -13,6 +13,16 @@
 :expected_stdout: @test_vreg_query_region_unimplemented_is_null.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// An unimplemented virtual array has no implementation region.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.5 (UVM-VREG-QUERY-REGION-UNIMPLEMENTED-IS-NULL) gives
+// the rule above. Setup: Configure only the parent; do not implement or
+// allocate the array. Expected: The stated identity, count, policy, offset or
+// diagnostic-presence observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_region_unimplemented_is_null;

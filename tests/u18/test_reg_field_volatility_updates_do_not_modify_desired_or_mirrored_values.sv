@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_volatility_updates_do_not_modify_desired_or_mirrored_values.expected
 */
+// What it checks:
+// 1. Volatility updates affect only the selected field setting.
+// 2. Volatility queries preserve independent neighbor and peer settings.
+// 3. get returns the field desired model value without a bus read.
+// 4. get_mirrored_value returns the field mirrored model value without a bus
+//    read.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.4.9 (UVM-FIELD-VOLATILITY-LOCAL-CONTROL) gives rule 1
+//    above. Setup: Enable, disable and move the volatile setting between two
+//    fields. Expected: Settings stay local and desired/mirrored data remain
+//    11.
+// 2. 1800.2-2020 18.5.4.10 (UVM-FIELD-INTROSPECTION-VOLATILITY-PEER-ISOLATION)
+//    gives rule 2 above. Setup: One field and a peer are switched
+//    independently. Expected: Queries identify each selected field while the
+//    neighbor remains nonvolatile.
+// 3. 1800.2-2020 18.5.5.1 (UVM-FIELD-INTROSPECTION-DESIRED-QUERY) gives rule 3
+//    above. Setup: Volatility changes do not change the prepared desired value
+//    0x11. Expected: The desired getter still returns 0x11.
+// 4. 1800.2-2020 18.5.5.3 (UVM-FIELD-INTROSPECTION-MIRRORED-QUERY) gives rule
+//    4 above. Setup: Volatility changes do not change the prepared mirror
+//    0x11. Expected: The mirrored getter still returns 0x11.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only field metadata and desired/mirrored state. No bus, RTL or DPI
 // is accessed, and policy controls do not establish physical side effects.
 module test_reg_field_volatility_updates_do_not_modify_desired_or_mirrored_values;

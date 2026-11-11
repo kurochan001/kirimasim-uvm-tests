@@ -14,6 +14,24 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_backdoor_write_dispatch_1_90.expected
 */
+// What it checks:
+// The printed register backdoor_write virtual task accepts a generic
+// descriptor through a register base receiver and dispatches an override.
+//
+// Variant: Input 0 writes the first register in both steps; input 1 writes the
+// second register in the second step.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.6.11 (UVM-REG-BACKDOOR-WRITE-VIRTUAL-DISPATCH-90) gives the
+// rule above. Setup: Use two original concrete register subtypes through exact
+// uvm_reg base receivers. Write inputs alternate descriptor
+// values/receivers;watch inputs monitor two original testbench variables with
+// positive-time changes in opposite orders and an unrelated-variable control.
+// Expected: Selected original task bodies execute with preserved
+// descriptor/receiver identity;write observations check original
+// storage/status and watch observations check selected blocking/return times.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original override observes the printed virtual task through a base receiver.
 // This is declaration/dispatch evidence, not built-in DPI or physical DUT
 // write evidence.

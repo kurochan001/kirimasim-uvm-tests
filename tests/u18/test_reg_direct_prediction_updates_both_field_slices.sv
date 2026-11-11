@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_direct_prediction_updates_both_field_slices.expected
 */
+// What it checks:
+// Register direct prediction updates each field and assembled desired/mirror
+// values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.15 (UVM-REG-PREDICT-MULTIFIELD-SLICES) gives the rule
+// above. Setup: Predict b67a hex into two adjacent eight-bit RW fields.
+// Expected: Prediction succeeds; low/high are 7a/b6 and both aggregate values
+// are b67a.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use explicit values; no hardware read or automatically assigned ID is
 // observed.
 

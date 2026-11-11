@@ -12,6 +12,69 @@
 :expected_exit: 0
 :expected_stdout: @test_block_backdoor_selection_drives_real_register_poke_peek_with_debug_and_failure_controls.expected
 */
+// What it checks:
+// 1. The selected block backdoor services actual accesses to its local
+//    register.
+// 2. A lower block backdoor and a register-local backdoor override the
+//    ancestor for their selected accesses.
+// 3. Changing block setter debug-only source information preserves selected
+//    backdoor access selection and data.
+// 4. The selected backdoor write failure preserves the original backend
+//    storage and peer storage under the original failure policy.
+// 5. Selected inherited register access returns the original backend failure
+//    status.
+// 6. A later valid selected access succeeds with the new stored value after
+//    the original backdoor recovers.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.6.3 (UVM-BLOCK-CONFIG-SET-BACKDOOR-ROOT) gives rule 1
+//    above. Setup: Original delayed user-backdoor storage is accessed through
+//    inherited uvm_reg poke/peek. Root, child and register-local definitions
+//    select three distinct backends; the original backend can reject an
+//    operation. Debug-only block setter filenames and line numbers vary. No
+//    wrapper target method is overridden. Expected: The selected block
+//    backdoor services actual accesses to its local register.
+// 2. 1800.2-2020 18.1.6.3 (UVM-BLOCK-CONFIG-SET-BACKDOOR-LOWER-OVERRIDES)
+//    gives rule 2 above. Setup: Original delayed user-backdoor storage is
+//    accessed through inherited uvm_reg poke/peek. Root, child and
+//    register-local definitions select three distinct backends; the original
+//    backend can reject an operation. Debug-only block setter filenames and
+//    line numbers vary. No wrapper target method is overridden. Expected: A
+//    lower block backdoor and a register-local backdoor override the ancestor
+//    for their selected accesses.
+// 3. 1800.2-2020 18.1.6.3 (UVM-BLOCK-CONFIG-SET-BACKDOOR-DEBUG) gives rule 3
+//    above. Setup: Original delayed user-backdoor storage is accessed through
+//    inherited uvm_reg poke/peek. Root, child and register-local definitions
+//    select three distinct backends; the original backend can reject an
+//    operation. Debug-only block setter filenames and line numbers vary. No
+//    wrapper target method is overridden. Expected: Changing block setter
+//    debug-only source information preserves selected backdoor access
+//    selection and data.
+// 4. 1800.2-2020 18.4.4.11 (UVM-BLOCK-CONFIG-SET-BACKDOOR-ISOLATION) gives
+//    rule 4 above. Setup: Original delayed user-backdoor storage is accessed
+//    through inherited uvm_reg poke/peek. Root, child and register-local
+//    definitions select three distinct backends; the original backend can
+//    reject an operation. Debug-only block setter filenames and line numbers
+//    vary. No wrapper target method is overridden. Expected: The selected
+//    backdoor write failure preserves the original backend storage and peer
+//    storage under the original failure policy.
+// 5. 1800.2-2020 18.4.4.12 (UVM-BLOCK-CONFIG-SET-BACKDOOR-STATUS) gives rule 5
+//    above. Setup: Original delayed user-backdoor storage is accessed through
+//    inherited uvm_reg poke/peek. Root, child and register-local definitions
+//    select three distinct backends; the original backend can reject an
+//    operation. Debug-only block setter filenames and line numbers vary. No
+//    wrapper target method is overridden. Expected: Selected inherited
+//    register access returns the original backend failure status.
+// 6. 1800.2-2020 18.1.6.3 (UVM-BLOCK-CONFIG-SET-BACKDOOR-RETRY) gives rule 6
+//    above. Setup: Original delayed user-backdoor storage is accessed through
+//    inherited uvm_reg poke/peek. Root, child and register-local definitions
+//    select three distinct backends; the original backend can reject an
+//    operation. Debug-only block setter filenames and line numbers vary. No
+//    wrapper target method is overridden. Expected: A later valid selected
+//    access succeeds with the new stored value after the original backdoor
+//    recovers.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original user storage. No physical HDL access or failed-read data oracle.
 module test_block_backdoor_selection_drives_real_register_poke_peek_with_debug_and_failure_controls;
   import uvm_pkg::*;

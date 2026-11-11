@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_block_register_name_lookup_prefers_local_scope_and_finds_descendants.expected
 */
+// What it checks:
+// Register simple-name search prefers local registers, then searches child
+// blocks and returns null when absent.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.3.14 (UVM-BLOCK-REGISTER-SIMPLE-NAME-SEARCH) gives the rule
+// above. Setup: Use duplicate local/child names, unique deep/regfile names and
+// missing/ancestor/peer names before locking; recheck local/deep/regfile
+// matches after locking. Expected: Local duplicates win; descendants and
+// regfile registers are found; out-of-scope or missing names return null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register-model hierarchy only. Queries use fresh result queues and handle
 // membership, without a visit order, address maps, RTL transfers or HDL DPI.
 module test_block_register_name_lookup_prefers_local_scope_and_finds_descendants;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_check_on_read_field_compare_mask_excludes_only_the_selected_field.expected
 */
+// What it checks:
+// A disabled field compare policy excludes only that field from a map read
+// comparison.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.15 (UVM-FIELD-COMPARE-MASK-IN-MAP-READ-CHECK) gives the
+// rule above. Setup: Disable the low nibble and retain checking on high; read
+// low-only then high differences. Expected: The low difference is silent and
+// predicts 12; the high difference reports and predicts 22.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only bus storage, a delayed driver and explicit auto-prediction.
 // Count required discrepancy reports without prescribing report text or IDs.
 // Read-side effects are model prediction, not an RTL storage implementation.

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_pre_read_hook_precedes_the_containing_fields_hook.expected
 */
+// What it checks:
+// Register pre_read runs before its field pre_read.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.8.3 (UVM-REG-PRE-READ-REGISTER-BEFORE-FIELD) gives the rule
+// above. Setup: Record the two hooks for a one-field register read. Expected:
+// Trace is RF, one request occurs and status is OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register callbacks precede the corresponding field callbacks. The shared
 // trace checks the two inherited hooks on a successful access.
 

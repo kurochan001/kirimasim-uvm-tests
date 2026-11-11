@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent.expected
 */
+// What it checks:
+// 1. W0SRC prediction: zero-selected write bits accumulate set bits.
+// 2. W0SRC prediction applies its clear side effect after a sampled read.
+// 3. W0CRS prediction: zero-selected write bits accumulate cleared bits.
+// 4. W0CRS prediction applies its set side effect after a sampled read.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.17 (UVM-FIELD-W0SRC-WRITE-PREDICTION) gives rule 1
+//    above. Setup: Use complementary policies in adjacent bytes and predict
+//    repeated zero-selected writes across a read side effect. Expected: The
+//    selected bits use the previous post-read state and each field keeps its
+//    own slice.
+// 2. 1800.2-2020 18.5.5.17 (UVM-FIELD-W0SRC-READ-PREDICTION) gives rule 2
+//    above. Setup: Read the two complementary fields after distinct write
+//    histories. Expected: W0SRC becomes zero and W0CRS becomes all ones in
+//    both desired and mirror values.
+// 3. 1800.2-2020 18.5.5.17 (UVM-FIELD-W0CRS-WRITE-PREDICTION) gives rule 3
+//    above. Setup: Use complementary policies in adjacent bytes and predict
+//    repeated zero-selected writes across a read side effect. Expected: The
+//    selected bits use the previous post-read state and each field keeps its
+//    own slice.
+// 4. 1800.2-2020 18.5.5.17 (UVM-FIELD-W0CRS-READ-PREDICTION) gives rule 4
+//    above. Setup: Read the two complementary fields after distinct write
+//    histories. Expected: W0SRC becomes zero and W0CRS becomes all ones in
+//    both desired and mirror values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The two fields exercise complementary zero-selected write rules. Read-side
 // clear/set takes effect after sampling; subsequent writes use that new state.
 module test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent;

@@ -13,6 +13,25 @@
 :expected_stdout: @test_register_fifo_mirror_check_with_compare_enabled.expected
 :files: helpers63/fifo_frontdoor_fixture63.svh
 */
+// What it checks:
+// 1. FIFO mismatch checking requires both the mirror check argument and the
+//    compare policy to be enabled.
+// 2. Selected FIFO mirrors apply the joint checking condition while physically
+//    reading the DUT FIFO.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.8.3.2 (UVM-MEM-FIFO-AUDIT-FIFO-COMPARE-GATE) gives rule 1
+//    above. Setup: Independently compile four CHECK/NO_CHECK combinations with
+//    a deliberate 0x11 abstract versus 0x22 physical mismatch and
+//    auto-prediction enabled. Expected: Only both-enabled reports ERROR/FATAL;
+//    every matrix member performs one physical read.
+// 2. 1800.2-2020 18.8.5.6 (UVM-MEM-FIFO-AUDIT-FIFO-MIRROR-GATE) gives rule 2
+//    above. Setup: Independently compile four CHECK/NO_CHECK combinations with
+//    a deliberate 0x11 abstract versus 0x22 physical mismatch and
+//    auto-prediction enabled. Expected: Only both-enabled reports ERROR/FATAL;
+//    every matrix member performs one physical read.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_fifo_mirror_check_with_compare_enabled;
   import uvm_pkg::*;
   `include "fifo_frontdoor_fixture63.svh"

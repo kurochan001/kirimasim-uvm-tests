@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_coverage_register_write_samples_after_bus_completion_before_mirror_update.expected
 */
+// What it checks:
+// Register sampling observes completed data before mirror prediction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.7.7 (UVM-REG-SAMPLE-COMPLETION-BEFORE-PREDICTION) gives the
+// rule above. Setup: Perform separate one-byte write/read fixtures through a
+// delayed driver with auto-prediction. Expected: Each hook runs once after
+// driver completion with matching map/data/direction and byte zero enabled;
+// the mirror is zero in the hook and updates after return.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe coverage-control metadata and testbench sampling hooks only.
 // These counters are not covergroups, bin coverage or a coverage percentage.
 module test_coverage_register_write_samples_after_bus_completion_before_mirror_update;

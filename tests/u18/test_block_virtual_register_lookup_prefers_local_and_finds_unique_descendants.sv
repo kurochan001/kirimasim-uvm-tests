@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_block_virtual_register_lookup_prefers_local_and_finds_unique_descendants.expected
 */
+// What it checks:
+// 1. The virtual register name query prefers a local match over a descendant.
+// 2. The virtual register name query finds unambiguous descendant matches.
+// 3. The virtual register name query returns null for missing, ancestor-only
+//    or independent-root names.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.3.17 (UVM-BLOCK-VREG-NAME-LOCAL-PRECEDENCE) gives rule 1
+//    above. Setup: Use the same simple name in the root and child. Expected:
+//    Root and child queries return their own exact handles.
+// 2. 1800.2-2020 18.1.3.17 (UVM-BLOCK-VREG-NAME-DESCENDANT-SEARCH) gives rule
+//    2 above. Setup: Search unique names below the local block. Expected: The
+//    expected descendant handles are returned exactly.
+// 3. 1800.2-2020 18.1.3.17 (UVM-BLOCK-VREG-NAME-MISSING-AND-OUTSIDE-SCOPE)
+//    gives rule 3 above. Setup: Query three out-of-scope or absent names.
+//    Expected: All three results are null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_virtual_register_lookup_prefers_local_and_finds_unique_descendants;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

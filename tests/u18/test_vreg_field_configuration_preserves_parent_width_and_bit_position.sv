@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_field_configuration_preserves_parent_width_and_bit_position.expected
 */
+// What it checks:
+// 1. Virtual-field configuration records the selected parent virtual register.
+// 2. Virtual-field configuration records its selected width in bits.
+// 3. Virtual-field configuration records its selected least-significant bit
+//    position.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.10.2.2 (UVM-VREG-FIELD-CONFIGURATION-METADATA) gives rule
+//    1 above. Setup: Configure a five-bit field starting at bit seven.
+//    Expected: The parent column identifies the configured virtual register.
+// 2. 1800.2-2020 18.10.2.2 (UVM-VREG-QUERY-FIELD-CONFIGURE-WIDTH) gives rule 2
+//    above. Setup: Factory-create a field and configure width 5, LSB 0 in a
+//    40-bit virtual register. Factory-create a field and configure width 11,
+//    LSB 7 in a 40-bit virtual register. Also configure a five-bit field at
+//    LSB seven in a sixteen-bit virtual register. Expected: Only the width
+//    value in each linked observation is bound to this duty.
+// 3. 1800.2-2020 18.10.2.2 (UVM-VREG-QUERY-FIELD-CONFIGURE-LSB) gives rule 3
+//    above. Setup: Factory-create a field and configure width 5, LSB 0 in a
+//    40-bit virtual register. Factory-create a field and configure width 11,
+//    LSB 7 in a 40-bit virtual register. Also configure a five-bit field at
+//    LSB seven in a sixteen-bit virtual register. Expected: Only the lsb value
+//    in each linked observation is bound to this duty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The virtual field is created through its factory wrapper, then configured
 // inside the parent virtual register.
 

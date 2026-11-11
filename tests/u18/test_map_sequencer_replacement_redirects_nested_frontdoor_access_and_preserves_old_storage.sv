@@ -12,6 +12,41 @@
 :expected_exit: 0
 :expected_stdout: @test_map_sequencer_replacement_redirects_nested_frontdoor_access_and_preserves_old_storage.expected
 */
+// What it checks:
+// 1. set_sequencer associates the selected sequencer and adapter pair with the
+//    map.
+// 2. Replacing a root map sequencer/adapter redirects the selected later
+//    child-map transfers and preserves the old driver storage.
+// 3. Adding the selected child map composes its register address with the
+//    parent map base and submap offset.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.3.6 (UVM-MAP-SCOPE-SET-SEQUENCER-ADAPTER) gives rule 1
+//    above. Setup: Use the selected getter-only map settings or the separate
+//    original four-byte adapter/sequencer/driver path to a 32-bit RW child-map
+//    register. In the real path both root sequencers connect to distinct live
+//    original drivers, and replacement follows a completed write/read pair.
+//    Adapter context and original stores independently observe selection.
+//    Expected: set_sequencer associates the selected sequencer and adapter
+//    pair with the map.
+// 2. 1800.2-2020 18.2.3.6 (UVM-MAP-SCOPE-SET-REPLACEMENT) gives rule 2 above.
+//    Setup: Use the selected getter-only map settings or the separate original
+//    four-byte adapter/sequencer/driver path to a 32-bit RW child-map
+//    register. In the real path both root sequencers connect to distinct live
+//    original drivers, and replacement follows a completed write/read pair.
+//    Adapter context and original stores independently observe selection.
+//    Expected: Replacing a root map sequencer/adapter redirects the selected
+//    later child-map transfers and preserves the old driver storage.
+// 3. 1800.2-2020 18.2.3.5 (UVM-MAP-SCOPE-SUBMAP-COMPOSITION) gives rule 3
+//    above. Setup: Use the selected getter-only map settings or the separate
+//    original four-byte adapter/sequencer/driver path to a 32-bit RW child-map
+//    register. In the real path both root sequencers connect to distinct live
+//    original drivers, and replacement follows a completed write/read pair.
+//    Adapter context and original stores independently observe selection.
+//    Expected: Adding the selected child map composes its register address
+//    with the parent map base and submap offset.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_map_sequencer_replacement_redirects_nested_frontdoor_access_and_preserves_old_storage;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_submap_relocation_updates_child_base_and_register_address.expected
 */
+// What it checks:
+// 1. Changing a submap offset relocates its child base and descendant external
+//    register address.
+// 2. A child map base includes the parent base and the child map offset.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.3.8 (UVM-SUBMAP-OFFSET-RELOCATION) gives rule 1 above.
+//    Setup: Move the child offset from 40 to 80 under the same root. Expected:
+//    The child base becomes 180 and the register external address changes from
+//    150 to 190.
+// 2. 1800.2-2020 18.2.4.4 (UVM-MAP-HIERARCHICAL-BASE) gives rule 2 above.
+//    Setup: Query a nonzero root base and relocate a child offset in another
+//    fixture. Expected: The base includes both offsets and tracks relocation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Equal parent and child bus widths isolate relocation from the known
 // narrower-root width difference. The register keeps its local offset.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_user_backdoor_decode_single_propagates_all_value_elements.expected
 */
+// What it checks:
+// Decoded data reaches the post-read methods and returned read values as clear
+// text.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.8 (UVM-REG-PIPELINE-DECODE-FINAL-CLEAR-DATA) gives the
+// rule above. Setup: A single decoder XORs stored encoded values 0x0c/0x3a by
+// 0x1f. Expected: Post callback/hook and the caller see clear values
+// 0x13/0x25.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The standard requires callback transformations to reach the next callback
 // and the actual value path. Two noncommuting operations and two memory-value
 // elements distinguish order from value propagation. The library helpers

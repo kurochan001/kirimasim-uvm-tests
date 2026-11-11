@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_hard_reset_restores_desired_and_mirror.expected
 */
+// What it checks:
+// Default HARD reset restores desired and mirror field values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.4 (UVM-FIELD-HARD-RESET-RESTORES-BOTH-VIEWS) gives the
+// rule above. Setup: Predict a6 after reset 35, then reset without an
+// argument. Expected: Both values change from a6 back to 35 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Prediction changes model values only; reset must restore both views.
 // No DUT or bus access is performed.
 

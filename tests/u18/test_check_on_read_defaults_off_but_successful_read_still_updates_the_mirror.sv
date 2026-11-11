@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_check_on_read_defaults_off_but_successful_read_still_updates_the_mirror.expected
 */
+// What it checks:
+// Check-on-read defaults to no discrepancy check.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.5.3 (UVM-MAP-CHECK-READ-DEFAULT-DISABLED) gives the rule
+// above. Setup: Read 5a after model reset 11 without calling
+// set_check_on_read. Expected: No ERROR occurs, returned/mirror values become
+// 5a and one bus read completes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only bus storage, a delayed driver and explicit auto-prediction.
 // Count required discrepancy reports without prescribing report text or IDs.
 // Read-side effects are model prediction, not an RTL storage implementation.

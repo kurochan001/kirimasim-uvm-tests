@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_rights_query_reports_a_warning_for_an_unrelated_map.expected
 */
+// What it checks:
+// 1. The selected memory rights query warns for a map that does not contain
+//    the memory.
+// 2. Invalid-map memory rights return RW.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.4.5 (UVM-MEM-FIFO-AUDIT-MEM-INVALID-RIGHTS-WARNING)
+//    gives rule 1 above. Setup: Observe a valid explicit address first, then
+//    gate a catcher around one unrelated-map call in a fresh independent
+//    fixture. Expected: At least one UVM_WARNING is reported without an exact
+//    ID/text/count requirement.
+// 2. 1800.2-2020 18.6.4.5 (UVM-MEM-FIFO-AUDIT-MEM-INVALID-RIGHTS-FALLBACK)
+//    gives rule 2 above. Setup: Use one otherwise valid memory and one
+//    unrelated configured map; initialize the output array with two distinct
+//    sentinels where applicable. Expected: The unrelated-map result is RW
+//    independently of its warning obligation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_rights_query_reports_a_warning_for_an_unrelated_map;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

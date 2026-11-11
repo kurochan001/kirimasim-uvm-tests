@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_dynamic_resize_without_memory_preserves_placement.expected
 */
+// What it checks:
+// Omitting memory while resizing retains the current implementation placement.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.3 (UVM-VREG-RESIZE-OMITTED-MEMORY-PLACEMENT) gives the
+// rule above. Setup: Implement two elements at offset/increment two, then
+// request size three without memory. Expected: Resize succeeds, exact memory
+// remains and size/offset/increment are 3/2/2.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Omitting the memory argument resizes an existing dynamic array while
 // retaining its memory, base offset and increment.
 

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_write_one_toggle_prediction_accumulates_toggles.expected
 */
+// What it checks:
+// W1T write prediction toggles selected one bits in the current state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-FIELD-W1T-PREDICTION-ACCUMULATION) gives the rule
+// above. Setup: Starting a5, predict writes 0f and 30 hex. Expected:
+// Desired/mirror become aa then 9a hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Selected one bits toggle the state produced by the preceding prediction.
 // The input represents an observation, not a physical bus operation.
 

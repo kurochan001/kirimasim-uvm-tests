@@ -1,5 +1,7 @@
 class block85 extends uvm_reg_block;
-  function new(); super.new("owner85",UVM_NO_COVERAGE); endfunction
+  function new();
+    super.new("owner85",UVM_NO_COVERAGE);
+  endfunction
 endclass
 
 // Original user backdoor storage; this class does not access HDL.
@@ -14,7 +16,9 @@ class storage85 extends uvm_reg_backdoor;
   virtual task write(uvm_reg_item rw);
     #1;
     if (rw.get_offset()>=32) begin
-      bad_address=1; rw.set_status(UVM_NOT_OK); return;
+      bad_address=1;
+      rw.set_status(UVM_NOT_OK);
+      return;
     end
     words[rw.get_offset()]=rw.get_value(0) & word_mask;
     rw.set_status(UVM_IS_OK);
@@ -22,7 +26,9 @@ class storage85 extends uvm_reg_backdoor;
   virtual task read(uvm_reg_item rw);
     #1;
     if (rw.get_offset()>=32) begin
-      bad_address=1; rw.set_status(UVM_NOT_OK); return;
+      bad_address=1;
+      rw.set_status(UVM_NOT_OK);
+      return;
     end
     rw.set_value(words[rw.get_offset()] & word_mask);
     rw.set_status(UVM_IS_OK);

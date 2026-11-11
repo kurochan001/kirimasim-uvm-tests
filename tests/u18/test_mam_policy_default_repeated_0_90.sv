@@ -14,6 +14,74 @@
 :expected_exit: 0
 :expected_stdout: @test_mam_policy_default_repeated_0_90.expected
 */
+// What it checks:
+// 1. The selected default allocation-policy object is randomized for
+//    successive requests with no explicit policy.
+// 2. The selected policy receives the request length in complete memory
+//    locations.
+// 3. The policy minimum offset describes the configured managed-space minimum
+//    before randomization.
+// 4. The policy maximum offset describes the configured managed-space maximum
+//    before randomization.
+// 5. The policy in_use queue identifies the regions already allocated when
+//    that request is randomized.
+//
+// Variant: Input 0 uses one byte per location at offset 0; input 1 uses two
+// bytes per location at offset 64 and requests one byte less than three
+// locations.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.3 (UVM-MAM-DEFAULT-POLICY-REPEATED-90) gives rule 1
+//    above. Setup: Use original constrained policies on two layouts:64
+//    locations at base0/64 with1/2bytes per location. A live reservation
+//    remains while three requests observe selected pre/post randomization
+//    hooks without an exact retry count. Hook snapshots compare rounded
+//    request length,configured bounds and unordered prior-region membership.
+//    Fixed starts remove sampling assumptions;previous endpoints and an
+//    independent peer are checked. Expected: Each constrained request observes
+//    another pre/post callback on the same selected object and returns its
+//    selected valid region.
+// 2. 1800.2-2020 18.12.8.2.1 (UVM-MAM-POLICY-ROUNDED-LEN-90) gives rule 2
+//    above. Setup: Use original constrained policies on two layouts:64
+//    locations at base0/64 with1/2bytes per location. A live reservation
+//    remains while three requests observe selected pre/post randomization
+//    hooks without an exact retry count. Hook snapshots compare rounded
+//    request length,configured bounds and unordered prior-region membership.
+//    Fixed starts remove sampling assumptions;previous endpoints and an
+//    independent peer are checked. Expected: Pre-randomize snapshots see three
+//    locations for three bytes on one-byte locations and five requested bytes
+//    on two-byte locations.
+// 3. 1800.2-2020 18.12.8.2.3 (UVM-MAM-POLICY-MINIMUM-CONTEXT-90) gives rule 3
+//    above. Setup: Use original constrained policies on two layouts:64
+//    locations at base0/64 with1/2bytes per location. A live reservation
+//    remains while three requests observe selected pre/post randomization
+//    hooks without an exact retry count. Hook snapshots compare rounded
+//    request length,configured bounds and unordered prior-region membership.
+//    Fixed starts remove sampling assumptions;previous endpoints and an
+//    independent peer are checked. Expected: Each selected callback sees the
+//    layout minimum0 or64,including repeated,replaced,explicit and
+//    contradictory-policy requests.
+// 4. 1800.2-2020 18.12.8.2.4 (UVM-MAM-POLICY-MAXIMUM-CONTEXT-90) gives rule 4
+//    above. Setup: Use original constrained policies on two layouts:64
+//    locations at base0/64 with1/2bytes per location. A live reservation
+//    remains while three requests observe selected pre/post randomization
+//    hooks without an exact retry count. Hook snapshots compare rounded
+//    request length,configured bounds and unordered prior-region membership.
+//    Fixed starts remove sampling assumptions;previous endpoints and an
+//    independent peer are checked. Expected: Each selected callback sees
+//    base+63 rather than an unrelated peer range or a stale configuration.
+// 5. 1800.2-2020 18.12.8.2.5 (UVM-MAM-POLICY-IN-USE-CONTEXT-90) gives rule 5
+//    above. Setup: Use original constrained policies on two layouts:64
+//    locations at base0/64 with1/2bytes per location. A live reservation
+//    remains while three requests observe selected pre/post randomization
+//    hooks without an exact retry count. Hook snapshots compare rounded
+//    request length,configured bounds and unordered prior-region membership.
+//    Fixed starts remove sampling assumptions;previous endpoints and an
+//    independent peer are checked. Expected: Pre-randomize snapshots match
+//    prior live handles by membership and cardinality without fixing queue
+//    order,and failed allocation adds no live handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original constrained-policy hooks observe selected policy, contextual inputs
 // and region preservation; no private algorithm or exact retry count.
 module test_mam_policy_default_repeated_0_90;

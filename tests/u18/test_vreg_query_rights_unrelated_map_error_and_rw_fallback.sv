@@ -13,6 +13,21 @@
 :expected_stdout: @test_vreg_query_rights_unrelated_map_error_and_rw_fallback.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// 1. An unrelated map in the rights query returns RW.
+// 2. An unrelated map in the rights query generates ERROR.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.9.1.2.6 (UVM-VREG-QUERY-INVALID-RIGHTS-FALLBACK) gives
+//    rule 1 above. Setup: Query a map containing only peer memory and observe
+//    only the query report interval. Expected: Only the separately anchored
+//    fallback observation is bound to this duty.
+// 2. 1800.2-2020 18.9.1.2.6 (UVM-VREG-QUERY-INVALID-RIGHTS-ERROR) gives rule 2
+//    above. Setup: Query a map containing only peer memory and observe only
+//    the query report interval. Expected: Only the separately anchored error
+//    observation is bound to this duty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_rights_unrelated_map_error_and_rw_fallback;

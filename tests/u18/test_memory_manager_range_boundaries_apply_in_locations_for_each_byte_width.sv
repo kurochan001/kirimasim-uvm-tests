@@ -12,6 +12,39 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_range_boundaries_apply_in_locations_for_each_byte_width.expected
 */
+// What it checks:
+// 1. A requested range outside configured memory bounds cannot be reserved.
+// 2. Configured bytes per location control reservation capacity while offsets
+//    remain location addresses.
+// 3. The configured start is an inclusive location boundary; a reservation
+//    below it is rejected.
+// 4. The configured end is an inclusive location boundary; reservations beyond
+//    or crossing it are rejected.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.5.1 (UVM-MAM-OUTSIDE-BOUNDS-REJECTION) gives rule 1
+//    above. Setup: With bounds 4..15, try one location at three and two at
+//    fifteen. Expected: Both return null and active-region count remains zero.
+// 2. 1800.2-2020 18.12.9.2.1 (UVM-MAM-AUDIT-CONFIGURATION-BYTE-UNITS) gives
+//    rule 2 above. Setup: Use the linked original fixtures and the explicit
+//    sizes, location offsets, handles and observations they declare.
+//    Allocation inputs are configured explicitly rather than relying on
+//    unspecified initial defaults. Expected: Configured bytes per location
+//    control reservation capacity while offsets remain location addresses.
+// 3. 1800.2-2020 18.12.9.2.2 (UVM-MAM-AUDIT-CONFIGURATION-FIRST) gives rule 3
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: The configured start is an inclusive location
+//    boundary; a reservation below it is rejected.
+// 4. 1800.2-2020 18.12.9.2.3 (UVM-MAM-AUDIT-CONFIGURATION-LAST) gives rule 4
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: The configured end is an inclusive location
+//    boundary; reservations beyond or crossing it are rejected.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_manager_range_boundaries_apply_in_locations_for_each_byte_width;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

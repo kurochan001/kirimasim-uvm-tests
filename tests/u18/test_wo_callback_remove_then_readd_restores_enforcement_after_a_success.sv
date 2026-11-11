@@ -13,6 +13,20 @@
 :expected_exit: 0
 :expected_stdout: @test_wo_callback_remove_then_readd_restores_enforcement_after_a_success.expected
 */
+// What it checks:
+// Re-adding a removed protection callback restores rejection after an allowed
+// operation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.5.2.2 (UVM-PROTECTION-AUDIT-WO-READD) gives the rule
+// above. Setup: Adding protection after removal enforces a later access again.
+// Fresh original sixteen-bit RW models, two contained byte fields and
+// independent frontdoor/backdoor storage; exact message text/count and
+// physical HDL are not prescribed. Expected: The first and last accesses
+// reject; the middle access after removal succeeds, and the final rejection
+// adds no transfer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_wo_callback_remove_then_readd_restores_enforcement_after_a_success;
   import uvm_pkg::*;

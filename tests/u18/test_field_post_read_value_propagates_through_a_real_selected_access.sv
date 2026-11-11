@@ -13,6 +13,17 @@
 :expected_exit: 0
 :expected_stdout: @test_field_post_read_value_propagates_through_a_real_selected_access.expected
 */
+// What it checks:
+// A field post-read data change reaches the caller without rewriting storage.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.6.4 (UVM-FIELD-ACCESS-AUDIT-POST-READ-VALUE) gives the rule
+// above. Setup: Set exactly one original method or registered callback change,
+// then call the public field read/write API. Route buffers are independent
+// testbench controls, not a proof of physical alias coherence. Expected: The
+// returned data is 0x73 while original storage remains 0x11.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_post_read_value_propagates_through_a_real_selected_access;
   import uvm_pkg::*;

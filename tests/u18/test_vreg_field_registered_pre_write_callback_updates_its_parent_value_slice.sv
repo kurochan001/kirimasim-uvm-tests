@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_field_registered_pre_write_callback_updates_its_parent_value_slice.expected
 */
+// What it checks:
+// A virtual-field pre_write callback can replace only its parent write slice.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.6.2.1 (UVM-VREG-FIELD-PRE-WRITE-SLICE) gives the rule
+// above. Setup: Write 3344 hex while replacing bits 7..4 with a hex. Expected:
+// One callback writes bytes a4/33 hex with OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The field callback changes bits 7:4 during a full virtual-register write.
 // Other bits retain the supplied value.
 

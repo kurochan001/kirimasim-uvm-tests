@@ -13,6 +13,20 @@
 :expected_exit: 0
 :expected_stdout: @test_ro_callback_concrete_declaration_retains_register_callback_ancestry.expected
 */
+// What it checks:
+// The predefined protection callback has a concrete register-callback base
+// view.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.4.1 (UVM-PROTECTION-AUDIT-RO-DECLARATION) gives the rule
+// above. Setup: The predefined protection callback is concrete and extends the
+// register callback facade. Fresh original sixteen-bit RW models, two
+// contained byte fields and independent frontdoor/backdoor storage; exact
+// message text/count and physical HDL are not prescribed. Expected:
+// Construction succeeds and both callback base casts retain the original
+// handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_ro_callback_concrete_declaration_retains_register_callback_ancestry;
   import uvm_pkg::*;

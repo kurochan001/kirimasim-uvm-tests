@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_registered_pre_read_callback_redirects_the_offset_and_map_before_transfer.expected
 */
+// What it checks:
+// A memory pre_read callback runs after its method and can redirect the offset
+// and map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.4 (UVM-MEMORY-PRE-READ-CALLBACK-REDIRECT) gives the rule
+// above. Setup: Select another of two explicit maps and another memory offset
+// in the callback. Expected: Only the new map frontdoor executes at offset
+// six, returning a6; removing the callback restores the original map/offset.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library caches the original local map before pre_read callbacks.
 // A user frontdoor supplies deterministic testbench storage. Hooks are the
 // subject; no RTL protocol, HDL DPI, adapter or passive predictor is involved.

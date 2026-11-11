@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_block_inherited_backdoor_queries_follow_later_ancestor_replacement_without_local_assignment.expected
 */
+// What it checks:
+// 1. Without an explicitly specified local backdoor, a later inherited query
+//    returns the new ancestor backdoor.
+// 2. An inherited query alone does not specify a local user backdoor for a
+//    later noninherited query.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.6.2 (UVM-BLOCK-CONFIG-BACKDOOR-REPLACEMENT) gives rule 1
+//    above. Setup: An original three-level block hierarchy and separate peer
+//    use distinct original backdoor objects. All selected lower-level
+//    overrides are explicitly assigned. The replacement case deliberately
+//    queries inherited handles before changing the ancestor without assigning
+//    a local override. Expected: Without an explicitly specified local
+//    backdoor, a later inherited query returns the new ancestor backdoor.
+// 2. 1800.2-2020 18.1.6.2 (UVM-BLOCK-CONFIG-BACKDOOR-QUERY-NOT-LOCAL-SET)
+//    gives rule 2 above. Setup: An original three-level block hierarchy and
+//    separate peer use distinct original backdoor objects. All selected
+//    lower-level overrides are explicitly assigned. The replacement case
+//    deliberately queries inherited handles before changing the ancestor
+//    without assigning a local override. Expected: An inherited query alone
+//    does not specify a local user backdoor for a later noninherited query.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // No local backdoor is assigned to child/deep; queries alone do not override.
 module
   test_block_inherited_backdoor_queries_follow_later_ancestor_replacement_without_local_assignment;

@@ -13,6 +13,18 @@
 :expected_exit: 0
 :expected_stdout: @test_field_registered_callback_mode_changes_only_subsequent_access_delivery.expected
 */
+// What it checks:
+// Changing selected field callback enable/membership affects subsequent
+// delivery.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.1.2.2 (UVM-FIELD-ACCESS-AUDIT-CALLBACK-MODE) gives the rule
+// above. Setup: Register one payload-changing callback, perform a write,
+// disable or delete it, then repeat the same original input write. Expected:
+// The first transfer stores 0x73; the next stores unmodified 0x21, with one
+// callback call and two provider transfers.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_registered_callback_mode_changes_only_subsequent_access_delivery;
   import uvm_pkg::*;

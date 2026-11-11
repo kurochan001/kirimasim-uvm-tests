@@ -13,6 +13,18 @@
 :expected_stdout: @test_vreg_query_address_explicit_byte_units.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// The virtual element external address uses the selected map address units.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.2.15 (UVM-VREG-QUERY-ADDRESS-EXPLICIT-BYTE-UNITS) gives
+// the rule above. Setup: Use byte addressing: map base 0x1000, memory offset
+// 0x80, element word offset 19 at two bytes each. Expected: The stated
+// identity, count, policy, offset or diagnostic-presence observations match.
+// It also supports, as a control, the setup or conditions of
+// UVM-VREG-QUERY-ADDRESS-UNRELATED-MAP-WARNS-WITHOUT-PRESCRIBING-VALUE.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_address_explicit_byte_units;

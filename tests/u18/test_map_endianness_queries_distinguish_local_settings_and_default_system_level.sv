@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_map_endianness_queries_distinguish_local_settings_and_default_system_level.expected
 */
+// What it checks:
+// 1. Explicit NO_HIER endian queries report each selected locally configured
+//    bus endianness.
+// 2. Explicit HIER endian queries return the system-level bus endianness
+//    through selected nested maps.
+// 3. Omitting get_endian hier uses the selected system-level endian setting.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.4.7 (UVM-MAP-SCOPE-ENDIAN-LOCAL) gives rule 1 above.
+//    Setup: Original configured blocks, owned maps and selected explicit
+//    public calls. Parent/child maps use valid ownership and are locked before
+//    width-dependent queries. Getter-only observers do not override the
+//    library algorithms. Expected: Explicit NO_HIER endian queries report each
+//    selected locally configured bus endianness.
+// 2. 1800.2-2020 18.2.4.7 (UVM-MAP-SCOPE-ENDIAN-SYSTEM) gives rule 2 above.
+//    Setup: Original configured blocks, owned maps and selected explicit
+//    public calls. Parent/child maps use valid ownership and are locked before
+//    width-dependent queries. Getter-only observers do not override the
+//    library algorithms. Expected: Explicit HIER endian queries return the
+//    system-level bus endianness through selected nested maps.
+// 3. 1800.2-2020 18.2.4.7 (UVM-MAP-SCOPE-ENDIAN-DEFAULT) gives rule 3 above.
+//    Setup: Original configured blocks, owned maps and selected explicit
+//    public calls. Parent/child maps use valid ownership and are locked before
+//    width-dependent queries. Getter-only observers do not override the
+//    library algorithms. Expected: Omitting get_endian hier uses the selected
+//    system-level endian setting.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Getter metadata only; this fixture does not certify physical beat ordering.
 module test_map_endianness_queries_distinguish_local_settings_and_default_system_level;
   import uvm_pkg::*;

@@ -14,6 +14,24 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_backdoor_watch_dispatch_0_90.expected
 */
+// What it checks:
+// The printed register backdoor_watch virtual task is callable through
+// register base receivers and dispatches the selected monitoring override.
+//
+// Variant: Inputs 0 and 1 swap the order in which the two registers are
+// watched.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.6.12 (UVM-REG-BACKDOOR-WATCH-VIRTUAL-DISPATCH-90) gives the
+// rule above. Setup: Use two original concrete register subtypes through exact
+// uvm_reg base receivers. Write inputs alternate descriptor
+// values/receivers;watch inputs monitor two original testbench variables with
+// positive-time changes in opposite orders and an unrelated-variable control.
+// Expected: Selected original task bodies execute with preserved
+// descriptor/receiver identity;write observations check original
+// storage/status and watch observations check selected blocking/return times.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original override waits on testbench HDL variables through the printed base
 // task. Its body is setup; no default watch algorithm or complete change-
 // monitoring behavior is certified.

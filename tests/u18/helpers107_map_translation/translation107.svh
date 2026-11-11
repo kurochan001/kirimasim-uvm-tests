@@ -1,9 +1,13 @@
 // Original public-map fixture; no bus, HDL storage or implementation-derived oracle.
 class block107 extends uvm_reg_block;
-  function new(string name); super.new(name, UVM_NO_COVERAGE); endfunction
+  function new(string name);
+    super.new(name, UVM_NO_COVERAGE);
+  endfunction
 endclass
 class reg107 extends uvm_reg;
-  function new(string name); super.new(name, 32, UVM_NO_COVERAGE); endfunction
+  function new(string name);
+    super.new(name, 32, UVM_NO_COVERAGE);
+  endfunction
 endclass
 
 function automatic void populate107(input block107 owner, input uvm_reg_map mapping,
@@ -65,8 +69,12 @@ task automatic exercise107(input int unsigned local_width, input int unsigned ro
            mapping.get_base_addr(), mapping.get_n_bytes(UVM_NO_HIER),
            mapping.get_n_bytes(), mapping.get_addr_unit_bytes());
   addresses = new[3];
-  addresses[0] = 'hdead; addresses[1] = 'hbeef; addresses[2] = 'hcafe;
-  independent = new[2]; independent[0] = 'h55; independent[1] = 'haa;
+  addresses[0] = 'hdead;
+  addresses[1] = 'hbeef;
+  addresses[2] = 'hcafe;
+  independent = new[2];
+  independent[0] = 'h55;
+  independent[1] = 'haa;
   query107(mapping, "wide_first", 2 * local_width, 0, addresses);
   if (fifo) begin
     query107(mapping, "single", local_width, 0, addresses);

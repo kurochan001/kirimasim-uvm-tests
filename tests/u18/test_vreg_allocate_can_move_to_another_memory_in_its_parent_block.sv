@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_allocate_can_move_to_another_memory_in_its_parent_block.expected
 */
+// What it checks:
+// Dynamic allocation can move a virtual array to another memory in its parent
+// block.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.4 (UVM-VREG-ALLOCATE-MOVE-SAME-BLOCK) gives the rule
+// above. Setup: Allocate two elements in the first memory, then three in
+// another. Expected: The exact new memory and size three are reported, the old
+// range is available and one new region is active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Relocation can select the manager of a second memory in the same block. The
 // original memory range is returned to its manager.
 

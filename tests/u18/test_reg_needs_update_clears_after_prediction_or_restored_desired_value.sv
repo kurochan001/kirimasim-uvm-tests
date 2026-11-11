@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_needs_update_clears_after_prediction_or_restored_desired_value.expected
 */
+// What it checks:
+// Register needs_update reflects a changed field and clears after
+// reconciliation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.4 (UVM-REG-UPDATE-NEED-FIELD-AGGREGATION) gives the rule
+// above. Setup: Change low, predict the aggregate, change high and restore
+// high desired. Expected: The update flag follows one/zero/one/zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // One changed field must dirty the whole register. Prediction and restoring
 // the desired value are checked as separate ways to remove the difference.
 

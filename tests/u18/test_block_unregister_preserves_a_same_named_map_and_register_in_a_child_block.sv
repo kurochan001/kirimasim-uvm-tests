@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_block_unregister_preserves_a_same_named_map_and_register_in_a_child_block.expected
 */
+// What it checks:
+// Unregistering a local map preserves distinct same-named child maps and their
+// content.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.2.11 (UVM-BLOCK-UNREGISTER-CHILD-IDENTITY-ISOLATION) gives
+// the rule above. Setup: Use equal map/register leaf names in a root and
+// child, then unregister only the root map. Expected: Root local map/register
+// listings become empty while child and hierarchical listings retain the exact
+// child register and parent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_unregister_preserves_a_same_named_map_and_register_in_a_child_block;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

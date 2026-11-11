@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.expected
 */
+// What it checks:
+// 1. An omitted has_hdl_path kind uses the nearest explicitly configured
+//    ancestor default kind.
+// 2. A nearer explicitly configured default kind changes the omitted
+//    descendant presence query without changing an explicit other-kind query.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.6.6 (UVM-BLOCK-CONFIG-HAS-HDL-ANCESTOR-DEFAULT) gives
+//    rule 1 above. Setup: Original root, flattened intermediate and leaf
+//    blocks use selected symbolic path strings. Only metadata getters are
+//    called; explicit RTL is used unless the fixture deliberately tests
+//    default-kind inheritance. Expected: An omitted has_hdl_path kind uses the
+//    nearest explicitly configured ancestor default kind.
+// 2. 1800.2-2020 18.1.6.6 (UVM-BLOCK-CONFIG-HAS-HDL-NEAREST-DEFAULT) gives
+//    rule 2 above. Setup: Original root, flattened intermediate and leaf
+//    blocks use selected symbolic path strings. Only metadata getters are
+//    called; explicit RTL is used unless the fixture deliberately tests
+//    default-kind inheritance. Expected: A nearer explicitly configured
+//    default kind changes the omitted descendant presence query without
+//    changing an explicit other-kind query.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Symbolic kind selection only; retain the independent ancestor-default oracle.
 module
   test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries;

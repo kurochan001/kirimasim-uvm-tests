@@ -12,6 +12,65 @@
 :expected_exit: 0
 :expected_stdout: @test_register_model_value_queries_preserve_debug_invariance_and_do_not_read_original_storage.expected
 */
+// What it checks:
+// 1. The selected getter returns the desired model value independently of
+//    distinct original storage.
+// 2. Changing debug-only source information preserves the selected desired
+//    getter result.
+// 3. The selected desired query reads no original storage and performs no
+//    write before the independent live peek control.
+// 4. The selected getter returns the mirrored model value independently of
+//    distinct original storage.
+// 5. Changing debug-only source information preserves the selected mirrored
+//    getter result.
+// 6. The selected mirrored query reads no original storage and performs no
+//    write before the independent live peek control.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.4.1 (UVM-REGISTER-CONTRACT-GET-MODEL-VALUE) gives rule 1
+//    above. Setup: The selected original user backdoor stores CAFE, while
+//    explicit predict sets model mirror 5522 and set changes desired to AA99.
+//    Query calls vary omitted/default and explicit debug source information; a
+//    later real peek establishes that the attached original backend is live.
+//    Expected: The selected getter returns the desired model value
+//    independently of distinct original storage.
+// 2. 1800.2-2020 18.4.4.1 (UVM-REGISTER-CONTRACT-GET-DEBUG) gives rule 2
+//    above. Setup: The selected original user backdoor stores CAFE, while
+//    explicit predict sets model mirror 5522 and set changes desired to AA99.
+//    Query calls vary omitted/default and explicit debug source information; a
+//    later real peek establishes that the attached original backend is live.
+//    Expected: Changing debug-only source information preserves the selected
+//    desired getter result.
+// 3. 1800.2-2020 18.4.4.1 (UVM-REGISTER-CONTRACT-GET-NO-DUT-READ) gives rule 3
+//    above. Setup: The selected original user backdoor stores CAFE, while
+//    explicit predict sets model mirror 5522 and set changes desired to AA99.
+//    Query calls vary omitted/default and explicit debug source information; a
+//    later real peek establishes that the attached original backend is live.
+//    Expected: The selected desired query reads no original storage and
+//    performs no write before the independent live peek control.
+// 4. 1800.2-2020 18.4.4.3 (UVM-REGISTER-CONTRACT-MIRROR-MODEL-VALUE) gives
+//    rule 4 above. Setup: The selected original user backdoor stores CAFE,
+//    while explicit predict sets model mirror 5522 and set changes desired to
+//    AA99. Query calls vary omitted/default and explicit debug source
+//    information; a later real peek establishes that the attached original
+//    backend is live. Expected: The selected getter returns the mirrored model
+//    value independently of distinct original storage.
+// 5. 1800.2-2020 18.4.4.3 (UVM-REGISTER-CONTRACT-MIRROR-DEBUG) gives rule 5
+//    above. Setup: The selected original user backdoor stores CAFE, while
+//    explicit predict sets model mirror 5522 and set changes desired to AA99.
+//    Query calls vary omitted/default and explicit debug source information; a
+//    later real peek establishes that the attached original backend is live.
+//    Expected: Changing debug-only source information preserves the selected
+//    mirrored getter result.
+// 6. 1800.2-2020 18.4.4.3 (UVM-REGISTER-CONTRACT-MIRROR-NO-DUT-READ) gives
+//    rule 6 above. Setup: The selected original user backdoor stores CAFE,
+//    while explicit predict sets model mirror 5522 and set changes desired to
+//    AA99. Query calls vary omitted/default and explicit debug source
+//    information; a later real peek establishes that the attached original
+//    backend is live. Expected: The selected mirrored query reads no original
+//    storage and performs no write before the independent live peek control.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_model_value_queries_preserve_debug_invariance_and_do_not_read_original_storage;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

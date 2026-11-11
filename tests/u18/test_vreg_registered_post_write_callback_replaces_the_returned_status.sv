@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_registered_post_write_callback_replaces_the_returned_status.expected
 */
+// What it checks:
+// A virtual-register post_write callback can change the returned status after
+// the physical write.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.2.2.2 (UVM-VREG-POST-WRITE-CALLBACK-STATUS) gives the rule
+// above. Setup: Write 3344 hex, then assign NOT_OK. Expected: One callback
+// returns failure while stored bytes remain 44/33 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The virtual-register callback changes status after successful memory writes.
 // The physical values remain those supplied by the caller.
 

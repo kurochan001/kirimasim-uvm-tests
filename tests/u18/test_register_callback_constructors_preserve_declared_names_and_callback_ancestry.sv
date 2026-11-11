@@ -13,6 +13,23 @@
 :expected_exit: 0
 :expected_stdout: @test_register_callback_constructors_preserve_declared_names_and_callback_ancestry.expected
 */
+// What it checks:
+// 1. Register callback construction preserves default, explicit and empty
+//    names.
+// 2. The concrete register callback extends uvm_callback.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.11.2.1 (UVM-FIELD-ACCESS-AUDIT-CALLBACK-CONSTRUCTOR) gives
+//    rule 1 above. Setup: Construct fresh uvm_reg_cbs instances directly
+//    without imposing a derived factory-registration requirement. Expected:
+//    Default uvm_reg_cbs and supplied names are retained by concrete
+//    instances.
+// 2. 1800.2-2020 18.11.1 (UVM-FIELD-ACCESS-AUDIT-CALLBACK-ANCESTRY) gives rule
+//    2 above. Setup: Construct fresh uvm_reg_cbs instances directly without
+//    imposing a derived factory-registration requirement. Expected: Implicit
+//    base assignment preserves the exact named callback handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_register_callback_constructors_preserve_declared_names_and_callback_ancestry;
   import uvm_pkg::*;

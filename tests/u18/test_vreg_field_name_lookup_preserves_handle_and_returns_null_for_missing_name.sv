@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_field_name_lookup_preserves_handle_and_returns_null_for_missing_name.expected
 */
+// What it checks:
+// Virtual-field named lookup preserves found identity and returns null for a
+// missing name.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.2.13 (UVM-VREG-FIELD-NAMED-LOOKUP) gives the rule above.
+// Setup: Look up one configured field and one missing name. Expected: The
+// found handle is exact and the missing handle is null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The lookup finds the configured field by its local name and returns null for
 // an absent name. No diagnostic severity is prescribed for the miss.
 

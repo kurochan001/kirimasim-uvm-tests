@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_post_read_hook_replaces_the_returned_value.expected
 */
+// What it checks:
+// A post_read method can replace the returned read data.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.8.4 (UVM-REG-POST-READ-RETURN-VALUE) gives the rule above.
+// Setup: Replace bus data 33 hex with a6 hex in post_read. Expected: The
+// caller receives a6 hex with OK after one request.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The bus returns 33; the post-read hook replaces the value with a6. Only the
 // caller result is checked because prediction precedes post-read hooks.
 

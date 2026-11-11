@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_read_clear_prediction_records_post_read_zero.expected
 */
+// What it checks:
+// Read prediction accounts for the post-read state of a read-clear field.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-FIELD-READ-CLEAR-PREDICTION) gives the rule
+// above. Setup: An RC field accepts a successful read prediction with a
+// nonzero sampled value. Expected: Prediction succeeds and desired/mirrored
+// values are both zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Read-clear prediction records the post-read state, not the sampled data.
 // The input represents an observation, not a physical bus operation.
 

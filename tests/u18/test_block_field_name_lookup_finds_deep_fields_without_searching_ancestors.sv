@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_block_field_name_lookup_finds_deep_fields_without_searching_ancestors.expected
 */
+// What it checks:
+// Field simple-name search includes register-file and descendant fields within
+// the receiver block hierarchy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.3.15 (UVM-BLOCK-FIELD-SIMPLE-NAME-SEARCH) gives the rule
+// above. Setup: Query local, regfile and deep fields, then absent, ancestor
+// and unrelated-root field names. Expected: In-scope fields return their exact
+// handles and all missing/out-of-scope names return null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register-model hierarchy only. Queries use fresh result queues and handle
 // membership, without a visit order, address maps, RTL transfers or HDL DPI.
 module test_block_field_name_lookup_finds_deep_fields_without_searching_ancestors;

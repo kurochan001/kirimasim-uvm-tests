@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_reset_reassembles_each_fields_configured_reset_value.expected
 */
+// What it checks:
+// Register reset restores each field and the assembled values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.5 (UVM-REG-RESET-ASSEMBLED-FIELD-VALUES) gives the rule
+// above. Setup: Predict ffff into a register whose field resets assemble to
+// 1234 hex. Expected: Reset metadata, desired and mirror all equal 1234 hex
+// after reset.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Reset is checked after a successful prediction dirties both stored fields.
 
 module test_reg_reset_reassembles_each_fields_configured_reset_value;

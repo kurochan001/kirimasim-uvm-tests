@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_explicit_release_makes_the_same_range_available.expected
 */
+// What it checks:
+// Explicit release makes a reserved range available to a later reservation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.5.3 (UVM-MAM-EXPLICIT-RELEASE-REUSE) gives the rule above.
+// Setup: Reserve four locations at six, release and reserve the same range.
+// Expected: The range is available again and exactly one region remains
+// active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // After releasing an allocated region, the same range can be reserved again.
 
 module test_memory_manager_explicit_release_makes_the_same_range_available;

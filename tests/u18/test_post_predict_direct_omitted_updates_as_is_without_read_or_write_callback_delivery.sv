@@ -13,6 +13,20 @@
 :expected_exit: 0
 :expected_stdout: @test_post_predict_direct_omitted_updates_as_is_without_read_or_write_callback_delivery.expected
 */
+// What it checks:
+// The selected direct prediction updates as supplied, without read/write
+// callback mutation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-PROTECTION-AUDIT-POST-PREDICT-DIRECT-OMITTED)
+// gives the rule above. Setup: Direct prediction updates as supplied without
+// read/write post-predict delivery. Fresh original sixteen-bit RW models, two
+// contained byte fields and independent frontdoor/backdoor storage; exact
+// message text/count and physical HDL are not prescribed. Expected: The
+// prediction succeeds with the supplied desired/mirror and no callback or
+// transfer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_post_predict_direct_omitted_updates_as_is_without_read_or_write_callback_delivery;
   import uvm_pkg::*;

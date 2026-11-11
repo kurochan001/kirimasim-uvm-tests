@@ -12,6 +12,67 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_constructor_and_regions_preserve_optional_memory_identity.expected
 */
+// What it checks:
+// 1. The declared concrete memory manager can be constructed and used through
+//    its standard type.
+// 2. The manager returns a descriptor usable through the standard region
+//    class.
+// 3. A concrete standard configuration instance is accepted by manager
+//    construction.
+// 4. The manager constructor accepts an associated memory or an omitted memory
+//    while managing independent regions.
+// 5. get_memory returns the exact associated memory, or null when construction
+//    omits it.
+// 6. A region returns its allocating manager memory, including null for an
+//    unattached manager.
+// 7. An ordinary reserved region without a virtual array returns null as its
+//    virtual-register owner.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.1 (UVM-MAM-AUDIT-MANAGER-DECLARATION) gives rule 1
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: The declared concrete memory manager can be
+//    constructed and used through its standard type.
+// 2. 1800.2-2020 18.12.7.1 (UVM-MAM-AUDIT-REGION-DECLARATION) gives rule 2
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: The manager returns a descriptor usable
+//    through the standard region class.
+// 3. 1800.2-2020 18.12.9.1 (UVM-MAM-AUDIT-CONFIGURATION-DECLARATION) gives
+//    rule 3 above. Setup: Use the linked original fixtures and the explicit
+//    sizes, location offsets, handles and observations they declare.
+//    Allocation inputs are configured explicitly rather than relying on
+//    unspecified initial defaults. Expected: A concrete standard configuration
+//    instance is accepted by manager construction.
+// 4. 1800.2-2020 18.12.4.1 (UVM-MAM-AUDIT-CONSTRUCTOR-MEMORY) gives rule 4
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: The manager constructor accepts an associated
+//    memory or an omitted memory while managing independent regions.
+// 5. 1800.2-2020 18.12.6.3 (UVM-MAM-AUDIT-MANAGER-MEMORY-QUERY) gives rule 5
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: get_memory returns the exact associated
+//    memory, or null when construction omits it.
+// 6. 1800.2-2020 18.12.7.2.6 (UVM-MAM-AUDIT-REGION-MEMORY-QUERY) gives rule 6
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: A region returns its allocating manager
+//    memory, including null for an unattached manager.
+// 7. 1800.2-2020 18.12.7.2.7 (UVM-MAM-AUDIT-REGION-NO-VIRTUAL-OWNER) gives
+//    rule 7 above. Setup: Use the linked original fixtures and the explicit
+//    sizes, location offsets, handles and observations they declare.
+//    Allocation inputs are configured explicitly rather than relying on
+//    unspecified initial defaults. Expected: An ordinary reserved region
+//    without a virtual array returns null as its virtual-register owner.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_manager_constructor_and_regions_preserve_optional_memory_identity;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

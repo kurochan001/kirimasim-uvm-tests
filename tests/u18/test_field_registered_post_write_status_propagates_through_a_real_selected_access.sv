@@ -13,6 +13,18 @@
 :expected_exit: 0
 :expected_stdout: @test_field_registered_post_write_status_propagates_through_a_real_selected_access.expected
 */
+// What it checks:
+// A registered field post-write callback can change returned status.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.3 (UVM-FIELD-ACCESS-AUDIT-REGISTERED-POST-WRITE-STATUS)
+// gives the rule above. Setup: Set exactly one original method or registered
+// callback change, then call the public field read/write API. Route buffers
+// are independent testbench controls, not a proof of physical alias coherence.
+// Expected: One post callback returns NOT_OK after the original word becomes
+// 0x63.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_registered_post_write_status_propagates_through_a_real_selected_access;
   import uvm_pkg::*;

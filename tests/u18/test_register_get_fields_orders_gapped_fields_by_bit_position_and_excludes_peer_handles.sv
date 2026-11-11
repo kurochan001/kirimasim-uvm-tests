@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_register_get_fields_orders_gapped_fields_by_bit_position_and_excludes_peer_handles.expected
 */
+// What it checks:
+// 1. get_fields returns all selected contained field handles without a peer
+//    register field.
+// 2. Selected gapped fields are returned from least-significant to
+//    most-significant position despite a different configure order.
+// 3. Selected field-name lookup stays local to each register and returns null
+//    for a missing selected name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.3.11 (UVM-REGISTER-CONTRACT-FIELD-HANDLES) gives rule 1
+//    above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: get_fields returns all selected contained field handles without
+//    a peer register field.
+// 2. 1800.2-2020 18.4.3.11 (UVM-REGISTER-CONTRACT-FIELD-LOW-TO-HIGH) gives
+//    rule 2 above. Setup: Use the selected original register/block/file models
+//    and explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: Selected gapped fields are returned from least-significant to
+//    most-significant position despite a different configure order.
+// 3. 1800.2-2020 18.4.3.12 (UVM-REGISTER-CONTRACT-FIELD-NAME-LOCAL) gives rule
+//    3 above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: Selected field-name lookup stays local to each register and
+//    returns null for a missing selected name.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_get_fields_orders_gapped_fields_by_bit_position_and_excludes_peer_handles;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

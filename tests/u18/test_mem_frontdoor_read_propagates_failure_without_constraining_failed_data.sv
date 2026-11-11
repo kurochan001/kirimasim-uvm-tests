@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_frontdoor_read_propagates_failure_without_constraining_failed_data.expected
 */
+// What it checks:
+// Memory read returns the success or failure of the physical operation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.5.2 (UVM-MEMORY-FRONTDOOR-READ-STATUS) gives the rule
+// above. Setup: Return UVM_NOT_OK on the first access and UVM_IS_OK on a later
+// access with controlled storage. Expected: The first status reports failure
+// and a fresh successful retry returns current data or performs the requested
+// write.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Do not inspect the failed read's output. A changed storage value on the
 // successful retry distinguishes fresh completion from replaying failed data.
 

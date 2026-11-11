@@ -13,6 +13,19 @@
 :expected_exit: 0
 :expected_stdout: @test_post_predict_delete_stops_subsequent_prediction_mutation.expected
 */
+// What it checks:
+// Changing callback mode or membership stops its selected later prediction
+// effect.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 10.7.2.3.3 (UVM-PROTECTION-AUDIT-POST-PREDICT-DELETE) gives the
+// rule above. Setup: Callback mode or membership changes stop later prediction
+// replacement. Fresh original sixteen-bit RW models, two contained byte fields
+// and independent frontdoor/backdoor storage; exact message text/count and
+// physical HDL are not prescribed. Expected: The first prediction is changed
+// and the later prediction is not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_post_predict_delete_stops_subsequent_prediction_mutation;
   import uvm_pkg::*;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_allocated_region_release_returns_its_memory_to_the_pool.expected
 */
+// What it checks:
+// An allocated virtual array releases its region through the virtual-register
+// API.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.6 (UVM-VREG-ALLOCATED-REGION-RELEASE) gives the rule
+// above. Setup: Allocate three elements, call release_region and reserve the
+// old six-location range. Expected: Memory and region become null, the range
+// is available and only the probe reservation is active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An allocated virtual array releases through uvm_vreg. The backing memory
 // range can then be reserved again.
 

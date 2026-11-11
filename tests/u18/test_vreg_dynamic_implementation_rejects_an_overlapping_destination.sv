@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_dynamic_implementation_rejects_an_overlapping_destination.expected
 */
+// What it checks:
+// A dynamic implementation cannot occupy an already reserved destination.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.3 (UVM-VREG-IMPLEMENT-OVERLAP-REJECTION) gives the rule
+// above. Setup: Reserve the intended range before implementing two elements
+// there. Expected: Implementation returns false and the one original
+// reservation stays active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An existing memory reservation prevents a virtual array from being
 // implemented over the same locations. The reserved region remains allocated.
 

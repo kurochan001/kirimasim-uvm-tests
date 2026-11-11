@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_registered_callback_removal_restores_unmodified_bus_payload.expected
 */
+// What it checks:
+// Removing a pre_write callback stops its later payload modification.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.2 (UVM-REG-PRE-WRITE-CALLBACK-REMOVAL) gives the rule
+// above. Setup: Write once with the callback, delete it and write again.
+// Expected: One callback invocation and two bus requests carry a6 hex then
+// unchanged 44 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Deleting an instance callback prevents further invocation and restores the
 // value supplied by the caller on the next access.
 

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_frontdoor_big_endian_wide_read_preserves_returned_bus_words.expected
 */
+// What it checks:
+// Register frontdoor read transfers model data through the selected physical
+// access path.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.10 (UVM-REGISTER-FRONTDOOR-READ) gives the rule above.
+// Setup: Use single/wide transfers and inline or separate driver completions
+// in the listed fixtures. Expected: Successful operations preserve the
+// requested or returned data and status; failed-read data is not inspected.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use the standard TLM adapter and identical bytes in every returned lane.
 // This checks value reconstruction without a custom numeric-word encoding.
 

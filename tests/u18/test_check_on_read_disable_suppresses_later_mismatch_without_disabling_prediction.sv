@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_check_on_read_disable_suppresses_later_mismatch_without_disabling_prediction.expected
 */
+// What it checks:
+// Disabling comparison suppresses later discrepancy reports without disabling
+// mirror updates.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.5.3 (UVM-MAP-CHECK-READ-DISABLE-RETAINS-PREDICTION) gives
+// the rule above. Setup: Read mismatched 5a while enabled, disable checking
+// and read 6c. Expected: The first read reports; the second adds no ERROR and
+// updates return/mirror to 6c.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only bus storage, a delayed driver and explicit auto-prediction.
 // Count required discrepancy reports without prescribing report text or IDs.
 // Read-side effects are model prediction, not an RTL storage implementation.

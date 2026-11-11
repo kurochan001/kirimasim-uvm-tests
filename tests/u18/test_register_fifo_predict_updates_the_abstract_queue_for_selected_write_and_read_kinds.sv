@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_register_fifo_predict_updates_the_abstract_queue_for_selected_write_and_read_kinds.expected
 */
+// What it checks:
+// 1. Selected write-kind predictions append values to the mirrored FIFO.
+// 2. Selected read-kind prediction consumes the expected mirrored FIFO front.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.8.5.7 (UVM-MEM-FIFO-AUDIT-FIFO-PREDICT-WRITE) gives rule 1
+//    above. Setup: Use the public predict API with explicit WRITE/READ kinds
+//    and nonempty valid within-capacity state; apply the FIFO write/read
+//    contract to these selected kinds. Expected: Two write predictions retain
+//    ordered values 0x11 and 0x22.
+// 2. 1800.2-2020 18.8.5.7 (UVM-MEM-FIFO-AUDIT-FIFO-PREDICT-READ) gives rule 2
+//    above. Setup: Use the public predict API with explicit WRITE/READ kinds
+//    and nonempty valid within-capacity state; apply the FIFO write/read
+//    contract to these selected kinds. Expected: Predicting the first read
+//    leaves only 0x22.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_fifo_predict_updates_the_abstract_queue_for_selected_write_and_read_kinds;
   import uvm_pkg::*;
   initial begin

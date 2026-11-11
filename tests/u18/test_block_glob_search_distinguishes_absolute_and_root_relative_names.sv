@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_block_glob_search_distinguishes_absolute_and_root_relative_names.expected
 */
+// What it checks:
+// 1. find_blocks interprets globs absolutely without a root and relative to a
+//    supplied root, returning the match count.
+// 2. find_block returns the matching block for an unambiguous name and null
+//    for no match.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.3.3 (UVM-BLOCK-FIND-GLOB-ABSOLUTE-RELATIVE) gives rule 1
+//    above. Setup: Use two roots with equal branch names and a leaf under the
+//    first branch. Expected: Absolute first.* selects exactly its two
+//    descendants; relative branch.* selects its leaf; missing* returns zero
+//    and an empty queue.
+// 2. 1800.2-2020 18.1.3.4 (UVM-BLOCK-FIND-SINGLE-UNAMBIGUOUS-MISSING) gives
+//    rule 2 above. Setup: Search exact branch and missing names relative to
+//    the first root. Expected: The branch handle is exact and the missing
+//    result is null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_glob_search_distinguishes_absolute_and_root_relative_names;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_post_read_hook_replaces_the_returned_status.expected
 */
+// What it checks:
+// A post_read method can change the returned read status.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.8.4 (UVM-REG-POST-READ-STATUS) gives the rule above. Setup:
+// Set NOT_OK after one successful modeled read. Expected: Read returns failure
+// after exactly one bus request.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The bus completes successfully, then the register post-access hook changes
 // the status returned to the caller.
 

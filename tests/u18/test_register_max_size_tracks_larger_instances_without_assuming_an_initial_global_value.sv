@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_register_max_size_tracks_larger_instances_without_assuming_an_initial_global_value.expected
 */
+// What it checks:
+// 1. The selected first register contributes its width to the maximum of the
+//    captured preexisting register widths.
+// 2. The selected larger register is included in the global register maximum
+//    width.
+// 3. Adding a smaller register and repeating the query preserve the selected
+//    global maximum.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.3.10 (UVM-REGISTER-CONTRACT-MAX-SIZE-FIRST) gives rule 1
+//    above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: The selected first register contributes its width to the
+//    maximum of the captured preexisting register widths.
+// 2. 1800.2-2020 18.4.3.10 (UVM-REGISTER-CONTRACT-MAX-SIZE-LARGER) gives rule
+//    2 above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: The selected larger register is included in the global register
+//    maximum width.
+// 3. 1800.2-2020 18.4.3.10 (UVM-REGISTER-CONTRACT-MAX-SIZE-SMALLER) gives rule
+//    3 above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: Adding a smaller register and repeating the query preserve the
+//    selected global maximum.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_max_size_tracks_larger_instances_without_assuming_an_initial_global_value;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

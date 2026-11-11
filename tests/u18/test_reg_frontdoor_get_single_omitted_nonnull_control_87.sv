@@ -15,6 +15,56 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_frontdoor_get_single_omitted_nonnull_control_87.expected
 */
+// What it checks:
+// 1. Register get_frontdoor returns null when no user-defined frontdoor is
+//    associated with the selected map.
+// 2. Register get_frontdoor returns the currently associated user-defined
+//    frontdoor after installation, replacement and restoration.
+// 3. The filename and line-number arguments of register set_frontdoor have no
+//    functional effect on the selected association or subsequent access.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.5.1 (UVM-ACCESS-REG-FRONTDOOR-NONE-87) gives rule 1
+//    above. Setup: Independent16-bit register/frontdoor storage with
+//    single-map omitted/explicit getters and two-map explicit selections.
+//    Valid non-null variants check initial null getters, installation,
+//    replacement, debug arguments, independent peer/other map and restoration.
+//    Four separate original null-setter inputs use a disputed null-as-clear
+//    setup and are control-only, not direct evidence of a mandatory removal
+//    API. Expected: Initial unconfigured getter handles are null. Non-null
+//    installation/replacement/restoration selects the expected original
+//    provider; actual read values, map/peer isolation and debug-argument
+//    invariance are preserved. The disputed null-setter probe retains its
+//    separate expected null observation without deriving mandatory clearing
+//    from the getter alone.
+// 2. 1800.2-2020 18.4.5.1 (UVM-ACCESS-REG-FRONTDOOR-CURRENT-HANDLE-87) gives
+//    rule 2 above. Setup: Independent16-bit register/frontdoor storage with
+//    single-map omitted/explicit getters and two-map explicit selections.
+//    Valid non-null variants check initial null getters, installation,
+//    replacement, debug arguments, independent peer/other map and restoration.
+//    Four separate original null-setter inputs use a disputed null-as-clear
+//    setup and are control-only, not direct evidence of a mandatory removal
+//    API. Expected: Initial unconfigured getter handles are null. Non-null
+//    installation/replacement/restoration selects the expected original
+//    provider; actual read values, map/peer isolation and debug-argument
+//    invariance are preserved. The disputed null-setter probe retains its
+//    separate expected null observation without deriving mandatory clearing
+//    from the getter alone.
+// 3. 1800.2-2020 18.4.5.2 (UVM-ACCESS-REG-FRONTDOOR-DEBUG-INVARIANCE-87) gives
+//    rule 3 above. Setup: Independent16-bit register/frontdoor storage with
+//    single-map omitted/explicit getters and two-map explicit selections.
+//    Valid non-null variants check initial null getters, installation,
+//    replacement, debug arguments, independent peer/other map and restoration.
+//    Four separate original null-setter inputs use a disputed null-as-clear
+//    setup and are control-only, not direct evidence of a mandatory removal
+//    API. Expected: Initial unconfigured getter handles are null. Non-null
+//    installation/replacement/restoration selects the expected original
+//    provider; actual read values, map/peer isolation and debug-argument
+//    invariance are preserved. The disputed null-setter probe retains its
+//    separate expected null observation without deriving mandatory clearing
+//    from the getter alone.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independent original testbench storage; no HDL or physical bus protocol.
 module test_reg_frontdoor_get_single_omitted_nonnull_control_87;
   timeunit 1ns; timeprecision 1ps;

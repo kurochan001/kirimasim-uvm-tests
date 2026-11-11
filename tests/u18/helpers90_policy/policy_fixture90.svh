@@ -17,7 +17,10 @@ class policy90 extends uvm_mem_mam_policy;
       context_ok &= found;
     end
   endfunction
-  function void post_randomize(); super.post_randomize(); post_calls++; endfunction
+  function void post_randomize();
+    super.post_randomize();
+    post_calls++;
+  endfunction
 endclass
 function automatic bit membership90(uvm_mem_mam manager,uvm_mem_region live[$]);
   automatic uvm_mem_region item=manager.for_each(1);
@@ -25,7 +28,8 @@ function automatic bit membership90(uvm_mem_mam manager,uvm_mem_region live[$]);
   automatic int count=0;
   while (item!=null && count<16) begin
     foreach (live[i]) if (item==live[i]) seen[i]=1;
-    count++; item=manager.for_each();
+    count++;
+    item=manager.for_each();
   end
   if (item!=null || count!=live.size()) return 0;
   foreach (seen[i]) if (!seen[i]) return 0;
@@ -33,9 +37,12 @@ function automatic bit membership90(uvm_mem_mam manager,uvm_mem_region live[$]);
 endfunction
 function automatic void prepare90(policy90 policy,uvm_reg_addr_t target,
     uvm_reg_addr_t base,int unsigned locations,uvm_mem_region live[$]);
-  policy.target=target; policy.start_offset=base+63;
-  policy.expected_min=base; policy.expected_max=base+63;
-  policy.expected_len=locations; policy.expected_regions=live;
+  policy.target=target;
+  policy.start_offset=base+63;
+  policy.expected_min=base;
+  policy.expected_max=base+63;
+  policy.expected_len=locations;
+  policy.expected_regions=live;
 endfunction
 initial begin
   automatic uvm_mem_mam_cfg cfg=new();
@@ -48,14 +55,22 @@ initial begin
   int unsigned bytes_per_location,requested;
   int before_pre,before_post;
   bit expect_success,valid,retained,context_valid,randomized;
-  bytes_per_location=LAYOUT==0 ? 1 : 2; base=LAYOUT==0 ? 0 : 64;
-  cfg.n_bytes=bytes_per_location; cfg.start_offset=base; cfg.end_offset=base+63;
-  cfg.mode=uvm_mem_mam::GREEDY; cfg.locality=uvm_mem_mam::BROAD;
-  manager=new("manager90",cfg); peer=new("peer90",cfg);
+  bytes_per_location=LAYOUT==0 ? 1 : 2;
+  base=LAYOUT==0 ? 0 : 64;
+  cfg.n_bytes=bytes_per_location;
+  cfg.start_offset=base;
+  cfg.end_offset=base+63;
+  cfg.mode=uvm_mem_mam::GREEDY;
+  cfg.locality=uvm_mem_mam::BROAD;
+  manager=new("manager90",cfg);
+  peer=new("peer90",cfg);
   item=manager.reserve_region(base+54,4*bytes_per_location);
   if (item==null) $fatal(1,"policy90 initial reservation");
-  live.push_back(item); starts.push_back(base+54); ends.push_back(base+57);
-  prepare90(peer_policy,base+42,base,2,peer_live); peer.default_alloc=peer_policy;
+  live.push_back(item);
+  starts.push_back(base+54);
+  ends.push_back(base+57);
+  prepare90(peer_policy,base+42,base,2,peer_live);
+  peer.default_alloc=peer_policy;
   item=peer.request_region(2*bytes_per_location);
   if (item==null) $fatal(1,"policy90 peer reservation");
   peer_live.push_back(item);
@@ -63,11 +78,15 @@ initial begin
   manager.default_alloc=MODE==2 ? blocked : selected;
   requested=3*bytes_per_location-(LAYOUT==1 ? 1 : 0);
   for (int round=0;round<3;round++) begin
-    if (MODE==1 && round>0) begin selected=new(); manager.default_alloc=selected; end
+    if (MODE==1 && round>0) begin
+      selected=new();
+      manager.default_alloc=selected;
+    end
     target=base+6+12*round;
     prepare90(selected,target,base,3,live);
     selected.contradiction=MODE==3 && round==1;
-    before_pre=selected.pre_calls; before_post=selected.post_calls;
+    before_pre=selected.pre_calls;
+    before_post=selected.post_calls;
     if (MODE==2) item=manager.request_region(requested,selected,"explicit90",47+round);
     else if (round==0) item=manager.request_region(requested);
     else item=manager.request_region(requested,null,"default90",91+round);
@@ -80,7 +99,9 @@ initial begin
       valid &= item.get_start_offset()==target && item.get_end_offset()==target+2 &&
         item.get_len()==3 && item.get_n_bytes()==3*bytes_per_location;
       foreach (live[i]) valid &= item.get_end_offset()<starts[i] || item.get_start_offset()>ends[i];
-      live.push_back(item); starts.push_back(target); ends.push_back(target+2);
+      live.push_back(item);
+      starts.push_back(target);
+      ends.push_back(target+2);
     end
     retained=membership90(manager,live);
     foreach (live[i]) retained &= live[i].get_start_offset()==starts[i] && live[i].get_end_offset()==ends[i];
@@ -88,7 +109,9 @@ initial begin
       CASE_NAME,round,item!=null,randomized,context_valid,valid,retained);
   end
   if (MODE==2) begin
-    selected=new(); prepare90(selected,base+46,base,3,live); manager.default_alloc=selected;
+    selected=new();
+    prepare90(selected,base+46,base,3,live);
+    manager.default_alloc=selected;
     item=manager.request_region(requested);
     valid=item!=null;
     if (item!=null) begin

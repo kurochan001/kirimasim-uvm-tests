@@ -7,7 +7,10 @@ function automatic bit region_set90(uvm_mem_mam manager,uvm_mem_region a,uvm_mem
   automatic int count=0;
   automatic bit seen_a=0,seen_b=0;
   while (item!=null && count<8) begin
-    count++; seen_a |= item==a; seen_b |= item==b; item=manager.for_each();
+    count++;
+    seen_a |= item==a;
+    seen_b |= item==b;
+    item=manager.for_each();
   end
   return item==null && seen_a && (b==null ? count==1 : seen_b && count==2);
 endfunction
@@ -20,13 +23,20 @@ initial begin
   uvm_reg_addr_t base;
   int unsigned width;
   bit identity,descriptors,preservation;
-  width=MODE==0 ? 1 : 2; base=MODE==0 ? 0 : 64;
-  cfg.n_bytes=width; cfg.start_offset=base; cfg.end_offset=base+63;
-  cfg.mode=uvm_mem_mam::GREEDY; cfg.locality=uvm_mem_mam::BROAD;
+  width=MODE==0 ? 1 : 2;
+  base=MODE==0 ? 0 : 64;
+  cfg.n_bytes=width;
+  cfg.start_offset=base;
+  cfg.end_offset=base+63;
+  cfg.mode=uvm_mem_mam::GREEDY;
+  cfg.locality=uvm_mem_mam::BROAD;
   memory=new("memory90",256,8*width);
-  manager=new("attached90",cfg,memory); peer=new("detached90",cfg);
-  a=manager.reserve_region(base+4,3*width); peer_region=peer.reserve_region(base+4,3*width);
-  policy.target=base+16; b=manager.request_region(5*width,policy);
+  manager=new("attached90",cfg,memory);
+  peer=new("detached90",cfg);
+  a=manager.reserve_region(base+4,3*width);
+  peer_region=peer.reserve_region(base+4,3*width);
+  policy.target=base+16;
+  b=manager.request_region(5*width,policy);
   if (a==null || b==null || peer_region==null) $fatal(1,"region90 initial allocation");
   identity=a!=b && a!=peer_region && b!=peer_region && a.get_memory()==memory &&
     b.get_memory()==memory && peer_region.get_memory()==null;

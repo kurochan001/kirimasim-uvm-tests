@@ -13,6 +13,20 @@
 :expected_stdout: @test_mam_stale_request_manager_release_114.expected
 :files: helpers114_mam_stale_source/stale_source114.svh
 */
+// What it checks:
+// Releasing, through the manager, a requested descriptor that is no longer
+// allocated after a manager or region-facade release reports an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.5.3 (UVM-MAM-AUDIT-STALE-REQUEST-DESCRIPTOR-RELEASE-ERROR)
+// gives the rule above. Setup: In a 32-location manager, reserve locations 0
+// to 3 as a peer and request four locations with a policy constrained to start
+// at 12. Release the requested descriptor through the manager or through its
+// region facade, reserve and release the freed range again, then release the
+// saved descriptor through the manager. Expected: The release of the stale
+// requested descriptor reports an error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A request_region descriptor released through the manager is no longer
 // allocated, so releasing it through the manager again reports an error. A peer
 // reservation stays allocated. All membership and reuse checks precede the

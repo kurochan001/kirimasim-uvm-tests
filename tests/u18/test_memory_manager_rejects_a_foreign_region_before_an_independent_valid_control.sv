@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_rejects_a_foreign_region_before_an_independent_valid_control.expected
 */
+// What it checks:
+// Releasing a foreign region or releasing an already released region reports
+// an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.5.3 (UVM-MAM-AUDIT-INVALID-RELEASE-ERROR) gives the rule
+// above. Setup: Use the linked original fixtures and the explicit sizes,
+// location offsets, handles and observations they declare. Allocation inputs
+// are configured explicitly rather than relying on unspecified initial
+// defaults. Expected: Releasing a foreign region or releasing an already
+// released region reports an error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_manager_rejects_a_foreign_region_before_an_independent_valid_control;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

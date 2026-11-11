@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_reconfiguration_returns_previous_config_and_preserves_regions.expected
 */
+// What it checks:
+// Compatible reconfiguration returns the previous configuration and retains
+// existing regions.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.4.2 (UVM-MAM-COMPATIBLE-RECONFIGURATION) gives the rule
+// above. Setup: Keep the byte width and change bounds from 0..15 to 2..31
+// around region 4..5. Expected: Returned bounds are 0..15, current bounds are
+// 2..31 and the region stays 4..5.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A compatible new address range contains the existing allocation and preserves
 // its location width. Reconfiguration returns the prior configuration.
 

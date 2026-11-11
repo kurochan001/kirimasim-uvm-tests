@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_map_unmapped_memory_uses_custom_frontdoor_and_ignores_its_nominal_physical_offset.expected
 */
+// What it checks:
+// 1. Omitting add_mem rights gives the selected mapped memory RW rights.
+// 2. An unmapped memory does not replace the real physical lookup entry at its
+//    ignored nominal offset.
+// 3. The explicitly supplied frontdoor accesses the selected unmapped memory
+//    logical location.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.3.4 (UVM-MAP-SCOPE-MEMORY-DEFAULT-RIGHTS) gives rule 1
+//    above. Setup: Selected valid memory ownership, multiple interfaces or an
+//    explicitly supplied original custom frontdoor. The unmapped memory has a
+//    nominal offset overlapping a real mapped memory, while its custom
+//    sequence implements logical location storage and reports successful
+//    completion. Expected: Omitting add_mem rights gives the selected mapped
+//    memory RW rights.
+// 2. 1800.2-2020 18.2.3.4 (UVM-MAP-SCOPE-MEMORY-UNMAPPED-NO-ADDRESS) gives
+//    rule 2 above. Setup: Selected valid memory ownership, multiple interfaces
+//    or an explicitly supplied original custom frontdoor. The unmapped memory
+//    has a nominal offset overlapping a real mapped memory, while its custom
+//    sequence implements logical location storage and reports successful
+//    completion. Expected: An unmapped memory does not replace the real
+//    physical lookup entry at its ignored nominal offset.
+// 3. 1800.2-2020 18.2.3.4 (UVM-MAP-SCOPE-MEMORY-UNMAPPED-FRONTDOOR) gives rule
+//    3 above. Setup: Selected valid memory ownership, multiple interfaces or
+//    an explicitly supplied original custom frontdoor. The unmapped memory has
+//    a nominal offset overlapping a real mapped memory, while its custom
+//    sequence implements logical location storage and reports successful
+//    completion. Expected: The explicitly supplied frontdoor accesses the
+//    selected unmapped memory logical location.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_map_unmapped_memory_uses_custom_frontdoor_and_ignores_its_nominal_physical_offset;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

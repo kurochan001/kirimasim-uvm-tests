@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_frontdoor_read_accepts_a_separate_driver_response.expected
 */
+// What it checks:
+// A frontdoor read transfers the selected memory location through its
+// configured map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.5.2 (UVM-MEMORY-FRONTDOOR-READ) gives the rule above.
+// Setup: Use byte/word-addressed maps, single or multiple physical beats and
+// known testbench data. Expected: The selected location, declared data bits
+// and physical addresses agree with the model and map.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only the separate response carries read data; the original request keeps its
 // initial value. Routing IDs are copied.
 

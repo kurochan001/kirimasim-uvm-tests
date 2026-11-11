@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_map_memory_lookup_word_units_cover_interior_and_last_locations_and_exclude_gaps.expected
 */
+// What it checks:
+// 1. Memory lookup in selected word units returns the same memory for first,
+//    interior and last occupied locations.
+// 2. Memory lookup in selected word units returns null immediately before and
+//    after the occupied range.
+// 3. Memory lookup at the same selected word offset is local to each distinct
+//    map.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.4.18 (UVM-MAP-SCOPE-MEMORY-LOOKUP-WORD-INTERIOR) gives
+//    rule 1 above. Setup: Locked zero-base maps avoid conflating the offset
+//    contract with external-base wording. Byte addressing uses four 16-bit
+//    entries on a one-byte bus; word addressing uses three 64-bit entries on a
+//    four-byte bus. A separate map contains a different memory at the same
+//    offset. Expected: Memory lookup in selected word units returns the same
+//    memory for first, interior and last occupied locations.
+// 2. 1800.2-2020 18.2.4.18 (UVM-MAP-SCOPE-MEMORY-LOOKUP-WORD-MISSING) gives
+//    rule 2 above. Setup: Locked zero-base maps avoid conflating the offset
+//    contract with external-base wording. Byte addressing uses four 16-bit
+//    entries on a one-byte bus; word addressing uses three 64-bit entries on a
+//    four-byte bus. A separate map contains a different memory at the same
+//    offset. Expected: Memory lookup in selected word units returns null
+//    immediately before and after the occupied range.
+// 3. 1800.2-2020 18.2.4.18 (UVM-MAP-SCOPE-MEMORY-LOOKUP-WORD-MAP-LOCAL) gives
+//    rule 3 above. Setup: Locked zero-base maps avoid conflating the offset
+//    contract with external-base wording. Byte addressing uses four 16-bit
+//    entries on a one-byte bus; word addressing uses three 64-bit entries on a
+//    four-byte bus. A separate map contains a different memory at the same
+//    offset. Expected: Memory lookup at the same selected word offset is local
+//    to each distinct map.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_map_memory_lookup_word_units_cover_interior_and_last_locations_and_exclude_gaps;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

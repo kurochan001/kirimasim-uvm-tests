@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_pre_write_hook_aborts_before_any_bus_request.expected
 */
+// What it checks:
+// A failing pre_write method aborts a write before bus access.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.8.1 (UVM-REG-PRE-WRITE-ABORT) gives the rule above. Setup:
+// Assign NOT_OK in the containing register method. Expected: Write fails and
+// no bus request occurs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pre-access hook rejects the request through status. The driver must
 // receive no transaction.
 

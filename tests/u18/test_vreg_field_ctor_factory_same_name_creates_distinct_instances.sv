@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_field_ctor_factory_same_name_creates_distinct_instances.expected
 */
+// What it checks:
+// Repeated builtin factory creation returns distinct virtual-field instances.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.2.1 (UVM-GLOBAL-AUDIT-VREG-FIELD-CTOR-FACTORY-SAME-NAME-
+// CREATES-DISTINCT-INSTANCES) gives the rule above. Setup: Use the builtin
+// factory wrapper twice without overrides, with selected same/different
+// explicit names. Expected: The nonnull and distinct columns witness new
+// instances; name values remain additional observations in the same row.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_vreg_field_ctor_factory_same_name_creates_distinct_instances;

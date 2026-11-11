@@ -12,6 +12,41 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_region_write_delegates_relative_offsets_context_data_and_status.expected
 */
+// What it checks:
+// 1. Region frontdoor access translates a relative offset through the
+//    implementing memory.
+// 2. Region write preserves selected parent/extension/path/map/priority
+//    context during delegation.
+// 3. Region write returns both selected successful and failed memory status
+//    values.
+// 4. Region write passes the original selected write data to the memory
+//    without changing its value.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.7.2.8 (UVM-MAM-REGION-RELATIVE-FRONTDOOR) gives rule 1
+//    above. Setup: Access relative location two in a region starting twelve in
+//    a mapped memory. Expected: The driver sees location fourteen at physical
+//    address 2e hex, and write/read a6 hex return OK.
+// 2. 1800.2-2020 18.12.7.2.8 (UVM-MAM-AUDIT-WRITE-CONTEXT) gives rule 2 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: Region write preserves selected
+//    parent/extension/path/map/priority context during delegation.
+// 3. 1800.2-2020 18.12.7.2.8 (UVM-MAM-AUDIT-WRITE-STATUS) gives rule 3 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: Region write returns both selected successful and
+//    failed memory status values.
+// 4. 1800.2-2020 18.12.7.2.8 (UVM-MAM-AUDIT-WRITE-DATA) gives rule 4 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: Region write passes the original selected write data
+//    to the memory without changing its value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_region_write_delegates_relative_offsets_context_data_and_status;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

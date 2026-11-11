@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_coverage_sample_values_recurses_only_through_the_selected_subtree.expected
 */
+// What it checks:
+// Block sample_values recursively visits its registers and child blocks only
+// within the selected subtree.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.4.7 (UVM-BLOCK-SAMPLE-VALUES-RECURSIVE-SUBTREE) gives the
+// rule above. Setup: Overrides call super; invoke root then child with
+// local/deep registers and a separate peer. A separate case uses the actual
+// inherited block method over two branches, repeats with fresh values and
+// retains an outside peer. Expected: Root visits each descendant once; the
+// second call increments only child/grandchild/deep counts and never visits
+// the peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe coverage-control metadata and testbench sampling hooks only.
 // These counters are not covergroups, bin coverage or a coverage percentage.
 module test_coverage_sample_values_recurses_only_through_the_selected_subtree;

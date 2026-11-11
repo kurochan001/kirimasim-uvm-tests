@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_coverage_block_sampling_uses_relative_offsets_instead_of_absolute_bus_addresses.expected
 */
+// What it checks:
+// Block samples use map-relative offsets in address-unit bytes rather than
+// absolute bus addresses.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.4.6 (UVM-BLOCK-SAMPLE-RELATIVE-OFFSETS) gives the rule
+// above. Setup: Use byte addressing, base 100 hex and register offsets 20/30
+// hex. Expected: Samples are 20/30 with write/read directions and matching
+// maps while bus addresses are 120/130 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe coverage-control metadata and testbench sampling hooks only.
 // These counters are not covergroups, bin coverage or a coverage percentage.
 module test_coverage_block_sampling_uses_relative_offsets_instead_of_absolute_bus_addresses;

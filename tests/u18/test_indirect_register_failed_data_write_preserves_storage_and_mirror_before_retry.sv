@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_indirect_register_failed_data_write_preserves_storage_and_mirror_before_retry.expected
 */
+// What it checks:
+// Indirect data write returns the bus error status and permits a successful
+// retry.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.9 (UVM-INDIRECT-WRITE-ERROR-RETRY) gives the rule above.
+// Setup: Select element one, fail one data write in the driver and retry
+// without changing the index. Expected: Failure leaves storage/mirror
+// unchanged; retry returns OK and updates both to 42.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Equal-width array elements and explicit successful index writes precede
 // each data-port access. A testbench driver models two independent banks; no
 // RTL, DPI, out-of-range index or automatic array-frontdoor sequence is used.

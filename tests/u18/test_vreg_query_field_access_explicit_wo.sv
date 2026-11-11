@@ -13,6 +13,16 @@
 :expected_stdout: @test_vreg_query_field_access_explicit_wo.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// The virtual-field access query includes explicit shared-map WO restrictions.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.3.4 (UVM-VREG-QUERY-FIELD-ACCESS-EXPLICIT-WO) gives the
+// rule above. Setup: Use read-write memory shared by RW, RO and WO sibling
+// maps and explicitly select the query map. Expected: The stated identity,
+// count, policy, offset or diagnostic-presence observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_field_access_explicit_wo;

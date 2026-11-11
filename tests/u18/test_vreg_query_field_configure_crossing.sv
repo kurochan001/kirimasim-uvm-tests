@@ -13,6 +13,32 @@
 :expected_stdout: @test_vreg_query_field_configure_crossing.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// 1. Virtual-field configuration records its selected virtual-register parent.
+// 2. Virtual-field configuration records its selected width in bits.
+// 3. Virtual-field configuration records its selected least-significant bit
+//    position.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.10.2.2 (UVM-VREG-QUERY-FIELD-CONFIGURE-PARENT) gives rule
+//    1 above. Setup: Factory-create a field and configure width 5, LSB 0 in a
+//    40-bit virtual register. Factory-create a field and configure width 11,
+//    LSB 7 in a 40-bit virtual register. Expected: Only the separately
+//    anchored parent observation is bound to this duty.
+// 2. 1800.2-2020 18.10.2.2 (UVM-VREG-QUERY-FIELD-CONFIGURE-WIDTH) gives rule 2
+//    above. Setup: Factory-create a field and configure width 5, LSB 0 in a
+//    40-bit virtual register. Factory-create a field and configure width 11,
+//    LSB 7 in a 40-bit virtual register. Also configure a five-bit field at
+//    LSB seven in a sixteen-bit virtual register. Expected: Only the width
+//    value in each linked observation is bound to this duty.
+// 3. 1800.2-2020 18.10.2.2 (UVM-VREG-QUERY-FIELD-CONFIGURE-LSB) gives rule 3
+//    above. Setup: Factory-create a field and configure width 5, LSB 0 in a
+//    40-bit virtual register. Factory-create a field and configure width 11,
+//    LSB 7 in a 40-bit virtual register. Also configure a five-bit field at
+//    LSB seven in a sixteen-bit virtual register. Expected: Only the lsb value
+//    in each linked observation is bound to this duty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_field_configure_crossing;

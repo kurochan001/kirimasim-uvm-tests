@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_coverage_memory_sampling_observes_completed_reads_and_writes_on_the_selected_map.expected
 */
+// What it checks:
+// Memory sampling hooks observe completed accesses on the selected map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.8.6 (UVM-MEM-SAMPLE-COMPLETED-ACCESS-HOOKS) gives the rule
+// above. Setup: Write and read byte a6 at memory index two through a delayed
+// bus driver. Expected: There is one write and one read sample, with matching
+// map and completed bus operations; readback is a6.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library samples an extra memory location per single access.
 // Retain one hook invocation for each completed one-location transfer.
 // Observe coverage-control metadata and testbench sampling hooks only.

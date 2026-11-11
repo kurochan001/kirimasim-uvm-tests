@@ -13,6 +13,21 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_coverage_add_zero_and_repeated_80.expected
 */
+// What it checks:
+// Zero or repeated coverage additions preserve the set of available register
+// models.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.7.3 (UVM-REG-COVERAGE-ADD-ZERO-REPETITION) gives the rule
+// above. Setup: Original derived register constructors preserve a supplied
+// base mask and call the actual protected add_coverage while their constructor
+// is active. Cases include zero, overlapping/repeated additions, isolated
+// peers, inherited virtual dispatch and explicit measurement-off then
+// all-model selection. Expected: Zero additions leave an empty set empty or a
+// base model present; repeated field additions do not make other models
+// available.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Coverage metadata or observer dispatch only; no bin, covergroup or HDL claim.
 module test_reg_coverage_add_zero_and_repeated_80;
   import uvm_pkg::*;

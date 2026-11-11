@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_field_standalone_post_write_callback_precedes_its_inherited_method.expected
 */
+// What it checks:
+// A virtual-field post_write callback executes before the corresponding field
+// method.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.6.2.2 (UVM-VREG-FIELD-POST-WRITE-ORDER) gives the rule
+// above. Setup: A standalone virtual-field write records one registered
+// callback and one inherited method. Expected: A successful write records
+// order cM.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The same post-write callback-before-method requirement applies when the field
 // API is called directly rather than through its parent virtual register.
 

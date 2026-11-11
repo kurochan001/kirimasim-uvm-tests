@@ -12,6 +12,42 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_direct_construction_defaults_and_explicit_rom_keep_distinct_configuration.expected
 */
+// What it checks:
+// 1. uvm_mem can be directly constructed and used as uvm_object.
+// 2. Memory construction retains the selected name, location count and
+//    per-location width.
+// 3. Omitting the memory access argument selects RW.
+// 4. Omitting memory coverage does not supply the selected coverage models.
+// 5. configure associates the selected memory with its parent block.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.1 (UVM-MEMORY-AUDIT-CONCRETE-OBJECT) gives rule 1 above.
+//    Setup: Two concrete memories use mandatory name/size/width arguments; RAM
+//    omits access/coverage and ROM supplies RO, then both are configured in
+//    one block/map. Expected: Construction succeeds; the object view is the
+//    same handle.
+// 2. 1800.2-2020 18.6.3.1 (UVM-MEMORY-AUDIT-CONSTRUCTOR-DIMENSIONS) gives rule
+//    2 above. Setup: Two concrete memories use mandatory name/size/width
+//    arguments; RAM omits access/coverage and ROM supplies RO, then both are
+//    configured in one block/map. Expected: The RAM is named ram56 with seven
+//    13-bit/two-byte locations; ROM has nine 24-bit/three-byte locations.
+// 3. 1800.2-2020 18.6.3.1 (UVM-MEMORY-AUDIT-DEFAULT-RW) gives rule 3 above.
+//    Setup: Two concrete memories use mandatory name/size/width arguments; RAM
+//    omits access/coverage and ROM supplies RO, then both are configured in
+//    one block/map. Expected: The unrestricted RAM map query reports RW while
+//    the explicit ROM reports RO.
+// 4. 1800.2-2020 18.6.3.1 (UVM-MEMORY-AUDIT-DEFAULT-NO-COVERAGE) gives rule 4
+//    above. Setup: Two concrete memories use mandatory name/size/width
+//    arguments; RAM omits access/coverage and ROM supplies RO, then both are
+//    configured in one block/map. Expected: ADDR_MAP, REG_BITS and FIELD_VALS
+//    are each absent in the omitted-coverage RAM.
+// 5. 1800.2-2020 18.6.3.2 (UVM-MEMORY-AUDIT-CONFIGURED-PARENT) gives rule 5
+//    above. Setup: Two concrete memories use mandatory name/size/width
+//    arguments; RAM omits access/coverage and ROM supplies RO, then both are
+//    configured in one block/map. Expected: The parent query returns the
+//    supplied owner.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_direct_construction_defaults_and_explicit_rom_keep_distinct_configuration;
   import uvm_pkg::*;
 

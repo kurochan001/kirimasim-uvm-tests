@@ -13,6 +13,18 @@
 :expected_stdout: @test_pinned_fifo_build_control_compare_default.expected
 :files: helpers63_initialized/fifo_initialized_fixture63.svh
 */
+// What it checks:
+// It is a control: it supports the setup or conditions of this duty, which
+// other tests check directly:
+// Omitting set_compare selects UVM_CHECK for a checked FIFO mirror.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.8.3.2 (UVM-MEM-FIFO-AUDIT-FIFO-COMPARE-DEFAULT) gives the
+// rule above. Setup: Call set_compare with no argument, then a checked mirror
+// against an intentionally different original DUT front. Expected: An
+// ERROR/FATAL mismatch notification accompanies one physical read.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit pinned-library initialization control, not an IEEE API duty.
 // Its result does not pass the separately retained constructor-only input.
 module test_pinned_fifo_build_control_compare_default;

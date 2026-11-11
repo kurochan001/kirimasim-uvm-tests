@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_block_default_map_selection_and_recursive_model_lock.expected
 */
+// What it checks:
+// Default map selection and model locking preserve the configured block
+// hierarchy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.2.5 (UVM-REG-BLOCK-DEFAULT-MAP-RECURSIVE-LOCK) gives the
+// rule above. Setup: Create two maps, select the second explicitly and lock a
+// root with one child. Expected: No initial default exists, first creation
+// supplies it, explicit selection wins and root/child become locked.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe null before creation, first-created default, and explicit selection.
 // No null-map register lookup or unlock API is used.
 

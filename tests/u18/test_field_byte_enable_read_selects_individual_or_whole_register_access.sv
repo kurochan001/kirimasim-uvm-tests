@@ -12,6 +12,37 @@
 :expected_exit: 0
 :expected_stdout: @test_field_byte_enable_read_selects_individual_or_whole_register_access.expected
 */
+// What it checks:
+// 1. The adapter byte-enable capability participates in selecting individual
+//    field access.
+// 2. A byte-isolated field fitting the supported bus word is individually
+//    accessible.
+// 3. Individual field reads select the target byte lane.
+// 4. Individual reads return the selected field value from the bus word.
+// 5. Individual field reads preserve the other field mirror.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.1.2.2 (UVM-FIELD-BYTE-ENABLE-ADVERTISED-CAPABILITY)
+//    gives rule 1 above. Setup: Each field occupies a separate byte; fixtures
+//    explicitly advertise support or its absence. Expected: Support permits
+//    selected-lane accesses; absence uses the full register.
+// 2. 1800.2-2020 18.5.5.16 (UVM-FIELD-BYTE-ENABLE-INDIVIDUAL-ELIGIBILITY)
+//    gives rule 2 above. Setup: The adapter supports byte enables and both
+//    isolated fields fit the bus width. Expected: Both frontdoor eligibility
+//    queries return true.
+// 3. 1800.2-2020 18.5.5.10 (UVM-FIELD-BYTE-ENABLE-READ-SELECTED-LANE) gives
+//    rule 3 above. Setup: High then low field reads use the byte-enabled
+//    physical word. Expected: The high read uses mask 2 and the low read mask
+//    1.
+// 4. 1800.2-2020 18.5.5.10 (UVM-FIELD-BYTE-ENABLE-READ-RETURNED-FIELD) gives
+//    rule 4 above. Setup: The physical word contains 0xabcd and the fields
+//    occupy distinct bytes. Expected: High returns 0xab and low returns 0xcd.
+// 5. 1800.2-2020 18.5.5.10 (UVM-FIELD-BYTE-ENABLE-READ-UNSELECTED-MIRROR)
+//    gives rule 5 above. Setup: A high read occurs before a low read, from
+//    reset mirror 0x1234. Expected: High read leaves low mirror 0x34; the
+//    later low read retains high mirror 0xab.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Each field occupies its own byte of one physical word. The original bus
 // model applies byte masks; unused write-data lanes are not constrained.
 // The pinned library rejects byte-isolated fields sharing a bus word.

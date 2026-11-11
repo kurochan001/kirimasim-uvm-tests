@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_region_release_returns_only_its_own_range_to_the_manager.expected
 */
+// What it checks:
+// 1. Explicit release makes a reserved range available to a later reservation.
+// 2. The region release method returns its own range to the manager without
+//    releasing an independent peer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.5.3 (UVM-MAM-EXPLICIT-RELEASE-REUSE) gives rule 1
+//    above. Setup: Reserve four locations at six, release and reserve the same
+//    range. Expected: The range is available again and exactly one region
+//    remains active.
+// 2. 1800.2-2020 18.12.7.2.5 (UVM-MAM-AUDIT-REGION-RELEASE) gives rule 2
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: The region release method returns its own
+//    range to the manager without releasing an independent peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_region_release_returns_only_its_own_range_to_the_manager;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

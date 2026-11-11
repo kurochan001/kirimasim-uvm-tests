@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_regfile_configured_parents_match_nested_file_and_register_placement.expected
 */
+// What it checks:
+// 1. A configured regfile returns its parent block even when nested in another
+//    regfile.
+// 2. A regfile returns its enclosing regfile, or null when directly in its
+//    block.
+// 3. A register reports its configured regfile, or null for direct block
+//    placement.
+// 4. Block parent queries return the configured enclosing block and null for a
+//    root.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.3.3.1 (UVM-REGFILE-PARENT-BLOCK-HANDLE) gives rule 1
+//    above. Setup: Configure outer and inner regfiles in the same block.
+//    Expected: Both parent-block queries return the root block handle.
+// 2. 1800.2-2020 18.3.3.2 (UVM-REGFILE-CONTAINING-FILE-HANDLE) gives rule 2
+//    above. Setup: Configure an outer regfile directly and an inner file under
+//    it. Expected: Outer returns null and inner returns the exact outer
+//    handle.
+// 3. 1800.2-2020 18.4.3.2 (UVM-REGISTER-CONTAINING-REGFILE-HANDLE) gives rule
+//    3 above. Setup: Place one register in the inner regfile and another
+//    directly in the block. Expected: The file register retains block/file
+//    parent identities; the direct register has no regfile.
+// 4. 1800.2-2020 18.1.3.1 (UVM-BLOCK-CONFIGURED-PARENT-HANDLE) gives rule 4
+//    above. Setup: Configure a root, child and grandchild. Expected: Root is
+//    parentless, child points to root and grandchild points to child.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register-model hierarchy only. Queries use fresh result queues and handle
 // membership, without a visit order, address maps, RTL transfers or HDL DPI.
 module test_regfile_configured_parents_match_nested_file_and_register_placement;

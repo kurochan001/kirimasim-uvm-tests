@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_iterator_handles_empty_exhausted_reset_and_release_all_states.expected
 */
+// What it checks:
+// 1. Iteration visits each active region and reset starts a new traversal.
+// 2. Releasing all regions returns the whole managed range to the free pool.
+// 3. An empty or exhausted region iterator returns null; reset and release-all
+//    observations retain that meaning.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.6.2 (UVM-MAM-ITERATION-RESET-MEMBERSHIP) gives rule 1
+//    above. Setup: Reserve three disjoint regions and traverse to null before
+//    resetting. Expected: Exactly three regions are visited once each; reset
+//    returns a nonnull region.
+// 2. 1800.2-2020 18.12.5.4 (UVM-MAM-RELEASE-ALL-REUSE) gives rule 2 above.
+//    Setup: Reserve two disjoint ranges, release all and reserve all
+//    thirty-two locations. Expected: Iteration is initially empty after
+//    release; the full-range reservation succeeds alone.
+// 3. 1800.2-2020 18.12.6.2 (UVM-MAM-AUDIT-ITERATOR-NULL) gives rule 3 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: An empty or exhausted region iterator returns null;
+//    reset and release-all observations retain that meaning.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_manager_iterator_handles_empty_exhausted_reset_and_release_all_states;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

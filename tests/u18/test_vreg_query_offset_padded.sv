@@ -13,6 +13,16 @@
 :expected_stdout: @test_vreg_query_offset_padded.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// The element offset combines the base and index spacing in memory words.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.2.14 (UVM-VREG-QUERY-OFFSET-PADDED) gives the rule above.
+// Setup: Use memory-word base five and configured increment 7; query elements
+// zero and two. Expected: The stated identity, count, policy, offset or
+// diagnostic-presence observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_offset_padded;

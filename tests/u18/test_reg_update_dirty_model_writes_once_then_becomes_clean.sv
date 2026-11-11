@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_update_dirty_model_writes_once_then_becomes_clean.expected
 */
+// What it checks:
+// A dirty register updates once and a later clean update issues no additional
+// write.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.13 (UVM-REG-UPDATE-DIRTY-ONE-WRITE) gives the rule above.
+// Setup: Set a6, then call update twice with auto-prediction. Expected: The
+// first succeeds with storage/mirror a6 and a clean model; total requests
+// remain one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Setting the desired value requires a write; successful auto-prediction makes
 // the second update a no-op.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_allocate_returns_null_when_its_policy_has_no_free_start.expected
 */
+// What it checks:
+// Allocation returns null when its constrained starting range is already
+// reserved.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.4 (UVM-VREG-ALLOCATE-NO-FREE-POLICY-START) gives the
+// rule above. Setup: Reserve the only policy-selected range before allocation.
+// Expected: Allocation fails and only the prior region remains active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The policy fixes the start inside an existing reservation. No region can
 // satisfy that request, and the existing reservation remains allocated.
 

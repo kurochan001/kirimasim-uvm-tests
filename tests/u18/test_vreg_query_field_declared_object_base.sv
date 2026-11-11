@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_query_field_declared_object_base.expected
 */
+// What it checks:
+// The declared virtual field class preserves its object base view.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.1 (UVM-VREG-QUERY-FIELD-DECLARED-OBJECT-BASE) gives the
+// rule above. Setup: Assign the actual virtual abstraction to the exact static
+// base receiver. Expected: The stated identity, count, policy, offset or
+// diagnostic-presence observations match.
+// It also supports, as a control, the setup or conditions of
+// UVM-VREG-QUERY-FIELD-OVERVIEW-LITERAL-BASE.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_field_declared_object_base;

@@ -13,6 +13,16 @@
 :expected_stdout: @test_vreg_query_rights_explicit_ro.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// The virtual array rights query respects explicit shared-map RO restrictions.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.2.6 (UVM-VREG-QUERY-RIGHTS-EXPLICIT-RO) gives the rule
+// above. Setup: Use read-write memory shared by distinct RW, RO and WO sibling
+// maps; specify the query map. Expected: The stated identity, count, policy,
+// offset or diagnostic-presence observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_rights_explicit_ro;

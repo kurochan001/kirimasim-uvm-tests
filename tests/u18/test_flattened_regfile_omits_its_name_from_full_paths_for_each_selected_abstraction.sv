@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction.expected
 */
+// What it checks:
+// 1. A register file configured without an HDL contribution does not add its
+//    logical name to descendant HDL paths.
+// 2. An omitted full-path kind uses the nearest enclosing default abstraction
+//    through flattened file scopes.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.3.2.2 (UVM-REGFILE-CONFIGURED-FLATTENED-HDL-SCOPE) gives
+//    rule 1 above. Setup: A logical not_an_hdl_scope file is flattened between
+//    a dut block and a leaf file. Expected: The RTL descendant path is
+//    dut.leaf with no logical-file component.
+// 2. 1800.2-2020 18.3.4.5 (UVM-REGFILE-FULL-HDL-DEFAULT-ABSTRACTION-SELECTION)
+//    gives rule 2 above. Setup: A flattened parent selects GATE while its
+//    child has distinct RTL leaf and GATE cell contributions. Expected: The
+//    explicit RTL path is dut.leaf and both selected and explicit GATE paths
+//    are net.cell; the explicit GATE query controls for path assembly.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Symbolic path strings only: no HDL lookup, DPI, bus or DUT access.
 // The pinned child keeps its initial RTL default instead of inheriting GATE.
 // Explicit RTL and GATE paths isolate flattening from default selection.

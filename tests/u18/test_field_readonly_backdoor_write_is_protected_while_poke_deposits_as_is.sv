@@ -13,6 +13,32 @@
 :expected_exit: 0
 :expected_stdout: @test_field_readonly_backdoor_write_is_protected_while_poke_deposits_as_is.expected
 */
+// What it checks:
+// 1. Physical-style read-only field writes preserve its existing bits.
+// 2. Field poke deposits as-is even when physical-style writes are read-only.
+// 3. For simple side-effect-free original storage, interpret field-write best
+//    effort as preserving the unselected peeked bits.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.9 (UVM-FIELD-ACCESS-AUDIT-READONLY-PHYSICAL-WRITE)
+//    gives rule 1 above. Setup: Use a configured sixteen-bit register, middle
+//    field at LSB four, original backdoor storage B75D and optional distinct
+//    extension; access policy is selected explicitly. Expected: The selected
+//    read-only slice remains 0x75 after physical-style backdoor write.
+// 2. 1800.2-2020 18.5.5.11 (UVM-FIELD-ACCESS-AUDIT-READONLY-POKE) gives rule 2
+//    above. Setup: Use a configured sixteen-bit register, middle field at LSB
+//    four, original backdoor storage B75D and optional distinct extension;
+//    access policy is selected explicitly. Expected: The following poke
+//    changes B75D to B39D successfully.
+// 3. 1800.2-2020 18.5.5.9
+//    (UVM-FIELD-ACCESS-AUDIT-READONLY-NEIGHBOR-BEST-EFFORT) gives rule 3
+//    above. Setup: Use a configured sixteen-bit register, middle field at LSB
+//    four, original backdoor storage B75D and optional distinct extension;
+//    access policy is selected explicitly. Expected: The whole original B75D
+//    word remains unchanged during the read-only field write; an independently
+//    reset following poke deposits B39D.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_readonly_backdoor_write_is_protected_while_poke_deposits_as_is;
   import uvm_pkg::*;

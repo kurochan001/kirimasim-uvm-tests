@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_iteration_visits_each_region_once_without_assuming_order.expected
 */
+// What it checks:
+// Iteration visits each active region and reset starts a new traversal.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.6.2 (UVM-MAM-ITERATION-RESET-MEMBERSHIP) gives the rule
+// above. Setup: Reserve three disjoint regions and traverse to null before
+// resetting. Expected: Exactly three regions are visited once each; reset
+// returns a nonnull region.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The iterator visits three handles once each. Reset restarts iteration, but no
 // address ordering is required.
 

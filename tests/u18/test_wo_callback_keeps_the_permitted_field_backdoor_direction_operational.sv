@@ -13,6 +13,21 @@
 :expected_exit: 0
 :expected_stdout: @test_wo_callback_keeps_the_permitted_field_backdoor_direction_operational.expected
 */
+// What it checks:
+// The predefined WO callback leaves the selected opposite field backdoor
+// direction operational.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.5 (UVM-PROTECTION-AUDIT-WO-PERMITTED-FIELD-BACKDOOR) gives
+// the rule above. Setup: The predefined protection callback preserves the
+// opposite permitted access direction. Fresh original sixteen-bit RW models,
+// two contained byte fields and independent frontdoor/backdoor storage; exact
+// message text/count and physical HDL are not prescribed. Expected: The
+// permitted read returns the original selected data, or the permitted write
+// updates the supplied selected data, with UVM_IS_OK, provider activity and no
+// ERROR.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_wo_callback_keeps_the_permitted_field_backdoor_direction_operational;
   import uvm_pkg::*;

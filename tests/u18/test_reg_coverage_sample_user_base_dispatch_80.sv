@@ -13,6 +13,31 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_coverage_sample_user_base_dispatch_80.expected
 */
+// What it checks:
+// 1. A user can invoke register sample_values publicly through a base register
+//    receiver and reach the register override.
+// 2. A register field-value sampling extension can observe the current modeled
+//    field values when sampling is triggered.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.7.8 (UVM-REG-COVERAGE-SAMPLE-USER-VIRTUAL-DISPATCH)
+//    gives rule 1 above. Setup: Original register overrides count
+//    sample_values calls and capture current16-bit RW field desired values.
+//    Explicit user calls use an actual uvm_reg base receiver; parent cases
+//    invoke the actual inherited block method over two branches with an
+//    outside peer and repeat after modeled values change. Expected: Two
+//    explicit calls reach the selected override once each while an independent
+//    peer remains untouched.
+// 2. 1800.2-2020 18.4.7.8 (UVM-REG-COVERAGE-SAMPLE-CURRENT-MODELED-FIELDS)
+//    gives rule 2 above. Setup: Original register overrides count
+//    sample_values calls and capture current16-bit RW field desired values.
+//    Explicit user calls use an actual uvm_reg base receiver; parent cases
+//    invoke the actual inherited block method over two branches with an
+//    outside peer and repeat after modeled values change. Expected: Original
+//    observers record fresh desired values after explicit set or direct
+//    prediction on successive user and parent-triggered calls.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Coverage metadata or observer dispatch only; no bin, covergroup or HDL claim.
 module test_reg_coverage_sample_user_base_dispatch_80;
   import uvm_pkg::*;

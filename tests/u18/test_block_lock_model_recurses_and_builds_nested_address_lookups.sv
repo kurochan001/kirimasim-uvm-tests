@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_block_lock_model_recurses_and_builds_nested_address_lookups.expected
 */
+// What it checks:
+// 1. lock_model recursively locks the hierarchy and builds address-map offset
+//    lookups.
+// 2. is_locked reports the current model lock state.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.2.6 (UVM-BLOCK-LOCK-MODEL-RECURSIVE-LOOKUPS) gives rule
+//    1 above. Setup: Use a root register at zero and a child register at
+//    offset two in a submap at sixteen. Expected: Both blocks become locked
+//    and root offsets zero/eighteen return the exact local/child registers.
+// 2. 1800.2-2020 18.1.2.10 (UVM-BLOCK-LOCK-STATE-QUERY) gives rule 2 above.
+//    Setup: Observe a newly configured hierarchy before and after recursive
+//    locking. Expected: Root and child report zero before locking and one
+//    afterwards.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_lock_model_recurses_and_builds_nested_address_lookups;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

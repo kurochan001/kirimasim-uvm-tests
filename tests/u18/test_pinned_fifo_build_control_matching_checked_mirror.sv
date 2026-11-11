@@ -13,6 +13,19 @@
 :expected_stdout: @test_pinned_fifo_build_control_matching_checked_mirror.expected
 :files: helpers63_initialized/fifo_initialized_fixture63.svh
 */
+// What it checks:
+// It is a control: it supports the setup or conditions of this duty, which
+// other tests check directly:
+// A checked matching auto-predicted FIFO mirror pops the abstract front.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.8.5.6 (UVM-MEM-FIFO-AUDIT-FIFO-CHECKED-MATCH-POP) gives the
+// rule above. Setup: Prepare matching one-entry abstract/original-DUT queues,
+// enable both comparison controls and perform one frontdoor mirror. The public
+// FIFO queue is primed directly, without an internal field-mirror accessor.
+// Expected: Successful mirror reports no error and leaves both queues empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit pinned-library initialization control, not an IEEE API duty.
 // Its result does not pass the separately retained constructor-only input.
 module test_pinned_fifo_build_control_matching_checked_mirror;

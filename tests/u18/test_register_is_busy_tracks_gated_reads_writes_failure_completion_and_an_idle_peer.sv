@@ -12,6 +12,55 @@
 :expected_exit: 0
 :expected_stdout: @test_register_is_busy_tracks_gated_reads_writes_failure_completion_and_an_idle_peer.expected
 */
+// What it checks:
+// 1. A selected register not currently accessed is initially not busy.
+// 2. The selected register is busy while its actual write awaits original
+//    driver completion.
+// 3. The selected register is busy while its actual read awaits original
+//    driver completion.
+// 4. is_busy clears after selected successful or failed operations return,
+//    including a new successful read.
+// 5. Actual accesses to one selected register leave the independent peer not
+//    busy.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.4.16 (UVM-REGISTER-CONTRACT-BUSY-INITIAL) gives rule 1
+//    above. Setup: A live original frontdoor adapter/sequencer/driver services
+//    one 32-bit RW register and leaves its peer idle. The driver signals
+//    request arrival, then gates completion while an independent thread
+//    queries is_busy. A selected read failure and successful later access
+//    follow. Expected: A selected register not currently accessed is initially
+//    not busy.
+// 2. 1800.2-2020 18.4.4.16 (UVM-REGISTER-CONTRACT-BUSY-WRITE) gives rule 2
+//    above. Setup: A live original frontdoor adapter/sequencer/driver services
+//    one 32-bit RW register and leaves its peer idle. The driver signals
+//    request arrival, then gates completion while an independent thread
+//    queries is_busy. A selected read failure and successful later access
+//    follow. Expected: The selected register is busy while its actual write
+//    awaits original driver completion.
+// 3. 1800.2-2020 18.4.4.16 (UVM-REGISTER-CONTRACT-BUSY-READ) gives rule 3
+//    above. Setup: A live original frontdoor adapter/sequencer/driver services
+//    one 32-bit RW register and leaves its peer idle. The driver signals
+//    request arrival, then gates completion while an independent thread
+//    queries is_busy. A selected read failure and successful later access
+//    follow. Expected: The selected register is busy while its actual read
+//    awaits original driver completion.
+// 4. 1800.2-2020 18.4.4.16 (UVM-REGISTER-CONTRACT-BUSY-RETURN) gives rule 4
+//    above. Setup: A live original frontdoor adapter/sequencer/driver services
+//    one 32-bit RW register and leaves its peer idle. The driver signals
+//    request arrival, then gates completion while an independent thread
+//    queries is_busy. A selected read failure and successful later access
+//    follow. Expected: is_busy clears after selected successful or failed
+//    operations return, including a new successful read.
+// 5. 1800.2-2020 18.4.4.16 (UVM-REGISTER-CONTRACT-BUSY-PEER) gives rule 5
+//    above. Setup: A live original frontdoor adapter/sequencer/driver services
+//    one 32-bit RW register and leaves its peer idle. The driver signals
+//    request arrival, then gates completion while an independent thread
+//    queries is_busy. A selected read failure and successful later access
+//    follow. Expected: Actual accesses to one selected register leave the
+//    independent peer not busy.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_is_busy_tracks_gated_reads_writes_failure_completion_and_an_idle_peer;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

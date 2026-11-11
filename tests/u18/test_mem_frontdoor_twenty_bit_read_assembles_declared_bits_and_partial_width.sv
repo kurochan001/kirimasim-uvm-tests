@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_frontdoor_twenty_bit_read_assembles_declared_bits_and_partial_width.expected
 */
+// What it checks:
+// 1. A frontdoor read transfers the selected memory location through its
+//    configured map.
+// 2. Each physical bus descriptor reports the number of model bits carried by
+//    that beat.
+// 3. Physical memory bus descriptors use plain READ or WRITE access kinds.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.5.2 (UVM-MEMORY-FRONTDOOR-READ) gives rule 1 above.
+//    Setup: Use byte/word-addressed maps, single or multiple physical beats
+//    and known testbench data. Expected: The selected location, declared data
+//    bits and physical addresses agree with the model and map.
+// 2. 1800.2-2020 19.1.2.4 (UVM-MEMORY-PARTIAL-BEAT-WIDTH) gives rule 2 above.
+//    Setup: Compare adjacent 20-bit locations on an 8-bit bus with 24-bit
+//    locations on a 16-bit bus. Also inspect 48/64-bit register and
+//    first-memory-location reads/writes on 32/64-bit byte-addressed
+//    little/big-endian buses. Expected: The logical-bit interpretation expects
+//    widths 8, 8, 4 for 20 bits and byte-aligned widths 16, 8 for 24 bits,
+//    preserving declared data. New full-width profiles carry 64 bits once or
+//    32/32 bits; a 48-bit split carries 32/16 bits in data-significance order.
+//    Observer rows are sorted by address, not execution order.
+// 3. 1800.2-2020 19.1.2.1 (UVM-MEMORY-PHYSICAL-ACCESS-KINDS) gives rule 3
+//    above. Setup: Observe full-width bursts and partial-width single-location
+//    transfers at the adapter boundary. Expected: Each observed beat has its
+//    required plain direction, rather than a burst-only operation kind.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Last physical bytes contain nonzero padding above the modeled width.
 // Compare only the declared 20 bits; returned upper padding is unconstrained.
 

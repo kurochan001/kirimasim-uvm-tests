@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_hdl_concatenations_keep_slice_coordinates_and_duplicate_implementations.expected
 */
+// What it checks:
+// 1. Adding a memory HDL concatenation retains its path/offset/size slices.
+// 2. The first flag starts a duplicate memory HDL implementation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.7.4 (UVM-MEMORY-AUDIT-CONCAT-SLICES) gives rule 1 above.
+//    Setup: Add a two-slice RTL concatenation, then a whole-variable slice
+//    with first explicitly true. Expected: The two-slice local path retains
+//    high56 at 8/8 and low56 at 0/8.
+// 2. 1800.2-2020 18.6.7.5 (UVM-MEMORY-AUDIT-DUPLICATE-SLICE) gives rule 2
+//    above. Setup: Add a two-slice RTL concatenation, then a whole-variable
+//    slice with first explicitly true. Expected: A whole-variable copy56 with
+//    -1/-1 coordinates is a second concatenation rather than a third slice in
+//    the first.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // HDL path metadata only; physical array access is measured separately.
 module test_memory_hdl_concatenations_keep_slice_coordinates_and_duplicate_implementations;
   import uvm_pkg::*;

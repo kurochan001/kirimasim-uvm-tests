@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_field_frontdoor_write_preserves_unselected_bits_and_neighbor_location.expected
 */
+// What it checks:
+// Virtual-field write transfers only its selected slice through the
+// implementing memory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.4.1 (UVM-VIRTUAL-FIELD-FRONTDOOR-WRITE) gives the rule
+// above. Setup: Use a selected field/index with explicit surrounding storage.
+// Expected: Unselected bits and the neighbor location retain their values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The field occupies bits 7:4 of the first memory byte. A partial write
 // preserves bits 3:0 and the other byte of the virtual register.
 

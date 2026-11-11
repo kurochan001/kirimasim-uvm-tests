@@ -15,6 +15,41 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_callback_reg_post_read_data_status_86.expected
 */
+// What it checks:
+// 1. The data edited by a virtual-register post_read method is returned to the
+//    read caller.
+// 2. The status edited by a virtual-register post_read method is returned to
+//    the read caller.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.9.1.4.4 (UVM-VREG-CALLBACK-REG-POST-READ-DATA-86) gives
+//    rule 1 above. Setup: Original 16-bit memory-backed virtual registers have
+//    one 4-bit field at LSB4 and selected indices0/2 of a static three-element
+//    array. Two healthy map-specific original frontdoors and one original user
+//    backdoor contain different independently seeded16-bit words. Each index
+//    first reads all three routes with edits disabled. Actual
+//    virtual/registered callbacks then edit one selected data/path/map/status
+//    or record first/last events for the selected read/write kind. Memory
+//    callbacks of the other kind are outside those ordering predicates.
+//    Parent-register and standalone-field calls are distinct inputs. No real
+//    HDL, bus driver or protocol implementation is involved. Expected: The
+//    data edited by a virtual-register post_read method is returned to the
+//    read caller.
+// 2. 1800.2-2020 18.9.1.4.4 (UVM-VREG-CALLBACK-REG-POST-READ-STATUS-86) gives
+//    rule 2 above. Setup: Original 16-bit memory-backed virtual registers have
+//    one 4-bit field at LSB4 and selected indices0/2 of a static three-element
+//    array. Two healthy map-specific original frontdoors and one original user
+//    backdoor contain different independently seeded16-bit words. Each index
+//    first reads all three routes with edits disabled. Actual
+//    virtual/registered callbacks then edit one selected data/path/map/status
+//    or record first/last events for the selected read/write kind. Memory
+//    callbacks of the other kind are outside those ordering predicates.
+//    Parent-register and standalone-field calls are distinct inputs. No real
+//    HDL, bus driver or protocol implementation is involved. Expected: The
+//    status edited by a virtual-register post_read method is returned to the
+//    read caller.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original banks provide distinct healthy routes without a physical bus or HDL.
 // Literal pre-read order probes keep the incompatible clause readings separate.
 module test_vreg_callback_reg_post_read_data_status_86;

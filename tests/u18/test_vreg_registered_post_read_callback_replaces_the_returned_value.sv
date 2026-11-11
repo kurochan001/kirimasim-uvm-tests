@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_registered_post_read_callback_replaces_the_returned_value.expected
 */
+// What it checks:
+// A virtual-register post_read callback can replace the returned value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.2.2.4 (UVM-VREG-POST-READ-CALLBACK-VALUE) gives the rule
+// above. Setup: Replace modeled bus read 3344 hex with 5ca6 hex. Expected: One
+// callback returns 5ca6 hex with OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The bus returns 3344; the registered virtual-register post-read callback
 // changes the caller result to 5ca6.
 

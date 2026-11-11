@@ -13,6 +13,21 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_hdl_slice_first_starts_duplicate_standard_view79.expected
 */
+// What it checks:
+// A true first argument starts a duplicate HDL implementation for the selected
+// abstraction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.6.5 (UVM-REG-HDL-SLICE-FIRST-DUPLICATE) gives the rule
+// above. Setup: Original 16-bit register/block models, legal most-to-least
+// nonoverlapping slices, named abstractions, isolated peers and fresh query
+// queues. Standard-view inputs use get_slices; separately declared controls
+// project the pinned library public slices member, an explicitly nonstandard
+// observability premise. No HDL storage is accessed. Expected: Two high/low
+// alternatives coexist while another abstraction and peer retain their single
+// whole paths.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard public API observations; independent expectations precede runs.
 // Symbolic metadata only; no physical HDL access or DPI calls.
 module test_reg_hdl_slice_first_starts_duplicate_standard_view79;

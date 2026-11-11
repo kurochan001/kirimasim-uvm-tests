@@ -13,6 +13,34 @@
 :expected_exit: 0
 :expected_stdout: @test_post_predict_write_frontdoor_forwards_identity_context_and_replacement_to_the_mirror.expected
 */
+// What it checks:
+// 1. Successful read/write prediction supplies the selected field, previous
+//    value and actual prediction context.
+// 2. A post-predict value change modifies the predicted mirror.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.11.2.6
+//    (UVM-PROTECTION-AUDIT-POST-PREDICT-WRITE-FRONTDOOR-CONTEXT) gives rule 1
+//    above. Setup: Post-predict observes the actual field and prediction
+//    context before changing predicted state. Fresh original sixteen-bit RW
+//    models, two contained byte fields and independent frontdoor/backdoor
+//    storage; exact message text/count and physical HDL are not prescribed.
+//    Select the low byte field, previous mirror 0xAD, supplied value 0x39,
+//    UVM_PREDICT_WRITE, UVM_FRONTDOOR and exact first_map handle. Expected:
+//    The callback sees the exact field, kind, path, map and previous/latest
+//    values.
+// 2. 1800.2-2020 18.11.2.6
+//    (UVM-PROTECTION-AUDIT-POST-PREDICT-WRITE-FRONTDOOR-REPLACEMENT) gives
+//    rule 2 above. Setup: Post-predict observes the actual field and
+//    prediction context before changing predicted state. Fresh original
+//    sixteen-bit RW models, two contained byte fields and independent
+//    frontdoor/backdoor storage; exact message text/count and physical HDL are
+//    not prescribed. Select the low byte field, previous mirror 0xAD, supplied
+//    value 0x39, UVM_PREDICT_WRITE, UVM_FRONTDOOR and exact first_map handle.
+//    Expected: The selected mirror and desired value become the callback
+//    replacement.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_post_predict_write_frontdoor_forwards_identity_context_and_replacement_to_the_mirror;
   import uvm_pkg::*;

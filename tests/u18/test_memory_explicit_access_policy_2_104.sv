@@ -13,6 +13,27 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_explicit_access_policy_2_104.expected
 */
+// What it checks:
+// Memory get_access accounts for the restrictions of its explicitly selected
+// address map.
+//
+// Variant: Inputs 0, 2 and 4 use a 16-bit memory of 3 locations, inputs 1, 3
+// and 5 a 40-bit memory of 5 locations. Inputs 2, 3 and 5 also add the memory
+// to the second map; inputs 4 and 5 configure it as RO. The first map adds it
+// with RW rights in input 4, RO in inputs 0, 2 and 5, and WO in inputs 1 and
+// 3.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.4.6 (UVM-MEMORY-EXPLICIT-MAP-ACCESS-RESTRICTION-104) gives
+// the rule above. Setup: Use intrinsic RW memories through RO or WO
+// interfaces,with sole-member or shared two-interface mappings. Change the
+// parent default between the explicit maps; keep a separate intrinsic RW peer
+// through an RW interface. Expected: Explicit RO and WO accesses report RO and
+// WO respectively while the RW interface and peer remain RW;changing the
+// parent default does not replace the supplied map. The separate get_rights
+// query retains its own shared/unshared rule.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_explicit_access_policy_2_104;
   import uvm_pkg::*;
   localparam int CASE104=2,WIDTH104=16,SIZE104=3;

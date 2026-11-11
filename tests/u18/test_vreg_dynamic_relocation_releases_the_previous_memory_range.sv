@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_dynamic_relocation_releases_the_previous_memory_range.expected
 */
+// What it checks:
+// Dynamic relocation releases the previous memory range.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.3 (UVM-VREG-DYNAMIC-RELOCATION-RELEASE) gives the rule
+// above. Setup: Move a two-element implementation from two to twelve and
+// reserve its former range. Expected: Move succeeds at offset twelve and the
+// old range is available; two regions remain after probing.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Moving to a disjoint range in the same memory keeps the new implementation
 // reserved and makes the former range available.
 

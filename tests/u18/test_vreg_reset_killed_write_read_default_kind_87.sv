@@ -15,6 +15,28 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_reset_killed_write_read_default_kind_87.expected
 */
+// What it checks:
+// Explicit virtual-register reset restores access after a thread is killed
+// during an unfinished array read or write.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.3.5 (UVM-ACCESS-VREG-RESET-KILLED-RECOVERY-87) gives the
+// rule above. Setup: An original 16-bit user-backdoor memory implements a
+// three-element virtual array at offset3,stride4 and an independent peer array
+// at offset20. Each round proves both selected indices0/2 and the peer work,
+// blocks a real virtual-register read or write inside the provider before
+// storage completion, captures and kills that calling process, and proves the
+// peer still works on the same provider. Only then reset() or reset("HARD") is
+// called. A fresh read/write on the other array index must complete, followed
+// by a read of the victim index and raw checks of all32 words. The four
+// victim/recovery operation pairs and both argument forms are independent
+// source inputs. Expected: The provider is entered and the victim has not
+// returned before kill; the killed operation does not later commit or return.
+// The independent peer remains usable, reset preserves the modeled words, and
+// the fresh array access completes with its requested value/status while all
+// unselected words remain unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independent original testbench storage; no HDL or physical bus protocol.
 module test_vreg_reset_killed_write_read_default_kind_87;
   timeunit 1ns; timeprecision 1ps;

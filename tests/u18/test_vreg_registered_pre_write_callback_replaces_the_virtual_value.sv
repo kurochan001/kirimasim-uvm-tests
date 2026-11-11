@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_registered_pre_write_callback_replaces_the_virtual_value.expected
 */
+// What it checks:
+// A virtual-register pre_write callback can replace the complete value sent to
+// memory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.2.2.1 (UVM-VREG-PRE-WRITE-CALLBACK-VALUE) gives the rule
+// above. Setup: Replace requested 3344 hex with 5ca6 hex before access.
+// Expected: One callback writes bytes a6/5c hex with OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The registered virtual-register callback replaces the complete write value
 // before its memory operations.
 

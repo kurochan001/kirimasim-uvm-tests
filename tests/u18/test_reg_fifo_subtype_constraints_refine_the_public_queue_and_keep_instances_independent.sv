@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_fifo_subtype_constraints_refine_the_public_queue_and_keep_instances_independent.expected
 */
+// What it checks:
+// 1. A FIFO subtype can refine its public queue using additional constraints.
+// 2. Separate FIFO instances retain independent abstract queue storage.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.8.2 (UVM-REG-FIFO-SUBTYPE-PUBLIC-QUEUE-CONSTRAINTS) gives
+//    rule 1 above. Setup: A concrete subtype constrains three entries to
+//    17/18/19 inside capacity four. Expected: Both instances randomize
+//    successfully and the selected values match.
+// 2. 1800.2-2020 18.8.2 (UVM-REG-FIFO-ABSTRACT-QUEUE-INSTANCE-ISOLATION) gives
+//    rule 2 above. Setup: Two identically constrained FIFOs are randomized
+//    before changing the first front to 99. Expected: The changed front is 99
+//    while the peer still returns 17 and retains size three.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A public queue refinement is original fixture code, not a FIFO algorithm.
 // Direct queue mutation is used only to check instance isolation.
 module test_reg_fifo_subtype_constraints_refine_the_public_queue_and_keep_instances_independent;

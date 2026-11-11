@@ -14,6 +14,24 @@
 :expected_exit: 0
 :expected_stdout: @test_mam_greedy_fresh_high_history_89.expected
 */
+// What it checks:
+// Under the historical fresh-space reading,GREEDY avoids the released block
+// while never-before-reserved space is available.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.2.1 (UVM-MAM-GREEDY-FRESH-89) gives the rule above. Setup:
+// Explicit historical interpretation. In each of eight fresh32-location
+// one-byte managers,a live4-location region remains reserved while another
+// low/high4-location region is reserved and released. A
+// default-policy4-location request follows. The qualified GREEDY reading
+// consumes never-before-reserved space when available;the THRIFTY reading
+// maximizes reuse of the released block. Per-request
+// bounds,width,disjointness,held-region endpoints/membership and cleanup are
+// checked without private history state. Expected: Every selected request is
+// valid and meets its stated fresh/reuse preference while held regions remain
+// unchanged and allocated until explicitly released.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_mam_greedy_fresh_high_history_89;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

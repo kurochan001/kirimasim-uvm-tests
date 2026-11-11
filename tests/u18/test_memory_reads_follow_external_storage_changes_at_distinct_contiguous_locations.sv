@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_reads_follow_external_storage_changes_at_distinct_contiguous_locations.expected
 */
+// What it checks:
+// 1. Selected adjacent memory locations retain independent external storage
+//    values.
+// 2. A new memory read returns the selected current external storage value.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6 (UVM-MEM-FIFO-AUDIT-MEM-CONTIGUOUS-ROLE) gives rule 1
+//    above. Setup: An original delayed user backdoor uses the standard
+//    pre/post helpers and accesses an independent four-word array. Expected:
+//    Location one and its adjacent peer return their selected independent
+//    original storage values.
+// 2. 1800.2-2020 18.6.5.2 (UVM-MEM-FIFO-AUDIT-MEM-FRESH-READ) gives rule 2
+//    above. Setup: An original delayed user backdoor uses the standard
+//    pre/post helpers and accesses an independent four-word array. Expected: A
+//    direct external change from 0x11 to 0x39 is seen on the next read, while
+//    location two remains 0x22.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_reads_follow_external_storage_changes_at_distinct_contiguous_locations;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

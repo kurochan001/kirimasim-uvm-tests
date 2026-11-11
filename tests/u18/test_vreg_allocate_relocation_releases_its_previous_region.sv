@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_allocate_relocation_releases_its_previous_region.expected
 */
+// What it checks:
+// Successful reallocation releases the former virtual-array region.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.4 (UVM-VREG-ALLOCATE-RELOCATION-RELEASE) gives the rule
+// above. Setup: Move from constrained start ten to twenty and reserve the
+// former range. Expected: New offset is twenty with the selected region; the
+// old range is available and two regions are active after probing it.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A second allocation moves to the disjoint policy-selected region. The
 // previous four-location reservation becomes available.
 

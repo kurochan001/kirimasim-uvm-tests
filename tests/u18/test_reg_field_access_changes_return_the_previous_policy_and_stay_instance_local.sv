@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_access_changes_return_the_previous_policy_and_stay_instance_local.expected
 */
+// What it checks:
+// set_access returns the previous field policy and installs its new local
+// policy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.4.6 (UVM-FIELD-ACCESS-POLICY-REPLACEMENT) gives the rule
+// above. Setup: Change RW to RO to W1C while another field and register remain
+// configured RW. Expected: Previous values are RW/RO; neighbors remain RW and
+// stored desired/mirrored data are unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only field metadata and desired/mirrored state. No bus, RTL or DPI
 // is accessed, and policy controls do not establish physical side effects.
 module test_reg_field_access_changes_return_the_previous_policy_and_stay_instance_local;

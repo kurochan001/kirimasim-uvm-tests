@@ -13,6 +13,34 @@
 :expected_stdout: @test_register_fifo_external_predictor_adds_a_write_only_after_observation.expected
 :files: helpers63/fifo_frontdoor_fixture63.svh
 */
+// What it checks:
+// 1. With auto-prediction off, a returned FIFO write awaits bus observation
+//    before abstract prediction.
+// 2. A real bus predictor observation updates the FIFO abstract write state.
+// 3. The FIFO predict interface accepts the observed write through the
+//    standard predictor.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.8.5.3 (UVM-MEM-FIFO-AUDIT-FIFO-EXTERNAL-BEFORE) gives rule
+//    1 above. Setup: Use the original one-byte bus FIFO model and independent
+//    register control, explicit frontdoor/map and selected auto/external
+//    prediction. Preload update occurs before any blocking statement after
+//    set. Expected: The DUT model contains 0x35 while the abstract queue is
+//    still empty.
+// 2. 1800.2-2020 18.8.5.3 (UVM-MEM-FIFO-AUDIT-FIFO-EXTERNAL-AFTER) gives rule
+//    2 above. Setup: Use the original one-byte bus FIFO model and independent
+//    register control, explicit frontdoor/map and selected auto/external
+//    prediction. Preload update occurs before any blocking statement after
+//    set. Expected: One published successful observed write produces one
+//    abstract 0x35 without another bus transfer.
+// 3. 1800.2-2020 18.8.5.7 (UVM-MEM-FIFO-AUDIT-FIFO-EXTERNAL-PREDICT) gives
+//    rule 3 above. Setup: Use the original one-byte bus FIFO model and
+//    independent register control, explicit frontdoor/map and selected
+//    auto/external prediction. Preload update occurs before any blocking
+//    statement after set. Expected: The predictor bus_in route updates the
+//    selected queue rather than an original testbench mirror implementation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_fifo_external_predictor_adds_a_write_only_after_observation;
   import uvm_pkg::*;
   `include "fifo_frontdoor_fixture63.svh"

@@ -1,7 +1,10 @@
 // Standard view and explicit library-member control stay separate.
 function automatic void slices79(uvm_hdl_path_concat path,
                                   output uvm_hdl_path_slice values[]);
-  if (path==null) begin values=new[0]; return; end
+  if (path==null) begin
+    values=new[0];
+    return;
+  end
 `ifdef KIRIMASIM_HDL_VIEW_CONTROL79
   // Nonstandard public member; this does not pass the standard get_slices API.
   values=path.slices;

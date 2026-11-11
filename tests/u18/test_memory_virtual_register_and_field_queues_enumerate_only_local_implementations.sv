@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_virtual_register_and_field_queues_enumerate_only_local_implementations.expected
 */
+// What it checks:
+// 1. Memory virtual-register enumeration returns every local implementation.
+// 2. Memory virtual-field enumeration returns fields belonging to local
+//    implementations.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.4.11 (UVM-MEMORY-AUDIT-VREG-QUEUE) gives rule 1 above.
+//    Setup: Two local implemented vregs contain three uniquely named fields;
+//    another memory owns an unrelated vreg/field and a fourth vreg is
+//    configured without implementation. Expected: The queue contains exactly
+//    alpha56 and beta56 once each, excluding the foreign and unimplemented
+//    handles.
+// 2. 1800.2-2020 18.6.4.12 (UVM-MEMORY-AUDIT-VFIELD-QUEUE) gives rule 2 above.
+//    Setup: Two local implemented vregs contain three uniquely named fields;
+//    another memory owns an unrelated vreg/field and a fourth vreg is
+//    configured without implementation. Expected: The queue contains exactly
+//    low56, high56 and flag56 once each, with no foreign field.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_virtual_register_and_field_queues_enumerate_only_local_implementations;
   import uvm_pkg::*;
 

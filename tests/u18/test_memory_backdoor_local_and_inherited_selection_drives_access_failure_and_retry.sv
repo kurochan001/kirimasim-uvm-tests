@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_backdoor_local_and_inherited_selection_drives_access_failure_and_retry.expected
 */
+// What it checks:
+// 1. Memory backdoor lookup defaults to inheritance while a local-only lookup
+//    suppresses it.
+// 2. A memory-specific backdoor supersedes the inherited mechanism.
+// 3. Backdoor setter debug filename/line do not change functional
+//    selection/access.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.7.1 (UVM-MEMORY-AUDIT-BACKDOOR-INHERITANCE) gives rule 1
+//    above. Setup: One configured memory first inherits its parent block
+//    backdoor, then receives a local backdoor under empty/nonempty debug
+//    arguments. Original storage supplies poke/peek success, rejection and
+//    retry. Expected: Initially absent; after parent selection
+//    default/explicit-one return the parent and zero returns null; inherited
+//    poke/peek reaches that storage.
+// 2. 1800.2-2020 18.6.7.2 (UVM-MEMORY-AUDIT-BACKDOOR-LOCAL) gives rule 2
+//    above. Setup: One configured memory first inherits its parent block
+//    backdoor, then receives a local backdoor under empty/nonempty debug
+//    arguments. Original storage supplies poke/peek success, rejection and
+//    retry. Expected: Local/default getters return the local handle and
+//    poke/peek uses local storage, leaving the parent value unchanged.
+// 3. 1800.2-2020 18.6.7.2 (UVM-MEMORY-AUDIT-BACKDOOR-DEBUG) gives rule 3
+//    above. Setup: One configured memory first inherits its parent block
+//    backdoor, then receives a local backdoor under empty/nonempty debug
+//    arguments. Original storage supplies poke/peek success, rejection and
+//    retry. Expected: Both debug variants select the same local mechanism and
+//    recover the same successful data.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_backdoor_local_and_inherited_selection_drives_access_failure_and_retry;
   import uvm_pkg::*;
 

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_direct_prediction_updates_readonly_desired_and_mirror.expected
 */
+// What it checks:
+// Direct prediction updates a readonly field without policy filtering.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-FIELD-DIRECT-PREDICT-READONLY) gives the rule
+// above. Setup: Directly predict a6 hex into an RO field. Expected: Prediction
+// succeeds and desired/mirror both become a6.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Direct prediction must apply the computed value even for a read-only field.
 
 module test_reg_field_direct_prediction_updates_readonly_desired_and_mirror;

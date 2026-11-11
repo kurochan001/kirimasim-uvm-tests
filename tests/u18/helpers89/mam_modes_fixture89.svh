@@ -5,8 +5,12 @@ endclass
 function automatic uvm_mem_mam_cfg config89(uvm_reg_addr_t base,
     uvm_mem_mam::alloc_mode_e mode,uvm_mem_mam::locality_e locality);
   automatic uvm_mem_mam_cfg cfg=new();
-  cfg.n_bytes=1; cfg.start_offset=base; cfg.end_offset=base+31;
-  cfg.mode=mode; cfg.locality=locality; return cfg;
+  cfg.n_bytes=1;
+  cfg.start_offset=base;
+  cfg.end_offset=base+31;
+  cfg.mode=mode;
+  cfg.locality=locality;
+  return cfg;
 endfunction
 function automatic bit valid89(uvm_mem_region item,uvm_reg_addr_t base);
   if (item==null) return 0;
@@ -27,7 +31,9 @@ function automatic bit remaining89(uvm_mem_mam manager,uvm_mem_region a,uvm_mem_
   automatic int count=0;
   automatic bit seen_a=0,seen_b=0;
   while (item!=null && count<8) begin
-    count++; seen_a |= item==a; seen_b |= b!=null && item==b;
+    count++;
+    seen_a |= item==a;
+    seen_b |= b!=null && item==b;
     item=manager.for_each();
   end
   return item==null && seen_a && count==(b==null ? 1 : 2) && (b==null || seen_b);
@@ -46,7 +52,8 @@ initial begin
     selected_locality=MODE==0 ? uvm_mem_mam::BROAD : uvm_mem_mam::NEARBY;
     cfg=config89(64,selected_mode,selected_locality);
     peer_cfg=config89(64,selected_mode,selected_locality);
-    manager=new("manager89",cfg); peer=new("peer89",peer_cfg);
+    manager=new("manager89",cfg);
+    peer=new("peer89",peer_cfg);
     held[0]=manager.reserve_region(72,4);
     if (held[0]==null) $fatal(1,"configuration control reservation");
     queries=manager.reconfigure()==cfg && peer.reconfigure()==peer_cfg;
@@ -68,8 +75,10 @@ initial begin
       base=(MODE%2)==0 ? 0 : 64;
       selected_mode=MODE inside {4,5} ? uvm_mem_mam::THRIFTY : uvm_mem_mam::GREEDY;
       selected_locality=MODE inside {6,7} ? uvm_mem_mam::NEARBY : uvm_mem_mam::BROAD;
-      cfg=config89(base,selected_mode,selected_locality); manager=new("manager89",cfg);
-      held[1]=null; controls=1;
+      cfg=config89(base,selected_mode,selected_locality);
+      manager=new("manager89",cfg);
+      held[1]=null;
+      controls=1;
       if (MODE<6) begin
         held[0]=manager.reserve_region(base+12,4);
         old_start=base+((MODE%2)==0 ? 0 : 24);
@@ -79,7 +88,8 @@ initial begin
         manager.release_region(recent);
         controls &= remaining89(manager,held[0],null);
         for (int i=0;i<2;i++) if (held[i]!=null) begin
-          held_start[i]=held[i].get_start_offset(); held_end[i]=held[i].get_end_offset();
+          held_start[i]=held[i].get_start_offset();
+          held_end[i]=held[i].get_end_offset();
         end
         item=manager.request_region(4);
       end else if (MODE<8) begin
@@ -88,16 +98,21 @@ initial begin
         controls=valid89(held[0],base) && (MODE==6 || valid89(held[1],base));
         if (!controls) $fatal(1,"locality control reservation");
         for (int i=0;i<2;i++) if (held[i]!=null) begin
-          held_start[i]=held[i].get_start_offset(); held_end[i]=held[i].get_end_offset();
+          held_start[i]=held[i].get_start_offset();
+          held_end[i]=held[i].get_end_offset();
         end
         item=manager.request_region(4);
       end else begin
-        held[0]=manager.reserve_region(base,4); held[1]=manager.reserve_region(base+28,4);
+        held[0]=manager.reserve_region(base,4);
+        held[1]=manager.reserve_region(base+28,4);
         controls=valid89(held[0],base) && valid89(held[1],base);
         if (!controls) $fatal(1,"broad control reservation");
-        desired=base+(MODE==8 ? 12 : 20); policy=new(); policy.target=desired;
+        desired=base+(MODE==8 ? 12 : 20);
+        policy=new();
+        policy.target=desired;
         for (int i=0;i<2;i++) if (held[i]!=null) begin
-          held_start[i]=held[i].get_start_offset(); held_end[i]=held[i].get_end_offset();
+          held_start[i]=held[i].get_start_offset();
+          held_end[i]=held[i].get_end_offset();
         end
         item=manager.request_region(4,policy);
       end

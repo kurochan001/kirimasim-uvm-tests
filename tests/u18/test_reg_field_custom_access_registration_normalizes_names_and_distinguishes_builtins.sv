@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_custom_access_registration_normalizes_names_and_distinguishes_builtins.expected
 */
+// What it checks:
+// 1. Access registration normalizes policy names to uppercase and reports
+//    whether a name was newly defined.
+// 2. is_known_access classifies built-in policies rather than every registered
+//    name.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.4.7 (UVM-FIELD-CUSTOM-ACCESS-REGISTRATION) gives rule 1
+//    above. Setup: Register a lowercase custom name, repeat in uppercase and
+//    register built-in RW. Expected: The first registration returns one,
+//    duplicates return zero and stored custom access uses uppercase.
+// 2. 1800.2-2020 18.5.4.8 (UVM-FIELD-BUILTIN-ACCESS-CLASSIFICATION) gives rule
+//    2 above. Setup: Select a registered custom policy, then restore built-in
+//    RW with an RW peer. Expected: The custom policy is not built-in; restored
+//    and peer RW policies are known.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only field metadata and desired/mirrored state. No bus, RTL or DPI
 // is accessed, and policy controls do not establish physical side effects.
 module test_reg_field_custom_access_registration_normalizes_names_and_distinguishes_builtins;

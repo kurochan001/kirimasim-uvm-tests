@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_reset_deletion_returns_prior_presence_and_preserves_other_kinds.expected
 */
+// What it checks:
+// 1. has_reset with delete reports prior existence and removes only the
+//    selected kind.
+// 2. Reset with an undefined kind leaves desired and mirrored field values
+//    unchanged.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.5 (UVM-FIELD-RESET-KIND-DELETION) gives rule 1 above.
+//    Setup: Define HARD/SOFT, delete HARD twice and retain peer reset
+//    metadata. Expected: First deletion returns one, later deletion returns
+//    zero; SOFT/peer metadata and live values remain.
+// 2. 1800.2-2020 18.5.5.4 (UVM-FIELD-UNKNOWN-RESET-PRESERVES-STATE) gives rule
+//    2 above. Setup: Use an unknown kind with divergent values or delete HARD
+//    before its default reset. Expected: Unknown reset preserves desired
+//    73/mirror 42; deleted HARD preserves equal values 42.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only field metadata and desired/mirrored state. No bus, RTL or DPI
 // is accessed, and policy controls do not establish physical side effects.
 module test_reg_field_reset_deletion_returns_prior_presence_and_preserves_other_kinds;

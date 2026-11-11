@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes.expected
 */
+// What it checks:
+// 1. The FIFO queue capacity constraint permits the selected exact-capacity
+//    state.
+// 2. The inherited FIFO capacity constraint rejects a selected queue size
+//    above capacity.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.8.2 (UVM-REG-FIFO-RANDOMIZATION-ACCEPTS-CAPACITY) gives
+//    rule 1 above. Setup: Inline and subtype-declared constraints request
+//    three entries in a capacity-three FIFO. Expected: Randomization succeeds
+//    and the abstract queue has exactly three entries.
+// 2. 1800.2-2020 18.8.2 (UVM-REG-FIFO-RANDOMIZATION-REJECTS-OVERSIZE) gives
+//    rule 2 above. Setup: Inline and subtype-declared constraints request four
+//    entries in a capacity-three FIFO. Expected: Both oversized randomization
+//    requests return failure.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Test the same inherited bound with subtype-declared constraints.
 // No inline clause, implementation-specific build or DUT storage is used.
 // The measured valid subtype matches, but the oversized subtype is accepted.

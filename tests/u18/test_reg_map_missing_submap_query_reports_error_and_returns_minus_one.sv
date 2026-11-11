@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_map_missing_submap_query_reports_error_and_returns_minus_one.expected
 */
+// What it checks:
+// A missing-submap offset query reports an error and returns minus one.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.3.7 (UVM-MAP-MISSING-SUBMAP-QUERY) gives the rule above.
+// Setup: Query a map that was not added as a submap. Expected: The result is
+// minus one and an error is caught.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The catcher observes the original error severity without rewriting it.
 // Compare the address-width minus-one value symbolically.
 

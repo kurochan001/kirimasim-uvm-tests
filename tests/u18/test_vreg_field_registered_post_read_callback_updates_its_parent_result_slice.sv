@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_field_registered_post_read_callback_updates_its_parent_result_slice.expected
 */
+// What it checks:
+// A virtual-field post_read callback can replace its slice in the parent
+// result.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.6.2.4 (UVM-VREG-FIELD-POST-READ-SLICE) gives the rule
+// above. Setup: Read 3344 hex and replace bits 7..4 with a hex. Expected: One
+// callback returns 33a4 hex with OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // During a full virtual-register read, the field callback changes bits 7:4 of
 // the returned value while preserving the remaining bits.
 

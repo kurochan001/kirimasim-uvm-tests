@@ -13,6 +13,17 @@
 :expected_stdout: @test_vreg_query_region_is_the_reserved_memory_descriptor.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// The region getter returns the descriptor reserving the virtual array memory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.5
+// (UVM-VREG-QUERY-REGION-IS-THE-RESERVED-MEMORY-DESCRIPTOR) gives the rule
+// above. Setup: Explicitly implement one dynamic array in a memory with no
+// other reservations. Expected: The stated identity, count, policy, offset or
+// diagnostic-presence observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_region_is_the_reserved_memory_descriptor;

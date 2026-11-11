@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_mirror_check_reports_mismatch_and_updates_mirror.expected
 */
+// What it checks:
+// Mirror checking reports a mismatching value and then updates the mirror.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.14 (UVM-REGISTER-MIRROR-MISMATCH-CHECK) gives the rule
+// above. Setup: Read changed testbench data with UVM_CHECK and an explicitly
+// selected field comparison mode. Expected: An error occurs and the mirror
+// takes the current read value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A catcher counts original RegModel errors without changing severity. A
 // mismatching read reports one error and still refreshes the mirror.
 

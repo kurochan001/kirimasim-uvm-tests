@@ -13,6 +13,19 @@
 :expected_exit: 0
 :expected_stdout: @test_field_post_write_status_propagates_through_a_real_selected_access.expected
 */
+// What it checks:
+// A field post-write status change reaches the caller after storage is
+// written.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.6.2 (UVM-FIELD-ACCESS-AUDIT-POST-WRITE-STATUS) gives the
+// rule above. Setup: Set exactly one original method or registered callback
+// change, then call the public field read/write API. Route buffers are
+// independent testbench controls, not a proof of physical alias coherence.
+// Expected: The original word is 0x63 after one transfer while returned status
+// is NOT_OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_post_write_status_propagates_through_a_real_selected_access;
   import uvm_pkg::*;

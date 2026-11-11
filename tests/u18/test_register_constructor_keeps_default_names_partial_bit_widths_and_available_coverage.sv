@@ -12,6 +12,77 @@
 :expected_exit: 0
 :expected_stdout: @test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage.expected
 */
+// What it checks:
+// 1. The selected register is usable through an object base view and casts
+//    back to the same register handle.
+// 2. Register construction preserves the selected explicit instance name.
+// 3. Omitting the base register constructor name uses the declared
+//    empty-string default while supplying the required width and coverage
+//    arguments.
+// 4. The declared total register width is retained even when selected fields
+//    implement only part of those bits.
+// 5. The selected register constructor advertises all supplied coverage models
+//    without adding an absent model or changing the separate no-coverage
+//    instance.
+// 6. Selected register bit widths remain exact across one-bit, byte-boundary
+//    and partial-byte cases.
+// 7. The selected register byte width rounds partial bytes up to the next
+//    whole byte.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.1 (UVM-REGISTER-CONTRACT-OBJECT-BASE) gives rule 1
+//    above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: The selected register is usable through an object base view and
+//    casts back to the same register handle.
+// 2. 1800.2-2020 18.4.2.1 (UVM-REGISTER-CONTRACT-NEW-NAME) gives rule 2 above.
+//    Setup: Use the selected original register/block/file models and explicit
+//    public calls. Constructor-only observations do not require mapped
+//    physical hardware. Membership is queried through the register view after
+//    selected legal registrations/removals; output queues start empty.
+//    Expected: Register construction preserves the selected explicit instance
+//    name.
+// 3. 1800.2-2020 18.4.2.1 (UVM-REGISTER-CONTRACT-NEW-DEFAULT-NAME) gives rule
+//    3 above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: Omitting the base register constructor name uses the declared
+//    empty-string default while supplying the required width and coverage
+//    arguments.
+// 4. 1800.2-2020 18.4.2.1 (UVM-REGISTER-CONTRACT-NEW-PARTIAL-WIDTH) gives rule
+//    4 above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: The declared total register width is retained even when
+//    selected fields implement only part of those bits.
+// 5. 1800.2-2020 18.4.2.1 (UVM-REGISTER-CONTRACT-NEW-COVERAGE-MASK) gives rule
+//    5 above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: The selected register constructor advertises all
+//    supplied coverage models without adding an absent model or changing the
+//    separate no-coverage instance.
+// 6. 1800.2-2020 18.4.3.8 (UVM-REGISTER-CONTRACT-WIDTH-BITS) gives rule 6
+//    above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: Selected register bit widths remain exact across one-bit,
+//    byte-boundary and partial-byte cases.
+// 7. 1800.2-2020 18.4.3.9 (UVM-REGISTER-CONTRACT-WIDTH-CEILING-BYTES) gives
+//    rule 7 above. Setup: Use the selected original register/block/file models
+//    and explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: The selected register byte width rounds partial bytes up to the
+//    next whole byte.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

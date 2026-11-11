@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_check_on_read_read_clear_compares_returned_data_before_predicting_the_clear.expected
 */
+// What it checks:
+// Read-clear checking compares sampled data before the modeled post-read
+// clear.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.5.3 (UVM-MAP-READ-CHECK-PRECEDES-READ-CLEAR-PREDICTION)
+// gives the rule above. Setup: Read reset value 5a from an RC field with
+// checking enabled. Expected: No ERROR occurs, the caller receives 5a and the
+// mirror becomes zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only bus storage, a delayed driver and explicit auto-prediction.
 // Count required discrepancy reports without prescribing report text or IDs.
 // Read-side effects are model prediction, not an RTL storage implementation.

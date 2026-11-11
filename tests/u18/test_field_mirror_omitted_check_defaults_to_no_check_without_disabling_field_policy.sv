@@ -13,6 +13,17 @@
 :expected_exit: 0
 :expected_stdout: @test_field_mirror_omitted_check_defaults_to_no_check_without_disabling_field_policy.expected
 */
+// What it checks:
+// Omitting field mirror check uses NO_CHECK without changing the field policy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.13 (UVM-FIELD-ACCESS-AUDIT-MIRROR-DEFAULT-CHECK) gives
+// the rule above. Setup: Enable field comparison and call mirror with explicit
+// path/map but omitted check on mismatching original storage. Expected: One
+// read refreshes the mirror to 0x73 with no error and the field policy remains
+// CHECK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_mirror_omitted_check_defaults_to_no_check_without_disabling_field_policy;
   import uvm_pkg::*;

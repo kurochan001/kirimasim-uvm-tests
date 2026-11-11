@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_allocate_reserves_whole_wide_memory_locations.expected
 */
+// What it checks:
+// Allocation reserves complete implementing-memory locations for every array
+// element.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.4 (UVM-VREG-ALLOCATE-WHOLE-MEMORY-LOCATIONS) gives the
+// rule above. Setup: Allocate three 32-bit elements over 16-bit locations
+// starting at six. Expected: The region is 6..11, six locations/twelve bytes,
+// with two locations per element.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Each 32-bit virtual element needs two 16-bit memory locations. Three elements
 // reserve six locations and twelve bytes.
 

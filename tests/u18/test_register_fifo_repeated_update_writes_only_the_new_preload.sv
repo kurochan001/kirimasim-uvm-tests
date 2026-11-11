@@ -13,6 +13,19 @@
 :expected_stdout: @test_register_fifo_repeated_update_writes_only_the_new_preload.expected
 :files: helpers63/fifo_frontdoor_fixture63.svh
 */
+// What it checks:
+// A later FIFO update transfers the newly preloaded value without
+// retransmitting a completed preload.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.8.5.5 (UVM-MEM-FIFO-AUDIT-FIFO-UPDATE-NEW-PRELOAD) gives the
+// rule above. Setup: Use the original one-byte bus FIFO model and independent
+// register control, explicit frontdoor/map and selected auto/external
+// prediction. Preload update occurs before any blocking statement after set.
+// Expected: Two completed set/update pairs leave the original DUT and abstract
+// queues as 0x11,0x22 with two writes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_fifo_repeated_update_writes_only_the_new_preload;
   import uvm_pkg::*;
   `include "fifo_frontdoor_fixture63.svh"

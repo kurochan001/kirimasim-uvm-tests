@@ -12,6 +12,65 @@
 :expected_exit: 0
 :expected_stdout: @test_block_mirror_reads_local_and_nested_registers_and_distinguishes_default_and_explicit_check.expected
 */
+// What it checks:
+// 1. Block mirror reads each selected local and child register through the
+//    actual frontdoor.
+// 2. Successful block mirror updates the selected root/child mirror values
+//    from the original driver storage.
+// 3. The selected RW block mirror operation performs reads without writing the
+//    original storage.
+// 4. Omitting the block mirror check argument does not report mismatches in
+//    the selected initially different mirrors.
+// 5. Explicit UVM_CHECK reports a selected mismatch while the successful read
+//    refreshes that mirror.
+// 6. Changing debug source information preserves selected block mirror results
+//    and actual reads.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.5.6 (UVM-BLOCK-ACCESS-MIRROR-SUBTREE-READS) gives rule 1
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    Block mirror reads each selected local and child register through the
+//    actual frontdoor.
+// 2. 1800.2-2020 18.1.5.6 (UVM-BLOCK-ACCESS-MIRROR-VALUES) gives rule 2 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: Successful
+//    block mirror updates the selected root/child mirror values from the
+//    original driver storage.
+// 3. 1800.2-2020 18.1.5.6 (UVM-BLOCK-ACCESS-MIRROR-NO-WRITES) gives rule 3
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The selected RW block mirror operation performs reads without writing the
+//    original storage.
+// 4. 1800.2-2020 18.1.5.6 (UVM-BLOCK-ACCESS-MIRROR-DEFAULT-NO-CHECK) gives
+//    rule 4 above. Setup: Use the selected original hierarchical
+//    register/memory models and their explicit public calls. Named wrapper
+//    observations call through a block base view and genuine configured
+//    lookup; actual frontdoor cases use the original adapter, sequencer and
+//    driver storage. Expected: Omitting the block mirror check argument does
+//    not report mismatches in the selected initially different mirrors.
+// 5. 1800.2-2020 18.1.5.6 (UVM-BLOCK-ACCESS-MIRROR-EXPLICIT-CHECK) gives rule
+//    5 above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    Explicit UVM_CHECK reports a selected mismatch while the successful read
+//    refreshes that mirror.
+// 6. 1800.2-2020 18.1.5.6 (UVM-BLOCK-ACCESS-MIRROR-DEBUG-INVARIANCE) gives
+//    rule 6 above. Setup: Use the selected original hierarchical
+//    register/memory models and their explicit public calls. Named wrapper
+//    observations call through a block base view and genuine configured
+//    lookup; actual frontdoor cases use the original adapter, sequencer and
+//    driver storage. Expected: Changing debug source information preserves
+//    selected block mirror results and actual reads.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_block_mirror_reads_local_and_nested_registers_and_distinguishes_default_and_explicit_check;
   import uvm_pkg::*;

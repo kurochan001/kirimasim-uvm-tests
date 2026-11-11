@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_map_reset_defaults_to_soft_and_preserves_other_maps_registers.expected
 */
+// What it checks:
+// Map reset defaults to SOFT and resets only registers belonging to that map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.3.10 (UVM-MAP-RESET-SOFT-DEFAULT) gives the rule above.
+// Setup: Configure distinct HARD/SOFT values and a register in another map,
+// then use default/explicit HARD reset. Expected: Default reset yields 78,
+// HARD yields 12, and the other-map register retains bb.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two registers belong to separate maps in one block. Reset one map and
 // observe both mirrors; explicitly requesting HARD uses a different value.
 

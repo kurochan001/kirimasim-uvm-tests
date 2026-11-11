@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_block_unlock_model_allows_structural_additions_before_rebuilding_lookups.expected
 */
+// What it checks:
+// unlock_model permits structural changes and invalidates precomputed state
+// before relocking.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.2.7 (UVM-BLOCK-UNLOCK-STRUCTURAL-REBUILD) gives the rule
+// above. Setup: Lock one mapped register, unlock, add another register and
+// relock. Expected: The model becomes unlocked; rebuilt lookups retain the
+// original and locate the new register.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_unlock_model_allows_structural_additions_before_rebuilding_lookups;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

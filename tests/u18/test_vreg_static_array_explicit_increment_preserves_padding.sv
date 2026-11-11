@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_static_array_explicit_increment_preserves_padding.expected
 */
+// What it checks:
+// A legal explicit static increment preserves padding between elements.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.2 (UVM-VREG-STATIC-EXPLICIT-PADDING) gives the rule
+// above. Setup: Use two-location elements at offset two with increment three.
+// Expected: Width is two bytes/locations and offsets are 2/5/8.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Three memory words separate two-word virtual registers. The unused word
 // between elements is padding, not part of the element width.
 

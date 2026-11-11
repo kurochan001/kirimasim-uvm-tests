@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_order_policy_one_interface_policy_does_not_reorder_an_unconfigured_peer.expected
 */
+// What it checks:
+// A selected interface policy is not dispatched for another map without that
+// policy.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.5.5 (UVM-MAP-ORDER-POLICY-ACTIVE-INTERFACE-ISOLATION) gives
+// the rule above. Setup: Write through the configured interface and then an
+// independent alternate. Expected: The first access obeys descending order;
+// alternate writes all four bytes without another hook call and predicts
+// 9abcdef0 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Reorder complete bus-operation structs for one 32-bit register on an
 // 8-bit bus. The driver stores bytes by address after a positive delay.
 // No partial-width, burst-memory, concurrency or HDL/DPI semantics are claimed.

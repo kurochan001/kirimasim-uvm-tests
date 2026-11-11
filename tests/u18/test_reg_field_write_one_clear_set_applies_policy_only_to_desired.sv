@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_write_one_clear_set_applies_policy_only_to_desired.expected
 */
+// What it checks:
+// W1C set applies clear masks only to desired state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.2 (UVM-FIELD-W1C-SET-DESIRED-ONLY) gives the rule above.
+// Setup: Starting ff, set masks 0f then 30 hex. Expected: Desired becomes f0
+// then c0 while mirror remains ff hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Apply two disjoint clear masks to distinguish policy effects from assignment.
 // The mirror remains at its reset value because no prediction occurred.
 

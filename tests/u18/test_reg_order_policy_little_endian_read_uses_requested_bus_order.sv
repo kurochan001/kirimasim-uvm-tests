@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_order_policy_little_endian_read_uses_requested_bus_order.expected
 */
+// What it checks:
+// 1. A reordered little-endian register read assembles the correct logical
+//    value.
+// 2. The order hook receives the physical operations for the selected register
+//    access.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.2.4 (UVM-REG-ORDER-POLICY-LITTLE-ENDIAN-READ-ASSEMBLY)
+//    gives rule 1 above. Setup: Read initialized bytes in descending address
+//    order. Expected: Addresses 23/22/21/20 yield bytes 12/34/56/78 and both
+//    returned value and mirror are 12345678 hex.
+// 2. 1800.2-2020 18.4.2.4 (UVM-REG-ORDER-POLICY-QUEUE-GEOMETRY) gives rule 2
+//    above. Setup: Access a 32-bit register using an eight-bit bus, for reads
+//    and writes in both endiannesses. Expected: The hook is called with four
+//    eight-bit operations whose kind matches the requested direction.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned release concatenates read data in reordered transfer order,
 // rather than restoring logical byte positions. Retain address/data binding.
 // Reorder complete bus-operation structs for one 32-bit register on an

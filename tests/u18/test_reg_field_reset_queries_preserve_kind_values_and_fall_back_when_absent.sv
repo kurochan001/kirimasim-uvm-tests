@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_reset_queries_preserve_kind_values_and_fall_back_when_absent.expected
 */
+// What it checks:
+// 1. Reset queries return the configured kind value or current field value for
+//    an absent kind.
+// 2. Setting reset metadata retains separate kind values without applying a
+//    reset.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.6 (UVM-FIELD-RESET-VALUE-QUERY-FALLBACK) gives rule 1
+//    above. Setup: Predict equal current values, query an absent kind, then
+//    define HARD and SOFT metadata. Expected: Absent kind returns 42 and
+//    configured kinds return 17/29, independently of live data.
+// 2. 1800.2-2020 18.5.5.7 (UVM-FIELD-RESET-METADATA-ASSIGNMENT) gives rule 2
+//    above. Setup: Set default HARD and explicit SOFT values after prediction.
+//    Expected: Queries return the new reset values while desired and mirror
+//    remain 42 and the peer retains 33.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only field metadata and desired/mirrored state. No bus, RTL or DPI
 // is accessed, and policy controls do not establish physical side effects.
 module test_reg_field_reset_queries_preserve_kind_values_and_fall_back_when_absent;

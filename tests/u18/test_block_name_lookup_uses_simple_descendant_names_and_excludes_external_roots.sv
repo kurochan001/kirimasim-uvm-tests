@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_block_name_lookup_uses_simple_descendant_names_and_excludes_external_roots.expected
 */
+// What it checks:
+// 1. The block name query finds direct and nested sub-blocks by simple name.
+// 2. The block name query returns null for missing and out-of-subtree names.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.3.12 (UVM-BLOCK-NAME-DESCENDANT-SEARCH) gives rule 1
+//    above. Setup: Search child and deep from the root and deep from the
+//    child. Expected: All three queries return exact descendant handles.
+// 2. 1800.2-2020 18.1.3.12 (UVM-BLOCK-NAME-MISSING-AND-SUBTREE-SCOPE) gives
+//    rule 2 above. Setup: Probe missing, ancestor root and peer root names.
+//    Expected: All three results are null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned block-name query finds direct children but misses deeper ones.
 // Preserve the simple-name descendant search required by the standard.
 module test_block_name_lookup_uses_simple_descendant_names_and_excludes_external_roots;

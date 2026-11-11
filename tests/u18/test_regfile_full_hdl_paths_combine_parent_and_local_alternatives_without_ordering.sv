@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_regfile_full_hdl_paths_combine_parent_and_local_alternatives_without_ordering.expected
 */
+// What it checks:
+// Full register-file paths include every tested combination of parent and
+// local HDL alternatives.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.3.4.5 (UVM-REGFILE-FULL-HDL-ANCESTOR-ALTERNATIVES) gives the
+// rule above. Setup: The block, outer file and inner file each have two
+// distinct RTL contributions. Expected: The eight full strings are exactly the
+// two-by-two-by-two combinations; local enumeration still has two entries.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Symbolic path strings only: no HDL lookup, DPI, bus or DUT access.
 // Queues are fresh and compared by membership without an enumeration order.
 module test_regfile_full_hdl_paths_combine_parent_and_local_alternatives_without_ordering;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_deleted_reset_kind_preserves_state_and_other_reset.expected
 */
+// What it checks:
+// Reset with a deleted kind leaves field state unchanged and retains other
+// reset kinds.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.4 (UVM-FIELD-ABSENT-RESET-PRESERVES-STATE) gives the rule
+// above. Setup: Delete SOFT, set desired 61 and reset SOFT before resetting
+// HARD. Expected: SOFT leaves desired/mirror 61/35; HARD restores both to 35
+// hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe the deletion result once, then the absence and unchanged model state.
 
 module test_reg_field_deleted_reset_kind_preserves_state_and_other_reset;

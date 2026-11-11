@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_frontdoor_write_splits_selected_array_element_into_memory_bytes.expected
 */
+// What it checks:
+// Virtual-register write uses the implementing memory locations for the
+// selected index.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.3.1 (UVM-VIRTUAL-REGISTER-FRONTDOOR-WRITE) gives the rule
+// above. Setup: Use explicit array indices, byte-split locations, selected
+// stride and a failed-read retry where listed. Expected: The selected element
+// data and location relationships hold; failure status precedes a fresh
+// successful read where tested.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The packed 16-bit array starts at memory location 2. Element 1 occupies byte-
 // wide locations 4 and 5, mapped at physical addresses 24 and 25.
 

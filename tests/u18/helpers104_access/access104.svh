@@ -1,6 +1,8 @@
 // Original explicit-map access profiles; no storage transfer or HDL is used.
 class block104 extends uvm_reg_block;
-  function new(string name);super.new(name,UVM_NO_COVERAGE);endfunction
+  function new(string name);
+    super.new(name,UVM_NO_COVERAGE);
+  endfunction
 endclass
 block104 owner104;
 uvm_mem memory104,peer104;
@@ -19,10 +21,12 @@ function automatic void observe104(int stage);
 endfunction
 initial begin
   string map_rights;
-  owner104=new("owner104");owner104.configure();
+  owner104=new("owner104");
+  owner104.configure();
   memory104=new("memory104",SIZE104,WIDTH104,ROM104?"RO":"RW",UVM_NO_COVERAGE);
   peer104=new("peer104",2,WIDTH104,"RW",UVM_NO_COVERAGE);
-  memory104.configure(owner104);peer104.configure(owner104);
+  memory104.configure(owner104);
+  peer104.configure(owner104);
   maps104[0]=owner104.create_map("a104",'h100,4,UVM_LITTLE_ENDIAN);
   maps104[1]=owner104.create_map("b104",'h900,4,UVM_LITTLE_ENDIAN);
   if(CASE104==4)map_rights="RW";
@@ -31,8 +35,12 @@ initial begin
   maps104[0].add_mem(memory104,'h20,map_rights);
   if(SHARED104)maps104[1].add_mem(memory104,'h80,"RW");
   maps104[1].add_mem(peer104,'h400,"RW");
-  owner104.set_default_map(maps104[0]);owner104.lock_model();observe104(0);
-  owner104.set_default_map(maps104[1]);observe104(1);
-  owner104.set_default_map(maps104[0]);observe104(2);
+  owner104.set_default_map(maps104[0]);
+  owner104.lock_model();
+  observe104(0);
+  owner104.set_default_map(maps104[1]);
+  observe104(1);
+  owner104.set_default_map(maps104[0]);
+  observe104(2);
   $finish;
 end

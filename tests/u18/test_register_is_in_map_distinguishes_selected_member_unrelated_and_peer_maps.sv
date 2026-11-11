@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_register_is_in_map_distinguishes_selected_member_unrelated_and_peer_maps.expected
 */
+// What it checks:
+// 1. is_in_map distinguishes selected actual associations from an unrelated
+//    map and peer-only association.
+// 2. is_in_map no longer reports the removed selected association while
+//    retaining the other one.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.3.4 (UVM-REGISTER-CONTRACT-MEMBERSHIP-EXPLICIT) gives
+//    rule 1 above. Setup: Use the selected original register/block/file models
+//    and explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: is_in_map distinguishes selected actual associations from an
+//    unrelated map and peer-only association.
+// 2. 1800.2-2020 18.4.3.4 (UVM-REGISTER-CONTRACT-MEMBERSHIP-AFTER-REMOVAL)
+//    gives rule 2 above. Setup: Use the selected original register/block/file
+//    models and explicit public calls. Constructor-only observations do not
+//    require mapped physical hardware. Membership is queried through the
+//    register view after selected legal registrations/removals; output queues
+//    start empty. Expected: is_in_map no longer reports the removed selected
+//    association while retaining the other one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_is_in_map_distinguishes_selected_member_unrelated_and_peer_maps;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

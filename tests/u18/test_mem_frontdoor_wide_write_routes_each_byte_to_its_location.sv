@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_frontdoor_wide_write_routes_each_byte_to_its_location.expected
 */
+// What it checks:
+// A frontdoor write transfers the selected memory location through its
+// configured map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.5.1 (UVM-MEMORY-FRONTDOOR-WRITE) gives the rule above.
+// Setup: Use byte/word-addressed maps, single or multiple physical beats and
+// known testbench data. Expected: The selected location, declared data bits
+// and physical addresses agree with the model and map.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The driver protocol carries one numeric byte per beat. A 32-bit little-endian
 // memory location occupies four consecutive byte addresses.
 

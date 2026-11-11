@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_map_shared_address_uses_read_write_direction_to_select_register.expected
 */
+// What it checks:
+// Locked map lookup selects the register at a shared offset according to
+// read/write direction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.4.17 (UVM-MAP-DIRECTIONAL-REGISTER-LOOKUP) gives the rule
+// above. Setup: Place separate read-only and write-only registers at one
+// address. Expected: The read and write queries return their respective
+// handles and an unused address returns null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Read-only and write-only registers may share an address. Each lookup
 // selects the proper direction without assuming insertion order.
 

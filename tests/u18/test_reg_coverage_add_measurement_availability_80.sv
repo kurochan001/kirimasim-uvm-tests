@@ -13,6 +13,37 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_coverage_add_measurement_availability_80.expected
 */
+// What it checks:
+// 1. Register set_coverage returns the previously enabled mask.
+// 2. Models added in one register constructor belong to that register
+//    instance.
+// 3. Measurement selection can enable constructor-added available models but
+//    cannot enable models absent from that register.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.7.6 (UVM-REG-COVERAGE-PREVIOUS-MASK-RETURN) gives rule 1
+//    above. Setup: Change from off to bits and then from bits to fields. Also
+//    observe the off-to-all transition of two constructor-extended register
+//    instances after explicitly clearing measurement. Expected: Return masks
+//    are NO_COVERAGE then REG_BITS.
+// 2. 1800.2-2020 18.4.7.3 (UVM-REG-COVERAGE-ADD-INSTANCE-ISOLATION) gives rule
+//    2 above. Setup: Original derived register constructors preserve a
+//    supplied base mask and call the actual protected add_coverage while their
+//    constructor is active. Cases include zero, overlapping/repeated
+//    additions, isolated peers, inherited virtual dispatch and explicit
+//    measurement-off then all-model selection. Expected: An independent
+//    base-only peer and a differently extended instance retain their own
+//    distinct availability and measurement masks.
+// 3. 1800.2-2020 18.4.7.6 (UVM-REG-COVERAGE-ADDED-MODELS-MEASUREMENT-GATE)
+//    gives rule 3 above. Setup: Original derived register constructors
+//    preserve a supplied base mask and call the actual protected add_coverage
+//    while their constructor is active. Cases include zero,
+//    overlapping/repeated additions, isolated peers, inherited virtual
+//    dispatch and explicit measurement-off then all-model selection. Expected:
+//    After an explicit off state, all-model selection enables only each
+//    instance available union and leaves absent models off.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Coverage metadata or observer dispatch only; no bin, covergroup or HDL claim.
 module test_reg_coverage_add_measurement_availability_80;
   import uvm_pkg::*;

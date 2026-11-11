@@ -13,6 +13,35 @@
 :expected_exit: 0
 :expected_stdout: @test_field_needs_update_observes_desired_state_without_modifying_storage_or_mirror.expected
 */
+// What it checks:
+// 1. The selected synchronized reset field initially needs no update.
+// 2. A selected writable desired/mirror difference makes update necessary.
+// 3. The pending query does not change the mirror or original storage.
+// 4. Synchronizing the selected desired/mirror value clears the update need.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.8 (UVM-FIELD-ACCESS-AUDIT-PENDING-INITIAL) gives rule
+//    1 above. Setup: Fresh original field/register instances with valid
+//    configuration; distinguish model state and independent original
+//    access-provider storage. Expected: needs_update returns false in the
+//    selected initial state.
+// 2. 1800.2-2020 18.5.5.8 (UVM-FIELD-ACCESS-AUDIT-PENDING-DESIRED) gives rule
+//    2 above. Setup: Fresh original field/register instances with valid
+//    configuration; distinguish model state and independent original
+//    access-provider storage. Expected: Both successive queries return true
+//    after changing desired state to 0x39.
+// 3. 1800.2-2020 18.5.5.8 (UVM-FIELD-ACCESS-AUDIT-PENDING-OBSERVATIONAL) gives
+//    rule 3 above. Setup: Fresh original field/register instances with valid
+//    configuration; distinguish model state and independent original
+//    access-provider storage. Expected: The mirror and original word remain
+//    0x11, with no original frontdoor call.
+// 4. 1800.2-2020 18.5.5.8 (UVM-FIELD-ACCESS-AUDIT-PENDING-SYNCHRONIZED) gives
+//    rule 4 above. Setup: Fresh original field/register instances with valid
+//    configuration; distinguish model state and independent original
+//    access-provider storage. Expected: Direct prediction to 0x39 clears
+//    needs_update without a transfer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_needs_update_observes_desired_state_without_modifying_storage_or_mirror;
   import uvm_pkg::*;

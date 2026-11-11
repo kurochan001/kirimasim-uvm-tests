@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_frontdoor_wide_write_routes_each_bus_word_to_its_address.expected
 */
+// What it checks:
+// Register frontdoor write transfers model data through the selected physical
+// access path.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.9 (UVM-REGISTER-FRONTDOOR-WRITE) gives the rule above.
+// Setup: Use single/wide transfers and inline or separate driver completions
+// in the listed fixtures. Expected: Successful operations preserve the
+// requested or returned data and status; failed-read data is not inspected.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A thirty-two-bit register uses two sixteen-bit writes. Compare
 // address/data associations as a set without imposing bus scheduling order.
 

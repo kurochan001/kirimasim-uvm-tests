@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_registered_pre_write_callback_changes_the_bus_value.expected
 */
+// What it checks:
+// A registered pre_write callback can replace bus write data.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.2 (UVM-REG-PRE-WRITE-CALLBACK-DATA) gives the rule
+// above. Setup: Replace data with a6 hex in one callback. Expected: The bus
+// and mirrored register report a6 hex and callback count is one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An instance-specific registered callback changes the physical write payload
 // before the adapter sees it.
 

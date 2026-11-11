@@ -12,6 +12,55 @@
 :expected_exit: 0
 :expected_stdout: @test_map_submaps_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy.expected
 */
+// What it checks:
+// 1. Adding the selected child map registers it as a direct submap while its
+//    own nested map is recursively available.
+// 2. NO_HIER get_submaps returns the selected directly instantiated map
+//    members.
+// 3. HIER get_submaps recursively includes the selected descendants.
+// 4. Omitting get_submaps hier returns the same selected recursive membership.
+// 5. Selected get_submaps excludes an alternative map of the same block, and a
+//    child-map query excludes ancestor contents.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.3.5 (UVM-MAP-SCOPE-SUBMAP-DIRECT-REGISTRATION) gives
+//    rule 1 above. Setup: Original configured blocks, owned maps and selected
+//    explicit public calls. Parent/child maps use valid ownership and are
+//    locked before width-dependent queries. Getter-only observers do not
+//    override the library algorithms. Expected: Adding the selected child map
+//    registers it as a direct submap while its own nested map is recursively
+//    available.
+// 2. 1800.2-2020 18.2.4.10 (UVM-MAP-SCOPE-SUBMAPS-LOCAL) gives rule 2 above.
+//    Setup: One original three-level hierarchy contains same-name distinct
+//    registers, memories and implemented virtual registers. Each physical
+//    register has two fields; each virtual register has one field. An
+//    alternative map of the same root block owns separate contents and is not
+//    a submap. All output queues start empty. Expected: NO_HIER get_submaps
+//    returns the selected directly instantiated map members.
+// 3. 1800.2-2020 18.2.4.10 (UVM-MAP-SCOPE-SUBMAPS-RECURSIVE) gives rule 3
+//    above. Setup: One original three-level hierarchy contains same-name
+//    distinct registers, memories and implemented virtual registers. Each
+//    physical register has two fields; each virtual register has one field. An
+//    alternative map of the same root block owns separate contents and is not
+//    a submap. All output queues start empty. Expected: HIER get_submaps
+//    recursively includes the selected descendants.
+// 4. 1800.2-2020 18.2.4.10 (UVM-MAP-SCOPE-SUBMAPS-DEFAULT) gives rule 4 above.
+//    Setup: One original three-level hierarchy contains same-name distinct
+//    registers, memories and implemented virtual registers. Each physical
+//    register has two fields; each virtual register has one field. An
+//    alternative map of the same root block owns separate contents and is not
+//    a submap. All output queues start empty. Expected: Omitting get_submaps
+//    hier returns the same selected recursive membership.
+// 5. 1800.2-2020 18.2.4.10 (UVM-MAP-SCOPE-SUBMAPS-MAP-SCOPE) gives rule 5
+//    above. Setup: One original three-level hierarchy contains same-name
+//    distinct registers, memories and implemented virtual registers. Each
+//    physical register has two fields; each virtual register has one field. An
+//    alternative map of the same root block owns separate contents and is not
+//    a submap. All output queues start empty. Expected: Selected get_submaps
+//    excludes an alternative map of the same block, and a child-map query
+//    excludes ancestor contents.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Counts and handle sets are checked without assigning enumeration order.
 module test_map_submaps_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy;
   import uvm_pkg::*;

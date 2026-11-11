@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_write_set_prediction_preserves_peer_through_write_read_cycles.expected
 */
+// What it checks:
+// WS prediction: write data sets the complete field.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-FIELD-WS-WRITE-PREDICTION) gives the rule above.
+// Setup: Predict distinct repeated writes and a post-read write while
+// preserving the adjacent field. Expected: Each successful prediction updates
+// desired/mirror consistently with the selected rule and preserves the peer
+// slice.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit prediction values represent selected bus observations. No physical
 // bus transfer is performed. An adjacent field provides an isolation control.
 module test_reg_field_write_set_prediction_preserves_peer_through_write_read_cycles;

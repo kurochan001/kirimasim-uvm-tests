@@ -12,6 +12,65 @@
 :expected_exit: 0
 :expected_stdout: @test_block_update_writes_changed_local_and_nested_registers_and_skips_clean_values.expected
 */
+// What it checks:
+// 1. Block update writes selected desired values in both the block and its
+//    child block.
+// 2. The selected two changed full-width RW registers require one write each
+//    while the clean peer receives none.
+// 3. Calling update on the selected already-clean hierarchy issues no
+//    additional writes.
+// 4. Changing debug-only source information on a clean block does not cause
+//    writes or change stored values.
+// 5. The selected block update reports the original single-register bus
+//    failure.
+// 6. A new desired value can be successfully updated after the original driver
+//    recovers.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.5.5 (UVM-BLOCK-ACCESS-UPDATE-SUBTREE) gives rule 1
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    Block update writes selected desired values in both the block and its
+//    child block.
+// 2. 1800.2-2020 18.1.5.5 (UVM-BLOCK-ACCESS-UPDATE-MINIMUM-WRITES) gives rule
+//    2 above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The selected two changed full-width RW registers require one write each
+//    while the clean peer receives none.
+// 3. 1800.2-2020 18.1.5.5 (UVM-BLOCK-ACCESS-UPDATE-CLEAN-NO-WRITES) gives rule
+//    3 above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    Calling update on the selected already-clean hierarchy issues no
+//    additional writes.
+// 4. 1800.2-2020 18.1.5.5 (UVM-BLOCK-ACCESS-UPDATE-DEBUG-INVARIANCE) gives
+//    rule 4 above. Setup: Use the selected original hierarchical
+//    register/memory models and their explicit public calls. Named wrapper
+//    observations call through a block base view and genuine configured
+//    lookup; actual frontdoor cases use the original adapter, sequencer and
+//    driver storage. Expected: Changing debug-only source information on a
+//    clean block does not cause writes or change stored values.
+// 5. 1800.2-2020 18.1.5.5 (UVM-BLOCK-ACCESS-UPDATE-FAILURE-STATUS) gives rule
+//    5 above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected:
+//    The selected block update reports the original single-register bus
+//    failure.
+// 6. 1800.2-2020 18.1.5.5 (UVM-BLOCK-ACCESS-UPDATE-NEW-SUCCESS) gives rule 6
+//    above. Setup: Use the selected original hierarchical register/memory
+//    models and their explicit public calls. Named wrapper observations call
+//    through a block base view and genuine configured lookup; actual frontdoor
+//    cases use the original adapter, sequencer and driver storage. Expected: A
+//    new desired value can be successfully updated after the original driver
+//    recovers.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_update_writes_changed_local_and_nested_registers_and_skips_clean_values;
   import uvm_pkg::*;
   class aggregate_block extends uvm_reg_block;

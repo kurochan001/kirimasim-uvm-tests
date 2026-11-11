@@ -12,6 +12,28 @@
 :expected_exit: 0
 :expected_stdout: @test_field_access_crossing_bytes_respects_layout_and_physical_bus_width.expected
 */
+// What it checks:
+// 1. A field sharing both of its byte lanes with neighbors is not individually
+//    accessible.
+// 2. Unaligned-field fallback writes merge both neighboring mirrors.
+// 3. An unaligned-field read extracts its logical bits from the full returned
+//    register.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.16 (UVM-FIELD-LAYOUT-CROSSING-BYTES-INELIGIBLE) gives
+//    rule 1 above. Setup: An eight-bit field starts at bit four between two
+//    four-bit neighbors. Expected: Its width/offset are 8/4 and individual
+//    eligibility is false.
+// 2. 1800.2-2020 18.5.5.9 (UVM-FIELD-LAYOUT-CROSSING-BYTES-WRITE-MERGE) gives
+//    rule 2 above. Setup: The target writes 0x5a with mirrored low/high
+//    neighbors 3/1 and differing live storage. Expected: Both lanes are
+//    written as 0x15a3.
+// 3. 1800.2-2020 18.5.5.10 (UVM-FIELD-LAYOUT-CROSSING-BYTES-READ-EXTRACTION)
+//    gives rule 3 above. Setup: The live register is 0xe6b7 and the eight-bit
+//    target begins at bit four. Expected: Read returns 0x6b and predicts the
+//    whole mirror 0xe6b7.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original masked bus storage is distinct from the model mirror.
 // RW fields have no side effects. Byte addresses and selected lanes are
 // explicit; unused write-data lanes and warning text are not constrained.

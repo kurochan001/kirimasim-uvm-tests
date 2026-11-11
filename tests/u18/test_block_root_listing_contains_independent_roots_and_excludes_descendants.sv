@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_block_root_listing_contains_independent_roots_and_excludes_descendants.expected
 */
+// What it checks:
+// get_root_blocks returns root blocks and excludes descendants with configured
+// parents.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.3.2 (UVM-BLOCK-ROOT-LIST-MEMBERSHIP) gives the rule above.
+// Setup: Configure two roots with a child and grandchild under one of them.
+// Expected: Both root handles occur in the listing; child/grandchild do not,
+// and parent queries preserve exact relationships.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_root_listing_contains_independent_roots_and_excludes_descendants;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

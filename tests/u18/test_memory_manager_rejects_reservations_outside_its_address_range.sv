@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_rejects_reservations_outside_its_address_range.expected
 */
+// What it checks:
+// A requested range outside configured memory bounds cannot be reserved.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.5.1 (UVM-MAM-OUTSIDE-BOUNDS-REJECTION) gives the rule
+// above. Setup: With bounds 4..15, try one location at three and two at
+// fifteen. Expected: Both return null and active-region count remains zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A reservation cannot begin below the configured start or extend beyond the
 // inclusive final location. Neither failed request reserves a region.
 

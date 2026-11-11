@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_block_absolute_hdl_root_overrides_ancestor_and_incremental_paths_for_one_kind.expected
 */
+// What it checks:
+// 1. An absolute HDL root overrides ancestor and local incremental paths for
+//    its selected abstraction.
+// 2. HDL root status distinguishes abstractions with and without an absolute
+//    root.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.6.11 (UVM-BLOCK-ABSOLUTE-HDL-ROOT) gives rule 1 above.
+//    Setup: Set an RTL root on an intermediate block and add another ancestor
+//    RTL path. Expected: RTL resolves as absolute.leaf, while the GATE path
+//    retains its full original ancestry.
+// 2. 1800.2-2020 18.1.6.12 (UVM-BLOCK-HDL-ROOT-STATUS) gives rule 2 above.
+//    Setup: Install only an RTL absolute root. Expected: RTL reports true and
+//    GATE reports false.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Symbolic HDL path metadata only: no HDL access, RTL storage or DPI calls.
 module test_block_absolute_hdl_root_overrides_ancestor_and_incremental_paths_for_one_kind;
   import uvm_pkg::*;

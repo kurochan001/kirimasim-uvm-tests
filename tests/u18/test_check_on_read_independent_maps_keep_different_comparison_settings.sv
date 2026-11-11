@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_check_on_read_independent_maps_keep_different_comparison_settings.expected
 */
+// What it checks:
+// Independent interface maps retain their own check-on-read modes.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.5.3 (UVM-MAP-CHECK-READ-INTERFACE-INDEPENDENCE) gives the
+// rule above. Setup: Map the same register on enabled primary and disabled
+// alternate interfaces. Expected: Alternate mismatch is silent; primary
+// mismatch reports; each returns and predicts its interface data.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only bus storage, a delayed driver and explicit auto-prediction.
 // Count required discrepancy reports without prescribing report text or IDs.
 // Read-side effects are model prediction, not an RTL storage implementation.

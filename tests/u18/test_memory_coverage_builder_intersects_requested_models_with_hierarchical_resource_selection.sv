@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_coverage_builder_intersects_requested_models_with_hierarchical_resource_selection.expected
 */
+// What it checks:
+// The memory coverage builder returns requested models selected by
+// include_coverage resources.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.8.1 (UVM-MEMORY-AUDIT-COVERAGE-BUILD-SELECTION) gives the
+// rule above. Setup: Configured sibling memories use exact hierarchical
+// include scopes; an original public wrapper calls the protected nonvirtual
+// builder after configuration. Expected: The selected memory returns the
+// selected union and requested intersection; the explicitly excluded sibling
+// returns no models.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Coverage availability metadata only; no covergroup/bin completion claim.
 module
   test_memory_coverage_builder_intersects_requested_models_with_hierarchical_resource_selection;

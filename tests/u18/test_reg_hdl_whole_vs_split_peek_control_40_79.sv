@@ -17,6 +17,28 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_hdl_whole_vs_split_peek_control_40_79.expected
 */
+// What it checks:
+// A -1/-1 slice implementing the entire register preserves complete register
+// access functionality.
+//
+// Variant: The number 16 or 40 is the register width: the whole register and
+// the split pair of half-width variables hold 40-bit values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.6.5 (UVM-REG-HDL-WHOLE-VARIABLE-ACCESS) gives the rule
+// above. Setup: Actual public 16/40-bit HDL variables under the unchanged
+// original VPI backend. One register uses a single -1/-1 whole-variable path,
+// while an independent reference uses legal high/low slices of two distinct
+// HDL variables. Direct read inputs call the printed public backdoor_read task
+// from module scope; separate peek controls do not prove that public
+// declaration. Original backend counters expose HDL reads without prescribing
+// exact call counts. Expected: Whole-variable and legal split references
+// return fresh full-width values and receive independent deposits without
+// changing peers.
+// It also supports, as a control, the setup or conditions of
+// UVM-REG-BACKDOOR-READ-PUBLIC-CALL, UVM-REG-BACKDOOR-READ-HDLSUPPORT.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard public API observations; independent expectations precede runs.
 // Real public HDL storage; no vendor overlay or path/value mock.
 module test_reg_hdl_whole_vs_split_peek_control_40_79;

@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_frontdoor_write_with_auto_predict_updates_bus_storage_and_mirror.expected
 */
+// What it checks:
+// 1. Register frontdoor write transfers model data through the selected
+//    physical access path.
+// 2. Enabled auto-prediction updates the mirror before bus operations return.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.4.9 (UVM-REGISTER-FRONTDOOR-WRITE) gives rule 1 above.
+//    Setup: Use single/wide transfers and inline or separate driver
+//    completions in the listed fixtures. Expected: Successful operations
+//    preserve the requested or returned data and status; failed-read data is
+//    not inspected.
+// 2. 1800.2-2020 18.2.5.2 (UVM-REGISTER-AUTO-PREDICTION-ENABLED) gives rule 2
+//    above. Setup: Explicitly configure the map mode before a successful read
+//    or write; do not connect a passive predictor. Expected: The enabled
+//    mirror equals transferred data while data delivery still succeeds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use a testbench storage model behind a real driver. The driver
 // acknowledges after positive delay; auto-prediction must update the mirror.
 

@@ -4,8 +4,11 @@
 // descriptor without assuming an iterator order.
 function automatic uvm_mem_mam_cfg config114();
   automatic uvm_mem_mam_cfg cfg=new;
-  cfg.n_bytes=1; cfg.start_offset=0; cfg.end_offset=31;
-  cfg.mode=uvm_mem_mam::GREEDY; cfg.locality=uvm_mem_mam::BROAD;
+  cfg.n_bytes=1;
+  cfg.start_offset=0;
+  cfg.end_offset=31;
+  cfg.mode=uvm_mem_mam::GREEDY;
+  cfg.locality=uvm_mem_mam::BROAD;
   return cfg;
 endfunction
 function automatic bit members114(uvm_mem_mam manager,
@@ -29,12 +32,17 @@ endclass
 class error_probe114 extends uvm_report_catcher;
   int errors=0;
   virtual function action_e catch();
-    if (get_severity()==UVM_ERROR) begin errors++; return CAUGHT; end
+    if (get_severity()==UVM_ERROR) begin
+      errors++;
+      return CAUGHT;
+    end
     return THROW;
   endfunction
 endclass
 class block114 extends uvm_reg_block;
-  function new(string name="block114"); super.new(name,UVM_NO_COVERAGE); endfunction
+  function new(string name="block114");
+    super.new(name,UVM_NO_COVERAGE);
+  endfunction
 endclass
 task automatic exercise114();
   automatic error_probe114 probe=new;
@@ -84,8 +92,10 @@ task automatic exercise114();
     $display("DIAG114: owner_same %0d owner_null %0d",
              target.get_virtual_registers()==vr,target.get_virtual_registers()==null);
   end
-  first=target.get_start_offset(); last=target.get_end_offset();
-  len=target.get_len(); bytes=target.get_n_bytes();
+  first=target.get_start_offset();
+  last=target.get_end_offset();
+  len=target.get_len();
+  bytes=target.get_n_bytes();
   $display("UT: setup members %0d distinct %0d descriptor %0d",
            members114(manager,target,peer,3),target!=peer,descriptor_ok);
   // The valid release that makes the saved descriptor stale.

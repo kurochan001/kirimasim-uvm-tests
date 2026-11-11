@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_conflicting_map_rights_report_noaccess.expected
 */
+// What it checks:
+// A field access policy is restricted by its containing register map rights.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.4.5 (UVM-REG-FIELD-CONFLICTING-MAP-RIGHTS) gives the rule
+// above. Setup: Map a register containing WO/RO fields into separate RO/WO
+// maps. Expected: WO in RO and RO in WO become NOACCESS; compatible
+// combinations remain WO/RO.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // One register contains a WO field and an RO field. Explicit map
 // arguments select two different views of those same fields.
 

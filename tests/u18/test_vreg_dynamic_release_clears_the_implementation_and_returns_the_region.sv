@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_dynamic_release_clears_the_implementation_and_returns_the_region.expected
 */
+// What it checks:
+// Dynamic release invalidates the implementation and makes its old range
+// available.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.6 (UVM-VREG-DYNAMIC-RELEASE-INVALIDATION) gives the
+// rule above. Setup: Implement two elements at offset two and release_region.
+// Expected: Memory/region become null and a later reservation of the same
+// range succeeds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Releasing a dynamic implementation clears its memory and region handles and
 // returns the old range to the memory allocation manager.
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_registered_post_predict_callback_changes_the_predicted_field_value.expected
 */
+// What it checks:
+// A post_predict callback can replace the predicted field value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.6 (UVM-REG-POST-PREDICT-CALLBACK-DATA) gives the rule
+// above. Setup: Predict a read from previous 11 hex and input a6 hex,
+// replacing it with 5c hex. Expected: One callback sees the exact field,
+// previous value and READ kind; desired/mirrored values become 5c hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A registered field callback observes the previous mirror and READ prediction,
 // then replaces the predicted value. No bus access is performed.
 

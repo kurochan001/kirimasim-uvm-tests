@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_get_fields_orders_handles_by_bit_position.expected
 */
+// What it checks:
+// Virtual-field enumeration returns handles in increasing bit position.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.2.12 (UVM-VREG-FIELD-ENUMERATION-BIT-ORDER) gives the
+// rule above. Setup: Configure high, low and middle fields out of bit order.
+// Expected: Three exact handles are returned low/middle/high.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Fields are deliberately configured out of bit order. The query returns their
 // handles from least significant to most significant.
 

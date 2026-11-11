@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_map_auto_predict_configuration_is_independent_per_map.expected
 */
+// What it checks:
+// Map get_auto_predict reflects that map configuration independently of
+// another map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.5.1 (UVM-MAP-AUTO-PREDICT-SETTING) gives the rule above.
+// Setup: Read defaults, enable one map and disable it again. Expected: Both
+// default to zero; only the selected map changes to one and back.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // This checks the mode setting only. It does not claim that a bus read
 // or write has exercised automatic prediction.
 

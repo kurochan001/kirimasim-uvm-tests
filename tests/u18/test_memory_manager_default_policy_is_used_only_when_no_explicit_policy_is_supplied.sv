@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_default_policy_is_used_only_when_no_explicit_policy_is_supplied.expected
 */
+// What it checks:
+// An omitted request policy uses default_alloc; an explicit policy takes
+// precedence without replacing the default.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.5.2 (UVM-MEMORY-MANAGER-DEFAULT-POLICY-SELECTION) gives
+// the rule above. Setup: Install a default policy selecting eight and
+// explicitly pass another selecting sixteen. Expected: Regions start at 8/16,
+// each policy randomizes once and the exact default handle is retained.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_manager_default_policy_is_used_only_when_no_explicit_policy_is_supplied;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

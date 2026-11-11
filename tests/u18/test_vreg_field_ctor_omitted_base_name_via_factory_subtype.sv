@@ -13,6 +13,19 @@
 :expected_stdout: @test_vreg_field_ctor_omitted_base_name_via_factory_subtype.expected
 :files: helpers71/vreg_field_constructor71.svh
 */
+// What it checks:
+// The actual virtual-field constructor preserves the selected omitted or
+// explicit name form.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.2.1
+// (UVM-GLOBAL-AUDIT-VREG-FIELD-CTOR-OMITTED-BASE-NAME-VIA-FACTORY-SUBTYPE)
+// gives the rule above. Setup: Factory-create an original subtype whose
+// constructor calls the actual base with the selected argument form. Expected:
+// The linked static-admission, identity, live-state or bounded-wait
+// observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original observations; printed pool/item return premises stay separate.
 module
   test_vreg_field_ctor_omitted_base_name_via_factory_subtype;

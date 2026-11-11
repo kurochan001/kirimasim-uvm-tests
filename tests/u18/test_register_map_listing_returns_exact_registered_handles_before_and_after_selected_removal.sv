@@ -12,6 +12,36 @@
 :expected_exit: 0
 :expected_stdout: @test_register_map_listing_returns_exact_registered_handles_before_and_after_selected_removal.expected
 */
+// What it checks:
+// 1. The selected unmapped register returns an empty map queue.
+// 2. get_maps returns exactly the selected registered map handles, excluding
+//    an unrelated map of the same block.
+// 3. After selected removal, get_maps contains only the remaining registered
+//    map handle.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.3.5 (UVM-REGISTER-CONTRACT-MAP-LIST-EMPTY) gives rule 1
+//    above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: The selected unmapped register returns an empty map queue.
+// 2. 1800.2-2020 18.4.3.5 (UVM-REGISTER-CONTRACT-MAP-LIST-ALL) gives rule 2
+//    above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: get_maps returns exactly the selected registered map handles,
+//    excluding an unrelated map of the same block.
+// 3. 1800.2-2020 18.4.3.5 (UVM-REGISTER-CONTRACT-MAP-LIST-AFTER-REMOVAL) gives
+//    rule 3 above. Setup: Use the selected original register/block/file models
+//    and explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: After selected removal, get_maps contains only the remaining
+//    registered map handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_map_listing_returns_exact_registered_handles_before_and_after_selected_removal;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

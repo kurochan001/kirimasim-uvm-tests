@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue.expected
 */
+// What it checks:
+// 1. The FIFO queue capacity constraint permits the selected exact-capacity
+//    state.
+// 2. The inherited FIFO capacity constraint rejects a selected queue size
+//    above capacity.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.8.2 (UVM-REG-FIFO-RANDOMIZATION-ACCEPTS-CAPACITY) gives
+//    rule 1 above. Setup: Inline and subtype-declared constraints request
+//    three entries in a capacity-three FIFO. Expected: Randomization succeeds
+//    and the abstract queue has exactly three entries.
+// 2. 1800.2-2020 18.8.2 (UVM-REG-FIFO-RANDOMIZATION-REJECTS-OVERSIZE) gives
+//    rule 2 above. Setup: Inline and subtype-declared constraints request four
+//    entries in a capacity-three FIFO. Expected: Both oversized randomization
+//    requests return failure.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only the declared abstract queue bound is tested through randomization.
 // State after failed randomization and actual DUT occupancy are not asserted.
 // The measured inline call succeeds but leaves the requested valid queue empty.

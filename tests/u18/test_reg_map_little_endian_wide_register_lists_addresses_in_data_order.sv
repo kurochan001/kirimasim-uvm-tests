@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_map_little_endian_wide_register_lists_addresses_in_data_order.expected
 */
+// What it checks:
+// Physical transfer addresses are ordered from the least significant register
+// data in a little-endian map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.4.16 (UVM-MAP-LITTLE-ENDIAN-ADDRESSES) gives the rule
+// above. Setup: A 48-bit register at offset 0x20 uses a 2-byte bus with base
+// 0x100. Expected: get_addresses reports 2 bytes per access and addresses
+// 0x120, 0x122, 0x124.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A six-byte register spans three two-byte transfers. The returned array
 // is ordered by data significance, rather than sorted numerically.
 

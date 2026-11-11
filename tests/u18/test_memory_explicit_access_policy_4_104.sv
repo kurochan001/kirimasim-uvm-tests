@@ -13,6 +13,21 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_explicit_access_policy_4_104.expected
 */
+// What it checks:
+// Memory get_access includes intrinsic memory access restrictions.
+//
+// Variant: Inputs 0, 2 and 4 use a 16-bit memory of 3 locations, inputs 1, 3
+// and 5 a 40-bit memory of 5 locations. Inputs 2, 3 and 5 also add the memory
+// to the second map; inputs 4 and 5 configure it as RO. The first map adds it
+// with RW rights in input 4, RO in inputs 0, 2 and 5, and WO in inputs 1 and
+// 3.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.4.6 (UVM-MEMORY-EFFECTIVE-ACCESS) gives the rule above.
+// Setup: Map an intrinsic read-only memory through RW maps. Expected:
+// Effective access remains RO even though map rights are RW.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_explicit_access_policy_4_104;
   import uvm_pkg::*;
   localparam int CASE104=4,WIDTH104=16,SIZE104=3;

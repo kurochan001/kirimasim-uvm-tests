@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_location_offsets_include_the_location_index_stride.expected
 */
+// What it checks:
+// A memory location offset reflects the selected location index within its
+// map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.4.15 (UVM-MEMORY-LOCATION-OFFSET) gives the rule above.
+// Setup: A 16-bit memory starts at offset 0x20 on a byte-addressed map with
+// base 0x100. Retain that original case,and additionally use locked shared
+// 16/64-bit memories in flat byte/word maps with nonzero root bases and
+// completed selected-map/peer relocation and restoration;observe locations
+// 0,1,and the last configured index. Expected: Selected locations yield
+// offsets 0x20, 0x22, 0x26 and addresses 0x120, 0x122, 0x126. In the
+// additional profiles,each local location offset equals its current map start
+// plus index times the integral location stride in that map's units;external
+// addresses add the declared root base. Original and new expectations remain
+// when a combination differs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A two-byte location advances both local offset and external address by
 // two bytes. The location argument is retained in the standard get_offset API.
 

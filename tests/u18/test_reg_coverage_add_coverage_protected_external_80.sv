@@ -13,6 +13,21 @@
 :should_fail_because: module scope cannot call protected add_coverage
 :expected_stderr_regex: (?i)^(?=.*test_reg_coverage_add_coverage_protected_external_80.sv:[0-9]+:[0-9]+:)(?=.*\b(?:protected|private|inaccessible)\b)(?=.*\badd_coverage\b).*error
 */
+// What it checks:
+// The protected add_coverage method cannot be called from external module
+// scope.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.7.3 (UVM-REG-COVERAGE-ADD-PROTECTED-DECLARATION) gives the
+// rule above. Setup: Original derived register constructors preserve a
+// supplied base mask and call the actual protected add_coverage while their
+// constructor is active. Cases include zero, overlapping/repeated additions,
+// isolated peers, inherited virtual dispatch and explicit measurement-off then
+// all-model selection. Expected: The compiler rejects the external call with
+// the selected protected-access diagnostic; legitimate constructor additions
+// are a separate control.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Coverage metadata or observer dispatch only; no bin, covergroup or HDL claim.
 module test_reg_coverage_add_coverage_protected_external_80;
   import uvm_pkg::*;

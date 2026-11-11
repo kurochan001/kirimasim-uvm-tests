@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_block_field_enumeration_includes_each_local_and_descendant_field.expected
 */
+// What it checks:
+// Field enumeration returns fields from the selected local or recursive block
+// register set.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.3.8 (UVM-BLOCK-FIELD-ENUMERATION-SCOPE) gives the rule
+// above. Setup: Use a two-field local register, a regfile register and two
+// descendant registers. Expected: Local results contain three fields and
+// recursive results contain all five.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register-model hierarchy only. Queries use fresh result queues and handle
 // membership, without a visit order, address maps, RTL transfers or HDL DPI.
 module test_block_field_enumeration_includes_each_local_and_descendant_field;

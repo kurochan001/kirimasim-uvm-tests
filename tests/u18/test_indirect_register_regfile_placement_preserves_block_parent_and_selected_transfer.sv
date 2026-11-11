@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_indirect_register_regfile_placement_preserves_block_parent_and_selected_transfer.expected
 */
+// What it checks:
+// Indirect register configuration retains the block and optional regfile
+// parent while selecting its array.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.7.2.2 (UVM-INDIRECT-REGFILE-PARENT-CONFIGURATION) gives the
+// rule above. Setup: Configure an indirect data register in an explicit
+// regfile and read selected element one. Expected: Parent handles match and
+// the selected transfer returns 22.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Equal-width array elements and explicit successful index writes precede
 // each data-port access. A testbench driver models two independent banks; no
 // RTL, DPI, out-of-range index or automatic array-frontdoor sequence is used.

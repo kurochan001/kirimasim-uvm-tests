@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_field_access_shared_byte_respects_layout_and_physical_bus_width.expected
 */
+// What it checks:
+// 1. Fields sharing a physical byte are not individually accessible.
+// 2. Whole-register fallback supplies the other nibble from its mirror.
+// 3. Whole-register fallback reads update the neighboring nibble mirror.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.16 (UVM-FIELD-LAYOUT-SHARED-BYTE-INELIGIBLE) gives
+//    rule 1 above. Setup: Two four-bit fields share an eight-bit register and
+//    are configured as non-isolated. Expected: Both individual frontdoor
+//    queries return false.
+// 2. 1800.2-2020 18.5.5.9 (UVM-FIELD-LAYOUT-SHARED-BYTE-WRITE-PEER-MIRROR)
+//    gives rule 2 above. Setup: Live word 0xa5 differs from mirror 0x34 before
+//    writing low nibble 6. Expected: The bus and mirror become 0x36.
+// 3. 1800.2-2020 18.5.5.10 (UVM-FIELD-LAYOUT-SHARED-BYTE-READ-PEER-MIRROR)
+//    gives rule 3 above. Setup: After write, live storage becomes 0xab and the
+//    high field is read. Expected: High returns 0xa and the whole mirror
+//    becomes 0xab.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original masked bus storage is distinct from the model mirror.
 // RW fields have no side effects. Byte addresses and selected lanes are
 // explicit; unused write-data lanes and warning text are not constrained.

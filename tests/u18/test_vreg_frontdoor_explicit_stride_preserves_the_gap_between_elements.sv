@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_frontdoor_explicit_stride_preserves_the_gap_between_elements.expected
 */
+// What it checks:
+// Virtual-register write uses the implementing memory locations for the
+// selected index.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.3.1 (UVM-VIRTUAL-REGISTER-FRONTDOOR-WRITE) gives the rule
+// above. Setup: Use explicit array indices, byte-split locations, selected
+// stride and a failed-read retry where listed. Expected: The selected element
+// data and location relationships hold; failure status precedes a fresh
+// successful read where tested.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // An increment of four memory words leaves padding between two-byte elements.
 // Writing element 2 must not change the following padding byte.
 

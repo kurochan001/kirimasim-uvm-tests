@@ -12,6 +12,45 @@
 :expected_exit: 0
 :expected_stdout: @test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width.expected
 */
+// What it checks:
+// 1. A byte-addressed map reports one byte per smallest addressable unit.
+// 2. The selected standalone word-addressed map reports its eight-byte
+//    configured width as its addressable unit.
+// 3. Under the printed get_n_bytes reference and its declared HIER default,
+//    the selected word-addressed map reports that effective width as its
+//    addressable unit.
+// 4. The selected empty child map reports the narrowest width from itself to
+//    its two-byte root map when hier is omitted.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.4.6 (UVM-MAP-SCOPE-UNIT-BYTE) gives rule 1 above. Setup:
+//    Original configured blocks, owned maps and selected explicit public
+//    calls. Parent/child maps use valid ownership and are locked before
+//    width-dependent queries. Getter-only observers do not override the
+//    library algorithms. Expected: A byte-addressed map reports one byte per
+//    smallest addressable unit.
+// 2. 1800.2-2020 18.2.4.6 (UVM-MAP-SCOPE-UNIT-FLAT-WORD) gives rule 2 above.
+//    Setup: Original configured blocks, owned maps and selected explicit
+//    public calls. Parent/child maps use valid ownership and are locked before
+//    width-dependent queries. Getter-only observers do not override the
+//    library algorithms. Expected: The selected standalone word-addressed map
+//    reports its eight-byte configured width as its addressable unit.
+// 3. 1800.2-2020 18.2.4.6 (UVM-MAP-SCOPE-UNIT-WORD-DEFAULT-WIDTH) gives rule 3
+//    above. Setup: Original configured blocks, owned maps and selected
+//    explicit public calls. Parent/child maps use valid ownership and are
+//    locked before width-dependent queries. Getter-only observers do not
+//    override the library algorithms. Expected: Under the printed get_n_bytes
+//    reference and its declared HIER default, the selected word-addressed map
+//    reports that effective width as its addressable unit.
+// 4. 1800.2-2020 18.2.4.5 (UVM-MAP-SCOPE-EFFECTIVE-WIDTH-EMPTY) gives rule 4
+//    above. Setup: Original configured blocks, owned maps and selected
+//    explicit public calls. Parent/child maps use valid ownership and are
+//    locked before width-dependent queries. Getter-only observers do not
+//    override the library algorithms. Expected: The selected empty child map
+//    reports the narrowest width from itself to its two-byte root map when
+//    hier is omitted.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Empty-map effective width is independent of the qualified word-unit reading.
 module test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width;
   import uvm_pkg::*;

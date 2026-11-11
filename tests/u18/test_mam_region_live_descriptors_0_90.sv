@@ -14,6 +14,22 @@
 :expected_exit: 0
 :expected_stdout: @test_mam_region_live_descriptors_0_90.expected
 */
+// What it checks:
+// Manager-produced live region instances describe their selected reserved or
+// requested spans independently.
+//
+// Variant: Input 0 uses a memory at offset 0 with a width of one byte; input 1
+// one at offset 64 with a width of two bytes.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.7 (UVM-MAM-LIVE-REGION-DESCRIPTORS-90) gives the rule
+// above. Setup: On two layouts,obtain simultaneous reserve/request descriptors
+// from an attached-memory manager and a detached peer;then release and reserve
+// one span again. Expected: Live descriptors have independent handles,exact
+// spans/lengths/byte extents and selected memory identities;release/re-reserve
+// preserves the other manager and region.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Only live manager-produced descriptors are compared. No public-constructor
 // prohibition or identity promise after release is inferred.
 module test_mam_region_live_descriptors_0_90;

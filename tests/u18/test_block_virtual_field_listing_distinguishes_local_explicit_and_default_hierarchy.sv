@@ -12,6 +12,31 @@
 :expected_exit: 0
 :expected_stdout: @test_block_virtual_field_listing_distinguishes_local_explicit_and_default_hierarchy.expected
 */
+// What it checks:
+// 1. get_virtual_fields with UVM_NO_HIER returns only this block virtual
+//    fields.
+// 2. Explicit UVM_HIER includes fields in nested sub-blocks.
+// 3. The default virtual-field hierarchy setting is recursive.
+// 4. Virtual-field enumeration excludes fields belonging to an independent
+//    root.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.3.11 (UVM-BLOCK-VIRTUAL-FIELD-LOCAL-LIST) gives rule 1
+//    above. Setup: Use three local fields with fields also configured below
+//    the block. Expected: Exactly three local handles are returned with
+//    membership mask seven.
+// 2. 1800.2-2020 18.1.3.11 (UVM-BLOCK-VIRTUAL-FIELD-EXPLICIT-RECURSION) gives
+//    rule 2 above. Setup: Use three levels with six fields in total. Expected:
+//    Exactly six expected handles are returned, with mask sixty-three.
+// 3. 1800.2-2020 18.1.3.11 (UVM-BLOCK-VIRTUAL-FIELD-DEFAULT-RECURSION) gives
+//    rule 3 above. Setup: Omit hier on the same three-level model. Expected:
+//    The default queue contains all six exact subtree fields.
+// 4. 1800.2-2020 18.1.3.11
+//    (UVM-BLOCK-VIRTUAL-FIELD-INDEPENDENT-ROOT-EXCLUSION) gives rule 4 above.
+//    Setup: Add a peer field outside the selected hierarchy. Expected: No
+//    local, recursive or default membership mask includes the peer bit.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_virtual_field_listing_distinguishes_local_explicit_and_default_hierarchy;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

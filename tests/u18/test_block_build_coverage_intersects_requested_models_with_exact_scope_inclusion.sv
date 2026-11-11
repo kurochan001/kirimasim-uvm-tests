@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_block_build_coverage_intersects_requested_models_with_exact_scope_inclusion.expected
 */
+// What it checks:
+// 1. build_coverage observes the selected exact hierarchical inclusion scope
+//    set by uvm_reg::include_coverage.
+// 2. Only requested models included for the selected block are returned by
+//    build_coverage.
+// 3. Different selected scope inclusions remain independent and excluded
+//    requested models yield no coverage.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.4.1 (UVM-BLOCK-CONFIG-BUILD-SCOPE) gives rule 1 above.
+//    Setup: Use the selected original block subclasses and public calls.
+//    Protected coverage construction is exposed only by a selected original
+//    subtype; add_coverage is called only in its constructor. Ignore
+//    set_coverage return values, whose independent previous-mask oracle
+//    remains unchanged. Expected: build_coverage observes the selected exact
+//    hierarchical inclusion scope set by uvm_reg::include_coverage.
+// 2. 1800.2-2020 18.1.4.1 (UVM-BLOCK-CONFIG-BUILD-INTERSECTION) gives rule 2
+//    above. Setup: Use the selected original block subclasses and public
+//    calls. Protected coverage construction is exposed only by a selected
+//    original subtype; add_coverage is called only in its constructor. Ignore
+//    set_coverage return values, whose independent previous-mask oracle
+//    remains unchanged. Expected: Only requested models included for the
+//    selected block are returned by build_coverage.
+// 3. 1800.2-2020 18.1.4.1 (UVM-BLOCK-CONFIG-BUILD-INDEPENDENCE) gives rule 3
+//    above. Setup: Use the selected original block subclasses and public
+//    calls. Protected coverage construction is exposed only by a selected
+//    original subtype; add_coverage is called only in its constructor. Ignore
+//    set_coverage return values, whose independent previous-mask oracle
+//    remains unchanged. Expected: Different selected scope inclusions remain
+//    independent and excluded requested models yield no coverage.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_build_coverage_intersects_requested_models_with_exact_scope_inclusion;
   import uvm_pkg::*;
 class block_type extends uvm_reg_block;

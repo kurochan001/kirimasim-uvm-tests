@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_field_byte_enable_write_selects_individual_or_whole_register_access.expected
 */
+// What it checks:
+// 1. The adapter byte-enable capability participates in selecting individual
+//    field access.
+// 2. A byte-isolated field fitting the supported bus word is individually
+//    accessible.
+// 3. Individual field writes select the target byte lane.
+// 4. An individual field write leaves the unselected live byte unchanged.
+// 5. Successful individual writes predict their selected field values.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.1.2.2 (UVM-FIELD-BYTE-ENABLE-ADVERTISED-CAPABILITY)
+//    gives rule 1 above. Setup: Each field occupies a separate byte; fixtures
+//    explicitly advertise support or its absence. Expected: Support permits
+//    selected-lane accesses; absence uses the full register.
+// 2. 1800.2-2020 18.5.5.16 (UVM-FIELD-BYTE-ENABLE-INDIVIDUAL-ELIGIBILITY)
+//    gives rule 2 above. Setup: The adapter supports byte enables and both
+//    isolated fields fit the bus width. Expected: Both frontdoor eligibility
+//    queries return true.
+// 3. 1800.2-2020 18.5.5.9 (UVM-FIELD-BYTE-ENABLE-WRITE-SELECTED-LANE) gives
+//    rule 3 above. Setup: Low then high field writes use a byte-enabled
+//    two-byte physical word. Expected: The low write uses mask 1 and the high
+//    write mask 2.
+// 4. 1800.2-2020 18.5.5.9 (UVM-FIELD-BYTE-ENABLE-WRITE-UNSELECTED-LIVE-BYTE)
+//    gives rule 4 above. Setup: Bus storage initially differs from the mirror,
+//    then low and high writes occur. Expected: Low write retains live high
+//    0xab; high write retains written low 0x5a.
+// 5. 1800.2-2020 18.2.5.2 (UVM-FIELD-BYTE-ENABLE-WRITE-SELECTED-PREDICTION)
+//    gives rule 5 above. Setup: Auto-prediction is enabled for both individual
+//    writes. Expected: The low mirror becomes 0x5a, then the high mirror
+//    becomes 0x6c.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Each field occupies its own byte of one physical word. The original bus
 // model applies byte masks; unused write-data lanes are not constrained.
 // The pinned library rejects byte-isolated fields sharing a bus word.

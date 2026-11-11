@@ -12,6 +12,19 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_failed_policy_and_oversize_requests_reserve_no_region.expected
 */
+// What it checks:
+// Contradictory or oversized allocation requests return null and reserve no
+// region, leaving a valid reservation control possible.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.5.2 (UVM-MAM-AUDIT-FAILED-REQUEST-NULL) gives the rule
+// above. Setup: Use the linked original fixtures and the explicit sizes,
+// location offsets, handles and observations they declare. Allocation inputs
+// are configured explicitly rather than relying on unspecified initial
+// defaults. Expected: Contradictory or oversized allocation requests return
+// null and reserve no region, leaving a valid reservation control possible.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_manager_failed_policy_and_oversize_requests_reserve_no_region;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

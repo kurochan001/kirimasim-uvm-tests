@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_order_policy_little_endian_write_uses_requested_bus_order.expected
 */
+// What it checks:
+// 1. Register write transactions follow the policy permutation while retaining
+//    little-endian data/address binding.
+// 2. The order hook receives the physical operations for the selected register
+//    access.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.2.4 (UVM-REG-ORDER-POLICY-LITTLE-ENDIAN-WRITE) gives
+//    rule 1 above. Setup: Write 12345678 hex with descending byte-address
+//    order. Expected: Addresses are 23/22/21/20, bus bytes are 12/34/56/78 and
+//    the mirror is 12345678 hex.
+// 2. 1800.2-2020 18.4.2.4 (UVM-REG-ORDER-POLICY-QUEUE-GEOMETRY) gives rule 2
+//    above. Setup: Access a 32-bit register using an eight-bit bus, for reads
+//    and writes in both endiannesses. Expected: The hook is called with four
+//    eight-bit operations whose kind matches the requested direction.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Reorder complete bus-operation structs for one 32-bit register on an
 // 8-bit bus. The driver stores bytes by address after a positive delay.
 // No partial-width, burst-memory, concurrency or HDL/DPI semantics are claimed.

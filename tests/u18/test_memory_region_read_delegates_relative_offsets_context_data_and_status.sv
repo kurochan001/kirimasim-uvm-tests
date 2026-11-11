@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_region_read_delegates_relative_offsets_context_data_and_status.expected
 */
+// What it checks:
+// 1. Region read preserves selected parent/extension/path/map/priority context
+//    during delegation.
+// 2. Region read returns both selected successful and failed memory status
+//    values.
+// 3. Successful region read returns the original memory response data.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.7.2.9 (UVM-MAM-AUDIT-READ-CONTEXT) gives rule 1 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: Region read preserves selected
+//    parent/extension/path/map/priority context during delegation.
+// 2. 1800.2-2020 18.12.7.2.9 (UVM-MAM-AUDIT-READ-STATUS) gives rule 2 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: Region read returns both selected successful and
+//    failed memory status values.
+// 3. 1800.2-2020 18.12.7.2.9 (UVM-MAM-AUDIT-READ-DATA) gives rule 3 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: Successful region read returns the original memory
+//    response data.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_region_read_delegates_relative_offsets_context_data_and_status;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

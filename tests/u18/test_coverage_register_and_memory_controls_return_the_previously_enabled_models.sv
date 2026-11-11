@@ -12,6 +12,41 @@
 :expected_exit: 0
 :expected_stdout: @test_coverage_register_and_memory_controls_return_the_previously_enabled_models.expected
 */
+// What it checks:
+// 1. Register availability queries require every requested model to be
+//    present.
+// 2. Register coverage queries reflect enabled available models and
+//    independent peers.
+// 3. Register set_coverage returns the previously enabled mask.
+// 4. Memory coverage availability reflects the constructor models.
+// 5. Memory coverage queries distinguish enabled available models from absent
+//    models.
+// 6. Memory set_coverage returns the previously enabled mask.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.7.4 (UVM-REG-COVERAGE-AVAILABLE-MODELS) gives rule 1
+//    above. Setup: Declare REG_BITS/FIELD_VALS but not ADDR_MAP. Expected: The
+//    pair is present and ADDR_MAP is absent.
+// 2. 1800.2-2020 18.4.7.5 (UVM-REG-COVERAGE-ENABLE-ONLY-AVAILABLE) gives rule
+//    2 above. Setup: Enable bits plus unavailable addresses, then replace the
+//    mask with fields. Expected: Only bits then only fields are enabled; the
+//    peer remains off.
+// 3. 1800.2-2020 18.4.7.6 (UVM-REG-COVERAGE-PREVIOUS-MASK-RETURN) gives rule 3
+//    above. Setup: Change from off to bits and then from bits to fields. Also
+//    observe the off-to-all transition of two constructor-extended register
+//    instances after explicitly clearing measurement. Expected: Return masks
+//    are NO_COVERAGE then REG_BITS.
+// 4. 1800.2-2020 18.6.8.3 (UVM-MEM-COVERAGE-AVAILABLE-MODELS) gives rule 4
+//    above. Setup: Construct a memory declaring ADDR_MAP. Expected: The
+//    address-map model is available.
+// 5. 1800.2-2020 18.6.8.4 (UVM-MEM-COVERAGE-ENABLE-ONLY-AVAILABLE) gives rule
+//    5 above. Setup: Request addresses plus unavailable bits, then disable
+//    all. Expected: Only addresses turn on and then turn off.
+// 6. 1800.2-2020 18.6.8.5 (UVM-MEM-COVERAGE-PREVIOUS-MASK-RETURN) gives rule 6
+//    above. Setup: Change from off to addresses and back to off. Expected:
+//    Return masks are NO_COVERAGE then ADDR_MAP.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library returns the new enabled mask. Retain the standard
 // requirement to return the previously enabled mask, including on disable.
 // Observe coverage-control metadata and testbench sampling hooks only.

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_update_write_one_clear_encodes_the_physical_write_mask.expected
 */
+// What it checks:
+// W1C update encodes the physical clear mask needed for the desired state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.13 (UVM-REG-UPDATE-W1C-PHYSICAL-MASK) gives the rule
+// above. Setup: Reset ff, set clear mask f0, then perform frontdoor update.
+// Expected: The bus mask is f0; desired/mirror are 0f and the model is clean.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Starting at ff, set(f0) requests clearing the upper nibble. Update must send
 // the clear mask f0 and predict the resulting value 0f. Driver data is the bus
 // command.

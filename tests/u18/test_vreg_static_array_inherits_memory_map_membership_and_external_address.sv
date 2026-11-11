@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_static_array_inherits_memory_map_membership_and_external_address.expected
 */
+// What it checks:
+// A static virtual array inherits implementing-memory map membership and
+// address translation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.2.3 (UVM-VREG-STATIC-MAP-EXTERNAL-ADDRESS) gives the rule
+// above. Setup: Map memory at offset 20 hex under base 100 hex and use virtual
+// base two/increment three. Expected: The exact map is inherited and element
+// two has external address 128 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The virtual element offset is in memory words; the external address also
 // includes the memory map offset and root base.
 

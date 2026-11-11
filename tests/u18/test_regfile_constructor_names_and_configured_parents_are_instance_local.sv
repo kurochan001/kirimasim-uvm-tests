@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_regfile_constructor_names_and_configured_parents_are_instance_local.expected
 */
+// What it checks:
+// 1. The register file constructor uses its specified default name when the
+//    name argument is omitted.
+// 2. The register file constructor preserves an explicitly supplied instance
+//    name.
+// 3. Register-file configuration records the supplied block and optional
+//    containing register file.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.3.2.1 (UVM-REGFILE-CONSTRUCTOR-DEFAULT-NAME) gives rule 1
+//    above. Setup: Independent instances are constructed with omitted and
+//    explicit name arguments. Expected: The omitted-name instance has an empty
+//    name.
+// 2. 1800.2-2020 18.3.2.1 (UVM-REGFILE-CONSTRUCTOR-EXPLICIT-NAME) gives rule 2
+//    above. Setup: Independent instances are constructed with omitted and
+//    explicit name arguments. Expected: Named files retain outer and inner.
+// 3. 1800.2-2020 18.3.2.2 (UVM-REGFILE-CONFIGURED-PARENT-RELATIONSHIPS) gives
+//    rule 3 above. Setup: Root-level and nested files are configured once with
+//    valid same-block ancestry and a separate peer block. Expected: Exact
+//    block/file handles match; top-level files report a null containing file
+//    and the peer stays independent.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Configure each file once with a valid block/file relationship.
 // No reparenting, unconfigured parent query or address-map access is inferred.
 module test_regfile_constructor_names_and_configured_parents_are_instance_local;

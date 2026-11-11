@@ -13,6 +13,17 @@
 :expected_exit: 0
 :expected_stdout: @test_field_registered_pre_write_abort_propagates_through_a_real_selected_access.expected
 */
+// What it checks:
+// A registered field pre-write callback can reject the selected access.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.2 (UVM-FIELD-ACCESS-AUDIT-REGISTERED-PRE-WRITE-ABORT)
+// gives the rule above. Setup: Set exactly one original method or registered
+// callback change, then call the public field read/write API. Route buffers
+// are independent testbench controls, not a proof of physical alias coherence.
+// Expected: One callback returns NOT_OK with no original frontdoor call.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_registered_pre_write_abort_propagates_through_a_real_selected_access;
   import uvm_pkg::*;

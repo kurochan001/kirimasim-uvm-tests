@@ -13,6 +13,40 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_coverage_sample_parent_recursive_dispatch_80.expected
 */
+// What it checks:
+// 1. Block sample_values recursively visits its registers and child blocks
+//    only within the selected subtree.
+// 2. Parent block sample_values invokes the sampling methods of registers
+//    within its recursive subtree.
+// 3. A register field-value sampling extension can observe the current modeled
+//    field values when sampling is triggered.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.4.7 (UVM-BLOCK-SAMPLE-VALUES-RECURSIVE-SUBTREE) gives
+//    rule 1 above. Setup: Overrides call super; invoke root then child with
+//    local/deep registers and a separate peer. A separate case uses the actual
+//    inherited block method over two branches, repeats with fresh values and
+//    retains an outside peer. Expected: Root visits each descendant once; the
+//    second call increments only child/grandchild/deep counts and never visits
+//    the peer.
+// 2. 1800.2-2020 18.4.7.8 (UVM-REG-COVERAGE-SAMPLE-PARENT-DISPATCH) gives rule
+//    2 above. Setup: Original register overrides count sample_values calls and
+//    capture current16-bit RW field desired values. Explicit user calls use an
+//    actual uvm_reg base receiver; parent cases invoke the actual inherited
+//    block method over two branches with an outside peer and repeat after
+//    modeled values change. Expected: The actual inherited block method
+//    reaches both branch registers on each invocation without calling the
+//    outside peer or prescribing visit order.
+// 3. 1800.2-2020 18.4.7.8 (UVM-REG-COVERAGE-SAMPLE-CURRENT-MODELED-FIELDS)
+//    gives rule 3 above. Setup: Original register overrides count
+//    sample_values calls and capture current16-bit RW field desired values.
+//    Explicit user calls use an actual uvm_reg base receiver; parent cases
+//    invoke the actual inherited block method over two branches with an
+//    outside peer and repeat after modeled values change. Expected: Original
+//    observers record fresh desired values after explicit set or direct
+//    prediction on successive user and parent-triggered calls.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Coverage metadata or observer dispatch only; no bin, covergroup or HDL claim.
 module test_reg_coverage_sample_parent_recursive_dispatch_80;
   import uvm_pkg::*;

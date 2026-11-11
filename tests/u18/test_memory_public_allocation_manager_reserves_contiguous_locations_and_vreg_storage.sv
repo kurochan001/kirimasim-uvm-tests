@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_public_allocation_manager_reserves_contiguous_locations_and_vreg_storage.expected
 */
+// What it checks:
+// 1. The public mam manages the memory corresponding to the abstraction
+//    instance.
+// 2. The memory manager can reserve a selected consecutive memory region.
+// 3. The associated allocation manager owns the implemented virtual-register
+//    range.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.2 (UVM-MEMORY-AUDIT-PUBLIC-MANAGER) gives rule 1 above.
+//    Setup: A configured 32-location, 16-bit memory uses its public mam
+//    directly; six bytes are reserved at word offset three and a two-element
+//    32-bit vreg is implemented at offset ten. Expected: mam is nonnull and
+//    its memory identity is the configured memory.
+// 2. 1800.2-2020 18.6.2 (UVM-MEMORY-AUDIT-CONTIGUOUS-REGION) gives rule 2
+//    above. Setup: A configured 32-location, 16-bit memory uses its public mam
+//    directly; six bytes are reserved at word offset three and a two-element
+//    32-bit vreg is implemented at offset ten. Expected: Six bytes at offset
+//    three span locations three through five; an overlapping reservation
+//    returns null.
+// 3. 1800.2-2020 18.6.2 (UVM-MEMORY-AUDIT-VREG-REGION) gives rule 3 above.
+//    Setup: A configured 32-location, 16-bit memory uses its public mam
+//    directly; six bytes are reserved at word offset three and a two-element
+//    32-bit vreg is implemented at offset ten. Expected: Implementation
+//    succeeds and its region retains the memory and offsets ten through
+//    thirteen.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_public_allocation_manager_reserves_contiguous_locations_and_vreg_storage;
   import uvm_pkg::*;
 

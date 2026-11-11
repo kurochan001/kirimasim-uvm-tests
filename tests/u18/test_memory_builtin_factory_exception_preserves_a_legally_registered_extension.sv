@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_builtin_factory_exception_preserves_a_legally_registered_extension.expected
 */
+// What it checks:
+// 1. The builtin memory type is not factory registered, while an original
+//    legal extension may be registered.
+// 2. A factory-created original memory extension retains its object base view.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6 (UVM-MEM-FIFO-AUDIT-MEMORY-FACTORY-EXCEPTION) gives rule
+//    1 above. Setup: In a fresh process, query the builtin wrapper name and
+//    create an original utils-registered extension whose simple name
+//    constructor supplies the required base arguments. Expected: The builtin
+//    wrapper is absent and the distinct legal extension is created with its
+//    selected name/dimensions.
+// 2. 1800.2-2020 18.6.1 (UVM-MEM-FIFO-AUDIT-MEM-FACTORY-OBJECT-VIEW) gives
+//    rule 2 above. Setup: The registered extension calls the complex memory
+//    constructor through its own simple constructor. Expected: Implicit object
+//    assignment preserves the created extension identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_builtin_factory_exception_preserves_a_legally_registered_extension;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

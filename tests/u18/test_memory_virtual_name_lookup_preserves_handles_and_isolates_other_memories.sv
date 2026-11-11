@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_virtual_name_lookup_preserves_handles_and_isolates_other_memories.expected
 */
+// What it checks:
+// 1. Memory virtual-register name lookup preserves local handles and returns
+//    null when not implemented here.
+// 2. Memory virtual-field name lookup returns the local abstraction handle or
+//    null.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.4.13 (UVM-MEMORY-AUDIT-VREG-NAME) gives rule 1 above.
+//    Setup: Two local implemented vregs contain three uniquely named fields;
+//    another memory owns an unrelated vreg/field and a fourth vreg is
+//    configured without implementation. Expected: Both local names resolve
+//    exactly; absent, foreign and unimplemented names return null.
+// 2. 1800.2-2020 18.6.4.14 (UVM-MEMORY-AUDIT-VFIELD-NAME) gives rule 2 above.
+//    Setup: Two local implemented vregs contain three uniquely named fields;
+//    another memory owns an unrelated vreg/field and a fourth vreg is
+//    configured without implementation. Expected: All three local field names
+//    resolve exactly; absent and foreign field names return null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_virtual_name_lookup_preserves_handles_and_isolates_other_memories;
   import uvm_pkg::*;
 

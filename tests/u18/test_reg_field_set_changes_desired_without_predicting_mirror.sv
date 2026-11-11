@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_set_changes_desired_without_predicting_mirror.expected
 */
+// What it checks:
+// RW set changes desired state while retaining the mirror.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.2 (UVM-FIELD-SET-DESIRED-WITHOUT-PREDICTION) gives the
+// rule above. Setup: Reset to 35 then set ab hex. Expected: Desired is ab,
+// mirror is 35 and needs_update is true.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A writable field becomes dirty after set. Model access is not a DUT read.
 
 module test_reg_field_set_changes_desired_without_predicting_mirror;

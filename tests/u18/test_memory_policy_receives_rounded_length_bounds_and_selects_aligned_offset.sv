@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_policy_receives_rounded_length_bounds_and_selects_aligned_offset.expected
 */
+// What it checks:
+// 1. An extended allocation policy can constrain the region start to an
+//    aligned address.
+// 2. Policy len is the required number of address locations.
+// 3. The policy start_offset determines the returned allocation start.
+// 4. min_offset identifies the managed minimum address before policy
+//    randomization.
+// 5. max_offset identifies the managed maximum address before policy
+//    randomization.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.8 (UVM-MEMORY-POLICY-EXTENDED-ALIGNED-START) gives rule
+//    1 above. Setup: Constrain start to location 12 aligned to four in a
+//    managed 8–31 range. Expected: The selected policy and returned region
+//    start are both 12.
+// 2. 1800.2-2020 18.12.8.2.1 (UVM-MEMORY-POLICY-LENGTH-ADDRESS-UNITS) gives
+//    rule 2 above. Setup: Request ten bytes from a manager with four-byte
+//    locations and inspect pre_randomize state. Expected: The policy sees
+//    length three and the returned region occupies locations 12–14.
+// 3. 1800.2-2020 18.12.8.2.2 (UVM-MEMORY-POLICY-START-OFFSET-PROPAGATION)
+//    gives rule 3 above. Setup: Use one constrained and one procedurally
+//    selected start on independent managers. Expected: Selected starts 12 and
+//    30 are retained in their returned region descriptors.
+// 4. 1800.2-2020 18.12.8.2.3 (UVM-MEMORY-POLICY-MINIMUM-BOUND) gives rule 4
+//    above. Setup: Construct the manager with minimum location eight and
+//    inspect the pre_randomize hook. Expected: The policy observes minimum
+//    eight.
+// 5. 1800.2-2020 18.12.8.2.4 (UVM-MEMORY-POLICY-MAXIMUM-BOUND) gives rule 5
+//    above. Setup: Construct a manager whose final location is 31 and inspect
+//    the pre_randomize hook. Expected: The policy observes maximum 31.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_policy_receives_rounded_length_bounds_and_selects_aligned_offset;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

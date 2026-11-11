@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_mirror_disabled_field_comparison_suppresses_mismatch_error.expected
 */
+// What it checks:
+// Fields with disabled comparison are excluded from mirror checking.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.14 (UVM-REGISTER-MIRROR-DISABLED-FIELD-CHECK) gives the
+// rule above. Setup: Read changed testbench data with UVM_CHECK and an
+// explicitly selected field comparison mode. Expected: No mismatch error
+// occurs for the excluded field and the mirror still updates.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A catcher counts original RegModel errors without changing severity. A
 // mismatching read is excluded by the field compare policy.
 

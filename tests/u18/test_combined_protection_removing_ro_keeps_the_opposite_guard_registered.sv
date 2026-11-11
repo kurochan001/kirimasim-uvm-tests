@@ -13,6 +13,18 @@
 :expected_exit: 0
 :expected_stdout: @test_combined_protection_removing_ro_keeps_the_opposite_guard_registered.expected
 */
+// What it checks:
+// Removing one predefined callback preserves the other protection family.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.4.2.3 (UVM-PROTECTION-AUDIT-RO-REMOVE-OPPOSITE) gives the
+// rule above. Setup: Removing one predefined protection family keeps the
+// opposite guard active. Fresh original sixteen-bit RW models, two contained
+// byte fields and independent frontdoor/backdoor storage; exact message
+// text/count and physical HDL are not prescribed. Expected: The removed
+// direction succeeds and the opposite guard still rejects.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_combined_protection_removing_ro_keeps_the_opposite_guard_registered;
   import uvm_pkg::*;

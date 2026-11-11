@@ -12,6 +12,87 @@
 :expected_exit: 0
 :expected_stdout: @test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement.expected
 */
+// What it checks:
+// 1. set_sequencer associates the selected sequencer and adapter pair with the
+//    map.
+// 2. Omitting the set_sequencer adapter argument supplies null for the
+//    selected map.
+// 3. Replacing a root map sequencer/adapter redirects the selected later
+//    child-map transfers and preserves the old driver storage.
+// 4. Explicit NO_HIER get_sequencer returns the selected local association.
+// 5. Explicit HIER get_sequencer returns the selected system bus association.
+// 6. Omitted get_sequencer hier follows the selected root association after
+//    replacement while the explicit local and peer settings remain intact.
+// 7. Explicit NO_HIER get_adapter returns the selected local association.
+// 8. Explicit HIER get_adapter returns the selected system bus association.
+// 9. Omitted get_adapter hier follows the selected root association after
+//    replacement while the explicit local and peer settings remain intact.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.3.6 (UVM-MAP-SCOPE-SET-SEQUENCER-ADAPTER) gives rule 1
+//    above. Setup: Use the selected getter-only map settings or the separate
+//    original four-byte adapter/sequencer/driver path to a 32-bit RW child-map
+//    register. In the real path both root sequencers connect to distinct live
+//    original drivers, and replacement follows a completed write/read pair.
+//    Adapter context and original stores independently observe selection.
+//    Expected: set_sequencer associates the selected sequencer and adapter
+//    pair with the map.
+// 2. 1800.2-2020 18.2.3.6 (UVM-MAP-SCOPE-SET-OMITTED-ADAPTER) gives rule 2
+//    above. Setup: Use the selected getter-only map settings or the separate
+//    original four-byte adapter/sequencer/driver path to a 32-bit RW child-map
+//    register. In the real path both root sequencers connect to distinct live
+//    original drivers, and replacement follows a completed write/read pair.
+//    Adapter context and original stores independently observe selection.
+//    Expected: Omitting the set_sequencer adapter argument supplies null for
+//    the selected map.
+// 3. 1800.2-2020 18.2.3.6 (UVM-MAP-SCOPE-SET-REPLACEMENT) gives rule 3 above.
+//    Setup: Use the selected getter-only map settings or the separate original
+//    four-byte adapter/sequencer/driver path to a 32-bit RW child-map
+//    register. In the real path both root sequencers connect to distinct live
+//    original drivers, and replacement follows a completed write/read pair.
+//    Adapter context and original stores independently observe selection.
+//    Expected: Replacing a root map sequencer/adapter redirects the selected
+//    later child-map transfers and preserves the old driver storage.
+// 4. 1800.2-2020 18.2.4.8 (UVM-MAP-SCOPE-SEQUENCER-LOCAL) gives rule 4 above.
+//    Setup: Original configured blocks, owned maps and selected explicit
+//    public calls. Parent/child maps use valid ownership and are locked before
+//    width-dependent queries. Getter-only observers do not override the
+//    library algorithms. Expected: Explicit NO_HIER get_sequencer returns the
+//    selected local association.
+// 5. 1800.2-2020 18.2.4.8 (UVM-MAP-SCOPE-SEQUENCER-SYSTEM) gives rule 5 above.
+//    Setup: Original configured blocks, owned maps and selected explicit
+//    public calls. Parent/child maps use valid ownership and are locked before
+//    width-dependent queries. Getter-only observers do not override the
+//    library algorithms. Expected: Explicit HIER get_sequencer returns the
+//    selected system bus association.
+// 6. 1800.2-2020 18.2.4.8 (UVM-MAP-SCOPE-SEQUENCER-DEFAULT-AND-ISOLATION)
+//    gives rule 6 above. Setup: Original configured blocks, owned maps and
+//    selected explicit public calls. Parent/child maps use valid ownership and
+//    are locked before width-dependent queries. Getter-only observers do not
+//    override the library algorithms. Expected: Omitted get_sequencer hier
+//    follows the selected root association after replacement while the
+//    explicit local and peer settings remain intact.
+// 7. 1800.2-2020 18.2.4.9 (UVM-MAP-SCOPE-ADAPTER-LOCAL) gives rule 7 above.
+//    Setup: Original configured blocks, owned maps and selected explicit
+//    public calls. Parent/child maps use valid ownership and are locked before
+//    width-dependent queries. Getter-only observers do not override the
+//    library algorithms. Expected: Explicit NO_HIER get_adapter returns the
+//    selected local association.
+// 8. 1800.2-2020 18.2.4.9 (UVM-MAP-SCOPE-ADAPTER-SYSTEM) gives rule 8 above.
+//    Setup: Original configured blocks, owned maps and selected explicit
+//    public calls. Parent/child maps use valid ownership and are locked before
+//    width-dependent queries. Getter-only observers do not override the
+//    library algorithms. Expected: Explicit HIER get_adapter returns the
+//    selected system bus association.
+// 9. 1800.2-2020 18.2.4.9 (UVM-MAP-SCOPE-ADAPTER-DEFAULT-AND-ISOLATION) gives
+//    rule 9 above. Setup: Original configured blocks, owned maps and selected
+//    explicit public calls. Parent/child maps use valid ownership and are
+//    locked before width-dependent queries. Getter-only observers do not
+//    override the library algorithms. Expected: Omitted get_adapter hier
+//    follows the selected root association after replacement while the
+//    explicit local and peer settings remain intact.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement;
   import uvm_pkg::*;

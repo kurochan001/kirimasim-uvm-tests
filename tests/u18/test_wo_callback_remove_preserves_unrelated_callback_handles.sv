@@ -13,6 +13,28 @@
 :expected_exit: 0
 :expected_stdout: @test_wo_callback_remove_preserves_unrelated_callback_handles.expected
 */
+// What it checks:
+// 1. Protection remove detaches it from the specified register.
+// 2. Protection remove detaches it from the contained fields while retaining
+//    other callbacks.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.11.5.2.3 (UVM-PROTECTION-AUDIT-WO-REMOVE-REGISTER) gives
+//    rule 1 above. Setup: Removing the selected protection callback leaves
+//    independent callback identities registered. Fresh original sixteen-bit RW
+//    models, two contained byte fields and independent frontdoor/backdoor
+//    storage; exact message text/count and physical HDL are not prescribed.
+//    Expected: The selected protection family is absent from the register
+//    after remove.
+// 2. 1800.2-2020 18.11.5.2.3 (UVM-PROTECTION-AUDIT-WO-REMOVE-FIELDS) gives
+//    rule 2 above. Setup: Removing the selected protection callback leaves
+//    independent callback identities registered. Fresh original sixteen-bit RW
+//    models, two contained byte fields and independent frontdoor/backdoor
+//    storage; exact message text/count and physical HDL are not prescribed.
+//    Expected: Both fields lose the selected protection callback; all three
+//    unrelated sentinel registrations retain exact handle identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_wo_callback_remove_preserves_unrelated_callback_handles;
   import uvm_pkg::*;

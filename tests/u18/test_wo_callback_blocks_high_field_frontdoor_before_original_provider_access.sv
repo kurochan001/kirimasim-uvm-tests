@@ -13,6 +13,31 @@
 :expected_exit: 0
 :expected_stdout: @test_wo_callback_blocks_high_field_frontdoor_before_original_provider_access.expected
 */
+// What it checks:
+// 1. The predefined WO callback rejects the selected high_field frontdoor
+//    access with ERROR and failing status.
+// 2. A rejected pre-access callback prevents original-provider transfers and
+//    storage modification.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.11.5.2.1
+//    (UVM-PROTECTION-AUDIT-WO-BLOCK-HIGH-FIELD-FRONTDOOR) gives rule 1 above.
+//    Setup: A registered protection callback rejects the selected real access
+//    before transfer. Fresh original sixteen-bit RW models, two contained byte
+//    fields and independent frontdoor/backdoor storage; exact message
+//    text/count and physical HDL are not prescribed. Expected: The selected
+//    attempted access reports ERROR and returns UVM_NOT_OK before any provider
+//    transfer; original storage is retained.
+// 2. 1800.2-2020 18.11.2.4
+//    (UVM-PROTECTION-AUDIT-WO-ABORT-HIGH-FIELD-FRONTDOOR) gives rule 2 above.
+//    Setup: A registered protection callback rejects the selected real access
+//    before transfer. Fresh original sixteen-bit RW models, two contained byte
+//    fields and independent frontdoor/backdoor storage; exact message
+//    text/count and physical HDL are not prescribed. Expected: All original
+//    frontdoor/backdoor transfer counters remain zero and both storage words
+//    retain 0x11AD.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_wo_callback_blocks_high_field_frontdoor_before_original_provider_access;
   import uvm_pkg::*;

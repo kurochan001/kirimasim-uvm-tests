@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_allocate_exposes_the_selected_array_element_external_address.expected
 */
+// What it checks:
+// An allocated array element exposes its translated external address.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.4 (UVM-VREG-ALLOCATED-EXTERNAL-ADDRESS) gives the rule
+// above. Setup: Allocate at memory location ten with two locations per element
+// in a mapped memory. Expected: The second element is at offset twelve and
+// physical address 12c hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The second element begins at memory location 12 after allocation at 10. The
 // external address includes the root base and memory map offset.
 

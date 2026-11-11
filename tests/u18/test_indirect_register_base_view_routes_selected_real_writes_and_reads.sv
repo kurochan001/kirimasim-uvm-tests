@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_indirect_register_base_view_routes_selected_real_writes_and_reads.expected
 */
+// What it checks:
+// An indirect register accessed through a register base view reaches the
+// index-selected array slot.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.7 (UVM-MEM-FIFO-AUDIT-INDIRECT-BASE-TRANSFER) gives the rule
+// above. Setup: Complete explicit index writes before the base-view
+// write/read; use equal-width arrays and an independent original banked
+// driver. Expected: The selected write changes only slot one; reselection
+// reads slot two while unrelated bank/slots retain their values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_indirect_register_base_view_routes_selected_real_writes_and_reads;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

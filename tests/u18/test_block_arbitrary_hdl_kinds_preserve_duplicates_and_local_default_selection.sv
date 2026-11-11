@@ -12,6 +12,50 @@
 :expected_exit: 0
 :expected_stdout: @test_block_arbitrary_hdl_kinds_preserve_duplicates_and_local_default_selection.expected
 */
+// What it checks:
+// 1. Arbitrary selected string kinds identify independent HDL path
+//    representations for one block.
+// 2. Omitted add_hdl_path kind adds the selected path under RTL.
+// 3. Repeated add_hdl_path for one selected kind retains both distinct
+//    implementation paths.
+// 4. has_hdl_path distinguishes the selected explicit/default present kind
+//    from a missing or cleared kind.
+// 5. set_default_hdl_path selects the exact local kind without changing a peer
+//    default.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.6.1 (UVM-BLOCK-CONFIG-KIND-ARBITRARY) gives rule 1
+//    above. Setup: Original root, flattened intermediate and leaf blocks use
+//    selected symbolic path strings. Only metadata getters are called;
+//    explicit RTL is used unless the fixture deliberately tests default-kind
+//    inheritance. Expected: Arbitrary selected string kinds identify
+//    independent HDL path representations for one block.
+// 2. 1800.2-2020 18.1.6.5 (UVM-BLOCK-CONFIG-ADD-HDL-DEFAULT-RTL) gives rule 2
+//    above. Setup: Original root, flattened intermediate and leaf blocks use
+//    selected symbolic path strings. Only metadata getters are called;
+//    explicit RTL is used unless the fixture deliberately tests default-kind
+//    inheritance. Expected: Omitted add_hdl_path kind adds the selected path
+//    under RTL.
+// 3. 1800.2-2020 18.1.6.5 (UVM-BLOCK-CONFIG-ADD-HDL-DUPLICATES) gives rule 3
+//    above. Setup: Original root, flattened intermediate and leaf blocks use
+//    selected symbolic path strings. Only metadata getters are called;
+//    explicit RTL is used unless the fixture deliberately tests default-kind
+//    inheritance. Expected: Repeated add_hdl_path for one selected kind
+//    retains both distinct implementation paths.
+// 4. 1800.2-2020 18.1.6.6 (UVM-BLOCK-CONFIG-HAS-HDL-SELECTED-KIND) gives rule
+//    4 above. Setup: Original root, flattened intermediate and leaf blocks use
+//    selected symbolic path strings. Only metadata getters are called;
+//    explicit RTL is used unless the fixture deliberately tests default-kind
+//    inheritance. Expected: has_hdl_path distinguishes the selected
+//    explicit/default present kind from a missing or cleared kind.
+// 5. 1800.2-2020 18.1.6.10 (UVM-BLOCK-CONFIG-SET-DEFAULT-HDL-LOCAL) gives rule
+//    5 above. Setup: Original root, flattened intermediate and leaf blocks use
+//    selected symbolic path strings. Only metadata getters are called;
+//    explicit RTL is used unless the fixture deliberately tests default-kind
+//    inheritance. Expected: set_default_hdl_path selects the exact local kind
+//    without changing a peer default.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Arbitrary kind strings identify symbolic path metadata, not HDL simulation.
 module test_block_arbitrary_hdl_kinds_preserve_duplicates_and_local_default_selection;
   import uvm_pkg::*;

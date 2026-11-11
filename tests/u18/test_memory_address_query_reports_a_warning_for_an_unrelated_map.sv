@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_address_query_reports_a_warning_for_an_unrelated_map.expected
 */
+// What it checks:
+// The selected memory address query warns for a map that does not contain the
+// memory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.4.16 (UVM-MEM-FIFO-AUDIT-MEM-INVALID-ADDRESS-WARNING) gives
+// the rule above. Setup: Observe a valid explicit address first, then gate a
+// catcher around one unrelated-map call in a fresh independent fixture.
+// Expected: At least one UVM_WARNING is reported without an exact
+// ID/text/count requirement.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_address_query_reports_a_warning_for_an_unrelated_map;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

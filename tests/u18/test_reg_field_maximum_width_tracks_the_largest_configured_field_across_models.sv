@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_maximum_width_tracks_the_largest_configured_field_across_models.expected
 */
+// What it checks:
+// The static field maximum width retains the largest configured field width.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.4.4 (UVM-FIELD-STATIC-MAXIMUM-WIDTH) gives the rule above.
+// Setup: Create a 20-bit field then a 4-bit field, accounting for any earlier
+// maximum. Expected: The maximum becomes max(previous,20) and does not shrink;
+// individual getters retain 20/4/8 widths.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only field metadata and desired/mirrored state. No bus, RTL or DPI
 // is accessed, and policy controls do not establish physical side effects.
 module test_reg_field_maximum_width_tracks_the_largest_configured_field_across_models;

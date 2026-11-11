@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_block_hdl_clear_is_kind_local_and_preserves_sibling_incremental_paths.expected
 */
+// What it checks:
+// 1. Block path clearing removes only the selected kind from that instance.
+// 2. Block incremental path queries return only that block path components for
+//    the selected default kind.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.6.4 (UVM-BLOCK-HDL-KIND-CLEAR) gives rule 1 above.
+//    Setup: Use RTL/GATE paths, a GATE default and an independent sibling
+//    block. Expected: Default clear removes RTL; explicit GATE clear removes
+//    GATE without changing the sibling paths.
+// 2. 1800.2-2020 18.1.6.7 (UVM-BLOCK-INCREMENTAL-HDL-PATHS) gives rule 2
+//    above. Setup: Query two GATE alternatives and a sibling path after
+//    independent clearing. Expected: The first query returns gate0/gate1 and
+//    the sibling retains peer_gate.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Symbolic HDL path metadata only: no HDL access, RTL storage or DPI calls.
 module test_block_hdl_clear_is_kind_local_and_preserves_sibling_incremental_paths;
   import uvm_pkg::*;

@@ -13,6 +13,20 @@
 :expected_exit: 0
 :expected_stdout: @test_ro_callback_removal_from_one_register_preserves_peer_enforcement.expected
 */
+// What it checks:
+// Removing one registration preserves another register protection and restores
+// the selected access.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.4.2.3 (UVM-PROTECTION-AUDIT-RO-REMOVE-ISOLATION) gives the
+// rule above. Setup: Removing protection from one register preserves
+// enforcement on another registered peer. Fresh original sixteen-bit RW
+// models, two contained byte fields and independent frontdoor/backdoor
+// storage; exact message text/count and physical HDL are not prescribed.
+// Expected: The retained peer guard rejects without transfer; the removed
+// target guard allows its subsequent access without ERROR.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_ro_callback_removal_from_one_register_preserves_peer_enforcement;
   import uvm_pkg::*;

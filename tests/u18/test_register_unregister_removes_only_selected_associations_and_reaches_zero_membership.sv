@@ -12,6 +12,55 @@
 :expected_exit: 0
 :expected_stdout: @test_register_unregister_removes_only_selected_associations_and_reaches_zero_membership.expected
 */
+// What it checks:
+// 1. Removing one selected map association preserves the other selected
+//    association and the peer register membership.
+// 2. Removing the last selected registered association leaves that register
+//    with zero maps while the peer remains registered.
+// 3. The selected configured register has zero maps before it is registered.
+// 4. Each selected distinct map registration is reflected in the register map
+//    count.
+// 5. Selected register map counts follow one remaining association and then
+//    zero after removals.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.2.5 (UVM-REGISTER-CONTRACT-UNREGISTER-SELECTED) gives
+//    rule 1 above. Setup: Use the selected original register/block/file models
+//    and explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: Removing one selected map association preserves the other
+//    selected association and the peer register membership.
+// 2. 1800.2-2020 18.4.2.5 (UVM-REGISTER-CONTRACT-UNREGISTER-LAST) gives rule 2
+//    above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: Removing the last selected registered association leaves that
+//    register with zero maps while the peer remains registered.
+// 3. 1800.2-2020 18.4.3.3 (UVM-REGISTER-CONTRACT-MAP-COUNT-INITIAL) gives rule
+//    3 above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: The selected configured register has zero maps before it is
+//    registered.
+// 4. 1800.2-2020 18.4.3.3 (UVM-REGISTER-CONTRACT-MAP-COUNT-ADDITIONS) gives
+//    rule 4 above. Setup: Use the selected original register/block/file models
+//    and explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: Each selected distinct map registration is reflected in the
+//    register map count.
+// 5. 1800.2-2020 18.4.3.3 (UVM-REGISTER-CONTRACT-MAP-COUNT-REMOVALS) gives
+//    rule 5 above. Setup: Use the selected original register/block/file models
+//    and explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: Selected register map counts follow one remaining association
+//    and then zero after removals.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_unregister_removes_only_selected_associations_and_reaches_zero_membership;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

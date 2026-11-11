@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_indirect_register_pairs_keep_separate_indexes_storage_and_prediction_targets.expected
 */
+// What it checks:
+// 1. Independently configured index/data pairs keep their array selections
+//    separate.
+// 2. Auto-prediction of indirect data accesses updates the selected array
+//    register model.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.7.2.2 (UVM-INDIRECT-PAIR-LOCAL-SELECTION) gives rule 1
+//    above. Setup: Select one and two in two banks, then write through their
+//    separate data addresses. Expected: Each bank uses its own index, receives
+//    its value and preserves the unselected peer slots.
+// 2. 1800.2-2020 18.2.5.2 (UVM-INDIRECT-AUTO-PREDICTION-TARGET) gives rule 2
+//    above. Setup: Use explicit index writes and successful data reads/writes
+//    with auto-prediction enabled. Expected: Selected mirrors match
+//    transferred values while nonselected mirrors retain reset values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Equal-width array elements and explicit successful index writes precede
 // each data-port access. A testbench driver models two independent banks; no
 // RTL, DPI, out-of-range index or automatic array-frontdoor sequence is used.

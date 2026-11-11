@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_pre_read_hook_aborts_before_any_bus_request.expected
 */
+// What it checks:
+// A failing pre_read method aborts a read before bus access.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.8.3 (UVM-REG-PRE-READ-ABORT) gives the rule above. Setup:
+// Assign NOT_OK in the containing register method. Expected: Read fails and no
+// bus request occurs.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pre-access hook rejects the request through status. The driver must
 // receive no transaction.
 

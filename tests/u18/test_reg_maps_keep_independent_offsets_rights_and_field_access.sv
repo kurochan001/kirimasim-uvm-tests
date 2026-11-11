@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_maps_keep_independent_offsets_rights_and_field_access.expected
 */
+// What it checks:
+// 1. Register get_offset returns the offset local to the specified map.
+// 2. Register get_address returns the external physical address through the
+//    specified map.
+// 3. Register get_rights returns the accessibility of the selected interface
+//    map.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.3.13 (UVM-REGISTER-MAP-LOCAL-OFFSET) gives rule 1 above.
+//    Setup: Use nonzero map bases and distinct offsets in two interface maps.
+//    Expected: The returned local offsets exclude the external base and stay
+//    distinct across maps.
+// 2. 1800.2-2020 18.4.3.14 (UVM-REGISTER-EXTERNAL-ADDRESS) gives rule 2 above.
+//    Setup: Inspect register placement in one/two maps with nonzero bases.
+//    Expected: External addresses include each selected map base and its
+//    register offset.
+// 3. 1800.2-2020 18.4.3.7 (UVM-REGISTER-MAP-RIGHTS-QUERY) gives rule 3 above.
+//    Setup: Place one register in read-only and write-only maps. Expected: The
+//    respective rights are RO and WO.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // This is register multi-mapping, not the declared memory multi-map deviation.
 // Explicit map arguments avoid the separate null-map selection deviation.
 

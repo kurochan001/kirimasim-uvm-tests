@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_order_policy_getter_replacement_and_clear_are_map_local.expected
 */
+// What it checks:
+// 1. Map order-policy queries return the selected handle or explicit null.
+// 2. Order-policy selection, replacement and clearing affect only the selected
+//    map.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.5.4 (UVM-MAP-ORDER-POLICY-EXACT-QUERY) gives rule 1
+//    above. Setup: Select first/second policies on two maps, replace one and
+//    clear it. Expected: Every query returns the exact configured handle and
+//    clearing returns null.
+// 2. 1800.2-2020 18.2.5.5 (UVM-MAP-ORDER-POLICY-LOCAL-SELECTION) gives rule 2
+//    above. Setup: Keep a peer map set to second while replacing/clearing
+//    first. Expected: The selected map tracks changes while the peer retains
+//    second.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Inspect configured policy handles before any bus access.
 // Explicit null removes the selected policy; no default type is assumed.
 module test_reg_order_policy_getter_replacement_and_clear_are_map_local;

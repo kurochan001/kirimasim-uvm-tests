@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_allocate_cannot_replace_a_static_implementation.expected
 */
+// What it checks:
+// A static implementation cannot be replaced by dynamic allocation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.2 (UVM-VREG-STATIC-ALLOCATION-REJECTION) gives the rule
+// above. Setup: Try allocating over a configured static implementation.
+// Expected: Allocation returns null, the exact region and offset two remain,
+// and one region stays active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The statically configured array retains its implementation when a later
 // dynamic allocation is attempted. No diagnostic severity is prescribed.
 

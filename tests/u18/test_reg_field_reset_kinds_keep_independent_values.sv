@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_reset_kinds_keep_independent_values.expected
 */
+// What it checks:
+// Adding a SOFT reset value preserves the configured HARD value.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.7 (UVM-FIELD-RESET-KIND-INDEPENDENT-VALUES) gives the
+// rule above. Setup: Use HARD 35 and SOFT 92 hex, and apply each reset.
+// Expected: SOFT restores 92 without changing HARD metadata; HARD later
+// restores 35.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Changing the SOFT reset does not replace the configured HARD reset.
 
 module test_reg_field_reset_kinds_keep_independent_values;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_block_wait_for_lock_blocks_before_locking_and_returns_for_a_locked_model.expected
 */
+// What it checks:
+// wait_for_lock suspends preexisting waiters until lock_model completes.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.2.9 (UVM-BLOCK-WAIT-FOR-LOCK-COMPLETION) gives the rule
+// above. Setup: Register two waiters before delayed locking of a mapped
+// register, then inspect lock state and its lookup from both returns.
+// Expected: Both waiters remain pending before locking and return after lock
+// state and exact address lookup are ready.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_wait_for_lock_blocks_before_locking_and_returns_for_a_locked_model;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

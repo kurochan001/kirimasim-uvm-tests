@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_backdoor_read_only_write_preserves_storage_while_poke_deposits.expected
 */
+// What it checks:
+// A modeled backdoor write respects ROM policy while poke deposits directly.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.5.1 (UVM-MEMORY-AUDIT-ROM-WRITE-VS-POKE) gives the rule
+// above. Setup: An explicit RO memory/map uses original user storage, selected
+// and peer words, a parent sequence/extension and debug arguments. Expected:
+// write leaves the ROM word unchanged, poke changes it, read/peek return it
+// and the successful read descriptor retains parent, extension and memory
+// identity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_backdoor_read_only_write_preserves_storage_while_poke_deposits;
   import uvm_pkg::*;
 

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_set_offset_relocates_addresses_and_locked_lookup_range.expected
 */
+// What it checks:
+// Memory set_offset relocates the memory within the specified map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.3.3 (UVM-MEMORY-OFFSET-RELOCATION) gives the rule above.
+// Setup: Relocate a locked memory map range from offset ten to thirty.
+// Expected: A queried location moves from address 12 to 32 and locked lookup
+// uses the new range.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Use a zero root base so map offsets and external addresses agree for
 // lookup. Old addresses must stop resolving after relocation.
 

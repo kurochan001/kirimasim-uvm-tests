@@ -3,8 +3,11 @@
 // each expected descriptor without assuming an iterator order.
 function automatic uvm_mem_mam_cfg config115(uvm_reg_addr_t first,last);
   automatic uvm_mem_mam_cfg cfg=new;
-  cfg.n_bytes=1; cfg.start_offset=first; cfg.end_offset=last;
-  cfg.mode=uvm_mem_mam::GREEDY; cfg.locality=uvm_mem_mam::BROAD;
+  cfg.n_bytes=1;
+  cfg.start_offset=first;
+  cfg.end_offset=last;
+  cfg.mode=uvm_mem_mam::GREEDY;
+  cfg.locality=uvm_mem_mam::BROAD;
   return cfg;
 endfunction
 function automatic bit members115(uvm_mem_mam manager,uvm_mem_region r0,r1,r2);
@@ -79,7 +82,8 @@ task automatic exercise115();
            previous!=null && previous.start_offset==o0 && previous.end_offset==o1,
            current!=null && current.start_offset==n0 && current.end_offset==n1,
            code115(held,12)==1 && members115(manager,held,null,null));
-  late115.expected_min=n0; late115.expected_max=n1;
+  late115.expected_min=n0;
+  late115.expected_max=n1;
   low=take115(manager,late115,n0);
   high=take115(manager,late115,n1-3);
   edge_calls=late115.calls;

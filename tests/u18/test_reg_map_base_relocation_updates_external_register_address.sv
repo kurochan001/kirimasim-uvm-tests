@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_map_base_relocation_updates_external_register_address.expected
 */
+// What it checks:
+// Changing the map base relocates the external register address while
+// preserving its local offset.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.3.9 (UVM-MAP-BASE-RELOCATION) gives the rule above. Setup:
+// Change map base from 100 to 400 with register offset 20. Expected: The
+// external address changes from 120 to 420 while offset stays 20.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Relocation changes the configured map base. The register remains at its local
 // offset.
 

@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_block_default_door_replacement_is_immediate_and_local_to_the_selected_block.expected
 */
+// What it checks:
+// 1. get_default_door returns the currently configured block door.
+// 2. Changing a block default door immediately replaces that setting without
+//    changing an independent block.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.5.1 (UVM-BLOCK-DEFAULT-DOOR-QUERY-AFTER-SETTING) gives
+//    rule 1 above. Setup: Set explicit frontdoor/backdoor values before each
+//    query. Expected: The query follows backdoor/frontdoor/backdoor
+//    replacement.
+// 2. 1800.2-2020 18.1.5.2 (UVM-BLOCK-DEFAULT-DOOR-LOCAL-REPLACEMENT) gives
+//    rule 2 above. Setup: Switch one block twice while its peer is explicitly
+//    frontdoor. Expected: The selected block follows both replacements and
+//    peer remains frontdoor.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_default_door_replacement_is_immediate_and_local_to_the_selected_block;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

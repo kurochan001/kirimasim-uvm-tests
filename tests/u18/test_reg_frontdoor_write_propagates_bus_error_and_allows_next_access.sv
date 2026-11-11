@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_frontdoor_write_propagates_bus_error_and_allows_next_access.expected
 */
+// What it checks:
+// 1. Register frontdoor write transfers model data through the selected
+//    physical access path.
+// 2. The register write status reflects physical success or failure.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.4.9 (UVM-REGISTER-FRONTDOOR-WRITE) gives rule 1 above.
+//    Setup: Use single/wide transfers and inline or separate driver
+//    completions in the listed fixtures. Expected: Successful operations
+//    preserve the requested or returned data and status; failed-read data is
+//    not inspected.
+// 2. 1800.2-2020 18.4.4.9 (UVM-REGISTER-FRONTDOOR-WRITE-STATUS) gives rule 2
+//    above. Setup: The driver first rejects an access, then accepts a new one.
+//    Expected: UVM_NOT_OK is followed by a successful UVM_IS_OK retry with a
+//    real additional request.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The driver returns UVM_NOT_OK through the adapter, then accepts a retry. No
 // assumption is made about data returned by the failed operation.
 

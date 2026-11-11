@@ -12,6 +12,47 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_regions_round_requested_bytes_to_complete_address_locations.expected
 */
+// What it checks:
+// 1. A byte-sized reservation occupies enough complete memory locations.
+// 2. The region start query returns the selected starting location offset.
+// 3. The region end query returns the last occupied location after
+//    whole-location reservation.
+// 4. Region length counts consecutive memory locations rather than requested
+//    bytes.
+// 5. Region byte count includes complete locations and may exceed the
+//    requested byte count.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.5.1 (UVM-MAM-RESERVATION-WHOLE-LOCATIONS) gives rule 1
+//    above. Setup: Reserve five bytes at location three with four-byte
+//    locations and no backing memory. Expected: The descriptor spans 3..4,
+//    length two, eight bytes, and null memory/owner handles.
+// 2. 1800.2-2020 18.12.7.2.1 (UVM-MAM-AUDIT-REGION-START) gives rule 2 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: The region start query returns the selected starting
+//    location offset.
+// 3. 1800.2-2020 18.12.7.2.2 (UVM-MAM-AUDIT-REGION-END) gives rule 3 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: The region end query returns the last occupied
+//    location after whole-location reservation.
+// 4. 1800.2-2020 18.12.7.2.3 (UVM-MAM-AUDIT-REGION-LENGTH) gives rule 4 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: Region length counts consecutive memory locations
+//    rather than requested bytes.
+// 5. 1800.2-2020 18.12.7.2.4 (UVM-MAM-AUDIT-REGION-BYTES) gives rule 5 above.
+//    Setup: Use the linked original fixtures and the explicit sizes, location
+//    offsets, handles and observations they declare. Allocation inputs are
+//    configured explicitly rather than relying on unspecified initial
+//    defaults. Expected: Region byte count includes complete locations and may
+//    exceed the requested byte count.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_regions_round_requested_bytes_to_complete_address_locations;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

@@ -1,6 +1,8 @@
 // Original small register models shared by symbolic and physical fixtures.
 class block79 extends uvm_reg_block;
-  function new(string name="owner79"); super.new(name,UVM_NO_COVERAGE); endfunction
+  function new(string name="owner79");
+    super.new(name,UVM_NO_COVERAGE);
+  endfunction
 endclass
 class register79 extends uvm_reg;
   function new(string name="r79",int unsigned width=16);

@@ -13,6 +13,21 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_hdl_add_default_rtl_standard_view79.expected
 */
+// What it checks:
+// Omitted add_hdl_path kind selects RTL independently of the parent default
+// abstraction.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.6.4 (UVM-REG-HDL-ADD-DEFAULT-RTL) gives the rule above.
+// Setup: Original 16-bit register/block models, legal most-to-least
+// nonoverlapping slices, named abstractions, isolated peers and fresh query
+// queues. Standard-view inputs use get_slices; separately declared controls
+// project the pinned library public slices member, an explicitly nonstandard
+// observability premise. No HDL storage is accessed. Expected: The supplied
+// split description is under RTL; the parent-selected GATE path and peer
+// remain unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard public API observations; independent expectations precede runs.
 // Symbolic metadata only; no physical HDL access or DPI calls.
 module test_reg_hdl_add_default_rtl_standard_view79;

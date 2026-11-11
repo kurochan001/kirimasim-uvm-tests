@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_registered_post_read_callback_replaces_the_returned_value.expected
 */
+// What it checks:
+// A registered post_read callback can replace the returned data.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.5 (UVM-REG-POST-READ-CALLBACK-DATA) gives the rule
+// above. Setup: Change modeled bus result 33 hex to bc hex. Expected: One
+// request and one callback return bc hex with OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The registered post-read callback replaces the bus return value. Only the
 // caller result is asserted after the callback.
 

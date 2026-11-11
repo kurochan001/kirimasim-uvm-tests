@@ -13,6 +13,20 @@
 :expected_exit: 0
 :expected_stdout: @test_field_readonly_poke_without_a_prior_write_deposits_the_selected_slice.expected
 */
+// What it checks:
+// Field poke deposits as-is even when physical-style writes are read-only.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.11 (UVM-FIELD-ACCESS-AUDIT-READONLY-POKE-NO-HISTORY)
+// gives the rule above. Setup: Use a freshly reset model and an original B75D
+// backdoor word with a read-only middle byte, without any previous
+// register/field access. Expected: The standalone poke deposits B39D
+// successfully, preserves physical neighbors B/D and forwards the exact
+// extension to read/write.
+// It also supports, as a control, the setup or conditions of
+// UVM-FIELD-ACCESS-AUDIT-READONLY-POKE.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_readonly_poke_without_a_prior_write_deposits_the_selected_slice;
   import uvm_pkg::*;

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_indirect_register_failed_data_read_keeps_prediction_until_a_successful_retry.expected
 */
+// What it checks:
+// Indirect data read returns the bus error status and predicts a later
+// successful read.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.10 (UVM-INDIRECT-READ-ERROR-RETRY) gives the rule above.
+// Setup: Select element two, fail one driver read and retry with the same
+// index. Expected: The failed status leaves mirror zero and storage 33; retry
+// returns and predicts 33.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Equal-width array elements and explicit successful index writes precede
 // each data-port access. A testbench driver models two independent banks; no
 // RTL, DPI, out-of-range index or automatic array-frontdoor sequence is used.

@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_block_memory_enumeration_keeps_peer_roots_outside_recursive_results.expected
 */
+// What it checks:
+// Memory enumeration is confined to the receiver block and selected
+// descendants.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.3.9 (UVM-BLOCK-MEMORY-ENUMERATION-SCOPE) gives the rule
+// above. Setup: Place memories in root, child, grandchild and an unrelated
+// peer root. Expected: Root-local/root-recursive/child-recursive return
+// one/three/two expected memories and exclude the peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register-model hierarchy only. Queries use fresh result queues and handle
 // membership, without a visit order, address maps, RTL transfers or HDL DPI.
 module test_block_memory_enumeration_keeps_peer_roots_outside_recursive_results;

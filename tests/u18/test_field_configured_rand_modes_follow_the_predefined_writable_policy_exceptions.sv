@@ -13,6 +13,30 @@
 :expected_exit: 0
 :expected_stdout: @test_field_configured_rand_modes_follow_the_predefined_writable_policy_exceptions.expected
 */
+// What it checks:
+// 1. The selected writable predefined policies retain an explicitly enabled
+//    field rand mode.
+// 2. Other selected predefined policies force field value randomization off.
+// 3. Explicit is_rand zero disables the selected field value randomization.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.3.2 (UVM-FIELD-ACCESS-AUDIT-WRITABLE-RAND-MODE) gives
+//    rule 1 above. Setup: Fresh original field/register instances with valid
+//    configuration; distinguish model state and independent original
+//    access-provider storage. Expected: RW, WRC, WRS, WO, W1 and WO1 retain
+//    the enabled value rand_mode.
+// 2. 1800.2-2020 18.5.3.2 (UVM-FIELD-ACCESS-AUDIT-RESTRICTED-RAND-MODE) gives
+//    rule 2 above. Setup: Fresh original field/register instances with valid
+//    configuration; distinguish model state and independent original
+//    access-provider storage. Expected: RO, RC, RS, W1C, W0S and W1T disable
+//    value rand_mode despite is_rand one.
+// 3. 1800.2-2020 18.5.3.2 (UVM-FIELD-ACCESS-AUDIT-EXPLICIT-RAND-OFF) gives
+//    rule 3 above. Setup: Fresh original field/register instances with valid
+//    configuration; distinguish model state and independent original
+//    access-provider storage. Expected: All independently configured
+//    off-controls retain disabled value rand_mode.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_configured_rand_modes_follow_the_predefined_writable_policy_exceptions;
   import uvm_pkg::*;

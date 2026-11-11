@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_field_byte_enable_fallback_selects_individual_or_whole_register_access.expected
 */
+// What it checks:
+// 1. The adapter byte-enable capability participates in selecting individual
+//    field access.
+// 2. Without byte enables these shared-word fields cannot be individually
+//    accessed.
+// 3. A non-individual field read updates mirrors of the containing register.
+// 4. A non-individual field write supplies other fields from their mirrors.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 19.2.1.2.2 (UVM-FIELD-BYTE-ENABLE-ADVERTISED-CAPABILITY)
+//    gives rule 1 above. Setup: Each field occupies a separate byte; fixtures
+//    explicitly advertise support or its absence. Expected: Support permits
+//    selected-lane accesses; absence uses the full register.
+// 2. 1800.2-2020 18.5.5.16 (UVM-FIELD-BYTE-ENABLE-INDIVIDUAL-INELIGIBILITY)
+//    gives rule 2 above. Setup: The bus word is shared by two fields and
+//    support is explicitly disabled. Expected: Both frontdoor eligibility
+//    queries return false.
+// 3. 1800.2-2020 18.5.5.10
+//    (UVM-FIELD-BYTE-ENABLE-FALLBACK-READ-FULL-PREDICTION) gives rule 3 above.
+//    Setup: Byte enabling is absent and high is read from bus word 0xabcd.
+//    Expected: Both lanes are selected and mirrors become low 0xcd and high
+//    0xab.
+// 4. 1800.2-2020 18.5.5.9
+//    (UVM-FIELD-BYTE-ENABLE-FALLBACK-WRITE-USES-PEER-MIRROR) gives rule 4
+//    above. Setup: After a full read sets high mirror 0xab, live high is
+//    changed to 0xef before low write. Expected: Full-word low write uses high
+//    mirror 0xab, producing bus word 0xab5a.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Each field occupies its own byte of one physical word. The original bus
 // model applies byte masks; unused write-data lanes are not constrained.
 // Live storage changes after the full read to distinguish the peer mirror.

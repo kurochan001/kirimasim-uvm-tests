@@ -13,6 +13,63 @@
 :expected_exit: 0
 :expected_stdout: @test_field_write_callbacks_follow_the_containing_register_and_reverse_post_hook_order.expected
 */
+// What it checks:
+// 1. Field pre-write work follows containing-register pre-write callbacks.
+// 2. Field post-write work follows containing-register post-write callbacks.
+// 3. Containing-register pre-write work precedes the contained field
+//    callbacks.
+// 4. Each selected registered pre-write callback follows its associated
+//    method.
+// 5. Each selected registered post-write callback precedes its associated
+//    method.
+// 6. A register callback extension supports selected register and field
+//    delivery.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.6.1
+//    (UVM-FIELD-ACCESS-AUDIT-FIELD-PREWRITE-AFTER-REGISTER) gives rule 1
+//    above. Setup: Invoke the containing-register API once with both typed
+//    callback registrations; record inherited-method, registered-callback and
+//    original-transfer markers. Expected: The selected complete trace is
+//    RCFDBcrdf: register method/callback, field method/callback, transfer,
+//    register callback/method, field callback/method.
+// 2. 1800.2-2020 18.5.6.2
+//    (UVM-FIELD-ACCESS-AUDIT-FIELD-POSTWRITE-AFTER-REGISTER) gives rule 2
+//    above. Setup: Invoke the containing-register API once with both typed
+//    callback registrations; record inherited-method, registered-callback and
+//    original-transfer markers. Expected: The selected post suffix is crdf:
+//    register callback/method, then field callback/method; the full input
+//    retains its separate pre-order expectation.
+// 3. 1800.2-2020 18.4.8.1
+//    (UVM-FIELD-ACCESS-AUDIT-REGISTER-PREWRITE-BEFORE-FIELD) gives rule 3
+//    above. Setup: Invoke the containing-register API once with both typed
+//    callback registrations; record inherited-method, registered-callback and
+//    original-transfer markers. Expected: The selected complete trace is
+//    RCFDBcrdf: register method/callback, field method/callback, transfer,
+//    register callback/method, field callback/method.
+// 4. 1800.2-2020 18.11.2.2
+//    (UVM-FIELD-ACCESS-AUDIT-REGISTERED-PRE-AFTER-METHOD) gives rule 4 above.
+//    Setup: Invoke the containing-register API once with both typed callback
+//    registrations; record inherited-method, registered-callback and
+//    original-transfer markers. Expected: The selected complete trace is
+//    RCFDBcrdf: register method/callback, field method/callback, transfer,
+//    register callback/method, field callback/method.
+// 5. 1800.2-2020 18.11.2.3
+//    (UVM-FIELD-ACCESS-AUDIT-REGISTERED-POST-BEFORE-METHOD) gives rule 5
+//    above. Setup: Invoke the containing-register API once with both typed
+//    callback registrations; record inherited-method, registered-callback and
+//    original-transfer markers. Expected: The selected post suffix is crdf:
+//    register callback/method, then field callback/method; the full input
+//    retains its separate pre-order expectation.
+// 6. 1800.2-2020 18.11 (UVM-FIELD-ACCESS-AUDIT-FACADE-REGISTER-FIELD) gives
+//    rule 6 above. Setup: Invoke the containing-register API once with both
+//    typed callback registrations; record inherited-method,
+//    registered-callback and original-transfer markers. Expected: The selected
+//    complete trace is RCFDBcrdf: register method/callback, field
+//    method/callback, transfer, register callback/method, field
+//    callback/method.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_write_callbacks_follow_the_containing_register_and_reverse_post_hook_order;
   import uvm_pkg::*;

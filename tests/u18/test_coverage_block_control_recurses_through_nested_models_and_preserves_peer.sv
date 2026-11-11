@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_coverage_block_control_recurses_through_nested_models_and_preserves_peer.expected
 */
+// What it checks:
+// 1. Block coverage control reaches descendant blocks, registers and memories
+//    while respecting availability.
+// 2. Block set_coverage returns the previously enabled local mask.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.4.5 (UVM-BLOCK-COVERAGE-RECURSIVE-CONTROL) gives rule 1
+//    above. Setup: Enable address/field models at a root with two nested
+//    blocks, a register, memory and separate peer. Expected: Each available
+//    descendant model turns on and off; the peer stays off and the root lacks
+//    FIELD_VALS.
+// 2. 1800.2-2020 18.1.4.5 (UVM-BLOCK-COVERAGE-PREVIOUS-MASK-RETURN) gives rule
+//    2 above. Setup: Enable and then disable the root address-map model.
+//    Expected: The previous masks are NO_COVERAGE then ADDR_MAP.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library returns the new enabled mask. Retain the standard
 // requirement to return the previously enabled mask, including on disable.
 // Observe coverage-control metadata and testbench sampling hooks only.

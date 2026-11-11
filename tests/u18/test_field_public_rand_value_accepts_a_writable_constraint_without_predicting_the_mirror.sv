@@ -13,6 +13,31 @@
 :expected_exit: 0
 :expected_stdout: @test_field_public_rand_value_accepts_a_writable_constraint_without_predicting_the_mirror.expected
 */
+// What it checks:
+// 1. The public randomizable field value has the register-data type width.
+// 2. The writable public field value can be constrained through randomization.
+// 3. A constrained desired-value change makes the writable field need an
+//    update.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.2 (UVM-FIELD-ACCESS-AUDIT-PUBLIC-VALUE-TYPE) gives rule
+//    1 above. Setup: Fresh original field/register instances with valid
+//    configuration; distinguish model state and independent original
+//    access-provider storage. Expected: The value property is accessible with
+//    the same bit width as uvm_reg_data_t.
+// 2. 1800.2-2020 18.5.2 (UVM-FIELD-ACCESS-AUDIT-PUBLIC-VALUE-CONSTRAINT) gives
+//    rule 2 above. Setup: Fresh original field/register instances with valid
+//    configuration; distinguish model state and independent original
+//    access-provider storage. Expected: A fixed legal constraint succeeds with
+//    value and desired state 0x63, leaving the selected mirror at 0x11 and
+//    performing no original-provider transfer.
+// 3. 1800.2-2020 18.5.5.8 (UVM-FIELD-ACCESS-AUDIT-PENDING-RANDOMIZATION) gives
+//    rule 3 above. Setup: Fresh original field/register instances with valid
+//    configuration; distinguish model state and independent original
+//    access-provider storage. Expected: The selected randomized field becomes
+//    pending without a frontdoor or backdoor write.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_public_rand_value_accepts_a_writable_constraint_without_predicting_the_mirror;
   import uvm_pkg::*;

@@ -13,6 +13,18 @@
 :expected_stdout: @test_vreg_query_map_membership_selected_and_unrelated.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// Map membership distinguishes an implementing-memory map from an unrelated
+// map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.2.4
+// (UVM-VREG-QUERY-MAP-MEMBERSHIP-SELECTED-AND-UNRELATED) gives the rule above.
+// Setup: Use shared memory maps and a sibling map containing only the peer
+// memory. Expected: The stated identity, count, policy, offset or
+// diagnostic-presence observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_map_membership_selected_and_unrelated;

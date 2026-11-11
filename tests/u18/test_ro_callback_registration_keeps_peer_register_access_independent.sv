@@ -13,6 +13,20 @@
 :expected_exit: 0
 :expected_stdout: @test_ro_callback_registration_keeps_peer_register_access_independent.expected
 */
+// What it checks:
+// Protection registration is confined to the specified register and its
+// fields.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.4.2.2 (UVM-PROTECTION-AUDIT-RO-ADD-ISOLATION) gives the
+// rule above. Setup: Register-specific protection does not attach to or block
+// an unrelated peer register. Fresh original sixteen-bit RW models, two
+// contained byte fields and independent frontdoor/backdoor storage; exact
+// message text/count and physical HDL are not prescribed. Expected: The
+// unrelated register and both fields have no selected guard; the peer access
+// succeeds without ERROR or target-provider activity.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_ro_callback_registration_keeps_peer_register_access_independent;
   import uvm_pkg::*;

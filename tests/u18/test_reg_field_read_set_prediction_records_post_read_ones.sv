@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_read_set_prediction_records_post_read_ones.expected
 */
+// What it checks:
+// Read-set prediction records the post-read set state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-FIELD-READ-SET-PREDICTION-ONES) gives the rule
+// above. Setup: Predict a read of zero on an eight-bit RS field. Expected:
+// Prediction succeeds and desired/mirror become ff hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Read-set prediction records all ones after the sampled read.
 // The input represents an observation, not a physical bus operation.
 

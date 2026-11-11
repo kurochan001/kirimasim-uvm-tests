@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_map_populated_word_addressing_separates_effective_bus_width_from_local_address_units.expected
 */
+// What it checks:
+// 1. Under the printed get_n_bytes reference and its declared HIER default,
+//    the selected word-addressed map reports that effective width as its
+//    addressable unit.
+// 2. The selected populated child map keeps its explicit local width while the
+//    omitted-hier query returns the narrowest root-path width.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.4.6 (UVM-MAP-SCOPE-UNIT-WORD-DEFAULT-WIDTH) gives rule 1
+//    above. Setup: Original configured blocks, owned maps and selected
+//    explicit public calls. Parent/child maps use valid ownership and are
+//    locked before width-dependent queries. Getter-only observers do not
+//    override the library algorithms. Expected: Under the printed get_n_bytes
+//    reference and its declared HIER default, the selected word-addressed map
+//    reports that effective width as its addressable unit.
+// 2. 1800.2-2020 18.2.4.5 (UVM-MAP-SCOPE-EFFECTIVE-WIDTH-POPULATED) gives rule
+//    2 above. Setup: Original configured blocks, owned maps and selected
+//    explicit public calls. Parent/child maps use valid ownership and are
+//    locked before width-dependent queries. Getter-only observers do not
+//    override the library algorithms. Expected: The selected populated child
+//    map keeps its explicit local width while the omitted-hier query returns
+//    the narrowest root-path width.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Qualified word-unit reading: get_n_bytes has a declared HIER default.
 // The populated control separately requires the narrowest physical bus width.
 module test_map_populated_word_addressing_separates_effective_bus_width_from_local_address_units;

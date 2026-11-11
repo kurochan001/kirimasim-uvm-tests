@@ -12,6 +12,41 @@
 :expected_exit: 0
 :expected_stdout: @test_field_access_big_endian_respects_layout_and_physical_bus_width.expected
 */
+// What it checks:
+// 1. Byte-isolated fields fit a one-byte bus and remain individually
+//    accessible for either selected endian.
+// 2. A selected high-byte write preserves the unselected low-byte bus storage.
+// 3. A selected low-byte read returns the low field value.
+// 4. Successful individual operations predict their selected fields
+//    independently.
+// 5. The big-endian high byte is written at its ordered physical address.
+// 6. The configured big-endian map selects the low field physical byte.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.16
+//    (UVM-FIELD-LAYOUT-NARROW-BUS-INDIVIDUAL-ELIGIBILITY) gives rule 1 above.
+//    Setup: Two eight-bit fields occupy a sixteen-bit register on a supported
+//    one-byte interface. Expected: Low and high queries return true in both
+//    configurations.
+// 2. 1800.2-2020 18.5.5.9 (UVM-FIELD-LAYOUT-NARROW-WRITE-PRESERVES-LIVE-PEER)
+//    gives rule 2 above. Setup: The high/low physical bytes initially contain
+//    0xab/0xcd in each endian layout. Expected: High becomes 0x6c while low
+//    remains 0xcd.
+// 3. 1800.2-2020 18.5.5.10
+//    (UVM-FIELD-LAYOUT-NARROW-READ-RETURNS-SELECTED-VALUE) gives rule 3 above.
+//    Setup: The low physical byte contains 0xcd after a high-field write.
+//    Expected: Low returns 0xcd using one enabled lane.
+// 4. 1800.2-2020 18.2.5.2 (UVM-FIELD-LAYOUT-NARROW-SELECTED-PREDICTION) gives
+//    rule 4 above. Setup: A high write follows reset 0x1234, then a low read
+//    observes 0xcd. Expected: Mirrors become 0x6c34 then 0x6ccd.
+// 5. 1800.2-2020 17.2.2.4 (UVM-FIELD-BIG-ENDIAN-HIGH-WRITE-ADDRESS) gives rule
+//    5 above. Setup: A byte-addressed register starts at 0x20 on a one-byte
+//    bus. Expected: The selected high write uses 0x20.
+// 6. 1800.2-2020 18.2.3.2 (UVM-FIELD-BIG-ENDIAN-LOW-READ-ADDRESS) gives rule 6
+//    above. Setup: Byte addressing and one-byte bus width apply to a two-byte
+//    register at 0x20. Expected: The selected low read uses 0x21.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original masked bus storage is distinct from the model mirror.
 // RW fields have no side effects. Byte addresses and selected lanes are
 // explicit; unused write-data lanes and warning text are not constrained.

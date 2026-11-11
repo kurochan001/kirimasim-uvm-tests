@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_block_map_listing_is_local_and_default_selection_tracks_the_latest_explicit_map.expected
 */
+// What it checks:
+// 1. get_maps returns maps instantiated in the current block, excluding maps
+//    belonging only to a child.
+// 2. set_default_map selects the supplied local map and can later reselect an
+//    earlier one.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.3.6 (UVM-BLOCK-MAP-LISTING-LOCAL-MEMBERSHIP) gives rule
+//    1 above. Setup: Create two local maps and one child map. Expected: The
+//    returned queue contains exactly the two local handles and excludes the
+//    nested one.
+// 2. 1800.2-2020 18.1.2.4 (UVM-BLOCK-DEFAULT-MAP-REPLACEMENT-AND-RESELECTION)
+//    gives rule 2 above. Setup: Observe initial null/first-created behavior,
+//    then select the second and reselect the first. Expected: The selected
+//    handles follow each call and the child default remains its own map.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_map_listing_is_local_and_default_selection_tracks_the_latest_explicit_map;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

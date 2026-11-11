@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_map_unregister_disassociates_registers_memories_and_submaps_without_touching_a_peer.expected
 */
+// What it checks:
+// 1. Map unregister disassociates its local register content.
+// 2. Map unregister disassociates its local memory content.
+// 3. Map unregister disassociates its child-map content.
+// 4. Unregistering a map preserves disjoint content of another map.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.3.11 (UVM-MAP-UNREGISTER-LOCAL-REGISTERS) gives rule 1
+//    above. Setup: Unregister an unlocked map with one local register.
+//    Expected: The map local register queue becomes empty.
+// 2. 1800.2-2020 18.2.3.11 (UVM-MAP-UNREGISTER-LOCAL-MEMORIES) gives rule 2
+//    above. Setup: Unregister a map containing one memory. Expected: The map
+//    local memory queue becomes empty.
+// 3. 1800.2-2020 18.2.3.11 (UVM-MAP-UNREGISTER-SUBMAP-ASSOCIATION) gives rule
+//    3 above. Setup: Unregister a map with one child map. Expected: The submap
+//    queue becomes empty.
+// 4. 1800.2-2020 18.2.3.11 (UVM-MAP-UNREGISTER-PEER-CONTENT-ISOLATION) gives
+//    rule 4 above. Setup: Keep a separate register/memory pair on a second
+//    map. Expected: Its exact register and memory remain, one of each.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_map_unregister_disassociates_registers_memories_and_submaps_without_touching_a_peer;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_update_write_one_set_encodes_the_physical_write_mask.expected
 */
+// What it checks:
+// W1S update encodes a physical set mask for the desired state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.13 (UVM-REG-UPDATE-W1S-PHYSICAL-MASK) gives the rule
+// above. Setup: Reset zero, set 05 and perform frontdoor update. Expected: The
+// bus mask is 05; desired/mirror are 05 and the model is clean.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Starting at 00, set(05) requests two bits. Update sends the set mask and
 // auto-prediction records the policy result.
 

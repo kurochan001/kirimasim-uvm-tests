@@ -13,6 +13,20 @@
 :expected_stdout: @test_mam_stale_release_bulk_last_113.expected
 :files: helpers113_mam_stale/stale_release113.svh
 */
+// What it checks:
+// Releasing, through the manager, a descriptor that is no longer allocated
+// after a release of all regions or a region-facade release reports an error.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.5.3 (UVM-MAM-AUDIT-STALE-DESCRIPTOR-RELEASE-ERROR) gives
+// the rule above. Setup: Reserve three four-location regions at locations 4,
+// 12 and 20 of a 32-location manager, release all of them or the first or last
+// allocated one through its region facade, reserve and release the freed range
+// again, then release the saved first or last descriptor through the manager.
+// Each of two rounds uses a fresh manager. Expected: Each release of the stale
+// descriptor reports an error.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A descriptor released by release of all regions is no longer allocated, so
 // releasing it through the manager again reports an error. The last
 // handle refers to allocation-call order, not iterator order. All membership

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_registered_pre_read_callback_rejects_before_bus_access.expected
 */
+// What it checks:
+// A failing registered pre_read callback aborts before bus access.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.4 (UVM-REG-PRE-READ-CALLBACK-ABORT) gives the rule
+// above. Setup: Set NOT_OK in the callback. Expected: One callback occurs,
+// read fails and bus request count is zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Setting a failure status in the registered pre-read callback aborts the
 // operation before any physical request.
 

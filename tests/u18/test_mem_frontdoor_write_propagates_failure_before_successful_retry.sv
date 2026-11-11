@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_frontdoor_write_propagates_failure_before_successful_retry.expected
 */
+// What it checks:
+// Memory write returns the success or failure of the physical operation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.5.1 (UVM-MEMORY-FRONTDOOR-WRITE-STATUS) gives the rule
+// above. Setup: Return UVM_NOT_OK on the first access and UVM_IS_OK on a later
+// access with controlled storage. Expected: The first status reports failure
+// and a fresh successful retry returns current data or performs the requested
+// write.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The driver rejects the first write and accepts the second. Storage
 // retention is a fixture control, not a general guarantee for failed hardware.
 

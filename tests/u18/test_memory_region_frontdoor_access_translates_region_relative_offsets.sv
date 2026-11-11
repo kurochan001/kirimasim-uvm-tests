@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_region_frontdoor_access_translates_region_relative_offsets.expected
 */
+// What it checks:
+// Region frontdoor access translates a relative offset through the
+// implementing memory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.7.2.8 (UVM-MAM-REGION-RELATIVE-FRONTDOOR) gives the rule
+// above. Setup: Access relative location two in a region starting twelve in a
+// mapped memory. Expected: The driver sees location fourteen at physical
+// address 2e hex, and write/read a6 hex return OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A separate region starts at memory location 12. Its relative offset 2 selects
 // memory location 14, at physical byte address 2e.
 

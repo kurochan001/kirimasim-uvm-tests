@@ -13,6 +13,16 @@
 :expected_stdout: @test_register_fifo_set_compare_omission_enables_checked_mismatch_reporting.expected
 :files: helpers63/fifo_frontdoor_fixture63.svh
 */
+// What it checks:
+// Omitting set_compare selects UVM_CHECK for a checked FIFO mirror.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.8.3.2 (UVM-MEM-FIFO-AUDIT-FIFO-COMPARE-DEFAULT) gives the
+// rule above. Setup: Call set_compare with no argument, then a checked mirror
+// against an intentionally different original DUT front. Expected: An
+// ERROR/FATAL mismatch notification accompanies one physical read.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_fifo_set_compare_omission_enables_checked_mismatch_reporting;
   import uvm_pkg::*;
   `include "fifo_frontdoor_fixture63.svh"

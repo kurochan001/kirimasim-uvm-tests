@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_indirect_register_write_updates_only_the_index_selected_array_element.expected
 */
+// What it checks:
+// 1. An indirect data write accesses the array register selected by the
+//    completed index write.
+// 2. Auto-prediction of indirect data accesses updates the selected array
+//    register model.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.7.2.2 (UVM-INDIRECT-DATA-SELECTED-WRITE) gives rule 1
+//    above. Setup: Select element one, or reselect element two then zero,
+//    before data writes. Expected: Only selected storage slots change and
+//    unselected values survive reselection.
+// 2. 1800.2-2020 18.2.5.2 (UVM-INDIRECT-AUTO-PREDICTION-TARGET) gives rule 2
+//    above. Setup: Use explicit index writes and successful data reads/writes
+//    with auto-prediction enabled. Expected: Selected mirrors match
+//    transferred values while nonselected mirrors retain reset values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Equal-width array elements and explicit successful index writes precede
 // each data-port access. A testbench driver models two independent banks; no
 // RTL, DPI, out-of-range index or automatic array-frontdoor sequence is used.

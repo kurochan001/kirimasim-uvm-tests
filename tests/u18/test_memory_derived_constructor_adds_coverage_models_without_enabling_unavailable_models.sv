@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_derived_constructor_adds_coverage_models_without_enabling_unavailable_models.expected
 */
+// What it checks:
+// A subsequently derived memory constructor can add available coverage models.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.8.2 (UVM-MEMORY-AUDIT-COVERAGE-ADD-CONSTRUCTOR) gives the
+// rule above. Setup: Base construction supplies REG_BITS; only the derived
+// constructor calls add_coverage with ADDR_MAP. Expected: Both models and
+// their union are available; FIELD_VALS remains absent; enabling all models
+// and then ADDR_MAP gates unavailable models and returns the previous mask.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // add_coverage is called only in a subsequently derived constructor.
 module test_memory_derived_constructor_adds_coverage_models_without_enabling_unavailable_models;
   import uvm_pkg::*;

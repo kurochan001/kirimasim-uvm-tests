@@ -2,8 +2,11 @@
 // check counts each expected descriptor without assuming an iterator order.
 function automatic uvm_mem_mam_cfg config113();
   automatic uvm_mem_mam_cfg cfg=new;
-  cfg.n_bytes=1; cfg.start_offset=0; cfg.end_offset=31;
-  cfg.mode=uvm_mem_mam::GREEDY; cfg.locality=uvm_mem_mam::BROAD;
+  cfg.n_bytes=1;
+  cfg.start_offset=0;
+  cfg.end_offset=31;
+  cfg.mode=uvm_mem_mam::GREEDY;
+  cfg.locality=uvm_mem_mam::BROAD;
   return cfg;
 endfunction
 function automatic bit members113(uvm_mem_mam manager,
@@ -24,7 +27,10 @@ endfunction
 class error_probe113 extends uvm_report_catcher;
   int errors=0;
   virtual function action_e catch();
-    if (get_severity()==UVM_ERROR) begin errors++; return CAUGHT; end
+    if (get_severity()==UVM_ERROR) begin
+      errors++;
+      return CAUGHT;
+    end
     return THROW;
   endfunction
 endclass
@@ -44,8 +50,14 @@ task automatic exercise113();
     setup_ok=members113(manager,regions[0],regions[1],regions[2],7);
     $display("UT: round %0d setup members %0d distinct %0d",round,setup_ok,
              regions[0]!=regions[1] && regions[0]!=regions[2] && regions[1]!=regions[2]);
-    if (BULK113) begin manager.release_all_regions(); remaining=0; end
-    else begin regions[PICK113].release_region(); remaining=7^(1<<PICK113); end
+    if (BULK113) begin
+      manager.release_all_regions();
+      remaining=0;
+    end
+    else begin
+      regions[PICK113].release_region();
+      remaining=7^(1<<PICK113);
+    end
     released_ok=members113(manager,regions[0],regions[1],regions[2],remaining);
     $display("UT: round %0d released members %0d",round,released_ok);
     // Reuse is observed only while this manager is still in a valid state.

@@ -13,6 +13,23 @@
 :expected_exit: 0
 :expected_stdout: @test_field_peek_samples_only_the_selected_slice_without_changing_storage.expected
 */
+// What it checks:
+// 1. Field peek samples the selected slice without modifying storage.
+// 2. Field peek forwards the supplied extension to the original sample.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.12 (UVM-FIELD-ACCESS-AUDIT-PEEK-SLICE) gives rule 1
+//    above. Setup: Use a configured sixteen-bit register, middle field at LSB
+//    four, original backdoor storage B75D and optional distinct extension;
+//    access policy is selected explicitly. Expected: It returns 0x75, keeps
+//    original B75D unchanged and performs no write.
+// 2. 1800.2-2020 18.5.5.12 (UVM-FIELD-ACCESS-AUDIT-PEEK-EXTENSION) gives rule
+//    2 above. Setup: Use a configured sixteen-bit register, middle field at
+//    LSB four, original backdoor storage B75D and optional distinct extension;
+//    access policy is selected explicitly. Expected: The read observer
+//    receives the exact extension handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_peek_samples_only_the_selected_slice_without_changing_storage;
   import uvm_pkg::*;

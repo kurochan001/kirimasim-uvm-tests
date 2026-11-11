@@ -5292,7 +5292,7 @@
     },
     {
       "test": "u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries",
-      "inputs_sha256": "4dbcb8fe0b1950426770bf73bf485876ed047288e68c6d1ad833ad4dceb4b286",
+      "inputs_sha256": "98a8ef955151946a26b7612df87d6ed4910175c398e5d28bb7ac981e00e727ee",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5322,7 +5322,7 @@
     },
     {
       "test": "u18/test_block_hdl_default_abstraction_inherits_from_the_nearest_configured_ancestor",
-      "inputs_sha256": "ebefa74fb6321e54934185c0a36347677d7f758718cdb9a07d9303276cc4a2df",
+      "inputs_sha256": "88e8ebe9553d551dbb7af48cdd61ad5c546e8e63de578a7b75b33f58d88ad167",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5352,7 +5352,7 @@
     },
     {
       "test": "u18/test_block_map_name_lookup_selects_local_maps_then_unique_descendants",
-      "inputs_sha256": "bfa1fdb86987c93a5c9f220b24ead9bf8231d84539fc125d69d2e116e3d0f9a8",
+      "inputs_sha256": "221c691e9706c9e6a18feb6996ea7ccd05d6a43682bd90380e9a3dddd9f0af1e",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5378,7 +5378,7 @@
     },
     {
       "test": "u18/test_block_name_lookup_uses_simple_descendant_names_and_excludes_external_roots",
-      "inputs_sha256": "959aa13898373e04de11ae7afc7aa7a15396be6b4f9e32bd0d16a00e8238bf7f",
+      "inputs_sha256": "e6b0490d733e9913eabf77999dd78d45e1e3308c1fb25f95449b939240d42641",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5404,7 +5404,7 @@
     },
     {
       "test": "u18/test_block_register_name_lookup_prefers_local_scope_and_finds_descendants",
-      "inputs_sha256": "23a17b261cbb9a4f821e4181de13eba819e09e71251ff74e08c0522f32c838d2",
+      "inputs_sha256": "17c60b3e37aa617ced4767de25f222168a13a6aae132ed01df0f22480e323448",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5434,7 +5434,7 @@
     },
     {
       "test": "u18/test_coverage_block_control_recurses_through_nested_models_and_preserves_peer",
-      "inputs_sha256": "3372b3452474c5b7188715cfe36cdbd860f06f91f39d8ced5241048bc9a4cb35",
+      "inputs_sha256": "c75bdfadcbe1521e9feef7ad3da217a7d4bccf840dd9b87a75754ad38cdb3590",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5460,7 +5460,7 @@
     },
     {
       "test": "u18/test_coverage_memory_sampling_observes_completed_reads_and_writes_on_the_selected_map",
-      "inputs_sha256": "485ba6f7e186adeac87cb2884315e3472eb2e01dc08767ac142e6a5914a52bb4",
+      "inputs_sha256": "b0d7f9008b97c131bdbae40b3b7f605181cff860f50f0c685e13814882f548b8",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5486,7 +5486,7 @@
     },
     {
       "test": "u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models",
-      "inputs_sha256": "7d55e83c91f24a9b6158a6ea0c45c2582eace1a04111666631d2445199926424",
+      "inputs_sha256": "8abb32c4025e48929d9dd24b23eda3d8c207823eef8a994ae94063b0032e7de2",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5517,7 +5517,7 @@
     },
     {
       "test": "u18/test_field_access_big_endian_respects_layout_and_physical_bus_width",
-      "inputs_sha256": "13a43250388d8fe6daddff1ab9f5d4889d0d0e31b298fa961a5372bef488f6a4",
+      "inputs_sha256": "055fcb354bc6ac09c28d3648b98c2d0c7384c0c27a9a56d8cc146aa8126b60d7",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5549,7 +5549,7 @@
     },
     {
       "test": "u18/test_field_byte_enable_read_selects_individual_or_whole_register_access",
-      "inputs_sha256": "b25be6c4c0430302554c1276f971ca818af3d198793bd399b637559189d032d5",
+      "inputs_sha256": "6a3f3cc40e6c501126e44d1e5e858cc6e56793f0885f3ca434456c2f4593ba69",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5579,7 +5579,7 @@
     },
     {
       "test": "u18/test_field_byte_enable_write_selects_individual_or_whole_register_access",
-      "inputs_sha256": "0c467662747787501ff8b58bf894cbfa20c0e0a1f52ab0686b76a5570fcd2638",
+      "inputs_sha256": "b91e1ea5345ba3c817e85e84bf154daf31636b6130dbd3fa0fbff6f37842db82",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5609,7 +5609,7 @@
     },
     {
       "test": "u18/test_field_pre_read_map_propagates_through_a_real_selected_access",
-      "inputs_sha256": "ea241612959fed633d9c466bf0c16f3818271303c854eb4e7c7a7b20ecf034ff",
+      "inputs_sha256": "f17885f301017046532b629fe5f6e78d76a31db714ca867a704f760b49618a07",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5640,7 +5640,7 @@
     },
     {
       "test": "u18/test_field_pre_write_map_propagates_through_a_real_selected_access",
-      "inputs_sha256": "f9108dec4af01bf14c5d483ee800d0b90bbad400e1abe793895cc618bf5297f0",
+      "inputs_sha256": "1a960947e62bd8c3546766ab4a7609421ec9c30a77c2f345bf79bf55259ce3ca",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5671,7 +5671,7 @@
     },
     {
       "test": "u18/test_field_read_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
-      "inputs_sha256": "46707ffc13c67ea5c4aa5e71d3afa8acb6459ba1d2f7850432d5a0b574bfbb89",
+      "inputs_sha256": "0ae559c2eebeeb085c6b14ae05c11153562647d0627fcfceeb0d1ac5e8e9cb12",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5702,7 +5702,7 @@
     },
     {
       "test": "u18/test_field_readonly_backdoor_write_is_protected_while_poke_deposits_as_is",
-      "inputs_sha256": "d1de88678031c10b2d581826d591766654b595b410e276199ddfcc104876597a",
+      "inputs_sha256": "55ed7d5ced2fe709646372ebdd00e03af8a12b2ac8d322d80ef59e520ab563bc",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -5733,7 +5733,7 @@
     },
     {
       "test": "u18/test_field_write_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
-      "inputs_sha256": "65f1c7b62f6a3b87fe9499016d9f7a0121cdb7ba926f46af3f090e37bc2aec90",
+      "inputs_sha256": "74590097965541815579811f7e5c3fd16795d0482eb71e08ff764a65b65899e5",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5764,7 +5764,7 @@
     },
     {
       "test": "u18/test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction",
-      "inputs_sha256": "7719d721eb17a245947ce5410ea68fb8b084274f6007ffe98c20f495b3d39076",
+      "inputs_sha256": "812bfd5d8d9517ec4b4daca745090d24604a9250a63dd473762c35d2d697bd49",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5790,7 +5790,7 @@
     },
     {
       "test": "u18/test_mam_greedy_fresh_high_history_89",
-      "inputs_sha256": "0a6cea40a39d582fc3481bb672a6e4988dd04e783371567f41e4889f237e2b3c",
+      "inputs_sha256": "df0d1520ce8b37b9bbed44e5cc16bc376af0dc8549e15272601d21317deb1268",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5821,7 +5821,7 @@
     },
     {
       "test": "u18/test_mam_nearby_one_existing_89",
-      "inputs_sha256": "abaf6e9360e10c88821798ec1bc4139b8831f7ecfe79c5f3bcb7e9f9bc73a93b",
+      "inputs_sha256": "9fb293203f3fc0cd6565255554689df705df142fa3c63044dcbdd9f274b8c08e",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5852,7 +5852,7 @@
     },
     {
       "test": "u18/test_mam_nearby_two_existing_89",
-      "inputs_sha256": "a85beff436a88db4acc317f84a9732fad62f5a5b79988d60d37eccc8994fbd6b",
+      "inputs_sha256": "7abb077b87bc3024e3919224fb38d24281ec42cacce1f0e1b1bd85565e422f08",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5883,7 +5883,7 @@
     },
     {
       "test": "u18/test_mam_policy_contradiction_then_repair_0_90",
-      "inputs_sha256": "0b16e2a08c51ec4a30501ffea472fced293070473de7716c316b3e74d01b31f1",
+      "inputs_sha256": "334f2f3084df0c965159f7ca8071cb421e3be547e5402484acdcbb08918fa346",
       "kind": "runtime",
       "cause": "simulator",
       "evidence": {
@@ -5901,7 +5901,7 @@
     },
     {
       "test": "u18/test_mam_policy_contradiction_then_repair_1_90",
-      "inputs_sha256": "07831f390bd086517a2674fe23ba3141a4bc4bba585fe03a05276de5ee8af903",
+      "inputs_sha256": "1e2102ffe15f9aa32bf7fff5fa5dfef43df9b97eb14c80485cf75c540ebbee30",
       "kind": "runtime",
       "cause": "simulator",
       "evidence": {
@@ -5919,7 +5919,7 @@
     },
     {
       "test": "u18/test_mam_thrifty_reuse_high_history_89",
-      "inputs_sha256": "16f33ab670a6e66cb514b2e783c1cd8a3dc00d18bc44584169da64575d063bdc",
+      "inputs_sha256": "688abf22cf282edb0ae6118241a25e898d917c97495b73e1a019d8e584fdb1ab",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5950,7 +5950,7 @@
     },
     {
       "test": "u18/test_mam_thrifty_reuse_low_history_89",
-      "inputs_sha256": "c0b659dbb8a9839bd115d46bcd406d4dd468e246186c35207c74184c4373e507",
+      "inputs_sha256": "c91c8fd97547ac50b7ff1c3e3ba11b65677626e4612f140fd5b97f0e7f00439f",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -5981,7 +5981,7 @@
     },
     {
       "test": "u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width",
-      "inputs_sha256": "0465bc5b1768c5c4057c6fad5a068d884db873d51c717f12093f911333a99bff",
+      "inputs_sha256": "75e75d913ec8e1509ab21f53b9cfd8e1cc90a88ec4d60879260a48ca09d8f167",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6012,7 +6012,7 @@
     },
     {
       "test": "u18/test_map_clone_printed_implicit_return_type_supports_a_scalar_override_and_base_dispatch",
-      "inputs_sha256": "50b89f59c1f54a4cc9c37735a385697943ad0d37a06b61a3a4a4c9020e120a8d",
+      "inputs_sha256": "138b26d90355b17937fefdc74d9baed700977b08df1c1f1b0409cafd58e1d360",
       "kind": "build",
       "cause": "interpretation",
       "evidence": {
@@ -6042,7 +6042,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_big_fifo_empty_107",
-      "inputs_sha256": "c14707a7bcb51bb8005e75281addcadd2c2a8afff21ffd788db9eaa01c5ffd58",
+      "inputs_sha256": "6a67482122c1a21c37844ee519fe17d28214604def59d687f52143a5c331a4d1",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6072,7 +6072,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_big_fifo_populated_107",
-      "inputs_sha256": "e471e2e8721fcd1befc45ef9cfe17ebc1d584c6e580a504ecc0da6263d51d0f7",
+      "inputs_sha256": "8aacee82ee8f7d5da0781540b5fe3bb49af5b89fdace2c89cfe6d01167f18cc3",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6102,7 +6102,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_child2_root4_empty_107",
-      "inputs_sha256": "6e0de7b8c06ed8ad878d03d6dfb214068beebd32f78f1d57db86adeca081dda1",
+      "inputs_sha256": "0677300a791f1b64cb92604021d2256346f0907d2e61268059e2e87d858df9a7",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6132,7 +6132,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_child2_root4_populated_107",
-      "inputs_sha256": "56831b2b418c7170c8be380dcce9ebf44d8f9d56c7dd87b99089cb3813dd249e",
+      "inputs_sha256": "b2233d34f703159a4f211a8c04d6c8fc7bdbe70e12e10e4f0e559d4d8be189e6",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6162,7 +6162,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_child4_root2_empty_107",
-      "inputs_sha256": "3deb7326e2b4bbf17f53360bb86aff08adc48f5660d640fd2ddd5830e3e1df53",
+      "inputs_sha256": "7ef5fa21c3657182bcfad511ffc5e4e40d3f34096663d1f42289be935a86f932",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6192,7 +6192,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_child4_root2_populated_107",
-      "inputs_sha256": "6989983312df78ad145d5249c7ea225b785f549e3e53f556eb45c881eb291576",
+      "inputs_sha256": "1bf4f0c566209f690b8f29bb0196106f42565f27b71493534ce01bf880a3e20b",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6222,7 +6222,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_flat_big_byte_empty_107",
-      "inputs_sha256": "1b07f43934f43dccbb45c460e4566782d69ba9549ee78b6c210e70775d591de7",
+      "inputs_sha256": "19ac4ed588b68700d753bda4e86689f68899abc6afbdd4ce84ca3655e823a136",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6252,7 +6252,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_flat_big_byte_populated_107",
-      "inputs_sha256": "7aedcd4fa4618c219bfeb24856b683c7a8925d8d2b53d189db7c6728c4293a82",
+      "inputs_sha256": "d784405e790e565e44c1c30c1a0a19ed2aabf7d0cf17ee7ff6ac6aca05d38b67",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6282,7 +6282,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_flat_big_word_empty_107",
-      "inputs_sha256": "53e0c870971edd6700271da3308ecda8e1a9d23a9fa47c02a6dae7dd0b319f11",
+      "inputs_sha256": "ba2fdd9c2dcf1e5f8b0655f8eaed1c90fa7e1daa8406f1f69e1ad77f5d49270c",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6312,7 +6312,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_flat_big_word_populated_107",
-      "inputs_sha256": "55cce12a439a8d3e704f369aaa019a24b6bfb96893db3db659c8baef934ceaab",
+      "inputs_sha256": "1f47685ac56667f99d09a0df457572f12b22dd89f76a9e45c648681bf8d5ab22",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6342,7 +6342,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_flat_little_byte_empty_107",
-      "inputs_sha256": "724c922c7bbf624e88ef76a032acf404465c76ecb87d03225df36867d92dfbf6",
+      "inputs_sha256": "fb088739d6b4c4fae129a0df16ac8e57fdf9a262085b932fcfa31cc33b4b0ae3",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6372,7 +6372,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_flat_little_byte_populated_107",
-      "inputs_sha256": "774e6a760ea8487293a9d4660a14e78783d43530857e4bca7f8f2d42f50fbfe3",
+      "inputs_sha256": "18f2a6fe31e7091e1f1d599783680af017752f42e0ca9992c0388a50df8af66f",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6402,7 +6402,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_flat_little_word_empty_107",
-      "inputs_sha256": "a68dd669b5cbe10859cc25ce23a6fbcef73c596613949837cff016c7b4852669",
+      "inputs_sha256": "7ceda5b82e6a52e005961f16e6c100967ef179e5afc0a8ec2efb0906c3ee6792",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6432,7 +6432,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_flat_little_word_populated_107",
-      "inputs_sha256": "2cf7051ed12c83380a23b85764aaa9089b5cd39a269507e73726506c80d9c37f",
+      "inputs_sha256": "c7cb3d4189171e5dff177dca316ecc0a4c2460cf829c5357851f622f0ddb343f",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6462,7 +6462,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_little_fifo_empty_107",
-      "inputs_sha256": "90cbd3d528b9f45816ba6522f51a670e6ef42418d1988aa40c944da57a1cc165",
+      "inputs_sha256": "9031390f848c55d6ebd1196fd99370a43e5d26d6a8fc202d40ca66f51844aca3",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6492,7 +6492,7 @@
     },
     {
       "test": "u18/test_map_direct_translation_little_fifo_populated_107",
-      "inputs_sha256": "462d8a8043a041449fa01e5c77c56b6749d9297665352720c25c2ef320d07844",
+      "inputs_sha256": "ecf5ef0e66a1f5d19177c0a87c555bb0cc739b88540bb0a88e53edea9536a16c",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6522,7 +6522,7 @@
     },
     {
       "test": "u18/test_map_populated_word_addressing_separates_effective_bus_width_from_local_address_units",
-      "inputs_sha256": "0cdcf79ffb35833e18e8c2bf42a608bd632f0e37c35b15ff5a7b8f1a257bb466",
+      "inputs_sha256": "199e379ddf5d05819037c6483c9dd4d11c44c41c1963a5253e3c7db1bcd1ba5b",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6553,7 +6553,7 @@
     },
     {
       "test": "u18/test_mem_frontdoor_burst_read_fills_full_width_array_in_location_order",
-      "inputs_sha256": "e2f9584a55c25aabfa666f334b1a8ee5a63164ff2daff68770658fe418c5554b",
+      "inputs_sha256": "30267ac1fb175d0689fbe2633b34527cc60a860f44c085c5eadb80d77e1e631d",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6579,7 +6579,7 @@
     },
     {
       "test": "u18/test_mem_frontdoor_burst_write_advances_full_width_locations",
-      "inputs_sha256": "77248aaf36fc6d97295475e9f519340c6152d0a0a0a908f7f4c086d78b880648",
+      "inputs_sha256": "82c4628234e47bb767ad736aff2428c0af895431d0ffdfdbb36e73a57235deb8",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6605,7 +6605,7 @@
     },
     {
       "test": "u18/test_mem_frontdoor_twenty_bit_read_assembles_declared_bits_and_partial_width",
-      "inputs_sha256": "43984d934ef45532a8f8e95ee33d5392898992d97f0642db67de2e68dc24ee64",
+      "inputs_sha256": "7765c6436e87c2f83447c638d97fdac10b60a20d97d1c5b1b02c37e0b3100b74",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6631,7 +6631,7 @@
     },
     {
       "test": "u18/test_mem_frontdoor_twenty_bit_write_preserves_location_boundaries_and_partial_width",
-      "inputs_sha256": "cb7a18f6bb0f992c6a9f756f339bf6a122561a5000def9fe4c8158a477049993",
+      "inputs_sha256": "71ba5c15c1f9306e72acf341262226afb25df4e1df8d31b6a75d2e3d53e4474e",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6657,7 +6657,7 @@
     },
     {
       "test": "u18/test_mem_intrinsic_readonly_policy_and_map_rights_are_distinct",
-      "inputs_sha256": "1a441aa5fbcc03de3831f19143ba1f4357c778f3bfb2da0763c1331fca34c75d",
+      "inputs_sha256": "a113abce4e547bfbe17ec3197bc03a982b550d2bfd1762a60fb23a134b45eee2",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -6689,7 +6689,7 @@
     },
     {
       "test": "u18/test_mem_location_offsets_include_the_location_index_stride",
-      "inputs_sha256": "e6cc172a4501c0bc0226137c03d2834fd643e83698c727396c974f6d8a9cc43c",
+      "inputs_sha256": "041bebe8f3a920867cb1ea6ea1c0b7f340122c412cf7c4da9999185534fb8513",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6715,7 +6715,7 @@
     },
     {
       "test": "u18/test_mem_post_write_callback_precedes_final_status_hook_without_rewriting_storage",
-      "inputs_sha256": "bfd203163acdc8c4e1f27dc815366a3887e545b329b372de2a466da4d4788cbf",
+      "inputs_sha256": "6f637f06661dafa3d8c5f44eeb81a2f59dead2fcb0568609c5fc30453beb67fe",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6741,7 +6741,7 @@
     },
     {
       "test": "u18/test_mem_registered_pre_read_callback_redirects_the_offset_and_map_before_transfer",
-      "inputs_sha256": "c4991e94cb88fa687dfc1f03aff8a737a1a06815baac1d8f3672f5fa9e778c28",
+      "inputs_sha256": "e359532b92b6ad842d03438853b51df9d48760e2b7df2f811df9d5ccd3b47250",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6772,7 +6772,7 @@
     },
     {
       "test": "u18/test_memory_backdoor_local_and_inherited_selection_drives_access_failure_and_retry",
-      "inputs_sha256": "d4a060181c7fa7be55237a248f523fa7298757921045e3be8db60dd7009a3bdc",
+      "inputs_sha256": "446de1a036ca72f29e7532725a20acae9fc460227757371aa6aff3401edadb9f",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6798,7 +6798,7 @@
     },
     {
       "test": "u18/test_memory_backdoor_read_public_call_is_a_legal_task_declaration",
-      "inputs_sha256": "7d96ba164c38504e3f369bac1b9a24218d7984a2d3d92bb898d8ab5823069460",
+      "inputs_sha256": "7e09cd1508051bdf5e008ed189084f67462014c1d59593ed582f99f72da66b91",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -6824,7 +6824,7 @@
     },
     {
       "test": "u18/test_memory_builtin_hdl_backdoor_tasks_read_and_write_selected_array_locations",
-      "inputs_sha256": "c31d1c67204841f17e1363ef2c5bab582772dc6954d7faeb7192ea265e03b536",
+      "inputs_sha256": "034001fe183592bee43ef178f877c4a93a802cc6b68de8e69aec537055c4391d",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -6841,7 +6841,7 @@
     },
     {
       "test": "u18/test_memory_derived_constructor_adds_coverage_models_without_enabling_unavailable_models",
-      "inputs_sha256": "8632ba1f75106ff7b9da01121eb076764d91942267fe0216a62d3bf6ae7abdb6",
+      "inputs_sha256": "fd2ad8abfd4c8d13e59a92123f0c662e3440a5313f3612260a9264a59cd1bd8d",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6867,7 +6867,7 @@
     },
     {
       "test": "u18/test_memory_explicit_access_policy_0_104",
-      "inputs_sha256": "88a4d28ae6c16f2fa15054d5a5e94978822437f8ac69eedc7a0d9838635b8647",
+      "inputs_sha256": "aea00a5bf883ed16f10ea3c307f3de98b2f700ce073c1b10f4b36e4de38b7f25",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -6899,7 +6899,7 @@
     },
     {
       "test": "u18/test_memory_explicit_access_policy_1_104",
-      "inputs_sha256": "cba4f010e9bd48c43a2c98b680deee42707e4b4505f026ae241e2a0f7279fcdd",
+      "inputs_sha256": "6d8d519ea8d8148a4e2a5475c441c3596803bb45d6896764ead7f0a6fb2068c3",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -6931,7 +6931,7 @@
     },
     {
       "test": "u18/test_memory_hdl_split_array_paths_assemble_and_deposit_the_declared_bit_slices",
-      "inputs_sha256": "afe952bd71e383258025dd2ba34bd7a1a23b7a826a35ff69f4af0c1fe2b016b7",
+      "inputs_sha256": "d312bb6695655783f12baec71166ff4d5d60efc0fc3986e626edbbf7f0fd1a09",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -6948,7 +6948,7 @@
     },
     {
       "test": "u18/test_memory_physical_rom_backdoor_write_and_poke_have_distinct_access_effects",
-      "inputs_sha256": "728b61624091f9365381fc0a7e9cc08e800e606dabcbfd03e7d65529838eb178",
+      "inputs_sha256": "b1b19380c0a0832650848a93e0af31a2584d46f6f82db6d5cc5cbc66b8f83de5",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -6965,7 +6965,7 @@
     },
     {
       "test": "u18/test_memory_relocation_map_units_0_0_104",
-      "inputs_sha256": "f3f3e650e059a46eddd16a5eb93da9308b247541cdcac7c44a53dc87e40125df",
+      "inputs_sha256": "016e751d8f47a895db0036b309bf0c97a01d54e7cf21ac843fe47d8d14611413",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -6991,7 +6991,7 @@
     },
     {
       "test": "u18/test_memory_relocation_map_units_0_1_104",
-      "inputs_sha256": "5eb9ce2a7c80bcd6ccd00c3b201590b360e6ddd8eade06594d416947aa79d089",
+      "inputs_sha256": "8b9adbd81e9c3e461d7ffe4569dc16c3ae66e68c138400dac6eb273a1fe1f37f",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7017,7 +7017,7 @@
     },
     {
       "test": "u18/test_memory_relocation_map_units_1_0_104",
-      "inputs_sha256": "ee48090f61848d1431e2d5f88a32a4401f689c59cd150435e9b9cb310e4ae510",
+      "inputs_sha256": "e3d0bda2039366d1e963a8e836b33ed677fc3bc2ccc0bc2f05488b68977273b2",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7043,7 +7043,7 @@
     },
     {
       "test": "u18/test_memory_relocation_map_units_1_1_104",
-      "inputs_sha256": "cd1c4ee87f4bcd950b2646caa97363d9d9c3b9f3af58a2325dfd9fd9b715f267",
+      "inputs_sha256": "6b2e12e68e21272d9bdaa1516a763a74e02a49e2dba317efb7abda984f52c037",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7069,7 +7069,7 @@
     },
     {
       "test": "u18/test_memory_rights_query_reports_a_warning_for_an_unrelated_map",
-      "inputs_sha256": "4d77ca83d19e4708f046660a152fbad0634b59f1aedbf4f70b6ce4da648138ba",
+      "inputs_sha256": "c3db8a4b2128fe5a91aa94686fa2c8b84505f456b469bc35b04e6cdbdd357ead",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7095,7 +7095,7 @@
     },
     {
       "test": "u18/test_pinned_fifo_build_control_auto_predicted_transfer",
-      "inputs_sha256": "efc7c38057ffab5f817ee31e0c884b7cbdf582be2f193bad495d9ed7f7aebacb",
+      "inputs_sha256": "5220714ac2d5956ae1ad01fcf8631e9e4487ea701992be16f70430b63056aed5",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7129,7 +7129,7 @@
     },
     {
       "test": "u18/test_pinned_fifo_build_control_external_predictor_observation",
-      "inputs_sha256": "cc9bde35674726f2392556541c2f7b7659dc819a29c90024990561fd5d91388e",
+      "inputs_sha256": "62542ee658792a623c0bf07b890565a8ed181ae08ad9d3ac9b0be538f283195b",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7163,7 +7163,7 @@
     },
     {
       "test": "u18/test_pinned_fifo_build_control_matching_checked_mirror",
-      "inputs_sha256": "43335284beb13f765a39a3a58d24d2b608a4dcce8f4a840f5c9cdda4aad21e29",
+      "inputs_sha256": "5898153f4c7734c746b650e50b45e7d855b4201bd8fa4f1028090721a00efca6",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -7194,7 +7194,7 @@
     },
     {
       "test": "u18/test_pinned_fifo_build_control_preloaded_update",
-      "inputs_sha256": "ad80b1c13ce09e2c115ca6da34161eab181c3aa2df884a844bdce69cfb33e48b",
+      "inputs_sha256": "e07c3908935e473b1711e0e362e3de475043e08f37c612a78859f94c3b7e2ba7",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7225,7 +7225,7 @@
     },
     {
       "test": "u18/test_pinned_fifo_build_control_repeated_update",
-      "inputs_sha256": "bd1ff0bcb0893ca0a863c4a74cfd8b444e157364a56d5d1880bd8927d65b0838",
+      "inputs_sha256": "bcf3e5ccd1581318cb4d579c5ad317d7ce427aab61917180ac4d02b3e9d42719",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7256,7 +7256,7 @@
     },
     {
       "test": "u18/test_reg_coverage_add_measurement_availability_80",
-      "inputs_sha256": "bceea62b21e3086cc239b393fe91a962e739efd24bdceb0603f8d035f9877dba",
+      "inputs_sha256": "4cb1398cb08c5000cf1aa360944fc186fcdef832b67d3aa4ac4584cf8b877802",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7282,7 +7282,7 @@
     },
     {
       "test": "u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes",
-      "inputs_sha256": "e121069d482a0b60fe00229817d4801af1a72ab59c8961f342e0f758746f472f",
+      "inputs_sha256": "3164487abb4e21a9ffb19efb18cfaba16fd5ba6a2cde5c3da5068bb8ffc434bf",
       "kind": "runtime",
       "cause": "simulator",
       "evidence": {
@@ -7300,7 +7300,7 @@
     },
     {
       "test": "u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue",
-      "inputs_sha256": "a76f39b677f22f8740593a8193406fd44646f3e9f3ec2037239ce15609af1b49",
+      "inputs_sha256": "f544f0b9e8a4df730debff987e6c1a4c00cd619b446ecc4db6040358f9f46372",
       "kind": "runtime",
       "cause": "simulator",
       "evidence": {
@@ -7318,7 +7318,7 @@
     },
     {
       "test": "u18/test_reg_frontdoor_big_endian_wide_read_preserves_returned_bus_words",
-      "inputs_sha256": "e9ba1b330cc040d5997d9156c376824cbe859f79f3354bc45f4deafcfeb35da8",
+      "inputs_sha256": "40b8d74ae5e1ff229edea020cf77e5669f7db7178a666ee210ded962d08449a1",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7349,7 +7349,7 @@
     },
     {
       "test": "u18/test_reg_frontdoor_get_multiple_replace_first_87",
-      "inputs_sha256": "543d6dbcf3ced1484aebef80c6c6a16aa8bbdd6f35ceeac36479cf9ec1ee3cc3",
+      "inputs_sha256": "80f47f469614c80e48bc545fc0bb16fc55a51d7e4ef28c3609183856cf3f6125",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -7380,7 +7380,7 @@
     },
     {
       "test": "u18/test_reg_frontdoor_get_multiple_replace_second_87",
-      "inputs_sha256": "453d7bbcdebea7ce44d9cefd19fc669e9ed2e555485c6856f026b4e53521faba",
+      "inputs_sha256": "90d08637d0d3071afa90b28486c91c90b7b8f37f80b9f44f5352ab4f2df56cc3",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -7411,7 +7411,7 @@
     },
     {
       "test": "u18/test_reg_frontdoor_get_single_explicit_87",
-      "inputs_sha256": "a55840bd94f742ab4a76b67233aeffc710e136d4d66e5e339150ee364dde4853",
+      "inputs_sha256": "e32e0ffc4508e95a4948522c7de7052ddea9b4c02bedb350a66464e203b37fa7",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -7442,7 +7442,7 @@
     },
     {
       "test": "u18/test_reg_frontdoor_get_single_omitted_87",
-      "inputs_sha256": "6a8f975bf02b35d6b039f8713458fecf4921f3d4e76892d015790c80f1ec68cb",
+      "inputs_sha256": "a15204ff68f52b84242469165d1497c076927188ce82a83dd0bb85493a95f340",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -7473,7 +7473,7 @@
     },
     {
       "test": "u18/test_reg_hdl_add_default_rtl_standard_view79",
-      "inputs_sha256": "045ddbabd1ad3a78dec1a37a38227a49ecdadb5f3900440a48fd42f7c7b5a903",
+      "inputs_sha256": "0091641a0b815fd13036e82fc3c483d64130e946481e7ba36440cd51a7161e2b",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -7505,7 +7505,7 @@
     },
     {
       "test": "u18/test_reg_hdl_add_duplicates_copy_values_standard_view79",
-      "inputs_sha256": "f055d03cff20b983a0e6fce8a22c1c0a9deea0c9a425f99e94527ab256efe9bf",
+      "inputs_sha256": "3d8fd821beec5a4f8ad2abed1bd512daa312a0f85f285536af23dd8c626c8800",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -7537,7 +7537,7 @@
     },
     {
       "test": "u18/test_reg_hdl_full_ancestor_defaults_member_view_control79",
-      "inputs_sha256": "847863e3b043ce98230b44a508a39b733a06cf6086fb26fb9729d3fca10aa245",
+      "inputs_sha256": "e05f622d35f177fccba48c390f29ff5c3aa810adaa36109feedce83bb2cbbeee",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -7569,7 +7569,7 @@
     },
     {
       "test": "u18/test_reg_hdl_full_ancestor_defaults_standard_view79",
-      "inputs_sha256": "240c51df857f05d2b76c7a91364c0fe79ab8d83a98efac32c40c495d6787047e",
+      "inputs_sha256": "8e44d166383aeedf92ef3289714937da76ca60e3dec399b10b3ef7cd26718d86",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -7601,7 +7601,7 @@
     },
     {
       "test": "u18/test_reg_hdl_full_cartesian_custom_standard_view79",
-      "inputs_sha256": "74a51ea84a7d425a39a51237d4c55d70e307f59d4686bd07cf6718d8f56ee150",
+      "inputs_sha256": "b0aec5672697c2323506cf05ad3403f6490875b8f7370bf27c490bf8c640cb7d",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -7633,7 +7633,7 @@
     },
     {
       "test": "u18/test_reg_hdl_full_cartesian_default_standard_view79",
-      "inputs_sha256": "65b2c44e87943ca3dfd0c0953dc20c4e811c9b937ebd5b81cbb0ec38062bdfdc",
+      "inputs_sha256": "ec904ade1a5368d11bde54ed65583007e77ab6d9335d676378719214eef2d9c2",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -7665,7 +7665,7 @@
     },
     {
       "test": "u18/test_reg_hdl_full_explicit_kind_standard_view79",
-      "inputs_sha256": "c9922522978d630ac9545af05aaf881e79713664b79a3ebb39a3c13f3a5f523e",
+      "inputs_sha256": "68cbe213bbf51018344adf04a715186934fa658b25130cdb3ff6c3694e00ba90",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -7697,7 +7697,7 @@
     },
     {
       "test": "u18/test_reg_hdl_slice_defaults_append_standard_view79",
-      "inputs_sha256": "236a8fb9afcc652a8c0f0bbc2812ada3811ccdaede27d709a0d134c2e6c399cb",
+      "inputs_sha256": "bfac00ec2ae21a670d9c00d7510456f199aa9574018ece953a99f1edd1482437",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -7729,7 +7729,7 @@
     },
     {
       "test": "u18/test_reg_hdl_slice_first_starts_duplicate_standard_view79",
-      "inputs_sha256": "4de8c2a2c1abf390fc1b24fea5047fe8eddf46b8af04390a6336872b536f34cc",
+      "inputs_sha256": "e0200cc78721d224faac6358b94f6c9a6cc30efe45fad88c1ceb2ffee042dce5",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -7761,7 +7761,7 @@
     },
     {
       "test": "u18/test_reg_hdl_whole_vs_split_direct_read_16_79",
-      "inputs_sha256": "cb88bf5dc89f33608349c49276dd21df1281909951e9827959d020f8c0f3c086",
+      "inputs_sha256": "76febc86e018129c8ba409eae69e3eb7c514d9d92f9ffaebfabc3ea1a11c5187",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -7778,7 +7778,7 @@
     },
     {
       "test": "u18/test_reg_hdl_whole_vs_split_direct_read_40_79",
-      "inputs_sha256": "7d21dca447418e38f19cfd2201a420132cc5310838d6601880e91529e8aac158",
+      "inputs_sha256": "c6ae368bcd21c9b46743a69c97815fcffbbb4eee0a647ff064428715eef94515",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -7795,7 +7795,7 @@
     },
     {
       "test": "u18/test_reg_hdl_whole_vs_split_peek_control_16_79",
-      "inputs_sha256": "6e4e3a9095e6036d986c9cfc69648b65728807104a73188b7f3dbff7d45cc2a8",
+      "inputs_sha256": "0e0247c566fb416a10238da0b1a89b4e886a6afbd7987bb997acc56e082b4b13",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -7812,7 +7812,7 @@
     },
     {
       "test": "u18/test_reg_hdl_whole_vs_split_peek_control_40_79",
-      "inputs_sha256": "a7c70714ff15a0d85a0c0bf4216998dc320f2ed12e66f3b58e731458d0d4016d",
+      "inputs_sha256": "8774c430de31541d1e2e2301029412d974f7984b437ac4f679090bb3194d449d",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -7829,7 +7829,7 @@
     },
     {
       "test": "u18/test_reg_hdl_whole_vs_split_poke_16_79",
-      "inputs_sha256": "c79671eb740e7c4ee1c426b3d5fead04d99d98eb9f7cce9adba0f9c298174a72",
+      "inputs_sha256": "ea14eb91d00dc5814d146c86c7c3b50025fae6fdf82eacccec6c98d8c6d8b0aa",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -7846,7 +7846,7 @@
     },
     {
       "test": "u18/test_reg_hdl_whole_vs_split_poke_40_79",
-      "inputs_sha256": "b5b520bd42ffc424dded66816807646405f781e2440da717163ac725c3868026",
+      "inputs_sha256": "db353184eeedcac614472f53d93bff52fa546e3383c1ecc4c96c12530e104565",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -7863,7 +7863,7 @@
     },
     {
       "test": "u18/test_reg_map_byte_addressing_reports_width_before_and_after_lock",
-      "inputs_sha256": "a1e9b23ab2f23e24eec348fc31ebc4e9e75ffe7b3cd24a1fa0e2a6aa643743ad",
+      "inputs_sha256": "0ebb8f85b6ce81d6ddcaaad5a9fce53e9595fa3bad31a7831e5c84bee5808c92",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7889,7 +7889,7 @@
     },
     {
       "test": "u18/test_reg_map_word_addressing_translates_offsets_in_bus_units",
-      "inputs_sha256": "45fe3cab4a5d368a5c4573bb77ecfed3867f54d283bac6197950c3980e99cb71",
+      "inputs_sha256": "172b3e834295698efb38bcd189625e0eef952879d69ba8789a030c8f9eba47c0",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7915,7 +7915,7 @@
     },
     {
       "test": "u18/test_reg_named_field_lookup_works_before_and_after_model_lock",
-      "inputs_sha256": "163fc9b2c7ae9b0ed39e1459cfd0c654bb2806ef08585122218da457b2f5e789",
+      "inputs_sha256": "a685fef2145eed3c0ff2119a82a4ae4a2d534284a601d65971f10afcfc730559",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7945,7 +7945,7 @@
     },
     {
       "test": "u18/test_reg_order_policy_big_endian_read_uses_requested_bus_order",
-      "inputs_sha256": "578a95fb0be582ee19565f9e88e82a5add43a4e7c87148dd3a6b368dbcd39d9a",
+      "inputs_sha256": "fa8d5a44dd9ca0d458b9e150258d0780bbbb610fd0bcd6ab15eb3f377f19f867",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -7976,7 +7976,7 @@
     },
     {
       "test": "u18/test_reg_order_policy_big_endian_write_uses_requested_bus_order",
-      "inputs_sha256": "a937a709b8efcc7470fc4009555ecb9e0509e159cf5ef76ca6da7b5ff7f4fe57",
+      "inputs_sha256": "a3bc79354b5370f2d7b6273b104930341fa1545f9d3f507ec08a907e7d22205a",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8007,7 +8007,7 @@
     },
     {
       "test": "u18/test_reg_order_policy_little_endian_read_uses_requested_bus_order",
-      "inputs_sha256": "93fe41f863044e0482e0d4876a427a6e07bd4b953ec14e20220c0aeed972b084",
+      "inputs_sha256": "b535b744e23f63151881d866a57c6bd80d235e5cabaea0b936b1195edf759d80",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8034,7 +8034,7 @@
     },
     {
       "test": "u18/test_reg_pre_read_hook_precedes_the_containing_fields_hook",
-      "inputs_sha256": "6aa00461f5af6c36117165d99313127b31ba9e8e6df698ca7d924423a87b9fe5",
+      "inputs_sha256": "a7650e21baf6dfcf64e9fbcc696a500729243d503b5b4dab517aa483c784848f",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8065,7 +8065,7 @@
     },
     {
       "test": "u18/test_reg_pre_write_hook_precedes_the_containing_fields_hook",
-      "inputs_sha256": "283cbaf5e9ecb22e1cbb399ba0c62eea7c0de022779a72541f1a23b5693095d0",
+      "inputs_sha256": "ae2466089371fa46f74d587e08709170cfd5c9d8d2b190dcbeb326b8c7a3d7d6",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8096,7 +8096,7 @@
     },
     {
       "test": "u18/test_reg_submap_uses_root_base_and_narrowest_bus_width",
-      "inputs_sha256": "b64d052de96e74dce039850f829738a8f3e5b4b052f4ec7957e8820a4ee7b01b",
+      "inputs_sha256": "565452c7fb6b3329e1dcd787a64bbf3088a61dfdf3f30cc116da0667e8c84a0c",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8127,7 +8127,7 @@
     },
     {
       "test": "u18/test_regfile_default_hdl_abstraction_follows_nearest_ancestor_and_local_override",
-      "inputs_sha256": "f69930516756a0524d5c1f4201176b969f111d6668d6617df7e0f65a167d26ae",
+      "inputs_sha256": "e902adb3e433907bd234920c4316e52d2f486de1af15c751d7eb01890acd6fc6",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8153,7 +8153,7 @@
     },
     {
       "test": "u18/test_register_fifo_auto_predicted_frontdoor_write_and_read_use_the_original_dut_queue",
-      "inputs_sha256": "be7375d0173b400490115adef40e92c12e92499c44eb9d500c2dbc511b5abb50",
+      "inputs_sha256": "124a61850651bc572a6e5e1488d87ee12309fb2a86137f99fd6ccddce2401485",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8184,7 +8184,7 @@
     },
     {
       "test": "u18/test_register_fifo_checked_matching_mirror_pops_the_predicted_front",
-      "inputs_sha256": "de9f8905f1266c0e0bc1da3f35c06dc856987067fee6d42d17a28c8a740b0a6e",
+      "inputs_sha256": "90209dac78290fee8e7a879d8b12caaaefc71d6785cf2b3f570986591aa75710",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8215,7 +8215,7 @@
     },
     {
       "test": "u18/test_register_fifo_external_predictor_adds_a_write_only_after_observation",
-      "inputs_sha256": "e5e84b7360398a865cc0ea0442f3136921f9430f222d50ad0f8cb644345317b0",
+      "inputs_sha256": "579c5eeb4b721cf8853e5b8a59e5b8b076f348092bff59f7000243fb07a766fc",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8246,7 +8246,7 @@
     },
     {
       "test": "u18/test_register_fifo_mirror_check_with_compare_disabled",
-      "inputs_sha256": "62508ebd215d448f636d77b3b8c3cd53d5f1b654b384513c884f8c98c9698e05",
+      "inputs_sha256": "4bfc7429f2a7c8b55acb2f40ef748daacc1418705529574e1671cc74c289607d",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8277,7 +8277,7 @@
     },
     {
       "test": "u18/test_register_fifo_mirror_check_with_compare_enabled",
-      "inputs_sha256": "2025afb6bbbf4e1a2540ffaa80703fe7d99eb8d1c95646a68fdbab2068308df0",
+      "inputs_sha256": "9b4dfc20cc75869728ae3fb6e677663dd997a355125393db10e86c9d15cab0e5",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8308,7 +8308,7 @@
     },
     {
       "test": "u18/test_register_fifo_mirror_no_check_with_compare_disabled",
-      "inputs_sha256": "ed3ab903178381487fdc8cf66b027dbf2a088d49127c205fe29c16316fc47db9",
+      "inputs_sha256": "76846e4df999055595b2486e1cec51f0984291150106a92bd7a324fb3fc0525a",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8339,7 +8339,7 @@
     },
     {
       "test": "u18/test_register_fifo_mirror_no_check_with_compare_enabled",
-      "inputs_sha256": "aec555ded3cf1d80d15d178400fa46cd191973d3cacb1790b79a5e5c2405d158",
+      "inputs_sha256": "f7d6a02c981ce5fd09d13f381ab9322b3d12f343496a2124b414e13ceb8c7650",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8370,7 +8370,7 @@
     },
     {
       "test": "u18/test_register_fifo_predict_updates_the_abstract_queue_for_selected_write_and_read_kinds",
-      "inputs_sha256": "c92b31f1cb2a09c1dcef21e8c4e59d367b5c07a35f4c375f5fa9be40936e8c6c",
+      "inputs_sha256": "d4a0fae5974572fe8776a51c6a94326482516578a2ba8fecd4bec3ab0d14047f",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8401,7 +8401,7 @@
     },
     {
       "test": "u18/test_register_fifo_repeated_update_writes_only_the_new_preload",
-      "inputs_sha256": "ccf680f18ede1da96f4ab3ed26aeb00b3fa62bfb1aab66d3335978792dc35a8e",
+      "inputs_sha256": "ccfd2c96baa5ef3f96ab0975dc390577232be24b3c7453be2a2f0ddf82e19921",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8432,7 +8432,7 @@
     },
     {
       "test": "u18/test_register_fifo_set_compare_omission_enables_checked_mismatch_reporting",
-      "inputs_sha256": "1de99534bd18fce3e7104ee31610937325a394b336e1dfb0ede2677f42c0000b",
+      "inputs_sha256": "9357e009b7006b2a09283baf8af56cb7559f8dadac2889925f6e7d84d7e4edf1",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8463,7 +8463,7 @@
     },
     {
       "test": "u18/test_register_fifo_set_preloads_in_order_and_ignores_a_full_abstract_queue",
-      "inputs_sha256": "972677826cc50a68ae9dce1828aff095cdb1dd9cc3e047528651d659831c664b",
+      "inputs_sha256": "5ffce38d7c0223bdc90900b0bdb64df065720e3f146526a97321c09411b83622",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8494,7 +8494,7 @@
     },
     {
       "test": "u18/test_register_fifo_update_transfers_each_preloaded_value_without_duplicate_prediction",
-      "inputs_sha256": "fff137191f7e1f5fe8a5bd49e02ed68d0cecc7357d07f881a330c0a75253c54c",
+      "inputs_sha256": "c919c1a4807726c2852775e23fcb5884bf8590571a2aeaaee96e1d6ad824a8c5",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8525,7 +8525,7 @@
     },
     {
       "test": "u18/test_register_get_fields_orders_gapped_fields_by_bit_position_and_excludes_peer_handles",
-      "inputs_sha256": "27d06d7da532b5c8d787256a2cae747e789a15e4454a0b8a3b87f3b0babcdc79",
+      "inputs_sha256": "93654c44837882cc421353a2a87d37ea520f772b20102c535019901bb70ef090",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8555,7 +8555,7 @@
     },
     {
       "test": "u18/test_register_local_map_null_uses_parent_default_even_with_one_registered_map",
-      "inputs_sha256": "f58b9a32d658e83d900cec1b9c1f67f5f047d3becdbbf972dad45a35edd5ae05",
+      "inputs_sha256": "5f2febdbfb024aeb2cccbaf22c560cd0db165c16738ec055cc62a717fdda1fb4",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8582,7 +8582,7 @@
     },
     {
       "test": "u18/test_user_backdoor_decode_chain_propagates_all_value_elements",
-      "inputs_sha256": "431d87dfd2c93011ce3cd39f5ddb45702861e3c00f76a55668991ebace64dde2",
+      "inputs_sha256": "88c538cd8364b4a1f28de65f24b873400cb854c23f0a31e7c51c55452c7d6804",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8609,7 +8609,7 @@
     },
     {
       "test": "u18/test_user_backdoor_decode_single_propagates_all_value_elements",
-      "inputs_sha256": "1a2990b7358a24b0e838a7f1f62c9026bacac4877eb198ca81885cb77201a44e",
+      "inputs_sha256": "4b9c9160427c478603a3eaf52152d4a16170cfb26e961d767d7684997b3cab4a",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8636,7 +8636,7 @@
     },
     {
       "test": "u18/test_user_backdoor_encode_chain_propagates_all_value_elements",
-      "inputs_sha256": "624190c729175b6a638a8fe7295c5918945f6cde64bb0c87f80792f5cf280da7",
+      "inputs_sha256": "317cba9e4faabd471aa75ad18e0197e3d6ca392b1c3befe72d98920d46785647",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8663,7 +8663,7 @@
     },
     {
       "test": "u18/test_user_backdoor_encode_single_propagates_all_value_elements",
-      "inputs_sha256": "0849f3670b1b0e655dd18d7d4171b61adf2df7e57d6e87d029892b9b2c48a1c8",
+      "inputs_sha256": "f088249b64585bfd97c7b30a358ebcf867be6997809411e369a152ef3e8df3c0",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8690,7 +8690,7 @@
     },
     {
       "test": "u18/test_vreg_backdoor_hdl_field_peek_word16_85",
-      "inputs_sha256": "b4e3c7f86e2b4e828c14f490e445d10ba1c78c589a4475ad70ec4b3bea4a8da3",
+      "inputs_sha256": "74e415a990089773b1423bec66046e819767ea9c5807c2fb2d406c6d9759f65f",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -8707,7 +8707,7 @@
     },
     {
       "test": "u18/test_vreg_backdoor_hdl_field_poke_word16_85",
-      "inputs_sha256": "d25c780c520e07e5b5599112bce6c02282b4a2db283cc397a3c7fe77c4ae80a1",
+      "inputs_sha256": "6aa7963589a6178f09cd21a999c2b6f5b8ddcf53c6ed7b3cfc61f71dbd1f0496",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -8724,7 +8724,7 @@
     },
     {
       "test": "u18/test_vreg_backdoor_hdl_vreg_peek_word16_85",
-      "inputs_sha256": "c21c23707b00e7a0d2e5ea9d2a9709fbc403f2d1a56b4fde1f38edde9952ced8",
+      "inputs_sha256": "9a0e7884cc3113c5d27669bd03785a74e64bf84209d748985c45f4024cf54dc2",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -8741,7 +8741,7 @@
     },
     {
       "test": "u18/test_vreg_backdoor_hdl_vreg_poke_word16_85",
-      "inputs_sha256": "2991ae77e2a4b5058978d7b0e408f8cd88f7d891ec787c05422e822cbc1aebf8",
+      "inputs_sha256": "495716553804c6b1fcc78be9566c902e6b185eb604c3679876f88f1ed230c01b",
       "kind": "build",
       "condition": "hdl",
       "cause": "condition",
@@ -8758,7 +8758,7 @@
     },
     {
       "test": "u18/test_vreg_byte_width_rounds_up_to_the_implementing_memory_location_width",
-      "inputs_sha256": "bb36ca351430d027a9abff1f7b43c6e5c030addab9f3fde5d9e4f63792468d2a",
+      "inputs_sha256": "ac1f458de385a7cf3178f3333b3680187a90e84d28d0463b6310ff4a58195696",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8784,7 +8784,7 @@
     },
     {
       "test": "u18/test_vreg_callback_decl_register_concrete_86",
-      "inputs_sha256": "448e64022c46975cf9dcbf3cb33d5e4c386e1e487873b002d49887b6eb0fd526",
+      "inputs_sha256": "13738442a5c280f6c0479a79f00a06b5a2626782ce5c3b3918d829c0ec2349f4",
       "kind": "build",
       "cause": "library",
       "evidence": {
@@ -8814,7 +8814,7 @@
     },
     {
       "test": "u18/test_vreg_callback_field_pre_read_cb_order_literal_86",
-      "inputs_sha256": "b061a3614d7252aee2d1bb3e552376c47114b26e40d944e0b44335bdc15dbaf4",
+      "inputs_sha256": "050b7a99eb510b6f628af17c80bdaad8bc27c9a96f74ce6cc20def673e8e81ac",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -8846,7 +8846,7 @@
     },
     {
       "test": "u18/test_vreg_callback_field_pre_read_method_order_literal_86",
-      "inputs_sha256": "14f4585af396880f40afbebc60c369b15b33b5470b8da4a0bc8081b17e50b1a3",
+      "inputs_sha256": "947ac1d361fe197e4168778b2d12c84711ab62e127703050c1701bbbea78941a",
       "kind": "runtime",
       "cause": "interpretation",
       "evidence": {
@@ -8878,7 +8878,7 @@
     },
     {
       "test": "u18/test_vreg_dynamic_resize_without_memory_preserves_placement",
-      "inputs_sha256": "ed713d63fb4ae9dc22855c7b364ad4327039cd00e19dfc48a0ca1a6ed62a16a2",
+      "inputs_sha256": "0d637992c0b01651993a7f59a4edd7ce85a8e509276547a35a8582ce87937375",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8904,7 +8904,7 @@
     },
     {
       "test": "u18/test_vreg_field_standalone_post_write_callback_precedes_its_inherited_method",
-      "inputs_sha256": "fb96280ac9882db856b8b0aae8a971ec9147a8f95be42924a4812cf42b2b0acf",
+      "inputs_sha256": "25337444f7e174412b6f4ec8f1b402ff77b8f4df82bf95fa53517c2899ef3775",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8931,7 +8931,7 @@
     },
     {
       "test": "u18/test_vreg_implementation_region_identifies_its_virtual_register_array",
-      "inputs_sha256": "0e9feb366e15a14985bb08211921a3f3d83d5bbdad41b59d68aa8ee23e665f26",
+      "inputs_sha256": "18e4caa3f41f3da2b8d2c942b3130dc770865e2259a519f20c9f53efcf3fe131",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8961,7 +8961,7 @@
     },
     {
       "test": "u18/test_vreg_query_constructor_narrow",
-      "inputs_sha256": "9e34f1dcdd89fa94ba477caecf9f7efa470156324f956e22803efd99a70e35e4",
+      "inputs_sha256": "9731bb9c8d7a679eed392b9b042bad3ae02286b47f7e95792839a709407d499d",
       "kind": "runtime",
       "cause": "library",
       "evidence": {
@@ -8987,7 +8987,7 @@
     },
     {
       "test": "u18/test_vreg_query_field_overview_literal_base",
-      "inputs_sha256": "282971a8a12154d4904d7a50284f9bb067579a7a19f9953ede0e93ffa0c65313",
+      "inputs_sha256": "aa37ad8f22a7a7917211b19d1071f4c5c79db005bfdcff1362823350aec79f5d",
       "kind": "build",
       "cause": "interpretation",
       "evidence": {
@@ -9018,7 +9018,7 @@
     },
     {
       "test": "u18/test_vreg_query_register_overview_literal_base",
-      "inputs_sha256": "c2abb11d061ede239861effc72cebf42292cca74ede68c390e64e671b07eaa01",
+      "inputs_sha256": "2c951cdf5bae0a8ffd2b1bb474554ef47bca8c410445707ec63b547fe3eb4752",
       "kind": "build",
       "cause": "interpretation",
       "evidence": {
@@ -9049,7 +9049,7 @@
     },
     {
       "test": "u18/test_vreg_query_rights_unrelated_map_error_and_rw_fallback",
-      "inputs_sha256": "bbb6041f9cacfa31bd7a5dc3a3913850198ab77b3be1fd5950e20b88a5246b00",
+      "inputs_sha256": "d9ba79b956ec86314cbc5309c15ee51d33d459454178d3bb628e01306f4c8e21",
       "kind": "runtime",
       "cause": "library",
       "evidence": {

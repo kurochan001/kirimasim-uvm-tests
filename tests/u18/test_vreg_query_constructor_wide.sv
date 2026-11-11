@@ -13,6 +13,24 @@
 :expected_stdout: @test_vreg_query_constructor_wide.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// 1. Construction retains the supplied virtual-register name.
+// 2. Construction preserves the selected width as observed in complete
+//    implementing-memory bytes.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.9.1.1.1 (UVM-VREG-QUERY-CONSTRUCTOR-NAME) gives rule 1
+//    above. Setup: Construct 8 bits with an explicit name and implement it
+//    over 16-bit memory locations. Construct 64 bits with an explicit name and
+//    implement it over 16-bit memory locations. Expected: Only the separately
+//    anchored name observation is bound to this duty.
+// 2. 1800.2-2020 18.9.1.1.1 (UVM-VREG-QUERY-CONSTRUCTOR-WIDTH) gives rule 2
+//    above. Setup: Construct 8 bits with an explicit name and implement it
+//    over 16-bit memory locations. Construct 64 bits with an explicit name and
+//    implement it over 16-bit memory locations. Expected: Only the separately
+//    anchored width observation is bound to this duty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_constructor_wide;

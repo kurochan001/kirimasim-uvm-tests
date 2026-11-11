@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_frontdoor_wide_memory_locations_split_into_narrow_bus_accesses.expected
 */
+// What it checks:
+// Virtual-register write uses the implementing memory locations for the
+// selected index.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.3.1 (UVM-VIRTUAL-REGISTER-FRONTDOOR-WRITE) gives the rule
+// above. Setup: Use explicit array indices, byte-split locations, selected
+// stride and a failed-read retry where listed. Expected: The selected element
+// data and location relationships hold; failure status precedes a fresh
+// successful read where tested.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A 32-bit virtual register spans two 16-bit memory locations. The byte-wide
 // little-endian bus carries the four distinct byte values at their physical
 // addresses.

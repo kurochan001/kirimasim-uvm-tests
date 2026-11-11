@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_full_hdl_paths_expand_ancestor_duplicates_and_custom_separators.expected
 */
+// What it checks:
+// Full memory paths expand duplicate ancestor paths using the supplied
+// separator.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.7.9 (UVM-MEMORY-AUDIT-FULL-PATH-CROSS-PRODUCT) gives the
+// rule above. Setup: A root and child each have two RTL incremental paths;
+// memory has one cells56 path; query uses explicit RTL and slash separator.
+// Expected: The four distinct ancestor cross-product strings appear once each
+// with whole-variable slice coordinates unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Path strings and coordinates only, with no physical HDL/DPI claim.
 module test_memory_full_hdl_paths_expand_ancestor_duplicates_and_custom_separators;
   import uvm_pkg::*;

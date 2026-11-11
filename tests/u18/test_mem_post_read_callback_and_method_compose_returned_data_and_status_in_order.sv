@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_post_read_callback_and_method_compose_returned_data_and_status_in_order.expected
 */
+// What it checks:
+// The memory post_read method follows registered callbacks and its final
+// data/status changes are returned.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.9.4 (UVM-MEMORY-POST-READ-COMPOSITION) gives the rule
+// above. Setup: The callback XORs read data and sets HAS_X; the method adds to
+// that data and sets NOT_OK. Expected: The method sees the callback status and
+// the caller receives 5a/NOT_OK while storage remains 45.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A user frontdoor supplies deterministic testbench storage. Hooks are the
 // subject; no RTL protocol, HDL DPI, adapter or passive predictor is involved.
 module test_mem_post_read_callback_and_method_compose_returned_data_and_status_in_order;

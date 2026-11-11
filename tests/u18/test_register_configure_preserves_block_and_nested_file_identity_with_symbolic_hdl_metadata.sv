@@ -12,6 +12,47 @@
 :expected_exit: 0
 :expected_stdout: @test_register_configure_preserves_block_and_nested_file_identity_with_symbolic_hdl_metadata.expected
 */
+// What it checks:
+// 1. configure records the selected parent block independently for a direct
+//    and a file-placed register.
+// 2. configure records the selected nested parent file while the omitted file
+//    argument denotes a directly block-instantiated register.
+// 3. The selected single-variable hdl_path configuration establishes an RTL
+//    path description.
+// 4. The selected register file is usable through an object view and casts
+//    back to its configured file handle.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.2.2 (UVM-REGISTER-CONTRACT-CONFIGURE-BLOCK) gives rule 1
+//    above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: configure records the selected parent block independently for a
+//    direct and a file-placed register.
+// 2. 1800.2-2020 18.4.2.2 (UVM-REGISTER-CONTRACT-CONFIGURE-FILE) gives rule 2
+//    above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: configure records the selected nested parent file while the
+//    omitted file argument denotes a directly block-instantiated register.
+// 3. 1800.2-2020 18.4.2.2 (UVM-REGISTER-CONTRACT-CONFIGURE-SYMBOLIC-HDL) gives
+//    rule 3 above. Setup: Use the selected original register/block/file models
+//    and explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: The selected single-variable hdl_path configuration establishes
+//    an RTL path description.
+// 4. 1800.2-2020 18.3.1 (UVM-REGISTER-CONTRACT-REGFILE-OBJECT-BASE) gives rule
+//    4 above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: The selected register file is usable through an object view and
+//    casts back to its configured file handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Symbolic path presence only; no physical HDL or path-string oracle.
 module test_register_configure_preserves_block_and_nested_file_identity_with_symbolic_hdl_metadata;
   import uvm_pkg::*;

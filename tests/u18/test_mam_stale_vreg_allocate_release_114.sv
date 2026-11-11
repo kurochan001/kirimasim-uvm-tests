@@ -13,6 +13,36 @@
 :expected_stdout: @test_mam_stale_vreg_allocate_release_114.expected
 :files: helpers114_mam_stale_source/stale_source114.svh
 */
+// What it checks:
+// 1. After a dynamic virtual-register release, releasing the saved
+//    implementation descriptor through the memory's manager reports an error.
+// 2. The virtual-register release returns only the implementing region to the
+//    memory's manager, leaving an independent peer reservation allocated and
+//    the array unimplemented.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.5.3 (UVM-VREG-AUDIT-STALE-REGION-MANAGER-RELEASE-ERROR)
+//    gives rule 1 above. Setup: In a 64-location eight-bit memory, reserve a
+//    four-byte peer at location 40 through the memory's manager. Implement two
+//    sixteen-bit elements at offset two, or allocate three elements through
+//    that manager with a policy constrained to start at ten, and save the
+//    region returned by the getter or by the allocation. Release the array
+//    with the virtual-register release method, reserve and release the freed
+//    range again, then release the saved descriptor through the manager.
+//    Expected: The release of the stale implementation descriptor reports an
+//    error.
+// 2. 1800.2-2020 18.9.1.1.6 (UVM-VREG-AUDIT-RELEASE-KEEPS-PEER-RESERVATION)
+//    gives rule 2 above. Setup: In a 64-location eight-bit memory, reserve a
+//    four-byte peer at location 40 through the memory's manager. Implement two
+//    sixteen-bit elements at offset two, or allocate three elements through
+//    that manager with a policy constrained to start at ten, and save the
+//    region returned by the getter or by the allocation. Release the array
+//    with the virtual-register release method, then reserve and release the
+//    freed range using the saved start, end and byte count. Expected: Only the
+//    peer remains allocated, the region getter returns null, and the freed
+//    range can be reserved with its saved geometry and released again.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The region returned by a virtual-register allocation, released by uvm_vreg,
 // is no longer allocated, so releasing it through the manager again reports an
 // error. A peer reservation stays allocated. All membership and reuse checks

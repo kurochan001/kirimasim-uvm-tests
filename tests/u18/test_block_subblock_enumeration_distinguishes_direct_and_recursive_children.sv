@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_block_subblock_enumeration_distinguishes_direct_and_recursive_children.expected
 */
+// What it checks:
+// Block enumeration distinguishes immediate children from recursive
+// descendants.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.3.5 (UVM-BLOCK-SUBBLOCK-ENUMERATION-SCOPE) gives the rule
+// above. Setup: Query two direct children and one grandchild with local and
+// default hierarchy modes. Expected: Local count/mask are two/3; recursive
+// count/mask are three/7.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Register-model hierarchy only. Queries use fresh result queues and handle
 // membership, without a visit order, address maps, RTL transfers or HDL DPI.
 module test_block_subblock_enumeration_distinguishes_direct_and_recursive_children;

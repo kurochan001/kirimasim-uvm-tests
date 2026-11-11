@@ -13,6 +13,17 @@
 :expected_exit: 0
 :expected_stdout: @test_field_failed_poke_returns_write_failure_and_keeps_the_original_word.expected
 */
+// What it checks:
+// An original backdoor write failure is returned by field poke.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.11 (UVM-FIELD-ACCESS-AUDIT-FAILED-POKE-STATUS) gives the
+// rule above. Setup: Use a configured sixteen-bit register, middle field at
+// LSB four, original backdoor storage B75D and optional distinct extension;
+// access policy is selected explicitly. Expected: It returns NOT_OK with one
+// attempted write while the original B75D word remains unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_failed_poke_returns_write_failure_and_keeps_the_original_word;
   import uvm_pkg::*;

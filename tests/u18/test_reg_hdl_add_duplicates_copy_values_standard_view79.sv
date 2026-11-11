@@ -13,6 +13,31 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_hdl_add_duplicates_copy_values_standard_view79.expected
 */
+// What it checks:
+// 1. Repeated add_hdl_path calls for one abstraction retain the register
+//    implementation alternatives.
+// 2. By-value slice inputs retain the supplied path, offset and size values
+//    after the caller changes its array.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.6.4 (UVM-REG-HDL-ADD-DUPLICATE-CONCATS) gives rule 1
+//    above. Setup: Original 16-bit register/block models, legal most-to-least
+//    nonoverlapping slices, named abstractions, isolated peers and fresh query
+//    queues. Standard-view inputs use get_slices; separately declared controls
+//    project the pinned library public slices member, an explicitly
+//    nonstandard observability premise. No HDL storage is accessed. Expected:
+//    Two independent high/low descriptions remain queryable without
+//    prescribing alternative order.
+// 2. 1800.2-2020 18.4.6.4 (UVM-REG-HDL-ADD-SLICE-VALUE-SNAPSHOT) gives rule 2
+//    above. Setup: Original 16-bit register/block models, legal most-to-least
+//    nonoverlapping slices, named abstractions, isolated peers and fresh query
+//    queues. Standard-view inputs use get_slices; separately declared controls
+//    project the pinned library public slices member, an explicitly
+//    nonstandard observability premise. No HDL storage is accessed. Expected:
+//    Both earlier descriptions keep their original values after changing and
+//    reusing the caller array.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard public API observations; independent expectations precede runs.
 // Symbolic metadata only; no physical HDL access or DPI calls.
 module test_reg_hdl_add_duplicates_copy_values_standard_view79;

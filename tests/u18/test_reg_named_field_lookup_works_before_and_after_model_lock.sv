@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_named_field_lookup_works_before_and_after_model_lock.expected
 */
+// What it checks:
+// Named field lookup returns configured field handles before and after lock.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.3.12 (UVM-REG-NAMED-FIELD-LOOKUP-BEFORE-AND-AFTER-LOCK)
+// gives the rule above. Setup: Configure high before low, enumerate and look
+// up both names around locking. Expected: Enumeration is in bit order and
+// every named lookup preserves the exact handle.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Configure the high field first and enumerate an initially empty queue.
 // Named lookup has no lock prerequisite. Compare it before and after lock.
 

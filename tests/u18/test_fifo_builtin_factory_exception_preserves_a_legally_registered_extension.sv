@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_fifo_builtin_factory_exception_preserves_a_legally_registered_extension.expected
 */
+// What it checks:
+// 1. The builtin fifo type is not factory registered, while an original legal
+//    extension may be registered.
+// 2. A legal FIFO extension retains the printed register ancestry.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.8 (UVM-MEM-FIFO-AUDIT-FIFO-FACTORY-EXCEPTION) gives rule 1
+//    above. Setup: In a fresh process, query the builtin wrapper name and
+//    create an original utils-registered extension whose simple name
+//    constructor supplies the required base arguments. Expected: The builtin
+//    wrapper is absent and the distinct legal extension is created with its
+//    selected name/dimensions.
+// 2. 1800.2-2020 18.8.1 (UVM-MEM-FIFO-AUDIT-FIFO-ANCESTRY) gives rule 2 above.
+//    Setup: Factory-create an original extension supplying the required FIFO
+//    depth/width/coverage arguments. Expected: Its uvm_reg view retains
+//    identity with the selected FIFO instance.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_fifo_builtin_factory_exception_preserves_a_legally_registered_extension;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

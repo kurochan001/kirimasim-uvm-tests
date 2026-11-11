@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_field_frontdoor_read_extracts_a_slice_across_two_memory_locations.expected
 */
+// What it checks:
+// Virtual-field read transfers only its selected slice through the
+// implementing memory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.4.2 (UVM-VIRTUAL-FIELD-FRONTDOOR-READ) gives the rule
+// above. Setup: Use a selected field/index with explicit surrounding storage.
+// Expected: The field value is extracted correctly.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The eight-bit field begins at bit 4 and spans two memory bytes. The expected
 // value is the selected slice of a5bc.
 

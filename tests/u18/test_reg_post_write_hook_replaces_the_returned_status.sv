@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_post_write_hook_replaces_the_returned_status.expected
 */
+// What it checks:
+// A post_write method can change the returned write status.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.8.2 (UVM-REG-POST-WRITE-STATUS) gives the rule above.
+// Setup: Set NOT_OK after successful modeled bus access. Expected: Write
+// returns failure after exactly one bus request.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The bus completes successfully, then the register post-access hook changes
 // the status returned to the caller.
 

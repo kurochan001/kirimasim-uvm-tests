@@ -13,6 +13,17 @@
 :expected_stdout: @test_register_fifo_checked_matching_mirror_pops_the_predicted_front.expected
 :files: helpers63/fifo_frontdoor_fixture63.svh
 */
+// What it checks:
+// A checked matching auto-predicted FIFO mirror pops the abstract front.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.8.5.6 (UVM-MEM-FIFO-AUDIT-FIFO-CHECKED-MATCH-POP) gives the
+// rule above. Setup: Prepare matching one-entry abstract/original-DUT queues,
+// enable both comparison controls and perform one frontdoor mirror. The public
+// FIFO queue is primed directly, without an internal field-mirror accessor.
+// Expected: Successful mirror reports no error and leaves both queues empty.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_fifo_checked_matching_mirror_pops_the_predicted_front;
   import uvm_pkg::*;
   `include "fifo_frontdoor_fixture63.svh"

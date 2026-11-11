@@ -14,6 +14,55 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_backdoor_model_vreg_peek_word8_85.expected
 */
+// What it checks:
+// 1. Virtual-register peek returns the current logical value sampled from the
+//    selected element through its memory backdoor.
+// 2. Virtual-register peek samples storage without modifying the selected
+//    element or other memory words.
+// 3. The filename and line-number debug arguments have no functional effect on
+//    virtual-vreg peek.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.9.1.3.4 (UVM-VIRTUAL-VREG-PEEK-SAMPLED-DATA-85) gives rule
+//    1 above. Setup: Read-write memory and statically configured three-element
+//    virtual arrays use explicit memory-word offsets and strides. Each
+//    original fixture independently seeds all 32 words, selects indices 0 and
+//    2, and repeats the operation with omitted debug arguments, a named
+//    file/positive line, and another file/negative line. Singleword profiles
+//    use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit fields. Two
+//    16-bit-word profiles add a 32-bit whole register or a 16-bit field at LSB
+//    8. Original user backdoor storage and actual public 16-bit HDL array
+//    storage are separate execution conditions. Fields are created through
+//    type_id::create. Expected: Defined logical bits match independently
+//    seeded singleword values or the two equal halves of the multiword profile
+//    at both selected indices.
+// 2. 1800.2-2020 18.9.1.3.4 (UVM-VIRTUAL-VREG-PEEK-STORAGE-PRESERVATION-85)
+//    gives rule 2 above. Setup: Read-write memory and statically configured
+//    three-element virtual arrays use explicit memory-word offsets and
+//    strides. Each original fixture independently seeds all 32 words, selects
+//    indices 0 and 2, and repeats the operation with omitted debug arguments,
+//    a named file/positive line, and another file/negative line. Singleword
+//    profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit
+//    fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit
+//    field at LSB 8. Original user backdoor storage and actual public 16-bit
+//    HDL array storage are separate execution conditions. Fields are created
+//    through type_id::create. Expected: Every raw memory word remains equal to
+//    the pre-call independently seeded snapshot after each peek.
+// 3. 1800.2-2020 18.9.1.3.4 (UVM-VIRTUAL-VREG-PEEK-DEBUG-INVARIANCE-85) gives
+//    rule 3 above. Setup: Read-write memory and statically configured
+//    three-element virtual arrays use explicit memory-word offsets and
+//    strides. Each original fixture independently seeds all 32 words, selects
+//    indices 0 and 2, and repeats the operation with omitted debug arguments,
+//    a named file/positive line, and another file/negative line. Singleword
+//    profiles use 8-bit or 16-bit memory/register widths and 4-bit or 9-bit
+//    fields. Two 16-bit-word profiles add a 32-bit whole register or a 16-bit
+//    field at LSB 8. Original user backdoor storage and actual public 16-bit
+//    HDL array storage are separate execution conditions. Fields are created
+//    through type_id::create. Expected: Omitted/default debug arguments and
+//    two explicit file/line variants each satisfy the same independently
+//    derived status, data and storage-preservation predicates.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independent literals check two indices and three debug-argument variants.
 // Multiword checks retain only order-independent observations.
 module test_vreg_backdoor_model_vreg_peek_word8_85;

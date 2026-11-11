@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_write_zero_clear_prediction_preserves_only_one_bits.expected
 */
+// What it checks:
+// Write prediction for W0C clears selected zero bits and retains one bits.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-REG-FIELD-W0C-PREDICTION) gives the rule above.
+// Setup: Start at f3 hex and predict writes cc then 0f hex. Expected: Desired
+// and mirrored values are c0 hex then zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Selected zero bits clear the mirror; one bits preserve its prior state.
 // The input represents an observation, not a physical bus operation.
 

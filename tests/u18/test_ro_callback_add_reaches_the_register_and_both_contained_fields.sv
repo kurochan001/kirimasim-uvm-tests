@@ -13,6 +13,27 @@
 :expected_exit: 0
 :expected_stdout: @test_ro_callback_add_reaches_the_register_and_both_contained_fields.expected
 */
+// What it checks:
+// 1. Protection add attaches the callback to the specified register.
+// 2. Protection add attaches the callback to all selected contained fields.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.11.4.2.2 (UVM-PROTECTION-AUDIT-RO-ADD-REGISTER) gives rule
+//    1 above. Setup: Adding a protection callback registers it on the selected
+//    register and every contained field. Fresh original sixteen-bit RW models,
+//    two contained byte fields and independent frontdoor/backdoor storage;
+//    exact message text/count and physical HDL are not prescribed. Expected:
+//    The selected concrete callback family is present on the register after
+//    add.
+// 2. 1800.2-2020 18.11.4.2.2 (UVM-PROTECTION-AUDIT-RO-ADD-FIELDS) gives rule 2
+//    above. Setup: Adding a protection callback registers it on the selected
+//    register and every contained field. Fresh original sixteen-bit RW models,
+//    two contained byte fields and independent frontdoor/backdoor storage;
+//    exact message text/count and physical HDL are not prescribed. Expected:
+//    Both the lower and upper byte field have the selected callback family
+//    after add.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_ro_callback_add_reaches_the_register_and_both_contained_fields;
   import uvm_pkg::*;

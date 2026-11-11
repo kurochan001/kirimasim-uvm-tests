@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_block_create_map_preserves_bus_width_endianness_base_and_address_units.expected
 */
+// What it checks:
+// 1. create_map preserves its configured name, parent, base address, bus width
+//    and endianness.
+// 2. Omitted byte_addressing uses byte units while explicit zero uses bus-word
+//    units.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.2.3 (UVM-BLOCK-CREATE-MAP-CONFIGURATION) gives rule 1
+//    above. Setup: Create explicit word-addressed big-endian and
+//    default-byte-addressed little-endian maps with width four. Expected:
+//    Names/parents are exact, bases are 256/512, widths are four and the
+//    configured endian values match.
+// 2. 1800.2-2020 18.1.2.3 (UVM-BLOCK-CREATE-MAP-ADDRESSING-UNITS) gives rule 2
+//    above. Setup: Compare two maps with four-byte bus widths. Expected:
+//    Smallest addressable units are four for words and one for the omitted
+//    byte setting.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_create_map_preserves_bus_width_endianness_base_and_address_units;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

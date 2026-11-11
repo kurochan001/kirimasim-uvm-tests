@@ -14,6 +14,31 @@
 :expected_exit: 0
 :expected_stdout: @test_mam_description_states_1_90.expected
 */
+// What it checks:
+// 1. The manager description method exposes the declared string result.
+// 2. A description represents the selected current occupied-region states.
+//
+// Variant: Input 0 uses a memory at offset 0 with a width of one byte; input 1
+// one at offset 64 with a width of two bytes.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.6.1 (UVM-MAM-DESCRIPTION-STRING-RESULT-90) gives rule 1
+//    above. Setup: Two original managers use one/two-byte locations and
+//    selected one-region,two-region and remaining-region occupied states.
+//    Inspect the declared string result and compare nonempty/different
+//    snapshots,while checking exact live endpoints and membership before
+//    cleanup. Expected: The declared return type is string at the selected
+//    public call site.
+// 2. 1800.2-2020 18.12.6.1 (UVM-MAM-DESCRIPTION-OCCUPIED-STATES-90) gives rule
+//    2 above. Setup: Two original managers use one/two-byte locations and
+//    selected one-region,two-region and remaining-region occupied states.
+//    Inspect the declared string result and compare nonempty/different
+//    snapshots,while checking exact live endpoints and membership before
+//    cleanup. Expected: Descriptions of selected occupied states are nonempty
+//    and differ after adding/removing a disjoint region,with live reservations
+//    unchanged by observation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Qualified state-description observation: occupied-state strings are nonempty
 // and change between selected allocation states; no spelling, layout or
 // address parser is fixed.

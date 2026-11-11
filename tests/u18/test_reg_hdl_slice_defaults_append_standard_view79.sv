@@ -13,6 +13,30 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_hdl_slice_defaults_append_standard_view79.expected
 */
+// What it checks:
+// 1. Omitted first is false and appends a slice to the selected current
+//    implementation.
+// 2. Omitted add_hdl_path_slice kind selects RTL rather than the parent
+//    default.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.6.5 (UVM-REG-HDL-SLICE-DEFAULT-APPEND) gives rule 1
+//    above. Setup: Original 16-bit register/block models, legal most-to-least
+//    nonoverlapping slices, named abstractions, isolated peers and fresh query
+//    queues. Standard-view inputs use get_slices; separately declared controls
+//    project the pinned library public slices member, an explicitly
+//    nonstandard observability premise. No HDL storage is accessed. Expected:
+//    The high and low slices form one correctly ordered RTL concatenation.
+// 2. 1800.2-2020 18.4.6.5 (UVM-REG-HDL-SLICE-DEFAULT-RTL) gives rule 2 above.
+//    Setup: Original 16-bit register/block models, legal most-to-least
+//    nonoverlapping slices, named abstractions, isolated peers and fresh query
+//    queues. Standard-view inputs use get_slices; separately declared controls
+//    project the pinned library public slices member, an explicitly
+//    nonstandard observability premise. No HDL storage is accessed. Expected:
+//    RTL slice appends remain separate from the interleaved GATE
+//    implementation and peer.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard public API observations; independent expectations precede runs.
 // Symbolic metadata only; no physical HDL access or DPI calls.
 module test_reg_hdl_slice_defaults_append_standard_view79;

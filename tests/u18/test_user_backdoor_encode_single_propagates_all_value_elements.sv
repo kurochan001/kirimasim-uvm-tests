@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_user_backdoor_encode_single_propagates_all_value_elements.expected
 */
+// What it checks:
+// 1. Registered encoders execute in registration order after all pre-write
+//    methods.
+// 2. Encoder changes propagate to the data supplied to the write operation.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.11.2.7 (UVM-REG-PIPELINE-ENCODE-REGISTRATION-ORDER) gives
+//    rule 1 above. Setup: Register one callback or two distinct callbacks on
+//    an original user backdoor. Expected: The trace places all pre
+//    hooks/callbacks before encoders, then the write body.
+// 2. 1800.2-2020 18.11.2.7 (UVM-REG-PIPELINE-ENCODE-FINAL-DATA-PROPAGATION)
+//    gives rule 2 above. Setup: A single encoder XORs each of two original
+//    memory values with 0x1f. Expected: The original write storage receives
+//    0x0c and 0x3a rather than the clear input.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The standard requires callback transformations to reach the next callback
 // and the actual value path. Two noncommuting operations and two memory-value
 // elements distinguish order from value propagation. The library helpers

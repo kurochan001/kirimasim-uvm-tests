@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_indirect_super_constructor_names_and_widths_preserve_register_ancestry.expected
 */
+// What it checks:
+// 1. An indirect-register extension retains actual omitted/explicit super
+//    constructor names.
+// 2. The indirect constructor retains the selected register widths.
+// 3. Indirect-register extensions retain distinct uvm_reg base views.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.7.2.1 (UVM-MEM-FIFO-AUDIT-INDIRECT-CONSTRUCTOR-NAME) gives
+//    rule 1 above. Setup: Use original subclasses calling super.new, including
+//    a genuinely omitted name through the printed named arguments; do not
+//    directly construct the discouraged base. Expected: The omitted name is
+//    uvm_reg_indirect and the explicit peer name is explicit63.
+// 2. 1800.2-2020 18.7.2.1 (UVM-MEM-FIFO-AUDIT-INDIRECT-CONSTRUCTOR-WIDTH)
+//    gives rule 2 above. Setup: Use original subclasses calling super.new,
+//    including a genuinely omitted name through the printed named arguments;
+//    do not directly construct the discouraged base. Expected: The two legal
+//    extensions report eight and sixteen bits respectively.
+// 3. 1800.2-2020 18.7.1 (UVM-MEM-FIFO-AUDIT-INDIRECT-ANCESTRY) gives rule 3
+//    above. Setup: Use original subclasses calling super.new, including a
+//    genuinely omitted name through the printed named arguments; do not
+//    directly construct the discouraged base. Expected: Both implicit base
+//    views preserve their exact distinct original handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_indirect_super_constructor_names_and_widths_preserve_register_ancestry;
   import uvm_pkg::*;
   class omitted_extension extends uvm_reg_indirect_data;

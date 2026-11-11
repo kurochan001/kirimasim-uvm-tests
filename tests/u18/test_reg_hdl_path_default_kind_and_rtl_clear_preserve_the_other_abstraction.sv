@@ -12,6 +12,32 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_hdl_path_default_kind_and_rtl_clear_preserve_the_other_abstraction.expected
 */
+// What it checks:
+// 1. Default element path queries use the parent block default abstraction.
+// 2. Element path presence respects explicit kinds and the parent default.
+// 3. Element kind enumeration returns the currently defined abstractions.
+// 4. Default element path clear removes RTL even when its parent default is
+//    another kind.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.6.7 (UVM-REGISTER-HDL-DEFAULT-KIND) gives rule 1 above.
+//    Setup: Configure RTL/GATE metadata, choose GATE on the parent, then clear
+//    each kind. Expected: A GATE-default query still returns one path after
+//    default clear removes RTL.
+// 2. 1800.2-2020 18.4.6.6 (UVM-REGISTER-HDL-PATH-PRESENCE) gives rule 2 above.
+//    Setup: Configure RTL/GATE metadata, choose GATE on the parent, then clear
+//    each kind. Expected: Presence follows RTL-only then GATE clearing without
+//    silently changing the default.
+// 3. 1800.2-2020 18.4.6.8 (UVM-REGISTER-HDL-PATH-KINDS) gives rule 3 above.
+//    Setup: Configure RTL/GATE metadata, choose GATE on the parent, then clear
+//    each kind. Expected: The kind set changes from RTL/GATE to GATE alone and
+//    then empty.
+// 4. 1800.2-2020 18.4.6.3 (UVM-REGISTER-HDL-KIND-CLEAR) gives rule 4 above.
+//    Setup: Configure RTL/GATE metadata, choose GATE on the parent, then clear
+//    each kind. Expected: GATE survives the default clear and disappears only
+//    after explicit GATE clear.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Symbolic HDL path metadata only: no HDL access, RTL storage or DPI calls.
 module test_reg_hdl_path_default_kind_and_rtl_clear_preserve_the_other_abstraction;
   import uvm_pkg::*;

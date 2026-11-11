@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_intrinsic_readonly_policy_and_map_rights_are_distinct.expected
 */
+// What it checks:
+// 1. Memory get_rights reports map-specific accessibility independently of
+//    intrinsic memory policy.
+// 2. Memory get_access includes intrinsic memory access restrictions.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.4.5 (UVM-MEMORY-MAP-RIGHTS) gives rule 1 above. Setup:
+//    Use RO/WO interface maps and separately an intrinsic RO memory with RW
+//    maps. Expected: Interface rights remain RO/WO, while the intrinsic-RO
+//    fixture reports RW rights.
+// 2. 1800.2-2020 18.6.4.6 (UVM-MEMORY-EFFECTIVE-ACCESS) gives rule 2 above.
+//    Setup: Map an intrinsic read-only memory through RW maps. Expected:
+//    Effective access remains RO even though map rights are RW.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Both memories are unshared, so the rights query returns RW (18.6.4.5).
 // Effective access must still include the map restriction (18.6.4.6): the
 // intrinsic RO memory and the RO-restricted RW memory both expose RO access.

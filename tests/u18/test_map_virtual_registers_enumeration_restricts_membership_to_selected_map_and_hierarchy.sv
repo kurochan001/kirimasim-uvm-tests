@@ -12,6 +12,49 @@
 :expected_exit: 0
 :expected_stdout: @test_map_virtual_registers_enumeration_restricts_membership_to_selected_map_and_hierarchy.expected
 */
+// What it checks:
+// 1. NO_HIER get_virtual_registers returns the selected directly instantiated
+//    map members.
+// 2. HIER get_virtual_registers recursively includes the selected descendants.
+// 3. Omitting get_virtual_registers hier returns the same selected recursive
+//    membership.
+// 4. Selected get_virtual_registers excludes an alternative map of the same
+//    block, and a child-map query excludes ancestor contents.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.4.14 (UVM-MAP-SCOPE-VIRTUAL-REGISTERS-LOCAL) gives rule
+//    1 above. Setup: One original three-level hierarchy contains same-name
+//    distinct registers, memories and implemented virtual registers. Each
+//    physical register has two fields; each virtual register has one field. An
+//    alternative map of the same root block owns separate contents and is not
+//    a submap. All output queues start empty. Expected: NO_HIER
+//    get_virtual_registers returns the selected directly instantiated map
+//    members.
+// 2. 1800.2-2020 18.2.4.14 (UVM-MAP-SCOPE-VIRTUAL-REGISTERS-RECURSIVE) gives
+//    rule 2 above. Setup: One original three-level hierarchy contains
+//    same-name distinct registers, memories and implemented virtual registers.
+//    Each physical register has two fields; each virtual register has one
+//    field. An alternative map of the same root block owns separate contents
+//    and is not a submap. All output queues start empty. Expected: HIER
+//    get_virtual_registers recursively includes the selected descendants.
+// 3. 1800.2-2020 18.2.4.14 (UVM-MAP-SCOPE-VIRTUAL-REGISTERS-DEFAULT) gives
+//    rule 3 above. Setup: One original three-level hierarchy contains
+//    same-name distinct registers, memories and implemented virtual registers.
+//    Each physical register has two fields; each virtual register has one
+//    field. An alternative map of the same root block owns separate contents
+//    and is not a submap. All output queues start empty. Expected: Omitting
+//    get_virtual_registers hier returns the same selected recursive
+//    membership.
+// 4. 1800.2-2020 18.2.4.14 (UVM-MAP-SCOPE-VIRTUAL-REGISTERS-MAP-SCOPE) gives
+//    rule 4 above. Setup: One original three-level hierarchy contains
+//    same-name distinct registers, memories and implemented virtual registers.
+//    Each physical register has two fields; each virtual register has one
+//    field. An alternative map of the same root block owns separate contents
+//    and is not a submap. All output queues start empty. Expected: Selected
+//    get_virtual_registers excludes an alternative map of the same block, and
+//    a child-map query excludes ancestor contents.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Counts and handle sets are checked without assigning enumeration order.
 module test_map_virtual_registers_enumeration_restricts_membership_to_selected_map_and_hierarchy;
   import uvm_pkg::*;

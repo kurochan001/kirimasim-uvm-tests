@@ -13,6 +13,21 @@
 :expected_stdout: @test_pinned_fifo_build_control_repeated_update.expected
 :files: helpers63_initialized/fifo_initialized_fixture63.svh
 */
+// What it checks:
+// It is a control: it supports the setup or conditions of this duty, which
+// other tests check directly:
+// A later FIFO update transfers the newly preloaded value without
+// retransmitting a completed preload.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.8.5.5 (UVM-MEM-FIFO-AUDIT-FIFO-UPDATE-NEW-PRELOAD) gives the
+// rule above. Setup: Use the original one-byte bus FIFO model and independent
+// register control, explicit frontdoor/map and selected auto/external
+// prediction. Preload update occurs before any blocking statement after set.
+// Expected: Two completed set/update pairs leave the original DUT and abstract
+// queues as 0x11,0x22 with two writes.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit pinned-library initialization control, not an IEEE API duty.
 // Its result does not pass the separately retained constructor-only input.
 module test_pinned_fifo_build_control_repeated_update;

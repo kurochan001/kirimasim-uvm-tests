@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_allocate_returns_the_region_and_implements_a_packed_array.expected
 */
+// What it checks:
+// Virtual-register allocation returns its allocated region and implements the
+// requested array in memory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.4 (UVM-VREG-ALLOCATE-REGION) gives the rule above.
+// Setup: A deterministic allocation policy selects start 10 for two 16-bit
+// elements in an 8-bit memory. Expected: The returned region is selected,
+// implementation size is 2 and region bounds are 10 through 13.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A supplied policy has one legal start location. Two 16-bit virtual elements
 // occupy four byte-wide locations, and allocate returns the implementing
 // region.

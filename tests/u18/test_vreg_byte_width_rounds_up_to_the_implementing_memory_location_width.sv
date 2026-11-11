@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_byte_width_rounds_up_to_the_implementing_memory_location_width.expected
 */
+// What it checks:
+// Virtual-register byte width rounds up to whole implementing-memory
+// locations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.2.9 (UVM-VREG-BYTE-WIDTH-MEMORY-ROUNDING) gives the rule
+// above. Setup: Implement a 16-bit register over a 32-bit memory. Expected:
+// Width is four bytes, one location and increment one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A 16-bit virtual register implemented in 32-bit memory occupies one whole
 // four-byte memory location; its reported byte width follows that allocation
 // unit.

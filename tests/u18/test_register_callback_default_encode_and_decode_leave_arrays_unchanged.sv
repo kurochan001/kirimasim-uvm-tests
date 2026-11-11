@@ -12,6 +12,21 @@
 :expected_exit: 0
 :expected_stdout: @test_register_callback_default_encode_and_decode_leave_arrays_unchanged.expected
 */
+// What it checks:
+// 1. The default register callback encoder leaves supplied data unchanged.
+// 2. The default register callback decoder leaves supplied data unchanged.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.11.2.7 (UVM-REG-PIPELINE-ENCODE-DEFAULT-UNCHANGED) gives
+//    rule 1 above. Setup: Call the actual default method on a two-element
+//    array and an empty array. Expected: Array sizes and supplied values
+//    remain unchanged.
+// 2. 1800.2-2020 18.11.2.8 (UVM-REG-PIPELINE-DECODE-DEFAULT-UNCHANGED) gives
+//    rule 2 above. Setup: Call the actual default method on a two-element
+//    array and an empty array. Expected: Array sizes and supplied values
+//    remain unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Call the actual default callback methods on nonempty and empty arrays. This
 // control checks their no-change contract, not helper-chain data propagation.
 module test_register_callback_default_encode_and_decode_leave_arrays_unchanged;

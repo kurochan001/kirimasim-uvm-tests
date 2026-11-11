@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_block_full_hdl_paths_expand_parent_duplicates_and_preserve_a_custom_separator.expected
 */
+// What it checks:
+// 1. Full block HDL paths combine alternatives at each ancestor level.
+// 2. Full block HDL paths use the caller-selected segment separator.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.6.8 (UVM-BLOCK-HDL-DUPLICATE-COMBINATIONS) gives rule 1
+//    above. Setup: Supply two alternatives at each of three levels. Expected:
+//    Eight unique paths contain all parent/child/grandchild combinations.
+// 2. 1800.2-2020 18.1.6.8 (UVM-BLOCK-HDL-CUSTOM-SEPARATOR) gives rule 2 above.
+//    Setup: Query the same duplicated hierarchy with dot and slash separators.
+//    Expected: Both queries retain all eight unique combinations with their
+//    selected separators.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Symbolic HDL path metadata only: no HDL access, RTL storage or DPI calls.
 module test_block_full_hdl_paths_expand_parent_duplicates_and_preserve_a_custom_separator;
   import uvm_pkg::*;

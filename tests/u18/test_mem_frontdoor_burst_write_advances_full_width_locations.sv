@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_frontdoor_burst_write_advances_full_width_locations.expected
 */
+// What it checks:
+// 1. A full-width burst write transfers array elements through successive
+//    memory locations.
+// 2. Physical memory bus descriptors use plain READ or WRITE access kinds.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.5.3 (UVM-MEMORY-FULL-WIDTH-BURST-WRITE) gives rule 1
+//    above. Setup: Use three 64-bit array entries on a full-width testbench
+//    bus. Expected: All three values retain their selected location order and
+//    operation status.
+// 2. 1800.2-2020 19.1.2.1 (UVM-MEMORY-PHYSICAL-ACCESS-KINDS) gives rule 2
+//    above. Setup: Observe full-width bursts and partial-width single-location
+//    transfers at the adapter boundary. Expected: Each observed beat has its
+//    required plain direction, rather than a burst-only operation kind.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Memory, bus and uvm_reg_data_t are all 64 bits here, so each array element
 // fills exactly one location without partial-beat packing.
 

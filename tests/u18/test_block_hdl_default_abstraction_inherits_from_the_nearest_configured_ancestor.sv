@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_block_hdl_default_abstraction_inherits_from_the_nearest_configured_ancestor.expected
 */
+// What it checks:
+// An unspecified block default HDL abstraction inherits the nearest explicitly
+// configured ancestor default.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.6.9 (UVM-BLOCK-HDL-DEFAULT-INHERITANCE) gives the rule
+// above. Setup: Change the root default, set a child-local override and change
+// the root again. Expected: Unspecified descendants follow their nearest
+// setting while a child override and its descendants retain RTL.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library keeps a local RTL default instead of ancestor inheritance.
 // Symbolic HDL path metadata only: no HDL access, RTL storage or DPI calls.
 module test_block_hdl_default_abstraction_inherits_from_the_nearest_configured_ancestor;

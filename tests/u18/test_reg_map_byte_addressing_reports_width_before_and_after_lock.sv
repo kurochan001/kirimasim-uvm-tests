@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_map_byte_addressing_reports_width_before_and_after_lock.expected
 */
+// What it checks:
+// A configured map reports its bus width independently of model locking.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.4.2 (UVM-REG-MAP-WIDTH-BEFORE-AND-AFTER-LOCK) gives the
+// rule above. Setup: Query a little-endian four-byte map before and after
+// lock. Expected: Width is four both times; byte address unit and exact
+// parent/root handles agree.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The configured bus width is observed before and after locking. The map
 // introspection clause gives no lock prerequisite.
 

@@ -12,6 +12,38 @@
 :expected_exit: 0
 :expected_stdout: @test_block_needs_update_aggregates_local_and_descendant_desired_state_without_changing_values.expected
 */
+// What it checks:
+// 1. Block needs_update returns true for a selected changed local register or
+//    descendant register.
+// 2. Block needs_update returns false when the selected root and child model
+//    have no changed register.
+// 3. Selected block needs_update queries preserve mirror values and the
+//    untouched register state.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.5.4 (UVM-BLOCK-ACCESS-NEEDS-ANY) gives rule 1 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: Block
+//    needs_update returns true for a selected changed local register or
+//    descendant register.
+// 2. 1800.2-2020 18.1.5.4 (UVM-BLOCK-ACCESS-NEEDS-NONE) gives rule 2 above.
+//    Setup: Use the selected original hierarchical register/memory models and
+//    their explicit public calls. Named wrapper observations call through a
+//    block base view and genuine configured lookup; actual frontdoor cases use
+//    the original adapter, sequencer and driver storage. Expected: Block
+//    needs_update returns false when the selected root and child model have no
+//    changed register.
+// 3. 1800.2-2020 18.1.5.4 (UVM-BLOCK-ACCESS-NEEDS-MIRROR-PRESERVATION) gives
+//    rule 3 above. Setup: Use the selected original hierarchical
+//    register/memory models and their explicit public calls. Named wrapper
+//    observations call through a block base view and genuine configured
+//    lookup; actual frontdoor cases use the original adapter, sequencer and
+//    driver storage. Expected: Selected block needs_update queries preserve
+//    mirror values and the untouched register state.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_block_needs_update_aggregates_local_and_descendant_desired_state_without_changing_values;
   import uvm_pkg::*;

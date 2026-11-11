@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_write_once_prediction_rearms_only_after_hard_reset.expected
 */
+// What it checks:
+// Write-once prediction accepts only the first write after HARD reset.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-FIELD-WRITE-ONCE-HARD-REARM) gives the rule
+// above. Setup: Write 11/22, reset SOFT to 07 and write 33, then reset HARD
+// and write 44 hex. Expected: State is 11 after two writes, 07 after SOFT plus
+// ignored write, and 44 after HARD plus write.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The second write is ignored. A SOFT reset restores its value but leaves
 // write-once protection active; HARD reset re-enables the next write.
 

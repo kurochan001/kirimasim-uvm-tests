@@ -13,6 +13,20 @@
 :expected_exit: 0
 :expected_stdout: @test_ro_callback_removal_restores_the_rejected_register_frontdoor_operation.expected
 */
+// What it checks:
+// Protection removal restores the selected subsequent formerly rejected
+// operation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.4.2.3 (UVM-PROTECTION-AUDIT-RO-RESTORE-REGISTER-FRONTDOOR)
+// gives the rule above. Setup: Removing protection restores a subsequent
+// formerly rejected access. Fresh original sixteen-bit RW models, two
+// contained byte fields and independent frontdoor/backdoor storage; exact
+// message text/count and physical HDL are not prescribed. Expected: The first
+// access rejects with no transfer; after removal the same selected access
+// succeeds without ERROR.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_ro_callback_removal_restores_the_rejected_register_frontdoor_operation;
   import uvm_pkg::*;

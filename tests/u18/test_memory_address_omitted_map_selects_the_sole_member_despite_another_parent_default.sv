@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_address_omitted_map_selects_the_sole_member_despite_another_parent_default.expected
 */
+// What it checks:
+// 1. A selected memory location has the explicit map base physical address.
+// 2. An omitted map selects the sole memory member despite another parent
+//    default.
+// 3. Omitting the memory address location argument selects zero.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.4.16 (UVM-MEM-FIFO-AUDIT-MEM-ADDRESS-EXPLICIT) gives
+//    rule 1 above. Setup: Construct valid memory maps, configure the parent
+//    default explicitly and lock before querying; distinguish sole-member and
+//    shared-memory cases. Expected: Location two is 0x124 in the selected
+//    2-byte map.
+// 2. 1800.2-2020 18.6.4.16 (UVM-MEM-FIFO-AUDIT-MEM-ADDRESS-SOLE-DEFAULT) gives
+//    rule 2 above. Setup: Construct valid memory maps, configure the parent
+//    default explicitly and lock before querying; distinguish sole-member and
+//    shared-memory cases. Expected: The omitted-map location-two query retains
+//    0x124.
+// 3. 1800.2-2020 18.6.4.16 (UVM-MEM-FIFO-AUDIT-MEM-ADDRESS-OFFSET-DEFAULT)
+//    gives rule 3 above. Setup: Construct valid memory maps, configure the
+//    parent default explicitly and lock before querying; distinguish
+//    sole-member and shared-memory cases. Expected: The fully omitted query
+//    returns 0x120 for location zero.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_address_omitted_map_selects_the_sole_member_despite_another_parent_default;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

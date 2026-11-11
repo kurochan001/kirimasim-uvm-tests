@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_single_map_membership_preserves_the_registered_map_handle.expected
 */
+// What it checks:
+// 1. Memory map count reports the number of maps containing the memory.
+// 2. Memory get_maps returns the maps where that memory is registered.
+// 3. Memory is_in_map distinguishes member maps from nonmembers.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.4.2 (UVM-MEMORY-MAP-COUNT) gives rule 1 above. Setup:
+//    Register one memory in one map or two sibling-interface maps. Expected:
+//    The counts are one and two for the respective fixtures.
+// 2. 1800.2-2020 18.6.4.4 (UVM-MEMORY-MAP-LIST) gives rule 2 above. Setup:
+//    Start with an empty map queue and inspect one/two registered maps.
+//    Expected: The returned handles/list sizes agree with the registered maps.
+// 3. 1800.2-2020 18.6.4.3 (UVM-MEMORY-MAP-MEMBERSHIP) gives rule 3 above.
+//    Setup: Query registered maps, a different map and null in the single-map
+//    fixture. Expected: Registered maps are members; the unrelated/null
+//    handles are not.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Enumerate an empty queue and compare handles without ordering assumptions.
 
 module test_mem_single_map_membership_preserves_the_registered_map_handle;

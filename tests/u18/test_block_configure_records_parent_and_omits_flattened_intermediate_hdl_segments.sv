@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_block_configure_records_parent_and_omits_flattened_intermediate_hdl_segments.expected
 */
+// What it checks:
+// 1. configure records the supplied parent block and treats an omitted parent
+//    as a root.
+// 2. A configured leaf contributes its selected HDL segment beneath its parent
+//    path.
+// 3. An omitted intermediate HDL path contributes no extra segment to the
+//    selected descendant full path.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.2.2 (UVM-BLOCK-CONFIG-CONFIGURE-PARENT) gives rule 1
+//    above. Setup: Original root, flattened intermediate and leaf blocks use
+//    selected symbolic path strings. Only metadata getters are called;
+//    explicit RTL is used unless the fixture deliberately tests default-kind
+//    inheritance. Expected: configure records the supplied parent block and
+//    treats an omitted parent as a root.
+// 2. 1800.2-2020 18.1.2.2 (UVM-BLOCK-CONFIG-CONFIGURE-HDL-CONTRIBUTION) gives
+//    rule 2 above. Setup: Original root, flattened intermediate and leaf
+//    blocks use selected symbolic path strings. Only metadata getters are
+//    called; explicit RTL is used unless the fixture deliberately tests
+//    default-kind inheritance. Expected: A configured leaf contributes its
+//    selected HDL segment beneath its parent path.
+// 3. 1800.2-2020 18.1.2.2 (UVM-BLOCK-CONFIG-CONFIGURE-FLATTENED) gives rule 3
+//    above. Setup: Original root, flattened intermediate and leaf blocks use
+//    selected symbolic path strings. Only metadata getters are called;
+//    explicit RTL is used unless the fixture deliberately tests default-kind
+//    inheritance. Expected: An omitted intermediate HDL path contributes no
+//    extra segment to the selected descendant full path.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Symbolic path metadata; no HDL transport or DPI behavior is claimed.
 module test_block_configure_records_parent_and_omits_flattened_intermediate_hdl_segments;
   import uvm_pkg::*;

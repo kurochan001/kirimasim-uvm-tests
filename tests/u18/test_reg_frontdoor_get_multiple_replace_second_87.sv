@@ -15,6 +15,27 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_frontdoor_get_multiple_replace_second_87.expected
 */
+// What it checks:
+// It is a control: it supports the setup or conditions of this duty, which
+// other tests check directly:
+// Register get_frontdoor returns null when no user-defined frontdoor is
+// associated with the selected map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.5.1 (UVM-ACCESS-REG-FRONTDOOR-NONE-87) gives the rule
+// above. Setup: Independent16-bit register/frontdoor storage with single-map
+// omitted/explicit getters and two-map explicit selections. Valid non-null
+// variants check initial null getters, installation, replacement, debug
+// arguments, independent peer/other map and restoration. Four separate
+// original null-setter inputs use a disputed null-as-clear setup and are
+// control-only, not direct evidence of a mandatory removal API. Expected:
+// Initial unconfigured getter handles are null. Non-null
+// installation/replacement/restoration selects the expected original provider;
+// actual read values, map/peer isolation and debug-argument invariance are
+// preserved. The disputed null-setter probe retains its separate expected null
+// observation without deriving mandatory clearing from the getter alone.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independent original testbench storage; no HDL or physical bus protocol.
 module test_reg_frontdoor_get_multiple_replace_second_87;
   timeunit 1ns; timeprecision 1ps;

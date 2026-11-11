@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_write_one_set_prediction_accumulates_selected_sets.expected
 */
+// What it checks:
+// W1S write prediction preserves earlier sets while setting new one bits.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-FIELD-W1S-PREDICTION-ACCUMULATION) gives the rule
+// above. Setup: Starting 0c, predict writes 81 and 02 hex. Expected:
+// Desired/mirror become 8d then 8f hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Two writes set disjoint bits while preserving earlier set bits.
 // The input represents an observation, not a physical bus operation.
 

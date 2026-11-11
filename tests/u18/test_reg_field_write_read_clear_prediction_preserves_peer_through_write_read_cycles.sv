@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_write_read_clear_prediction_preserves_peer_through_write_read_cycles.expected
 */
+// What it checks:
+// 1. WRC prediction: write data replaces the field independently of a later
+//    read-clear.
+// 2. WRC read prediction records the post-read clear state.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.17 (UVM-FIELD-WRC-WRITE-PREDICTION) gives rule 1
+//    above. Setup: Predict distinct repeated writes and a post-read write
+//    while preserving the adjacent field. Expected: Each successful prediction
+//    updates desired/mirror consistently with the selected rule and preserves
+//    the peer slice.
+// 2. 1800.2-2020 18.5.5.17 (UVM-FIELD-WRC-READ-PREDICTION) gives rule 2 above.
+//    Setup: Predict reads after different writes, using the sampled
+//    pre-side-effect field value. Expected: Both desired and mirror become
+//    zero while the adjacent slice remains unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit prediction values represent selected bus observations. No physical
 // bus transfer is performed. An adjacent field provides an isolation control.
 module test_reg_field_write_read_clear_prediction_preserves_peer_through_write_read_cycles;

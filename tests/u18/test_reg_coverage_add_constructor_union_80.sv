@@ -13,6 +13,33 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_coverage_add_constructor_union_80.expected
 */
+// What it checks:
+// 1. Constructor-time coverage additions retain the original models and add
+//    the specified models.
+// 2. Models added in one register constructor belong to that register
+//    instance.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.7.3 (UVM-REG-COVERAGE-ADD-CONSTRUCTOR-UNION) gives rule
+//    1 above. Setup: Original derived register constructors preserve a
+//    supplied base mask and call the actual protected add_coverage while their
+//    constructor is active. Cases include zero, overlapping/repeated
+//    additions, isolated peers, inherited virtual dispatch and explicit
+//    measurement-off then all-model selection. Expected: Original, first-added
+//    and later overlapping models are all available after derived
+//    construction.
+// 2. 1800.2-2020 18.4.7.3 (UVM-REG-COVERAGE-ADD-INSTANCE-ISOLATION) gives rule
+//    2 above. Setup: Original derived register constructors preserve a
+//    supplied base mask and call the actual protected add_coverage while their
+//    constructor is active. Cases include zero, overlapping/repeated
+//    additions, isolated peers, inherited virtual dispatch and explicit
+//    measurement-off then all-model selection. Expected: An independent
+//    base-only peer and a differently extended instance retain their own
+//    distinct availability and measurement masks.
+// It also supports, as a control, the setup or conditions of
+// UVM-REG-COVERAGE-ADD-PROTECTED-DECLARATION.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Coverage metadata or observer dispatch only; no bin, covergroup or HDL claim.
 module test_reg_coverage_add_constructor_union_80;
   import uvm_pkg::*;

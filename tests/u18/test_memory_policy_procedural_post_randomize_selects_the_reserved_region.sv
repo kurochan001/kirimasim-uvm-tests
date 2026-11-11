@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_policy_procedural_post_randomize_selects_the_reserved_region.expected
 */
+// What it checks:
+// 1. The policy start_offset determines the returned allocation start.
+// 2. A procedural allocation policy can choose its location using
+//    pre_randomize/post_randomize methods.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.8.2.2 (UVM-MEMORY-POLICY-START-OFFSET-PROPAGATION)
+//    gives rule 1 above. Setup: Use one constrained and one procedurally
+//    selected start on independent managers. Expected: Selected starts 12 and
+//    30 are retained in their returned region descriptors.
+// 2. 1800.2-2020 18.12.8 (UVM-MEMORY-POLICY-PROCEDURAL-POST-RANDOMIZE) gives
+//    rule 2 above. Setup: Count callbacks and set the final start to
+//    max_offset minus len plus one after randomization. Expected: Both
+//    callbacks run once and the manager reserves locations 30–31.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_policy_procedural_post_randomize_selects_the_reserved_region;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

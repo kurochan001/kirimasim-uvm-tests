@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_configuration_query_and_compatible_shrink_preserve_active_regions.expected
 */
+// What it checks:
+// 1. Compatible reconfiguration returns the previous configuration and retains
+//    existing regions.
+// 2. Omitted and explicit-null reconfiguration query current configuration
+//    without changing existing reservations.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.4.2 (UVM-MAM-COMPATIBLE-RECONFIGURATION) gives rule 1
+//    above. Setup: Keep the byte width and change bounds from 0..15 to 2..31
+//    around region 4..5. Expected: Returned bounds are 0..15, current bounds
+//    are 2..31 and the region stays 4..5.
+// 2. 1800.2-2020 18.12.4.2 (UVM-MAM-AUDIT-CONFIGURATION-QUERY) gives rule 2
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: Omitted and explicit-null reconfiguration
+//    query current configuration without changing existing reservations.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_manager_configuration_query_and_compatible_shrink_preserve_active_regions;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

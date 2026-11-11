@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_map_register_offset_and_external_address_remain_distinct.expected
 */
+// What it checks:
+// 1. Register get_offset returns the offset local to the specified map.
+// 2. Register get_address returns the external physical address through the
+//    specified map.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.3.13 (UVM-REGISTER-MAP-LOCAL-OFFSET) gives rule 1 above.
+//    Setup: Use nonzero map bases and distinct offsets in two interface maps.
+//    Expected: The returned local offsets exclude the external base and stay
+//    distinct across maps.
+// 2. 1800.2-2020 18.4.3.14 (UVM-REGISTER-EXTERNAL-ADDRESS) gives rule 2 above.
+//    Setup: Inspect register placement in one/two maps with nonzero bases.
+//    Expected: External addresses include each selected map base and its
+//    register offset.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Specify the map explicitly for every register lookup.
 
 module test_reg_map_register_offset_and_external_address_remain_distinct;

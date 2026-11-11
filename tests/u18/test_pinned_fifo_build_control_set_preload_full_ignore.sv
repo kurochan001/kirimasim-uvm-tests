@@ -12,6 +12,30 @@
 :expected_exit: 0
 :expected_stdout: @test_pinned_fifo_build_control_set_preload_full_ignore.expected
 */
+// What it checks:
+// It is a control: it supports the setup or conditions of these duties, which
+// other tests check directly:
+// 1. FIFO set pushes selected values into the abstract queue in call order.
+// 2. FIFO set ignores a push into a full abstract queue.
+// 3. Selected FIFO set debug arguments do not change the pushed value.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.8.5.2 (UVM-MEM-FIFO-AUDIT-FIFO-SET-PUSH) gives rule 1
+//    above. Setup: Use depth two, two valid preloads, an explicit debug call,
+//    one full push and an untouched peer; finish without a blocking statement
+//    or DUT-access claim. Expected: The queue retains 0x11 then 0x22.
+// 2. 1800.2-2020 18.8.5.2 (UVM-MEM-FIFO-AUDIT-FIFO-SET-FULL-IGNORED) gives
+//    rule 2 above. Setup: Use depth two, two valid preloads, an explicit debug
+//    call, one full push and an untouched peer; finish without a blocking
+//    statement or DUT-access claim. Expected: The third value is absent and
+//    occupancy remains two.
+// 3. 1800.2-2020 18.8.5.2 (UVM-MEM-FIFO-AUDIT-FIFO-SET-DEBUG) gives rule 3
+//    above. Setup: Use depth two, two valid preloads, an explicit debug call,
+//    one full push and an untouched peer; finish without a blocking statement
+//    or DUT-access claim. Expected: The explicit filename/line call retains
+//    its supplied second value.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit pinned-library initialization control, not an IEEE API duty.
 // Its result does not pass the separately retained constructor-only input.
 module test_pinned_fifo_build_control_set_preload_full_ignore;

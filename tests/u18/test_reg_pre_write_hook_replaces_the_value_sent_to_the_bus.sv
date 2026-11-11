@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_pre_write_hook_replaces_the_value_sent_to_the_bus.expected
 */
+// What it checks:
+// A register pre_write method can replace the value sent to the bus.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.8.1 (UVM-REG-PRE-WRITE-DATA) gives the rule above. Setup:
+// Change requested 22 hex to a6 hex before access. Expected: The bus and
+// mirrored register report a6 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The register pre-write hook changes the abstract value before physical
 // access. The changed value must reach the driver.
 

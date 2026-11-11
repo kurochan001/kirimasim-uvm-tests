@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_check_on_read_default_enable_argument_reports_mismatch_before_replacing_the_mirror.expected
 */
+// What it checks:
+// The default setter argument enables discrepancy checking.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.5.3 (UVM-MAP-CHECK-READ-DEFAULT-ENABLE-ARGUMENT) gives the
+// rule above. Setup: Call the setter without an argument, then read 5a against
+// mirror 11. Expected: An ERROR is reported and returned/mirror values become
+// 5a.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only bus storage, a delayed driver and explicit auto-prediction.
 // Count required discrepancy reports without prescribing report text or IDs.
 // Read-side effects are model prediction, not an RTL storage implementation.

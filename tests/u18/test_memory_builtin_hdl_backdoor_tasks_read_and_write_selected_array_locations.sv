@@ -16,6 +16,27 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_builtin_hdl_backdoor_tasks_read_and_write_selected_array_locations.expected
 */
+// What it checks:
+// 1. The built-in memory backdoor read uses HDL support to read the selected
+//    physical location.
+// 2. The default string-based memory backdoor write deposits the selected
+//    physical location.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.7.10 (UVM-MEMORY-AUDIT-PHYSICAL-READ) gives rule 1
+//    above. Setup: A memory extension is configured with an actual 16-bit
+//    four-location HDL array path; original public wrappers call the inherited
+//    base tasks with uvm_reg_item offsets one and two. Expected: The initial
+//    read returns cell one, then a read after the selected deposit returns the
+//    new physical value with success.
+// 2. 1800.2-2020 18.6.7.11 (UVM-MEMORY-AUDIT-PHYSICAL-WRITE) gives rule 2
+//    above. Setup: A memory extension is configured with an actual 16-bit
+//    four-location HDL array path; original public wrappers call the inherited
+//    base tasks with uvm_reg_item offsets one and two. Expected: The actual
+//    cell two changes to abcd with successful status and all other selected
+//    neighbors remain unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Real HDL storage. Run the independent VPI HDL condition as well.
 module test_memory_builtin_hdl_backdoor_tasks_read_and_write_selected_array_locations;
   import uvm_pkg::*;

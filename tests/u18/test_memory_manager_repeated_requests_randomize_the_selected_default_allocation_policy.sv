@@ -12,6 +12,34 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_repeated_requests_randomize_the_selected_default_allocation_policy.expected
 */
+// What it checks:
+// 1. An omitted request policy uses default_alloc; an explicit policy takes
+//    precedence without replacing the default.
+// 2. A legal original policy subtype can be selected through the standard
+//    allocation-policy base.
+// 3. Each selected default-policy request randomizes that policy again using
+//    the current request length and bounds.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.5.2 (UVM-MEMORY-MANAGER-DEFAULT-POLICY-SELECTION) gives
+//    rule 1 above. Setup: Install a default policy selecting eight and
+//    explicitly pass another selecting sixteen. Expected: Regions start at
+//    8/16, each policy randomizes once and the exact default handle is
+//    retained.
+// 2. 1800.2-2020 18.12.8.1 (UVM-MAM-AUDIT-POLICY-DECLARATION) gives rule 2
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: A legal original policy subtype can be
+//    selected through the standard allocation-policy base.
+// 3. 1800.2-2020 18.12.3 (UVM-MAM-AUDIT-DEFAULT-POLICY-RERANDOMIZE) gives rule
+//    3 above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: Each selected default-policy request
+//    randomizes that policy again using the current request length and bounds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_manager_repeated_requests_randomize_the_selected_default_allocation_policy;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

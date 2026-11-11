@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_reset_kinds_restore_both_model_values_without_touching_neighbors.expected
 */
+// What it checks:
+// 1. Reset with an undefined kind leaves desired and mirrored field values
+//    unchanged.
+// 2. A configured field reset restores both desired and mirrored values for
+//    its selected kind.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.5.5.4 (UVM-FIELD-UNKNOWN-RESET-PRESERVES-STATE) gives rule
+//    1 above. Setup: Use an unknown kind with divergent values or delete HARD
+//    before its default reset. Expected: Unknown reset preserves desired
+//    73/mirror 42; deleted HARD preserves equal values 42.
+// 2. 1800.2-2020 18.5.5.4 (UVM-FIELD-KIND-RESET-RESTORES-STATE) gives rule 2
+//    above. Setup: Apply SOFT then default HARD with independent neighboring
+//    fields. Expected: Both values become 29 for SOFT and 11 for HARD, without
+//    resetting neighbors or peers.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only field metadata and desired/mirrored state. No bus, RTL or DPI
 // is accessed, and policy controls do not establish physical side effects.
 module test_reg_field_reset_kinds_restore_both_model_values_without_touching_neighbors;

@@ -13,6 +13,18 @@
 :expected_exit: 0
 :expected_stdout: @test_field_explicit_second_map_read_uses_the_original_selected_provider.expected
 */
+// What it checks:
+// An explicit field access map selects its configured original provider.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.10 (UVM-FIELD-ACCESS-AUDIT-EXPLICIT-MAP-READ) gives the
+// rule above. Setup: Use the second of two valid mapped original frontdoors
+// with no callback redirection. Expected: Only the second provider performs
+// the successful selected transfer and preserves its chosen original payload.
+// It also supports, as a control, the setup or conditions of
+// UVM-FIELD-ACCESS-AUDIT-PRE-READ-MAP.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_explicit_second_map_read_uses_the_original_selected_provider;
   import uvm_pkg::*;

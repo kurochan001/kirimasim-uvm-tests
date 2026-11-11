@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_request_region_uses_a_singleton_allocation_policy.expected
 */
+// What it checks:
+// A region request honors a legal allocation-policy constraint.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.5.2 (UVM-MAM-REQUEST-SINGLETON-POLICY) gives the rule
+// above. Setup: Reserve locations 0..3 and constrain a four-location request
+// to start ten. Expected: Start ten, length four, policy length/bounds and two
+// active regions are reported.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The policy constrains the start to location 10, making the random allocation
 // deterministic at both seeds. The existing region occupies a disjoint range.
 

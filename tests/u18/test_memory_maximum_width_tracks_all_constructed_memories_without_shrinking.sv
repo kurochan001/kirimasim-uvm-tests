@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_maximum_width_tracks_all_constructed_memories_without_shrinking.expected
 */
+// What it checks:
+// The static memory maximum is the maximum location width in bits.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.4.10 (UVM-MEMORY-AUDIT-MAXIMUM-WIDTH) gives the rule above.
+// Setup: Capture the existing maximum before constructing widths 13, 57 and 9
+// with location counts 100, 1 and 200. Expected: After every construction the
+// maximum equals max(saved maximum, widths constructed so far); a later larger
+// location count does not shrink or replace the width maximum.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_maximum_width_tracks_all_constructed_memories_without_shrinking;
   import uvm_pkg::*;
   initial begin

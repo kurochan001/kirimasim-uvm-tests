@@ -12,6 +12,29 @@
 :expected_exit: 0
 :expected_stdout: @test_map_clone_and_update_accepts_rights_and_preserves_the_original_map_contract.expected
 */
+// What it checks:
+// 1. The map exposes the printed clone_and_update call accepting the selected
+//    rights strings.
+// 2. Cloning into a new instance does not replace the source map selected
+//    register rights or remove its source association.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.3.12 (UVM-REGISTER-CONTRACT-CLONE-PUBLIC-CALL) gives
+//    rule 1 above. Setup: An original source map contains a selected RW
+//    register. Invoke the printed clone_and_update method with RO, WO and RW
+//    strings as a statement, discarding its implicit return without assuming a
+//    map handle; inspect only the original map association and rights
+//    afterward. Expected: The map exposes the printed clone_and_update call
+//    accepting the selected rights strings.
+// 2. 1800.2-2020 18.2.3.12 (UVM-REGISTER-CONTRACT-CLONE-SOURCE-PRESERVATION)
+//    gives rule 2 above. Setup: An original source map contains a selected RW
+//    register. Invoke the printed clone_and_update method with RO, WO and RW
+//    strings as a statement, discarding its implicit return without assuming a
+//    map handle; inspect only the original map association and rights
+//    afterward. Expected: Cloning into a new instance does not replace the
+//    source map selected register rights or remove its source association.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // No return-handle assumption; new-map contents/rights remain separate duties.
 module test_map_clone_and_update_accepts_rights_and_preserves_the_original_map_contract;
   import uvm_pkg::*;

@@ -13,6 +13,36 @@
 :expected_stdout: @test_pinned_fifo_build_control_external_predictor_observation.expected
 :files: helpers63_initialized/fifo_initialized_fixture63.svh
 */
+// What it checks:
+// It is a control: it supports the setup or conditions of these duties, which
+// other tests check directly:
+// 1. With auto-prediction off, a returned FIFO write awaits bus observation
+//    before abstract prediction.
+// 2. A real bus predictor observation updates the FIFO abstract write state.
+// 3. The FIFO predict interface accepts the observed write through the
+//    standard predictor.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.8.5.3 (UVM-MEM-FIFO-AUDIT-FIFO-EXTERNAL-BEFORE) gives rule
+//    1 above. Setup: Use the original one-byte bus FIFO model and independent
+//    register control, explicit frontdoor/map and selected auto/external
+//    prediction. Preload update occurs before any blocking statement after
+//    set. Expected: The DUT model contains 0x35 while the abstract queue is
+//    still empty.
+// 2. 1800.2-2020 18.8.5.3 (UVM-MEM-FIFO-AUDIT-FIFO-EXTERNAL-AFTER) gives rule
+//    2 above. Setup: Use the original one-byte bus FIFO model and independent
+//    register control, explicit frontdoor/map and selected auto/external
+//    prediction. Preload update occurs before any blocking statement after
+//    set. Expected: One published successful observed write produces one
+//    abstract 0x35 without another bus transfer.
+// 3. 1800.2-2020 18.8.5.7 (UVM-MEM-FIFO-AUDIT-FIFO-EXTERNAL-PREDICT) gives
+//    rule 3 above. Setup: Use the original one-byte bus FIFO model and
+//    independent register control, explicit frontdoor/map and selected
+//    auto/external prediction. Preload update occurs before any blocking
+//    statement after set. Expected: The predictor bus_in route updates the
+//    selected queue rather than an original testbench mirror implementation.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Explicit pinned-library initialization control, not an IEEE API duty.
 // Its result does not pass the separately retained constructor-only input.
 module test_pinned_fifo_build_control_external_predictor_observation;

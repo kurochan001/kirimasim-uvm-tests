@@ -12,6 +12,18 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_frontdoor_read_propagates_memory_error_then_allows_retry.expected
 */
+// What it checks:
+// Virtual-register read uses the implementing memory locations for the
+// selected index.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.3.2 (UVM-VIRTUAL-REGISTER-FRONTDOOR-READ) gives the rule
+// above. Setup: Use explicit array indices, byte-split locations, selected
+// stride and a failed-read retry where listed. Expected: The selected element
+// data and location relationships hold; failure status precedes a fresh
+// successful read where tested.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A failed memory read makes the virtual register read fail. After restoring
 // successful responses, the same array element can be read. Failed-read data is
 // unconstrained.

@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_dynamic_implementation_moves_between_memories_in_the_same_block.expected
 */
+// What it checks:
+// Dynamic implementation can move and resize within its parent block.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.3 (UVM-VREG-IMPLEMENT-MOVE-SAME-BLOCK) gives the rule
+// above. Setup: Move two elements in one memory to three in another. Expected:
+// Move succeeds, exact new memory/size match, old storage is free and one new
+// region is active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The array moves to a different memory in its parent block. The old memory
 // range is then available for another reservation.
 

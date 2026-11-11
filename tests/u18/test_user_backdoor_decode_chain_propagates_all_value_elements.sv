@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_user_backdoor_decode_chain_propagates_all_value_elements.expected
 */
+// What it checks:
+// 1. Registered decoders execute in reverse registration order before
+//    post-read methods.
+// 2. Each decoder receives the result of the preceding invocation in reverse
+//    order.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.11.2.8 (UVM-REG-PIPELINE-DECODE-REVERSE-ORDER) gives rule
+//    1 above. Setup: Register the XOR callback first and the
+//    increment/decrement callback second. Expected: The trace places the
+//    second decoder before the first and both before all post callbacks/hooks.
+// 2. 1800.2-2020 18.11.2.8 (UVM-REG-PIPELINE-DECODE-BETWEEN-CALLBACKS) gives
+//    rule 2 above. Setup: Decode 0x0d/0x3b by subtracting one and then XORing
+//    by 0x1f. Expected: The XOR decoder receives 0x0c/0x3a and the final
+//    caller receives 0x13/0x25.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The standard requires callback transformations to reach the next callback
 // and the actual value path. Two noncommuting operations and two memory-value
 // elements distinguish order from value propagation. The library helpers

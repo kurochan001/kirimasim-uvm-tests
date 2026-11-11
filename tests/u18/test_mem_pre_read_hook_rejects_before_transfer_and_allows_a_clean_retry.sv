@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_pre_read_hook_rejects_before_transfer_and_allows_a_clean_retry.expected
 */
+// What it checks:
+// A non-OK status from memory pre_read aborts the operation before physical
+// access.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.9.3 (UVM-MEMORY-PRE-READ-ABORT) gives the rule above.
+// Setup: Reject one operation in the method, then disable rejection and retry.
+// Expected: The failed attempt makes no transfer and preserves storage; the
+// retry executes once and succeeds.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A user frontdoor supplies deterministic testbench storage. Hooks are the
 // subject; no RTL protocol, HDL DPI, adapter or passive predictor is involved.
 module test_mem_pre_read_hook_rejects_before_transfer_and_allows_a_clean_retry;

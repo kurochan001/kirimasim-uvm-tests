@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_pre_write_orders_field_and_register_methods_before_their_registered_callbacks.expected
 */
+// What it checks:
+// Virtual-field pre_write runs before the parent virtual-register hook, each
+// method preceding its callbacks.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.5.1 (UVM-VREG-PRE-WRITE-FIELD-REGISTER-CALLBACK-ORDER)
+// gives the rule above. Setup: Trace the field method/callback and register
+// method/callback in one write. Expected: The trace is FfRr.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Virtual-field pre-write work precedes virtual-register pre-write work. On
 // each object the inherited method precedes its registered callback.
 

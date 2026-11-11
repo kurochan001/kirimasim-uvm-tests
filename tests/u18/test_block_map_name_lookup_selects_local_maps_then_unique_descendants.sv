@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_block_map_name_lookup_selects_local_maps_then_unique_descendants.expected
 */
+// What it checks:
+// 1. The address map name query prefers a local match over a descendant.
+// 2. The address map name query finds unambiguous descendant matches.
+// 3. The address map name query returns null for missing, ancestor-only or
+//    independent-root names.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.3.13 (UVM-BLOCK-MAP-NAME-LOCAL-PRECEDENCE) gives rule 1
+//    above. Setup: Use the same simple name in the root and child. Expected:
+//    Root and child queries return their own exact handles.
+// 2. 1800.2-2020 18.1.3.13 (UVM-BLOCK-MAP-NAME-DESCENDANT-SEARCH) gives rule 2
+//    above. Setup: Search unique names below the local block. Expected: The
+//    expected descendant handles are returned exactly.
+// 3. 1800.2-2020 18.1.3.13 (UVM-BLOCK-MAP-NAME-MISSING-AND-OUTSIDE-SCOPE)
+//    gives rule 3 above. Setup: Query three out-of-scope or absent names.
+//    Expected: All three results are null.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned map-name query finds local maps but misses child-block maps.
 // Preserve the required recursive search even on the locked model.
 module test_block_map_name_lookup_selects_local_maps_then_unique_descendants;

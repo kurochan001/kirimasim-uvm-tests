@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_rejects_overlap_and_accepts_an_adjacent_region.expected
 */
+// What it checks:
+// Overlapping reservations fail while adjacent free memory remains reservable.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.5.1 (UVM-MAM-OVERLAP-AND-ADJACENCY) gives the rule above.
+// Setup: Use four-byte locations, reserve locations 4..5, then try starts five
+// and six. Expected: Overlap is rejected, adjacency succeeds and two regions
+// remain active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The first reservation occupies locations 4 and 5. A new region cannot start
 // at 5, but location 6 is adjacent and available.
 

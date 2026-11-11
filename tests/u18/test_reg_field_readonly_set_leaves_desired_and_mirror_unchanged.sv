@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_readonly_set_leaves_desired_and_mirror_unchanged.expected
 */
+// What it checks:
+// Readonly policy prevents set from changing desired state.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.2 (UVM-FIELD-READONLY-SET-PRESERVES-STATE) gives the rule
+// above. Setup: Reset an RO field to 35 and set a6 hex. Expected: Desired and
+// mirror both remain 35 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The reset supplies a defined initial state. Set is a model operation.
 
 module test_reg_field_readonly_set_leaves_desired_and_mirror_unchanged;

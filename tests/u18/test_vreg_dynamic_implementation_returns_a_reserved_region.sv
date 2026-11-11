@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_dynamic_implementation_returns_a_reserved_region.expected
 */
+// What it checks:
+// Successful dynamic implementation exposes its reserved region descriptor.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.3 (UVM-VREG-IMPLEMENT-REGION-DESCRIPTOR) gives the rule
+// above. Setup: Implement two two-location elements at offset two. Expected:
+// Exact memory/size agree and the active region spans 2..5 with length four.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A dynamic array reserves the memory locations required by its two packed
 // 16-bit elements. Geometry queries do not require bus activity.
 

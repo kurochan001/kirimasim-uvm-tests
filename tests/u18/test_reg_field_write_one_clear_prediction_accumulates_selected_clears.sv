@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_write_one_clear_prediction_accumulates_selected_clears.expected
 */
+// What it checks:
+// W1C write prediction cumulatively clears selected one bits.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-FIELD-W1C-PREDICTION-ACCUMULATION) gives the rule
+// above. Setup: Starting f3, predict writes 33 and 80 hex. Expected: Both
+// predictions succeed with desired/mirror c0 then 40 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Each one bit in the write value clears the corresponding mirrored bit.
 // The input represents an observation, not a physical bus operation.
 

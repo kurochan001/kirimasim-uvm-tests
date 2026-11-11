@@ -12,6 +12,22 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_registered_pre_write_callback_changes_offset_and_follows_the_method_value_change.expected
 */
+// What it checks:
+// 1. A memory pre_write method can modify the value used by the later write.
+// 2. A memory pre_write callback runs after its method and can redirect the
+//    write offset.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.9.1 (UVM-MEMORY-PRE-WRITE-VALUE) gives rule 1 above.
+//    Setup: Add to the value in the method and apply a noncommuting XOR in a
+//    registered callback. Expected: The frontdoor sees the composed value 3e
+//    instead of the caller value 21.
+// 2. 1800.2-2020 18.11.2.2 (UVM-MEMORY-PRE-WRITE-CALLBACK-OFFSET) gives rule 2
+//    above. Setup: Change offset two to five in the callback after the method
+//    value transform. Expected: The trace is method/callback/frontdoor and
+//    only the redirected location is written.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A user frontdoor supplies deterministic testbench storage. Hooks are the
 // subject; no RTL protocol, HDL DPI, adapter or passive predictor is involved.
 module test_mem_registered_pre_write_callback_changes_offset_and_follows_the_method_value_change;

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_static_implementation_cannot_be_released_dynamically.expected
 */
+// What it checks:
+// A static virtual implementation cannot be dynamically released.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.6 (UVM-VREG-STATIC-RELEASE-PRESERVES-IMPLEMENTATION)
+// gives the rule above. Setup: Call release_region on a configured static
+// array. Expected: Exact memory/region remain and one region stays active.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A static array retains its memory and reserved region when dynamic release is
 // attempted. No diagnostic severity is prescribed by this case.
 

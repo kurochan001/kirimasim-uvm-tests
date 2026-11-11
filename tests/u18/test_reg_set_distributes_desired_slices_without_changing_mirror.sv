@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_set_distributes_desired_slices_without_changing_mirror.expected
 */
+// What it checks:
+// Register set distributes desired bit slices without changing the mirror.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.2 (UVM-REG-SET-FIELD-SLICES-RETAIN-MIRROR) gives the rule
+// above. Setup: Set abcd on two eight-bit fields after reset 1234 hex.
+// Expected: Low/high are cd/ab, desired is abcd and mirror stays 1234 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Observe both fields and the aggregate value after a model-only set.
 
 module test_reg_set_distributes_desired_slices_without_changing_mirror;

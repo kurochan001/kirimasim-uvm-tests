@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_block_reset_recurses_into_child_registers.expected
 */
+// What it checks:
+// Block reset recursively resets child register desired and mirrored values.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.5.3 (UVM-REG-BLOCK-RECURSIVE-RESET) gives the rule above.
+// Setup: Dirty root and child fields, then reset the root block. Expected:
+// Reset values 12/34 hex return in both views and neither register needs
+// update.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The root contains one register and one configured child containing another.
 // Observe recursive dirty state before reset and both values afterwards.
 

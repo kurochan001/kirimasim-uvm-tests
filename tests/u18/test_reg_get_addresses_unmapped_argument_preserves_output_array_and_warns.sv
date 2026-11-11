@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_get_addresses_unmapped_argument_preserves_output_array_and_warns.expected
 */
+// What it checks:
+// Querying register addresses with an unrelated map warns, returns minus one
+// and preserves the output array.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.3.15 (UVM-REGISTER-UNMAPPED-ADDRESSES) gives the rule
+// above. Setup: Supply an unrelated map and a sentinel output address array.
+// Expected: The sentinel cafe and array size one survive and the
+// warning/rejection are observed.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The register is mapped only in the first map. Pass the other map
 // explicitly and retain a sentinel in the output array.
 

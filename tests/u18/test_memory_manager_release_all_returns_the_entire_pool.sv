@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_manager_release_all_returns_the_entire_pool.expected
 */
+// What it checks:
+// Releasing all regions returns the whole managed range to the free pool.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.5.4 (UVM-MAM-RELEASE-ALL-REUSE) gives the rule above.
+// Setup: Reserve two disjoint ranges, release all and reserve all thirty-two
+// locations. Expected: Iteration is initially empty after release; the
+// full-range reservation succeeds alone.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Forcibly releasing standalone regions empties the iterator and makes the full
 // managed range available.
 

@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_check_on_read_enabled_matching_read_does_not_report_a_discrepancy.expected
 */
+// What it checks:
+// An enabled comparison does not report a discrepancy for matching data.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.5.3 (UVM-MAP-CHECK-READ-MATCH-SILENT) gives the rule above.
+// Setup: Enable checking and read the unchanged reset value 11. Expected: The
+// read is silent with return/mirror 11 and one bus read.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Model-only bus storage, a delayed driver and explicit auto-prediction.
 // Count required discrepancy reports without prescribing report text or IDs.
 // Read-side effects are model prediction, not an RTL storage implementation.

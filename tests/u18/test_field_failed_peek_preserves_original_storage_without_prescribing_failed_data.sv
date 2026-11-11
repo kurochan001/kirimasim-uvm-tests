@@ -13,6 +13,17 @@
 :expected_exit: 0
 :expected_stdout: @test_field_failed_peek_preserves_original_storage_without_prescribing_failed_data.expected
 */
+// What it checks:
+// An original backdoor sample failure is returned by field peek.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.12 (UVM-FIELD-ACCESS-AUDIT-FAILED-PEEK-STATUS) gives the
+// rule above. Setup: Use a configured sixteen-bit register, middle field at
+// LSB four, original backdoor storage B75D and optional distinct extension;
+// access policy is selected explicitly. Expected: It returns NOT_OK, preserves
+// B75D and performs no write without constraining failed data.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original access-provider storage is distinct from physical HDL evidence.
 module test_field_failed_peek_preserves_original_storage_without_prescribing_failed_data;
   import uvm_pkg::*;

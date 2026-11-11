@@ -13,6 +13,30 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_hdl_full_cartesian_custom_standard_view79.expected
 */
+// What it checks:
+// 1. Full register paths include every applicable ancestor and register
+//    implementation alternative.
+// 2. A supplied separator joins the components of each full register HDL path.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.6.9 (UVM-REG-HDL-FULL-PATH-CARTESIAN) gives rule 1
+//    above. Setup: Original 16-bit register/block models, legal most-to-least
+//    nonoverlapping slices, named abstractions, isolated peers and fresh query
+//    queues. Standard-view inputs use get_slices; separately declared controls
+//    project the pinned library public slices member, an explicitly
+//    nonstandard observability premise. No HDL storage is accessed. Expected:
+//    Two root, two child and two register alternatives produce all eight
+//    distinct concatenations with their slice coordinates.
+// 2. 1800.2-2020 18.4.6.9 (UVM-REG-HDL-FULL-PATH-EXPLICIT-SEPARATOR) gives
+//    rule 2 above. Setup: Original 16-bit register/block models, legal
+//    most-to-least nonoverlapping slices, named abstractions, isolated peers
+//    and fresh query queues. Standard-view inputs use get_slices; separately
+//    declared controls project the pinned library public slices member, an
+//    explicitly nonstandard observability premise. No HDL storage is accessed.
+//    Expected: All eight concatenations use the supplied slash separator while
+//    retaining slice coordinates.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Standard public API observations; independent expectations precede runs.
 // Symbolic metadata only; no physical HDL access or DPI calls.
 module test_reg_hdl_full_cartesian_custom_standard_view79;

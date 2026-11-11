@@ -14,6 +14,21 @@
 :expected_exit: 0
 :expected_stdout: @test_mam_broad_explicit_interior_low_89.expected
 */
+// What it checks:
+// BROAD permits a valid explicit allocation policy to choose a nonadjacent
+// interior location.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.2.2 (UVM-MAM-BROAD-INTERIOR-POLICY-89) gives the rule
+// above. Setup: Eight fresh managers per source use32 one-byte locations.
+// NEARBY has one/two live4-location regions and available adjacent4-location
+// candidates. BROAD has live edge regions and an original explicit policy
+// constraining one of two nonadjacent interior starts. Actual
+// descriptors,range,width,nonoverlap,held endpoints/membership and cleanup are
+// observed. Expected: The selected adjacency/interior predicate and all
+// independent validity/preservation/cleanup controls match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_mam_broad_explicit_interior_low_89;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

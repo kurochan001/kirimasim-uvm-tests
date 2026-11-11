@@ -12,6 +12,35 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_frontdoor_selection_is_per_map_and_debug_metadata_preserves_real_access.expected
 */
+// What it checks:
+// 1. The selected map query returns its configured custom frontdoor, or null
+//    before one is supplied.
+// 2. The memory frontdoor setter selects the corresponding map-specific access
+//    mechanism.
+// 3. Frontdoor setter debug filename/line have no functional effect.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.6.1 (UVM-MEMORY-AUDIT-FRONTDOOR-GET) gives rule 1 above.
+//    Setup: One memory belongs to two explicit maps with separate original
+//    custom frontdoors/sequencer. The same location receives different values
+//    through the two maps and the second setter is repeated with
+//    empty/nonempty debug arguments. Expected: Both initial getters are null,
+//    then each returns its own exact handle.
+// 2. 1800.2-2020 18.6.6.2 (UVM-MEMORY-AUDIT-FRONTDOOR-SET) gives rule 2 above.
+//    Setup: One memory belongs to two explicit maps with separate original
+//    custom frontdoors/sequencer. The same location receives different values
+//    through the two maps and the second setter is repeated with
+//    empty/nonempty debug arguments. Expected: Reads recover 5611 and 5622
+//    independently at location one through the corresponding selected
+//    frontdoor.
+// 3. 1800.2-2020 18.6.6.2 (UVM-MEMORY-AUDIT-FRONTDOOR-DEBUG) gives rule 3
+//    above. Setup: One memory belongs to two explicit maps with separate
+//    original custom frontdoors/sequencer. The same location receives
+//    different values through the two maps and the second setter is repeated
+//    with empty/nonempty debug arguments. Expected: Both debug variants
+//    preserve getters, successful access and isolated values.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_frontdoor_selection_is_per_map_and_debug_metadata_preserves_real_access;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

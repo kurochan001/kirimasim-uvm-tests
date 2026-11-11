@@ -12,6 +12,23 @@
 :expected_exit: 0
 :expected_stdout: @test_mem_post_write_callback_precedes_final_status_hook_without_rewriting_storage.expected
 */
+// What it checks:
+// 1. The memory post_write method follows registered callbacks and determines
+//    the final returned status.
+// 2. Changing value or offset in a memory post_write callback does not alter
+//    the already completed transfer.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.6.9.2 (UVM-MEMORY-POST-WRITE-STATUS) gives rule 1 above.
+//    Setup: The callback sets NOT_OK after the write and the method observes
+//    it and changes it to HAS_X. Expected: The trace is
+//    frontdoor/callback/method and HAS_X reaches the caller.
+// 2. 1800.2-2020 18.11.2.3 (UVM-MEMORY-POST-WRITE-NO-RETRANSFER) gives rule 2
+//    above. Setup: After writing location two, mutate the descriptor to
+//    another value/offset. Expected: There is one transfer; location two
+//    retains 21 and the other location retains 66.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The pinned library reverses this memory post-write callback/method order.
 // A user frontdoor supplies deterministic testbench storage. Hooks are the
 // subject; no RTL protocol, HDL DPI, adapter or passive predictor is involved.

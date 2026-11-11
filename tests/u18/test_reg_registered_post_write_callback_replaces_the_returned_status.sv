@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_registered_post_write_callback_replaces_the_returned_status.expected
 */
+// What it checks:
+// A registered post_write callback can change the returned status after bus
+// completion.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.3 (UVM-REG-POST-WRITE-CALLBACK-STATUS) gives the rule
+// above. Setup: Store a6 hex and then assign NOT_OK. Expected: One callback
+// produces failure while the modeled stored value remains a6 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The physical write succeeds, then the registered post-write callback changes
 // the status returned to the caller.
 

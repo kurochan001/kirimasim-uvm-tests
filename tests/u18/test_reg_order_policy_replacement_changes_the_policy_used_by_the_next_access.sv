@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_order_policy_replacement_changes_the_policy_used_by_the_next_access.expected
 */
+// What it checks:
+// A policy replacement governs the next access without reusing the old hook.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.5.5 (UVM-MAP-ORDER-POLICY-REPLACEMENT-DISPATCH) gives the
+// rule above. Setup: Replace descending first with ascending second between
+// two writes. Expected: Both policies are dispatched for their respective
+// accesses; the bus order changes and the first counter no longer advances.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Reorder complete bus-operation structs for one 32-bit register on an
 // 8-bit bus. The driver stores bytes by address after a positive delay.
 // No partial-width, burst-memory, concurrency or HDL/DPI semantics are claimed.

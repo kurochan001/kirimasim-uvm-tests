@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_block_set_lock_changes_all_descendants_and_preserves_an_independent_root.expected
 */
+// What it checks:
+// set_lock propagates the supplied mode to the block and every descendant
+// without changing an independent root.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.1.2.8 (UVM-BLOCK-SET-LOCK-BOTH-VALUES) gives the rule above.
+// Setup: Set a three-level hierarchy to one and then zero while a peer remains
+// locked. Expected: All three hierarchy flags follow both values; the peer
+// stays one.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_set_lock_changes_all_descendants_and_preserves_an_independent_root;
   import uvm_pkg::*;
   `include "uvm_macros.svh"

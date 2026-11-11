@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_update_clean_model_issues_no_bus_request.expected
 */
+// What it checks:
+// An already clean register needs no bus write for update.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.4.13 (UVM-REG-UPDATE-CLEAN-NO-BUS-REQUEST) gives the rule
+// above. Setup: Call frontdoor update immediately after reset. Expected: The
+// model remains clean, no bus request occurs and mirror remains 11 hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Reset leaves desired and mirrored state equal. Updating this clean register
 // needs no physical transfer.
 

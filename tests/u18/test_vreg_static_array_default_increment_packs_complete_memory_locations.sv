@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_static_array_default_increment_packs_complete_memory_locations.expected
 */
+// What it checks:
+// A zero static increment selects closest packing in whole memory locations.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.1.2 (UVM-VREG-STATIC-DEFAULT-PACKING) gives the rule
+// above. Setup: Configure three 16-bit elements over eight-bit memory at
+// offset two. Expected: Two locations per element give increment two and
+// offsets 2/4/6.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A 16-bit virtual register needs two byte-wide memory locations. Zero
 // increment selects the closest nonoverlapping packing.
 

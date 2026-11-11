@@ -12,6 +12,25 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_map_big_endian_wide_register_lists_addresses_in_data_order.expected
 */
+// What it checks:
+// Physical-address translation returns addresses in least-significant-data
+// order with the transfer width.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.2.4.16 (UVM-MAP-DATA-ORDER-PHYSICAL-ADDRESSES) gives the rule
+// above. Setup: Use a wide big-endian register and a word-addressed register.
+// Also call the map translator directly in empty/populated flat normal maps,
+// two opposite hierarchical-width shapes and flat FIFO maps; reuse an
+// initially nonempty dynamic result array across changing query lengths.
+// Expected: The big-endian address list descends by two; word addressing
+// advances one unit per four-byte transfer. Full integral accesses return the
+// effective transfer width and the exact least-significant-data-first address
+// list in the declared address units. Normal maps advance by the transfer
+// width in those units; FIFO beats repeat one address. Each call supplies only
+// its current list, and repeating the original query restores that list.
+// Partial probes constrain the list, not the ambiguous returned partial width.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A six-byte register spans three two-byte transfers. The returned array
 // is ordered by data significance, rather than sorted numerically.
 

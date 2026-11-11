@@ -13,6 +13,25 @@
 :expected_exit: 0
 :expected_stdout: @test_ro_callback_direct_hook_reports_error_and_sets_not_ok.expected
 */
+// What it checks:
+// 1. The predefined rejection hook issues an error.
+// 2. The predefined rejection hook sets UVM_NOT_OK.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.11.4.2.1 (UVM-PROTECTION-AUDIT-RO-HOOK-ERROR) gives rule 1
+//    above. Setup: The predefined hook reports an ERROR and changes the
+//    operation status. Fresh original sixteen-bit RW models, two contained
+//    byte fields and independent frontdoor/backdoor storage; exact message
+//    text/count and physical HDL are not prescribed. Expected: At least one
+//    ERROR is captured for the direct rejecting hook invocation.
+// 2. 1800.2-2020 18.11.4.2.1 (UVM-PROTECTION-AUDIT-RO-HOOK-STATUS) gives rule
+//    2 above. Setup: The predefined hook reports an ERROR and changes the
+//    operation status. Fresh original sixteen-bit RW models, two contained
+//    byte fields and independent frontdoor/backdoor storage; exact message
+//    text/count and physical HDL are not prescribed. Expected: The item status
+//    changes from UVM_IS_OK to UVM_NOT_OK.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Original providers and selected callback contracts; no physical HDL.
 module test_ro_callback_direct_hook_reports_error_and_sets_not_ok;
   import uvm_pkg::*;

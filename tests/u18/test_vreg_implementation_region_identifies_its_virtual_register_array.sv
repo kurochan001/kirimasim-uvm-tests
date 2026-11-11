@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_implementation_region_identifies_its_virtual_register_array.expected
 */
+// What it checks:
+// A virtual implementation region identifies its owning array and memory.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.12.7.2.7 (UVM-MAM-REGION-VIRTUAL-OWNER) gives the rule above.
+// Setup: Implement a virtual-register array and query its region. Expected:
+// Owner and memory are the exact configured handles.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // The region descriptor for an implemented virtual array reports the array
 // handle and the underlying memory.
 

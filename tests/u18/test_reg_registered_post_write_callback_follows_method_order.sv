@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_registered_post_write_callback_follows_method_order.expected
 */
+// What it checks:
+// Registered post_write callbacks precede the containing register post_write
+// method.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.11.2.3 (UVM-REG-POST-WRITE-CALLBACK-BEFORE-METHOD) gives the
+// rule above. Setup: Record callback C and method R during one write.
+// Expected: The trace is CR.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // On the same register, the inherited pre hook precedes registered callbacks;
 // registered post callbacks precede the inherited post hook. Field-hook order
 // is outside this case.

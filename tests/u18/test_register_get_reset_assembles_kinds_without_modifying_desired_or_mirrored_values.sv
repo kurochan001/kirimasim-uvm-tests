@@ -12,6 +12,47 @@
 :expected_exit: 0
 :expected_stdout: @test_register_get_reset_assembles_kinds_without_modifying_desired_or_mirrored_values.expected
 */
+// What it checks:
+// 1. get_reset assembles the selected low and high field reset values into the
+//    register value.
+// 2. Omitting get_reset kind selects the same HARD value as the explicit HARD
+//    call.
+// 3. get_reset selects the independently configured SOFT value without
+//    changing HARD.
+// 4. Selected reset queries preserve distinct desired/mirrored values and peer
+//    reset configuration.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.4.6 (UVM-REGISTER-CONTRACT-RESET-GET-ASSEMBLY) gives
+//    rule 1 above. Setup: Two original full-width 16-bit RW register models
+//    have two eight-bit fields each. Selected HARD/SOFT definitions, model
+//    predictions and desired values are set explicitly; the any-field case
+//    deliberately omits one HARD field reset. No physical access is performed
+//    by these metadata fixtures. Expected: get_reset assembles the selected
+//    low and high field reset values into the register value.
+// 2. 1800.2-2020 18.4.4.6 (UVM-REGISTER-CONTRACT-RESET-GET-DEFAULT-HARD) gives
+//    rule 2 above. Setup: Two original full-width 16-bit RW register models
+//    have two eight-bit fields each. Selected HARD/SOFT definitions, model
+//    predictions and desired values are set explicitly; the any-field case
+//    deliberately omits one HARD field reset. No physical access is performed
+//    by these metadata fixtures. Expected: Omitting get_reset kind selects the
+//    same HARD value as the explicit HARD call.
+// 3. 1800.2-2020 18.4.4.6 (UVM-REGISTER-CONTRACT-RESET-GET-KIND) gives rule 3
+//    above. Setup: Two original full-width 16-bit RW register models have two
+//    eight-bit fields each. Selected HARD/SOFT definitions, model predictions
+//    and desired values are set explicitly; the any-field case deliberately
+//    omits one HARD field reset. No physical access is performed by these
+//    metadata fixtures. Expected: get_reset selects the independently
+//    configured SOFT value without changing HARD.
+// 4. 1800.2-2020 18.4.4.6 (UVM-REGISTER-CONTRACT-RESET-GET-MODEL-ISOLATION)
+//    gives rule 4 above. Setup: Two original full-width 16-bit RW register
+//    models have two eight-bit fields each. Selected HARD/SOFT definitions,
+//    model predictions and desired values are set explicitly; the any-field
+//    case deliberately omits one HARD field reset. No physical access is
+//    performed by these metadata fixtures. Expected: Selected reset queries
+//    preserve distinct desired/mirrored values and peer reset configuration.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_register_get_reset_assembles_kinds_without_modifying_desired_or_mirrored_values;
   import uvm_pkg::*;
   class block_type extends uvm_reg_block;

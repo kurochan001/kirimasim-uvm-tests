@@ -13,6 +13,17 @@
 :expected_stdout: @test_vreg_query_address_omitted_shared_uses_parent_default.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// An omitted address map uses the shared memory parent default map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.2.15
+// (UVM-VREG-QUERY-ADDRESS-OMITTED-SHARED-USES-PARENT-DEFAULT) gives the rule
+// above. Setup: Use the WO byte-addressed default with base 0x3000, memory
+// offset 0x20 and element word offset 19. Expected: The stated identity,
+// count, policy, offset or diagnostic-presence observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_address_omitted_shared_uses_parent_default;

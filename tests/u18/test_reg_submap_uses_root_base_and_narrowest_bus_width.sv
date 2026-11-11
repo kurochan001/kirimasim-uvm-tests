@@ -12,6 +12,33 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_submap_uses_root_base_and_narrowest_bus_width.expected
 */
+// What it checks:
+// 1. A child map get_root_map returns the externally visible top-level map.
+// 2. A child map get_parent_map returns the map containing it.
+// 3. A child map base includes the parent base and the child map offset.
+// 4. A hierarchical map effective bus width is the narrowest width on the path
+//    to the root.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.2.4.1 (UVM-MAP-ROOT-HANDLE) gives rule 1 above. Setup:
+//    Nest one child map beneath a root map. Expected: The returned handle
+//    equals the root.
+// 2. 1800.2-2020 18.2.4.3 (UVM-MAP-PARENT-HANDLE) gives rule 2 above. Setup:
+//    Nest one child map beneath a root map. Expected: The returned parent
+//    handle equals the root map.
+// 3. 1800.2-2020 18.2.4.4 (UVM-MAP-HIERARCHICAL-BASE) gives rule 3 above.
+//    Setup: Query a nonzero root base and relocate a child offset in another
+//    fixture. Expected: The base includes both offsets and tracks relocation.
+// 4. 1800.2-2020 18.2.4.5 (UVM-MAP-NARROWEST-EFFECTIVE-WIDTH) gives rule 4
+//    above. Setup: Expose a four-byte child through a two-byte root.
+//    Additionally inspect direct map queries for both child4/root2 and
+//    child2/root4 with empty and populated byte-addressed little-endian
+//    models. Expected: The child local width is four, effective width two, and
+//    a four-byte register requires two transfers. Both hierarchy directions
+//    report an effective width of two while preserving the configured local
+//    width; each integral direct translation uses two valid bytes per access.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // A four-byte child bus is exposed through a two-byte root bus. The child
 // register therefore needs two physical addresses in the external map.
 // Check effective width and the returned byte count independently of addresses.

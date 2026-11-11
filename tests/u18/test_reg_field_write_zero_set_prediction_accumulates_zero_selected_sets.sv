@@ -12,6 +12,15 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_field_write_zero_set_prediction_accumulates_zero_selected_sets.expected
 */
+// What it checks:
+// Write prediction for W0S sets selected zero bits and retains prior one bits.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.5.5.17 (UVM-REG-FIELD-W0S-PREDICTION) gives the rule above.
+// Setup: Start at 0c hex and predict writes cc then 7f hex. Expected: Desired
+// and mirrored values are 3f hex then bf hex.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Selected zero bits set the mirror while one bits leave it unchanged.
 // The input represents an observation, not a physical bus operation.
 

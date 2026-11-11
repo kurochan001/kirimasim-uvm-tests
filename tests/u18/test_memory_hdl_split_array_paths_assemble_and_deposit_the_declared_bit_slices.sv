@@ -16,6 +16,18 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_hdl_split_array_paths_assemble_and_deposit_the_declared_bit_slices.expected
 */
+// What it checks:
+// Memory HDL backdoor reads assemble and writes distribute the specified
+// physical slices.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.6.7.10 (UVM-MEMORY-AUDIT-PHYSICAL-SPLIT-SLICES) gives the
+// rule above. Setup: A 24-bit memory uses separate actual 8-bit low and 16-bit
+// high arrays with explicit bit coordinates and the same location index.
+// Expected: Read assembles ab0111; write cd2356 deposits cd23 and 56 into the
+// selected bank cells with success and leaves neighboring cells unchanged.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Actual two-bank array storage, not a path/value mock.
 module test_memory_hdl_split_array_paths_assemble_and_deposit_the_declared_bit_slices;
   import uvm_pkg::*;

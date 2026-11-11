@@ -13,6 +13,16 @@
 :expected_stdout: @test_vreg_query_field_parent_configured_value.expected
 :files: helpers70/vreg_query_fixture70.svh
 */
+// What it checks:
+// The field parent getter identifies its configured virtual register.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.10.3.1 (UVM-VREG-QUERY-FIELD-PARENT-CONFIGURED-VALUE) gives
+// the rule above. Setup: Configure an 11-bit field at bit 17 in a 40-bit
+// virtual register and retain a distinct peer. Expected: The stated identity,
+// count, policy, offset or diagnostic-presence observations match.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Independently derived model observations; original testbench setup.
 module
   test_vreg_query_field_parent_configured_value;

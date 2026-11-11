@@ -12,6 +12,16 @@
 :expected_exit: 0
 :expected_stdout: @test_reg_set_offset_reindexes_locked_map_lookup.expected
 */
+// What it checks:
+// Register set_offset moves its placement in the selected map and updates
+// locked lookup.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.2.3 (UVM-REGISTER-OFFSET-RELOCATION) gives the rule above.
+// Setup: Move a locked register from offset 10 to 30. Expected: The old lookup
+// is empty, the new lookup returns the register and the address is 30.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Keep the root base at zero to make local and external lookup addresses
 // agree. Observe disappearance of the old mapping and the new register handle.
 

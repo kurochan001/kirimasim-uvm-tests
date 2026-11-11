@@ -12,6 +12,20 @@
 :expected_exit: 0
 :expected_stdout: @test_register_local_map_null_uses_parent_default_even_with_one_registered_map.expected
 */
+// What it checks:
+// The printed null rule returns the parent block default even when the
+// register has only one distinct registered map.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.4.3.6 (UVM-REGISTER-CONTRACT-LOCAL-MAP-SINGLE-DEFAULT) gives
+// the rule above. Setup: Use the selected original register/block/file models
+// and explicit public calls. Constructor-only observations do not require
+// mapped physical hardware. Membership is queried through the register view
+// after selected legal registrations/removals; output queues start empty.
+// Expected: The printed null rule returns the parent block default even when
+// the register has only one distinct registered map.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Preserve the literal null/default rule, distinct from sole-member selection.
 module test_register_local_map_null_uses_parent_default_even_with_one_registered_map;
   import uvm_pkg::*;

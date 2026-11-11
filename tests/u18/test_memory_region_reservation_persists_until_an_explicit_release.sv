@@ -12,6 +12,24 @@
 :expected_exit: 0
 :expected_stdout: @test_memory_region_reservation_persists_until_an_explicit_release.expected
 */
+// What it checks:
+// 1. Explicit release makes a reserved range available to a later reservation.
+// 2. A reserved range remains unavailable to overlapping reservations until
+//    explicit release.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.12.5.3 (UVM-MAM-EXPLICIT-RELEASE-REUSE) gives rule 1
+//    above. Setup: Reserve four locations at six, release and reserve the same
+//    range. Expected: The range is available again and exactly one region
+//    remains active.
+// 2. 1800.2-2020 18.12 (UVM-MAM-AUDIT-RESERVATION-LIFETIME) gives rule 2
+//    above. Setup: Use the linked original fixtures and the explicit sizes,
+//    location offsets, handles and observations they declare. Allocation
+//    inputs are configured explicitly rather than relying on unspecified
+//    initial defaults. Expected: A reserved range remains unavailable to
+//    overlapping reservations until explicit release.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_memory_region_reservation_persists_until_an_explicit_release;
   import uvm_pkg::*;
   function automatic uvm_mem_mam_cfg make_cfg(int bytes_per_location=4,

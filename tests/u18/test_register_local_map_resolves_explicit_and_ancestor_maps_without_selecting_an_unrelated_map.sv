@@ -12,6 +12,44 @@
 :expected_exit: 0
 :expected_stdout: @test_register_local_map_resolves_explicit_and_ancestor_maps_without_selecting_an_unrelated_map.expected
 */
+// What it checks:
+// 1. A get_local_map argument already in get_maps is returned unchanged.
+// 2. An ancestor map argument resolves to the selected contained local map.
+// 3. An unrelated map with no selected local association resolves to null.
+// 4. A null get_local_map argument selects the parent block default among
+//    multiple registered maps.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.4.3.6 (UVM-REGISTER-CONTRACT-LOCAL-MAP-EXPLICIT) gives
+//    rule 1 above. Setup: Use the selected original register/block/file models
+//    and explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: A get_local_map argument already in get_maps is returned
+//    unchanged.
+// 2. 1800.2-2020 18.4.3.6 (UVM-REGISTER-CONTRACT-LOCAL-MAP-ANCESTOR) gives
+//    rule 2 above. Setup: Use the selected original register/block/file models
+//    and explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: An ancestor map argument resolves to the selected contained
+//    local map.
+// 3. 1800.2-2020 18.4.3.6 (UVM-REGISTER-CONTRACT-LOCAL-MAP-NONE) gives rule 3
+//    above. Setup: Use the selected original register/block/file models and
+//    explicit public calls. Constructor-only observations do not require
+//    mapped physical hardware. Membership is queried through the register view
+//    after selected legal registrations/removals; output queues start empty.
+//    Expected: An unrelated map with no selected local association resolves to
+//    null.
+// 4. 1800.2-2020 18.4.3.6 (UVM-REGISTER-CONTRACT-LOCAL-MAP-MAPPED-DEFAULT)
+//    gives rule 4 above. Setup: Use the selected original register/block/file
+//    models and explicit public calls. Constructor-only observations do not
+//    require mapped physical hardware. Membership is queried through the
+//    register view after selected legal registrations/removals; output queues
+//    start empty. Expected: A null get_local_map argument selects the parent
+//    block default among multiple registered maps.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module
   test_register_local_map_resolves_explicit_and_ancestor_maps_without_selecting_an_unrelated_map;
   import uvm_pkg::*;

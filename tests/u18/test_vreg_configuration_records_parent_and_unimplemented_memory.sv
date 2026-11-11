@@ -12,6 +12,17 @@
 :expected_exit: 0
 :expected_stdout: @test_vreg_configuration_records_parent_and_unimplemented_memory.expected
 */
+// What it checks:
+// Configuration records the virtual register parent before memory
+// implementation.
+//
+// How the expected output follows from the standard:
+// 1800.2-2020 18.9.1.2.1 (UVM-VREG-UNIMPLEMENTED-PARENT-METADATA) gives the
+// rule above. Setup: Configure only the parent block of a named virtual
+// register. Expected: Parent is the exact block, memory is null and the name
+// is vr.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 // Configuring only a parent leaves the virtual array unimplemented. No query
 // requiring a memory allocation is made.
 

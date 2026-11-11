@@ -12,6 +12,27 @@
 :expected_exit: 0
 :expected_stdout: @test_block_unregister_removes_one_maps_registers_and_memories_and_preserves_another_map.expected
 */
+// What it checks:
+// 1. Block unregister removes its knowledge of the specified map while
+//    preserving another map.
+// 2. Block unregister removes registers contained in the removed map from
+//    block introspection.
+// 3. Block unregister removes memories contained in the removed map from block
+//    introspection.
+//
+// How the expected output follows from the standard:
+// 1. 1800.2-2020 18.1.2.11 (UVM-BLOCK-UNREGISTER-MAP-MEMBERSHIP) gives rule 1
+//    above. Setup: Unregister one of two disjoint local maps. Expected: Block
+//    get_maps contains only the exact kept map.
+// 2. 1800.2-2020 18.1.2.11 (UVM-BLOCK-UNREGISTER-REGISTER-MEMBERSHIP) gives
+//    rule 2 above. Setup: Place one register in each disjoint map, then
+//    unregister one map. Expected: Only the exact kept register remains in the
+//    local listing.
+// 3. 1800.2-2020 18.1.2.11 (UVM-BLOCK-UNREGISTER-MEMORY-MEMBERSHIP) gives rule
+//    3 above. Setup: Place one memory in each disjoint map and unregister one.
+//    Expected: Only the exact kept memory remains in the local listing.
+// These expectations come from the cited clauses, not from the output of a
+// simulator.
 module test_block_unregister_removes_one_maps_registers_and_memories_and_preserves_another_map;
   import uvm_pkg::*;
   `include "uvm_macros.svh"
