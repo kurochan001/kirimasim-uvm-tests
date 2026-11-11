@@ -14,7 +14,7 @@ TEST = """/*
 :name: test_a
 :type: simulation
 :oracle: spec verilator@5.052
-:files: helpers/h.svh
+:files: helpers/h.svh helpers/lines.svh
 :expected_stdout: @test_a.expected
 */
 module test_a;
@@ -25,8 +25,9 @@ endmodule
 HELPER = """`define TWICE(x) ((x) * \\
   2)
 class h; int n; function void f(); n = 1; n++; endfunction endclass
-initial begin
-  expected_line = `__LINE__ + 1;
+"""
+LINES = """initial begin
+  a = 1; expected_line = `__LINE__ + 1;
   `uvm_info("id", "msg", UVM_LOW)
 end
 """
@@ -45,6 +46,8 @@ class CodeIdentity(unittest.TestCase):
         self.write("tests/u05/test_a.sv", TEST)
         self.write("tests/u05/test_a.expected", "UT: 3 // not a comment\n")
         self.write("tests/u05/helpers/h.svh", HELPER)
+        self.write("tests/u05/helpers/lines.svh", LINES)
+        self.write("tools/bridge.cpp", "int bridge;\n")
         self.digest = suite_results.input_digest(self.root / "tests/u05/test_a.sv")
         self.write("coverage/test_index.json", json.dumps({"schema_version": 1, "tests": {
             "u05/test_a": {"primary_clause": "5.1", "inputs_sha256": self.digest}}}))
@@ -104,12 +107,48 @@ class CodeIdentity(unittest.TestCase):
         self.edit("tests/u05/test_a.sv", "module test_a;", "module test_a;\n  // verilator lint_off WIDTH")
         self.rejects("metacomments differ")
 
-    def test_line_distance_to_line_macro_is_kept(self):
-        self.edit("tests/u05/helpers/h.svh", "`__LINE__ + 1;\n", "`__LINE__ + 1;\n  // between\n")
-        self.rejects("line distances around `__LINE__ differ")
-        self.git("checkout", "--", ".")
-        self.edit("tests/u05/helpers/h.svh", "initial begin\n", "// above\ninitial begin\n")
+    def test_a_file_that_uses_the_line_macro_keeps_its_line_layout(self):
+        for old, new in (("`__LINE__ + 1;\n", "`__LINE__ + 1;\n  // between\n"),
+                         ("  a = 1; expected", "  a = 1;\n  expected"),
+                         ("initial begin\n", "initial begin\n  // inside\n")):
+            self.edit("tests/u05/helpers/lines.svh", old, new)
+            self.rejects("line distances around `__LINE__ differ")
+            self.git("checkout", "--", ".")
+        self.edit("tests/u05/helpers/lines.svh", "initial begin\n", "// above\ninitial begin\n")
         code_identity.check(self.base)
+
+    def test_metacomments_keep_their_place_and_macro_arguments_their_text(self):
+        self.write("tests/u05/helpers/h.svh", HELPER + "logic a /*verilator public*/; logic b;\n"
+                   "`uvm_object_param_utils(my_t#(int))\n")
+        self.git("add", "-A")
+        self.git("-c", "user.name=t", "-c", "user.email=t@example.com", "commit", "-qm", "more")
+        self.base = self.git("rev-parse", "HEAD").strip()
+        self.edit("tests/u05/helpers/h.svh", "logic a /*verilator public*/; logic b;",
+                  "logic a; logic b /*verilator public*/;")
+        self.rejects("tokens differ")
+        self.git("checkout", "--", ".")
+        self.edit("tests/u05/helpers/h.svh", "my_t#(int)", "my_t #( int )")
+        self.rejects("the text of a macro's arguments differs")
+
+    def test_directive_edge_cases_and_unicode_spaces_are_rejected(self):
+        self.edit("tests/u05/helpers/h.svh", "((x) * \\\n", "((x) * \\ \n")
+        self.rejects("compiler-directive lines differ")
+        self.git("checkout", "--", ".")
+        self.edit("tests/u05/helpers/h.svh", "class h;", "class\u3000h;")
+        self.rejects("tokens differ")
+
+    def test_a_changed_input_outside_tests_stops_the_move(self):
+        self.write("tests/u05/test_a.sv", TEST.replace(":files:", ":dpi_c: @../../tools/bridge.cpp\n:files:"))
+        self.git("add", "-A")
+        self.git("-c", "user.name=t", "-c", "user.email=t@example.com", "commit", "-qm", "dpi")
+        self.base = self.git("rev-parse", "HEAD").strip()
+        digest = suite_results.input_digest(self.root / "tests/u05/test_a.sv")
+        self.write("coverage/test_index.json", json.dumps({"schema_version": 1, "tests": {
+            "u05/test_a": {"primary_clause": "5.1", "inputs_sha256": digest}}}))
+        self.readable()
+        self.write("tools/bridge.cpp", "int bridge = 1;\n")
+        with self.assertRaisesRegex(code_identity.IdentityError, "outside tests/ changed"):
+            code_identity.refresh(self.base)
 
     def test_added_or_changed_non_source_files_are_rejected(self):
         self.write("tests/u05/helpers/new.svh", "\n")

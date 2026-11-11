@@ -273,6 +273,9 @@ def summary(data, results=(), root=None):
                     statuses["unmeasured"] += 1
                     continue
                 recorded = entry.get("inputs_sha256")
+                if entry.get("inputs_changed"):
+                    statuses["changed"] += 1
+                    continue
                 if recorded is not None:
                     if test_id not in digests:
                         digests[test_id] = suite_results.input_digest(current[test_id])

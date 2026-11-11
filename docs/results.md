@@ -286,7 +286,7 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 168 tool unit tests,
+and manual dispatch. It checks pinned-library integrity, 171 tool unit tests,
 2763 metadata records, the draft ledger/index, the cause record of the known
 differences and the [kirimasim bring-up stages](kirimasim-stages.md). Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,

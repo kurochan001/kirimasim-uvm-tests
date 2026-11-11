@@ -645,7 +645,7 @@ python3 tools/known_causes.py check
 python3 tools/kirimasim_stages.py check
 ```
 
-現在のツールの単体テストは168件、メタデータの対象はテスト2763件（simulation 2664件・elaboration 99件）です。
+現在のツールの単体テストは171件、メタデータの対象はテスト2763件（simulation 2664件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
@@ -688,7 +688,7 @@ python3 tools/code_identity.py refresh --base BASE
 python3 tools/code_identity.py carry --base BASE --record OLD.json --output NEW.json
 ```
 
-`check`は、`tests/`の下で編集したfileが、commentと空白を除いた字句、metadataの項目、compiler directiveの行、metacomment（`// verilator ...`のようにtoolが読むcomment）、各`` `__LINE__ ``の周りの行の距離を保つことを求め、それ以外のfileは変えないことを求めます。
+`check`は、`tests/`の下で編集したfileが、commentと空白を除いた字句、metadataの項目、compiler directiveの行、字句の間でのmetacomment（`// verilator ...`のようにtoolが読むcomment）の位置、引数付きのmacroの使用箇所の原文、`` `__LINE__ ``を使うfileでは最初の字句から見た各字句の行を保つことを求めます。それ以外のfileと、`tests/`の外にある入力は変えないことを求めます。
 `refresh`は、出発点で現在のものだった`coverage/test_index.json`と`coverage/known_causes.json`の指紋を持ち越し、`carry`は、もう一度は測れないrunnerのJSONで同じことを行い、持ち越した記録に印を付けます。編集した入力のVerilatorの結果は測り直します。guestの記録の規則は[記録の合算](results.ja.md#記録の合算)にあります。
 
 ## 権利と出典

@@ -196,7 +196,7 @@ JSON出力は選択した実行のローカル記録であり、公開されるC
 shardは選んだテストを重複なく分担する単位で、最後のgateは全shardの成功を要求し、検査範囲との関係は[Q268](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)で説明しています。
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト168件、metadata 2763件、要求台帳の案／テスト索引、既知差分の原因の記録、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。
+固定ライブラリの整合性、ツールの単体テスト171件、metadata 2763件、要求台帳の案／テスト索引、既知差分の原因の記録、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。
 Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
 基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Verilator jobは、原因の記録にある再現例12個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
 

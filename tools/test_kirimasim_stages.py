@@ -196,7 +196,8 @@ class Stages(Fixture):
             "u05/test_s1": {"status": "unsupported", "reason": "a construct",
                             "inputs_sha256": digest},
             "u05/test_illegal": {"status": "fail", "inputs_sha256": "0" * 64},
-            "u12/test_s5": {"status": "pass"}}}))
+            "u12/test_s5": {"status": "pass"},
+            "u14/test_s4": {"status": "pass", "inputs_changed": True}}}))
         s = kirimasim_stages.summary(self.data, [results], self.root)
         self.assertEqual([row["tests"] for row in s["stages"]], [1, 2, 1, 1, 1, 2, 1])
         self.assertEqual(s["stages"][5]["verilator_tagged"], 1)
@@ -205,6 +206,7 @@ class Stages(Fixture):
         self.assertEqual(by_stage[1]["top_reason"], "a construct")
         self.assertEqual(by_stage[5]["statuses"], {"pass": 1, "unmeasured": 1})
         self.assertEqual(by_stage[0]["statuses"], {"unmeasured": 1})
+        self.assertEqual(by_stage[4]["statuses"], {"changed": 1})
 
     def test_short_prints_paths_for_the_runner(self):
         self.write(self.data)

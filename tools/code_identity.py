@@ -25,8 +25,13 @@ SystemVerilog source must keep:
     metacomments the same comments that a tool may read as directives (those
                  that start with verilator, synopsys, pragma, coverage, lint
                  or translate)
-    __LINE__     the same line distance from each `__LINE__ to every token
-                 of its own statement and of the next one
+    __LINE__     in a file that uses `__LINE__, the same line for every
+                 token relative to the first one
+    macro text   the same raw text of every macro use with arguments, which
+                 a macro may turn into a string
+
+A metacomment also keeps its place among the tokens. An input outside tests/
+(the library lock, a C source) must be byte-identical for a fingerprint to move.
 
 refresh then updates the input fingerprint of each entry of
 coverage/test_index.json and coverage/known_causes.json whose recorded
@@ -56,7 +61,8 @@ import suite_results
 ROOT = suite_results.ROOT
 SOURCES = {".sv", ".svh", ".v", ".vh"}
 TOKEN = re.compile(r'''
-    "(?:\\.|[^"\\\n])*"                      # string literal
+    """.*?"""                                # triple-quoted string literal
+  | "(?:\\.|[^"\\\n])*"                      # string literal
   | /\*.*?\*/                                # block comment
   | //[^\n]*                                 # line comment
   | \\\S+                                    # escaped identifier
@@ -64,11 +70,11 @@ TOKEN = re.compile(r'''
   | [A-Za-z_$][A-Za-z0-9_$]*                 # identifier or keyword
   | \d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d+)?  # decimal or real number
   | '[sS]?[bBoOdDhH]?[0-9a-fA-FxXzZ?_]+     # based or unbased literal
-  | <<<=|>>>=|<<=|>>=|===|!==|==\?|!=\?|<->|->>|\|->|\|=>|<<<|>>>
+  | &&&|<<<=|>>>=|<<=|>>=|===|!==|==\?|!=\?|<->|->>|\|->|\|=>|<<<|>>>
   | \+\+|--|&&|\|\||==|!=|<=|>=|<<|>>|\*\*|[-+*/%&|^]=|->|\+:|-:|::|\#\#|~[&|^]|\^~|'\{
   | \S                                       # any other character
-''', re.X | re.S)
-DIRECTIVE = re.compile(r"^\s*`(define|undef|undefineall|ifdef|ifndef|elsif|else|endif|include|"
+''', re.X | re.S | re.A)
+DIRECTIVE = re.compile(r"`(define|undef|undefineall|ifdef|ifndef|elsif|else|endif|include|"
                        r"timescale|resetall|default_nettype|line|pragma|celldefine|"
                        r"endcelldefine|begin_keywords|end_keywords|unconnected_drive|"
                        r"nounconnected_drive)\b")
@@ -110,6 +116,8 @@ def tokens(text):
         last = m.start()
         if tok.startswith(("//", "/*")):
             comments.append((tok, line))
+            if METACOMMENT.match(tok):
+                code.append((tok, line))
         else:
             code.append((tok, line))
     return code, comments
@@ -119,31 +127,49 @@ def directive_lines(text):
     """The compiler-directive lines, each with its continuation lines."""
     lines, out, i = text.split("\n"), [], 0
     while i < len(lines):
-        if DIRECTIVE.match(lines[i]):
-            group = [lines[i].rstrip()]
+        if DIRECTIVE.search(lines[i]):
+            # Raw lines: a blank after the backslash ends the continuation.
+            group = [lines[i]]
             while group[-1].endswith("\\") and i + 1 < len(lines):
                 i += 1
-                group.append(lines[i].rstrip())
+                group.append(lines[i])
             out.append("\n".join(group))
         i += 1
     return out
 
 
 def line_relations(code):
-    """For each `__LINE__, the line offsets of its statement and the next one."""
-    relations = []
-    for k, (tok, line) in enumerate(code):
-        if tok != "`__LINE__":
-            continue
-        offsets, ends = [], 0
-        for later, later_line in code[k + 1:]:
-            offsets.append((later, later_line - line))
-            if later == ";":
-                ends += 1
-                if ends == 2:
+    """In a file that uses `__LINE__, the line of every token relative to the
+    first one: such a file may only gain lines above its code."""
+    if not any(tok == "`__LINE__" for tok, _ in code):
+        return []
+    first = code[0][1]
+    return [line - first for _, line in code]
+
+
+def macro_arguments(text):
+    """The raw text of each macro use with arguments; a macro may turn an
+    argument into a string, so its spacing and comments are kept exactly."""
+    out = []
+    for m in re.finditer(r"`[A-Za-z_][A-Za-z0-9_$]*[ \t]*\(", text):
+        depth, i = 0, m.end() - 1
+        while i < len(text):
+            ch = text[i]
+            if ch == '"':
+                i = text.find('"', i + 1)
+                while i > 0 and text[i - 1] == "\\":
+                    i = text.find('"', i + 1)
+                if i < 0:
                     break
-        relations.append(offsets)
-    return relations
+            elif ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+                if depth == 0:
+                    break
+            i += 1
+        out.append(text[m.start():i + 1])
+    return out
 
 
 def source_problems(old, new):
@@ -167,6 +193,8 @@ def source_problems(old, new):
         problems.append("metacomments differ")
     if line_relations(old_code) != line_relations(new_code):
         problems.append("line distances around `__LINE__ differ")
+    if macro_arguments(old_text) != macro_arguments(new_text):
+        problems.append("the text of a macro's arguments differs")
     return problems
 
 
@@ -237,6 +265,12 @@ class Mover:
             self.old[test_id] = digest_at(test, self.base)
         if recorded != self.old[test_id]:
             return None
+        # check() covers tests/; any other input (the library lock, C sources)
+        # must be byte-identical, or the record was made with something else.
+        for path in suite_results.input_files(test):
+            name = path.relative_to(ROOT).as_posix()
+            if not name.startswith("tests/") and path.is_file() and at(self.base, name) != path.read_bytes():
+                raise IdentityError(f"{name}: an input outside tests/ changed since {self.base[:7]}")
         return self.current[test_id]
 
 

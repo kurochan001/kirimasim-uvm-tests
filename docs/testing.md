@@ -861,7 +861,7 @@ python3 tools/known_causes.py check
 python3 tools/kirimasim_stages.py check
 ```
 
-The current tool suite has 168 unit tests; metadata validation checks all
+The current tool suite has 171 unit tests; metadata validation checks all
 2763 tests (2664 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
@@ -928,8 +928,10 @@ python3 tools/code_identity.py carry --base BASE --record OLD.json --output NEW.
 
 `check` requires every edited file under `tests/` to keep its tokens without
 comments and whitespace, its metadata fields, its compiler-directive lines, its
-metacomments (comments that a tool may read, such as `// verilator ...`) and the
-line distances around each `` `__LINE__ ``; any other file must be unchanged.
+metacomments (comments that a tool may read, such as `// verilator ...`) in their
+place among the tokens, the raw text of every macro use with arguments, and, in a
+file that uses `` `__LINE__ ``, the line of every token relative to the first; any
+other file must be unchanged, and so must every input outside `tests/`.
 `refresh` then moves the fingerprints of `coverage/test_index.json` and
 `coverage/known_causes.json` that were current at the base, and `carry` does
 the same for a runner JSON that cannot be measured again, marking each moved
