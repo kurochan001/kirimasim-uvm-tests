@@ -55,15 +55,15 @@ module test_tlm2_interface_default_and_request_only_types_preserve_virtual_block
   endclass
   class default_probe extends uvm_tlm_if#();
     int calls = 0;
-    virtual task b_transport(uvm_tlm_generic_payload value,uvm_tlm_time delay);
+    virtual task b_transport(uvm_tlm_generic_payload t,uvm_tlm_time delay);
       calls++; #2;
-      value.set_response_status(UVM_TLM_OK_RESPONSE); delay.set_abstime(6.0,1.0e-9);
+      t.set_response_status(UVM_TLM_OK_RESPONSE); delay.set_abstime(6.0,1.0e-9);
     endtask
   endclass
   class request_probe extends uvm_tlm_if#(custom_item);
     int calls = 0;
-    virtual task b_transport(custom_item value,uvm_tlm_time delay);
-      calls++; #2; value.value += 7; delay.set_abstime(9.0,1.0e-9);
+    virtual task b_transport(custom_item t,uvm_tlm_time delay);
+      calls++; #2; t.value += 7; delay.set_abstime(9.0,1.0e-9);
     endtask
   endclass
   initial begin

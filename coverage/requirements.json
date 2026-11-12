@@ -81716,7 +81716,7 @@
           "role": "direct",
           "expected_diagnostic": {
             "stage": "compile",
-            "regex": "(?i)^(?=.*test_reg_adapter_reg2bus_const_reference_rejects_input_mutation\\.sv:[0-9]+:[0-9]+:)(?=.*\\bconst(?:ant)?\\b)(?=.*\\brw\\b).*error"
+            "regex": "(?i)^(?=.*test_reg_adapter_reg2bus_const_reference_rejects_input_mutation\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:const|constant|read.only)\\b)(?=.*\\brw\\b).*error"
           }
         },
         {
@@ -122865,7 +122865,7 @@
           "role": "direct",
           "expected_diagnostic": {
             "stage": "compile",
-            "regex": "(?is)%Error[^\\n]*test_resource_pool_bare_class_declaration_rejects_an_object_receiver.*?(assign|convert|class|type|uvm_resource_pool|uvm_object)"
+            "regex": "(?i)^(?=.*test_resource_pool_bare_class_declaration_rejects_an_object_receiver\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:assign|convert|class|type|uvm_resource_pool|uvm_object)).*error"
           }
         },
         {

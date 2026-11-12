@@ -35,9 +35,9 @@ module test_reg_adapter_concrete_subclass_must_implement_reg2bus;
     function new(); super.new("packet"); endfunction
   endclass
   class incomplete_adapter extends uvm_reg_adapter;
-    virtual function void bus2reg(uvm_sequence_item value,ref uvm_reg_bus_op rw);
+    virtual function void bus2reg(uvm_sequence_item bus_item,ref uvm_reg_bus_op rw);
       packet result;
-      if (!$cast(result,value)) return;
+      if (!$cast(result,bus_item)) return;
       rw = result.operation;
     endfunction
   endclass

@@ -58,16 +58,16 @@ module test_comparer_field_user_and_finished_stages_follow_the_declared_order;
     int executes=0,users=0,payload=0;
     bit suppress=0;
     function new(string name="item"); super.new(name); endfunction
-    virtual function void do_execute_op(uvm_field_op field_op);
+    virtual function void do_execute_op(uvm_field_op op);
       uvm_comparer actual;
       bit result;
-      if (!$cast(actual,field_op.get_policy())) $fatal(1,"wrong operation policy");
+      if (!$cast(actual,op.get_policy())) $fatal(1,"wrong operation policy");
       executes++; trace={trace,"E"};
       $display("UT: policy_execute op %s exact %0d active %0d depth %0d started %0d",
-               field_op.get_op_name(),actual==selected,actual.get_active_object()==this,
+               op.get_op_name(),actual==selected,actual.get_active_object()==this,
                actual.get_active_object_depth(),
                selected.object_compared(this,expected_rhs,UVM_DEEP,result)==uvm_policy::STARTED);
-      if (suppress) field_op.disable_user_hook();
+      if (suppress) op.disable_user_hook();
     endfunction
     virtual function bit do_compare(uvm_object rhs,uvm_comparer comparer);
       bit result;

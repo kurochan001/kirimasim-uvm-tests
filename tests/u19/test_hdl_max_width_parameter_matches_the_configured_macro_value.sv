@@ -33,6 +33,7 @@
 // omitted configuration does not fix the implementation macro numeric default.
 // The explicit 256 configuration is parameter-only with no DPI/backend. It
 // does not certify actual HDL accesses or change the separate backend ABI.
+`include "uvm_macros.svh"
 module test_hdl_max_width_parameter_matches_the_configured_macro_value;
   import uvm_pkg::*;
   initial begin

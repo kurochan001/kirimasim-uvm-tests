@@ -10,7 +10,7 @@
 :fourstate: no
 :nondeterministic: no
 :should_fail_because: A resource pool has no declared uvm_object ancestry
-:expected_stderr_regex: (?is)%Error[^\n]*test_resource_pool_bare_class_declaration_rejects_an_object_receiver.*?(assign|convert|class|type|uvm_resource_pool|uvm_object)
+:expected_stderr_regex: (?i)^(?=.*test_resource_pool_bare_class_declaration_rejects_an_object_receiver\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:assign|convert|class|type|uvm_resource_pool|uvm_object)).*error
 */
 // What it checks:
 // The printed bare resource-pool class is not an object-derived type.

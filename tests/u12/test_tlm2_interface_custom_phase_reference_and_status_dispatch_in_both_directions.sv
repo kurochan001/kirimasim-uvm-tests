@@ -53,16 +53,16 @@ module test_tlm2_interface_custom_phase_reference_and_status_dispatch_in_both_di
   endclass
   class custom_probe extends uvm_tlm_if#(custom_item,custom_phase);
     int forward_calls = 0,backward_calls = 0;
-    virtual function uvm_tlm_sync_e nb_transport_fw(custom_item value,ref custom_phase phase,
+    virtual function uvm_tlm_sync_e nb_transport_fw(custom_item t,ref custom_phase p,
                                                   input uvm_tlm_time delay);
       forward_calls++;
       if (forward_calls == 1) return UVM_TLM_ACCEPTED;
-      phase = REQUEST_DONE; value.value += 7; delay.set_abstime(3.0,1.0e-9);
+      p = REQUEST_DONE; t.value += 7; delay.set_abstime(3.0,1.0e-9);
       return UVM_TLM_UPDATED;
     endfunction
-    virtual function uvm_tlm_sync_e nb_transport_bw(custom_item value,ref custom_phase phase,
+    virtual function uvm_tlm_sync_e nb_transport_bw(custom_item t,ref custom_phase p,
                                                   input uvm_tlm_time delay);
-      backward_calls++; phase = DONE; value.value += 11; delay.set_abstime(8.0,1.0e-9);
+      backward_calls++; p = DONE; t.value += 11; delay.set_abstime(8.0,1.0e-9);
       return UVM_TLM_COMPLETED;
     endfunction
   endclass

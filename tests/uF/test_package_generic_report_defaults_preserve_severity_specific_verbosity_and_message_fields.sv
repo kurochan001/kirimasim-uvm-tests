@@ -43,11 +43,11 @@ module test_package_generic_report_defaults_preserve_severity_specific_verbosity
     bit fields_ok=1;
     uvm_report_object expected_origin;
     function new(); super.new("capture57"); endfunction
-    virtual function void process_report_message(uvm_report_message message);
-      count++; last=message;
-      severities.push_back(message.get_severity());
-      verbosity_values.push_back(message.get_verbosity());
-      fields_ok &= message.get_report_object()==expected_origin;
+    virtual function void process_report_message(uvm_report_message report_message);
+      count++; last=report_message;
+      severities.push_back(report_message.get_severity());
+      verbosity_values.push_back(report_message.get_verbosity());
+      fields_ok &= report_message.get_report_object()==expected_origin;
     endfunction
   endclass
 

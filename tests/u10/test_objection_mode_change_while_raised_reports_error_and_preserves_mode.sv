@@ -36,10 +36,17 @@ module test_objection_mode_change_while_raised_reports_error_and_preserves_mode;
       return THROW;
     endfunction
   endclass
+  // uvm_object is a virtual class (1800.2-2020 5.3.1), so the objection's
+  // source is an object of this concrete subclass.
+  class source_object extends uvm_object;
+    function new(string name="source_object");
+      super.new(name);
+    endfunction
+  endclass
   class t extends uvm_test;
     `uvm_component_utils(t)
     uvm_objection subject;
-    uvm_object source;
+    source_object source;
     error_probe probe;
     function new(string name,uvm_component parent); super.new(name,parent); endfunction
     function void build_phase(uvm_phase phase);

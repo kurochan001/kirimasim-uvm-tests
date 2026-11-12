@@ -35,7 +35,7 @@ module test_tlm_analysis_interface_base_write_broadcasts_values_to_all_bound_rec
   class observer extends uvm_subscriber#(int);
     int values[$];
     function new(string name,uvm_component parent); super.new(name,parent); endfunction
-    function void write(int value); values.push_back(value); endfunction
+    function void write(int t); values.push_back(t); endfunction
   endclass
   class t extends uvm_test;
     `uvm_component_utils(t)

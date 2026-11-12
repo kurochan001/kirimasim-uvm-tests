@@ -46,18 +46,18 @@
 module test_tlm_interface_base_defaults_and_distinct_type_parameters_dispatch_virtual_transport;
   import uvm_pkg::*;
   class default_interface extends uvm_tlm_if_base#();
-    virtual task transport(input int request,output int response);
-      #1; response = request * 2;
+    virtual task transport(input int req,output int rsp);
+      #1; rsp = req * 2;
     endtask
   endclass
   class request_interface extends uvm_tlm_if_base#(string);
-    virtual task transport(input string request,output int response);
-      #1; response = request.len();
+    virtual task transport(input string req,output int rsp);
+      #1; rsp = req.len();
     endtask
   endclass
   class distinct_interface extends uvm_tlm_if_base#(int,string);
-    virtual task transport(input int request,output string response);
-      #1; response = $sformatf("rsp:%0d",request);
+    virtual task transport(input int req,output string rsp);
+      #1; rsp = $sformatf("rsp:%0d",req);
     endtask
   endclass
   initial begin

@@ -81,8 +81,8 @@ module test_sequence_item_reporting_filters_each_severity_before_virtual_process
     `uvm_object_utils(item_probe)
     int infos = 0, warnings = 0, errors = 0, fatals = 0;
     function new(string name="item"); super.new(name); endfunction
-    virtual function void uvm_process_report_message(uvm_report_message msg);
-      case (msg.get_severity())
+    virtual function void uvm_process_report_message(uvm_report_message report_message);
+      case (report_message.get_severity())
         UVM_INFO: infos++;
         UVM_WARNING: warnings++;
         UVM_ERROR: errors++;

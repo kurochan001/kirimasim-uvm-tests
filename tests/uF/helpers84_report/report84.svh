@@ -9,14 +9,14 @@ class report_observer84 extends uvm_default_report_server;
     super.new();
     calls=0;
   endfunction
-  virtual function void execute_report_message(uvm_report_message message,
+  virtual function void execute_report_message(uvm_report_message report_message,
                                                 string composed_message);
     calls++;
-    severity=message.get_severity();
-    verbosity=message.get_verbosity();
-    id=message.get_id();
-    body=message.get_message();
-    source=message.get_report_object();
+    severity=report_message.get_severity();
+    verbosity=report_message.get_verbosity();
+    id=report_message.get_id();
+    body=report_message.get_message();
+    source=report_message.get_report_object();
   endfunction
   function bit matches84(uvm_report_object who,uvm_severity kind,int level,
                           string tag,string text);

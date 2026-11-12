@@ -44,8 +44,8 @@ module test_report_handler_replacement_dispatch_preserves_message_and_reporter;
   class audit_handler extends uvm_report_handler;
     uvm_report_message messages[$];
     function new(string name="handler"); super.new(name); endfunction
-    virtual function void process_report_message(uvm_report_message message);
-      messages.push_back(message);
+    virtual function void process_report_message(uvm_report_message report_message);
+      messages.push_back(report_message);
     endfunction
   endclass
 

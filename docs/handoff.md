@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-Current transfer: the user resumed the goal on 2026-11-07, and the 124th expansion, the seventh item of an external review, is published; the 125th expansion, the eighth and last item, is published in all 22 directories. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
+Current transfer: the user resumed the goal on 2026-11-07, and the 124th expansion, the seventh item of an external review, is published; the 125th expansion, the eighth and last item, is published in all 22 directories; the 126th expansion makes the first corrections from a second review. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
@@ -152,6 +152,8 @@ API/type names, one time-decrement argument default, two type-default declaratio
 two inherited type_id registry specializations, one protected-access build, two unlisted-pure-hook builds and 61 unlinked DPI cases. Two qualified virtual-abstraction overview-base builds and two printed dedicated-pool return-type builds also remain. Three additional legal builds retain the enum-collection T interpretation. Seven more builds retain strict attribute/enum-unpack arities. Separate HDL/command-line evidence is reported independently.
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
+
+The 126th expansion corrects what a second review found by elaborating every test with slang, without changing the form of a test: argument names of virtual-method overrides (73 tests), construction of the virtual `uvm_object` (2), visibility of the link accessors (1), a missing `uvm_macros.svh` include (5) and two rejection patterns. The 81 affected inputs keep their status at seeds 1/73. The time unit, undeclared UVM_ERROR detection, the four-state queue test and the misprint label wait for a proposal; [history](history.md#126th-expansion-corrections-from-a-slang-elaboration-second-external-review-part-a) has the basis of each point.
 
 The 125th expansion implements the eighth item, readability, as the user approved it: directory by
 directory, one statement per helper line and comments on what each test checks and how its

@@ -50,9 +50,9 @@ module test_sequence_item_reporting_handler_replacement_uses_current_state;
     uvm_report_object origins[$];
     string contexts[$];
     function new(string name="handler"); super.new(name); endfunction
-    virtual function void process_report_message(uvm_report_message message);
-      messages.push_back(message); origins.push_back(message.get_report_object());
-      contexts.push_back(message.get_context());
+    virtual function void process_report_message(uvm_report_message report_message);
+      messages.push_back(report_message); origins.push_back(report_message.get_report_object());
+      contexts.push_back(report_message.get_context());
     endfunction
   endclass
   class empty_sequence extends uvm_sequence#(uvm_sequence_item);

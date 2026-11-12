@@ -47,9 +47,9 @@ module test_reg_predictor_independent_maps_use_configuration_selected_before_run
       automatic packet item = new(); item.address = rw.addr; item.raw = rw.data ^ mask;
       return item;
     endfunction
-    virtual function void bus2reg(uvm_sequence_item item_value, ref uvm_reg_bus_op rw);
+    virtual function void bus2reg(uvm_sequence_item bus_item, ref uvm_reg_bus_op rw);
       packet item;
-      if (!$cast(item,item_value) || item == null) $fatal(1, "wrong original packet");
+      if (!$cast(item,bus_item) || item == null) $fatal(1, "wrong original packet");
       rw.kind = UVM_WRITE; rw.addr = item.address; rw.data = item.raw ^ mask;
       rw.n_bits = 8; rw.byte_en = 1; rw.status = UVM_IS_OK;
     endfunction
@@ -64,7 +64,7 @@ module test_reg_predictor_independent_maps_use_configuration_selected_before_run
     int calls = 0;
     uvm_reg_data_t last_value;
     function new(string name, uvm_component parent); super.new(name,parent); endfunction
-    function void write(uvm_reg_item rw); calls++; last_value = rw.get_value(0); endfunction
+    function void write(uvm_reg_item t); calls++; last_value = t.get_value(0); endfunction
   endclass
 
   class t extends uvm_test;

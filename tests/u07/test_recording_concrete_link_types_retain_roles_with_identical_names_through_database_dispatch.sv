@@ -77,7 +77,8 @@ module
   endclass
   class original_stream extends uvm_tr_stream;
     function new(string name); super.new(name); endfunction
-    protected virtual function void do_open(uvm_tr_database db,string scope,string type_name);
+    protected virtual function void do_open(uvm_tr_database db,string scope,
+                                            string stream_type_name);
     endfunction
     protected virtual function void do_close(); endfunction
     protected virtual function void do_free(); endfunction

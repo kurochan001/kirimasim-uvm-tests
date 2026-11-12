@@ -128,8 +128,8 @@ class push_driver109 extends uvm_push_driver#(packet109);
   function new(string name,uvm_component parent);
     super.new(name,parent);
   endfunction
-  virtual task put(packet109 t);
-    serve109(t,flight);
+  virtual task put(packet109 item);
+    serve109(item,flight);
   endtask
 endclass
 class t extends uvm_test;

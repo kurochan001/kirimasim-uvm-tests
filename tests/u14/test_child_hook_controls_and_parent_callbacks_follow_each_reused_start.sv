@@ -64,11 +64,11 @@ module test_child_hook_controls_and_parent_callbacks_follow_each_reused_start;
     function new(string name); super.new(name); endfunction
     task body(); endtask
     task pre_do(bit is_item); pre_calls++; item_flag = is_item; endtask
-    function void mid_do(uvm_sequence_item item);
-      mid_calls++; exact_mid &= item == expected;
+    function void mid_do(uvm_sequence_item this_item);
+      mid_calls++; exact_mid &= this_item == expected;
     endfunction
-    function void post_do(uvm_sequence_item item);
-      post_calls++; exact_post &= item == expected;
+    function void post_do(uvm_sequence_item this_item);
+      post_calls++; exact_post &= this_item == expected;
     endfunction
   endclass
   class child_sequence extends uvm_sequence#(uvm_sequence_item);

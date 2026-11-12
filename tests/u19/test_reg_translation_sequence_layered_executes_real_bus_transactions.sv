@@ -88,9 +88,9 @@ module test_reg_translation_sequence_layered_executes_real_bus_transactions;
       item.kind = rw.kind; item.address = rw.addr; item.data = rw.data ^ mask;
       item.status = UVM_IS_OK; return item;
     endfunction
-    virtual function void bus2reg(uvm_sequence_item value,ref uvm_reg_bus_op rw);
+    virtual function void bus2reg(uvm_sequence_item bus_item,ref uvm_reg_bus_op rw);
       packet item;
-      if (!$cast(item,value) || item == null) $fatal(1,"wrong original packet");
+      if (!$cast(item,bus_item) || item == null) $fatal(1,"wrong original packet");
       rw.kind = item.kind; rw.addr = item.address; rw.data = item.data ^ mask;
       rw.status = item.status; rw.n_bits = 8; rw.byte_en = 1;
     endfunction

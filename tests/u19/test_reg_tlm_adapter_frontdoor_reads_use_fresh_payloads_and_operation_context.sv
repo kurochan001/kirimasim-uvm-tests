@@ -78,8 +78,8 @@ module test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_con
                          context_item.get_kind() == UVM_READ;
       item = super.reg2bus(rw); generated.push_back(item); return item;
     endfunction
-    virtual function void bus2reg(uvm_sequence_item item, ref uvm_reg_bus_op rw);
-      outside_ok &= get_item() == null; conversions++; super.bus2reg(item, rw);
+    virtual function void bus2reg(uvm_sequence_item bus_item, ref uvm_reg_bus_op rw);
+      outside_ok &= get_item() == null; conversions++; super.bus2reg(bus_item, rw);
     endfunction
   endclass
   class model_block extends uvm_reg_block;

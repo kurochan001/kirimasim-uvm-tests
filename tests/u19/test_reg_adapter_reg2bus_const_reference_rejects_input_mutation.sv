@@ -10,7 +10,7 @@
 :fourstate: no
 :nondeterministic: no
 :should_fail_because: a const-reference input cannot be assigned by the adapter implementation
-:expected_stderr_regex: (?i)^(?=.*test_reg_adapter_reg2bus_const_reference_rejects_input_mutation\.sv:[0-9]+:[0-9]+:)(?=.*\bconst(?:ant)?\b)(?=.*\brw\b).*error
+:expected_stderr_regex: (?i)^(?=.*test_reg_adapter_reg2bus_const_reference_rejects_input_mutation\.sv:[0-9]+:[0-9]+:)(?=.*\b(?:const|constant|read.only)\b)(?=.*\brw\b).*error
 */
 // What it checks:
 // The declared const-reference reg2bus input cannot be assigned by its
@@ -40,9 +40,9 @@ module test_reg_adapter_reg2bus_const_reference_rejects_input_mutation;
       rw.data = '0;
       result.operation = rw; return result;
     endfunction
-    virtual function void bus2reg(uvm_sequence_item value,ref uvm_reg_bus_op rw);
+    virtual function void bus2reg(uvm_sequence_item bus_item,ref uvm_reg_bus_op rw);
       packet result;
-      if (!$cast(result,value)) return;
+      if (!$cast(result,bus_item)) return;
       rw = result.operation;
     endfunction
   endclass

@@ -32,6 +32,7 @@
 // These expectations come from the cited clauses, not from the output of a
 // simulator.
 // Two-state width and signedness only; X/Z preservation remains separate.
+`include "uvm_macros.svh"
 module test_package_bitstream_configured_width_and_signed_arithmetic_preserve_the_declared_type;
   import uvm_pkg::*;
   initial begin

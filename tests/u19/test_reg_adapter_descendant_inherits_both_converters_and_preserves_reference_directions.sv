@@ -45,19 +45,19 @@ module test_reg_adapter_descendant_inherits_both_converters_and_preserves_refere
   import uvm_pkg::*;
   // Original payload copying selects a legal implementation. The oracle
   // concerns inherited calls, fresh objects and const/ref argument effects.
-  class bus_item extends uvm_sequence_item;
+  class original_bus_item extends uvm_sequence_item;
     uvm_reg_bus_op operation;
     function new(); super.new("bus"); endfunction
   endclass
   class implemented_adapter extends uvm_reg_adapter;
     int to_bus = 0, to_reg = 0;
     virtual function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
-      bus_item result = new();
+      original_bus_item result = new();
       to_bus++; result.operation = rw; return result;
     endfunction
-    virtual function void bus2reg(uvm_sequence_item bus_value, ref uvm_reg_bus_op rw);
-      bus_item result;
-      if (!$cast(result, bus_value) || result == null) $fatal(1, "wrong original item");
+    virtual function void bus2reg(uvm_sequence_item bus_item, ref uvm_reg_bus_op rw);
+      original_bus_item result;
+      if (!$cast(result, bus_item) || result == null) $fatal(1, "wrong original item");
       to_reg++; rw = result.operation;
     endfunction
   endclass
@@ -67,7 +67,7 @@ module test_reg_adapter_descendant_inherits_both_converters_and_preserves_refere
     automatic inherited_adapter selected = new();
     automatic uvm_reg_adapter base_view = selected;
     uvm_sequence_item first_value, second_value;
-    bus_item first_item, second_item;
+    original_bus_item first_item, second_item;
     uvm_reg_bus_op input_op, saved_op, output_op;
     input_op.kind = UVM_WRITE; input_op.addr = 'h123; input_op.data = 'h4567;
     input_op.n_bits = 16; input_op.byte_en = 'h3; input_op.status = UVM_IS_OK;

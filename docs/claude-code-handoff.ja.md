@@ -47,6 +47,7 @@ hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していま�
 - 項目6（既知入力の原因分類）：ユーザーが案（別の追跡ファイル`coverage/known_causes.json`とCheckでの検査）を承認し、libraryの出力値は記録しないA1を選びました。下記の121回目が最初のbatch（build、不正designの受理、DPIの実行条件）で、122回目と123回目がruntime差分をdirectoryごとに分類し、記録は完成しました。
 - 項目7（kirimasimの立ち上げ段階）：ユーザーが案（別の追跡ファイル`coverage/kirimasim_stages.json`とCheckでの検査、既存のrunnerに渡す短いセット、段階0の入力1件、日英の言語機能の表）を承認し、下記の124回目で実装しました。
 - 項目8（読みやすさ）：ユーザーが案（directoryごとに進める。台帳の義務から書くコメント、番号付きのfamilyの変種の説明、helperの1行1文。指紋を持ち越しguestの記録も持ち越すcodeの同一性のtool（G1）。Regressionをdirectoryに絞る入力）を承認しました。125回目は22のdirectoryすべてで公開し、レビューの8項目は終わりました。
+- 2回目のレビュー（2026-11-12、slangでのelaboration）：126回目は、slangで全テストをelaborateした2回目のレビューの指摘を、テストの形式を変えずに直しました。virtual methodのoverrideの引数名（73件）、virtualな`uvm_object`の生成（2件）、linkのaccessorの可視性（1件）、`uvm_macros.svh`のincludeの不足（5件）、拒否のpattern 2件です。影響する81入力は、seed 1／73で状態が変わりません。時間単位、宣言のないUVM_ERRORの検出、4値のqueueのテスト、誤植の区別は、案を待っています。各指摘の根拠は[履歴](history.ja.md#126回目の拡充slangでのelaborationによる修正2回目の外部レビューa)にあります。
 
 ## 維持する判断
 
@@ -114,7 +115,7 @@ out/thin-one-hundred-twenty-fourth-stage-summary.json
 
 承認済みの範囲ではなく提案です。選ぶ前にbacklogを再生成します。
 
-- 項目8（読みやすさ）：小さいdirectoryから順に、コメントと変種の説明を足し、helperを1行1文に整え、`tools/code_identity.py check`と`refresh`を実行し、そのdirectoryの入力をVerilatorのseed 1／73で測り直し、guestの記録を持ち越して公開し、そのdirectoryに絞ったRegressionの結果を待ってから次へ進みます。項目7は完了し、短いセットのkirimasimでの実行には許可された実行fileが必要で、段階0のテストと各段階に対応付けた言語のテストが、kirimasimの止まる所を示します。項目6は完了しました。照合の候補406件は人の照合を待っています。libraryの出力値を記録するか（A1では記録していません）と、UVM_NO_DPIのために測れない通常の検査系3件をDPIの実行条件の一覧に加えるかは、形式または構成の変更なので、案を示してから決めます。
+- 2回目のレビューの残り：時間単位をrunnerから渡す方法、宣言のないUVM_ERROR／UVM_FATALの検出、固定版libraryで満たせない4値のqueueのテストの記録、誤植に従った解釈の区別を、1つの案にまとめてユーザーの確認を取ります。どれもrunner、metadata、記録の形式を変えるので、確認の前には実装しません。項目7は完了し、短いセットのkirimasimでの実行には許可された実行fileが必要で、段階0のテストと各段階に対応付けた言語のテストが、kirimasimの止まる所を示します。項目6は完了しました。照合の候補406件は人の照合を待っています。libraryの出力値を記録するか（A1では記録していません）と、UVM_NO_DPIのために測れない通常の検査系3件をDPIの実行条件の一覧に加えるかは、形式または構成の変更なので、案を示してから決めます。
 - 18.12.4.2の、範囲と同時にmode／localityを変えるreconfigureや他のbyte幅。
 - 112回目のunpackの列挙setterの問題：規格と照合し、library証拠を理由にknownをpassへ変更しません。
 - 第18章の他の部分条件（部分393番号）と全体の部分2062番号を、元のM1〜M3目標と比べます。

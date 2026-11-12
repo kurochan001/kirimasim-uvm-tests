@@ -50,25 +50,27 @@ module test_objection_skipped_propagation_delivers_default_and_registered_hooks_
   class node extends uvm_component;
     int raises = 0,drops = 0,all_drops = 0;
     function new(string name,uvm_component parent); super.new(name,parent); endfunction
-    function void raised(uvm_objection objection,uvm_object source,string description,int count);
+    function void raised(uvm_objection objection,uvm_object source_obj,string description,
+                         int count);
       if (objection == expected_objection) begin
-        raises++; component_metadata &= source == expected_source;
+        raises++; component_metadata &= source_obj == expected_source;
         component_metadata &= description == expected_description && count == expected_count;
       end
     endfunction
-    function void dropped(uvm_objection objection,uvm_object source,string description,int count);
+    function void dropped(uvm_objection objection,uvm_object source_obj,string description,
+                          int count);
       if (objection == expected_objection) begin
-        drops++; component_metadata &= source == expected_source;
+        drops++; component_metadata &= source_obj == expected_source;
         component_metadata &= description == expected_description && count == expected_count;
       end
     endfunction
-    task all_dropped(uvm_objection objection,uvm_object source,string description,int count);
+    task all_dropped(uvm_objection objection,uvm_object source_obj,string description,int count);
       if (objection == expected_objection) begin
         if (this == expected_source) begin
           drain_order_ok &= $time >= 2; #1;
           drain_order_ok &= expected_objection.get_objection_total(uvm_root::get()) == 1;
         end
-        all_drops++; component_metadata &= source == expected_source;
+        all_drops++; component_metadata &= source_obj == expected_source;
         component_metadata &= description == expected_description && count == expected_count;
       end
     endtask
@@ -82,26 +84,26 @@ module test_objection_skipped_propagation_delivers_default_and_registered_hooks_
     function int raised_at(uvm_object obj); return r.exists(obj) ? r[obj] : 0; endfunction
     function int dropped_at(uvm_object obj); return d.exists(obj) ? d[obj] : 0; endfunction
     function int all_at(uvm_object obj); return a.exists(obj) ? a[obj] : 0; endfunction
-    function void raised(uvm_objection objection,uvm_object obj,uvm_object source,
+    function void raised(uvm_objection objection,uvm_object obj,uvm_object source_obj,
                          string description,int count);
       r[obj] = raised_at(obj) + 1;
-      metadata_ok &= objection == expected_objection && source == expected_source;
+      metadata_ok &= objection == expected_objection && source_obj == expected_source;
       metadata_ok &= description == expected_description && count == expected_count;
     endfunction
-    function void dropped(uvm_objection objection,uvm_object obj,uvm_object source,
+    function void dropped(uvm_objection objection,uvm_object obj,uvm_object source_obj,
                           string description,int count);
       d[obj] = dropped_at(obj) + 1;
-      metadata_ok &= objection == expected_objection && source == expected_source;
+      metadata_ok &= objection == expected_objection && source_obj == expected_source;
       metadata_ok &= description == expected_description && count == expected_count;
     endfunction
-    task all_dropped(uvm_objection objection,uvm_object obj,uvm_object source,
+    task all_dropped(uvm_objection objection,uvm_object obj,uvm_object source_obj,
                      string description,int count);
       if (obj == expected_source) begin
         drain_order_ok &= $time >= 2; #2;
         drain_order_ok &= expected_objection.get_objection_total(uvm_root::get()) == 1;
       end
       a[obj] = all_at(obj) + 1;
-      metadata_ok &= objection == expected_objection && source == expected_source;
+      metadata_ok &= objection == expected_objection && source_obj == expected_source;
       metadata_ok &= description == expected_description && count == expected_count;
     endtask
   endclass

@@ -105,7 +105,7 @@ module
     virtual function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
       uvm_sequence_item item=new("unused51");return item;
     endfunction
-    virtual function void bus2reg(uvm_sequence_item item,ref uvm_reg_bus_op rw);
+    virtual function void bus2reg(uvm_sequence_item bus_item,ref uvm_reg_bus_op rw);
       rw.status=UVM_NOT_OK;
     endfunction
   endclass

@@ -32,28 +32,28 @@
 // oracle.
 module test_reg_adapter_constructor_forwards_names_and_inherits_the_object_base;
   import uvm_pkg::*;
-  class bus_item extends uvm_sequence_item;
+  class original_bus_item extends uvm_sequence_item;
     uvm_reg_bus_op operation;
     function new(); super.new("bus"); endfunction
   endclass
   class omitted_adapter extends uvm_reg_adapter;
     virtual function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
-      automatic bus_item item = new(); item.operation = rw; return item;
+      automatic original_bus_item item = new(); item.operation = rw; return item;
     endfunction
-    virtual function void bus2reg(uvm_sequence_item bus_value, ref uvm_reg_bus_op rw);
-      bus_item item;
-      if (!$cast(item, bus_value) || item == null) $fatal(1, "wrong original bus item");
+    virtual function void bus2reg(uvm_sequence_item bus_item, ref uvm_reg_bus_op rw);
+      original_bus_item item;
+      if (!$cast(item, bus_item) || item == null) $fatal(1, "wrong original bus item");
       rw = item.operation;
     endfunction
   endclass
   class named_adapter extends uvm_reg_adapter;
     function new(string name); super.new(name); endfunction
     virtual function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
-      automatic bus_item item = new(); item.operation = rw; return item;
+      automatic original_bus_item item = new(); item.operation = rw; return item;
     endfunction
-    virtual function void bus2reg(uvm_sequence_item bus_value, ref uvm_reg_bus_op rw);
-      bus_item item;
-      if (!$cast(item, bus_value) || item == null) $fatal(1, "wrong original bus item");
+    virtual function void bus2reg(uvm_sequence_item bus_item, ref uvm_reg_bus_op rw);
+      original_bus_item item;
+      if (!$cast(item, bus_item) || item == null) $fatal(1, "wrong original bus item");
       rw = item.operation;
     endfunction
   endclass

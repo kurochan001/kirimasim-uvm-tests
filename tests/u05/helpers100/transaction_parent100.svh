@@ -22,7 +22,7 @@ class stream100 extends uvm_tr_stream;
   function new(string name);
     super.new(name);
   endfunction
-  protected virtual function void do_open(uvm_tr_database db,string scope,string type_name);endfunction
+  protected virtual function void do_open(uvm_tr_database db,string scope,string stream_type_name);endfunction
   protected virtual function void do_close();endfunction
   protected virtual function void do_free();endfunction
   protected virtual function uvm_recorder do_open_recorder(string name,time open_time,string type_name);

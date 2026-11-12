@@ -39,8 +39,8 @@ module test_push_driver_export_dispatches_an_override_before_the_default_put_err
     request_item received;
     bit completed=0;
     function new(string name,uvm_component parent); super.new(name,parent); endfunction
-    virtual task put(request_item value);
-      received=value; #2; completed=1;
+    virtual task put(request_item item);
+      received=item; #2; completed=1;
     endtask
   endclass
   class stop_on_error extends uvm_report_catcher;

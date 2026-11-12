@@ -69,6 +69,7 @@
 // simulator.
 // Width and representable upper bits are declaration checks. Logic aliases are
 // checked for width only; X/Z storage and four-state execution remain open.
+`include "uvm_macros.svh"
 module test_register_global_default_widths_match_public_type_declarations;
   import uvm_pkg::*;
   initial begin

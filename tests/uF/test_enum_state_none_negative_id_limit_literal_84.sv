@@ -41,9 +41,9 @@ module test_enum_state_none_negative_id_limit_literal_84;
     int deliveries;
     uvm_report_object wanted;
     function new(); super.new(); active=0; deliveries=0; wanted=null; endfunction
-    virtual function void execute_report_message(uvm_report_message message,
+    virtual function void execute_report_message(uvm_report_message report_message,
                                                   string composed_message);
-      super.execute_report_message(message,composed_message);
+      super.execute_report_message(report_message,composed_message);
       if(active && matches84(wanted,UVM_INFO,UVM_NONE,"N84","none84")) deliveries++;
     endfunction
   endclass

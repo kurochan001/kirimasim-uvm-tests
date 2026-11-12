@@ -50,7 +50,7 @@ class sink88 extends uvm_subscriber#(uvm_reg_item);
   function new(string name,uvm_component parent);
     super.new(name,parent);
   endfunction
-  virtual function void write(uvm_reg_item item);
+  virtual function void write(uvm_reg_item t);
     calls++;
   endfunction
 endclass

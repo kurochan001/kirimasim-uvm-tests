@@ -85,7 +85,8 @@ module test_recording_base_concrete_subtypes_keep_object_views_and_inherited_con
   endclass
   class stream_probe extends uvm_tr_stream;
     function new(); super.new(); endfunction
-    protected virtual function void do_open(uvm_tr_database db,string scope,string type_name);
+    protected virtual function void do_open(uvm_tr_database db,string scope,
+                                            string stream_type_name);
     endfunction
     protected virtual function void do_close(); endfunction
     protected virtual function void do_free(); endfunction
@@ -97,18 +98,18 @@ module test_recording_base_concrete_subtypes_keep_object_views_and_inherited_con
   class link_probe extends uvm_link_base;
     function new(); super.new(); endfunction
     uvm_object left_value,right_value;
-    protected virtual function uvm_object do_get_lhs(); return left_value; endfunction
-    protected virtual function uvm_object do_get_rhs(); return right_value; endfunction
-    protected virtual function void do_set_lhs(uvm_object value); left_value=value; endfunction
-    protected virtual function void do_set_rhs(uvm_object value); right_value=value; endfunction
+    virtual function uvm_object do_get_lhs(); return left_value; endfunction
+    virtual function uvm_object do_get_rhs(); return right_value; endfunction
+    virtual function void do_set_lhs(uvm_object lhs); left_value=lhs; endfunction
+    virtual function void do_set_rhs(uvm_object rhs); right_value=rhs; endfunction
   endclass
   class named_link_probe extends uvm_link_base;
     function new(string name); super.new(name); endfunction
     uvm_object left_value,right_value;
-    protected virtual function uvm_object do_get_lhs(); return left_value; endfunction
-    protected virtual function uvm_object do_get_rhs(); return right_value; endfunction
-    protected virtual function void do_set_lhs(uvm_object value); left_value=value; endfunction
-    protected virtual function void do_set_rhs(uvm_object value); right_value=value; endfunction
+    virtual function uvm_object do_get_lhs(); return left_value; endfunction
+    virtual function uvm_object do_get_rhs(); return right_value; endfunction
+    virtual function void do_set_lhs(uvm_object lhs); left_value=lhs; endfunction
+    virtual function void do_set_rhs(uvm_object rhs); right_value=rhs; endfunction
   endclass
   initial begin
     automatic database_probe db=new();
