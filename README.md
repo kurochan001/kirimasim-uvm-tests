@@ -135,6 +135,8 @@ Each known difference has one entry in [the cause record](coverage/known_causes.
 
 Every test also has a [kirimasim bring-up stage](docs/kirimasim-stages.md), recorded in `coverage/kirimasim_stages.json`: 1 test at stage 0, 1030 at stage 1 (minimal run_test), 95 at stage 2 (factory), 111 at stage 3 (config_db), 326 at stage 4 (sequence), 250 at stage 5 (TLM) and 950 at stage 6 (register layer). The current kirimasim records stop at the same unsupported `uvm_object_wrapper` construct in every stage; the stage-0 test is unmeasured.
 
+Every test begins with a comment that says what it checks and how its expected output follows from the cited clauses, and helpers hold one statement on each line, except `tests/uB/helpers81/report_macros81.svh`, which uses `` `__LINE__ `` and keeps its line layout. [Readability edits](docs/testing.md#readability-edits) explains how such an edit is shown to keep the code.
+
 `known` and `unsupported` are not passes. Ghost bundled results do not establish
 results for the pinned library.
 
