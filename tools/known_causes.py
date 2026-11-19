@@ -11,9 +11,9 @@ Usage:
 
 A known difference is a two-state test (`:fourstate: no`) whose `:oracle:`
 does not list verilator@5.052 (tools/run_verilator.py). The record has exactly
-one entry for each of them and none for any other test. An entry names the
-kind of difference (runtime, build or accepted-illegal), the DPI condition
-that the test needs, if any, and one cause:
+one entry for each of them. An entry names the kind of difference (runtime,
+build or accepted-illegal), the DPI condition that the test needs, if any, and
+one cause:
 
     library         the pinned UVM library differs from the cited clauses
     interpretation  the cited text admits another reading, which the library
@@ -23,6 +23,24 @@ that the test needs, if any, and one cause:
     condition       the test needs a DPI condition that the ordinary run does
                     not link, and it matches under that condition's runner
     unassigned      not diagnosed yet
+
+A four-state test (`:fourstate: yes`) has no Verilator record. It has an entry
+only when reading the pinned library shows that the library keeps the test
+from its expectation on any simulator. Such an entry has the kind static,
+because no run supports it, and the cause library or interpretation. A tagged
+two-state test has no entry.
+
+An interpretation also names the basis of its two readings:
+
+    printed             the test reads a declaration, a name or a format
+                        specifier as it is printed, and another part of the
+                        standard indicates that the printed text is a misprint
+    printed-by-library  the same, with the library following the printed text
+                        and the test the other part
+    ambiguity           the text itself admits both readings
+
+The basis separates the readings that depend on a probable misprint; it does
+not decide that the text is one, which is left to a person.
 
 The evidence of each cause is checked against the repository: library files
 and the text that each names must exist in the pinned library, clauses must be
@@ -34,10 +52,10 @@ must be exactly the entries, with the same kinds and fingerprints.
 summary counts the entries by cause and separates the kirimasim targets:
 inputs that measure a simulator against the standard, and inputs that the
 pinned library itself keeps from the expectation on any simulator (library and
-interpretation causes). The measurable inputs include the tests recorded with
-Verilator, the simulator and condition causes, and the four-state tests, which
-have no Verilator record; unassigned entries are counted apart until they are
-diagnosed. candidates lists the entries for human review.
+interpretation causes, including the static entries of four-state tests). The
+measurable inputs include the tests recorded with Verilator, the simulator and
+condition causes, and the four-state tests without an entry; unassigned
+entries are counted apart until they are diagnosed. candidates lists the entries for human review.
 reproduce builds every simulator reproducer with Verilator and checks that
 Verilator still accepts or rejects it as recorded. A design is accepted when
 it builds and its run exits with 0, and rejected when it does not build or its
@@ -68,7 +86,12 @@ RECORD = Path("coverage") / "known_causes.json"
 STANDARD = "1800.2-2020"
 SIMULATOR = "verilator@5.052"
 LANGUAGES = {"en", "ja"}
-KINDS = ("runtime", "build", "accepted-illegal")
+# The kinds that a Verilator record shows, and the kind of an entry of a
+# four-state test, which is diagnosed by reading the library.
+RECORDED_KINDS = ("runtime", "build", "accepted-illegal")
+STATIC = "static"
+KINDS = (*RECORDED_KINDS, STATIC)
+BASES = ("printed", "printed-by-library", "ambiguity")
 CAUSES = ("library", "interpretation", "simulator", "condition", "unassigned")
 # The causes for which the pinned library itself keeps every simulator from the
 # expectation: an interpretation entry exists because the library follows the
@@ -160,6 +183,17 @@ def expected_entries(tests):
     return result
 
 
+def four_state(tests):
+    """The tests that may have a static entry."""
+    return {name: fields for name, path in tests.items()
+            for fields in [suite_results.header(path)] if fields.get("fourstate") != "no"}
+
+
+def recorded(data):
+    """The entries of known differences, without the static ones."""
+    return [entry for entry in data["causes"] if entry["kind"] != STATIC]
+
+
 def required_condition(fields):
     found = [name for name, field in CONDITIONS.items() if fields.get(field) == "vpi"]
     require(len(found) <= 1, "a test selects more than one DPI condition")
@@ -231,8 +265,10 @@ def validate_evidence(entry, where, *, clauses, library, tests, reproducers, use
             require(isinstance(evidence["deviations"], int) and evidence["deviations"] > 0,
                     f"{where}: deviations is an issue number of DEVIATIONS.md")
     elif cause == "interpretation":
-        keys(evidence, {"clauses", "readings"}, f"{where}.evidence", ("controls",))
+        keys(evidence, {"clauses", "readings", "basis"}, f"{where}.evidence", ("controls",))
         validate_clauses(evidence["clauses"], f"{where}.evidence", clauses)
+        require(evidence["basis"] in BASES,
+                f"{where}: basis must be one of {', '.join(BASES)}")
         readings = evidence["readings"]
         require(isinstance(readings, list) and len(readings) == 2,
                 f"{where}: an interpretation has the test's reading and one other")
@@ -258,7 +294,7 @@ def validate(data, root=None):
     root = root or ROOT
     keys(data, {"schema_version", "standard", "library", "simulator", "status",
                 "reproducers", "causes"}, RECORD.name)
-    require(data["schema_version"] == 1, "unsupported schema_version")
+    require(data["schema_version"] == 2, "unsupported schema_version")
     require(data["standard"] == STANDARD, f"standard must be {STANDARD}")
     library, version = library_dir(root)
     require(data["library"] == version, f"library must be the pinned UVM {version}")
@@ -267,6 +303,7 @@ def validate(data, root=None):
     validate_reproducers(data["reproducers"], "reproducers")
     tests = tests_by_id(root)
     wanted = expected_entries(tests)
+    static = four_state(tests)
     clauses = clause_list(root)
     causes = data["causes"]
     require(isinstance(causes, list), "causes must be a list")
@@ -279,14 +316,20 @@ def validate(data, root=None):
         name = entry["test"]
         where = f"causes[{name}]"
         require(name in tests, f"{where}: no such test")
-        require(name in wanted, f"{where}: the test is four-state or recorded with {SIMULATOR}")
-        fields = wanted[name]
+        require(name in wanted or name in static,
+                f"{where}: the test is recorded with {SIMULATOR}")
+        fields = wanted[name] if name in wanted else static[name]
         digest = entry["inputs_sha256"]
         require(isinstance(digest, str) and DIGEST.fullmatch(digest),
                 f"{where}: inputs_sha256 must be a SHA-256 digest")
         require(entry["inputs_sha256"] == suite_results.input_digest(tests[name]),
                 f"{where}: the inputs changed after the diagnosis; diagnose the test again")
         require(entry["kind"] in KINDS, f"{where}: kind must be one of {', '.join(KINDS)}")
+        require((entry["kind"] == STATIC) == (name in static),
+                f"{where}: kind {STATIC} is for a four-state test, and only for one")
+        require(entry["kind"] != STATIC or entry["cause"] in LIBRARY_BLOCKED,
+                f"{where}: a {STATIC} entry has the cause "
+                + " or ".join(LIBRARY_BLOCKED))
         illegal = "should_fail_because" in fields
         require((entry["kind"] == "accepted-illegal") <= illegal and
                 (entry["kind"] == "runtime") <= (not illegal),
@@ -330,7 +373,7 @@ def check_results(data, path):
             f"{path.name}: not a Verilator 5.052 record")
     known = {name: record for name, record in results["tests"].items()
              if record["status"] == "known"}
-    entries = {entry["test"]: entry for entry in data["causes"]}
+    entries = {entry["test"]: entry for entry in recorded(data)}
     require(set(known) == set(entries),
             f"{path.name}: {len(set(known) - set(entries))} known records without an entry, "
             f"{len(set(entries) - set(known))} entries that are not known records")
@@ -348,17 +391,23 @@ def summary(data, root=None):
     tests = tests_by_id(root)
     two_state = [n for n, p in tests.items() if suite_results.header(p).get("fourstate") == "no"]
     tagged = [n for n in two_state if is_tagged(suite_results.header(tests[n]))]
-    causes = Counter(entry["cause"] for entry in data["causes"])
+    known = recorded(data)
+    static = [entry for entry in data["causes"] if entry["kind"] == STATIC]
+    causes = Counter(entry["cause"] for entry in known)
     kinds = Counter((entry["cause"], entry["kind"]) for entry in data["causes"])
-    blocked = sum(causes[c] for c in LIBRARY_BLOCKED)
+    bases = Counter(entry["evidence"]["basis"] for entry in data["causes"]
+                    if entry["cause"] == "interpretation")
+    blocked = sum(causes[c] for c in LIBRARY_BLOCKED) + len(static)
     return {
         "tests": len(tests),
         "four_state_without_verilator_record": len(tests) - len(two_state),
+        "four_state_blocked_by_pinned_library": len(static),
         "verilator_tagged": len(tagged),
-        "known": len(data["causes"]),
+        "known": len(known),
         "by_cause": {c: causes[c] for c in CAUSES},
         "by_cause_and_kind": {c: {k: kinds[(c, k)] for k in KINDS} for c in CAUSES},
-        "with_condition": sum(1 for e in data["causes"] if e.get("condition")),
+        "interpretation_by_basis": {b: bases[b] for b in BASES},
+        "with_condition": sum(1 for e in known if e.get("condition")),
         "kirimasim_targets": {
             "measurable": len(tests) - blocked - causes["unassigned"],
             "blocked_by_pinned_library": blocked,
@@ -372,6 +421,7 @@ def candidates(data):
     chosen = [e for e in data["causes"] if e["cause"] in order and e["review"]["status"] == "ai"]
     chosen.sort(key=lambda e: (order[e["cause"]], e["test"]))
     return [{"test": e["test"], "cause": e["cause"], "kind": e["kind"],
+             "basis": e["evidence"].get("basis"),
              "clauses": e["evidence"].get("clauses", []),
              "reproducer": e["evidence"].get("reproducer"), "note": e["note"]} for e in chosen]
 
@@ -415,6 +465,10 @@ def print_summary(s, lang):
               "four-state without a Verilator record")
         print("Known differences by cause: " + ", ".join(f"{k} {v}" for k, v in c.items())
               + f" ({s['with_condition']} need a DPI condition)")
+        print("Interpretations by basis: "
+              + ", ".join(f"{k} {v}" for k, v in s["interpretation_by_basis"].items()))
+        print(f"Four-state tests that the pinned library keeps from the expectation: "
+              f"{s['four_state_blocked_by_pinned_library']}")
         print(f"kirimasim targets: {t['measurable']} measurable against the standard, "
               f"{t['blocked_by_pinned_library']} kept from the expectation by the pinned library, "
               f"{t['not_yet_classified']} not yet classified")
@@ -426,6 +480,10 @@ def print_summary(s, lang):
                  "simulator": "simulator", "condition": "実行条件", "unassigned": "未分類"}
         print("既知の違いの原因：" + "・".join(f"{names[k]} {v}件" for k, v in c.items())
               + f"（DPIの実行条件が要るもの{s['with_condition']}件）")
+        print("interpretationの根拠：" + "・".join(
+            f"{k} {v}件" for k, v in s["interpretation_by_basis"].items()))
+        print("固定版libraryのために期待値に届かない4値のテスト："
+              f"{s['four_state_blocked_by_pinned_library']}件")
         print(f"kirimasimの目標：規格の期待値で測れる入力{t['measurable']}件・"
               f"固定版libraryのために期待値に届かない入力{t['blocked_by_pinned_library']}件・"
               f"未分類{t['not_yet_classified']}件")
@@ -467,7 +525,8 @@ def main(argv=None):
                 write_json(args.json, rows)
             for n, row in enumerate(rows, 1):
                 where = " ".join(row["clauses"]) or row["reproducer"]
-                print(f"{n}. {row['test']} [{row['cause']}, {row['kind']}, {where}]: "
+                cause = row["cause"] + (f" ({row['basis']})" if row["basis"] else "")
+                print(f"{n}. {row['test']} [{cause}, {row['kind']}, {where}]: "
                       f"{row['note'][args.lang]}")
         else:
             if shutil.which(args.verilator) is None:

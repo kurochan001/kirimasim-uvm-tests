@@ -73,9 +73,6 @@ module test_fourstate_record_field_values_117;
       return 0;
     endfunction
 
-    protected virtual function void do_record_object(string name, uvm_object value);
-    endfunction
-
     protected virtual function void do_record_string(string name, string value);
     endfunction
 

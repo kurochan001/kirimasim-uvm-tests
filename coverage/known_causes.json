@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "standard": "1800.2-2020",
   "library": "2020.3.1",
   "simulator": "verilator@5.052",
@@ -653,7 +653,8 @@
             "en": "The root sequence is the top-most parent sequence, so a sequence without a parent has none; the library returns null and an empty name.",
             "ja": "root sequenceは最上位の親sequenceなので、親のないsequenceにはない。libraryはnullと空の名前を返す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "Whether a sequence without a parent is its own root sequence depends on the reading of 'the top-most parent sequence'; the library returns null.",
@@ -685,7 +686,8 @@
             "en": "The root sequence is the top-most parent sequence, so a sequence without a parent has none; the library returns null and an empty name.",
             "ja": "root sequenceは最上位の親sequenceなので、親のないsequenceにはない。libraryはnullと空の名前を返す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "Whether a sequence without a parent is its own root sequence depends on the reading of 'the top-most parent sequence'; the library returns null.",
@@ -1328,7 +1330,8 @@
             "en": "Recording is turned on by enable_recording with a stream, so a new transaction without a stream does not record; the library returns 0.",
             "ja": "記録はstreamを渡すenable_recordingで有効になるので、streamのない新しいtransactionは記録せず、libraryは0を返す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "5.4.2.9 calls recording on by default but turns it on with a stream; the library reports a new transaction as not recording.",
@@ -1560,7 +1563,8 @@
             "en": "The printed declaration 'function unsigned' has an implicit one-bit return type (1800-2023 13.4), which the library copies, so a size of two returns zero.",
             "ja": "印刷された宣言「function unsigned」の戻り値型は暗黙の1 bitであり（1800-2023の13.4）、libraryはこれを写しているため、大きさ2は0になる。"
           }
-        ]
+        ],
+        "basis": "printed-by-library"
       },
       "note": {
         "en": "The printed return type of get_streams holds one bit, while the description returns the queue size; the library follows the declaration.",
@@ -1916,7 +1920,8 @@
             "en": "get_imp returns the phase implementation of a node, as the first sentence says; the library returns it.",
             "ja": "最初の文のとおり、get_impはnodeのphase実装を返し、libraryはそれを返す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The two sentences of 9.3.1.6.7 disagree for a node; the library returns the implementation.",
@@ -1946,7 +1951,8 @@
             "en": "It returns the topmost parent schedule node, as the description says; the library returns uvm_phase.",
             "ja": "説明文のとおり最上位の親schedule nodeを返し、libraryはuvm_phaseを返す。"
           }
-        ]
+        ],
+        "basis": "printed"
       },
       "note": {
         "en": "The printed return type of get_schedule is string, while the description returns a schedule node; the library returns uvm_phase.",
@@ -2105,7 +2111,8 @@
             "en": "10.2 calls an attached callback each time the event is triggered, without regard to its mode; the library calls every attached callback.",
             "ja": "10.2は、eventにつないだcallbackを、modeにかかわらずeventが起動されるたびに呼ぶとし、libraryはつないだcallbackをすべて呼ぶ。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "Whether callback_mode applies to event callbacks is not stated in 10.2; the library calls disabled callbacks.",
@@ -2285,7 +2292,8 @@
             "en": "The description returns the item instance, as the generic uvm_pool::get_global (11.2.2.3) does; the library returns the item type.",
             "ja": "説明文は、汎用のuvm_pool::get_global（11.2.2.3）と同じくitemのinstanceを返すとしており、libraryはitemの型を返す。"
           }
-        ]
+        ],
+        "basis": "printed"
       },
       "note": {
         "en": "The printed return type and the description of get_global disagree; the library follows the description.",
@@ -2316,11 +2324,43 @@
             "en": "The description returns the item instance, as the generic uvm_pool::get_global (11.2.2.3) does; the library returns the item type.",
             "ja": "説明文は、汎用のuvm_pool::get_global（11.2.2.3）と同じくitemのinstanceを返すとしており、libraryはitemの型を返す。"
           }
-        ]
+        ],
+        "basis": "printed"
       },
       "note": {
         "en": "The printed return type and the description of get_global disagree; the library follows the description.",
         "ja": "get_globalの印刷された戻り値型と説明文が食い違い、libraryは説明文に従っている。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "test": "u11/test_fourstate_queue_missing_entries_117",
+      "inputs_sha256": "94bc8f197feb74c4fd62a4ee5d10df07bf530adf7cc630c8967add79654adc78",
+      "kind": "static",
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "11.3.2.8",
+          "11.3.2.9"
+        ],
+        "library": [
+          {
+            "file": "src/base/uvm_queue.svh",
+            "text": "return queue.pop_front();"
+          },
+          {
+            "file": "src/base/uvm_queue.svh",
+            "text": "return queue.pop_back();"
+          }
+        ]
+      },
+      "note": {
+        "en": "11.3.2.8 and 11.3.2.9 require a warning when pop_front or pop_back is called on an empty queue; the pinned methods only return the result of the built-in pop and issue no report, so the two lines that expect the warning cannot match on any simulator. The out-of-range get of 11.3.2.4 does warn.",
+        "ja": "11.3.2.8と11.3.2.9は、空のqueueでpop_frontやpop_backを呼んだときにwarningを求める。固定版のmethodは組込みのpopの結果を返すだけでreportを出さないため、warningを期待する2行はどのsimulatorでも一致しない。11.3.2.4の範囲外のgetはwarningを出す。"
       },
       "review": {
         "status": "ai",
@@ -2439,7 +2479,8 @@
             "en": "The list gives only the order in which the values are stored; the library assigns the member variables directly.",
             "ja": "一覧は値を格納する順序を示すだけであり、libraryはmember変数へ直接代入する。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "Whether 12.3.4.2.5 requires calls of the named setters or only their order is not settled; the library assigns the members directly, so overridden setters see no visit.",
@@ -2470,7 +2511,8 @@
             "en": "The list gives only the order in which the values are stored; the library assigns the member variables directly.",
             "ja": "一覧は値を格納する順序を示すだけであり、libraryはmember変数へ直接代入する。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "Whether 12.3.4.2.5 requires calls of the named setters or only their order is not settled; the library assigns the members directly, so overridden setters see no visit.",
@@ -2501,7 +2543,8 @@
             "en": "The list names nonblocking sockets under a blocking socket's heading; a blocking passthrough socket connects to blocking providers, and the library reports errors for the listed ones.",
             "ja": "この一覧はblockingのsocketの見出しの下にnonblockingのsocketを挙げている。blockingのpassthrough socketはblockingの接続先につながるもので、libraryは挙げられたものにerrorを報告する。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The provider list of the blocking passthrough connect names nonblocking socket families; the library rejects them.",
@@ -2532,7 +2575,8 @@
             "en": "The list names nonblocking sockets under a blocking socket's heading; a blocking passthrough socket connects to blocking providers, and the library reports errors for the listed ones.",
             "ja": "この一覧はblockingのsocketの見出しの下にnonblockingのsocketを挙げている。blockingのpassthrough socketはblockingの接続先につながるもので、libraryは挙げられたものにerrorを報告する。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The provider list of the blocking passthrough connect names nonblocking socket families; the library rejects them.",
@@ -2589,7 +2633,8 @@
             "en": "The standard defines only the error; the library reports it and still records the provider for the initiator kinds.",
             "ja": "規格はerrorだけを定め、libraryはerrorを報告したうえで、initiatorの種類では接続先を記録する。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The state after an invalid same-kind connect is not specified; the library leaves a provider entry for the initiator kinds.",
@@ -2729,7 +2774,8 @@
             "en": "The argument is declared output, which 1800-2023 13.5 copies back at return from a formal that starts at its default value, so no implementation keeps the caller's value; the library follows these rules.",
             "ja": "引数はoutputと宣言されており、1800-2023の13.5では既定値から始まる仮引数が戻るときに書き戻されるため、呼出し側の値を保つ実装はありえない。libraryはこの規則どおりである。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The 'not modified' rule of try_get and try_peek conflicts with their output direction; the library returns the default value.",
@@ -2760,7 +2806,8 @@
             "en": "The argument is declared output, which 1800-2023 13.5 copies back at return from a formal that starts at its default value, so no implementation keeps the caller's value; the library follows these rules.",
             "ja": "引数はoutputと宣言されており、1800-2023の13.5では既定値から始まる仮引数が戻るときに書き戻されるため、呼出し側の値を保つ実装はありえない。libraryはこの規則どおりである。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The 'not modified' rule of try_get and try_peek conflicts with their output direction; the library returns the default value.",
@@ -2791,7 +2838,8 @@
             "en": "The argument is declared output, which 1800-2023 13.5 copies back at return from a formal that starts at its default value, so no implementation keeps the caller's value; the library follows these rules.",
             "ja": "引数はoutputと宣言されており、1800-2023の13.5では既定値から始まる仮引数が戻るときに書き戻されるため、呼出し側の値を保つ実装はありえない。libraryはこの規則どおりである。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The 'not modified' rule of try_get and try_peek conflicts with their output direction; the library returns the default value.",
@@ -2822,7 +2870,8 @@
             "en": "The argument is declared output, which 1800-2023 13.5 copies back at return from a formal that starts at its default value, so no implementation keeps the caller's value; the library follows these rules.",
             "ja": "引数はoutputと宣言されており、1800-2023の13.5では既定値から始まる仮引数が戻るときに書き戻されるため、呼出し側の値を保つ実装はありえない。libraryはこの規則どおりである。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The 'not modified' rule of try_get and try_peek conflicts with their output direction; the library returns the default value.",
@@ -3011,7 +3060,8 @@
             "en": "It is a task like the hooks it pairs with, uvm_objection::all_dropped (10.5.1.4.3) and uvm_objection_callback::all_dropped (10.5.2.2.3); the library declares a task.",
             "ja": "対になるuvm_objection::all_dropped（10.5.1.4.3）やuvm_objection_callback::all_dropped（10.5.2.2.3）と同じくtaskであり、libraryはtaskとして宣言している。"
           }
-        ]
+        ],
+        "basis": "printed"
       },
       "note": {
         "en": "The component hook is printed as a function, while the objection hooks it pairs with are tasks; the library declares a task.",
@@ -4069,7 +4119,8 @@
             "en": "The name is a misprint of is_auto_item_recording_enabled, the query of the sequencer interface (15.2.1.2.11), which the library provides.",
             "ja": "この名前はsequencer interfaceの問合せ（15.2.1.2.11）であるis_auto_item_recording_enabledの誤植であり、libraryはこちらを持つ。"
           }
-        ]
+        ],
+        "basis": "printed"
       },
       "note": {
         "en": "The base-class query is printed with a name that differs from the interface query of the same meaning; the library has only the interface name.",
@@ -4157,7 +4208,8 @@
             "en": "The sentence states what the wait is for, and user sequencers may override it; the library, whose own description repeats the sentence, waits one nonblocking-assignment region so that a sequence can deliver an item before time advances, and then returns.",
             "ja": "この文は待つ目的を述べたもので、利用者のsequencerはこれを上書きしてよい。libraryは自身の説明でこの文を繰り返したうえで、時刻が進む前にsequenceがitemを渡せるようnonblocking代入の領域を1回待ち、戻る。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "Whether 15.2.1.2.4 requires blocking until an item exists or describes a bounded wait for one is not settled; the library returns after one nonblocking-assignment region.",
@@ -4244,7 +4296,8 @@
             "en": "The maximum bounds the calls that follow another call without time advancing, so the first call at a new time is not counted; the library declares the error at the fifth call.",
             "ja": "最大値は、時刻が進まないまま前の呼出しに続く呼出しを抑えるので、新しい時刻での最初の呼出しは数えない。libraryは5回目の呼出しでerrorを出す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "15.3.2.21 does not say whether the first call of a time step counts as a zero-time call; the library counts only the calls after it.",
@@ -4755,7 +4808,8 @@
             "en": "The object being printed counts in its own depth, so a maximum of 0 already makes the top object a reference; the library prints it as one.",
             "ja": "印字するobject自身も深さに数えるので、最大が0なら最上位のobjectがすでに参照になる。libraryはそのように印字する。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "16.2.5.10 does not say whether the object being printed counts in its own scope depth; at the boundary the library treats it as exceeding.",
@@ -5719,7 +5773,8 @@
             "en": "Only the modeled field bits have a defined write effect; the library keeps the read-only field and writes back a value assembled from the fields, which changes bits no field models.",
             "ja": "書込みの効果が定まるのはmodelしたfieldのbitだけである。libraryはread-onlyのfieldを保ち、fieldから組み立てた値を書き戻すため、どのfieldもmodelしないbitが変わる。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "18.5.5.9 keeps read-only bits on a back-door write but does not say what happens to bits no field models; the library keeps the read-only field and changes the unmodeled bits.",
@@ -6028,7 +6083,8 @@
             "en": "The method returns the new map that its description creates; the library returns uvm_reg_map.",
             "ja": "このmethodは説明文が作る新しいmapを返し、libraryはuvm_reg_mapを返す。"
           }
-        ]
+        ],
+        "basis": "printed"
       },
       "note": {
         "en": "The printed declaration of clone_and_update lacks the return type that its description implies; the library returns the map.",
@@ -6675,7 +6731,8 @@
             "en": "18.6.4.5 says rights are restricted only for a shared memory, so an unshared memory has no restriction and get_access returns its own policy; the library returns RW.",
             "ja": "18.6.4.5は権限の制限を共有memoryに限るので、共有しないmemoryには制限がなく、get_accessは自身のpolicyを返す。libraryはRWを返す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "18.6.4.6 accounts for map restrictions while 18.6.4.5 limits restrictions to shared memories; for an unshared memory added with RO rights the library returns its own policy.",
@@ -6885,7 +6942,8 @@
             "en": "18.6.4.5 says rights are restricted only for a shared memory, so an unshared memory has no restriction and get_access returns its own policy; the library returns RW.",
             "ja": "18.6.4.5は権限の制限を共有memoryに限るので、共有しないmemoryには制限がなく、get_accessは自身のpolicyを返す。libraryはRWを返す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "18.6.4.6 accounts for map restrictions while 18.6.4.5 limits restrictions to shared memories; for an unshared memory added with RO or WO rights the library returns its own policy.",
@@ -6917,7 +6975,8 @@
             "en": "18.6.4.5 says rights are restricted only for a shared memory, so an unshared memory has no restriction and get_access returns its own policy; the library returns RW.",
             "ja": "18.6.4.5は権限の制限を共有memoryに限るので、共有しないmemoryには制限がなく、get_accessは自身のpolicyを返す。libraryはRWを返す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "18.6.4.6 accounts for map restrictions while 18.6.4.5 limits restrictions to shared memories; for an unshared memory added with RO or WO rights the library returns its own policy.",
@@ -7180,7 +7239,8 @@
             "en": "18.8.5.6 names no comparison value, so the register mirror rule of 18.4.4.14 applies and the value read is compared with the mirrored field value; the library reports the mismatch.",
             "ja": "18.8.5.6は比べる値を挙げていないので、18.4.4.14のregisterのmirrorの規則が働き、読んだ値をfieldのmirrorの値と比べる。libraryは不一致を報告する。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "18.8.5.6 pops the front of the abstract FIFO on a checked mirror but does not say what the value read is compared with; the library compares it with the field mirror.",
@@ -7366,7 +7426,8 @@
             "en": "set_frontdoor specifies a user-defined front door, which null is not, so passing null is outside the method; the library stores the debug location in the argument and stops on the null handle.",
             "ja": "set_frontdoorはuser定義のfront doorを指定するもので、nullはそれに当たらないので、nullを渡すことはmethodの範囲外である。libraryは引数にdebugの位置を書き込み、nullのhandleで止まる。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "18.4.5 does not say whether set_frontdoor(null) removes a user front door; the library dereferences the null argument.",
@@ -7397,7 +7458,8 @@
             "en": "set_frontdoor specifies a user-defined front door, which null is not, so passing null is outside the method; the library stores the debug location in the argument and stops on the null handle.",
             "ja": "set_frontdoorはuser定義のfront doorを指定するもので、nullはそれに当たらないので、nullを渡すことはmethodの範囲外である。libraryは引数にdebugの位置を書き込み、nullのhandleで止まる。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "18.4.5 does not say whether set_frontdoor(null) removes a user front door; the library dereferences the null argument.",
@@ -7428,7 +7490,8 @@
             "en": "set_frontdoor specifies a user-defined front door, which null is not, so passing null is outside the method; the library stores the debug location in the argument and stops on the null handle.",
             "ja": "set_frontdoorはuser定義のfront doorを指定するもので、nullはそれに当たらないので、nullを渡すことはmethodの範囲外である。libraryは引数にdebugの位置を書き込み、nullのhandleで止まる。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "18.4.5 does not say whether set_frontdoor(null) removes a user front door; the library dereferences the null argument.",
@@ -7459,7 +7522,8 @@
             "en": "set_frontdoor specifies a user-defined front door, which null is not, so passing null is outside the method; the library stores the debug location in the argument and stops on the null handle.",
             "ja": "set_frontdoorはuser定義のfront doorを指定するもので、nullはそれに当たらないので、nullを渡すことはmethodの範囲外である。libraryは引数にdebugの位置を書き込み、nullのhandleで止まる。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "18.4.5 does not say whether set_frontdoor(null) removes a user front door; the library dereferences the null argument.",
@@ -7555,7 +7619,8 @@
             "en": "The kind is resolved once from the register's default and the same kind is requested from every ancestor; the library does so and reports that the root has no path for it.",
             "ja": "kindはregisterの既定値から一度だけ決まり、同じkindをすべての祖先に求める。libraryはそうし、rootにそのpathがないことを報告する。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "18.4.6.9 does not say whether an omitted kind is resolved once or at each ancestor; the library passes the register's resolved kind to every ancestor.",
@@ -8832,7 +8897,8 @@
             "en": "The clauses order the field method, the field callbacks and the register callbacks differently, so no single sequence satisfies every sentence; the library uses its own order.",
             "ja": "条項はfieldのmethod、fieldのcallback、registerのcallbackの順をそれぞれ違うように定めており、どの順もすべての文を満たさない。libraryは独自の順を使う。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The pre-read ordering sentences of 18.10.5.3, 18.10.6.2.3 and the virtual register clauses cannot all hold at once; the library's order differs from the literal probe.",
@@ -8864,7 +8930,8 @@
             "en": "The clauses order the field method, the field callbacks and the register callbacks differently, so no single sequence satisfies every sentence; the library uses its own order.",
             "ja": "条項はfieldのmethod、fieldのcallback、registerのcallbackの順をそれぞれ違うように定めており、どの順もすべての文を満たさない。libraryは独自の順を使う。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The pre-read ordering sentences of 18.10.5.3, 18.10.6.2.3 and the virtual register clauses cannot all hold at once; the library's order differs from the literal probe.",
@@ -9004,7 +9071,8 @@
             "en": "The class declaration (18.10.1) extends uvm_object, as the library does.",
             "ja": "class宣言（18.10.1）はuvm_objectを拡張しており、libraryも同じである。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The overview and the class declaration of uvm_vreg_field name different bases; the library follows the declaration.",
@@ -9035,7 +9103,8 @@
             "en": "The class declaration (18.9.1) extends uvm_object, as the library does.",
             "ja": "class宣言（18.9.1）はuvm_objectを拡張しており、libraryも同じである。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The overview and the class declaration of uvm_vreg name different bases; the library follows the declaration.",
@@ -9158,7 +9227,8 @@
             "en": "Endianness also orders the bytes inside a bus word, so the most-significant byte goes to the lowest byte lane; the library reverses the bytes of the word.",
             "ja": "endiannessはbus wordの中のbyteの順も決めるので、最上位のbyteを最も低いbyte laneに置く。libraryはwordのbyteを入れ替える。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "17.2.2.4 does not say whether big-endian ordering applies inside one bus word; with a 64-bit bus the library reverses the bytes of the single word.",
@@ -9251,7 +9321,8 @@
             "en": "Endianness also orders the bytes inside a bus word, so the most-significant byte goes to the lowest byte lane; the library reverses the bytes of the word.",
             "ja": "endiannessはbus wordの中のbyteの順も決めるので、最上位のbyteを最も低いbyte laneに置く。libraryはwordのbyteを入れ替える。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "17.2.2.4 does not say whether big-endian ordering applies inside one bus word; with a 64-bit bus the library reverses the bytes of the single word.",
@@ -9344,7 +9415,8 @@
             "en": "Endianness also orders the bytes inside a bus word, so the most-significant byte goes to the lowest byte lane; the library reverses the bytes of the word.",
             "ja": "endiannessはbus wordの中のbyteの順も決めるので、最上位のbyteを最も低いbyte laneに置く。libraryはwordのbyteを入れ替える。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "17.2.2.4 does not say whether big-endian ordering applies inside one bus word; with a 64-bit bus the library reverses the bytes of the single word.",
@@ -9437,7 +9509,8 @@
             "en": "Endianness also orders the bytes inside a bus word, so the most-significant byte goes to the lowest byte lane; the library reverses the bytes of the word.",
             "ja": "endiannessはbus wordの中のbyteの順も決めるので、最上位のbyteを最も低いbyte laneに置く。libraryはwordのbyteを入れ替える。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "17.2.2.4 does not say whether big-endian ordering applies inside one bus word; with a 64-bit bus the library reverses the bytes of the single word.",
@@ -10064,7 +10137,8 @@
             "en": "10.7.2.1 declares uvm_callbacks as an extension of uvm_object that is not a uvm_callback, as the library does.",
             "ja": "10.7.2.1はuvm_callbacksを、uvm_callbackではないuvm_objectの拡張として宣言しており、libraryも同じである。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The overview wording admits a registry below uvm_callback that the declaration does not give; the library follows the declaration.",
@@ -10096,7 +10170,8 @@
             "en": "10.7.2.1 declares uvm_callbacks as an extension of uvm_object that is not a uvm_callback, as the library does.",
             "ja": "10.7.2.1はuvm_callbacksを、uvm_callbackではないuvm_objectの拡張として宣言しており、libraryも同じである。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "The overview wording admits a registry below uvm_callback that the declaration does not give; the library follows the declaration.",
@@ -10357,7 +10432,8 @@
             "en": "The clause names no recorder for the default implementation; the library calls record_generic on the recorder in scope and does not use TR_HANDLE.",
             "ja": "条項は既定の実装が使うrecorderを定めていない。libraryは手元のrecorderのrecord_genericを呼び、TR_HANDLEを使わない。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "B.2.3.1 does not say which recorder receives the default record_generic call; the library uses the recorder in scope. Its value also carries the %p quotes of the handle test.",
@@ -10562,7 +10638,8 @@
             "en": "6.3 ignores only reports above the configured level and 6.3.3.2 enables reports at that level; the library applies that inclusive rule to the macro.",
             "ja": "6.3が無視するのは設定より上のreportだけで、6.3.3.2はそのlevelのreportを有効とする。libraryはこの同じlevelを含む規則をmacroにも使う。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "B.1.1.1 says \"lower than\" while 6.3 and 6.3.3.2 include the configured level; the library issues the message at that level.",
@@ -10595,7 +10672,8 @@
             "en": "6.3 ignores only reports above the configured level and 6.3.3.2 enables reports at that level; the library applies that inclusive rule to the macro.",
             "ja": "6.3が無視するのは設定より上のreportだけで、6.3.3.2はそのlevelのreportを有効とする。libraryはこの同じlevelを含む規則をmacroにも使う。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "B.1.1.1 says \"lower than\" while 6.3 and 6.3.3.2 include the configured level; the library issues the message at that level.",
@@ -11188,7 +11266,8 @@
             "en": "The order is taken from the supplied list, which the library keeps for equal precedence.",
             "ja": "順序は渡された一覧から取り、libraryは同じprecedenceではその順を保つ。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "C.2.4.4.3 does not define when a resource counts as set; the library keeps the list order for equal precedence.",
@@ -11220,7 +11299,8 @@
             "en": "With replace 0 the previous override remains in effect, so the earlier type is still created; the library looks further for the earlier override.",
             "ja": "replaceが0のとき前のoverrideが効き続けるため、前の型が生成され続ける。libraryは前のoverrideを探す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "'A previous override remains intact' (8.3.1.4.2) does not say which override selects the type; the library keeps the earlier one in effect.",
@@ -11252,7 +11332,8 @@
             "en": "With replace 0 the previous override remains in effect, so the earlier type is still created; the library looks further for the earlier override.",
             "ja": "replaceが0のとき前のoverrideが効き続けるため、前の型が生成され続ける。libraryは前のoverrideを探す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "'A previous override remains intact' (8.3.1.4.2) does not say which override selects the type; the library keeps the earlier one in effect.",
@@ -11282,7 +11363,8 @@
             "en": "It is named uvm_report_cb, as the heading of D.4.3 says; the library declares uvm_report_cb.",
             "ja": "D.4.3の見出しのとおりuvm_report_cbであり、libraryはuvm_report_cbを宣言している。"
           }
-        ]
+        ],
+        "basis": "printed"
       },
       "note": {
         "en": "D.4.3 is headed uvm_report_cb but prints the typedef as uvm_report_db; the library declares uvm_report_cb.",
@@ -11525,7 +11607,8 @@
             "en": "define_access makes the policy known to the register layer, and \"cannot be tested\" describes a limit rather than a skip rule; the library bashes the register.",
             "ja": "define_accessでpolicyはregister層に既知となり、「検査できない」は飛ばす規則ではなく限界を述べている。libraryはregisterをbit bashする。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "E.2.1 does not define an unknown access policy or say that such a register is skipped; the library tests a register with a user-defined policy.",
@@ -11560,7 +11643,8 @@
             "en": "Each other single and block pair shares one name (E.3.1 and E.3.2, E.4.2 and E.4.3), and E.5.2 names NO_MEM_ACCESS_TEST, so E.5.1 means that name; the library checks it.",
             "ja": "ほかの単体とblockの組はどれも1つの名前を共有し（E.3.1とE.3.2、E.4.2とE.4.3）、E.5.2はNO_MEM_ACCESS_TESTを挙げるので、E.5.1もこの名前を指す。libraryはこの名前を調べる。"
           }
-        ]
+        ],
+        "basis": "printed"
       },
       "note": {
         "en": "E.5.1 names the shared-access resource where its block sequence names NO_MEM_ACCESS_TEST; the library uses the latter for the memory too.",
@@ -11680,7 +11764,8 @@
             "en": "A report is issued only if its verbosity is at most the configured level (6.3.3.3), and uvm_report_enabled returns 0 below it; the library drops the report.",
             "ja": "reportはverbosityが設定したlevel以下のときだけ出し（6.3.3.3）、それより下ではuvm_report_enabledが0を返す。libraryはreportを出さない。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "F.2.2.4 says a UVM_NONE report cannot be disabled while 6.3.3.3 issues a report only at or below the configured level; with a level of -1 the library follows 6.3.3.3.",
@@ -11737,7 +11822,8 @@
             "en": "UVM_NO_HB_MODE is the default argument, so a call with it cannot be told from a query, and 10.6.2.2 changes the mode only when an argument is specified; the library keeps the mode.",
             "ja": "UVM_NO_HB_MODEは既定の引数なので、それを渡す呼出しは問い合わせと区別できない。10.6.2.2は引数を指定したときだけmodeを変える。libraryはmodeを保つ。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "10.6.2.2 uses UVM_NO_HB_MODE both as the default that queries the mode and as a mode that F.2.11 defines as disabled; the library treats it as a query.",
@@ -11768,7 +11854,8 @@
             "en": "UVM_NO_HB_MODE is the default argument, so a call with it cannot be told from a query, and 10.6.2.2 changes the mode only when an argument is specified; the library keeps the mode.",
             "ja": "UVM_NO_HB_MODEは既定の引数なので、それを渡す呼出しは問い合わせと区別できない。10.6.2.2は引数を指定したときだけmodeを変える。libraryはmodeを保つ。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "10.6.2.2 uses UVM_NO_HB_MODE both as the default that queries the mode and as a mode that F.2.11 defines as disabled; the library treats it as a query.",
@@ -12202,7 +12289,8 @@
             "en": "\"This phase's schedule and domain\" admits nodes of either, so a search from the second schedule may reach the first schedule's node through the domain; the library returns it.",
             "ja": "「このphaseのscheduleとdomain」はどちらのnodeも含みうるので、2つ目のscheduleからの探索はdomainを通じて1つ目のscheduleのnodeに届いてよい。libraryはそれを返す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "9.3.1.4.4 limits find to \"this phase's schedule and domain\" without saying whether a node must be in both; the library accepts any predecessor in the same domain.",
@@ -12232,7 +12320,8 @@
             "en": "\"This phase's schedule and domain\" admits nodes of either, so a search from the second schedule may reach the first schedule's node through the domain; the library returns it.",
             "ja": "「このphaseのscheduleとdomain」はどちらのnodeも含みうるので、2つ目のscheduleからの探索はdomainを通じて1つ目のscheduleのnodeに届いてよい。libraryはそれを返す。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
         "en": "9.3.1.4.4 limits find to \"this phase's schedule and domain\" without saying whether a node must be in both; the library accepts any predecessor in the same domain.",
@@ -12351,7 +12440,8 @@
             "en": "F.2.1.5 calls it the unsigned decimal format, and %u is the unformatted 2-value format of 1800-2023 21.2.1.1 that UVM_UNFORMAT2 also names; the library prints unsigned decimal.",
             "ja": "F.2.1.5はこれを符号なし10進の形式と呼び、%uは1800-2023 21.2.1.1の形式なしの2値の形式で、UVM_UNFORMAT2もこれを挙げる。libraryは符号なし10進で出す。"
           }
-        ]
+        ],
+        "basis": "printed"
       },
       "note": {
         "en": "F.2.1.5 describes UVM_UNSIGNED as unsigned decimal but writes %u; the library prints unsigned decimal.",
@@ -12381,7 +12471,8 @@
             "en": "F.2.1.5 calls it the unsigned decimal format, and %u is the unformatted 2-value format of 1800-2023 21.2.1.1 that UVM_UNFORMAT2 also names; the library prints unsigned decimal.",
             "ja": "F.2.1.5はこれを符号なし10進の形式と呼び、%uは1800-2023 21.2.1.1の形式なしの2値の形式で、UVM_UNFORMAT2もこれを挙げる。libraryは符号なし10進で出す。"
           }
-        ]
+        ],
+        "basis": "printed"
       },
       "note": {
         "en": "F.2.1.5 describes UVM_UNSIGNED as unsigned decimal but writes %u; the library prints unsigned decimal.",

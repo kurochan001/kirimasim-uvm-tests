@@ -10980,7 +10980,7 @@
     },
     "u16/test_fourstate_record_field_values_117": {
       "primary_clause": "16.4.6.1",
-      "inputs_sha256": "fd2a8481ec1d06311f918a0884e10c9d3fea84d506cdc2a2a634ff5566219334"
+      "inputs_sha256": "6721d208b059fcc227918ba20a6fe1c8219101ea9c9956174beea08591cb6854"
     },
     "uB/test_fourstate_field_int_copy_117": {
       "primary_clause": "B.2.2.1.1",

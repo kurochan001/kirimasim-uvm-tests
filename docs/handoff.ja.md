@@ -2,7 +2,7 @@
 
 [English](handoff.md) · [README](../README.ja.md) · [要求台帳](requirements.ja.md)
 
-現在の引継ぎ：ユーザーが2026-11-07にgoalを再開し、外部レビューの7番目の項目である124回目の拡充を公開しました。8番目で最後の項目である125回目も、22のdirectoryすべてで公開しました。126回目は、2回目のレビューの最初の修正です。公開済みcheckpoint・次の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
+現在の引継ぎ：ユーザーが2026-11-07にgoalを再開し、外部レビューの7番目の項目である124回目の拡充を公開しました。8番目で最後の項目である125回目も、22のdirectoryすべてで公開しました。126回目は、2回目のレビューの最初の修正で、127回目は原因の記録の形式を変える2点です。公開済みcheckpoint・次の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
 
 このページは開発の再開を支える資料なので、最初のテストを動かしたり理解したりしたい場合は[読み方ガイド](reading-guide.ja.md)から始めてください。
 
@@ -128,6 +128,8 @@ Checkはtool、metadata、台帳、library、原因の記録と、入力が変�
 buildはAPI／型名欠落43、time減算引数既定値1、型既定宣言2、依存visitor既定型3、印刷signature食違い2、継承type_id registry特殊化2、protected access 1、記載外pure-hook 2、DPI未link 61です。限定したvirtual抽象overview基底型のbuild 2件と、専用poolの印刷返却型build 2件も保持します。追加の合法build 3件はenum-collection T解釈です。ほか7 buildは厳密なattribute／enum-unpackの引数を保持します。印刷具象callback facadeの合法構築1件はabstractとして拒否されます。別HDL／command-line evidenceは独立に記録します。
 
 残るsimulation build失敗6件は未登録packetのpredictor型名4件とサイズ／flag宣言2件で、規格に登録の前提条件を追加しない扱いと各実行条件は[結果の内訳](results.ja.md#結果の解釈)で説明しています。
+
+127回目は、2回目のレビューの残りのうち、原因の記録の形式だけを変える2点を、ユーザーが2026-11-20に承認した案のとおりに実装します。[原因の記録](../coverage/known_causes.json)はschema 2になり、interpretationの60件は読み方の根拠を持ち（`printed` 10件、`printed-by-library` 1件、`ambiguity` 49件）、固定版libraryでは満たせない4値のqueueのテストは種別`static`の記録を持ちます。kirimasimの目標は測れる2383、固定版libraryのために届かない380で、照合の候補は407件です。4値の7件すべてをlibraryのsourceで診断する中で、[記録のテスト](../tests/u16/test_fourstate_record_field_values_117.sv)の検査系の誤りを直しました。recorderの`do_record_object`を空の本体でoverrideしていたため、16.4.7.7の既定の実装が行うfield macroの記録が動きませんでした。期待値は変えていません。時間単位と、宣言のないUVM_ERROR／UVM_FATALの検出は、runnerを変える1回の変更にまとめ、全件の出力を集める診断から始めます。根拠は[履歴](history.ja.md#127回目の拡充原因の記録のschema-22回目の外部レビューb)にあります。
 
 126回目は、slangで全テストをelaborateした2回目のレビューの指摘を、テストの形式を変えずに直しました。virtual methodのoverrideの引数名（73件）、virtualな`uvm_object`の生成（2件）、linkのaccessorの可視性（1件）、`uvm_macros.svh`のincludeの不足（5件）、拒否のpattern 2件です。影響する81入力は、seed 1／73で状態が変わりません。時間単位、宣言のないUVM_ERRORの検出、4値のqueueのテスト、誤植の区別は、案を待っています。各指摘の根拠は[履歴](history.ja.md#126回目の拡充slangでのelaborationによる修正2回目の外部レビューa)にあります。
 

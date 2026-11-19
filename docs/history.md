@@ -6930,3 +6930,19 @@ After the corrections slang reports errors other than the time unit in 14 tests 
 Two points of the review needed no change. The three tests that expect `kill` to run `post_body` and `post_start` follow 1800.2-2020 14.2.5.11, which says that both are executed. The other slang errors, in 119 tests without a Verilator oracle, are the recorded differences of the pinned library.
 
 Left for a proposal, because they change the runner, the metadata or a record's form: the time unit that only the tests declare (1800-2023 3.14.2.3 makes the mixture an error; 174 tests, 123 with a Verilator oracle), the detection of an undeclared UVM_ERROR or UVM_FATAL, the four-state queue test that the pinned library cannot satisfy (which makes the measurable kirimasim inputs 2383, not 2384), and the label for interpretations that follow a misprint.
+
+## 127th expansion: schema 2 of the cause record (second external review, part B)
+
+On 2026-11-20 the user approved the proposal for the four remaining points of the second review. The 127th expansion implements the two that change only the form of the cause record. No runner and no expectation changes.
+
+| Change | What | Basis |
+| --- | --- | --- |
+| An interpretation entry names the basis of its readings | The 60 entries have a `basis`: 10 `printed`, 1 `printed-by-library` and 49 `ambiguity`. | Both readings of all 60 entries were read. `printed` is limited to a printed declaration, name or format specifier; a disagreement between an overview or a description and a declaration counts as `ambiguity`. None of the 319 entries with a library cause follows the printed text of the standard. |
+| A four-state test may have an entry of the kind `static` | The queue test has one. | 1800.2-2020 11.3.2.8 and 11.3.2.9 require a warning for a pop from an empty queue, and the pinned `pop_front` and `pop_back` only return the result of the built-in pop. |
+| The four-state recording test of u16 is corrected | The empty override of the recorder's `do_record_object` is removed. | 16.4.7.7 declares the hook virtual and has its default implementation pass UVM_RECORD to `do_execute_op`. Under the empty override the field macros record nothing even in a conforming implementation, so the second line could not be reached. The declaration was checked in the PDF of the standard; a comment in the pinned library says that the standard calls for a pure virtual method, which does not match the text of 1800.2-2020. With the override removed, the pinned macros call `record_field_int` and `record_field` of the open recorder with the field names, as the source shows. The expectation and the duties are unchanged. |
+
+The seven four-state tests were diagnosed by reading the pinned library source; no run confirms it. The queue test is kept from its expectation by the library, the recording test had the fixture error above, and no place where the library stands in the way was found in the other five. A two-state build of the recording test was made as a diagnosis, and Verilator 5.052 rejects its tristate constructs as before. Its input fingerprint moved in the ledger index.
+
+kirimasim targets are now 2383 measurable and 380 kept from the expectation by the pinned library, and 407 entries are candidates for human review. There are 173 tool unit tests.
+
+The two remaining points are the time unit and the detection of an undeclared UVM_ERROR or UVM_FATAL. The approved proposal passes `--timescale 1ns/1ps` to every test, keeps the report declarations, presence only, in a separate tracked file, and puts the detection into the same runner change. It starts by collecting the output of every test without changing a verdict.

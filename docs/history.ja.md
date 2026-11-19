@@ -4216,3 +4216,19 @@ u19の2つの`bus_item`というclassは、prototypeの引数が同じ名前な�
 レビューの2点は変更が不要でした。`kill`が`post_body`と`post_start`を実行すると期待する3件は、両方が実行されると書く1800.2-2020 14.2.5.11に従っています。Verilatorのoracleがない119件に出るslangのほかのerrorは、記録済みの固定版libraryの差分です。
 
 runner、metadata、記録の形式を変えるため、案として残したものは次のとおりです。テストだけが宣言する時間単位（1800-2023 3.14.2.3は混在をerrorとします。174件、うちVerilatorのoracle付き123件）、宣言のないUVM_ERRORやUVM_FATALの検出、固定版libraryでは満たせない4値のqueueのテスト（kirimasimで測れる入力は2384ではなく2383になります）、誤植に従った解釈の区別です。
+
+## 127回目の拡充：原因の記録のschema 2（2回目の外部レビュー、B）
+
+2026-11-20に、ユーザーは2回目のレビューの残り4点の案を承認しました。127回目は、そのうち原因の記録の形式だけを変える2点を実装します。runnerも期待値も変えません。
+
+| 変更 | 内容 | 根拠 |
+| --- | --- | --- |
+| interpretationの記録に読み方の根拠を足す | 60件に`basis`を付けました。`printed` 10件、`printed-by-library` 1件、`ambiguity` 49件です。 | 60件の2つの読み方をすべて読みました。`printed`は宣言、名前、書式の指定の印刷に限り、概要や説明文と宣言の食い違いは`ambiguity`に数えます。原因がlibraryの319件に、規格の印刷に従うものはありません。 |
+| 4値のテストに種別`static`の記録を置けるようにする | queueのテスト1件に記録を置きました。 | 1800.2-2020の11.3.2.8と11.3.2.9は空のqueueのpopでwarningを求め、固定版の`pop_front`と`pop_back`は組込みのpopの結果を返すだけです。 |
+| u16の4値の記録のテストを直す | recorderの`do_record_object`の空のoverrideを外しました。 | 16.4.7.7はこのhookをvirtualと宣言し、既定の実装が`do_execute_op`にUVM_RECORDを渡すと定めています。空のoverrideの下では、規格どおりの実装でもfield macroの記録は動かず、2行目の期待値に届きません。規格のPDFでこの宣言を確かめました。固定版libraryのcommentは、規格がpure virtualを求めると書いていますが、1800.2-2020の文面とは合いません。修正後は、固定版のmacroが開いたrecorderの`record_field_int`と`record_field`をfield名で呼ぶことを、sourceで確かめました。期待値と義務は変えていません。 |
+
+4値の7件は、固定版libraryのsourceを読んで診断しました。実行による確認ではありません。queueの1件がlibraryのために届かず、記録のテストは上のとおり検査系の誤りで、残る5件にはlibraryが妨げる箇所を見つけていません。記録のテストは、2値でのbuildを診断として行い、Verilator 5.052は以前と同じくtristateの構文を拒否しました。入力の指紋は台帳のindexで進めました。
+
+kirimasimの目標は、測れる2383、固定版libraryのために届かない380になり、人による照合の候補は407件です。toolの単体テストは173件です。
+
+残る2点は、時間単位と、宣言のないUVM_ERROR／UVM_FATALの検出です。承認された案は、全テストに一律`--timescale 1ns/1ps`を渡し、reportの宣言は有無だけを別の追跡fileに置き、検出を同じrunnerの変更に入れます。最初に、判定を変えずに全件の出力を集めます。

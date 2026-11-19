@@ -39,7 +39,7 @@ class KnownCauses(unittest.TestCase):
         self.make("u06/test_hdl", "spec", extra=":uvm_hdl_backend: vpi\n:uvm_dpi: yes\n")
         self.make("u06/test_fourstate", "spec", fourstate="yes")
         self.data = {
-            "schema_version": 1, "standard": "1800.2-2020", "library": "9.9",
+            "schema_version": 2, "standard": "1800.2-2020", "library": "9.9",
             "simulator": "verilator@5.052", "status": "partial",
             "reproducers": {"fixture-repro": {
                 "clauses_1800_2023": ["8.21"],
@@ -101,14 +101,35 @@ class KnownCauses(unittest.TestCase):
         data["causes"].insert(1, copy.deepcopy(data["causes"][1]))
         self.rejects(data, "sorted by test, without repeats")
 
-    def test_tagged_and_four_state_tests_have_no_entry(self):
-        for name in ("u05/test_tagged", "u06/test_fourstate"):
-            data = copy.deepcopy(self.data)
-            data["status"] = "complete"
-            data["causes"].append(self.entry(name, "runtime", "library",
-                                             data["causes"][1]["evidence"]))
-            data["causes"].sort(key=lambda e: e["test"])
-            self.rejects(data, "four-state or recorded with verilator@5.052")
+    def test_a_tagged_test_has_no_entry(self):
+        data = copy.deepcopy(self.data)
+        data["status"] = "complete"
+        data["causes"].append(self.entry("u05/test_tagged", "runtime", "library",
+                                         data["causes"][1]["evidence"]))
+        data["causes"].sort(key=lambda e: e["test"])
+        self.rejects(data, "the test is recorded with verilator@5.052")
+
+    def test_a_four_state_test_may_have_a_static_entry(self):
+        data = copy.deepcopy(self.data)
+        data["status"] = "complete"
+        evidence = data["causes"][1]["evidence"]
+        data["causes"].append(self.entry("u06/test_fourstate", "static", "library", evidence))
+        data["causes"].sort(key=lambda e: e["test"])
+        self.validate(data)
+        s = known_causes.summary(data, self.root)
+        self.assertEqual((s["known"], s["four_state_blocked_by_pinned_library"]), (3, 1))
+        self.assertEqual(s["kirimasim_targets"], {"measurable": 3,
+                                                  "blocked_by_pinned_library": 2,
+                                                  "not_yet_classified": 0})
+        entry = next(e for e in data["causes"] if e["test"] == "u06/test_fourstate")
+        entry["kind"] = "runtime"
+        self.rejects(data, "kind static is for a four-state test")
+        entry.update(kind="static", cause="unassigned", evidence={}, note=None)
+        self.rejects(data, "a static entry has the cause library or interpretation")
+        data = copy.deepcopy(self.data)
+        data["status"] = "complete"
+        data["causes"][1]["kind"] = "static"
+        self.rejects(data, "kind static is for a four-state test")
 
     def test_a_changed_input_needs_a_new_diagnosis(self):
         data = copy.deepcopy(self.data)
@@ -133,10 +154,26 @@ class KnownCauses(unittest.TestCase):
         data = copy.deepcopy(self.data)
         data["status"] = "complete"
         data["causes"][1]["cause"] = "interpretation"
-        data["causes"][1]["evidence"] = {"clauses": ["5.2"], "readings": [text()]}
+        data["causes"][1]["evidence"] = {"clauses": ["5.2"], "readings": [text()],
+                                         "basis": "ambiguity"}
         self.rejects(data, "the test's reading and one other")
         data["causes"][1]["evidence"]["readings"].append(text())
         self.validate(data)
+
+    def test_an_interpretation_names_the_basis_of_its_readings(self):
+        data = copy.deepcopy(self.data)
+        data["status"] = "complete"
+        data["causes"][1]["cause"] = "interpretation"
+        data["causes"][1]["evidence"] = {"clauses": ["5.2"], "readings": [text(), text()]}
+        self.rejects(data, "expected fields basis, clauses, readings")
+        data["causes"][1]["evidence"]["basis"] = "misprint"
+        self.rejects(data, "basis must be one of printed, printed-by-library, ambiguity")
+        for basis in known_causes.BASES:
+            data["causes"][1]["evidence"]["basis"] = basis
+            self.validate(data)
+        s = known_causes.summary(data, self.root)
+        self.assertEqual(s["interpretation_by_basis"],
+                         {"printed": 0, "printed-by-library": 0, "ambiguity": 1})
 
     def test_simulator_evidence_names_a_used_reproducer(self):
         data = copy.deepcopy(self.data)
@@ -216,6 +253,10 @@ class KnownCauses(unittest.TestCase):
                                         "version": "Verilator 5.052", "tests": tests}))
         write(records)
         self.assertEqual(known_causes.check_results(data, path), 3)
+        static = copy.deepcopy(data)
+        static["causes"].append(self.entry("u06/test_fourstate", "static", "library",
+                                           data["causes"][1]["evidence"]))
+        self.assertEqual(known_causes.check_results(static, path), 3)
         changed = copy.deepcopy(records)
         changed["u05/test_runtime"]["reason"] = "build failed: x"
         write(changed)
@@ -241,8 +282,10 @@ class KnownCauses(unittest.TestCase):
     def test_candidates_list_interpretation_then_library_then_simulator(self):
         data = copy.deepcopy(self.data)
         data["causes"][2].update(cause="interpretation",
-                                 evidence={"clauses": ["5.1"], "readings": [text(), text()]})
+                                 evidence={"clauses": ["5.1"], "readings": [text(), text()],
+                                           "basis": "printed"})
         rows = known_causes.candidates(data)
+        self.assertEqual([r["basis"] for r in rows], ["printed", None, None])
         self.assertEqual([(r["test"], r["cause"]) for r in rows],
                          [("u06/test_hdl", "interpretation"), ("u05/test_runtime", "library"),
                           ("u05/test_illegal", "simulator")])
