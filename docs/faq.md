@@ -187,7 +187,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2702 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
+sources. There are 2717 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -3164,7 +3164,7 @@ links and identifying those changes explicitly.
 ### Q201. Did all 2778 tests run at two seeds?
 
 No. There are 2679 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2213 two-seed runtime matches, 94 expected compiler rejections, 458 known
+has 2213 two-seed runtime matches, 94 expected compiler rejections, 459 known
 simulation differences and five known illegal compile acceptances; the seven
 four-state fixtures are not run by the two-state oracle. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
@@ -5939,7 +5939,7 @@ differences without changing the expectations.
 
 Eight new duties bring the ledger to 4141 AI duties with all 4133 old objects
 and 445 assessments unchanged. Totals are 2757 tests, 2701 direct-linked tests
-and 2287 ordinary matches; known inputs are 464, including the five new
+and 2287 ordinary matches; known inputs are 463, including the five new
 fixtures' unlinked ordinary builds. All 2062 partial identifiers, original
 targets, human review and scope/denominator approval remain open.
 
@@ -5972,7 +5972,7 @@ of the design while the types created by name are never named.
 
 Nine new duties bring the ledger to 4150 AI duties with all 4141 old objects
 and 445 assessments unchanged. Totals are 2762 tests, 2706 direct-linked tests
-and 2292 ordinary matches; known inputs stay 464. All 2062 partial
+and 2292 ordinary matches; known inputs stay 463. All 2062 partial
 identifiers, original targets, human review and scope/denominator approval
 remain open.
 
@@ -6114,3 +6114,27 @@ SHA-256 in `configuration`.
 The three-way classification is: the clause requires it (add a declaration),
 the fixture is wrong (fix the test), or the library prints what the standard
 does not require (record a known-difference cause).
+
+## Front-end elaboration and API use
+
+### Q453. Why does Check elaborate every test with slang?
+
+kirimasim uses slang unmodified as its front end, and slang is stricter than Verilator: a second review found 81 inputs that Verilator accepted and slang rejected. [`tools/slang_elaborate.py`](../tools/slang_elaborate.py) elaborates each test with a pinned `pyslang` and the files, include directories, macros and time scale that the runners use. A legal test must have no error, and an illegal design must give an error line that matches its `:expected_stderr_regex:`. [`coverage/slang_frontend.json`](../coverage/slang_frontend.json) lists the 91 tests that may differ, each with a reason: the pinned library differs from the standard there (76), slang raises a warning to an error for code that 1800-2023 allows (10), slang appears to reject legal code (3), the test needs one compilation unit (1), or slang accepts an illegal design for a library reason (1). The check says that slang can elaborate a test, not that kirimasim can run it, and the slang commit that kirimasim pins may differ from the pinned `pyslang` release; [the testing guide](testing.md#slang-elaboration) gives the commands.
+
+### Q454. What does the API census count, and what does it not show?
+
+The pinned library marks 1764 declarations with a clause of the standard. [`tools/api_census.py`](../tools/api_census.py) counts, for each marked function and task, the tests whose own code calls it or overrides it, as slang resolves the call, and for each macro, class and typedef the tests whose code names it. [`coverage/api_census.json`](../coverage/api_census.json) lists the declarations that no test uses: 1 whose name occurs nowhere, and 29 that are named but never resolved, for example because they are reached only through a derived class or a port. The census found the gaps that the 132nd expansion filled, which "zero requirements without a direct test" had not shown. It is not a coverage measure: a call says nothing about what the test checks, a mark is the library's claim about the clause, and a declaration without a mark is not counted. [The requirements guide](requirements.md#api-census) describes the record.
+
+### Q455. What do the testbench-shaped tests of the third review check?
+
+Five tests of the 134th to 137th expansions combine parts of UVM as a testbench does, on small original RTL designs, with expectations derived from the cited clauses and the rules of the design before the first run. They add to the five RTL integration profiles of [Q434](#q434-what-do-the-rtl-integration-profiles-check).
+
+| Test | What it combines |
+| --- | --- |
+| [u13 agents](../tests/u13/test_rtl_active_and_passive_agents_share_a_bus_under_a_virtual_sequence_134.sv) | Two active agents and a passive agent, a virtual sequence with `p_sequencer`, a scoreboard with two analysis imps |
+| [uE reset sequence](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv) | `uvm_reg_hw_reset_seq` on a register model connected to RTL; spec-only, because the pinned sequence does not read a register whose only field is volatile |
+| [uC parameterized agents](../tests/uC/test_rtl_parameterized_agents_get_their_own_virtual_interface_136.sv) | Parameterized items, drivers, monitors and agents of two widths; a virtual interface of a parameterized interface through `uvm_config_db` |
+| [u12 two clocks](../tests/u12/test_rtl_two_clock_buses_are_paired_through_analysis_fifos_by_position_136.sv) | Two buses on unrelated clocks, paired by position through analysis FIFOs |
+| [u09 phases](../tests/u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137.sv) | Reset, configure, main and shutdown phases with RTL reset, a jump back to reset and a drain time counted in clocks |
+
+Covergroups, concurrent assertions and modports are out of scope by the user's decision: they are features of the SystemVerilog language, which belongs to kirimasim-tests. A jump while a sequence is in progress, and a design that has left reset before the reset sequence, are not exercised.

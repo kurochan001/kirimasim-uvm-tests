@@ -44,7 +44,7 @@ factoryはオブジェクトの生成、phaseは実行段階、TLMはcomponent�
 - **M3：944件（simulation 933・elaboration 11）。** register／field／block／memory／virtual registerのモデル、access path、prediction、
   callback、coverage、割り当て、組み込みtest sequence。uD内のD.3とu01内のmodel API profileは[機能対象の分類](docs/faq.ja.md#q381-同じu01-directory内のprofileを3つのmilestoneへ数える理由は)でM3に数えます。
 
-主引用でM1〜M3に数えるRTL結合テスト5件は、独自のregister-file designを、clocking block、configuration databaseのvirtual interface、adapterとpredictor付きのregister model、analysis FIFO経由のscoreboardで接続します。[Q434](docs/faq.ja.md#q434-rtl結合profileは何を検査しますか)で説明しています。
+主引用でM1〜M3に数えるRTL結合テスト10件は、小さな独自のRTL designの上でUVMのcomponentを動かします。5件は、register-file designを、clocking block、configuration databaseのvirtual interface、adapterとpredictor付きのregister model、analysis FIFO経由のscoreboardで接続するもので、[Q434](docs/faq.ja.md#q434-rtl結合profileは何を検査しますか)で説明しています。5件はtestbenchの形をしています。virtual sequenceの下のactiveとpassiveのagent、parameter付きのvirtual interfaceを使うparameter付きのagent、無関係な2つのclock、resetとphaseのjumpを伴うrun-time phase、RTLでの組込みのregister sequenceで、[Q455](docs/faq.ja.md#q455-3回目のレビューのtestbench形のテストは何を検査しますか)で説明しています。
 4値のテスト7件（`:fourstate: yes`）は、configuration、resource、TLM FIFO、pool、queue、記録、field macroのcopyでXとZの値を検査します。2値のoracleはXやZを表せないためspecのみで、規格が定めていない経路は[4値の節](docs/testing.ja.md#4値の経路)に一覧しています。どのsimulatorでも実行していません。Verilatorは2値で、guestの記録にもこの7件は含まれません。UVMを動かせる4値のsimulatorができるまで、未測定のままです。うち1件には、固定版libraryでは満たせないという原因の記録があります。これはsourceを読んで見つけたもので、実行による確認ではありません。
 乱数化のテスト5件は、作成後のconstraint_modeとrand_mode、inline制約とその名前の範囲、呼出し順、randcの周期という性質で、macroによる乱数化を判定します。[Q438](docs/faq.ja.md#q438-乱数化の性質profileは何を検査しますか)で説明しています。
 ユーザーpackageのテスト5件は、agent、sequence、environment、extensionのclassを別ファイルからcompileする4 packageに置き、factoryの静的登録、名前による生成、type_id::create、overrideがpackageの境界を越えて働くことを確かめます。[Q442](docs/faq.ja.md#q442-ユーザーpackageのprofileは何を検査しますか)で説明しています。
@@ -111,7 +111,7 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 
 simulation一致とcompiler拒否は別の検査なので、以下のラベルと件数は[結果の読み方](docs/reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-09に集約したVerilator記録は、2値の2756件すべてを対象にします。4値の7件はspecのみで、Verilatorの記録はありません。
+2値の2771件はすべて、現在の入力でのVerilator 5.052の結果を持ちますが、1回の実行で得たものではありません。tag付きのテストは2026-11-20に現在のrunnerで測り直し、それ以後に足したか変えたテストは、公開のときにseed 1／73で測りました。4値の7件はspecのみで、Verilatorの記録はありません。
 他2系統は互換な1081入力の記録で、1697入力は[証拠の再利用規則](docs/results.ja.md#記録の合算)を満たす現在の記録がないため未測定です。
 
 | シミュレータとライブラリ | 観測結果 |
@@ -120,7 +120,7 @@ simulation一致とcompiler拒否は別の検査なので、以下のラベル�
 | Verilator 5.052・独自VPI HDL backend | 別条件の部分集合38件で、37件が両seed一致、1件が差分 |
 | Verilator 5.052・VPI command-line bridge・固定regex DPI | 別条件の23件で20件が両seed一致、3件は既知差分 |
 | Verilator 5.052・regex DPIとcommand-line DPIで再実行する通常検査系 | 別条件の26件ですべて両seed一致 |
-| kirimasim・固定版UVM | 1081件で`unsupported` 1072件・API欠落`fail` 9件、1697入力は未測定 |
+| kirimasim・固定版UVM | 1081件で`unsupported` 1072件・API欠落`fail` 9件（以前のrunnerでの測定で、現在のrunnerの証拠ではありません）、1697入力は未測定 |
 | Ghost・同梱UVM | 1081件で各seed一致206件・不一致875件、1697入力は未測定 |
 
 通常runnerはseed 1のruntime差分319件、simulation build 140件、runtimeのない不正designの受理5件を記録します。
@@ -128,7 +128,7 @@ API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](doc
 
 既知差分にはそれぞれ1件ずつ[原因の記録](coverage/known_causes.json)があり、`tools/known_causes.py`で検査します。すべての記録に原因があり、library 320件、interpretation 60件、simulator 27件、DPIの実行条件57件です。interpretationの記録は読み方の根拠も持ちます。10件は、規格の別の箇所が誤植と示す宣言や名前を印刷どおりに読むもの、1件はlibraryが印刷に従うもの、49件は文言が二通りに読めるものです。4値のテスト1件にも、固定版libraryでは満たせないため記録があります。kirimasimについては、2397入力が規格の期待値でsimulatorを測る入力で、381入力は固定版libraryのためにどのsimulatorでも期待値に届きません。詳しくは[既知差分の原因](docs/known-differences.ja.md#既知差分の原因)を参照してください。
 
-各テストには`coverage/kirimasim_stages.json`に記録した[kirimasimの立ち上げ段階](docs/kirimasim-stages.ja.md)もあり、段階0が1件、段階1（最小のrun_test）が1034件、段階2（factory）が100件、段階3（config_db）が111件、段階4（sequence）が326件、段階5（TLM）が251件、段階6（register層）が955件です。kirimasimの現在の記録はどの段階でも同じ`uvm_object_wrapper`のunsupportedで止まっており、段階0のテストは未測定です。
+各テストには`coverage/kirimasim_stages.json`に記録した[kirimasimの立ち上げ段階](docs/kirimasim-stages.ja.md)もあり、段階0が1件、段階1（最小のrun_test）が1034件、段階2（factory）が100件、段階3（config_db）が111件、段階4（sequence）が326件、段階5（TLM）が251件、段階6（register層）が955件です。保持しているkirimasimの記録（以前のrunnerでの測定）は、どの段階でも同じ`uvm_object_wrapper`のunsupportedで止まっており、段階0のテストは未測定です。
 
 Checkは、kirimasimが無改造で使うfront endであるslangでも全テストをelaborateします。合法なテストはerrorなし、不正designはpatternに一致する拒否が必要で、例外は[`coverage/slang_frontend.json`](coverage/slang_frontend.json)の91件です（[slangでのelaboration](docs/testing.ja.md#slangでのelaboration)）。[APIの集計](docs/requirements.ja.md#apiの集計)は、固定版libraryが条項を注記した宣言のうち、どのテストも使っていないものを挙げます。未使用が1個、名前だけのものが29個です。
 
@@ -137,7 +137,7 @@ Checkは、kirimasimが無改造で使うfront endであるslangでも全テス�
 `known`・`unsupported`は成功に数えません。Ghostの同梱UVMの結果は、固定版ライブラリでの結果を示すものではありません。
 
 詳しい実行条件と記録の範囲は[実行結果と測定方法](docs/results.ja.md)、ライブラリの制約とspecのみのケースは
-[既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・台帳・原因の記録・立ち上げ段階を検査し、
+[既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・台帳・原因の記録・reportの宣言・立ち上げ段階の検査と、slangでのelaborationとAPIの集計を行い、
 pushとpull requestごとに入力が変わった通常oracle付きVerilator検査と固定canary 1件を実行します。
 [Regression](.github/workflows/regression.yml)は手動と毎週、タグ付き通常検査2307件を20 shardで、明示command-line 20件とregex-DPI変種26件を別jobで実行します。手動の実行は`tests/`の下のdirectoryに絞れます。
 どちらもkirimasimとGhostは実行せず、結果の自動公開はありません。

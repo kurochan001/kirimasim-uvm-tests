@@ -36,7 +36,8 @@ tests/uF/, uG/              文字列utility・command-lineの照会
 docs/testing*.md            テスト形式・実行・変更時の規則
 docs/results*.md            現在の測定条件と記録
 docs/requirements*.md       範囲の案・要求の対応付け・棚卸し
-coverage/*.json             版管理する範囲・要求台帳・番号の分類・テスト索引・既知差分の原因・kirimasimの段階
+coverage/*.json             版管理する範囲・要求台帳・番号の分類・テスト索引・既知差分の原因・kirimasimの段階・
+                            reportの宣言・slangの記録・APIの集計
 docs/provenance*.md         関連リポジトリとソースの由来
 docs/glossary*.md            用語集
 docs/faq*.md                 よくある質問
@@ -56,6 +57,7 @@ tools/lint_metadata.py       メタデータとテストの形式の検査
 tools/requirements.py        要求台帳の案の検査と棚卸し
 tools/known_causes.py        既知差分の原因の記録の検査と集計
 tools/kirimasim_stages.py    kirimasimの段階の検査と短いセットの出力
+tools/uvm_reports.py         テストが出してよいUVM_ERRORとUVM_FATALの行の宣言の検査
 tools/api_census.py          libraryが条項を注記した宣言ごとに、それを使うテストを数える
 tools/slang_elaborate.py     全テストをslangでelaborateし、coverage/slang_frontend.jsonと照合
 tools/code_identity.py       読みやすさの編集がcodeを保つことの検査と、指紋の持ち越し
@@ -467,7 +469,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の2702件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
+- 現在の2717件は`UVM_NO_DPI`を使い、38件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -655,10 +657,13 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 python3 tools/known_causes.py check
+python3 tools/uvm_reports.py check
 python3 tools/kirimasim_stages.py check
+python3 tools/slang_elaborate.py check
+python3 tools/api_census.py check
 ```
 
-現在のツールの単体テストは171件、メタデータの対象はテスト2778件（simulation 2679件・elaboration 99件）です。
+最後の2つには、固定版の`pyslang`が要ります（[slangでのelaboration](#slangでのelaboration)）。現在のツールの単体テストは204件、メタデータの対象はテスト2778件（simulation 2679件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
@@ -701,7 +706,7 @@ source、helper、期待値を変えると入力同一性が変わるため、�
 規格の期待値を保持します。初期化付き手続き内ローカル変数は寿命を明示し（SystemVerilog 6.21）、
 forkの共有状態が生存するようにし、blockingの観測にはwatchdogを設けます。
 メタデータとツールを検査し、固定版のoracleタグは両seedで再現してから付けます。
-規格PDFはローカルに置き、Gitの対象にしません。
+足すか変えたテストは、slangでもelaborateできること（[slangでのelaboration](#slangでのelaboration)）、`:expected_exit:`を書くこと、引用した条項が`UVM_ERROR`や`UVM_FATAL`の行を求める場合は`coverage/uvm_reports.json`に宣言を持つこと（[reportの宣言](#時間単位とreportの宣言)）、立ち上げ段階を更新すること、一覧にある宣言を使い始める場合はAPIの集計を更新することも必要です。specのみのテストには、原因の記録が要ります。規格PDFはローカルに置き、Gitの対象にしません。
 
 ### 読みやすさの編集
 

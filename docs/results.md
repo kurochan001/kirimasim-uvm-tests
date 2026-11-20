@@ -6,17 +6,21 @@
 
 Runtime matches, compiler rejections and unmeasured inputs describe different execution conditions; [Read a result](reading-guide.md#read-a-result) explains how to read the counts together.
 
-The 2026-11-20 diagnosis checked all 2657 two-state simulation tests with
-`--timescale 1ns/1ps`; none of the 2213 tagged runtime tests changed state or
-printed an undeclared report, and the 94 tagged compile rejections still match.
+The 2026-11-20 diagnosis checked the 2657 two-state simulation tests of that
+day with `--timescale 1ns/1ps`; none of the 2199 runtime tests that were tagged
+then changed state or printed an undeclared report, and the 94 tagged compile
+rejections still matched. The fifteen tests added since and the one test whose
+header changed were each measured with the current runner at seeds 1/73 when
+they were published: fourteen new tests match and one is a known difference.
 The seven four-state tests have no Verilator record. The 1081 Ghost records
 remain valid; the 1081 kirimasim records are not evidence for the current
-runner because its fingerprint changed. 1697 inputs are unmeasured, including
-four revised old inputs. Each record fingerprints its inputs and conditions.
+runner because its fingerprint changed. 1697 inputs are unmeasured by the
+guests, including four revised old inputs. Each record fingerprints its inputs
+and conditions.
 The suite has 2778 fixtures in 22 directories: 2679 simulation and 99
 elaboration. Milestone totals are M1 1200 (1119/81), M2 634 (627/7) and M3 944
 (933/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
-none records human review. Of 2702 no-DPI fixtures, 99 are illegal elaboration
+none records human review. Of 2717 no-DPI fixtures, 99 are illegal elaboration
 checks. The thirty-eight HDL-DPI and twenty-three command-line/regex-DPI runtime fixtures
 remain separate.
 
@@ -207,7 +211,7 @@ filter metadata are retained byte-identically. Later additions increase the
 unmeasured set to 1697: 1693 additions and four revised originals. Ghost remains
 206 pass/875 fail per seed and kirimasim remains 1072 unsupported/nine API failures.
 The latest exclusions are recorded in `out/thin-one-hundred-sixth-guest-exclusions.json`;
-the current scope is in `out/thin-one-hundred-twenty-fifth-uG-evidence-scope.json`.
+the last evidence scope assembled in this workspace is `out/thin-one-hundred-twenty-sixth-a-evidence-scope.json`. The measurements of the 127th and 128th expansions were made in another session, and their files are not in this workspace; the tests added from the 129th expansion on have one batch file for each measurement under `out/`, and no combined record includes them yet.
 
 The fingerprints identify different inputs:
 
@@ -302,9 +306,9 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 204 tool unit tests,
+and manual dispatch. Its tools job checks pinned-library integrity, 204 tool unit tests,
 2778 metadata records, the draft ledger/index, the cause record of the known
-differences and the [kirimasim bring-up stages](kirimasim-stages.md). Its Verilator job runs the
+differences, the [report declarations](testing.md#time-unit-and-report-declarations) and the [kirimasim bring-up stages](kirimasim-stages.md). Its slang job [elaborates every test with slang](testing.md#slang-elaboration) and compares [the API census](requirements.md#api-census) with the tests; it takes about eight minutes. Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,
 plus the canary `tests/u09/test_common_phases_run_in_order.sv`, with runtime
 seeds 1/73 ([the selection tool](../tools/ci_select.py)). When the base is
@@ -316,7 +320,7 @@ record's twelve reproducers. A green Check covers the selected checks only.
 [Regression](../.github/workflows/regression.yml) runs on manual dispatch and
 weekly (Saturdays 17:23 UTC). It runs all 2307 tagged ordinary checks (2213
 runtime cases at seeds 1/73 and 94 compiler rejections without runtime seeds)
-in 20 disjoint shards (seven of 115 and thirteen of 114), at most 4 concurrent so
+in 20 disjoint shards (seven of 116 and thirteen of 115), at most 4 concurrent so
 that Check and other repositories keep hosted job slots, each limited to 360 minutes, the twenty explicit command-line checks in a
 separate job under their condition, and the twenty-six regex-DPI variants in another job. Its gate requires all three. A newer request
 waits for a run in progress instead of cancelling it. A manual run can be
@@ -352,6 +356,8 @@ at seeds 1/73 and passed the seventeen command-line checks. Each shard took 113
 to 199 minutes, within the 360-minute limit. This first complete hosted
 Regression result covers that commit; later commits need their own Check or
 Regression.
+
+Two later Regression runs covered every tagged check of their commits: [run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797) on a3956ce, dispatched after the readability edits, and the weekly [run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165) on 73a73ad; all 24 jobs of each succeeded. [Run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874), dispatched on e37fb89 after the runner began to pass the time scale and check the report declarations, had not finished when this page was last revised on 2026-11-21, so no Regression result covers the current runner yet. The fifteen tests added after e37fb89 were measured by Check on their own commits and locally.
 
 Neither workflow runs kirimasim, Ghost or spec-only cases. The README's badge is
 the live Check state, separate from these local measurements. A green Check or

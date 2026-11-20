@@ -1268,7 +1268,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2307 tests have the `verilator@5.052` oracle tag and 470
+Across the suite, 2307 tests have the `verilator@5.052` oracle tag and 471
 cases are spec-only, seven of them four-state. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of

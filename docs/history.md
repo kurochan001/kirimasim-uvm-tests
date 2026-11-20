@@ -7043,4 +7043,21 @@ The suite has 2777 tests (2678 simulation), 4179 duties and 2306 tagged checks; 
 
 [`u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137`](../tests/u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137.sv) is the last of the testbench-shaped candidates that the user kept. On the register file of the 116th expansion, the reset phase holds the RTL reset for two clocks, the configure and main phases each write one register, and the first main phase jumps back to the reset node after it has dropped its objection; the shutdown phase reads the registers and sets a drain time of three clock periods on its objection. The expectation, written before any run from 9.3.1.9.1, 9.8.2.2, 10.5.1.3.7 and the rules of the design: reset, configure and main run twice and shutdown once; the registers hold the values of the second pass and the design has counted two writes, not four; the phase ends three clocks after the drop. The test matches with Verilator 5.052 at seeds 1/73 before and after tagging and elaborates with slang. Three duties link to it. No sequence is in progress when the jump is requested, so the test says nothing about a jump during a sequence.
 
-The suite has 2778 tests (2679 simulation), 4182 duties and 2307 tagged checks. Item 4 now has six tests: five match and one, the reset sequence, is a known library difference.
+The suite has 2778 tests (2679 simulation), 4182 duties and 2307 tagged checks. Item 4 now has five tests: four match and one, the reset sequence, is a known library difference. (This sentence first said six and five; the count was corrected in the 138th expansion.)
+
+## 138th expansion: a review of every document
+
+The user asked for every document to be read again and corrected. No test, record or tool changed. What was stale or wrong, and is now corrected in both languages:
+
+- The README said that a Verilator snapshot of 2026-11-09 covers all 2756 two-state cases. The 2771 two-state cases have results from several measurements, and the README says so.
+- The README counted five RTL integration tests; there are ten, and [Q455](faq.md#q455-what-do-the-testbench-shaped-tests-of-the-third-review-check) describes the five that are shaped like a testbench. The 137th expansion and the handoffs had said six; the count was wrong and is five, four matching and one a known difference.
+- The descriptions of Check in the README, the results, the testing guide and both handoffs did not name the report declarations, the slang elaboration and the API census; the lists of commands for a restart did not run them.
+- The results said that the 2026-11-20 diagnosis found no change among 2213 tagged runtime tests. That number is today's; the diagnosis covered the 2199 tests tagged then, and the fifteen tests added since were measured when they were published. An earlier replacement of counts had also changed three historical FAQ sentences from 463 to 464 known inputs; they are 463 again.
+- The Regression shards are seven of 116 and thirteen of 115 checks, not seven of 115 and thirteen of 114. Two finished Regression runs, on a3956ce and 73a73ad, were not recorded, and the dispatch on e37fb89 had not finished at this review.
+- The unit-test count of the testing guide (171), the count of `UVM_NO_DPI` tests (2702, now 2717), the spec-only total of one sentence of the known differences (470, now 471) and the runtime differences of one Japanese sentence (318, now 319) were stale.
+- The Claude Code handoff still began with 2026-11-07, listed the finished third-review items as next candidates and named no local file after the 125th expansion; the detailed handoff was dated 2026-11-09 at the 124th expansion.
+- The kirimasim rows called the retained records current; they were made with an earlier runner.
+
+Added where nothing existed: three FAQ entries (Q453 to Q455) on the slang elaboration, the API census and the testbench-shaped tests; glossary entries for the slang record and the API census; the attribution of `pyslang` (MIT) in the provenance guide; and the steps that a new test now needs in the testing guide.
+
+Not changed: sentences that describe an earlier expansion keep the counts of their time, and the history keeps its text, except the corrected count of the 137th expansion, which is marked there.

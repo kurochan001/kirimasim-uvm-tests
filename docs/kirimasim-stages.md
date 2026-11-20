@@ -13,7 +13,7 @@ The bring-up stages order the parts of UVM that a simulator meets while it learn
 
 ## Why stages
 
-Of the 1081 current kirimasim records, 1072 report `uvm_object_wrapper` as unsupported and the other nine meet a missing library API first; 1697 inputs have no current record ([current results](results.md#current-snapshot)). Every measured test stops at the same place, so the records do not show how far the simulator has come. With a stage for each test and a short set for each stage, a run of the short sets shows the first stage that does not pass, and the features table below points to the language tests to look at next.
+Of the 1081 retained kirimasim records, which an earlier runner made, 1072 report `uvm_object_wrapper` as unsupported and the other nine meet a missing library API first; 1697 inputs have no current record ([current results](results.md#current-snapshot)). Every measured test stops at the same place, so the records do not show how far the simulator has come. With a stage for each test and a short set for each stage, a run of the short sets shows the first stage that does not pass, and the features table below points to the language tests to look at next.
 
 The stages are not the M1 to M4 milestones, which group tests by the functional subject that development covers ([milestone grouping](glossary.md#scope-and-coverage)). A stage changes no expectation and adds no metadata field: the record is a separate file, so no input fingerprint changes.
 

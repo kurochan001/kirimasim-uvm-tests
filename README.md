@@ -47,7 +47,7 @@ Factory controls object creation and phases organize execution, while TLM carrie
   memory and virtual-register models; access paths, prediction, callbacks,
   coverage, allocation and built-in test sequences; D.3 fixtures in uD and model API profiles in u01 count as M3 under [the functional grouping](docs/faq.md#q381-why-do-profiles-under-the-same-u01-directory-use-three-milestones).
 
-Five RTL integration tests, counted in M1–M3 by their primary clause, connect an original register-file design through clocking blocks, a configuration-database virtual interface, a register model with adapter and predictor, and an analysis-FIFO scoreboard; [Q434](docs/faq.md#q434-what-do-the-rtl-integration-profiles-check) describes them.
+Ten RTL integration tests, counted in M1–M3 by their primary clause, run UVM components on small original RTL designs. Five connect a register-file design through clocking blocks, a configuration-database virtual interface, a register model with adapter and predictor, and an analysis-FIFO scoreboard; [Q434](docs/faq.md#q434-what-do-the-rtl-integration-profiles-check) describes them. Five are shaped like a testbench: active and passive agents under a virtual sequence, parameterized agents with a parameterized virtual interface, two unrelated clocks, the run-time phases with reset and a phase jump, and a built-in register sequence on RTL; [Q455](docs/faq.md#q455-what-do-the-testbench-shaped-tests-of-the-third-review-check) describes them.
 Seven four-state tests (`:fourstate: yes`) check X and Z values in configuration, resources, TLM FIFOs, pools, queues, recording and field-macro copies. They are spec-only because the two-state oracle cannot represent X or Z, and [the four-state section](docs/testing.md#four-state-paths) lists the paths that the standard leaves unspecified. No simulator has run them: Verilator is two-state, and the guest records do not include them. They stay unmeasured until a four-state simulator can run UVM; one of them has a cause entry because the pinned library cannot satisfy it, found by reading the source, not by a run.
 Five randomization tests judge macro-driven randomization by properties: constraint_mode and rand_mode after creation, inline constraints and their name scope, call order and randc cycles; [Q438](docs/faq.md#q438-what-do-the-randomization-property-profiles-check) describes them.
 Five user-package tests place an agent, a sequence, an environment and extension classes in four packages compiled from separate files, and check static factory registration, creation by name, type_id::create and overrides across package boundaries; [Q442](docs/faq.md#q442-what-do-the-user-package-profiles-check) describes them.
@@ -116,7 +116,7 @@ by Git; results are not automatically published.
 
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
-The Verilator snapshot assembled on 2026-11-09 covers all 2756 two-state cases; the seven four-state cases are spec-only and have no Verilator record.
+Every one of the 2771 two-state cases has a Verilator 5.052 result at its current inputs, but no single run produced them: the tagged cases were measured again with the current runner on 2026-11-20, and each test added or changed since was measured at seeds 1/73 when it was published. The seven four-state cases are spec-only and have no Verilator record.
 Guest records retain 1081 compatible inputs; 1697 inputs are unmeasured, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly).
 
 | Simulator and library | Observed result |
@@ -125,7 +125,7 @@ Guest records retain 1081 compatible inputs; 1697 inputs are unmeasured, meaning
 | Verilator 5.052, original VPI HDL backend | Separate 38-case subset: 37 match both seeds; 1 differs |
 | Verilator 5.052, VPI command-line bridge and pinned regex DPI | Separate 23-case subset: 20 match both seeds; 3 known differences |
 | Verilator 5.052, listed ordinary fixtures with regex and command-line DPI | Separate 26-case subset: 26 match both seeds |
-| kirimasim, pinned UVM | 1072 `unsupported`; nine missing-API `fail` in 1081 cases; 1697 unmeasured |
+| kirimasim, pinned UVM | 1072 `unsupported`; nine missing-API `fail` in 1081 cases, measured with an earlier runner and not evidence for the current one; 1697 unmeasured |
 | Ghost, bundled UVM | 206 match and 875 fail at each seed in 1081 cases; 1697 unmeasured |
 
 The ordinary runner records 319 runtime differences at seed 1, 140 simulation build failures
@@ -134,7 +134,7 @@ The VPI rows measure cases already included in the ordinary row under different 
 
 Each known difference has one entry in [the cause record](coverage/known_causes.json), checked by `tools/known_causes.py`: 320 library, 60 interpretation, 27 simulator and 57 DPI-condition causes are assigned, and no entry is unclassified. Each interpretation names the basis of its readings: 10 follow a declaration or a name as printed where another part of the standard indicates a misprint, one has the library following the printed text, and 49 are ambiguities of the text. One four-state test has an entry because the pinned library cannot satisfy it. For kirimasim, 2397 inputs measure a simulator against the standard and 381 are kept from their expectation by the pinned library on any simulator; see [the causes of the known differences](docs/known-differences.md#causes-of-the-known-differences).
 
-Every test also has a [kirimasim bring-up stage](docs/kirimasim-stages.md), recorded in `coverage/kirimasim_stages.json`: 1 test at stage 0, 1034 at stage 1 (minimal run_test), 100 at stage 2 (factory), 111 at stage 3 (config_db), 326 at stage 4 (sequence), 251 at stage 5 (TLM) and 955 at stage 6 (register layer). The current kirimasim records stop at the same unsupported `uvm_object_wrapper` construct in every stage; the stage-0 test is unmeasured.
+Every test also has a [kirimasim bring-up stage](docs/kirimasim-stages.md), recorded in `coverage/kirimasim_stages.json`: 1 test at stage 0, 1034 at stage 1 (minimal run_test), 100 at stage 2 (factory), 111 at stage 3 (config_db), 326 at stage 4 (sequence), 251 at stage 5 (TLM) and 955 at stage 6 (register layer). The retained kirimasim records, which an earlier runner made, stop at the same unsupported `uvm_object_wrapper` construct in every stage; the stage-0 test is unmeasured.
 
 Check also elaborates every test with slang, the front end that kirimasim uses unmodified: a legal test must have no error and an illegal design must be rejected at its pattern, except the 91 entries of [`coverage/slang_frontend.json`](coverage/slang_frontend.json) ([slang elaboration](docs/testing.md#slang-elaboration)). An [API census](docs/requirements.md#api-census) lists the declarations that the pinned library marks with a clause and that no test uses: 1 unused and 29 named only.
 
@@ -146,7 +146,7 @@ results for the pinned library.
 [Results and methodology](docs/results.md) gives the full execution conditions
 and evidence scope. [Known differences](docs/known-differences.md) lists the
 library limitations and spec-only tests. [Check](.github/workflows/check.yml)
-runs tool, metadata, library, ledger, cause-record and bring-up-stage checks and, for each push or pull request,
+runs tool, metadata, library, ledger, cause-record, report-declaration and bring-up-stage checks, the slang elaboration and the API census, and, for each push or pull request,
 the tagged ordinary Verilator checks whose inputs changed plus one canary.
 [Regression](.github/workflows/regression.yml) runs all 2307 tagged ordinary
 checks in 20 shards, the twenty explicit command-line checks and the twenty-six

@@ -425,6 +425,10 @@ Verilatorがknown差分だけでは失敗終了しない理由は[FAQ Q6](faq.ja
 
 **立ち上げ段階** — テストに必要な[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)で、0（uvm_pkgだけ）から6（register層）まであり、`coverage/kirimasim_stages.json`に記録します。simulatorがlibraryを動かせるようになるまでに出会うUVMの部分の順序で、開発段階M0〜M4とは別のもので、期待値を変えません。
 
+**slangの記録** — [`coverage/slang_frontend.json`](../coverage/slang_frontend.json)。kirimasimのfront endであるslangがelaborationでerrorを出すが、suiteに残すテストを、理由とともに挙げた一覧です。Checkは固定した`pyslang`で全テストをelaborateし、記録にないテストにerrorが出ると失敗します（[slangでのelaboration](testing.ja.md#slangでのelaboration)）。
+
+**APIの集計** — 固定版libraryが条項を注記した宣言ごとに、自分のcodeでそれを使うテストを数えたものです。[`coverage/api_census.json`](../coverage/api_census.json)は、注記された宣言のうち、どのテストも使っていないものを挙げます。coverageの尺度ではありません（[APIの集計](requirements.ja.md#apiの集計)）。
+
 **条項の引用／要求カバレッジ／一致件数** — メタデータの参照／定義した要求と条件を検査する証拠／
 特定の実行で期待値に一致したテスト数です。それぞれ分母が異なります。
 このリポジトリでは要求カバレッジの分母をまだ承認しておらず、テスト総数やoracle件数はその割合ではありません。

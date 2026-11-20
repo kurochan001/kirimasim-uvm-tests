@@ -2,7 +2,7 @@
 
 [English](handoff.md) · [README](../README.ja.md) · [要求台帳](requirements.ja.md)
 
-現在の引継ぎ：ユーザーが2026-11-07にgoalを再開し、外部レビューの7番目の項目である124回目の拡充を公開しました。8番目で最後の項目である125回目も、22のdirectoryすべてで公開しました。126回目は、2回目のレビューの最初の修正で、127回目と128回目でそれを終え、129回目はkirimasimのrunnerから3回目のレビューを始めます。公開済みcheckpoint・次の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
+現在の引継ぎ：ユーザーが2026-11-07にgoalを再開し、外部レビューの7番目の項目である124回目の拡充を公開しました。8番目で最後の項目である125回目も、22のdirectoryすべてで公開しました。126回目は、2回目のレビューの最初の修正で、127回目と128回目でそれを終えました。129〜137回目は、2026-11-20の3回目のレビューを実装しました。kirimasimのrunner、Checkでのslangによるelaborationの検査とAPIの集計、未使用の宣言へのテスト、testbench形のテスト5件です。公開済みcheckpoint・次の案・再開手順は[Claude Code向けハンドオフ](claude-code-handoff.ja.md)から確認してください。
 
 このページは開発の再開を支える資料なので、最初のテストを動かしたり理解したりしたい場合は[読み方ガイド](reading-guide.ja.md)から始めてください。
 
@@ -10,8 +10,8 @@
 
 以下の基点コミットは記載した作業の出発点を示すため、保存済みの結果を現在のファイルの証拠にする前に未コミットの変更を確認し、互換性のレビューは[入力の更新手順](requirements.ja.md#テストや対応付けの更新)に従います。
 
-2026-11-09に、`main`の[9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/960138734ce23d521c36a645315044e070487cfa)
-を基に、124回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
+2026-11-21に、`main`の[d3ff8c6](https://github.com/kurochan001/kirimasim-uvm-tests/commit/d3ff8c66e11f6d7e6dac82fcd7006598e61c97af)
+を基に、137回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
 
 IEEE 1800.2-2020のUVM適合を検査し、kirimasimを対象とするプロジェクトです。
 SystemVerilog言語だけのreproducerは、
@@ -61,7 +61,7 @@ Ghostの設定が必要なのは非公開guestの測定を行う場合で、そ�
   [テスト索引](../coverage/test_index.json)：M4の正規の状態です。生成inventoryはレビューの補助資料で、
   版管理する入力の代わりではありません。
 - [library lock](../third_party/uvm.lock)：Accellera UVM 2020.3.1、`78c06547a2a0`、326ファイル。
-  版管理するtoolで取得し、library本体はコミットしません。2702検査系は`UVM_NO_DPI`を使い、38件は独自VPI HDL backendを明示要求します。
+  版管理するtoolで取得し、library本体はコミットしません。2717検査系は`UVM_NO_DPI`を使い、38件は独自VPI HDL backendを明示要求します。
 - ユーザーがrepository rootへ`IEEE_Std_1800.2-2020.pdf`と
   `IEEE_Std_1800-2023_SystemVerilog.pdf`を配置済みです。Git対象外のlocalファイルで、
   新規cloneにはなく、再配布しません。`out/`内の抽出済みtextはlocalでGit対象外です。`/tmp`は消える場合があります。
@@ -87,11 +87,15 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 python3 tools/known_causes.py check
+python3 tools/uvm_reports.py check
+python3 tools/kirimasim_stages.py check
+python3 tools/slang_elaborate.py check
+python3 tools/api_census.py check
 python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-この記録は、tool単体テスト204件、全2778件（simulation 2679件・elaboration 99件）のmetadata、台帳／索引、原因の記録、library整合性、現在の入力とevidenceの照合を
+slangの2つのcommandには、[slangでのelaborationの検査](testing.ja.md#slangでのelaboration)の固定版`pyslang`が要ります。この記録は、tool単体テスト204件、全2778件（simulation 2679件・elaboration 99件）のmetadata、台帳／索引、原因の記録、reportの宣言、段階、slangでのelaboration、APIの集計、library整合性、現在の入力とevidenceの照合を
 通過しています。資料だけの変更では、全シミュレーションを再buildせず、[ドキュメントの更新手順](testing.ja.md#ドキュメントの更新)に従って日英の対応とリンクを確認します。
 全件evidenceはVerilatorだけで、他2系統は未変更1081件の記録、1697入力は未測定です。実行のsmoke確認は次のとおりです。
 
@@ -103,7 +107,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 [以前のCheck実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41561342697)は参照用です。
 最新のworkflow結果はREADMEのbadgeで確認してください。後のcommitによって、このrunが置き換わる場合があります。
 local検証だけでCI全体の成功とは扱いません。
-Checkはtool、metadata、台帳、library、原因の記録と、入力が変わった通常oracle付きVerilator検査およびcanaryを検査します。Regressionは手動と毎週、全タグ付き通常検査、明示command-line 20件、regex-DPI変種26件を実行します。
+Checkはtool、metadata、台帳、library、原因の記録、reportの宣言、段階の検査と、slangでのelaborationとAPIの集計を行い、入力が変わった通常oracle付きVerilator検査およびcanaryを実行します。Regressionは手動と毎週、全タグ付き通常検査、明示command-line 20件、regex-DPI変種26件を実行します。
 どちらもGhost、kirimasim、spec-onlyの実行は含まず、結果の自動公開はありません。
 
 ## 実測記録と直近の差分
@@ -128,6 +132,8 @@ Checkはtool、metadata、台帳、library、原因の記録と、入力が変�
 buildはAPI／型名欠落43、time減算引数既定値1、型既定宣言2、依存visitor既定型3、印刷signature食違い2、継承type_id registry特殊化2、protected access 1、記載外pure-hook 2、DPI未link 61です。限定したvirtual抽象overview基底型のbuild 2件と、専用poolの印刷返却型build 2件も保持します。追加の合法build 3件はenum-collection T解釈です。ほか7 buildは厳密なattribute／enum-unpackの引数を保持します。印刷具象callback facadeの合法構築1件はabstractとして拒否されます。別HDL／command-line evidenceは独立に記録します。
 
 残るsimulation build失敗6件は未登録packetのpredictor型名4件とサイズ／flag宣言2件で、規格に登録の前提条件を追加しない扱いと各実行条件は[結果の内訳](results.ja.md#結果の解釈)で説明しています。
+
+129〜137回目は、0da235aを対象とし、2026-11-20に示された3回目のレビューを実装しました。kirimasimのrunnerは`--timescale=1ns/1ps`を渡し、書かれた終了codeを求め、`:uvm_dpi: yes`の61件をunsupportedと報告します。simulationテストはすべて`:expected_exit:`を書きます（129回目）。Checkは、全テストをslangでelaborateして[`coverage/slang_frontend.json`](../coverage/slang_frontend.json)（記録91件）と照合し（130回目）、[`coverage/api_census.json`](../coverage/api_census.json)をテストと照合します（131回目）。どのテストも使っていなかった宣言を10件のテストが使い（132回目）、小さな参照先を直し（133回目）、testbench形のテスト5件がRTLの上で動きます（134〜137回目）。そのうちreset sequenceの1件は、libraryの新しい差分です。新しい15件に、義務31件が対応します。未実施のものは次のとおりです。`run_verilator.py`、`suite_results.py`、`uvm_common.py`のdocstringに残る古いREADMEへの参照は、次に指紋を動かす変更まで待ちます。短いセットのkirimasimでの測定は、許可された実行fileがないため行っていません。kirimasim-testsにない構文へのテストの追加と、Verilatorの全出力の比較は、ユーザーの判断を待っています。各回の内容は[履歴](history.ja.md#129回目の拡充kirimasimのrunnerと終了code3回目の外部レビュー項目1)にあります。
 
 127回目は、2回目のレビューの残りのうち、原因の記録の形式だけを変える2点を、ユーザーが2026-11-20に承認した案のとおりに実装します。[原因の記録](../coverage/known_causes.json)はschema 2になり、interpretationの60件は読み方の根拠を持ち（`printed` 10件、`printed-by-library` 1件、`ambiguity` 49件）、固定版libraryでは満たせない4値のqueueのテストは種別`static`の記録を持ちます。kirimasimの目標は測れる2383、固定版libraryのために届かない380で、照合の候補は407件です。4値の7件すべてをlibraryのsourceで診断する中で、[記録のテスト](../tests/u16/test_fourstate_record_field_values_117.sv)の検査系の誤りを直しました。recorderの`do_record_object`を空の本体でoverrideしていたため、16.4.7.7の既定の実装が行うfield macroの記録が動きませんでした。期待値は変えていません。時間単位と、宣言のないUVM_ERROR／UVM_FATALの検出は、runnerを変える1回の変更にまとめ、全件の出力を集める診断から始めます。根拠は[履歴](history.ja.md#127回目の拡充原因の記録のschema-22回目の外部レビューb)にあります。
 

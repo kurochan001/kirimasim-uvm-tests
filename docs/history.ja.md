@@ -4329,4 +4329,21 @@ suiteは2777件（simulation 2678）、義務4179件、tag付きの検査2306件
 
 [`u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137`](../tests/u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137.sv)は、ユーザーが残したtestbench形の候補の最後のものです。116回目のregister fileで、reset phaseがRTLのresetを2 clockの間保ち、configureとmainの各phaseがregisterを1つずつ書きます。最初のmain phaseは、objectionを下ろした後でresetのnodeへjumpします。shutdown phaseはregisterを読み、そのobjectionにclock 3周期のdrain timeを設定します。期待値は、実行の前に、9.3.1.9.1、9.8.2.2、10.5.1.3.7とdesignの規則から書きました。reset、configure、mainは2回、shutdownは1回実行されます。registerは2回目の値を保持し、designが数えた書込みは4ではなく2です。phaseは、objectionを下ろしてから3 clock後に終わります。Verilator 5.052のseed 1／73で、tag付けの前後とも一致し、slangでもelaborateできます。義務3件がこのテストに対応します。jumpを要求する時点で実行中のsequenceはないので、sequenceの途中でのjumpについては何も述べていません。
 
-suiteは2778件（simulation 2679）、義務4182件、tag付きの検査2307件です。項目4のテストは6件になりました。5件が一致し、reset sequenceの1件はlibraryの既知差分です。
+suiteは2778件（simulation 2679）、義務4182件、tag付きの検査2307件です。項目4のテストは5件になりました。4件が一致し、reset sequenceの1件はlibraryの既知差分です。（この文は最初、6件と5件と書いていました。138回目に件数を直しました。）
+
+## 138回目の拡充：全文書の見直し
+
+ユーザーの依頼で、すべての文書を読み直して訂正しました。テスト、記録、toolは変えていません。古くなっていたか誤っていて、日英とも直したものは次のとおりです。
+
+- READMEは、2026-11-09のVerilatorのsnapshotが2値の2756件すべてを対象にすると書いていました。2値の2771件の結果は複数の測定によるもので、READMEにそう書きました。
+- READMEはRTL結合テストを5件と数えていました。実際は10件で、testbenchの形をした5件は[Q455](faq.ja.md#q455-3回目のレビューのtestbench形のテストは何を検査しますか)で説明しています。137回目とハンドオフは6件と書いていましたが、誤りで、5件（一致4、既知差分1）です。
+- README、実行結果、テストガイド、2つのハンドオフにあるCheckの説明は、reportの宣言、slangでのelaboration、APIの集計に触れていませんでした。再開時のcommandの一覧も、それらを実行していませんでした。
+- 実行結果は、2026-11-20の診断でtag付きruntime 2213件に変化がなかったと書いていました。この数は現在のもので、診断の対象は当時tag付きだった2199件です。それ以後に足した15件は、公開のときに測っています。また、以前の件数の置換で、FAQの過去時点の文3つが既知463入力から464入力に変わっていたので、463に戻しました。
+- Regressionのshardは、115件が7、114件が13ではなく、116件が7、115件が13です。完了した2回のRegression（a3956ceと73a73ad）の記録がなく、e37fb89での起動は、この見直しの時点で終わっていませんでした。
+- テストガイドの単体テストの件数（171）、`UVM_NO_DPI`のテストの件数（2702、現在は2717）、既知差分の文書の1文にあるspecのみの合計（470、現在は471）、日本語の1文にある実行時の差分（318、現在は319）が古いままでした。
+- Claude Code向けハンドオフは、冒頭が2026-11-07のままで、終わった3回目のレビューの項目を次の候補に挙げ、125回目より後のlocalのfileを挙げていませんでした。詳細ハンドオフは、124回目の2026-11-09の日付のままでした。
+- kirimasimの行は、保持している記録を「現在の」記録と呼んでいました。これらは以前のrunnerで測ったものです。
+
+記述がなかったので足したものは次のとおりです。slangでのelaboration、APIの集計、testbench形のテストについてのFAQ 3件（Q453〜Q455）。slangの記録とAPIの集計の用語。出典のガイドでの`pyslang`（MIT）の記載。テストガイドでの、新しいテストに必要な手順。
+
+変えていないものもあります。以前の拡充を説明する文は、その時点の件数のままです。履歴の本文も変えていませんが、137回目の誤った件数だけは直し、そこに印を付けました。

@@ -62,6 +62,8 @@ it is not copied from a simulator parser or the language standard.
 user-provided standard, with clause numbers and expected-output anchors.
 It does not copy normative text or sample code, or import simulator results.
 
+`slang_elaborate.py`, `api_census.py`, `uvm_reports.py`, `known_causes.py`, `kirimasim_stages.py` and `code_identity.py`, with their regression tests, are original suite code. The first two call [slang](https://github.com/MikePopoloski/slang) through its Python package `pyslang`, which has the MIT license; Check installs the version that `tools/slang-requirements.txt` pins by hash, and the package is not part of this repository. The suite uses slang as a tool and does not copy its source.
+
 `run_verilator_hdl.py`, its regression tests and `uvm_hdl_vpi.cpp` are original
 suite code. The runner follows the existing suite's compilation/judgment flow
 under a distinct evidence identity. The limited backend uses standard DPI/VPI

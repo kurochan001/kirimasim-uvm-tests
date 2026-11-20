@@ -4,6 +4,8 @@
 
 ## 最初に読むこと
 
+2026-11-21、137回目の拡充の後に更新しました。3つの外部レビューを実装済みです。1回目の8項目（116〜125回目）、2回目（126〜128回目）、3回目（129〜137回目）です。mainはd3ff8c6以降で、そのCheckは成功しています。残っているのは、ユーザーの判断や用意が要るものです。kirimasim-testsにない構文へのテストの追加、全出力の比較の方式、短いセットを測るための許可されたkirimasimの実行file、人による照合です。M1〜M4の薄い領域の補強は、3回目のレビューの間は止めており、ユーザーの指示があるまで再開しません。以下は、それ以前の経緯です。
+
 2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)で113回目の拡充を公開しました。その後、最初のRegressionでhostedのrunnerにz3制約solverがないことが分かり、準備用actionで導入して、[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)で114回目の拡充を公開しました。その後、[eeda25d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/eeda25d9b378773a2841076706f8e8029d87c08d)で115回目の拡充を公開しました。2026-11-08にユーザーは外部レビューを示し、その最初の項目であるRTLとの結合を、[c314982](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c314982e5c42e5333790b7ba7bb00bbaef8da2f7)で116回目の拡充として公開し、2番目の項目である4値の経路を[46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624)で117回目の拡充として公開し、3番目の項目である乱数化の性質を[8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8)で118回目の拡充として公開し、4番目の項目であるDPIの構成を[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)で119回目の拡充として公開し、5番目の項目であるユーザーpackageを[9c57290](https://github.com/kurochan001/kirimasim-uvm-tests/commit/9c572904a247a92a4445c0d9bfe7b1208eeb975a)で120回目の拡充として公開し、6番目の項目である既知差分の原因の最初のbatchを[a578650](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a5786504883a87b7928084098a7fada0a9f7efce)で121回目の拡充として、2番目のbatchを[e5bd032](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e5bd032245789f643e9a45a65bbebd19b0a5efc0)で122回目の拡充として、3番目で最後のbatchを[9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/960138734ce23d521c36a645315044e070487cfa)で123回目の拡充として公開し、7番目の項目であるkirimasimの立ち上げ段階を[235713d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/235713d30d9940a06c591850218db6caaaf67ca6)で124回目の拡充として公開しました。8番目の項目である読みやすさは125回目の拡充で、この文面を含むcommitの基盤の後に、directoryごとに公開します。**goalは継続中で、完了していません。**
 
 編集前に実際のbranchと作業ツリーを確認してください。121〜123回目は期待値の測定を追加せず（122回目はruntimeの既知入力をseed 1で診断用に実行し、123回目はDPIの実行条件の既知入力4件をそれぞれのrunnerで実行しました）、124回目のnative測定（段階0の入力を、tag付けの前後にseed 1／73で実行）はすべて終了済みで、117回目の4値の入力にはnative測定がありません。
@@ -19,7 +21,7 @@
 - 通常のpass入力：2307件 = seed 1/73でruntime一致2213 + 期待したcompiler rejection 94。
 - 既知差分：464件 = runtime差分319 + simulation build失敗140 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。specのみは4値の7入力を含めて471件です。[原因の記録](../coverage/known_causes.json)は既知差分を、すべて、library 320、interpretation 60、simulator 27、DPIの実行条件57に分類し、未分類はありません。
 - 別の条件：command-line 23検査系（20件がseed 1／73で一致、3件は既知）、regex-DPI変種26件（すべて一致）。
-- guest証拠：互換1081記録、未測定1697入力（追加1693 + 改訂した元入力4）。112〜124回目にguest測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
+- guest証拠：互換1081記録、未測定1697入力（追加1693 + 改訂した元入力4）。112〜137回目にguest測定はありません。kirimasimの記録は以前のrunnerで測ったもので、現在のrunnerの証拠ではありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
 - 候補の配置：primaryテスト0件が1160番号、1件が768番号、2件以上が554番号です。条項の網羅や独立した検査の成功を証明する件数ではありません。
 
 HDL backend、command-line、regex-DPI変種の追加検査には別の実行条件があり、[実行結果](results.ja.md)と[テストガイド](testing.ja.md)を確認してください。範囲を確認せず通常の総数へ加算しません。
@@ -28,11 +30,13 @@ HDL backend、command-line、regex-DPI変種の追加検査には別の実行条
 
 hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していませんでした。単一のCheckが`cancel-in-progress`付きでpushごとに全件を実行し、中断されなかった唯一の8 shard実行では全shardが150分の上限に達しました。置き換えた構成とsolverの修正は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 
-- [Check](../.github/workflows/check.yml)はtool・metadata・library・台帳・原因の記録・立ち上げ段階の検査と、入力が変わったタグ付き検査、canary 1件（[選択ツール](../tools/ci_select.py)）、原因の記録の再現例のbuildを実行します。42d03ab（[run 42359747127](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747127)、canaryのみ）とf94ba4a（[run 42360326889](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42360326889)、113回目の4入力とcanary）で成功しました。どちらの選択も乱数化を行いません。
+- [Check](../.github/workflows/check.yml)は、tools jobでtool・metadata・library・台帳・原因の記録・reportの宣言・立ち上げ段階を検査し、slang job（固定版の`pyslang`を使い、8分ほど）でslangによるelaborationとAPIの集計を行います。さらに、入力が変わったタグ付き検査、canary 1件（[選択ツール](../tools/ci_select.py)）、原因の記録の再現例のbuildを実行します。42d03ab（[run 42359747127](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747127)、canaryのみ）とf94ba4a（[run 42360326889](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42360326889)、113回目の4入力とcanary）で成功しました。どちらの選択も乱数化を行いません。
 - [Regression](../.github/workflows/regression.yml)は手動と毎週、全タグ付き検査を20 shard（同時4、各360分）で、command-line 20件とregex-DPI変種26件をそれぞれ別jobで合わせて実行します。最初の起動である42d03abの[run 42359747603](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42359747603)は、command-line job（成功）とshard 0・2・3（342件中334件一致）の完了後に取り消しました。8件の差分はすべて制約付き乱数化に依存し、imageのpathにSMT solverがありませんでした。localでz3を外すと、確かめた4件の差分を再現しました。このrunはどのcommitのRegression結果でもありません。
 - [準備用action](../.github/actions/setup-verilator/action.yml)はすべてのjobでz3を導入し、その版を表示します。[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)のCheck（[run 42371357208](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42371357208)）はz3 4.8.12を導入し、allocation policyを乱数化するrequest側の2 profileを含む選択5件が一致しました。
 - [98f02fe](https://github.com/kurochan001/kirimasim-uvm-tests/commit/98f02fe)以降、準備用actionはz3のaptを3回試し、2回目からUbuntuの本体のarchiveに切り替え、それでも入らなければGitHubにあるZ3 4.8.12のreleaseをSHA-256で確かめて使います。hostedのrunnerがUbuntuのpackageのhostを解決できなくなったためです。fallbackを使ったときはjobのlogに警告が出ます。
 - Regressionはdb06513で[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)として再度起動しました。20 shardでタグ付き検査2273件すべてがseed 1／73で一致し（各shard 113〜199分）、command-line jobも成功したため、その結果を確認してから115回目のcommitを公開しました。このrunの対象はdb06513で、115回目の4入力はCheckの変更入力jobとlocal測定で確認しています。116回目の入力はそのcommitのCheckとlocal測定で確認し、117回目の4値の入力はCheckもRegressionも選ばず、118回目の入力はそのcommitのCheckとlocal測定で確認しています。119回目のcommand-line検査系とregex-DPI変種はlocal測定で確認し、Checkはそれらに対してcanaryだけを実行し、次のRegressionがcommand-lineとregexのjobで確認します。120回目の入力はそのcommitのCheckとlocal測定で確認しています。121回目はテストの入力を変えません。項目4と5をhostedで確認するため、項目6の最初のbatchの後にRegressionを1回起動することにユーザーが同意し、a578650で[run 42528773645](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42528773645)として起動し、2026-11-10に23 jobすべて（タグ付き2292件の20 shard、command-lineとregex-DPIのjob、gate）が成功しました。項目8の途中で、uGに絞ったRegressionの2回（[42668720148](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42668720148)と[42673134200](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42673134200)）はGitHub Actionsの障害で失敗しましたが、テストの失敗はなく、起動し直した[42677380895](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42677380895)は成功しました。その後、ユーザーの依頼でuD〜u15をまとめて公開し、絞った1回のrun [42686227804](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42686227804)で確かめました。後で全件のhosted結果が必要になればRegressionを再度起動し、shardがtimeoutまたは失敗した場合は、テストを追加公開する前に調べます。
+- その後のRegression：読みやすさの編集の後のa3956ceでの[run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797)と、73a73adでの毎週の[run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165)は、24 jobすべてが成功しました。[run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874)は、runnerが時間単位を渡し、reportの宣言を検査するようになったcommitであるe37fb89で起動しました。完了したRegressionで現在のrunnerを対象にしたものはまだないので、頼る前にその結果を読んでください。e37fb89の後に足した15件は、それぞれのcommitのCheckとlocalの測定で確かめています。
+- slang jobの集計の手順は、最初は45分以内に終わらず、9ed0cc9のCheckは集計の結果がないまま終わりました。2b03180以降は、テストごとに別のprocessでslangを動かし、4分ほどで終わります。
 - 同時10で起動したrunは、アカウント共有のhosted job枠を埋めて他のrepositoryを遅らせたため以前に取り消しました。Regressionの同時実行数は控えめに保ち、全件実行を重ねて起動しません。
 
 ## 外部レビュー
@@ -50,7 +54,7 @@ hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していま�
 - 2回目のレビュー（2026-11-12、slangでのelaboration）：126回目は、slangで全テストをelaborateした2回目のレビューの指摘を、テストの形式を変えずに直しました。virtual methodのoverrideの引数名（73件）、virtualな`uvm_object`の生成（2件）、linkのaccessorの可視性（1件）、`uvm_macros.svh`のincludeの不足（5件）、拒否のpattern 2件です。影響する81入力は、seed 1／73で状態が変わりません。各指摘の根拠は[履歴](history.ja.md#126回目の拡充slangでのelaborationによる修正2回目の外部レビューa)にあります。
 - 2回目のレビューの残り（2026-11-20にユーザーが案を承認）：127回目は、2回目のレビューの残りのうち、原因の記録の形式だけを変える2点を、ユーザーが2026-11-20に承認した案のとおりに実装します。[原因の記録](../coverage/known_causes.json)はschema 2になり、interpretationの60件は読み方の根拠を持ち（`printed` 10件、`printed-by-library` 1件、`ambiguity` 49件）、固定版libraryでは満たせない4値のqueueのテストは種別`static`の記録を持ちます。kirimasimの目標は測れる2383、固定版libraryのために届かない380で、照合の候補は407件です。4値の7件すべてをlibraryのsourceで診断する中で、[記録のテスト](../tests/u16/test_fourstate_record_field_values_117.sv)の検査系の誤りを直しました。recorderの`do_record_object`を空の本体でoverrideしていたため、16.4.7.7の既定の実装が行うfield macroの記録が動きませんでした。期待値は変えていません。時間単位と、宣言のないUVM_ERROR／UVM_FATALの検出は、runnerを変える1回の変更にまとめ、全件の出力を集める診断から始めます。根拠は[履歴](history.ja.md#127回目の拡充原因の記録のschema-22回目の外部レビューb)にあります。128回目は、この案を実装しました。2657件の2値simulationテストの診断では、tag付き2199件の状態変化と未宣言reportが0件で、49件のreportのうち31件を条項から宣言しました。通常のtag付き記録（runtime 2199件とcompile拒否94件）は再測定し、派生条件の全リストは次のRegressionで確認します。kirimasimの1081記録はrunnerの指紋が変わるため現在の証拠ではなく、Ghostの1081記録は共有fileを変えていないため有効なままです。
 - 3回目のレビュー（2026-11-20、対象は0da235a）：件数を測り直し、一致しました。129回目は、kirimasimのrunnerが`--timescale=1ns/1ps`を渡し、`:expected_exit:`がなければ終了code 0を求め、`:uvm_dpi: yes`の61件をunsupportedと報告するようにし、simulationテストで`:expected_exit:`を必須にしました。`run_verilator.py`、`suite_results.py`、`uvm_common.py`のdocstringに残る古いREADMEへの参照は、ユーザーの選択により、次に指紋を動かす変更まで待ちます。ユーザーは次の順で承認しました。slangでのelaborationをCheckに入れること、APIの集計と未使用の宣言へのテスト、資料の小さな修正、kirimasimのrunnerと段階、UVMの条項に結び付く候補のtestbench形のテスト、その後に人の照合用の一覧、全出力の比較、4値の注記です。測った件数は[履歴](history.ja.md#129回目の拡充kirimasimのrunnerと終了code3回目の外部レビュー項目1)にあります。
-- 3回目のレビューの項目2と3（完了）：130回目はslangでのelaborationの検査をCheckに足し（`tools/slang_elaborate.py`、`coverage/slang_frontend.json`、記録91件）、131回目はAPIの集計を足し（`tools/api_census.py`、`coverage/api_census.json`）、132回目は未使用の宣言へのテスト10件と義務20件を足しました。テスト2773件、義務4171件、tag付きの検査2303件です。どちらのtoolにも固定版の`pyslang`（`tools/slang-requirements.txt`）が要り、localの写しはGit対象外の`out/slang-venv`にあります。テストを足すか変えたら`slang_elaborate.py check`を通し、一覧にある宣言をテストが使い始めるか使わなくなったら`api_census.py update`を実行します。
+- 3回目のレビューの項目2〜6：130回目はslangでのelaborationの検査をCheckに足し（`tools/slang_elaborate.py`、`coverage/slang_frontend.json`、記録91件）、131回目はAPIの集計を足しました（`tools/api_census.py`、`coverage/api_census.json`。現在は未使用1個、名前だけ29個）。132回目は未使用の宣言へのテスト10件、133回目は資料の小さな修正、134〜137回目はRTLの上のtestbench形のテスト5件です。そのうち1件はlibraryの新しい差分です（固定版のreset sequenceは、唯一のfieldがvolatileであるregisterを読みません）。項目5は一部だけ済んでいます。runnerの変更は入っており、kirimasim-testsにない構文はGit対象外の`out/thin-one-hundred-thirty-fourth/kirimasim-tests-construct-survey.ja.md`に一覧にしました。短いセットは、許可された実行fileがないため測っていません。slangを使う2つのtoolには固定版の`pyslang`（`tools/slang-requirements.txt`）が要り、localの写しはGit対象外の`out/slang-venv`にあります。テストを足すか変えたら`slang_elaborate.py check`を通し、一覧にある宣言をテストが使い始めるか使わなくなったら`api_census.py update`を実行します。
 
 ## 維持する判断
 
@@ -62,6 +66,9 @@ hosted CIは2026-10-31以降、Verilatorの選択を一度も完了していま�
 - `tools/run_verilator.py`、`tools/suite_results.py`、`tools/uvm_common.py`を安易に変更しません。これらはrunner指紋を構成し、変更すると保存済みの全記録が無効になります。`tools/ci_select.py`とworkflowのファイルは指紋の外にあります。
 
 ## 最新実装と限界
+
+129〜137回目は、上の[外部レビュー](#外部レビュー)と[履歴](history.ja.md#129回目の拡充kirimasimのrunnerと終了code3回目の外部レビュー項目1)で説明しています。限界は次のとおりです。slangの検査は固定した`pyslang`のreleaseを使い、kirimasimが固定するslangのcommitではありません。APIの集計は呼出しを数えるもので、テストが何を確かめるかは見ません。testbench形のテストは、sequenceの途中でのjump、covergroup、concurrent assertion、modportを扱いません。指紋に入る3 fileのdocstringには、古いREADMEへの参照が残っています。
+
 
 読みやすさ（項目8）は、22のdirectoryすべてで終えました。各directoryの入力と、そのfileを集める他のdirectoryの入力は、seed 1／73で測り直してすべての状態が変わらず、指紋は`tools/code_identity.py`で持ち越し、guestの記録も持ち越しました。絞ったRegressionのrunは次のとおりです。括弧の中は、directoryごとに測り直した入力の数です。
 
@@ -124,13 +131,15 @@ out/thin-one-hundred-twenty-fourth-stage-summary.json
 
 120回目のファイルは同じ名前の`twentieth`版で、`pretag-freeze.json`、`verilator-pretag.json`、`verilator-final.json`、`doc-contents-effective.json`を含みます。119回目のファイルは同じ名前の`nineteenth`版で、`cmdline-pretag.json`、`cmdline-final.json`、`cmdline-combined.json`、`regex-variants.json`、`diag-cmdline-known.txt`を含み、evidence scopeはlocalでbuild 140件へ訂正しました。118回目のファイルは同じ名前の`eighteenth`版で、`verilator-pretag.json`を含みます。117回目のファイルは同じ名前の`seventeenth`版で、4値の入力には`freeze.json`と2値の診断logだけがあり、batchはありません。116回目のファイルは同じ名前の`sixteenth`版で、pretag／finalのbatchと`before-identifier-fix/`を含みます。115回目のファイルは同じ名前の`fifteenth`版です。114回目のファイルは同じ名前の`fourteenth`版で、他に`out/thin-one-hundred-fourteenth-regression-42359747603.json`と`out/thin-one-hundred-fourteenth-before-owner-split/`があります。
 
+126〜137回目では、次のものが加わりました。`out/slang-venv/`（固定版の`pyslang`）、`out/slang-survey/`（最初の調査のscript）、`out/thin-one-hundred-twenty-sixth*`（直した81入力と、最後に組み立てた合算の記録と証拠の範囲）、それ以後の測定ごとのbatch file（`out/thin-one-hundred-twenty-ninth-exit-verilator.json`、`out/thin-one-hundred-thirty-second-pretag*.json`と`-final.json`、`out/thin-one-hundred-thirty-fourth/`、`-thirty-sixth/`、`-thirty-seventh/`）、`out/api-census-full.json`です。`out/thin-one-hundred-thirty-fourth/`には、人の照合用の一覧、構文の調査、reset sequenceのテストの最初の案もあります。127回目と128回目の測定は別のsessionで行われ、このworkspaceにはないので、126回目より後の合算の記録はここにはありません。
+
 125回目（項目8）の作業用script、状態、公開の待ち行列、再開の手引きは`out/thin-one-hundred-twenty-fifth-item8/`（`HANDOFF.md`）にあります。使う前に`origin/main`と最新のCheck、Regressionを確かめてください。guest記録は[詳細ハンドオフ](handoff.ja.md#実測記録と直近の差分)に記載した112回目のファイルのままです。`out/thin-one-hundred-twenty-fourth-ledger-used.py`、`-stages-used.py`、`-docs-used.py`と、120回目のgenerator、ledger、docsのscript、同じ形の114〜119回目のscriptは実際に使ったもので、guardが以前のcommitと資料本文を参照するため再実行しません。次の資料更新はeffective snapshotと現在の版管理ファイルから始めます。indexへの追記時は既存の順序を保持し、証拠を持ち越す前に入力・runner・library・simulatorのfingerprintを確認します。規則は[証拠の集約](results.ja.md#記録の合算)にあります。
 
 ## 次の候補
 
 承認済みの範囲ではなく提案です。選ぶ前にbacklogを再生成します。
 
-- 3回目のレビューの残り（承認された順）：（2）`tools/slang_elaborate.py`、`coverage/slang_frontend.json`、Checkの手順。（3）`tools/api_census.py`、`coverage/api_census.json`、未使用のmacroとmethodへのテストと台帳の義務。（6）資料の小さな修正。（5）kirimasimのrunnerでのslangの記録の利用、短いセット、kirimasim-testsにない構文の一覧。（4）testbench形のテスト。その後に、人の照合用の一覧、全出力の比較、4値の注記。M1〜M4の薄い領域の補強は、項目1〜3が終わるまで止めています。項目7は完了し、短いセットのkirimasimでの実行には許可された実行fileが必要で、段階0のテストと各段階に対応付けた言語のテストが、kirimasimの止まる所を示します。項目6は完了しました。照合の候補408件は人の照合を待っています。libraryの出力値を記録するか（A1では記録していません）と、UVM_NO_DPIのために測れない通常の検査系3件をDPIの実行条件の一覧に加えるかは、形式または構成の変更なので、案を示してから決めます。
+- 3回目のレビューで残ったもの（どれもユーザーを待っています）：kirimasim-testsにない3つの構文と、近いテストしかない8つの構文へのテストの追加。Verilatorの全出力の比較（別のtoolにするか、runnerを変えるかの判断が要ります）。許可された実行fileでの、短いセットのkirimasimでの測定。抜き出した30件の、人による確認。docstringの古い参照は、次に指紋を動かす変更で直します。M1〜M4の薄い領域の補強は、ユーザーが再開を指示するまで止めたままです。項目7は完了し、短いセットのkirimasimでの実行には許可された実行fileが必要で、段階0のテストと各段階に対応付けた言語のテストが、kirimasimの止まる所を示します。項目6は完了しました。照合の候補408件は人の照合を待っています。libraryの出力値を記録するか（A1では記録していません）と、UVM_NO_DPIのために測れない通常の検査系3件をDPIの実行条件の一覧に加えるかは、形式または構成の変更なので、案を示してから決めます。
 - 18.12.4.2の、範囲と同時にmode／localityを変えるreconfigureや他のbyte幅。
 - 112回目のunpackの列挙setterの問題：規格と照合し、library証拠を理由にknownをpassへ変更しません。
 - 第18章の他の部分条件（部分393番号）と全体の部分2062番号を、元のM1〜M3目標と比べます。
@@ -151,6 +160,9 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 python3 tools/known_causes.py check
 python3 tools/kirimasim_stages.py check
+python3 tools/uvm_reports.py check
+out/slang-venv/bin/python tools/slang_elaborate.py check
+out/slang-venv/bin/python tools/api_census.py check
 python3 tools/code_identity.py check --base HEAD
 python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja

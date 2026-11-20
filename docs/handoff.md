@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-Current transfer: the user resumed the goal on 2026-11-07, and the 124th expansion, the seventh item of an external review, is published; the 125th expansion, the eighth and last item, is published in all 22 directories; the 126th expansion makes the first corrections from a second review, the 127th and 128th finish it, and the 129th begins a third review with the kirimasim runner. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
+Current transfer: the user resumed the goal on 2026-11-07, and the 124th expansion, the seventh item of an external review, is published; the 125th expansion, the eighth and last item, is published in all 22 directories; the 126th expansion makes the first corrections from a second review, the 127th and 128th finish it, and the 129th to 137th implement a third review of 2026-11-20: the kirimasim runner, a slang elaboration check and an API census in Check, tests for the unused declarations, and five testbench-shaped tests. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
@@ -10,8 +10,8 @@ This page supports resuming development; if you want to run or understand a firs
 
 The base commit below identifies the starting point for the described work, so check uncommitted changes before treating saved results as evidence for the current files; [the input-update procedure](requirements.md#updating-a-test-or-mapping) explains how to review their compatibility.
 
-Updated on 2026-11-09 for the 124th expansion, based on
-[9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/960138734ce23d521c36a645315044e070487cfa)
+Updated on 2026-11-21 for the 137th expansion, based on
+[d3ff8c6](https://github.com/kurochan001/kirimasim-uvm-tests/commit/d3ff8c66e11f6d7e6dac82fcd7006598e61c97af)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -75,7 +75,7 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
   for these versioned inputs.
 - [Library lock](../third_party/uvm.lock): Accellera UVM 2020.3.1 at
   `78c06547a2a0`, 326 files. Fetch with the tracked tool; the library itself
-  is not committed. 2702 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
+  is not committed. 2717 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
 - The user supplied `IEEE_Std_1800.2-2020.pdf` and
   `IEEE_Std_1800-2023_SystemVerilog.pdf` in the repository root. They are
   ignored local files, unavailable in a fresh clone, and must not be
@@ -103,12 +103,16 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 python3 tools/known_causes.py check
+python3 tools/uvm_reports.py check
+python3 tools/kirimasim_stages.py check
+python3 tools/slang_elaborate.py check
+python3 tools/api_census.py check
 python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 204 tool unit tests, metadata for all 2778 tests (2679 simulation, 99 elaboration),
-ledger/index validation, the cause-record check, library integrity and current-input evidence checks.
+The two slang commands need the pinned `pyslang` of [the slang elaboration check](testing.md#slang-elaboration). The snapshot passed 204 tool unit tests, metadata for all 2778 tests (2679 simulation, 99 elaboration),
+ledger/index validation, the cause-record, report-declaration and stage checks, the slang elaboration, the API census, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
 cover 1081 unchanged inputs, with 1697 inputs unmeasured.
@@ -123,7 +127,7 @@ An earlier [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/action
 is retained as a reference. Use the README badge for the latest workflow
 result; newer commits may supersede that run. Local checks are not proof
 of a successful full CI run. Check runs tool,
-metadata, ledger, library and cause-record checks and the tagged ordinary Verilator checks
+metadata, ledger, library, cause-record, report-declaration and stage checks, the slang elaboration and the API census, and the tagged ordinary Verilator checks
 whose inputs changed, plus a canary; Regression runs all tagged ordinary checks
 and twenty command-line checks and twenty-six regex-DPI variants, manually and weekly. Neither runs Ghost,
 kirimasim or spec-only cases. There is no automatic result publication.
@@ -152,6 +156,8 @@ API/type names, one time-decrement argument default, two type-default declaratio
 two inherited type_id registry specializations, one protected-access build, two unlisted-pure-hook builds and 61 unlinked DPI cases. Two qualified virtual-abstraction overview-base builds and two printed dedicated-pool return-type builds also remain. Three additional legal builds retain the enum-collection T interpretation. Seven more builds retain strict attribute/enum-unpack arities. Separate HDL/command-line evidence is reported independently.
 
 The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
+
+The 129th to 137th expansions implement the third review, made at 0da235a and supplied on 2026-11-20. The kirimasim runner passes `--timescale=1ns/1ps`, requires the stated exit code and reports the 61 `:uvm_dpi: yes` tests as unsupported, and every simulation test states `:expected_exit:` (129th). Check elaborates every test with slang against [`coverage/slang_frontend.json`](../coverage/slang_frontend.json), 91 entries (130th), and compares [`coverage/api_census.json`](../coverage/api_census.json) with the tests (131st). Ten tests use the declarations that no test used (132nd), small references were corrected (133rd), and five testbench-shaped tests run on RTL (134th to 137th); one of them, the reset sequence, is a new library difference. Thirty-one duties link to the fifteen new tests. Not done: the stale README references in the docstrings of `run_verilator.py`, `suite_results.py` and `uvm_common.py`, which wait for the next fingerprint change; a kirimasim measurement of the short sets, for lack of an authorized executable; tests in kirimasim-tests for the constructs that it lacks, and a comparison of whole Verilator outputs, which wait for the user. [History](history.md#129th-expansion-the-kirimasim-runner-and-the-exit-code-third-external-review-item-1) has each expansion.
 
 The 127th expansion implements, as the user approved on 2026-11-20, the two remaining points of the second review that change only the form of the cause record. [The cause record](../coverage/known_causes.json) is now schema 2: the 60 interpretations name the basis of their readings (10 `printed`, 1 `printed-by-library`, 49 `ambiguity`), and the four-state queue test that the pinned library cannot satisfy has an entry of the kind `static`. kirimasim targets are 2383 measurable and 380 kept from the expectation by the pinned library, and 407 entries are review candidates. Diagnosing all seven four-state tests against the library source also corrected a fixture error in [the recording test](../tests/u16/test_fourstate_record_field_values_117.sv): it overrode the recorder's `do_record_object` with an empty body, so the field-macro recording that the default implementation of 16.4.7.7 performs never ran. The expectation is unchanged. The time unit and the detection of an undeclared UVM_ERROR or UVM_FATAL are combined into one runner change, which starts with a diagnosis that collects the output of every test. [History](history.md#127th-expansion-schema-2-of-the-cause-record-second-external-review-part-b) has the basis.
 

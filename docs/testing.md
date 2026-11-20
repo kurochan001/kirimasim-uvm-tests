@@ -42,7 +42,8 @@ tests/uF/, uG/              string utilities and command-line queries
 docs/testing*.md            test format, execution and contribution rules
 docs/results*.md            current measurement conditions and evidence
 docs/requirements*.md       draft scope, requirement mapping and census
-coverage/*.json             versioned scope, requirements, assessments, test index, known-difference causes and kirimasim stages
+coverage/*.json             versioned scope, requirements, assessments, test index, known-difference causes, kirimasim stages,
+                            report declarations, the slang record and the API census
 docs/provenance*.md         related repositories and source attribution
 docs/glossary*.md            terminology
 docs/faq*.md                 common questions
@@ -62,6 +63,7 @@ tools/lint_metadata.py       checks of the metadata and the form of the tests
 tools/requirements.py        validates and inventories the draft requirement ledger
 tools/known_causes.py        checks and summarizes the causes of the known differences
 tools/kirimasim_stages.py    checks the kirimasim stages and prints the short sets
+tools/uvm_reports.py         checks the declarations of the UVM_ERROR and UVM_FATAL lines a test may print
 tools/api_census.py          counts the tests that use each declaration the library marks with a clause
 tools/slang_elaborate.py     elaborates every test with slang against coverage/slang_frontend.json
 tools/code_identity.py       checks that a readability edit keeps the code, moves fingerprints
@@ -637,7 +639,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2702 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
+- 2717 current cases use `UVM_NO_DPI`; thirty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -872,10 +874,13 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 python3 tools/known_causes.py check
+python3 tools/uvm_reports.py check
 python3 tools/kirimasim_stages.py check
+python3 tools/slang_elaborate.py check
+python3 tools/api_census.py check
 ```
 
-The current tool suite has 171 unit tests; metadata validation checks all
+The last two need the pinned `pyslang` ([slang elaboration](#slang-elaboration)). The current tool suite has 204 unit tests; metadata validation checks all
 2778 tests (2679 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
@@ -937,7 +942,7 @@ and retain normative expectations when a simulator/library pair differs.
 Use explicit lifetimes for initialized procedural locals (SystemVerilog 6.21),
 keep shared fork state alive, and bound blocking observations with watchdogs.
 Run metadata and tool checks; reproduce new fixed-release oracles at both
-seeds before adding the tag. The standard PDFs remain local and ignored by Git.
+seeds before adding the tag. A new or changed test must also elaborate with slang ([slang elaboration](#slang-elaboration)), state `:expected_exit:`, have a declaration in `coverage/uvm_reports.json` if a cited clause makes it print a `UVM_ERROR` or `UVM_FATAL` line ([report declarations](#time-unit-and-report-declarations)), and have its bring-up stage and, when it starts to use a listed declaration, the API census updated. A spec-only test needs an entry in the cause record. The standard PDFs remain local and ignored by Git.
 
 ### Readability edits
 

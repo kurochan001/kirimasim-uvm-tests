@@ -170,7 +170,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2702件、HDL DPIの明示選択が38件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2717件、HDL DPIの明示選択が38件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -4443,7 +4443,7 @@ specのみはこの7件を含めて465件です。guestは互換1081／未測定
 期待値は規格に従い、それぞれ1行だけが異なります。uvm_is_matchのprofileは、簡略表記のmeta文字が3つだけなので、slashのない^env$が文字列そのものにだけ一致すると期待しますが、固定版libraryはcaretとdollar記号をanchorとして扱います。
 configurationのprofileは、C.4.2.2.1が認めるとおり正規表現で書いたfield名が一致すると期待しますが、固定版libraryの既定の検索は名前を完全一致で探します。libraryのsourceは期待値の凍結後にだけ読み、差分を説明しますが期待値は変えません。
 
-新しい義務8件で台帳はAI義務4141件となり、旧要求4133件と分類445件はすべて同一です。全体は2757テスト、直接対応2701テスト、通常一致2287件で、既知は新しい5検査系のlinkしない通常buildを含めて464入力です。
+新しい義務8件で台帳はAI義務4141件となり、旧要求4133件と分類445件はすべて同一です。全体は2757テスト、直接対応2701テスト、通常一致2287件で、既知は新しい5検査系のlinkしない通常buildを含めて463入力です。
 部分2062番号、元の目標、人の照合、範囲／分母承認は未完です。
 
 ## ユーザーpackageのprofile
@@ -4526,3 +4526,27 @@ commentや改行はテストの入力の指紋を変えるため、保存した�
 `coverage/uvm_reports.json`は、既定のreport serverが`UVM_ERROR `または`UVM_FATAL `の行を出してよいテストを、severityごとの有無だけで宣言します。既定はどちらも不可です。`basis`は、そのreportを求める条項を挙げ、`tools/uvm_reports.py check`が、条項がテストの`:lrm:`にあること、値がbooleanであること、並び順と重複を検査します。件数とreport IDは宣言しません。
 検出は行頭の`UVM_ERROR `／`UVM_FATAL `（集計行の`UVM_ERROR :`を除く）だけを見ます。report serverを差し替えたテストや、catcherが抑止した行は拾いません。宣言のない行が出たtaggedテストは失敗し、specのみのテストは`known`のままです。結果JSONの`configuration`には宣言fileのSHA-256を記録します。
 分類は、条項が求める（宣言を足す）、検査系の誤り（テストを直す）、規格が求めないものをlibraryが出す（既知差分として原因を記録）の3つです。
+
+## front endでのelaborationとAPIの使用
+
+### Q453. なぜCheckは全テストをslangでelaborateするのですか？
+
+kirimasimは無改造のslangをfront endに使います。slangはVerilatorより厳格で、2回目のレビューでは、Verilatorが受理してslangが拒否する入力が81件見つかりました。[`tools/slang_elaborate.py`](../tools/slang_elaborate.py)は、固定した`pyslang`と、runnerが使うfile、include directory、macro、時間単位で、各テストをelaborateします。合法なテストはerrorなし、不正designは`:expected_stderr_regex:`に一致するerror行が必要です。[`coverage/slang_frontend.json`](../coverage/slang_frontend.json)は、これと違ってよい91件を理由とともに挙げます。固定版libraryがそこで規格と違う（76件）、1800-2023が許すcodeの警告をslangがerrorに上げる（10件）、slangが合法なcodeを拒否しているように見える（3件）、テストが1つのcompilation unitを必要とする（1件）、libraryの理由でslangが不正designを受理する（1件）です。この検査が示すのは、slangがテストをelaborateできることで、kirimasimが実行できることではありません。kirimasimが固定するslangのcommitは、固定した`pyslang`のreleaseと違う可能性があります。commandは[テストガイド](testing.ja.md#slangでのelaboration)にあります。
+
+### Q454. APIの集計は何を数え、何を示しませんか？
+
+固定版libraryは、1764個の宣言に規格の条項を注記しています。[`tools/api_census.py`](../tools/api_census.py)は、注記されたfunctionとtaskごとに、テスト自身のcodeがそれを呼ぶかoverrideするテストを、slangの呼出しの解決に従って数え、macro、class、typedefは、codeに名前が出てくるテストを数えます。[`coverage/api_census.json`](../coverage/api_census.json)は、どのテストも使っていない宣言を挙げます。名前がどこにも出てこないものが1個、名前は出てくるが解決されないものが29個です。後者は、たとえば派生classやportを通してしか届かないものです。この集計で、「直接テストのない要求0件」では見えなかった穴が見つかり、132回目に埋めました。これはcoverageの尺度ではありません。呼出しがあっても、テストが何を確かめるかは分かりません。注記は条項についてのlibraryの主張であり、注記のない宣言は数えません。記録の説明は[要求ガイド](requirements.ja.md#apiの集計)にあります。
+
+### Q455. 3回目のレビューのtestbench形のテストは何を検査しますか？
+
+134〜137回目の5件は、小さな独自のRTL designの上で、testbenchのようにUVMの部品を組み合わせます。期待値は、最初の実行の前に、引用した条項とdesignの規則から導きました。[Q434](#q434-rtl結合profileは何を検査しますか)のRTL結合profile 5件に加わるものです。
+
+| テスト | 組み合わせるもの |
+| --- | --- |
+| [u13のagent](../tests/u13/test_rtl_active_and_passive_agents_share_a_bus_under_a_virtual_sequence_134.sv) | activeなagent 2つとpassiveなagent 1つ、`p_sequencer`を使うvirtual sequence、2つのanalysis impを持つscoreboard |
+| [uEのreset sequence](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv) | RTLにつないだregister modelでの`uvm_reg_hw_reset_seq`。固定版のsequenceが、唯一のfieldがvolatileであるregisterを読まないため、specのみ |
+| [uCのparameter付きagent](../tests/uC/test_rtl_parameterized_agents_get_their_own_virtual_interface_136.sv) | 2つの幅のparameter付きのitem、driver、monitor、agent。parameter付きinterfaceのvirtual interfaceを`uvm_config_db`で渡すこと |
+| [u12の2つのclock](../tests/u12/test_rtl_two_clock_buses_are_paired_through_analysis_fifos_by_position_136.sv) | 無関係なclockで動く2つのbusを、analysis FIFOを通して位置で組にすること |
+| [u09のphase](../tests/u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137.sv) | RTLのresetを伴うreset、configure、main、shutdownの各phase、resetへのjump、clockで数えるdrain time |
+
+covergroup、concurrent assertion、modportは、ユーザーの判断で範囲外です。これらはSystemVerilogの言語の機能で、kirimasim-testsの対象です。sequenceの途中でのjumpと、reset sequenceの前にresetを離れたdesignは検査していません。

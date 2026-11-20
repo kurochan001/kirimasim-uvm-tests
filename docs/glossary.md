@@ -552,6 +552,10 @@ test needs, from 0 (uvm_pkg only) to 6 (register layer), recorded in
 simulator meets while it learns to run the library; they are not the M0–M4
 development stages and change no expectation.
 
+**slang record** — [`coverage/slang_frontend.json`](../coverage/slang_frontend.json), the list of the tests for which slang, the front end of kirimasim, reports an error at elaboration although the suite keeps them, each with a reason. Check elaborates every test with a pinned `pyslang` and fails when a test outside the record has an error ([slang elaboration](testing.md#slang-elaboration)).
+
+**API census** — A count, for each declaration that the pinned library marks with a clause, of the tests whose own code uses it. [`coverage/api_census.json`](../coverage/api_census.json) lists the marked declarations that no test uses; it is not a coverage measure ([API census](requirements.md#api-census)).
+
 **Clause citation / requirement coverage / match count** — A reference in
 metadata / evidence that defined requirements and conditions are exercised /
 the number of tests matching in a specified execution. These have different
