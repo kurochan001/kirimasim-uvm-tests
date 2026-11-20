@@ -60,6 +60,7 @@ tools/kirimasim_stages.py    kirimasimの段階の検査と短いセットの出
 tools/uvm_reports.py         テストが出してよいUVM_ERRORとUVM_FATALの行の宣言の検査
 tools/api_census.py          libraryが条項を注記した宣言ごとに、それを使うテストを数える
 tools/slang_elaborate.py     全テストをslangでelaborateし、coverage/slang_frontend.jsonと照合
+tools/full_output.py         出力の全体の保存と2組の比較（判定とは別）
 tools/code_identity.py       読みやすさの編集がcodeを保つことの検査と、指紋の持ち越し
 tools/ci_select.py           CIで実行する変更分またはshard分のタグ付き検査を選ぶ
 tools/sv_lifetimes.py        初期化付き手続き内ローカル変数の字句チェック
@@ -663,7 +664,7 @@ python3 tools/slang_elaborate.py check
 python3 tools/api_census.py check
 ```
 
-最後の2つには、固定版の`pyslang`が要ります（[slangでのelaboration](#slangでのelaboration)）。現在のツールの単体テストは205件、メタデータの対象はテスト2778件（simulation 2679件・elaboration 99件）です。
+最後の2つには、固定版の`pyslang`が要ります（[slangでのelaboration](#slangでのelaboration)）。現在のツールの単体テストは210件、メタデータの対象はテスト2778件（simulation 2679件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

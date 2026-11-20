@@ -66,6 +66,7 @@ tools/kirimasim_stages.py    checks the kirimasim stages and prints the short se
 tools/uvm_reports.py         checks the declarations of the UVM_ERROR and UVM_FATAL lines a test may print
 tools/api_census.py          counts the tests that use each declaration the library marks with a clause
 tools/slang_elaborate.py     elaborates every test with slang against coverage/slang_frontend.json
+tools/full_output.py         saves whole outputs and compares two sets, apart from the verdicts
 tools/code_identity.py       checks that a readability edit keeps the code, moves fingerprints
 tools/ci_select.py           selects the changed or sharded tagged checks for CI
 tools/sv_lifetimes.py        lexical guard for initialized procedural locals
@@ -880,7 +881,7 @@ python3 tools/slang_elaborate.py check
 python3 tools/api_census.py check
 ```
 
-The last two need the pinned `pyslang` ([slang elaboration](#slang-elaboration)). The current tool suite has 205 unit tests; metadata validation checks all
+The last two need the pinned `pyslang` ([slang elaboration](#slang-elaboration)). The current tool suite has 210 unit tests; metadata validation checks all
 2778 tests (2679 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the

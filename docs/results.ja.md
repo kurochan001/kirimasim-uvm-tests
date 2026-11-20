@@ -181,6 +181,18 @@ guestの記録は、非公開の実行fileがなければ測り直せません�
 直接対応2722テスト、他の56テストはcontrol専用です。guestは互換1081入力を保持し、修正した元入力4件を含む1697（simulation 1598／elaboration 99）は未測定です。
 範囲と分母は未承認です。
 
+## 全出力の比較
+
+runnerは、規格が定める`UT: `行でテストを判定します。reportの書式、printerの表、topologyの表示など、それ以外の出力は規格が定めておらず、判定していません。それでも、同じlibraryと同じテストなら、2つのsimulatorの間でのその出力の違いはsimulatorによるものなので、規格適合とは別の証拠として残します。[`tools/full_output.py`](../tools/full_output.py)は、各テストの標準出力の全体を保存し、保存した2組を比べます。期待値、oracle、判定は変えず、そのfileはrunnerの記録ではありません。
+
+```sh
+python3 tools/full_output.py capture --simulator verilator --seed 1 -j 2 --build-jobs 2 --output out/full-verilator
+python3 tools/full_output.py capture --simulator kirimasim --kirimasim /path/to/kirimasim -j 8 --output out/full-kirimasim
+python3 tools/full_output.py compare out/full-verilator out/full-kirimasim --json out/full-compare.json
+```
+
+`capture`は、そのsimulatorのrunnerを通してテストを実行するので、commandはrunnerのものと同じです。runnerが読む出力を取っておくだけで、runnerのfileと指紋は変わりません。repositoryのdirectoryと一時directoryをplaceholderに置き換え、Verilator自身が実行について出す行を取り除きます。`compare`は、両方の組にあるテストごとに、出力が同一か、`UT: `行の外だけが違うか、`UT: `行も違うかを、最初に違う行とともに報告します。最初に4件で試したところ、seed 1での2回の保存どうしと、seed 1とseed 73の間で、出力は同一でした。kirimasimとの比較はまだありません。kirimasim 0.1.3は、simulationテストを1件も実行できないためです。保存した組は`out/`の下のlocalのfileで、公開しません。
+
 ## 再現と結果の保存
 
 同じ`--json`のパスを指定するとそのファイルを上書きするため、[実行コマンド](testing.ja.md#スイートの実行)を使って以前の実行も残す場合は別のファイル名を選びます。
@@ -209,7 +221,7 @@ JSON出力は選択した実行のローカル記録であり、公開されるC
 shardは選んだテストを重複なく分担する単位で、最後のgateは全shardの成功を要求し、検査範囲との関係は[Q268](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)で説明しています。
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-tools jobは、固定ライブラリの整合性、ツールの単体テスト205件、metadata 2778件、要求台帳の案／テスト索引、既知差分の原因の記録、[reportの宣言](testing.ja.md#時間単位とreportの宣言)、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。slang jobは、[全テストをslangでelaborate](testing.ja.md#slangでのelaboration)し、[APIの集計](requirements.ja.md#apiの集計)をテストと照合します。所要は8分ほどです。
+tools jobは、固定ライブラリの整合性、ツールの単体テスト210件、metadata 2778件、要求台帳の案／テスト索引、既知差分の原因の記録、[reportの宣言](testing.ja.md#時間単位とreportの宣言)、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。slang jobは、[全テストをslangでelaborate](testing.ja.md#slangでのelaboration)し、[APIの集計](requirements.ja.md#apiの集計)をテストと照合します。所要は8分ほどです。
 Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
 基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Verilator jobは、原因の記録にある再現例12個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
 

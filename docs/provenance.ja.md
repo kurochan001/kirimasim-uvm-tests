@@ -56,7 +56,7 @@ runnerはテストをビルドして判定し、backendは選択した呼出し�
 [台帳のデータ](requirements.ja.md)は、ユーザー提供の規格を独自の日英の言葉で要約し、条項番号と期待出力のanchorを添えます。
 規範本文やサンプルコードの転載、シミュレータ結果の取り込みは行いません。
 
-`slang_elaborate.py`、`api_census.py`、`uvm_reports.py`、`known_causes.py`、`kirimasim_stages.py`、`code_identity.py`と、それぞれの回帰テストは、このスイート独自のコードです。最初の2つは、[slang](https://github.com/MikePopoloski/slang)をそのPython package `pyslang`を通して呼び出します。`pyslang`のlicenseはMITです。Checkは`tools/slang-requirements.txt`がhashまで固定した版を導入し、このpackageはrepositoryに含めていません。このスイートはslangをtoolとして使うだけで、そのsourceを写していません。
+`slang_elaborate.py`、`api_census.py`、`full_output.py`、`uvm_reports.py`、`known_causes.py`、`kirimasim_stages.py`、`code_identity.py`と、それぞれの回帰テストは、このスイート独自のコードです。最初の2つは、[slang](https://github.com/MikePopoloski/slang)をそのPython package `pyslang`を通して呼び出します。`pyslang`のlicenseはMITです。Checkは`tools/slang-requirements.txt`がhashまで固定した版を導入し、このpackageはrepositoryに含めていません。このスイートはslangをtoolとして使うだけで、そのsourceを写していません。
 
 `run_verilator_hdl.py`、その回帰テスト、`uvm_hdl_vpi.cpp`は、本スイート独自のcodeです。
 runnerは、既存スイートのcompile／判定の流れを、別のevidence同一性で扱います。

@@ -276,6 +276,18 @@ links cover 2722 tests; 56 others have only controls. Guests retain 1081
 compatible inputs; 1697 (1598 simulation/99 elaboration), including four
 revised originals, are unmeasured. Scope and denominator remain unapproved.
 
+## Whole-output comparison
+
+The runners judge a test by its `UT: ` lines, which the standard determines. The rest of the output, such as the form of a report, a printer's table or a topology listing, is not determined by the standard and is not judged. With the same library and the same test, a difference in that output between two simulators still comes from the simulators, so it is kept as evidence apart from conformance. [`tools/full_output.py`](../tools/full_output.py) saves the whole standard output of each test and compares two saved sets; it changes no expectation, no oracle and no verdict, and its files are not runner records.
+
+```sh
+python3 tools/full_output.py capture --simulator verilator --seed 1 -j 2 --build-jobs 2 --output out/full-verilator
+python3 tools/full_output.py capture --simulator kirimasim --kirimasim /path/to/kirimasim -j 8 --output out/full-kirimasim
+python3 tools/full_output.py compare out/full-verilator out/full-kirimasim --json out/full-compare.json
+```
+
+`capture` runs the tests through the simulator's own runner, so the commands are the runner's, and keeps the output that the runner reads; the runner files and their fingerprints do not change. It replaces the repository's directory and temporary directories by placeholders and drops the lines that Verilator itself prints about the run. `compare` reports, for each test in both sets, whether the outputs are identical, differ only outside the `UT: ` lines or differ in them, with the first differing line. A first use on four tests gave identical outputs for two captures at seed 1 and for seeds 1 and 73. No comparison with kirimasim exists yet, because kirimasim 0.1.3 runs no simulation test; the saved sets are local files under `out/` and are not published.
+
 ## Reproducing and retaining results
 
 Writing to the same `--json` path replaces that file, so choose a new filename to retain an earlier run when following [the runner commands](testing.md#running-the-suite).
@@ -305,7 +317,7 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. Its tools job checks pinned-library integrity, 205 tool unit tests,
+and manual dispatch. Its tools job checks pinned-library integrity, 210 tool unit tests,
 2778 metadata records, the draft ledger/index, the cause record of the known
 differences, the [report declarations](testing.md#time-unit-and-report-declarations) and the [kirimasim bring-up stages](kirimasim-stages.md). Its slang job [elaborates every test with slang](testing.md#slang-elaboration) and compares [the API census](requirements.md#api-census) with the tests; it takes about eight minutes. Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,

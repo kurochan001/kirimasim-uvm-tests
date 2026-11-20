@@ -4363,3 +4363,9 @@ suiteは2778件（simulation 2679）、義務4182件、tag付きの検査2307件
 最初の実行で、`tools/run_kirimasim.py`の誤りが見つかりました。macroを`+define+`で渡していましたが、この形では`+`がmacroの区切りになります。そのため`UVM_FIELD_FLAG_SIZE=(UVM_FIELD_FLAG_RESERVED_BITS+17)`が`+`で切れ、2件がその理由で失敗していました。kirimasimの`-D`は値を書いたとおりに受け取るので、runnerを`-D`に直して実行し直しました。この実行で、`u19/test_hdl_max_width_parameter_matches_the_default_macro_value`に`--single-unit`が要ることも確かめました。runnerはこのテストに`--single-unit`を渡します。kirimasimが固定するslangのcommitが、`pyslang` 12.1と同じく`randomize(select_randc)`の3件を拒否するかは、分かりませんでした。kirimasimはunsupportedの型を報告し、テスト自身のcodeのerrorは出しません。
 
 以前のkirimasimの1081記録は、この測定に置き換わりました。Ghostの記録は変わらず、Ghostでは1697入力が未測定のままです。toolの単体テストは205件です。
+
+## 140回目の拡充：判定とは別の、全出力の比較
+
+ユーザーは、出力の全体を比べることを承認し、runnerの指紋とGhostの記録を保てるよう、別のtoolにすることを選びました。[`tools/full_output.py`](../tools/full_output.py)には2つのcommandがあります。`capture`は、Verilatorまたはkirimasimのrunnerを通してテストを実行し、simulationを起動する呼出しを包んで、runnerが読む標準出力を取っておきます。runnerのfileは編集せず、runnerのcommand lineを書き写してもいません。`compare`は、保存した2組を読み、テストごとに、出力が同一か、`UT: `行の外だけが違うか、`UT: `行も違うかを報告します。出力の正規化は、repositoryのdirectory、一時directory、Verilatorが実行そのものについて出す行だけです。
+
+4件を、seed 1で2回、seed 73で1回保存したところ、どの組でも出力は同一でした。出力やそのdigestを持つ版管理fileはなく、Checkもこのtoolを実行しません。Verilatorの出力の全体がどのplatformでも同じになるかは、まだ確かめていないためです。kirimasimとの比較はありません。kirimasimは、まだsimulationテストを実行できないためです。toolの単体テストは210件で、使い方は[実行結果](results.ja.md#全出力の比較)にあります。
