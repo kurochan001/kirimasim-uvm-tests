@@ -4262,6 +4262,8 @@ kirimasimの目標は、測れる2383、固定版libraryのために届かない
 
 ユーザーは、レビューの残りも決めました。slangでのelaborationをCheckに入れることと、規格のAPIの集計と未使用の宣言へのテストは、どちらもレビューの案のとおりに行います。testbenchの形をした統合テストは、UVMの条項に結び付く候補（2つのagentとvirtual sequence、parameter付きのagent、phaseとreset、2つのclock、付録EのsequenceをRTLのregister fileに流すもの）をここで扱い、covergroup、concurrent assertion、modportは範囲外とします。人の照合用の一覧、規格適合とは別の証拠としてのVerilatorの全出力の比較、4値の7件についての注記も行います。M1〜M4の薄い領域の補強は、最初の3項目が終わるまで止めます。
 
+訂正（141回目）：この拡充でのlocalのVerilatorの実行は、本文が5.052と書いていても、実際は5.054でした。tag付きのテストは、hostedのrunnerのCheckが5.052で確かめています。141回目を見てください。
+
 ## 130回目の拡充：slangでのelaborationをCheckに入れる（3回目の外部レビュー、項目2）
 
 ユーザーはレビューの案を承認しました。[`tools/slang_elaborate.py`](../tools/slang_elaborate.py)は、`tools/slang-requirements.txt`でhashまで固定したpyslang 12.1.0で全テストをelaborateし、[`coverage/slang_frontend.json`](../coverage/slang_frontend.json)と照合します。Checkの新しい`slang` jobがこれを実行します。記録は91件で、library 76、warning-as-error 10、suspected-limit 3、single-unit 1、accepted-illegal 1です。129回目に測った件数と同じです。`u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver`には、Verilatorがbuildし、slangが拒否するテストという印を付けました。`tools/run_kirimasim.py`はこの記録を読み、必要な1件に`--single-unit`を渡します。全2763件がlocalで検査を通り、toolの単体テストは201件です。テスト、期待値、Verilatorの指紋は変えていません。randomizeの3件を、kirimasimが固定するslangのcommitで確かめることは、許可されたkirimasimの実行fileがないため未確認です。検査の説明は[テストガイド](testing.ja.md#slangでのelaboration)にあります。
@@ -4288,6 +4290,8 @@ kirimasimの目標は、測れる2383、固定版libraryのために届かない
 
 suiteは2773件（simulation 2674、elaboration 99）で、tag付きの検査は2303件です。集計の未使用の宣言は`UVM_PACKER_MAX_BYTES`の1個、名前だけのものは29個になりました。`uvm_reg_map::configure`と`uvm_report_handler::get_action`が、2つ目の一覧から外れました。新しいテストは、9件をM1、mapの1件をM3に数えます。guestの測定は行っていないので、guestで未測定の入力は1692件です。
 
+訂正（141回目）：この拡充でのlocalのVerilatorの実行は、本文が5.052と書いていても、実際は5.054でした。tag付きのテストは、hostedのrunnerのCheckが5.052で確かめています。141回目を見てください。
+
 ## 133回目の拡充：資料の小さな修正（3回目の外部レビュー、項目6）
 
 [詳細ハンドオフ](handoff.ja.md)と[実行結果](results.ja.md)に140件、173件と残っていたtoolの単体テストの件数を、現在の204件にしました。`.gitignore`のcommentは、存在しないresults branchに触れるのをやめました。結果は自動では公開しません。`tools/lint_metadata.py`と`tools/code_identity.py`のdocstringは、移動済みのREADMEの節ではなく、[テストガイド](testing.ja.md#テストの形式)の節を指すようにしました。runnerの指紋に入る3 fileに残る同じ古い参照は、129回目に記録したとおり、そのままです。ハンドオフと実行結果にあった読みやすさの段落は、同じrunのlinkを11回と4回くり返していたので、9行の表にしました。履歴には元の段落を残しています。テスト、記録、toolの動作は変えていません。
@@ -4304,6 +4308,8 @@ suiteは2774件（simulation 2675）、義務は4174件です。このテスト�
 
 同じ変更で、ユーザーが承認した2つの注記を足しました。READMEには、4値の7件はどのsimulatorでも実行しておらず、UVMを動かせる4値のsimulatorができるまで未測定のままであることを書きました。[段階のガイド](kirimasim-stages.ja.md#kirimasimの現在の記録の段階別の内訳)には、kirimasimの記録が以前のrunnerと以前のkirimasimによるものであることと、短いセットを測り直すための許可された実行fileがなかったことを書きました。人の照合用の一覧30件は、照合の候補407件から原因と章で層に分けて選び、Git対象外の`out/thin-one-hundred-thirty-fourth/human-review-sample.ja.md`に置きました。reviewの状態は何も変えていません。
 
+訂正（141回目）：この拡充でのlocalのVerilatorの実行は、本文が5.052と書いていても、実際は5.054でした。tag付きのテストは、hostedのrunnerのCheckが5.052で確かめています。141回目を見てください。
+
 ## 135回目の拡充：RTLでのreset sequenceと、libraryの新しい差分（3回目の外部レビュー、項目4）
 
 ユーザーが続行を指示したので、134回目の2つ目のtestbench形のテストを、書いたとおりに公開しました。[`uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134`](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv)は、116回目の環境のregister modelで`uvm_reg_hw_reset_seq`を動かします。modelは、adapter、sequencer、driverを通して、reset直後のRTLのregister fileにつながっており、monitorが見たbusのtransactionを数えます。E.1は、sequenceがblockのすべてのregisterを読むとしているので、実行の前に書いた期待値は、4つのaddressそれぞれの読出しが1回ずつ、IDを`NO_REG_HW_RESET_TEST`で除外した後はさらに3回です。
@@ -4311,6 +4317,8 @@ suiteは2774件（simulation 2675）、義務は4174件です。このテスト�
 このテストはspecのみです。固定版のsequenceは、fieldの少なくとも1つが比較の対象であるregisterだけを読みます。COUNTのfieldはvolatileの1つだけで、比較の対象ではないので、monitorが見る読出しは3回、次に2回になります。固定版のsourceは、最初の測定の後に、原因を調べるために読みました。期待値は変えていません。[原因の記録](../coverage/known_causes.json)に記録（library、runtime、E.1）を足し、[既知差分の一覧](known-differences.ja.md)からテストへlinkしました。登録の前後とも、seed 1で同じ理由の差分になり、slangではelaborateできます。
 
 suiteは2775件（simulation 2676）、義務4176件、tag付きの検査2304件、既知差分464件（実行時319件、原因がlibraryのもの320件）、specのみ471件です。kirimasimの目標は、測れる2394、固定版libraryのために届かない381で、人の照合を待つ記録は408件です。READMEと詳細ハンドオフのM3の件数は、132回目に942のまま残っていたので、944（simulation 933）に直しました。
+
+訂正（141回目）：この拡充でのlocalのVerilatorの実行は、本文が5.052と書いていても、実際は5.054でした。tag付きのテストは、hostedのrunnerのCheckが5.052で確かめています。141回目を見てください。
 
 ## 136回目の拡充：parameter付きのagentと2つのclock（3回目の外部レビュー、項目4）
 
@@ -4325,11 +4333,15 @@ testbench形のテストをさらに2件足しました。どちらも期待値�
 
 suiteは2777件（simulation 2678）、義務4179件、tag付きの検査2306件です。2件はM1とM2に数えます。ユーザーが残した候補のうち、reset、phaseのjump、clockで数えるdrain timeを扱うphaseのテストには着手していません。
 
+訂正（141回目）：この拡充でのlocalのVerilatorの実行は、本文が5.052と書いていても、実際は5.054でした。tag付きのテストは、hostedのrunnerのCheckが5.052で確かめています。141回目を見てください。
+
 ## 137回目の拡充：resetとjumpとdrain timeを伴うrun-time phase（3回目の外部レビュー、項目4）
 
 [`u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137`](../tests/u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137.sv)は、ユーザーが残したtestbench形の候補の最後のものです。116回目のregister fileで、reset phaseがRTLのresetを2 clockの間保ち、configureとmainの各phaseがregisterを1つずつ書きます。最初のmain phaseは、objectionを下ろした後でresetのnodeへjumpします。shutdown phaseはregisterを読み、そのobjectionにclock 3周期のdrain timeを設定します。期待値は、実行の前に、9.3.1.9.1、9.8.2.2、10.5.1.3.7とdesignの規則から書きました。reset、configure、mainは2回、shutdownは1回実行されます。registerは2回目の値を保持し、designが数えた書込みは4ではなく2です。phaseは、objectionを下ろしてから3 clock後に終わります。Verilator 5.052のseed 1／73で、tag付けの前後とも一致し、slangでもelaborateできます。義務3件がこのテストに対応します。jumpを要求する時点で実行中のsequenceはないので、sequenceの途中でのjumpについては何も述べていません。
 
 suiteは2778件（simulation 2679）、義務4182件、tag付きの検査2307件です。項目4のテストは5件になりました。4件が一致し、reset sequenceの1件はlibraryの既知差分です。（この文は最初、6件と5件と書いていました。138回目に件数を直しました。）
+
+訂正（141回目）：この拡充でのlocalのVerilatorの実行は、本文が5.052と書いていても、実際は5.054でした。tag付きのテストは、hostedのrunnerのCheckが5.052で確かめています。141回目を見てください。
 
 ## 138回目の拡充：全文書の見直し
 
@@ -4369,3 +4381,22 @@ suiteは2778件（simulation 2679）、義務4182件、tag付きの検査2307件
 ユーザーは、出力の全体を比べることを承認し、runnerの指紋とGhostの記録を保てるよう、別のtoolにすることを選びました。[`tools/full_output.py`](../tools/full_output.py)には2つのcommandがあります。`capture`は、Verilatorまたはkirimasimのrunnerを通してテストを実行し、simulationを起動する呼出しを包んで、runnerが読む標準出力を取っておきます。runnerのfileは編集せず、runnerのcommand lineを書き写してもいません。`compare`は、保存した2組を読み、テストごとに、出力が同一か、`UT: `行の外だけが違うか、`UT: `行も違うかを報告します。出力の正規化は、repositoryのdirectory、一時directory、Verilatorが実行そのものについて出す行だけです。
 
 4件を、seed 1で2回、seed 73で1回保存したところ、どの組でも出力は同一でした。出力やそのdigestを持つ版管理fileはなく、Checkもこのtoolを実行しません。Verilatorの出力の全体がどのplatformでも同じになるかは、まだ確かめていないためです。kirimasimとの比較はありません。kirimasimは、まだsimulationテストを実行できないためです。toolの単体テストは210件で、使い方は[実行結果](results.ja.md#全出力の比較)にあります。
+
+訂正（141回目）：この拡充でのlocalのVerilatorの実行は、本文が5.052と書いていても、実際は5.054でした。tag付きのテストは、hostedのrunnerのCheckが5.052で確かめています。141回目を見てください。
+
+## 141回目の拡充：localのVerilatorは5.052ではなく5.054だった
+
+ほかの作業の準備中に、localのVerilatorの版を確かめたところ、5.054でした。2026-11-14のpackageの更新で入ったものです。そのため、129〜140回目のlocalでのVerilatorの実行は、本文やcommitのmessageが5.052と書いていても、すべて5.054によるものです。runnerは各結果fileに版を書いており、fileには5.054と記録されていますが、その版を見ていませんでした。2026-11-12の126回目は5.052でした。
+
+成り立つことと、その根拠は次のとおりです。
+
+| 対象 | Verilator 5.052での根拠 |
+| --- | --- |
+| 128回目より後にtagを付けた14件 | Checkは5.052をそのtagからbuildし、各テストを、足したcommitでseed 1／73で実行しました。[11件中11件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44814217101)（132回目の10件とcanary）、[2件中2件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44821500547)（agentのテスト）、[3件中3件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44826313817)、[2件中2件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44827450824)です。tagの根拠はこれです。tag付けの前に5.052で一致したという記述には、根拠がありません |
+| `:expected_exit:`を足したテスト | Checkのcanaryで、[そのcommit](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44735232350)で一致しました |
+| 既知差分であるreset sequenceのテスト | ありません。差分を見たのは5.054だけで、CheckとRegressionはspecのみのテストを実行しません。原因は固定版のsequenceの分岐で、simulatorには依存しませんが、5.052での記録は確かめていません |
+| 全出力のtoolの最初の試行 | 5.054を使っていました。始めていた保存は止めました |
+
+slangの検査、APIの集計、kirimasimの測定は、Verilatorを使いません。別のsessionで行われた127回目と128回目の測定が5.052を使ったかは、ここでは分かりません。e37fb89で起動したRegressionは、tag付きの検査をすべて5.052で実行するので、runnerの変更については、その結果で分かります。
+
+準備用actionと同じように5.052をlocalでbuildしようとしましたが、このmacOSでは5回試して成功しませんでした。buildが生成するlexerが、導入済みのlexerのheaderと合いません。ユーザーが、たとえばLinuxのcontainerなど、ここで5.052を得る方法を決めるまで、localの版は5.054のままです。それまで、localでのVerilatorの実行は`verilator@5.052`のtagの根拠になりません。再開時の確認手順にも、そう書きました。

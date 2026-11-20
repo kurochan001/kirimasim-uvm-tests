@@ -6976,6 +6976,8 @@ The docstrings of `tools/run_verilator.py`, `tools/suite_results.py` and `tools/
 
 The user also decided the rest of the review: a slang elaboration check in Check and a census of the standard's API with tests for the unused declarations, both as the review proposes; testbench-shaped integration tests here for the candidates tied to UVM clauses (two agents with a virtual sequence, parameterized agents, phases with reset, two clocks, the Annex E sequences on an RTL register file), with covergroups, concurrent assertions and modports left out of scope; a list for human review, a comparison of whole Verilator outputs as evidence apart from conformance, and a note on the seven four-state tests. The reinforcement of thin M1 to M4 areas pauses until the first three items are done.
 
+Correction (141st expansion): the local Verilator runs of this expansion used release 5.054, not 5.052, although the text says 5.052. The tagged tests were confirmed with 5.052 by Check on the hosted runner; see the 141st expansion.
+
 ## 130th expansion: slang elaboration in Check (third external review, item 2)
 
 The user approved the review's proposal. [`tools/slang_elaborate.py`](../tools/slang_elaborate.py) elaborates every test with pyslang 12.1.0, pinned by hash in `tools/slang-requirements.txt`, and compares the result with [`coverage/slang_frontend.json`](../coverage/slang_frontend.json); a new `slang` job of Check runs it. The record holds 91 entries: 76 library, 10 warning-as-error, 3 suspected-limit, 1 single-unit and 1 accepted-illegal, the counts of the 129th expansion. `u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver` is marked as a test that Verilator builds and slang rejects. `tools/run_kirimasim.py` reads the record and passes `--single-unit` to the one test that needs it. All 2763 tests pass the check locally, and the tool has 201 unit tests. No test, expectation or Verilator fingerprint changed. Not confirmed: the three randomize tests with the slang commit that kirimasim pins, for lack of an authorized kirimasim executable. [The testing guide](testing.md#slang-elaboration) describes the check.
@@ -7002,6 +7004,8 @@ All ten tests match with Verilator 5.052 at seeds 1/73, before and after tagging
 
 The suite has 2773 tests (2674 simulation, 99 elaboration) and 2303 tagged checks. The census now lists 1 unused declaration, `UVM_PACKER_MAX_BYTES`, and 29 named only; `uvm_reg_map::configure` and `uvm_report_handler::get_action` left the second list. The new tests count as M1 (nine) and M3 (the map test). No guest measurement was made, so 1692 inputs are unmeasured by the guests.
 
+Correction (141st expansion): the local Verilator runs of this expansion used release 5.054, not 5.052, although the text says 5.052. The tagged tests were confirmed with 5.052 by Check on the hosted runner; see the 141st expansion.
+
 ## 133rd expansion: small document corrections (third external review, item 6)
 
 The count of tool unit tests in [the detailed handoff](handoff.md) and in [the results](results.md), which still said 140 and 173, is the current 204. The comment of `.gitignore` no longer names a results branch, which does not exist; results are not published automatically. The docstrings of `tools/lint_metadata.py` and `tools/code_identity.py` point to the sections of [the testing guide](testing.md#test-format) instead of README sections that moved there; the same stale references in the three files of the runner fingerprint stay, as the 129th expansion records. The readability paragraph of the handoffs and the results, which repeated one run link eleven times and another four times, is a table of nine rows; the history keeps the original paragraph. No test, record or tool behavior changes.
@@ -7018,6 +7022,8 @@ The census of the 131st expansion did not finish in Check: on the hosted runner 
 
 The same change adds two notes that the user approved: the README says that no simulator has run the seven four-state tests and that they stay unmeasured until a four-state simulator can run UVM, and [the stage guide](kirimasim-stages.md#current-kirimasim-records-by-stage) says that the kirimasim records come from an earlier runner and an earlier kirimasim and that no authorized executable was available to measure the short sets again. A list of 30 entries for human review, drawn by cause and chapter from the 407 candidates, is in the ignored `out/thin-one-hundred-thirty-fourth/human-review-sample.ja.md`; it changes no review status.
 
+Correction (141st expansion): the local Verilator runs of this expansion used release 5.054, not 5.052, although the text says 5.052. The tagged tests were confirmed with 5.052 by Check on the hosted runner; see the 141st expansion.
+
 ## 135th expansion: the reset sequence on RTL, a new library difference (third external review, item 4)
 
 The user asked to go on, and the second testbench-shaped test of the 134th expansion is published as it was written. [`uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134`](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv) runs `uvm_reg_hw_reset_seq` on the register model of the 116th environment, connected through its adapter, sequencer and driver to the RTL register file just after reset, and counts the bus transactions that the monitor sees. E.1 has the sequence read all of the registers in the block, so the expectation, written before any run, is one read of each of the four addresses and, after ID is excluded with `NO_REG_HW_RESET_TEST`, three more.
@@ -7025,6 +7031,8 @@ The user asked to go on, and the second testbench-shaped test of the 134th expan
 The test is spec-only. The pinned sequence reads a register only when at least one of its fields is compared; COUNT has one volatile field, which is not compared, so the monitor sees three reads and then two. The pinned source was read after the first measurement, to find the cause; the expectation was not changed. [The cause record](../coverage/known_causes.json) has the entry (library, runtime, E.1), and [the list of known differences](known-differences.md) links the test. The test differs at seed 1 with the same reason before and after its registration, and it elaborates with slang.
 
 The suite has 2775 tests (2676 simulation), 4176 duties, 2304 tagged checks, 464 known differences (319 at run time, 320 with a library cause) and 471 spec-only tests; kirimasim targets are 2394 measurable and 381 kept from the expectation by the pinned library, and 408 entries wait for human review. The M3 totals of the README and the detailed handoff, which the 132nd expansion had left at 942, are 944 (933 simulation).
+
+Correction (141st expansion): the local Verilator runs of this expansion used release 5.054, not 5.052, although the text says 5.052. The tagged tests were confirmed with 5.052 by Check on the hosted runner; see the 141st expansion.
 
 ## 136th expansion: parameterized agents and two clocks (third external review, item 4)
 
@@ -7039,11 +7047,15 @@ The first test has its own design, `tests/uC/helpers136_rtl/px_rtl136.sv`: an in
 
 The suite has 2777 tests (2678 simulation), 4179 duties and 2306 tagged checks; the tests count as M1 and M2. Of the candidates the user kept, the phase test with reset, a phase jump and a drain time counted in clocks is not started.
 
+Correction (141st expansion): the local Verilator runs of this expansion used release 5.054, not 5.052, although the text says 5.052. The tagged tests were confirmed with 5.052 by Check on the hosted runner; see the 141st expansion.
+
 ## 137th expansion: run-time phases with reset, a jump and a drain time (third external review, item 4)
 
 [`u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137`](../tests/u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137.sv) is the last of the testbench-shaped candidates that the user kept. On the register file of the 116th expansion, the reset phase holds the RTL reset for two clocks, the configure and main phases each write one register, and the first main phase jumps back to the reset node after it has dropped its objection; the shutdown phase reads the registers and sets a drain time of three clock periods on its objection. The expectation, written before any run from 9.3.1.9.1, 9.8.2.2, 10.5.1.3.7 and the rules of the design: reset, configure and main run twice and shutdown once; the registers hold the values of the second pass and the design has counted two writes, not four; the phase ends three clocks after the drop. The test matches with Verilator 5.052 at seeds 1/73 before and after tagging and elaborates with slang. Three duties link to it. No sequence is in progress when the jump is requested, so the test says nothing about a jump during a sequence.
 
 The suite has 2778 tests (2679 simulation), 4182 duties and 2307 tagged checks. Item 4 now has five tests: four match and one, the reset sequence, is a known library difference. (This sentence first said six and five; the count was corrected in the 138th expansion.)
+
+Correction (141st expansion): the local Verilator runs of this expansion used release 5.054, not 5.052, although the text says 5.052. The tagged tests were confirmed with 5.052 by Check on the hosted runner; see the 141st expansion.
 
 ## 138th expansion: a review of every document
 
@@ -7083,3 +7095,22 @@ The earlier file of 1081 kirimasim records is superseded. The Ghost records are 
 The user approved a comparison of whole outputs and chose a separate tool, so that the runner fingerprints and the Ghost records stay. [`tools/full_output.py`](../tools/full_output.py) has two commands. `capture` runs the tests through the runner of Verilator or kirimasim and keeps the standard output that the runner reads, by wrapping the call that starts a simulation; it does not edit a runner file and does not repeat a runner's command line. `compare` reads two saved sets and reports, for each test, identical outputs, a difference only outside the `UT: ` lines, or a difference in them. Outputs are normalized only for the directory of the repository, temporary directories and the lines that Verilator prints about the run itself.
 
 Four tests captured twice at seed 1 and once at seed 73 gave identical outputs in each pair. No tracked file holds outputs or their digests, and Check does not run the tool: whether Verilator's whole output is the same on every platform has not been shown. No comparison with kirimasim exists, because it runs no simulation test yet. The tool has 210 unit tests; [the results guide](results.md#whole-output-comparison) describes its use.
+
+Correction (141st expansion): the local Verilator runs of this expansion used release 5.054, not 5.052, although the text says 5.052. The tagged tests were confirmed with 5.052 by Check on the hosted runner; see the 141st expansion.
+
+## 141st expansion: the local Verilator was 5.054, not 5.052
+
+While preparing other work the release of the local Verilator was read: 5.054, installed by a package update on 2026-11-14. Every local Verilator run of the 129th to 140th expansions therefore used 5.054, although their text and commit messages say 5.052. The runner writes the release into each result file, and the files do say 5.054; the release was not looked at. The 126th expansion, of 2026-11-12, used 5.052.
+
+What stands, and on what evidence:
+
+| Subject | Evidence with Verilator 5.052 |
+| --- | --- |
+| The fourteen tests tagged since the 128th expansion | Check builds 5.052 from its tag and ran each of them at seeds 1/73 on the commit that added it: [11 of 11](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44814217101) (ten tests of the 132nd and the canary), [2 of 2](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44821500547) (the agent test), [3 of 3](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44826313817) and [2 of 2](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44827450824). The tags have this basis; the statements that the tests matched 5.052 before tagging do not |
+| The test that gained `:expected_exit:` | It is the canary of Check, which matched on [its commit](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44735232350) |
+| The reset-sequence test, a known difference | None. Its difference was seen only with 5.054; Check and Regression do not run spec-only tests. Its cause, a branch of the pinned sequence, does not depend on the simulator, but the record under 5.052 is not confirmed |
+| The first use of the whole-output tool | It used 5.054; the capture that had been started was stopped |
+
+The slang check, the API census and the kirimasim measurement do not use Verilator. Whether the measurements of the 127th and 128th expansions, made in another session, used 5.052 is not known here; the Regression that was dispatched on e37fb89 runs every tagged check with 5.052 and will show it for the runner change.
+
+An attempt to build 5.052 locally, as the setup action does, did not succeed on this macOS release in five tries: the lexer that the build generates does not agree with the installed lexer header. The local release stays 5.054 until the user decides how to get 5.052 here, for example in a Linux container. Until then, a local Verilator run is not evidence for a `verilator@5.052` tag, and the restart checklists say so.

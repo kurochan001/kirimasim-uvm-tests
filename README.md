@@ -116,7 +116,7 @@ by Git; results are not automatically published.
 
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
-Every one of the 2771 two-state cases has a Verilator 5.052 result at its current inputs, but no single run produced them: the tagged cases were measured again with the current runner on 2026-11-20, and each test added or changed since was measured at seeds 1/73 when it was published. The seven four-state cases are spec-only and have no Verilator record.
+Every one of the 2771 two-state cases has a Verilator 5.052 result at its current inputs, but no single run produced them: the tagged cases were measured again with the current runner on 2026-11-20, and each tagged test added or changed since was run by Check with Verilator 5.052 at seeds 1/73 on the commit that published it; the one spec-only test added since was seen to differ only with a local Verilator 5.054. The seven four-state cases are spec-only and have no Verilator record.
 The Ghost records retain 1081 compatible inputs; 1697 inputs are unmeasured by Ghost, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly). kirimasim was measured again on all current inputs with the current runner.
 
 | Simulator and library | Observed result |

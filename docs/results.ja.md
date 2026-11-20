@@ -6,7 +6,7 @@
 
 runtime一致、compiler拒否、未測定入力は実行条件が異なるため、件数を併せて読む方法は[結果を読む](reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-20の診断は2値のsimulationテスト2657件を`--timescale 1ns/1ps`で確認し、当時tag付きだったruntime 2199件の状態変化と未宣言reportは0件でした。tag付きcompile拒否94件も一致しました。それ以後に足した15件と、headerを変えた1件は、公開のときに現在のrunnerのseed 1／73でそれぞれ測り、新しい14件が一致、1件が既知差分です。4値の7件にはVerilatorの記録がありません。Ghostの1081記録は有効なままです。kirimasim 0.1.3（commit c3a9d9eb）は、2026-11-21に、現在のrunnerで全2778入力を測りました。
+2026-11-20の診断は2値のsimulationテスト2657件を`--timescale 1ns/1ps`で確認し、当時tag付きだったruntime 2199件の状態変化と未宣言reportは0件でした。tag付きcompile拒否94件も一致しました。それ以後に足した15件のうちtag付きの14件と、headerを変えた1件は、公開したcommitでCheckがVerilator 5.052のseed 1／73で実行し、すべて一致しました。残る1件は既知差分で、localのVerilator 5.054でしか見ていないため、5.052での記録は確かめていません。4値の7件にはVerilatorの記録がありません。Ghostの1081記録は有効なままです。kirimasim 0.1.3（commit c3a9d9eb）は、2026-11-21に、現在のrunnerで全2778入力を測りました。
 Ghostでは1697入力が未測定です。各記録は入力と実行条件を指紋で識別します。
 スイートは22 directoryの2778件で、simulation 2679件とelaboration 99件です。
 milestoneはM1 1200件（1119／81）、M2 634件（627／7）、M3 944件（933／11）で、括弧内はruntime／elaborationです。
@@ -191,7 +191,7 @@ python3 tools/full_output.py capture --simulator kirimasim --kirimasim /path/to/
 python3 tools/full_output.py compare out/full-verilator out/full-kirimasim --json out/full-compare.json
 ```
 
-`capture`は、そのsimulatorのrunnerを通してテストを実行するので、commandはrunnerのものと同じです。runnerが読む出力を取っておくだけで、runnerのfileと指紋は変わりません。repositoryのdirectoryと一時directoryをplaceholderに置き換え、Verilator自身が実行について出す行を取り除きます。`compare`は、両方の組にあるテストごとに、出力が同一か、`UT: `行の外だけが違うか、`UT: `行も違うかを、最初に違う行とともに報告します。最初に4件で試したところ、seed 1での2回の保存どうしと、seed 1とseed 73の間で、出力は同一でした。kirimasimとの比較はまだありません。kirimasim 0.1.3は、simulationテストを1件も実行できないためです。保存した組は`out/`の下のlocalのfileで、公開しません。
+`capture`は、そのsimulatorのrunnerを通してテストを実行するので、commandはrunnerのものと同じです。runnerが読む出力を取っておくだけで、runnerのfileと指紋は変わりません。repositoryのdirectoryと一時directoryをplaceholderに置き換え、Verilator自身が実行について出す行を取り除きます。`compare`は、両方の組にあるテストごとに、出力が同一か、`UT: `行の外だけが違うか、`UT: `行も違うかを、最初に違う行とともに報告します。最初に4件を、localのVerilator 5.054で試したところ、seed 1での2回の保存どうしと、seed 1とseed 73の間で、出力は同一でした。kirimasimとの比較はまだありません。kirimasim 0.1.3は、simulationテストを1件も実行できないためです。保存した組は`out/`の下のlocalのfileで、公開しません。
 
 ## 再現と結果の保存
 

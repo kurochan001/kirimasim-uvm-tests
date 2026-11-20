@@ -9,9 +9,10 @@ Runtime matches, compiler rejections and unmeasured inputs describe different ex
 The 2026-11-20 diagnosis checked the 2657 two-state simulation tests of that
 day with `--timescale 1ns/1ps`; none of the 2199 runtime tests that were tagged
 then changed state or printed an undeclared report, and the 94 tagged compile
-rejections still matched. The fifteen tests added since and the one test whose
-header changed were each measured with the current runner at seeds 1/73 when
-they were published: fourteen new tests match and one is a known difference.
+rejections still matched. Of the fifteen tests added since, the fourteen tagged ones and the one test whose
+header changed were run by Check with Verilator 5.052 at seeds 1/73 on the commit
+that published them, and all match. The fifteenth is a known difference that was seen
+only with a local Verilator 5.054, so its record under 5.052 is not confirmed.
 The seven four-state tests have no Verilator record. The 1081 Ghost records
 remain valid, and 1697 inputs are unmeasured by Ghost, including four revised
 old inputs. kirimasim 0.1.3 (commit c3a9d9eb) was measured on all 2778 inputs
@@ -286,7 +287,7 @@ python3 tools/full_output.py capture --simulator kirimasim --kirimasim /path/to/
 python3 tools/full_output.py compare out/full-verilator out/full-kirimasim --json out/full-compare.json
 ```
 
-`capture` runs the tests through the simulator's own runner, so the commands are the runner's, and keeps the output that the runner reads; the runner files and their fingerprints do not change. It replaces the repository's directory and temporary directories by placeholders and drops the lines that Verilator itself prints about the run. `compare` reports, for each test in both sets, whether the outputs are identical, differ only outside the `UT: ` lines or differ in them, with the first differing line. A first use on four tests gave identical outputs for two captures at seed 1 and for seeds 1 and 73. No comparison with kirimasim exists yet, because kirimasim 0.1.3 runs no simulation test; the saved sets are local files under `out/` and are not published.
+`capture` runs the tests through the simulator's own runner, so the commands are the runner's, and keeps the output that the runner reads; the runner files and their fingerprints do not change. It replaces the repository's directory and temporary directories by placeholders and drops the lines that Verilator itself prints about the run. `compare` reports, for each test in both sets, whether the outputs are identical, differ only outside the `UT: ` lines or differ in them, with the first differing line. A first use on four tests, with a local Verilator 5.054, gave identical outputs for two captures at seed 1 and for seeds 1 and 73. No comparison with kirimasim exists yet, because kirimasim 0.1.3 runs no simulation test; the saved sets are local files under `out/` and are not published.
 
 ## Reproducing and retaining results
 

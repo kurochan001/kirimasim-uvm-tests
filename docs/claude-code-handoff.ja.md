@@ -4,7 +4,7 @@
 
 ## 最初に読むこと
 
-2026-11-21、137回目の拡充の後に更新しました。3つの外部レビューを実装済みです。1回目の8項目（116〜125回目）、2回目（126〜128回目）、3回目（129〜137回目）です。mainはd3ff8c6以降で、そのCheckは成功しています。残っているのは、ユーザーの判断や用意が要るものです。kirimasim-testsにない構文へのテストの追加、全出力の比較の方式、短いセットを測るための許可されたkirimasimの実行file、人による照合です。M1〜M4の薄い領域の補強は、3回目のレビューの間は止めており、ユーザーの指示があるまで再開しません。以下は、それ以前の経緯です。
+2026-11-21、141回目の拡充の後に更新しました。**このhostのVerilatorは、2026-11-14以降、固定版の5.052ではなく5.054です。**129〜140回目のlocalの実行は5.054を使っており、tag付きのテストはCheckが5.052で確かめました。5.052のnativeなbuildは、ここでは失敗しました（[141回目](history.ja.md#141回目の拡充localのverilatorは5052ではなく5054だった)）。3つの外部レビューを実装済みです。1回目の8項目（116〜125回目）、2回目（126〜128回目）、3回目（129〜137回目）です。mainはd3ff8c6以降で、そのCheckは成功しています。残っているのは、ユーザーの判断や用意が要るものです。kirimasim-testsにない構文へのテストの追加、全出力の比較の方式、短いセットを測るための許可されたkirimasimの実行file、人による照合です。M1〜M4の薄い領域の補強は、3回目のレビューの間は止めており、ユーザーの指示があるまで再開しません。以下は、それ以前の経緯です。
 
 2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)で113回目の拡充を公開しました。その後、最初のRegressionでhostedのrunnerにz3制約solverがないことが分かり、準備用actionで導入して、[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)で114回目の拡充を公開しました。その後、[eeda25d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/eeda25d9b378773a2841076706f8e8029d87c08d)で115回目の拡充を公開しました。2026-11-08にユーザーは外部レビューを示し、その最初の項目であるRTLとの結合を、[c314982](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c314982e5c42e5333790b7ba7bb00bbaef8da2f7)で116回目の拡充として公開し、2番目の項目である4値の経路を[46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624)で117回目の拡充として公開し、3番目の項目である乱数化の性質を[8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8)で118回目の拡充として公開し、4番目の項目であるDPIの構成を[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)で119回目の拡充として公開し、5番目の項目であるユーザーpackageを[9c57290](https://github.com/kurochan001/kirimasim-uvm-tests/commit/9c572904a247a92a4445c0d9bfe7b1208eeb975a)で120回目の拡充として公開し、6番目の項目である既知差分の原因の最初のbatchを[a578650](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a5786504883a87b7928084098a7fada0a9f7efce)で121回目の拡充として、2番目のbatchを[e5bd032](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e5bd032245789f643e9a45a65bbebd19b0a5efc0)で122回目の拡充として、3番目で最後のbatchを[9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/960138734ce23d521c36a645315044e070487cfa)で123回目の拡充として公開し、7番目の項目であるkirimasimの立ち上げ段階を[235713d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/235713d30d9940a06c591850218db6caaaf67ca6)で124回目の拡充として公開しました。8番目の項目である読みやすさは125回目の拡充で、この文面を含むcommitの基盤の後に、directoryごとに公開します。**goalは継続中で、完了していません。**
 
@@ -154,6 +154,7 @@ Python 3.10以降を使います。native再現にはVerilator 5.052、C++ toolc
 git status --short --branch
 git log -1 --oneline
 z3 --version
+verilator --version   # 5.052であること。別の版でのlocalの実行は、verilator@5.052のtagの根拠にならない
 python3 tools/fetch_uvm.py
 python3 tools/fetch_uvm.py --check
 python3 tools/lint_metadata.py
