@@ -42,6 +42,7 @@ import json
 import os
 from pathlib import Path
 import re
+import subprocess
 import sys
 
 import slang_elaborate
@@ -237,16 +238,21 @@ def resolved(test, options, root):
     return used
 
 
-def one_test(arguments):
-    name, options, root = arguments
-    root = Path(root)
+def one_test(name, options, root):
+    """The routines that one test uses and the code of its own sources. slang
+    runs in a process of its own for each test, as in tools/slang_elaborate.py:
+    a long-lived process that elaborates many tests keeps their memory."""
     test = root / "tests" / (name + ".sv")
+    r = subprocess.run([sys.executable, str(Path(__file__).resolve()), "resolve", str(root),
+                        name, *options], capture_output=True, text=True, errors="replace",
+                       timeout=900)
     try:
-        calls = resolved(test, options, root)
-    except Exception as error:   # a test that slang cannot handle counts by name only
-        calls = set()
-        print(f"api_census: {name}: {type(error).__name__}: {error}", file=sys.stderr)
-    return name, sorted(calls), own_code(test, root)
+        calls = json.loads(r.stdout.strip().splitlines()[-1])
+    except (ValueError, IndexError):   # a test that slang cannot handle counts by name only
+        calls = []
+        print(f"api_census: {name}: no result from slang: {r.stderr.strip()[-200:]}",
+              file=sys.stderr)
+    return name, calls, own_code(test, root)
 
 
 def census(jobs, root=None):
@@ -260,9 +266,8 @@ def census(jobs, root=None):
     pattern = re.compile(r"`?\b(?:" + "|".join(sorted(map(re.escape, words))) + r")\b")
     used = {key(d): 0 for d in found}
     named = {d["name"]: 0 for d in found}
-    with concurrent.futures.ProcessPoolExecutor(max_workers=jobs, max_tasks_per_child=25) as pool:
-        for _, calls, code in pool.map(one_test, [(n, options, str(root)) for n in names],
-                                       chunksize=4):
+    with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as pool:
+        for _, calls, code in pool.map(lambda n: one_test(n, options, root), names):
             for call in calls:
                 if call in routines:
                     used[call] += 1
@@ -323,6 +328,11 @@ def validate_shape(data, root=None):
 
 
 def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    if argv[:1] == ["resolve"]:   # the child process of one_test
+        root = Path(argv[1])
+        print(json.dumps(sorted(resolved(root / "tests" / (argv[2] + ".sv"), argv[3:], root))))
+        return 0
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("command", choices=("check", "update", "summary"))
