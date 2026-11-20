@@ -585,7 +585,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の2304件（runtime 2210・期待compiler拒否94）です。`--all`を付けるとspecのみの463件も含めます。
+Verilatorの既定の対象はoracle付き・2値の2304件（runtime 2210・期待compiler拒否94）です。`--all`を付けるとspecのみの464件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -658,7 +658,7 @@ python3 tools/known_causes.py check
 python3 tools/kirimasim_stages.py check
 ```
 
-現在のツールの単体テストは171件、メタデータの対象はテスト2774件（simulation 2675件・elaboration 99件）です。
+現在のツールの単体テストは171件、メタデータの対象はテスト2775件（simulation 2676件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

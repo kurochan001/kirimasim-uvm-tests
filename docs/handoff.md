@@ -24,9 +24,9 @@ zero unlinked tests does not complete any milestone.
 | --- | --- |
 | M1 | 1198 tests (1117 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
 | M2 | 633 tests (626 runtime, 7 elaboration): sequences, sequencers, callbacks and TLM |
-| M3 | 942 tests (931 runtime, 11 elaboration): register/memory layer and annex E |
-| Entire suite | 2774 tests (2675 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 4174 AI requirement drafts; 4174 have direct links to 2718 tests; fifty-six control-only tests; zero tests without links |
+| M3 | 944 tests (933 runtime, 11 elaboration): register/memory layer and annex E |
+| Entire suite | 2775 tests (2676 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 4176 AI requirement drafts; 4176 have direct links to 2719 tests; fifty-six control-only tests; zero tests without links |
 | Normative inventory | 2062 of 2,507 identifiers partially decomposed; 445 explicitly assessed; 0 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
@@ -68,7 +68,7 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
 
 - [Testing guide](testing.md): metadata, compilation, runner options and
   contribution rules. [Results](results.md): evidence interpretation and
-  assembly. [Known differences](known-differences.md): all 470 spec-only cases.
+  assembly. [Known differences](known-differences.md): all 471 spec-only cases.
 - [Requirement guide](requirements.md), [scope](../coverage/scope.json),
   [ledger](../coverage/requirements.json), [assessments](../coverage/assessments.json) and [test index](../coverage/test_index.json):
   canonical M4 state. Generated inventories are review aids, not replacements
@@ -107,11 +107,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 204 tool unit tests, metadata for all 2774 tests (2675 simulation, 99 elaboration),
+The snapshot passed 204 tool unit tests, metadata for all 2775 tests (2676 simulation, 99 elaboration),
 ledger/index validation, the cause-record check, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1081 unchanged inputs, with 1693 inputs unmeasured.
+cover 1081 unchanged inputs, with 1694 inputs unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -138,15 +138,15 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 2210 runtime passes at seeds 1/73; 94 expected compile rejections; 463 known |
+| Verilator 5.052 / pinned UVM | 2210 runtime passes at seeds 1/73; 94 expected compile rejections; 464 known |
 | Verilator 5.052 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
 | Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 23-case condition: 20 pass both seeds; 3 known at seed 1 |
 | Verilator 5.052 / listed ordinary fixtures with regex and command-line DPI | Separate 26-case condition: 26 pass both seeds |
-| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1693 inputs unmeasured |
-| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1693 inputs unmeasured |
+| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1694 inputs unmeasured |
+| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1694 inputs unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
-The ordinary condition retains 463 known cases: 318 runtime first differences,
+The ordinary condition retains 464 known cases: 319 runtime first differences,
 140 simulation builds and five illegal compiler acceptances. One legal printed-concrete callback-facade construction is rejected as abstract. Builds are 43 missing
 API/type names, one time-decrement argument default, two type-default declarations, three dependent visitor-default builds, two printed signature conflicts,
 two inherited type_id registry specializations, one protected-access build, two unlisted-pure-hook builds and 61 unlinked DPI cases. Two qualified virtual-abstraction overview-base builds and two printed dedicated-pool return-type builds also remain. Three additional legal builds retain the enum-collection T interpretation. Seven more builds retain strict attribute/enum-unpack arities. Separate HDL/command-line evidence is reported independently.
@@ -195,7 +195,7 @@ runtime differences (u05, u12, u14 to u16, u18, u19, uB, uC, uE and uF), checkin
 row of the saved seed-1 outputs, and the four inputs that still differ under their DPI condition,
 whose whole outputs were saved by running them through their own runners. It adds 214 library, 41
 interpretation and 13 simulator causes and six reproducers without UVM; the record is complete
-with 319 library, 60 interpretation, 27 simulator, 57 condition and no unassigned entry, and the
+with 320 library, 60 interpretation, 27 simulator, 57 condition and no unassigned entry, and the
 kirimasim targets are 2384 measurable and 379 kept from the expectation by the pinned library. No
 test, expectation, stored record or duty changes.
 
@@ -211,12 +211,12 @@ duty changes.
 
 The 121st expansion implements the first batch of the external review's sixth item, after the
 user approved the proposal and chose to record no library output values (A1). [The cause
-record](../coverage/known_causes.json) gives each of the 463 known inputs one entry with its kind,
+record](../coverage/known_causes.json) gives each of the 464 known inputs one entry with its kind,
 DPI condition, cause, evidence and explanation; `tools/known_causes.py` checks it against the tests
 and their input fingerprints, summarizes the kirimasim targets and lists the candidates for human
 review, and Check runs the check and rebuilds the three simulator reproducers. The 140 builds and
 five accepted illegal designs are classified: 66 library, 10 interpretation, 8 simulator and 57
-DPI-condition causes. The 318 runtime differences and four inputs that still differ under their DPI
+DPI-condition causes. The 319 runtime differences and four inputs that still differ under their DPI
 condition remain unassigned, to be diagnosed directory by directory; see
 [the causes](known-differences.md#causes-of-the-known-differences). No test, expectation, record or
 duty changes.
@@ -241,15 +241,15 @@ objects and 445 assessments unchanged; 2707 tests have direct links, 158 have
 controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
-The suite has 2774 tests (2675 simulation/99 elaboration). Ordinary results
+The suite has 2775 tests (2676 simulation/99 elaboration). Ordinary results
 are 2304 matches: 2210 runtime inputs at both seeds and 94 compiler rejections.
-Known inputs total 463: 318 runtime seed 1 differences, 140 simulation builds
-and five accepted illegal designs without runtime; spec-only cases total 470
+Known inputs total 464: 319 runtime seed 1 differences, 140 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 471
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
 is added to the ordinary totals. No guest run/filter is added: 1081
-compatible records remain byte-identical and 1693 inputs are unmeasured (1689
-additions/four revised originals; 1594 simulation/99 elaboration).
+compatible records remain byte-identical and 1694 inputs are unmeasured (1690
+additions/four revised originals; 1595 simulation/99 elaboration).
 
 Primary-focused identifiers are 1327; candidates are 1160 zero/769 below
 target/553 at least two. All 2062 partial identifiers, actual remaining
@@ -257,10 +257,10 @@ conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
 explains why matching conditions do not supply completion.
 
-Totals are 2774 (2675 simulation/99 elaboration): M1 1198 (1117/81), M2 633
-(626/7), M3 943 (932/11). Ordinary pass is 2304 (2210 runtime/94 rejections),
-with 463 known (318 runtime/140 builds/5 illegal acceptances). Guests retain
-1081 compatible records; 1693 unmeasured inputs are 1689 additions and four revised originals.
+Totals are 2775 (2676 simulation/99 elaboration): M1 1198 (1117/81), M2 633
+(626/7), M3 944 (933/11). Ordinary pass is 2304 (2210 runtime/94 rejections),
+with 464 known (319 runtime/140 builds/5 illegal acceptances). Guests retain
+1081 compatible records; 1694 unmeasured inputs are 1690 additions and four revised originals.
 
 The former single Check never finished its whole selection after 2026-10-31:
 its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)

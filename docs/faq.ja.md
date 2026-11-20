@@ -211,7 +211,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め942件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め944件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -1035,8 +1035,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる4174要求案は部分的な分解で、4174要求を2718テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
-全2774テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる4176要求案は部分的な分解で、4176要求を2719テストへ直接対応付け、直接未対応は0要求、別の56テストはcontrol専用です。
+全2775テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -2426,7 +2426,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1081件へ減った理由は？
 
 command enum引用、Boolean rerandomization観測、virtual-field configure引用に加え、reraiseの主引用を直した元入力1件で指紋が変わり、古いguest行を除外しました。4入力はそれぞれの変更時点で再測定し、reraiseの改訂は前回の拡充で両seedを測定しました。歴史的な1085記録の出典fileは保持します。
-現在は互換1081入力を再利用し、未測定1693入力は追加1689件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
+現在は互換1081入力を再利用し、未測定1694入力は追加1690件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
 
@@ -2478,9 +2478,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2774テストを2 seedで実行しましたか？
+### Q201. 全2775テストを2 seedで実行しましたか？
 
-いいえ。simulation 2675件とelaboration 99件があります。通常記録はruntime両seed一致2210件、期待compiler拒否94件、既知simulation差分458件、不正compile受理の既知差分5件で、4値の7件は2値のoracleでは実行しません。
+いいえ。simulation 2676件とelaboration 99件があります。通常記録はruntime両seed一致2210件、期待compiler拒否94件、既知simulation差分459件、不正compile受理の既知差分5件で、4値の7件は2値のoracleでは実行しません。
 不正design 99件は、compileを受理された場合もruntime seedを実行しません。
 
 `configuration`の`seeds`は要求した設定であり、全ケースが両方の実行に達した証拠ではないため、個別の結果と併せた読み方は[JSONのガイド](reading-guide.ja.md#結果jsonを開く)で確認できます。
@@ -2865,7 +2865,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価0番号です。
-スイートは直接対応2718テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2719テストとcontrol専用56テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2952,7 +2952,7 @@ shardはworkflowが選んだテストを分割した1区画で、CheckとRegress
 いいえ。現在のCheckは入力が変わったタグ付き検査とcanaryだけを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻るため、全選択の代わりにはなりません。
 Regressionは全タグ付き2304検査を重複しない20 shard（同時最大4）で、command-line 20検査とregex-DPI変種26件をそれぞれ別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
 runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
-分割の検証でhosted CI成功や適合性は立証しません。現在の結果は各workflowのページで確認してください。既知差分463件は通常の既定CI選択に含めません。
+分割の検証でhosted CI成功や適合性は立証しません。現在の結果は各workflowのページで確認してください。既知差分464件は通常の既定CI選択に含めません。
 
 ## recordingとscalar macroの条件
 
@@ -3071,7 +3071,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 その以前の引用修正では、本体とoracleが同じでも指紋が変わり、互換1083記録を1082へ絞りました。その時点ではGhostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
 
-現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1693入力は追加1689件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
+現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1694入力は追加1690件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3255,7 +3255,7 @@ zero-timeの委譲やprimitive release/readと、この実HDL 8入力の違い�
 
 既に部分分解した条項へ義務や条件を足しても、未評価queueは変わらない場合があります。
 初回の分解や根拠のある分類でそのqueueが変わり、テスト追加だけでは減らない場合があります。
-現在の4174義務は2718テストへ直接対応し、部分2062・未評価0番号が残ります。
+現在の4176義務は2719テストへ直接対応し、部分2062・未評価0番号が残ります。
 別々の進捗指標は[棚卸しのガイド](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
 
 ## Register HDL pathと観測の前提
@@ -3878,7 +3878,7 @@ queueの件数は記録したレビュー作業を表し、完全性や実行成
 
 いいえ。全2507識別子が部分的な要求分解または個別評価を持ち、部分2062・分類445です。
 B.4のregister／execute動作に部分義務を置き、継承の記述は未解決で保持します。
-全4174義務に直接テスト、全2774テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
+全4176義務に直接テスト、全2775テストに対応がありますが、この3つの空queueで残る全義務や適用条件を監査したことにはなりません。
 元のM1〜M4目標、人の照合、範囲／分母承認は未完であり、完了条件は[残作業の案内](requirements.ja.md#m4の残作業と承認)にあります。
 coverage割合やgoal完了は主張しません。
 
@@ -4052,7 +4052,7 @@ descriptionと主引用を保留dropの10.5.1.3.4へ直し、本体と期待2行
 drop_objectionの主引用は0件から13件へ増え、getterは2件から1件になりますが、独立した検査や要求全体を証明しません。
 
 ヘッダー編集は[更新規則](requirements.ja.md#テストや対応付けの更新)で入力指紋を変えます。改訂した元入力の古いguest行を互換1082記録から除外し、1081件を保持します。
-未測定1693入力は追加1689件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
+未測定1694入力は追加1690件と修正した元入力4件です。古い1行の除外によって、Ghostの保持failは875件、kirimasimの保持unsupportedは1072件になります。
 guestの再実行、改善、新しいpassはなく、元の証拠を保管し、通常の既知440入力も全て保持します。goalは未完です。
 
 ## 物理addressの直接変換
@@ -4336,7 +4336,7 @@ region ownerの照会は、これらのprofileではDIAG114行です。最初の
 完了しません。request側とvirtual register側の古いdescriptorを新しい義務2件で扱い、virtual registerの解放がpeerを割り当てたまま残す点を3件目で扱い、region解放の義務にrequest側のregion経由profileを追加します。
 AI義務4105件、他の旧要求4101件、分類445件を同一に保持します。第18章は部分393／分類63／未評価0、義務937件、主引用648テストです。
 
-全体は2731テスト（simulation 2632／elaboration 99）、直接対応2675テスト、通常一致2273件（runtime両seed 2179／compiler拒否94）です。
+全体は2731テスト（simulation 2632／elaboration 99）、直接対応2676テスト、通常一致2273件（runtime両seed 2179／compiler拒否94）です。
 既知は458入力のままです。guestは新しい実行／filterなしで互換1081／未測定1650入力です。
 
 virtual register配列を実装中のregionのmanagerからの解放、並行した解放、範囲を再び予約した状態での古いdescriptorの解放は未完で、部分2062番号、元の目標、人の照合、範囲／分母承認も残ります。
@@ -4443,7 +4443,7 @@ specのみはこの7件を含めて465件です。guestは互換1081／未測定
 期待値は規格に従い、それぞれ1行だけが異なります。uvm_is_matchのprofileは、簡略表記のmeta文字が3つだけなので、slashのない^env$が文字列そのものにだけ一致すると期待しますが、固定版libraryはcaretとdollar記号をanchorとして扱います。
 configurationのprofileは、C.4.2.2.1が認めるとおり正規表現で書いたfield名が一致すると期待しますが、固定版libraryの既定の検索は名前を完全一致で探します。libraryのsourceは期待値の凍結後にだけ読み、差分を説明しますが期待値は変えません。
 
-新しい義務8件で台帳はAI義務4141件となり、旧要求4133件と分類445件はすべて同一です。全体は2757テスト、直接対応2701テスト、通常一致2287件で、既知は新しい5検査系のlinkしない通常buildを含めて463入力です。
+新しい義務8件で台帳はAI義務4141件となり、旧要求4133件と分類445件はすべて同一です。全体は2757テスト、直接対応2701テスト、通常一致2287件で、既知は新しい5検査系のlinkしない通常buildを含めて464入力です。
 部分2062番号、元の目標、人の照合、範囲／分母承認は未完です。
 
 ## ユーザーpackageのprofile
@@ -4470,7 +4470,7 @@ default sequenceのprofileは、別のpackageのsequenceのwrapperを2つのsequ
 [原因の記録](../coverage/known_causes.json)は、通常のVerilator実行の既知差分それぞれに、種別、必要なDPIの実行条件、原因1つ、その根拠を持つ記録を1件ずつ置きます。
 原因がlibraryのものは、引用した条項と、固定版libraryの異なるファイルと文字列を挙げます。interpretationは条項と2つの読み方（最初がテストの読み方）を、simulatorはUVMを使わない再現例を挙げます。conditionは、テストがそのDPIのrunnerでは一致することを表します。
 `python3 tools/known_causes.py summary`は原因ごとの件数とkirimasimの目標件数を数え、`candidates`は人による照合の候補を一覧にします。
-最初のbatchではbuild 140件と不正designの受理5件を分類し、runtime差分318件はdirectoryごとに続けます。[既知差分の原因](known-differences.ja.md#既知差分の原因)を参照してください。
+最初のbatchではbuild 140件と不正designの受理5件を分類し、runtime差分319件はdirectoryごとに続けます。[既知差分の原因](known-differences.ja.md#既知差分の原因)を参照してください。
 
 ### Q445. 記録に固定版libraryの出力値がないのはなぜですか？
 
@@ -4492,7 +4492,7 @@ classのmemberのeventの2つの形では起動が失われます。同じproces
 さらに13件の差分がVerilatorによるもので、それぞれUVMを使わない再現例で示しています。2つのpackageの同じ名前のparameter付きclassの間の$cast、eventで待っているprocessをそのeventへの代入で解放すること、$finishの後に再開する呼出し元、乱数化で失われるqueueの大きさの2つの制約、乱数化が失敗した後のpost_randomizeの呼出しです。
 残る差分の多くは、sourceの行を名指しできるlibraryの原因です。たとえば、byte数を返さない変換、64 bitのdata全体のbyteを入れ替えるbig endianのaccess、規格にないbuild methodでしかfieldを作らないFIFO register、規格と逆の順で呼ぶhookです。interpretationの41件は、uvm_info macroの「より低い」という境界や、checkを伴うFIFOのmirrorで比べる値のように、テストの読み方とlibraryが従う読み方を並べて残します。nullのmapを渡すget_local_mapの入力は、library自身のDEVIATIONS.mdの2番目に当たります。
 
-123回目は、テスト、期待値、保存した記録、義務のどれも変えません。すべての既知差分に原因があり、library 319件、interpretation 60件、simulator 27件、condition 57件で、照合の候補は406件です。
+123回目は、テスト、期待値、保存した記録、義務のどれも変えません。すべての既知差分に原因があり、library 320件、interpretation 60件、simulator 27件、condition 57件で、照合の候補は406件です。
 
 ## kirimasimの立ち上げ段階
 

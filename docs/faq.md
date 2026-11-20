@@ -234,7 +234,7 @@ Execution success and requirement review are separate records, so use [Read cove
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 942
+M1 and M2 still have open clause targets. M3 now has 944
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1260,9 +1260,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 4174 AI drafts cover only a partial decomposition: 4174 requirements link
-directly to 2718 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
-All 2774 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 4176 AI drafts cover only a partial decomposition: 4176 requirements link
+directly to 2719 tests; all drafts have direct tests, and fifty-six separate tests have only control links.
+All 2775 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -3091,7 +3091,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 ### Q193. Why did the compatible guest subset decrease to 1081?
 
 Four original inputs have revised fingerprints: the command-enum citation, Boolean rerandomization observation, virtual-field configure citation and the reraise primary citation. All four were remeasured when changed; the reraise revision was measured at both seeds in the previous expansion. Their stale guest rows are excluded while the historical 1085-record source files remain intact.
-Current reuse covers 1081 inputs, with 1693 unmeasured: 1689 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
+Current reuse covers 1081 inputs, with 1694 unmeasured: 1690 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
 
@@ -3161,9 +3161,9 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2774 tests run at two seeds?
+### Q201. Did all 2775 tests run at two seeds?
 
-No. There are 2675 simulation and 99 elaboration fixtures. Ordinary evidence
+No. There are 2676 simulation and 99 elaboration fixtures. Ordinary evidence
 has 2210 two-seed runtime matches, 94 expected compiler rejections, 458 known
 simulation differences and five known illegal compile acceptances; the seven
 four-state fixtures are not run by the two-state oracle. None of the
@@ -3719,7 +3719,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 0 identifiers remain unassessed.
-The suite has 2718 directly linked tests and fifty-six
+The suite has 2719 directly linked tests and fifty-six
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3841,7 +3841,7 @@ separate jobs. The earlier 8-shard Check never finished: its one uninterrupted
 run reached the 150-minute limit on every shard. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the workflow
-pages for the current results. The 463 known cases remain outside the ordinary default CI selection.
+pages for the current results. The 464 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -3996,7 +3996,7 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 
 At that earlier citation repair, the changed fingerprint excluded an old row despite an unchanged body/oracle: 1083 compatible records became 1082. At that checkpoint Ghost retained 206 matches/876 failures per seed and kirimasim retained 1073 unsupported/nine failures, without a guest rerun.
 
-Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1693 unmeasured inputs are 1689 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
+Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1694 unmeasured inputs are 1690 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
 
@@ -4238,8 +4238,8 @@ rounding are not inferred.
 
 An already partial clause can gain duties and conditions while the unassessed
 queue stays unchanged. First decomposition or a reasoned classification changes
-that queue; additional tests alone need not. Current 4174 duties link directly
-to 2718 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
+that queue; additional tests alone need not. Current 4176 duties link directly
+to 2719 tests, with 2062 partial and 0 unassessed identifiers. [The inventory guide](requirements.md#review-work-queue-and-root-totals)
 explains these separate progress measures.
 
 ## Register HDL paths and observation premises
@@ -5128,7 +5128,7 @@ A queue count describes recorded review work, and [the progress guide](reading-g
 No. All 2507 identifiers now have either a partial requirement decomposition
 or an individual assessment: 2062 partial and 445 assessed. B.4's register/execute
 operation has a partial duty, while its ancestry wording remains unresolved.
-The 4174 duties all have direct tests and all 2774 tests have links, but those
+The 4176 duties all have direct tests and all 2775 tests have links, but those
 three empty queues do not audit every remaining obligation or applicability
 condition. Original M1–M4 targets, human review and scope/denominator approval
 remain open; [the remaining-work guide](requirements.md#remaining-m4-work-and-approval)
@@ -5393,7 +5393,7 @@ proves independent tests or complete requirements.
 
 Header edits change the input fingerprint under [the update rules](requirements.md#updating-a-test-or-mapping).
 The revised original's old guest row is filtered from 1082 compatible records,
-leaving 1081; the 1693 unmeasured inputs are 1689 additions and four revised
+leaving 1081; the 1694 unmeasured inputs are 1690 additions and four revised
 originals. Ghost's retained failure count becomes 875 and kirimasim's retained
 unsupported count becomes 1072 because that stale row was removed. No guest
 was re-executed, improved or newly passed. The old evidence remains archived,
@@ -5740,7 +5740,7 @@ region-release duty gains the requested region-facade profile. The ledger has
 Chapter 18 is 393 partial/63 assessed/0 unassessed, 937 duties and 648 primary
 tests.
 
-Totals are 2731 tests (2632 simulation/99 elaboration), 2675 direct-linked
+Totals are 2731 tests (2632 simulation/99 elaboration), 2676 direct-linked
 tests and 2273 ordinary matches (2179 runtime both seeds/94 compiler
 rejections). Known inputs remain 458. Guests remain 1081 compatible/1650
 unmeasured without a new run or filter.
@@ -5939,7 +5939,7 @@ differences without changing the expectations.
 
 Eight new duties bring the ledger to 4141 AI duties with all 4133 old objects
 and 445 assessments unchanged. Totals are 2757 tests, 2701 direct-linked tests
-and 2287 ordinary matches; known inputs are 463, including the five new
+and 2287 ordinary matches; known inputs are 464, including the five new
 fixtures' unlinked ordinary builds. All 2062 partial identifiers, original
 targets, human review and scope/denominator approval remain open.
 
@@ -5972,7 +5972,7 @@ of the design while the types created by name are never named.
 
 Nine new duties bring the ledger to 4150 AI duties with all 4141 old objects
 and 445 assessments unchanged. Totals are 2762 tests, 2706 direct-linked tests
-and 2292 ordinary matches; known inputs stay 463. All 2062 partial
+and 2292 ordinary matches; known inputs stay 464. All 2062 partial
 identifiers, original targets, human review and scope/denominator approval
 remain open.
 
@@ -5989,7 +5989,7 @@ reproducer without UVM; a condition cause means that the test matches under
 its DPI runner. `python3 tools/known_causes.py summary` counts the causes and
 the kirimasim targets, and `candidates` lists the entries for human review.
 The first batch classifies the 140 builds and five accepted illegal designs;
-the 318 runtime differences follow directory by directory. See
+the 319 runtime differences follow directory by directory. See
 [the causes](known-differences.md#causes-of-the-known-differences).
 
 ### Q445. Why does the record give no output values of the pinned library?
@@ -6044,7 +6044,7 @@ and the comparison value of a checked FIFO mirror. The get_local_map input with 
 null map is the library's DEVIATIONS.md issue 2.
 
 The 123rd expansion changes no test, expectation, stored record or duty. Every
-known difference now has a cause: 319 library, 60 interpretation, 27
+known difference now has a cause: 320 library, 60 interpretation, 27
 simulator and 57 condition; 406 entries are review candidates.
 
 ## kirimasim bring-up stages

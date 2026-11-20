@@ -4303,3 +4303,11 @@ suiteは2774件（simulation 2675）、義務は4174件です。このテスト�
 131回目の集計は、Checkで終わりませんでした。hostedのrunnerでは、jobが45分の上限に達した時点でも集計の手順が動いており、132回目のCheckは、tool、Verilator、slangでのelaborationの各手順が成功したものの、集計の結果がないまま終わりました。集計は、workerのprocessごとに多数のテストをelaborateし、テストごとにlibrary全体を走査していました。elaborationの検査と同じく、テストごとに別のprocessでslangを動かし、テスト自身のpackage、compilation unitの宣言、top instanceだけを走査するようにしました。記録は全テストで変わらず、localでは1分半ほどで終わります。jobの上限は75分にしました。
 
 同じ変更で、ユーザーが承認した2つの注記を足しました。READMEには、4値の7件はどのsimulatorでも実行しておらず、UVMを動かせる4値のsimulatorができるまで未測定のままであることを書きました。[段階のガイド](kirimasim-stages.ja.md#kirimasimの現在の記録の段階別の内訳)には、kirimasimの記録が以前のrunnerと以前のkirimasimによるものであることと、短いセットを測り直すための許可された実行fileがなかったことを書きました。人の照合用の一覧30件は、照合の候補407件から原因と章で層に分けて選び、Git対象外の`out/thin-one-hundred-thirty-fourth/human-review-sample.ja.md`に置きました。reviewの状態は何も変えていません。
+
+## 135回目の拡充：RTLでのreset sequenceと、libraryの新しい差分（3回目の外部レビュー、項目4）
+
+ユーザーが続行を指示したので、134回目の2つ目のtestbench形のテストを、書いたとおりに公開しました。[`uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134`](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv)は、116回目の環境のregister modelで`uvm_reg_hw_reset_seq`を動かします。modelは、adapter、sequencer、driverを通して、reset直後のRTLのregister fileにつながっており、monitorが見たbusのtransactionを数えます。E.1は、sequenceがblockのすべてのregisterを読むとしているので、実行の前に書いた期待値は、4つのaddressそれぞれの読出しが1回ずつ、IDを`NO_REG_HW_RESET_TEST`で除外した後はさらに3回です。
+
+このテストはspecのみです。固定版のsequenceは、fieldの少なくとも1つが比較の対象であるregisterだけを読みます。COUNTのfieldはvolatileの1つだけで、比較の対象ではないので、monitorが見る読出しは3回、次に2回になります。固定版のsourceは、最初の測定の後に、原因を調べるために読みました。期待値は変えていません。[原因の記録](../coverage/known_causes.json)に記録（library、runtime、E.1）を足し、[既知差分の一覧](known-differences.ja.md)からテストへlinkしました。登録の前後とも、seed 1で同じ理由の差分になり、slangではelaborateできます。
+
+suiteは2775件（simulation 2676）、義務4176件、tag付きの検査2304件、既知差分464件（実行時319件、原因がlibraryのもの320件）、specのみ471件です。kirimasimの目標は、測れる2394、固定版libraryのために届かない381で、人の照合を待つ記録は408件です。READMEと詳細ハンドオフのM3の件数は、132回目に942のまま残っていたので、944（simulation 933）に直しました。

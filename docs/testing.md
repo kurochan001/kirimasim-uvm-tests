@@ -798,7 +798,7 @@ The JSON configuration records either `seed` or `seeds` accordingly.
 
 By default, Verilator selects 2304 tagged two-state checks: 2210 runtime
 cases and 94 expected compiler rejections. To include
-the 463 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 464 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -876,7 +876,7 @@ python3 tools/kirimasim_stages.py check
 ```
 
 The current tool suite has 171 unit tests; metadata validation checks all
-2774 tests (2675 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
+2775 tests (2676 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
 [Regression](../.github/workflows/regression.yml) shards, uses

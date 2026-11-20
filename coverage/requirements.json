@@ -162047,6 +162047,76 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RTL-HW-RESET-SEQ-READS-RTL",
+      "clause": "E.1",
+      "statement": {
+        "en": "uvm_reg_hw_reset_seq reads all of the registers in the block through its address maps and compares each value with the reset value.",
+        "ja": "uvm_reg_hw_reset_seqは、blockのすべてのregisterをaddress mapを通して読み、それぞれの値をreset値と比べる。"
+      },
+      "conditions": {
+        "en": "A register model of four registers is connected through an adapter, a sequencer and a driver to an RTL register file that has just left reset; one register has only a volatile read-only field.",
+        "ja": "4つのregisterのmodelを、adapter、sequencer、driverを通して、resetを抜けた直後のRTLのregister fileにつなぐ。1つのregisterはvolatileなread-onlyのfieldだけを持つ。"
+      },
+      "expected": {
+        "en": "The bus monitor sees no write and one read of each of the four addresses, with the reset values and the constant, and no error is counted.",
+        "ja": "busのmonitorは、書込みを見ず、4つのaddressそれぞれの読出しを1回ずつ見る。値はreset値と定数で、errorは数えられない。"
+      },
+      "limitations": {
+        "en": "A design that has left its reset state is not exercised; the reads are counted by address, not ordered.",
+        "ja": "reset状態を離れたdesignは検査しない。読出しはaddressごとに数え、順序は見ない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first reads 4 writes 0 by_address 1 1 1 1",
+            "UT: first data 0 0 0 a5 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-HW-RESET-SEQ-EXCLUSION",
+      "clause": "E.1",
+      "statement": {
+        "en": "A register whose full name matches a NO_REG_HW_RESET_TEST resource in the REG:: namespace is not tested by uvm_reg_hw_reset_seq.",
+        "ja": "REG:: namespaceのNO_REG_HW_RESET_TESTのresourceがfull nameに一致するregisterは、uvm_reg_hw_reset_seqで検査されない。"
+      },
+      "conditions": {
+        "en": "Set the resource for one register of the model connected to the RTL register file and run a second sequence.",
+        "ja": "RTLのregister fileにつないだmodelの1つのregisterにresourceを設定し、2つ目のsequenceを実行する。"
+      },
+      "expected": {
+        "en": "The monitor sees three more reads, none at the excluded register's address, and the reference model has matched all seven reads.",
+        "ja": "monitorは読出しをさらに3回見て、除外したregisterのaddressへの読出しはない。reference modelは7回の読出しすべてで一致している。"
+      },
+      "limitations": {
+        "en": "Only the register-specific resource is exercised here.",
+        "ja": "ここではregisterを指定するresourceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134",
+          "role": "direct",
+          "expected_observations": [
+            "UT: excluded reads 3 writes 0 id_reads 0 errors 0",
+            "UT: scoreboard reads 7 matches 7 mismatches 0"
+          ]
+        }
+      ]
     }
   ]
 }

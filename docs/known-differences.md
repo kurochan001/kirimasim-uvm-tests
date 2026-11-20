@@ -6,7 +6,7 @@ To locate a result's source, search this page for the filename portion of its te
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2774-test suite and the pinned Accellera UVM
+This describes the current 2775-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation; [the cause
 record](#causes-of-the-known-differences) assigns causes separately, with AI review.
@@ -179,7 +179,7 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 63 pure-interface/const-reference/forbidden-member/type-context/non-public-constructor violations.
 94 match. Subscriber/visitor/proxy/adapter omissions and direct construction
 of the printed virtual builtin dispatcher remain accepted and spec-only without
-runtime. These five compiler acceptances are separate from 458 known simulation
+runtime. These five compiler acceptances are separate from 459 known simulation
 differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
@@ -627,7 +627,7 @@ A cause explains why a known difference does not reach its expectation; it never
 
 | Cause | Meaning | Evidence | Entries |
 | --- | --- | --- | --- |
-| library | The pinned library differs from the cited clauses | Cited clauses; library files and the text in them | 319 |
+| library | The pinned library differs from the cited clauses | Cited clauses; library files and the text in them | 320 |
 | interpretation | The cited text admits another reading, which the library follows | Cited clauses; the test's reading and the other one; the basis of the readings | 60 |
 | simulator | Verilator differs from IEEE 1800-2023 | A reproducer without UVM, for kirimasim-tests | 27 |
 | condition | The test needs a DPI condition that the ordinary run does not link, and it matches under that condition | The condition and its runner | 57 |
@@ -643,7 +643,7 @@ A `static` entry carries the same evidence as a two-state entry, and its cause i
 
 `python3 tools/known_causes.py check` keeps the record equal to the tests: exactly one entry for each two-state test whose `:oracle:` lacks verilator@5.052, the current input fingerprint, library text that exists in the pinned files, clauses of 1800.2-2020 and controls that are tagged tests. A comment-only edit moves the fingerprint with `tools/code_identity.py refresh`, which first shows that the code is unchanged. With `--results`, the known records of a combined runner JSON must match the entries. `reproduce` rebuilds the reproducers and checks that Verilator still accepts or rejects them as recorded; Check runs both.
 
-For kirimasim, `summary` separates 2394 inputs that measure a simulator against the standard from 380 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes, including the one `static` entry); no input is unassigned. The measurable inputs are the 2304 tagged tests, the simulator and condition causes and the six four-state tests without an entry. `candidates` lists the 407 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library. The classification is complete; adding such values would change the record's format, so it needs a proposal and the user's confirmation first.
+For kirimasim, `summary` separates 2394 inputs that measure a simulator against the standard from 381 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes, including the one `static` entry); no input is unassigned. The measurable inputs are the 2304 tagged tests, the simulator and condition causes and the six four-state tests without an entry. `candidates` lists the 408 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library. The classification is complete; adding such values would change the record's format, so it needs a proposal and the user's confirmation first.
 
 ## Pinned-library limitations
 
@@ -1280,10 +1280,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 470 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the seven four-state cases.
+The 471 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the seven four-state cases.
 Default Verilator runs and CI select 2304 tagged checks (2210 runtime, 94 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 318 cases establish their first difference
+The ordinary runtime records for 319 cases establish their first difference
 at seed 1, without seed 73 results.
 The 140 simulation builds have no ordinary runtime, including 61 unlinked DPI
 inputs (38 HDL and 23 command-line); [the measured breakdown](results.md#interpretation)
@@ -1378,7 +1378,7 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 463 two-state spec-only cases are linked in the explanatory notes and the
+The 464 two-state spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
 
@@ -1523,6 +1523,7 @@ not a count of distinct bugs.
 - [hdl path sequence warns for inaccessible register paths without storage access](../tests/uE/test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access.sv).
 - [hdl read returns actual wide storage without modifying either variable](../tests/u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable.sv).
 - [hdl path sequence accepts an accessible default abstraction without advancing time](../tests/uE/test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time.sv).
+- [The reset sequence on an RTL register file does not read a register whose only field is volatile](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv), although E.1 has it read all of the registers in the block.
 
 - [Policy/object active-policy push/pop synchronization](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv).
 
@@ -1768,7 +1769,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1081 records and 1693 inputs
+records are excluded. The compatible subset has 1081 records and 1694 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1852,8 +1853,8 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The earlier field-configuration filter reduced 1083 compatible records to 1082. The subsequent reraise primary-citation filter reduced 1082 to 1081; this increment retains those records without another filter or guest run, and [the input-identity explanation](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish the two stages.
 
-The suite has 2774 cases, but the kirimasim/Ghost records below cover only
-1081 unchanged current-input cases. The 1693 inputs are unmeasured
+The suite has 2775 cases, but the kirimasim/Ghost records below cover only
+1081 unchanged current-input cases. The 1694 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

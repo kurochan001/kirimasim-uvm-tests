@@ -2693,6 +2693,7 @@
     "uE/test_register_access_sequence_skips_an_excluded_register_and_checks_its_peer": 6,
     "uE/test_register_access_wrapper_body_uses_live_declared_child_for_selected_targets": 6,
     "uE/test_register_access_wrapper_honors_block_exclusion_before_child_control": 6,
+    "uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134": 6,
     "uE/test_shared_access_wrapper_cross_checks_both_registers_and_memories": 6,
     "uE/test_shared_access_wrapper_honors_a_block_exclusion_with_direct_controls": 6,
     "uE/test_shared_access_wrapper_live_protected_slots_route_register_and_memory_targets": 6,

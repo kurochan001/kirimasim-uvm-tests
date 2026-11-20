@@ -11589,6 +11589,32 @@
       }
     },
     {
+      "test": "uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134",
+      "inputs_sha256": "19cbabeff051b29fdb15e8b06cb5fc8154155c3c09e24cc7592d28d5465b6f98",
+      "kind": "runtime",
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "E.1"
+        ],
+        "library": [
+          {
+            "file": "src/reg/sequences/uvm_reg_hw_reset_seq.svh",
+            "text": "if(fields.size() != field_check_restore.size()) begin"
+          }
+        ]
+      },
+      "note": {
+        "en": "E.1 has the sequence read all of the registers in the block; the pinned sequence reads a register only when at least one of its fields is compared, so it does not read COUNT, whose only field is volatile and therefore has UVM_NO_CHECK. The monitor sees three reads instead of four, and two instead of three after the exclusion.",
+        "ja": "E.1は、sequenceがblockのすべてのregisterを読むとする。固定版のsequenceは、fieldの少なくとも1つが比較の対象であるregisterだけを読むので、唯一のfieldがvolatileでUVM_NO_CHECKになるCOUNTを読まない。monitorが見る読出しは4回ではなく3回で、除外の後は3回ではなく2回になる。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
       "test": "uE/test_single_bit_bash_sequence_skips_user_defined_unknown_policy",
       "inputs_sha256": "9e38bb847654c3f7dc1ebec6a8d2224ebdf4313618fb70df150e1bcf7d17b952",
       "kind": "runtime",

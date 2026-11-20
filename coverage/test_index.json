@@ -11097,6 +11097,10 @@
     "u13/test_rtl_active_and_passive_agents_share_a_bus_under_a_virtual_sequence_134": {
       "primary_clause": "13.4.2.2",
       "inputs_sha256": "0cf176cec9b9d55802f8f6bd7d084d2d3c3c80bc7b481def47de125849e9f0dd"
+    },
+    "uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134": {
+      "primary_clause": "E.1",
+      "inputs_sha256": "19cbabeff051b29fdb15e8b06cb5fc8154155c3c09e24cc7592d28d5465b6f98"
     }
   }
 }
