@@ -84,6 +84,11 @@ jobs:
       - name: Elaborate every test with slang
         run: '"$RUNNER_TEMP/slang/bin/python" tools/slang_elaborate.py check'
 
+      # The marked declarations of the library that no test uses are the ones
+      # that coverage/api_census.json lists (tools/api_census.py).
+      - name: Census of the standard's API
+        run: '"$RUNNER_TEMP/slang/bin/python" tools/api_census.py check'
+
   verilator:
     runs-on: ubuntu-24.04
     timeout-minutes: 120

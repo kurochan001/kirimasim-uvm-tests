@@ -56,6 +56,7 @@ tools/lint_metadata.py       メタデータとテストの形式の検査
 tools/requirements.py        要求台帳の案の検査と棚卸し
 tools/known_causes.py        既知差分の原因の記録の検査と集計
 tools/kirimasim_stages.py    kirimasimの段階の検査と短いセットの出力
+tools/api_census.py          libraryが条項を注記した宣言ごとに、それを使うテストを数える
 tools/slang_elaborate.py     全テストをslangでelaborateし、coverage/slang_frontend.jsonと照合
 tools/code_identity.py       読みやすさの編集がcodeを保つことの検査と、指紋の持ち越し
 tools/ci_select.py           CIで実行する変更分またはshard分のタグ付き検査を選ぶ

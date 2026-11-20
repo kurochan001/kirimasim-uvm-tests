@@ -62,6 +62,7 @@ tools/lint_metadata.py       checks of the metadata and the form of the tests
 tools/requirements.py        validates and inventories the draft requirement ledger
 tools/known_causes.py        checks and summarizes the causes of the known differences
 tools/kirimasim_stages.py    checks the kirimasim stages and prints the short sets
+tools/api_census.py          counts the tests that use each declaration the library marks with a clause
 tools/slang_elaborate.py     elaborates every test with slang against coverage/slang_frontend.json
 tools/code_identity.py       checks that a readability edit keeps the code, moves fingerprints
 tools/ci_select.py           selects the changed or sharded tagged checks for CI

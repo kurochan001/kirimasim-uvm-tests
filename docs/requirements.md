@@ -671,6 +671,19 @@ expansions. Signature/prose conflicts remain interpretations requiring review,
 including B.5.11 invocation, failed FIFO outputs and stream enumeration counts.
 No mapping adds a measured pass, human approval or an approved denominator.
 
+## API census
+
+"Zero requirements without a direct test" does not show that an API of a clause is ever called: a clause can have duties whose tests reach the API only through another method. [`tools/api_census.py`](../tools/api_census.py) counts this separately. The pinned library marks 1764 declarations with a clause (`@uvm-ieee 1800.2-2020 auto` or `manual`): 185 classes, 1225 functions, 185 tasks, 139 macros, 22 typedefs and 8 marks before something else. For each function and task, the tool asks slang which calls and overrides in the tests' own sources resolve to it; a macro, class or typedef counts by its name in the code.
+
+[`coverage/api_census.json`](../coverage/api_census.json) holds the two lists that Check compares with the tests: `unused`, the functions, tasks and macros whose name occurs in no test, and `name_only`, the functions and tasks that are named but to which no call or override resolves (a call through a derived class or a port, a use in a test that slang cannot elaborate, or another method of the same name). A mark is the library's claim: a clause is confirmed against the standard before a declaration is treated as a gap. A new test that uses a listed declaration makes Check fail until the record is rewritten:
+
+```sh
+python3 tools/api_census.py update --json out/api-census.json
+python3 tools/api_census.py check
+```
+
+The tool needs the pinned `pyslang` of [the slang elaboration check](testing.md#slang-elaboration); the census is not a coverage measure and proves no behavior.
+
 ## Generated report identity
 
 `ledger_inputs_sha256` identifies the requirement-mapping inputs, whereas `inputs_sha256` identifies a test's inputs and `runner_sha256` identifies its runner; [the evidence-reuse rules](results.md#evidence-assembly) explain which identities must agree when comparing measurements.

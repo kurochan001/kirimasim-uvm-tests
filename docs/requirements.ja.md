@@ -454,6 +454,19 @@ registerの転送／prediction／coverage、convenience wrapper、付録Eのdisp
 stream列挙の戻り数など、signature／本文の矛盾は、引き続きレビューが必要な解釈です。
 対応付けは、実測pass、人の承認、承認済み分母を追加しません。
 
+## APIの集計
+
+「直接テストのない要求0件」は、ある条項のAPIが一度でも呼ばれていることを示しません。条項に義務があっても、そのテストが別のmethodを経由してしかAPIに届かないことがあります。[`tools/api_census.py`](../tools/api_census.py)は、これを別に数えます。固定版libraryは1764個の宣言に条項を注記しています（`@uvm-ieee 1800.2-2020 auto`または`manual`）。class 185、function 1225、task 185、macro 139、typedef 22、それ以外の前に置かれた注記8です。functionとtaskは、テスト自身のsourceにある呼出しとoverrideのうち、どれがその宣言に解決されるかをslangに尋ねます。macro、class、typedefは、codeに名前が出てくるかで数えます。
+
+[`coverage/api_census.json`](../coverage/api_census.json)は、Checkがテストと照合する2つの一覧を持ちます。`unused`は、名前がどのテストにも出てこないfunction、task、macroです。`name_only`は、名前は出てくるが、呼出しやoverrideが解決されないfunctionとtaskです（派生classやportを通した呼出し、slangがelaborateできないテストでの使用、同じ名前の別のmethod）。注記はlibraryの主張なので、宣言を穴として扱う前に、条項を規格で確かめます。一覧にある宣言を使うテストを足すと、記録を書き直すまでCheckが失敗します。
+
+```sh
+python3 tools/api_census.py update --json out/api-census.json
+python3 tools/api_census.py check
+```
+
+このtoolには、[slangでのelaborationの検査](testing.ja.md#slangでのelaboration)と同じ固定版の`pyslang`が要ります。この集計はcoverageの尺度ではなく、動作を何も証明しません。
+
 ## 生成レポートの識別
 
 `ledger_inputs_sha256`は要求の対応付けの入力、`inputs_sha256`はテスト入力、`runner_sha256`はrunnerを識別し、測定を比較する際にどの同一性を確かめるかは[証拠の再利用規則](results.ja.md#記録の合算)で説明しています。

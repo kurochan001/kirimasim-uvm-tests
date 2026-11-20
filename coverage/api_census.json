@@ -1,0 +1,375 @@
+{
+  "schema_version": 1,
+  "library": "2020.3.1",
+  "purpose": {
+    "en": "The declarations that the pinned library marks with a clause of 1800.2-2020 and that no test uses. unused: functions, tasks and macros whose name occurs in no test. name_only: functions and tasks whose name occurs in a test although no call or override in a test resolves to them. The marks are the library's claim; a clause is confirmed against the standard before a declaration is treated as a gap, and a test added for one removes it from the list.",
+    "ja": "固定版libraryが1800.2-2020の条項を注記した宣言のうち、どのテストも使っていないもの。unusedは、名前がどのテストにも出てこないfunction、task、macro。name_onlyは、名前はテストに出てくるが、テストの中の呼出しやoverrideがその宣言に解決されないfunctionとtask。注記はlibraryの主張であり、宣言を穴として扱う前に条項を規格で確かめる。テストを足すと、その宣言は一覧から外れる。"
+  },
+  "annotated": {
+    "annotations": 1764,
+    "class": 185,
+    "function": 1225,
+    "task": 185,
+    "macro": 139,
+    "typedef": 22,
+    "other": 8
+  },
+  "unused": [
+    {
+      "kind": "function",
+      "name": "uvm_factory::set_inst_override_by_name",
+      "clause": "8.3.1.4.1",
+      "file": "src/base/uvm_factory.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::get_file_handle",
+      "clause": "6.4.5.1",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::get_verbosity_level",
+      "clause": "6.4.3.1",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::set_default_file",
+      "clause": "6.4.5.2",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::set_id_action",
+      "clause": "6.4.4.2",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::set_id_file",
+      "clause": "6.4.5.2",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::set_severity_action",
+      "clause": "6.4.4.2",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::set_severity_file",
+      "clause": "6.4.5.2",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::set_severity_id_action",
+      "clause": "6.4.4.2",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::set_severity_id_file",
+      "clause": "6.4.5.2",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::set_severity_id_override",
+      "clause": "6.4.6",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::set_severity_id_verbosity",
+      "clause": "6.4.3.3",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::set_severity_override",
+      "clause": "6.4.6",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "UVM_PACKER_MAX_BYTES",
+      "clause": "B.6.2",
+      "file": "src/macros/uvm_global_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_component_abstract_param_utils",
+      "clause": "B.2.1.3",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_component_abstract_param_utils_begin",
+      "clause": "B.2.1.3",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_component_abstract_utils",
+      "clause": "B.2.1.3",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_component_abstract_utils_begin",
+      "clause": "B.2.1.3",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_component_param_utils",
+      "clause": "B.2.1.3",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_component_param_utils_begin",
+      "clause": "B.2.1.3",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_component_utils_begin",
+      "clause": "B.2.1.3",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_component_utils_end",
+      "clause": "B.2.1.3",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_object_abstract_param_utils",
+      "clause": "B.2.1.2",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_object_abstract_param_utils_begin",
+      "clause": "B.2.1.2",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_object_abstract_utils",
+      "clause": "B.2.1.2",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_object_abstract_utils_begin",
+      "clause": "B.2.1.2",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_object_param_utils",
+      "clause": "B.2.1.2",
+      "file": "src/macros/uvm_object_defines.svh"
+    },
+    {
+      "kind": "macro",
+      "name": "uvm_object_param_utils_begin",
+      "clause": "B.2.1.2",
+      "file": "src/macros/uvm_object_defines.svh"
+    }
+  ],
+  "name_only": [
+    {
+      "kind": "function",
+      "name": "uvm_abstract_component_registry::create_component",
+      "clause": "8.2.5.1.2",
+      "file": "src/base/uvm_registry.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_abstract_object_registry::create_object",
+      "clause": "8.2.5.2.2",
+      "file": "src/base/uvm_registry.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_bottomup_phase::execute",
+      "clause": "9.5.2.3",
+      "file": "src/base/uvm_bottomup_phase.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_component_registry::create_component",
+      "clause": "8.2.3.2.1",
+      "file": "src/base/uvm_registry.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_factory::create_component_by_type",
+      "clause": "8.3.1.5",
+      "file": "src/base/uvm_factory.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_factory::print",
+      "clause": "8.3.1.7.5",
+      "file": "src/base/uvm_factory.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_hdl_path_concat::add_slice",
+      "clause": "17.2.3.3.4",
+      "file": "src/reg/uvm_reg_model.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_object::get_type",
+      "clause": "5.3.4.5",
+      "file": "src/base/uvm_object.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_object_registry::create_object",
+      "clause": "8.2.4.2.1",
+      "file": "src/base/uvm_registry.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_phase::get_schedule",
+      "clause": "9.3.1.6.4",
+      "file": "src/base/uvm_phase.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_reg_map::configure",
+      "clause": "18.2.3.2",
+      "file": "src/reg/uvm_reg_map.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::do_print",
+      "clause": "6.4.2.2",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_handler::get_action",
+      "clause": "6.4.4.1",
+      "file": "src/base/uvm_report_handler.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_message::do_print",
+      "clause": "6.2.2.3",
+      "file": "src/base/uvm_report_message.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_report_server::do_copy",
+      "clause": "6.5.1.2.13",
+      "file": "src/base/uvm_report_server.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_sequencer::item_done",
+      "clause": "15.5.2.5",
+      "file": "src/seq/uvm_sequencer.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_tlm_extension_base::new",
+      "clause": "12.3.4.4.3",
+      "file": "src/tlm2/uvm_tlm2_generic_payload.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_tlm_transport_channel::nb_transport",
+      "clause": "12.2.9.2.2",
+      "file": "src/tlm1/uvm_tlm_req_rsp.svh"
+    },
+    {
+      "kind": "function",
+      "name": "uvm_tree_printer::emit",
+      "clause": "16.2.4.1",
+      "file": "src/base/uvm_printer.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_mem_access_seq::body",
+      "clause": "E.5.2.3.2",
+      "file": "src/reg/sequences/uvm_mem_access_seq.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_mem_walk_seq::body",
+      "clause": "E.6.3.2",
+      "file": "src/reg/sequences/uvm_mem_walk_seq.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_push_sequencer::run_phase",
+      "clause": "15.6.3.3",
+      "file": "src/seq/uvm_push_sequencer.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_reg_access_seq::body",
+      "clause": "E.3.2.3.2",
+      "file": "src/reg/sequences/uvm_reg_access_seq.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_reg_bit_bash_seq::body",
+      "clause": "E.2.2.3.2",
+      "file": "src/reg/sequences/uvm_reg_bit_bash_seq.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_reg_hw_reset_seq::body",
+      "clause": "E.1.2.1.2",
+      "file": "src/reg/sequences/uvm_reg_hw_reset_seq.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_reg_mem_built_in_seq::body",
+      "clause": "E.8.3.2",
+      "file": "src/reg/sequences/uvm_reg_mem_built_in_seq.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_reg_mem_shared_access_seq::body",
+      "clause": "E.4.3.3.2",
+      "file": "src/reg/sequences/uvm_reg_mem_shared_access_seq.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_sequencer::get_next_item",
+      "clause": "15.5.2.3",
+      "file": "src/seq/uvm_sequencer.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_sequencer::peek",
+      "clause": "15.5.2.7",
+      "file": "src/seq/uvm_sequencer.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_sequencer::try_next_item",
+      "clause": "15.5.2.4",
+      "file": "src/seq/uvm_sequencer.svh"
+    },
+    {
+      "kind": "task",
+      "name": "uvm_tlm_transport_channel::transport",
+      "clause": "12.2.9.2.2",
+      "file": "src/tlm1/uvm_tlm_req_rsp.svh"
+    }
+  ]
+}
