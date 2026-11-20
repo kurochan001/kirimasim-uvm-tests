@@ -14,6 +14,11 @@ unit, and 1800-2023 3.14.2.3 makes it an error when only some design elements
 specify one. Only the lines that begin with "UT: " are compared
 (docs/testing.md, "What is observed").
 
+A test that coverage/slang_frontend.json lists with the reason single-unit
+also gets `--single-unit`, which puts every file of the command line in one
+compilation unit (1800-2023 3.12.1); the other tests keep one unit for each
+file, the default of slang.
+
 A test with `:uvm_dpi: yes` is not run and is reported as unsupported: it
 needs the library's DPI-C and VPI code, and this runner passes no DPI back
 end, so a run would not show what kirimasim itself supports.
@@ -54,6 +59,15 @@ import uvm_common
 UNSUPPORTED = re.compile(r"error: unsupported: (.*)")
 TIMESCALE = "1ns/1ps"
 NO_DPI = "this runner passes no DPI back end"
+FRONTEND = suite_results.ROOT / "coverage" / "slang_frontend.json"
+
+
+def single_unit_tests() -> set[str]:
+    """The tests that need every file in one compilation unit."""
+    if not FRONTEND.is_file():
+        return set()
+    tests = json.loads(FRONTEND.read_text(encoding="utf-8")).get("tests", {})
+    return {name for name, entry in tests.items() if entry.get("reason") == "single-unit"}
 DECLARATIONS = suite_results.ROOT / "coverage" / "uvm_reports.json"
 REPORT = re.compile(r"^(UVM_ERROR|UVM_FATAL)(?! :) ")
 
@@ -90,7 +104,8 @@ def undeclared_report(test: Path, output: str, declarations: dict) -> str:
     return ""
 
 
-def run(test: Path, kirimasim: str, declarations: dict | None = None) -> tuple[str, str]:
+def run(test: Path, kirimasim: str, declarations: dict | None = None,
+        single_unit: bool = False) -> tuple[str, str]:
     """The status of the test (pass, fail or unsupported) and the reason."""
     problem = uvm_common.version_problem(test)
     if problem:
@@ -103,7 +118,7 @@ def run(test: Path, kirimasim: str, declarations: dict | None = None) -> tuple[s
     with tempfile.TemporaryDirectory() as tmp:
         try:
             r = subprocess.run(
-                [kirimasim, f"--timescale={TIMESCALE}",
+                [kirimasim, f"--timescale={TIMESCALE}", *(["--single-unit"] if single_unit else []),
                  *[f"+incdir+{d}" for d in [*uvm_common.include_dirs(), *include_dirs]],
                  *[f"+define+{d}" for d in [*uvm_common.defines(test), *suite_results.defines(test)]],
                  *([f"--top={top}"] if top else []), *map(str, uvm_common.sources()),
@@ -154,12 +169,14 @@ def main() -> int:
     tests = args.tests or suite_results.find_tests()
     declarations = load_declarations()
     declarations_sha = declarations_digest()
+    one_unit = single_unit_tests()
     inputs = suite_results.fingerprints(tests) if args.json else None
     runner_hash = suite_results.runner_digest("kirimasim") if args.json else None
     failed = unsupported = 0
     statuses = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
-        results = pool.map(lambda t: run(t, exe, declarations), tests)
+        results = pool.map(lambda t: run(t, exe, declarations,
+                                         suite_results.test_id(t) in one_unit), tests)
         for t, (status, why) in zip(tests, results):
             name = suite_results.test_id(t)
             if status == "unsupported":

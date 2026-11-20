@@ -62,6 +62,7 @@ tools/lint_metadata.py       checks of the metadata and the form of the tests
 tools/requirements.py        validates and inventories the draft requirement ledger
 tools/known_causes.py        checks and summarizes the causes of the known differences
 tools/kirimasim_stages.py    checks the kirimasim stages and prints the short sets
+tools/slang_elaborate.py     elaborates every test with slang against coverage/slang_frontend.json
 tools/code_identity.py       checks that a readability edit keeps the code, moves fingerprints
 tools/ci_select.py           selects the changed or sharded tagged checks for CI
 tools/sv_lifetimes.py        lexical guard for initialized procedural locals
@@ -902,6 +903,18 @@ Regression rather than relying on Check. A manual Regression can be narrowed to
 directories under `tests/` (input `directories`, such as `u17 uG`); it then runs
 the checks that collect a file from those directories, in one shard for every
 115 checks.
+
+### slang elaboration
+
+slang is the front end that kirimasim uses unmodified, and it is stricter than Verilator. Check elaborates every test with the pinned `pyslang` and the options of [`coverage/slang_frontend.json`](../coverage/slang_frontend.json), which include the default time scale that the runners pass:
+
+```sh
+python3 -m pip install pyslang==12.1.0
+python3 tools/slang_elaborate.py check
+python3 tools/slang_elaborate.py summary
+```
+
+A legal test must elaborate without an error, and an illegal design must be rejected with an error line that matches its `:expected_stderr_regex:`. The record lists the 91 exceptions, each with a reason, its first error and a note in both languages: 76 `library` (the test follows the standard where the pinned library differs; one of them Verilator builds and slang rejects), 10 `warning-as-error` and 3 `suspected-limit` (code that the cited clause of 1800-2023 allows), 1 `single-unit` (the test needs every file in one compilation unit, and `tools/run_kirimasim.py` passes `--single-unit` for it) and 1 `accepted-illegal`. The check fails when an unlisted test has an error, when a listed test loses or changes its first error, or when an entry does not fit the cause record. The `suspected-limit` entries are not reported upstream without the user's decision, and whether the slang commit that kirimasim pins behaves the same is not confirmed.
 
 ## Adding or correcting a test
 

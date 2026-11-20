@@ -135,6 +135,19 @@ class KirimasimConditions(RunnerTest):
         self.assertEqual(execute.call_args.args[0][1], "--timescale=1ns/1ps")
         self.assertEqual(run_kirimasim.TIMESCALE, run_verilator.TIMESCALE)
 
+    def test_single_unit_is_passed_only_when_asked(self):
+        with (mock.patch.object(run_kirimasim.uvm_common, "version_problem", return_value=""),
+              mock.patch.object(run_kirimasim.subprocess, "run", return_value=result()) as execute):
+            run_kirimasim.run(self.test, "kirimasim", {}, single_unit=True)
+        self.assertEqual(execute.call_args.args[0][1:3], ["--timescale=1ns/1ps", "--single-unit"])
+        _, execute = self.execute(result())
+        self.assertNotIn("--single-unit", execute.call_args.args[0])
+        record = self.root / "slang_frontend.json"
+        record.write_text(json.dumps({"tests": {"u19/test_a": {"reason": "single-unit"},
+                                                "u14/test_b": {"reason": "suspected-limit"}}}))
+        with mock.patch.object(run_kirimasim, "FRONTEND", record):
+            self.assertEqual(run_kirimasim.single_unit_tests(), {"u19/test_a"})
+
     def test_a_dpi_test_is_unsupported_without_a_run(self):
         self.write(":uvm_dpi: yes")
         verdict, execute = self.execute(result())

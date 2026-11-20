@@ -64,6 +64,26 @@ jobs:
       - name: Bring-up stages of kirimasim
         run: python3 tools/kirimasim_stages.py check
 
+  # slang is the front end that kirimasim uses unmodified. Every legal test
+  # must elaborate without an error and every illegal design must be rejected
+  # at its pattern, except the entries of coverage/slang_frontend.json.
+  slang:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Fetch and check the UVM library
+        run: python3 tools/fetch_uvm.py
+
+      - name: Install the pinned pyslang
+        run: |
+          python3 -m venv "$RUNNER_TEMP/slang"
+          "$RUNNER_TEMP/slang/bin/python" -m pip install --require-hashes -r tools/slang-requirements.txt
+
+      - name: Elaborate every test with slang
+        run: '"$RUNNER_TEMP/slang/bin/python" tools/slang_elaborate.py check'
+
   verilator:
     runs-on: ubuntu-24.04
     timeout-minutes: 120

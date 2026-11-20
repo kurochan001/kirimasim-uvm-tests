@@ -56,6 +56,7 @@ tools/lint_metadata.py       メタデータとテストの形式の検査
 tools/requirements.py        要求台帳の案の検査と棚卸し
 tools/known_causes.py        既知差分の原因の記録の検査と集計
 tools/kirimasim_stages.py    kirimasimの段階の検査と短いセットの出力
+tools/slang_elaborate.py     全テストをslangでelaborateし、coverage/slang_frontend.jsonと照合
 tools/code_identity.py       読みやすさの編集がcodeを保つことの検査と、指紋の持ち越し
 tools/ci_select.py           CIで実行する変更分またはshard分のタグ付き検査を選ぶ
 tools/sv_lifetimes.py        初期化付き手続き内ローカル変数の字句チェック
@@ -671,6 +672,18 @@ Checkは記録入力が変わったタグ付き検査とcanaryを実行し、変
 Regressionは手動と毎週、タグ付き2293件を重複しない20 shardで、command-line 20件、regex-DPI変種26件と合わせて実行します。
 戻る条件と上限、以前の8 shard版Checkが完了しなかった理由は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 runner、library lock、多数の入力を変えた後は、Checkに頼らずRegressionを手動実行します。手動のRegressionは`tests/`の下のdirectory（入力`directories`、たとえば`u17 uG`）に絞れます。そのときは、それらのdirectoryのfileを集める検査を、115件ごとに1 shardで実行します。
+
+### slangでのelaboration
+
+slangはkirimasimが無改造で使うfront endで、Verilatorより厳格です。Checkは、固定した`pyslang`と[`coverage/slang_frontend.json`](../coverage/slang_frontend.json)のoption（runnerが渡す既定の時間単位を含む）で、全テストをelaborateします。
+
+```sh
+python3 -m pip install pyslang==12.1.0
+python3 tools/slang_elaborate.py check
+python3 tools/slang_elaborate.py summary
+```
+
+合法なテストはerrorなしでelaborateでき、不正designは`:expected_stderr_regex:`に一致するerror行で拒否される必要があります。記録は例外91件を、理由、最初のerror、日英の注記とともに持ちます。`library` 76件（固定版libraryが規格と違う箇所で規格に従うテスト。うち1件はVerilatorがbuildし、slangが拒否します）、`warning-as-error` 10件と`suspected-limit` 3件（1800-2023の引用条項が許すcode）、`single-unit` 1件（全fileを1つのcompilation unitにする必要があり、`tools/run_kirimasim.py`がこの1件に`--single-unit`を渡します）、`accepted-illegal` 1件です。記録にないテストにerrorが出たとき、記録にあるテストのerrorが消えるか変わったとき、記録が原因の記録と合わないときに、検査は失敗します。`suspected-limit`はユーザーの判断なしにupstreamへ報告しません。kirimasimが固定するslangのcommitで同じ結果になるかは未確認です。
 
 ## テストの追加・修正
 

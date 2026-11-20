@@ -1,0 +1,787 @@
+{
+  "schema_version": 1,
+  "tool": "pyslang",
+  "version": "12.1.0",
+  "options": [
+    "--std=1800-2023",
+    "--timescale=1ns/1ps"
+  ],
+  "purpose": {
+    "en": "The tests for which slang, the front end that kirimasim uses unmodified, reports an error at elaboration although the suite keeps them, and the one illegal design that slang accepts, each with its reason. Every other legal test elaborates without an error, and every other illegal design is rejected with an error that matches its pattern.",
+    "ja": "kirimasimが無改造で使うfront endであるslangがelaborationでerrorを出すが、suiteに残すテストと、slangが受理する不正design 1件を、理由とともに記録する。ほかの合法なテストはerrorなしでelaborateでき、ほかの不正designはpatternに一致するerrorで拒否される。"
+  },
+  "tests": {
+    "u05/test_canonical_time_decrements_follow_declared_units_and_defaults": {
+      "reason": "library",
+      "error": "too few arguments for 'decr'; expected 3 but 2 were provided",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u05/test_object_active_policy_get_uses_the_standard_public_interface": {
+      "reason": "library",
+      "error": "no member named 'get_active_policy' in 'original_object'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u05/test_object_active_policy_lifo_uses_the_standard_public_interface": {
+      "reason": "library",
+      "error": "no member named 'push_active_policy' in 'original_object'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u05/test_object_active_policy_pop_uses_the_standard_public_interface": {
+      "reason": "library",
+      "error": "no member named 'pop_active_policy' in 'original_object'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u05/test_object_active_policy_push_null_uses_the_standard_public_interface": {
+      "reason": "library",
+      "error": "no member named 'push_active_policy' in 'original_object'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u06/test_preformed_report_reuse_rebinds_origin_and_actions_for_each_reporter": {
+      "reason": "library",
+      "error": "use of undeclared identifier 'get_report_message'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u06/test_report_catcher_exposes_the_supplied_preformed_message_and_current_origin": {
+      "reason": "library",
+      "error": "use of undeclared identifier 'get_report_message'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller": {
+      "reason": "library",
+      "error": "use of undeclared identifier 'get_report_message'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization": {
+      "reason": "library",
+      "error": "no member named 'type_id' in class 'uvm_transaction'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization": {
+      "reason": "library",
+      "error": "value of type 'supplied_registry' (aka 'uvm_abstract_component_registry#(uvm_component,\"uvm_component\")') cannot be assigned to type 'required_registry' (aka 'uvm_abstract_component_registry#(represented (aka uvm_subscriber#(int)),\"<unknown>\")')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u08/test_builtin_abstract_parameterized_objects_type_id_uses_the_required_registry_specialization": {
+      "reason": "library",
+      "error": "value of type 'supplied_registry' (aka 'uvm_abstract_object_registry#(uvm_sequence_base,\"uvm_sequence_base\")') cannot be assigned to type 'required_registry' (aka 'uvm_abstract_object_registry#(represented (aka uvm_sequence#(uvm_sequence_item,uvm_sequence_item)),\"<unknown>\")')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u08/test_builtin_report_server_type_id_uses_its_own_named_abstract_registry": {
+      "reason": "library",
+      "error": "no member named 'type_id' in class 'uvm_report_server'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver": {
+      "reason": "library",
+      "error": "value of type 'uvm_phase' cannot be assigned to type 'string'",
+      "verilator_kind": "runtime",
+      "note": {
+        "en": "The test assigns the result to a string, as the printed declaration of the standard gives it; the pinned library returns a phase handle. Verilator builds the test and differs at run time, while slang rejects the assignment at elaboration.",
+        "ja": "このテストは、規格に印刷された宣言のとおりに、結果をstringに代入する。固定版libraryはphaseのhandleを返す。Verilatorはbuildして実行時に違いが出るが、slangはelaborationでこの代入を拒否する。"
+      }
+    },
+    "u10/test_pool_global_barrier_printed_pool_return_type": {
+      "reason": "library",
+      "error": "value of type 'T' (aka 'uvm_barrier') cannot be assigned to type 'uvm_barrier_pool' (aka 'uvm_object_string_pool#(uvm_barrier)')",
+      "note": {
+        "en": "The test follows one reading of the standard and the pinned library the other, so slang cannot elaborate the test with that library; the cause record gives the clauses and both readings.",
+        "ja": "このテストは規格の一方の読み方に従い、固定版libraryはもう一方に従うので、slangはこのlibraryではelaborateできない。条項と2つの読み方は原因の記録にある。"
+      }
+    },
+    "u10/test_pool_global_event_printed_pool_return_type": {
+      "reason": "library",
+      "error": "value of type 'T' (aka 'uvm_event#(uvm_object)') cannot be assigned to type 'uvm_event_pool' (aka 'uvm_object_string_pool#(uvm_event#(uvm_object))')",
+      "note": {
+        "en": "The test follows one reading of the standard and the pinned library the other, so slang cannot elaborate the test with that library; the cause record gives the clauses and both readings.",
+        "ja": "このテストは規格の一方の読み方に従い、固定版libraryはもう一方に従うので、slangはこのlibraryではelaborateできない。条項と2つの読み方は原因の記録にある。"
+      }
+    },
+    "u12/test_tlm2_time_standard_default_resolution_api_constructs_delay": {
+      "reason": "library",
+      "error": "no member named 'set_default_time_resolution' in class 'uvm_time'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u12/test_tlm_bidirectional_request_only_parameter_keeps_declared_integer_response_default": {
+      "reason": "library",
+      "error": "value of type 'uvm_transport_port#(string,REQ (aka string))' cannot be assigned to type 'uvm_port_base#(uvm_tlm_if_base#(string,int))'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u13/test_component_printed_all_dropped_function_signature_dispatches_through_a_base_view": {
+      "reason": "library",
+      "error": "mismatch between 'function' and 'task' declared in superclass method",
+      "note": {
+        "en": "The test follows one reading of the standard and the pinned library the other, so slang cannot elaborate the test with that library; the cause record gives the clauses and both readings.",
+        "ja": "このテストは規格の一方の読み方に従い、固定版libraryはもう一方に従うので、slangはこのlibraryではelaborateできない。条項と2つの読み方は原因の記録にある。"
+      }
+    },
+    "u14/test_sequence_library_randc_field_preserves_cycles_for_singleton": {
+      "reason": "suspected-limit",
+      "error": "expected class property name",
+      "clauses_1800_2023": [
+        "18.11"
+      ],
+      "note": {
+        "en": "The test calls randomize(select_randc) with a randc property that its class inherits from uvm_sequence_library. 18.11 requires the arguments to be random variables of the object and does not exclude inherited ones; slang 12.1 rejects an inherited property here, also in a reproducer without UVM. Whether the slang commit that kirimasim pins does the same is not confirmed.",
+        "ja": "このテストは、classがuvm_sequence_libraryから継承したrandcのpropertyでrandomize(select_randc)を呼ぶ。18.11は引数がそのobjectの乱数変数であることを求め、継承したものを除いていない。slang 12.1は継承したpropertyをここで拒否し、UVMを使わない再現例でも同じである。kirimasimが固定するslangのcommitでも同じかは未確認。"
+      }
+    },
+    "u14/test_sequence_library_randc_field_preserves_cycles_for_subset": {
+      "reason": "suspected-limit",
+      "error": "expected class property name",
+      "clauses_1800_2023": [
+        "18.11"
+      ],
+      "note": {
+        "en": "The test calls randomize(select_randc) with a randc property that its class inherits from uvm_sequence_library. 18.11 requires the arguments to be random variables of the object and does not exclude inherited ones; slang 12.1 rejects an inherited property here, also in a reproducer without UVM. Whether the slang commit that kirimasim pins does the same is not confirmed.",
+        "ja": "このテストは、classがuvm_sequence_libraryから継承したrandcのpropertyでrandomize(select_randc)を呼ぶ。18.11は引数がそのobjectの乱数変数であることを求め、継承したものを除いていない。slang 12.1は継承したpropertyをここで拒否し、UVMを使わない再現例でも同じである。kirimasimが固定するslangのcommitでも同じかは未確認。"
+      }
+    },
+    "u14/test_sequence_library_randc_field_preserves_cycles_for_three_indices": {
+      "reason": "suspected-limit",
+      "error": "expected class property name",
+      "clauses_1800_2023": [
+        "18.11"
+      ],
+      "note": {
+        "en": "The test calls randomize(select_randc) with a randc property that its class inherits from uvm_sequence_library. 18.11 requires the arguments to be random variables of the object and does not exclude inherited ones; slang 12.1 rejects an inherited property here, also in a reproducer without UVM. Whether the slang commit that kirimasim pins does the same is not confirmed.",
+        "ja": "このテストは、classがuvm_sequence_libraryから継承したrandcのpropertyでrandomize(select_randc)を呼ぶ。18.11は引数がそのobjectの乱数変数であることを求め、継承したものを除いていない。slang 12.1は継承したpropertyをここで拒否し、UVMを使わない再現例でも同じである。kirimasimが固定するslangのcommitでも同じかは未確認。"
+      }
+    },
+    "u14/test_sequence_library_standard_count_bounds_constrain_randomized_count": {
+      "reason": "library",
+      "error": "no member named 'set_min_random_count' in 'library_type' (aka 'uvm_sequence_library#(packet,REQ (aka packet))')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u14/test_sequence_library_standard_count_bounds_default_to_ten": {
+      "reason": "library",
+      "error": "no member named 'get_min_random_count' in 'library_type' (aka 'uvm_sequence_library#(packet,REQ (aka packet))')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u14/test_sequence_library_standard_execution_counter_excludes_active_child": {
+      "reason": "library",
+      "error": "no member named 'get_num_sequences_executed' in 'library_type' (aka 'uvm_sequence_library#(packet,REQ (aka packet))')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u14/test_sequence_library_standard_execution_counter_starts_at_zero": {
+      "reason": "library",
+      "error": "no member named 'get_num_sequences_executed' in 'library_type' (aka 'uvm_sequence_library#(packet,REQ (aka packet))')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u14/test_sequence_library_standard_selection_mode_defaults_to_rand": {
+      "reason": "library",
+      "error": "no member named 'get_selection_mode' in 'library_type' (aka 'uvm_sequence_library#(packet,REQ (aka packet))')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u14/test_sequence_library_standard_selection_mode_updates_are_per_instance": {
+      "reason": "library",
+      "error": "no member named 'set_selection_mode' in 'library_type' (aka 'uvm_sequence_library#(packet,REQ (aka packet))')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u15/test_sequencer_base_printed_recording_query_reports_default_disable_and_peer_state": {
+      "reason": "library",
+      "error": "no member named 'is_auto_enabled_recording_enabled' in 'uvm_sequencer_base'",
+      "note": {
+        "en": "The test follows one reading of the standard and the pinned library the other, so slang cannot elaborate the test with that library; the cause record gives the clauses and both readings.",
+        "ja": "このテストは規格の一方の読み方に従い、固定版libraryはもう一方に従うので、slangはこのlibraryではelaborateできない。条項と2つの読み方は原因の記録にある。"
+      }
+    },
+    "u15/test_sequencer_interface_defaults_and_selected_legal_subtypes_keep_exact_base_types": {
+      "reason": "library",
+      "error": "value of type 'default_interface' cannot be assigned to type 'uvm_sqr_if_base#(uvm_sequence_item,uvm_sequence_item)'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop": {
+      "reason": "library",
+      "error": "no member named 'get_active_policy' in 'item'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u16/test_table_rows_0_93": {
+      "reason": "warning-as-error",
+      "error": "cannot mix strings and integers in a concatenation (use a cast if this is desired) [-Wstring-int-concat]",
+      "clauses_1800_2023": [
+        "11.4.12.2"
+      ],
+      "note": {
+        "en": "The helper concatenates a string with a byte. 11.4.12.2 treats the concatenation as a string and converts the other operand; slang raises its string-int-concat warning to an error by default.",
+        "ja": "helperがstringとbyteを連結する。11.4.12.2はこの連結をstringとして扱い、もう一方のoperandを変換する。slangは既定でstring-int-concatの警告をerrorに上げる。"
+      }
+    },
+    "u16/test_table_rows_1_93": {
+      "reason": "warning-as-error",
+      "error": "cannot mix strings and integers in a concatenation (use a cast if this is desired) [-Wstring-int-concat]",
+      "clauses_1800_2023": [
+        "11.4.12.2"
+      ],
+      "note": {
+        "en": "The helper concatenates a string with a byte. 11.4.12.2 treats the concatenation as a string and converts the other operand; slang raises its string-int-concat warning to an error by default.",
+        "ja": "helperがstringとbyteを連結する。11.4.12.2はこの連結をstringとして扱い、もう一方のoperandを変換する。slangは既定でstring-int-concatの警告をerrorに上げる。"
+      }
+    },
+    "u17/test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer": {
+      "reason": "library",
+      "error": "no member named 'set_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u17/test_hdl_concat_standard_constructor_accepts_explicit_and_empty_instance_names": {
+      "reason": "library",
+      "error": "too many arguments for 'new'; expected 0 but 1 were provided",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u17/test_hdl_concat_standard_get_slices_returns_the_appended_most_to_least_order": {
+      "reason": "library",
+      "error": "no member named 'get_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u17/test_hdl_concat_standard_set_slices_initializes_a_split_register_description": {
+      "reason": "library",
+      "error": "no member named 'set_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases": {
+      "reason": "library",
+      "error": "no member named 'set_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_map_clone_printed_implicit_return_type_supports_a_scalar_override_and_base_dispatch": {
+      "reason": "library",
+      "error": "return type 'logic' of virtual method 'clone_and_update' does not match 'uvm_reg_map' declared in its superclass",
+      "note": {
+        "en": "The test follows one reading of the standard and the pinned library the other, so slang cannot elaborate the test with that library; the cause record gives the clauses and both readings.",
+        "ja": "このテストは規格の一方の読み方に従い、固定版libraryはもう一方に従うので、slangはこのlibraryではelaborateできない。条項と2つの読み方は原因の記録にある。"
+      }
+    },
+    "u18/test_memory_backdoor_read_public_call_is_a_legal_task_declaration": {
+      "reason": "library",
+      "error": "'backdoor_read' is a protected member of 'uvm_mem'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_reg_hdl_add_default_rtl_standard_view79": {
+      "reason": "library",
+      "error": "no member named 'get_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_reg_hdl_add_duplicates_copy_values_standard_view79": {
+      "reason": "library",
+      "error": "no member named 'get_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_reg_hdl_full_ancestor_defaults_standard_view79": {
+      "reason": "library",
+      "error": "no member named 'get_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_reg_hdl_full_cartesian_custom_standard_view79": {
+      "reason": "library",
+      "error": "no member named 'get_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_reg_hdl_full_cartesian_default_standard_view79": {
+      "reason": "library",
+      "error": "no member named 'get_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_reg_hdl_full_explicit_kind_standard_view79": {
+      "reason": "library",
+      "error": "no member named 'get_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_reg_hdl_slice_defaults_append_standard_view79": {
+      "reason": "library",
+      "error": "no member named 'get_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_reg_hdl_slice_first_starts_duplicate_standard_view79": {
+      "reason": "library",
+      "error": "no member named 'get_slices' in 'uvm_hdl_path_concat'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_vreg_callback_decl_register_concrete_86": {
+      "reason": "library",
+      "error": "cannot create instance of virtual class 'uvm_vreg_cbs'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u18/test_vreg_query_field_overview_literal_base": {
+      "reason": "library",
+      "error": "value of type 'uvm_vreg_field' cannot be assigned to type 'uvm_reg_field'",
+      "note": {
+        "en": "The test follows one reading of the standard and the pinned library the other, so slang cannot elaborate the test with that library; the cause record gives the clauses and both readings.",
+        "ja": "このテストは規格の一方の読み方に従い、固定版libraryはもう一方に従うので、slangはこのlibraryではelaborateできない。条項と2つの読み方は原因の記録にある。"
+      }
+    },
+    "u18/test_vreg_query_register_overview_literal_base": {
+      "reason": "library",
+      "error": "value of type 'uvm_vreg' cannot be assigned to type 'uvm_reg'",
+      "note": {
+        "en": "The test follows one reading of the standard and the pinned library the other, so slang cannot elaborate the test with that library; the cause record gives the clauses and both readings.",
+        "ja": "このテストは規格の一方の読み方に従い、固定版libraryはもう一方に従うので、slangはこのlibraryではelaborateできない。条項と2つの読み方は原因の記録にある。"
+      }
+    },
+    "u19/test_hdl_max_width_parameter_matches_the_default_macro_value": {
+      "reason": "single-unit",
+      "error": "unknown macro or compiler directive '`UVM_HDL_MAX_WIDTH'",
+      "clauses_1800_2023": [
+        "3.12.1",
+        "22.5.1"
+      ],
+      "note": {
+        "en": "The test uses `UVM_HDL_MAX_WIDTH, which the pinned library defines only inside its package file, not in uvm_macros.svh. 22.5.1 limits a macro to its compilation unit, and 3.12.1 lets a tool take each file as its own unit, so the test needs all files in one unit.",
+        "ja": "このテストは`UVM_HDL_MAX_WIDTHを使う。固定版libraryはこれをpackageのfileの中だけで定義し、uvm_macros.svhでは定義しない。22.5.1はmacroの範囲をcompilation unitに限り、3.12.1はtoolがfileごとに別のunitとすることを許すので、このテストは全fileを1つのunitにする必要がある。"
+      }
+    },
+    "u19/test_predictor_check_pending_big_1_registers_88": {
+      "reason": "library",
+      "error": "value of type 'T' (aka 'uvm_sequence_item') cannot be assigned to type 'BUSTYPE' (aka 'packet88')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u19/test_predictor_check_pending_big_2_registers_88": {
+      "reason": "library",
+      "error": "value of type 'T' (aka 'uvm_sequence_item') cannot be assigned to type 'BUSTYPE' (aka 'packet88')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u19/test_predictor_check_pending_little_1_registers_88": {
+      "reason": "library",
+      "error": "value of type 'T' (aka 'uvm_sequence_item') cannot be assigned to type 'BUSTYPE' (aka 'packet88')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "u19/test_predictor_check_pending_little_2_registers_88": {
+      "reason": "library",
+      "error": "value of type 'T' (aka 'uvm_sequence_item') cannot be assigned to type 'BUSTYPE' (aka 'packet88')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_callback_overview_base_relation_0_102": {
+      "reason": "library",
+      "error": "value of type 'literal_registry102' (aka 'uvm_callbacks#(uvm_object,uvm_callback)') cannot be assigned to type 'uvm_callback'",
+      "note": {
+        "en": "The test follows one reading of the standard and the pinned library the other, so slang cannot elaborate the test with that library; the cause record gives the clauses and both readings.",
+        "ja": "このテストは規格の一方の読み方に従い、固定版libraryはもう一方に従うので、slangはこのlibraryではelaborateできない。条項と2つの読み方は原因の記録にある。"
+      }
+    },
+    "uB/test_callback_overview_base_relation_1_102": {
+      "reason": "library",
+      "error": "value of type 'literal_registry102' (aka 'uvm_callbacks#(context102,interface102)') cannot be assigned to type 'uvm_callback'",
+      "note": {
+        "en": "The test follows one reading of the standard and the pinned library the other, so slang cannot elaborate the test with that library; the cause record gives the clauses and both readings.",
+        "ja": "このテストは規格の一方の読み方に従い、固定版libraryはもう一方に従うので、slangはこのlibraryではelaborateできない。条項と2つの読み方は原因の記録にある。"
+      }
+    },
+    "uB/test_field_macro_array_enum_copies_and_compares_values": {
+      "reason": "library",
+      "error": "unknown built-in method 'first' on type 'T' (aka 'value_t$[]')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_field_macro_queue_enum_copies_and_compares_values": {
+      "reason": "library",
+      "error": "unknown built-in method 'first' on type 'T' (aka 'value_t$[$]')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_field_macro_sarray_enum_copies_and_compares_values": {
+      "reason": "library",
+      "error": "unknown built-in method 'first' on type 'T' (aka 'value_t$[2]')",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_pack_sarray_0_95": {
+      "reason": "warning-as-error",
+      "error": "cannot refer to element 0 of 'bit[12:0]$[3:4]' [-Windex-oob]",
+      "clauses_1800_2023": [
+        "7.4.6"
+      ],
+      "note": {
+        "en": "The pinned pack and unpack macros take $bits of element 0 of an array that the test declares with another range. 7.4.6 gives an out-of-range index a defined result and no error; slang raises its index-oob warning to an error by default.",
+        "ja": "固定版のpackとunpackのmacroは、テストが別の範囲で宣言した配列の要素0の$bitsを取る。7.4.6は範囲外の添字に定まった結果を与え、errorとしない。slangは既定でindex-oobの警告をerrorに上げる。"
+      }
+    },
+    "uB/test_pack_sarray_1_95": {
+      "reason": "warning-as-error",
+      "error": "cannot refer to element 0 of 'bit[96:0]$[7:4]' [-Windex-oob]",
+      "clauses_1800_2023": [
+        "7.4.6"
+      ],
+      "note": {
+        "en": "The pinned pack and unpack macros take $bits of element 0 of an array that the test declares with another range. 7.4.6 gives an out-of-range index a defined result and no error; slang raises its index-oob warning to an error by default.",
+        "ja": "固定版のpackとunpackのmacroは、テストが別の範囲で宣言した配列の要素0の$bitsを取る。7.4.6は範囲外の添字に定まった結果を与え、errorとしない。slangは既定でindex-oobの警告をerrorに上げる。"
+      }
+    },
+    "uB/test_pack_sarray_paired_0_95": {
+      "reason": "warning-as-error",
+      "error": "cannot refer to element 0 of 'bit[12:0]$[3:4]' [-Windex-oob]",
+      "clauses_1800_2023": [
+        "7.4.6"
+      ],
+      "note": {
+        "en": "The pinned pack and unpack macros take $bits of element 0 of an array that the test declares with another range. 7.4.6 gives an out-of-range index a defined result and no error; slang raises its index-oob warning to an error by default.",
+        "ja": "固定版のpackとunpackのmacroは、テストが別の範囲で宣言した配列の要素0の$bitsを取る。7.4.6は範囲外の添字に定まった結果を与え、errorとしない。slangは既定でindex-oobの警告をerrorに上げる。"
+      }
+    },
+    "uB/test_pack_sarray_paired_1_95": {
+      "reason": "warning-as-error",
+      "error": "cannot refer to element 0 of 'bit[96:0]$[7:4]' [-Windex-oob]",
+      "clauses_1800_2023": [
+        "7.4.6"
+      ],
+      "note": {
+        "en": "The pinned pack and unpack macros take $bits of element 0 of an array that the test declares with another range. 7.4.6 gives an out-of-range index a defined result and no error; slang raises its index-oob warning to an error by default.",
+        "ja": "固定版のpackとunpackのmacroは、テストが別の範囲で宣言した配列の要素0の$bitsを取る。7.4.6は範囲外の添字に定まった結果を与え、errorとしない。slangは既定でindex-oobの警告をerrorに上げる。"
+      }
+    },
+    "uB/test_record_macro_attribute_dynamic_array_preserves_the_original_type_and_handle": {
+      "reason": "library",
+      "error": "too many arguments provided to function-like macro",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_record_macro_attribute_packed_struct_preserves_the_original_type_and_handle": {
+      "reason": "library",
+      "error": "too many arguments provided to function-like macro",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_record_macro_attribute_real_preserves_the_original_type_and_handle": {
+      "reason": "library",
+      "error": "too many arguments provided to function-like macro",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_record_macro_attribute_string_preserves_the_original_type_and_handle": {
+      "reason": "library",
+      "error": "too many arguments provided to function-like macro",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_record_macro_attribute_time_preserves_the_original_type_and_handle": {
+      "reason": "library",
+      "error": "too many arguments provided to function-like macro",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_record_macro_attribute_wide_integral_preserves_the_original_type_and_handle": {
+      "reason": "library",
+      "error": "too many arguments provided to function-like macro",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_size_version_packer_minimum_define_83": {
+      "reason": "library",
+      "error": "unknown macro or compiler directive '`UVM_PACKER_MIN_BITS'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_unpack_macro_enum_interoperates_with_an_independent_scalar_api": {
+      "reason": "library",
+      "error": "not enough arguments provided to function-like macro",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uB/test_unpack_sarray_0_95": {
+      "reason": "warning-as-error",
+      "error": "cannot refer to element 0 of 'bit[12:0]$[3:4]' [-Windex-oob]",
+      "clauses_1800_2023": [
+        "7.4.6"
+      ],
+      "note": {
+        "en": "The pinned pack and unpack macros take $bits of element 0 of an array that the test declares with another range. 7.4.6 gives an out-of-range index a defined result and no error; slang raises its index-oob warning to an error by default.",
+        "ja": "固定版のpackとunpackのmacroは、テストが別の範囲で宣言した配列の要素0の$bitsを取る。7.4.6は範囲外の添字に定まった結果を与え、errorとしない。slangは既定でindex-oobの警告をerrorに上げる。"
+      }
+    },
+    "uB/test_unpack_sarray_1_95": {
+      "reason": "warning-as-error",
+      "error": "cannot refer to element 0 of 'bit[96:0]$[7:4]' [-Windex-oob]",
+      "clauses_1800_2023": [
+        "7.4.6"
+      ],
+      "note": {
+        "en": "The pinned pack and unpack macros take $bits of element 0 of an array that the test declares with another range. 7.4.6 gives an out-of-range index a defined result and no error; slang raises its index-oob warning to an error by default.",
+        "ja": "固定版のpackとunpackのmacroは、テストが別の範囲で宣言した配列の要素0の$bitsを取る。7.4.6は範囲外の添字に定まった結果を与え、errorとしない。slangは既定でindex-oobの警告をerrorに上げる。"
+      }
+    },
+    "uB/test_unpack_sarray_paired_0_95": {
+      "reason": "warning-as-error",
+      "error": "cannot refer to element 0 of 'bit[12:0]$[3:4]' [-Windex-oob]",
+      "clauses_1800_2023": [
+        "7.4.6"
+      ],
+      "note": {
+        "en": "The pinned pack and unpack macros take $bits of element 0 of an array that the test declares with another range. 7.4.6 gives an out-of-range index a defined result and no error; slang raises its index-oob warning to an error by default.",
+        "ja": "固定版のpackとunpackのmacroは、テストが別の範囲で宣言した配列の要素0の$bitsを取る。7.4.6は範囲外の添字に定まった結果を与え、errorとしない。slangは既定でindex-oobの警告をerrorに上げる。"
+      }
+    },
+    "uB/test_unpack_sarray_paired_1_95": {
+      "reason": "warning-as-error",
+      "error": "cannot refer to element 0 of 'bit[96:0]$[7:4]' [-Windex-oob]",
+      "clauses_1800_2023": [
+        "7.4.6"
+      ],
+      "note": {
+        "en": "The pinned pack and unpack macros take $bits of element 0 of an array that the test declares with another range. 7.4.6 gives an out-of-range index a defined result and no error; slang raises its index-oob warning to an error by default.",
+        "ja": "固定版のpackとunpackのmacroは、テストが別の範囲で宣言した配列の要素0の$bitsを取る。7.4.6は範囲外の添字に定まった結果を与え、errorとしない。slangは既定でindex-oobの警告をerrorに上げる。"
+      }
+    },
+    "uC/test_resource_base_legal_extensions_preserve_default_explicit_names_virtual_type_handles": {
+      "reason": "library",
+      "error": "'resource_type' cannot inherit from virtual class 'uvm_resource_base' without providing an implementation for pure virtual method 'm_value_type_name'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uC/test_resource_db_default_type_selects_the_highest_object_container": {
+      "reason": "library",
+      "error": "no member named 'get_highest_precedence' in class 'uvm_resource_db'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uC/test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types": {
+      "reason": "library",
+      "error": "no member named 'get_highest_precedence' in class 'uvm_resource_db'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uC/test_resource_db_typed_highest_precedence_returns_the_first_matching_maximum": {
+      "reason": "library",
+      "error": "no member named 'get_highest_precedence' in class 'uvm_resource_db'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uD/test_printed_report_callback_typedef_name_matches_the_declared_specialization": {
+      "reason": "library",
+      "error": "use of undeclared identifier 'uvm_report_db'; did you mean 'uvm_report_cb'?",
+      "note": {
+        "en": "The test follows one reading of the standard and the pinned library the other, so slang cannot elaborate the test with that library; the cause record gives the clauses and both readings.",
+        "ja": "このテストは規格の一方の読み方に従い、固定版libraryはもう一方に従うので、slangはこのlibraryではelaborateできない。条項と2つの読み方は原因の記録にある。"
+      }
+    },
+    "uE/test_builtin_dispatcher_virtual_class_rejects_direct_construction": {
+      "reason": "accepted-illegal",
+      "error": null,
+      "note": {
+        "en": "E.8.1 declares uvm_reg_mem_built_in_seq as a virtual class, and the pinned library declares it without virtual, so slang accepts its construction, as the cause record says of Verilator.",
+        "ja": "E.8.1はuvm_reg_mem_built_in_seqをvirtual classと宣言し、固定版libraryはvirtualなしで宣言するので、slangはその生成を受理する。原因の記録がVerilatorについて述べるのと同じである。"
+      }
+    },
+    "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view": {
+      "reason": "library",
+      "error": "'complete_service' cannot inherit from virtual class 'uvm_coreservice_t' without providing an implementation for pure virtual method 'get_phase_hopper'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uF/test_library_standard_item_0_92": {
+      "reason": "library",
+      "error": "no member named 'set_selection_mode' in 'library92'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uF/test_library_standard_item_1_92": {
+      "reason": "library",
+      "error": "no member named 'set_selection_mode' in 'library92'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uF/test_library_standard_rand_0_92": {
+      "reason": "library",
+      "error": "no member named 'set_selection_mode' in 'library92'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uF/test_library_standard_rand_1_92": {
+      "reason": "library",
+      "error": "no member named 'set_selection_mode' in 'library92'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uF/test_library_standard_randc_0_92": {
+      "reason": "library",
+      "error": "no member named 'set_selection_mode' in 'library92'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uF/test_library_standard_randc_1_92": {
+      "reason": "library",
+      "error": "no member named 'set_selection_mode' in 'library92'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uF/test_library_standard_user_0_92": {
+      "reason": "library",
+      "error": "no member named 'set_selection_mode' in 'library92'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    },
+    "uF/test_library_standard_user_1_92": {
+      "reason": "library",
+      "error": "no member named 'set_selection_mode' in 'library92'",
+      "note": {
+        "en": "The test follows the standard where the pinned library differs, so slang cannot elaborate it with that library; the cause record gives the clauses and the library text.",
+        "ja": "このテストは固定版libraryが規格と違う箇所で規格に従うので、slangはこのlibraryではelaborateできない。条項とlibraryの記載は原因の記録にある。"
+      }
+    }
+  }
+}
