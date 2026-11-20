@@ -4269,3 +4269,21 @@ kirimasimの目標は、測れる2383、固定版libraryのために届かない
 ## 131回目の拡充：APIの集計（3回目の外部レビュー、項目3、tool）
 
 [`tools/api_census.py`](../tools/api_census.py)は、固定版libraryの条項の注記1764個を読み、注記された宣言ごとに、それを使うテストを数えます。呼出しとoverrideはslangで解決します。[`coverage/api_census.json`](../coverage/api_census.json)は、どのテストも使っていない宣言を一覧にし、Checkの`slang` jobがテストと照合します。このcommitで測った結果は、class 185のうち184、function 1225のうち1180、task 185のうち170、macro 139のうち119、typedef 22のすべてが使われています（複数回注記された宣言は1行に数え、全部で1734行です）。未使用は28個です。B.2.1.2とB.2.1.3のmacro 14個、レビューが挙げたmethod 13個（uvm_report_handlerの12個と`uvm_factory::set_inst_override_by_name`）、`UVM_PACKER_MAX_BYTES`です。名前だけのものは31個で、どのテストもmapに対して呼んでいない`uvm_reg_map::configure`を含みます。レビューは独自の解決方法で、名前だけのfunctionを32、taskを15と数えていました。この差の原因は調べていません。注記はlibraryの主張で、規格との照合はまだ行っていません。穴を埋めるテストは次の拡充で足します。toolの単体テストは204件です。集計の説明は[要求ガイド](requirements.ja.md#apiの集計)にあります。
+
+## 132回目の拡充：未使用の宣言へのテスト（3回目の外部レビュー、項目3）
+
+131回目は、名前がどのテストにも出てこない注記つきの宣言を28個挙げました。まず、それぞれを規格で確かめました。uvm_report_handlerの12個のmethodは6.4.3.1、6.4.3.3、6.4.4.2、6.4.5.1、6.4.5.2、6.4.6に、`set_inst_override_by_name`は8.3.1.4.1に宣言があり、14個のmacroはB.2.1.2とB.2.1.3に名前があります。その上で、10件のテストがこれらを使います。期待値は、実行の前に、これらの条項から書きました。
+
+| テスト | 対象 | 条項 |
+| --- | --- | --- |
+| u06の4件 | `get_report_handler`が返すhandlerに直接行う、verbosity、action、file、severityのoverrideの設定と、その優先順 | 6.4.3.1、6.4.3.3、6.4.4.2、6.4.5.1、6.4.5.2、6.4.6 |
+| u08の1件 | exactなpath、wildcardのpath、任意の元の文字列での`uvm_factory::set_inst_override_by_name` | 8.3.1.4.1 |
+| uBの2件 | `uvm_object_param_utils`、抽象の形、それらのbeginの形。特殊化ごとのproxy、override、fieldの操作 | B.2.1.2、8.2.5 |
+| uBの2件 | `uvm_component_utils_begin`と`_end`、`uvm_component_param_utils`、抽象の形、それらのbeginの形 | B.2.1.3、8.2.5 |
+| u18の1件 | テストが自分で作ったmapに対する`configure`の呼出し | 18.2.3.2 |
+
+これらのテストで、uvm_objectまたはuvm_componentを直接継承するparameter付きのclassが8個増えました。レビューが、ほぼないと指摘していたものです。台帳には20件の義務を足し（全部で4171件）、それぞれの直接のテストをこれらにしました。B.2.1.2、B.2.1.3、6.4の各条項に、primaryテストができました。parameter付きclassの型名と、名前による検索は観測していません。B.2.1.2は、登録のときに型名を与えないとしか述べていないためです。
+
+10件はすべて、tag付けの前後に、Verilator 5.052のseed 1／73で一致し、slangでもerrorなしでelaborateできます。2件はtag付けの前に直し、それ以前の測定は`out/`に残しています。mapのテストは、最初は`get_n_bytes()`を既定のまま（system levelに向けた実効幅）で読んでいました。固定版のmapは、blockをlockするまでこれに0を返します。これは`configure`とは別の事柄で、記録済みのlibraryの差分（`u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width`）に近いので、map自身の幅を`UVM_NO_HIER`で読むようにしました。期待値の数字は変えていません。抽象objectのテストは、classに`tagged`という名前を付けていました。これはSystemVerilogのkeywordで、Verilatorが拒否したため、`labeled`に変え、期待値の1行のlabelも合わせて変えました。
+
+suiteは2773件（simulation 2674、elaboration 99）で、tag付きの検査は2303件です。集計の未使用の宣言は`UVM_PACKER_MAX_BYTES`の1個、名前だけのものは29個になりました。`uvm_reg_map::configure`と`uvm_report_handler::get_action`が、2つ目の一覧から外れました。新しいテストは、9件をM1、mapの1件をM3に数えます。guestの測定は行っていないので、guestで未測定の入力は1692件です。

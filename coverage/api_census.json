@@ -16,172 +16,10 @@
   },
   "unused": [
     {
-      "kind": "function",
-      "name": "uvm_factory::set_inst_override_by_name",
-      "clause": "8.3.1.4.1",
-      "file": "src/base/uvm_factory.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::get_file_handle",
-      "clause": "6.4.5.1",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::get_verbosity_level",
-      "clause": "6.4.3.1",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::set_default_file",
-      "clause": "6.4.5.2",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::set_id_action",
-      "clause": "6.4.4.2",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::set_id_file",
-      "clause": "6.4.5.2",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::set_severity_action",
-      "clause": "6.4.4.2",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::set_severity_file",
-      "clause": "6.4.5.2",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::set_severity_id_action",
-      "clause": "6.4.4.2",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::set_severity_id_file",
-      "clause": "6.4.5.2",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::set_severity_id_override",
-      "clause": "6.4.6",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::set_severity_id_verbosity",
-      "clause": "6.4.3.3",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::set_severity_override",
-      "clause": "6.4.6",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
       "kind": "macro",
       "name": "UVM_PACKER_MAX_BYTES",
       "clause": "B.6.2",
       "file": "src/macros/uvm_global_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_component_abstract_param_utils",
-      "clause": "B.2.1.3",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_component_abstract_param_utils_begin",
-      "clause": "B.2.1.3",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_component_abstract_utils",
-      "clause": "B.2.1.3",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_component_abstract_utils_begin",
-      "clause": "B.2.1.3",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_component_param_utils",
-      "clause": "B.2.1.3",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_component_param_utils_begin",
-      "clause": "B.2.1.3",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_component_utils_begin",
-      "clause": "B.2.1.3",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_component_utils_end",
-      "clause": "B.2.1.3",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_object_abstract_param_utils",
-      "clause": "B.2.1.2",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_object_abstract_param_utils_begin",
-      "clause": "B.2.1.2",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_object_abstract_utils",
-      "clause": "B.2.1.2",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_object_abstract_utils_begin",
-      "clause": "B.2.1.2",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_object_param_utils",
-      "clause": "B.2.1.2",
-      "file": "src/macros/uvm_object_defines.svh"
-    },
-    {
-      "kind": "macro",
-      "name": "uvm_object_param_utils_begin",
-      "clause": "B.2.1.2",
-      "file": "src/macros/uvm_object_defines.svh"
     }
   ],
   "name_only": [
@@ -247,20 +85,8 @@
     },
     {
       "kind": "function",
-      "name": "uvm_reg_map::configure",
-      "clause": "18.2.3.2",
-      "file": "src/reg/uvm_reg_map.svh"
-    },
-    {
-      "kind": "function",
       "name": "uvm_report_handler::do_print",
       "clause": "6.4.2.2",
-      "file": "src/base/uvm_report_handler.svh"
-    },
-    {
-      "kind": "function",
-      "name": "uvm_report_handler::get_action",
-      "clause": "6.4.4.1",
       "file": "src/base/uvm_report_handler.svh"
     },
     {

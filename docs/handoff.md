@@ -22,11 +22,11 @@ zero unlinked tests does not complete any milestone.
 
 | Area | Current snapshot |
 | --- | --- |
-| M1 | 1188 tests (1107 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
+| M1 | 1197 tests (1116 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
 | M2 | 633 tests (626 runtime, 7 elaboration): sequences, sequencers, callbacks and TLM |
 | M3 | 942 tests (931 runtime, 11 elaboration): register/memory layer and annex E |
-| Entire suite | 2763 tests (2664 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 4151 AI requirement drafts; 4151 have direct links to 2707 tests; fifty-six control-only tests; zero tests without links |
+| Entire suite | 2773 tests (2674 simulation, 99 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 4171 AI requirement drafts; 4171 have direct links to 2717 tests; fifty-six control-only tests; zero tests without links |
 | Normative inventory | 2062 of 2,507 identifiers partially decomposed; 445 explicitly assessed; 0 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
@@ -107,11 +107,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 140 tool unit tests, metadata for all 2763 tests (2664 simulation, 99 elaboration),
+The snapshot passed 204 tool unit tests, metadata for all 2773 tests (2674 simulation, 99 elaboration),
 ledger/index validation, the cause-record check, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1081 unchanged inputs, with 1682 inputs unmeasured.
+cover 1081 unchanged inputs, with 1692 inputs unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -138,12 +138,12 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 2199 runtime passes at seeds 1/73; 94 expected compile rejections; 463 known |
+| Verilator 5.052 / pinned UVM | 2209 runtime passes at seeds 1/73; 94 expected compile rejections; 463 known |
 | Verilator 5.052 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
 | Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 23-case condition: 20 pass both seeds; 3 known at seed 1 |
 | Verilator 5.052 / listed ordinary fixtures with regex and command-line DPI | Separate 26-case condition: 26 pass both seeds |
-| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1682 inputs unmeasured |
-| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1682 inputs unmeasured |
+| kirimasim / pinned UVM | 1081 unchanged cases: 1072 unsupported and nine missing-API failures; 1692 inputs unmeasured |
+| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1692 inputs unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
 The ordinary condition retains 463 known cases: 318 runtime first differences,
@@ -229,32 +229,32 @@ objects and 445 assessments unchanged; 2707 tests have direct links, 158 have
 controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
-The suite has 2763 tests (2664 simulation/99 elaboration). Ordinary results
-are 2293 matches: 2199 runtime inputs at both seeds and 94 compiler rejections.
+The suite has 2773 tests (2674 simulation/99 elaboration). Ordinary results
+are 2303 matches: 2209 runtime inputs at both seeds and 94 compiler rejections.
 Known inputs total 463: 318 runtime seed 1 differences, 140 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 470
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
 is added to the ordinary totals. No guest run/filter is added: 1081
-compatible records remain byte-identical and 1682 inputs are unmeasured (1678
-additions/four revised originals; 1583 simulation/99 elaboration).
+compatible records remain byte-identical and 1692 inputs are unmeasured (1688
+additions/four revised originals; 1593 simulation/99 elaboration).
 
-Primary-focused identifiers are 1320; candidates are 1167 zero/764 below
-target/551 at least two. All 2062 partial identifiers, actual remaining
+Primary-focused identifiers are 1327; candidates are 1160 zero/769 below
+target/553 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
 explains why matching conditions do not supply completion.
 
-Totals are 2763 (2664 simulation/99 elaboration): M1 1188 (1107/81), M2 633
-(626/7), M3 942 (931/11). Ordinary pass is 2293 (2199 runtime/94 rejections),
+Totals are 2773 (2674 simulation/99 elaboration): M1 1197 (1116/81), M2 633
+(626/7), M3 943 (932/11). Ordinary pass is 2303 (2209 runtime/94 rejections),
 with 463 known (318 runtime/140 builds/5 illegal acceptances). Guests retain
-1081 compatible records; 1682 unmeasured inputs are 1678 additions and four revised originals.
+1081 compatible records; 1692 unmeasured inputs are 1688 additions and four revised originals.
 
 The former single Check never finished its whole selection after 2026-10-31:
 its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)
 not superseded by a newer push reached the 150-minute limit on all eight
 shards. Check now runs the changed tagged inputs and a canary, and
-[Regression](../.github/workflows/regression.yml) runs all 2293 tagged checks in
+[Regression](../.github/workflows/regression.yml) runs all 2303 tagged checks in
 20 disjoint shards with the 20 command-line checks and 26 regex-DPI variants; [the CI section](results.md#continuous-integration)
 gives the limits. Seeds 1/73, compiler-rejection judgment, pinned dependencies
 and runner fingerprints are unchanged. After a change that Check reports as

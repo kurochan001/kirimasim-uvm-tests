@@ -161262,6 +161262,688 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-HANDLER-DIRECT-VERBOSITY-PRECEDENCE",
+      "clause": "6.4.3.3",
+      "statement": {
+        "en": "A verbosity set on the handler for a severity-id pair takes precedence over one set for the id, which takes precedence over the maximum verbosity.",
+        "ja": "handlerに設定したseverityとidの組のverbosityは、idだけのverbosityより優先し、idのverbosityは最大verbosityより優先する。"
+      },
+      "conditions": {
+        "en": "Set the maximum, one id and two severity-id pairs directly on the handler returned by get_report_handler.",
+        "ja": "get_report_handlerが返すhandlerに、最大値、1つのid、2つのseverityとidの組を直接設定する。"
+      },
+      "expected": {
+        "en": "The id alone returns the id's level, the pair returns the pair's level, and a severity and id without a setting return the maximum.",
+        "ja": "idだけの場合はidのlevel、組の場合は組のlevel、設定のないseverityとidは最大値を返す。"
+      },
+      "limitations": {
+        "en": "Only stored settings are queried on one handler; no report is issued.",
+        "ja": "1つのhandlerに保存した設定の照会だけを行い、reportは出さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_direct_verbosity_settings_follow_pair_then_id_then_maximum",
+          "role": "direct",
+          "expected_observations": [
+            "UT: id 1 pair 1 maximum 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-DIRECT-VERBOSITY-DEFAULTS",
+      "clause": "6.4.3.1",
+      "statement": {
+        "en": "get_verbosity_level takes UVM_INFO as its default severity.",
+        "ja": "get_verbosity_levelのseverityの既定値はUVM_INFOである。"
+      },
+      "conditions": {
+        "en": "Call get_verbosity_level with only an id that has a UVM_INFO pair, and with no argument.",
+        "ja": "UVM_INFOとの組を持つidだけを渡す呼出しと、引数なしの呼出しを行う。"
+      },
+      "expected": {
+        "en": "The call with the id returns the UVM_INFO pair's level, and the call without arguments returns the maximum.",
+        "ja": "idを渡す呼出しはUVM_INFOとの組のlevelを、引数なしの呼出しは最大値を返す。"
+      },
+      "limitations": {
+        "en": "The default of id is observed only through the call without arguments.",
+        "ja": "idの既定値は、引数なしの呼出しを通してのみ観測する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_direct_verbosity_settings_follow_pair_then_id_then_maximum",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_severity 1 no_arguments 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-DIRECT-ACTION-PRECEDENCE",
+      "clause": "6.4.4.2",
+      "statement": {
+        "en": "An action set on the handler for a severity-id pair takes precedence over one set for the id, which takes precedence over one set for the severity; an action is UVM_NO_ACTION or a bitwise OR of other values.",
+        "ja": "handlerに設定したseverityとidの組のactionは、idのactionより優先し、idのactionはseverityのactionより優先する。actionはUVM_NO_ACTIONか、ほかの値のbitごとのORである。"
+      },
+      "conditions": {
+        "en": "Set an action for one severity, one id and their pair directly on the handler and read them with get_action.",
+        "ja": "1つのseverity、1つのid、その組のactionをhandlerに直接設定し、get_actionで読む。"
+      },
+      "expected": {
+        "en": "The severity alone gives UVM_COUNT, the id gives UVM_DISPLAY | UVM_LOG, and the pair gives UVM_NO_ACTION.",
+        "ja": "severityだけではUVM_COUNT、idではUVM_DISPLAY | UVM_LOG、組ではUVM_NO_ACTIONになる。"
+      },
+      "limitations": {
+        "en": "Only stored settings are queried on one handler; no report is issued.",
+        "ja": "1つのhandlerに保存した設定の照会だけを行い、reportは出さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_direct_action_settings_follow_pair_then_id_then_severity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-DIRECT-FILE-PRECEDENCE",
+      "clause": "6.4.5.2",
+      "statement": {
+        "en": "A file descriptor set on the handler for a severity-id pair takes precedence over one for the id, then one for the severity, then the default descriptor.",
+        "ja": "handlerに設定したfile descriptorは、severityとidの組、id、severity、既定の順に優先する。"
+      },
+      "conditions": {
+        "en": "Set four different descriptor values directly on the handler and read them with get_file_handle.",
+        "ja": "4つの異なるdescriptorの値をhandlerに直接設定し、get_file_handleで読む。"
+      },
+      "expected": {
+        "en": "Each query returns the descriptor of the most specific setting that applies.",
+        "ja": "各照会は、当てはまる最も具体的な設定のdescriptorを返す。"
+      },
+      "limitations": {
+        "en": "The descriptors are stored and returned only; nothing is written to them and no file is opened.",
+        "ja": "descriptorは保存して返すだけで、何も書き込まず、fileも開かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_direct_file_settings_follow_pair_id_severity_then_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default 1 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-DIRECT-SEVERITY-OVERRIDE",
+      "clause": "6.4.6",
+      "statement": {
+        "en": "A severity override set on the handler changes the severity of a report, and an override for an id takes precedence over one for the severity alone.",
+        "ja": "handlerに設定したseverityのoverrideはreportのseverityを変え、idを指定したoverrideはseverityだけのoverrideより優先する。"
+      },
+      "conditions": {
+        "en": "Override UVM_WARNING by UVM_INFO, and for one id by UVM_WARNING, directly on the handler; issue two warnings and one info.",
+        "ja": "handlerに直接、UVM_WARNINGをUVM_INFOへ、1つのidについてはUVM_WARNINGへoverrideし、warningを2件とinfoを1件出す。"
+      },
+      "expected": {
+        "en": "The report server counts two more infos, one more warning and no more error.",
+        "ja": "report serverの件数は、infoが2、warningが1増え、errorは増えない。"
+      },
+      "limitations": {
+        "en": "Only a downgrade and an id-specific override to the same severity are exercised, through the server's counts.",
+        "ja": "downgradeと、同じseverityへのid指定のoverrideだけを、serverの件数を通して検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_direct_severity_overrides_prefer_the_id_specific_setting",
+          "role": "direct",
+          "expected_observations": [
+            "UT: deltas info 2 warning 1 error 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-INST-BY-NAME-PATH",
+      "clause": "8.3.1.4.1",
+      "statement": {
+        "en": "An instance override by name makes a request for the original type name produce the override type at a context that matches full_inst_path, which may hold wildcards.",
+        "ja": "名前によるinstance overrideは、full_inst_path（wildcardを含められる）に一致するcontextで、元の型名への要求をoverrideの型にする。"
+      },
+      "conditions": {
+        "en": "Call uvm_factory::set_inst_override_by_name with an exact path and a wildcard path, and create the original name at three contexts.",
+        "ja": "uvm_factory::set_inst_override_by_nameをexactなpathとwildcardのpathで呼び、元の名前を3つのcontextで生成する。"
+      },
+      "expected": {
+        "en": "The exact path gives second_item, the wildcard path gives first_item, and an unmatched path gives base_item.",
+        "ja": "exactなpathではsecond_item、wildcardのpathではfirst_item、一致しないpathではbase_itemになる。"
+      },
+      "limitations": {
+        "en": "Only creation by name of objects is exercised.",
+        "ja": "objectの名前による生成だけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_inst_override_by_name_replaces_the_named_type_at_matching_paths",
+          "role": "direct",
+          "expected_observations": [
+            "UT: exact second_item wild first_item other base_item"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-INST-BY-NAME-ARBITRARY",
+      "clause": "8.3.1.4.1",
+      "statement": {
+        "en": "The original type name of an instance override by name may be an arbitrary string.",
+        "ja": "名前によるinstance overrideの元の型名は、任意の文字列でよい。"
+      },
+      "conditions": {
+        "en": "Override a string that names no registered type and create that string by name at the matching context.",
+        "ja": "登録された型の名前ではない文字列をoverrideし、一致するcontextでその文字列を名前で生成する。"
+      },
+      "expected": {
+        "en": "The request gives an object of the override type.",
+        "ja": "要求はoverrideの型のobjectになる。"
+      },
+      "limitations": {
+        "en": "The unmatched context of the arbitrary string is not exercised.",
+        "ja": "任意の文字列の、一致しないcontextは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_inst_override_by_name_replaces_the_named_type_at_matching_paths",
+          "role": "direct",
+          "expected_observations": [
+            "UT: arbitrary first_item"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-DIRECT-CONFIGURE",
+      "clause": "18.2.3.2",
+      "statement": {
+        "en": "configure sets a map's parent block, base address, bus width in bytes, endianness and byte or word addressing.",
+        "ja": "configureは、mapのparent block、base address、byte単位のbus幅、endianness、byteかwordかのaddressingを設定する。"
+      },
+      "conditions": {
+        "en": "Construct two maps with new and call configure on each, once with the default byte addressing and once with word addressing.",
+        "ja": "newで2つのmapを作り、それぞれにconfigureを呼ぶ。一方は既定のbyte addressing、他方はword addressingにする。"
+      },
+      "expected": {
+        "en": "Each map returns its block, base address, own width and endianness; the address unit is 1 byte with byte addressing and the bus width otherwise.",
+        "ja": "各mapは、自分のblock、base address、自身の幅、endiannessを返す。addressの単位は、byte addressingでは1 byte、そうでなければbus幅になる。"
+      },
+      "limitations": {
+        "en": "The width is read with UVM_NO_HIER; the effective width toward the system level and the block's list of maps are not exercised.",
+        "ja": "幅はUVM_NO_HIERで読む。system levelに向けた実効幅と、blockのmapの一覧は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_direct_configure_sets_parent_base_address_bus_width_endianness_and_units",
+          "role": "direct",
+          "expected_observations": [
+            "UT: byte_map parent 1 base 1000 bytes 4 big 1 unit 1",
+            "UT: word_map parent 1 base 20 bytes 2 little 1 unit 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PARAM-UTILS-OBJECT-PROXY",
+      "clause": "B.2.1.2",
+      "statement": {
+        "en": "`uvm_object_param_utils implements type_id, get_type and get_object_type for each specialization of a parameterized object class.",
+        "ja": "`uvm_object_param_utilsは、parameter付きのobject classの特殊化ごとに、type_id、get_type、get_object_typeを実装する。"
+      },
+      "conditions": {
+        "en": "Create two specializations of one class through type_id::create.",
+        "ja": "1つのclassの2つの特殊化を、type_id::createで生成する。"
+      },
+      "expected": {
+        "en": "Both objects exist with their own value type, their proxies differ, and each object's get_object_type is its own proxy.",
+        "ja": "両方のobjectが自分の値の型を持って存在し、proxyは互いに異なり、各objectのget_object_typeは自分のproxyである。"
+      },
+      "limitations": {
+        "en": "The type name and name-based lookup of a parameterized class are not observed.",
+        "ja": "parameter付きclassの型名と、名前による検索は観測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_object_param_utils_register_each_specialization_with_its_own_proxy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created 7 seven proxies_differ 1 own_proxy 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PARAM-UTILS-OBJECT-OVERRIDE",
+      "clause": "B.2.1.2",
+      "statement": {
+        "en": "A type override of one specialization registered by `uvm_object_param_utils does not affect another specialization.",
+        "ja": "`uvm_object_param_utilsで登録した特殊化の1つへのtype overrideは、別の特殊化に影響しない。"
+      },
+      "conditions": {
+        "en": "Override typed_item#(int) by a derived class and create both specializations.",
+        "ja": "typed_item#(int)を派生classでoverrideし、両方の特殊化を生成する。"
+      },
+      "expected": {
+        "en": "The int request gives the derived class, and the string request gives its own specialization.",
+        "ja": "intの要求は派生classになり、stringの要求は自分の特殊化になる。"
+      },
+      "limitations": {
+        "en": "The type name and name-based lookup of a parameterized class are not observed.",
+        "ja": "parameter付きclassの型名と、名前による検索は観測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_object_param_utils_register_each_specialization_with_its_own_proxy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: override int special string plain string_proxy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PARAM-UTILS-OBJECT-FIELDS",
+      "clause": "B.2.1.2",
+      "statement": {
+        "en": "`uvm_object_param_utils_begin starts a block of field macros that `uvm_object_utils_end closes, and the fields take part in copy and compare.",
+        "ja": "`uvm_object_param_utils_beginは、`uvm_object_utils_endで閉じるfield macroのblockを始め、そのfieldはcopyとcompareに加わる。"
+      },
+      "conditions": {
+        "en": "Copy and compare two objects of one specialization whose field is declared with `uvm_field_int.",
+        "ja": "`uvm_field_intで宣言したfieldを持つ、同じ特殊化の2つのobjectをcopyし、compareする。"
+      },
+      "expected": {
+        "en": "The copy holds the source value, equal objects compare as 1 and changed ones as 0.",
+        "ja": "copyは元の値を持ち、等しいobjectのcompareは1、変えた後は0になる。"
+      },
+      "limitations": {
+        "en": "Only an integral field with UVM_DEFAULT is exercised.",
+        "ja": "UVM_DEFAULTの整数fieldだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_object_param_utils_register_each_specialization_with_its_own_proxy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fields copied abc equal 1 changed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-UTILS-OBJECT-OVERRIDE",
+      "clause": "B.2.1.2",
+      "statement": {
+        "en": "`uvm_object_abstract_utils and `uvm_object_abstract_param_utils register a virtual object class, whose creation gives the type that overrides it.",
+        "ja": "`uvm_object_abstract_utilsと`uvm_object_abstract_param_utilsはvirtualなobject classを登録し、その生成はoverrideした型になる。"
+      },
+      "conditions": {
+        "en": "Override a virtual class and a specialization of a parameterized virtual class by concrete classes and create them through type_id.",
+        "ja": "virtual classと、parameter付きのvirtual classの特殊化を、具象classでoverrideし、type_idで生成する。"
+      },
+      "expected": {
+        "en": "The created objects are of the concrete classes.",
+        "ja": "生成したobjectは具象classのものである。"
+      },
+      "limitations": {
+        "en": "Creation without an override, which is an error, is not exercised.",
+        "ja": "overrideなしの生成（errorになる）は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_object_abstract_utils_create_the_overriding_concrete_types_with_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created sides 4 size 3 shape_name shape"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-UTILS-OBJECT-NAME",
+      "clause": "B.2.1.2",
+      "statement": {
+        "en": "`uvm_object_abstract_utils registers the class with its type name, as `uvm_object_utils does.",
+        "ja": "`uvm_object_abstract_utilsは、`uvm_object_utilsと同じく、classを型名とともに登録する。"
+      },
+      "conditions": {
+        "en": "Read get_type_name of the proxy that get_type returns.",
+        "ja": "get_typeが返すproxyのget_type_nameを読む。"
+      },
+      "expected": {
+        "en": "The name is shape.",
+        "ja": "名前はshapeである。"
+      },
+      "limitations": {
+        "en": "The parameterized abstract form, which supplies no name, is not observed.",
+        "ja": "名前を与えないparameter付きの抽象の形は観測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_object_abstract_utils_create_the_overriding_concrete_types_with_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created sides 4 size 3 shape_name shape"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-UTILS-OBJECT-FIELDS",
+      "clause": "B.2.1.2",
+      "statement": {
+        "en": "`uvm_object_abstract_utils_begin and `uvm_object_abstract_param_utils_begin start a block of field macros that `uvm_object_utils_end closes.",
+        "ja": "`uvm_object_abstract_utils_beginと`uvm_object_abstract_param_utils_beginは、`uvm_object_utils_endで閉じるfield macroのblockを始める。"
+      },
+      "conditions": {
+        "en": "Copy and compare two overriding objects through handles of the virtual class.",
+        "ja": "overrideした2つのobjectを、virtual classのhandleを通してcopyし、compareする。"
+      },
+      "expected": {
+        "en": "The copies hold the source values, equal objects compare as 1 and changed ones as 0.",
+        "ja": "copyは元の値を持ち、等しいobjectのcompareは1、変えた後は0になる。"
+      },
+      "limitations": {
+        "en": "Only an integral field with UVM_DEFAULT is exercised.",
+        "ja": "UVM_DEFAULTの整数fieldだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_object_abstract_utils_create_the_overriding_concrete_types_with_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: labeled copied 5 equal 1 changed 0",
+            "UT: leveled copied 2a equal 1 changed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-UTILS-BEGIN-FIELDS",
+      "clause": "B.2.1.3",
+      "statement": {
+        "en": "`uvm_component_utils_begin registers a component as `uvm_component_utils does and starts a block of field macros that `uvm_component_utils_end closes.",
+        "ja": "`uvm_component_utils_beginは、`uvm_component_utilsと同じくcomponentを登録し、`uvm_component_utils_endで閉じるfield macroのblockを始める。"
+      },
+      "conditions": {
+        "en": "Create two components through type_id::create with a null parent and compare them with equal and with different fields.",
+        "ja": "parentをnullにして2つのcomponentをtype_id::createで生成し、fieldが等しい場合と異なる場合にcompareする。"
+      },
+      "expected": {
+        "en": "get_type_name returns knob_comp, the equal components compare as 1 and the changed ones as 0.",
+        "ja": "get_type_nameはknob_compを返し、等しいcomponentのcompareは1、変えた後は0になる。"
+      },
+      "limitations": {
+        "en": "Only compare is exercised on components; automatic configuration through the field is not.",
+        "ja": "componentではcompareだけを検査し、fieldを通した自動設定は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_component_utils_begin_and_param_utils_register_components_with_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: knob_comp name knob_comp equal 1 changed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PARAM-UTILS-COMPONENT-PROXY",
+      "clause": "B.2.1.3",
+      "statement": {
+        "en": "`uvm_component_param_utils implements type_id, get_type and get_object_type for each specialization of a parameterized component class.",
+        "ja": "`uvm_component_param_utilsは、parameter付きのcomponent classの特殊化ごとに、type_id、get_type、get_object_typeを実装する。"
+      },
+      "conditions": {
+        "en": "Create two specializations of one component class through type_id::create.",
+        "ja": "1つのcomponent classの2つの特殊化を、type_id::createで生成する。"
+      },
+      "expected": {
+        "en": "The components report their own widths, their proxies differ, and each get_object_type is its own proxy.",
+        "ja": "componentは自分の幅を返し、proxyは互いに異なり、各get_object_typeは自分のproxyである。"
+      },
+      "limitations": {
+        "en": "The type name and name-based lookup of a parameterized class are not observed.",
+        "ja": "parameter付きclassの型名と、名前による検索は観測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_component_utils_begin_and_param_utils_register_components_with_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: widths 8 16 proxies_differ 1 own_proxy 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PARAM-UTILS-COMPONENT-FIELDS",
+      "clause": "B.2.1.3",
+      "statement": {
+        "en": "`uvm_component_param_utils_begin starts a block of field macros that `uvm_component_utils_end closes.",
+        "ja": "`uvm_component_param_utils_beginは、`uvm_component_utils_endで閉じるfield macroのblockを始める。"
+      },
+      "conditions": {
+        "en": "Compare two components of one specialization with equal and with different fields.",
+        "ja": "同じ特殊化の2つのcomponentを、fieldが等しい場合と異なる場合にcompareする。"
+      },
+      "expected": {
+        "en": "The equal components compare as 1 and the changed ones as 0.",
+        "ja": "等しいcomponentのcompareは1、変えた後は0になる。"
+      },
+      "limitations": {
+        "en": "Only an integral field with UVM_DEFAULT is exercised.",
+        "ja": "UVM_DEFAULTの整数fieldだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_component_utils_begin_and_param_utils_register_components_with_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sized_comp equal 1 changed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-UTILS-COMPONENT-OVERRIDE",
+      "clause": "B.2.1.3",
+      "statement": {
+        "en": "`uvm_component_abstract_utils and `uvm_component_abstract_param_utils register a virtual component class, whose creation gives the component that overrides it.",
+        "ja": "`uvm_component_abstract_utilsと`uvm_component_abstract_param_utilsはvirtualなcomponent classを登録し、その生成はoverrideしたcomponentになる。"
+      },
+      "conditions": {
+        "en": "Override a virtual component class and a specialization of a parameterized one by concrete classes and create them with a null parent.",
+        "ja": "virtualなcomponent classと、parameter付きのものの特殊化を、具象classでoverrideし、parentをnullにして生成する。"
+      },
+      "expected": {
+        "en": "The created components are of the concrete classes.",
+        "ja": "生成したcomponentは具象classのものである。"
+      },
+      "limitations": {
+        "en": "Creation without an override, which is an error, is not exercised.",
+        "ja": "overrideなしの生成（errorになる）は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_component_abstract_utils_create_the_overriding_concrete_components",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created kind 1 lanes 3 stage_name stage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-UTILS-COMPONENT-NAME",
+      "clause": "B.2.1.3",
+      "statement": {
+        "en": "`uvm_component_abstract_utils registers the class with its type name, as `uvm_component_utils does.",
+        "ja": "`uvm_component_abstract_utilsは、`uvm_component_utilsと同じく、classを型名とともに登録する。"
+      },
+      "conditions": {
+        "en": "Read get_type_name of the proxy that get_type returns.",
+        "ja": "get_typeが返すproxyのget_type_nameを読む。"
+      },
+      "expected": {
+        "en": "The name is stage.",
+        "ja": "名前はstageである。"
+      },
+      "limitations": {
+        "en": "The parameterized abstract form, which supplies no name, is not observed.",
+        "ja": "名前を与えないparameter付きの抽象の形は観測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_component_abstract_utils_create_the_overriding_concrete_components",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created kind 1 lanes 3 stage_name stage"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-UTILS-COMPONENT-FIELDS",
+      "clause": "B.2.1.3",
+      "statement": {
+        "en": "`uvm_component_abstract_utils_begin and `uvm_component_abstract_param_utils_begin start a block of field macros that `uvm_component_utils_end closes.",
+        "ja": "`uvm_component_abstract_utils_beginと`uvm_component_abstract_param_utils_beginは、`uvm_component_utils_endで閉じるfield macroのblockを始める。"
+      },
+      "conditions": {
+        "en": "Compare two overriding components through handles of the virtual class, with equal and with different fields.",
+        "ja": "overrideした2つのcomponentを、virtual classのhandleを通して、fieldが等しい場合と異なる場合にcompareする。"
+      },
+      "expected": {
+        "en": "The equal components compare as 1 and the changed ones as 0.",
+        "ja": "等しいcomponentのcompareは1、変えた後は0になる。"
+      },
+      "limitations": {
+        "en": "Only an integral field with UVM_DEFAULT is exercised.",
+        "ja": "UVM_DEFAULTの整数fieldだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_component_abstract_utils_create_the_overriding_concrete_components",
+          "role": "direct",
+          "expected_observations": [
+            "UT: gauge equal 1 changed 0 meter equal 1 changed 0"
+          ]
+        }
+      ]
     }
   ]
 }

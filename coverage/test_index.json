@@ -11053,6 +11053,46 @@
     "u15/test_pkg_default_sequence_from_another_package_honors_an_instance_override_120": {
       "primary_clause": "15.3.5",
       "inputs_sha256": "bbdcdedd01816dfde1f0fd009cb6b5f3b74c8d3559fdc6866dc5571f78dd79bc"
+    },
+    "u06/test_report_handler_direct_verbosity_settings_follow_pair_then_id_then_maximum": {
+      "primary_clause": "6.4.3.3",
+      "inputs_sha256": "1bf86da73eac587caf98e8a8df95f3553ce043a8a1082f437c5aebbbb414c030"
+    },
+    "u06/test_report_handler_direct_action_settings_follow_pair_then_id_then_severity": {
+      "primary_clause": "6.4.4.2",
+      "inputs_sha256": "e1aecc6ce1dfda0817b7956aafeed1cacbde899f7c8683d6a9a20369eee5ad1c"
+    },
+    "u06/test_report_handler_direct_file_settings_follow_pair_id_severity_then_default": {
+      "primary_clause": "6.4.5.2",
+      "inputs_sha256": "d2542cac535357b568a043b11805f2b3c5ff59c45217f317b3ea1535854b4426"
+    },
+    "u06/test_report_handler_direct_severity_overrides_prefer_the_id_specific_setting": {
+      "primary_clause": "6.4.6",
+      "inputs_sha256": "2656144b5d1ab1b458b6851a89a394e1bc09a26c2721a64fb13e1dee0c768ee8"
+    },
+    "u08/test_factory_inst_override_by_name_replaces_the_named_type_at_matching_paths": {
+      "primary_clause": "8.3.1.4.1",
+      "inputs_sha256": "d5df6d64765ac588bbcf3a2bee2211c3cee780f9a97c3520882830a78955bd7d"
+    },
+    "u18/test_map_direct_configure_sets_parent_base_address_bus_width_endianness_and_units": {
+      "primary_clause": "18.2.3.2",
+      "inputs_sha256": "f1bd25cbd4f98281b3e8cefa4ae965a746e1bbbfb14992dba6269e88266fdc42"
+    },
+    "uB/test_object_param_utils_register_each_specialization_with_its_own_proxy": {
+      "primary_clause": "B.2.1.2",
+      "inputs_sha256": "1d8da788e18da15765ce8f222530509f599d8c2181c5721be26dbefa6934295b"
+    },
+    "uB/test_object_abstract_utils_create_the_overriding_concrete_types_with_fields": {
+      "primary_clause": "B.2.1.2",
+      "inputs_sha256": "c8016554533760a8c09e0858db54a5d176f4ef9151670958556518ec6d33e1ae"
+    },
+    "uB/test_component_utils_begin_and_param_utils_register_components_with_fields": {
+      "primary_clause": "B.2.1.3",
+      "inputs_sha256": "009379f645dfe97af3e8bfbc9ab1073d861d208e0f44e7050919001a2d2ffdd0"
+    },
+    "uB/test_component_abstract_utils_create_the_overriding_concrete_components": {
+      "primary_clause": "B.2.1.3",
+      "inputs_sha256": "27c9e6b5cb7b063fa958424a1bfc8a6c758c6d3e62e7b29e469416d7a7cf7318"
     }
   }
 }

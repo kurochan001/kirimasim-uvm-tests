@@ -13,7 +13,7 @@ The bring-up stages order the parts of UVM that a simulator meets while it learn
 
 ## Why stages
 
-Of the 1081 current kirimasim records, 1072 report `uvm_object_wrapper` as unsupported and the other nine meet a missing library API first; 1682 inputs have no current record ([current results](results.md#current-snapshot)). Every measured test stops at the same place, so the records do not show how far the simulator has come. With a stage for each test and a short set for each stage, a run of the short sets shows the first stage that does not pass, and the features table below points to the language tests to look at next.
+Of the 1081 current kirimasim records, 1072 report `uvm_object_wrapper` as unsupported and the other nine meet a missing library API first; 1692 inputs have no current record ([current results](results.md#current-snapshot)). Every measured test stops at the same place, so the records do not show how far the simulator has come. With a stage for each test and a short set for each stage, a run of the short sets shows the first stage that does not pass, and the features table below points to the language tests to look at next.
 
 The stages are not the M1 to M4 milestones, which group tests by the functional subject that development covers ([milestone grouping](glossary.md#scope-and-coverage)). A stage changes no expectation and adds no metadata field: the record is a separate file, so no input fingerprint changes.
 
@@ -26,13 +26,13 @@ Each of the stages 2 to 6 lists markers, regular expressions that find a use of 
 | Stage | Part of UVM | Markers (examples) | Tests | Recorded with Verilator 5.052 | Short set |
 | --- | --- | --- | --- | --- | --- |
 | 0 | uvm_pkg only | None; set by an override | 1 | 1 | 1 |
-| 1 | minimal run_test | None; the default stage | 1030 | 871 | 5 |
-| 2 | factory | `::type_id`, `uvm_factory`, `uvm_object_wrapper`, overrides, `create_*_by_name`, `get_type()` | 95 | 85 | 5 |
+| 1 | minimal run_test | None; the default stage | 1034 | 875 | 5 |
+| 2 | factory | `::type_id`, `uvm_factory`, `uvm_object_wrapper`, overrides, `create_*_by_name`, `get_type()` | 100 | 90 | 5 |
 | 3 | config_db | `uvm_config_db`, `uvm_resource*`, `apply_config_settings` | 111 | 91 | 5 |
 | 4 | sequence | `uvm_sequence`, `uvm_sequencer`, `uvm_driver`, `start_item`, the sequence macros such as `` `uvm_do `` | 326 | 268 | 5 |
 | 5 | TLM | ports, exports and imps, `uvm_analysis_*`, `uvm_tlm_*`, `` `uvm_*_imp_decl ``, `uvm_subscriber` | 250 | 224 | 5 |
-| 6 | register layer | `uvm_reg*`, `uvm_mem*`, `uvm_vreg*`, `uvm_hdl_*`, the register-layer enumerations | 950 | 753 | 5 |
-| Total | | | 2763 | 2293 | 31 |
+| 6 | register layer | `uvm_reg*`, `uvm_mem*`, `uvm_vreg*`, `uvm_hdl_*`, the register-layer enumerations | 951 | 754 | 5 |
+| Total | | | 2773 | 2303 | 31 |
 
 A few lookalikes are left out on purpose: a sequence item alone (`uvm_sequence_item`) does not place a test at stage 4, typedefs such as `uvm_reg_data_t` do not place it at stage 6, and `` `uvm_do_callbacks `` is a callback macro, not a sequence macro. The unit tests of the tool check these cases on short snippets.
 
@@ -71,13 +71,13 @@ The 1081 current kirimasim records ([retained guest records](results.md#evidence
 | Stage | Tests | `unsupported` | `fail` | Unmeasured |
 | --- | --- | --- | --- | --- |
 | 0 | 1 | 0 | 0 | 1 |
-| 1 | 1030 | 320 | 0 | 710 |
-| 2 | 95 | 53 | 0 | 42 |
+| 1 | 1034 | 320 | 0 | 714 |
+| 2 | 100 | 53 | 0 | 47 |
 | 3 | 111 | 17 | 0 | 94 |
 | 4 | 326 | 197 | 6 | 123 |
 | 5 | 250 | 170 | 1 | 79 |
-| 6 | 950 | 315 | 2 | 633 |
-| Total | 2763 | 1072 | 9 | 1682 |
+| 6 | 951 | 315 | 2 | 634 |
+| Total | 2773 | 1072 | 9 | 1692 |
 
 The most common reason is the same in every stage: `uvm_object_wrapper` is not implemented yet. The nine `fail` records meet a missing library API first: six sequence-library methods (stage 4), one TLM time method (stage 5) and two HDL path slice methods (stage 6). Of the 31 short-set tests, 23 have a current record, all `unsupported`; the stage-0 test is new and unmeasured.
 

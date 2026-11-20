@@ -6983,3 +6983,21 @@ The user approved the review's proposal. [`tools/slang_elaborate.py`](../tools/s
 ## 131st expansion: API census (third external review, item 3, the tool)
 
 [`tools/api_census.py`](../tools/api_census.py) reads the 1764 clause marks of the pinned library and counts the tests that use each marked declaration, resolving calls and overrides with slang; [`coverage/api_census.json`](../coverage/api_census.json) lists the declarations that no test uses, and the `slang` job of Check compares it with the tests. Measured at this commit: 184 of 185 classes, 1180 of 1225 functions, 170 of 185 tasks, 119 of 139 macros and all 22 typedefs are used (a declaration marked more than once is one row, 1734 rows in all). 28 declarations are unused: the 14 macros of B.2.1.2 and B.2.1.3 and the 13 methods that the review names (12 of uvm_report_handler and `uvm_factory::set_inst_override_by_name`), and `UVM_PACKER_MAX_BYTES`. 31 are named only, among them `uvm_reg_map::configure`, which no test calls on a map. The review counted 32 functions and 15 tasks as named only with its own resolution; the difference was not traced. The marks are the library's claim and have not yet been compared with the standard; the tests for the gaps follow in the next expansion. The tool has 204 unit tests. [The requirements guide](requirements.md#api-census) describes the census.
+
+## 132nd expansion: tests for the unused declarations (third external review, item 3)
+
+The 131st expansion listed 28 marked declarations whose name occurs in no test. Each was first confirmed in the standard: 6.4.3.1, 6.4.3.3, 6.4.4.2, 6.4.5.1, 6.4.5.2 and 6.4.6 declare the twelve methods of uvm_report_handler, 8.3.1.4.1 declares `set_inst_override_by_name`, and B.2.1.2 and B.2.1.3 name the fourteen macros. Ten tests then use them, with expectations written from those clauses before any run:
+
+| Tests | Subject | Clauses |
+| --- | --- | --- |
+| 4 in u06 | Verbosity, action, file and severity-override settings made directly on the handler that `get_report_handler` returns, and their precedence | 6.4.3.1, 6.4.3.3, 6.4.4.2, 6.4.5.1, 6.4.5.2, 6.4.6 |
+| 1 in u08 | `uvm_factory::set_inst_override_by_name` with an exact path, a wildcard path and an arbitrary original string | 8.3.1.4.1 |
+| 2 in uB | `uvm_object_param_utils`, the abstract forms and their begin forms: one proxy for each specialization, overrides, and field operations | B.2.1.2, 8.2.5 |
+| 2 in uB | `uvm_component_utils_begin` and `_end`, `uvm_component_param_utils`, the abstract forms and their begin forms | B.2.1.3, 8.2.5 |
+| 1 in u18 | `configure` called on a map that the test constructs | 18.2.3.2 |
+
+The tests add eight parameterized classes that extend uvm_object or uvm_component directly, which the review found missing. Twenty duties were added to the ledger (4171 in all), each with these tests as its direct tests; B.2.1.2, B.2.1.3 and the 6.4 clauses now have primary tests. The type name and the name-based lookup of a parameterized class are not observed, because B.2.1.2 says only that no type name is supplied at registration.
+
+All ten tests match with Verilator 5.052 at seeds 1/73, before and after tagging, and elaborate with slang without an error. Two were corrected before tagging, and the earlier measurements are kept in `out/`. The map test first read `get_n_bytes()` with its default, the effective width toward the system level; the pinned map returns 0 for it until the block is locked, which is apart from `configure` and close to the recorded library difference of `u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width`, so the test now reads the map's own width with `UVM_NO_HIER`; the expected numbers did not change. The abstract object test named a class `tagged`, a SystemVerilog keyword, which Verilator rejected; the class is now `labeled`, and the label of one expected line changed with it.
+
+The suite has 2773 tests (2674 simulation, 99 elaboration) and 2303 tagged checks. The census now lists 1 unused declaration, `UVM_PACKER_MAX_BYTES`, and 29 named only; `uvm_reg_map::configure` and `uvm_report_handler::get_action` left the second list. The new tests count as M1 (nine) and M3 (the map test). No guest measurement was made, so 1692 inputs are unmeasured by the guests.

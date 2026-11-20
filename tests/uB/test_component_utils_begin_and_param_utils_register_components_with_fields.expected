@@ -1,0 +1,3 @@
+UT: knob_comp name knob_comp equal 1 changed 0
+UT: widths 8 16 proxies_differ 1 own_proxy 1 1
+UT: sized_comp equal 1 changed 0

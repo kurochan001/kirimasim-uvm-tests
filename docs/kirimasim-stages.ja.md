@@ -13,7 +13,7 @@
 
 ## 段階を設ける理由
 
-kirimasimの現在の記録1081件のうち1072件は`uvm_object_wrapper`をunsupportedと報告し、残る9件は先にlibraryのAPIの欠落に当たります。1682入力には現在の記録がありません（[現在の結果](results.ja.md#現在のスナップショット)）。測ったテストがすべて同じ所で止まるため、記録からはsimulatorがどこまで進んだかが分かりません。テストごとの段階と段階ごとの短いセットがあれば、短いセットを実行して最初に通らない段階が分かり、下の機能の表から次に見るべき言語のテストをたどれます。
+kirimasimの現在の記録1081件のうち1072件は`uvm_object_wrapper`をunsupportedと報告し、残る9件は先にlibraryのAPIの欠落に当たります。1692入力には現在の記録がありません（[現在の結果](results.ja.md#現在のスナップショット)）。測ったテストがすべて同じ所で止まるため、記録からはsimulatorがどこまで進んだかが分かりません。テストごとの段階と段階ごとの短いセットがあれば、短いセットを実行して最初に通らない段階が分かり、下の機能の表から次に見るべき言語のテストをたどれます。
 
 段階は、開発が扱う機能の主題でテストをまとめるmilestone M1〜M4（[milestoneのまとめ方](glossary.ja.md#範囲とカバレッジ)）とは別のものです。段階は期待値を変えず、metadataの項目も足しません。記録は別のfileなので、入力の指紋は変わりません。
 
@@ -26,13 +26,13 @@ kirimasimの現在の記録1081件のうち1072件は`uvm_object_wrapper`をunsu
 | 段階 | UVMの部分 | marker（例） | テスト | Verilator 5.052で記録済み | 短いセット |
 | --- | --- | --- | --- | --- | --- |
 | 0 | uvm_pkgだけ | なし。overrideで決める | 1 | 1 | 1 |
-| 1 | 最小のrun_test | なし。既定の段階 | 1030 | 871 | 5 |
-| 2 | factory | `::type_id`、`uvm_factory`、`uvm_object_wrapper`、override、`create_*_by_name`、`get_type()` | 95 | 85 | 5 |
+| 1 | 最小のrun_test | なし。既定の段階 | 1034 | 875 | 5 |
+| 2 | factory | `::type_id`、`uvm_factory`、`uvm_object_wrapper`、override、`create_*_by_name`、`get_type()` | 100 | 90 | 5 |
 | 3 | config_db | `uvm_config_db`、`uvm_resource*`、`apply_config_settings` | 111 | 91 | 5 |
 | 4 | sequence | `uvm_sequence`、`uvm_sequencer`、`uvm_driver`、`start_item`、`` `uvm_do ``などのsequenceのmacro | 326 | 268 | 5 |
 | 5 | TLM | port・export・imp、`uvm_analysis_*`、`uvm_tlm_*`、`` `uvm_*_imp_decl ``、`uvm_subscriber` | 250 | 224 | 5 |
-| 6 | register層 | `uvm_reg*`、`uvm_mem*`、`uvm_vreg*`、`uvm_hdl_*`、register層のenum | 950 | 753 | 5 |
-| 計 | | | 2763 | 2293 | 31 |
+| 6 | register層 | `uvm_reg*`、`uvm_mem*`、`uvm_vreg*`、`uvm_hdl_*`、register層のenum | 951 | 754 | 5 |
+| 計 | | | 2773 | 2303 | 31 |
 
 紛らわしいものは意図して除いています。sequence item（`uvm_sequence_item`）だけではテストは段階4にならず、`uvm_reg_data_t`などのtypedefだけでは段階6にならず、`` `uvm_do_callbacks ``はcallbackのmacroでsequenceのmacroではありません。toolの単体テストが、短いcodeの断片でこれらを確かめます。
 
@@ -71,13 +71,13 @@ kirimasimの現在の記録1081件（[保持するguestの記録](results.ja.md#
 | 段階 | テスト | `unsupported` | `fail` | 未測定 |
 | --- | --- | --- | --- | --- |
 | 0 | 1 | 0 | 0 | 1 |
-| 1 | 1030 | 320 | 0 | 710 |
-| 2 | 95 | 53 | 0 | 42 |
+| 1 | 1034 | 320 | 0 | 714 |
+| 2 | 100 | 53 | 0 | 47 |
 | 3 | 111 | 17 | 0 | 94 |
 | 4 | 326 | 197 | 6 | 123 |
 | 5 | 250 | 170 | 1 | 79 |
-| 6 | 950 | 315 | 2 | 633 |
-| 計 | 2763 | 1072 | 9 | 1682 |
+| 6 | 951 | 315 | 2 | 634 |
+| 計 | 2773 | 1072 | 9 | 1692 |
 
 最も多い理由はどの段階でも同じで、`uvm_object_wrapper`がまだ実装されていないことです。`fail`の9件は先にlibraryのAPIの欠落に当たります。sequence libraryのmethodが6件（段階4）、TLMの時刻のmethodが1件（段階5）、HDL pathのsliceのmethodが2件（段階6）です。短いセットの31件のうち23件に現在の記録があり、すべて`unsupported`です。段階0のテストは新しく、未測定です。
 

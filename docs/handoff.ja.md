@@ -20,11 +20,11 @@ M1〜M4の薄い領域を引き続き補強します。M4は進行中で、未�
 
 | 領域 | 現在の状態 |
 | --- | --- |
-| M1 | 1188件（runtime 1107・elaboration 81）：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
+| M1 | 1197件（runtime 1116・elaboration 81）：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
 | M2 | 633件（runtime 626・elaboration 7）：sequence、sequencer、callback、TLM |
 | M3 | 942件（runtime 931・elaboration 11）：register／memory layer、付録E |
-| 全体 | 章・付録22 directoryに2763件（simulation 2664・elaboration 99）。照合はすべてAIで、人による照合は未記録 |
-| M4 | AI要求案4151件。4151要求を2707テストへ直接対応。control専用56テスト。未対応テスト0件 |
+| 全体 | 章・付録22 directoryに2773件（simulation 2674・elaboration 99）。照合はすべてAIで、人による照合は未記録 |
+| M4 | AI要求案4171件。4171要求を2717テストへ直接対応。control専用56テスト。未対応テスト0件 |
 | 規範的棚卸し | 2,507識別子のうち2062件を一部分解、445件を明示的に分類。0件は未評価。直接テストのない要求案0件 |
 
 `scope_status`は提案、`normative_inventory_complete`はfalse、
@@ -91,9 +91,9 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-この記録は、tool単体テスト140件、全2763件（simulation 2664件・elaboration 99件）のmetadata、台帳／索引、原因の記録、library整合性、現在の入力とevidenceの照合を
+この記録は、tool単体テスト204件、全2773件（simulation 2674件・elaboration 99件）のmetadata、台帳／索引、原因の記録、library整合性、現在の入力とevidenceの照合を
 通過しています。資料だけの変更では、全シミュレーションを再buildせず、[ドキュメントの更新手順](testing.ja.md#ドキュメントの更新)に従って日英の対応とリンクを確認します。
-全件evidenceはVerilatorだけで、他2系統は未変更1081件の記録、1682入力は未測定です。実行のsmoke確認は次のとおりです。
+全件evidenceはVerilatorだけで、他2系統は未変更1081件の記録、1692入力は未測定です。実行のsmoke確認は次のとおりです。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
@@ -116,12 +116,12 @@ Checkはtool、metadata、台帳、library、原因の記録と、入力が変�
 
 | シミュレータ／library | 記録した結果 |
 | --- | --- |
-| Verilator 5.052／固定UVM | runtime pass 2199件（seed 1／73）・期待compile拒否94件・known 463件 |
+| Verilator 5.052／固定UVM | runtime pass 2209件（seed 1／73）・期待compile拒否94件・known 463件 |
 | Verilator 5.052／独自VPI HDL backend | 別条件の38件：37件が両seed pass、1件はseed 1でfail |
 | Verilator 5.052／command-line VPI・固定regex DPI | 別条件の23件で20件は両seed一致、3件はseed 1の既知差分 |
 | Verilator 5.052／regex DPIとcommand-line DPIで再実行する通常検査系 | 別条件の26件：すべて両seed pass |
-| kirimasim／固定UVM | 未変更1081件で未対応1072件・API欠落fail 9件。1682入力は未測定 |
-| Ghost／同梱UVM | 未変更1081件で各seed pass 206件・fail 875件。1682入力は未測定 |
+| kirimasim／固定UVM | 未変更1081件で未対応1072件・API欠落fail 9件。1692入力は未測定 |
+| Ghost／同梱UVM | 未変更1081件で各seed pass 206件・fail 875件。1692入力は未測定 |
 | Ghost／固定UVM | 現在の実行ファイルsnapshotでは未測定 |
 
 通常条件のknownは463件で、runtime初回差分318、simulation build 140、不正compiler受理5です。
@@ -154,20 +154,20 @@ buildはAPI／型名欠落43、time減算引数既定値1、型既定宣言2、�
 u01の新しい段階0の入力1件は、uvm_pkgをimportし、UVM_LOWをimportとpackage名の両方から名指しするだけで、UVM objectを作らず、run_testも呼びません。最初の凍結のまま、tag付けの前後でseed 1／73が一致し、新しい義務1件で扱います。
 AI義務は4151件で、旧要求4150件と分類445件はすべて同一です。直接対応は2707テスト、control対応は158テスト、controlのみは56テストです。元の通常2755記録と旧既知463入力は全て維持します。新しい入力はM1に数えます。
 
-全体は2763テスト（simulation 2664／elaboration 99）です。通常一致は2293件で、runtime両seed 2199入力とcompiler拒否94件です。
+全体は2773テスト（simulation 2674／elaboration 99）です。通常一致は2303件で、runtime両seed 2209入力とcompiler拒否94件です。
 既知は463入力で、runtime seed 1差分318件、simulation build 140件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて470件です。
-command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1682入力です。
-追加1678件と修正した元入力4件で、simulation 1583／elaboration 99です。
+command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1692入力です。
+追加1688件と修正した元入力4件で、simulation 1593／elaboration 99です。
 
-主引用がある番号は1320で、candidateは0件1167／目標未満764／2件以上551です。
+主引用がある番号は1327で、candidateは0件1160／目標未満769／2件以上553です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。
 
-全2763件（simulation 2664／elaboration 99）、M1 1188（1107／81）、M2 633（626／7）、M3 942（931／11）です。
-通常passは2293（runtime 2199／拒否94）、knownは463（runtime 318／build 140／不正受理5）です。
-guestは互換1081記録を保持し、未測定1682入力は追加1678件と修正した元入力4件です。
+全2773件（simulation 2674／elaboration 99）、M1 1197（1116／81）、M2 633（626／7）、M3 943（932／11）です。
+通常passは2303（runtime 2209／拒否94）、knownは463（runtime 318／build 140／不正受理5）です。
+guestは互換1081記録を保持し、未測定1692入力は追加1688件と修正した元入力4件です。
 
 以前の単一Checkは、2026-10-31より後に全選択を完了していません。新しいpushで置き換えられなかった唯一の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)では、8 shardすべてが150分の上限に達しました。
-現在のCheckは入力が変わったタグ付き検査とcanaryを実行し、[Regression](../.github/workflows/regression.yml)は全タグ付き2293検査を重複しない20 shardで、command-line 20検査、regex-DPI変種26件と合わせて実行します。上限は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
+現在のCheckは入力が変わったタグ付き検査とcanaryを実行し、[Regression](../.github/workflows/regression.yml)は全タグ付き2303検査を重複しない20 shardで、command-line 20検査、regex-DPI変種26件と合わせて実行します。上限は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。Checkがcanaryだけと報告した変更の後はRegressionを手動実行し、現在のcommitの結果を確認します。local検証でhosted workflowの成功は立証しません。
 最初の起動でhostedのimageに制約solverがないことが分かり、取り消したrunと修正は[CIの節](results.ja.md#継続的インテグレーション)に記録しています。修正後のdb06513でのRegression run 42372122368は、タグ付き検査とcommand-line検査がすべて一致しました。
 
