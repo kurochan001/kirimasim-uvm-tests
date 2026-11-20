@@ -4287,3 +4287,7 @@ kirimasimの目標は、測れる2383、固定版libraryのために届かない
 10件はすべて、tag付けの前後に、Verilator 5.052のseed 1／73で一致し、slangでもerrorなしでelaborateできます。2件はtag付けの前に直し、それ以前の測定は`out/`に残しています。mapのテストは、最初は`get_n_bytes()`を既定のまま（system levelに向けた実効幅）で読んでいました。固定版のmapは、blockをlockするまでこれに0を返します。これは`configure`とは別の事柄で、記録済みのlibraryの差分（`u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width`）に近いので、map自身の幅を`UVM_NO_HIER`で読むようにしました。期待値の数字は変えていません。抽象objectのテストは、classに`tagged`という名前を付けていました。これはSystemVerilogのkeywordで、Verilatorが拒否したため、`labeled`に変え、期待値の1行のlabelも合わせて変えました。
 
 suiteは2773件（simulation 2674、elaboration 99）で、tag付きの検査は2303件です。集計の未使用の宣言は`UVM_PACKER_MAX_BYTES`の1個、名前だけのものは29個になりました。`uvm_reg_map::configure`と`uvm_report_handler::get_action`が、2つ目の一覧から外れました。新しいテストは、9件をM1、mapの1件をM3に数えます。guestの測定は行っていないので、guestで未測定の入力は1692件です。
+
+## 133回目の拡充：資料の小さな修正（3回目の外部レビュー、項目6）
+
+[詳細ハンドオフ](handoff.ja.md)と[実行結果](results.ja.md)に140件、173件と残っていたtoolの単体テストの件数を、現在の204件にしました。`.gitignore`のcommentは、存在しないresults branchに触れるのをやめました。結果は自動では公開しません。`tools/lint_metadata.py`と`tools/code_identity.py`のdocstringは、移動済みのREADMEの節ではなく、[テストガイド](testing.ja.md#テストの形式)の節を指すようにしました。runnerの指紋に入る3 fileに残る同じ古い参照は、129回目に記録したとおり、そのままです。ハンドオフと実行結果にあった読みやすさの段落は、同じrunのlinkを11回と4回くり返していたので、9行の表にしました。履歴には元の段落を残しています。テスト、記録、toolの動作は変えていません。

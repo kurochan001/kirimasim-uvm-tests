@@ -7,8 +7,8 @@ Usage:
     python3 tools/code_identity.py refresh --base REV
     python3 tools/code_identity.py carry --base REV --record FILE --output FILE
 
-Comments and line breaks make the tests easier to read (README.md, external
-review item 8), but they change the input fingerprint of every test that
+Comments and line breaks make the tests easier to read (docs/testing.md,
+"Readability edits"), but they change the input fingerprint of every test that
 collects the edited file, so a stored record no longer applies to it. These
 commands show that such an edit changes nothing that a simulator reads, and
 only then move the fingerprints forward.

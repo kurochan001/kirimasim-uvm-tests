@@ -2,7 +2,7 @@
 third_party/uvm/
 __pycache__/
 *.pyc
-# Local results; the published ones go to the results branch.
+# Local results and evidence; results are not published automatically (README.md).
 out/
 # Local standards supplied for review; their contents are not redistributed.
 /IEEE_Std_1800.2-2020.pdf

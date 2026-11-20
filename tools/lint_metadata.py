@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Checks the metadata and the form of every test (README.md, "Test format").
+"""Checks the metadata and the form of every test (docs/testing.md, "Test format").
 
 Usage:
     python3 tools/lint_metadata.py [TEST ...]
