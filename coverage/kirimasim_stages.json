@@ -555,6 +555,7 @@
     "u09/test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook": 1,
     "u09/test_predefined_phase_getters_keep_names_typed_singletons_and_implementation_kinds": 1,
     "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return": 1,
+    "u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137": 6,
     "u09/test_run_phase_timeout_reports_fatal_at_the_locked_absolute_limit": 1,
     "u09/test_runtime_phases_keep_their_default_order_do_not_overlap_and_join_before_extract": 1,
     "u09/test_task_phase_execute_forks_the_original_proxy_and_returns_before_its_delayed_completion": 1,

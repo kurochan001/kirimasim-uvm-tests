@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4179 AI-drafted requirements, all with direct links to 2721 tests.
-Fifty-six tests have only control links. All 2777 tests have a requirement link.
+contains 4182 AI-drafted requirements, all with direct links to 2722 tests.
+Fifty-six tests have only control links. All 2778 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4179 draft entries span several areas,
+a heading is not an obligation. The 4182 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -81,8 +81,8 @@ references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,160 with zero primary-focus tests, 769 with one,
-and 553 with at least two. It measures test placement only. It does not
+census currently shows 1,160 with zero primary-focus tests, 768 with one,
+and 554 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2777-test
+known difference. It is not a pass or a conformance claim. The current 2778-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2777 reviewed requirement mappings.
+  index is an inventory, not 2778 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -275,8 +275,8 @@ The table retains every catalog root, including context and deferred roots; cont
 | 6 | 175 | 72 | 0 | 19 | 0 |
 | 7 | 91 | 35 | 0 | 20 | 0 |
 | 8 | 92 | 70 | 0 | 12 | 0 |
-| 9 | 141 | 63 | 0 | 22 | 0 |
-| 10 | 169 | 144 | 0 | 29 | 0 |
+| 9 | 143 | 64 | 0 | 22 | 0 |
+| 10 | 170 | 144 | 0 | 29 | 0 |
 | 11 | 38 | 22 | 0 | 4 | 0 |
 | 12 | 331 | 207 | 0 | 45 | 0 |
 | 13 | 154 | 59 | 0 | 21 | 0 |
@@ -298,7 +298,7 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4179 reviews are `ai` and
+Scope is proposed, all 4182 reviews are `ai` and
 the denominator remains unapproved.
 
 The 124th expansion implements the external review's seventh item, the
@@ -321,18 +321,18 @@ objects and 445 assessments unchanged; 2707 tests have direct links, 158 have
 controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
-The suite has 2777 tests (2678 simulation/99 elaboration). Ordinary results
-are 2306 matches: 2212 runtime inputs at both seeds and 94 compiler rejections.
+The suite has 2778 tests (2679 simulation/99 elaboration). Ordinary results
+are 2307 matches: 2213 runtime inputs at both seeds and 94 compiler rejections.
 Known inputs total 464: 319 runtime seed 1 differences, 140 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 471
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
 is added to the ordinary totals. No guest run/filter is added: 1081
-compatible records remain byte-identical and 1696 inputs are unmeasured (1692
-additions/four revised originals; 1597 simulation/99 elaboration).
+compatible records remain byte-identical and 1697 inputs are unmeasured (1693
+additions/four revised originals; 1598 simulation/99 elaboration).
 
-Primary-focused identifiers are 1327; candidates are 1160 zero/769 below
-target/553 at least two. All 2062 partial identifiers, actual remaining
+Primary-focused identifiers are 1327; candidates are 1160 zero/768 below
+target/554 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
 explains why matching conditions do not supply completion.
@@ -768,4 +768,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4179 AI drafts and their direct links do not satisfy that gate.
+The current 4182 AI drafts and their direct links do not satisfy that gate.

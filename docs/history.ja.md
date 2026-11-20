@@ -4324,3 +4324,9 @@ testbench形のテストをさらに2件足しました。どちらも期待値�
 1件目は独自のdesign `tests/uC/helpers136_rtl/px_rtl136.sv`を持ちます。幅のparameterを持つinterfaceと、registerが1つのmoduleです。テストを書く前に、UVMを使わない再現例で、Verilator 5.052とslangが、clocking blockを持つparameter付きinterfaceのvirtual interfaceを受け付けることを確かめました。義務3件がこの2件に対応します。どちらもslangでelaborateできます。
 
 suiteは2777件（simulation 2678）、義務4179件、tag付きの検査2306件です。2件はM1とM2に数えます。ユーザーが残した候補のうち、reset、phaseのjump、clockで数えるdrain timeを扱うphaseのテストには着手していません。
+
+## 137回目の拡充：resetとjumpとdrain timeを伴うrun-time phase（3回目の外部レビュー、項目4）
+
+[`u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137`](../tests/u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137.sv)は、ユーザーが残したtestbench形の候補の最後のものです。116回目のregister fileで、reset phaseがRTLのresetを2 clockの間保ち、configureとmainの各phaseがregisterを1つずつ書きます。最初のmain phaseは、objectionを下ろした後でresetのnodeへjumpします。shutdown phaseはregisterを読み、そのobjectionにclock 3周期のdrain timeを設定します。期待値は、実行の前に、9.3.1.9.1、9.8.2.2、10.5.1.3.7とdesignの規則から書きました。reset、configure、mainは2回、shutdownは1回実行されます。registerは2回目の値を保持し、designが数えた書込みは4ではなく2です。phaseは、objectionを下ろしてから3 clock後に終わります。Verilator 5.052のseed 1／73で、tag付けの前後とも一致し、slangでもelaborateできます。義務3件がこのテストに対応します。jumpを要求する時点で実行中のsequenceはないので、sequenceの途中でのjumpについては何も述べていません。
+
+suiteは2778件（simulation 2679）、義務4182件、tag付きの検査2307件です。項目4のテストは6件になりました。5件が一致し、reset sequenceの1件はlibraryの既知差分です。

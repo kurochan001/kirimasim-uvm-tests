@@ -162223,6 +162223,108 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RTL-JUMP-RERUNS-RUNTIME-PHASES",
+      "clause": "9.3.1.9.1",
+      "statement": {
+        "en": "A jump to a predecessor phase makes that phase and the phases after it run again.",
+        "ja": "先行するphaseへのjumpで、そのphaseと後続のphaseがもう一度実行される。"
+      },
+      "conditions": {
+        "en": "A test with an RTL register file counts its reset, configure, main and shutdown phase tasks; its first main phase jumps to the reset node after dropping its objection.",
+        "ja": "RTLのregister fileを持つテストが、reset、configure、main、shutdownの各phaseのtaskを数える。最初のmain phaseは、objectionを下ろした後でresetのnodeへjumpする。"
+      },
+      "expected": {
+        "en": "Reset, configure and main run twice, and shutdown once.",
+        "ja": "reset、configure、mainは2回、shutdownは1回実行される。"
+      },
+      "limitations": {
+        "en": "No sequence is in progress when the jump is requested.",
+        "ja": "jumpを要求する時点で、実行中のsequenceはない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phases reset 2 configure 2 main 2 shutdown 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-RESET-PHASE-RESETS-RTL",
+      "clause": "9.8.2.2",
+      "statement": {
+        "en": "The reset phase is where reset is applied, so a design reset in a second reset phase holds only what later phases write.",
+        "ja": "reset phaseはresetを加える所なので、2回目のreset phaseでresetされたdesignは、それ以後のphaseが書いたものだけを保持する。"
+      },
+      "conditions": {
+        "en": "Each reset phase holds the reset of the RTL low for two clocks; configure and main each write one register with a value that depends on their run count; shutdown reads the registers.",
+        "ja": "各reset phaseがRTLのresetを2 clockの間lowに保つ。configureとmainは、実行回数で決まる値をregisterに1つずつ書き、shutdownがregisterを読む。"
+      },
+      "expected": {
+        "en": "The registers hold the values of the second pass, and the design's count of accepted writes is 2.",
+        "ja": "registerは2回目の値を保持し、designが数えた書込みは2である。"
+      },
+      "limitations": {
+        "en": "The reset is driven by the test; the standard names the phase, not how reset is applied.",
+        "ja": "resetはテストが駆動する。規格はphaseを定めるだけで、resetの加え方は定めない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137",
+          "role": "direct",
+          "expected_observations": [
+            "UT: after rerun ctrl 12 data 22 count 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-DRAIN-TIME-IN-CLOCKS",
+      "clause": "10.5.1.3.7",
+      "statement": {
+        "en": "The drain time is the time between the drop of the last remaining objection and the all_dropped callback, so a phase stays open for it.",
+        "ja": "drain timeは、最後に残ったobjectionが下ろされてからall_droppedのcallbackまでの時間であり、その間phaseは開いたままになる。"
+      },
+      "conditions": {
+        "en": "The shutdown phase sets a drain time of three clock periods on its objection for the test and drops the objection; phase_ended records the time.",
+        "ja": "shutdown phaseが、そのobjectionにテストについてclock 3周期のdrain timeを設定してobjectionを下ろし、phase_endedが時刻を記録する。"
+      },
+      "expected": {
+        "en": "The phase ends three clock periods after the drop.",
+        "ja": "phaseは、objectionを下ろしてからclock 3周期後に終わる。"
+      },
+      "limitations": {
+        "en": "One objector with one drain time is exercised.",
+        "ja": "1つのobjectorと1つのdrain timeだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137",
+          "role": "direct",
+          "expected_observations": [
+            "UT: drain clocks 3"
+          ]
+        }
+      ]
     }
   ]
 }

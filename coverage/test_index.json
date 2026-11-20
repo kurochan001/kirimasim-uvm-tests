@@ -11109,6 +11109,10 @@
     "u12/test_rtl_two_clock_buses_are_paired_through_analysis_fifos_by_position_136": {
       "primary_clause": "12.2.8.3",
       "inputs_sha256": "fe56ffbeb30b9d18abbb9501bb4b28e07e20f5c4d60c41ee9be6f60c9da5bf60"
+    },
+    "u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137": {
+      "primary_clause": "9.3.1.9.1",
+      "inputs_sha256": "175a197f04556b8d19dd7ae13ec79a5ab84f08d5e4c2ef2da6cf3282e0195f46"
     }
   }
 }

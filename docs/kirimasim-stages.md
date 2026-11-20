@@ -13,7 +13,7 @@ The bring-up stages order the parts of UVM that a simulator meets while it learn
 
 ## Why stages
 
-Of the 1081 current kirimasim records, 1072 report `uvm_object_wrapper` as unsupported and the other nine meet a missing library API first; 1696 inputs have no current record ([current results](results.md#current-snapshot)). Every measured test stops at the same place, so the records do not show how far the simulator has come. With a stage for each test and a short set for each stage, a run of the short sets shows the first stage that does not pass, and the features table below points to the language tests to look at next.
+Of the 1081 current kirimasim records, 1072 report `uvm_object_wrapper` as unsupported and the other nine meet a missing library API first; 1697 inputs have no current record ([current results](results.md#current-snapshot)). Every measured test stops at the same place, so the records do not show how far the simulator has come. With a stage for each test and a short set for each stage, a run of the short sets shows the first stage that does not pass, and the features table below points to the language tests to look at next.
 
 The stages are not the M1 to M4 milestones, which group tests by the functional subject that development covers ([milestone grouping](glossary.md#scope-and-coverage)). A stage changes no expectation and adds no metadata field: the record is a separate file, so no input fingerprint changes.
 
@@ -31,8 +31,8 @@ Each of the stages 2 to 6 lists markers, regular expressions that find a use of 
 | 3 | config_db | `uvm_config_db`, `uvm_resource*`, `apply_config_settings` | 111 | 91 | 5 |
 | 4 | sequence | `uvm_sequence`, `uvm_sequencer`, `uvm_driver`, `start_item`, the sequence macros such as `` `uvm_do `` | 326 | 268 | 5 |
 | 5 | TLM | ports, exports and imps, `uvm_analysis_*`, `uvm_tlm_*`, `` `uvm_*_imp_decl ``, `uvm_subscriber` | 251 | 225 | 5 |
-| 6 | register layer | `uvm_reg*`, `uvm_mem*`, `uvm_vreg*`, `uvm_hdl_*`, the register-layer enumerations | 954 | 756 | 5 |
-| Total | | | 2777 | 2306 | 31 |
+| 6 | register layer | `uvm_reg*`, `uvm_mem*`, `uvm_vreg*`, `uvm_hdl_*`, the register-layer enumerations | 955 | 757 | 5 |
+| Total | | | 2778 | 2307 | 31 |
 
 A few lookalikes are left out on purpose: a sequence item alone (`uvm_sequence_item`) does not place a test at stage 4, typedefs such as `uvm_reg_data_t` do not place it at stage 6, and `` `uvm_do_callbacks `` is a callback macro, not a sequence macro. The unit tests of the tool check these cases on short snippets.
 
@@ -76,8 +76,8 @@ The 1081 current kirimasim records ([retained guest records](results.md#evidence
 | 3 | 111 | 17 | 0 | 94 |
 | 4 | 326 | 197 | 6 | 123 |
 | 5 | 251 | 170 | 1 | 80 |
-| 6 | 954 | 315 | 2 | 637 |
-| Total | 2777 | 1072 | 9 | 1696 |
+| 6 | 955 | 315 | 2 | 638 |
+| Total | 2778 | 1072 | 9 | 1697 |
 
 The most common reason is the same in every stage: `uvm_object_wrapper` is not implemented yet. The nine `fail` records meet a missing library API first: six sequence-library methods (stage 4), one TLM time method (stage 5) and two HDL path slice methods (stage 6). Of the 31 short-set tests, 23 have a current record, all `unsupported`; the stage-0 test is new and unmeasured.
 
