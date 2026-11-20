@@ -18,6 +18,8 @@ Reports, for each test:
                  begin with "UT: "
     illegal      an illegal design has no :expected_stderr_regex:, or has an
                  expected output
+    exit         a simulation test has no :expected_exit:, so a reader cannot
+                 tell which exit code the runners require
     width        a comment line is longer than 80 columns, or code than 100
     verilator    a comment line starts with the word Verilator, which Verilator
                  reads as a directive
@@ -99,6 +101,8 @@ def problems(test: Path, version: str) -> list[str]:
         if any(n.startswith("expected_stdout") for n in fields):
             found.append("illegal: an illegal design has no expected output")
     else:
+        if fields.get("type") == "simulation" and "expected_exit" not in fields:
+            found.append("exit: no :expected_exit: (0 unless the test ends with an error code)")
         want = suite_results.expected_output(test)
         if want is None:
             found.append("expected: no :expected_stdout:")

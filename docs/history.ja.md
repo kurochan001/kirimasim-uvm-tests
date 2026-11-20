@@ -4244,3 +4244,20 @@ kirimasimの目標は、測れる2383、固定版libraryのために届かない
 確認は、tag付きruntime 2199件の`UT:`一致とexit code／stderr条件（0件の変化）、tag付きcompile拒否94件の一致（94/94）、修正した`u12`のseed 1／73、派生3 runnerのsmokeです。派生条件の全リストは次のRegressionで確認します。tag付き2293件のpassと463件のknownは変わらず、4値の7件には記録がありません。kirimasimの1081記録はrunnerの指紋が変わるため現在の証拠ではなく、Ghostの1081記録は`run_ghost.py`、`suite_results.py`、`uvm_common.py`を変えていないため有効なままです。
 
 検出の限界は、既定report serverの行頭の形に頼るため、report serverを差し替えるテストやcatcherが抑止した行を拾わないことです。
+
+## 129回目の拡充：kirimasimのrunnerと終了code（3回目の外部レビュー、項目1）
+
+2026-11-20にユーザーが3回目のレビューを示しました。対象は0da235aです。変更の前に、同じslang 12.1（`pyslang`）で件数を測り直しました。既定のoptionでは、simulationテスト2664件のうち248件にerrorがあり、うち173件が時間単位のerrorです（Verilatorのoracle付き122件）。`--timescale=1ns/1ps`を渡すと90件が残り、oracle付きが14件、oracleなしが76件で、14件は126回目に挙げたものと同じです。不正design 99件のうち98件は、error行がpatternに一致し、slangが受理する1件は、原因がlibraryと記録済みのものです。レビューが未使用とした14個のmacroと13個のmethodは、どのテストのcodeにも出てきません。レビューが時間単位のerrorを174件と数えたのは、不正designの1件を含めたためです。
+
+レビューは、runnerの変更を128回目と一緒に行うよう求めていましたが、128回目はレビューがこのsessionに届く前に公開されていました。そのためユーザーは、Verilatorの指紋と、Ghostのrunnerと共有するfileを動かさない範囲だけを変えることを選びました。
+
+| 変更 | 根拠 |
+| --- | --- |
+| `tools/run_kirimasim.py`が`--timescale=1ns/1ps`を渡す | kirimasimは無改造のslangを使います。slangは1800-2023 3.14.2.3に従い、時間単位を宣言するテストと、宣言しないlibraryのpackageの混在を拒否します。optionはkirimasimのcommand-lineの仕様にあるもので、値はVerilatorのrunnerが渡すものと同じです。 |
+| kirimasimのrunnerが、`:expected_exit:`のないテストに終了code 0を求める | `tools/run_verilator.py`はすでにそうしていました。kirimasimのrunnerは終了codeを見ていませんでした。 |
+| kirimasimのrunnerが、`:uvm_dpi: yes`のテストを実行せずにunsupportedと報告する | このrunnerはDPIのbackendを渡さないので、その61件を実行しても、kirimasim自身が何を扱えるかは分かりません。 |
+| すべてのsimulationテストが`:expected_exit:`を書く | `u09/test_common_phases_run_in_order`の1件だけ書いていませんでした。0と書き、lintがこの項目を必須にしました。変更後も、Verilator 5.052のseed 1／73で一致します。 |
+
+`tools/run_verilator.py`、`tools/suite_results.py`、`tools/uvm_common.py`のdocstringは、[テストガイド](testing.ja.md#テストの形式)に移ったREADMEの節（"Test format"、"Metadata"、"What is observed"）を今も指しており、`suite_results.py`はこのrepositoryにないnightly reportに触れています。直すとVerilatorの指紋がもう一度動き、Ghostの記録も終わるので、次にそれらの指紋を動かす変更まで待ちます。kirimasimの記録は、すでに現在のrunnerの証拠ではありませんでした。toolの単体テストは193件です。
+
+ユーザーは、レビューの残りも決めました。slangでのelaborationをCheckに入れることと、規格のAPIの集計と未使用の宣言へのテストは、どちらもレビューの案のとおりに行います。testbenchの形をした統合テストは、UVMの条項に結び付く候補（2つのagentとvirtual sequence、parameter付きのagent、phaseとreset、2つのclock、付録EのsequenceをRTLのregister fileに流すもの）をここで扱い、covergroup、concurrent assertion、modportは範囲外とします。人の照合用の一覧、規格適合とは別の証拠としてのVerilatorの全出力の比較、4値の7件についての注記も行います。M1〜M4の薄い領域の補強は、最初の3項目が終わるまで止めます。

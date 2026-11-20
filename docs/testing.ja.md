@@ -343,7 +343,7 @@ kirimasim-testsとsv-testsの形式を引き継ぎ、UVMの設定と共通のビ
 | `:incdirs:` | テスト基準の相対パスで追加するincludeの探索先で、その内容は[入力指紋](results.ja.md#記録の合算)に影響する。 |
 | `:defines:` | `NAME`または`NAME=VALUE`でソースより前に渡すコンパイル時マクロで、追加のUVMマクロは[ライブラリのコンパイル](#コンパイル)で説明する。 |
 | `:top_module:` | 起点となるSystemVerilogのmoduleを指定し、省略時はシミュレータが選ぶもので、`+UVM_TESTNAME`が選ぶUVMクラスとの違いは[具体例](reading-guide.ja.md#1件のテストをファイルで辿る)で示す。 |
-| `:expected_exit:` | シミュレーションの終了コード、またはsignalによる終了を除く正のエラー終了を要求する`nonzero`で、別途行う出力の検査は[観測の規則](#何を観測するか)で説明する。 |
+| `:expected_exit:` | simulationテストでは必須。シミュレーションの終了コード、またはsignalによる終了を除く正のエラー終了を要求する`nonzero`で、別途行う出力の検査は[観測の規則](#何を観測するか)で説明する。 |
 | `:expected_stderr_regex:` | 診断を照合する正規表現で、意図した拒否に正しい診断も必要な理由は[compiler検査の用語](glossary.ja.md#宣言の既定値とcompiler検査)で説明する。 |
 
 `:expected_stdout:`の`@`で始まる値はテストのソースからの相対パスで期待値ファイルを指定し、そのファイルに記録する出力行は[Q7](faq.ja.md#q7-なぜuvmの全メッセージを比較せずut行だけを比べるのですか)で説明しています。
@@ -567,6 +567,8 @@ python3 tools/fetch_uvm.py
 python3 tools/run_kirimasim.py --kirimasim /path/to/kirimasim -j 8 --json out/kirimasim.json
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 --json out/verilator.json
 ```
+
+`run_kirimasim.py`はDPIのbackendを渡さないので、`:uvm_dpi: yes`のテストを実行せず、unsupportedと報告します。このrunnerはVerilatorのrunnerと同じく`--timescale=1ns/1ps`を渡し、`:expected_exit:`が別の値を示さない限り終了code 0を求めます。
 
 ランナーにはPython 3.10以降が必要です。結果のJSONはkirimasim-testsと同じ形
 （`tools/suite_results.py`）なので、履歴やレポートのツールでそのまま読めます。

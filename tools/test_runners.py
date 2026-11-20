@@ -121,6 +121,34 @@ class KirimasimReports(RunnerTest):
         self.assertIn("undeclared UVM_FATAL", why)
 
 
+class KirimasimConditions(RunnerTest):
+    def execute(self, completed):
+        with (mock.patch.object(run_kirimasim.uvm_common, "version_problem", return_value=""),
+              mock.patch.object(run_kirimasim.suite_results, "test_id", return_value="sample"),
+              mock.patch.object(run_kirimasim.subprocess, "run",
+                                return_value=completed) as execute):
+            return run_kirimasim.run(self.test, "kirimasim", {}), execute
+
+    def test_the_default_time_scale_is_passed(self):
+        verdict, execute = self.execute(result())
+        self.assertEqual(verdict, ("pass", ""))
+        self.assertEqual(execute.call_args.args[0][1], "--timescale=1ns/1ps")
+        self.assertEqual(run_kirimasim.TIMESCALE, run_verilator.TIMESCALE)
+
+    def test_a_dpi_test_is_unsupported_without_a_run(self):
+        self.write(":uvm_dpi: yes")
+        verdict, execute = self.execute(result())
+        self.assertEqual(verdict, ("unsupported", "this runner passes no DPI back end"))
+        execute.assert_not_called()
+
+    def test_an_undeclared_nonzero_exit_fails(self):
+        verdict, _ = self.execute(result(code=1))
+        self.assertEqual(verdict, ("fail", "unexpected nonzero exit code"))
+        self.write(":expected_exit: nonzero")
+        verdict, _ = self.execute(result(code=1))
+        self.assertEqual(verdict, ("pass", ""))
+
+
 class GhostEvidence(RunnerTest):
     def execute(self, completed, profile=None):
         with mock.patch.object(run_ghost.subprocess, "run", return_value=completed) as execute:

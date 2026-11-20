@@ -482,7 +482,7 @@ The `2020.3.1` in `:uvm:` identifies an implementation release, while `1800.2-20
 | `:incdirs:` | Additional include directories relative to the test, whose contents affect [input fingerprints](results.md#evidence-assembly). |
 | `:defines:` | Compile-time macros written as `NAME` or `NAME=VALUE`, passed before the sources; [library compilation](#compiling) explains the additional UVM macros. |
 | `:top_module:` | The SystemVerilog root module to elaborate; omission leaves root selection to the simulator, and [the worked example](reading-guide.md#follow-one-test-through-the-files) distinguishes a module from the UVM class selected by `+UVM_TESTNAME`. |
-| `:expected_exit:` | A simulation process exit code, or `nonzero` for a positive error exit rather than termination by a signal; [the observation rules](#what-is-observed) explain the separate output checks. |
+| `:expected_exit:` | Required in a simulation test: the process exit code, or `nonzero` for a positive error exit rather than termination by a signal; [the observation rules](#what-is-observed) explain the separate output checks. |
 | `:expected_stderr_regex:` | A diagnostic-matching regular expression; [compiler-check terms](glossary.md#declaration-defaults-and-compiler-checks) explain why an intended rejection also needs the right diagnostic. |
 
 An `@` value in `:expected_stdout:` names a file relative to the test source, and [Q7](faq.md#q7-why-compare-ut-lines-rather-than-all-uvm-messages) explains which output lines belong in that file.
@@ -776,6 +776,8 @@ python3 tools/fetch_uvm.py
 python3 tools/run_kirimasim.py --kirimasim /path/to/kirimasim -j 8 --json out/kirimasim.json
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 --json out/verilator.json
 ```
+
+A test with `:uvm_dpi: yes` is not run by `run_kirimasim.py`, which passes no DPI back end, and is reported as unsupported; the runner passes `--timescale=1ns/1ps`, as the Verilator runners do, and requires exit code 0 unless `:expected_exit:` says otherwise.
 
 The runners need Python 3.10 or later. The results JSON has the form of
 kirimasim-tests (`tools/suite_results.py`), so its history and report tools

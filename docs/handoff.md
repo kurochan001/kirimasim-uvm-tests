@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-Current transfer: the user resumed the goal on 2026-11-07, and the 124th expansion, the seventh item of an external review, is published; the 125th expansion, the eighth and last item, is published in all 22 directories; the 126th expansion makes the first corrections from a second review, and the 127th changes the form of the cause record for two of its points. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
+Current transfer: the user resumed the goal on 2026-11-07, and the 124th expansion, the seventh item of an external review, is published; the 125th expansion, the eighth and last item, is published in all 22 directories; the 126th expansion makes the first corrections from a second review, the 127th and 128th finish it, and the 129th begins a third review with the kirimasim runner. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 

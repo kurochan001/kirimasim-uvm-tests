@@ -10,6 +10,7 @@
 :fourstate: no
 :nondeterministic: no
 :args: +UVM_TESTNAME=t
+:expected_exit: 0
 :expected_stdout: @test_common_phases_run_in_order.expected
 */
 // What it checks:

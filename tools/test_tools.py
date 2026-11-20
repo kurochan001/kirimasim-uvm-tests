@@ -23,7 +23,7 @@ HEADER = """/*
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no
-{extra}:expected_stdout: @{name}.expected
+{exit}{extra}:expected_stdout: @{name}.expected
 */
 {body}
 module {name}; endmodule
@@ -37,10 +37,12 @@ class Sample(unittest.TestCase):
         self.root = Path(self.temp.name).resolve()
 
     def make(self, folder="u09", name="test_sample", tags="u09 uvm", lrm="1800.2-2020 9.8.1",
-             extra="", body="", expected="UT: one\n"):
+             extra="", body="", expected="UT: one\n", no_exit=False):
         path = self.root / folder / f"{name}.sv"
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(HEADER.format(name=name, tags=tags, lrm=lrm, extra=extra, body=body))
+        path.write_text(HEADER.format(name=name, tags=tags, lrm=lrm, extra=extra, body=body,
+                                      exit="" if "expected_exit" in extra or no_exit
+                                      else ":expected_exit: 0\n"))
         path.with_suffix(".expected").write_text(expected)
         return path
 
@@ -106,6 +108,12 @@ class Metadata(Sample):
     def test_expected_lines_must_be_observed_lines(self):
         found = self.check(self.make(expected="UT: one\nplain\n"))
         self.assertIn("expected: line 2 does not begin with 'UT: '", found)
+
+    def test_a_simulation_test_states_its_exit_code(self):
+        found = self.check(self.make(no_exit=True))
+        self.assertTrue(any(p.startswith("exit:") for p in found), found)
+        self.assertEqual(self.check(self.make(name="test_nonzero",
+                                              extra=":expected_exit: nonzero\n")), [])
 
     def test_comment_rules(self):
         found = self.check(self.make(body="// " + "x" * 80 + "\n// Verilator does this"))

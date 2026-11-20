@@ -6,17 +6,26 @@ Usage:
     python3 tools/run_kirimasim.py [--kirimasim PATH] [-j N] [--json FILE] [TEST ...]
 
 With no TEST arguments, runs every test. Each test runs in its own temporary
-directory as `kirimasim +incdir+<uvm>/src +define+... <uvm>/src/uvm_pkg.sv
-<sources> <test>.sv <args>`, with the pinned UVM library and its macros (see
-tools/uvm_common.py). Only the lines that begin with "UT: " are compared
-(README.md, "What is observed").
+directory as `kirimasim --timescale=1ns/1ps +incdir+<uvm>/src +define+...
+<uvm>/src/uvm_pkg.sv <sources> <test>.sv <args>`, with the pinned UVM library
+and its macros (see tools/uvm_common.py). The default time scale is the one
+that tools/run_verilator.py passes: the library's package declares no time
+unit, and 1800-2023 3.14.2.3 makes it an error when only some design elements
+specify one. Only the lines that begin with "UT: " are compared
+(docs/testing.md, "What is observed").
+
+A test with `:uvm_dpi: yes` is not run and is reported as unsupported: it
+needs the library's DPI-C and VPI code, and this runner passes no DPI back
+end, so a run would not show what kirimasim itself supports.
 
 A test that uses a construct kirimasim does not support yet, which it reports
 with exit code 2 and an "error: unsupported:" message, is reported as
 unsupported. A test with `:should_fail_because:` matches when kirimasim
 rejects it (exit code 2) with an error at the place `:expected_stderr_regex:`
 names. The exit code and standard error are checked against `:expected_exit:`
-and `:expected_stderr_regex:` (see tools/suite_results.py).
+and `:expected_stderr_regex:` (see tools/suite_results.py); without
+`:expected_exit:`, the run must end with exit code 0, as in
+tools/run_verilator.py.
 
 A default-server line that begins with `UVM_ERROR ` or `UVM_FATAL ` fails the
 test unless coverage/uvm_reports.json declares that severity for it. The
@@ -43,6 +52,8 @@ import suite_results
 import uvm_common
 
 UNSUPPORTED = re.compile(r"error: unsupported: (.*)")
+TIMESCALE = "1ns/1ps"
+NO_DPI = "this runner passes no DPI back end"
 DECLARATIONS = suite_results.ROOT / "coverage" / "uvm_reports.json"
 REPORT = re.compile(r"^(UVM_ERROR|UVM_FATAL)(?! :) ")
 
@@ -85,12 +96,15 @@ def run(test: Path, kirimasim: str, declarations: dict | None = None) -> tuple[s
     if problem:
         return "fail", problem
     fields = suite_results.header(test)
+    if fields.get("uvm_dpi") == "yes":
+        return "unsupported", NO_DPI
     sources, include_dirs = suite_results.files(test)
     top = suite_results.top_module(test)
     with tempfile.TemporaryDirectory() as tmp:
         try:
             r = subprocess.run(
-                [kirimasim, *[f"+incdir+{d}" for d in [*uvm_common.include_dirs(), *include_dirs]],
+                [kirimasim, f"--timescale={TIMESCALE}",
+                 *[f"+incdir+{d}" for d in [*uvm_common.include_dirs(), *include_dirs]],
                  *[f"+define+{d}" for d in [*uvm_common.defines(test), *suite_results.defines(test)]],
                  *([f"--top={top}"] if top else []), *map(str, uvm_common.sources()),
                  *map(str, sources), str(test.resolve()), *suite_results.run_args(test)],
@@ -116,6 +130,8 @@ def run(test: Path, kirimasim: str, declarations: dict | None = None) -> tuple[s
         err = [l for l in r.stderr.splitlines() if ": error: " in l or ": fatal: " in l]
         return "fail", "output differs" + (f" (exit {r.returncode})" if r.returncode else "") + (
             f": {err[0].split(': ', 1)[-1]}" if err else ": " + suite_results.first_difference(got, want))
+    if "expected_exit" not in fields and r.returncode != 0:
+        return "fail", "unexpected nonzero exit code"
     why = suite_results.judge_run(test, r.returncode, r.stderr)
     if not why:
         why = undeclared_report(test, r.stdout, declarations or {})
