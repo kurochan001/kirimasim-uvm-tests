@@ -6,12 +6,14 @@ Usage:
     python3 tools/run_kirimasim.py [--kirimasim PATH] [-j N] [--json FILE] [TEST ...]
 
 With no TEST arguments, runs every test. Each test runs in its own temporary
-directory as `kirimasim --timescale=1ns/1ps +incdir+<uvm>/src +define+...
+directory as `kirimasim --timescale=1ns/1ps +incdir+<uvm>/src -D<macro>...
 <uvm>/src/uvm_pkg.sv <sources> <test>.sv <args>`, with the pinned UVM library
 and its macros (see tools/uvm_common.py). The default time scale is the one
 that tools/run_verilator.py passes: the library's package declares no time
 unit, and 1800-2023 3.14.2.3 makes it an error when only some design elements
-specify one. Only the lines that begin with "UT: " are compared
+specify one. Macros are passed with -D, which takes the value as written: in
+the +define+ form a plus sign separates macros, so a value such as (A+17)
+would be cut at the sign. Only the lines that begin with "UT: " are compared
 (docs/testing.md, "What is observed").
 
 A test that coverage/slang_frontend.json lists with the reason single-unit
@@ -120,7 +122,7 @@ def run(test: Path, kirimasim: str, declarations: dict | None = None,
             r = subprocess.run(
                 [kirimasim, f"--timescale={TIMESCALE}", *(["--single-unit"] if single_unit else []),
                  *[f"+incdir+{d}" for d in [*uvm_common.include_dirs(), *include_dirs]],
-                 *[f"+define+{d}" for d in [*uvm_common.defines(test), *suite_results.defines(test)]],
+                 *[f"-D{d}" for d in [*uvm_common.defines(test), *suite_results.defines(test)]],
                  *([f"--top={top}"] if top else []), *map(str, uvm_common.sources()),
                  *map(str, sources), str(test.resolve()), *suite_results.run_args(test)],
                 capture_output=True, text=True, errors="replace", cwd=tmp, timeout=300)

@@ -95,7 +95,7 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-slangの2つのcommandには、[slangでのelaborationの検査](testing.ja.md#slangでのelaboration)の固定版`pyslang`が要ります。この記録は、tool単体テスト204件、全2778件（simulation 2679件・elaboration 99件）のmetadata、台帳／索引、原因の記録、reportの宣言、段階、slangでのelaboration、APIの集計、library整合性、現在の入力とevidenceの照合を
+slangの2つのcommandには、[slangでのelaborationの検査](testing.ja.md#slangでのelaboration)の固定版`pyslang`が要ります。この記録は、tool単体テスト205件、全2778件（simulation 2679件・elaboration 99件）のmetadata、台帳／索引、原因の記録、reportの宣言、段階、slangでのelaboration、APIの集計、library整合性、現在の入力とevidenceの照合を
 通過しています。資料だけの変更では、全シミュレーションを再buildせず、[ドキュメントの更新手順](testing.ja.md#ドキュメントの更新)に従って日英の対応とリンクを確認します。
 全件evidenceはVerilatorだけで、他2系統は未変更1081件の記録、1697入力は未測定です。実行のsmoke確認は次のとおりです。
 
@@ -124,7 +124,7 @@ Checkはtool、metadata、台帳、library、原因の記録、reportの宣言�
 | Verilator 5.052／独自VPI HDL backend | 別条件の38件：37件が両seed pass、1件はseed 1でfail |
 | Verilator 5.052／command-line VPI・固定regex DPI | 別条件の23件で20件は両seed一致、3件はseed 1の既知差分 |
 | Verilator 5.052／regex DPIとcommand-line DPIで再実行する通常検査系 | 別条件の26件：すべて両seed pass |
-| kirimasim／固定UVM | 未変更1081件で未対応1072件・API欠落fail 9件。1697入力は未測定 |
+| kirimasim 0.1.3／固定UVM | 2026-11-21に現在の全2778入力：pass 98件（拒否された不正design）、未対応2604件、fail 76件 |
 | Ghost／同梱UVM | 未変更1081件で各seed pass 206件・fail 875件。1697入力は未測定 |
 | Ghost／固定UVM | 現在の実行ファイルsnapshotでは未測定 |
 
@@ -133,7 +133,7 @@ buildはAPI／型名欠落43、time減算引数既定値1、型既定宣言2、�
 
 残るsimulation build失敗6件は未登録packetのpredictor型名4件とサイズ／flag宣言2件で、規格に登録の前提条件を追加しない扱いと各実行条件は[結果の内訳](results.ja.md#結果の解釈)で説明しています。
 
-129〜137回目は、0da235aを対象とし、2026-11-20に示された3回目のレビューを実装しました。kirimasimのrunnerは`--timescale=1ns/1ps`を渡し、書かれた終了codeを求め、`:uvm_dpi: yes`の61件をunsupportedと報告します。simulationテストはすべて`:expected_exit:`を書きます（129回目）。Checkは、全テストをslangでelaborateして[`coverage/slang_frontend.json`](../coverage/slang_frontend.json)（記録91件）と照合し（130回目）、[`coverage/api_census.json`](../coverage/api_census.json)をテストと照合します（131回目）。どのテストも使っていなかった宣言を10件のテストが使い（132回目）、小さな参照先を直し（133回目）、testbench形のテスト5件がRTLの上で動きます（134〜137回目）。そのうちreset sequenceの1件は、libraryの新しい差分です。新しい15件に、義務31件が対応します。未実施のものは次のとおりです。`run_verilator.py`、`suite_results.py`、`uvm_common.py`のdocstringに残る古いREADMEへの参照は、次に指紋を動かす変更まで待ちます。短いセットのkirimasimでの測定は、許可された実行fileがないため行っていません。kirimasim-testsにない構文へのテストの追加と、Verilatorの全出力の比較は、ユーザーの判断を待っています。各回の内容は[履歴](history.ja.md#129回目の拡充kirimasimのrunnerと終了code3回目の外部レビュー項目1)にあります。
+129〜137回目は、0da235aを対象とし、2026-11-20に示された3回目のレビューを実装しました。kirimasimのrunnerは`--timescale=1ns/1ps`を渡し、書かれた終了codeを求め、`:uvm_dpi: yes`の61件をunsupportedと報告します。simulationテストはすべて`:expected_exit:`を書きます（129回目）。Checkは、全テストをslangでelaborateして[`coverage/slang_frontend.json`](../coverage/slang_frontend.json)（記録91件）と照合し（130回目）、[`coverage/api_census.json`](../coverage/api_census.json)をテストと照合します（131回目）。どのテストも使っていなかった宣言を10件のテストが使い（132回目）、小さな参照先を直し（133回目）、testbench形のテスト5件がRTLの上で動きます（134〜137回目）。そのうちreset sequenceの1件は、libraryの新しい差分です。新しい15件に、義務31件が対応します。未実施のものは次のとおりです。`run_verilator.py`、`suite_results.py`、`uvm_common.py`のdocstringに残る古いREADMEへの参照は、次に指紋を動かす変更まで待ちます。kirimasim-testsにない構文へのテストの追加と、Verilatorの全出力の比較は、ユーザーの判断を待っています。各回の内容は[履歴](history.ja.md#129回目の拡充kirimasimのrunnerと終了code3回目の外部レビュー項目1)にあります。
 
 127回目は、2回目のレビューの残りのうち、原因の記録の形式だけを変える2点を、ユーザーが2026-11-20に承認した案のとおりに実装します。[原因の記録](../coverage/known_causes.json)はschema 2になり、interpretationの60件は読み方の根拠を持ち（`printed` 10件、`printed-by-library` 1件、`ambiguity` 49件）、固定版libraryでは満たせない4値のqueueのテストは種別`static`の記録を持ちます。kirimasimの目標は測れる2383、固定版libraryのために届かない380で、照合の候補は407件です。4値の7件すべてをlibraryのsourceで診断する中で、[記録のテスト](../tests/u16/test_fourstate_record_field_values_117.sv)の検査系の誤りを直しました。recorderの`do_record_object`を空の本体でoverrideしていたため、16.4.7.7の既定の実装が行うfield macroの記録が動きませんでした。期待値は変えていません。時間単位と、宣言のないUVM_ERROR／UVM_FATALの検出は、runnerを変える1回の変更にまとめ、全件の出力を集める診断から始めます。根拠は[履歴](history.ja.md#127回目の拡充原因の記録のschema-22回目の外部レビューb)にあります。
 

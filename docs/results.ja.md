@@ -6,8 +6,8 @@
 
 runtime一致、compiler拒否、未測定入力は実行条件が異なるため、件数を併せて読む方法は[結果を読む](reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-20の診断は2値のsimulationテスト2657件を`--timescale 1ns/1ps`で確認し、当時tag付きだったruntime 2199件の状態変化と未宣言reportは0件でした。tag付きcompile拒否94件も一致しました。それ以後に足した15件と、headerを変えた1件は、公開のときに現在のrunnerのseed 1／73でそれぞれ測り、新しい14件が一致、1件が既知差分です。4値の7件にはVerilatorの記録がありません。Ghostの1081記録は有効なままですが、kirimasimの1081記録はrunnerの指紋が変わるため現在の証拠ではありません。
-guestでは1697入力が未測定です。各記録は入力と実行条件を指紋で識別します。
+2026-11-20の診断は2値のsimulationテスト2657件を`--timescale 1ns/1ps`で確認し、当時tag付きだったruntime 2199件の状態変化と未宣言reportは0件でした。tag付きcompile拒否94件も一致しました。それ以後に足した15件と、headerを変えた1件は、公開のときに現在のrunnerのseed 1／73でそれぞれ測り、新しい14件が一致、1件が既知差分です。4値の7件にはVerilatorの記録がありません。Ghostの1081記録は有効なままです。kirimasim 0.1.3（commit c3a9d9eb）は、2026-11-21に、現在のrunnerで全2778入力を測りました。
+Ghostでは1697入力が未測定です。各記録は入力と実行条件を指紋で識別します。
 スイートは22 directoryの2778件で、simulation 2679件とelaboration 99件です。
 milestoneはM1 1200件（1119／81）、M2 634件（627／7）、M3 944件（933／11）で、括弧内はruntime／elaborationです。
 全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし2717件のうち99件は不正elaboration検査であり、HDL-DPI 38件とcommand-line／regex-DPI runtime 23件は別です。
@@ -22,7 +22,7 @@ seed 1／73で一致しても検査系は1件と数え、設定で指定したse
 | Verilator 5.052・独自VPI HDL backend | `pass` 37件、`fail` 1件 | 重複する38件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・独自command-line VPI bridge・固定regex DPI | `pass` 20件、`known` 3件 | 重複する23件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・regex DPIとcommand-line DPIで再実行する通常検査系 | `pass` 26件 | `coverage/regex_dpi_variants.txt`による重複する26件の別条件。一致はseed 1／73 |
-| kirimasim・固定版UVM | `unsupported`が1072件、`fail`が9件 | 変更前の1081入力。report宣言の検査を含まないため、現在のrunnerの証拠ではない。1697入力は未測定 |
+| kirimasim 0.1.3（commit c3a9d9eb）・固定版UVM | `pass`が98件、`unsupported`が2604件、`fail`が76件 | 現在の全2778入力を、2026-11-21に現在のrunnerで1回実行。`pass`はすべて、patternどおりに拒否された不正design。実行できるsimulationテストはない |
 | Ghost・同梱UVM | `pass`が206件、`fail`が875件 | 各seedで未変更1081入力。失敗集合は同じ。1697入力は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
@@ -82,7 +82,7 @@ E.7の利用できないpathのsequenceは、保持するwarning／転送なし�
 一般型／select／array、時間単位の変換／丸め、重なる時間付き呼出し、失敗／中止、4値は未完です。
 重複する一致を通常合計へ加えず、[HDLの準備](testing.ja.md#verilatorのvpi-hdl部分集合)と[既知差分](known-differences.ja.md)を参照してください。
 
-kirimasimは1072件で`uvm_object_wrapper`未対応を報告し、残る9件はそれより先にライブラリAPI欠落を検出します。
+kirimasim 0.1.3は、2543件で型`uvm_object_wrapper`をunsupportedと報告します。`:uvm_dpi: yes`の61件は、runnerがDPIのbackendを渡さないため、実行せずにunsupportedと報告します。`fail`の76件は、[slangの記録](testing.ja.md#slangでのelaboration)が理由libraryで挙げるテストとちょうど一致し、固定版libraryではcompileできないものです。`pass`の98件は、不正design 99件のうち、patternに一致するmessageで拒否された98件です。残る1件は固定版libraryでは合法になり、unsupportedの型に届きます。
 いずれも、その障害より後のUVM動作を実行できた証拠ではありません。Ghostの同梱版の不一致だけでは、
 シミュレータとライブラリのどちらが原因かは決まらず、固定版ライブラリでの結果も示しません。ゲストの付録Eの一致は、
 [RO registerのskip](../tests/uE/test_single_register_access_sequence_skips_a_readonly_register.sv)、
@@ -129,7 +129,7 @@ kirimasim／Ghost記録は、固定した実行ファイルとseedごとの非�
 以前のkirimasim／Ghostの一時的な実行ファイル／profile snapshotは失われており、guest再実行は主張しません。
 歴史的な元fileは1085記録を保持します。以前のfilterでcommand-enum引用、Boolean rerandomization、virtual-field configure引用、reraise主引用の修正入力4件を除外しました。今回は新しいfilterを行いません。
 互換1081記録とfilter metadataをbyte単位で保持し、その後の追加で未測定は1697入力（追加1693件・修正した元入力4件）となります。
-Ghostは各seedでpass 206／fail 875、kirimasimはunsupported 1072／API欠落fail 9のままです。
+Ghostは各seedでpass 206／fail 875のままです。保持していたkirimasimの1081記録（unsupported 1072／API欠落fail 9）は、`out/thin-one-hundred-thirty-ninth/kirimasim-all.json`にある2026-11-21の測定に置き換わりました。
 直近の除外の出典は`out/thin-one-hundred-sixth-guest-exclusions.json`、このworkspaceで最後に組み立てた証拠の範囲は`out/thin-one-hundred-twenty-sixth-a-evidence-scope.json`です。127回目と128回目の測定は別のsessionで行われ、そのfileはこのworkspaceにありません。129回目以降に足したテストは、測定ごとのbatch fileが`out/`にあり、それらを含む合算の記録はまだありません。
 
 指紋ごとに、識別する入力が異なります。
@@ -209,7 +209,7 @@ JSON出力は選択した実行のローカル記録であり、公開されるC
 shardは選んだテストを重複なく分担する単位で、最後のgateは全shardの成功を要求し、検査範囲との関係は[Q268](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)で説明しています。
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-tools jobは、固定ライブラリの整合性、ツールの単体テスト204件、metadata 2778件、要求台帳の案／テスト索引、既知差分の原因の記録、[reportの宣言](testing.ja.md#時間単位とreportの宣言)、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。slang jobは、[全テストをslangでelaborate](testing.ja.md#slangでのelaboration)し、[APIの集計](requirements.ja.md#apiの集計)をテストと照合します。所要は8分ほどです。
+tools jobは、固定ライブラリの整合性、ツールの単体テスト205件、metadata 2778件、要求台帳の案／テスト索引、既知差分の原因の記録、[reportの宣言](testing.ja.md#時間単位とreportの宣言)、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。slang jobは、[全テストをslangでelaborate](testing.ja.md#slangでのelaboration)し、[APIの集計](requirements.ja.md#apiの集計)をテストと照合します。所要は8分ほどです。
 Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
 基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Verilator jobは、原因の記録にある再現例12個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
 

@@ -148,6 +148,14 @@ class KirimasimConditions(RunnerTest):
         with mock.patch.object(run_kirimasim, "FRONTEND", record):
             self.assertEqual(run_kirimasim.single_unit_tests(), {"u19/test_a"})
 
+    def test_macros_are_passed_whole_with_d(self):
+        self.write(":uvm_defines: UVM_FIELD_FLAG_SIZE=(UVM_FIELD_FLAG_RESERVED_BITS+17)")
+        _, execute = self.execute(result())
+        command = execute.call_args.args[0]
+        self.assertIn("-DUVM_FIELD_FLAG_SIZE=(UVM_FIELD_FLAG_RESERVED_BITS+17)", command)
+        self.assertIn("-DUVM_NO_DPI", command)
+        self.assertFalse(any(a.startswith("+define+") for a in command))
+
     def test_a_dpi_test_is_unsupported_without_a_run(self):
         self.write(":uvm_dpi: yes")
         verdict, execute = self.execute(result())

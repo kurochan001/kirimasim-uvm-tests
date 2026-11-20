@@ -117,7 +117,7 @@ by Git; results are not automatically published.
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
 Every one of the 2771 two-state cases has a Verilator 5.052 result at its current inputs, but no single run produced them: the tagged cases were measured again with the current runner on 2026-11-20, and each test added or changed since was measured at seeds 1/73 when it was published. The seven four-state cases are spec-only and have no Verilator record.
-Guest records retain 1081 compatible inputs; 1697 inputs are unmeasured, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly).
+The Ghost records retain 1081 compatible inputs; 1697 inputs are unmeasured by Ghost, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly). kirimasim was measured again on all current inputs with the current runner.
 
 | Simulator and library | Observed result |
 | --- | --- |
@@ -125,7 +125,7 @@ Guest records retain 1081 compatible inputs; 1697 inputs are unmeasured, meaning
 | Verilator 5.052, original VPI HDL backend | Separate 38-case subset: 37 match both seeds; 1 differs |
 | Verilator 5.052, VPI command-line bridge and pinned regex DPI | Separate 23-case subset: 20 match both seeds; 3 known differences |
 | Verilator 5.052, listed ordinary fixtures with regex and command-line DPI | Separate 26-case subset: 26 match both seeds |
-| kirimasim, pinned UVM | 1072 `unsupported`; nine missing-API `fail` in 1081 cases, measured with an earlier runner and not evidence for the current one; 1697 unmeasured |
+| kirimasim 0.1.3, pinned UVM | All 2778 cases, measured on 2026-11-21: 98 `pass`, all of them illegal designs rejected as expected; 2604 `unsupported`; 76 `fail` |
 | Ghost, bundled UVM | 206 match and 875 fail at each seed in 1081 cases; 1697 unmeasured |
 
 The ordinary runner records 319 runtime differences at seed 1, 140 simulation build failures
@@ -134,7 +134,7 @@ The VPI rows measure cases already included in the ordinary row under different 
 
 Each known difference has one entry in [the cause record](coverage/known_causes.json), checked by `tools/known_causes.py`: 320 library, 60 interpretation, 27 simulator and 57 DPI-condition causes are assigned, and no entry is unclassified. Each interpretation names the basis of its readings: 10 follow a declaration or a name as printed where another part of the standard indicates a misprint, one has the library following the printed text, and 49 are ambiguities of the text. One four-state test has an entry because the pinned library cannot satisfy it. For kirimasim, 2397 inputs measure a simulator against the standard and 381 are kept from their expectation by the pinned library on any simulator; see [the causes of the known differences](docs/known-differences.md#causes-of-the-known-differences).
 
-Every test also has a [kirimasim bring-up stage](docs/kirimasim-stages.md), recorded in `coverage/kirimasim_stages.json`: 1 test at stage 0, 1034 at stage 1 (minimal run_test), 100 at stage 2 (factory), 111 at stage 3 (config_db), 326 at stage 4 (sequence), 251 at stage 5 (TLM) and 955 at stage 6 (register layer). The retained kirimasim records, which an earlier runner made, stop at the same unsupported `uvm_object_wrapper` construct in every stage; the stage-0 test is unmeasured.
+Every test also has a [kirimasim bring-up stage](docs/kirimasim-stages.md), recorded in `coverage/kirimasim_stages.json`: 1 test at stage 0, 1034 at stage 1 (minimal run_test), 100 at stage 2 (factory), 111 at stage 3 (config_db), 326 at stage 4 (sequence), 251 at stage 5 (TLM) and 955 at stage 6 (register layer). kirimasim 0.1.3 stops at the same unsupported `uvm_object_wrapper` construct in every stage, the stage-0 test included; no simulation test runs yet.
 
 Check also elaborates every test with slang, the front end that kirimasim uses unmodified: a legal test must have no error and an illegal design must be rejected at its pattern, except the 91 entries of [`coverage/slang_frontend.json`](coverage/slang_frontend.json) ([slang elaboration](docs/testing.md#slang-elaboration)). An [API census](docs/requirements.md#api-census) lists the declarations that the pinned library marks with a clause and that no test uses: 1 unused and 29 named only.
 

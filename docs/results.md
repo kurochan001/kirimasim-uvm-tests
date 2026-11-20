@@ -13,9 +13,9 @@ rejections still matched. The fifteen tests added since and the one test whose
 header changed were each measured with the current runner at seeds 1/73 when
 they were published: fourteen new tests match and one is a known difference.
 The seven four-state tests have no Verilator record. The 1081 Ghost records
-remain valid; the 1081 kirimasim records are not evidence for the current
-runner because its fingerprint changed. 1697 inputs are unmeasured by the
-guests, including four revised old inputs. Each record fingerprints its inputs
+remain valid, and 1697 inputs are unmeasured by Ghost, including four revised
+old inputs. kirimasim 0.1.3 (commit c3a9d9eb) was measured on all 2778 inputs
+with the current runner on 2026-11-21. Each record fingerprints its inputs
 and conditions.
 The suite has 2778 fixtures in 22 directories: 2679 simulation and 99
 elaboration. Milestone totals are M1 1200 (1119/81), M2 634 (627/7) and M3 944
@@ -36,7 +36,7 @@ A runtime match at seeds 1/73 still counts as one fixture, while a seed requeste
 | Verilator 5.052, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 20 `pass`; 3 `known` | Separate overlapping 23-case condition; matches at seeds 1/73, differences at seed 1 |
 | Verilator 5.052, listed ordinary fixtures with regex and command-line DPI | 26 `pass` | Separate overlapping 26-case condition from `coverage/regex_dpi_variants.txt`; matches at seeds 1/73 |
-| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 inputs from the previous runner; they do not include the report-declaration check and are not evidence for the current runner. 1697 inputs unmeasured |
+| kirimasim 0.1.3 (commit c3a9d9eb), pinned UVM | 98 `pass`; 2604 `unsupported`; 76 `fail` | All 2778 current inputs, one run on 2026-11-21 with the current runner. Every `pass` is an illegal design rejected at its pattern; no simulation test runs |
 | Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1697 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
@@ -130,8 +130,7 @@ failure/cancellation and four-state behavior remain open. Do not add overlapping
 matches to ordinary results; see [HDL setup](testing.md#verilator-vpi-hdl-subset)
 and [known differences](known-differences.md).
 
-kirimasim reports `uvm_object_wrapper` as unsupported on 1072 cases; the other
-nine encounter missing library APIs first. [The bring-up stages](kirimasim-stages.md#current-kirimasim-records-by-stage)
+kirimasim 0.1.3 reports the type `uvm_object_wrapper` as unsupported on 2543 cases, and the runner reports the 61 `:uvm_dpi: yes` cases as unsupported without running them, because it passes no DPI back end. The 76 `fail` cases are exactly the tests that [the slang record](testing.md#slang-elaboration) lists with the reason library: they do not compile with the pinned library. The 98 `pass` cases are 98 of the 99 illegal designs, rejected with a message that matches their pattern; the other, which the pinned library makes legal, reaches the unsupported type. [The bring-up stages](kirimasim-stages.md#current-kirimasim-records-by-stage)
 count these records by stage: the same construct stops every stage. Neither category establishes
 execution of the UVM behavior beyond those blockers. Ghost's bundled
 mismatches do not identify whether the simulator or its library caused them,
@@ -209,7 +208,7 @@ Boolean rerandomization, virtual-field configuration and reraise primary citatio
 This increment performs no new filtering. All 1081 compatible records and
 filter metadata are retained byte-identically. Later additions increase the
 unmeasured set to 1697: 1693 additions and four revised originals. Ghost remains
-206 pass/875 fail per seed and kirimasim remains 1072 unsupported/nine API failures.
+206 pass/875 fail per seed. The retained kirimasim file of 1081 records, 1072 unsupported and nine API failures, is superseded by the measurement of 2026-11-21 in `out/thin-one-hundred-thirty-ninth/kirimasim-all.json`.
 The latest exclusions are recorded in `out/thin-one-hundred-sixth-guest-exclusions.json`;
 the last evidence scope assembled in this workspace is `out/thin-one-hundred-twenty-sixth-a-evidence-scope.json`. The measurements of the 127th and 128th expansions were made in another session, and their files are not in this workspace; the tests added from the 129th expansion on have one batch file for each measurement under `out/`, and no combined record includes them yet.
 
@@ -306,7 +305,7 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. Its tools job checks pinned-library integrity, 204 tool unit tests,
+and manual dispatch. Its tools job checks pinned-library integrity, 205 tool unit tests,
 2778 metadata records, the draft ledger/index, the cause record of the known
 differences, the [report declarations](testing.md#time-unit-and-report-declarations) and the [kirimasim bring-up stages](kirimasim-stages.md). Its slang job [elaborates every test with slang](testing.md#slang-elaboration) and compares [the API census](requirements.md#api-census) with the tests; it takes about eight minutes. Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,

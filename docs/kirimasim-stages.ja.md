@@ -13,7 +13,7 @@
 
 ## 段階を設ける理由
 
-保持しているkirimasimの記録1081件（以前のrunnerでの測定）のうち1072件は`uvm_object_wrapper`をunsupportedと報告し、残る9件は先にlibraryのAPIの欠落に当たります。1697入力には現在の記録がありません（[現在の結果](results.ja.md#現在のスナップショット)）。測ったテストがすべて同じ所で止まるため、記録からはsimulatorがどこまで進んだかが分かりません。テストごとの段階と段階ごとの短いセットがあれば、短いセットを実行して最初に通らない段階が分かり、下の機能の表から次に見るべき言語のテストをたどれます。
+kirimasim 0.1.3は、2778入力のうち2543件で型`uvm_object_wrapper`をunsupportedと報告します（[現在の結果](results.ja.md#現在のスナップショット)）。simulatorに届いたsimulationテストがすべて同じ所で止まるため、記録からはsimulatorがどこまで進んだかが分かりません。テストごとの段階と段階ごとの短いセットがあれば、短いセットを実行して最初に通らない段階が分かり、下の機能の表から次に見るべき言語のテストをたどれます。
 
 段階は、開発が扱う機能の主題でテストをまとめるmilestone M1〜M4（[milestoneのまとめ方](glossary.ja.md#範囲とカバレッジ)）とは別のものです。段階は期待値を変えず、metadataの項目も足しません。記録は別のfileなので、入力の指紋は変わりません。
 
@@ -62,24 +62,24 @@ python3 tools/run_kirimasim.py --json out/kirimasim-stages.json $(python3 tools/
 python3 tools/kirimasim_stages.py summary --results out/kirimasim-stages.json
 ```
 
-kirimasimの測定には、このrepositoryに含まれない実行fileが必要です。このページはkirimasimの新しい測定を加えていません。
+kirimasimの測定には、このrepositoryに含まれない実行fileが必要です。下の表は、localでbuildしたkirimasim 0.1.3によるものです。
 
 ## kirimasimの現在の記録の段階別の内訳
 
-kirimasimの現在の記録1081件（[保持するguestの記録](results.ja.md#記録の合算)）を、`tools/kirimasim_stages.py summary --results`で段階ごとに数えたものです。これらは以前のrunnerと以前のkirimasimで測ったもので、現在のrunnerの証拠ではありません。現在のrunnerは`--timescale=1ns/1ps`を渡し、書かれた終了codeを求め、reportの宣言を検査し、`:uvm_dpi: yes`の61件を実行せずにunsupportedと報告します。短いセットを測り直すための、許可されたkirimasimの実行fileはありませんでした。測り直せるまで、この表を残します：
+kirimasim 0.1.3（commit c3a9d9eb、release build）で、2026-11-21に、現在のrunnerで全2778入力を1回実行し、`tools/kirimasim_stages.py summary --results`で段階ごとに数えたものです。runnerは`--timescale=1ns/1ps`を渡し、macroを`-D`で渡し、書かれた終了codeを求め、reportの宣言を検査し、`:uvm_dpi: yes`の61件を実行せずにunsupportedと報告します。記録はGit対象外の`out/thin-one-hundred-thirty-ninth/kirimasim-all.json`にあります：
 
-| 段階 | テスト | `unsupported` | `fail` | 未測定 |
+| 段階 | テスト | `pass` | `unsupported` | `fail` |
 | --- | --- | --- | --- | --- |
-| 0 | 1 | 0 | 0 | 1 |
-| 1 | 1034 | 320 | 0 | 714 |
-| 2 | 100 | 53 | 0 | 47 |
-| 3 | 111 | 17 | 0 | 94 |
-| 4 | 326 | 197 | 6 | 123 |
-| 5 | 251 | 170 | 1 | 80 |
-| 6 | 955 | 315 | 2 | 638 |
-| 計 | 2778 | 1072 | 9 | 1697 |
+| 0 | 1 | 0 | 1 | 0 |
+| 1 | 1034 | 48 | 959 | 27 |
+| 2 | 100 | 3 | 96 | 1 |
+| 3 | 111 | 31 | 75 | 5 |
+| 4 | 326 | 3 | 305 | 18 |
+| 5 | 251 | 3 | 245 | 3 |
+| 6 | 955 | 10 | 923 | 22 |
+| 計 | 2778 | 98 | 2604 | 76 |
 
-最も多い理由はどの段階でも同じで、`uvm_object_wrapper`がまだ実装されていないことです。`fail`の9件は先にlibraryのAPIの欠落に当たります。sequence libraryのmethodが6件（段階4）、TLMの時刻のmethodが1件（段階5）、HDL pathのsliceのmethodが2件（段階6）です。短いセットの31件のうち23件に現在の記録があり、すべて`unsupported`です。段階0のテストは新しく、未測定です。
+どの段階でも理由は同じで、型`uvm_object_wrapper`がまだ実装されていないことです（2543件）。uvm_pkgをimportするだけの段階0のテストも、ここで止まります。`pass`の98件はすべて、patternどおりに拒否された不正designで、実行できたsimulationテストはありません。`fail`の76件は、固定版libraryではcompileできないテストで、[slangの記録](testing.ja.md#slangでのelaboration)のlibraryの記録と一致します。短いセットの31件は、すべてunsupportedです。この測定で、kirimasimのrunnerがmacroを`+define+`で渡していた誤りが見つかりました。値に`+`を含むmacroが途中で切れていたので、`-D`に直しています。
 
 ## 段階ごとのSystemVerilogの機能
 

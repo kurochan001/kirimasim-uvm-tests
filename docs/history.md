@@ -7061,3 +7061,19 @@ The user asked for every document to be read again and corrected. No test, recor
 Added where nothing existed: three FAQ entries (Q453 to Q455) on the slang elaboration, the API census and the testbench-shaped tests; glossary entries for the slang record and the API census; the attribution of `pyslang` (MIT) in the provenance guide; and the steps that a new test now needs in the testing guide.
 
 Not changed: sentences that describe an earlier expansion keep the counts of their time, and the history keeps its text, except the corrected count of the 137th expansion, which is marked there.
+
+## 139th expansion: kirimasim measured on every input
+
+The user allowed the local kirimasim build to be used. kirimasim 0.1.3 (commit c3a9d9eb, release build) ran all 2778 inputs once with the current runner on 2026-11-21; the record is the ignored `out/thin-one-hundred-thirty-ninth/kirimasim-all.json`.
+
+| Status | Inputs | What it is |
+| --- | --- | --- |
+| `pass` | 98 | Illegal designs rejected with a message that matches their pattern, 98 of the 99; the other is legal with the pinned library and reaches the unsupported type |
+| `unsupported` | 2604 | 2543 report the type `uvm_object_wrapper` as not implemented yet; the runner does not run the 61 tests with `:uvm_dpi: yes` |
+| `fail` | 76 | The tests that do not compile with the pinned library, exactly the library entries of the slang record |
+
+No simulation test runs, and every bring-up stage stops at the same type, the stage-0 test included. All 31 short-set tests are `unsupported`.
+
+The first run found a mistake in `tools/run_kirimasim.py`: it passed macros with `+define+`, in which a plus sign separates macros, so `UVM_FIELD_FLAG_SIZE=(UVM_FIELD_FLAG_RESERVED_BITS+17)` was cut at the sign and two tests failed for that reason. kirimasim's `-D` takes the value as written; the runner uses it now, and the run was repeated. The run also confirmed that `u19/test_hdl_max_width_parameter_matches_the_default_macro_value` needs `--single-unit`, which the runner passes for it. Whether the slang commit that kirimasim pins rejects the three `randomize(select_randc)` tests, as `pyslang` 12.1 does, could not be told: kirimasim reports the unsupported type and no error of the test's own code.
+
+The earlier file of 1081 kirimasim records is superseded. The Ghost records are unchanged, and 1697 inputs remain unmeasured by Ghost. The tool has 205 unit tests.

@@ -880,7 +880,7 @@ python3 tools/slang_elaborate.py check
 python3 tools/api_census.py check
 ```
 
-The last two need the pinned `pyslang` ([slang elaboration](#slang-elaboration)). The current tool suite has 204 unit tests; metadata validation checks all
+The last two need the pinned `pyslang` ([slang elaboration](#slang-elaboration)). The current tool suite has 205 unit tests; metadata validation checks all
 2778 tests (2679 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the

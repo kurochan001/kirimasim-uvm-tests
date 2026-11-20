@@ -4347,3 +4347,19 @@ suiteは2778件（simulation 2679）、義務4182件、tag付きの検査2307件
 記述がなかったので足したものは次のとおりです。slangでのelaboration、APIの集計、testbench形のテストについてのFAQ 3件（Q453〜Q455）。slangの記録とAPIの集計の用語。出典のガイドでの`pyslang`（MIT）の記載。テストガイドでの、新しいテストに必要な手順。
 
 変えていないものもあります。以前の拡充を説明する文は、その時点の件数のままです。履歴の本文も変えていませんが、137回目の誤った件数だけは直し、そこに印を付けました。
+
+## 139回目の拡充：kirimasimでの全入力の測定
+
+ユーザーが、localのkirimasimのbuildを使うことを認めました。kirimasim 0.1.3（commit c3a9d9eb、release build）で、2026-11-21に、現在のrunnerで全2778入力を1回実行しました。記録はGit対象外の`out/thin-one-hundred-thirty-ninth/kirimasim-all.json`です。
+
+| 状態 | 入力 | 内容 |
+| --- | --- | --- |
+| `pass` | 98 | patternに一致するmessageで拒否された不正design。99件のうち98件で、残る1件は固定版libraryでは合法になり、unsupportedの型に届く |
+| `unsupported` | 2604 | 2543件は、型`uvm_object_wrapper`がまだ実装されていないと報告する。`:uvm_dpi: yes`の61件は、runnerが実行しない |
+| `fail` | 76 | 固定版libraryではcompileできないテスト。slangの記録のlibraryの記録とちょうど一致する |
+
+実行できたsimulationテストはなく、段階0のテストを含め、どの立ち上げ段階も同じ型で止まります。短いセットの31件は、すべて`unsupported`です。
+
+最初の実行で、`tools/run_kirimasim.py`の誤りが見つかりました。macroを`+define+`で渡していましたが、この形では`+`がmacroの区切りになります。そのため`UVM_FIELD_FLAG_SIZE=(UVM_FIELD_FLAG_RESERVED_BITS+17)`が`+`で切れ、2件がその理由で失敗していました。kirimasimの`-D`は値を書いたとおりに受け取るので、runnerを`-D`に直して実行し直しました。この実行で、`u19/test_hdl_max_width_parameter_matches_the_default_macro_value`に`--single-unit`が要ることも確かめました。runnerはこのテストに`--single-unit`を渡します。kirimasimが固定するslangのcommitが、`pyslang` 12.1と同じく`randomize(select_randc)`の3件を拒否するかは、分かりませんでした。kirimasimはunsupportedの型を報告し、テスト自身のcodeのerrorは出しません。
+
+以前のkirimasimの1081記録は、この測定に置き換わりました。Ghostの記録は変わらず、Ghostでは1697入力が未測定のままです。toolの単体テストは205件です。
