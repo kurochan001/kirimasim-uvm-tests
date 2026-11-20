@@ -28,6 +28,13 @@ and `:expected_stderr_regex:`; a test with `:should_fail_because:` matches
 when Verilator rejects it with an error at the place that
 `:expected_stderr_regex:` names.
 
+Every model is built with `--timescale 1ns/1ps`. A default-server line that
+begins with `UVM_ERROR ` or `UVM_FATAL ` fails the test unless
+coverage/uvm_reports.json declares that severity for it. A replacement report
+server or a catcher that suppresses the line is not seen. The declarations
+file is not an input fingerprint; its SHA-256 is recorded in the result
+configuration.
+
 A test whose `:oracle:` does not list verilator@5.052 is reported as a known
 difference when it does not match, and does not make the run fail. With
 --json, the result of every test is also written to FILE in the form that
@@ -37,7 +44,10 @@ Verilator does not match.
 
 import argparse
 import concurrent.futures
+import hashlib
+import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -48,9 +58,44 @@ import uvm_common
 
 ROOT = Path(__file__).resolve().parent.parent
 ORACLE = "verilator@5.052"
+TIMESCALE = "1ns/1ps"
+DECLARATIONS = ROOT / "coverage" / "uvm_reports.json"
+REPORT = re.compile(r"^(UVM_ERROR|UVM_FATAL)(?! :) ")
 # Verilator stops the run at the first $error unless told to allow more; the
 # standard has $error report the error and the run go on (1800-2023 20.10).
 ERROR_LIMIT = 1000000
+
+
+def load_declarations() -> dict:
+    """The tests that may print a default-server error or fatal, or {}."""
+    if not DECLARATIONS.is_file():
+        return {}
+    return json.loads(DECLARATIONS.read_text(encoding="utf-8")).get("tests", {})
+
+
+def declarations_digest() -> str:
+    """The evidence link for the declarations, which are not an input."""
+    return (hashlib.sha256(DECLARATIONS.read_bytes()).hexdigest()
+            if DECLARATIONS.is_file() else "missing")
+
+
+def undeclared_report(test: Path, output: str, declarations: dict) -> str:
+    """Why an output prints a severity the test does not declare, or ""."""
+    try:
+        entry = declarations.get(suite_results.test_id(test), {})
+    except ValueError:
+        entry = {}
+    for severity, key in (("UVM_ERROR", "error"), ("UVM_FATAL", "fatal")):
+        if entry.get(key):
+            continue
+        line = next((l for l in output.splitlines()
+                     if l.startswith(severity + " ") and REPORT.match(l)), None)
+        if line:
+            match = re.match(r"^(UVM_ERROR|UVM_FATAL).*?\[([^\]]*)\]\s*(.*)$", line)
+            text = (f"{match.group(1)} [{match.group(2)}] {match.group(3)}"
+                    if match else line[:160])
+            return f"undeclared {severity}: {text}"
+    return ""
 
 
 def selected(tests: list[Path], everything: bool) -> list[Path]:
@@ -61,7 +106,8 @@ def selected(tests: list[Path], everything: bool) -> list[Path]:
 
 
 def run(test: Path, verilator: str, seed: int, build_jobs: int, *,
-        seeds: tuple[int, ...] | None = None) -> tuple[bool, str]:
+        seeds: tuple[int, ...] | None = None,
+        declarations: dict | None = None) -> tuple[bool, str]:
     problem = uvm_common.version_problem(test)
     if problem:
         return False, problem
@@ -74,6 +120,7 @@ def run(test: Path, verilator: str, seed: int, build_jobs: int, *,
             [verilator, "--binary", "--timing", "-j", str(build_jobs),
              "-Wno-fatal", "-Wno-lint", "-Wno-style",
              "--x-assign", "unique", "--x-initial", "unique",
+             "--timescale", TIMESCALE,
              *[f"-I{d}" for d in [*uvm_common.include_dirs(), *include_dirs]],
              *[f"-D{d}" for d in [*uvm_common.defines(test), *suite_results.defines(test)]],
              *(["--top-module", top] if top else []), "-Mdir", str(obj), "--prefix", "Vt",
@@ -110,6 +157,9 @@ def run(test: Path, verilator: str, seed: int, build_jobs: int, *,
             why = suite_results.judge_run(test, r.returncode, r.stdout + r.stderr)
             if why:
                 return False, f"seed {current_seed}: {why}"
+            why = undeclared_report(test, r.stdout, declarations or {})
+            if why:
+                return False, f"seed {current_seed}: {why}"
     return True, ""
 
 
@@ -131,13 +181,16 @@ def main() -> int:
         ap.error("--jobs must be positive and --build-jobs must be nonnegative")
 
     tests = args.tests or selected(suite_results.find_tests(), args.all)
+    declarations = load_declarations()
+    declarations_sha = declarations_digest()
     failed = known = 0
     inputs = suite_results.fingerprints(tests) if args.json else None
     runner_hash = suite_results.runner_digest("verilator") if args.json else None
     statuses = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
         results = pool.map(lambda t: run(t, args.verilator, args.seed, args.build_jobs,
-                                        seeds=tuple(args.seeds) if args.seeds else None), tests)
+                                        seeds=tuple(args.seeds) if args.seeds else None,
+                                        declarations=declarations), tests)
         for t, (ok, why) in zip(tests, results):
             name = suite_results.test_id(t)
             recorded = ORACLE in suite_results.header(t).get("oracle", "").split()
@@ -158,7 +211,8 @@ def main() -> int:
                             inputs=inputs, runner_sha256=runner_hash,
                             configuration={**({"seeds": args.seeds} if args.seeds
                                               else {"seed": args.seed}),
-                                           "uvm": uvm_common.lock()["version"]})
+                                           "uvm": uvm_common.lock()["version"],
+                                           "uvm_reports": declarations_sha})
     return 1 if failed else 0
 
 

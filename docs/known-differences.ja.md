@@ -522,6 +522,12 @@ DPIはSystemVerilogと外部コードをつなぎ、有効化flagだけではbac
 M1・M2・M3で、追加の制約と観測を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
 
+- `uvm_component::set_name`は、空でない名前の変更を`INVSTNM`のerrorにして拒否します。
+  1800.2-2020 5.3.4.1は`set_name`が以前の名前を上書きすると定め、13.1.2.1のerrorは同じ名前の子が既にある場合です。
+  [`test_inherited_api_component_0_99`](../tests/u01/test_inherited_api_component_0_99.sv)と
+  [`_1_99`](../tests/u01/test_inherited_api_component_1_99.sv)は、このlibraryの制約を既知差分としてspecのみの期待値を保ちます。
+  新しいreport検出では、このerrorは宣言のないlibraryの出力であり、テストの宣言では消しません。期待値は変えません。
+
 - builtin constructor 2 fixtureはseed 1で差分となりseed 73は実行しません。
   [single-memory access](../tests/uE/test_builtin_mem_single_access_seq_constructor_types_target.sv)と
   [single-memory walk](../tests/uE/test_builtin_mem_single_walk_seq_constructor_types_target.sv)の省略名が記載constructor既定値と異なります。

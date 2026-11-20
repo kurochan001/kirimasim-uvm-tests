@@ -1086,6 +1086,9 @@ premiseはテストが前提とする準備条件であり、明示的に初期�
 **caller単位のcanonical time** — 呼出しscopeの時間単位で解釈するreal時間量です。
 明示scaled／secs引数がcanonical表現との換算を指定し、nanosecond基準の例をpicosecond scopeで未変更のまま再利用できません。
 
+**一律のモデル時間単位** — Verilatorのrunnerが全モデルに渡す`1ns/1ps`です。
+テストのmetadataではなく実行条件で、1800-2023 3.14.2.3が時間単位の混在をerrorとするため、宣言の有無をテスト間で混ぜません。
+
 **virtual overrideのformal名** — SystemVerilog 8.20で基底virtual methodと一致が必要な引数名です。
 引数型の一致やcompile受理だけでは、override宣言の妥当性を証明しません。
 

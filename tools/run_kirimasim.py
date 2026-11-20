@@ -18,6 +18,11 @@ rejects it (exit code 2) with an error at the place `:expected_stderr_regex:`
 names. The exit code and standard error are checked against `:expected_exit:`
 and `:expected_stderr_regex:` (see tools/suite_results.py).
 
+A default-server line that begins with `UVM_ERROR ` or `UVM_FATAL ` fails the
+test unless coverage/uvm_reports.json declares that severity for it. The
+declarations file is not an input fingerprint; its SHA-256 is recorded in the
+result configuration.
+
 With --json, the result of every test is also written to FILE in the form
 that tools/suite_results.py describes. Exits with 1 if a test does not match
 or is unsupported.
@@ -25,6 +30,8 @@ or is unsupported.
 
 import argparse
 import concurrent.futures
+import hashlib
+import json
 import re
 import shutil
 import subprocess
@@ -36,9 +43,43 @@ import suite_results
 import uvm_common
 
 UNSUPPORTED = re.compile(r"error: unsupported: (.*)")
+DECLARATIONS = suite_results.ROOT / "coverage" / "uvm_reports.json"
+REPORT = re.compile(r"^(UVM_ERROR|UVM_FATAL)(?! :) ")
 
 
-def run(test: Path, kirimasim: str) -> tuple[str, str]:
+def load_declarations() -> dict:
+    """The tests that may print a default-server error or fatal, or {}."""
+    if not DECLARATIONS.is_file():
+        return {}
+    return json.loads(DECLARATIONS.read_text(encoding="utf-8")).get("tests", {})
+
+
+def declarations_digest() -> str:
+    """The evidence link for the declarations, which are not an input."""
+    return (hashlib.sha256(DECLARATIONS.read_bytes()).hexdigest()
+            if DECLARATIONS.is_file() else "missing")
+
+
+def undeclared_report(test: Path, output: str, declarations: dict) -> str:
+    """Why an output prints a severity the test does not declare, or ""."""
+    try:
+        entry = declarations.get(suite_results.test_id(test), {})
+    except ValueError:
+        entry = {}
+    for severity, key in (("UVM_ERROR", "error"), ("UVM_FATAL", "fatal")):
+        if entry.get(key):
+            continue
+        line = next((l for l in output.splitlines()
+                     if l.startswith(severity + " ") and REPORT.match(l)), None)
+        if line:
+            match = re.match(r"^(UVM_ERROR|UVM_FATAL).*?\[([^\]]*)\]\s*(.*)$", line)
+            text = (f"{match.group(1)} [{match.group(2)}] {match.group(3)}"
+                    if match else line[:160])
+            return f"undeclared {severity}: {text}"
+    return ""
+
+
+def run(test: Path, kirimasim: str, declarations: dict | None = None) -> tuple[str, str]:
     """The status of the test (pass, fail or unsupported) and the reason."""
     problem = uvm_common.version_problem(test)
     if problem:
@@ -76,6 +117,8 @@ def run(test: Path, kirimasim: str) -> tuple[str, str]:
         return "fail", "output differs" + (f" (exit {r.returncode})" if r.returncode else "") + (
             f": {err[0].split(': ', 1)[-1]}" if err else ": " + suite_results.first_difference(got, want))
     why = suite_results.judge_run(test, r.returncode, r.stderr)
+    if not why:
+        why = undeclared_report(test, r.stdout, declarations or {})
     return ("fail" if why else "pass"), why
 
 
@@ -93,12 +136,14 @@ def main() -> int:
     exe = str(Path(exe).resolve())   # the tests run in other directories
 
     tests = args.tests or suite_results.find_tests()
+    declarations = load_declarations()
+    declarations_sha = declarations_digest()
     inputs = suite_results.fingerprints(tests) if args.json else None
     runner_hash = suite_results.runner_digest("kirimasim") if args.json else None
     failed = unsupported = 0
     statuses = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
-        results = pool.map(lambda t: run(t, exe), tests)
+        results = pool.map(lambda t: run(t, exe, declarations), tests)
         for t, (status, why) in zip(tests, results):
             name = suite_results.test_id(t)
             if status == "unsupported":
@@ -114,7 +159,8 @@ def main() -> int:
         suite_results.write(args.json, "kirimasim", "kirimasim",
                             suite_results.tool_version([exe, "--version"]), statuses,
                             inputs=inputs, runner_sha256=runner_hash,
-                            configuration={"uvm": uvm_common.lock()["version"]})
+                            configuration={"uvm": uvm_common.lock()["version"],
+                                           "uvm_reports": declarations_sha})
     return 1 if failed or unsupported else 0
 
 

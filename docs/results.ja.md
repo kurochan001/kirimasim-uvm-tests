@@ -6,7 +6,7 @@
 
 runtime一致、compiler拒否、未測定入力は実行条件が異なるため、件数を併せて読む方法は[結果を読む](reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-09に集約したVerilator記録は2値の2756件すべてを対象にし、4値の7件には記録がありません。他2系統は未変更1081件の記録で、
+2026-11-20の診断は2値のsimulationテスト2657件を`--timescale 1ns/1ps`で確認し、tag付きruntime 2199件の状態変化と未宣言reportは0件でした。tag付きcompile拒否94件も一致し、4値の7件にはVerilatorの記録がありません。Ghostの1081記録は有効なままですが、kirimasimの1081記録はrunnerの指紋が変わるため現在の証拠ではありません。
 1682入力は未測定です。各記録は入力と実行条件を指紋で識別します。
 スイートは22 directoryの2763件で、simulation 2664件とelaboration 99件です。
 milestoneはM1 1188件（1107／81）、M2 633件（626／7）、M3 942件（931／11）で、括弧内はruntime／elaborationです。
@@ -22,7 +22,7 @@ seed 1／73で一致しても検査系は1件と数え、設定で指定したse
 | Verilator 5.052・独自VPI HDL backend | `pass` 37件、`fail` 1件 | 重複する38件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・独自command-line VPI bridge・固定regex DPI | `pass` 20件、`known` 3件 | 重複する23件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・regex DPIとcommand-line DPIで再実行する通常検査系 | `pass` 26件 | `coverage/regex_dpi_variants.txt`による重複する26件の別条件。一致はseed 1／73 |
-| kirimasim・固定版UVM | `unsupported`が1072件、`fail`が9件 | 未変更1081入力。1682入力は未測定 |
+| kirimasim・固定版UVM | `unsupported`が1072件、`fail`が9件 | 変更前の1081入力。report宣言の検査を含まないため、現在のrunnerの証拠ではない。1682入力は未測定 |
 | Ghost・同梱UVM | `pass`が206件、`fail`が875件 | 各seedで未変更1081入力。失敗集合は同じ。1682入力は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
@@ -142,6 +142,7 @@ SHA-256は記録した内容から計算する識別値であり、1つの識別
 | --- | --- | --- |
 | `inputs_sha256` | テストsource、期待値file、収集したhelper／data、library lock | 各記録を現在のテスト入力と照合する |
 | `runner_sha256` | 選択したrunner、`suite_results.py`、`uvm_common.py` | batch間で一致し、`runner_changed`がfalseであることを確認する |
+| `uvm_reports` | `coverage/uvm_reports.json`のSHA-256 | 宣言の内容が記録時と同じであることを確認する |
 | `ledger_inputs_sha256` | 正本の範囲、要求、分類、テスト索引、条項catalog | simulationの証拠と別に、生成したinventory／backlogを識別する |
 
 [台帳の識別子](requirements.ja.md#生成レポートの識別)は、生成したレビュー資料のものです。

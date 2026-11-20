@@ -781,7 +781,9 @@ The runners need Python 3.10 or later. The results JSON has the form of
 kirimasim-tests (`tools/suite_results.py`), so its history and report tools
 can read it. `run_verilator.py` builds each test, including the whole UVM
 package. `-j` controls concurrent tests; `--build-jobs` controls C++ build jobs
-per test (0, the default, uses every hardware thread). It does not use ccache: Verilator builds
+per test (0, the default, uses every hardware thread). Each model's C++ build
+can use several GiB of memory, so on a shared host with little free memory use
+`--build-jobs 1` and a smaller `-j`. It does not use ccache: Verilator builds
 the large model with a precompiled header that records the absolute path of
 its build directory, and a header that ccache kept from another directory
 breaks the build.
@@ -802,6 +804,14 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 The seed list accepts several values, so keep an option such as `--build-jobs` between `--seeds 1 73` and a source path as shown in [the single-test example](faq.md#q3-how-can-i-run-one-test-first).
+
+### Time unit and report declarations
+
+All four Verilator runners build every model with `--timescale 1ns/1ps`. The time unit is not a test metadata field: 1800-2023 3.14.2.3 makes mixed declarations an error, so the runner supplies one value.
+
+`coverage/uvm_reports.json` declares, per test, only whether the default report server may print a line beginning `UVM_ERROR ` or `UVM_FATAL `. Neither is allowed by default. Each declaration names the clauses that require the report in `basis`; `tools/uvm_reports.py check` requires them to be among the test's `:lrm:` clauses. Counts and report IDs are not declared.
+
+Detection sees only the default server's line prefix (excluding the summary line `UVM_ERROR :`). A replaced report server or a catcher that suppresses the line is not seen. A tagged test that prints an undeclared severity fails; a spec-only test remains `known`. The result JSON records the declarations file's SHA-256 in `configuration`.
 
 For a runtime mismatch, follow the selected test header's `:expected_stdout:` path and compare its `UT: ` lines using [the result-reading guide](reading-guide.md#read-a-result).
 

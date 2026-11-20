@@ -1,0 +1,232 @@
+{
+  "schema": 1,
+  "tests": {
+    "u05/test_field_op_accessors_report_errors_after_flush": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 5.7.2.3",
+        "1800.2-2020 5.7.2.4",
+        "1800.2-2020 5.7.2.5",
+        "1800.2-2020 5.7.2.6"
+      ]
+    },
+    "u05/test_field_op_accessors_report_errors_before_set": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 5.7.2.3",
+        "1800.2-2020 5.7.2.4",
+        "1800.2-2020 5.7.2.5",
+        "1800.2-2020 5.7.2.6"
+      ]
+    },
+    "u05/test_field_op_rejects_combined_copy_compare_flags": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 5.7.2.2"
+      ]
+    },
+    "u05/test_field_op_rejects_combined_pack_unpack_flags": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 5.7.2.2"
+      ]
+    },
+    "u05/test_field_op_repeated_set_rejects_different_operation": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 5.7.2.2"
+      ]
+    },
+    "u05/test_field_op_repeated_set_rejects_same_operation": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 5.7.2.2"
+      ]
+    },
+    "u06/test_report_catcher_error_helper_bypasses_both_catching_callbacks": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 6.6.6.2"
+      ]
+    },
+    "u06/test_report_catcher_fatal_helper_preserves_origin_defaults_and_bypasses_both_callbacks": {
+      "error": false,
+      "fatal": true,
+      "basis": [
+        "1800.2-2020 6.6.6.1"
+      ]
+    },
+    "u06/test_report_server_used_severity_set_replaces_caller_queue_without_order_assumptions": {
+      "error": true,
+      "fatal": true,
+      "basis": [
+        "1800.2-2020 6.5.1.2.6",
+        "1800.2-2020 6.5.1.2.10"
+      ]
+    },
+    "u09/test_function_phase_count_query_reports_error": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 9.3.1.7"
+      ]
+    },
+    "u09/test_function_phase_rejects_raise_and_drop_objections": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 9.3.1.7"
+      ]
+    },
+    "u09/test_run_phase_timeout_reports_fatal_at_the_locked_absolute_limit": {
+      "error": false,
+      "fatal": true,
+      "basis": [
+        "1800.2-2020 9.8.1.5"
+      ]
+    },
+    "u10/test_heartbeat_rejects_a_different_running_event_but_accepts_it_after_stop": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 10.6.2.6"
+      ]
+    },
+    "u12/test_tlm2_blocking_target_socket_connect_reports_error_for_each_forbidden_call": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 12.3.5.1.4"
+      ]
+    },
+    "u12/test_tlm2_nonblocking_target_socket_connect_reports_error_for_each_forbidden_call": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 12.3.5.3.4"
+      ]
+    },
+    "u14/test_sequence_response_queue_overflow_reports_error": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 14.2.7.4"
+      ]
+    },
+    "u16/test_packer_unpack_object_rejects_nonnull_into_null": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 16.5.4.4"
+      ]
+    },
+    "u16/test_packer_unpack_object_rejects_null_into_nonnull": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 16.5.4.4"
+      ]
+    },
+    "u18/test_block_update_writes_changed_local_and_nested_registers_and_skips_clean_values": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.1.5.5"
+      ]
+    },
+    "u18/test_mam_reconfigure_expand_request_115": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.12.8.2.2",
+        "1800.2-2020 18.12.5.2"
+      ]
+    },
+    "u18/test_mam_reconfigure_expand_reserve_115": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.12.5.1"
+      ]
+    },
+    "u18/test_mam_reconfigure_shrink_request_115": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.12.8.2.2",
+        "1800.2-2020 18.12.5.2"
+      ]
+    },
+    "u18/test_mam_reconfigure_shrink_reserve_115": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.12.5.1"
+      ]
+    },
+    "u18/test_memory_manager_rejects_overlap_and_accepts_an_adjacent_region": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.12.5.1"
+      ]
+    },
+    "u18/test_memory_manager_rejects_reservations_outside_its_address_range": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.12.5.1"
+      ]
+    },
+    "u18/test_vreg_allocate_cannot_replace_a_static_implementation": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.9.1.1.2"
+      ]
+    },
+    "u18/test_vreg_allocate_returns_null_when_its_policy_has_no_free_start": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.9.1.1.4",
+        "1800.2-2020 18.12.8.2.2"
+      ]
+    },
+    "u18/test_vreg_dynamic_implementation_rejects_an_overlapping_destination": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.9.1.1.3"
+      ]
+    },
+    "u18/test_vreg_static_implementation_cannot_be_released_dynamically": {
+      "error": true,
+      "fatal": false,
+      "basis": [
+        "1800.2-2020 18.9.1.1.6"
+      ]
+    },
+    "uF/test_root_extension_fatal_positive_time_control_88": {
+      "error": false,
+      "fatal": true,
+      "basis": [
+        "1800.2-2020 F.7.2.1"
+      ]
+    },
+    "uF/test_root_guard_build_before_start_control_88": {
+      "error": true,
+      "fatal": true,
+      "basis": [
+        "1800.2-2020 F.7.3.6"
+      ]
+    }
+  }
+}

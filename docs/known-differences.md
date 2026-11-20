@@ -667,6 +667,15 @@ Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
+- `uvm_component::set_name` refuses to change a non-empty name and reports an
+  `INVSTNM` error. 1800.2-2020 5.3.4.1 says `set_name` overwrites the previous
+  name; the error in 13.1.2.1 is for an existing child with the same name.
+  [`test_inherited_api_component_0_99`](../tests/u01/test_inherited_api_component_0_99.sv)
+  and [`_1_99`](../tests/u01/test_inherited_api_component_1_99.sv) keep their
+  spec-only expectations for this library limitation. Under the new report
+  detection the line is an undeclared library report, not a test declaration;
+  the expectation is unchanged.
+
 - Two builtin constructor fixtures differ at seed 1 without seed 73:
   [single-memory access](../tests/uE/test_builtin_mem_single_access_seq_constructor_types_target.sv)
   and [single-memory walk](../tests/uE/test_builtin_mem_single_walk_seq_constructor_types_target.sv).

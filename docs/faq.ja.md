@@ -4514,3 +4514,15 @@ B.7のversionのmacroのように、package scopeの宣言だけを使う以前�
 
 commentや改行はテストの入力の指紋を変えるため、保存した結果は測ったときの入力を指さなくなります。`tools/code_identity.py`は、編集した各fileがsimulatorの読むものを保つこと、つまりcommentと空白を除いた字句、metadataの項目、compiler directive、metacomment、`` `__LINE__ ``の周りの行の距離を保つことを示します。
 そのうえで、台帳の索引と原因の記録の指紋、もう一度は測れないguestの記録の指紋を持ち越します。guestの記録は古い指紋を`carried_from`に残します。編集した入力のVerilatorの結果は測り直し、編集したdirectoryに絞ったRegressionでtag付きの検査を確かめます。
+
+## 時間単位とreportの宣言
+
+### Q451. なぜ全テストに`--timescale 1ns/1ps`を渡すのですか？
+
+1800-2023 3.14.2.3は、時間単位の宣言が混在するdesignをerrorとします。テストごとに時間単位を宣言すると、同じsuiteでも宣言の有無が混ざり、libraryとtestの間でもerrorになります。runnerは全モデルに同じ`--timescale 1ns/1ps`を渡し、テストのmetadataには時間単位を足しません。`UT:`行の比較は変えず、tag付きのテストで状態が変わるかは、全件の出力を集める診断で先に確かめます。
+
+### Q452. `coverage/uvm_reports.json`は何を宣言し、何を検出しませんか？
+
+`coverage/uvm_reports.json`は、既定のreport serverが`UVM_ERROR `または`UVM_FATAL `の行を出してよいテストを、severityごとの有無だけで宣言します。既定はどちらも不可です。`basis`は、そのreportを求める条項を挙げ、`tools/uvm_reports.py check`が、条項がテストの`:lrm:`にあること、値がbooleanであること、並び順と重複を検査します。件数とreport IDは宣言しません。
+検出は行頭の`UVM_ERROR `／`UVM_FATAL `（集計行の`UVM_ERROR :`を除く）だけを見ます。report serverを差し替えたテストや、catcherが抑止した行は拾いません。宣言のない行が出たtaggedテストは失敗し、specのみのテストは`known`のままです。結果JSONの`configuration`には宣言fileのSHA-256を記録します。
+分類は、条項が求める（宣言を足す）、検査系の誤り（テストを直す）、規格が求めないものをlibraryが出す（既知差分として原因を記録）の3つです。

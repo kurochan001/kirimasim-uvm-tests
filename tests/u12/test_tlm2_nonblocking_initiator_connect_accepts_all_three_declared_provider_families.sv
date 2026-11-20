@@ -32,21 +32,29 @@
 module test_tlm2_nonblocking_initiator_connect_accepts_all_three_declared_provider_families;
   import uvm_pkg::*;
   class endpoint extends uvm_component;
-    function new(); super.new("owner",null); endfunction
+    function new(string name="owner"); super.new(name,null); endfunction
     function uvm_tlm_sync_e nb_transport_fw(uvm_tlm_generic_payload value,
         ref uvm_tlm_phase_e phase,input uvm_tlm_time delay); return UVM_TLM_COMPLETED; endfunction
     function uvm_tlm_sync_e nb_transport_bw(uvm_tlm_generic_payload value,
         ref uvm_tlm_phase_e phase,input uvm_tlm_time delay); return UVM_TLM_COMPLETED; endfunction
   endclass
   initial begin
-    automatic endpoint owner = new();
+    // Each socket has its own parent: the nonblocking sockets add an
+    // internal child named bw_imp to their parent, so a shared parent would
+    // collide before the connections under test.
+    automatic endpoint owner_p0 = new("owner_p0");
+    automatic endpoint owner_c0 = new("owner_c0");
+    automatic endpoint owner_p1 = new("owner_p1");
+    automatic endpoint owner_c1 = new("owner_c1");
+    automatic endpoint owner_p2 = new("owner_p2");
+    automatic endpoint owner_c2 = new("owner_c2");
     automatic uvm_report_server server = uvm_report_server::get_server();
-    automatic uvm_tlm_nb_target_socket#(endpoint) provider_0 = new("provider_0",owner);
-    automatic uvm_tlm_nb_initiator_socket#(endpoint) consumer_0 = new("consumer_0",owner);
-    automatic uvm_tlm_nb_passthrough_initiator_socket#() provider_1 = new("provider_1",owner);
-    automatic uvm_tlm_nb_initiator_socket#(endpoint) consumer_1 = new("consumer_1",owner);
-    automatic uvm_tlm_nb_passthrough_target_socket#() provider_2 = new("provider_2",owner);
-    automatic uvm_tlm_nb_initiator_socket#(endpoint) consumer_2 = new("consumer_2",owner);
+    automatic uvm_tlm_nb_target_socket#(endpoint) provider_0 = new("provider_0",owner_p0);
+    automatic uvm_tlm_nb_initiator_socket#(endpoint) consumer_0 = new("consumer_0",owner_c0);
+    automatic uvm_tlm_nb_passthrough_initiator_socket#() provider_1 = new("provider_1",owner_p1);
+    automatic uvm_tlm_nb_initiator_socket#(endpoint) consumer_1 = new("consumer_1",owner_c1);
+    automatic uvm_tlm_nb_passthrough_target_socket#() provider_2 = new("provider_2",owner_p2);
+    automatic uvm_tlm_nb_initiator_socket#(endpoint) consumer_2 = new("consumer_2",owner_c2);
     int before_count,after_count;
     bit accepted[3];
     automatic int errors = 0;

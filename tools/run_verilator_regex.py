@@ -15,7 +15,10 @@ and command-line runners are unchanged.
 
 import argparse
 import concurrent.futures
+import hashlib
+import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -30,9 +33,44 @@ LIST = suite_results.ROOT / "coverage" / "regex_dpi_variants.txt"
 BACKEND_DIR = (Path(__file__).parent / "cmdline_backend").resolve()
 BACKEND = BACKEND_DIR / "uvm_cmdline_vpi.cpp"
 REGEX = BACKEND_DIR / "uvm_cmdline_regex.cpp"
+TIMESCALE = "1ns/1ps"
+DECLARATIONS = suite_results.ROOT / "coverage" / "uvm_reports.json"
+REPORT = re.compile(r"^(UVM_ERROR|UVM_FATAL)(?! :) ")
 # Verilator stops the run at the first $error unless told to allow more; the
 # standard has $error report the error and the run go on (1800-2023 20.10).
 ERROR_LIMIT = 1000000
+
+
+def load_declarations() -> dict:
+    """The tests that may print a default-server error or fatal, or {}."""
+    if not DECLARATIONS.is_file():
+        return {}
+    return json.loads(DECLARATIONS.read_text(encoding="utf-8")).get("tests", {})
+
+
+def declarations_digest() -> str:
+    """The evidence link for the declarations, which are not an input."""
+    return (hashlib.sha256(DECLARATIONS.read_bytes()).hexdigest()
+            if DECLARATIONS.is_file() else "missing")
+
+
+def undeclared_report(test: Path, output: str, declarations: dict) -> str:
+    """Why an output prints a severity the test does not declare, or ""."""
+    try:
+        entry = declarations.get(suite_results.test_id(test), {})
+    except ValueError:
+        entry = {}
+    for severity, key in (("UVM_ERROR", "error"), ("UVM_FATAL", "fatal")):
+        if entry.get(key):
+            continue
+        line = next((l for l in output.splitlines()
+                     if l.startswith(severity + " ") and REPORT.match(l)), None)
+        if line:
+            match = re.match(r"^(UVM_ERROR|UVM_FATAL).*?\[([^\]]*)\]\s*(.*)$", line)
+            text = (f"{match.group(1)} [{match.group(2)}] {match.group(3)}"
+                    if match else line[:160])
+            return f"undeclared {severity}: {text}"
+    return ""
 
 
 def variants(path: Path = LIST) -> dict[str, bool]:
@@ -71,7 +109,8 @@ def defines(test: Path) -> list[str]:
 
 
 def run(test: Path, verilator: str, seed: int, build_jobs: int, *,
-        seeds: tuple[int, ...] | None = None) -> tuple[bool, str]:
+        seeds: tuple[int, ...] | None = None,
+        declarations: dict | None = None) -> tuple[bool, str]:
     problem = variant_problem(test) or uvm_common.version_problem(test)
     if problem:
         return False, problem
@@ -84,6 +123,7 @@ def run(test: Path, verilator: str, seed: int, build_jobs: int, *,
             [verilator, "--binary", "--timing", "--vpi", "-CFLAGS", f"-I{BACKEND_DIR}",
              "-j", str(build_jobs), "-Wno-fatal", "-Wno-lint", "-Wno-style",
              "--x-assign", "unique", "--x-initial", "unique",
+             "--timescale", TIMESCALE,
              *[f"-I{d}" for d in [*uvm_common.include_dirs(), *include_dirs]],
              *[f"-D{d}" for d in defines(test)],
              *(["--top-module", top] if top else []), "-Mdir", str(obj), "--prefix", "Vt",
@@ -118,6 +158,9 @@ def run(test: Path, verilator: str, seed: int, build_jobs: int, *,
             why = suite_results.judge_run(test, r.returncode, r.stdout + r.stderr)
             if why:
                 return False, f"seed {current_seed}: {why}"
+            why = undeclared_report(test, r.stdout, declarations or {})
+            if why:
+                return False, f"seed {current_seed}: {why}"
     return True, ""
 
 
@@ -149,13 +192,17 @@ def main() -> int:
         ap.error("no regex-DPI variants selected")
     inputs = suite_results.fingerprints(tests)
     runner_hash = suite_results.runner_digest(SIMULATOR)
+    declarations = load_declarations()
+    declarations_sha = declarations_digest()
     statuses = {}
     configuration = {"seeds": args.seeds, "uvm": uvm_common.lock()["version"],
                      "regex_dpi": "pinned-uvm-2020.3.1", "hdl_dpi": False,
-                     "uvm_cmdline_backend": "original-vpi-process-arguments"}
+                     "uvm_cmdline_backend": "original-vpi-process-arguments",
+                     "uvm_reports": declarations_sha}
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
         futures = {pool.submit(run, t, args.verilator, args.seeds[0], args.build_jobs,
-                               seeds=tuple(args.seeds)): t for t in tests}
+                               seeds=tuple(args.seeds), declarations=declarations): t
+                   for t in tests}
         for future in concurrent.futures.as_completed(futures):
             test = futures[future]
             ok, why = future.result()

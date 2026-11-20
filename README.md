@@ -96,6 +96,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
 Add `--all` to include all two-state cases, including the 463 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls concurrent tests and `--build-jobs` controls C++ jobs within each build; [Q13](docs/faq.md#q13-why-is-compilation-heavy-and-what-do-the-two-job-options-control) explains the build cost.
 Each runtime model is built once and run in a fresh process for each seed.
+All Verilator models use `--timescale 1ns/1ps`; [Time unit and report declarations](docs/testing.md#time-unit-and-report-declarations) explains the permitted default-server `UVM_ERROR`/`UVM_FATAL` lines and their clause basis.
 
 For kirimasim, replace `/path/to/kirimasim` with the installed executable's path; [the runner guide](docs/testing.md#running-the-suite) explains test selection and result files.
 

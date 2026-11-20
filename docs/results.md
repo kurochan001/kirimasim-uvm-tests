@@ -6,10 +6,13 @@
 
 Runtime matches, compiler rejections and unmeasured inputs describe different execution conditions; [Read a result](reading-guide.md#read-a-result) explains how to read the counts together.
 
-The Verilator snapshot assembled on 2026-11-09 covers all 2756 two-state tests; the seven four-state tests have no Verilator record.
-Guest records retain 1081 compatible current inputs; 1682 inputs are
-unmeasured, including four revised old inputs. Each record
-fingerprints its inputs and conditions.
+The 2026-11-20 diagnosis checked all 2657 two-state simulation tests with
+`--timescale 1ns/1ps`; none of the 2199 tagged runtime tests changed state or
+printed an undeclared report, and the 94 tagged compile rejections still match.
+The seven four-state tests have no Verilator record. The 1081 Ghost records
+remain valid; the 1081 kirimasim records are not evidence for the current
+runner because its fingerprint changed. 1682 inputs are unmeasured, including
+four revised old inputs. Each record fingerprints its inputs and conditions.
 The suite has 2763 fixtures in 22 directories: 2664 simulation and 99
 elaboration. Milestone totals are M1 1188 (1107/81), M2 633 (626/7) and M3 942
 (931/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
@@ -29,7 +32,7 @@ A runtime match at seeds 1/73 still counts as one fixture, while a seed requeste
 | Verilator 5.052, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 20 `pass`; 3 `known` | Separate overlapping 23-case condition; matches at seeds 1/73, differences at seed 1 |
 | Verilator 5.052, listed ordinary fixtures with regex and command-line DPI | 26 `pass` | Separate overlapping 26-case condition from `coverage/regex_dpi_variants.txt`; matches at seeds 1/73 |
-| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 unchanged inputs; 1682 inputs unmeasured |
+| kirimasim, pinned UVM | 1072 `unsupported`; nine `fail` | 1081 inputs from the previous runner; they do not include the report-declaration check and are not evidence for the current runner. 1682 inputs unmeasured |
 | Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1682 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
@@ -216,6 +219,7 @@ Editing only a requirement's wording calls for a regenerated inventory, while ed
 | --- | --- | --- |
 | `inputs_sha256` | Test source, expected files, collected helpers/data and library lock | Compare each record with the current test inputs |
 | `runner_sha256` | Selected runner, `suite_results.py` and `uvm_common.py` | Match across batches and require `runner_changed` to be false |
+| `uvm_reports` | SHA-256 of `coverage/uvm_reports.json` | Check that the declarations match the record |
 | `ledger_inputs_sha256` | Canonical scope, requirements, assessments, test index and clause catalog | Identify a generated inventory/backlog, separately from simulation evidence |
 
 The [ledger identity](requirements.md#generated-report-identity) belongs to

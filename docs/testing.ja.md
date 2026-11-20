@@ -572,7 +572,8 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 --json out/veril
 （`tools/suite_results.py`）なので、履歴やレポートのツールでそのまま読めます。
 `run_verilator.py`はテストごとにUVMパッケージ全体をビルドします。
 `-j`は並行するテスト数、`--build-jobs`は各テストのC++ビルド並列数です
-（既定の0はすべてのハードウェアスレッド）。ccacheは使いません。Verilatorは大きなモデルを
+（既定の0はすべてのハードウェアスレッド）。各モデルのC++ビルドは数GiBのメモリを使うため、
+共有hostで空きメモリが少ないときは`--build-jobs 1`と小さい`-j`を使ってください。ccacheは使いません。Verilatorは大きなモデルを
 事前コンパイル済みヘッダーでビルドし、そこにビルド先の絶対パスが入るので、ccacheが別の場所で作った
 ヘッダーを返すとビルドが壊れるためです。
 
@@ -590,6 +591,14 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 seedの一覧は複数の値を受け取るため、[1件を実行する例](faq.ja.md#q3-まず1件だけ動かすにはどうしますか)のように`--seeds 1 73`とソースのパスの間へ`--build-jobs`などのoptionを置いてください。
+
+### 時間単位とreportの宣言
+
+Verilatorの4つのrunnerは、すべてのモデルを`--timescale 1ns/1ps`でbuildします。時間単位はテストのmetadataに書きません。1800-2023 3.14.2.3が時間単位の混在をerrorとするため、runnerが一律に渡します。
+
+`coverage/uvm_reports.json`は、既定のreport serverが`UVM_ERROR `または`UVM_FATAL `の行を出してよいテストを、severityごとの有無だけで宣言します。既定はどちらも不可です。宣言は引用した条項を`basis`に持ち、`tools/uvm_reports.py check`が、その条項がテストの`:lrm:`にあることを検査します。件数とreport IDは宣言しません。
+
+検出は行頭の`UVM_ERROR `／`UVM_FATAL `（集計行の`UVM_ERROR :`を除く）だけを見ます。report serverを差し替えたテストや、catcherが抑止した行は拾いません。宣言のない行が出たtaggedテストは失敗し、specのみのテストは`known`のままです。結果JSONの`configuration`には宣言fileのSHA-256を記録します。
 
 runtimeの不一致は、選択したテストのヘッダーにある`:expected_stdout:`のパスを辿り、[結果の読み方](reading-guide.ja.md#結果を読む)に沿って`UT: `行を比較すると調べられます。
 

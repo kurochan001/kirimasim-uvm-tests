@@ -92,6 +92,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
 `known`ではコマンドを失敗させず、oracleタグ付きの回帰では失敗させます。
 `-j`は並行するテスト数、`--build-jobs`は各ビルド内のC++ジョブ数で、ビルドに時間がかかる理由は[Q13](docs/faq.ja.md#q13-ビルドが重い理由と2種類の並列数の違いは何ですか)で説明しています。
 runtimeの各モデルは一度ビルドし、seedごとに新しいプロセスで実行します。
+Verilatorのモデルはすべて`--timescale 1ns/1ps`でbuildし、既定のreport serverが`UVM_ERROR`／`UVM_FATAL`を出してよいかは[時間単位とreportの宣言](docs/testing.ja.md#時間単位とreportの宣言)で説明しています。
 
 kirimasimでは`/path/to/kirimasim`をインストール済みの実行ファイルのパスに置き換え、検査対象の選択と結果ファイルの扱いは[runnerのガイド](docs/testing.ja.md#スイートの実行)を参照してください。
 

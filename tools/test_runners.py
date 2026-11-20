@@ -12,6 +12,7 @@ from pathlib import Path
 from unittest import mock
 
 import run_ghost
+import run_kirimasim
 import run_verilator
 import suite_results
 import uvm_common
@@ -40,11 +41,13 @@ class RunnerTest(unittest.TestCase):
 
 
 class VerilatorSeeds(RunnerTest):
-    def execute(self, runs):
+    def execute(self, runs, declarations=None):
         with (mock.patch.object(run_verilator.uvm_common, "version_problem", return_value=""),
+              mock.patch.object(run_verilator.suite_results, "test_id", return_value="sample"),
               mock.patch.object(run_verilator.subprocess, "run",
                                 side_effect=[result(""), *runs]) as execute):
-            verdict = run_verilator.run(self.test, "verilator", 1, 1, seeds=(1, 73))
+            verdict = run_verilator.run(self.test, "verilator", 1, 1, seeds=(1, 73),
+                                        declarations=declarations or {})
         return verdict, execute.call_args_list
 
     def test_two_seeds_share_one_build_but_use_fresh_processes(self):
@@ -54,6 +57,30 @@ class VerilatorSeeds(RunnerTest):
         self.assertIn("--binary", calls[0].args[0])
         self.assertIn("+verilator+seed+1", calls[1].args[0])
         self.assertIn("+verilator+seed+73", calls[2].args[0])
+
+    def test_the_build_uses_the_fixed_time_unit(self):
+        _, calls = self.execute([result(), result()])
+        self.assertIn("--timescale", calls[0].args[0])
+        self.assertIn("1ns/1ps", calls[0].args[0])
+
+    def test_declared_error_and_fatal_pass(self):
+        verdict, _ = self.execute(
+            [result("UT: done\nUVM_ERROR @ 0: r [ID] boom\n"),
+             result("UT: done\nUVM_FATAL @ 0: r [ID] stop\n")],
+            {"sample": {"error": True, "fatal": True}})
+        self.assertEqual(verdict, (True, ""))
+
+    def test_undeclared_error_fails(self):
+        verdict, _ = self.execute(
+            [result("UT: done\nUVM_ERROR @ 0: r [ID] boom\n"), result()])
+        self.assertFalse(verdict[0])
+        self.assertIn("undeclared UVM_ERROR", verdict[1])
+
+    def test_undeclared_fatal_fails(self):
+        verdict, _ = self.execute(
+            [result(), result("UT: done\nUVM_FATAL @ 0: r [ID] stop\n")])
+        self.assertFalse(verdict[0])
+        self.assertIn("seed 73: undeclared UVM_FATAL", verdict[1])
 
     def test_second_seed_failure_is_not_hidden_by_first_seed_pass(self):
         verdict, _ = self.execute([result(), result("UT: wrong\n")])
@@ -74,6 +101,24 @@ class VerilatorSeeds(RunnerTest):
         self.write(":expected_exit: nonzero")
         verdict, _ = self.execute([result(code=2), result(code=2)])
         self.assertEqual(verdict, (True, ""))
+
+
+class KirimasimReports(RunnerTest):
+    def execute(self, output, declarations=None):
+        with (mock.patch.object(run_kirimasim.uvm_common, "version_problem", return_value=""),
+              mock.patch.object(run_kirimasim.suite_results, "test_id", return_value="sample"),
+              mock.patch.object(run_kirimasim.subprocess, "run", return_value=result(output))):
+            return run_kirimasim.run(self.test, "kirimasim", declarations or {})
+
+    def test_declared_error_passes(self):
+        self.assertEqual(self.execute("UT: done\nUVM_ERROR @ 0: r [ID] boom\n",
+                                      {"sample": {"error": True}}),
+                         ("pass", ""))
+
+    def test_undeclared_fatal_fails(self):
+        verdict, why = self.execute("UT: done\nUVM_FATAL @ 0: r [ID] stop\n")
+        self.assertEqual(verdict, "fail")
+        self.assertIn("undeclared UVM_FATAL", why)
 
 
 class GhostEvidence(RunnerTest):

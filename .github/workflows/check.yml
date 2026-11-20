@@ -56,6 +56,9 @@ jobs:
       - name: Causes of the known differences
         run: python3 tools/known_causes.py check
 
+      - name: Declared UVM reports
+        run: python3 tools/uvm_reports.py check
+
       # Every test has the stage its markers give, and each short set holds
       # tagged tests of its own stage (tools/kirimasim_stages.py).
       - name: Bring-up stages of kirimasim

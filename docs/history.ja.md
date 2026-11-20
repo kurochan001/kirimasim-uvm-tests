@@ -4232,3 +4232,15 @@ runner、metadata、記録の形式を変えるため、案として残したも
 kirimasimの目標は、測れる2383、固定版libraryのために届かない380になり、人による照合の候補は407件です。toolの単体テストは173件です。
 
 残る2点は、時間単位と、宣言のないUVM_ERROR／UVM_FATALの検出です。承認された案は、全テストに一律`--timescale 1ns/1ps`を渡し、reportの宣言は有無だけを別の追跡fileに置き、検出を同じrunnerの変更に入れます。最初に、判定を変えずに全件の出力を集めます。
+
+## 128回目の拡充：時間単位とreportの宣言（2回目の外部レビュー、C）
+
+2026-11-20に、ユーザーは2回目のレビューの残り2点を、127回目で示した案のとおりに実装することを承認しました。128回目は、Verilatorの全モデルに`--timescale 1ns/1ps`を渡し、既定のreport serverが`UVM_ERROR `または`UVM_FATAL `の行を出すことを、テストごとの宣言と照合します。
+
+最初に、判定を変えずに2値のsimulationテスト2657件を`--timescale 1ns/1ps`でbuildし、seed 1／73の全出力を保存しました。tag付き2199件で状態が変わるテストは0件、tag付きで宣言のないreportを出すテストも0件でした。49件がreportを出し、31件を条項から宣言しました。内訳はerror-only 26件、fatal-only 3件、both 2件です。`u12/test_tlm2_nonblocking_initiator_connect_accepts_all_three_declared_provider_families`は、6個のsocketを同じparentに置いて内部child名`bw_imp`が衝突した検査系の誤りで、socketごとにparentを分けて修正し、seed 1／73で一致しました。`u01`の2件は、固定版の`uvm_component::set_name`が5.3.4.1に反して名前の変更を拒むlibraryの差分で、宣言せずspecのみの既知差分のままです。
+
+実装は、4つのVerilator runnerのbuildに`--timescale 1ns/1ps`を足し、5つのrunner（通常、HDL、command-line、regex、kirimasim）で既定report serverの行を検査します。[宣言](../coverage/uvm_reports.json)はテストごとにseverityの有無と引用条項だけを持ち、`tools/uvm_reports.py check`が条項が`:lrm:`にあること、boolean、並び順、重複を検査します。宣言fileは入力の指紋に入れず、結果JSONの`configuration`にSHA-256を記録します。Checkに検査を足し、単体テストは173件から189件になりました。日英のtesting、FAQ Q451／Q452、glossary、known-differences、results、README、handoffを更新しました。
+
+確認は、tag付きruntime 2199件の`UT:`一致とexit code／stderr条件（0件の変化）、tag付きcompile拒否94件の一致（94/94）、修正した`u12`のseed 1／73、派生3 runnerのsmokeです。派生条件の全リストは次のRegressionで確認します。tag付き2293件のpassと463件のknownは変わらず、4値の7件には記録がありません。kirimasimの1081記録はrunnerの指紋が変わるため現在の証拠ではなく、Ghostの1081記録は`run_ghost.py`、`suite_results.py`、`uvm_common.py`を変えていないため有効なままです。
+
+検出の限界は、既定report serverの行頭の形に頼るため、report serverを差し替えるテストやcatcherが抑止した行を拾わないことです。

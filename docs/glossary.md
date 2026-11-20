@@ -1404,6 +1404,11 @@ scope's time units. Explicit scaled/secs arguments convert it to or from the
 canonical representation; a nanosecond-based example cannot be reused unchanged
 in a picosecond scope.
 
+**Uniform model time unit** — The `1ns/1ps` that the Verilator runner passes to
+every model. It is an execution condition, not test metadata: 1800-2023 3.14.2.3
+makes mixed time-unit declarations an error, so the suite does not mix declared
+and undeclared tests.
+
 **Virtual override formal name** — An argument name that must match the base
 virtual method under SystemVerilog 8.20. Matching argument types and accepted
 compilation alone do not establish a valid override declaration.

@@ -6086,3 +6086,31 @@ move the fingerprints of the ledger index and the cause record, and of a guest
 record that cannot be measured again, which keeps its old fingerprint in
 `carried_from`. Verilator results of the edited inputs are measured again, and
 a Regression narrowed to the edited directory confirms the tagged checks.
+
+## Time unit and report declarations
+
+### Q451. Why does every test receive `--timescale 1ns/1ps`?
+
+1800-2023 3.14.2.3 makes a design with mixed time-unit declarations an error.
+Declaring a time unit in each test would mix declarations within one suite and
+between the library and a test. The runner gives every model the same
+`--timescale 1ns/1ps` and adds no metadata field. The `UT:` comparison does not
+change; a stage-0 diagnosis collects every output first to see whether a tagged
+test changes state.
+
+### Q452. What does `coverage/uvm_reports.json` declare, and what does it not detect?
+
+`coverage/uvm_reports.json` declares, per test, only whether the default report
+server may print a line beginning `UVM_ERROR ` or `UVM_FATAL `. Neither is
+allowed by default. `basis` names the clauses that require the report;
+`tools/uvm_reports.py check` requires each to be among the test's `:lrm:`
+clauses, the values to be booleans, and the keys to be sorted and unique.
+Counts and report IDs are not declared.
+Detection sees only the default server's line prefix (excluding the summary
+line `UVM_ERROR :`). A replaced report server or a catcher that suppresses the
+line is not seen. A tagged test that prints an undeclared severity fails; a
+spec-only test remains `known`. The result JSON records the declarations file's
+SHA-256 in `configuration`.
+The three-way classification is: the clause requires it (add a declaration),
+the fixture is wrong (fix the test), or the library prints what the standard
+does not require (record a known-difference cause).
