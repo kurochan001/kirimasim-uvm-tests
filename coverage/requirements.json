@@ -162117,6 +162117,112 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RTL-PARAM-VIF-CONFIG-TYPE",
+      "clause": "C.4.2.2.2",
+      "statement": {
+        "en": "uvm_config_db#(T)::get reads a setting of its own type T, so a virtual interface of one specialization of a parameterized interface is not found through the type of another.",
+        "ja": "uvm_config_db#(T)::getは自分の型Tの設定を読むので、parameter付きinterfaceのある特殊化のvirtual interfaceは、別の特殊化の型では見つからない。"
+      },
+      "conditions": {
+        "en": "Set a virtual interface of the 8-bit and of the 12-bit specialization for the scopes of two parameterized agents, and ask for the 12-bit type at the scope of the 8-bit driver.",
+        "ja": "2つのparameter付きagentのscopeに、8 bitと12 bitの特殊化のvirtual interfaceを設定し、8 bitのdriverのscopeで12 bitの型を求める。"
+      },
+      "expected": {
+        "en": "Both drivers get their own interface, and the crossed request returns 0.",
+        "ja": "両方のdriverが自分のinterfaceを得て、型を入れ替えた要求は0を返す。"
+      },
+      "limitations": {
+        "en": "Only virtual interfaces of one parameterized interface with two widths are exercised.",
+        "ja": "2つの幅を持つ1つのparameter付きinterfaceのvirtual interfaceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_rtl_parameterized_agents_get_their_own_virtual_interface_136",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vif own 1 1 crossed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-PARAM-AGENT-SIDE-BY-SIDE",
+      "clause": "B.2.1.3",
+      "statement": {
+        "en": "Parameterized components and objects registered with the param_utils macros work as specializations side by side, each with its own factory proxy.",
+        "ja": "param_utilsのmacroで登録したparameter付きのcomponentとobjectは、特殊化ごとに自分のfactory proxyを持ち、並んで動く。"
+      },
+      "conditions": {
+        "en": "Agents, drivers, monitors, subscribers, sequences and items of widths 8 and 12 drive two RTL registers in parallel.",
+        "ja": "幅8と12のagent、driver、monitor、subscriber、sequence、itemが、2つのRTLのregisterを並行に駆動する。"
+      },
+      "expected": {
+        "en": "The reads give all ones of each width, each subscriber receives the two transactions of its own bus with its own data width, the item proxies differ and each read item reports its own proxy.",
+        "ja": "読出しは各幅の全bit 1になり、各subscriberは自分のbusの2つのtransactionを自分のdata幅で受け取る。itemのproxyは互いに異なり、読出しのitemは自分のproxyを返す。"
+      },
+      "limitations": {
+        "en": "The type name of a parameterized class is not observed.",
+        "ja": "parameter付きclassの型名は観測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_rtl_parameterized_agents_get_their_own_virtual_interface_136",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reads ff fff",
+            "UT: subscribers 2 2 data_bits 8 12",
+            "UT: item proxies differ 1 own 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-TWO-CLOCK-FIFO-PAIRING",
+      "clause": "12.2.8.3",
+      "statement": {
+        "en": "An analysis FIFO is an unbounded FIFO with a write interface, so each stream keeps all of its transactions in order while a consumer waits for the other stream.",
+        "ja": "analysis FIFOはwrite interfaceを持つ上限のないFIFOなので、consumerが別のstreamを待つ間も、各streamはすべてのtransactionを順序どおりに保つ。"
+      },
+      "conditions": {
+        "en": "Two RTL buses on clocks of different periods run the same sequence; each monitor writes to its own analysis FIFO, and a scoreboard gets one transaction from each FIFO before it compares a pair.",
+        "ja": "周期の違うclockで動く2つのRTLのbusが同じsequenceを実行する。各monitorは自分のanalysis FIFOに書き、scoreboardは各FIFOから1つずつ取り出してから組を比べる。"
+      },
+      "expected": {
+        "en": "Both buses read the same values, five pairs agree, both FIFOs end empty, and the streams end at different times.",
+        "ja": "両方のbusが同じ値を読み、5組が一致し、両方のFIFOは空で終わり、2つのstreamは別々の時刻に終わる。"
+      },
+      "limitations": {
+        "en": "The pairs are formed by position; no relation between the two clocks is assumed or checked.",
+        "ja": "組は位置で作る。2つのclockの関係は仮定も検査もしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_rtl_two_clock_buses_are_paired_through_analysis_fifos_by_position_136",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reads a 3c c3 2 b 3c c3 2",
+            "UT: pairs 5 equal 5 empty 1 1",
+            "UT: streams end at different times 1"
+          ]
+        }
+      ]
     }
   ]
 }

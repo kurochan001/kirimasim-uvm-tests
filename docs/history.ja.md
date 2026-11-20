@@ -4311,3 +4311,16 @@ suiteは2774件（simulation 2675）、義務は4174件です。このテスト�
 このテストはspecのみです。固定版のsequenceは、fieldの少なくとも1つが比較の対象であるregisterだけを読みます。COUNTのfieldはvolatileの1つだけで、比較の対象ではないので、monitorが見る読出しは3回、次に2回になります。固定版のsourceは、最初の測定の後に、原因を調べるために読みました。期待値は変えていません。[原因の記録](../coverage/known_causes.json)に記録（library、runtime、E.1）を足し、[既知差分の一覧](known-differences.ja.md)からテストへlinkしました。登録の前後とも、seed 1で同じ理由の差分になり、slangではelaborateできます。
 
 suiteは2775件（simulation 2676）、義務4176件、tag付きの検査2304件、既知差分464件（実行時319件、原因がlibraryのもの320件）、specのみ471件です。kirimasimの目標は、測れる2394、固定版libraryのために届かない381で、人の照合を待つ記録は408件です。READMEと詳細ハンドオフのM3の件数は、132回目に942のまま残っていたので、944（simulation 933）に直しました。
+
+## 136回目の拡充：parameter付きのagentと2つのclock（3回目の外部レビュー、項目4）
+
+testbench形のテストをさらに2件足しました。どちらも期待値を実行の前に書き、Verilator 5.052のseed 1／73で、tag付けの前後とも一致します。
+
+| テスト | 組み合わせるもの | 条項 |
+| --- | --- | --- |
+| [`uC/test_rtl_parameterized_agents_get_their_own_virtual_interface_136`](../tests/uC/test_rtl_parameterized_agents_get_their_own_virtual_interface_136.sv) | 幅をparameterに持ち、param_utilsのmacroで登録したitem、sequence、driver、monitor、agent、subscriber。parameter付きinterfaceのvirtual interfaceを、その型のまま`uvm_config_db`で渡すこと。8 bitと12 bitの2つのRTLのregister | C.4.2.2.2、C.4.2.2.1、B.2.1.2、B.2.1.3 |
+| [`u12/test_rtl_two_clock_buses_are_paired_through_analysis_fifos_by_position_136`](../tests/u12/test_rtl_two_clock_buses_are_paired_through_analysis_fifos_by_position_136.sv) | 周期10と14のclockで動く、116回目のregister fileの2つのinstance。busごとのanalysis FIFO。各FIFOから1つずつ取り出してから組を比べるscoreboard | 12.2.8.3、12.2.8.2.3、12.2.8.2.4 |
+
+1件目は独自のdesign `tests/uC/helpers136_rtl/px_rtl136.sv`を持ちます。幅のparameterを持つinterfaceと、registerが1つのmoduleです。テストを書く前に、UVMを使わない再現例で、Verilator 5.052とslangが、clocking blockを持つparameter付きinterfaceのvirtual interfaceを受け付けることを確かめました。義務3件がこの2件に対応します。どちらもslangでelaborateできます。
+
+suiteは2777件（simulation 2678）、義務4179件、tag付きの検査2306件です。2件はM1とM2に数えます。ユーザーが残した候補のうち、reset、phaseのjump、clockで数えるdrain timeを扱うphaseのテストには着手していません。

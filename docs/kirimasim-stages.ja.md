@@ -13,7 +13,7 @@
 
 ## 段階を設ける理由
 
-kirimasimの現在の記録1081件のうち1072件は`uvm_object_wrapper`をunsupportedと報告し、残る9件は先にlibraryのAPIの欠落に当たります。1694入力には現在の記録がありません（[現在の結果](results.ja.md#現在のスナップショット)）。測ったテストがすべて同じ所で止まるため、記録からはsimulatorがどこまで進んだかが分かりません。テストごとの段階と段階ごとの短いセットがあれば、短いセットを実行して最初に通らない段階が分かり、下の機能の表から次に見るべき言語のテストをたどれます。
+kirimasimの現在の記録1081件のうち1072件は`uvm_object_wrapper`をunsupportedと報告し、残る9件は先にlibraryのAPIの欠落に当たります。1696入力には現在の記録がありません（[現在の結果](results.ja.md#現在のスナップショット)）。測ったテストがすべて同じ所で止まるため、記録からはsimulatorがどこまで進んだかが分かりません。テストごとの段階と段階ごとの短いセットがあれば、短いセットを実行して最初に通らない段階が分かり、下の機能の表から次に見るべき言語のテストをたどれます。
 
 段階は、開発が扱う機能の主題でテストをまとめるmilestone M1〜M4（[milestoneのまとめ方](glossary.ja.md#範囲とカバレッジ)）とは別のものです。段階は期待値を変えず、metadataの項目も足しません。記録は別のfileなので、入力の指紋は変わりません。
 
@@ -30,9 +30,9 @@ kirimasimの現在の記録1081件のうち1072件は`uvm_object_wrapper`をunsu
 | 2 | factory | `::type_id`、`uvm_factory`、`uvm_object_wrapper`、override、`create_*_by_name`、`get_type()` | 100 | 90 | 5 |
 | 3 | config_db | `uvm_config_db`、`uvm_resource*`、`apply_config_settings` | 111 | 91 | 5 |
 | 4 | sequence | `uvm_sequence`、`uvm_sequencer`、`uvm_driver`、`start_item`、`` `uvm_do ``などのsequenceのmacro | 326 | 268 | 5 |
-| 5 | TLM | port・export・imp、`uvm_analysis_*`、`uvm_tlm_*`、`` `uvm_*_imp_decl ``、`uvm_subscriber` | 250 | 224 | 5 |
-| 6 | register層 | `uvm_reg*`、`uvm_mem*`、`uvm_vreg*`、`uvm_hdl_*`、register層のenum | 953 | 755 | 5 |
-| 計 | | | 2775 | 2304 | 31 |
+| 5 | TLM | port・export・imp、`uvm_analysis_*`、`uvm_tlm_*`、`` `uvm_*_imp_decl ``、`uvm_subscriber` | 251 | 225 | 5 |
+| 6 | register層 | `uvm_reg*`、`uvm_mem*`、`uvm_vreg*`、`uvm_hdl_*`、register層のenum | 954 | 756 | 5 |
+| 計 | | | 2777 | 2306 | 31 |
 
 紛らわしいものは意図して除いています。sequence item（`uvm_sequence_item`）だけではテストは段階4にならず、`uvm_reg_data_t`などのtypedefだけでは段階6にならず、`` `uvm_do_callbacks ``はcallbackのmacroでsequenceのmacroではありません。toolの単体テストが、短いcodeの断片でこれらを確かめます。
 
@@ -75,9 +75,9 @@ kirimasimの現在の記録1081件（[保持するguestの記録](results.ja.md#
 | 2 | 100 | 53 | 0 | 47 |
 | 3 | 111 | 17 | 0 | 94 |
 | 4 | 326 | 197 | 6 | 123 |
-| 5 | 250 | 170 | 1 | 79 |
-| 6 | 953 | 315 | 2 | 636 |
-| 計 | 2775 | 1072 | 9 | 1694 |
+| 5 | 251 | 170 | 1 | 80 |
+| 6 | 954 | 315 | 2 | 637 |
+| 計 | 2777 | 1072 | 9 | 1696 |
 
 最も多い理由はどの段階でも同じで、`uvm_object_wrapper`がまだ実装されていないことです。`fail`の9件は先にlibraryのAPIの欠落に当たります。sequence libraryのmethodが6件（段階4）、TLMの時刻のmethodが1件（段階5）、HDL pathのsliceのmethodが2件（段階6）です。短いセットの31件のうち23件に現在の記録があり、すべて`unsupported`です。段階0のテストは新しく、未測定です。
 

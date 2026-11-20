@@ -7025,3 +7025,16 @@ The user asked to go on, and the second testbench-shaped test of the 134th expan
 The test is spec-only. The pinned sequence reads a register only when at least one of its fields is compared; COUNT has one volatile field, which is not compared, so the monitor sees three reads and then two. The pinned source was read after the first measurement, to find the cause; the expectation was not changed. [The cause record](../coverage/known_causes.json) has the entry (library, runtime, E.1), and [the list of known differences](known-differences.md) links the test. The test differs at seed 1 with the same reason before and after its registration, and it elaborates with slang.
 
 The suite has 2775 tests (2676 simulation), 4176 duties, 2304 tagged checks, 464 known differences (319 at run time, 320 with a library cause) and 471 spec-only tests; kirimasim targets are 2394 measurable and 381 kept from the expectation by the pinned library, and 408 entries wait for human review. The M3 totals of the README and the detailed handoff, which the 132nd expansion had left at 942, are 944 (933 simulation).
+
+## 136th expansion: parameterized agents and two clocks (third external review, item 4)
+
+Two more testbench-shaped tests, both with expectations written before any run and both matching with Verilator 5.052 at seeds 1/73 before and after tagging:
+
+| Test | What it combines | Clauses |
+| --- | --- | --- |
+| [`uC/test_rtl_parameterized_agents_get_their_own_virtual_interface_136`](../tests/uC/test_rtl_parameterized_agents_get_their_own_virtual_interface_136.sv) | Items, sequences, drivers, monitors, agents and subscribers parameterized by a width, registered with the param_utils macros; a virtual interface of a parameterized interface passed through `uvm_config_db` under its own type; two RTL registers of 8 and 12 bits | C.4.2.2.2, C.4.2.2.1, B.2.1.2, B.2.1.3 |
+| [`u12/test_rtl_two_clock_buses_are_paired_through_analysis_fifos_by_position_136`](../tests/u12/test_rtl_two_clock_buses_are_paired_through_analysis_fifos_by_position_136.sv) | Two instances of the register file of the 116th expansion on clocks of period 10 and 14; an analysis FIFO for each bus; a scoreboard that gets one transaction from each FIFO before it compares a pair | 12.2.8.3, 12.2.8.2.3, 12.2.8.2.4 |
+
+The first test has its own design, `tests/uC/helpers136_rtl/px_rtl136.sv`: an interface and a one-register module, both with a width parameter. Before the test was written, a reproducer without UVM showed that Verilator 5.052 and slang accept a virtual interface of a parameterized interface with a clocking block. Three duties link to the two tests. Both elaborate with slang.
+
+The suite has 2777 tests (2678 simulation), 4179 duties and 2306 tagged checks; the tests count as M1 and M2. Of the candidates the user kept, the phase test with reset, a phase jump and a drain time counted in clocks is not started.

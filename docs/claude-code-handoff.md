@@ -14,12 +14,12 @@ Read the current workspace instructions first. The user's agent instructions ref
 
 The three generated queues are 0: unlinked tests, requirements without direct tests, and unassessed catalog identifiers. **Zero actual remaining work has not been demonstrated.** The catalog contains 2507 identifiers: 2062 partial and 445 assessed. Scope is proposed, completeness is false, the approved denominator and coverage percentage are null, and human review is unrecorded. Original M1–M4 targets and remaining normative applicability conditions stay open; [the requirements guide](requirements.md) explains these distinct measures.
 
-- Tests: 2775 = 2676 simulation + 99 elaboration, across 22 directories. M1: 1198 (1117/81); M2: 633 (626/7); M3: 944 (933/11). Seven are four-state (`:fourstate: yes`) spec-only inputs without Verilator records.
-- AI duties: 4176, all directly linked to 2719 tests; 56 tests are control-only. No human review is claimed.
-- Ordinary passing inputs: 2304 = 2210 runtime matches at seeds 1/73 + 94 expected compiler rejections.
+- Tests: 2777 = 2678 simulation + 99 elaboration, across 22 directories. M1: 1199 (1118/81); M2: 634 (627/7); M3: 944 (933/11). Seven are four-state (`:fourstate: yes`) spec-only inputs without Verilator records.
+- AI duties: 4179, all directly linked to 2721 tests; 56 tests are control-only. No human review is claimed.
+- Ordinary passing inputs: 2306 = 2212 runtime matches at seeds 1/73 + 94 expected compiler rejections.
 - Known differences: 464 = 319 runtime differences + 140 simulation build failures + 5 illegal compile acceptances. A failed first seed does not establish a second-seed result. Spec-only cases total 471 with the seven four-state inputs. [The cause record](../coverage/known_causes.json) classifies every known difference: 320 library, 60 interpretation, 27 simulator and 57 DPI-condition, with none unassigned.
 - Separate conditions: command-line 23 fixtures (20 match seeds 1/73, 3 known); regex-DPI variants 26 (all match).
-- Guest evidence: 1081 compatible records; 1694 unmeasured inputs (1690 additions and 4 revised originals). No guest run occurred in expansions 112 to 124. Previously used temporary private executable/profile snapshots are unavailable; obtain authorized local configuration before measuring guests.
+- Guest evidence: 1081 compatible records; 1696 unmeasured inputs (1692 additions and 4 revised originals). No guest run occurred in expansions 112 to 124. Previously used temporary private executable/profile snapshots are unavailable; obtain authorized local configuration before measuring guests.
 - Candidate placement: 1160 have no primary test, 769 have one, and 553 have at least two. These counts do not prove clause coverage or independent passing checks.
 
 Additional HDL-backend, command-line and regex-DPI variant checks have separate execution conditions; see [results](results.md) and [testing](testing.md). Do not add their counts to ordinary totals without checking scope.

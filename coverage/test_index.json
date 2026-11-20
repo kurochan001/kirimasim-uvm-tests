@@ -11101,6 +11101,14 @@
     "uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134": {
       "primary_clause": "E.1",
       "inputs_sha256": "19cbabeff051b29fdb15e8b06cb5fc8154155c3c09e24cc7592d28d5465b6f98"
+    },
+    "uC/test_rtl_parameterized_agents_get_their_own_virtual_interface_136": {
+      "primary_clause": "C.4.2.2.2",
+      "inputs_sha256": "982eab90bcf2e3b24fc7fc09ba2d408d6e958d196309e8d6d80ea1b5aa7441ec"
+    },
+    "u12/test_rtl_two_clock_buses_are_paired_through_analysis_fifos_by_position_136": {
+      "primary_clause": "12.2.8.3",
+      "inputs_sha256": "fe56ffbeb30b9d18abbb9501bb4b28e07e20f5c4d60c41ee9be6f60c9da5bf60"
     }
   }
 }

@@ -14,12 +14,12 @@
 
 生成する3つのキュー、つまり未対応テスト・直接テストのない要求・未評価の条項識別子は0件です。**実際の残作業が0件とは実証されていません。** 棚卸し2507識別子のうち2062件は一部分解、445件は分類済みです。範囲は提案段階、完全性はfalse、承認済み分母とcoverage率はnullで、人のレビューは未記録です。元のM1〜M4目標と規範的義務の適用条件は未完で、これらの異なる指標は[要求ガイド](requirements.ja.md)で説明しています。
 
-- テスト：22 directoryに2775件 = simulation 2676 + elaboration 99。M1：1198（1117/81）、M2：633（626/7）、M3：944（933/11）。うち7件はVerilatorの記録のない4値（`:fourstate: yes`）のspecのみ入力です。
-- AI要求：4176件すべてを2719テストへ直接対応。control専用は56テストです。人のレビューは主張しません。
-- 通常のpass入力：2304件 = seed 1/73でruntime一致2210 + 期待したcompiler rejection 94。
+- テスト：22 directoryに2777件 = simulation 2678 + elaboration 99。M1：1199（1118/81）、M2：634（627/7）、M3：944（933/11）。うち7件はVerilatorの記録のない4値（`:fourstate: yes`）のspecのみ入力です。
+- AI要求：4179件すべてを2721テストへ直接対応。control専用は56テストです。人のレビューは主張しません。
+- 通常のpass入力：2306件 = seed 1/73でruntime一致2212 + 期待したcompiler rejection 94。
 - 既知差分：464件 = runtime差分319 + simulation build失敗140 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。specのみは4値の7入力を含めて471件です。[原因の記録](../coverage/known_causes.json)は既知差分を、すべて、library 320、interpretation 60、simulator 27、DPIの実行条件57に分類し、未分類はありません。
 - 別の条件：command-line 23検査系（20件がseed 1／73で一致、3件は既知）、regex-DPI変種26件（すべて一致）。
-- guest証拠：互換1081記録、未測定1694入力（追加1690 + 改訂した元入力4）。112〜124回目にguest測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
+- guest証拠：互換1081記録、未測定1696入力（追加1692 + 改訂した元入力4）。112〜124回目にguest測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
 - 候補の配置：primaryテスト0件が1160番号、1件が769番号、2件以上が553番号です。条項の網羅や独立した検査の成功を証明する件数ではありません。
 
 HDL backend、command-line、regex-DPI変種の追加検査には別の実行条件があり、[実行結果](results.ja.md)と[テストガイド](testing.ja.md)を確認してください。範囲を確認せず通常の総数へ加算しません。

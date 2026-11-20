@@ -1,0 +1,3 @@
+UT: reads a 3c c3 2 b 3c c3 2
+UT: pairs 5 equal 5 empty 1 1
+UT: streams end at different times 1
