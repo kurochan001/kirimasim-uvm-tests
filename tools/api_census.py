@@ -221,9 +221,18 @@ def resolved(test, options, root):
             credit(node.override)
         return True
 
-    root_symbol = compilation.getRoot()
-    root_symbol.visit(visit)
-    for instance in root_symbol.topInstances:
+    # Only the test's own code is walked: its packages, the declarations at
+    # compilation-unit scope and the bodies of the top instances. Walking the
+    # whole library for every test would take most of the time and find no
+    # call site in the test's sources.
+    for package in compilation.getPackages():
+        if own(package.location):
+            package.visit(visit)
+    for unit in compilation.getCompilationUnits():
+        for member in unit:
+            if not isinstance(member, ast.PackageSymbol) and own(member.location):
+                member.visit(visit)
+    for instance in compilation.getRoot().topInstances:
         instance.body.visit(visit)
     return used
 

@@ -161944,6 +161944,109 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RTL-AGENT-ACTIVE-PASSIVE",
+      "clause": "13.4.2.2",
+      "statement": {
+        "en": "get_is_active returns whether an agent is active, so that a passive agent can be built with a monitor only.",
+        "ja": "get_is_activeはagentがactiveかどうかを返し、passiveなagentをmonitorだけで作れる。"
+      },
+      "conditions": {
+        "en": "An agent overrides get_is_active from its own setting and builds its driver and sequencer only when it returns UVM_ACTIVE; two such agents drive RTL register files and a third is passive.",
+        "ja": "agentが自分の設定からget_is_activeをoverrideし、UVM_ACTIVEを返すときだけdriverとsequencerを作る。2つのagentがRTLのregister fileを駆動し、3つ目はpassiveである。"
+      },
+      "expected": {
+        "en": "The driving agents return UVM_ACTIVE, and the passive agent returns UVM_PASSIVE and has neither a driver nor a sequencer.",
+        "ja": "駆動するagentはUVM_ACTIVEを返し、passiveなagentはUVM_PASSIVEを返してdriverもsequencerも持たない。"
+      },
+      "limitations": {
+        "en": "The standard does not say how an agent learns its setting; the override is the test's own.",
+        "ja": "agentが設定を知る方法は規格が定めておらず、overrideはテスト自身のものである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_rtl_active_and_passive_agents_share_a_bus_under_a_virtual_sequence_134",
+          "role": "direct",
+          "expected_observations": [
+            "UT: agents active 1 1 passive 1 passive_driver 0 passive_sequencer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-VIRTUAL-SEQUENCE-CHILDREN",
+      "clause": "14.2.3.1",
+      "statement": {
+        "en": "A sequence started with a parent sequence on a given sequencer is a child of that parent and runs on that sequencer.",
+        "ja": "parent sequenceを指定してあるsequencerで開始したsequenceは、そのparentの子であり、そのsequencerで動く。"
+      },
+      "conditions": {
+        "en": "A virtual sequence on a virtual sequencer starts one child on each of two bus sequencers, reached through the p_sequencer declared by `uvm_declare_p_sequencer, in parallel.",
+        "ja": "virtual sequencer上のvirtual sequenceが、`uvm_declare_p_sequencerで宣言したp_sequencerを通して、2つのbusのsequencerに子を1つずつ並行に開始する。"
+      },
+      "expected": {
+        "en": "Each child returns the virtual sequence as its parent and its own bus sequencer, and the reads of each RTL register file give the values that its own writes and the design's rules produce.",
+        "ja": "各子は、parentとしてvirtual sequenceを、sequencerとして自分のbusのsequencerを返す。各RTLのregister fileの読出しは、自分の書込みとdesignの規則から決まる値になる。"
+      },
+      "limitations": {
+        "en": "p_sequencer is assigned by an explicit cast; no automatic assignment is assumed.",
+        "ja": "p_sequencerは明示的なcastで代入し、自動の代入は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_rtl_active_and_passive_agents_share_a_bus_under_a_virtual_sequence_134",
+          "role": "direct",
+          "expected_observations": [
+            "UT: children parent 1 1 sequencer 1 1",
+            "UT: bus_a reads 11 2 a5 bus_b reads 33 0 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RTL-IMP-DECL-SCOREBOARD",
+      "clause": "B.5.22",
+      "statement": {
+        "en": "`uvm_analysis_imp_decl defines an analysis imp class with its own write function, so that one component receives input from several places.",
+        "ja": "`uvm_analysis_imp_declは、独自のwrite functionを持つanalysis impのclassを定義し、1つのcomponentが複数の所から入力を受けられるようにする。"
+      },
+      "conditions": {
+        "en": "A scoreboard has two imps declared with different suffixes, connected to the monitor of the active agent and to that of the passive agent of the same RTL bus.",
+        "ja": "scoreboardが、異なるsuffixで宣言した2つのimpを持ち、同じRTLのbusのactiveなagentのmonitorと、passiveなagentのmonitorにつながる。"
+      },
+      "expected": {
+        "en": "Each imp receives the five transactions of the bus, and the five pairs agree in direction, address, data and cycle.",
+        "ja": "各impはbusの5つのtransactionを受け取り、5組は方向、address、data、cycleが一致する。"
+      },
+      "limitations": {
+        "en": "The histories are compared by position after the run, not by arrival order within a time step.",
+        "ja": "履歴は実行後に位置で比べ、同じtime step内の到着順では比べない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_rtl_active_and_passive_agents_share_a_bus_under_a_virtual_sequence_134",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scoreboard active 5 passive 5 paired 5"
+          ]
+        }
+      ]
     }
   ]
 }

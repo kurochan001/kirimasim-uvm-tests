@@ -4291,3 +4291,15 @@ suiteは2773件（simulation 2674、elaboration 99）で、tag付きの検査は
 ## 133回目の拡充：資料の小さな修正（3回目の外部レビュー、項目6）
 
 [詳細ハンドオフ](handoff.ja.md)と[実行結果](results.ja.md)に140件、173件と残っていたtoolの単体テストの件数を、現在の204件にしました。`.gitignore`のcommentは、存在しないresults branchに触れるのをやめました。結果は自動では公開しません。`tools/lint_metadata.py`と`tools/code_identity.py`のdocstringは、移動済みのREADMEの節ではなく、[テストガイド](testing.ja.md#テストの形式)の節を指すようにしました。runnerの指紋に入る3 fileに残る同じ古い参照は、129回目に記録したとおり、そのままです。ハンドオフと実行結果にあった読みやすさの段落は、同じrunのlinkを11回と4回くり返していたので、9行の表にしました。履歴には元の段落を残しています。テスト、記録、toolの動作は変えていません。
+
+## 134回目の拡充：2種類のagentを持つtestbench形のテスト（3回目の外部レビュー、項目4）
+
+ユーザーは、testbench形の候補のうち、UVMの条項に結び付くものをこのrepositoryで扱い、covergroup、concurrent assertion、modportは範囲外とすることを選びました。最初のテスト[`u13/test_rtl_active_and_passive_agents_share_a_bus_under_a_virtual_sequence_134`](../tests/u13/test_rtl_active_and_passive_agents_share_a_bus_under_a_virtual_sequence_134.sv)は、116回目のregister fileのdesignと、そのdriver、monitor、sequenceを、designの2つのinstanceで再利用します。2つのactiveなagentがそれらを駆動し、passiveなagentが1つ目のbusを観測します。virtual sequencer上のvirtual sequenceが、`p_sequencer`を通して各busのsequencerに子を1つずつ開始し、`` `uvm_analysis_imp_decl ``で宣言した2つのimpを持つscoreboardが、1つ目のbusの2つのmonitorを組にします。期待値は13.4.2.2、14.2.3.1、B.3.3、B.5.22とdesignの規則から導き、最初の実行の前に書きました。Verilator 5.052のseed 1／73で、tag付けの前後とも一致し、slangでもelaborateできます。義務3件がこのテストに対応します。agentが自分がactiveかどうかを知る方法は規格が定めていないので、テストのagentは自分の設定から`get_is_active`をoverrideします。
+
+suiteは2774件（simulation 2675）、義務は4174件です。このテストはM1に数え、共有の環境のregister modelを集めるので段階6になります。
+
+同じdesignで`uvm_reg_hw_reset_seq`を動かす2つ目のテストは、まだ公開していません。実行の前にE.1から書いた期待値は、sequenceが4つのregisterをすべて読むというものです。固定版のsequenceはCOUNTを読みません。COUNTの唯一のfieldはvolatileで比較の対象外だからです。そのため最初の測定で差分になりました。E.1は、sequenceがblockのすべてのregisterを読むと述べているので、これは固定版libraryの新しい差分です。テストと測定は`out/thin-one-hundred-thirty-fourth/draft-hw-reset/`に残しています。specのみのテストとして公開すると既知差分の件数が変わるので、ユーザーの判断を待ちます。ほかの候補（parameter付きのagent、phaseとreset、2つのclock）には着手していません。
+
+131回目の集計は、テストごとにlibrary全体を走査しており、Checkで15分以上かかっていました。テスト自身のpackage、compilation unitの宣言、top instanceだけを走査するようにしました。記録は全テストで変わらず、実行時間はおよそ半分になりました。
+
+同じ変更で、ユーザーが承認した2つの注記を足しました。READMEには、4値の7件はどのsimulatorでも実行しておらず、UVMを動かせる4値のsimulatorができるまで未測定のままであることを書きました。[段階のガイド](kirimasim-stages.ja.md#kirimasimの現在の記録の段階別の内訳)には、kirimasimの記録が以前のrunnerと以前のkirimasimによるものであることと、短いセットを測り直すための許可された実行fileがなかったことを書きました。人の照合用の一覧30件は、照合の候補407件から原因と章で層に分けて選び、Git対象外の`out/thin-one-hundred-thirty-fourth/human-review-sample.ja.md`に置きました。reviewの状態は何も変えていません。

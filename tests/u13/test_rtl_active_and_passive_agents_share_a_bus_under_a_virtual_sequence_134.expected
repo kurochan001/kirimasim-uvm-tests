@@ -1,0 +1,4 @@
+UT: agents active 1 1 passive 1 passive_driver 0 passive_sequencer 0
+UT: children parent 1 1 sequencer 1 1
+UT: bus_a reads 11 2 a5 bus_b reads 33 0 1
+UT: scoreboard active 5 passive 5 paired 5

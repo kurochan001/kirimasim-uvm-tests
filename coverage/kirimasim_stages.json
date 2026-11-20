@@ -986,6 +986,7 @@
     "u13/test_phase_ready_iteration_cap_2_bounds_repeated_raise_drop_callbacks": 1,
     "u13/test_phase_ready_iteration_cap_3_bounds_repeated_raise_drop_callbacks": 1,
     "u13/test_push_driver_export_dispatches_an_override_before_the_default_put_error": 4,
+    "u13/test_rtl_active_and_passive_agents_share_a_bus_under_a_virtual_sequence_134": 6,
     "u13/test_subscriber_concrete_subclass_must_implement_write": 5,
     "u13/test_subscriber_descendant_inherits_write_through_default_typed_analysis_export": 5,
     "u13/test_test_argument_selection_creates_the_registered_test_under_the_implicit_root": 1,
