@@ -1,5 +1,7 @@
 # The slang front end of tools/slang_elaborate.py, for the Check workflow:
 #   python3 -m pip install --require-hashes -r tools/slang-requirements.txt
-# The hash is that of the manylinux x86_64 wheel (cp311-abi3); on another
-# platform install the same version without --require-hashes.
+# The hashes are those of the manylinux x86_64 wheels for the Python 3.12 of
+# the hosted runner; on another platform install the same versions without
+# --require-hashes.
 pyslang==12.1.0 --hash=sha256:9d0bd72729eb85f76c0cd3259b758d1e2a692717f95ee3d41530b11c9e117f7c
+nanobind-backend==1.0.0 --hash=sha256:6aa9864050cc5fd1ff59d1f9b79740efa278515eed27af848efae07125c029b8
