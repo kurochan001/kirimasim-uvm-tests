@@ -126,7 +126,7 @@ Ghostの記録は互換な1081入力のもので、Ghostでは1697入力が、[�
 通常runnerはseed 1のruntime差分319件、simulation build 140件、runtimeのない不正designの受理5件を記録します。
 API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](docs/results.ja.md#結果の解釈)で説明し、VPIの行は通常条件にも含まれるケースを別条件で測定したもので、スイート総数へ加算しない理由は[測定範囲](docs/results.ja.md#現在のスナップショット)で確認できます。
 
-既知差分にはそれぞれ1件ずつ[原因の記録](coverage/known_causes.json)があり、`tools/known_causes.py`で検査します。すべての記録に原因があり、library 320件、interpretation 60件、simulator 27件、DPIの実行条件57件です。interpretationの記録は読み方の根拠も持ちます。10件は、規格の別の箇所が誤植と示す宣言や名前を印刷どおりに読むもの、1件はlibraryが印刷に従うもの、49件は文言が二通りに読めるものです。4値のテスト1件にも、固定版libraryでは満たせないため記録があります。kirimasimについては、2397入力が規格の期待値でsimulatorを測る入力で、381入力は固定版libraryのためにどのsimulatorでも期待値に届きません。詳しくは[既知差分の原因](docs/known-differences.ja.md#既知差分の原因)を参照してください。
+既知差分にはそれぞれ1件ずつ[原因の記録](coverage/known_causes.json)があり、`tools/known_causes.py`で検査します。すべての記録に原因があり、library 319件、interpretation 61件、simulator 27件、DPIの実行条件57件です。interpretationの記録は読み方の根拠も持ちます。10件は、規格の別の箇所が誤植と示す宣言や名前を印刷どおりに読むもの、1件はlibraryが印刷に従うもの、50件は文言が二通りに読めるものです。4値のテスト1件にも、固定版libraryでは満たせないため記録があります。kirimasimについては、2397入力が規格の期待値でsimulatorを測る入力で、381入力は固定版libraryのためにどのsimulatorでも期待値に届きません。詳しくは[既知差分の原因](docs/known-differences.ja.md#既知差分の原因)を参照してください。
 
 各テストには`coverage/kirimasim_stages.json`に記録した[kirimasimの立ち上げ段階](docs/kirimasim-stages.ja.md)もあり、段階0が1件、段階1（最小のrun_test）が1034件、段階2（factory）が100件、段階3（config_db）が111件、段階4（sequence）が326件、段階5（TLM）が251件、段階6（register層）が955件です。kirimasim 0.1.3は、段階0のテストを含め、どの段階でも同じ`uvm_object_wrapper`のunsupportedで止まります。まだ、実行できるsimulationテストはありません。
 

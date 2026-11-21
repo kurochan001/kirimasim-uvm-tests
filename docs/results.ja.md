@@ -47,7 +47,7 @@ runtimeの出力差分では`reason`が最初に異なる選択行を示すた�
 不正design 5件はsubscriberのwrite、visitorのvisit、proxyのget_immediate_children、adapterのacceptの欠落、印字virtual builtin dispatcherの直接生成を受理し、拒否oracleを既知差分として保持します。
 受理されてもruntimeは実行せず、simulationの予期しないbuild 140件は別です。passには宣言した期待との一致が必要です。
 
-これらの差分の原因は、下の症状の分類とは別に[原因の記録](known-differences.ja.md#既知差分の原因)で割り当てます。library 320件、interpretation 60件、simulator 27件、DPIの実行条件57件で、未分類の記録はありません。
+これらの差分の原因は、下の症状の分類とは別に[原因の記録](known-differences.ja.md#既知差分の原因)で割り当てます。library 319件、interpretation 61件、simulator 27件、DPIの実行条件57件で、未分類の記録はありません。
 
 測定したspecのみの464件は規格由来の出力またはcompile診断期待を保持し（4値のspecのみ7件にはVerilatorの記録がありません）、不正compiler受理5件とsimulation 459件です。
 simulationのうち319件はseed 1で最初に異なり、seed 73結果はありません。API／型名欠落build 43件はtime API 1、sequence-library API 14、HDL slice-view 12、named-concat constructor 1、object active-policy API 5、catcher message-handle 3、印刷されたbase記録状態getter 1、印刷report callback typedef 1、built-in type_id 2、typed resource-DB helper 3です。

@@ -3,7 +3,7 @@
 :description: two analysis FIFOs buffer the transactions of two RTL buses on unrelated clocks, and a scoreboard pairs them by position (IEEE 1800.2-2020 Section 12.2.8.3)
 :tags: u12 uvm
 :type: simulation
-:lrm: 1800.2-2020 12.2.8.3 12.2.8.3.1 12.2.8.2.3 12.2.8.2.4 12.2.2.2 12.2.10.1 13.3 13.4 13.5 13.6 13.7 13.9 14.2.3.1 14.2.6.2 14.2.6.3 15.2.1.2.1 15.2.1.2.3 C.4.2.2.1 C.4.2.2.2 1800-2023 6.21 9.3.2 14.4 14.13 14.16 25.9
+:lrm: 1800.2-2020 12.2.8.3 12.2.8.3.1 12.2.8.2.4 12.2.2.2 12.2.10.1 13.3 13.4 13.5 13.6 13.7 13.9 14.2.3.1 14.2.6.2 14.2.6.3 15.2.1.2.1 15.2.1.2.3 C.4.2.2.1 C.4.2.2.2 1800-2023 6.21 9.3.2 14.4 14.13 14.16 25.9
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -21,9 +21,10 @@
 //
 // How the expected output follows from the standard:
 // 1800.2-2020 12.2.8.3 (UVM-RTL-TWO-CLOCK-FIFO-PAIRING) gives the rule above
-// with 12.2.8.2.3 and 12.2.8.2.4: an analysis FIFO is an unbounded FIFO with a
-// write interface, so no transaction is lost or reordered within one stream,
-// and a get waits for the next one. Setup: two instances of the design of
+// with 12.2.2.2: an analysis FIFO is an unbounded FIFO with a write interface,
+// so no transaction is lost or reordered within one stream, and a get waits
+// for the next one; is_empty (12.2.8.2.4) reads the state at the end. Setup:
+// two instances of the design of
 // rf_rtl116.sv run on clocks of period 10 and 14; an agent on each runs the
 // same sequence, which writes 'h3c to CTRL and 'hc3 to DATA and reads CTRL,
 // DATA and COUNT; each monitor writes to its own FIFO, and the scoreboard gets

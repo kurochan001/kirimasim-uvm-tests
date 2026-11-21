@@ -19,7 +19,7 @@
 - テスト：22 directoryに2778件 = simulation 2679 + elaboration 99。M1：1200（1119/81）、M2：634（627/7）、M3：944（933/11）。うち7件はVerilatorの記録のない4値（`:fourstate: yes`）のspecのみ入力です。
 - AI要求：4182件すべてを2722テストへ直接対応。control専用は56テストです。人のレビューは主張しません。
 - 通常のpass入力：2307件 = seed 1/73でruntime一致2213 + 期待したcompiler rejection 94。
-- 既知差分：464件 = runtime差分319 + simulation build失敗140 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。specのみは4値の7入力を含めて471件です。[原因の記録](../coverage/known_causes.json)は既知差分を、すべて、library 320、interpretation 60、simulator 27、DPIの実行条件57に分類し、未分類はありません。
+- 既知差分：464件 = runtime差分319 + simulation build失敗140 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。specのみは4値の7入力を含めて471件です。[原因の記録](../coverage/known_causes.json)は既知差分を、すべて、library 319、interpretation 61、simulator 27、DPIの実行条件57に分類し、未分類はありません。
 - 別の条件：command-line 23検査系（20件がseed 1／73で一致、3件は既知）、regex-DPI変種26件（すべて一致）。
 - guest証拠：kirimasim 0.1.3（commit c3a9d9eb）は、2026-11-21に現在のrunnerで全2778入力を実行しました。pass 98件（拒否された不正design）、unsupported 2604件、fail 76件で、記録はGit対象外の`out/thin-one-hundred-thirty-ninth/kirimasim-all.json`です。Ghostは互換1081記録を保持し、未測定は1697入力（追加1693 + 改訂した元入力4）です。112〜139回目にGhostの測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
 - 候補の配置：primaryテスト0件が1160番号、1件が768番号、2件以上が554番号です。条項の網羅や独立した検査の成功を証明する件数ではありません。

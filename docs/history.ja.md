@@ -4415,3 +4415,20 @@ slangの検査、APIの集計、kirimasimの測定は、Verilatorを使いませ
 | 文書は、新しいRegressionの要求は待つこと、新しい15件はそれぞれのcommitのCheckで測ったこと、2値のテストはすべて5.052の結果を持つことを述べていましたが、どれも正確ではありませんでした | 実行結果とREADMEに、何をどこで実行したかを書きました。Regressionの要求がさらに来ると、待っていた要求が置き換わります。HDLのrunnerを実行するworkflowはなく、文書にそう書きました |
 
 固定したaction、Regressionのgate、Z3のfallbackの整合性の確認、READMEの数字は、fileとtoolに合っていました。
+
+## 143回目の拡充：レビュー、その2（最も新しい15件のテスト）
+
+これまでの会話を知らない読み手が、2026-11-20以降に足した15件のテストを、simulatorを実行せずに、2つの規格と条項ごとに照らし合わせました。変更の前に、指摘を1つずつ規格の文面で確かめています。観測に合わせて変えた期待値はありません。1件のテストに、引用した条項から決まる行を1つ足しました。
+
+| テスト | 指摘 | 修正 |
+| --- | --- | --- |
+| [uEのreset sequence](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv) | E.1 b)は、sequenceがすべてのregisterを読むとし、その読出しを、値をreset値と比べるものとして述べています。固定版のsequenceが飛ばすregisterは、volatileなfieldを1つだけ持ちます。volatileなfieldのmirror値は信頼できない（18.5.4.10）ので、比べるものがありません。文面はどちらにも読めます | 原因をlibraryからinterpretation（根拠は`ambiguity`）に移しました。library 319件、interpretation 61件、うち`ambiguity` 50件です。コメントに両方の読み方を書き、条項の一覧は、`add_submap`の代わりに`add_reg`と`set_sequencer`（18.2.3.3、18.2.3.6）を挙げます |
+| [u06のfile設定](../tests/u06/test_report_handler_direct_file_settings_follow_pair_id_severity_then_default.sv) | idのfileとseverityのfileを持ち、組を持たない照会がなかったので、severityをidより先にするhandlerでも同じ行が出ました | 組を持たないidへの5つ目の設定と、6.4.5.2から決まる行`UT: id before severity 1`を足しました |
+| [uCのparameter付きagent](../tests/uC/test_rtl_parameterized_agents_get_their_own_virtual_interface_136.sv) | designのportはinterfaceの型名を書き、その型の別の特殊化につないでいました。1800-2023 23.3.3.4は、型名を書いたinterface portには同一の型を求めます。特殊化が同一の型に入るかどうかは、文面からは決まりません | portをgeneric interfaceにしました。23.3.3.4により、どの型のinstanceにもつなげます。コメントには、比べるのはitemのproxyだけであることと、C.4.2.1がC.4.2.2.2に加えるものを書きました |
+| [u13のagent](../tests/u13/test_rtl_active_and_passive_agents_share_a_bus_under_a_virtual_sequence_134.sv) | 最初の行は、テスト自身の`get_is_active`のoverrideを読み返しています。B.5.22は、write functionの名前を示していません | コメントと台帳にそう書きました。行は、testbenchの形の記録として残します |
+| [u09のresetへのjump](../tests/u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137.sv) | forkがないのに1800-2023 9.3.2を引用し、9.3.1.7.1が抜け、テスト自身のcodeである規則を9.8.2.2が与えるとしていました | 条項の一覧とコメントを直しました。drain timeは、runnerのtime scaleで共有する時間単位で測ることを書きました |
+| [u12の2つのclock](../tests/u12/test_rtl_two_clock_buses_are_paired_through_analysis_fifos_by_position_136.sv) | 呼んでいない12.2.8.2.3（`used`）を引用していました | 外しました。コメントは12.2.2.2と12.2.8.2.4を引用します |
+
+変更せずに記録する指摘は次のとおりです。[severityのoverrideのテスト](../tests/u06/test_report_handler_direct_severity_overrides_prefer_the_id_specific_setting.sv)の件数は6.5.1.2.6によりますが、この条項は件数が何を返すつもりのものかを述べるだけで、既定のserverがいつ数えるかは述べていません。[名前によるinstance override](../tests/u08/test_factory_inst_override_by_name_replaces_the_named_type_at_matching_paths.sv)は、8.3.1.5が登録済みの名前について述べる所で、8.3.1.4.1の個別の文に従っています。4つの行は、テスト自身が設定した値か、compile時の定数を出力します（uBの2件、uC、u09のdrain time）。ほかのテストに指摘はありませんでした。
+
+localのVerilator 5.054では、変更したtag付きの5件はseed 1／73で一致し、uEのテストは引き続き違います。これは目安で、tagの根拠ではありません。このpushのCheckは、最後に成功したCheckからの差分に準備用actionが入るので、canaryだけを実行します。6件は、Measureを起動してVerilator 5.052で実行し、結果を次の節に記録します。

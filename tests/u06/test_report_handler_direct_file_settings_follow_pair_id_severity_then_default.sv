@@ -22,9 +22,12 @@
 // above, and 6.4.5.1 returns the stored descriptor. Setup: take the handler of
 // a report object with get_report_handler (6.3.8.1) and set four different
 // descriptor values: the default, severity UVM_ERROR, id ID_A, and the pair
-// UVM_ERROR and ID_A. Expected: UVM_INFO with ID_Z gives the default, UVM_ERROR
-// with ID_Z the severity's, UVM_INFO with ID_A the id's, and UVM_ERROR with
-// ID_A the pair's.
+// UVM_ERROR and ID_A; set a fifth value for id ID_B, which has no pair.
+// Expected: UVM_INFO with ID_Z gives the default, UVM_ERROR with ID_Z the
+// severity's, UVM_INFO with ID_A the id's, and UVM_ERROR with ID_A the pair's.
+// UVM_ERROR with ID_B has a file for its id and one for its severity and no
+// pair, so it gives the id's: this is the query that separates "id before
+// severity" from the reverse order.
 // These expectations come from the cited clauses, not from the output of a
 // simulator.
 // The descriptors are only stored and returned: no report is issued, so
@@ -39,15 +42,19 @@ module test_report_handler_direct_file_settings_follow_pair_id_severity_then_def
     automatic UVM_FILE severity_file = 32'h0000_0020;
     automatic UVM_FILE id_file = 32'h0000_0040;
     automatic UVM_FILE pair_file = 32'h0000_0080;
+    automatic UVM_FILE other_id_file = 32'h0000_0100;
     handler.set_default_file(default_file);
     handler.set_severity_file(UVM_ERROR, severity_file);
     handler.set_id_file("ID_A", id_file);
     handler.set_severity_id_file(UVM_ERROR, "ID_A", pair_file);
+    handler.set_id_file("ID_B", other_id_file);
     $display("UT: default %0d severity %0d id %0d pair %0d",
              handler.get_file_handle(UVM_INFO, "ID_Z") == default_file,
              handler.get_file_handle(UVM_ERROR, "ID_Z") == severity_file,
              handler.get_file_handle(UVM_INFO, "ID_A") == id_file,
              handler.get_file_handle(UVM_ERROR, "ID_A") == pair_file);
+    $display("UT: id before severity %0d",
+             handler.get_file_handle(UVM_ERROR, "ID_B") == other_id_file);
     $finish;
   end
 endmodule

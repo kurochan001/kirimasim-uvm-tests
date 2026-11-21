@@ -3,7 +3,7 @@
 :description: the hardware reset sequence reads every register of an RTL register file through the adapter, finds the reset values and skips an excluded register (IEEE 1800.2-2020 Section E.1)
 :tags: uE uvm
 :type: simulation
-:lrm: 1800.2-2020 E.1 E.1.2.1.2 19.2.1.2.5 19.2.1.2.6 18.2.3.5 18.1.2.3 13.7 13.5 13.6 12.2.10.1 6.5.1.2.6 C.3.2.3.1 C.4.2.2.1 14.2.3.1 1800-2023 6.21 14.4 14.13 14.16 25.9
+:lrm: 1800.2-2020 E.1 E.1.2.1.2 19.2.1.2.5 19.2.1.2.6 18.2.3.3 18.2.3.6 18.5.4.10 18.1.2.3 13.7 13.5 13.6 12.2.10.1 6.5.1.2.6 C.3.2.3.1 C.4.2.2.1 14.2.3.1 1800-2023 6.21 14.4 14.13 14.16 25.9
 :uvm: 2020.3.1
 :oracle: spec
 :spec_check: ai
@@ -33,6 +33,13 @@
 //    second sequence. Expected: the monitor sees three more reads, none of
 //    them at the address of ID, and no new error; the reference model of the
 //    environment has matched all seven reads.
+// COUNT has one field, which is volatile (18.5.4.10: its mirrored value cannot
+// be trusted). The test reads "all of the registers" of E.1 b) as it is
+// printed, so COUNT is read too. E.1 b) also describes the read as one that
+// compares the value with the reset value, and a volatile field has no value
+// to compare with; under that reading a register with nothing to compare
+// need not be read, and the reads would be 3 and then 2. The standard does
+// not settle this, and the record of causes lists it as an interpretation.
 // These expectations come from the cited clauses and from the rules of the
 // test's own design, not from the output of a simulator.
 // The reads are counted by address, because the standard does not order them.

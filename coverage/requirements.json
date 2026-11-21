@@ -161373,8 +161373,8 @@
         "ja": "handlerに設定したfile descriptorは、severityとidの組、id、severity、既定の順に優先する。"
       },
       "conditions": {
-        "en": "Set four different descriptor values directly on the handler and read them with get_file_handle.",
-        "ja": "4つの異なるdescriptorの値をhandlerに直接設定し、get_file_handleで読む。"
+        "en": "Set different descriptor values directly on the handler, including one for an id that has no pair, and read them with get_file_handle.",
+        "ja": "異なるdescriptorの値を、組を持たないidの分も含めてhandlerに直接設定し、get_file_handleで読む。"
       },
       "expected": {
         "en": "Each query returns the descriptor of the most specific setting that applies.",
@@ -161394,7 +161394,8 @@
           "test": "u06/test_report_handler_direct_file_settings_follow_pair_id_severity_then_default",
           "role": "direct",
           "expected_observations": [
-            "UT: default 1 severity 1 id 1 pair 1"
+            "UT: default 1 severity 1 id 1 pair 1",
+            "UT: id before severity 1"
           ]
         }
       ]
@@ -162030,8 +162031,8 @@
         "ja": "各impはbusの5つのtransactionを受け取り、5組は方向、address、data、cycleが一致する。"
       },
       "limitations": {
-        "en": "The histories are compared by position after the run, not by arrival order within a time step.",
-        "ja": "履歴は実行後に位置で比べ、同じtime step内の到着順では比べない。"
+        "en": "The histories are compared by position after the run, not by arrival order within a time step. B.5.22 does not print the name of the write function; the test uses write followed by the suffix, which the pinned library's macro calls.",
+        "ja": "履歴は実行後に位置で比べ、同じtime step内の到着順では比べない。B.5.22はwrite functionの名前を示していない。テストは、固定版のlibraryのmacroが呼ぶ、writeにsuffixを続けた名前を使う。"
       },
       "review": {
         "status": "ai",
@@ -162064,8 +162065,8 @@
         "ja": "busのmonitorは、書込みを見ず、4つのaddressそれぞれの読出しを1回ずつ見る。値はreset値と定数で、errorは数えられない。"
       },
       "limitations": {
-        "en": "A design that has left its reset state is not exercised; the reads are counted by address, not ordered.",
-        "ja": "reset状態を離れたdesignは検査しない。読出しはaddressごとに数え、順序は見ない。"
+        "en": "A design that has left its reset state is not exercised; the reads are counted by address, not ordered. Whether a register whose only field is volatile, and so has no value to compare, is among the registers read is not settled by E.1; the test reads the text as printed.",
+        "ja": "reset状態を離れたdesignは検査しない。読出しはaddressごとに数え、順序は見ない。唯一のfieldがvolatileで比べる値のないregisterが、読むregisterに入るかどうかは、E.1では決まらない。テストは文面のとおりに読む。"
       },
       "review": {
         "status": "ai",
@@ -162156,8 +162157,8 @@
       "id": "UVM-RTL-PARAM-AGENT-SIDE-BY-SIDE",
       "clause": "B.2.1.3",
       "statement": {
-        "en": "Parameterized components and objects registered with the param_utils macros work as specializations side by side, each with its own factory proxy.",
-        "ja": "param_utilsのmacroで登録したparameter付きのcomponentとobjectは、特殊化ごとに自分のfactory proxyを持ち、並んで動く。"
+        "en": "Parameterized components and objects registered with the param_utils macros work as specializations side by side, and the item specializations have their own factory proxies.",
+        "ja": "param_utilsのmacroで登録したparameter付きのcomponentとobjectは、特殊化ごとに並んで動き、itemの特殊化は自分のfactory proxyを持つ。"
       },
       "conditions": {
         "en": "Agents, drivers, monitors, subscribers, sequences and items of widths 8 and 12 drive two RTL registers in parallel.",

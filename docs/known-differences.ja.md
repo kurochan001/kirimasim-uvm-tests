@@ -485,8 +485,8 @@ event deltaの6入力は最終tag付きで両seedに一致しますが、既知4
 
 | 原因 | 意味 | 根拠 | 件数 |
 | --- | --- | --- | --- |
-| library | 固定版libraryが、引用した条項と異なる | 引用した条項、libraryのファイルとその中の文字列 | 320 |
-| interpretation | 引用した文言には別の読み方があり、libraryはそちらに従う | 引用した条項、テストの読み方と別の読み方、読み方の根拠 | 60 |
+| library | 固定版libraryが、引用した条項と異なる | 引用した条項、libraryのファイルとその中の文字列 | 319 |
+| interpretation | 引用した文言には別の読み方があり、libraryはそちらに従う | 引用した条項、テストの読み方と別の読み方、読み方の根拠 | 61 |
 | simulator | VerilatorがIEEE 1800-2023と異なる | kirimasim-testsへ移す、UVMを使わない再現例 | 27 |
 | condition | テストが通常の実行ではlinkしないDPIの実行条件を必要とし、その条件では一致する | 実行条件とそのrunner | 57 |
 | unassigned | まだ診断していない | なし | 0 |
@@ -495,7 +495,7 @@ event deltaの6入力は最終tag付きで両seedに一致しますが、既知4
 
 再現例は12個です。parameter付きの基底classのpure virtual methodを具象classが実装しない例（Verilatorは受理します。不正designの受理4件）、type parameterの既定値がそれより前のtype parameterに依存する例（Verilatorは拒否します。traversalのbuild 3件で、VISITORを明示した対照は一致します）、64 bitより広いenumのname() method（Verilatorは未対応です。build 1件）、forkした子processが動き続けるprocessのkill()（phaseの終了の4入力）、classのmemberのeventの2つの形です。eventの形は、同じprocessでtriggerの後に待つと先に待っていたprocessが解放されない形と、triggerの後にeventへ代入するとどの待ちも解放されない形です（各1入力）。3番目のbatchでは6つを加えました。2つのpackageの同じ名前のparameter付きclassを$castが通す例（TLMのpackageの4入力）、processが待っている間にeventへ代入するとそのprocessが解放される例（2入力）、$finishの後に呼出し元が再開する例（uvm_rootの3入力）、classも大きさを制約するとinlineのqueueの大きさの制約が無視される例と、packageのclassのsubclassが基底の禁じる大きさを受け入れる例（FIFO registerの各1入力）、乱数化が失敗した後にpost_randomizeを呼ぶ例（memory managerの2入力）です。runtimeの差分の再現例は自分で結果を確かめ、規格と異なるときは$fatalを呼びます。実行が失敗すれば、Verilatorは拒否したと数えます。
 
-interpretationの記録は、2つの読み方の根拠（`basis`）も持ちます。`printed`は、テストが宣言、名前、書式の指定を印刷されたとおりに読み、規格の別の箇所がその印刷を誤植と示すもので、10件です（`get_schedule`の戻り型、専用poolの`get_global`の2件、functionとして印刷された`all_dropped`、`is_auto_enabled_recording_enabled`、戻り型のないmapのmethod、`uvm_report_db`、`NO_MEM_SHARED_ACCESS_TEST`、`%u`の2件）。`printed-by-library`は、libraryが印刷に従いテストが別の箇所に従うもので、`get_streams`の1件です。`ambiguity`は、文言そのものが二通りに読めるもので、49件です。概要や説明文と宣言の食い違いは`ambiguity`に数えます。この区別は誤植に依存する読み方を分けるだけで、誤植かどうかの判断は人の照合に任せます。原因がlibraryの記録に、規格の印刷に従うものはありません。
+interpretationの記録は、2つの読み方の根拠（`basis`）も持ちます。`printed`は、テストが宣言、名前、書式の指定を印刷されたとおりに読み、規格の別の箇所がその印刷を誤植と示すもので、10件です（`get_schedule`の戻り型、専用poolの`get_global`の2件、functionとして印刷された`all_dropped`、`is_auto_enabled_recording_enabled`、戻り型のないmapのmethod、`uvm_report_db`、`NO_MEM_SHARED_ACCESS_TEST`、`%u`の2件）。`printed-by-library`は、libraryが印刷に従いテストが別の箇所に従うもので、`get_streams`の1件です。`ambiguity`は、文言そのものが二通りに読めるもので、50件です。概要や説明文と宣言の食い違いは`ambiguity`に数えます。この区別は誤植に依存する読み方を分けるだけで、誤植かどうかの判断は人の照合に任せます。原因がlibraryの記録に、規格の印刷に従うものはありません。
 
 `static`の記録は2値の記録と同じ根拠を持ち、原因はlibraryかinterpretationに限ります。現在は1件です。[queueのテスト](../tests/u11/test_fourstate_queue_missing_entries_117.sv)は、空のqueueの`pop_front`と`pop_back`にwarningを期待します（11.3.2.8、11.3.2.9）が、固定版のmethodは組込みのpopの結果を返すだけで、reportを出しません。4値のほかの6件は、同じ読み方で、libraryが妨げる箇所を見つけていません。これは実行による確認ではありません。
 
@@ -1129,7 +1129,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [利用不能なregister pathへのwarningとstorage転送なし](../tests/uE/test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access.sv).
 - [HDL readの実際のwide値と両変数の保持](../tests/u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable.sv).
 - [既定abstractionの利用可能pathと時刻不変](../tests/uE/test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time.sv).
-- [RTLのregister fileでのreset sequenceは、唯一のfieldがvolatileであるregisterを読まない](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv)。E.1は、blockのすべてのregisterを読むとしています。
+- [RTLのregister fileでのreset sequenceは、唯一のfieldがvolatileであるregisterを読まない](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv)。E.1 b)は、blockのすべてのregisterを読むとし、同時に、その読出しを値をreset値と比べるものとして述べています。volatileなfieldには比べる値がないので、原因の記録では、libraryの差分ではなくinterpretation（文言が二通りに読める）としています。この差分は、localのVerilator 5.054でしか見ていません。
 
 - [policy／objectのactive-policy push／pop同期](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv).
 

@@ -3,7 +3,7 @@
 :description: a jump from the main phase back to the reset phase runs the run-time phases again and resets the RTL again, and a drain time on the shutdown objection keeps the phase open for three clocks (IEEE 1800.2-2020 Section 9.3.1.9.1)
 :tags: u09 uvm
 :type: simulation
-:lrm: 1800.2-2020 9.3.1.9.1 9.3.1.4.4 9.8.2 9.8.2.2 9.8.2.5 9.8.2.8 9.8.2.11 10.5.1.3.7 10.5.1.3.3 10.5.1.3.4 13.1.4.3.3 13.3 13.4 13.5 13.7 14.2.3.1 C.4.2.2.1 C.4.2.2.2 1800-2023 6.21 9.3.2 14.4 14.13 14.16 25.9 20.3.1
+:lrm: 1800.2-2020 9.3.1.9.1 9.3.1.4.4 9.3.1.7.1 9.8.2 9.8.2.2 9.8.2.5 9.8.2.8 9.8.2.11 10.5.1.3.7 10.5.1.3.3 10.5.1.3.4 13.1.4.3.3 13.3 13.4 13.5 13.7 14.2.3.1 C.4.2.2.1 C.4.2.2.2 1800-2023 6.21 14.4 14.13 14.16 25.9 20.3.1
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -29,7 +29,9 @@
 //    phase task; its first main phase jumps to the reset node that find
 //    returns, after its objection is dropped. Expected: reset, configure and
 //    main run twice and shutdown once.
-// 2. 1800.2-2020 9.8.2.2 (UVM-RTL-RESET-PHASE-RESETS-RTL) gives rule 2. Setup:
+// 2. 1800.2-2020 9.8.2.2 (UVM-RTL-RESET-PHASE-RESETS-RTL) has the reset phase
+//    call reset_phase, so the task runs once more after the jump; that the
+//    task resets the RTL is this test's own code. Setup:
 //    each reset phase holds rst_n of the design in rf_rtl116.sv low for two
 //    clocks; each configure phase writes 'h10 plus its count to CTRL and each
 //    main phase 'h20 plus its count to DATA; the shutdown phase reads CTRL,
@@ -40,7 +42,10 @@
 //    13.1.4.3.3. Setup: the shutdown phase sets a drain time of 30 time
 //    units, three periods of the clock, on its objection for the test and
 //    drops the objection; phase_ended records the time. Expected: the phase
-//    ends three clock periods after the drop.
+//    ends 30 time units after the drop, which is three clock periods. The
+//    time is read with $time and no clock edge takes part; the library and
+//    the test share one time unit, which the runners give on the command
+//    line (docs/testing.md, "Time unit and report declarations").
 // These expectations come from the cited clauses and from the rules of the
 // test's own design, not from the output of a simulator.
 // No sequence is running when the jump is requested, so the test does not

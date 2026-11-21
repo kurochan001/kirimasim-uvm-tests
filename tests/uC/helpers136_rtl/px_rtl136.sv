@@ -24,8 +24,10 @@ interface px_if136 #(parameter int W = 8) (input logic clk);
 endinterface
 
 // One register of W bits: a write stores wdata, and a read returns the stored
-// value on the next clock. Reset clears the register.
-module px_dut136 #(parameter int W = 8) (px_if136 bus);
+// value on the next clock. Reset clears the register. The port is a generic
+// interface, which may be connected to an interface instance of any type
+// (1800-2023 23.3.3.4), so both specializations of px_if136 connect to it.
+module px_dut136 #(parameter int W = 8) (interface bus);
   logic [W-1:0] value;
 
   always_ff @(posedge bus.clk) begin

@@ -68,7 +68,7 @@ differences without runtime, even when accepted. The 140 unexpected simulation
 builds remain separate. A pass requires the declared expectation.
 
 [The cause record](known-differences.md#causes-of-the-known-differences) assigns causes to these
-differences separately from the symptom categories below: 320 library, 60 interpretation,
+differences separately from the symptom categories below: 319 library, 61 interpretation,
 27 simulator and 57 DPI-condition causes, with no entry unassigned.
 
 The 464 measured spec-only cases retain standard-derived output or compile-diagnostic

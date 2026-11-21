@@ -11590,23 +11590,29 @@
     },
     {
       "test": "uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134",
-      "inputs_sha256": "19cbabeff051b29fdb15e8b06cb5fc8154155c3c09e24cc7592d28d5465b6f98",
+      "inputs_sha256": "904a25e2ad0b75c10cd28e04c79703e27b92ad100b136267018966eac8ba2945",
       "kind": "runtime",
-      "cause": "library",
+      "cause": "interpretation",
       "evidence": {
         "clauses": [
-          "E.1"
+          "E.1",
+          "18.5.4.10"
         ],
-        "library": [
+        "readings": [
           {
-            "file": "src/reg/sequences/uvm_reg_hw_reset_seq.svh",
-            "text": "if(fields.size() != field_check_restore.size()) begin"
+            "en": "E.1 b) has the sequence read all of the registers in the block, and the only exclusion that E.1 names is the NO_REG_TESTS or NO_REG_HW_RESET_TEST resource, so COUNT, whose only field is volatile, is read too: four reads, then three after the exclusion.",
+            "ja": "E.1 b)は、sequenceがblockのすべてのregisterを読むとする。E.1が挙げる除外はNO_REG_TESTSとNO_REG_HW_RESET_TESTのresourceだけなので、唯一のfieldがvolatileであるCOUNTも読む。読出しは4回、除外の後は3回になる。"
+          },
+          {
+            "en": "E.1 b) describes a read that compares the value with the expected reset value. The mirrored value of a volatile field cannot be trusted (18.5.4.10), so COUNT has nothing to compare and is not read; the library reads a register only when at least one of its fields is compared: three reads, then two.",
+            "ja": "E.1 b)が述べるのは、値を期待するreset値と比べる読出しである。volatileなfieldのmirror値は信頼できない（18.5.4.10）ので、COUNTには比べるものがなく、読まない。libraryは、fieldの少なくとも1つが比較の対象であるregisterだけを読む。読出しは3回、その後は2回になる。"
           }
-        ]
+        ],
+        "basis": "ambiguity"
       },
       "note": {
-        "en": "E.1 has the sequence read all of the registers in the block; the pinned sequence reads a register only when at least one of its fields is compared, so it does not read COUNT, whose only field is volatile and therefore has UVM_NO_CHECK. The monitor sees three reads instead of four, and two instead of three after the exclusion.",
-        "ja": "E.1は、sequenceがblockのすべてのregisterを読むとする。固定版のsequenceは、fieldの少なくとも1つが比較の対象であるregisterだけを読むので、唯一のfieldがvolatileでUVM_NO_CHECKになるCOUNTを読まない。monitorが見る読出しは4回ではなく3回で、除外の後は3回ではなく2回になる。"
+        "en": "Whether 'all of the registers' includes a register that has no field to compare depends on the reading of E.1 b); the pinned sequence (src/reg/sequences/uvm_reg_hw_reset_seq.svh) skips COUNT, whose only field is volatile. The difference was seen with a local Verilator 5.054 only.",
+        "ja": "「すべてのregister」に、比べるfieldのないregisterが入るかどうかは、E.1 b)の読み方による。固定版のsequence（src/reg/sequences/uvm_reg_hw_reset_seq.svh）は、唯一のfieldがvolatileであるCOUNTを読まない。この差分は、localのVerilator 5.054でしか見ていない。"
       },
       "review": {
         "status": "ai",

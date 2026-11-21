@@ -3,7 +3,7 @@
 :description: parameterized agents of two widths each get the virtual interface of their own parameterized type from the configuration database and drive their own RTL register (IEEE 1800.2-2020 Section C.4.2.2.2)
 :tags: uC uvm
 :type: simulation
-:lrm: 1800.2-2020 C.4.2.2.2 C.4.2.2.1 C.4.2.1 B.2.1.2 B.2.1.3 13.3 13.4 13.5 13.7 13.9 15.5 12.2.10.1 14.2.3.1 14.2.6.2 14.2.6.3 15.2.1.2.1 15.2.1.2.3 5.3.4.5 5.3.4.6 8.2.3.2.4 8.2.4.2.4 1800-2023 6.21 8.25 14.4 14.13 14.16 25.9 25.3.3
+:lrm: 1800.2-2020 C.4.2.2.2 C.4.2.2.1 C.4.2.1 B.2.1.2 B.2.1.3 13.3 13.4 13.5 13.7 13.9 15.5 12.2.10.1 14.2.3.1 14.2.6.2 14.2.6.3 15.2.1.2.1 15.2.1.2.3 5.3.4.5 5.3.4.6 8.2.3.2.4 8.2.4.2.4 1800-2023 6.21 8.25 14.4 14.13 14.16 25.9 23.3.3.4
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,8 +20,8 @@
 //    width gets its interface, and a request for the other width's type at
 //    the same scope finds nothing.
 // 2. Parameterized items, sequences, drivers, monitors, agents and
-//    subscribers of two widths work side by side, each with its own factory
-//    proxy.
+//    subscribers of two widths work side by side, and the two item
+//    specializations have their own factory proxies.
 //
 // How the expected output follows from the standard:
 // 1. 1800.2-2020 C.4.2.2.2 (UVM-RTL-PARAM-VIF-CONFIG-TYPE) gives rule 1 with
@@ -29,7 +29,10 @@
 //    type T. Setup: set a virtual px_if136#(8) for the scope of the narrow
 //    agent and a virtual px_if136#(12) for that of the wide agent. Expected:
 //    both drivers get their interface, and a get of the 12-bit type at the
-//    scope of the narrow driver returns 0.
+//    scope of the narrow driver returns 0. C.4.2.2.2 does not print what the
+//    returned bit means for a setting of another type; that such a setting
+//    is not found follows from C.4.2.1, which makes T the type of the
+//    configuration that the class reads and writes.
 // 2. 1800.2-2020 B.2.1.3 (UVM-RTL-PARAM-AGENT-SIDE-BY-SIDE) gives rule 2 with
 //    B.2.1.2, 13.7, 13.5, 13.4, 13.9 and 15.5. Setup: each agent runs a
 //    sequence that writes all ones and reads the register back, in parallel.

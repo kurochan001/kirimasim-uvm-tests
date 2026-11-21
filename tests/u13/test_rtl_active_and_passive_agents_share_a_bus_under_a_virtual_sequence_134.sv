@@ -28,7 +28,10 @@
 //    F.2.1.7. Setup: the agent of this test overrides get_is_active from its
 //    own setting and creates its driver and sequencer only when it returns
 //    UVM_ACTIVE. Expected: the two driving agents return UVM_ACTIVE, the third
-//    returns UVM_PASSIVE and has neither a driver nor a sequencer.
+//    returns UVM_PASSIVE and has neither a driver nor a sequencer. The
+//    standard does not say how an agent learns its setting, so this line
+//    shows the shape of the testbench: it reads back the test's own override
+//    and does not exercise the library's uvm_agent.
 // 2. 1800.2-2020 14.2.3.1 (UVM-RTL-VIRTUAL-SEQUENCE-CHILDREN) gives rule 2
 //    with B.3.3, 14.1.2.5 and 14.1.2.7. Setup: the virtual sequence casts its
 //    sequencer into the p_sequencer that `uvm_declare_p_sequencer declares
@@ -44,6 +47,9 @@
 //    clocking block and write to the imps declared with
 //    `uvm_analysis_imp_decl. Expected: each imp receives the 5 transactions
 //    of bus A, and the 5 pairs agree in direction, address, data and cycle.
+//    B.5.22 calls the implementation "the write function" and does not
+//    print its name; write followed by the suffix is the name that the
+//    pinned library's macro calls, and the test would not compile otherwise.
 // These expectations come from the cited clauses and from the rules of the
 // test's own design, not from the output of a simulator.
 // The two histories are compared by position after the run, so the order in
