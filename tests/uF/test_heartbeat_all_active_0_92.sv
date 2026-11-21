@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers92_heartbeat/heartbeat_fixture92.svh
 :incdirs: helpers92_heartbeat
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

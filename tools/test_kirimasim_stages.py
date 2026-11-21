@@ -52,7 +52,7 @@ class Fixture(unittest.TestCase):
             self.stages[n]["short"] = [name]
         self.data = {
             "schema_version": 1, "standard": "1800.2-2020", "library": "9.9",
-            "simulator": "verilator@5.052", "purpose": text(), "stages": self.stages,
+            "simulator": "verilator@5.054", "purpose": text(), "stages": self.stages,
             "overrides": {"u01/test_s0": {"stage": 0, "reason": text()}},
             "tests": {}}
         self.data["tests"] = self.expected_tests()
@@ -62,7 +62,7 @@ class Fixture(unittest.TestCase):
                 "u12/test_s5": 5, "u12/test_untagged": 5, "u14/test_s4": 4, "u18/test_s6": 6,
                 "uC/test_s3": 3}
 
-    def make(self, name, body, *, oracle="spec verilator@5.052", kind="simulation", extra=""):
+    def make(self, name, body, *, oracle="spec verilator@5.054", kind="simulation", extra=""):
         path = self.root / "tests" / (name + ".sv")
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(f"/*\n:type: {kind}\n:oracle: {oracle}\n{extra}*/\n"
@@ -139,7 +139,7 @@ class Stages(Fixture):
     def test_short_sets_hold_tagged_tests_of_their_own_stage(self):
         data = copy.deepcopy(self.data)
         data["stages"][5]["short"].append("u12/test_untagged")
-        self.rejects(data, "not recorded with verilator@5.052")
+        self.rejects(data, "not recorded with verilator@5.054")
         data = copy.deepcopy(self.data)
         data["stages"][4]["short"].append("u12/test_s5")
         self.rejects(data, "its stage is 5")

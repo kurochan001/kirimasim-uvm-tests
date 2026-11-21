@@ -1,10 +1,10 @@
 name: Measure
 
-# Runs the named tests, tagged or not, with the pinned Verilator 5.052 at
+# Runs the named tests, tagged or not, with the pinned Verilator 5.054 at
 # seeds 1 and 73 and prints the status and the reason of each. Check and
-# Regression run only the tests recorded with verilator@5.052, so this is the
+# Regression run only the tests recorded with verilator@5.054, so this is the
 # hosted way to see how a spec-only test differs, or to measure a test before
-# it is tagged, when no local Verilator 5.052 is at hand. Manual only; it
+# it is tagged, when no local Verilator 5.054 is at hand. Manual only; it
 # changes no record and publishes nothing but its log.
 
 on:

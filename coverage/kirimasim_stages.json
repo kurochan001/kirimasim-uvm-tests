@@ -2,7 +2,7 @@
   "schema_version": 1,
   "standard": "1800.2-2020",
   "library": "2020.3.1",
-  "simulator": "verilator@5.052",
+  "simulator": "verilator@5.054",
   "purpose": {
     "en": "The bring-up stage of kirimasim that each test needs, so that its progress shows stage by stage, and a short set of representatives for each stage. The stages order parts of UVM; they are not the M1 to M4 milestones and change no expectation.",
     "ja": "各テストに必要なkirimasimの立ち上げ段階と、段階ごとの代表の短いセット。進み具合を段階ごとに見えるようにする。段階はUVMの部分の順序で、milestone M1〜M4とは別で、期待値を変えない。"

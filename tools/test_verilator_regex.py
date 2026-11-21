@@ -22,12 +22,12 @@ class VariantList(unittest.TestCase):
             return regex.variants(path)
 
     def test_comments_blank_lines_and_tags_are_read_in_order(self):
-        entries = self.parse("# heading\n\nuA/test_one\nuB/test_two verilator@5.052  # note\n")
+        entries = self.parse("# heading\n\nuA/test_one\nuB/test_two verilator@5.054  # note\n")
         self.assertEqual(list(entries.items()), [("uA/test_one", False), ("uB/test_two", True)])
 
     def test_unknown_tags_extra_words_and_duplicates_are_rejected(self):
-        for text in ("uA/test_one other\n", "uA/test_one verilator@5.052 extra\n",
-                     "uA/test_one\nuA/test_one verilator@5.052\n"):
+        for text in ("uA/test_one other\n", "uA/test_one verilator@5.054 extra\n",
+                     "uA/test_one\nuA/test_one verilator@5.054\n"):
             with self.subTest(text=text), self.assertRaises(ValueError):
                 self.parse(text)
 

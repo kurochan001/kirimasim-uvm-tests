@@ -7,7 +7,7 @@ Usage:
     python3 tools/ci_select.py --plan [--directories DIRS] --output FILE
 
 The tagged checks are those that tools/run_verilator.py runs by default (the
-`:oracle:` lists verilator@5.052). FILE receives one test path per line.
+`:oracle:` lists verilator@5.054). FILE receives one test path per line.
 
 --base selects, for the quick Check workflow, the tagged checks whose recorded
 inputs (suite_results.input_files: the design, declared helpers, literal

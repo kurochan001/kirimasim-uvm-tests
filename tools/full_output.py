@@ -23,7 +23,7 @@ capture runs the tests through the simulator's own runner
 runner's, and saves what each run prints on standard output. It does not
 change the runner: it only keeps the output that the runner reads. With no
 TEST arguments it takes the tests that the runner takes (for Verilator, those
-recorded with verilator@5.052, or every two-state test with --all). Each
+recorded with verilator@5.054, or every two-state test with --all). Each
 output goes to DIR/<test id>.txt after these normalizations, and
 DIR/index.json lists the SHA-256 of each file with the simulator, its version,
 the seed and the runner's fingerprint:

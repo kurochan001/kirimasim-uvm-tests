@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers90_description/description_fixture90.svh
 :incdirs: helpers90_description
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

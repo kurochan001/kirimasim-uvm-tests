@@ -45,8 +45,8 @@ REQUIRED = ("name", "description", "tags", "type", "lrm", "uvm", "oracle", "spec
 CHOICES = {"type": {"simulation", "elaboration"}, "spec_check": {"ai", "human"},
            "fourstate": {"yes", "no"}, "nondeterministic": {"yes", "no"},
            "uvm_dpi": {"yes", "no"},
-           "uvm_cmdline_oracle": {"verilator@5.052"}}
-ORACLES = {"spec", "verilator@5.052"}
+           "uvm_cmdline_oracle": {"verilator@5.054"}}
+ORACLES = {"spec", "verilator@5.054"}
 
 
 def chapter_dir(clause: str) -> str:

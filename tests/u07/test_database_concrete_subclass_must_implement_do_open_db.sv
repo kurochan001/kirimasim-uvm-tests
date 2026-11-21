@@ -5,7 +5,7 @@
 :type: elaboration
 :lrm: 1800.2-2020 7.1.6.1 7.1.1 7.1.2 1800-2023 8.21 13.5.2
 :uvm: 2020.3.1
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

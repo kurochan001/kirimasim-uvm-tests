@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers90_policy/policy_fixture90.svh
 :incdirs: helpers90_policy
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

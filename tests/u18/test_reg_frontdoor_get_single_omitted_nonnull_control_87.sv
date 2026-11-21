@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers87_frontdoor_control/frontdoor_query_fixture87.svh
 :incdirs: helpers87_frontdoor_control
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

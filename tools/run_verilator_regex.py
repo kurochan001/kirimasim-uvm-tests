@@ -9,7 +9,7 @@ uses the regular-expression DPI instead of the SystemVerilog glob fallback, and
 command-line arguments such as +UVM_TESTNAME reach the library through its
 command-line DPI. The fixtures and their expected output are unchanged;
 coverage/regex_dpi_variants.txt selects them, and a selected line that carries
-verilator@5.052 records a check that matched in this condition. Ordinary, HDL
+verilator@5.054 records a check that matched in this condition. Ordinary, HDL
 and command-line runners are unchanged.
 """
 
@@ -28,7 +28,7 @@ import suite_results
 import uvm_common
 
 SIMULATOR = "verilator_regex"
-ORACLE = "verilator@5.052"
+ORACLE = "verilator@5.054"
 LIST = suite_results.ROOT / "coverage" / "regex_dpi_variants.txt"
 BACKEND_DIR = (Path(__file__).parent / "cmdline_backend").resolve()
 BACKEND = BACKEND_DIR / "uvm_cmdline_vpi.cpp"
@@ -177,8 +177,8 @@ def main() -> int:
     if args.jobs < 1 or args.build_jobs < 0:
         ap.error("--jobs must be positive and --build-jobs must be nonnegative")
     version = suite_results.tool_version([args.verilator, "--version"])
-    if not version.startswith("Verilator 5.052 "):
-        ap.error("this evidence condition requires Verilator 5.052")
+    if not version.startswith("Verilator 5.054 "):
+        ap.error("this evidence condition requires Verilator 5.054")
     listed = variants()
     if args.tests:
         tests = [t.resolve() for t in args.tests]

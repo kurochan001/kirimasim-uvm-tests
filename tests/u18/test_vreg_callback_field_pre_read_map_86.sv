@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers86/callback_fixture86.svh
 :incdirs: helpers86
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

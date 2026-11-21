@@ -6,7 +6,7 @@
 :lrm: 1800.2-2020 18.4.6.9 18.4.6.4 18.4.6.5 18.4.6.7 18.4.6.9 17.2.1.7 17.2.3.1 18.1.2.2 18.1.6.4 18.1.6.7 18.1.6.8 18.1.6.9 18.4.2.1 18.4.2.2 1800-2023 6.21 7.6 13.5.1
 :uvm: 2020.3.1
 :uvm_defines: KIRIMASIM_HDL_VIEW_CONTROL79
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

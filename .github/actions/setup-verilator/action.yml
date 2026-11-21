@@ -1,6 +1,6 @@
-name: Set up Verilator 5.052 and UVM
+name: Set up Verilator 5.054 and UVM
 description: >
-  Restores or builds Verilator 5.052, puts it on the path and fetches the
+  Restores or builds Verilator 5.054, puts it on the path and fetches the
   pinned UVM library. Used by the Check and Regression workflows.
 
 runs:
@@ -8,33 +8,35 @@ runs:
   steps:
     # Restored and saved in separate steps, so that the build is kept even
     # when the tests then fail the job.
-    - name: Restore Verilator 5.052
+    - name: Restore Verilator 5.054
       id: cache
       uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ~/verilator
-        key: verilator-v5.052-ubuntu-24.04
+        key: verilator-v5.054-ubuntu-24.04
 
-    - name: Build Verilator 5.052
+    - name: Build Verilator 5.054
       if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
       run: |
         sudo apt-get update || echo "::warning::apt-get update failed for some sources"
         sudo apt-get install -y help2man autoconf flex bison libfl-dev zlib1g-dev
-        git clone -q --depth 1 --branch v5.052 https://github.com/verilator/verilator.git \
+        git clone -q --depth 1 --branch v5.054 https://github.com/verilator/verilator.git \
           "$RUNNER_TEMP/verilator"
         cd "$RUNNER_TEMP/verilator"
+        # The tag v5.054 points to this commit; a moved tag stops the build.
+        test "$(git rev-parse HEAD)" = bbb60a403932a9f695cb6ff001ceb73de6ad9234
         autoconf
         ./configure -q --prefix="$HOME/verilator"
         make -s -j"$(nproc)"
         make -s install
 
-    - name: Save Verilator 5.052
+    - name: Save Verilator 5.054
       if: steps.cache.outputs.cache-hit != 'true'
       uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ~/verilator
-        key: verilator-v5.052-ubuntu-24.04
+        key: verilator-v5.054-ubuntu-24.04
 
     # A Verilator model solves constrained randomization (randomize(), randc,
     # memory-allocation policies) at run time with an SMT solver found on the
@@ -79,14 +81,14 @@ runs:
 
     # tools/run_verilator.py records the release but does not require it, so a
     # cache or a path that held another release would go unnoticed.
-    - name: Require Verilator 5.052
+    - name: Require Verilator 5.054
       shell: bash
       run: |
         version=$("$HOME/verilator/bin/verilator" --version)
         echo "$version"
         case "$version" in
-          "Verilator 5.052 "*) ;;
-          *) echo "::error::expected Verilator 5.052, found: $version"; exit 1 ;;
+          "Verilator 5.054 "*) ;;
+          *) echo "::error::expected Verilator 5.054, found: $version"; exit 1 ;;
         esac
 
     - name: Fetch the UVM library

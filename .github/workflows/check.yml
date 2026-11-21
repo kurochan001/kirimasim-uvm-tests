@@ -1,7 +1,7 @@
 name: Check
 
 # Checks the tools, the metadata of the tests and the pinned UVM library, and
-# runs the tagged Verilator 5.052 checks (`verilator@5.052` in :oracle:) whose
+# runs the tagged Verilator 5.054 checks (`verilator@5.054` in :oracle:) whose
 # recorded inputs changed, plus a fixed canary (tools/ci_select.py). Runtime
 # cases use two seeds; illegal elaboration cases require compiler rejection
 # with the declared diagnostic and do not run a binary. Each expectation must

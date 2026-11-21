@@ -59,7 +59,7 @@ import uvm_common
 ROOT = Path(__file__).resolve().parent.parent
 RECORD = Path("coverage") / "slang_frontend.json"
 CAUSES = Path("coverage") / "known_causes.json"
-SIMULATOR = "verilator@5.052"
+SIMULATOR = "verilator@5.054"
 LANGUAGES = {"en", "ja"}
 REASONS = ("library", "warning-as-error", "suspected-limit", "single-unit", "accepted-illegal")
 LIBRARY_CAUSES = ("library", "interpretation")

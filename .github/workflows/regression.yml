@@ -1,6 +1,6 @@
 name: Regression
 
-# Runs every tagged Verilator 5.052 check (`verilator@5.052` in :oracle:) in 20
+# Runs every tagged Verilator 5.054 check (`verilator@5.054` in :oracle:) in 20
 # disjoint shards (tools/ci_select.py --shard), and the explicit command-line
 # checks, with runtime seeds 1 and 73. Illegal elaboration cases require
 # compiler rejection with the declared diagnostic.

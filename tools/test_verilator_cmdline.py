@@ -28,7 +28,7 @@ class CmdlineRunner(unittest.TestCase):
     def write(self, extra=""):
         self.test.write_text(
             "/*\n:uvm: 2020.3.1\n:uvm_dpi: yes\n:uvm_cmdline_backend: vpi\n"
-            ":uvm_cmdline_oracle: verilator@5.052\n"
+            ":uvm_cmdline_oracle: verilator@5.054\n"
             ":fourstate: no\n:uvm_defines: UVM_HDL_NO_DPI\n"
             f":dpi_c: @{cmdline.BACKEND}\n:files: {cmdline.REGEX} {cmdline.COMPAT}\n:expected_stdout: UT: done\n{extra}*/\n"
             "module test_sample; endmodule\n")
@@ -92,14 +92,14 @@ class CmdlineRunner(unittest.TestCase):
     def test_default_selection_excludes_unmeasured_or_untagged_cases(self):
         other = self.test.with_name("test_other.sv")
         other.write_text(self.test.read_text().replace(
-            ":uvm_cmdline_oracle: verilator@5.052\n", ""))
+            ":uvm_cmdline_oracle: verilator@5.054\n", ""))
         self.assertEqual(cmdline.selected([other, self.test]), [self.test])
         self.assertEqual(cmdline.selected([other, self.test], all_tests=True),
                          [other, self.test])
 
     def test_unrecognized_condition_oracle_is_rejected_by_metadata_lint(self):
         self.test.write_text(self.test.read_text().replace(
-            "verilator@5.052", "verilator@9.999"))
+            "verilator@5.054", "verilator@9.999"))
         errors = lint_metadata.problems(self.test, "2020.3.1")
         self.assertTrue(any(e.startswith("field: :uvm_cmdline_oracle:") for e in errors))
 
@@ -115,11 +115,11 @@ class CmdlineRunner(unittest.TestCase):
 
     def test_untagged_difference_remains_known_and_is_not_counted_as_a_pass(self):
         self.test.write_text(self.test.read_text().replace(
-            ":uvm_cmdline_oracle: verilator@5.052\n", ""))
+            ":uvm_cmdline_oracle: verilator@5.054\n", ""))
         stream = io.StringIO()
         with (mock.patch.object(sys, "argv", ["run_verilator_cmdline.py", "--all",
                                                "--json", "unused.json", str(self.test)]),
-              mock.patch.object(suite_results, "tool_version", return_value="Verilator 5.052 test"),
+              mock.patch.object(suite_results, "tool_version", return_value="Verilator 5.054 test"),
               mock.patch.object(suite_results, "fingerprints", return_value={"test_sample": "input"}),
               mock.patch.object(suite_results, "test_id", return_value="test_sample"),
               mock.patch.object(suite_results, "write") as output,
@@ -140,7 +140,7 @@ class CmdlineRunner(unittest.TestCase):
 
     def test_cli_refuses_a_different_verilator_version(self):
         with (mock.patch.object(sys, "argv", ["run_verilator_cmdline.py", str(self.test)]),
-              mock.patch.object(suite_results, "tool_version", return_value="Verilator 5.054"),
+              mock.patch.object(suite_results, "tool_version", return_value="Verilator 5.056"),
               mock.patch.object(cmdline, "run") as execute,
               contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error):
             cmdline.main()
@@ -150,7 +150,7 @@ class CmdlineRunner(unittest.TestCase):
     def test_cli_records_failure_as_failure_under_its_separate_runner_identity(self):
         with (mock.patch.object(sys, "argv", ["run_verilator_cmdline.py", "--json", "unused.json",
                                                str(self.test)]),
-              mock.patch.object(suite_results, "tool_version", return_value="Verilator 5.052 test"),
+              mock.patch.object(suite_results, "tool_version", return_value="Verilator 5.054 test"),
               mock.patch.object(suite_results, "fingerprints",
                                 return_value={"test_sample": "input"}),
               mock.patch.object(suite_results, "test_id", return_value="test_sample"),

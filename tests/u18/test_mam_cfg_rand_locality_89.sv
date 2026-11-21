@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers89_cfg_random/configuration_rand_fixture89.svh
 :incdirs: helpers89_cfg_random
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

@@ -33,14 +33,14 @@ class KnownCauses(unittest.TestCase):
         (self.root / "third_party/uvm.lock").write_text(json.dumps({"version": "9.9"}))
         (self.root / "third_party/uvm/9.9/src/base/fixture.svh").write_text(
             "virtual class fixture_base;\nendclass\n")
-        self.make("u05/test_tagged", "spec verilator@5.052")
+        self.make("u05/test_tagged", "spec verilator@5.054")
         self.make("u05/test_runtime", "spec")
         self.make("u05/test_illegal", "spec", extra=":should_fail_because: fixture\n")
         self.make("u06/test_hdl", "spec", extra=":uvm_hdl_backend: vpi\n:uvm_dpi: yes\n")
         self.make("u06/test_fourstate", "spec", fourstate="yes")
         self.data = {
             "schema_version": 2, "standard": "1800.2-2020", "library": "9.9",
-            "simulator": "verilator@5.052", "status": "partial",
+            "simulator": "verilator@5.054", "status": "partial",
             "reproducers": {"fixture-repro": {
                 "clauses_1800_2023": ["8.21"],
                 "source": ["module fixture_repro;", "endmodule"],
@@ -107,7 +107,7 @@ class KnownCauses(unittest.TestCase):
         data["causes"].append(self.entry("u05/test_tagged", "runtime", "library",
                                          data["causes"][1]["evidence"]))
         data["causes"].sort(key=lambda e: e["test"])
-        self.rejects(data, "the test is recorded with verilator@5.052")
+        self.rejects(data, "the test is recorded with verilator@5.054")
 
     def test_a_four_state_test_may_have_a_static_entry(self):
         data = copy.deepcopy(self.data)
@@ -224,7 +224,7 @@ class KnownCauses(unittest.TestCase):
         data["causes"][1]["evidence"]["controls"] = ["u05/test_tagged"]
         self.validate(data)
         data["causes"][1]["evidence"]["controls"] = ["u05/test_illegal"]
-        self.rejects(data, "is not recorded with verilator@5.052")
+        self.rejects(data, "is not recorded with verilator@5.054")
 
     def test_human_review_needs_a_reviewer_and_date(self):
         data = copy.deepcopy(self.data)
@@ -250,7 +250,7 @@ class KnownCauses(unittest.TestCase):
 
         def write(tests):
             path.write_text(json.dumps({"simulator": "verilator", "name": "Verilator",
-                                        "version": "Verilator 5.052", "tests": tests}))
+                                        "version": "Verilator 5.054", "tests": tests}))
         write(records)
         self.assertEqual(known_causes.check_results(data, path), 3)
         static = copy.deepcopy(data)

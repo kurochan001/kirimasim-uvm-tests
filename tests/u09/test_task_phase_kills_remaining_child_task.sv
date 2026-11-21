@@ -5,7 +5,7 @@
 :type: simulation
 :lrm: 1800.2-2020 9.6 9.8.2.1 9.8.2.8 13.1.4.2.1 13.1.4.2.8
 :uvm: 2020.3.1
-:oracle: spec
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no
@@ -26,8 +26,8 @@
 // simulator.
 // The child starts during a held pre-reset phase, then waits beyond its
 // end. A later phase advances past that wait before inspecting the child.
-// The pinned-library run on Verilator 5.052 leaves the child task alive.
-// Keep the normative expectation as a spec-only case pending root-cause triage.
+// The 5.052 Verilator run left the child task alive, so this was a known
+// difference. The 5.054 run ends the child, and the result matches.
 
 module test_task_phase_kills_remaining_child_task;
   import uvm_pkg::*;

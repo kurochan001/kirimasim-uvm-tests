@@ -4,9 +4,9 @@ with its expected output.
 
 Usage:
     python3 tools/run_verilator.py [--verilator PATH] [--seed N | --seeds N ...] [--all] [-j N]
-                                   [--build-jobs N] [--json FILE] [TEST ...]
+                                   [--build-jobs N] [--json FILE] [--any-release] [TEST ...]
 
-With no TEST arguments, runs the tests whose `:oracle:` lists verilator@5.052;
+With no TEST arguments, runs the tests whose `:oracle:` lists verilator@5.054;
 with --all, every test that does not depend on x or z values
 (`:fourstate: no`), as Verilator is a two-state simulator. Each test is built
 with the pinned UVM library (see tools/uvm_common.py) by `verilator --binary
@@ -35,7 +35,11 @@ server or a catcher that suppresses the line is not seen. The declarations
 file is not an input fingerprint; its SHA-256 is recorded in the result
 configuration.
 
-A test whose `:oracle:` does not list verilator@5.052 is reported as a known
+The runner stops unless `verilator --version` reports release 5.054, the
+release that the tags name. --any-release measures with another release for a
+survey; its results record that release and are not evidence for a tag.
+
+A test whose `:oracle:` does not list verilator@5.054 is reported as a known
 difference when it does not match, and does not make the run fail. With
 --json, the result of every test is also written to FILE in the form that
 tools/suite_results.py describes. Exits with 1 if a test recorded with
@@ -57,7 +61,8 @@ import suite_results
 import uvm_common
 
 ROOT = Path(__file__).resolve().parent.parent
-ORACLE = "verilator@5.052"
+RELEASE = "5.054"
+ORACLE = f"verilator@{RELEASE}"
 TIMESCALE = "1ns/1ps"
 DECLARATIONS = ROOT / "coverage" / "uvm_reports.json"
 REPORT = re.compile(r"^(UVM_ERROR|UVM_FATAL)(?! :) ")
@@ -175,10 +180,16 @@ def main() -> int:
     ap.add_argument("--build-jobs", type=int, default=0,
                     help="parallel jobs of the C++ build of a model (0: every hardware thread)")
     ap.add_argument("--json", type=Path, default=None, help="also write the results to this file")
+    ap.add_argument("--any-release", action="store_true",
+                    help=f"measure with a release other than {RELEASE}, for a survey")
     ap.add_argument("tests", nargs="*", type=Path)
     args = ap.parse_args()
     if args.jobs < 1 or args.build_jobs < 0:
         ap.error("--jobs must be positive and --build-jobs must be nonnegative")
+    version = suite_results.tool_version([args.verilator, "--version"])
+    if not args.any_release and not version.startswith(f"Verilator {RELEASE} "):
+        ap.error(f"the tags name Verilator {RELEASE}, and {args.verilator} is {version!r}; "
+                 "use --any-release for a survey")
 
     tests = args.tests or selected(suite_results.find_tests(), args.all)
     declarations = load_declarations()
@@ -197,7 +208,7 @@ def main() -> int:
             if not recorded:
                 known += 1
                 if not ok:
-                    print(f"KNOWN {name}: the expected output is not from Verilator 5.052",
+                    print(f"KNOWN {name}: the expected output is not from Verilator {RELEASE}",
                           flush=True)
             elif not ok:
                 failed += 1
@@ -207,7 +218,7 @@ def main() -> int:
           + (f"; {known} other tests not counted" if known else ""))
     if args.json:
         suite_results.write(args.json, "verilator", "Verilator",
-                            suite_results.tool_version([args.verilator, "--version"]), statuses,
+                            version, statuses,
                             inputs=inputs, runner_sha256=runner_hash,
                             configuration={**({"seeds": args.seeds} if args.seeds
                                               else {"seed": args.seed}),

@@ -21,7 +21,7 @@ import suite_results
 import uvm_common
 
 SIMULATOR = "verilator_cmdline"
-ORACLE = "verilator@5.052"
+ORACLE = "verilator@5.054"
 BACKEND = (Path(__file__).parent / "cmdline_backend" / "uvm_cmdline_vpi.cpp").resolve()
 REGEX = BACKEND.with_name("uvm_cmdline_regex.cpp")
 COMPAT = BACKEND.with_name("malloc.h")
@@ -164,8 +164,8 @@ def main() -> int:
     if args.jobs < 1 or args.build_jobs < 0:
         ap.error("--jobs must be positive and --build-jobs must be nonnegative")
     version = suite_results.tool_version([args.verilator, "--version"])
-    if not version.startswith("Verilator 5.052 "):
-        ap.error("this evidence condition requires Verilator 5.052")
+    if not version.startswith("Verilator 5.054 "):
+        ap.error("this evidence condition requires Verilator 5.054")
     tests = args.tests or selected(suite_results.find_tests(), args.all)
     if not tests:
         ap.error("no command-line fixtures selected")

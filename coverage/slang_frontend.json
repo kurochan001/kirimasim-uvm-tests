@@ -110,10 +110,9 @@
     "u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver": {
       "reason": "library",
       "error": "value of type 'uvm_phase' cannot be assigned to type 'string'",
-      "verilator_kind": "runtime",
       "note": {
-        "en": "The test assigns the result to a string, as the printed declaration of the standard gives it; the pinned library returns a phase handle. Verilator builds the test and differs at run time, while slang rejects the assignment at elaboration.",
-        "ja": "このテストは、規格に印刷された宣言のとおりに、結果をstringに代入する。固定版libraryはphaseのhandleを返す。Verilatorはbuildして実行時に違いが出るが、slangはelaborationでこの代入を拒否する。"
+        "en": "The test assigns the result to a string, as the printed declaration of the standard gives it; the pinned library returns a phase handle, and slang rejects the assignment at elaboration. Verilator 5.052 built the test and differed at run time; Verilator 5.054 rejects a class handle as a string argument, so it fails to build as well.",
+        "ja": "このテストは、規格に印刷された宣言のとおりに、結果をstringに代入する。固定版libraryはphaseのhandleを返し、slangはelaborationでこの代入を拒否する。5.052ではVerilatorはbuildして実行時に違いが出たが、5.054はclassのhandleをstringの引数に渡すことを拒否し、buildにも失敗する。"
       }
     },
     "u10/test_pool_global_barrier_printed_pool_return_type": {

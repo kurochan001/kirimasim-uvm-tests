@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers93_time_enum/time_enum_fixture93.svh
 :incdirs: helpers93_time_enum
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

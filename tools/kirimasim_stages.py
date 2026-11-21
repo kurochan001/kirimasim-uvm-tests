@@ -33,7 +33,7 @@ names what the test elaborates and runs beyond it.
 
 check requires one entry for every test, each equal to the stage that the
 markers and overrides give, and short sets of simulation tests recorded with
-verilator@5.052 whose stage is the listed one. update rewrites the entries
+verilator@5.054 whose stage is the listed one. update rewrites the entries
 from the markers and overrides and reports what changed; review the change
 before committing it. summary counts the tests of each stage and, for each
 --results FILE (a runner JSON), the statuses of its current records by stage:
@@ -57,7 +57,7 @@ RECORD = Path("coverage") / "kirimasim_stages.json"
 STAGES = range(7)
 DEFAULT_STAGE = 1
 LANGUAGES = {"en", "ja"}
-SIMULATOR = "verilator@5.052"
+SIMULATOR = "verilator@5.054"
 SOURCE_SUFFIXES = {".sv", ".svh", ".v", ".vh"}
 SHORT_MAX = 10
 # Comments and string literals, removed before the markers are searched; a

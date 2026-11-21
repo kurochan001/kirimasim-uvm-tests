@@ -6,7 +6,7 @@
 :lrm: 1800.2-2020 B.6.1 F.2.1.1 F.2.1.2 F.2.1.5 F.2.1.6 F.2.1.8 F.2.1.9 1800-2023 6.21 6.20 6.16 7.4 13.5.2
 :uvm: 2020.3.1
 :uvm_defines: UVM_FIELD_FLAG_SIZE=(UVM_FIELD_FLAG_RESERVED_BITS+17)
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

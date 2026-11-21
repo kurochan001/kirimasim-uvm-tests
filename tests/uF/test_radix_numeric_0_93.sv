@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers93_numeric/numeric_fixture93.svh
 :incdirs: helpers93_numeric
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

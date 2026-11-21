@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers85/vreg_backdoor_fixture85.svh
 :incdirs: helpers85
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

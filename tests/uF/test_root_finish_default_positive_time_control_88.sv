@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers88_finish_control/finish_fixture88.svh
 :incdirs: helpers88_finish_control
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

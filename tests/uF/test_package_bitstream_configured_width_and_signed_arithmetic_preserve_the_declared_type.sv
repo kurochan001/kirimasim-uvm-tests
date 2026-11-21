@@ -6,7 +6,7 @@
 :lrm: 1800.2-2020 F.2.1.3 B.6.2 1800-2023 6.21 8.20 8.21
 :uvm: 2020.3.1
 :uvm_defines: UVM_MAX_STREAMBITS=257
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

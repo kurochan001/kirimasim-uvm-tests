@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers91_ports/port_fixture91.svh
 :incdirs: helpers91_ports
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

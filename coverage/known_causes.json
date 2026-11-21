@@ -2,7 +2,7 @@
   "schema_version": 2,
   "standard": "1800.2-2020",
   "library": "2020.3.1",
-  "simulator": "verilator@5.052",
+  "simulator": "verilator@5.054",
   "status": "complete",
   "reproducers": {
     "parameterized-base-pure-virtual": {
@@ -30,8 +30,8 @@
       "conforming": "rejects",
       "verilator": "accepts",
       "explanation": {
-        "en": "A conforming compiler rejects derived, which leaves the pure virtual f of a parameterized base unimplemented. Verilator 5.052 builds and runs it, while it rejects the same omission when base has no parameters.",
-        "ja": "parameter付きの基底のpure virtualであるfを実装しないderivedは、規格に従うcompilerなら拒否する。Verilator 5.052はこれをbuildして実行する。一方、基底にparameterがない場合の同じ欠落は拒否する。"
+        "en": "A conforming compiler rejects derived, which leaves the pure virtual f of a parameterized base unimplemented. Verilator 5.054 builds and runs it, while it rejects the same omission when base has no parameters.",
+        "ja": "parameter付きの基底のpure virtualであるfを実装しないderivedは、規格に従うcompilerなら拒否する。Verilator 5.054はこれをbuildして実行する。一方、基底にparameterがない場合の同じ欠落は拒否する。"
       }
     },
     "dependent-type-parameter-default": {
@@ -82,69 +82,8 @@
       "conforming": "accepts",
       "verilator": "rejects",
       "explanation": {
-        "en": "adapter#(other_node) has VISITOR = visitor#(other_node), so the design is legal and prints \"visited\". Verilator 5.052 rejects it at the default of VISITOR in adapter (\"Can't find typedef/interface: 'STRUCTURE'\").",
-        "ja": "adapter#(other_node)のVISITORはvisitor#(other_node)となるので、このdesignは正しく、\"visited\"を表示する。Verilator 5.052はadapterのVISITORの既定値でこれを拒否する（\"Can't find typedef/interface: 'STRUCTURE'\"）。"
-      }
-    },
-    "wide-enum-name": {
-      "clauses_1800_2023": [
-        "6.19",
-        "6.19.5.6"
-      ],
-      "source": [
-        "// An enumerated type may have any integral base type (6.19); name() returns",
-        "// the name of the current value (6.19.5.6).",
-        "typedef enum bit [128:0] {A = 0, B = 1} wide_t;",
-        "",
-        "module wide_enum_name;",
-        "  initial begin",
-        "    wide_t v = B;",
-        "    $display(\"%s\", v.name());",
-        "  end",
-        "endmodule"
-      ],
-      "conforming": "accepts",
-      "verilator": "rejects",
-      "explanation": {
-        "en": "The design is legal and prints B. Verilator 5.052 reports name() on an enum wider than 64 bits as unsupported.",
-        "ja": "このdesignは正しく、Bを表示する。Verilator 5.052は、64 bitより広いenumのname()を未対応と報告する。"
-      }
-    },
-    "process-kill-subprocesses": {
-      "clauses_1800_2023": [
-        "9.7"
-      ],
-      "source": [
-        "// kill() terminates the process and the processes it spawned with fork",
-        "// (9.7); the child below must never write late.",
-        "module process_kill_subprocesses;",
-        "  int late;",
-        "  process parent;",
-        "",
-        "  initial begin",
-        "    fork",
-        "      begin",
-        "        parent = process::self();",
-        "        fork",
-        "          begin",
-        "            #10 late = 1;",
-        "          end",
-        "        join_none",
-        "        wait (0);",
-        "      end",
-        "    join_none",
-        "    #1 parent.kill();",
-        "    #20;",
-        "    if (late != 0) $fatal(1, \"a subprocess survived kill()\");",
-        "    $display(\"subprocess killed\");",
-        "  end",
-        "endmodule"
-      ],
-      "conforming": "accepts",
-      "verilator": "rejects",
-      "explanation": {
-        "en": "A conforming simulator terminates the child with its parent and exits normally. Verilator 5.052 lets the child of the killed process run, so the check reaches $fatal.",
-        "ja": "規格に従うsimulatorは、親とともに子processも止め、正常に終わる。Verilator 5.052はkillしたprocessの子processを動かし続けるため、確認が$fatalに達する。"
+        "en": "adapter#(other_node) has VISITOR = visitor#(other_node), so the design is legal and prints \"visited\". Verilator 5.054 rejects it at the default of VISITOR in adapter (\"Can't find typedef/interface: 'STRUCTURE'\").",
+        "ja": "adapter#(other_node)のVISITORはvisitor#(other_node)となるので、このdesignは正しく、\"visited\"を表示する。Verilator 5.054はadapterのVISITORの既定値でこれを拒否する（\"Can't find typedef/interface: 'STRUCTURE'\"）。"
       }
     },
     "class-event-trigger-then-wait": {
@@ -194,8 +133,8 @@
       "conforming": "accepts",
       "verilator": "rejects",
       "explanation": {
-        "en": "A conforming simulator releases the first waiter at time 2. Verilator 5.052 does not when the event is a class member and the triggering process waits on it again in the same time slice; the same pattern on a module-level event is released.",
-        "ja": "規格に従うsimulatorは、時刻2で最初に待っていたprocessを解放する。Verilator 5.052は、eventがclassのmemberで、起動したprocessが同じtime sliceで再び待つと解放しない。moduleのeventでの同じ形は解放する。"
+        "en": "A conforming simulator releases the first waiter at time 2. Verilator 5.054 does not when the event is a class member and the triggering process waits on it again in the same time slice; the same pattern on a module-level event is released.",
+        "ja": "規格に従うsimulatorは、時刻2で最初に待っていたprocessを解放する。Verilator 5.054は、eventがclassのmemberで、起動したprocessが同じtime sliceで再び待つと解放しない。moduleのeventでの同じ形は解放する。"
       }
     },
     "class-event-trigger-then-reassign": {
@@ -244,8 +183,8 @@
       "conforming": "accepts",
       "verilator": "rejects",
       "explanation": {
-        "en": "A conforming simulator releases the waiter that ->m triggered before the assignment. Verilator 5.052 leaves it waiting, so the check reaches $fatal.",
-        "ja": "規格に従うsimulatorは、代入の前に->mが起動した待ちのprocessを解放する。Verilator 5.052は待たせたままにするため、確認が$fatalに達する。"
+        "en": "A conforming simulator releases the waiter that ->m triggered before the assignment. Verilator 5.054 leaves it waiting, so the check reaches $fatal.",
+        "ja": "規格に従うsimulatorは、代入の前に->mが起動した待ちのprocessを解放する。Verilator 5.054は待たせたままにするため、確認が$fatalに達する。"
       }
     },
     "package-class-cast": {
@@ -289,8 +228,8 @@
       "conforming": "accepts",
       "verilator": "rejects",
       "explanation": {
-        "en": "A conforming simulator rejects the cast and prints \"cast rejected\". Verilator 5.052 lets the cast succeed between the parameterized classes, so the check reaches $fatal; the same classes without parameters are rejected.",
-        "ja": "規格に従うsimulatorはcastを拒否し、\"cast rejected\"を表示する。Verilator 5.052はparameter付きのclassどうしのcastを通すため、確認が$fatalに達する。parameterのない同じclassでは拒否する。"
+        "en": "A conforming simulator rejects the cast and prints \"cast rejected\". Verilator 5.054 lets the cast succeed between the parameterized classes, so the check reaches $fatal; the same classes without parameters are rejected.",
+        "ja": "規格に従うsimulatorはcastを拒否し、\"cast rejected\"を表示する。Verilator 5.054はparameter付きのclassどうしのcastを通すため、確認が$fatalに達する。parameterのない同じclassでは拒否する。"
       }
     },
     "class-event-merge-old-waiter": {
@@ -338,8 +277,8 @@
       "conforming": "accepts",
       "verilator": "rejects",
       "explanation": {
-        "en": "A conforming simulator releases only the waiter armed after the assignment and prints \"old waiter stays blocked\". Verilator 5.052 also releases the waiter that was blocked before the assignment, so the check reaches $fatal; it does not support the same assignment between module-level events in this context.",
-        "ja": "規格に従うsimulatorは代入の後に待ち始めたprocessだけを起こし、\"old waiter stays blocked\"を表示する。Verilator 5.052は代入の前から待っていたprocessも起こすため、確認が$fatalに達する。moduleのeventどうしの同じ代入は、この文脈では対応していない。"
+        "en": "A conforming simulator releases only the waiter armed after the assignment and prints \"old waiter stays blocked\". Verilator 5.054 also releases the waiter that was blocked before the assignment, so the check reaches $fatal; it does not support the same assignment between module-level events in this context.",
+        "ja": "規格に従うsimulatorは代入の後に待ち始めたprocessだけを起こし、\"old waiter stays blocked\"を表示する。Verilator 5.054は代入の前から待っていたprocessも起こすため、確認が$fatalに達する。moduleのeventどうしの同じ代入は、この文脈では対応していない。"
       }
     },
     "finish-stops-the-caller": {
@@ -372,87 +311,8 @@
       "conforming": "accepts",
       "verilator": "rejects",
       "explanation": {
-        "en": "A conforming simulator exits at $finish, so the caller never sets resumed and the final procedure passes. Verilator 5.052 lets the caller run on after $finish, so the final check reaches $fatal; the same happens with $finish directly in the initial procedure.",
-        "ja": "規格に従うsimulatorは$finishで終わるので、呼出し元はresumedを設定せず、final procedureは通る。Verilator 5.052は$finishの後も呼出し元を続けるため、finalでの確認が$fatalに達する。initial procedureで直接$finishを呼んでも同じである。"
-      }
-    },
-    "queue-size-inline-constraint": {
-      "clauses_1800_2023": [
-        "18.7",
-        "18.5.7.1",
-        "18.6.1"
-      ],
-      "source": [
-        "// A randomize() with clause adds its constraints to the class constraints",
-        "// (18.7), and size() constrains the size of a rand queue (18.5.7.1).",
-        "class holder;",
-        "  rand bit [63:0] q[$];",
-        "  int unsigned m_size = 3;",
-        "  constraint valid_size { q.size() <= m_size; }",
-        "endclass",
-        "",
-        "module queue_size_inline_constraint;",
-        "  holder h;",
-        "",
-        "  initial begin",
-        "    h = new();",
-        "    if (!h.randomize() with { q.size() == 3; }) $fatal(1, \"a satisfiable randomize failed\");",
-        "    if (h.q.size() != 3) $fatal(1, \"the inline size constraint was not applied\");",
-        "    $display(\"size 3\");",
-        "    $finish;",
-        "  end",
-        "endmodule"
-      ],
-      "conforming": "accepts",
-      "verilator": "rejects",
-      "explanation": {
-        "en": "A conforming simulator makes the queue three elements long and prints \"size 3\". Verilator 5.052 returns success with an empty queue when the class also constrains the size, so the check reaches $fatal; without the class constraint the inline size is applied.",
-        "ja": "規格に従うsimulatorはqueueを3要素にし、\"size 3\"を表示する。Verilator 5.052は、classも大きさを制約していると空のqueueのまま成功を返すため、確認が$fatalに達する。classの制約がなければinlineの大きさは反映される。"
-      }
-    },
-    "package-base-queue-size-constraint": {
-      "clauses_1800_2023": [
-        "18.5.2",
-        "18.5.7.1",
-        "18.6.1"
-      ],
-      "source": [
-        "// A subclass inherits the constraints of its base (18.5.2), so a size that",
-        "// the base forbids makes randomize() fail and return 0 (18.6.1).",
-        "package fifo_pkg;",
-        "  class base;",
-        "    rand bit [63:0] q[$];",
-        "    local int unsigned m_size;",
-        "    constraint valid_size { q.size() <= m_size; }",
-        "    function new(int unsigned size);",
-        "      m_size = size;",
-        "    endfunction",
-        "  endclass",
-        "endpackage",
-        "",
-        "module package_base_queue_size_constraint;",
-        "  class over_capacity extends fifo_pkg::base;",
-        "    constraint chosen_size { q.size() == 4; }",
-        "    function new();",
-        "      super.new(3);",
-        "    endfunction",
-        "  endclass",
-        "",
-        "  over_capacity o;",
-        "",
-        "  initial begin",
-        "    o = new();",
-        "    if (o.randomize()) $fatal(1, \"contradictory size constraints were accepted\");",
-        "    $display(\"contradiction rejected\");",
-        "    $finish;",
-        "  end",
-        "endmodule"
-      ],
-      "conforming": "accepts",
-      "verilator": "rejects",
-      "explanation": {
-        "en": "A conforming simulator finds the constraints infeasible, so randomize() returns 0 and the module prints \"contradiction rejected\". Verilator 5.052 returns 1 when the base class is in a package, so the check reaches $fatal; with the base class outside a package it returns 0.",
-        "ja": "規格に従うsimulatorは制約を満たせないと判断し、randomize()は0を返して\"contradiction rejected\"を表示する。Verilator 5.052はbase classがpackageにあると1を返すため、確認が$fatalに達する。base classがpackageの外なら0を返す。"
+        "en": "A conforming simulator exits at $finish, so the caller never sets resumed and the final procedure passes. Verilator 5.054 lets the caller run on after $finish, so the final check reaches $fatal; the same happens with $finish directly in the initial procedure.",
+        "ja": "規格に従うsimulatorは$finishで終わるので、呼出し元はresumedを設定せず、final procedureは通る。Verilator 5.054は$finishの後も呼出し元を続けるため、finalでの確認が$fatalに達する。initial procedureで直接$finishを呼んでも同じである。"
       }
     },
     "post-randomize-after-failure": {
@@ -487,8 +347,41 @@
       "conforming": "accepts",
       "verilator": "rejects",
       "explanation": {
-        "en": "A conforming simulator fails the randomization without calling post_randomize and prints \"post_randomize skipped\". Verilator 5.052 returns 0 but calls post_randomize, so the check reaches $fatal.",
-        "ja": "規格に従うsimulatorはpost_randomizeを呼ばずに乱数化を失敗させ、\"post_randomize skipped\"を表示する。Verilator 5.052は0を返すがpost_randomizeを呼ぶため、確認が$fatalに達する。"
+        "en": "A conforming simulator fails the randomization without calling post_randomize and prints \"post_randomize skipped\". Verilator 5.054 returns 0 but calls post_randomize, so the check reaches $fatal.",
+        "ja": "規格に従うsimulatorはpost_randomizeを呼ばずに乱数化を失敗させ、\"post_randomize skipped\"を表示する。Verilator 5.054は0を返すがpost_randomizeを呼ぶため、確認が$fatalに達する。"
+      }
+    },
+    "typedef-through-specialization-alias": {
+      "clauses_1800_2023": [
+        "6.18",
+        "8.25.1"
+      ],
+      "source": [
+        "// A typedef that names a nested typedef through a typedef of a class",
+        "// specialization (1800-2023 6.18, 8.25.1); the class parameter is a class type.",
+        "class registry #(type T = int);",
+        "endclass",
+        "class item;",
+        "endclass",
+        "class drv #(type REQ = int);",
+        "  typedef registry #(drv #(REQ)) type_id;",
+        "endclass",
+        "module typedef_through_specialization_alias;",
+        "  typedef drv #(item) represented;",
+        "  typedef represented::type_id supplied;",
+        "  supplied s;",
+        "  initial begin",
+        "    s = new;",
+        "    $display(\"accepted %0d\", s != null);",
+        "    $finish;",
+        "  end",
+        "endmodule"
+      ],
+      "conforming": "accepts",
+      "verilator": "rejects",
+      "explanation": {
+        "en": "The typedef chain names drv #(item)::type_id, the specialization's typedef of registry #(drv #(REQ)) (6.18, 8.25.1); a conforming simulator builds the design and prints \"accepted 1\". Verilator 5.054 stops with the internal error Expected module parameterization (V3Param.cpp:2855). slang accepts the design without diagnostics.",
+        "ja": "typedefの連鎖は、specializationがregistry #(drv #(REQ))をtypedefしたtype_idをdrv #(item)::type_idとして名指すもので（6.18、8.25.1）、規格に従うsimulatorはこのdesignをbuildし、\"accepted 1\"を表示する。Verilator 5.054は内部エラー「Expected module parameterization」（V3Param.cpp:2855）で止まる。slangは診断なしで受け入れる。"
       }
     }
   },
@@ -1713,6 +1606,24 @@
       }
     },
     {
+      "test": "u08/test_builtin_parameterized_components_type_id_uses_the_required_registry_specialization",
+      "inputs_sha256": "b7f6494af6f8fe87cbf54d5dd2bf4ac5935458eaa6a08a7c7b8ea4464a2dff94",
+      "kind": "build",
+      "cause": "simulator",
+      "evidence": {
+        "reproducer": "typedef-through-specialization-alias"
+      },
+      "note": {
+        "en": "The registry specialization comes from a typedef of drv #(item) naming the specialization's nested typedef type_id (8.25.1, with 6.18). Verilator 5.054 stops building it with the internal error Expected module parameterization (V3Param.cpp:2855), as the reproducer shows. Verilator 5.052 built the test and both seeds matched.",
+        "ja": "registryの特殊化を、drv #(item)のtypedef経由でnested typedefのtype_idを名指す書き方である（8.25.1、6.18）。再現例のとおり、Verilator 5.054は内部エラー「Expected module parameterization」（V3Param.cpp:2855）でbuildに失敗する。5.052ではbuildでき、両seedが一致していた。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
       "test": "u08/test_builtin_report_server_type_id_uses_its_own_named_abstract_registry",
       "inputs_sha256": "0f8b586494d210ce0bacbd7f1238d1b3c593adb85d49ce4b241dcc0054c58d85",
       "kind": "build",
@@ -1885,24 +1796,6 @@
       }
     },
     {
-      "test": "u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads",
-      "inputs_sha256": "1c4227a6bcf24c6fcbb7e9cb8eb3616bb68a23fa4f263095dff8d8e2d4521bdf",
-      "kind": "runtime",
-      "cause": "simulator",
-      "evidence": {
-        "reproducer": "process-kill-subprocesses"
-      },
-      "note": {
-        "en": "The pinned phase hopper kills the phase process (m_phase_proc) at cleanup, and the phase tasks run in processes that it spawned with fork; 1800-2023 9.7 makes kill() terminate those subprocesses too. Verilator leaves them running, as the reproducer shows.",
-        "ja": "固定版のphase hopperはcleanupでphaseのprocess（m_phase_proc）をkillし、phaseのtaskはこのprocessがforkで起動したprocessで動く。1800-2023の9.7では、kill()はそうした子processも止める。Verilatorは再現例のとおり、それらを動かし続ける。"
-      },
-      "review": {
-        "status": "ai",
-        "reviewer": null,
-        "reviewed_at": null
-      }
-    },
-    {
       "test": "u09/test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose",
       "inputs_sha256": "ec4a54296756487e2ce76e876e1592f1ad14809252666fb9db5032994a8a6c73",
       "kind": "runtime",
@@ -1936,7 +1829,7 @@
     {
       "test": "u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver",
       "inputs_sha256": "4af2f4b0956e55806221c92a427415ccd7395a594292cb14c2fa73af6fe76231",
-      "kind": "runtime",
+      "kind": "build",
       "cause": "interpretation",
       "evidence": {
         "clauses": [
@@ -1955,8 +1848,8 @@
         "basis": "printed"
       },
       "note": {
-        "en": "The printed return type of get_schedule is string, while the description returns a schedule node; the library returns uvm_phase.",
-        "ja": "get_scheduleの印刷された戻り値型はstringだが、説明文はschedule nodeを返すとしており、libraryはuvm_phaseを返す。"
+        "en": "The printed return type of get_schedule is string, while the description returns a schedule node; the library returns uvm_phase. Verilator 5.054 rejects a class handle passed to a string argument at build time, because 1800-2023 has no class-to-string conversion, so the difference is now a build failure.",
+        "ja": "get_scheduleの印刷された戻り値型はstringだが、説明文はschedule nodeを返すとしており、libraryはuvm_phaseを返す。 5.054はstringの引数にclassのhandleを渡すことをbuild時に拒否する（1800-2023にclassからstringへの変換はない）。差分はbuildの失敗になった。"
       },
       "review": {
         "status": "ai",
@@ -1983,24 +1876,6 @@
       "note": {
         "en": "9.3.1.4.4 makes find return the phase node of the given IMP; when the receiver is that node, the pinned find returns the IMP itself.",
         "ja": "9.3.1.4.4は、findが指定したIMPのphase nodeを返すと定める。受け手がそのnodeのとき、固定版のfindはIMPそのものを返す。"
-      },
-      "review": {
-        "status": "ai",
-        "reviewer": null,
-        "reviewed_at": null
-      }
-    },
-    {
-      "test": "u09/test_task_phase_kills_remaining_child_task",
-      "inputs_sha256": "e67e663819fc1cb9dc8e0cf460234e42b1ccf3f2a21e71921e5209fe86d1f4a8",
-      "kind": "runtime",
-      "cause": "simulator",
-      "evidence": {
-        "reproducer": "process-kill-subprocesses"
-      },
-      "note": {
-        "en": "The pinned phase hopper kills the phase process (m_phase_proc) at cleanup, and the phase tasks run in processes that it spawned with fork; 1800-2023 9.7 makes kill() terminate those subprocesses too. Verilator leaves them running, as the reproducer shows.",
-        "ja": "固定版のphase hopperはcleanupでphaseのprocess（m_phase_proc）をkillし、phaseのtaskはこのprocessがforkで起動したprocessで動く。1800-2023の9.7では、kill()はそうした子processも止める。Verilatorは再現例のとおり、それらを動かし続ける。"
       },
       "review": {
         "status": "ai",
@@ -3074,42 +2949,6 @@
       }
     },
     {
-      "test": "u13/test_component_run_phase_kills_remaining_task_and_descendant_after_all_objections_drop",
-      "inputs_sha256": "d30d40baf0c5b3de5049ecb2ec7b336e413511e12c7933fcf521fe67703b24bd",
-      "kind": "runtime",
-      "cause": "simulator",
-      "evidence": {
-        "reproducer": "process-kill-subprocesses"
-      },
-      "note": {
-        "en": "The pinned phase hopper kills the phase process (m_phase_proc) at cleanup, and the phase tasks run in processes that it spawned with fork; 1800-2023 9.7 makes kill() terminate those subprocesses too. Verilator leaves them running, as the reproducer shows.",
-        "ja": "固定版のphase hopperはcleanupでphaseのprocess（m_phase_proc）をkillし、phaseのtaskはこのprocessがforkで起動したprocessで動く。1800-2023の9.7では、kill()はそうした子processも止める。Verilatorは再現例のとおり、それらを動かし続ける。"
-      },
-      "review": {
-        "status": "ai",
-        "reviewer": null,
-        "reviewed_at": null
-      }
-    },
-    {
-      "test": "u13/test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant",
-      "inputs_sha256": "b60643c874c49d386824d14e98e152ed9164abc31a115b57f0b5426280cee829",
-      "kind": "runtime",
-      "cause": "simulator",
-      "evidence": {
-        "reproducer": "process-kill-subprocesses"
-      },
-      "note": {
-        "en": "The pinned phase hopper kills the phase process (m_phase_proc) at cleanup, and the phase tasks run in processes that it spawned with fork; 1800-2023 9.7 makes kill() terminate those subprocesses too. Verilator leaves them running, as the reproducer shows.",
-        "ja": "固定版のphase hopperはcleanupでphaseのprocess（m_phase_proc）をkillし、phaseのtaskはこのprocessがforkで起動したprocessで動く。1800-2023の9.7では、kill()はそうした子processも止める。Verilatorは再現例のとおり、それらを動かし続ける。"
-      },
-      "review": {
-        "status": "ai",
-        "reviewer": null,
-        "reviewed_at": null
-      }
-    },
-    {
       "test": "u13/test_component_strict_config_application_matches_scope_and_passes_exact_resource",
       "inputs_sha256": "e3b7497b8ade94b57f89085441d5167bd7749d14c9c85540a9de3ff2980616b0",
       "kind": "runtime",
@@ -3476,6 +3315,58 @@
       "note": {
         "en": "14.2.5.11 executes post_body and post_start when a sequence is killed; the pinned kill stops the sequence process without calling either hook.",
         "ja": "14.2.5.11は、sequenceをkillしたときpost_bodyとpost_startを実行すると定める。固定版のkillは、どちらのhookも呼ばずにsequenceのprocessを止める。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "test": "u14/test_sequence_library_randc_field_preserves_cycles_for_singleton",
+      "inputs_sha256": "0e17543d5b5f888c230ad9863297be97ea9418a6aeb28022c7741b5077e1267c",
+      "kind": "runtime",
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "14.4.4.8"
+        ],
+        "library": [
+          {
+            "file": "src/seq/uvm_sequence_library.svh",
+            "text": "valid_randc_selection.constraint_mode(0);"
+          }
+        ]
+      },
+      "note": {
+        "en": "14.4.4.8 keeps select_randc inside the indices of the sequence list, and the pinned uvm_sequence_library::new calls valid_randc_selection.constraint_mode(0). Verilator 5.054 honors the disabled constraint, so select_randc can pick an index outside the list and the cycle check fails. Why Verilator 5.052 matched the expectation is not confirmed; this host has no 5.052.",
+        "ja": "14.4.4.8はselect_randcをsequence listの有効なindexに制約するが、固定版のuvm_sequence_library::newはvalid_randc_selection.constraint_mode(0)を呼ぶ。Verilator 5.054はこの無効化された制約に正しく従うため、select_randcはlistの外のindexを選んでcycleの検査が失敗する。5.052で一致した理由は確かめていない。このhostに5.052はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "test": "u14/test_sequence_library_randc_field_preserves_cycles_for_three_indices",
+      "inputs_sha256": "93bef5dfab1b2b9d129a363a694492ec73484d7f736d63825aa6ce9c72dcb638",
+      "kind": "runtime",
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "14.4.4.8"
+        ],
+        "library": [
+          {
+            "file": "src/seq/uvm_sequence_library.svh",
+            "text": "valid_randc_selection.constraint_mode(0);"
+          }
+        ]
+      },
+      "note": {
+        "en": "14.4.4.8 keeps select_randc inside the indices of the sequence list, and the pinned uvm_sequence_library::new calls valid_randc_selection.constraint_mode(0). Verilator 5.054 honors the disabled constraint, so select_randc can pick an index outside the list and the cycle check fails. Why Verilator 5.052 matched the expectation is not confirmed; this host has no 5.052.",
+        "ja": "14.4.4.8はselect_randcをsequence listの有効なindexに制約するが、固定版のuvm_sequence_library::newはvalid_randc_selection.constraint_mode(0)を呼ぶ。Verilator 5.054はこの無効化された制約に正しく従うため、select_randcはlistの外のindexを選んでcycleの検査が失敗する。5.052で一致した理由は確かめていない。このhostに5.052はない。"
       },
       "review": {
         "status": "ai",
@@ -7341,42 +7232,6 @@
       }
     },
     {
-      "test": "u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes",
-      "inputs_sha256": "3164487abb4e21a9ffb19efb18cfaba16fd5ba6a2cde5c3da5068bb8ffc434bf",
-      "kind": "runtime",
-      "cause": "simulator",
-      "evidence": {
-        "reproducer": "package-base-queue-size-constraint"
-      },
-      "note": {
-        "en": "A subtype inherits the pinned fifo.size() <= m_size constraint, so its fifo.size() == 4 cannot be satisfied with a capacity of 3; Verilator accepts it when the base class is in a package, as uvm_reg_fifo is. The satisfiable subtype matches.",
-        "ja": "subtypeは固定版のfifo.size() <= m_sizeの制約を継承するので、容量3ではfifo.size() == 4は満たせない。Verilatorは、uvm_reg_fifoと同じくbase classがpackageにあるとき、これを受け入れる。満たせるsubtypeは一致する。"
-      },
-      "review": {
-        "status": "ai",
-        "reviewer": null,
-        "reviewed_at": null
-      }
-    },
-    {
-      "test": "u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue",
-      "inputs_sha256": "f544f0b9e8a4df730debff987e6c1a4c00cd619b446ecc4db6040358f9f46372",
-      "kind": "runtime",
-      "cause": "simulator",
-      "evidence": {
-        "reproducer": "queue-size-inline-constraint"
-      },
-      "note": {
-        "en": "The pinned FIFO declares fifo.size() <= m_size, and an inline fifo.size() == 3 within that bound must hold; Verilator returns success with an empty queue. The oversized inline request is rejected.",
-        "ja": "固定版のFIFOはfifo.size() <= m_sizeを宣言しており、その範囲内のinlineのfifo.size() == 3は成り立たなければならない。Verilatorは空のqueueのまま成功を返す。上限を超えるinlineの要求は拒否する。"
-      },
-      "review": {
-        "status": "ai",
-        "reviewer": null,
-        "reviewed_at": null
-      }
-    },
-    {
       "test": "u18/test_reg_frontdoor_big_endian_wide_read_preserves_returned_bus_words",
       "inputs_sha256": "40b8d74ae5e1ff229edea020cf77e5669f7db7178a666ee210ded962d08449a1",
       "kind": "runtime",
@@ -10810,24 +10665,6 @@
       }
     },
     {
-      "test": "uB/test_size_version_field_flag_user_extension_129_83",
-      "inputs_sha256": "f78401ff2b89127b39b7809467d535c3e3fc3ba4c4961a32801260a17a067c2a",
-      "kind": "build",
-      "cause": "simulator",
-      "evidence": {
-        "reproducer": "wide-enum-name"
-      },
-      "note": {
-        "en": "With `UVM_FIELD_FLAG_SIZE set beyond 64 bits (B.6.1), the pinned uvm_radix_enum, an enum of uvm_field_flag_t, is wider than 64 bits, and Verilator does not support name() on such an enum, which the recorder calls. The library code is legal.",
-        "ja": "`UVM_FIELD_FLAG_SIZEを64 bitを超えて設定すると（B.6.1）、uvm_field_flag_tのenumである固定版のuvm_radix_enumは64 bitより広くなる。recorderはこのenumのname()を呼ぶが、Verilatorはそのようなenumのname()に対応していない。libraryのcodeは正しい。"
-      },
-      "review": {
-        "status": "ai",
-        "reviewer": null,
-        "reviewed_at": null
-      }
-    },
-    {
       "test": "uB/test_size_version_packer_minimum_define_83",
       "inputs_sha256": "2fffb5375e9b38c07494591438f561a983767ac84172cb3b95bf121a4b40f107",
       "kind": "build",
@@ -10980,7 +10817,7 @@
     },
     {
       "test": "uC/test_regex_resource_db_scope_119",
-      "inputs_sha256": "dc5ddef6f0819a3a6e5c5e11b9352b80330b3dcd09a037cba5e195d63f343363",
+      "inputs_sha256": "fe63b460516a11a84cd6abead1637c052d959238afaf6f560fbbf3f952fd5283",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -11210,37 +11047,6 @@
       "note": {
         "en": "This ordinary fixture does not select a regex DPI condition. In the UVM_NO_DPI configuration of the ordinary run, the pinned uvm_re_match only matches globs, so a regular expression with anchors and alternation does not match; the regex-DPI variant condition could measure it.",
         "ja": "この通常の検査系はregexのDPIの実行条件を選んでいない。通常の実行のUVM_NO_DPIの構成では、固定版のuvm_re_matchはglobだけを照合するため、anchorと交替を使う正規表現は一致しない。regex-DPI変種の条件なら測れる。"
-      },
-      "review": {
-        "status": "ai",
-        "reviewer": null,
-        "reviewed_at": null
-      }
-    },
-    {
-      "test": "uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle",
-      "inputs_sha256": "c1445aa6b7bddbfe46a6f16d1da77f2399ff8f367008f450d185251432f80809",
-      "kind": "runtime",
-      "cause": "library",
-      "evidence": {
-        "clauses": [
-          "C.2.4.4.7",
-          "C.2.4.4.8"
-        ],
-        "library": [
-          {
-            "file": "src/base/uvm_resource_pool.svh",
-            "text": "function uvm_resource_types::rsrc_q_t lookup_regex(string re, scope);"
-          },
-          {
-            "file": "src/base/uvm_resource_pool.svh",
-            "text": "function uvm_resource_types::rsrc_q_t lookup_scope(string scope);"
-          }
-        ]
-      },
-      "note": {
-        "en": "C.2.4.4.7 and C.2.4.4.8 declare lookup_regex and lookup_scope virtual; the pinned resource pool declares them as non-virtual functions, so overrides are not reached through a base handle.",
-        "ja": "C.2.4.4.7とC.2.4.4.8はlookup_regexとlookup_scopeをvirtualと宣言している。固定版のresource poolはvirtualでないfunctionとして宣言するため、base handleからはoverrideに届かない。"
       },
       "review": {
         "status": "ai",
@@ -11611,8 +11417,8 @@
         "basis": "ambiguity"
       },
       "note": {
-        "en": "Whether 'all of the registers' includes a register that has no field to compare depends on the reading of E.1 b); the pinned sequence (src/reg/sequences/uvm_reg_hw_reset_seq.svh) skips COUNT, whose only field is volatile. A Measure run showed the difference with Verilator 5.052.",
-        "ja": "「すべてのregister」に、比べるfieldのないregisterが入るかどうかは、E.1 b)の読み方による。固定版のsequence（src/reg/sequences/uvm_reg_hw_reset_seq.svh）は、唯一のfieldがvolatileであるCOUNTを読まない。MeasureのrunがVerilator 5.052でこの差分を確かめた。"
+        "en": "Whether 'all of the registers' includes a register that has no field to compare depends on the reading of E.1 b); the pinned sequence (src/reg/sequences/uvm_reg_hw_reset_seq.svh) skips COUNT, whose only field is volatile. A Measure run showed the difference with Verilator 5.054, and the full 5.054 run of the suite shows it unchanged.",
+        "ja": "「すべてのregister」に、比べるfieldのないregisterが入るかどうかは、E.1 b)の読み方による。固定版のsequence（src/reg/sequences/uvm_reg_hw_reset_seq.svh）は、唯一のfieldがvolatileであるCOUNTを読まない。MeasureのrunがVerilator 5.054でこの差分を確かめ、5.054の全件測定でも状態は変わらなかった。"
       },
       "review": {
         "status": "ai",
@@ -12549,7 +12355,7 @@
     },
     {
       "test": "uF/test_regex_root_find_all_119",
-      "inputs_sha256": "51023d6c2354625eb9deb83e4e9e9af86f8356f10b292c17d683071360e3b80d",
+      "inputs_sha256": "1868268a1da10fb0de85fb05a7b949ab2cfc22421f9b1c23abdbbe31a9251790",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12854,7 +12660,7 @@
     },
     {
       "test": "uG/test_command_action_setting_is_scoped_to_the_selected_component_and_id",
-      "inputs_sha256": "5c3da479b912cc7d5b46978e78c737f9b58078ef6b0154cf81c15d80770ec079",
+      "inputs_sha256": "a4d93577b10eccfaacf4788e621cd3e64f265a0619ca8b31f5522edd17f7a087",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12925,7 +12731,7 @@
     },
     {
       "test": "uG/test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope",
-      "inputs_sha256": "d8363bd24ad4cfa639c96c98e3a68f211e272948056563980e3c73f46937a363",
+      "inputs_sha256": "3de0b0f99d145c90d6f0e696123cfbab20374414c25361dd7e8cecd79bcc1e0c",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12942,7 +12748,7 @@
     },
     {
       "test": "uG/test_command_default_sequence_runs_on_the_named_sequencer_and_phase",
-      "inputs_sha256": "756a88c289af4b6fc01ccbb9dc14416db14fdebc4010dd8b65087536ef6886a9",
+      "inputs_sha256": "a40d6a0846c981f8115c22db58ba583c0e9861c9e02257c122e78e2353a95916",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12959,7 +12765,7 @@
     },
     {
       "test": "uG/test_command_factory_instance_override_precedes_the_type_override_for_its_target",
-      "inputs_sha256": "6e2e7969ff4af4f24db7ab7cbfdf537edb957c4f181fdf9a3b6458f16713f287",
+      "inputs_sha256": "d2d2b329849d1f932eb6771d940ab11e605bc82fe172e8d4983125e41f46aebd",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12976,7 +12782,7 @@
     },
     {
       "test": "uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction",
-      "inputs_sha256": "4f1a052aa460bf71649d781f43eee4f7afa7d4951a52c17165ee48b3ce7a9844",
+      "inputs_sha256": "df6f3cceb6ffbcb0aae52532c1d6a81cf166f4df7675c89a64ca3a03d41e0aa8",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -12993,7 +12799,7 @@
     },
     {
       "test": "uG/test_command_initial_verbosity_applies_to_components_created_in_build",
-      "inputs_sha256": "48fe08abe203abc70d5918383a8bfce1cc3f1c4fcd6a9ebc496f40097e2997f7",
+      "inputs_sha256": "f1585658e6bca63b1643ab4672482a50dbf1960785f469097cea3509d259148a",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13010,7 +12816,7 @@
     },
     {
       "test": "uG/test_command_max_quit_count_allows_a_later_user_setting",
-      "inputs_sha256": "e67171b3a6ccbed45a5601900ca944d307a3cd85b71d95da414fd13f20ea6bf1",
+      "inputs_sha256": "0bb16f0621b53d2981fcb691dee0cccc0b35c1d558d24654732cd737c7ce2861",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13054,7 +12860,7 @@
     },
     {
       "test": "uG/test_command_severity_override_changes_the_selected_report_and_preserves_controls",
-      "inputs_sha256": "613509444199ea1a6a6875764882b02a5b03a44b1641eb4e1771fe9b63129f32",
+      "inputs_sha256": "3d08b5a89e7bbd8291214df6f9ac13e50619d8f524ec9711bce20832ac05c659",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13071,7 +12877,7 @@
     },
     {
       "test": "uG/test_command_testname_creates_the_first_registered_test_and_warns_for_duplicates",
-      "inputs_sha256": "f2cca0df7b906f407567dae0f10c2c3dc9387615cf29bcda63bd8d767363c3b2",
+      "inputs_sha256": "b48d67fb6baa0603b3cb7cdf5737d1e2ff90020e1860ee9dc339449e4ab28f30",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13088,7 +12894,7 @@
     },
     {
       "test": "uG/test_command_timed_verbosity_updates_the_selected_id_and_component_only",
-      "inputs_sha256": "080dfa09e449cc5faa908cda120d650b4cc0e0130658b5f8e274b8acb052f906",
+      "inputs_sha256": "d85c130c0698765d98d79d793c1d0756bf1333a325cd8dd0c0c920ab0b259cfd",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13105,7 +12911,7 @@
     },
     {
       "test": "uG/test_command_vpi_all_values_keep_empty_and_comma_suffixes_without_stale_entries",
-      "inputs_sha256": "1813ddbfaeaedb835c5381829ecc986c878fcf803055537549d6a5754f2cc3de",
+      "inputs_sha256": "553155a77dc2930b0ec27edd552f03a47d6221efa875ca357db166f981f65961",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13122,7 +12928,7 @@
     },
     {
       "test": "uG/test_command_vpi_extended_regex_matches_grouped_alternatives_and_clears_queries",
-      "inputs_sha256": "93d6a8313a61071018fdc56a5530ddc04667cf9a22213c48be05815eb0e73633",
+      "inputs_sha256": "0b7ff9b1d17d48c2cc2cc34afd8ff2d31412a5d7d7b61d9fddf59e5f58a57c8f",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13139,7 +12945,7 @@
     },
     {
       "test": "uG/test_command_vpi_first_value_preserves_the_first_suffix_and_counts_all_matches",
-      "inputs_sha256": "515dafa33490308b7eb5899eb394c285d12dd1557363739233f3d2160c7c3c18",
+      "inputs_sha256": "11862741a7a43b0f5aa0c95f3d690fd98d98cd50a153af7c9e7e18d05b4fc4fa",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13156,7 +12962,7 @@
     },
     {
       "test": "uG/test_command_vpi_plusargs_exclude_dash_arguments_and_replace_caller_contents",
-      "inputs_sha256": "f65dd0b7bc310f55755a97514c5d72c51fee26f643ee69be9d0c12fef705f3db",
+      "inputs_sha256": "24b3f3a5d297922dcee6a933e437a61f5081957b73aa02dc790b5d3aa9c2cc1d",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13173,7 +12979,7 @@
     },
     {
       "test": "uG/test_command_vpi_prefix_matches_replace_queues_and_clear_missing_queries",
-      "inputs_sha256": "b2a534a254e50233f927a079f8f611715f8a2961b6d435dda7a2bb6121da82f6",
+      "inputs_sha256": "86d6859bc213326a7666f0798ab277811cf799ff9bb31917dd01489e343aa9e2",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13190,7 +12996,7 @@
     },
     {
       "test": "uG/test_command_vpi_singleton_and_all_arguments_preserve_supplied_membership",
-      "inputs_sha256": "8bc8dd703ace0edf3c74e6b8ea23d35eb1f3e37a9d0bc10f06479bce5e05942a",
+      "inputs_sha256": "e9d13d532b8d67e11773f982dc828fce7ce24d847174df428adea4a10bf3cd97",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13207,7 +13013,7 @@
     },
     {
       "test": "uG/test_command_vpi_uvm_arguments_accept_mixed_case_keywords_and_both_prefixes",
-      "inputs_sha256": "8299c5fdc57b1feb7cf6d5bb552e562c7cb5e97278d7c59115ebe7f6103d3cd9",
+      "inputs_sha256": "b8a9936edaa044ae192b20ed3445fd0413ccb03211cc86523cc4e3ed395f8c5b",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",
@@ -13224,7 +13030,7 @@
     },
     {
       "test": "uG/test_regex_cmdline_get_arg_matches_119",
-      "inputs_sha256": "511dd6884594dd22a3491056ae18f0ae523db3eb932e44317223fe5a68baed74",
+      "inputs_sha256": "d43ce817f208359f61a7ce6314d259051ba13c49666cb84ec8f85bf01b6e1520",
       "kind": "build",
       "condition": "cmdline",
       "cause": "condition",

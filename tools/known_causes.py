@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Checks and summarizes coverage/known_causes.json, the record of why each
-known difference of the ordinary Verilator 5.052 run does not reach its
+known difference of the ordinary Verilator 5.054 run does not reach its
 expectation.
 
 Usage:
@@ -10,7 +10,7 @@ Usage:
     python3 tools/known_causes.py reproduce [--verilator PATH]
 
 A known difference is a two-state test (`:fourstate: no`) whose `:oracle:`
-does not list verilator@5.052 (tools/run_verilator.py). The record has exactly
+does not list verilator@5.054 (tools/run_verilator.py). The record has exactly
 one entry for each of them. An entry names the kind of difference (runtime,
 build or accepted-illegal), the DPI condition that the test needs, if any, and
 one cause:
@@ -84,7 +84,7 @@ import suite_results
 ROOT = Path(__file__).resolve().parent.parent
 RECORD = Path("coverage") / "known_causes.json"
 STANDARD = "1800.2-2020"
-SIMULATOR = "verilator@5.052"
+SIMULATOR = "verilator@5.054"
 LANGUAGES = {"en", "ja"}
 # The kinds that a Verilator record shows, and the kind of an entry of a
 # four-state test, which is diagnosed by reading the library.
@@ -369,8 +369,8 @@ def result_kind(reason):
 
 def check_results(data, path):
     results = read_json(path)
-    require(results.get("simulator") == "verilator" and "5.052" in results.get("version", ""),
-            f"{path.name}: not a Verilator 5.052 record")
+    require(results.get("simulator") == "verilator" and "5.054" in results.get("version", ""),
+            f"{path.name}: not a Verilator 5.054 record")
     known = {name: record for name, record in results["tests"].items()
              if record["status"] == "known"}
     entries = {entry["test"]: entry for entry in recorded(data)}

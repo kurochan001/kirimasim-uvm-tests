@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :uvm_dpi: yes
 :uvm_cmdline_backend: vpi
-:uvm_cmdline_oracle: verilator@5.052
+:uvm_cmdline_oracle: verilator@5.054
 :uvm_defines: UVM_HDL_NO_DPI
 :dpi_c: @../../tools/cmdline_backend/uvm_cmdline_vpi.cpp
 :files: ../../tools/cmdline_backend/uvm_cmdline_regex.cpp ../../tools/cmdline_backend/malloc.h

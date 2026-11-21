@@ -97,7 +97,7 @@ class HdlRunner(unittest.TestCase):
 
     def test_cli_refuses_a_different_verilator_version(self):
         with (mock.patch.object(sys, "argv", ["run_verilator_hdl.py", str(self.test)]),
-              mock.patch.object(suite_results, "tool_version", return_value="Verilator 5.054"),
+              mock.patch.object(suite_results, "tool_version", return_value="Verilator 5.056"),
               mock.patch.object(hdl, "run") as execute,
               contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as error):
             hdl.main()
@@ -107,7 +107,7 @@ class HdlRunner(unittest.TestCase):
     def test_cli_records_failure_as_failure_under_its_separate_runner_identity(self):
         with (mock.patch.object(sys, "argv", ["run_verilator_hdl.py", "--json", "unused.json",
                                                str(self.test)]),
-              mock.patch.object(suite_results, "tool_version", return_value="Verilator 5.052 test"),
+              mock.patch.object(suite_results, "tool_version", return_value="Verilator 5.054 test"),
               mock.patch.object(suite_results, "fingerprints",
                                 return_value={"test_sample": "input"}),
               mock.patch.object(suite_results, "test_id", return_value="test_sample"),

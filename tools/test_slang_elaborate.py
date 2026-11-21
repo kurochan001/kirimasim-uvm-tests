@@ -25,12 +25,12 @@ class Frontend(unittest.TestCase):
             patch.start()
             self.addCleanup(patch.stop)
         (self.root / "coverage").mkdir()
-        self.make("u05/test_clean", "spec verilator@5.052")
-        self.make("u05/test_strict", "spec verilator@5.052")
-        self.make("u05/test_unit", "spec verilator@5.052")
+        self.make("u05/test_clean", "spec verilator@5.054")
+        self.make("u05/test_strict", "spec verilator@5.054")
+        self.make("u05/test_unit", "spec verilator@5.054")
         self.make("u05/test_library", "spec")
         self.make("u05/test_runtime", "spec")
-        self.make("u05/test_illegal", "spec verilator@5.052",
+        self.make("u05/test_illegal", "spec verilator@5.054",
                   extra=":should_fail_because: fixture\n:expected_stderr_regex: (?i)abstract.*error"
                         "|error.*abstract\n")
         self.make("u05/test_accepted", "spec", extra=":should_fail_because: fixture\n"

@@ -1308,8 +1308,8 @@
         "ja": "成功したdepositは1を返して対象を変更し、失敗したdepositは0を返す。"
       },
       "limitations": {
-        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
-        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
+        "en": "Requires the separate Verilator 5.054 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
+        "ja": "別のVerilator 5.054 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
       },
       "review": {
         "status": "ai",
@@ -7291,8 +7291,8 @@
         "ja": "無効pathにはsimulation時刻を進めずwarningを出し、storageの転送は行わない。"
       },
       "limitations": {
-        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations. The warning/no-storage-transfer expectation retains the E.7 interpretation. The pinned sequence reports ERROR and attempts reads, so its normative expectation remains a measured difference.",
-        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。 warning／storage転送なしの期待は、E.7の解釈を保持する。固定sequenceはERRORを報告してreadを試みるため、規範的な期待値を実測差分として保持する。"
+        "en": "Requires the separate Verilator 5.054 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations. The warning/no-storage-transfer expectation retains the E.7 interpretation. The pinned sequence reports ERROR and attempts reads, so its normative expectation remains a measured difference.",
+        "ja": "別のVerilator 5.054 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。 warning／storage転送なしの期待は、E.7の解釈を保持する。固定sequenceはERRORを報告してreadを試みるため、規範的な期待値を実測差分として保持する。"
       },
       "review": {
         "status": "ai",
@@ -48295,8 +48295,8 @@
         "ja": "有効pathは1、存在しないpathは0を返す。"
       },
       "limitations": {
-        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
-        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
+        "en": "Requires the separate Verilator 5.054 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
+        "ja": "別のVerilator 5.054 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
       },
       "review": {
         "status": "ai",
@@ -48329,8 +48329,8 @@
         "ja": "両readは、それぞれの現在値で成功し、各readは選択先とpeerのstorageを保持する。"
       },
       "limitations": {
-        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
-        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
+        "en": "Requires the separate Verilator 5.054 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
+        "ja": "別のVerilator 5.054 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
       },
       "review": {
         "status": "ai",
@@ -48364,8 +48364,8 @@
         "ja": "戻りは0で、実際の両変数は不変となり、失敗出力dataは指定しない。"
       },
       "limitations": {
-        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
-        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
+        "en": "Requires the separate Verilator 5.054 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
+        "ja": "別のVerilator 5.054 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
       },
       "review": {
         "status": "ai",
@@ -48398,8 +48398,8 @@
         "ja": "warning／errorはなく、時刻は不変でpath検査が行われ、storageは変更しない。"
       },
       "limitations": {
-        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
-        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
+        "en": "Requires the separate Verilator 5.054 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
+        "ja": "別のVerilator 5.054 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
       },
       "review": {
         "status": "ai",

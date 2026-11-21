@@ -5,7 +5,7 @@
 :type: simulation
 :lrm: 1800.2-2020 6.2.2.2 6.2.2.1 5.3.4.1 1800-2023 6.21 9.7 18.13.3 18.13.4
 :uvm: 2020.3.1
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

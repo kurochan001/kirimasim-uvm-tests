@@ -8,7 +8,7 @@
 :files: helpers92_library/library_fixture92.svh
 :incdirs: helpers92_library
 :defines: LEGACY_MODE92
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

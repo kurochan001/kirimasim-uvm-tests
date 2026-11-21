@@ -103,6 +103,27 @@ class VerilatorSeeds(RunnerTest):
         self.assertEqual(verdict, (True, ""))
 
 
+class VerilatorRelease(unittest.TestCase):
+    def main(self, version, *extra):
+        with (mock.patch.object(run_verilator.suite_results, "tool_version", return_value=version),
+              mock.patch.object(run_verilator, "selected", return_value=[]),
+              mock.patch.object(sys, "argv", ["run_verilator.py", *extra]),
+              mock.patch("sys.stderr", new_callable=io.StringIO) as err,
+              mock.patch("sys.stdout", new_callable=io.StringIO)):
+            try:
+                return run_verilator.main(), err.getvalue()
+            except SystemExit as stop:
+                return stop.code, err.getvalue()
+
+    def test_only_the_tagged_release_measures_without_a_flag(self):
+        code, err = self.main("Verilator 5.056 2027-01-01 rev v5.056")
+        self.assertEqual(code, 2)
+        self.assertIn("--any-release", err)
+        self.assertEqual(self.main(f"Verilator {run_verilator.RELEASE} 2026-11-01 rev v")[0], 0)
+        self.assertEqual(self.main("Verilator 5.056 2027-01-01 rev v5.056", "--any-release")[0], 0)
+        self.assertEqual(run_verilator.ORACLE, f"verilator@{run_verilator.RELEASE}")
+
+
 class KirimasimReports(RunnerTest):
     def execute(self, output, declarations=None):
         with (mock.patch.object(run_kirimasim.uvm_common, "version_problem", return_value=""),
