@@ -3,9 +3,9 @@
 fingerprints across such an edit.
 
 Usage:
-    python3 tools/code_identity.py check --base REV
-    python3 tools/code_identity.py refresh --base REV
-    python3 tools/code_identity.py carry --base REV --record FILE --output FILE
+    python3 tools/code_identity.py check --base REV [--retag]
+    python3 tools/code_identity.py refresh --base REV [--retag]
+    python3 tools/code_identity.py carry --base REV --record FILE --output FILE [--retag]
 
 Comments and line breaks make the tests easier to read (docs/testing.md,
 "Readability edits"), but they change the input fingerprint of every test that
@@ -32,6 +32,14 @@ SystemVerilog source must keep:
 
 A metacomment also keeps its place among the tokens. An input outside tests/
 (the library lock, a C source) must be byte-identical for a fingerprint to move.
+
+With --retag, the simulator tags of `:oracle:` and `:uvm_cmdline_oracle:`
+(the words of the form verilator@RELEASE) may change, and every other word of
+those fields and every other field must stay. These tags say which simulator a
+test's expectation has been recorded with: no simulator reads them, and the
+runners of kirimasim and Ghost do not use them to form a command or a verdict,
+so a guest record stays a record of the same input. A Verilator record does
+not: its verdict follows the tag, and it is measured again.
 
 refresh then updates the input fingerprint of each entry of
 coverage/test_index.json and coverage/known_causes.json whose recorded
@@ -174,8 +182,19 @@ def macro_arguments(text):
     return out
 
 
-def source_problems(old, new):
-    """Why two versions of a SystemVerilog source differ in code, if they do."""
+ORACLE_FIELDS = ("oracle", "uvm_cmdline_oracle")
+SIMULATOR_TAG = re.compile(r"verilator@\S+")
+
+
+def without_simulator_tags(fields):
+    """The metadata fields with the simulator tags of the oracle fields removed."""
+    return {k: " ".join(w for w in v.split() if not SIMULATOR_TAG.fullmatch(w))
+            if k in ORACLE_FIELDS else v for k, v in fields.items()}
+
+
+def source_problems(old, new, retag=False):
+    """Why two versions of a SystemVerilog source differ in code, if they do.
+    With retag, the simulator tags of the oracle fields may differ."""
     old_text, new_text = old.decode("utf-8"), new.decode("utf-8")
     old_code, old_comments = tokens(old_text)
     new_code, new_comments = tokens(new_text)
@@ -185,7 +204,10 @@ def source_problems(old, new):
                      min(len(old_code), len(new_code)))
         where = new_code[first][1] if first < len(new_code) else "end"
         problems.append(f"tokens differ (new line {where})")
-    if suite_header(old_text) != suite_header(new_text):
+    old_fields, new_fields = suite_header(old_text), suite_header(new_text)
+    if retag:
+        old_fields, new_fields = without_simulator_tags(old_fields), without_simulator_tags(new_fields)
+    if old_fields != new_fields:
         problems.append("metadata fields differ")
     if directive_lines(old_text) != directive_lines(new_text):
         problems.append("compiler-directive lines differ")
@@ -216,7 +238,7 @@ def changed_files(base):
     return entries
 
 
-def check(base):
+def check(base, retag=False):
     """Raises IdentityError unless every edit under tests/ keeps the code."""
     problems = []
     entries = changed_files(base)
@@ -226,7 +248,7 @@ def check(base):
             continue
         old, new = at(base, path), (ROOT / path).read_bytes()
         if Path(path).suffix in SOURCES:
-            problems += [f"{path}: {p}" for p in source_problems(old, new)]
+            problems += [f"{path}: {p}" for p in source_problems(old, new, retag)]
         elif old != new:
             problems.append(f"{path}: not a source, but its bytes differ")
     if problems:
@@ -248,9 +270,10 @@ def digest_at(test, base):
 class Mover:
     """Moves recorded fingerprints from base to the working tree."""
 
-    def __init__(self, base):
+    def __init__(self, base, retag=False):
         self.base = resolve(base)
-        check(self.base)
+        self.retag = retag
+        check(self.base, retag)
         self.tests = {suite_results.test_id(t): t for t in suite_results.find_tests(ROOT)}
         self.current, self.old = {}, {}
 
@@ -280,8 +303,8 @@ def write_json(path, value, indent):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=indent) + "\n", encoding="utf-8")
 
 
-def refresh(base):
-    mover = Mover(base)
+def refresh(base, retag=False):
+    mover = Mover(base, retag)
     moved = {}
     index_path = ROOT / "coverage" / "test_index.json"
     index = json.loads(index_path.read_text(encoding="utf-8"))
@@ -306,8 +329,8 @@ def refresh(base):
     return moved
 
 
-def carry(base, record_path, output_path):
-    mover = Mover(base)
+def carry(base, record_path, output_path, retag=False):
+    mover = Mover(base, retag)
     record = json.loads(record_path.read_text(encoding="utf-8"))
     n = 0
     for test_id, entry in record["tests"].items():
@@ -320,7 +343,8 @@ def carry(base, record_path, output_path):
     record.setdefault("carried_forward", []).append({
         "base": mover.base, "records": n,
         "at": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
-        "rule": "inputs code-identical to the base (tools/code_identity.py)"})
+        "rule": "inputs code-identical to the base (tools/code_identity.py)"
+                + ("; simulator tags of the oracle fields may differ" if retag else "")})
     write_json(output_path, record, 1)
     return n
 
@@ -332,18 +356,20 @@ def main(argv=None):
     parser.add_argument("--base", required=True, help="the revision the edit starts from")
     parser.add_argument("--record", type=Path, help="a runner JSON to carry forward (carry)")
     parser.add_argument("--output", type=Path, help="where the carried record goes (carry)")
+    parser.add_argument("--retag", action="store_true",
+                        help="allow the simulator tags of the oracle fields to change")
     args = parser.parse_args(argv)
     if (args.command == "carry") != (args.record is not None and args.output is not None):
         parser.error("--record and --output are for carry, and carry needs both")
     try:
         if args.command == "check":
-            paths = check(resolve(args.base))
+            paths = check(resolve(args.base), args.retag)
             print(f"{len(paths)} edited files under tests/ keep their code")
         elif args.command == "refresh":
-            for name, n in refresh(args.base).items():
+            for name, n in refresh(args.base, args.retag).items():
                 print(f"{name}: {n} fingerprints moved forward")
         else:
-            n = carry(args.base, args.record, args.output)
+            n = carry(args.base, args.record, args.output, args.retag)
             print(f"{args.output.name}: {n} records carried forward")
     except (IdentityError, OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
         print(f"code_identity: {error}", file=sys.stderr)

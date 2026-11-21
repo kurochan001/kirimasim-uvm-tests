@@ -970,6 +970,13 @@ the same for a runner JSON that cannot be measured again, marking each moved
 record. Verilator results of the edited inputs are measured again; [evidence
 assembly](results.md#evidence-assembly) gives the rule for the guest records.
 
+When the release that the expectations are recorded with changes, the
+simulator tags of `:oracle:` and `:uvm_cmdline_oracle:` change in many tests at
+once. `--retag` lets the three commands accept that change and nothing else in
+the metadata. No simulator reads these tags, and the kirimasim and Ghost runners
+do not use them, so a guest record stays a record of the same input; a Verilator
+record follows the tag and is measured again.
+
 ## Rights and sources
 
 The suite's license, the fetched library's license and the cited standards apply to different material; [the provenance guide](provenance.md#library-and-standards) identifies each source before the contribution rules below.

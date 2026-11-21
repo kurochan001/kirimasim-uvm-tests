@@ -117,6 +117,27 @@ class CodeIdentity(unittest.TestCase):
         self.edit("tests/u05/test_a.sv", "module test_a;", "module test_a;\n  // verilator lint_off WIDTH")
         self.rejects("metacomments differ")
 
+    def test_retag_allows_only_the_simulator_tags_of_the_oracle_fields(self):
+        for old, new in ((":oracle: spec verilator@5.052", ":oracle: spec verilator@5.054"),
+                         (":oracle: spec verilator@5.052", ":oracle: spec")):
+            self.edit("tests/u05/test_a.sv", old, new)
+            self.rejects("metadata fields differ")
+            self.assertEqual(code_identity.check(self.base, retag=True), ["tests/u05/test_a.sv"])
+            self.git("checkout", "--", ".")
+        for old, new in ((":oracle: spec verilator@5.052", ":oracle: verilator@5.054"),
+                         (":type: simulation", ":type: elaboration")):
+            self.edit("tests/u05/test_a.sv", old, new)
+            with self.assertRaisesRegex(code_identity.IdentityError, "metadata fields differ"):
+                code_identity.check(self.base, retag=True)
+            self.git("checkout", "--", ".")
+        self.edit("tests/u05/test_a.sv", ":oracle: spec verilator@5.052", ":oracle: spec")
+        record = self.root / "ghost.json"
+        record.write_text(json.dumps({"tests": {"u05/test_a": {"inputs_sha256": self.digest}}}))
+        self.assertEqual(code_identity.carry(self.base, record, record, retag=True), 1)
+        carried = json.loads(record.read_text())
+        self.assertEqual(carried["tests"]["u05/test_a"]["carried_from"], self.digest)
+        self.assertIn("simulator tags", carried["carried_forward"][0]["rule"])
+
     def test_a_file_that_uses_the_line_macro_keeps_its_line_layout(self):
         for old, new in (("`__LINE__ + 1;\n", "`__LINE__ + 1;\n  // between\n"),
                          ("  a = 1; expected", "  a = 1;\n  expected"),

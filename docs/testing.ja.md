@@ -722,6 +722,8 @@ python3 tools/code_identity.py carry --base BASE --record OLD.json --output NEW.
 `check`は、`tests/`の下で編集したfileが、commentと空白を除いた字句、metadataの項目、compiler directiveの行、字句の間でのmetacomment（`// verilator ...`のようにtoolが読むcomment）の位置、引数付きのmacroの使用箇所の原文、`` `__LINE__ ``を使うfileでは最初の字句から見た各字句の行を保つことを求めます。それ以外のfileと、`tests/`の外にある入力は変えないことを求めます。
 `refresh`は、出発点で現在のものだった`coverage/test_index.json`と`coverage/known_causes.json`の指紋を持ち越し、`carry`は、もう一度は測れないrunnerのJSONで同じことを行い、持ち越した記録に印を付けます。編集した入力のVerilatorの結果は測り直します。guestの記録の規則は[記録の合算](results.ja.md#記録の合算)にあります。
 
+期待値を記録したVerilatorの版を変えると、多くのテストで`:oracle:`と`:uvm_cmdline_oracle:`のsimulatorのtagが一度に変わります。`--retag`を付けると、3つのcommandはこの変更だけを受け入れ、metadataのほかの変更は受け入れません。これらのtagはどのsimulatorも読まず、kirimasimとGhostのrunnerも使わないので、guestの記録は同じ入力の記録のままです。Verilatorの記録はtagに従うので、測り直します。
+
 ## 権利と出典
 
 スイートのライセンス、取得するライブラリのライセンス、引用する規格はそれぞれ別の資料に適用されるため、以下の規則を読む前に[出典の説明](provenance.ja.md#ライブラリと規格)で対応を確認できます。
