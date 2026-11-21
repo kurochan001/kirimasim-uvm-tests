@@ -4502,4 +4502,4 @@ localの5.054測定（seed 1／73）の結果で決めた。tag付きだった23
 
 ### hostedの実行
 
-この公開では、runner・正規化・library lock・fetcher・準備用actionが変わったため、Checkはcanaryだけの実行になる。tag付き2312件のRegression（20 shardと別jobのcommand-line 20件・regex-DPI変種26件）を5.054で手動実行し、結果をここに追記する。hostedの5.054 buildは、cacheがまだないため最初のrunは遅い。
+この公開では、runner・正規化・library lock・fetcher・準備用actionが変わったため、Check（[run 44904779678](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44904779678)）はcanaryだけの実行になり、3 jobすべて成功した。準備用actionはhostedで5.054をbuildし直し、`Verilator 5.054 2026-11-01 rev v5.054`を報告し、再現例9個もbuildし直した。canaryのu09は5.054で一致した。tag付き2312件のRegression（[run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)：20 shardと別jobのcommand-line 20件・regex-DPI変種26件）を2ae19a1bで手動実行中であり、結果をここに追記する。
