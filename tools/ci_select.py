@@ -47,7 +47,16 @@ ROOT = suite_results.ROOT
 CANARY = ("tests/u09/test_common_phases_run_in_order.sv",)
 # Every result depends on these, so only the full selection checks a change.
 GLOBAL = ("tools/run_verilator.py", "tools/suite_results.py", "tools/uvm_common.py",
-          "tools/fetch_uvm.py", "third_party/uvm.lock")
+          "tools/fetch_uvm.py", "third_party/uvm.lock",
+          ".github/actions/setup-verilator/action.yml")
+# The separate DPI conditions, which Check does not run: their runners and back
+# ends. A change of one of these, or of an input of a test with :uvm_dpi: yes,
+# is covered by Regression (command-line and regex-DPI) or by a local run of
+# the HDL runner, which no workflow runs.
+SEPARATE = ("tools/run_verilator_hdl.py", "tools/run_verilator_cmdline.py",
+            "tools/run_verilator_regex.py", "tools/uvm_hdl_vpi.cpp",
+            "coverage/regex_dpi_variants.txt")
+SEPARATE_DIRECTORIES = ("tools/cmdline_backend/",)
 LIMIT = 30
 SHARDS = 20
 SHARD_SIZE = 115
@@ -95,6 +104,20 @@ def plan(tests: list[Path], changed: set[str] | None,
     if len(chosen) > limit:
         return canary, f"{len(chosen)} tagged checks are affected, more than {limit}"
     return sorted({t.resolve() for t in canary + chosen}), None
+
+
+def outside_check(changed: set[str] | None) -> list[str]:
+    """The changed files that only a separate DPI condition exercises."""
+    if not changed:
+        return []
+    found = {name for name in changed
+             if name in SEPARATE or name.startswith(SEPARATE_DIRECTORIES)}
+    for test in suite_results.find_tests():
+        if suite_results.header(test).get("uvm_dpi") != "yes":
+            continue
+        found.update(name for name in (relative(p) for p in suite_results.input_files(test))
+                     if name in changed and name != "third_party/uvm.lock")
+    return sorted(found)
 
 
 def in_directories(tests: list[Path], directories: list[str]) -> list[Path]:
@@ -192,7 +215,14 @@ def main() -> int:
         summary(f"Shard {index}/{count}: {len(selected)} of {len(tests)} tagged checks"
                 + (f" that use {' '.join(directories)}" if directories else ""))
     else:
-        selected, reason = plan(tests, changed_paths(args.base), args.limit)
+        changed = changed_paths(args.base)
+        selected, reason = plan(tests, changed, args.limit)
+        separate = outside_check(changed)
+        if separate:
+            print(f"::warning::{len(separate)} changed files belong to a DPI condition that "
+                  f"Check does not run ({', '.join(separate[:3])}"
+                  + (", ..." if len(separate) > 3 else "") + "); run Regression for the "
+                  "command-line and regex-DPI conditions and the HDL runner locally.")
         if reason:
             print(f"::warning::Only the canary runs ({reason}); "
                   "run the Regression workflow for the full selection.")

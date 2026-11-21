@@ -40,8 +40,20 @@ class ChangedInputs(unittest.TestCase):
         self.assertIsNone(reason)
         self.assertTrue(set(self.users) <= set(selected))
 
+    def test_changes_of_a_dpi_condition_are_named_as_outside_check(self):
+        dpi = next(t for t in suite_results.find_tests()
+                   if suite_results.header(t).get("uvm_dpi") == "yes")
+        name = ci_select.relative(dpi)
+        self.assertEqual(ci_select.outside_check({name, "README.md"}), [name])
+        self.assertEqual(ci_select.outside_check({"tools/run_verilator_hdl.py",
+                                                  "tools/cmdline_backend/malloc.h"}),
+                         ["tools/cmdline_backend/malloc.h", "tools/run_verilator_hdl.py"])
+        self.assertEqual(ci_select.outside_check({"README.md", "third_party/uvm.lock"}), [])
+        self.assertEqual(ci_select.outside_check(None), [])
+
     def test_global_change_and_unknown_base_fall_back_to_the_canary(self):
-        for changed in ({"tools/suite_results.py"}, {"third_party/uvm.lock"}, None):
+        for changed in ({"tools/suite_results.py"}, {"third_party/uvm.lock"},
+                        {".github/actions/setup-verilator/action.yml"}, None):
             selected, reason = ci_select.plan(self.tests, changed)
             self.assertEqual(selected, self.canary)
             self.assertTrue(reason)

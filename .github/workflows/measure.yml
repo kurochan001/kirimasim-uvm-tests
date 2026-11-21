@@ -1,0 +1,55 @@
+name: Measure
+
+# Runs the named tests, tagged or not, with the pinned Verilator 5.052 at
+# seeds 1 and 73 and prints the status and the reason of each. Check and
+# Regression run only the tests recorded with verilator@5.052, so this is the
+# hosted way to see how a spec-only test differs, or to measure a test before
+# it is tagged, when no local Verilator 5.052 is at hand. Manual only; it
+# changes no record and publishes nothing but its log.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tests:
+        description: Test paths (tests/uNN/test_*.sv), separated by spaces, at most 30
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: measure-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: ./.github/actions/setup-verilator
+
+      - name: Named tests (runtime seeds 1 and 73)
+        env:
+          TESTS: ${{ inputs.tests }}
+        run: |
+          read -r -a cases <<< "$TESTS"
+          test "${#cases[@]}" -gt 0 && test "${#cases[@]}" -le 30
+          for c in "${cases[@]}"; do
+            case "$c" in
+              tests/*/test_*.sv) test -f "$c" ;;
+              *) echo "::error::not a test path: $c"; exit 1 ;;
+            esac
+          done
+          status=0
+          python3 tools/run_verilator.py --all --seeds 1 73 --build-jobs 2 -j 2 \
+            --json out/measure.json "${cases[@]}" || status=$?
+          python3 - <<'PY'
+          import json
+          data = json.load(open("out/measure.json"))
+          print(data["version"])
+          for name, entry in data["tests"].items():
+              print(f"{entry['status']}: {name}: {entry.get('reason', '')}")
+          PY
+          exit "$status"

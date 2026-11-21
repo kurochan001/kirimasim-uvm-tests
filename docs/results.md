@@ -323,10 +323,10 @@ and manual dispatch. Its tools job checks pinned-library integrity, 210 tool uni
 differences, the [report declarations](testing.md#time-unit-and-report-declarations) and the [kirimasim bring-up stages](kirimasim-stages.md). Its slang job [elaborates every test with slang](testing.md#slang-elaboration) and compares [the API census](requirements.md#api-census) with the tests; it takes about eight minutes. Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,
 plus the canary `tests/u09/test_common_phases_run_in_order.sv`, with runtime
-seeds 1/73 ([the selection tool](../tools/ci_select.py)). When the base is
-unavailable, when the runner, its normalization, the library lock or the
-fetcher changed, or when more than 30 checks are affected, only the canary runs
-and a warning asks for Regression. The Verilator job also rebuilds the cause
+seeds 1/73 ([the selection tool](../tools/ci_select.py)). For a push, the base is the head of the last Check on `main` that succeeded, so the checks of a run that a newer push cancelled, or that failed, are selected again; without such a run it is the previous push. When the base is
+unavailable, when the runner, its normalization, the library lock, the
+fetcher or the setup action changed, or when more than 30 checks are affected, only the canary runs
+and a warning asks for Regression. Another warning names changed files that only a separate DPI condition exercises, which Check does not run. The setup action stops unless the Verilator it restored or built reports release 5.052. The Verilator job also rebuilds the cause
 record's twelve reproducers. A green Check covers the selected checks only.
 
 [Regression](../.github/workflows/regression.yml) runs on manual dispatch and
@@ -335,7 +335,7 @@ runtime cases at seeds 1/73 and 94 compiler rejections without runtime seeds)
 in 20 disjoint shards (seven of 116 and thirteen of 115), at most 4 concurrent so
 that Check and other repositories keep hosted job slots, each limited to 360 minutes, the twenty explicit command-line checks in a
 separate job under their condition, and the twenty-six regex-DPI variants in another job. Its gate requires all three. A newer request
-waits for a run in progress instead of cancelling it. A manual run can be
+waits for a run in progress instead of cancelling it; only one request can wait, so a further request replaces the waiting one. A manual run can be
 narrowed to directories under `tests/` (input `directories`); a plan job then
 selects the checks that collect a file from them, in one shard for every 115
 checks, and runs the command-line and regex-DPI jobs only for their fixtures
@@ -369,9 +369,9 @@ to 199 minutes, within the 360-minute limit. This first complete hosted
 Regression result covers that commit; later commits need their own Check or
 Regression.
 
-Two later Regression runs covered every tagged check of their commits: [run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797) on a3956ce, dispatched after the readability edits, and the weekly [run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165) on 73a73ad; all 24 jobs of each succeeded. [Run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874), dispatched on e37fb89 after the runner began to pass the time scale and check the report declarations, had not finished when this page was last revised on 2026-11-21, so no Regression result covers the current runner yet. The fifteen tests added after e37fb89 were measured by Check on their own commits and locally.
+Two later Regression runs covered every tagged check of their commits: [run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797) on a3956ce, dispatched after the readability edits, and the weekly [run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165) on 73a73ad; all 24 jobs of each succeeded. [Run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874), dispatched on e37fb89 after the runner began to pass the time scale and check the report declarations, had not finished when this page was last revised on 2026-11-21, so no Regression result covers the current runner yet. Of the fifteen tests added after e37fb89, the fourteen tagged ones were run by Check with Verilator 5.052 in the push that published them; the spec-only one was run only locally, with Verilator 5.054.
 
-Neither workflow runs kirimasim, Ghost or spec-only cases. The README's badge is
+Neither workflow runs kirimasim, Ghost, spec-only cases or the HDL runner; the HDL row of the results rests on local runs. [Measure](../.github/workflows/measure.yml), a manual workflow, runs named tests, tagged or not, with the pinned Verilator 5.052 and prints their statuses; it changes no record. The README's badge is
 the live Check state, separate from these local measurements. A green Check or
 Regression does not establish complete UVM conformance or a passing result for
 every simulator. There is no automatic result publication.

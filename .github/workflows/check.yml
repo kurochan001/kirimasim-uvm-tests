@@ -27,8 +27,10 @@ on:
         required: false
         default: HEAD^
 
+# actions: read lets the Verilator job find the last successful run (below).
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: check-${{ github.ref }}
@@ -100,13 +102,34 @@ jobs:
 
       - uses: ./.github/actions/setup-verilator
 
-      - name: Select the tagged checks whose inputs changed
+      # A push is compared with the head of the last Check on main that
+      # succeeded, not with the previous push: a run that a newer push
+      # cancelled, or that failed, would otherwise leave its changed checks
+      # unselected for good. Without such a run the previous push is the base.
+      - name: Base revision of the changed checks
+        id: base
         env:
+          GH_TOKEN: ${{ github.token }}
           # A pull request is checked out as a merge commit on its base.
-          BASE: >-
+          EVENT_BASE: >-
             ${{ github.event_name == 'push' && github.event.before
                 || github.event_name == 'pull_request' && github.event.pull_request.base.sha
                 || inputs.base }}
+        run: |
+          base="$EVENT_BASE"
+          if [ "${{ github.event_name }}" = push ]; then
+            last=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow check.yml --branch main \
+                     --status success --limit 1 --json headSha --jq '.[0].headSha // empty' || true)
+            if [ -n "$last" ] && git merge-base --is-ancestor "$last" HEAD 2>/dev/null; then
+              base="$last"
+            fi
+          fi
+          echo "Changed checks are compared with $base"
+          echo "base=$base" >> "$GITHUB_OUTPUT"
+
+      - name: Select the tagged checks whose inputs changed
+        env:
+          BASE: ${{ steps.base.outputs.base }}
         run: python3 tools/ci_select.py --base "$BASE" --output out/verilator-changed.paths
 
       - name: Selected Verilator checks (runtime seeds 1 and 73)

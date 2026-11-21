@@ -130,7 +130,7 @@ of a successful full CI run. Check runs tool,
 metadata, ledger, library, cause-record, report-declaration and stage checks, the slang elaboration and the API census, and the tagged ordinary Verilator checks
 whose inputs changed, plus a canary; Regression runs all tagged ordinary checks
 and twenty command-line checks and twenty-six regex-DPI variants, manually and weekly. Neither runs Ghost,
-kirimasim or spec-only cases. There is no automatic result publication.
+kirimasim, spec-only cases or the HDL runner. There is no automatic result publication.
 
 ## Evidence and latest differences
 

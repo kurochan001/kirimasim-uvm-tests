@@ -108,7 +108,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 最新のworkflow結果はREADMEのbadgeで確認してください。後のcommitによって、このrunが置き換わる場合があります。
 local検証だけでCI全体の成功とは扱いません。
 Checkはtool、metadata、台帳、library、原因の記録、reportの宣言、段階の検査と、slangでのelaborationとAPIの集計を行い、入力が変わった通常oracle付きVerilator検査およびcanaryを実行します。Regressionは手動と毎週、全タグ付き通常検査、明示command-line 20件、regex-DPI変種26件を実行します。
-どちらもGhost、kirimasim、spec-onlyの実行は含まず、結果の自動公開はありません。
+どちらもGhost、kirimasim、spec-only、HDLのrunnerの実行は含まず、結果の自動公開はありません。
 
 ## 実測記録と直近の差分
 

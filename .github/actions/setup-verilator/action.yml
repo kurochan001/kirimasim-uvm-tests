@@ -77,6 +77,18 @@ runs:
       shell: bash
       run: echo "$HOME/verilator/bin" >> "$GITHUB_PATH"
 
+    # tools/run_verilator.py records the release but does not require it, so a
+    # cache or a path that held another release would go unnoticed.
+    - name: Require Verilator 5.052
+      shell: bash
+      run: |
+        version=$("$HOME/verilator/bin/verilator" --version)
+        echo "$version"
+        case "$version" in
+          "Verilator 5.052 "*) ;;
+          *) echo "::error::expected Verilator 5.052, found: $version"; exit 1 ;;
+        esac
+
     - name: Fetch the UVM library
       shell: bash
       run: python3 tools/fetch_uvm.py

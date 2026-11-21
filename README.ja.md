@@ -111,7 +111,7 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 
 simulation一致とcompiler拒否は別の検査なので、以下のラベルと件数は[結果の読み方](docs/reading-guide.ja.md#結果を読む)を参照してください。
 
-2値の2771件はすべて、現在の入力でのVerilator 5.052の結果を持ちますが、1回の実行で得たものではありません。tag付きのテストは2026-11-20に現在のrunnerで測り直し、それ以後に足したか変えたtag付きのテストは、公開したcommitでCheckがVerilator 5.052のseed 1／73で実行しました。それ以後に足したspecのみの1件は、localのVerilator 5.054でしか差分を見ていません。4値の7件はspecのみで、Verilatorの記録はありません。
+2値の2771件のVerilatorの結果は、1回の実行ではなく複数の測定によるもので、すべてが現在のrunnerの5.052で確かめられているわけではありません。128回目は、2026-11-20にtag付きのテストを測り直したと報告していますが、これは別のsessionでの測定で、そのVerilatorの版はこの記録では確かめられません。そのcommitを5.052で実行するRegressionは、2026-11-21の時点で終わっていません。それ以後に足したか変えたtag付きのテストは、公開したcommitでCheckがVerilator 5.052のseed 1／73で実行しました。それ以後に足したspecのみの1件は、localのVerilator 5.054でしか差分を見ていません。4値の7件はspecのみで、Verilatorの記録はありません。
 Ghostの記録は互換な1081入力のもので、Ghostでは1697入力が、[証拠の再利用規則](docs/results.ja.md#記録の合算)を満たす現在の記録がないため未測定です。kirimasimは、現在の全入力を現在のrunnerで測り直しました。
 
 | シミュレータとライブラリ | 観測結果 |
@@ -140,7 +140,7 @@ Checkは、kirimasimが無改造で使うfront endであるslangでも全テス�
 [既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・台帳・原因の記録・reportの宣言・立ち上げ段階の検査と、slangでのelaborationとAPIの集計を行い、
 pushとpull requestごとに入力が変わった通常oracle付きVerilator検査と固定canary 1件を実行します。
 [Regression](.github/workflows/regression.yml)は手動と毎週、タグ付き通常検査2307件を20 shardで、明示command-line 20件とregex-DPI変種26件を別jobで実行します。手動の実行は`tests/`の下のdirectoryに絞れます。
-どちらもkirimasimとGhostは実行せず、結果の自動公開はありません。
+どちらもkirimasim、Ghost、specのみのテスト、HDLのrunnerは実行せず、結果の自動公開はありません。
 
 ## ドキュメント
 

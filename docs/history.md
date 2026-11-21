@@ -7106,7 +7106,7 @@ What stands, and on what evidence:
 
 | Subject | Evidence with Verilator 5.052 |
 | --- | --- |
-| The fourteen tests tagged since the 128th expansion | Check builds 5.052 from its tag and ran each of them at seeds 1/73 on the commit that added it: [11 of 11](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44814217101) (ten tests of the 132nd and the canary), [2 of 2](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44821500547) (the agent test), [3 of 3](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44826313817) and [2 of 2](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44827450824). The tags have this basis; the statements that the tests matched 5.052 before tagging do not |
+| The fourteen tests tagged since the 128th expansion | Check builds 5.052 from its tag and ran each of them at seeds 1/73 in the push that published it (the agent test was committed in 86e9130 and ran in the push whose head was 2b03180): [11 of 11](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44814217101) (ten tests of the 132nd and the canary), [2 of 2](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44821500547) (the agent test), [3 of 3](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44826313817) and [2 of 2](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44827450824). The tags have this basis; the statements that the tests matched 5.052 before tagging do not |
 | The test that gained `:expected_exit:` | It is the canary of Check, which matched on [its commit](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44735232350) |
 | The reset-sequence test, a known difference | None. Its difference was seen only with 5.054; Check and Regression do not run spec-only tests. Its cause, a branch of the pinned sequence, does not depend on the simulator, but the record under 5.052 is not confirmed |
 | The first use of the whole-output tool | It used 5.054; the capture that had been started was stopped |
@@ -7114,3 +7114,18 @@ What stands, and on what evidence:
 The slang check, the API census and the kirimasim measurement do not use Verilator. Whether the measurements of the 127th and 128th expansions, made in another session, used 5.052 is not known here; the Regression that was dispatched on e37fb89 runs every tagged check with 5.052 and will show it for the runner change.
 
 An attempt to build 5.052 locally, as the setup action does, did not succeed on this macOS release in five tries: the lexer that the build generates does not agree with the installed lexer header. The local release stays 5.054 until the user decides how to get 5.052 here, for example in a Linux container. Until then, a local Verilator run is not evidence for a `verilator@5.052` tag, and the restart checklists say so.
+
+## 142nd expansion: a review of the whole repository, first part (CI)
+
+The user asked for a review of the whole repository and, while away, for confirmed problems to be corrected. Three independent readers reviewed the tools, the workflows with the tracked records, and the fifteen newest tests against the standard; each finding was checked before a change. This part corrects the workflows.
+
+| Finding | Correction |
+| --- | --- |
+| Check compared a push with the previous push. A run that a newer push cancelled, or that failed, left its changed checks unselected for good, without a warning. Four of the last fifteen runs were cancelled; in each the Verilator job had finished, so no check was lost | For a push the base is the head of the last Check on `main` that succeeded |
+| A change of the setup action, which decides the Verilator release, ran only the changed checks | The action is among the files that reduce Check to the canary with a warning |
+| A change of a test with `:uvm_dpi: yes`, of a DPI-condition runner or of a back end ran nothing in Check and gave no warning | `tools/ci_select.py` names such files in a warning |
+| Nothing required Verilator 5.052: the ordinary runner records the release without checking it, which is how the local runs of the 141st expansion went unnoticed | The setup action stops unless the release is 5.052. The runner itself is part of the fingerprint and is corrected at the next fingerprint change |
+| No hosted run could measure a spec-only test, so its difference under 5.052 could only be seen locally | [Measure](../.github/workflows/measure.yml), a manual workflow, runs named tests with the pinned release and prints their statuses |
+| The documents said that a newer Regression request waits, that the fifteen new tests were measured by Check on their own commits, and that every two-state case has a 5.052 result; none of the three is exact | The results and the README say what was run where; a further Regression request replaces the waiting one; no workflow runs the HDL runner, and the documents now say so |
+
+The pinned actions, the gate of Regression, the integrity check of the Z3 fallback and the numbers of the README agreed with the files and the tools.

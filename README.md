@@ -116,7 +116,7 @@ by Git; results are not automatically published.
 
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
-Every one of the 2771 two-state cases has a Verilator 5.052 result at its current inputs, but no single run produced them: the tagged cases were measured again with the current runner on 2026-11-20, and each tagged test added or changed since was run by Check with Verilator 5.052 at seeds 1/73 on the commit that published it; the one spec-only test added since was seen to differ only with a local Verilator 5.054. The seven four-state cases are spec-only and have no Verilator record.
+The 2771 two-state cases have Verilator results from several measurements, not from one run, and not all of them are confirmed with release 5.052 under the current runner: the 128th expansion reports a new measurement of the tagged cases on 2026-11-20, made in another session whose Verilator release this record cannot confirm, and the Regression that runs them with 5.052 on that commit had not finished on 2026-11-21. Each tagged test added or changed since was run by Check with Verilator 5.052 at seeds 1/73 in the push that published it; the one spec-only test added since was seen to differ only with a local Verilator 5.054. The seven four-state cases are spec-only and have no Verilator record.
 The Ghost records retain 1081 compatible inputs; 1697 inputs are unmeasured by Ghost, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly). kirimasim was measured again on all current inputs with the current runner.
 
 | Simulator and library | Observed result |
@@ -150,7 +150,7 @@ runs tool, metadata, library, ledger, cause-record, report-declaration and bring
 the tagged ordinary Verilator checks whose inputs changed plus one canary.
 [Regression](.github/workflows/regression.yml) runs all 2307 tagged ordinary
 checks in 20 shards, the twenty explicit command-line checks and the twenty-six
-regex-DPI variants, manually and weekly; a manual run can be narrowed to directories under `tests/`. Neither runs kirimasim or Ghost, and there is no automatic result publication.
+regex-DPI variants, manually and weekly; a manual run can be narrowed to directories under `tests/`. Neither runs kirimasim, Ghost, spec-only tests or the HDL runner, and there is no automatic result publication.
 
 ## Documentation
 

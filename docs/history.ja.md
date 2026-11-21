@@ -4392,7 +4392,7 @@ suiteは2778件（simulation 2679）、義務4182件、tag付きの検査2307件
 
 | 対象 | Verilator 5.052での根拠 |
 | --- | --- |
-| 128回目より後にtagを付けた14件 | Checkは5.052をそのtagからbuildし、各テストを、足したcommitでseed 1／73で実行しました。[11件中11件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44814217101)（132回目の10件とcanary）、[2件中2件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44821500547)（agentのテスト）、[3件中3件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44826313817)、[2件中2件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44827450824)です。tagの根拠はこれです。tag付けの前に5.052で一致したという記述には、根拠がありません |
+| 128回目より後にtagを付けた14件 | Checkは5.052をそのtagからbuildし、各テストを、公開したpushでseed 1／73で実行しました（agentのテストは86e9130でcommitされ、headが2b03180のpushで実行されました）。[11件中11件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44814217101)（132回目の10件とcanary）、[2件中2件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44821500547)（agentのテスト）、[3件中3件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44826313817)、[2件中2件](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44827450824)です。tagの根拠はこれです。tag付けの前に5.052で一致したという記述には、根拠がありません |
 | `:expected_exit:`を足したテスト | Checkのcanaryで、[そのcommit](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44735232350)で一致しました |
 | 既知差分であるreset sequenceのテスト | ありません。差分を見たのは5.054だけで、CheckとRegressionはspecのみのテストを実行しません。原因は固定版のsequenceの分岐で、simulatorには依存しませんが、5.052での記録は確かめていません |
 | 全出力のtoolの最初の試行 | 5.054を使っていました。始めていた保存は止めました |
@@ -4400,3 +4400,18 @@ suiteは2778件（simulation 2679）、義務4182件、tag付きの検査2307件
 slangの検査、APIの集計、kirimasimの測定は、Verilatorを使いません。別のsessionで行われた127回目と128回目の測定が5.052を使ったかは、ここでは分かりません。e37fb89で起動したRegressionは、tag付きの検査をすべて5.052で実行するので、runnerの変更については、その結果で分かります。
 
 準備用actionと同じように5.052をlocalでbuildしようとしましたが、このmacOSでは5回試して成功しませんでした。buildが生成するlexerが、導入済みのlexerのheaderと合いません。ユーザーが、たとえばLinuxのcontainerなど、ここで5.052を得る方法を決めるまで、localの版は5.054のままです。それまで、localでのVerilatorの実行は`verilator@5.052`のtagの根拠になりません。再開時の確認手順にも、そう書きました。
+
+## 142回目の拡充：repository全体のレビュー、その1（CI）
+
+ユーザーは、repository全体のレビューと、不在の間に、確かめられた問題を直すことを求めました。3つの独立した読み手が、tool、workflowと版管理する記録、最も新しい15件のテストと規格の照合を見ました。変更の前に、指摘を1つずつ確かめています。この回はworkflowを直します。
+
+| 指摘 | 修正 |
+| --- | --- |
+| Checkはpushを直前のpushと比べていました。新しいpushで取り消されたrunや失敗したrunで変わった検査は、警告もなく、二度と選ばれませんでした。直近15回のうち4回が取り消されています。どれもVerilatorのjobは終わっていたので、実際に失われた検査はありません | pushのときの基点を、`main`で最後に成功したCheckのheadにしました |
+| Verilatorの版を決める準備用actionを変えても、変わった検査しか実行していませんでした | このactionを、Checkをcanaryだけにして警告を出すfileに加えました |
+| `:uvm_dpi: yes`のテスト、DPI条件のrunner、backendを変えても、Checkは何も実行せず、警告も出しませんでした | `tools/ci_select.py`が、そのようなfileを警告で挙げます |
+| Verilator 5.052であることを求めるものがありませんでした。通常のrunnerは版を記録するだけで確かめません。141回目のlocalの実行が見過ごされたのは、このためです | 準備用actionは、版が5.052でなければ止まります。runner自身は指紋に入るので、次に指紋を動かす変更で直します |
+| specのみのテストを測れるhostedのrunがなく、5.052での差分はlocalでしか見られませんでした | 手動のworkflowである[Measure](../.github/workflows/measure.yml)が、名前を挙げたテストを固定版で実行し、状態を出力します |
+| 文書は、新しいRegressionの要求は待つこと、新しい15件はそれぞれのcommitのCheckで測ったこと、2値のテストはすべて5.052の結果を持つことを述べていましたが、どれも正確ではありませんでした | 実行結果とREADMEに、何をどこで実行したかを書きました。Regressionの要求がさらに来ると、待っていた要求が置き換わります。HDLのrunnerを実行するworkflowはなく、文書にそう書きました |
+
+固定したaction、Regressionのgate、Z3のfallbackの整合性の確認、READMEの数字は、fileとtoolに合っていました。

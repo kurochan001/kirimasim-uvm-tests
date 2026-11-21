@@ -223,11 +223,11 @@ shardは選んだテストを重複なく分担する単位で、最後のgate�
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
 tools jobは、固定ライブラリの整合性、ツールの単体テスト210件、metadata 2778件、要求台帳の案／テスト索引、既知差分の原因の記録、[reportの宣言](testing.ja.md#時間単位とreportの宣言)、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。slang jobは、[全テストをslangでelaborate](testing.ja.md#slangでのelaboration)し、[APIの集計](requirements.ja.md#apiの集計)をテストと照合します。所要は8分ほどです。
 Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
-基点が得られない場合、runner・正規化・library lock・fetcherが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。Verilator jobは、原因の記録にある再現例12個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
+pushのときの基点は、`main`で最後に成功したCheckのheadです。新しいpushで取り消されたrunや失敗したrunの検査が、次に選び直されるようにするためです。そのようなrunがなければ、直前のpushを基点にします。基点が得られない場合、runner・正規化・library lock・fetcher・準備用actionが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。別のDPI条件でしか動かないfileが変わったときは、Checkが実行しないfileとして、別の警告で名前を挙げます。準備用actionは、復元またはbuildしたVerilatorが5.052と報告しなければ止まります。Verilator jobは、原因の記録にある再現例12個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
 
 [Regression](../.github/workflows/regression.yml)は手動実行と毎週（土曜17:23 UTC）に動きます。
 タグ付き通常検査2307件（seed 1／73のruntime 2213・実行時seedなしのcompiler拒否94）を重複しない20 shard（116件が7、115件が13）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
-別条件の明示command-line 20件とregex-DPI変種26件はそれぞれ別jobで実行し、gateは3つすべての成功を要求します。新しい要求は実行中のrunを取り消さずに待ちます。手動の実行は`tests/`の下のdirectoryに絞れます（入力`directories`）。そのときは計画のjobが、それらのdirectoryのfileを集める検査を115件ごとに1 shardで選び、command-lineとregex-DPIのjobはそこにある検査系だけを実行します。毎週の実行は絞りません。
+別条件の明示command-line 20件とregex-DPI変種26件はそれぞれ別jobで実行し、gateは3つすべての成功を要求します。新しい要求は実行中のrunを取り消さずに待ちます。待てる要求は1つだけなので、さらに要求が来ると、待っていた要求が置き換わります。手動の実行は`tests/`の下のdirectoryに絞れます（入力`directories`）。そのときは計画のjobが、それらのdirectoryのfileを集める検査を115件ごとに1 shardで選び、command-lineとregex-DPIのjobはそこにある検査系だけを実行します。毎週の実行は絞りません。
 
 以前の単一Checkはpushごとに全選択を実行していました。分割前の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は150分のjob上限を超え、その後の8 shard版も完了していません。
 新しいpushで置き換えられなかった唯一の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)では8 shardすべてが150分の上限に達し、2026-10-31より後の他の実行は新しいpushで取り消されました。
@@ -241,7 +241,7 @@ command-line jobは成功し、3 shardは342検査のうち334件が一致しま
 
 修正後のdb06513での[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)は、20 shardでタグ付き検査2273件すべてがseed 1／73で一致し、command-line 17件も成功しました。各shardは113〜199分で、360分の上限内でした。hostedのRegressionで初めて全件がそろったこの結果の対象はそのcommitで、後のcommitにはそれぞれのCheckまたはRegressionが必要です。
 
-その後の2回のRegressionは、それぞれのcommitのtag付き検査をすべて対象にしました。読みやすさの編集の後に起動したa3956ceでの[run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797)と、73a73adでの毎週の[run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165)で、どちらも24 jobすべてが成功しました。runnerが時間単位を渡し、reportの宣言を検査するようになった後にe37fb89で起動した[run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874)は、このページを最後に見直した2026-11-21の時点で終わっていません。そのため、現在のrunnerを対象にしたRegressionの結果はまだありません。e37fb89の後に足した15件は、それぞれのcommitのCheckとlocalで測っています。
+その後の2回のRegressionは、それぞれのcommitのtag付き検査をすべて対象にしました。読みやすさの編集の後に起動したa3956ceでの[run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797)と、73a73adでの毎週の[run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165)で、どちらも24 jobすべてが成功しました。runnerが時間単位を渡し、reportの宣言を検査するようになった後にe37fb89で起動した[run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874)は、このページを最後に見直した2026-11-21の時点で終わっていません。そのため、現在のrunnerを対象にしたRegressionの結果はまだありません。e37fb89の後に足した15件のうち、tag付きの14件は、公開したpushのCheckがVerilator 5.052で実行しました。specのみの1件は、localのVerilator 5.054でしか実行していません。
 
-kirimasim、Ghost、specのみのケースはどちらのworkflowでも実行しません。READMEのバッジは現在のCheckの状態で、このローカル測定とは別です。
+kirimasim、Ghost、specのみのケース、HDLのrunnerは、どちらのworkflowでも実行しません。結果のHDLの行は、localの実行によるものです。手動のworkflowである[Measure](../.github/workflows/measure.yml)は、名前を挙げたテストを、tagの有無にかかわらず固定版のVerilator 5.052で実行し、状態を出力します。記録は変えません。READMEのバッジは現在のCheckの状態で、このローカル測定とは別です。
 CheckやRegressionが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。結果の自動公開はありません。
