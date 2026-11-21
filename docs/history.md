@@ -7146,3 +7146,23 @@ A reader without the earlier conversation compared the fifteen tests added since
 Findings recorded without a change: the counts of [the severity-override test](../tests/u06/test_report_handler_direct_severity_overrides_prefer_the_id_specific_setting.sv) rest on 6.5.1.2.6, which says what the count is intended to return and not when the default server counts; [the instance override by name](../tests/u08/test_factory_inst_override_by_name_replaces_the_named_type_at_matching_paths.sv) follows the specific sentence of 8.3.1.4.1 where 8.3.1.5 speaks of registered names; and four lines print values that the test itself set or a compile-time constant (two uB tests, uC and the drain time of u09). The other tests had no finding.
 
 With the local Verilator 5.054 the five changed tagged tests match at seeds 1/73 and the uE test still differs; this is a hint, not the evidence for the tag. Check of this push runs only the canary, because the diff from the last successful Check includes the setup action; the six tests are run with Verilator 5.052 by a dispatch of Measure, and the result is recorded in the next section.
+
+## 144th expansion: the review, third part (the tools)
+
+A third reader reviewed the tools written since the 126th expansion and confirmed each finding by running it. The runner of Verilator and the files that its fingerprint shares with Ghost are not touched.
+
+| Tool | Finding | Correction |
+| --- | --- | --- |
+| `tools/slang_elaborate.py` | An error that slang prints without a place, such as a top-level module that does not exist, was not counted, so a design that was never elaborated gave "no problems". No test triggers it today | Such a line is an error |
+| `tools/api_census.py` | A call in the body of a library macro was credited to the test that expands the macro, against the tool's own description. Every test that used `` `uvm_info `` was counted as calling the report functions | The place where the code is written decides. `uvm_sequence_base::create_item`, which the tests reach only through the sequence macros, moves to the unused list: 2 unused, 29 named only |
+| `tools/api_census.py` | A slang process that crashed counted its test as using nothing, and the command still succeeded | The command stops with an error. A test whose sources slang cannot parse still counts by names only, with a message |
+| `tools/api_census.py` | A class and a macro of one name (`uvm_component_registry`, `uvm_object_registry`) shared a counter | The kind is part of the key |
+| `tools/run_kirimasim.py` | "Unsupported" was decided from any such message anywhere in the output, before the other checks, so a design with an earlier error of another kind, or one that had already run, could be reported as unsupported. An illegal design that ran and ended with exit code 2 could pass | Unsupported is the first error of a design that printed no observed line; an illegal design that ran fails |
+| `tools/lint_metadata.py` | `:expected_exit:` only had to be present; a value that is not a number stopped a whole run later | The value is an exit code from 0 to 255 or `nonzero` |
+| `tools/ci_select.py` | A change of `coverage/uvm_reports.json`, which changes verdicts, ran only the canary without a warning | It is among the files that ask for Regression |
+| `tools/code_identity.py` | `#1ns` and `#1 ns`, and operators such as `:=`, `.*` and `=>` written with a space inside, gave the same tokens | Time literals and these operators are tokens |
+| Unit tests | The tests of the kirimasim runner, of the slang check and of the census passed with the checked branches removed | Tests of those branches; 219 unit tests |
+
+kirimasim 0.1.3 (commit 21ee5a43, the build present on 2026-11-21) ran all 2778 inputs again with the corrected runner: 98 pass, 2604 unsupported and 76 fail, and no test changed its status against the earlier measurement. The slang check of all 2778 tests has no problem after its change.
+
+Recorded without a change: `tools/code_identity.py` does not see a shifted line of a report macro in a file without `` `__LINE__ ``, or a spacing change inside a macro argument that ends with an escaped backslash; both tools that pass arguments to slang join them with spaces, so a checkout path with a space would fail; 52 tests repeat a clause in `:lrm:`, and 195 descriptions are shared within a family of variants. `tools/full_output.py` had no finding.

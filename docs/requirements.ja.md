@@ -456,7 +456,7 @@ stream列挙の戻り数など、signature／本文の矛盾は、引き続き�
 
 ## APIの集計
 
-「直接テストのない要求0件」は、ある条項のAPIが一度でも呼ばれていることを示しません。条項に義務があっても、そのテストが別のmethodを経由してしかAPIに届かないことがあります。[`tools/api_census.py`](../tools/api_census.py)は、これを別に数えます。固定版libraryは1764個の宣言に条項を注記しています（`@uvm-ieee 1800.2-2020 auto`または`manual`）。class 185、function 1225、task 185、macro 139、typedef 22、それ以外の前に置かれた注記8です。functionとtaskは、テスト自身のsourceにある呼出しとoverrideのうち、どれがその宣言に解決されるかをslangに尋ねます。macro、class、typedefは、codeに名前が出てくるかで数えます。
+「直接テストのない要求0件」は、ある条項のAPIが一度でも呼ばれていることを示しません。条項に義務があっても、そのテストが別のmethodを経由してしかAPIに届かないことがあります。[`tools/api_census.py`](../tools/api_census.py)は、これを別に数えます。固定版libraryは1764個の宣言に条項を注記しています（`@uvm-ieee 1800.2-2020 auto`または`manual`）。class 185、function 1225、task 185、macro 139、typedef 22、それ以外の前に置かれた注記8です。functionとtaskは、テスト自身のsourceにある呼出しとoverrideのうち、どれがその宣言に解決されるかをslangに尋ねます。macro、class、typedefは、codeに名前が出てくるかで数えます。テストが展開するlibraryのmacroの本体にある呼出しは、テストのsourceにある呼出しではありません。テストが使うのはmacroです。そのため、テストがsequenceのmacroを通してしか使わない`uvm_sequence_base::create_item`は、未使用に入ります。slangのprocessが失敗したときは、そのテストを何も使わないものとして数えず、errorで止まります。
 
 [`coverage/api_census.json`](../coverage/api_census.json)は、Checkがテストと照合する2つの一覧を持ちます。`unused`は、名前がどのテストにも出てこないfunction、task、macroです。`name_only`は、名前は出てくるが、呼出しやoverrideが解決されないfunctionとtaskです（派生classやportを通した呼出し、slangがelaborateできないテストでの使用、同じ名前の別のmethod）。注記はlibraryの主張なので、宣言を穴として扱う前に、条項を規格で確かめます。一覧にある宣言を使うテストを足すと、記録を書き直すまでCheckが失敗します。
 

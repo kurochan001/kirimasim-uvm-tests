@@ -15,7 +15,7 @@ that published them, and all match. The fifteenth is a known difference that was
 only with a local Verilator 5.054, so its record under 5.052 is not confirmed.
 The seven four-state tests have no Verilator record. The 1081 Ghost records
 remain valid, and 1697 inputs are unmeasured by Ghost, including four revised
-old inputs. kirimasim 0.1.3 (commit c3a9d9eb) was measured on all 2778 inputs
+old inputs. kirimasim 0.1.3 (commit 21ee5a43) was measured on all 2778 inputs
 with the current runner on 2026-11-21. Each record fingerprints its inputs
 and conditions.
 The suite has 2778 fixtures in 22 directories: 2679 simulation and 99
@@ -37,7 +37,7 @@ A runtime match at seeds 1/73 still counts as one fixture, while a seed requeste
 | Verilator 5.052, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 20 `pass`; 3 `known` | Separate overlapping 23-case condition; matches at seeds 1/73, differences at seed 1 |
 | Verilator 5.052, listed ordinary fixtures with regex and command-line DPI | 26 `pass` | Separate overlapping 26-case condition from `coverage/regex_dpi_variants.txt`; matches at seeds 1/73 |
-| kirimasim 0.1.3 (commit c3a9d9eb), pinned UVM | 98 `pass`; 2604 `unsupported`; 76 `fail` | All 2778 current inputs, one run on 2026-11-21 with the current runner. Every `pass` is an illegal design rejected at its pattern; no simulation test runs |
+| kirimasim 0.1.3 (commit 21ee5a43), pinned UVM | 98 `pass`; 2604 `unsupported`; 76 `fail` | All 2778 current inputs, one run on 2026-11-21 with the current runner. Every `pass` is an illegal design rejected at its pattern; no simulation test runs |
 | Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1697 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 

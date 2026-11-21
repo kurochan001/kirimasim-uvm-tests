@@ -90,6 +90,16 @@ class CodeIdentity(unittest.TestCase):
         self.assertEqual(sorted(code_identity.check(self.base)),
                          ["tests/u05/helpers/h.svh", "tests/u05/test_a.sv"])
 
+    def test_a_space_inside_a_time_literal_or_an_operator_changes_the_tokens(self):
+        for joined, apart in (("#1ns x;", "#1 ns x;"), ("##1step", "##1 step"), ("#2.5ps", "#2.5 ps"),
+                              ("x dist {1 := 2}", "x dist {1 : = 2}"), ("m u(.*);", "m u(. *);"),
+                              ("a |=> b", "a | => b"), ("(a => b) = 1", "(a = > b) = 1"),
+                              ("{1 :/ 2}", "{1 : / 2}"), ("(* full_case *)", "( * full_case * )")):
+            self.assertNotEqual(code_identity.tokens(joined), code_identity.tokens(apart), joined)
+        for same, other in (("#1ns  x;", "#1ns x;"), ("a = b+1;", "a = b + 1;"),
+                            ("int ns = 3;", "int ns  =  3;")):
+            self.assertEqual(code_identity.tokens(same), code_identity.tokens(other), same)
+
     def test_a_changed_token_is_rejected(self):
         self.edit("tests/u05/helpers/h.svh", "n++;", "n+=1;")
         self.rejects("tokens differ")

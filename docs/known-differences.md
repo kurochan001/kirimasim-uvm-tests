@@ -1866,7 +1866,7 @@ cover the supplied library. Their mismatches do not distinguish a simulator
 problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
-kirimasim 0.1.3 (commit c3a9d9eb), measured on all 2778 inputs on 2026-11-21, reports the type `uvm_object_wrapper` as unsupported
+kirimasim 0.1.3 (commit 21ee5a43), measured on all 2778 inputs on 2026-11-21, reports the type `uvm_object_wrapper` as unsupported
 on 2543 cases, and its runner does not run the 61 cases that need a DPI back end. Seventy-six cases record `fail` earlier because they do not compile with the pinned library; they are the library entries of [the slang record](testing.md#slang-elaboration). Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers. The 98 `pass` cases are illegal designs that it rejects as expected.
 

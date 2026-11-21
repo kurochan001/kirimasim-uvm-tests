@@ -130,7 +130,7 @@ API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](doc
 
 各テストには`coverage/kirimasim_stages.json`に記録した[kirimasimの立ち上げ段階](docs/kirimasim-stages.ja.md)もあり、段階0が1件、段階1（最小のrun_test）が1034件、段階2（factory）が100件、段階3（config_db）が111件、段階4（sequence）が326件、段階5（TLM）が251件、段階6（register層）が955件です。kirimasim 0.1.3は、段階0のテストを含め、どの段階でも同じ`uvm_object_wrapper`のunsupportedで止まります。まだ、実行できるsimulationテストはありません。
 
-Checkは、kirimasimが無改造で使うfront endであるslangでも全テストをelaborateします。合法なテストはerrorなし、不正designはpatternに一致する拒否が必要で、例外は[`coverage/slang_frontend.json`](coverage/slang_frontend.json)の91件です（[slangでのelaboration](docs/testing.ja.md#slangでのelaboration)）。[APIの集計](docs/requirements.ja.md#apiの集計)は、固定版libraryが条項を注記した宣言のうち、どのテストも使っていないものを挙げます。未使用が1個、名前だけのものが29個です。
+Checkは、kirimasimが無改造で使うfront endであるslangでも全テストをelaborateします。合法なテストはerrorなし、不正designはpatternに一致する拒否が必要で、例外は[`coverage/slang_frontend.json`](coverage/slang_frontend.json)の91件です（[slangでのelaboration](docs/testing.ja.md#slangでのelaboration)）。[APIの集計](docs/requirements.ja.md#apiの集計)は、固定版libraryが条項を注記した宣言のうち、どのテストも使っていないものを挙げます。未使用が2個、名前だけのものが29個です。
 
 各テストの先頭には、何を確かめるかと、期待出力を引用した条項からどう導いたかを書いたコメントがあります。helperは1行1文で、例外は`` `__LINE__ ``を使うため行の配置を保った`tests/uB/helpers81/report_macros81.svh`だけです。こうした編集がcodeを保つことの示し方は[読みやすさの編集](docs/testing.ja.md#読みやすさの編集)で説明しています。
 

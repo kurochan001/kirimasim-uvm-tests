@@ -68,10 +68,12 @@ TOKEN = re.compile(r'''
   | \\\S+                                    # escaped identifier
   | `[A-Za-z_][A-Za-z0-9_$]*                 # directive or macro use
   | [A-Za-z_$][A-Za-z0-9_$]*                 # identifier or keyword
+  | \d[\d_]*(?:\.\d[\d_]*)?(?:step|[munpf]?s)\b  # time literal: 1ns is not 1 ns
   | \d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d+)?  # decimal or real number
   | '[sS]?[bBoOdDhH]?[0-9a-fA-FxXzZ?_]+     # based or unbased literal
   | &&&|<<<=|>>>=|<<=|>>=|===|!==|==\?|!=\?|<->|->>|\|->|\|=>|<<<|>>>
   | \+\+|--|&&|\|\||==|!=|<=|>=|<<|>>|\*\*|[-+*/%&|^]=|->|\+:|-:|::|\#\#|~[&|^]|\^~|'\{
+  | \#-\#|\#=\#|:=|:/|\.\*|=>|\*>|\(\*|\*\)|@@
   | \S                                       # any other character
 ''', re.X | re.S | re.A)
 DIRECTIVE = re.compile(r"`(define|undef|undefineall|ifdef|ifndef|elsif|else|endif|include|"

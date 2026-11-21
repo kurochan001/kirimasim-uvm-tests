@@ -59,6 +59,7 @@ import suite_results
 import uvm_common
 
 UNSUPPORTED = re.compile(r"error: unsupported: (.*)")
+ANY_ERROR = re.compile(r"\berror: ")
 TIMESCALE = "1ns/1ps"
 NO_DPI = "this runner passes no DPI back end"
 FRONTEND = suite_results.ROOT / "coverage" / "slang_frontend.json"
@@ -128,13 +129,19 @@ def run(test: Path, kirimasim: str, declarations: dict | None = None,
                 capture_output=True, text=True, errors="replace", cwd=tmp, timeout=300)
         except subprocess.TimeoutExpired:
             return "fail", "timed out"
-    unsupported = UNSUPPORTED.search(r.stderr)
-    if r.returncode == 2 and unsupported:
+    # Unsupported is what kirimasim says first and before the design runs: an
+    # earlier error of another kind, or output of the test, is judged below.
+    ran = bool(uvm_common.observed(r.stdout))
+    first = next((l for l in r.stderr.splitlines() if ANY_ERROR.search(l)), "")
+    unsupported = UNSUPPORTED.search(first)
+    if r.returncode == 2 and unsupported and not ran:
         return "unsupported", unsupported.group(1).strip()
     if "should_fail_because" in fields:
         # kirimasim rejects a design with exit code 2.
         if r.returncode not in (0, 2):
             return "fail", f"exit code {r.returncode}, expected 2"
+        if ran:
+            return "fail", "the design ran, but it is illegal"
         ok, why = suite_results.judge_illegal(test, r.returncode == 0, r.stderr)
         return ("pass" if ok else "fail"), why
     if r.returncode < 0:

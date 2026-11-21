@@ -95,7 +95,7 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-slangの2つのcommandには、[slangでのelaborationの検査](testing.ja.md#slangでのelaboration)の固定版`pyslang`が要ります。この記録は、tool単体テスト210件、全2778件（simulation 2679件・elaboration 99件）のmetadata、台帳／索引、原因の記録、reportの宣言、段階、slangでのelaboration、APIの集計、library整合性、現在の入力とevidenceの照合を
+slangの2つのcommandには、[slangでのelaborationの検査](testing.ja.md#slangでのelaboration)の固定版`pyslang`が要ります。この記録は、tool単体テスト219件、全2778件（simulation 2679件・elaboration 99件）のmetadata、台帳／索引、原因の記録、reportの宣言、段階、slangでのelaboration、APIの集計、library整合性、現在の入力とevidenceの照合を
 通過しています。資料だけの変更では、全シミュレーションを再buildせず、[ドキュメントの更新手順](testing.ja.md#ドキュメントの更新)に従って日英の対応とリンクを確認します。
 全件evidenceはVerilatorだけで、他2系統は未変更1081件の記録、1697入力は未測定です。実行のsmoke確認は次のとおりです。
 

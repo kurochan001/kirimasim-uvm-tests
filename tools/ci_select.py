@@ -47,7 +47,7 @@ ROOT = suite_results.ROOT
 CANARY = ("tests/u09/test_common_phases_run_in_order.sv",)
 # Every result depends on these, so only the full selection checks a change.
 GLOBAL = ("tools/run_verilator.py", "tools/suite_results.py", "tools/uvm_common.py",
-          "tools/fetch_uvm.py", "third_party/uvm.lock",
+          "tools/fetch_uvm.py", "third_party/uvm.lock", "coverage/uvm_reports.json",
           ".github/actions/setup-verilator/action.yml")
 # The separate DPI conditions, which Check does not run: their runners and back
 # ends. A change of one of these, or of an input of a test with :uvm_dpi: yes,

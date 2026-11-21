@@ -103,6 +103,10 @@ def problems(test: Path, version: str) -> list[str]:
     else:
         if fields.get("type") == "simulation" and "expected_exit" not in fields:
             found.append("exit: no :expected_exit: (0 unless the test ends with an error code)")
+        code = fields.get("expected_exit")
+        if code is not None and code != "nonzero" and not (
+                re.fullmatch(r"0|[1-9][0-9]{0,2}", code) and int(code) <= 255):
+            found.append("exit: :expected_exit: is an exit code from 0 to 255 or nonzero")
         want = suite_results.expected_output(test)
         if want is None:
             found.append("expected: no :expected_stdout:")

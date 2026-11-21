@@ -129,6 +129,36 @@ class KirimasimConditions(RunnerTest):
                                 return_value=completed) as execute):
             return run_kirimasim.run(self.test, "kirimasim", {}), execute
 
+    def test_unsupported_is_the_first_error_of_a_design_that_did_not_run(self):
+        message = "t.sv:3:1: error: unsupported: covergroup\n"
+        verdict, _ = self.execute(result("", 2, message))
+        self.assertEqual(verdict, ("unsupported", "covergroup"))
+        other = "t.sv:2:1: error: use of undeclared identifier 'x'\n"
+        verdict, _ = self.execute(result("", 2, other + message))
+        self.assertEqual(verdict[0], "fail")
+        verdict, _ = self.execute(result("UT: wrong\n", 2, message))
+        self.assertEqual(verdict[0], "fail")
+        verdict, _ = self.execute(result("", 1, message))
+        self.assertEqual(verdict[0], "fail")
+
+    def test_an_illegal_design_must_be_rejected_before_it_runs(self):
+        self.write(":should_fail_because: illegal\n:expected_stderr_regex: t\\.sv:3")
+        rejected = "t.sv:3:1: error: cannot create an abstract class\n"
+        self.assertEqual(self.execute(result("", 2, rejected))[0], ("pass", ""))
+        self.assertEqual(self.execute(result("", 0, ""))[0][0], "fail")
+        self.assertEqual(self.execute(result("", 2, "t.sv:9:1: error: other\n"))[0][0], "fail")
+        self.assertEqual(self.execute(result("", 1, rejected))[0][0], "fail")
+        verdict, _ = self.execute(result("UT: ran\n", 2, rejected))
+        self.assertEqual(verdict, ("fail", "the design ran, but it is illegal"))
+
+    def test_a_crash_and_a_timeout_fail(self):
+        self.assertEqual(self.execute(result("UT: done\n", -11))[0],
+                         ("fail", "crashed (signal 11)"))
+        with (mock.patch.object(run_kirimasim.uvm_common, "version_problem", return_value=""),
+              mock.patch.object(run_kirimasim.subprocess, "run",
+                                side_effect=subprocess.TimeoutExpired("kirimasim", 300))):
+            self.assertEqual(run_kirimasim.run(self.test, "kirimasim", {}), ("fail", "timed out"))
+
     def test_the_default_time_scale_is_passed(self):
         verdict, execute = self.execute(result())
         self.assertEqual(verdict, ("pass", ""))

@@ -4432,3 +4432,23 @@ slangの検査、APIの集計、kirimasimの測定は、Verilatorを使いませ
 変更せずに記録する指摘は次のとおりです。[severityのoverrideのテスト](../tests/u06/test_report_handler_direct_severity_overrides_prefer_the_id_specific_setting.sv)の件数は6.5.1.2.6によりますが、この条項は件数が何を返すつもりのものかを述べるだけで、既定のserverがいつ数えるかは述べていません。[名前によるinstance override](../tests/u08/test_factory_inst_override_by_name_replaces_the_named_type_at_matching_paths.sv)は、8.3.1.5が登録済みの名前について述べる所で、8.3.1.4.1の個別の文に従っています。4つの行は、テスト自身が設定した値か、compile時の定数を出力します（uBの2件、uC、u09のdrain time）。ほかのテストに指摘はありませんでした。
 
 localのVerilator 5.054では、変更したtag付きの5件はseed 1／73で一致し、uEのテストは引き続き違います。これは目安で、tagの根拠ではありません。このpushのCheckは、最後に成功したCheckからの差分に準備用actionが入るので、canaryだけを実行します。6件は、Measureを起動してVerilator 5.052で実行し、結果を次の節に記録します。
+
+## 144回目の拡充：レビュー、その3（tool）
+
+3つ目の読み手が、126回目以降に書いたtoolを見て、指摘を1つずつ実行して確かめました。Verilatorのrunnerと、その指紋をGhostと共有するfileには触れていません。
+
+| tool | 指摘 | 修正 |
+| --- | --- | --- |
+| `tools/slang_elaborate.py` | 存在しないtop moduleのように、slangが場所を付けずに出すerrorを数えていませんでした。elaborateされなかったdesignが「問題なし」になります。今のテストでは起きません | そのような行をerrorとして扱います |
+| `tools/api_census.py` | libraryのmacroの本体にある呼出しを、macroを展開したテストの呼出しとして数えていました。tool自身の説明と違います。`` `uvm_info ``を使うテストはすべて、reportのfunctionを呼んだことになっていました | codeが書かれている場所で決めます。テストがsequenceのmacroを通してしか使わない`uvm_sequence_base::create_item`は、未使用に移りました。未使用2個、名前だけ29個です |
+| `tools/api_census.py` | slangのprocessがcrashすると、そのテストは何も使わないものとして数えられ、commandは成功していました | errorで止まります。slangがsourceをparseできないテストは、これまでどおり、messageを出して名前だけで数えます |
+| `tools/api_census.py` | 同じ名前のclassとmacro（`uvm_component_registry`、`uvm_object_registry`）が、1つの件数を共有していました | 種別をkeyに入れました |
+| `tools/run_kirimasim.py` | 出力のどこかにunsupportedのmessageがあれば、ほかの確認より先にunsupportedとしていました。別の種類のerrorが先にあるdesignや、すでに実行されたdesignも、unsupportedになり得ました。実行されてexit code 2で終わった不正なdesignは、passになり得ました | unsupportedは、観測行を出していないdesignの最初のerrorで決めます。実行された不正なdesignはfailです |
+| `tools/lint_metadata.py` | `:expected_exit:`は、あることしか確かめていませんでした。数でない値は、後で実行全体を止めます | 値は0から255のexit codeか`nonzero`です |
+| `tools/ci_select.py` | 判定を変える`coverage/uvm_reports.json`を変えても、警告なしにcanaryだけを実行していました | Regressionを求めるfileに加えました |
+| `tools/code_identity.py` | `#1ns`と`#1 ns`、また`:=`、`.*`、`=>`などの演算子の間に空白を入れたものが、同じtokenの列になっていました | 時間のliteralとこれらの演算子をtokenにしました |
+| 単体テスト | kirimasimのrunner、slangの検査、集計のテストは、確かめるはずの分岐を消しても通りました | それらの分岐のテストを足しました。単体テストは219件です |
+
+kirimasim 0.1.3（commit 21ee5a43、2026-11-21にあったbuild）で、直したrunnerを使って全2778入力を測り直しました。pass 98件、unsupported 2604件、fail 76件で、前の測定から状態の変わったテストはありません。slangの検査は、変更の後も全2778件で問題なしです。
+
+変更せずに記録するものは次のとおりです。`tools/code_identity.py`は、`` `__LINE__ ``のないfileでreportのmacroの行がずれること、escapeしたbackslashで終わるmacro引数の中の空白の変化を見ません。slangに引数を渡す2つのtoolは引数を空白でつなぐので、空白を含むpathのcheckoutでは失敗します。52件のテストが`:lrm:`に同じ条項を繰り返し、195種類の説明が変種のfamilyの中で共有されています。`tools/full_output.py`に指摘はありませんでした。

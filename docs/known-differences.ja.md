@@ -1463,7 +1463,7 @@ Ghostの同梱UVMはseed 1・73とも206件一致・875件不一致で、不一�
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 
-2026-11-21に全2778入力を測ったkirimasim 0.1.3（commit c3a9d9eb）では、2543件が型`uvm_object_wrapper`のunsupportedで、DPIのbackendが要る61件はrunnerが実行しません。
+2026-11-21に全2778入力を測ったkirimasim 0.1.3（commit 21ee5a43）では、2543件が型`uvm_object_wrapper`のunsupportedで、DPIのbackendが要る61件はrunnerが実行しません。
 76件は、固定版libraryではcompileできないため、その前に`fail`になります。これらは[slangの記録](testing.ja.md#slangでのelaboration)のlibraryの記録と一致します。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。`pass`の98件は、期待どおりに拒否された不正designです。
 

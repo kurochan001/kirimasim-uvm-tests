@@ -1,7 +1,9 @@
 """Checks of tools/api_census.py that need no slang: reading the library's
 marks and building the two lists."""
 
+from pathlib import Path
 import unittest
+from unittest import mock
 
 import api_census
 
@@ -72,6 +74,45 @@ class Census(unittest.TestCase):
             row("class", "unseen_class", 0, 0)])
         self.assertEqual([i["name"] for i in unused], ["never", "uvm_unused"])
         self.assertEqual([i["name"] for i in name_only], ["through_a_port"])
+
+    def test_a_class_and_a_macro_of_one_name_are_counted_apart(self):
+        def mark(kind, name, scope=None):
+            return {"kind": kind, "name": name, "scope": scope, "clause": "8.2", "file": "src/x.svh"}
+        marks = [mark("class", "uvm_registry"), mark("macro", "uvm_registry"),
+                 mark("function", "create", "uvm_registry"),
+                 mark("function", "create", "uvm_registry"), mark("task", "never")]
+        results = {"u05/a": (["uvm_registry::create", "uvm_registry::create"],
+                             "uvm_registry r; `uvm_registry(x)"),
+                   "u05/b": (["other::create"], "uvm_registry r; create();")}
+        with (mock.patch.object(api_census, "declarations", return_value=marks),
+              mock.patch.object(api_census.slang_elaborate, "load", return_value={"options": []}),
+              mock.patch.object(api_census.suite_results, "find_tests", return_value=list(results)),
+              mock.patch.object(api_census.suite_results, "test_id", side_effect=lambda t: t),
+              mock.patch.object(api_census, "one_test",
+                                side_effect=lambda n, o, r: (n, *results[n]))):
+            rows = {(r["kind"], api_census.key(r)): r for r in api_census.census(1, Path("."))}
+        self.assertEqual(len(rows), 4)
+        self.assertEqual(rows["class", "uvm_registry"]["tests_using"], 2)
+        self.assertEqual(rows["macro", "uvm_registry"]["tests_using"], 1)
+        self.assertEqual(rows["class", "uvm_registry"]["tests_naming"], 2)
+        self.assertEqual(rows["function", "uvm_registry::create"]["tests_using"], 1)
+        self.assertEqual(rows["function", "uvm_registry::create"]["tests_naming"], 1)
+        self.assertEqual(rows["task", "never"]["tests_using"], 0)
+
+    def test_a_slang_process_that_fails_gives_no_census(self):
+        def child(code, out):
+            return mock.Mock(returncode=code, stdout=out, stderr="boom")
+        with mock.patch.object(api_census, "own_code", return_value="code"):
+            for done in (child(-11, ""), child(1, "[]"), child(0, ""), child(0, "{}")):
+                with mock.patch.object(api_census.subprocess, "run", return_value=done):
+                    with self.assertRaises(api_census.CensusError):
+                        api_census.one_test("u05/x", [], Path("."))
+            with mock.patch.object(api_census.subprocess, "run",
+                                   return_value=child(0, 'note\n["a::b"]\n')):
+                self.assertEqual(api_census.one_test("u05/x", [], Path(".")),
+                                 ("u05/x", ["a::b"], "code"))
+            with mock.patch.object(api_census.subprocess, "run", return_value=child(0, "null\n")):
+                self.assertEqual(api_census.one_test("u05/x", [], Path(".")), ("u05/x", [], "code"))
 
 
 if __name__ == "__main__":

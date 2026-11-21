@@ -109,6 +109,21 @@ class Frontend(unittest.TestCase):
         self.assertIn("the first error is now: other",
                       self.judge("u05/test_strict", ERROR.format(name="test_strict", text="other")))
 
+    def test_an_error_without_a_place_is_an_error(self):
+        output = "error: 'test_typo' is not a valid top-level module\n"
+        self.assertEqual(slang_elaborate.errors(output),
+                         ["'test_typo' is not a valid top-level module"])
+        self.assertIn("slang reports an error: 'test_typo'", self.judge("u05/test_clean", output))
+        self.assertEqual(slang_elaborate.errors("tests/a.sv:1:2: warning: error: in a name\n"), [])
+
+    def test_a_run_that_slang_did_not_finish_is_not_a_result(self):
+        for code, text in ((1, "Traceback"), (-11, ""), (2, "no diagnostics")):
+            done = mock.Mock(returncode=code, stdout=text, stderr="")
+            with (mock.patch.object(slang_elaborate.subprocess, "run", return_value=done),
+                  mock.patch.object(slang_elaborate, "command", return_value=[])):
+                with self.assertRaises(slang_elaborate.FrontendError):
+                    slang_elaborate.elaborate(self.root / "tests/u05/test_clean.sv", [])
+
     def test_a_single_unit_test_must_be_clean_in_one_unit(self):
         first = ERROR.format(name="test_unit", text="unknown macro")
         self.assertEqual(self.judge("u05/test_unit", first, ""), "")

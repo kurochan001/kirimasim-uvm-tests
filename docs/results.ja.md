@@ -6,7 +6,7 @@
 
 runtime一致、compiler拒否、未測定入力は実行条件が異なるため、件数を併せて読む方法は[結果を読む](reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-20の診断は2値のsimulationテスト2657件を`--timescale 1ns/1ps`で確認し、当時tag付きだったruntime 2199件の状態変化と未宣言reportは0件でした。tag付きcompile拒否94件も一致しました。それ以後に足した15件のうちtag付きの14件と、headerを変えた1件は、公開したcommitでCheckがVerilator 5.052のseed 1／73で実行し、すべて一致しました。残る1件は既知差分で、localのVerilator 5.054でしか見ていないため、5.052での記録は確かめていません。4値の7件にはVerilatorの記録がありません。Ghostの1081記録は有効なままです。kirimasim 0.1.3（commit c3a9d9eb）は、2026-11-21に、現在のrunnerで全2778入力を測りました。
+2026-11-20の診断は2値のsimulationテスト2657件を`--timescale 1ns/1ps`で確認し、当時tag付きだったruntime 2199件の状態変化と未宣言reportは0件でした。tag付きcompile拒否94件も一致しました。それ以後に足した15件のうちtag付きの14件と、headerを変えた1件は、公開したcommitでCheckがVerilator 5.052のseed 1／73で実行し、すべて一致しました。残る1件は既知差分で、localのVerilator 5.054でしか見ていないため、5.052での記録は確かめていません。4値の7件にはVerilatorの記録がありません。Ghostの1081記録は有効なままです。kirimasim 0.1.3（commit 21ee5a43）は、2026-11-21に、現在のrunnerで全2778入力を測りました。
 Ghostでは1697入力が未測定です。各記録は入力と実行条件を指紋で識別します。
 スイートは22 directoryの2778件で、simulation 2679件とelaboration 99件です。
 milestoneはM1 1200件（1119／81）、M2 634件（627／7）、M3 944件（933／11）で、括弧内はruntime／elaborationです。
@@ -22,7 +22,7 @@ seed 1／73で一致しても検査系は1件と数え、設定で指定したse
 | Verilator 5.052・独自VPI HDL backend | `pass` 37件、`fail` 1件 | 重複する38件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・独自command-line VPI bridge・固定regex DPI | `pass` 20件、`known` 3件 | 重複する23件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・regex DPIとcommand-line DPIで再実行する通常検査系 | `pass` 26件 | `coverage/regex_dpi_variants.txt`による重複する26件の別条件。一致はseed 1／73 |
-| kirimasim 0.1.3（commit c3a9d9eb）・固定版UVM | `pass`が98件、`unsupported`が2604件、`fail`が76件 | 現在の全2778入力を、2026-11-21に現在のrunnerで1回実行。`pass`はすべて、patternどおりに拒否された不正design。実行できるsimulationテストはない |
+| kirimasim 0.1.3（commit 21ee5a43）・固定版UVM | `pass`が98件、`unsupported`が2604件、`fail`が76件 | 現在の全2778入力を、2026-11-21に現在のrunnerで1回実行。`pass`はすべて、patternどおりに拒否された不正design。実行できるsimulationテストはない |
 | Ghost・同梱UVM | `pass`が206件、`fail`が875件 | 各seedで未変更1081入力。失敗集合は同じ。1697入力は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
@@ -221,7 +221,7 @@ JSON出力は選択した実行のローカル記録であり、公開されるC
 shardは選んだテストを重複なく分担する単位で、最後のgateは全shardの成功を要求し、検査範囲との関係は[Q268](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)で説明しています。
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-tools jobは、固定ライブラリの整合性、ツールの単体テスト210件、metadata 2778件、要求台帳の案／テスト索引、既知差分の原因の記録、[reportの宣言](testing.ja.md#時間単位とreportの宣言)、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。slang jobは、[全テストをslangでelaborate](testing.ja.md#slangでのelaboration)し、[APIの集計](requirements.ja.md#apiの集計)をテストと照合します。所要は8分ほどです。
+tools jobは、固定ライブラリの整合性、ツールの単体テスト219件、metadata 2778件、要求台帳の案／テスト索引、既知差分の原因の記録、[reportの宣言](testing.ja.md#時間単位とreportの宣言)、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。slang jobは、[全テストをslangでelaborate](testing.ja.md#slangでのelaboration)し、[APIの集計](requirements.ja.md#apiの集計)をテストと照合します。所要は8分ほどです。
 Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
 pushのときの基点は、`main`で最後に成功したCheckのheadです。新しいpushで取り消されたrunや失敗したrunの検査が、次に選び直されるようにするためです。そのようなrunがなければ、直前のpushを基点にします。基点が得られない場合、runner・正規化・library lock・fetcher・準備用actionが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。別のDPI条件でしか動かないfileが変わったときは、Checkが実行しないfileとして、別の警告で名前を挙げます。準備用actionは、復元またはbuildしたVerilatorが5.052と報告しなければ止まります。Verilator jobは、原因の記録にある再現例12個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
 

@@ -53,7 +53,8 @@ class ChangedInputs(unittest.TestCase):
 
     def test_global_change_and_unknown_base_fall_back_to_the_canary(self):
         for changed in ({"tools/suite_results.py"}, {"third_party/uvm.lock"},
-                        {".github/actions/setup-verilator/action.yml"}, None):
+                        {".github/actions/setup-verilator/action.yml"},
+                        {"coverage/uvm_reports.json"}, None):
             selected, reason = ci_select.plan(self.tests, changed)
             self.assertEqual(selected, self.canary)
             self.assertTrue(reason)

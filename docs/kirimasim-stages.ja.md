@@ -66,7 +66,7 @@ kirimasimの測定には、このrepositoryに含まれない実行fileが必要
 
 ## kirimasimの現在の記録の段階別の内訳
 
-kirimasim 0.1.3（commit c3a9d9eb、release build）で、2026-11-21に、現在のrunnerで全2778入力を1回実行し、`tools/kirimasim_stages.py summary --results`で段階ごとに数えたものです。runnerは`--timescale=1ns/1ps`を渡し、macroを`-D`で渡し、書かれた終了codeを求め、reportの宣言を検査し、`:uvm_dpi: yes`の61件を実行せずにunsupportedと報告します。記録はGit対象外の`out/thin-one-hundred-thirty-ninth/kirimasim-all.json`にあります：
+kirimasim 0.1.3（commit 21ee5a43、release build）で、2026-11-21に、現在のrunnerで全2778入力を1回実行し、`tools/kirimasim_stages.py summary --results`で段階ごとに数えたものです。runnerは`--timescale=1ns/1ps`を渡し、macroを`-D`で渡し、書かれた終了codeを求め、reportの宣言を検査し、`:uvm_dpi: yes`の61件を実行せずにunsupportedと報告します。記録はGit対象外の`out/thin-one-hundred-thirty-ninth/kirimasim-all.json`にあります：
 
 | 段階 | テスト | `pass` | `unsupported` | `fail` |
 | --- | --- | --- | --- | --- |

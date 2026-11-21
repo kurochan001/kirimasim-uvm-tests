@@ -63,7 +63,10 @@ SIMULATOR = "verilator@5.052"
 LANGUAGES = {"en", "ja"}
 REASONS = ("library", "warning-as-error", "suspected-limit", "single-unit", "accepted-illegal")
 LIBRARY_CAUSES = ("library", "interpretation")
-ERROR = re.compile(r"^(.*?):(\d+):(\d+): error: (.*)$", re.MULTILINE)
+# An error with its place, or one that slang prints without a place (for
+# example a top-level module that does not exist), which also keeps the design
+# from being elaborated.
+ERROR = re.compile(r"^(?:(.*?):(\d+):(\d+): )?error: (.*)$", re.MULTILINE)
 CLAUSE = re.compile(r"[0-9A-Z]+(\.[0-9]+)*")
 # The child process: elaborate one command line and print the diagnostics.
 ONE = """

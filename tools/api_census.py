@@ -17,12 +17,16 @@ else, such as a variable, is counted as other and not followed further.
 
 A test uses a function or task when slang resolves a call in the test's own
 sources (the files under tests/) to that declaration or to a method that
-overrides it, or when a method declared in those sources overrides it. A
+overrides it, or when a method declared in those sources overrides it. A call
+in the body of a library macro that the test expands is not a call in the
+test's sources: the test uses the macro, which is counted by its name. A
 macro, class or typedef is used when its name occurs in the code of the
 test's own sources, with comments and string literals removed. The census
 needs pyslang in the version of coverage/slang_frontend.json and elaborates
 each test as tools/slang_elaborate.py does; a test that slang cannot elaborate
-contributes only the calls that slang still resolves.
+contributes only the calls that slang still resolves, and a test whose sources
+slang cannot parse counts by names only, with a message. A slang process that
+ends in any other way gives no census: the command stops with an error.
 
 The record holds two lists. "unused" names the functions, tasks and macros
 that no test uses and whose name occurs in no test's code. "name_only" names
@@ -193,7 +197,7 @@ def resolved(test, options, root):
     line = " ".join(["slang", *slang_elaborate.command(test, options)])
     if not (driver.parseCommandLine(line) and driver.processOptions()
             and driver.parseAllSources()):
-        return set()
+        return None
     compilation = driver.createCompilation()
     compilation.getAllDiagnostics()
     manager = compilation.sourceManager
@@ -201,8 +205,10 @@ def resolved(test, options, root):
     used, own_files = set(), {}
 
     def own(location):
-        # slang gives a file name relative to the working directory.
-        name = str(manager.getFileName(manager.getFullyExpandedLoc(location)))
+        # Where the code is written, so that the body of a library macro is
+        # the library's and a macro argument is the test's. slang gives a file
+        # name relative to the working directory.
+        name = str(manager.getFileName(manager.getFullyOriginalLoc(location)))
         if name not in own_files:
             own_files[name] = bool(name) and Path(name).resolve().is_relative_to(tests_dir)
         return own_files[name]
@@ -247,45 +253,54 @@ def one_test(name, options, root):
                         name, *options], capture_output=True, text=True, errors="replace",
                        timeout=900)
     try:
+        require(r.returncode == 0, "ended with an error")
         calls = json.loads(r.stdout.strip().splitlines()[-1])
-    except (ValueError, IndexError):   # a test that slang cannot handle counts by name only
+        require(calls is None or isinstance(calls, list), "printed no list")
+    except (CensusError, ValueError, IndexError):
+        raise CensusError(f"{name}: slang gave no result (exit code {r.returncode}): "
+                          f"{r.stderr.strip()[-200:]}") from None
+    if calls is None:   # counts by names only
+        print(f"api_census: {name}: slang cannot parse the sources", file=sys.stderr)
         calls = []
-        print(f"api_census: {name}: no result from slang: {r.stderr.strip()[-200:]}",
-              file=sys.stderr)
     return name, calls, own_code(test, root)
 
 
 def census(jobs, root=None):
     """For each declaration, the tests that use it and those that name it."""
     root = root or ROOT
-    found = [d for d in declarations(root) if d["kind"] in KINDS]
+    found, seen = [], set()
+    for d in declarations(root):   # a name declared twice, as under `ifdef, is one row
+        if d["kind"] in KINDS and (d["kind"], key(d)) not in seen:
+            seen.add((d["kind"], key(d)))
+            found.append(d)
     options = slang_elaborate.load(root)["options"]
     names = sorted(suite_results.test_id(t) for t in suite_results.find_tests(root))
-    routines = {key(d) for d in found if d["kind"] in ("function", "task")}
+    routines = {}
+    for d in found:
+        if d["kind"] in ("function", "task"):
+            routines.setdefault(key(d), []).append(d["kind"])
     words = {d["name"] for d in found}
     pattern = re.compile(r"`?\b(?:" + "|".join(sorted(map(re.escape, words))) + r")\b")
-    used = {key(d): 0 for d in found}
+    # A class and a macro can share a name, so the kind is part of the key.
+    used = {(d["kind"], key(d)): 0 for d in found}
     named = {d["name"]: 0 for d in found}
     with concurrent.futures.ThreadPoolExecutor(max_workers=jobs) as pool:
         for _, calls, code in pool.map(lambda n: one_test(n, options, root), names):
-            for call in calls:
-                if call in routines:
-                    used[call] += 1
-            for word in set(pattern.findall(code)):
+            for call in set(calls):
+                for kind in routines.get(call, ()):
+                    used[kind, call] += 1
+            words_found = set(pattern.findall(code))
+            for bare in {word.lstrip("`") for word in words_found}:
+                named[bare] += 1
+            for word in words_found:
                 macro = word.startswith("`")
                 bare = word.lstrip("`")
-                named[bare] = named.get(bare, 0) + 1
                 for d in found:
                     if d["name"] == bare and d["kind"] not in ("function", "task") \
                             and (d["kind"] == "macro") == macro:
-                        used[key(d)] += 1
-    rows, seen = [], set()
-    for d in found:
-        if (d["kind"], key(d)) in seen:
-            continue
-        seen.add((d["kind"], key(d)))
-        rows.append({**d, "tests_using": used[key(d)], "tests_naming": named[d["name"]]})
-    return rows
+                        used[d["kind"], key(d)] += 1
+    return [{**d, "tests_using": used[d["kind"], key(d)], "tests_naming": named[d["name"]]}
+            for d in found]
 
 
 def lists(rows):
@@ -331,7 +346,8 @@ def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     if argv[:1] == ["resolve"]:   # the child process of one_test
         root = Path(argv[1])
-        print(json.dumps(sorted(resolved(root / "tests" / (argv[2] + ".sv"), argv[3:], root))))
+        calls = resolved(root / "tests" / (argv[2] + ".sv"), argv[3:], root)
+        print(json.dumps(None if calls is None else sorted(calls)))
         return 0
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)

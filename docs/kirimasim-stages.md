@@ -66,7 +66,7 @@ Measuring kirimasim needs its executable, which is not part of this repository; 
 
 ## Current kirimasim records by stage
 
-kirimasim 0.1.3 (commit c3a9d9eb, release build) ran all 2778 inputs once on 2026-11-21 with the current runner, and `tools/kirimasim_stages.py summary --results` counted the records by stage. The runner passes `--timescale=1ns/1ps`, passes macros with `-D`, requires the stated exit code, checks the report declarations and reports the 61 tests with `:uvm_dpi: yes` as unsupported without running them. The record is in the ignored `out/thin-one-hundred-thirty-ninth/kirimasim-all.json`:
+kirimasim 0.1.3 (commit 21ee5a43, release build) ran all 2778 inputs once on 2026-11-21 with the current runner, and `tools/kirimasim_stages.py summary --results` counted the records by stage. The runner passes `--timescale=1ns/1ps`, passes macros with `-D`, requires the stated exit code, checks the report declarations and reports the 61 tests with `:uvm_dpi: yes` as unsupported without running them. The record is in the ignored `out/thin-one-hundred-thirty-ninth/kirimasim-all.json`:
 
 | Stage | Tests | `pass` | `unsupported` | `fail` |
 | --- | --- | --- | --- | --- |

@@ -114,6 +114,12 @@ class Metadata(Sample):
         self.assertTrue(any(p.startswith("exit:") for p in found), found)
         self.assertEqual(self.check(self.make(name="test_nonzero",
                                               extra=":expected_exit: nonzero\n")), [])
+        for n, bad in enumerate(("", "abc", "0x1", "Nonzero", "0 1", "-1", "256", "01")):
+            found = self.check(self.make(name=f"test_bad_exit{n}",
+                                         extra=f":expected_exit: {bad}\n"))
+            self.assertTrue(any("from 0 to 255" in p for p in found), (bad, found))
+        self.assertEqual(self.check(self.make(name="test_code",
+                                              extra=":expected_exit: 255\n")), [])
 
     def test_comment_rules(self):
         found = self.check(self.make(body="// " + "x" * 80 + "\n// Verilator does this"))
