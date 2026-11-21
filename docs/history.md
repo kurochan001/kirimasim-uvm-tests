@@ -7177,3 +7177,43 @@ The three corrections were pushed as b3df3d5, 100ed6e and 374a07f. Check of 374a
 | [Regression 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874) on e37fb89 | 5.052 | All 24 jobs succeeded on 2026-11-21. Every check tagged at that commit matched with the runner that passes the time scale, so the question that the 141st section left open, whether the tagged set matches under 5.052 with that runner, is answered for that commit |
 
 The earlier Check of b3df3d5 was cancelled by the next push while its Verilator job was queued; with the new base rule the next successful Check compares with 06bfff4 and loses nothing. The setup action printed `Verilator 5.052 2026-09-05 rev v5.052` and passed its new requirement. The unit tests number 219.
+
+## 146th expansion: the move to Verilator 5.054
+
+Through the 145th expansion the pinned release was Verilator 5.052 while this host ran 5.054 locally. The 146th expansion, as the user approved, moved the pinned release from 5.052 to 5.054. This host cannot build 5.052 natively, so hosted runs remain the only evidence for 5.052-era tags. Every one of the 2771 two-state inputs was remeasured on local 5.054 at seeds 1/73, and that measurement decided the retag. The hosted Regression over the tagged set follows below as a post-publication run. The seven four-state tests were not measured.
+
+### Tools and CI
+
+The three runner files (`tools/run_verilator.py`, `tools/suite_results.py`, `tools/uvm_common.py`) and the setup action moved to 5.054 in one commit. The runner keeps the pinned release in the `RELEASE` constant and stops unless `verilator --version` reports 5.054; an investigation measurement with another release passes only when `--any-release` is given. Because the runner, its normalization, the library lock, the fetcher and the setup action changed, the Check for this push runs the canary only and a warning asks for Regression. The unit tests number 221.
+
+### The retag
+
+The local 5.054 measurement (seeds 1/73) decided the tags. Of the 2307 tagged tests, 2304 matched and their tags moved to `verilator@5.054`. Eight tests moved from spec-only to tagged:
+
+- Phase-end kills of tasks including forked child processes: the two u09 fixtures (task phase and premature phase ending) and the two u13 fixtures (run phase and runtime phase). On 5.052 the child processes survived, which was a simulator-cause known difference
+- The two FIFO register queue-capacity constraint fixtures (inline and subtype-declared). On 5.052 the inline capacity-3 case returned size 0 and the subtype-declared capacity-4 case reported success
+- The one uB user-extension fixture that uses the name() method of an enum wider than 64 bits
+- The one uC fixture that delegates resource-pool regex/scope lookups through a base handle. The pinned library declares `lookup_regex` and `lookup_scope` non-virtual (C.2.4.4.7/C.2.4.4.8 declare them virtual). 5.052 called the base method; 5.054 calls the derived `virtual` re-declaration. Read literally, IEEE 1800-2023 8.20 ("a virtual method overrides all methods in its base class") gives the 5.054 behavior, and the text admits both readings. The library-declaration difference and this reading are recorded in [the known differences](known-differences.md); the test is tagged
+
+Three tests moved from tagged to spec-only:
+
+- The one u08 fixture that names a builtin parameterized class's type_id through a registry specialization reached via a typedef alias. 5.054 stops building with the internal error "Expected module parameterization" (V3Param.cpp:2855); the reproducer `typedef-through-specialization-alias` was added
+- The two u14 fixtures that observe the sequence-library randc field's cycles. The pinned `uvm_sequence_library::new` disables `valid_randc_selection` with `constraint_mode(0)`, removing the 14.4.4.8 index constraint; 5.054 honors the disabled constraint, so `select_randc` can pick an index outside the list. Why 5.052 matched the expectation stays unconfirmed (this host has no 5.052)
+
+The `:uvm_cmdline_oracle:` tags followed the 5.054 command-line measurement: the same 20, with no additions or removals, and the three known command-line fixtures stay untagged. All 26 lines of the regex-DPI list `coverage/regex_dpi_variants.txt` received `verilator@5.054`. Tagged tests are now 2312 (2218 runtime, 94 compile rejection) and spec-only cases 466, including the seven four-state inputs.
+
+### Re-assigning the cause record
+
+[The cause record](../coverage/known_causes.json) now holds 459 known entries (460 counting the one four-state `static` entry): 320 library, 61 interpretation, 21 simulator, 57 condition and 0 unassigned. The eight now-matching entries were removed and the three above added. The u09 phase `get_schedule` entry changed kind from runtime to build because 5.054 rejects building the call that passes a class handle to a printed string argument. The reproducers fell from twelve to nine. The four removed reproducers (kill() of a process with forked children, the wide enum name() method, and the two queue-size constraint examples) lost their entries; the two standalone queue-size programs still observe the difference on 5.054. The uE reset-sequence entry keeps the historical sentence about Measure confirming it on 5.052 and gained a sentence re-confirming the same difference on 5.054. Remaining notes and explanations that say "Verilator 5.052" were updated to 5.054 as content re-observed in this measurement. `known_causes.py check` and `reproduce` (nine reproducers) pass on 5.054.
+
+### Other follow-ups
+
+- The comment of the u09 task-phase kill fixture cannot begin with `// Verilator ...`: the `code_identity.py` metacomment rule treats those lines as pinned comments and refuses changes. It was reworded, then remeasured on 5.054 at seeds 1/73 and matches
+- The three DPI-condition subsets were remeasured on 5.054. The HDL subset keeps 37 of 38 matching at both seeds, with the one E.7 inaccessible-register-path sequence differing at seed 1 as the 5.052 record says. The command-line subset keeps 20 matches at both seeds and the same three known differences. All 26 regex-DPI variants match at both seeds. All 57 condition causes were confirmed to match under their runners
+- The 44 Ghost records (22 directories at seeds 1/73) carried their fingerprints with `code_identity.py carry`, because the only edit was the simulator tags. Nothing failed to carry
+- `code_identity.py refresh --retag` moved 2315 test_index fingerprints and 20 cause-record fingerprints, and `check --retag` passed against both the `364315d` and `1d544e2` bases
+- The tool checks are all green: lint_metadata, requirements, the cause record, the bring-up stages, the report declarations, 221 unit tests, the slang elaboration check (pyslang 12.1.0, 91 entries), the API census, library consistency and the fetcher. The kirimasim targets are 2396 measurable inputs and 382 inputs the pinned library keeps from their expectation, and the review candidates number 403
+
+### Hosted runs
+
+Because the runner, its normalization, the library lock, the fetcher and the setup action changed, the Check for this publication runs the canary only. A manual Regression over the 2312 tagged checks (20 shards plus the separate 20 command-line and 26 regex-DPI jobs) runs on 5.054, and its results will be appended here. The first hosted 5.054 run is slow because no build cache exists yet.

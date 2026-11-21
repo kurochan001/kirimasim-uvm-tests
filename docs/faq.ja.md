@@ -49,7 +49,7 @@ UVMの不一致にはシミュレータ・ライブラリ・テストそれぞ�
 
 Verilatorのスモーク実行では、UVM取得に加えてシミュレータとC++ビルド環境のインストールが必要であり、準備から実行までの流れは[最初の実行の前に](reading-guide.ja.md#最初の実行の前に)で確認できます。
 
-Python 3.10以降と、UVMを実行できるシミュレータが必要です。固定版のoracleはVerilator 5.052です。
+Python 3.10以降と、UVMを実行できるシミュレータが必要です。固定版のoracleはVerilator 5.054です。
 モデルのビルドにはC++ツールチェーンとmakeも必要で、制約付きの乱数化を行うモデルは実行中にpath上のz3 solverを呼び出します。
 Ubuntuでの準備はCheckとRegressionが使う[準備用action](../.github/actions/setup-verilator/action.yml)にあります。
 
@@ -61,7 +61,7 @@ Ubuntuでの準備はCheckとRegressionが使う[準備用action](../.github/act
 
 スモーク実行が成功したかは保存したJSON内の当該ケースの`pass`判定で確認でき、その探し方は[結果JSONを開く](reading-guide.ja.md#結果jsonを開く)で説明しています。
 
-Verilator 5.052をPATHに置き、リポジトリのrootから実行します。
+Verilator 5.054をPATHに置き、リポジトリのrootから実行します。
 
 ```sh
 python3 tools/fetch_uvm.py
@@ -79,7 +79,7 @@ optionを置きます。パスを明示した場合は、そのテストだけ�
 
 `--all`で対象を広げてもDPIの実装は追加されず、別backendのrunnerが必要になる条件は[Q12](#q12-uvm_dpi-yesだけでdpiを使うビルドが完成しますか)で確認できます。
 
-パスを指定しないVerilator実行は、X・Zに依存せず`verilator@5.052`のタグがあるテストを選びます。
+パスを指定しないVerilator実行は、X・Zに依存せず`verilator@5.054`のタグがあるテストを選びます。
 すべての2値のテストを含めるには`--all`を付けます。
 
 ```sh
@@ -837,7 +837,7 @@ policyの受け渡しと予約の検査であり、統計的な割り当て、GR
 契約上の問題を避けるための運用方針であり、通常の動作確認が常に禁止されるという断定ではありません。
 条件は製品・契約・法域によって異なります。
 
-期待値はIEEE 1800.2-2020の条項と独立に書いたモデルから導きます。`verilator@5.052`は固定版での再現を記録し、
+期待値はIEEE 1800.2-2020の条項と独立に書いたモデルから導きます。`verilator@5.054`は固定版での再現を記録し、
 kirimasimと公開用に整えたゲストGhostの結果も、記録した条件での結果に限ります。
 Ghostは本プロジェクトの公開前のゲストであり、商用結果を仮名で投稿するための枠ではありません。
 このスイートは商用製品での実行可否や結果の一致を示しません。
@@ -2059,14 +2059,7 @@ transport、targetの所有規則、pack、DMIの許可は別の義務です。
 
 ### Q151. FIFOのinline制約とsubtype宣言制約をなぜ分けて記録しますか？
 
-両検査系とも、継承したFIFO容量の要求を保持します。Verilator 5.052と固定UVMのseed 1では、次の違いがあります。
-
-| 制約条件、容量3 | 要求する観測 | 測定した観測 |
-| --- | --- | --- |
-| Inline `fifo.size() == 3` | 成功、size 3 | 成功、size 0 |
-| Inline `fifo.size() == 4` | 拒否 | 拒否 |
-| Subtype宣言 `fifo.size() == 3` | 成功、size 3 | 成功、size 3 |
-| Subtype宣言 `fifo.size() == 4` | 拒否 | 成功を返す |
+両検査系とも、継承したFIFO容量の要求を保持します。5.052と固定UVMの測定では、inlineの容量3がsize 0を返し、subtype宣言の容量4が成功を返すという違いがありました。146回目の5.054の測定では両検査系とも要求どおりの観測に一致し、seed 1／73でtag付きです。ただし、この2つの制約だけを抜き出したstandaloneな再現programは5.054でも違う観測を保持したため、原因の記録から削りました。
 
 [inline検査系](../tests/u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue.sv)と、
 [subtype境界の検査系](../tests/u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes.sv)を参照してください。
@@ -2468,7 +2461,7 @@ initiatorはERRORを報告しながらentryを保持し、targetは残しませ�
 ### Q199. compile拒否を一致に数える理由は？
 
 選択した抽象生成35検査は、規格でvirtualと宣言したclassを意図的に直接生成します。必要な結果はfixtureとclassを識別するerrorでの拒否です。
-一致した拒否はruntime seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 140件とは別です。
+一致した拒否はruntime seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 141件とは別です。
 pure-method／const参照検査は追加のnegative条件であり、それぞれ宣言oracleに従って判定します。
 
 [メタデータの規則](testing.ja.md#メタデータ)では、期待する拒否と実行スクリプトが照合すべき診断を、テストに記録する方法を説明しています。
@@ -2480,7 +2473,7 @@ schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否し
 
 ### Q201. 全2778テストを2 seedで実行しましたか？
 
-いいえ。simulation 2679件とelaboration 99件があります。通常記録はruntime両seed一致2213件、期待compiler拒否94件、既知simulation差分459件、不正compile受理の既知差分5件で、4値の7件は2値のoracleでは実行しません。
+いいえ。simulation 2679件とelaboration 99件があります。通常記録はruntime両seed一致2218件、期待compiler拒否94件、既知simulation差分454件、不正compile受理の既知差分5件で、4値の7件は2値のoracleでは実行しません。
 不正design 99件は、compileを受理された場合もruntime seedを実行しません。
 
 `configuration`の`seeds`は要求した設定であり、全ケースが両方の実行に達した証拠ではないため、個別の結果と併せた読み方は[JSONのガイド](reading-guide.ja.md#結果jsonを開く)で確認できます。
@@ -2950,9 +2943,9 @@ shardはworkflowが選んだテストを分割した1区画で、CheckとRegress
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
 いいえ。現在のCheckは入力が変わったタグ付き検査とcanaryだけを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻るため、全選択の代わりにはなりません。
-Regressionは全タグ付き2307検査を重複しない20 shard（同時最大4）で、command-line 20検査とregex-DPI変種26件をそれぞれ別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
+Regressionは全タグ付き2312検査を重複しない20 shard（同時最大4）で、command-line 20検査とregex-DPI変種26件をそれぞれ別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
 runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
-分割の検証でhosted CI成功や適合性は立証しません。現在の結果は各workflowのページで確認してください。既知差分464件は通常の既定CI選択に含めません。
+分割の検証でhosted CI成功や適合性は立証しません。現在の結果は各workflowのページで確認してください。既知差分459件は通常の既定CI選択に含めません。
 
 ## recordingとscalar macroの条件
 
@@ -3218,7 +3211,7 @@ forceはreleaseまで通常の更新に優先し、release/readは解除後のHD
 
 選択した公開HDL信号に設定する明示的なcompiler統合の前提で、全targetへのIEEE UVM要求ではありません。
 独自backendは文書化された公開capability markerを確認して実handleへ標準VPI force／release flagを使い、markerへの直接書込みやpath／valueの模擬は行いません。
-[準備のガイド](testing.ja.md#verilatorのvpi-hdl部分集合)から公開interface文書と5.052固定の測定条件を確認できます。
+[準備のガイド](testing.ja.md#verilatorのvpi-hdl部分集合)から公開interface文書と5.054固定の測定条件を確認できます。
 存在しない／未instrument targetはこの限定backendで失敗を返しますが、広い規範的義務の除外にはしません。
 
 ### Q303. regとwireでrelease/readの値が異なる理由は？

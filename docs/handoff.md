@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-Current transfer: the user resumed the goal on 2026-11-07, and the 124th expansion, the seventh item of an external review, is published; the 125th expansion, the eighth and last item, is published in all 22 directories; the 126th expansion makes the first corrections from a second review, the 127th and 128th finish it, and the 129th to 137th implement a third review of 2026-11-20: the kirimasim runner, a slang elaboration check and an API census in Check, tests for the unused declarations, and five testbench-shaped tests. Read the [Claude Code handoff](claude-code-handoff.md) for the published checkpoint, next proposals and restart instructions.
+Current transfer: on 2026-11-21 the fixed release moved from Verilator 5.052 to 5.054 (the 146th expansion). Every two-state input was remeasured on local 5.054, the tags were re-applied, and the cause record was re-assigned. The 141st to 145th expansions record that the local Verilator was actually 5.054, a review of the whole repository and its corrections. Read the [Claude Code handoff](claude-code-handoff.md) and the [history](history.md) for earlier context.
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
@@ -10,8 +10,8 @@ This page supports resuming development; if you want to run or understand a firs
 
 The base commit below identifies the starting point for the described work, so check uncommitted changes before treating saved results as evidence for the current files; [the input-update procedure](requirements.md#updating-a-test-or-mapping) explains how to review their compatibility.
 
-Updated on 2026-11-21 for the 137th expansion, based on
-[d3ff8c6](https://github.com/kurochan001/kirimasim-uvm-tests/commit/d3ff8c66e11f6d7e6dac82fcd7006598e61c97af)
+Updated on 2026-11-21 for the 146th expansion (the move to Verilator 5.054), based on
+[1d544e2](https://github.com/kurochan001/kirimasim-uvm-tests/commit/1d544e2b65cb0c9d3cf9b80b23d5e813f379315f)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -68,7 +68,7 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
 
 - [Testing guide](testing.md): metadata, compilation, runner options and
   contribution rules. [Results](results.md): evidence interpretation and
-  assembly. [Known differences](known-differences.md): all 471 spec-only cases.
+  assembly. [Known differences](known-differences.md): all 466 spec-only cases.
 - [Requirement guide](requirements.md), [scope](../coverage/scope.json),
   [ledger](../coverage/requirements.json), [assessments](../coverage/assessments.json) and [test index](../coverage/test_index.json):
   canonical M4 state. Generated inventories are review aids, not replacements
@@ -93,7 +93,7 @@ A nonempty working-tree status may include unfinished input changes, so review [
 
 The validation commands below check tools and maintained inputs; [the checks guide](testing.md#checks) distinguishes those checks from running simulator models.
 
-Use Python 3.10 or later. Verilator measurements require exactly 5.052,
+Use Python 3.10 or later. Verilator measurements require exactly 5.054,
 a C++ toolchain, make and the z3 solver on the path. Run from the repository root:
 
 ```sh
@@ -142,15 +142,15 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 2213 runtime passes at seeds 1/73; 94 expected compile rejections; 464 known |
-| Verilator 5.052 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
-| Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 23-case condition: 20 pass both seeds; 3 known at seed 1 |
-| Verilator 5.052 / listed ordinary fixtures with regex and command-line DPI | Separate 26-case condition: 26 pass both seeds |
+| Verilator 5.054 / pinned UVM | 2218 runtime passes at seeds 1/73; 94 expected compile rejections; 459 known |
+| Verilator 5.054 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
+| Verilator 5.054 / command-line VPI and pinned regex DPI | Separate 23-case condition: 20 pass both seeds; 3 known at seed 1 |
+| Verilator 5.054 / listed ordinary fixtures with regex and command-line DPI | Separate 26-case condition: 26 pass both seeds |
 | kirimasim 0.1.3 / pinned UVM | All 2778 current inputs on 2026-11-21: 98 pass (illegal designs rejected), 2604 unsupported, 76 fail |
 | Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1697 inputs unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
-The ordinary condition retains 464 known cases: 319 runtime first differences,
+The ordinary condition retains 459 known cases: 313 runtime first differences,
 140 simulation builds and five illegal compiler acceptances. One legal printed-concrete callback-facade construction is rejected as abstract. Builds are 43 missing
 API/type names, one time-decrement argument default, two type-default declarations, three dependent visitor-default builds, two printed signature conflicts,
 two inherited type_id registry specializations, one protected-access build, two unlisted-pure-hook builds and 61 unlinked DPI cases. Two qualified virtual-abstraction overview-base builds and two printed dedicated-pool return-type builds also remain. Three additional legal builds retain the enum-collection T interpretation. Seven more builds retain strict attribute/enum-unpack arities. Separate HDL/command-line evidence is reported independently.
@@ -217,12 +217,12 @@ duty changes.
 
 The 121st expansion implements the first batch of the external review's sixth item, after the
 user approved the proposal and chose to record no library output values (A1). [The cause
-record](../coverage/known_causes.json) gives each of the 464 known inputs one entry with its kind,
+record](../coverage/known_causes.json) gives each of the 459 known inputs one entry with its kind,
 DPI condition, cause, evidence and explanation; `tools/known_causes.py` checks it against the tests
 and their input fingerprints, summarizes the kirimasim targets and lists the candidates for human
 review, and Check runs the check and rebuilds the three simulator reproducers. The 140 builds and
 five accepted illegal designs are classified: 66 library, 10 interpretation, 8 simulator and 57
-DPI-condition causes. The 319 runtime differences and four inputs that still differ under their DPI
+DPI-condition causes. The 313 runtime differences and four inputs that still differ under their DPI
 condition remain unassigned, to be diagnosed directory by directory; see
 [the causes](known-differences.md#causes-of-the-known-differences). No test, expectation, record or
 duty changes.
@@ -248,8 +248,8 @@ controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
 The suite has 2778 tests (2679 simulation/99 elaboration). Ordinary results
-are 2307 matches: 2213 runtime inputs at both seeds and 94 compiler rejections.
-Known inputs total 464: 319 runtime seed 1 differences, 140 simulation builds
+are 2312 matches: 2218 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 459: 313 runtime seed 1 differences, 141 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 471
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
@@ -264,15 +264,15 @@ approval remain open; [the progress guide](reading-guide.md#read-coverage-and-pr
 explains why matching conditions do not supply completion.
 
 Totals are 2778 (2679 simulation/99 elaboration): M1 1200 (1119/81), M2 634
-(627/7), M3 944 (933/11). Ordinary pass is 2307 (2213 runtime/94 rejections),
-with 464 known (319 runtime/140 builds/5 illegal acceptances). Guests retain
+(627/7), M3 944 (933/11). Ordinary pass is 2312 (2218 runtime/94 rejections),
+with 459 known (313 runtime/141 builds/5 illegal acceptances). Guests retain
 1081 compatible records; 1697 unmeasured inputs are 1693 additions and four revised originals.
 
 The former single Check never finished its whole selection after 2026-10-31:
 its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)
 not superseded by a newer push reached the 150-minute limit on all eight
 shards. Check now runs the changed tagged inputs and a canary, and
-[Regression](../.github/workflows/regression.yml) runs all 2307 tagged checks in
+[Regression](../.github/workflows/regression.yml) runs all 2312 tagged checks in
 20 disjoint shards with the 20 command-line checks and 26 regex-DPI variants; [the CI section](results.md#continuous-integration)
 gives the limits. Seeds 1/73, compiler-rejection judgment, pinned dependencies
 and runner fingerprints are unchanged. After a change that Check reports as
@@ -596,7 +596,7 @@ A passing control helps evaluate a different premise but cannot replace a direct
    Initialize procedural locals with explicit lifetime where required.
    Use concrete subclasses for virtual bases. Obtain enum names from a typed
    enum value. Keep each display format a string literal.
-3. Measure final inputs with Verilator 5.052 at seeds 1/73 and the authorized
+3. Measure final inputs with Verilator 5.054 at seeds 1/73 and the authorized
    guest configurations. Keep long jobs in managed sessions and persist
    completed batches. Do not edit inputs while they are being measured.
 4. Diagnose fixture errors separately from normative differences. Rerun

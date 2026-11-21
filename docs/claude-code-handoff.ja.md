@@ -4,7 +4,7 @@
 
 ## 最初に読むこと
 
-2026-11-21、145回目の拡充の後に更新しました。localでbuildせずに、名前を挙げたテストを、tagの有無にかかわらず固定版の5.052で実行するには、手動のworkflowである[Measure](../.github/workflows/measure.yml)を起動します。142〜145回目は、repository全体のレビューとその修正の記録です。**このhostのVerilatorは、2026-11-14以降、固定版の5.052ではなく5.054です。**129〜140回目のlocalの実行は5.054を使っており、tag付きのテストはCheckが5.052で確かめました。5.052のnativeなbuildは、ここでは失敗しました（[141回目](history.ja.md#141回目の拡充localのverilatorは5052ではなく5054だった)）。3つの外部レビューを実装済みです。1回目の8項目（116〜125回目）、2回目（126〜128回目）、3回目（129〜137回目）です。mainはd3ff8c6以降で、そのCheckは成功しています。残っているのは、ユーザーの判断や用意が要るものです。kirimasim-testsにない構文へのテストの追加、全出力の比較の方式、短いセットを測るための許可されたkirimasimの実行file、人による照合です。M1〜M4の薄い領域の補強は、3回目のレビューの間は止めており、ユーザーの指示があるまで再開しません。以下は、それ以前の経緯です。
+2026-11-21、146回目の拡充の後に更新しました。固定リリースは5.054で、2値の全件を5.054で測り直してtagを付け替え、既知差分の原因の記録を整理しました（[146回目](history.ja.md#146回目の拡充verilator-5054への移行)）。localでbuildせずに、名前を挙げたテストを、tagの有無にかかわらず固定版の5.054で実行するには、手動のworkflowである[Measure](../.github/workflows/measure.yml)を起動します。**このhostのVerilatorは、2026-11-14以降5.054で、146回目からは固定版と一致します。**142〜145回目は、repository全体のレビューとその修正の記録です。129〜140回目はlocalのVerilatorが固定版の5.052ではないことに気づかず、tag付きのテストはCheckが5.052で確かめていました（[141回目](history.ja.md#141回目の拡充localのverilatorは5052ではなく5054だった)）。3つの外部レビューを実装済みです。1回目の8項目（116〜125回目）、2回目（126〜128回目）、3回目（129〜137回目）です。mainは1d544e2以降で、そのCheckは成功しています。残っているのは、ユーザーの判断や用意が要るものです。kirimasim-testsにない構文へのテストの追加、全出力の比較の方式、短いセットを測るための許可されたkirimasimの実行file、人による照合です。M1〜M4の薄い領域の補強は、3回目のレビューの間は止めており、ユーザーの指示があるまで再開しません。以下は、それ以前の経緯です。
 
 2026-11-07に更新しました。Claude Codeのsessionが前回のハンドオフを引き継ぎ、ユーザーはM1〜M4の継続goalの再開、CIの先行修正、mainへの公開を承認しました。このsessionは[a897c68](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a897c6820b037b8fddecfbf7c72c7997bcd075f4)と[42d03ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/42d03abae20701f344697d13bdca83043c3710f1)でCIを分割し、[f94ba4a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f94ba4ab94a67d5e9eeb2fcaf7e19a57b4596cc4)で113回目の拡充を公開しました。その後、最初のRegressionでhostedのrunnerにz3制約solverがないことが分かり、準備用actionで導入して、[db06513](https://github.com/kurochan001/kirimasim-uvm-tests/commit/db06513ce8c467d7a2e87e972beae496ff73c828)で114回目の拡充を公開しました。その後、[eeda25d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/eeda25d9b378773a2841076706f8e8029d87c08d)で115回目の拡充を公開しました。2026-11-08にユーザーは外部レビューを示し、その最初の項目であるRTLとの結合を、[c314982](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c314982e5c42e5333790b7ba7bb00bbaef8da2f7)で116回目の拡充として公開し、2番目の項目である4値の経路を[46e8106](https://github.com/kurochan001/kirimasim-uvm-tests/commit/46e81064f9d1a89764027b7ec8b02b7cdc0ce624)で117回目の拡充として公開し、3番目の項目である乱数化の性質を[8e056d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e056d11f8c9671dfe0197cf888e74fdb8e79bb8)で118回目の拡充として公開し、4番目の項目であるDPIの構成を[4a9f9e4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4a9f9e4d026a8c58a48c16447f8e43071d9ab047)で119回目の拡充として公開し、5番目の項目であるユーザーpackageを[9c57290](https://github.com/kurochan001/kirimasim-uvm-tests/commit/9c572904a247a92a4445c0d9bfe7b1208eeb975a)で120回目の拡充として公開し、6番目の項目である既知差分の原因の最初のbatchを[a578650](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a5786504883a87b7928084098a7fada0a9f7efce)で121回目の拡充として、2番目のbatchを[e5bd032](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e5bd032245789f643e9a45a65bbebd19b0a5efc0)で122回目の拡充として、3番目で最後のbatchを[9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/960138734ce23d521c36a645315044e070487cfa)で123回目の拡充として公開し、7番目の項目であるkirimasimの立ち上げ段階を[235713d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/235713d30d9940a06c591850218db6caaaf67ca6)で124回目の拡充として公開しました。8番目の項目である読みやすさは125回目の拡充で、この文面を含むcommitの基盤の後に、directoryごとに公開します。**goalは継続中で、完了していません。**
 
@@ -18,8 +18,8 @@
 
 - テスト：22 directoryに2778件 = simulation 2679 + elaboration 99。M1：1200（1119/81）、M2：634（627/7）、M3：944（933/11）。うち7件はVerilatorの記録のない4値（`:fourstate: yes`）のspecのみ入力です。
 - AI要求：4182件すべてを2722テストへ直接対応。control専用は56テストです。人のレビューは主張しません。
-- 通常のpass入力：2307件 = seed 1/73でruntime一致2213 + 期待したcompiler rejection 94。
-- 既知差分：464件 = runtime差分319 + simulation build失敗140 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。specのみは4値の7入力を含めて471件です。[原因の記録](../coverage/known_causes.json)は既知差分を、すべて、library 319、interpretation 61、simulator 27、DPIの実行条件57に分類し、未分類はありません。
+- 通常のpass入力：2312件 = seed 1/73でruntime一致2218 + 期待したcompiler rejection 94。
+- 既知差分：459件 = runtime差分313 + simulation build失敗141 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。specのみは4値の7入力を含めて466件です。[原因の記録](../coverage/known_causes.json)は既知差分を、すべて、library 320、interpretation 61、simulator 21、DPIの実行条件57に分類し、未分類はありません。
 - 別の条件：command-line 23検査系（20件がseed 1／73で一致、3件は既知）、regex-DPI変種26件（すべて一致）。
 - guest証拠：kirimasim 0.1.3（commit 21ee5a43）は、2026-11-21に現在のrunnerで全2778入力を実行しました。pass 98件（拒否された不正design）、unsupported 2604件、fail 76件で、記録はGit対象外の`out/thin-one-hundred-thirty-ninth/kirimasim-all.json`です。Ghostは互換1081記録を保持し、未測定は1697入力（追加1693 + 改訂した元入力4）です。112〜139回目にGhostの測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
 - 候補の配置：primaryテスト0件が1160番号、1件が768番号、2件以上が554番号です。条項の網羅や独立した検査の成功を証明する件数ではありません。
@@ -148,13 +148,13 @@ out/thin-one-hundred-twenty-fourth-stage-summary.json
 
 各拡充の前にbacklogを再生成し、実際に残る義務を規格で確認して、独立したoracleを凍結し、最終入力を測定し、互換な証拠と両言語を更新してから公開します。実際の残る義務と元のmilestone目標の監査が終わるまでgoalを完了扱いにしません。Claude Codeは会話のnative goal状態を自動継承しません。
 
-Python 3.10以降を使います。native再現にはVerilator 5.052、C++ toolchain、make、path上のz3 solverが必要です。固定Accellera UVM 2020.3.1 libraryがなければ取得します。再開時の確認手順です。
+Python 3.10以降を使います。native再現にはVerilator 5.054、C++ toolchain、make、path上のz3 solverが必要です。固定Accellera UVM 2020.3.1 libraryがなければ取得します。再開時の確認手順です。
 
 ```sh
 git status --short --branch
 git log -1 --oneline
 z3 --version
-verilator --version   # 5.052であること。別の版でのlocalの実行は、verilator@5.052のtagの根拠にならない
+verilator --version   # 5.054であること。別の版でのlocalの実行は、--any-releaseでの調査でも、verilator@5.054のtagの根拠にはならない
 python3 tools/fetch_uvm.py
 python3 tools/fetch_uvm.py --check
 python3 tools/lint_metadata.py

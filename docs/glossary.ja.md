@@ -33,7 +33,7 @@ APIを呼ぶだけで、要求された結果を観測していなければ、�
 順序・空白・値を保持して比較します。終了コードや診断の条件は別に指定できます。
 
 **oracle／`:oracle:`／specのみ** — 期待値の根拠を記録する項目です。
-`spec`は引用した規格に基づくこと、`verilator@5.052`はその固定リリースでも再現できたことを示します。
+`spec`は引用した規格に基づくこと、`verilator@5.054`はその固定リリースでも再現できたことを示します。
 specのみは固定版のoracleタグがない状態です。後の実行で一致しても、タグは自動で変わりません。
 
 simulationの検査系に固定版タグを追加するには指定した両seedで期待値を再現する必要があり、その開発手順は[テストの追加・修正](testing.ja.md#テストの追加修正)で説明しています。
@@ -797,7 +797,7 @@ factory overrideは生成する動的型を変えても、baseのstatic proxyを
 UVM parserの実装や期待値の導出は行いません。
 
 **Condition-specific oracle marker（条件別oracle marker）** — 明示したrunner条件で再現済み検査系を選ぶmetadataです。
-command-lineは`:uvm_cmdline_oracle: verilator@5.052`を使い、通常runnerのpassを示すtagにはしません。
+command-lineは`:uvm_cmdline_oracle: verilator@5.054`を使い、通常runnerのpassを示すtagにはしません。
 
 **Locked quit-limit diagnostic（lockしたquit上限の診断）** — command-lineで変更不可にしたquit上限をuser codeが変えようとした際に必要な警告です。
 正しい拒否と診断severityは別の観測です。[Q172](faq.ja.md#q172-lockしたquit上限が正しいのになぜテストは差分になりますか)を参照してください。

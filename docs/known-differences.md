@@ -272,14 +272,19 @@ changing its expectation. All old known records remain unchanged.
 - [17](../tests/u18/test_pinned_fifo_build_control_repeated_update.sv).
 - [18](../tests/u18/test_pinned_fifo_build_control_matching_checked_mirror.sv).
 
-Annex-C probes retain six new known inputs. Three legal mixed-type/tie/default
+Annex-C probes retain five new known inputs. Three legal mixed-type/tie/default
 calls cannot find the printed typed resource-DB maximum helper. No runtime is
-executed. Three runtime inputs stop at seed 1: the qualified recent-set sort
-order, anchored regex alternation under no-DPI, and the printed virtual
-regex/scope base calls differ. These are conditions, not six proven independent
-defects. The probed equal-key list retains its original oldest-first order,
-and both original regex/scope overrides receive zero calls through the base
-view. Matching literal names, named/anonymous scope sets and distinct sorting
+executed. Two runtime inputs stop at seed 1: the qualified recent-set sort
+order and anchored regex alternation under no-DPI differ. These are conditions, not five proven independent
+defects. The probed equal-key list retains its original oldest-first order.
+The printed virtual regex/scope base calls matched in the 146th expansion's
+5.054 measurement and are tagged now. The pinned library declares
+`lookup_regex` and `lookup_scope` non-virtual (C.2.4.4.7/C.2.4.4.8 declare
+them virtual); 5.052 called the base method through the base handle, while
+5.054 calls the derived `virtual` re-declaration. Read literally, IEEE
+1800-2023 8.20 ("a virtual method overrides all methods in its base class")
+gives the 5.054 behavior, but the text admits both readings, so this stays a
+reading note rather than a proven defect. Matching literal names, named/anonymous scope sets and distinct sorting
 are separate fixtures; original overrides do not replace builtin algorithms.
 
 - [typed maximum, mixed types](../tests/uC/test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types.sv).
@@ -287,7 +292,6 @@ are separate fixtures; original overrides do not replace builtin algorithms.
 - [typed maximum, default object](../tests/uC/test_resource_db_default_type_selects_the_highest_object_container.sv).
 - [recent-set sort](../tests/uC/test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule.sv).
 - [regex alternation](../tests/uC/test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order.sv).
-- [virtual regex/scope dispatch](../tests/uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle.sv).
 
 Chapter-5 probes retain seventeen new known inputs. Four legal active-policy
 calls fail to build; omitted-secs decr requires an argument despite its printed
@@ -347,8 +351,9 @@ reaches the successor without a jump target but the original task keeps running.
 The other two are qualified textual conflicts. get_imp's non-IMP-null sentence
 contradicts its node-resolution sentence: the strict NODE-null probe differs,
 while shared-implementation resolution matches. get_schedule prints a string
-return yet describes a parent-node result. Its `$typename` observation is not
-string even though a string receiver accepts the call. Receiver conversion is
+return yet describes a parent-node result. On 5.052 a string receiver accepted
+the call, yet its `$typename` observation was not string; on 5.054 the call
+fails to build at all, leaving no runtime observation. Receiver conversion is
 not proof of the declared return type. Single-parent schedule-name controls
 match without resolving nested hierarchy interpretation. These are reviewable
 interpretation boundaries, not four independently proven library bugs.
@@ -623,27 +628,27 @@ Two plain unpack inputs match both seeds with final tags; two observed inputs re
 
 ## Causes of the known differences
 
-A cause explains why a known difference does not reach its expectation; it never changes the expectation, which follows the standard. [The cause record](../coverage/known_causes.json) gives each known difference of the ordinary Verilator 5.052 run one entry: its kind (runtime, build or accepted-illegal), the DPI condition it needs, if any, one cause, the evidence for it and an explanation in both languages. A four-state test has no Verilator record, so it has an entry, of the kind `static`, only when reading the pinned library source shows that the library keeps the test from its expectation on any simulator. Causes are diagnosed after the expectation is frozen. The pinned library source (Apache-2.0) may be read for that diagnosis; Verilator's source (LGPL) is not read, so a simulator cause is shown only by a reproducer without UVM. Every entry keeps review status `ai` until a person checks it.
+A cause explains why a known difference does not reach its expectation; it never changes the expectation, which follows the standard. [The cause record](../coverage/known_causes.json) gives each known difference of the ordinary Verilator 5.054 run one entry: its kind (runtime, build or accepted-illegal), the DPI condition it needs, if any, one cause, the evidence for it and an explanation in both languages. A four-state test has no Verilator record, so it has an entry, of the kind `static`, only when reading the pinned library source shows that the library keeps the test from its expectation on any simulator. Causes are diagnosed after the expectation is frozen. The pinned library source (Apache-2.0) may be read for that diagnosis; Verilator's source (LGPL) is not read, so a simulator cause is shown only by a reproducer without UVM. Every entry keeps review status `ai` until a person checks it.
 
 | Cause | Meaning | Evidence | Entries |
 | --- | --- | --- | --- |
-| library | The pinned library differs from the cited clauses | Cited clauses; library files and the text in them | 319 |
+| library | The pinned library differs from the cited clauses | Cited clauses; library files and the text in them | 320 |
 | interpretation | The cited text admits another reading, which the library follows | Cited clauses; the test's reading and the other one; the basis of the readings | 61 |
-| simulator | Verilator differs from IEEE 1800-2023 | A reproducer without UVM, for kirimasim-tests | 27 |
+| simulator | Verilator differs from IEEE 1800-2023 | A reproducer without UVM, for kirimasim-tests | 21 |
 | condition | The test needs a DPI condition that the ordinary run does not link, and it matches under that condition | The condition and its runner | 57 |
 | unassigned | Not diagnosed yet | None | 0 |
 
 The first batch classifies the 140 build differences and the five accepted illegal designs. Sixty-one builds need the HDL or command-line DPI condition, and 57 of them match there; the other 84 inputs have library, interpretation or simulator causes. The second batch classifies 54 runtime differences: all of those in u01, u06 to u11, u13, uD and uG, and three each in uC and uE. The third batch classifies the other 264 runtime differences, in u05, u12, u14 to u16, u18, u19, uB, uC, uE and uF, and the four DPI-condition inputs that still differ under their runner, which all have library causes; no entry is unassigned now. It adds 214 library, 41 interpretation and 13 simulator causes. Two ordinary fixtures read the command line and one matches a regular expression without selecting a DPI condition; in the UVM_NO_DPI configuration of the ordinary run, the pinned library returns no arguments and matches only globs, so they count as library causes that a DPI condition could measure. The build categories in [the result breakdown](results.md#interpretation) group symptoms, such as a missing API name, so their counts differ from these causes. Of the library causes, three are listed in the pinned library's DEVIATIONS.md: the two inputs of the default apply_config_settings mode (issue 3, 13.1.5.1) and the get_local_map input with a null map (issue 2, 18.4.3.6); its first issue, 18.2.3.4, concerns no known input.
 
-The twelve reproducers are a parameterized base class whose pure virtual method a concrete subclass omits (Verilator accepts it; four accepted illegal designs), a type parameter whose default depends on an earlier type parameter (Verilator rejects it; three traversal builds, whose explicit-visitor controls match), the name() method of an enum wider than 64 bits (Verilator does not support it; one build), kill() of a process whose forked children keep running (four phase-termination inputs), and two patterns of a class-member event: a trigger followed by a wait in the same process, which does not release the earlier waiter, and a trigger followed by an assignment to the event, which releases no waiter (one input each). The third batch adds six: same-name parameterized classes of two packages that $cast lets through (four TLM package inputs), an event assigned while a process waits on it, which releases that process (two inputs), a caller that resumes after $finish (three uvm_root inputs), an inline queue-size constraint that is ignored when the class also constrains the size and a subclass of a package class that accepts a size its base forbids (one FIFO register input each), and post_randomize called after a failed randomize (two memory-manager inputs). A reproducer of a runtime difference checks its own result and calls $fatal when it differs from the standard; Verilator counts as rejecting it when the run fails.
+The nine reproducers are a parameterized base class whose pure virtual method a concrete subclass omits (Verilator accepts it; four accepted illegal designs), a type parameter whose default depends on an earlier type parameter (Verilator rejects it; three traversal builds, whose explicit-visitor controls match), same-name parameterized classes of two packages that $cast lets through (four TLM package inputs), a caller that resumes after $finish (three uvm_root inputs), post_randomize called after a failed randomize (two memory-manager inputs), three patterns of a class-member event (a trigger followed by a wait in the same process, which does not release the earlier waiter, one input; an event assigned while a process waits on it, which releases that process, two inputs; and a trigger followed by an assignment to the event, which releases no waiter, one input), and a builtin parameterized class whose type_id reaches a registry specialization through a typedef alias (Verilator 5.054 stops with an internal error; one build). The 146th expansion removed four reproducers that no longer had entries: kill() of a process whose forked children keep running, the name() method of an enum wider than 64 bits, and the two queue-size constraint examples. Their tests match on 5.054; the two standalone queue-size programs still observe the difference there. A reproducer of a runtime difference checks its own result and calls $fatal when it differs from the standard; Verilator counts as rejecting it when the run fails.
 
 An interpretation entry also names the basis of its two readings (`basis`). `printed` means that the test reads a declaration, a name or a format specifier as it is printed and another part of the standard indicates that the printed text is a misprint; there are 10 (the return type of `get_schedule`, `get_global` of the two specialized pools, `all_dropped` printed as a function, `is_auto_enabled_recording_enabled`, the map method without a return type, `uvm_report_db`, `NO_MEM_SHARED_ACCESS_TEST` and the two `%u` inputs). `printed-by-library` means that the library follows the printed text and the test the other part; it is the one `get_streams` input. `ambiguity` means that the text itself admits both readings; there are 50. A disagreement between an overview or a description and a declaration counts as `ambiguity`. The basis only separates the readings that depend on a probable misprint; whether the text is a misprint is left to a person. No entry with a library cause follows the printed text of the standard.
 
 A `static` entry carries the same evidence as a two-state entry, and its cause is library or interpretation. There is one now. [The queue test](../tests/u11/test_fourstate_queue_missing_entries_117.sv) expects a warning from `pop_front` and `pop_back` on an empty queue (11.3.2.8, 11.3.2.9), and the pinned methods only return the result of the built-in pop and issue no report. Reading the other six four-state tests in the same way found no place where the library stands in the way; this is not a confirmation by a run.
 
-`python3 tools/known_causes.py check` keeps the record equal to the tests: exactly one entry for each two-state test whose `:oracle:` lacks verilator@5.052, the current input fingerprint, library text that exists in the pinned files, clauses of 1800.2-2020 and controls that are tagged tests. A comment-only edit moves the fingerprint with `tools/code_identity.py refresh`, which first shows that the code is unchanged. With `--results`, the known records of a combined runner JSON must match the entries. `reproduce` rebuilds the reproducers and checks that Verilator still accepts or rejects them as recorded; Check runs both.
+`python3 tools/known_causes.py check` keeps the record equal to the tests: exactly one entry for each two-state test whose `:oracle:` lacks verilator@5.054, the current input fingerprint, library text that exists in the pinned files, clauses of 1800.2-2020 and controls that are tagged tests. A comment-only edit moves the fingerprint with `tools/code_identity.py refresh`, which first shows that the code is unchanged. With `--results`, the known records of a combined runner JSON must match the entries. `reproduce` rebuilds the reproducers and checks that Verilator still accepts or rejects them as recorded; Check runs both.
 
-For kirimasim, `summary` separates 2397 inputs that measure a simulator against the standard from 381 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes, including the one `static` entry); no input is unassigned. The measurable inputs are the 2307 tagged tests, the simulator and condition causes and the six four-state tests without an entry. `candidates` lists the 408 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library. The classification is complete; adding such values would change the record's format, so it needs a proposal and the user's confirmation first.
+For kirimasim, `summary` separates 2396 inputs that measure a simulator against the standard from 382 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes, including the one `static` entry); no input is unassigned. The measurable inputs are the 2312 tagged tests, the simulator and condition causes and the six four-state tests without an entry. `candidates` lists the 403 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library. The classification is complete; adding such values would change the record's format, so it needs a proposal and the user's confirmation first.
 
 ## Pinned-library limitations
 
@@ -1268,11 +1273,11 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2307 tests have the `verilator@5.052` oracle tag and 471
-cases are spec-only, seven of them four-state. One of the spec-only cases checks 9.6: a child's pre-reset
-task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
-lets the child perform its delayed write during a later phase. The cause of
-this combined simulator/library difference remains unassigned.
+Across the suite, 2312 tests have the `verilator@5.054` oracle tag and 466
+cases are spec-only, seven of them four-state. The 9.6 child-task kill fixture was a known
+difference on the pinned combination of Verilator 5.052, where the child performed its
+delayed write during a later phase; the 146th expansion's 5.054 measurement
+matches at seeds 1/73, so it is tagged now.
 
 A wakeup reset case establishes one trigger waiter and one persistent-trigger
 waiter before calling `reset(1)`. Clause 10.1.1.2.8 requires both to wake
@@ -1280,12 +1285,12 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 471 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the seven four-state cases.
-Default Verilator runs and CI select 2307 tagged checks (2213 runtime, 94 compile rejection). `--all` includes
+The 466 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the seven four-state cases.
+Default Verilator runs and CI select 2312 tagged checks (2218 runtime, 94 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 319 cases establish their first difference
+The ordinary runtime records for 313 cases establish their first difference
 at seed 1, without seed 73 results.
-The 140 simulation builds have no ordinary runtime, including 61 unlinked DPI
+The 141 simulation builds have no ordinary runtime, including 61 unlinked DPI
 inputs (38 HDL and 23 command-line); [the measured breakdown](results.md#interpretation)
 records the complete categories. Five illegal compiler acceptances remain a
 separate no-runtime condition. The five user-package profiles of the 120th expansion match both seeds and
@@ -1338,8 +1343,9 @@ callback paths and other exact aliases remain separate observations.
 
 Dispatching a callback and completing a thread it starts are different observations; [the lifetime terms](glossary.md#component-lifetime-and-convenience-hooks) explain the processes whose survival is checked at phase boundaries.
 
-Two lifetime probes retain writes and ticking descendants after common/runtime
-phase end. The callback probe observes all three callback dispatches, but its
+Two lifetime probes check that descendants stop writing and ticking after
+common/runtime phase end; they were known differences on 5.052, and the 146th
+expansion's 5.054 measurement matches at seeds 1/73, so they are tagged now. The callback probe observes all three callback dispatches, but its
 ready-to-end thread does not complete while start/end threads do. The exact
 printed all_dropped function caller cannot build against the available task;
 this is a qualified signature reading, with no runtime seed. Typed and named
@@ -1378,7 +1384,7 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 464 two-state spec-only cases are linked in the explanatory notes and the
+The 459 two-state spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
 
@@ -1523,7 +1529,7 @@ not a count of distinct bugs.
 - [hdl path sequence warns for inaccessible register paths without storage access](../tests/uE/test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access.sv).
 - [hdl read returns actual wide storage without modifying either variable](../tests/u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable.sv).
 - [hdl path sequence accepts an accessible default abstraction without advancing time](../tests/uE/test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time.sv).
-- [The reset sequence on an RTL register file does not read a register whose only field is volatile](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv). E.1 b) has it read all of the registers, and also describes the read as one that compares the value with the reset value; a volatile field has no value to compare, so the cause record lists this as an interpretation (the text admits both readings), not as a difference of the library. A manual Measure run showed the difference with Verilator 5.052 (three reads instead of four).
+- [The reset sequence on an RTL register file does not read a register whose only field is volatile](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv). E.1 b) has it read all of the registers, and also describes the read as one that compares the value with the reset value; a volatile field has no value to compare, so the cause record lists this as an interpretation (the text admits both readings), not as a difference of the library. A manual Measure run showed the difference with Verilator 5.052 (three reads instead of four), and the 146th expansion's 5.054 remeasurement shows the same three-read difference.
 
 - [Policy/object active-policy push/pop synchronization](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv).
 
@@ -1568,8 +1574,6 @@ not a count of distinct bugs.
   and [after flush](../tests/u05/test_field_op_accessors_report_errors_after_flush.sv).
 - [Transaction initially inactive](../tests/u05/test_transaction_is_inactive_before_first_begin.sv).
 - [Report-handler severity-ID reset](../tests/u06/test_report_handler_reset_clears_pair_severity_override.sv).
-- [Phase termination of a remaining child task](../tests/u09/test_task_phase_kills_remaining_child_task.sv),
-  whose simulator/library cause remains unassigned.
 - [Immediate removal from the objector list](../tests/u10/test_objection_objectors_list_removes_dropped_source.sv).
 - Response-error enable defaults:
   [documented defaults](../tests/u14/test_sequence_response_controls_have_documented_defaults.sv)

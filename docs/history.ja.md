@@ -4463,3 +4463,43 @@ kirimasim 0.1.3（commit 21ee5a43、2026-11-21にあったbuild）で、直し�
 | e37fb89での[Regression 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874) | 5.052 | 2026-11-21に24 jobすべてが成功しました。そのcommitでtag付きだった検査はすべて、時間単位を渡すrunnerで一致しました。141回目の節が残した、tag付きの集合がそのrunnerの5.052で一致するかという問いは、そのcommitについて答えが出ました |
 
 b3df3d5のCheckは、Verilatorのjobが待っている間に、次のpushで取り消されました。新しい基点の規則では、次に成功するCheckが06bfff4と比べるので、失われる検査はありません。準備用actionは`Verilator 5.052 2026-09-05 rev v5.052`を出力し、新しい要求を通りました。単体テストは219件です。
+
+## 146回目の拡充：Verilator 5.054への移行
+
+145回目まで、固定版はVerilator 5.052で、このhostのlocalは5.054だった。146回目はユーザー承認の手順どおり、固定版を5.052から5.054へ移行した。このhostでは5.052をnativeにbuildできないため、5.052のtagの根拠はhosted実行に限られる。localの5.054で2値の全2771入力をseed 1／73で測り直し、この測定の一致・不一致がtagの付け替えの根拠になった。tag付きの全件のhosted Regressionは、公開後の実行として下に続ける。4値の7件は測っていない。
+
+### toolとCIの更新
+
+runnerの3file（`tools/run_verilator.py`、`tools/suite_results.py`、`tools/uvm_common.py`）と準備用actionを、1つのcommitで5.054へ更新した。runnerは固定版リリースを`RELEASE`定数に持ち、`verilator --version`が5.054を報告しなければ止まる。別リリースでの調査測定は`--any-release`を明示した場合だけに通る。runner・正規化・library lock・fetcher・準備用actionが変わったため、このpushのCheckはcanaryだけを実行し、Regressionを求める警告を出す。単体テストは221件へ増えた。
+
+### tagの付け替え
+
+localの5.054測定（seed 1／73）の結果で決めた。tag付きだった2307件のうち2304件は一致して`verilator@5.054`へ付け替えた。次は、specのみからtag付きへ変わった8件である。
+
+- forkした子processを含むtaskのphase終了時のkill：u09のtask phaseとphase早期終了の2件、u13のrun phaseとruntime phaseの2件。5.052では子processが生き残り、simulator原因の既知差分だった
+- FIFO registerのqueue容量制約の2件（inlineとsubtype宣言）。5.052ではinlineの容量3がsize 0を返し、subtype宣言の容量4が成功を返した
+- 64 bitより広いenumのname() methodを使ったuser extensionの1件（uB）
+- resource poolのregex／scopeをbase handleから委譲する1件（uC）。固定版libraryは`lookup_regex`と`lookup_scope`をvirtualでなく宣言する（C.2.4.4.7／C.2.4.4.8はvirtualと記載）。5.052はbase methodを呼び、5.054はderivedの`virtual`再宣言を呼ぶ。1800-2023 8.20の「virtualなmethodは、すべてのbase classのmethodをoverrideする」を文面どおりに読むと5.054の動作になり、文言は両方に読める。libraryの宣言の違いとこの読み方を[既知差分](known-differences.ja.md)に残し、tagを付けた
+
+次に、tag付きからspecのみへ変わった3件である。
+
+- builtin parameterized classのtype_idをtypedefのalias経由のregistry特殊化で名指す1件（u08）。5.054は内部エラー「Expected module parameterization」（V3Param.cpp:2855）でbuildを停止する。再現例`typedef-through-specialization-alias`を追加した
+- sequence libraryのrandc fieldのcycleを観測する2件（u14）。固定版の`uvm_sequence_library::new`は`valid_randc_selection`を`constraint_mode(0)`で無効化し、14.4.4.8のindex制約が消える。5.054はそれを尊重するため、`select_randc`がlist外のindexを選びうる。5.052で一致していた理由は未確定のままだ（このhostに5.052がない）
+
+`:uvm_cmdline_oracle:`は5.054のcommand-line測定から更新し、20件がそのまま、増減はなかった。既知の3件のcommand-line fixtureはtagなしのままだ。regex-DPI変種の`coverage/regex_dpi_variants.txt`は26行すべてに`verilator@5.054`を付けた。tag付きは2312件（runtime 2218・compile拒否94）、specのみは466件（4値7件を含む）になった。
+
+### 原因の記録の整理
+
+[原因の記録](../coverage/known_causes.json)は既知459件（4値の`static`1件を含めて460件）になり、library 320、interpretation 61、simulator 21、condition 57、unassigned 0である。一致した8件の記録を削り、上の3件の記録を足した。u09のphase get_scheduleは、印刷されたstringの引数にclassのhandleを渡す呼出しを5.054がbuild時に拒否するため、種別をruntimeからbuildへ変えた。再現例は12個から9個へ減った。削った4つ（forkした子processのkill()、広いenumのname() method、queueの大きさの制約の2つ）は裏付ける記録がなくなったが、queueの2つのstandaloneな再現programは5.054でも違う観測を保持した。uEのreset sequenceの記録は、5.052でMeasureが確かめた過去の文を残し、5.054で同じ差分を再確認する文を足した。残る記録の「Verilator 5.052」の表記は、5.054で再確認した内容として5.054へ更新した。`known_causes.py check`と`reproduce`（再現例9個）は5.054で通った。
+
+### その他の追跡
+
+- u09のtask phase killの検査系のcommentは、`// Verilator ...`で始められない。`code_identity.py`のmetacomment規則が固定版コメントと見なし、変更を拒否するため、書き直して5.054のseed 1／73で測り直し、一致を確かめた
+- DPI条件の3つの部分集合を5.054で測り直した。HDLは38件中37件が両seed一致で、差分はE.7の利用できないpathのsequenceの1件（seed 1）と5.052の記録と同じ。command-lineは20件が両seed一致で、既知差分3件も同じ。regex-DPI変種は26件すべて両seed一致。conditionの記録57件は、それぞれのrunnerで一致が確かまった
+- Ghostの44記録（22 directory×seed 1／73）は、今回の編集がtagだけなので`code_identity.py carry`で指紋を持ち越した。失敗はない
+- 入力の指紋は`code_identity.py refresh --retag`でtest_indexの2315件と原因の記録の20件を動かし、基点`364315d`と基点`1d544e2`の両方の`check --retag`が通った
+- tool検査は、lint_metadata、requirements、既知差分、段階、report宣言、単体テスト221件、slangでのelaboration（pyslang 12.1.0、91項目）、APIの集計、library整合性、fetcherがすべて緑である。kirimasimの目標は2396入力（測れる）と382入力（固定版libraryのため届かない）、照合候補は403件になった
+
+### hostedの実行
+
+この公開では、runner・正規化・library lock・fetcher・準備用actionが変わったため、Checkはcanaryだけの実行になる。tag付き2312件のRegression（20 shardと別jobのcommand-line 20件・regex-DPI変種26件）を5.054で手動実行し、結果をここに追記する。hostedの5.054 buildは、cacheがまだないため最初のrunは遅い。

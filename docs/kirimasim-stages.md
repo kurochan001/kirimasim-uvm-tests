@@ -23,7 +23,7 @@ The record is [`coverage/kirimasim_stages.json`](../coverage/kirimasim_stages.js
 
 Each of the stages 2 to 6 lists markers, regular expressions that find a use of its part of UVM. The tool searches the test and every file that it collects under `tests/` (`:files:` and the files they include), with comments and string literals removed. The stage of a test is the highest stage whose marker matches, or stage 1 when none does. A test with markers of two stages, such as a driver that also writes to an analysis port, takes the higher one, because the simulator needs both parts.
 
-| Stage | Part of UVM | Markers (examples) | Tests | Recorded with Verilator 5.052 | Short set |
+| Stage | Part of UVM | Markers (examples) | Tests | Recorded with Verilator 5.054 | Short set |
 | --- | --- | --- | --- | --- | --- |
 | 0 | uvm_pkg only | None; set by an override | 1 | 1 | 1 |
 | 1 | minimal run_test | None; the default stage | 1034 | 875 | 5 |
@@ -32,17 +32,17 @@ Each of the stages 2 to 6 lists markers, regular expressions that find a use of 
 | 4 | sequence | `uvm_sequence`, `uvm_sequencer`, `uvm_driver`, `start_item`, the sequence macros such as `` `uvm_do `` | 326 | 268 | 5 |
 | 5 | TLM | ports, exports and imps, `uvm_analysis_*`, `uvm_tlm_*`, `` `uvm_*_imp_decl ``, `uvm_subscriber` | 251 | 225 | 5 |
 | 6 | register layer | `uvm_reg*`, `uvm_mem*`, `uvm_vreg*`, `uvm_hdl_*`, the register-layer enumerations | 955 | 757 | 5 |
-| Total | | | 2778 | 2307 | 31 |
+| Total | | | 2778 | 2312 | 31 |
 
 A few lookalikes are left out on purpose: a sequence item alone (`uvm_sequence_item`) does not place a test at stage 4, typedefs such as `uvm_reg_data_t` do not place it at stage 6, and `` `uvm_do_callbacks `` is a callback macro, not a sequence macro. The unit tests of the tool check these cases on short snippets.
 
-An override sets the stage of a test that the markers cannot place, with a reason in English and Japanese. Stage 0 is reached only this way: [test_uvm_pkg_import_only_reaches_package_items](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv) imports uvm_pkg and names one enumeration value, through the import and through the package name, without creating a UVM object or calling run_test. Its expectation follows from 1.4.5 and F.2.2.4, and it matches with Verilator 5.052 at seeds 1 and 73.
+An override sets the stage of a test that the markers cannot place, with a reason in English and Japanese. Stage 0 is reached only this way: [test_uvm_pkg_import_only_reaches_package_items](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv) imports uvm_pkg and names one enumeration value, through the import and through the package name, without creating a UVM object or calling run_test. Its expectation follows from 1.4.5 and F.2.2.4, and it matches with Verilator 5.054 at seeds 1 and 73.
 
 Every stage compiles the whole of uvm_pkg, so a construct that the simulator cannot compile anywhere in the library stops every stage; this is what the current records show. A stage names what the test elaborates and runs beyond the package itself: the parameterized classes that it specializes and the library code that it executes.
 
 ## Short sets
 
-Each stage lists up to ten representatives; the current sets hold five tests for each of the stages 1 to 6 and the one stage-0 test. A representative is a simulation test recorded with `verilator@5.052`, so its expectation matches at seeds 1 and 73 with the pinned library, and it needs no DPI or back-end condition and no run-time argument. Within a stage, the sets prefer small tests of the stage's main subject.
+Each stage lists up to ten representatives; the current sets hold five tests for each of the stages 1 to 6 and the one stage-0 test. A representative is a simulation test recorded with `verilator@5.054`, so its expectation matches at seeds 1 and 73 with the pinned library, and it needs no DPI or back-end condition and no run-time argument. Within a stage, the sets prefer small tests of the stage's main subject.
 
 | Stage | Tests |
 | --- | --- |
@@ -166,4 +166,4 @@ python3 tools/kirimasim_stages.py update
 python3 tools/kirimasim_stages.py check
 ```
 
-`update` prints each added, removed or changed entry; review the change before committing it, and add an override with a reason when the markers place a test wrongly. A short set must keep tests of its own stage that are recorded with `verilator@5.052`.
+`update` prints each added, removed or changed entry; review the change before committing it, and add an override with a reason when the markers place a test wrongly. A short set must keep tests of its own stage that are recorded with `verilator@5.054`.

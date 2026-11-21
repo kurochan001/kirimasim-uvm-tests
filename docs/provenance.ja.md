@@ -16,7 +16,7 @@
 | 規格 | IEEE 1800-2023 | IEEE 1800.2-2020（実行の意味は1800-2023の言語に従う） |
 | 外部依存 | なし（小さな独立した設計） | UVMライブラリ（版と指紋で固定） |
 | 配置 | `tests/chNN/`（1800-2023の章） | `tests/uNN/`（1800.2の章） |
-| 固定版のoracle | Icarus Verilog 13.0、Verilator 5.052 | 再現できる範囲でVerilator 5.052 |
+| 固定版のoracle | Icarus Verilog 13.0、Verilator 5.054 | 再現できる範囲でVerilator 5.054 |
 | 共通の判定・結果JSON | 元になる実装 | `suite_results.py`を固定コミットから写す。ランナーはこのスイート独自（[`tools/UPSTREAM`](../tools/UPSTREAM)） |
 | CI | 独自 | 独自（テストごとにUVMをコンパイルするため重い） |
 
@@ -159,7 +159,7 @@ adapter親contextの期待値は提供IEEE 19.2.1.2.4、公開clone／parent照�
 
 force／releaseの期待値は、測定前に提供IEEE 19.6.2.3／.5／.6、言語の10.6.2、VPIの38.34から独立に導きます。
 独自backendは標準VPI flagと実handleを使い、[公開extension文書](https://verilator.org/guide/latest/extensions.html)は公開capabilityの統合だけに参照します。
-最新文書の版から5.052での動作を推定せず、独自probeと最終20入力で確認します。GPL／LGPLの実装fileを開いたり利用したりせず、商用結果も使いません。
+最新文書の版から5.054での動作を推定せず、独自probeと最終20入力で確認します。GPL／LGPLの実装fileを開いたり利用したりせず、商用結果も使いません。
 [HDLのFAQ](faq.ja.md#hdlのforceとreleaseの条件)で期待値、backendの前提、11入力の同一性更新を区別しています。
 
 正時間force_timeの期待値は、測定前に提供IEEE 19.6.2.4とforce／release、言語のtask寿命規則から独立に導きます。

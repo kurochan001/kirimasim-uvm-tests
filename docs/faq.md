@@ -51,7 +51,7 @@ in kirimasim-tests; a UVM mismatch may involve the simulator, library or test.
 The Verilator smoke run needs a separately installed simulator and C++ build environment as well as the fetched UVM library; [Before the first run](reading-guide.md#before-the-first-run) connects these prerequisites to the smoke command.
 
 Use Python 3.10 or later and a simulator able to run UVM. The fixed oracle is
-Verilator 5.052, whose model builds also require a C++ toolchain and make;
+Verilator 5.054, whose model builds also require a C++ toolchain and make;
 models that randomize with constraints call the z3 solver on the path while they run.
 The [setup action](../.github/actions/setup-verilator/action.yml) used by Check and Regression contains its Ubuntu setup.
 
@@ -63,7 +63,7 @@ file count and content digest. The library is fetched, not committed.
 
 For a successful smoke run, look for this case's `pass` judgment in the saved JSON; [Open the result JSON](reading-guide.md#open-the-result-json) shows how to find it.
 
-From the repository root, with Verilator 5.052 on PATH:
+From the repository root, with Verilator 5.054 on PATH:
 
 ```sh
 python3 tools/fetch_uvm.py
@@ -81,7 +81,7 @@ The selected source and expected file are available before any run, so [the work
 
 Expanding selection with `--all` does not supply a DPI implementation, so [Q12](#q12-does-uvm_dpi-yes-automatically-enable-a-working-dpi-build) explains when a separate backend runner is needed.
 
-Without paths, Verilator selects tests tagged `verilator@5.052` that do not
+Without paths, Verilator selects tests tagged `verilator@5.054` that do not
 depend on X/Z. Add `--all` to include every two-state case:
 
 ```sh
@@ -1008,7 +1008,7 @@ it is not a claim that ordinary testing is always prohibited. Conditions
 vary by product, contract and jurisdiction.
 
 Expectations come from IEEE 1800.2-2020 clauses and independently written
-models. The `verilator@5.052` oracle records fixed-release reproduction;
+models. The `verilator@5.054` oracle records fixed-release reproduction;
 kirimasim and publication-ready guest Ghost results describe only their recorded
 conditions. Ghost is the project's pre-release guest, not a way to submit
 commercial results under an alias. Commercial executability and agreement
@@ -2579,15 +2579,13 @@ ownership, packing and DMI grants remain separate obligations; see
 
 ### Q151. Why are inline and subtype-declared FIFO constraints recorded separately?
 
-Both fixtures retain the inherited FIFO capacity requirement. Their seed-1
-observations differ under Verilator 5.052 with the pinned UVM library:
-
-| Constraint condition, capacity 3 | Required observation | Measured observation |
-| --- | --- | --- |
-| Inline `fifo.size() == 3` | Success; size 3 | Success; size 0 |
-| Inline `fifo.size() == 4` | Rejected | Rejected |
-| Subtype-declared `fifo.size() == 3` | Success; size 3 | Success; size 3 |
-| Subtype-declared `fifo.size() == 4` | Rejected | Reports success |
+Both fixtures retain the inherited FIFO capacity requirement. Their 5.052
+measurements with the pinned UVM library differed: the inline capacity-3 case
+reported size 0 and the subtype-declared capacity-4 case reported success.
+The 146th expansion's 5.054 measurement reaches the required observations for
+both fixtures at seeds 1/73, and they are tagged now; the standalone reproducers
+that isolate just these two constraints still observe the difference on 5.054,
+so they were removed from the cause record.
 
 See the [inline fixture](../tests/u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue.sv)
 and [subtype-bound fixture](../tests/u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes.sv).
@@ -3146,7 +3144,7 @@ An illegal-design check expects rejection before simulation; [negative-test meta
 Thirty-five selected abstract-construction fixtures deliberately instantiate classes
 that the standard declares virtual. The required result is rejection with an
 error identifying the fixture and class. A matching rejection is a successful
-negative check without runtime seeds, distinct from the 140 unexpected builds
+negative check without runtime seeds, distinct from the 141 unexpected builds
 among simulation cases. Pure-method and const-reference checks are additional
 negative conditions, each judged by its own declared oracle.
 
@@ -3164,7 +3162,7 @@ links and identifying those changes explicitly.
 ### Q201. Did all 2778 tests run at two seeds?
 
 No. There are 2679 simulation and 99 elaboration fixtures. Ordinary evidence
-has 2213 two-seed runtime matches, 94 expected compiler rejections, 459 known
+has 2218 two-seed runtime matches, 94 expected compiler rejections, 454 known
 simulation differences and five known illegal compile acceptances; the seven
 four-state fixtures are not run by the two-state oracle. None of the
 99 illegal designs executes a runtime seed, even when compilation accepts it.
@@ -3835,13 +3833,13 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 No. Check now runs only the tagged checks whose inputs changed, plus a canary,
 and falls back to the canary with a warning when it cannot cover a change; it
-never stands in for the full selection. Regression runs all 2307 tagged checks
+never stands in for the full selection. Regression runs all 2312 tagged checks
 in 20 disjoint shards, at most 4 concurrent, and the 20 command-line checks and 26 regex-DPI variants in
 separate jobs. The earlier 8-shard Check never finished: its one uninterrupted
 run reached the 150-minute limit on every shard. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the workflow
-pages for the current results. The 464 known cases remain outside the ordinary default CI selection.
+pages for the current results. The 459 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -4184,7 +4182,7 @@ not an IEEE UVM requirement on every target. The original backend checks the
 documented public capability marker before using standard VPI force/release
 flags on a real handle. It does not directly write the marker or maintain a
 path/value mock. [The setup guide](testing.md#verilator-vpi-hdl-subset) links the
-public interface documentation and records the exactly 5.052 measurements.
+public interface documentation and records the exactly 5.054 measurements.
 Missing or uninstrumented targets return failure in this limited backend;
 that limitation does not remove broader normative obligations.
 

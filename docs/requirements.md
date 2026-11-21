@@ -322,9 +322,9 @@ controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
 The suite has 2778 tests (2679 simulation/99 elaboration). Ordinary results
-are 2307 matches: 2213 runtime inputs at both seeds and 94 compiler rejections.
-Known inputs total 464: 319 runtime seed 1 differences, 140 simulation builds
-and five accepted illegal designs without runtime; spec-only cases total 471
+are 2312 matches: 2218 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 459: 313 runtime seed 1 differences, 141 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 466
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
 is added to the ordinary totals. No guest run/filter is added: 1081

@@ -6,7 +6,7 @@
 
 runtime一致、compiler拒否、未測定入力は実行条件が異なるため、件数を併せて読む方法は[結果を読む](reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-20の診断は2値のsimulationテスト2657件を`--timescale 1ns/1ps`で確認し、当時tag付きだったruntime 2199件の状態変化と未宣言reportは0件でした。tag付きcompile拒否94件も一致しました。それ以後に足した15件のうちtag付きの14件と、headerを変えた1件は、公開したcommitでCheckがVerilator 5.052のseed 1／73で実行し、すべて一致しました。残る1件は既知差分で、[Measureのrun 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017)がVerilator 5.052で確かめました。4値の7件にはVerilatorの記録がありません。Ghostの1081記録は有効なままです。kirimasim 0.1.3（commit 21ee5a43）は、2026-11-21に、現在のrunnerで全2778入力を測りました。
+2026-11-21の移行で、固定リリースを5.052から5.054へ変え、2値の全2771入力を5.054のlocal全件測定（seed 1／73）で測り直しました。tagを`verilator@5.054`に付け替えた2312件はこの測定で一致したもので、既知差分の459件は一致しなかったもので、原因は原因の記録に整理し直しました。DPI条件の3つの部分集合も5.054で測り直し、状態は5.052の記録と同じです。hostedのRegressionがtag付きの全件をVerilator 5.054で実行し、結果を履歴とこの文書に記録します。4値の7件にはVerilatorの記録がありません。Ghostの1081記録は、編集がtagだけなので`tools/code_identity.py carry`で指紋を持ち越し、有効なままです。kirimasim 0.1.3（commit 21ee5a43）は、2026-11-21に、現在のrunnerで全2778入力を測りました。
 Ghostでは1697入力が未測定です。各記録は入力と実行条件を指紋で識別します。
 スイートは22 directoryの2778件で、simulation 2679件とelaboration 99件です。
 milestoneはM1 1200件（1119／81）、M2 634件（627／7）、M3 944件（933／11）で、括弧内はruntime／elaborationです。
@@ -18,10 +18,10 @@ seed 1／73で一致しても検査系は1件と数え、設定で指定したse
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.052・固定版UVM | `pass` 2307件：runtime 2213＋compile拒否94、`known` 464件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
-| Verilator 5.052・独自VPI HDL backend | `pass` 37件、`fail` 1件 | 重複する38件の別条件。一致はseed 1／73、差分はseed 1 |
-| Verilator 5.052・独自command-line VPI bridge・固定regex DPI | `pass` 20件、`known` 3件 | 重複する23件の別条件。一致はseed 1／73、差分はseed 1 |
-| Verilator 5.052・regex DPIとcommand-line DPIで再実行する通常検査系 | `pass` 26件 | `coverage/regex_dpi_variants.txt`による重複する26件の別条件。一致はseed 1／73 |
+| Verilator 5.054・固定版UVM | `pass` 2312件：runtime 2218＋compile拒否94、`known` 459件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
+| Verilator 5.054・独自VPI HDL backend | `pass` 37件、`fail` 1件 | 重複する38件の別条件。一致はseed 1／73、差分はseed 1 |
+| Verilator 5.054・独自command-line VPI bridge・固定regex DPI | `pass` 20件、`known` 3件 | 重複する23件の別条件。一致はseed 1／73、差分はseed 1 |
+| Verilator 5.054・regex DPIとcommand-line DPIで再実行する通常検査系 | `pass` 26件 | `coverage/regex_dpi_variants.txt`による重複する26件の別条件。一致はseed 1／73 |
 | kirimasim 0.1.3（commit 21ee5a43）・固定版UVM | `pass`が98件、`unsupported`が2604件、`fail`が76件 | 現在の全2778入力を、2026-11-21に現在のrunnerで1回実行。`pass`はすべて、patternどおりに拒否された不正design。実行できるsimulationテストはない |
 | Ghost・同梱UVM | `pass`が206件、`fail`が875件 | 各seedで未変更1081入力。失敗集合は同じ。1697入力は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
@@ -45,28 +45,28 @@ runtimeの出力差分では`reason`が最初に異なる選択行を示すた�
 
 正当なnegative期待94件は宣言したfixture／type／memberの診断によるcompiler拒否で一致します。
 不正design 5件はsubscriberのwrite、visitorのvisit、proxyのget_immediate_children、adapterのacceptの欠落、印字virtual builtin dispatcherの直接生成を受理し、拒否oracleを既知差分として保持します。
-受理されてもruntimeは実行せず、simulationの予期しないbuild 140件は別です。passには宣言した期待との一致が必要です。
+受理されてもruntimeは実行せず、simulationの予期しないbuild 141件は別です。passには宣言した期待との一致が必要です。
 
-これらの差分の原因は、下の症状の分類とは別に[原因の記録](known-differences.ja.md#既知差分の原因)で割り当てます。library 319件、interpretation 61件、simulator 27件、DPIの実行条件57件で、未分類の記録はありません。
+これらの差分の原因は、下の症状の分類とは別に[原因の記録](known-differences.ja.md#既知差分の原因)で割り当てます。library 320件、interpretation 61件、simulator 21件、DPIの実行条件57件で、未分類の記録はありません。
 
-測定したspecのみの464件は規格由来の出力またはcompile診断期待を保持し（4値のspecのみ7件にはVerilatorの記録がありません）、不正compiler受理5件とsimulation 459件です。
-simulationのうち319件はseed 1で最初に異なり、seed 73結果はありません。API／型名欠落build 43件はtime API 1、sequence-library API 14、HDL slice-view 12、named-concat constructor 1、object active-policy API 5、catcher message-handle 3、印刷されたbase記録状態getter 1、印刷report callback typedef 1、built-in type_id 2、typed resource-DB helper 3です。
+測定したspecのみの459件は規格由来の出力またはcompile診断期待を保持し（4値のspecのみ7件にはVerilatorの記録がありません）、不正compiler受理5件とsimulation 454件です。
+simulationのうち313件はseed 1で最初に異なり、seed 73結果はありません。API／型名欠落build 43件はtime API 1、sequence-library API 14、HDL slice-view 12、named-concat constructor 1、object active-policy API 5、catcher message-handle 3、印刷されたbase記録状態getter 1、印刷report callback typedef 1、built-in type_id 2、typed resource-DB helper 3です。
 
 time減算build 1件は省略可と印刷されたsecs引数を要求します。
 宣言build 2件は既定型の不一致で、別の2件は印刷all_dropped function／taskとclone暗黙scalar／map返却の食違いを保持します。
-2件は継承したtype_id registry特殊化の非互換で、1件はmemory backdoor_readのprotected access差分で、2件は記載外pure hookを要求する合法resource-base／記載methodだけの完全core-service拡張です。ほか61件はDPI未linkでHDL 38・command-line 23です。
+3件は継承したtype_id registry特殊化の非互換で、1件は5.054の内部エラーです。1件はmemory backdoor_readのprotected access差分で、2件は記載外pure hookを要求する合法resource-base／記載methodだけの完全core-service拡張です。ほか61件はDPI未linkでHDL 38・command-line 23です。
 追加の合法build 3件は字面のenum-collection T解釈を使います。
 ほか7 buildは厳密なattribute定義6件と印刷enum-unpackの引数を保持します。
 さらに3 buildは独自STRUCTUREの依存visitor既定値を保持します。
 限定したvirtual抽象overview基底型の2入力は文言の食違いを保持し、明示class基底のcontrolは別に一致します。
-ほか2件は専用poolの印刷返却型を使い、pool／itemの食違いを保持します。
-これらのsimulation build 140件にはruntime結果がなく、別command-line条件は20一致、quit-warning差分1件、正規表現の差分2件を保持します。
+ほか3件は印刷返却型の食違いで、専用poolの2件はpool／itemの食違いを保持し、phaseのget_scheduleの1件は、印刷されたstringの引数にclassのhandleを渡す呼び出しを5.054がbuild時に拒否する差分です。
+これらのsimulation build 141件にはruntime結果がなく、別command-line条件は20一致、quit-warning差分1件、正規表現の差分2件を保持します。
 
 印刷上は具象のuvm_vreg_cbsの合法構築1入力は、固定版のvirtual宣言でabstractとして拒否され、期待を保持してruntimeはありません。
 
 追加の未登録packetのsimulation build 4件は、predictor型名生成に使うfactory返却型で停止し、runtimeの証拠はありません。IEEEの必須登録前提は作りません。
 
-追加のsimulation build 2件は、大きいflag拡張でのenum method未対応とUVM_PACKER_MIN_BITS未定義であり、runtime結果はありません。
+追加のsimulation build 1件は、大きいflag拡張でのUVM_PACKER_MIN_BITS未定義であり、runtime結果はありません。もう1件だった大きいflag拡張のenum method未対応は、5.054で一致してtagを付けました。
 
 共有handler resetではseverity／ID verbosity値が残り、general／ID値とaction／fileは既定へ戻ります。
 期待するresetと後続の境界配送は変更せず、runtimeの既知fixtureが1件増えます。以前のseverity override reset差分も保持します。
@@ -114,9 +114,9 @@ snapshotは[9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/9
 u01の新しい段階0の入力1件は、uvm_pkgをimportし、UVM_LOWをimportとpackage名の両方から名指しするだけで、UVM objectを作らず、run_testも呼びません。最初の凍結のまま、tag付けの前後でseed 1／73が一致し、新しい義務1件で扱います。
 AI義務は4151件で、旧要求4150件と分類445件はすべて同一です。直接対応は2707テスト、control対応は158テスト、controlのみは56テストです。元の通常2755記録と旧既知463入力は全て維持します。新しい入力はM1に数えます。
 
-全体は2778テスト（simulation 2679／elaboration 99）です。通常一致は2307件で、runtime両seed 2213入力とcompiler拒否94件です。
-既知は464入力で、runtime seed 1差分319件、simulation build 140件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて471件です。
-command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1697入力です。
+全体は2778テスト（simulation 2679／elaboration 99）です。通常一致は2312件で、runtime両seed 2218入力とcompiler拒否94件です。
+既知は459入力で、runtime seed 1差分313件、simulation build 141件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて466件です。
+command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録はtagだけの編集を`tools/code_identity.py carry`で持ち越し、未測定は1697入力です。
 追加1693件と修正した元入力4件で、simulation 1598／elaboration 99です。
 
 主引用がある番号は1327で、candidateは0件1160／目標未満768／2件以上554です。
@@ -128,7 +128,7 @@ kirimasim／Ghost記録は、固定した実行ファイルとseedごとの非�
 
 以前のkirimasim／Ghostの一時的な実行ファイル／profile snapshotは失われており、guest再実行は主張しません。
 歴史的な元fileは1085記録を保持します。以前のfilterでcommand-enum引用、Boolean rerandomization、virtual-field configure引用、reraise主引用の修正入力4件を除外しました。今回は新しいfilterを行いません。
-互換1081記録とfilter metadataをbyte単位で保持し、その後の追加で未測定は1697入力（追加1693件・修正した元入力4件）となります。
+互換1081記録とfilter metadataは保持し、移行のtagだけの編集は`tools/code_identity.py carry`で指紋を持ち越しました。その後の追加で未測定は1697入力（追加1693件・修正した元入力4件）となります。
 Ghostは各seedでpass 206／fail 875のままです。保持していたkirimasimの1081記録（unsupported 1072／API欠落fail 9）は、`out/thin-one-hundred-thirty-ninth/kirimasim-all.json`にある2026-11-21の測定に置き換わりました。
 直近の除外の出典は`out/thin-one-hundred-sixth-guest-exclusions.json`、このworkspaceで最後に組み立てた証拠の範囲は`out/thin-one-hundred-twenty-sixth-a-evidence-scope.json`です。127回目と128回目の測定は別のsessionで行われ、そのfileはこのworkspaceにありません。129回目以降に足したテストは、測定ごとのbatch fileが`out/`にあり、それらを含む合算の記録はまだありません。
 
@@ -221,12 +221,12 @@ JSON出力は選択した実行のローカル記録であり、公開されるC
 shardは選んだテストを重複なく分担する単位で、最後のgateは全shardの成功を要求し、検査範囲との関係は[Q268](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)で説明しています。
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-tools jobは、固定ライブラリの整合性、ツールの単体テスト219件、metadata 2778件、要求台帳の案／テスト索引、既知差分の原因の記録、[reportの宣言](testing.ja.md#時間単位とreportの宣言)、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。slang jobは、[全テストをslangでelaborate](testing.ja.md#slangでのelaboration)し、[APIの集計](requirements.ja.md#apiの集計)をテストと照合します。所要は8分ほどです。
+tools jobは、固定ライブラリの整合性、ツールの単体テスト221件、metadata 2778件、要求台帳の案／テスト索引、既知差分の原因の記録、[reportの宣言](testing.ja.md#時間単位とreportの宣言)、[kirimasimの立ち上げ段階](kirimasim-stages.ja.md)を検査します。slang jobは、[全テストをslangでelaborate](testing.ja.md#slangでのelaboration)し、[APIの集計](requirements.ja.md#apiの集計)をテストと照合します。所要は8分ほどです。
 Verilator jobは、基点の版から記録入力が変わった通常oracle付き検査と、canaryの`tests/u09/test_common_phases_run_in_order.sv`を、runtimeはseed 1／73で実行します（[選択ツール](../tools/ci_select.py)）。
-pushのときの基点は、`main`で最後に成功したCheckのheadです。新しいpushで取り消されたrunや失敗したrunの検査が、次に選び直されるようにするためです。そのようなrunがなければ、直前のpushを基点にします。基点が得られない場合、runner・正規化・library lock・fetcher・準備用actionが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。別のDPI条件でしか動かないfileが変わったときは、Checkが実行しないfileとして、別の警告で名前を挙げます。準備用actionは、復元またはbuildしたVerilatorが5.052と報告しなければ止まります。Verilator jobは、原因の記録にある再現例12個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
+pushのときの基点は、`main`で最後に成功したCheckのheadです。新しいpushで取り消されたrunや失敗したrunの検査が、次に選び直されるようにするためです。そのようなrunがなければ、直前のpushを基点にします。基点が得られない場合、runner・正規化・library lock・fetcher・準備用actionが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。別のDPI条件でしか動かないfileが変わったときは、Checkが実行しないfileとして、別の警告で名前を挙げます。準備用actionは、復元またはbuildしたVerilatorが5.054と報告しなければ止まります。Verilator jobは、原因の記録にある再現例9個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
 
 [Regression](../.github/workflows/regression.yml)は手動実行と毎週（土曜17:23 UTC）に動きます。
-タグ付き通常検査2307件（seed 1／73のruntime 2213・実行時seedなしのcompiler拒否94）を重複しない20 shard（116件が7、115件が13）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
+タグ付き通常検査2312件（seed 1／73のruntime 2218・実行時seedなしのcompiler拒否94）を重複しない20 shard（116件が12、115件が8）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
 別条件の明示command-line 20件とregex-DPI変種26件はそれぞれ別jobで実行し、gateは3つすべての成功を要求します。新しい要求は実行中のrunを取り消さずに待ちます。待てる要求は1つだけなので、さらに要求が来ると、待っていた要求が置き換わります。手動の実行は`tests/`の下のdirectoryに絞れます（入力`directories`）。そのときは計画のjobが、それらのdirectoryのfileを集める検査を115件ごとに1 shardで選び、command-lineとregex-DPIのjobはそこにある検査系だけを実行します。毎週の実行は絞りません。
 
 以前の単一Checkはpushごとに全選択を実行していました。分割前の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は150分のjob上限を超え、その後の8 shard版も完了していません。
@@ -241,7 +241,7 @@ command-line jobは成功し、3 shardは342検査のうち334件が一致しま
 
 修正後のdb06513での[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)は、20 shardでタグ付き検査2273件すべてがseed 1／73で一致し、command-line 17件も成功しました。各shardは113〜199分で、360分の上限内でした。hostedのRegressionで初めて全件がそろったこの結果の対象はそのcommitで、後のcommitにはそれぞれのCheckまたはRegressionが必要です。
 
-その後の2回のRegressionは、それぞれのcommitのtag付き検査をすべて対象にしました。読みやすさの編集の後に起動したa3956ceでの[run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797)と、73a73adでの毎週の[run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165)で、どちらも24 jobすべてが成功しました。runnerが時間単位を渡し、reportの宣言を検査するようになった後にe37fb89で起動した[run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874)は、2026-11-21に24 jobすべてが成功しました。これで、現在のrunnerと、そのcommitでtag付きだった検査すべてを、Verilator 5.052のRegressionが対象にしています。e37fb89の後に足した15件のうち、tag付きの14件は、公開したpushのCheckがVerilator 5.052で実行しました。143回目で変更した6件は、[Measureのrun 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017)がVerilator 5.052のseed 1／73で実行しました。tag付きの5件は一致し、specのみの1件は記録のとおりに違います。
+その後の2回のRegressionは、それぞれのcommitのtag付き検査をすべて対象にしました。読みやすさの編集の後に起動したa3956ceでの[run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797)と、73a73adでの毎週の[run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165)で、どちらも24 jobすべてが成功しました。runnerが時間単位を渡し、reportの宣言を検査するようになった後にe37fb89で起動した[run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874)は、2026-11-21に24 jobすべてが成功しました。これで、現在のrunnerと、そのcommitでtag付きだった検査すべてを、Verilator 5.052のRegressionが対象にしています。e37fb89の後に足した15件のうち、tag付きの14件は、公開したpushのCheckがVerilator 5.052で実行しました。143回目で変更した6件は、[Measureのrun 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017)がVerilator 5.052のseed 1／73で実行しました。tag付きの5件は一致し、specのみの1件は記録のとおりに違います。これらの実行は5.052期のsuiteを覆うものです。146回目の移行後は、hostedのRegressionが5.054でtag付きの全検査を実行し、結果は[履歴](history.ja.md)に記録します。
 
-kirimasim、Ghost、specのみのケース、HDLのrunnerは、どちらのworkflowでも実行しません。結果のHDLの行は、localの実行によるものです。手動のworkflowである[Measure](../.github/workflows/measure.yml)は、名前を挙げたテストを、tagの有無にかかわらず固定版のVerilator 5.052で実行し、状態を出力します。記録は変えません。READMEのバッジは現在のCheckの状態で、このローカル測定とは別です。
+kirimasim、Ghost、specのみのケース、HDLのrunnerは、どちらのworkflowでも実行しません。結果のHDLの行は、localの実行によるものです。手動のworkflowである[Measure](../.github/workflows/measure.yml)は、名前を挙げたテストを、tagの有無にかかわらず固定版のVerilator 5.054で実行し、状態を出力します。記録は変えません。READMEのバッジは現在のCheckの状態で、このローカル測定とは別です。
 CheckやRegressionが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。結果の自動公開はありません。

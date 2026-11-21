@@ -13,11 +13,11 @@ A simulator conformance test suite for IEEE 1800.2-2020, the Universal Verificat
 
 If UVM is new to you, [the reading guide](docs/reading-guide.md#what-this-repository-tests) connects the simulator, library and test before you interpret the counts below.
 
-An oracle records the expectation's basis: `spec` cites the standard and `verilator@5.052` adds reproduction;
+An oracle records the expectation's basis: `spec` cites the standard and `verilator@5.054` adds reproduction;
 [Standards and expectations](docs/glossary.md#standards-and-expectations) explains spec-only cases.
 
 > **Status: M4 in progress.** 2778 tests: 2679 simulation and 99 elaboration,
-> in 22 chapter/annex directories; 2307 tagged oracles and 471 spec-only cases, seven of them four-state.
+> in 22 chapter/annex directories; 2312 tagged oracles and 466 spec-only cases, seven of them four-state.
 > All use `:spec_check: ai`, recording AI review as explained in [review terms](docs/glossary.md#standards-and-expectations); none records human review. M1–M3 targets remain open.
 > M4 has 4182 [observable-duty drafts](docs/requirements.md#counting-unit-and-scope-proposal) reviewed by AI, 2722 directly linked tests and an index of all 2778.
 > 0 tests lack requirement links and 0 drafts lack direct tests; the historical
@@ -74,7 +74,7 @@ normative decomposition and denominator approval remain open. See the
 
 Start with one ordinary-runner test to check your setup; [the first-run notes](docs/reading-guide.md#before-the-first-run) explain prerequisites and seeds, and [choosing a runner](docs/reading-guide.md#choose-an-execution-condition) explains when a separate backend is needed.
 
-Use Python 3.10 or later. The fixed-release oracle requires Verilator 5.052, a C++ toolchain, make and the z3 solver, which Verilator models call for constrained randomization. Run from the repository root:
+Use Python 3.10 or later. The fixed-release oracle requires Verilator 5.054, a C++ toolchain, make and the z3 solver, which Verilator models call for constrained randomization. Run from the repository root:
 
 ```sh
 python3 tools/fetch_uvm.py
@@ -86,14 +86,14 @@ The fetcher downloads and checks the pinned Accellera UVM 2020.3.1 library; inst
 To see what that case checks, [follow the worked example](docs/reading-guide.md#follow-one-test-through-the-files) from its source to its expected output and requirement.
 The saved JSON lists each case's judgment; [an example for opening it](docs/reading-guide.md#open-the-result-json) shows how to read it. If it reports a difference, [Trace a difference](docs/reading-guide.md#trace-a-difference) shows how to locate the checked expectation and execution conditions.
 
-To run all 2307 tagged checks (2213 runtime, 94 compile rejection):
+To run all 2312 tagged checks (2218 runtime, 94 compile rejection):
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-Add `--all` to include all two-state cases, including the 464 spec-only cases.
+Add `--all` to include all two-state cases, including the 459 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls concurrent tests and `--build-jobs` controls C++ jobs within each build; [Q13](docs/faq.md#q13-why-is-compilation-heavy-and-what-do-the-two-job-options-control) explains the build cost.
 Each runtime model is built once and run in a fresh process for each seed.
 All Verilator models use `--timescale 1ns/1ps`; [Time unit and report declarations](docs/testing.md#time-unit-and-report-declarations) explains the permitted default-server `UVM_ERROR`/`UVM_FATAL` lines and their clause basis.
@@ -116,23 +116,23 @@ by Git; results are not automatically published.
 
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
-The 2771 two-state cases have Verilator results from several measurements, not from one run. [Regression run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874) ran every case tagged at e37fb89 with Verilator 5.052 and the current runner, and all of its jobs succeeded on 2026-11-21. Each tagged test added or changed since was run with Verilator 5.052 at seeds 1/73, by Check in the push that published it or by the manual Measure workflow, which also showed the difference of the one spec-only test added since. The other known differences keep the records of earlier measurements. The seven four-state cases are spec-only and have no Verilator record.
+The 2771 two-state cases have Verilator results based on the full local 5.054 measurement of 2026-11-21 (seeds 1/73). The tags moved to `verilator@5.054` follow its matches and differences, and the hosted Regression runs every tagged case with Verilator 5.054, with its results recorded in the [history](docs/history.md). The three DPI-condition subsets (HDL, command-line, regex) were also measured on 5.054, and their states match the 5.052 records. The seven four-state cases are spec-only and have no Verilator record.
 The Ghost records retain 1081 compatible inputs; 1697 inputs are unmeasured by Ghost, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly). kirimasim was measured again on all current inputs with the current runner.
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, ordinary runner | 2213 runtime matches at seeds 1/73; 94 expected compile rejections; 464 known differences |
-| Verilator 5.052, original VPI HDL backend | Separate 38-case subset: 37 match both seeds; 1 differs |
-| Verilator 5.052, VPI command-line bridge and pinned regex DPI | Separate 23-case subset: 20 match both seeds; 3 known differences |
-| Verilator 5.052, listed ordinary fixtures with regex and command-line DPI | Separate 26-case subset: 26 match both seeds |
+| Verilator 5.054, pinned UVM, ordinary runner | 2218 runtime matches at seeds 1/73; 94 expected compile rejections; 459 known differences |
+| Verilator 5.054, original VPI HDL backend | Separate 38-case subset: 37 match both seeds; 1 differs |
+| Verilator 5.054, VPI command-line bridge and pinned regex DPI | Separate 23-case subset: 20 match both seeds; 3 known differences |
+| Verilator 5.054, listed ordinary fixtures with regex and command-line DPI | Separate 26-case subset: 26 match both seeds |
 | kirimasim 0.1.3, pinned UVM | All 2778 cases, measured on 2026-11-21: 98 `pass`, all of them illegal designs rejected as expected; 2604 `unsupported`; 76 `fail` |
 | Ghost, bundled UVM | 206 match and 875 fail at each seed in 1081 cases; 1697 unmeasured |
 
-The ordinary runner records 319 runtime differences at seed 1, 140 simulation build failures
+The ordinary runner records 313 runtime differences at seed 1, 141 simulation build failures
 and five accepted illegal designs without runtime; [the detailed breakdown](docs/results.md#interpretation) explains API/declaration, macro and DPI categories and qualified premises.
 The VPI rows measure cases already included in the ordinary row under different conditions, so do not add them to the suite total; see [the measurement scope](docs/results.md#current-snapshot).
 
-Each known difference has one entry in [the cause record](coverage/known_causes.json), checked by `tools/known_causes.py`: 319 library, 61 interpretation, 27 simulator and 57 DPI-condition causes are assigned, and no entry is unclassified. Each interpretation names the basis of its readings: 10 follow a declaration or a name as printed where another part of the standard indicates a misprint, one has the library following the printed text, and 50 are ambiguities of the text. One four-state test has an entry because the pinned library cannot satisfy it. For kirimasim, 2397 inputs measure a simulator against the standard and 381 are kept from their expectation by the pinned library on any simulator; see [the causes of the known differences](docs/known-differences.md#causes-of-the-known-differences).
+Each known difference has one entry in [the cause record](coverage/known_causes.json), checked by `tools/known_causes.py`: 320 library, 61 interpretation, 21 simulator and 57 DPI-condition causes are assigned, and no entry is unclassified. Each interpretation names the basis of its readings: 10 follow a declaration or a name as printed where another part of the standard indicates a misprint, one has the library following the printed text, and 50 are ambiguities of the text. One four-state test has an entry because the pinned library cannot satisfy it. For kirimasim, 2396 inputs measure a simulator against the standard and 382 are kept from their expectation by the pinned library on any simulator; see [the causes of the known differences](docs/known-differences.md#causes-of-the-known-differences).
 
 Every test also has a [kirimasim bring-up stage](docs/kirimasim-stages.md), recorded in `coverage/kirimasim_stages.json`: 1 test at stage 0, 1034 at stage 1 (minimal run_test), 100 at stage 2 (factory), 111 at stage 3 (config_db), 326 at stage 4 (sequence), 251 at stage 5 (TLM) and 955 at stage 6 (register layer). kirimasim 0.1.3 stops at the same unsupported `uvm_object_wrapper` construct in every stage, the stage-0 test included; no simulation test runs yet.
 
@@ -148,7 +148,7 @@ and evidence scope. [Known differences](docs/known-differences.md) lists the
 library limitations and spec-only tests. [Check](.github/workflows/check.yml)
 runs tool, metadata, library, ledger, cause-record, report-declaration and bring-up-stage checks, the slang elaboration and the API census, and, for each push or pull request,
 the tagged ordinary Verilator checks whose inputs changed plus one canary.
-[Regression](.github/workflows/regression.yml) runs all 2307 tagged ordinary
+[Regression](.github/workflows/regression.yml) runs all 2312 tagged ordinary
 checks in 20 shards, the twenty explicit command-line checks and the twenty-six
 regex-DPI variants, manually and weekly; a manual run can be narrowed to directories under `tests/`. Neither runs kirimasim, Ghost, spec-only tests or the HDL runner, and there is no automatic result publication.
 

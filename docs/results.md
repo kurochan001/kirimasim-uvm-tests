@@ -6,14 +6,18 @@
 
 Runtime matches, compiler rejections and unmeasured inputs describe different execution conditions; [Read a result](reading-guide.md#read-a-result) explains how to read the counts together.
 
-The 2026-11-20 diagnosis checked the 2657 two-state simulation tests of that
-day with `--timescale 1ns/1ps`; none of the 2199 runtime tests that were tagged
-then changed state or printed an undeclared report, and the 94 tagged compile
-rejections still matched. Of the fifteen tests added since, the fourteen tagged ones and the one test whose
-header changed were run by Check with Verilator 5.052 at seeds 1/73 on the commit
-that published them, and all match. The fifteenth is a known difference; [Measure run 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017) showed it with Verilator 5.052.
+The 2026-11-21 migration moved the fixed release from 5.052 to 5.054 and
+remeasured every two-state input on 5.054 locally at seeds 1/73. The 2312 tests
+whose tags moved to `verilator@5.054` are the ones that matched in that
+measurement, and the 459 known differences are the ones that did not, with
+their causes re-assigned in the cause record. The three DPI-condition subsets
+were remeasured on 5.054 too, and their states match the 5.052 records. The
+hosted Regression runs every tagged check with Verilator 5.054, and its
+results are recorded in the history and here.
 The seven four-state tests have no Verilator record. The 1081 Ghost records
-remain valid, and 1697 inputs are unmeasured by Ghost, including four revised
+were carried forward with `tools/code_identity.py carry`, because the only
+edit was the simulator tags, and remain valid; 1697 inputs are unmeasured by
+Ghost, including four revised
 old inputs. kirimasim 0.1.3 (commit 21ee5a43) was measured on all 2778 inputs
 with the current runner on 2026-11-21. Each record fingerprints its inputs
 and conditions.
@@ -32,10 +36,10 @@ A runtime match at seeds 1/73 still counts as one fixture, while a seed requeste
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 2307 `pass`: 2213 runtime + 94 compile rejection; 464 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
-| Verilator 5.052, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
-| Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 20 `pass`; 3 `known` | Separate overlapping 23-case condition; matches at seeds 1/73, differences at seed 1 |
-| Verilator 5.052, listed ordinary fixtures with regex and command-line DPI | 26 `pass` | Separate overlapping 26-case condition from `coverage/regex_dpi_variants.txt`; matches at seeds 1/73 |
+| Verilator 5.054, pinned UVM | 2312 `pass`: 2218 runtime + 94 compile rejection; 459 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
+| Verilator 5.054, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
+| Verilator 5.054, original command-line VPI bridge and pinned regex DPI | 20 `pass`; 3 `known` | Separate overlapping 23-case condition; matches at seeds 1/73, differences at seed 1 |
+| Verilator 5.054, listed ordinary fixtures with regex and command-line DPI | 26 `pass` | Separate overlapping 26-case condition from `coverage/regex_dpi_variants.txt`; matches at seeds 1/73 |
 | kirimasim 0.1.3 (commit 21ee5a43), pinned UVM | 98 `pass`; 2604 `unsupported`; 76 `fail` | All 2778 current inputs, one run on 2026-11-21 with the current runner. Every `pass` is an illegal design rejected at its pattern; no simulation test runs |
 | Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1697 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
@@ -63,16 +67,16 @@ A build failure stops before simulation, while a runtime difference comes from a
 declared fixture/type/member diagnostic. Five illegal designs remain accepted:
 subscriber write, visitor visit, proxy get_immediate_children and adapter accept omissions, and direct construction of the
 printed virtual builtin dispatcher. They retain the rejection oracle as known
-differences without runtime, even when accepted. The 140 unexpected simulation
+differences without runtime, even when accepted. The 141 unexpected simulation
 builds remain separate. A pass requires the declared expectation.
 
 [The cause record](known-differences.md#causes-of-the-known-differences) assigns causes to these
-differences separately from the symptom categories below: 319 library, 61 interpretation,
-27 simulator and 57 DPI-condition causes, with no entry unassigned.
+differences separately from the symptom categories below: 320 library, 61 interpretation,
+21 simulator and 57 DPI-condition causes, with no entry unassigned.
 
-The 464 measured spec-only cases retain standard-derived output or compile-diagnostic
-expectations; the seven four-state spec-only cases have no Verilator record. Five are illegal compiler acceptances; 459 are simulation cases.
-Of these, 319 first differ at runtime seed 1 without seed 73. Forty-three cannot build
+The 459 measured spec-only cases retain standard-derived output or compile-diagnostic
+expectations; the seven four-state spec-only cases have no Verilator record. Five are illegal compiler acceptances; 454 are simulation cases.
+Of these, 313 first differ at runtime seed 1 without seed 73. Forty-three cannot build
 because of missing APIs/type names: one time API, fourteen sequence-library APIs,
 twelve HDL slice-view cases, one named-concat constructor, five object active-policy API cases,
 three catcher message-handle cases, the printed base recording-state getter,
@@ -80,8 +84,9 @@ the printed report callback typedef and two builtin type_id cases, plus three ty
 
 One time-decrement build requires the printed optional secs argument.
 Two declaration builds retain incompatible defaults; two retain printed
-all_dropped function/task and clone implicit-scalar/map-return conflicts. Two
-retain incompatible inherited type_id registry specializations; one retains the
+all_dropped function/task and clone implicit-scalar/map-return conflicts. Three
+retain incompatible inherited type_id registry specializations; one of those
+stops building on Verilator 5.054 with an internal compiler error; one retains the
 protected memory backdoor_read accessibility difference. Two legal extensions, resource-base and listed-only complete core service,
 also require unlisted pure hooks. Another 61 request
 unlinked DPI: thirty-eight HDL and twenty-three command-line cases. Three additional legal
@@ -89,8 +94,11 @@ builds use the literal enum-collection T interpretation. Seven further builds
 retain six strict attribute definitions and the printed enum-unpack arity.
 Three more builds retain dependent visitor defaults with custom STRUCTURE.
 Two qualified virtual-abstraction overview-base inputs retain the wording
-conflict; their explicit class-base controls match separately. Two additional
-printed dedicated-pool return-type inputs retain the pool/item conflict. These 140
+conflict; their explicit class-base controls match separately. Three build
+failures retain printed return-type conflicts: two dedicated-pool inputs keep
+the pool/item conflict, and the phase `get_schedule` input now fails to build
+because Verilator 5.054 rejects passing a class handle to a printed string
+argument. These 141
 simulation builds have no runtime result. Separate command-line evidence has
 twenty matches, one quit-warning difference and two regular-expression differences.
 
@@ -100,8 +108,7 @@ retained without runtime.
 
 Four additional bare-packet simulation builds stop at the typed factory result used for predictor type naming; they have no runtime evidence and do not create a mandatory IEEE registration prerequisite.
 
-Two additional simulation builds report unsupported enum methods for the large
-flag extension and an undefined UVM_PACKER_MIN_BITS; neither has a runtime result.
+One additional simulation build reports an undefined UVM_PACKER_MIN_BITS and has no runtime result; the other of the pair, the unsupported enum method for the large flag extension, matched on Verilator 5.054 and is tagged.
 
 The shared-handler reset case retains the severity/ID verbosity value while
 general and ID values, action and file return to defaults. The expected reset
@@ -180,13 +187,14 @@ controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
 The suite has 2778 tests (2679 simulation/99 elaboration). Ordinary results
-are 2307 matches: 2213 runtime inputs at both seeds and 94 compiler rejections.
-Known inputs total 464: 319 runtime seed 1 differences, 140 simulation builds
-and five accepted illegal designs without runtime; spec-only cases total 471
+are 2312 matches: 2218 runtime inputs at both seeds and 94 compiler rejections.
+Known inputs total 459: 313 runtime seed 1 differences, 141 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 466
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
-is added to the ordinary totals. No guest run/filter is added: 1081
-compatible records remain byte-identical and 1697 inputs are unmeasured (1693
+is added to the ordinary totals. No guest run/filter is added: the 1081
+compatible records survive the migration, whose tag-only edit moved their
+fingerprints with `tools/code_identity.py carry`, and 1697 inputs are unmeasured (1693
 additions/four revised originals; 1598 simulation/99 elaboration).
 
 Primary-focused identifiers are 1327; candidates are 1160 zero/768 below
@@ -206,7 +214,8 @@ longer available, so no guest rerun is claimed. Historical source files retain
 1085 records. Earlier filters excluded four revisions: command-enum citation,
 Boolean rerandomization, virtual-field configuration and reraise primary citation.
 This increment performs no new filtering. All 1081 compatible records and
-filter metadata are retained byte-identically. Later additions increase the
+filter metadata survive the migration: the tag-only edit moved their
+fingerprints with `tools/code_identity.py carry`. Later additions increase the
 unmeasured set to 1697: 1693 additions and four revised originals. Ghost remains
 206 pass/875 fail per seed. The retained kirimasim file of 1081 records, 1072 unsupported and nine API failures, is superseded by the measurement of 2026-11-21 in `out/thin-one-hundred-thirty-ninth/kirimasim-all.json`.
 The latest exclusions are recorded in `out/thin-one-hundred-sixth-guest-exclusions.json`;
@@ -325,13 +334,13 @@ plus the canary `tests/u09/test_common_phases_run_in_order.sv`, with runtime
 seeds 1/73 ([the selection tool](../tools/ci_select.py)). For a push, the base is the head of the last Check on `main` that succeeded, so the checks of a run that a newer push cancelled, or that failed, are selected again; without such a run it is the previous push. When the base is
 unavailable, when the runner, its normalization, the library lock, the
 fetcher or the setup action changed, or when more than 30 checks are affected, only the canary runs
-and a warning asks for Regression. Another warning names changed files that only a separate DPI condition exercises, which Check does not run. The setup action stops unless the Verilator it restored or built reports release 5.052. The Verilator job also rebuilds the cause
-record's twelve reproducers. A green Check covers the selected checks only.
+and a warning asks for Regression. Another warning names changed files that only a separate DPI condition exercises, which Check does not run. The setup action stops unless the Verilator it restored or built reports release 5.054. The Verilator job also rebuilds the cause
+record's nine reproducers. A green Check covers the selected checks only.
 
 [Regression](../.github/workflows/regression.yml) runs on manual dispatch and
-weekly (Saturdays 17:23 UTC). It runs all 2307 tagged ordinary checks (2213
+weekly (Saturdays 17:23 UTC). It runs all 2312 tagged ordinary checks (2218
 runtime cases at seeds 1/73 and 94 compiler rejections without runtime seeds)
-in 20 disjoint shards (seven of 116 and thirteen of 115), at most 4 concurrent so
+in 20 disjoint shards (twelve of 116 and eight of 115), at most 4 concurrent so
 that Check and other repositories keep hosted job slots, each limited to 360 minutes, the twenty explicit command-line checks in a
 separate job under their condition, and the twenty-six regex-DPI variants in another job. Its gate requires all three. A newer request
 waits for a run in progress instead of cancelling it; only one request can wait, so a further request replaces the waiting one. A manual run can be
@@ -368,9 +377,9 @@ to 199 minutes, within the 360-minute limit. This first complete hosted
 Regression result covers that commit; later commits need their own Check or
 Regression.
 
-Two later Regression runs covered every tagged check of their commits: [run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797) on a3956ce, dispatched after the readability edits, and the weekly [run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165) on 73a73ad; all 24 jobs of each succeeded. [Run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874), dispatched on e37fb89 after the runner began to pass the time scale and check the report declarations, succeeded in all 24 jobs on 2026-11-21, so a Regression with Verilator 5.052 covers the current runner and every check tagged at that commit. Of the fifteen tests added after e37fb89, the fourteen tagged ones were run by Check with Verilator 5.052 in the push that published them. The six tests that the 143rd expansion changed were run by [Measure run 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017) with Verilator 5.052 at seeds 1/73: the five tagged ones match, and the spec-only one differs as its record says.
+Two later Regression runs covered every tagged check of their commits: [run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797) on a3956ce, dispatched after the readability edits, and the weekly [run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165) on 73a73ad; all 24 jobs of each succeeded. [Run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874), dispatched on e37fb89 after the runner began to pass the time scale and check the report declarations, succeeded in all 24 jobs on 2026-11-21, so a Regression with Verilator 5.052 covers the current runner and every check tagged at that commit. Of the fifteen tests added after e37fb89, the fourteen tagged ones were run by Check with Verilator 5.052 in the push that published them. The six tests that the 143rd expansion changed were run by [Measure run 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017) with Verilator 5.052 at seeds 1/73: the five tagged ones match, and the spec-only one differs as its record says. These runs cover the 5.052-era suite only. After the 146th expansion's migration, a hosted Regression runs every check tagged at 5.054, and its results are recorded in the [history](history.md).
 
-Neither workflow runs kirimasim, Ghost, spec-only cases or the HDL runner; the HDL row of the results rests on local runs. [Measure](../.github/workflows/measure.yml), a manual workflow, runs named tests, tagged or not, with the pinned Verilator 5.052 and prints their statuses; it changes no record. The README's badge is
+Neither workflow runs kirimasim, Ghost, spec-only cases or the HDL runner; the HDL row of the results rests on local runs. [Measure](../.github/workflows/measure.yml), a manual workflow, runs named tests, tagged or not, with the pinned Verilator 5.054 and prints their statuses; it changes no record. The README's badge is
 the live Check state, separate from these local measurements. A green Check or
 Regression does not establish complete UVM conformance or a passing result for
 every simulator. There is no automatic result publication.

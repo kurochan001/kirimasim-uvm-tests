@@ -23,7 +23,7 @@ kirimasim 0.1.3は、2778入力のうち2543件で型`uvm_object_wrapper`をunsu
 
 段階2〜6は、それぞれのUVMの部分を使っていることを見つける正規表現（marker）を持ちます。toolは、テストと、テストが`tests/`の下から集めるfile（`:files:`と、そこからincludeするfile）を、commentとstring literalを除いてから探します。テストの段階は、markerが一致する最も高い段階で、どれも一致しなければ段階1です。analysis portにも書くdriverのように2つの段階のmarkerを持つテストは、simulatorが両方の部分を必要とするため、高い方の段階になります。
 
-| 段階 | UVMの部分 | marker（例） | テスト | Verilator 5.052で記録済み | 短いセット |
+| 段階 | UVMの部分 | marker（例） | テスト | Verilator 5.054で記録済み | 短いセット |
 | --- | --- | --- | --- | --- | --- |
 | 0 | uvm_pkgだけ | なし。overrideで決める | 1 | 1 | 1 |
 | 1 | 最小のrun_test | なし。既定の段階 | 1034 | 875 | 5 |
@@ -32,17 +32,17 @@ kirimasim 0.1.3は、2778入力のうち2543件で型`uvm_object_wrapper`をunsu
 | 4 | sequence | `uvm_sequence`、`uvm_sequencer`、`uvm_driver`、`start_item`、`` `uvm_do ``などのsequenceのmacro | 326 | 268 | 5 |
 | 5 | TLM | port・export・imp、`uvm_analysis_*`、`uvm_tlm_*`、`` `uvm_*_imp_decl ``、`uvm_subscriber` | 251 | 225 | 5 |
 | 6 | register層 | `uvm_reg*`、`uvm_mem*`、`uvm_vreg*`、`uvm_hdl_*`、register層のenum | 955 | 757 | 5 |
-| 計 | | | 2778 | 2307 | 31 |
+| 計 | | | 2778 | 2312 | 31 |
 
 紛らわしいものは意図して除いています。sequence item（`uvm_sequence_item`）だけではテストは段階4にならず、`uvm_reg_data_t`などのtypedefだけでは段階6にならず、`` `uvm_do_callbacks ``はcallbackのmacroでsequenceのmacroではありません。toolの単体テストが、短いcodeの断片でこれらを確かめます。
 
-markerで決められないテストの段階は、英語と日本語の理由を付けたoverrideで決めます。段階0になるのはこの方法だけです。[test_uvm_pkg_import_only_reaches_package_items](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv)はuvm_pkgをimportし、1つのenum値をimportとpackage名の両方から名指しするだけで、UVM objectを作らず、run_testも呼びません。期待値は1.4.5とF.2.2.4から導き、Verilator 5.052のseed 1と73で一致します。
+markerで決められないテストの段階は、英語と日本語の理由を付けたoverrideで決めます。段階0になるのはこの方法だけです。[test_uvm_pkg_import_only_reaches_package_items](../tests/u01/test_uvm_pkg_import_only_reaches_package_items.sv)はuvm_pkgをimportし、1つのenum値をimportとpackage名の両方から名指しするだけで、UVM objectを作らず、run_testも呼びません。期待値は1.4.5とF.2.2.4から導き、Verilator 5.054のseed 1と73で一致します。
 
 どの段階でもuvm_pkg全体をcompileします。そのため、library内のどこかにsimulatorがcompileできない構文があれば、すべての段階が止まります。現在の記録はこの状態です。段階が表すのは、テストがpackageそのものに加えてelaborateし実行するもの、つまり特殊化するparameter付きclassと、実行するlibraryのcodeです。
 
 ## 短いセット
 
-各段階は10件までの代表を持ちます。現在のセットは段階1〜6に各5件、段階0に1件です。代表は`verilator@5.052`で記録済みの実行テストで、固定版libraryでseed 1と73の期待値が一致し、DPIやback-endの条件も実行時引数も要りません。同じ段階の中では、その段階の主な題材を扱う小さなテストを選んでいます。
+各段階は10件までの代表を持ちます。現在のセットは段階1〜6に各5件、段階0に1件です。代表は`verilator@5.054`で記録済みの実行テストで、固定版libraryでseed 1と73の期待値が一致し、DPIやback-endの条件も実行時引数も要りません。同じ段階の中では、その段階の主な題材を扱う小さなテストを選んでいます。
 
 | 段階 | テスト |
 | --- | --- |
@@ -166,4 +166,4 @@ python3 tools/kirimasim_stages.py update
 python3 tools/kirimasim_stages.py check
 ```
 
-`update`は追加・削除・変更した項目を1件ずつ出力します。commitの前に変更を見直し、markerが誤った段階に置くテストには理由を付けたoverrideを加えてください。短いセットは、`verilator@5.052`で記録済みの、自分の段階のテストを保つ必要があります。
+`update`は追加・削除・変更した項目を1件ずつ出力します。commitの前に変更を見直し、markerが誤った段階に置くテストには理由を付けたoverrideを加えてください。短いセットは、`verilator@5.054`で記録済みの、自分の段階のテストを保つ必要があります。

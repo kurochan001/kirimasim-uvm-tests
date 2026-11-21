@@ -41,7 +41,7 @@ with their spaces and values preserved. Exit-code and diagnostic conditions
 can be specified separately.
 
 **Oracle / `:oracle:` / spec-only** — The recorded basis of an expectation.
-`spec` means it follows the cited standard; `verilator@5.052` additionally
+`spec` means it follows the cited standard; `verilator@5.054` additionally
 records reproduction with that fixed release. Spec-only means there is no
 fixed-release oracle tag. A later match does not automatically change the tag.
 
@@ -1017,7 +1017,7 @@ It does not implement the UVM parser or derive expected results.
 
 **Condition-specific oracle marker** — Metadata selecting a reproduced fixture
 for one explicitly identified runner condition. Command-line fixtures use
-`:uvm_cmdline_oracle: verilator@5.052`; this does not tag an ordinary-runner pass.
+`:uvm_cmdline_oracle: verilator@5.054`; this does not tag an ordinary-runner pass.
 
 **Locked quit-limit diagnostic** — The required warning when user code attempts
 to change a non-overridable command-line quit limit. Correct rejection and

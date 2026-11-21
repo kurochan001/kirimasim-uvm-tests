@@ -88,7 +88,7 @@ overrideはテスト用の派生クラスがcallbackや観測メソッドを提�
 :type: simulation
 :lrm: 1800.2-2020 9.8.1 9.5 9.6 9.7 10.5.1
 :uvm: 2020.3.1
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no
@@ -326,7 +326,7 @@ driverとmonitorはclocking blockだけでdesignに触れ、期待値はhelper�
 
 ヘッダーは実行スクリプトにビルドと判定の条件を伝えるもので、条項の引用と要求への対応付けの関係は[Q76](faq.ja.md#q76-条項を引用すればその要求を検査したことになりますか)で説明しています。
 
-`:spec_check: ai`は期待値を誰が照合したかを記録し、`:oracle: spec verilator@5.052`は固定リリースでの再現も記録するもので、両項目が別の確認を表す理由は[期待値の用語集](glossary.ja.md#規格と期待値)で説明しています。
+`:spec_check: ai`は期待値を誰が照合したかを記録し、`:oracle: spec verilator@5.054`は固定リリースでの再現も記録するもので、両項目が別の確認を表す理由は[期待値の用語集](glossary.ja.md#規格と期待値)で説明しています。
 
 kirimasim-testsとsv-testsの形式を引き継ぎ、UVMの設定と共通のビルド・判定設定を以下に説明します。
 
@@ -340,7 +340,7 @@ kirimasim-testsとsv-testsの形式を引き継ぎ、UVMの設定と共通のビ
 | `:uvm_dpi:` | `yes`はDPIを有効にするマクロ指定。実装の供給・リンクは別途必要。[コンパイル](#コンパイル)を参照 |
 | `:uvm_defines:` | ライブラリに渡すマクロ（例：`UVM_ENABLE_DEPRECATED_API`） |
 | `:uvm_cmdline_backend:` | `vpi`は実process引数を使う別command-line runnerを選択 |
-| `:uvm_cmdline_oracle:` | `verilator@5.052`は再現済みcommand-line検査系を既定checkへ選択 |
+| `:uvm_cmdline_oracle:` | `verilator@5.054`は再現済みcommand-line検査系を既定checkへ選択 |
 | `:uvm_hdl_backend:` | `vpi`は別のHDL runnerを明示選択する。他のrunnerはlinkしない |
 | `:dpi_c:` | `@../../tools/uvm_hdl_vpi.cpp`で独自backendを宣言し指紋へ含める |
 | `:args:` | `+UVM_TESTNAME=…`などの実行時引数 |
@@ -426,8 +426,8 @@ builtin-sequence宣言fixtureは実際の省略／明示constructor呼出し、�
    ライブラリの制約と固定版で再現したoracleを区別します。
    不足する必須動作を直接検査するテストは、specのみの期待値を保持します。
 3. 固定版での再現：
-   - Verilator 5.052は、`UVM_NO_DPI`でライブラリをビルドして実行できます。x・zに依存せず、
-     seed 1と73の両方で再現したテストには、kirimasim-testsと同じく`verilator@5.052`を付けます。
+   - Verilator 5.054は、`UVM_NO_DPI`でライブラリをビルドして実行できます。x・zに依存せず、
+     seed 1と73の両方で再現したテストには、kirimasim-testsと同じく`verilator@5.054`を付けます。
    - Icarus Verilog 13.0はUVMを実行できないので使いません。
 4. シミュレータと期待出力が食い違っても、出力を写して解決しません。判断するのは条項です。
 
@@ -484,7 +484,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
 このbackendはUVMのDPI呼出しをシミュレータの公開VPI interfaceへ接続するもので、2つのinterfaceと測定範囲の関係は[HDLの実行条件](glossary.ja.md#hdlの実行条件)で説明しています。
 
 別の[HDL runner](../tools/run_verilator_hdl.py)は独自[backend](../tools/uvm_hdl_vpi.cpp)をlinkし、実HDL storageを使います。
-Verilatorは5.052固定で、38検査系は`:uvm_dpi: yes`、`:uvm_hdl_backend: vpi`、宣言した`:dpi_c:`を設定します。
+Verilatorは5.054固定で、38検査系は`:uvm_dpi: yes`、`:uvm_hdl_backend: vpi`、宣言した`:dpi_c:`を設定します。
 `UVM_REGEX_NO_DPI`と`UVM_CMDLINE_NO_DPI`で無関係なimportを無効にし、runnerはどちらのdefines fieldでもHDL無効化macroと既定1024-bit UVM DPI ABIの変更を拒否します。
 
 ABIはSystemVerilogとCが値を受け渡す形式で、その容器は1024 bitに固定され、このbackendが現在accessするpacked objectは64 bitまでなので、宣言上の幅と実access能力の区別は[Q182](faq.ja.md#q182-hdl幅parameterの検査はforcerelease対応も示しますか)で確認できます。
@@ -499,7 +499,7 @@ check／read／depositは64 bit以下の対応packed handleへ到達します。
 別の合法宣言probeで公開readのaccess差分を保持し、wrapperの成功でその契約をpassにはしません。
 
 force／releaseは公開forceable packed信号を必要とします。backendは文書化された公開capability markerを確認し、実handleへ標準VPI flagを使います。
-公開markerそのものへの書込みやpath／valueの模擬は行いません。[公開extensionの文書](https://verilator.org/guide/latest/extensions.html)は統合interfaceの参照先で、5.052での動作は独自probeと現在の測定で確認します。
+公開markerそのものへの書込みやpath／valueの模擬は行いません。[公開extensionの文書](https://verilator.org/guide/latest/extensions.html)は統合interfaceの参照先で、5.054での動作は独自probeと現在の測定で確認します。
 8／40-bit reg／wireの8入力は、反対値への更新中のforce保持、通常release、即時release/read、後続更新を扱い、別の1入力は存在しない／未instrument pathと有効controlを区別します。
 regは次の手続き代入までforce値を保持し、駆動wireは即時に解決値を返す違いを[HDLのFAQ](faq.ja.md#hdlのforceとreleaseの条件)で説明しています。
 
@@ -537,7 +537,7 @@ python3 tools/run_verilator_cmdline.py --all --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator-cmdline-all.json
 ```
 
-既定では`:uvm_cmdline_oracle: verilator@5.052`で再現済み20検査系を選びます。`--all`はspecのみのquit警告検査と正規表現の2検査を加え、
+既定では`:uvm_cmdline_oracle: verilator@5.054`で再現済み20検査系を選びます。`--all`はspecのみのquit警告検査と正規表現の2検査を加え、
 差分をpassではない`known`で記録します。再現済み選択検査の回帰は`fail`で、終了codeも非zeroです。
 modelを1回buildし、両seedを新規processで実行します。別の`verilator_cmdline`結果同一性でrunnerを独立にhashし、generic期待出力を共有します。
 重複する通常23記録はDPIのlinkに失敗するため、両条件を分けます。Regressionは既定のcommand-line 20件を実行し、既知差分の3件は実行しません。
@@ -546,7 +546,7 @@ modelを1回buildし、両seedを新規processで実行します。別の`verila
 
 [regex-DPI runner](../tools/run_verilator_regex.py)は、[変種の一覧](../coverage/regex_dpi_variants.txt)にある通常の2値検査系をUVM_NO_DPIなしでbuildし直します。
 UVM_HDL_NO_DPIを定義し、固定版のregex wrapperと独自のcommand-line VPI bridgeをlinkするため、名前の照合はlibraryの正規表現DPIを使い、+UVM_TESTNAMEなどの引数はcommand-line DPIで届きます。
-検査系のファイルと期待出力は変えず、一覧で`verilator@5.052`で終わる行はこの条件で一致した検査です。4値、不正design、DPIを選ぶ検査系は拒否します。
+検査系のファイルと期待出力は変えず、一覧で`verilator@5.054`で終わる行はこの条件で一致した検査です。4値、不正design、DPIを選ぶ検査系は拒否します。
 
 ```sh
 python3 tools/run_verilator_regex.py --seeds 1 73 --build-jobs 2 -j 2 \
@@ -588,7 +588,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の2307件（runtime 2213・期待compiler拒否94）です。`--all`を付けるとspecのみの464件も含めます。
+Verilatorの既定の対象はoracle付き・2値の2312件（runtime 2218・期待compiler拒否94）です。`--all`を付けるとspecのみの459件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -667,7 +667,7 @@ python3 tools/api_census.py check
 最後の2つには、固定版の`pyslang`が要ります（[slangでのelaboration](#slangでのelaboration)）。現在のツールの単体テストは210件、メタデータの対象はテスト2778件（simulation 2679件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
-Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
+Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.054・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
 各モデルを一度ビルドして2回使います。実行の成功はその実行が選んだ検査の成功を示し、
 UVMの全要求や全シミュレータの成功を示すものではありません。
 
@@ -676,7 +676,7 @@ UVMの全要求や全シミュレータの成功を示すものではありま�
 [段階の検査](kirimasim-stages.ja.md#段階を最新に保つ)は、各テストが`coverage/kirimasim_stages.json`のmarkerとoverrideの与えるkirimasimの立ち上げ段階を持つことを確かめます。そのため、テストの追加や変更、helperの変更の後は`python3 tools/kirimasim_stages.py update`を実行し、変更を見直す必要があります。各短いセットは、自分の段階のtag付きの実行テストを保つ必要があります。
 
 Checkは記録入力が変わったタグ付き検査とcanaryを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻ります。
-Regressionは手動と毎週、タグ付き2307件を重複しない20 shardで、command-line 20件、regex-DPI変種26件と合わせて実行します。
+Regressionは手動と毎週、タグ付き2312件を重複しない20 shardで、command-line 20件、regex-DPI変種26件と合わせて実行します。
 戻る条件と上限、以前の8 shard版Checkが完了しなかった理由は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 runner、library lock、多数の入力を変えた後は、Checkに頼らずRegressionを手動実行します。手動のRegressionは`tests/`の下のdirectory（入力`directories`、たとえば`u17 uG`）に絞れます。そのときは、それらのdirectoryのfileを集める検査を、115件ごとに1 shardで実行します。
 

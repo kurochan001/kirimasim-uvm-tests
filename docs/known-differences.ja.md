@@ -221,16 +221,15 @@ memory get_rightsは無関係mapへRWを返しますが必要なwarningを出さ
 - [17](../tests/u18/test_pinned_fifo_build_control_repeated_update.sv).
 - [18](../tests/u18/test_pinned_fifo_build_control_matching_checked_mirror.sv).
 
-付録C probeは新たなknown入力6件を保持します。合法な混合型／同順位／既定型呼出し3件は印刷typed resource-DB最大値helperが見つからず、runtimeを実行しません。
-runtime 3入力はseed 1で停止し、限定したrecent-set sort順、no-DPIのanchor付きregex alternation、印刷virtualのregex／scope base呼出しが異なります。
-これらは適用条件であり、独立に立証した6不具合ではありません。同順位listは元の古い順を保持し、base view経由で独自regex／scope overrideは両方0回の呼出しです。literal名、名前付き／匿名scope集合、異なるprecedenceのsortの一致は別fixtureで、独自overrideはbuiltin algorithmを置換しません。
+付録C probeは新たなknown入力5件を保持します。合法な混合型／同順位／既定型呼出し3件は印刷typed resource-DB最大値helperが見つからず、runtimeを実行しません。
+runtime 2入力はseed 1で停止し、限定したrecent-set sort順とno-DPIのanchor付きregex alternationが異なります。
+これらは適用条件であり、独立に立証した5不具合ではありません。同順位listは元の古い順を保持します。印字virtualのregex／scope base呼出しは、146回目の5.054の測定で一致してtag付きになりました。固定版libraryは`lookup_regex`と`lookup_scope`をvirtualでなく宣言します（C.2.4.4.7／C.2.4.4.8はvirtualと記載）。5.052はbase handleからbase methodを呼び、5.054はderivedの`virtual`再宣言を呼びます。1800-2023 8.20の「virtualなmethodは、すべてのbase classのmethodをoverrideする」を文面どおりに読むと5.054の動作になりますが、文言は両方に読めるため、立証済み不具合ではなく読み方の記録として残します。literal名、名前付き／匿名scope集合、異なるprecedenceのsortの一致は別fixtureで、独自overrideはbuiltin algorithmを置換しません。
 
 - [typed最大値・混合型](../tests/uC/test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types.sv).
 - [typed最大値・最初の同順位](../tests/uC/test_resource_db_typed_highest_precedence_returns_the_first_matching_maximum.sv).
 - [typed最大値・既定object](../tests/uC/test_resource_db_default_type_selects_the_highest_object_container.sv).
 - [recent-set sort](../tests/uC/test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule.sv).
 - [regex alternation](../tests/uC/test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order.sv).
-- [virtual regex／scope委譲](../tests/uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle.sv).
 
 第5章probeは新たなknown入力17件を保持します。合法active-policy呼出し4件がbuildできず、secs省略decrは印刷既定値があっても引数を要求します。
 runtime 12入力はseed 1だけです。time名はuvm_timeでなくuvm_tlm_time、generic型名は記載されたuvm_形でなくport／export／implementationです。
@@ -268,7 +267,7 @@ domain registryの最初の照会には常在が必要なcommon／uvm entryが�
 domain数を2だけに制限しません。早期終了はjump targetなしで後続へ到達しますが、元のtaskは動き続けます。
 
 他2件は本文の矛盾に関する限定probeです。get_impのnon-IMP-null文はnode解決文と矛盾し、厳密なNODE-null probeは異なる一方、共有implementation解決は一致します。
-get_scheduleはstring返却を印字しながら親nodeの返却を説明します。string receiverが呼出しを受理しても`$typename`観測はstringではありません。
+get_scheduleはstring返却を印字しながら親nodeの返却を説明します。5.052ではstring receiverが呼出しを受理しましたが`$typename`観測はstringではなく、5.054ではこの呼出しのbuild自体が拒否され、runtime観測はありません。
 receiver変換は宣言された返却型の証明ではありません。単一親schedule名controlは一致しますが、入れ子階層の解釈は解決しません。
 これらは照合が必要な解釈の境界であり、独立に立証した4 library不具合ではありません。
 
@@ -481,27 +480,27 @@ event deltaの6入力は最終tag付きで両seedに一致しますが、既知4
 
 ## 既知差分の原因
 
-原因は、既知差分が期待値に届かない理由を説明するもので、規格から導いた期待値を変えることはありません。[原因の記録](../coverage/known_causes.json)は、通常のVerilator 5.052実行の既知差分それぞれに1件ずつ記録を持ちます。各記録は、種別（runtime、build、accepted-illegal）、必要なDPIの実行条件（あれば）、原因1つ、その根拠、日英の説明からなります。4値のテストにはVerilatorの記録がないため、固定版libraryのsourceを読んで、libraryがどのsimulatorでも期待値に届かせないと分かったものにだけ、種別`static`の記録を置きます。原因は期待値を凍結した後に診断します。この診断に限って固定版libraryのsource（Apache-2.0）を読みますが、Verilatorのsource（LGPL）は読まないため、simulatorが原因のものはUVMを使わない再現例だけで示します。どの記録も、人が照合するまでreview statusは`ai`のままです。
+原因は、既知差分が期待値に届かない理由を説明するもので、規格から導いた期待値を変えることはありません。[原因の記録](../coverage/known_causes.json)は、通常のVerilator 5.054実行の既知差分それぞれに1件ずつ記録を持ちます。各記録は、種別（runtime、build、accepted-illegal）、必要なDPIの実行条件（あれば）、原因1つ、その根拠、日英の説明からなります。4値のテストにはVerilatorの記録がないため、固定版libraryのsourceを読んで、libraryがどのsimulatorでも期待値に届かせないと分かったものにだけ、種別`static`の記録を置きます。原因は期待値を凍結した後に診断します。この診断に限って固定版libraryのsource（Apache-2.0）を読みますが、Verilatorのsource（LGPL）は読まないため、simulatorが原因のものはUVMを使わない再現例だけで示します。どの記録も、人が照合するまでreview statusは`ai`のままです。
 
 | 原因 | 意味 | 根拠 | 件数 |
 | --- | --- | --- | --- |
-| library | 固定版libraryが、引用した条項と異なる | 引用した条項、libraryのファイルとその中の文字列 | 319 |
+| library | 固定版libraryが、引用した条項と異なる | 引用した条項、libraryのファイルとその中の文字列 | 320 |
 | interpretation | 引用した文言には別の読み方があり、libraryはそちらに従う | 引用した条項、テストの読み方と別の読み方、読み方の根拠 | 61 |
-| simulator | VerilatorがIEEE 1800-2023と異なる | kirimasim-testsへ移す、UVMを使わない再現例 | 27 |
+| simulator | VerilatorがIEEE 1800-2023と異なる | kirimasim-testsへ移す、UVMを使わない再現例 | 21 |
 | condition | テストが通常の実行ではlinkしないDPIの実行条件を必要とし、その条件では一致する | 実行条件とそのrunner | 57 |
 | unassigned | まだ診断していない | なし | 0 |
 
 最初のbatchでは、build差分140件と不正designの受理5件を分類しました。buildのうち61件はHDLまたはcommand lineのDPIの実行条件を必要とし、そのうち57件はその条件で一致します。残る84入力の原因はlibrary、interpretation、simulatorのいずれかです。2番目のbatchではruntime差分54件を分類しました。u01、u06〜u11、u13、uD、uGのすべてと、uCとuEの3件ずつです。3番目のbatchでは、残るruntime差分264件（u05、u12、u14〜u16、u18、u19、uB、uC、uE、uF）と、DPIの実行条件の下でも違いが残る4件を分類しました。後者の原因はどれもlibraryで、未分類の記録はなくなりました。このbatchで加えたのはlibrary 214件、interpretation 41件、simulator 13件です。通常の検査系のうち2件はcommand lineを読み、1件は正規表現で照合しますが、どれもDPIの実行条件を選んでいません。通常の実行のUVM_NO_DPIの構成では、固定版libraryは引数を返さず、globだけで照合するため、DPIの条件なら測れるlibraryの原因として数えます。[結果の内訳](results.ja.md#結果の解釈)のbuildの分類は、APIの名前がないといった症状でまとめたものなので、件数はここでの原因とは一致しません。libraryが原因のもののうち、固定版libraryのDEVIATIONS.mdに載っているのは3入力です。apply_config_settingsの既定のmodeの2入力（3番目、13.1.5.1）と、nullのmapを渡すget_local_mapの1入力（2番目、18.4.3.6）です。1番目の18.2.3.4は、どの既知入力にも関わりません。
 
-再現例は12個です。parameter付きの基底classのpure virtual methodを具象classが実装しない例（Verilatorは受理します。不正designの受理4件）、type parameterの既定値がそれより前のtype parameterに依存する例（Verilatorは拒否します。traversalのbuild 3件で、VISITORを明示した対照は一致します）、64 bitより広いenumのname() method（Verilatorは未対応です。build 1件）、forkした子processが動き続けるprocessのkill()（phaseの終了の4入力）、classのmemberのeventの2つの形です。eventの形は、同じprocessでtriggerの後に待つと先に待っていたprocessが解放されない形と、triggerの後にeventへ代入するとどの待ちも解放されない形です（各1入力）。3番目のbatchでは6つを加えました。2つのpackageの同じ名前のparameter付きclassを$castが通す例（TLMのpackageの4入力）、processが待っている間にeventへ代入するとそのprocessが解放される例（2入力）、$finishの後に呼出し元が再開する例（uvm_rootの3入力）、classも大きさを制約するとinlineのqueueの大きさの制約が無視される例と、packageのclassのsubclassが基底の禁じる大きさを受け入れる例（FIFO registerの各1入力）、乱数化が失敗した後にpost_randomizeを呼ぶ例（memory managerの2入力）です。runtimeの差分の再現例は自分で結果を確かめ、規格と異なるときは$fatalを呼びます。実行が失敗すれば、Verilatorは拒否したと数えます。
+再現例は9個です。parameter付きの基底classのpure virtual methodを具象classが実装しない例（Verilatorは受理します。不正designの受理4件）、type parameterの既定値がそれより前のtype parameterに依存する例（Verilatorは拒否します。traversalのbuild 3件で、VISITORを明示した対照は一致します）、2つのpackageの同じ名前のparameter付きclassを$castが通す例（TLMのpackageの4入力）、$finishの後に呼出し元が再開する例（uvm_rootの3入力）、乱数化が失敗した後にpost_randomizeを呼ぶ例（memory managerの2入力）、classのmemberのeventの形（同じprocessでtriggerの後に待つと先に待っていたprocessが解放されない形1入力、processが待っている間にeventへ代入するとそのprocessが解放される形2入力、triggerの後にeventへ代入するとどの待ちも解放されない形1入力）、typedefのaliasを通じてbuiltin parameterized classのtype_idがregistry特殊化に達する例（Verilator 5.054は内部エラーで停止します。build 1件）です。146回目の整理では、裏付ける記録がなくなった再現例4つを削りました。forkした子processが動き続けるprocessのkill()と、64 bitより広いenumのname() methodと、queueの大きさの制約の2例は、対応するテストが5.054の測定で一致しましたが、queueの2例のstandaloneな再現programの観測は5.054でも違ったままです。runtimeの差分の再現例は自分で結果を確かめ、規格と異なるときは$fatalを呼びます。実行が失敗すれば、Verilatorは拒否したと数えます。
 
 interpretationの記録は、2つの読み方の根拠（`basis`）も持ちます。`printed`は、テストが宣言、名前、書式の指定を印刷されたとおりに読み、規格の別の箇所がその印刷を誤植と示すもので、10件です（`get_schedule`の戻り型、専用poolの`get_global`の2件、functionとして印刷された`all_dropped`、`is_auto_enabled_recording_enabled`、戻り型のないmapのmethod、`uvm_report_db`、`NO_MEM_SHARED_ACCESS_TEST`、`%u`の2件）。`printed-by-library`は、libraryが印刷に従いテストが別の箇所に従うもので、`get_streams`の1件です。`ambiguity`は、文言そのものが二通りに読めるもので、50件です。概要や説明文と宣言の食い違いは`ambiguity`に数えます。この区別は誤植に依存する読み方を分けるだけで、誤植かどうかの判断は人の照合に任せます。原因がlibraryの記録に、規格の印刷に従うものはありません。
 
 `static`の記録は2値の記録と同じ根拠を持ち、原因はlibraryかinterpretationに限ります。現在は1件です。[queueのテスト](../tests/u11/test_fourstate_queue_missing_entries_117.sv)は、空のqueueの`pop_front`と`pop_back`にwarningを期待します（11.3.2.8、11.3.2.9）が、固定版のmethodは組込みのpopの結果を返すだけで、reportを出しません。4値のほかの6件は、同じ読み方で、libraryが妨げる箇所を見つけていません。これは実行による確認ではありません。
 
-`python3 tools/known_causes.py check`は、記録とテストが一致することを確かめます。`:oracle:`にverilator@5.052がない2値テストそれぞれにちょうど1件の記録があること、入力の指紋が現在のものであること、libraryの文字列が固定版のファイルにあること、条項が1800.2-2020のものであること、対照がtag付きのテストであることです。commentだけの編集では、codeが変わらないことを先に示す`tools/code_identity.py refresh`で指紋を持ち越します。`--results`を付けると、合算したrunner JSONのknownの記録が記録と一致することも確かめます。`reproduce`は再現例をbuildし直し、Verilatorが記録どおりに受理または拒否することを確かめます。Checkは両方を実行します。
+`python3 tools/known_causes.py check`は、記録とテストが一致することを確かめます。`:oracle:`にverilator@5.054がない2値テストそれぞれにちょうど1件の記録があること、入力の指紋が現在のものであること、libraryの文字列が固定版のファイルにあること、条項が1800.2-2020のものであること、対照がtag付きのテストであることです。commentだけの編集では、codeが変わらないことを先に示す`tools/code_identity.py refresh`で指紋を持ち越します。`--results`を付けると、合算したrunner JSONのknownの記録が記録と一致することも確かめます。`reproduce`は再現例をbuildし直し、Verilatorが記録どおりに受理または拒否することを確かめます。Checkは両方を実行します。
 
-kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2397入力と、固定版libraryのためにどのsimulatorでも期待値に届かない381入力（原因がlibraryとinterpretationのもの。`static`の1件を含みます）を分けて数えます。未分類の入力はありません。測れる入力は、tag付きの2307件、原因がsimulatorとconditionのもの、記録のない4値の6件です。`candidates`は、人による照合の候補408件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。分類は終わりましたが、そうした値を加えると記録の形式が変わるため、先に案を示してユーザーの確認を得ます。
+kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2396入力と、固定版libraryのためにどのsimulatorでも期待値に届かない382入力（原因がlibraryとinterpretationのもの。`static`の1件を含みます）を分けて数えます。未分類の入力はありません。測れる入力は、tag付きの2312件、原因がsimulatorとconditionのもの、記録のない4値の6件です。`candidates`は、人による照合の候補403件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。分類は終わりましたが、そうした値を加えると記録の形式が変わるため、先に案を示してユーザーの確認を得ます。
 
 ## 固定版ライブラリの制約
 
@@ -913,19 +912,17 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは2307件、specのみのテストは471件で、うち7件は4値です。
-specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
-はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
-実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
+スイート全体では、`verilator@5.054`を付けたテストは2312件、specのみのテストは466件で、うち7件は4値です。
+9.6の子タスク停止の検査系は、5.052の固定組合せではpre-resetフェーズ終了後も子タスクが遅延書き込みを実行する既知差分でしたが、146回目の5.054の測定ではseed 1／73で一致し、tag付きになりました。
 
 wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1つ確立してから`reset(1)`を呼びます。
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの471件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の7件は[4値の一覧](#4値のspecのみのテスト)にあります。通常のVerilator実行とCIはoracle付き2307件（runtime 2213・compile拒否94）を選びます。
+specのみの466件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の7件は[4値の一覧](#4値のspecのみのテスト)にあります。通常のVerilator実行とCIはoracle付き2312件（runtime 2218・compile拒否94）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時319件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
-simulation build 140件には通常runtimeがなく、DPI未linkの61入力（HDL 38／command-line 23）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
+通常の実行時313件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+simulation build 141件には通常runtimeがなく、DPI未linkの61入力（HDL 38／command-line 23）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
 不正compiler受理5件は別のruntimeなし条件です。120回目のユーザーpackageのprofile 5件は両seedで一致し、既知差分を増やしません。124回目の段階0の入力も同じです。
 
 別HDL条件は全38入力のうち、virtual register／field 4件、register 6件、正時間force_time 8件、primitive force／release 9件、実array memory 3件を含む37件が両seed一致し、保持するE.7 warning／転送なし差分1件はseed 1です。
@@ -954,7 +951,7 @@ runtime seedのないbuild evidenceで、限定した名前の食違いとして
 
 callbackの呼出しと、その中で開始したthreadの完了は別の観測で、phaseの境界で存続を調べるprocessは[寿命の用語](glossary.ja.md#componentの寿命と便宜hook)で説明しています。
 
-lifetime probe 2つはcommon／runtime phase終了後もwriteとtickする子孫を観測します。callback probeは3 callbackのdispatchを観測しますが、start／end threadが完了してもready-to-end threadは完了しません。
+lifetime probe 2つは、common／runtime phase終了後に子孫がwriteとtickを止めることを検査します。5.052の固定組合せでは子孫が動き続けて既知差分でしたが、146回目の5.054の測定ではseed 1／73で一致し、tag付きになりました。callback probeは3 callbackのdispatchを観測しますが、start／end threadが完了してもready-to-end threadは完了しません。
 印刷どおりのall_dropped function callerは利用可能なtaskに対してbuildできず、限定したsignature解釈としてruntime seedを持ちません。
 型／名前による便宜replace 0条件では、その後の名前生成で後からの型が選ばれます。runtime 5件の期待をseed 1で保持し、seed 73やsimulator／libraryの確定原因を主張しません。
 
@@ -986,7 +983,7 @@ specのみのケースも固定版oracle tagなしに規格から導いた期待
 
 controlは差分を解釈するために前提を変えて実行する補助検査であり、元のケースの結果との関係は[要求への対応付けの役割](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
-2値のspecのみの464件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+2値のspecのみの459件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 
 
@@ -1129,7 +1126,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [利用不能なregister pathへのwarningとstorage転送なし](../tests/uE/test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access.sv).
 - [HDL readの実際のwide値と両変数の保持](../tests/u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable.sv).
 - [既定abstractionの利用可能pathと時刻不変](../tests/uE/test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time.sv).
-- [RTLのregister fileでのreset sequenceは、唯一のfieldがvolatileであるregisterを読まない](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv)。E.1 b)は、blockのすべてのregisterを読むとし、同時に、その読出しを値をreset値と比べるものとして述べています。volatileなfieldには比べる値がないので、原因の記録では、libraryの差分ではなくinterpretation（文言が二通りに読める）としています。手動のMeasureのrunが、Verilator 5.052でこの差分を確かめました（読出しは4回ではなく3回）。
+- [RTLのregister fileでのreset sequenceは、唯一のfieldがvolatileであるregisterを読まない](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv)。E.1 b)は、blockのすべてのregisterを読むとし、同時に、その読出しを値をreset値と比べるものとして述べています。volatileなfieldには比べる値がないので、原因の記録では、libraryの差分ではなくinterpretation（文言が二通りに読める）としています。手動のMeasureのrunが、Verilator 5.052でこの差分を確かめました（読出しは4回ではなく3回）。146回目の5.054の測定でも同じ3回の差分です。
 
 - [policy／objectのactive-policy push／pop同期](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv).
 
@@ -1174,8 +1171,6 @@ controlは差分を解釈するために前提を変えて実行する補助検�
   [flush後](../tests/u05/test_field_op_accessors_report_errors_after_flush.sv)。
 - [transactionの生成直後の非active状態](../tests/u05/test_transaction_is_inactive_before_first_begin.sv)。
 - [report handlerの重大度・ID別reset](../tests/u06/test_report_handler_reset_clears_pair_severity_override.sv)。
-- [phase終了時の残った子タスクの停止](../tests/u09/test_task_phase_kills_remaining_child_task.sv)。
-  シミュレータとライブラリのどちらが原因かは未確定です。
 - [drop直後のobjector一覧からの削除](../tests/u10/test_objection_objectors_list_removes_dropped_source.sv)。
 - 応答エラー報告の既定値：
   [生成直後の設定](../tests/u14/test_sequence_response_controls_have_documented_defaults.sv)と

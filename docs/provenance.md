@@ -17,7 +17,7 @@ The standard identifies the rule being checked, while a fixed-release oracle rec
 | Standard | IEEE 1800-2023 | IEEE 1800.2-2020, run by the language of 1800-2023 |
 | External dependency | none (small, self-contained designs) | the UVM library, pinned by version and digest |
 | Layout | `tests/chNN/`, chapters of 1800-2023 | `tests/uNN/`, chapters of 1800.2 |
-| Fixed-release oracles | Icarus Verilog 13.0, Verilator 5.052 | Verilator 5.052 where it reproduces |
+| Fixed-release oracles | Icarus Verilog 13.0, Verilator 5.054 | Verilator 5.054 where it reproduces |
 | Shared judgment/result JSON | the original | `suite_results.py` copied from a fixed commit; runners are original suite code ([`tools/UPSTREAM`](../tools/UPSTREAM)) |
 | CI | its own | its own, as compiling UVM for every test is slow |
 
@@ -221,7 +221,7 @@ Force/release expectations are independently derived before measurement from
 supplied IEEE 19.6.2.3/.5/.6, language 10.6.2 and VPI 38.34. The original backend
 uses standard VPI flags and actual handles; [public extension documentation](https://verilator.org/guide/latest/extensions.html)
 informs capability integration only. Original probes and all twenty final inputs
-verify exactly 5.052 rather than inferring its behavior from latest documentation.
+verify exactly 5.054 rather than inferring its behavior from latest documentation.
 No GPL/LGPL implementation file is opened or used; no commercial result supplies
 evidence. [The HDL FAQ](faq.md#hdl-force-and-release-conditions) distinguishes expectations,
 backend premises and eleven refreshed input identities.

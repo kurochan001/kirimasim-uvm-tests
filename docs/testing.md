@@ -94,7 +94,7 @@ An override lets a test subtype supply a callback or observation method; [the co
 :type: simulation
 :lrm: 1800.2-2020 9.8.1 9.5 9.6 9.7 10.5.1
 :uvm: 2020.3.1
-:oracle: spec verilator@5.052
+:oracle: spec verilator@5.054
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no
@@ -465,7 +465,7 @@ The standard leaves these paths unspecified, so no fixture asserts them:
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
 
-`:spec_check: ai` records who reviewed the expectation, while `:oracle: spec verilator@5.052` also records fixed-release reproduction; [the expectation glossary](glossary.md#standards-and-expectations) explains why those fields describe separate checks.
+`:spec_check: ai` records who reviewed the expectation, while `:oracle: spec verilator@5.054` also records fixed-release reproduction; [the expectation glossary](glossary.md#standards-and-expectations) explains why those fields describe separate checks.
 
 The metadata follows kirimasim-tests and sv-tests; the fields below cover UVM settings and common build and judgment settings:
 
@@ -479,7 +479,7 @@ The `2020.3.1` in `:uvm:` identifies an implementation release, while `1800.2-20
 | `:uvm_dpi:` | `yes` requests DPI-enabled macros; supplying/linking the implementation is separate; see [compiling](#compiling) |
 | `:uvm_defines:` | macros for the library, such as `UVM_ENABLE_DEPRECATED_API` |
 | `:uvm_cmdline_backend:` | `vpi` opts into the separate actual-process command-line runner |
-| `:uvm_cmdline_oracle:` | `verilator@5.052` selects a reproduced command-line case for default checks |
+| `:uvm_cmdline_oracle:` | `verilator@5.054` selects a reproduced command-line case for default checks |
 | `:uvm_hdl_backend:` | `vpi` opts into the separate HDL runner; other runners do not link it |
 | `:dpi_c:` | `@../../tools/uvm_hdl_vpi.cpp` declares and fingerprints the original backend |
 | `:args:` | run-time arguments such as `+UVM_TESTNAME=…` |
@@ -588,9 +588,9 @@ A suspected expectation error needs a clause-based correction, so use [Q18](faq.
    distinguish library limitations from reproduced fixed-release oracles.
    Tests directly checking missing required behavior keep spec-only expectations.
 3. Reproduction with fixed releases:
-   - Verilator 5.052 builds and runs the library with `UVM_NO_DPI`. A test that
-     does not depend on x or z and that Verilator 5.052 reproduces with seeds
-     1 and 73 gets `verilator@5.052`, as in kirimasim-tests.
+   - Verilator 5.054 builds and runs the library with `UVM_NO_DPI`. A test that
+     does not depend on x or z and that Verilator 5.054 reproduces with seeds
+     1 and 73 gets `verilator@5.054`, as in kirimasim-tests.
    - Icarus Verilog 13.0 cannot run UVM and is not used.
 4. A disagreement between a simulator and an expected output is never solved
    by copying the simulator's output; the clause decides.
@@ -655,7 +655,7 @@ This backend connects UVM's DPI calls to the simulator's public VPI interface; [
 
 The separate [HDL runner](../tools/run_verilator_hdl.py) links the original
 [backend](../tools/uvm_hdl_vpi.cpp) to actual HDL storage with exactly Verilator
-5.052. Thirty-eight fixtures declare `:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and
+5.054. Thirty-eight fixtures declare `:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and
 `:dpi_c:`; `UVM_REGEX_NO_DPI` and `UVM_CMDLINE_NO_DPI` disable unrelated imports.
 The runner rejects HDL-disabling macros and changes to the default 1024-bit
 UVM DPI ABI in either defines field.
@@ -678,7 +678,7 @@ documented public capability marker and applies standard VPI flags to the actual
 handle; it does not write that marker or mock path/value storage. Public
 [extension documentation](https://verilator.org/guide/latest/extensions.html)
 describes integration, while original probes and current measurements establish
-behavior on exactly 5.052. Eight 8/40-bit reg/wire inputs check force held across
+behavior on exactly 5.054. Eight 8/40-bit reg/wire inputs check force held across
 opposing updates, plain release, immediate release/read and later updates. One
 additional input checks missing/uninstrumented targets and a valid control.
 Reg retains its forced value until a new procedural assignment; a driven wire
@@ -735,7 +735,7 @@ python3 tools/run_verilator_cmdline.py --all --seeds 1 73 --build-jobs 2 -j 2 \
 ```
 
 The default selects twenty reproduced fixtures through
-`:uvm_cmdline_oracle: verilator@5.052`. `--all` adds the spec-only quit-warning
+`:uvm_cmdline_oracle: verilator@5.054`. `--all` adds the spec-only quit-warning
 case and the two regular-expression cases and records their differences as `known`, which is not a pass. Regressions in
 selected reproduced cases are `fail` and cause a nonzero exit. One model build
 runs in fresh processes at both seeds. The separate `verilator_cmdline` result
@@ -751,7 +751,7 @@ without UVM_NO_DPI. It defines UVM_HDL_NO_DPI and links the pinned regex wrapper
 and the original command-line VPI bridge, so name matching uses the library's
 regular-expression DPI and arguments such as +UVM_TESTNAME arrive through the
 command-line DPI. Fixture files and expected output are unchanged; a listed
-line ending in `verilator@5.052` is a check that matched in this condition.
+line ending in `verilator@5.054` is a check that matched in this condition.
 Four-state, illegal-design and DPI-selecting fixtures are refused.
 
 ```sh
@@ -799,9 +799,9 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 2307 tagged two-state checks: 2213 runtime
+By default, Verilator selects 2312 tagged two-state checks: 2218 runtime
 cases and 94 expected compiler rejections. To include
-the 464 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 459 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -886,7 +886,7 @@ The last two need the pinned `pyslang` ([slang elaboration](#slang-elaboration))
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the
 [Regression](../.github/workflows/regression.yml) shards, uses
-5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
+5.054, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
 built once for the two executions. A green run establishes the checks it
 selected, not that every UVM requirement or every simulator passes.
 
@@ -902,7 +902,7 @@ and a review of the change. Each short set must keep tagged simulation tests of 
 
 Check runs the tagged checks whose recorded inputs changed, plus a canary, and
 falls back to the canary alone with a warning when it cannot cover a change.
-Regression runs all 2307 tagged checks in 20 disjoint shards, the 20
+Regression runs all 2312 tagged checks in 20 disjoint shards, the 20
 command-line checks and the 26 regex-DPI variants, manually and weekly. [The CI section](results.md#continuous-integration)
 gives the fallbacks and limits, and why the earlier 8-shard Check never finished.
 After a change to the runner, the library lock or many inputs, dispatch
