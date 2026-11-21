@@ -6,7 +6,7 @@
 
 runtime一致、compiler拒否、未測定入力は実行条件が異なるため、件数を併せて読む方法は[結果を読む](reading-guide.ja.md#結果を読む)を参照してください。
 
-2026-11-20の診断は2値のsimulationテスト2657件を`--timescale 1ns/1ps`で確認し、当時tag付きだったruntime 2199件の状態変化と未宣言reportは0件でした。tag付きcompile拒否94件も一致しました。それ以後に足した15件のうちtag付きの14件と、headerを変えた1件は、公開したcommitでCheckがVerilator 5.052のseed 1／73で実行し、すべて一致しました。残る1件は既知差分で、localのVerilator 5.054でしか見ていないため、5.052での記録は確かめていません。4値の7件にはVerilatorの記録がありません。Ghostの1081記録は有効なままです。kirimasim 0.1.3（commit 21ee5a43）は、2026-11-21に、現在のrunnerで全2778入力を測りました。
+2026-11-20の診断は2値のsimulationテスト2657件を`--timescale 1ns/1ps`で確認し、当時tag付きだったruntime 2199件の状態変化と未宣言reportは0件でした。tag付きcompile拒否94件も一致しました。それ以後に足した15件のうちtag付きの14件と、headerを変えた1件は、公開したcommitでCheckがVerilator 5.052のseed 1／73で実行し、すべて一致しました。残る1件は既知差分で、[Measureのrun 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017)がVerilator 5.052で確かめました。4値の7件にはVerilatorの記録がありません。Ghostの1081記録は有効なままです。kirimasim 0.1.3（commit 21ee5a43）は、2026-11-21に、現在のrunnerで全2778入力を測りました。
 Ghostでは1697入力が未測定です。各記録は入力と実行条件を指紋で識別します。
 スイートは22 directoryの2778件で、simulation 2679件とelaboration 99件です。
 milestoneはM1 1200件（1119／81）、M2 634件（627／7）、M3 944件（933／11）で、括弧内はruntime／elaborationです。
@@ -241,7 +241,7 @@ command-line jobは成功し、3 shardは342検査のうち334件が一致しま
 
 修正後のdb06513での[run 42372122368](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42372122368)は、20 shardでタグ付き検査2273件すべてがseed 1／73で一致し、command-line 17件も成功しました。各shardは113〜199分で、360分の上限内でした。hostedのRegressionで初めて全件がそろったこの結果の対象はそのcommitで、後のcommitにはそれぞれのCheckまたはRegressionが必要です。
 
-その後の2回のRegressionは、それぞれのcommitのtag付き検査をすべて対象にしました。読みやすさの編集の後に起動したa3956ceでの[run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797)と、73a73adでの毎週の[run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165)で、どちらも24 jobすべてが成功しました。runnerが時間単位を渡し、reportの宣言を検査するようになった後にe37fb89で起動した[run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874)は、このページを最後に見直した2026-11-21の時点で終わっていません。そのため、現在のrunnerを対象にしたRegressionの結果はまだありません。e37fb89の後に足した15件のうち、tag付きの14件は、公開したpushのCheckがVerilator 5.052で実行しました。specのみの1件は、localのVerilator 5.054でしか実行していません。
+その後の2回のRegressionは、それぞれのcommitのtag付き検査をすべて対象にしました。読みやすさの編集の後に起動したa3956ceでの[run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797)と、73a73adでの毎週の[run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165)で、どちらも24 jobすべてが成功しました。runnerが時間単位を渡し、reportの宣言を検査するようになった後にe37fb89で起動した[run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874)は、2026-11-21に24 jobすべてが成功しました。これで、現在のrunnerと、そのcommitでtag付きだった検査すべてを、Verilator 5.052のRegressionが対象にしています。e37fb89の後に足した15件のうち、tag付きの14件は、公開したpushのCheckがVerilator 5.052で実行しました。143回目で変更した6件は、[Measureのrun 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017)がVerilator 5.052のseed 1／73で実行しました。tag付きの5件は一致し、specのみの1件は記録のとおりに違います。
 
 kirimasim、Ghost、specのみのケース、HDLのrunnerは、どちらのworkflowでも実行しません。結果のHDLの行は、localの実行によるものです。手動のworkflowである[Measure](../.github/workflows/measure.yml)は、名前を挙げたテストを、tagの有無にかかわらず固定版のVerilator 5.052で実行し、状態を出力します。記録は変えません。READMEのバッジは現在のCheckの状態で、このローカル測定とは別です。
 CheckやRegressionが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。結果の自動公開はありません。

@@ -111,7 +111,7 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 
 simulation一致とcompiler拒否は別の検査なので、以下のラベルと件数は[結果の読み方](docs/reading-guide.ja.md#結果を読む)を参照してください。
 
-2値の2771件のVerilatorの結果は、1回の実行ではなく複数の測定によるもので、すべてが現在のrunnerの5.052で確かめられているわけではありません。128回目は、2026-11-20にtag付きのテストを測り直したと報告していますが、これは別のsessionでの測定で、そのVerilatorの版はこの記録では確かめられません。そのcommitを5.052で実行するRegressionは、2026-11-21の時点で終わっていません。それ以後に足したか変えたtag付きのテストは、公開したcommitでCheckがVerilator 5.052のseed 1／73で実行しました。それ以後に足したspecのみの1件は、localのVerilator 5.054でしか差分を見ていません。4値の7件はspecのみで、Verilatorの記録はありません。
+2値の2771件のVerilatorの結果は、1回の実行ではなく複数の測定によるものです。[Regressionのrun 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874)は、e37fb89でtag付きだったすべてのテストを、Verilator 5.052と現在のrunnerで実行し、2026-11-21にすべてのjobが成功しました。それ以後に足したか変えたtag付きのテストは、公開したpushのCheckか、手動のworkflowであるMeasureが、Verilator 5.052のseed 1／73で実行しました。それ以後に足したspecのみの1件の差分も、Measureで確かめています。ほかの既知差分は、以前の測定の記録のままです。4値の7件はspecのみで、Verilatorの記録はありません。
 Ghostの記録は互換な1081入力のもので、Ghostでは1697入力が、[証拠の再利用規則](docs/results.ja.md#記録の合算)を満たす現在の記録がないため未測定です。kirimasimは、現在の全入力を現在のrunnerで測り直しました。
 
 | シミュレータとライブラリ | 観測結果 |

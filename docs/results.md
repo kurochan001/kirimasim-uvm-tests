@@ -11,8 +11,7 @@ day with `--timescale 1ns/1ps`; none of the 2199 runtime tests that were tagged
 then changed state or printed an undeclared report, and the 94 tagged compile
 rejections still matched. Of the fifteen tests added since, the fourteen tagged ones and the one test whose
 header changed were run by Check with Verilator 5.052 at seeds 1/73 on the commit
-that published them, and all match. The fifteenth is a known difference that was seen
-only with a local Verilator 5.054, so its record under 5.052 is not confirmed.
+that published them, and all match. The fifteenth is a known difference; [Measure run 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017) showed it with Verilator 5.052.
 The seven four-state tests have no Verilator record. The 1081 Ghost records
 remain valid, and 1697 inputs are unmeasured by Ghost, including four revised
 old inputs. kirimasim 0.1.3 (commit 21ee5a43) was measured on all 2778 inputs
@@ -318,7 +317,7 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. Its tools job checks pinned-library integrity, 210 tool unit tests,
+and manual dispatch. Its tools job checks pinned-library integrity, 219 tool unit tests,
 2778 metadata records, the draft ledger/index, the cause record of the known
 differences, the [report declarations](testing.md#time-unit-and-report-declarations) and the [kirimasim bring-up stages](kirimasim-stages.md). Its slang job [elaborates every test with slang](testing.md#slang-elaboration) and compares [the API census](requirements.md#api-census) with the tests; it takes about eight minutes. Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,
@@ -369,7 +368,7 @@ to 199 minutes, within the 360-minute limit. This first complete hosted
 Regression result covers that commit; later commits need their own Check or
 Regression.
 
-Two later Regression runs covered every tagged check of their commits: [run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797) on a3956ce, dispatched after the readability edits, and the weekly [run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165) on 73a73ad; all 24 jobs of each succeeded. [Run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874), dispatched on e37fb89 after the runner began to pass the time scale and check the report declarations, had not finished when this page was last revised on 2026-11-21, so no Regression result covers the current runner yet. Of the fifteen tests added after e37fb89, the fourteen tagged ones were run by Check with Verilator 5.052 in the push that published them; the spec-only one was run only locally, with Verilator 5.054.
+Two later Regression runs covered every tagged check of their commits: [run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797) on a3956ce, dispatched after the readability edits, and the weekly [run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165) on 73a73ad; all 24 jobs of each succeeded. [Run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874), dispatched on e37fb89 after the runner began to pass the time scale and check the report declarations, succeeded in all 24 jobs on 2026-11-21, so a Regression with Verilator 5.052 covers the current runner and every check tagged at that commit. Of the fifteen tests added after e37fb89, the fourteen tagged ones were run by Check with Verilator 5.052 in the push that published them. The six tests that the 143rd expansion changed were run by [Measure run 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017) with Verilator 5.052 at seeds 1/73: the five tagged ones match, and the spec-only one differs as its record says.
 
 Neither workflow runs kirimasim, Ghost, spec-only cases or the HDL runner; the HDL row of the results rests on local runs. [Measure](../.github/workflows/measure.yml), a manual workflow, runs named tests, tagged or not, with the pinned Verilator 5.052 and prints their statuses; it changes no record. The README's badge is
 the live Check state, separate from these local measurements. A green Check or

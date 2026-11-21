@@ -111,7 +111,7 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The two slang commands need the pinned `pyslang` of [the slang elaboration check](testing.md#slang-elaboration). The snapshot passed 210 tool unit tests, metadata for all 2778 tests (2679 simulation, 99 elaboration),
+The two slang commands need the pinned `pyslang` of [the slang elaboration check](testing.md#slang-elaboration). The snapshot passed 219 tool unit tests, metadata for all 2778 tests (2679 simulation, 99 elaboration),
 ledger/index validation, the cause-record, report-declaration and stage checks, the slang elaboration, the API census, library integrity and current-input evidence checks.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records

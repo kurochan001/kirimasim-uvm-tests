@@ -7166,3 +7166,14 @@ A third reader reviewed the tools written since the 126th expansion and confirme
 kirimasim 0.1.3 (commit 21ee5a43, the build present on 2026-11-21) ran all 2778 inputs again with the corrected runner: 98 pass, 2604 unsupported and 76 fail, and no test changed its status against the earlier measurement. The slang check of all 2778 tests has no problem after its change.
 
 Recorded without a change: `tools/code_identity.py` does not see a shifted line of a report macro in a file without `` `__LINE__ ``, or a spacing change inside a macro argument that ends with an escaped backslash; both tools that pass arguments to slang join them with spaces, so a checkout path with a space would fail; 52 tests repeat a clause in `:lrm:`, and 195 descriptions are shared within a family of variants. `tools/full_output.py` had no finding.
+
+## 145th expansion: the review, results from the hosted runs
+
+The three corrections were pushed as b3df3d5, 100ed6e and 374a07f. Check of 374a07f succeeded in its three jobs; as the 143rd section expected, its Verilator job ran only the canary, with the warning that the setup action had changed.
+
+| Run | Verilator | Result |
+| --- | --- | --- |
+| [Measure 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017) on 374a07f | 5.052, seeds 1/73 | The five tagged tests that the 143rd expansion changed match. The uE reset-sequence test differs at seed 1 as recorded: three reads, with none at the address of COUNT, where the test expects four. This is the first confirmation of that known difference under 5.052 |
+| [Regression 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874) on e37fb89 | 5.052 | All 24 jobs succeeded on 2026-11-21. Every check tagged at that commit matched with the runner that passes the time scale, so the question that the 141st section left open, whether the tagged set matches under 5.052 with that runner, is answered for that commit |
+
+The earlier Check of b3df3d5 was cancelled by the next push while its Verilator job was queued; with the new base rule the next successful Check compares with 06bfff4 and loses nothing. The setup action printed `Verilator 5.052 2026-09-05 rev v5.052` and passed its new requirement. The unit tests number 219.

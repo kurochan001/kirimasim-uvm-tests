@@ -1129,7 +1129,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [利用不能なregister pathへのwarningとstorage転送なし](../tests/uE/test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access.sv).
 - [HDL readの実際のwide値と両変数の保持](../tests/u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable.sv).
 - [既定abstractionの利用可能pathと時刻不変](../tests/uE/test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time.sv).
-- [RTLのregister fileでのreset sequenceは、唯一のfieldがvolatileであるregisterを読まない](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv)。E.1 b)は、blockのすべてのregisterを読むとし、同時に、その読出しを値をreset値と比べるものとして述べています。volatileなfieldには比べる値がないので、原因の記録では、libraryの差分ではなくinterpretation（文言が二通りに読める）としています。この差分は、localのVerilator 5.054でしか見ていません。
+- [RTLのregister fileでのreset sequenceは、唯一のfieldがvolatileであるregisterを読まない](../tests/uE/test_rtl_hw_reset_sequence_reads_the_register_file_through_the_adapter_134.sv)。E.1 b)は、blockのすべてのregisterを読むとし、同時に、その読出しを値をreset値と比べるものとして述べています。volatileなfieldには比べる値がないので、原因の記録では、libraryの差分ではなくinterpretation（文言が二通りに読める）としています。手動のMeasureのrunが、Verilator 5.052でこの差分を確かめました（読出しは4回ではなく3回）。
 
 - [policy／objectのactive-policy push／pop同期](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv).
 

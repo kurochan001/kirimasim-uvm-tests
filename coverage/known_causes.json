@@ -11611,8 +11611,8 @@
         "basis": "ambiguity"
       },
       "note": {
-        "en": "Whether 'all of the registers' includes a register that has no field to compare depends on the reading of E.1 b); the pinned sequence (src/reg/sequences/uvm_reg_hw_reset_seq.svh) skips COUNT, whose only field is volatile. The difference was seen with a local Verilator 5.054 only.",
-        "ja": "「すべてのregister」に、比べるfieldのないregisterが入るかどうかは、E.1 b)の読み方による。固定版のsequence（src/reg/sequences/uvm_reg_hw_reset_seq.svh）は、唯一のfieldがvolatileであるCOUNTを読まない。この差分は、localのVerilator 5.054でしか見ていない。"
+        "en": "Whether 'all of the registers' includes a register that has no field to compare depends on the reading of E.1 b); the pinned sequence (src/reg/sequences/uvm_reg_hw_reset_seq.svh) skips COUNT, whose only field is volatile. A Measure run showed the difference with Verilator 5.052.",
+        "ja": "「すべてのregister」に、比べるfieldのないregisterが入るかどうかは、E.1 b)の読み方による。固定版のsequence（src/reg/sequences/uvm_reg_hw_reset_seq.svh）は、唯一のfieldがvolatileであるCOUNTを読まない。MeasureのrunがVerilator 5.052でこの差分を確かめた。"
       },
       "review": {
         "status": "ai",

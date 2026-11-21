@@ -4452,3 +4452,14 @@ localのVerilator 5.054では、変更したtag付きの5件はseed 1／73で一
 kirimasim 0.1.3（commit 21ee5a43、2026-11-21にあったbuild）で、直したrunnerを使って全2778入力を測り直しました。pass 98件、unsupported 2604件、fail 76件で、前の測定から状態の変わったテストはありません。slangの検査は、変更の後も全2778件で問題なしです。
 
 変更せずに記録するものは次のとおりです。`tools/code_identity.py`は、`` `__LINE__ ``のないfileでreportのmacroの行がずれること、escapeしたbackslashで終わるmacro引数の中の空白の変化を見ません。slangに引数を渡す2つのtoolは引数を空白でつなぐので、空白を含むpathのcheckoutでは失敗します。52件のテストが`:lrm:`に同じ条項を繰り返し、195種類の説明が変種のfamilyの中で共有されています。`tools/full_output.py`に指摘はありませんでした。
+
+## 145回目の拡充：レビュー、hostedのrunの結果
+
+3つの修正は、b3df3d5、100ed6e、374a07fとしてpushしました。374a07fのCheckは、3つのjobすべてが成功しました。143回目の節で見込んだとおり、Verilatorのjobは、準備用actionが変わったという警告を出して、canaryだけを実行しました。
+
+| run | Verilator | 結果 |
+| --- | --- | --- |
+| 374a07fでの[Measure 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017) | 5.052、seed 1／73 | 143回目で変更したtag付きの5件は一致しました。uEのreset sequenceのテストは、記録のとおりseed 1で違います。テストは4回の読出しを期待し、実際は3回で、COUNTのaddressへの読出しがありません。この既知差分を5.052で確かめたのは、これが初めてです |
+| e37fb89での[Regression 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874) | 5.052 | 2026-11-21に24 jobすべてが成功しました。そのcommitでtag付きだった検査はすべて、時間単位を渡すrunnerで一致しました。141回目の節が残した、tag付きの集合がそのrunnerの5.052で一致するかという問いは、そのcommitについて答えが出ました |
+
+b3df3d5のCheckは、Verilatorのjobが待っている間に、次のpushで取り消されました。新しい基点の規則では、次に成功するCheckが06bfff4と比べるので、失われる検査はありません。準備用actionは`Verilator 5.052 2026-09-05 rev v5.052`を出力し、新しい要求を通りました。単体テストは219件です。
