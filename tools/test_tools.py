@@ -84,6 +84,49 @@ class LibraryDigest(Sample):
         with self.assertRaises(ValueError):
             fetch_uvm.extract(data.getvalue(), self.root)
 
+    def archive(self, members):
+        data = io.BytesIO()
+        with tarfile.open(fileobj=data, mode="w:gz") as archive:
+            for name, text in members.items():
+                info = tarfile.TarInfo(name)
+                info.size = len(text)
+                archive.addfile(info, io.BytesIO(text))
+        return data.getvalue()
+
+    def test_the_one_top_directory_of_the_archive_is_returned(self):
+        top = fetch_uvm.extract(self.archive({"uvm-1.0/src/x.sv": b"one\n"}), self.root)
+        self.assertEqual(top.name, "uvm-1.0")
+        self.assertEqual((top / "src/x.sv").read_bytes(), b"one\n")
+
+    def test_an_archive_without_exactly_one_top_directory_is_refused(self):
+        with self.assertRaisesRegex(ValueError, "one top directory"):
+            fetch_uvm.extract(self.archive({"a/x": b"1", "b/y": b"2"}), self.root)
+        with self.assertRaisesRegex(ValueError, "one top directory"):
+            fetch_uvm.extract(self.archive({"x.sv": b"bare"}), self.root)
+
+    def test_a_link_in_the_archive_is_refused(self):
+        data = io.BytesIO()
+        with tarfile.open(fileobj=data, mode="w:gz") as archive:
+            info = tarfile.TarInfo("top/link")
+            info.type = tarfile.SYMTYPE
+            info.linkname = "/etc/passwd"
+            archive.addfile(info)
+        with self.assertRaisesRegex(ValueError, "unsafe"):
+            fetch_uvm.extract(data.getvalue(), self.root)
+
+    def test_the_check_says_why_a_copy_is_not_the_locked_release(self):
+        tree = self.root / "third_party/uvm/1.0"
+        (tree / "src").mkdir(parents=True)
+        (tree / "src/x.sv").write_text("one\n")
+        value, count = fetch_uvm.digest(tree)
+        lock = {"content_sha256": value, "files": count, "version": "1.0"}
+        with mock.patch.object(fetch_uvm, "ROOT", self.root):
+            self.assertEqual(fetch_uvm.check(tree, lock), "")
+            (tree / "src/x.sv").write_text("two\n")
+            self.assertIn("differs from the lock", fetch_uvm.check(tree, lock))
+            self.assertIn("is missing",
+                          fetch_uvm.check(self.root / "third_party/uvm/9.9", lock))
+
 
 class ToolVersion(Sample):
     def test_the_first_line_of_stdout_is_the_version(self):
