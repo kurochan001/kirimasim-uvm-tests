@@ -1,5 +1,7 @@
 """Checks the report declaration file and its clauses."""
 
+import contextlib
+import io
 import json
 import tempfile
 import unittest
@@ -81,6 +83,21 @@ class ReportsTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             uvm_reports.load(path)
 
+    def test_each_standard_keeps_only_its_own_clauses(self):
+        # The sample cites 5.7.2.2 and 5.7.2.3 under 1800.2-2020, and 6.21
+        # under 1800-2023; a basis must not borrow a clause across standards.
+        for bad in ("1800-2023 5.7.2.2", "1800.2-2020 6.21"):
+            data = self.data({"error": True, "fatal": False, "basis": [bad]})
+            self.assertIn("not in :lrm:", "\n".join(uvm_reports.problems(data)))
+        both = self.root / "tests/u05/test_two_standards.sv"
+        both.write_text("/*\n:type: simulation\n"
+                        ":lrm: 1800.2-2020 5.7.2.2 1800-2023 6.21\n*/\n"
+                        "module test_two_standards; endmodule\n")
+        data = {"schema": 1, "tests": {"u05/test_two_standards": {
+            "error": True, "fatal": False,
+            "basis": ["1800.2-2020 5.7.2.2", "1800-2023 6.21"]}}}
+        self.assertEqual(uvm_reports.problems(data), [])
+
     def test_summary_counts_permissions(self):
         text = uvm_reports.summary({"tests": {
             "a": {"error": True, "fatal": False},
@@ -90,6 +107,38 @@ class ReportsTest(unittest.TestCase):
         self.assertIn("both 1", text)
         self.assertIn("error-only 1", text)
         self.assertIn("fatal-only 1", text)
+
+    def test_the_command_names_a_file_it_cannot_read_or_parse(self):
+        stream = io.StringIO()
+        with contextlib.redirect_stderr(stream):
+            self.assertEqual(uvm_reports.main(
+                ["check", "--file", str(self.root / "absent.json")]), 1)
+            self.assertIn("absent.json", stream.getvalue())
+        broken = self.root / "broken.json"
+        broken.write_text("{oops")
+        stream = io.StringIO()
+        with contextlib.redirect_stderr(stream):
+            self.assertEqual(uvm_reports.main(["check", "--file", str(broken)]), 1)
+        self.assertIn("broken.json", stream.getvalue())
+
+    def test_the_command_checks_the_file_and_prints_the_summary(self):
+        good = self.root / "reports.json"
+        good.write_text(json.dumps({"schema": 1, "tests": {TEST: {
+            "error": True, "fatal": False, "basis": ["1800.2-2020 5.7.2.2"]}}}))
+        stream = io.StringIO()
+        with contextlib.redirect_stdout(stream):
+            self.assertEqual(uvm_reports.main(["check", "--file", str(good)]), 0)
+        self.assertIn("uvm_reports: 1 tests", stream.getvalue())
+        stream = io.StringIO()
+        with contextlib.redirect_stdout(stream):
+            self.assertEqual(uvm_reports.main(["summary", "--file", str(good)]), 0)
+        self.assertNotIn("uvm_reports:", stream.getvalue())
+        bad = self.root / "bad.json"
+        bad.write_text(json.dumps({"schema": 2, "tests": {}}))
+        stream = io.StringIO()
+        with contextlib.redirect_stdout(stream):
+            self.assertEqual(uvm_reports.main(["check", "--file", str(bad)]), 1)
+        self.assertIn("schema is 2", stream.getvalue())
 
 
 if __name__ == "__main__":
