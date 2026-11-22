@@ -1,5 +1,7 @@
 """Checks of tools/full_output.py that need no simulator."""
 
+import contextlib
+import io
 import json
 from pathlib import Path
 import subprocess
@@ -50,6 +52,61 @@ class FullOutput(unittest.TestCase):
     def test_a_longer_output_differs_at_its_first_extra_line(self):
         self.assertEqual(full_output.first_difference("a\n", "a\nb\n"),
                          {"line": 2, "base": None, "other": "b"})
+        self.assertEqual(full_output.first_difference("a\nlong line\n", "a\n"),
+                         {"line": 2, "base": "long line", "other": None})
+        self.assertEqual(full_output.first_difference("x" * 300, "")["base"], "x" * 200)
+
+    def test_the_index_lists_the_digest_and_the_status_of_each_output(self):
+        out = self.root / "cap"
+        full_output.write_capture(out, "verilator", "Sim 1.0", 73, "sha",
+                                  {"u05/test_a": "UT: 1\nUT: 2\n"},
+                                  {"u05/test_a": "match", "u05/test_b": "seed 1"})
+        index = json.loads((out / "index.json").read_text())
+        self.assertEqual(index["seed"], 73)
+        self.assertEqual(index["runner_sha256"], "sha")
+        self.assertEqual(index["tests"]["u05/test_a"],
+                         {"sha256": full_output.digest("UT: 1\nUT: 2\n"), "lines": 2,
+                          "status": "match"})
+        self.assertEqual(index["without_output"], ["u05/test_b"])
+        self.assertEqual((out / "u05/test_a.txt").read_text(), "UT: 1\nUT: 2\n")
+
+    def test_the_command_reports_only_the_differences_and_their_total(self):
+        base = self.capture("base", {"u05/test_a": "UT: 1\n", "u05/test_c": "UT: 1\n"})
+        other = self.capture("other", {"u05/test_a": "UT: 1\n", "u05/test_c": "UT: 2\n"})
+        out = self.root / "cmp.json"
+        stream = io.StringIO()
+        with contextlib.redirect_stdout(stream):
+            self.assertEqual(full_output.main(["compare", str(base), str(other),
+                                               "--json", str(out)]), 0)
+        printed = stream.getvalue()
+        self.assertNotIn("u05/test_a", printed)
+        self.assertIn("differs in UT lines: u05/test_c (line 1)", printed)
+        self.assertIn("1 differs in UT lines, 1 identical", printed)
+        self.assertEqual(json.loads(out.read_text())["counts"],
+                         {"identical": 1, "differs in UT lines": 1})
+
+    def test_the_command_fails_only_when_a_directory_is_not_a_capture(self):
+        base = self.capture("base", {"u05/test_a": "UT: 1\n"})
+        stream = io.StringIO()
+        with contextlib.redirect_stderr(stream):
+            self.assertEqual(full_output.main(["compare", str(self.root / "absent"),
+                                               str(base)]), 1)
+        self.assertIn("not a capture", stream.getvalue())
+        other = self.capture("empty", {})
+        self.capture("empty2", {})
+        stream = io.StringIO()
+        with contextlib.redirect_stdout(stream):
+            self.assertEqual(full_output.main(["compare", str(self.root / "empty2"),
+                                               str(other)]), 0)
+        self.assertIn("no test in either capture", stream.getvalue())
+
+    def test_capturing_kirimasim_needs_the_simulator_to_be_findable(self):
+        stream = io.StringIO()
+        with contextlib.redirect_stderr(stream):
+            self.assertEqual(full_output.main(
+                ["capture", "--simulator", "kirimasim", "--output", str(self.root / "o"),
+                 "--kirimasim", "no-such-kirimasim-4f2a"]), 1)
+        self.assertIn("cannot find", stream.getvalue())
 
     def test_a_directory_without_an_index_is_not_a_capture(self):
         with self.assertRaisesRegex(ValueError, "not a capture"):
