@@ -1,11 +1,14 @@
 """Unit tests of the tools: the observed lines, the UVM macros, the library
-digest and the metadata checks."""
+digest, the tool versions, the runner fingerprint and the metadata checks."""
 
+import hashlib
 import io
+import subprocess
 import tarfile
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 import fetch_uvm
 import lint_metadata
@@ -80,6 +83,63 @@ class LibraryDigest(Sample):
             archive.addfile(info, io.BytesIO(b"x"))
         with self.assertRaises(ValueError):
             fetch_uvm.extract(data.getvalue(), self.root)
+
+
+class ToolVersion(Sample):
+    def test_the_first_line_of_stdout_is_the_version(self):
+        out = "Verilator 5.054 2026-11-01 rev v5.054\nSecond line\n"
+        with mock.patch.object(suite_results.subprocess, "run",
+                               return_value=subprocess.CompletedProcess([], 0, out, "")):
+            self.assertEqual(suite_results.tool_version(["verilator", "--version"]),
+                             "Verilator 5.054 2026-11-01 rev v5.054")
+
+    def test_stderr_serves_when_stdout_is_empty(self):
+        with mock.patch.object(suite_results.subprocess, "run",
+                               return_value=subprocess.CompletedProcess([], 0, "", "yosys 0.50\n")):
+            self.assertEqual(suite_results.tool_version(["yosys", "--version"]), "yosys 0.50")
+
+    def test_a_missing_or_hanging_tool_has_no_version(self):
+        self.assertEqual(suite_results.tool_version(["no-such-tool-4f2a", "--version"]), "")
+        with mock.patch.object(suite_results.subprocess, "run",
+                               side_effect=subprocess.TimeoutExpired(["x"], 60)):
+            self.assertEqual(suite_results.tool_version(["x", "--version"]), "")
+
+
+class RunnerFingerprint(Sample):
+    """The result evidence is bound to exactly the three files the policy names."""
+
+    def setUp(self):
+        super().setUp()
+        for name in ("run_verilator.py", "suite_results.py", "uvm_common.py"):
+            self.write(f"tools/{name}", "x = 1\n")
+        self.write("tools/other_tool.py", "y = 1\n")
+
+    def write(self, name, text):
+        path = self.root / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text)
+
+    def digest(self):
+        with mock.patch.object(suite_results, "ROOT", self.root):
+            return suite_results.runner_digest("verilator")
+
+    def test_a_change_in_each_of_the_three_moves_the_fingerprint(self):
+        base = self.digest()
+        for name in ("run_verilator.py", "suite_results.py", "uvm_common.py"):
+            with self.subTest(file=name):
+                self.write(f"tools/{name}", "x = 2\n")
+                self.assertNotEqual(self.digest(), base)
+                self.write(f"tools/{name}", "x = 1\n")
+        self.assertEqual(self.digest(), base)
+
+    def test_the_fingerprint_is_the_names_and_bytes_of_exactly_those_files(self):
+        moved = hashlib.sha256()
+        for name in ("run_verilator.py", "suite_results.py", "uvm_common.py"):
+            moved.update(name.encode() + b"\0")
+            moved.update(b"x = 1\n")
+        self.assertEqual(self.digest(), moved.hexdigest())
+        self.write("tools/other_tool.py", "y = 2\n")
+        self.assertEqual(self.digest(), moved.hexdigest())
 
 
 class Metadata(Sample):
