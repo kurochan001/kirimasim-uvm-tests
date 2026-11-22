@@ -138,6 +138,34 @@ class CodeIdentity(unittest.TestCase):
         self.assertEqual(carried["tests"]["u05/test_a"]["carried_from"], self.digest)
         self.assertIn("simulator tags", carried["carried_forward"][0]["rule"])
 
+    def test_retag_leaves_the_other_words_and_fields_pinned(self):
+        # `verilator@` without a release is not a simulator tag word, and a
+        # tag-looking word outside the oracle fields stays an ordinary word.
+        for old, new in ((":oracle: spec verilator@5.052", ":oracle: spec verilator@"),
+                         (":name: test_a", ":name: test_a verilator@5.054")):
+            self.edit("tests/u05/test_a.sv", old, new)
+            with self.assertRaisesRegex(code_identity.IdentityError, "metadata fields differ"):
+                code_identity.check(self.base, retag=True)
+            self.git("checkout", "--", ".")
+        self.edit("tests/u05/test_a.sv", ":oracle: spec verilator@5.052", ":oracle: spec")
+        record = self.root / "ghost.json"
+        record.write_text(json.dumps({"tests": {"u05/test_a": {"inputs_sha256": self.digest}}}))
+        with self.assertRaisesRegex(code_identity.IdentityError, "metadata fields differ"):
+            code_identity.carry(self.base, record, record)
+        self.git("checkout", "--", ".")
+
+    def test_refresh_moves_the_recorded_fingerprints_of_a_retag_edit(self):
+        self.edit("tests/u05/test_a.sv", "verilator@5.052", "verilator@5.054")
+        with self.assertRaisesRegex(code_identity.IdentityError, "metadata fields differ"):
+            code_identity.refresh(self.base)
+        moved = code_identity.refresh(self.base, retag=True)
+        self.assertEqual(moved, {"coverage/test_index.json": 1, "coverage/known_causes.json": 1})
+        current = suite_results.input_digest(self.root / "tests/u05/test_a.sv")
+        index = json.loads((self.root / "coverage/test_index.json").read_text())
+        self.assertEqual(index["tests"]["u05/test_a"]["inputs_sha256"], current)
+        causes = json.loads((self.root / "coverage/known_causes.json").read_text())
+        self.assertEqual(causes["causes"][0]["inputs_sha256"], current)
+
     def test_a_file_that_uses_the_line_macro_keeps_its_line_layout(self):
         for old, new in (("`__LINE__ + 1;\n", "`__LINE__ + 1;\n  // between\n"),
                          ("  a = 1; expected", "  a = 1;\n  expected"),
