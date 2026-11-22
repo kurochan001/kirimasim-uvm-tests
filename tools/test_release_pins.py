@@ -20,6 +20,7 @@ import run_verilator
 import run_verilator_cmdline as cmdline
 import run_verilator_hdl as hdl
 import run_verilator_regex as regex
+import lint_metadata
 
 ROOT = Path(__file__).resolve().parent.parent
 ACTION = ROOT / ".github" / "actions" / "setup-verilator" / "action.yml"
@@ -53,6 +54,13 @@ class ReleaseConstants(unittest.TestCase):
             self.assertEqual(found, run_verilator.RELEASE,
                              ".github/actions/setup-verilator/action.yml names a release"
                              " the runners do not")
+
+    def test_the_metadata_lint_allows_only_the_pinned_tags(self):
+        # The lint admits the oracle tags; a migration that moves the runners
+        # and the action but not the lint would reject every retagged test,
+        # and one that only moves the lint would admit tags no runner keeps.
+        self.assertEqual(lint_metadata.ORACLES, {"spec", run_verilator.ORACLE})
+        self.assertEqual(lint_metadata.CHOICES["uvm_cmdline_oracle"], {cmdline.ORACLE})
 
 
 class ConditionVersionGates(unittest.TestCase):
