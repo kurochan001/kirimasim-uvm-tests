@@ -116,7 +116,7 @@ by Git; results are not automatically published.
 
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
-The 2771 two-state cases have Verilator results based on the full local 5.054 measurement of 2026-11-21 (seeds 1/73). The tags moved to `verilator@5.054` follow its matches and differences, and the hosted Regression runs every tagged case with Verilator 5.054, with its results recorded in the [history](docs/history.md). The three DPI-condition subsets (HDL, command-line, regex) were also measured on 5.054, and their states match the 5.052 records. The seven four-state cases are spec-only and have no Verilator record.
+The 2771 two-state cases have Verilator results based on the full local 5.054 measurement of 2026-11-21 (seeds 1/73). The tags moved to `verilator@5.054` follow its matches and differences, and the hosted Regression ([run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)) ran all 2312 tagged cases with Verilator 5.054 and succeeded in all 24 jobs, recorded in the [history](docs/history.md). The three DPI-condition subsets (HDL, command-line, regex) were also measured on 5.054, and their states match the 5.052 records. The seven four-state cases are spec-only and have no Verilator record.
 The Ghost records retain 1081 compatible inputs; 1697 inputs are unmeasured by Ghost, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly). kirimasim was measured again on all current inputs with the current runner.
 
 | Simulator and library | Observed result |

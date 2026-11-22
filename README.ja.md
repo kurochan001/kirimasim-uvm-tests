@@ -111,7 +111,7 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 
 simulation一致とcompiler拒否は別の検査なので、以下のラベルと件数は[結果の読み方](docs/reading-guide.ja.md#結果を読む)を参照してください。
 
-2値の2771件のVerilatorの結果は、2026-11-21の5.054によるlocalの全件測定（seed 1／73）を基にします。tagを`verilator@5.054`へ付けた替えたのは、この測定で一致・不一致を確かめた結果です。hostedのRegressionがtag付きの全件をVerilator 5.054で実行し、結果を[履歴](docs/history.ja.md)に記録します。DPI条件の3つの部分集合（HDL、command-line、regex）も5.054で測り直し、状態は5.052の記録と同じです。4値の7件はspecのみで、Verilatorの記録はありません。
+2値の2771件のVerilatorの結果は、2026-11-21の5.054によるlocalの全件測定（seed 1／73）を基にします。tagを`verilator@5.054`へ付けた替えたのは、この測定で一致・不一致を確かめた結果です。hostedのRegression（[run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)）はtag付き2312件をVerilator 5.054で実行して24 jobすべて成功し、結果を[履歴](docs/history.ja.md)に記録しました。DPI条件の3つの部分集合（HDL、command-line、regex）も5.054で測り直し、状態は5.052の記録と同じです。4値の7件はspecのみで、Verilatorの記録はありません。
 Ghostの記録は互換な1081入力のもので、Ghostでは1697入力が、[証拠の再利用規則](docs/results.ja.md#記録の合算)を満たす現在の記録がないため未測定です。kirimasimは、現在の全入力を現在のrunnerで測り直しました。
 
 | シミュレータとライブラリ | 観測結果 |
