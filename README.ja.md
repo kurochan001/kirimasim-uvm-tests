@@ -16,10 +16,10 @@ UVMに不慣れな場合は、以下の件数を読む前に[読み方ガイド]
 oracleは期待値の根拠を記録し、`spec`は規格、`verilator@5.054`は固定リリースでの再現も示します。
 specのみの意味は[用語集の「規格と期待値」](docs/glossary.ja.md#規格と期待値)で説明しています。
 
-> **状態：M4を進行中。** 22の章・付録directoryに全2778件（simulation 2679件・elaboration 99件）があります。
-> oracle付きが2312件、specのみが466件で、うち7件は4値です。
+> **状態：M4を進行中。** 22の章・付録directoryに全2794件（simulation 2694件・elaboration 100件）があります。
+> oracle付きが2327件、specのみが467件で、うち8件は4値です。
 > 全件が`:spec_check: ai`で、AIによる照合を記録する意味は[照合の用語](docs/glossary.ja.md#規格と期待値)で説明しています。人による照合は未記録で、M1〜M3の目標は未達です。
-> M4はAIが照合した[観測可能な義務の案](docs/requirements.ja.md#計数単位と対象範囲の案)4182件、直接対応テスト2722件と全2778件の索引があります。
+> M4はAIが照合した[観測可能な義務の案](docs/requirements.ja.md#計数単位と対象範囲の案)4187件、直接対応テスト2738件と全2794件の索引があります。
 > 未対応テスト0件、直接テストのない要求案0件で、[memory-walkの歴史的解釈](docs/faq.ja.md#q134-memory-walk-algorithmをどう解釈していますか)は照合が必要です。
 > 未評価0番号・部分2062番号・AI分類445番号で、[未評価0は完了を意味せず](docs/faq.ja.md#q390-未評価の識別子0件なら残作業も0件ですか)、範囲と分母は未承認です。
 
@@ -37,15 +37,15 @@ specのみの意味は[用語集の「規格と期待値」](docs/glossary.ja.md
 
 factoryはオブジェクトの生成、phaseは実行段階、TLMはcomponent間のtransactionの受け渡しを扱い、以下の対象一覧に出てくる語は[UVMの構成要素](docs/glossary.ja.md#uvmの構成要素)と[TLMの用語](docs/glossary.ja.md#transaction単位の通信)で確認できます。
 
-- **M1：1200件（simulation 1119・elaboration 81）。** objectとpolicy、reporting、factory、階層、phase、同期、configuration、
+- **M1：1205件（simulation 1124・elaboration 81）。** objectとpolicy、reporting、factory、階層、phase、同期、configuration、
   recording、core service、[static callback iteratorを含む型付きutility](docs/faq.ja.md#q397-主引用の追加でiterator条項は完了しますか)、[objectionの取消し](docs/faq.ja.md#q405-drain中の再raiseから何を追加しましたか)と[eventのdelta待機](docs/faq.ja.md#q419-eventのdelta-profileは何を追加しますか)・[取消しと再利用](docs/faq.ja.md#q422-4件の取消しprofileは何を追加しますか)。
-- **M2：634件（simulation 627・elaboration 7）。** sequenceとsequencer、request／responseのlifecycle、callback、[記録の制御](docs/faq.ja.md#q413-recording無効化profileはflag-queryに何を追加しますか)、[propertyの記録](docs/faq.ja.md#q416-property-profileはtransaction-markに何を追加しますか)、[payloadのunpack](docs/faq.ja.md#q425-独立したunpack-streamは何を検査しますか)、
+- **M2：639件（simulation 631・elaboration 8）。** sequenceとsequencer、request／responseのlifecycle、callback、[記録の制御](docs/faq.ja.md#q413-recording無効化profileはflag-queryに何を追加しますか)、[propertyの記録](docs/faq.ja.md#q416-property-profileはtransaction-markに何を追加しますか)、[payloadのunpack](docs/faq.ja.md#q425-独立したunpack-streamは何を検査しますか)、
   TLM 1のchannel、[入れ子のinput／ref経路](docs/faq.ja.md#q402-delayのreferenceはendpointがcallerのhandleを置換できる意味ですか)を含む一部のTLM 2 transport。uFのF.2.3 port役割、F.2.4.2 state、F.2.4.3 sequence-library検査系は[段階の分類](docs/glossary.ja.md#範囲とカバレッジ)ではM2に数えます。
-- **M3：944件（simulation 933・elaboration 11）。** register／field／block／memory／virtual registerのモデル、access path、prediction、
+- **M3：950件（simulation 939・elaboration 11）。** register／field／block／memory／virtual registerのモデル、access path、prediction、
   callback、coverage、割り当て、組み込みtest sequence。uD内のD.3とu01内のmodel API profileは[機能対象の分類](docs/faq.ja.md#q381-同じu01-directory内のprofileを3つのmilestoneへ数える理由は)でM3に数えます。
 
-主引用でM1〜M3に数えるRTL結合テスト10件は、小さな独自のRTL designの上でUVMのcomponentを動かします。5件は、register-file designを、clocking block、configuration databaseのvirtual interface、adapterとpredictor付きのregister model、analysis FIFO経由のscoreboardで接続するもので、[Q434](docs/faq.ja.md#q434-rtl結合profileは何を検査しますか)で説明しています。5件はtestbenchの形をしています。virtual sequenceの下のactiveとpassiveのagent、parameter付きのvirtual interfaceを使うparameter付きのagent、無関係な2つのclock、resetとphaseのjumpを伴うrun-time phase、RTLでの組込みのregister sequenceで、[Q455](docs/faq.ja.md#q455-3回目のレビューのtestbench形のテストは何を検査しますか)で説明しています。
-4値のテスト7件（`:fourstate: yes`）は、configuration、resource、TLM FIFO、pool、queue、記録、field macroのcopyでXとZの値を検査します。2値のoracleはXやZを表せないためspecのみで、規格が定めていない経路は[4値の節](docs/testing.ja.md#4値の経路)に一覧しています。kirimasim 0.1.3では7件すべてがsimulation開始前に `unsupported` となり、Ghostにはこの7件の記録がありません。X/Zの実行時の振る舞いは未測定です。queueのテストでは、固定版ライブラリのソースからも制約が1件確認されています。
+主引用でM1〜M3に数えるRTL結合テスト13件は、小さな独自のRTL designの上でUVMのcomponentを動かします。5件は、register-file designを、clocking block、configuration databaseのvirtual interface、adapterとpredictor付きのregister model、analysis FIFO経由のscoreboardで接続するもので、[Q434](docs/faq.ja.md#q434-rtl結合profileは何を検査しますか)で説明しています。5件はtestbenchの形をしています。virtual sequenceの下のactiveとpassiveのagent、parameter付きのvirtual interfaceを使うparameter付きのagent、無関係な2つのclock、resetとphaseのjumpを伴うrun-time phase、RTLでの組込みのregister sequenceで、[Q455](docs/faq.ja.md#q455-3回目のレビューのtestbench形のテストは何を検査しますか)で説明しています。 追加の3件は、不要な書込みの抑制、ミラー比較の再有効化、逆順のRTL応答と再試行を検査します。[11月24日の追加テスト](docs/history.ja.md#2026-11-24-状態変更と未完了要求)
+4値のテスト8件（`:fourstate: yes`）は、型付きイベント、configuration、resource、TLM FIFO、pool、queue、記録、field macroのcopyでXとZの値を検査します。2値のoracleはXやZを表せないためspecのみで、規格が定めていない経路は[4値の節](docs/testing.ja.md#4値の経路)に一覧しています。Ghostのライブラリ方式では両シードで7件が一致し、範囲外のキュー参照で固定版UVMの既知差分を確認しました。
 乱数化のテスト5件は、作成後のconstraint_modeとrand_mode、inline制約とその名前の範囲、呼出し順、randcの周期という性質で、macroによる乱数化を判定します。[Q438](docs/faq.ja.md#q438-乱数化の性質profileは何を検査しますか)で説明しています。
 ユーザーpackageのテスト5件は、agent、sequence、environment、extensionのclassを別ファイルからcompileする4 packageに置き、factoryの静的登録、名前による生成、type_id::create、overrideがpackageの境界を越えて働くことを確かめます。[Q442](docs/faq.ja.md#q442-ユーザーpackageのprofileは何を検査しますか)で説明しています。
 段階0のテスト1件は、uvm_pkgをimportして1つのenum値を名指しするだけで、UVM objectを作らず、run_testも呼びません。各テストに0（uvm_pkgだけ）から6（register層）までの段階を与える[kirimasimの立ち上げ段階](docs/kirimasim-stages.ja.md)の最初の段階です。
@@ -81,7 +81,7 @@ fetcherは固定したAccellera UVM 2020.3.1を取得して検査するもので
 その1件が何を確かめるかは、ソースから期待出力、要求へ辿る[具体例](docs/reading-guide.ja.md#1件のテストをファイルで辿る)で確認できます。
 保存したJSONにはケースごとの判定があり、読み方は[ファイルを開く具体例](docs/reading-guide.ja.md#結果jsonを開く)で確認できます。差分を報告した場合は、[差分を調べる](docs/reading-guide.ja.md#差分を調べる)の手順で、検査した期待値と実行条件を確認できます。
 
-oracle付き2312件（runtime 2218・compile拒否94）をすべて実行する場合は、次のコマンドを使います。
+oracle付き2327件（runtime 2232・compile拒否95）をすべて実行する場合は、次のコマンドを使います。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
@@ -111,26 +111,27 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 
 simulation一致とcompiler拒否は別の検査なので、以下のラベルと件数は[結果の読み方](docs/reading-guide.ja.md#結果を読む)を参照してください。
 
-2値の2771件のVerilatorの結果は、2026-11-21の5.054によるlocalの全件測定（seed 1／73）を基にします。tagを`verilator@5.054`へ付け替えたのは、この測定で一致・不一致を確かめた結果です。hostedのRegression（[run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)）はtag付き2312件をVerilator 5.054で実行して24 jobすべて成功し、結果を[履歴](docs/history.ja.md)に記録しました。DPI条件の3つの部分集合（HDL、command-line、regex）も5.054で測り直し、状態は5.052の記録と同じです。4値の7件はspecのみで、Verilatorの記録はありません。
+当時の2値2771件のVerilator結果は、2026-11-21の5.054によるlocalの全件測定（seed 1／73）を基にします。tagを`verilator@5.054`へ付け替えたのは、この測定で一致・不一致を確かめた結果です。hostedのRegression（[run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)）はtag付き2312件をVerilator 5.054で実行して24 jobすべて成功し、結果を[履歴](docs/history.ja.md)に記録しました。DPI条件の3つの部分集合（HDL、command-line、regex）も5.054で測り直し、状態は5.052の記録と同じです。4値の7件はspecのみで、Verilatorの記録はありません。
 2026-11-23に修正した入力のうち、Verilatorでは実行テスト4件が両seedで一致し、不正設計3件が期待した理由で拒否されました。Ghostは修正前の入力に対応する3件を集計から除いています。[記録の合算](docs/results.ja.md#記録の合算)
 
 | シミュレータとライブラリ | 観測結果 |
 | --- | --- |
-| Verilator 5.054・固定版UVM・通常runner | runtime 2218件がseed 1／73一致、期待compile拒否94件、既知差分459件 |
+| Verilator 5.054・固定版UVM・通常runner | runtime 2232件がseed 1／73一致、期待compile拒否95件、既知差分459件 |
 | Verilator 5.054・独自VPI HDL backend | 別条件の部分集合38件で、37件が両seed一致、1件が差分 |
 | Verilator 5.054・VPI command-line bridge・固定regex DPI | 別条件の23件で20件が両seed一致、3件は既知差分 |
 | Verilator 5.054・regex DPIとcommand-line DPIで再実行する通常検査系 | 別条件の26件ですべて両seed一致 |
-| kirimasim 0.1.3・固定版UVM | 2026-11-23に現行の全2778件を再測定。`pass` 98件（すべて、期待どおり拒否された不正design）、`unsupported` 2604件、`fail` 76件 |
-| Ghost・同梱UVM | 1078件で各seed一致205件・不一致873件、1700入力は未測定 |
+| kirimasim 0.2.1・固定版UVM | 全2794件で期待したコンパイル拒否99件、`unsupported` 2619件、`fail` 76件 |
+| Ghost・同梱UVM | 1078件で各seed一致205件・不一致873件、1716入力は未測定 |
+| Ghost・固定版UVM | 今回の16件はシード1・73で全件一致。既存の4値テスト7件は各シード6件一致、キュー1件に既知差分 |
 
 通常runnerはseed 1のruntime差分313件、simulation build 141件、runtimeのない不正designの受理5件を記録します。
 API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](docs/results.ja.md#結果の解釈)で説明し、VPIの行は通常条件にも含まれるケースを別条件で測定したもので、スイート総数へ加算しない理由は[測定範囲](docs/results.ja.md#現在のスナップショット)で確認できます。
 
-既知差分にはそれぞれ1件ずつ[原因の記録](coverage/known_causes.json)があり、`tools/known_causes.py`で検査します。すべての記録に原因があり、library 320件、interpretation 61件、simulator 21件、DPIの実行条件57件です。interpretationの記録は読み方の根拠も持ちます。10件は、規格の別の箇所が誤植と示す宣言や名前を印刷どおりに読むもの、1件はlibraryが印刷に従うもの、50件は文言が二通りに読めるものです。4値のテスト1件にも、固定版libraryでは満たせないため記録があります。kirimasimについては、2396入力が規格の期待値でsimulatorを測る入力で、382入力は固定版libraryのためにどのsimulatorでも期待値に届きません。詳しくは[既知差分の原因](docs/known-differences.ja.md#既知差分の原因)を参照してください。
+既知差分にはそれぞれ1件ずつ[原因の記録](coverage/known_causes.json)があり、`tools/known_causes.py`で検査します。すべての記録に原因があり、library 320件、interpretation 61件、simulator 21件、DPIの実行条件57件です。interpretationの記録は読み方の根拠も持ちます。10件は、規格の別の箇所が誤植と示す宣言や名前を印刷どおりに読むもの、1件はlibraryが印刷に従うもの、50件は文言が二通りに読めるものです。4値のテスト1件にも、固定版libraryでは満たせないため記録があります。kirimasimについては、2412入力が規格の期待値でsimulatorを測る入力で、382入力は固定版libraryのためにどのsimulatorでも期待値に届きません。詳しくは[既知差分の原因](docs/known-differences.ja.md#既知差分の原因)を参照してください。
 
-各テストには`coverage/kirimasim_stages.json`に記録した[kirimasimの立ち上げ段階](docs/kirimasim-stages.ja.md)もあり、段階0が1件、段階1（最小のrun_test）が1034件、段階2（factory）が100件、段階3（config_db）が111件、段階4（sequence）が326件、段階5（TLM）が251件、段階6（register層）が955件です。kirimasim 0.1.3は、段階0のテストを含め、どの段階でも同じ`uvm_object_wrapper`のunsupportedで止まります。まだ、実行できるsimulationテストはありません。
+各テストには`coverage/kirimasim_stages.json`に記録した[kirimasimの立ち上げ段階](docs/kirimasim-stages.ja.md)もあり、段階0が1件、段階1（最小のrun_test）が1035件、段階2（factory）が101件、段階3（config_db）が114件、段階4（sequence）が330件、段階5（TLM）が252件、段階6（register層）が961件です。kirimasim 0.2.1は、段階0のテストを含め、どの段階でも同じ`uvm_object_wrapper`のunsupportedで止まります。まだ、実行できるsimulationテストはありません。
 
-Checkは、kirimasimが無改造で使うfront endであるslangでも全テストをelaborateします。合法なテストはerrorなし、不正designはpatternに一致する拒否が必要で、例外は[`coverage/slang_frontend.json`](coverage/slang_frontend.json)の91件です（[slangでのelaboration](docs/testing.ja.md#slangでのelaboration)）。[APIの集計](docs/requirements.ja.md#apiの集計)は、固定版libraryが条項を注記した宣言のうち、どのテストも使っていないものを挙げます。未使用が2個、名前だけのものが29個です。
+Checkは、kirimasimが無改造で使うfront endであるslangでも全テストをelaborateします。合法なテストはerrorなし、不正designはpatternに一致する拒否が必要で、例外は[`coverage/slang_frontend.json`](coverage/slang_frontend.json)の91件です（[slangでのelaboration](docs/testing.ja.md#slangでのelaboration)）。[APIの集計](docs/requirements.ja.md#apiの集計)は、固定版libraryが条項を注記した宣言のうち、どのテストも使っていないものを挙げます。未使用が1個、名前だけのものが29個です。
 
 各テストの先頭には、何を確かめるかと、期待出力を引用した条項からどう導いたかを書いたコメントがあります。helperは1行1文で、例外は`` `__LINE__ ``を使うため行の配置を保った`tests/uB/helpers81/report_macros81.svh`だけです。こうした編集がcodeを保つことの示し方は[読みやすさの編集](docs/testing.ja.md#読みやすさの編集)で説明しています。
 
@@ -139,7 +140,7 @@ Checkは、kirimasimが無改造で使うfront endであるslangでも全テス�
 詳しい実行条件と記録の範囲は[実行結果と測定方法](docs/results.ja.md)、ライブラリの制約とspecのみのケースは
 [既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・台帳・原因の記録・reportの宣言・立ち上げ段階の検査と、slangでのelaborationとAPIの集計を行い、
 pushとpull requestごとに入力が変わった通常oracle付きVerilator検査と固定canary 1件を実行します。
-[Regression](.github/workflows/regression.yml)は手動と毎週、タグ付き通常検査2312件を20 shardで、明示command-line 20件とregex-DPI変種26件を別jobで実行します。手動の実行は`tests/`の下のdirectoryに絞れます。
+[Regression](.github/workflows/regression.yml)は手動と毎週、タグ付き通常検査2327件を20 shardで、明示command-line 20件とregex-DPI変種26件を別jobで実行します。手動の実行は`tests/`の下のdirectoryに絞れます。
 両workflowの通常Verilator jobはタグ付きテストを選びます。Checkのslang jobはspecのみのテストもelaborateします。kirimasim、Ghost、HDLのrunnerはローカルで測定します。
 
 ## ドキュメント
@@ -166,10 +167,10 @@ pushとpull requestごとに入力が変わった通常oracle付きVerilator検�
 | 段階 | 範囲 | 現在の状態・目標 |
 | --- | --- | --- |
 | M0 | 取得・実行・metadataとツールの検査、Check、スモークテスト | 基盤を実装済み |
-| M1 | 基本クラス・policy・factory・phase・objection・設定・reporting | 1200件。各条項2件以上という目標の棚卸しは未完 |
-| M2 | sequence・sequencer・TLM・callback | 634件。目標は未達 |
-| M3 | レジスタ層（17〜19、D.3、付録E）と共通のAPI規則 | 1.4.2／1.4.3のmodel API profileを含め944件。目標は未達 |
-| M4 | 要求台帳とカバレッジ | 進行中。AI要求案4182件、4182要求を2722テストへ直接対応。分母は未承認 |
+| M1 | 基本クラス・policy・factory・phase・objection・設定・reporting | 1205件。各条項2件以上という目標の棚卸しは未完 |
+| M2 | sequence・sequencer・TLM・callback | 639件。目標は未達 |
+| M3 | レジスタ層（17〜19、D.3、付録E）と共通のAPI規則 | 1.4.2／1.4.3のmodel API profileを含め950件。目標は未達 |
+| M4 | 要求台帳とカバレッジ | 進行中。AI要求案4187件、4187要求を2738テストへ直接対応。分母は未承認 |
 
 M1〜M3はUVMのテスト領域、M4は要求の対応付けを扱い、[段階の定義](docs/glossary.ja.md#範囲とカバレッジ)で役割を確認できます。各条項2件という目標の進捗は主引用ごとの棚卸しで追い、必須動作の独立した検査を確認するための追加レビューは[計数の説明](docs/requirements.ja.md#引用要求実行の証拠)で説明しています。
 

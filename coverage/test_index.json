@@ -11113,6 +11113,70 @@
     "u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137": {
       "primary_clause": "9.3.1.9.1",
       "inputs_sha256": "613855a0896dab6441dbb6ca4100bdab754f05a18d72fabeadfad80652fbd315"
+    },
+    "u08/test_factory_override_of_package_parameter_class_leaves_other_width_untouched": {
+      "primary_clause": "8.3.1.4.2",
+      "inputs_sha256": "e0df91249ff111d21d9425eb859971d90874a6497aa1c5b201c7ab365a6c7b0a"
+    },
+    "u10/test_fourstate_event_releases_typed_waiter_and_retains_distinct_x_and_z_bits": {
+      "primary_clause": "10.1.2.2.2",
+      "inputs_sha256": "267b857ef88818ca2115afe27153b7d68f353e613d2b3535979022fafa9c772b"
+    },
+    "u12/test_analysis_broadcast_consumers_drain_and_flush_their_own_backlogs_independently": {
+      "primary_clause": "12.2.10.1.4",
+      "inputs_sha256": "febc851b7c7dc63a8cfe9a2d1a1ac6f1712564c927ce567745ddd93be021ba49"
+    },
+    "u14/test_create_item_keeps_explicit_sequencers_and_factory_products_independent": {
+      "primary_clause": "14.2.6.1",
+      "inputs_sha256": "a32da587bcaec6a9f379311e7cc52096e043ba68c6a491910abba4eb94883ff7"
+    },
+    "u14/test_create_item_rejects_calls_from_external_module_scope": {
+      "primary_clause": "14.2.6.1",
+      "inputs_sha256": "9804375e0442df55658a5abc6bbca4b879f3a582bebbfb27f3c4cc9f91479322"
+    },
+    "u14/test_response_handler_bypasses_a_full_queue_without_discarding_its_pending_reply": {
+      "primary_clause": "14.2.7.1",
+      "inputs_sha256": "47daac65867e0a2ae465ef574febcecd404dc82d3b569d23872cc40519e23f7c"
+    },
+    "u15/test_queued_requests_use_the_arbitration_mode_in_effect_at_each_driver_pull": {
+      "primary_clause": "15.3.2.19",
+      "inputs_sha256": "e8bef7b39eb1b3f6e9e9985f755219eded194f5f18580d925025384594ab7829"
+    },
+    "u18/test_register_byte_enables_consume_each_fields_write_once_permission_independently": {
+      "primary_clause": "18.4.4.15",
+      "inputs_sha256": "24330f95d54299b149042b5c770b144c15b11d18b196629a145047c720b6cc43"
+    },
+    "u18/test_relocating_a_read_alias_preserves_write_partners_in_both_locked_slots": {
+      "primary_clause": "18.4.2.3",
+      "inputs_sha256": "7e74e029cba23c9720466266eba164b52300ed687cfb85a012968a83e99b3d0f"
+    },
+    "u18/test_rtl_frontdoor_update_writes_only_dirty_registers_and_preserves_other_pending_values": {
+      "primary_clause": "18.4.4.13",
+      "inputs_sha256": "5a27f4a3badea1165b731b5ff206a7a834452ad1ae93137b8dbd26541b928e48"
+    },
+    "u18/test_rtl_mirror_rechecks_after_field_comparison_is_reenabled": {
+      "primary_clause": "18.4.4.14",
+      "inputs_sha256": "a8d0fa32c48cbe94e582d1dc546a62dfc36e3552364c5ec34724326fcaeda702"
+    },
+    "u19/test_predictor_resolves_each_bus_observation_after_locked_register_relocation": {
+      "primary_clause": "19.3.2.1",
+      "inputs_sha256": "73d806aa0f3fe3f70bfa2819d9d75bc38528d6f474d57072a8e2d4000f285fe7"
+    },
+    "u19/test_rtl_separate_responses_preserve_status_and_data_of_two_outstanding_register_reads": {
+      "primary_clause": "19.2.1.2.3",
+      "inputs_sha256": "4581daff5d730835fca843ac8a857de43210e14d6ee6c9720a35fe85b768d892"
+    },
+    "uC/test_config_runtime_exact_and_wildcard_writes_replace_build_precedence_in_order": {
+      "primary_clause": "C.4.2.2.1",
+      "inputs_sha256": "42eda94445f75b446aefd0d0ae15d8f27d4edebc4461afdec8f58d2f99548aa7"
+    },
+    "uC/test_config_waiters_with_same_path_and_field_are_isolated_by_value_type": {
+      "primary_clause": "C.4.2.2.4",
+      "inputs_sha256": "a32822425329c28dbca1127f5337e8cf064d4a7421aed44a91820fc444c50f06"
+    },
+    "uC/test_config_wildcard_wakes_two_scopes_and_exact_update_only_releases_one_rearmed_waiter": {
+      "primary_clause": "C.4.2.2.4",
+      "inputs_sha256": "ff878bd5e73ed58e28d08556a35dbfc3c5fb6c140b19b6459dcd54f3edbce129"
     }
   }
 }

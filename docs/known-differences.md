@@ -6,7 +6,7 @@ To locate a result's source, search this page for the filename portion of its te
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2778-test suite and the pinned Accellera UVM
+This describes the current 2794-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation; [the cause
 record](#causes-of-the-known-differences) assigns causes separately, with AI review.
@@ -640,11 +640,11 @@ The nine reproducers are a parameterized base class whose pure virtual method a 
 
 An interpretation entry also names the basis of its two readings (`basis`). `printed` means that the test reads a declaration, a name or a format specifier as it is printed and another part of the standard indicates that the printed text is a misprint; there are 10 (the return type of `get_schedule`, `get_global` of the two specialized pools, `all_dropped` printed as a function, `is_auto_enabled_recording_enabled`, the map method without a return type, `uvm_report_db`, `NO_MEM_SHARED_ACCESS_TEST` and the two `%u` inputs). `printed-by-library` means that the library follows the printed text and the test the other part; it is the one `get_streams` input. `ambiguity` means that the text itself admits both readings; there are 50. A disagreement between an overview or a description and a declaration counts as `ambiguity`. The basis only separates the readings that depend on a probable misprint; whether the text is a misprint is left to a person. No entry with a library cause follows the printed text of the standard.
 
-A `static` entry carries the same evidence as a two-state entry, and its cause is library or interpretation. There is one now. [The queue test](../tests/u11/test_fourstate_queue_missing_entries_117.sv) expects a warning from `pop_front` and `pop_back` on an empty queue (11.3.2.8, 11.3.2.9), and the pinned methods only return the result of the built-in pop and issue no report. Reading the other six four-state tests in the same way found no place where the library stands in the way; this is not a confirmation by a run.
+A `static` entry carries the same evidence as a two-state entry, and its cause is library or interpretation. There is one now. [The queue test](../tests/u11/test_fourstate_queue_missing_entries_117.sv) expects a warning from `pop_front` and `pop_back` on an empty queue (11.3.2.8, 11.3.2.9), and the pinned methods only return the result of the built-in pop and issue no report. All seven other four-state tests matched their expectations in the November 24 Ghost pinned-library run at seeds 1 and 73.
 
 `python3 tools/known_causes.py check` keeps the record equal to the tests: exactly one entry for each two-state test whose `:oracle:` lacks verilator@5.054, the current input fingerprint, library text that exists in the pinned files, clauses of 1800.2-2020 and controls that are tagged tests. A comment-only edit moves the fingerprint with `tools/code_identity.py refresh`, which first shows that the code is unchanged. With `--results`, the known records of a combined runner JSON must match the entries. `reproduce` rebuilds the reproducers and checks that Verilator still accepts or rejects them as recorded; Check runs both.
 
-For kirimasim, `summary` separates 2396 inputs that measure a simulator against the standard from 382 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes, including the one `static` entry); no input is unassigned. The measurable inputs are the 2312 tagged tests, the simulator and condition causes and the six four-state tests without an entry. `candidates` lists the 403 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library. The classification is complete; adding such values would change the record's format, so it needs a proposal and the user's confirmation first.
+For kirimasim, `summary` separates 2412 inputs that measure a simulator against the standard from 382 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes, including the one `static` entry); no input is unassigned. The measurable inputs are the 2327 tagged tests, the simulator and condition causes and the seven four-state tests without an entry. `candidates` lists the 403 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library. The classification is complete; adding such values would change the record's format, so it needs a proposal and the user's confirmation first.
 
 ## Pinned-library limitations
 
@@ -1261,8 +1261,8 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2312 tests have the `verilator@5.054` oracle tag and 466
-cases are spec-only, seven of them four-state. The 9.6 child-task kill fixture was a known
+Across the suite, 2327 tests have the `verilator@5.054` oracle tag and 467
+cases are spec-only, eight of them four-state. The 9.6 child-task kill fixture was a known
 difference on the pinned combination of Verilator 5.052, where the child performed its
 delayed write during a later phase; the 146th expansion's 5.054 measurement
 matches at seeds 1/73, so it is tagged now.
@@ -1272,8 +1272,8 @@ waiter before calling `reset(1)`. Clause 10.1.1.2.8 requires both to wake
 without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. The cause record classifies this as a simulator difference. Its reproducer `class-event-trigger-then-reassign` triggers a class-member event and reassigns it in the same function.
 
-The 466 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the seven four-state cases.
-The ordinary runner and the full Regression select 2312 tagged checks (2218 runtime and 94 compile rejections). With no explicit paths, `--all` also selects the 459 two-state spec-only cases and records mismatches or build failures as `known`.
+The 467 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the eight four-state cases.
+The ordinary runner and the full Regression select 2327 tagged checks (2232 runtime and 95 compile rejections). With no explicit paths, `--all` also selects the 459 two-state spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 313 cases establish their first difference
 at seed 1, without seed 73 results.
 The 141 simulation builds have no ordinary runtime, including 61 unlinked DPI
@@ -1820,10 +1820,11 @@ The ordinary runner records all five regular-expression fixtures as unlinked bui
 
 ## Four-state spec-only tests
 
-These seven fixtures declare `:fourstate: yes`. They are spec-only because the two-state Verilator oracle cannot represent X or Z bits; they have no Verilator record and are not known differences. [The four-state section](testing.md#four-state-paths) gives the defined results and the unspecified paths. The queue fixture has an entry of the kind `static` in [the cause record](#causes-of-the-known-differences), because the pinned library keeps it from its expectation on any simulator.
+These eight fixtures declare `:fourstate: yes`. They are spec-only because the two-state Verilator oracle cannot represent X or Z bits; they have no Verilator record and are not known differences. [The four-state section](testing.md#four-state-paths) gives the defined results and the unspecified paths. The queue fixture has an entry of the kind `static` in [the cause record](#causes-of-the-known-differences), because the pinned library keeps it from its expectation on any simulator.
 
 - configuration database and uvm_config_int: [test_fourstate_config_db_values_117](../tests/uC/test_fourstate_config_db_values_117.sv).
 - typed resource: [test_fourstate_resource_read_write_117](../tests/uC/test_fourstate_resource_read_write_117.sv).
+- X/Z preservation in a typed event [test_fourstate_event_releases_typed_waiter_and_retains_distinct_x_and_z_bits](../tests/u10/test_fourstate_event_releases_typed_waiter_and_retains_distinct_x_and_z_bits.sv).
 - TLM and analysis FIFOs: [test_fourstate_tlm_fifo_values_117](../tests/u12/test_fourstate_tlm_fifo_values_117.sv).
 - pool missing key: [test_fourstate_pool_missing_key_117](../tests/u11/test_fourstate_pool_missing_key_117.sv).
 - queue missing entries: [test_fourstate_queue_missing_entries_117](../tests/u11/test_fourstate_queue_missing_entries_117.sv).
@@ -1838,8 +1839,7 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The earlier field-configuration filter reduced 1083 compatible records to 1082. The subsequent reraise primary-citation filter reduced 1082 to 1081; this increment retains those records without another filter or guest run, and [the input-identity explanation](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish the two stages.
 
-Ghost has compatible records for 1078 inputs and 1700 inputs without a current measurement. Its bundled-library results contain 205 matches and 873 failures at each of seeds 1 and 73; the same tests fail at both seeds. The current executable
-snapshot has no pinned-mode measurement. [Results and methodology](results.md)
+Ghost bundled mode has compatible records for 1078 inputs and 1716 inputs without a current measurement. Its bundled-library results contain 205 matches and 873 failures at each of seeds 1 and 73; the same tests fail at both seeds. The November 24 pinned-mode measurements cover the 16 additions and seven older four-state fixtures, with 22 matches at each seed. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
 cover the supplied library. Their mismatches do not distinguish a simulator
 problem from a library problem or establish results for the locked library.

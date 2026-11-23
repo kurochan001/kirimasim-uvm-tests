@@ -16,10 +16,10 @@ If UVM is new to you, [the reading guide](docs/reading-guide.md#what-this-reposi
 An oracle records the expectation's basis: `spec` cites the standard and `verilator@5.054` adds reproduction;
 [Standards and expectations](docs/glossary.md#standards-and-expectations) explains spec-only cases.
 
-> **Status: M4 in progress.** 2778 tests: 2679 simulation and 99 elaboration,
-> in 22 chapter/annex directories; 2312 tagged oracles and 466 spec-only cases, seven of them four-state.
+> **Status: M4 in progress.** 2794 tests: 2694 simulation and 100 elaboration,
+> in 22 chapter/annex directories; 2327 tagged oracles and 467 spec-only cases, eight of them four-state.
 > All use `:spec_check: ai`, recording AI review as explained in [review terms](docs/glossary.md#standards-and-expectations); none records human review. M1–M3 targets remain open.
-> M4 has 4182 [observable-duty drafts](docs/requirements.md#counting-unit-and-scope-proposal) reviewed by AI, 2722 directly linked tests and an index of all 2778.
+> M4 has 4187 [observable-duty drafts](docs/requirements.md#counting-unit-and-scope-proposal) reviewed by AI, 2738 directly linked tests and an index of all 2794.
 > 0 tests lack requirement links and 0 drafts lack direct tests; the historical
 > [memory-walk interpretation](docs/faq.md#q134-how-is-the-memory-walk-algorithm-interpreted) requires review. 0 identifiers remain unassessed;
 > 2062 identifiers remain partial and 445 have AI classifications; [zero unassessed](docs/faq.md#q390-does-zero-unassessed-identifiers-mean-zero-remaining-work) does not establish completion. Scope and denominator remain unapproved.
@@ -38,17 +38,17 @@ The `unassessed` count records unfinished clause review, while `known` records a
 
 Factory controls object creation and phases organize execution, while TLM carries transactions between components; [UVM building blocks](docs/glossary.md#uvm-building-blocks) and [TLM terms](docs/glossary.md#transaction-level-communication) introduce these names before the scope list.
 
-- **M1: 1200 tests (1119 simulation, 81 elaboration).** Objects and policies,
+- **M1: 1205 tests (1124 simulation, 81 elaboration).** Objects and policies,
   reporting, factory, hierarchy, phases, synchronization, configuration,
   recording, core services and typed utilities, including [static callback iterators](docs/faq.md#q397-do-the-new-primary-citations-complete-the-iterator-clauses) and [objection cancellation](docs/faq.md#q405-what-is-added-beyond-re-raising-during-drain) and [event delta waits](docs/faq.md#q419-what-do-the-event-delta-profiles-add) and [event cancellation/reuse](docs/faq.md#q422-what-do-the-four-cancellation-profiles-add).
-- **M2: 634 tests (627 simulation, 7 elaboration).** Sequences and sequencers,
+- **M2: 639 tests (631 simulation, 8 elaboration).** Sequences and sequencers,
   request/response lifecycle, callbacks, [recording control](docs/faq.md#q413-what-do-the-recording-disable-profiles-add-beyond-a-flag-query) and [property data](docs/faq.md#q416-what-do-the-property-profiles-add-beyond-transaction-marks) and [independent payload unpack](docs/faq.md#q425-what-do-the-independent-unpack-streams-check), TLM 1 channels and selected TLM 2 transports, including [nested input/ref paths](docs/faq.md#q402-does-a-delay-reference-mean-an-endpoint-can-replace-the-callers-handle); F.2.3 port-role, F.2.4.2 state and F.2.4.3 sequence-library fixtures in uF count as M2 under the [milestone grouping](docs/glossary.md#scope-and-coverage).
-- **M3: 944 tests (933 simulation, 11 elaboration).** Register, field, block,
+- **M3: 950 tests (939 simulation, 11 elaboration).** Register, field, block,
   memory and virtual-register models; access paths, prediction, callbacks,
   coverage, allocation and built-in test sequences; D.3 fixtures in uD and model API profiles in u01 count as M3 under [the functional grouping](docs/faq.md#q381-why-do-profiles-under-the-same-u01-directory-use-three-milestones).
 
-Ten RTL integration tests, counted in M1–M3 by their primary clause, run UVM components on small original RTL designs. Five connect a register-file design through clocking blocks, a configuration-database virtual interface, a register model with adapter and predictor, and an analysis-FIFO scoreboard; [Q434](docs/faq.md#q434-what-do-the-rtl-integration-profiles-check) describes them. Five are shaped like a testbench: active and passive agents under a virtual sequence, parameterized agents with a parameterized virtual interface, two unrelated clocks, the run-time phases with reset and a phase jump, and a built-in register sequence on RTL; [Q455](docs/faq.md#q455-what-do-the-testbench-shaped-tests-of-the-third-review-check) describes them.
-Seven four-state tests (`:fourstate: yes`) check X and Z values in configuration, resources, TLM FIFOs, pools, queues, recording and field-macro copies. They are spec-only because the two-state oracle cannot represent X or Z, and [the four-state section](docs/testing.md#four-state-paths) lists the paths that the standard leaves unspecified. kirimasim 0.1.3 reported `unsupported` on all seven before simulation, and Ghost has no record for them. Their X/Z behavior remains unmeasured. Source inspection identified a separate pinned-library limitation in the queue test.
+Thirteen RTL integration tests, counted in M1–M3 by their primary clause, run UVM components on small original RTL designs. Five connect a register-file design through clocking blocks, a configuration-database virtual interface, a register model with adapter and predictor, and an analysis-FIFO scoreboard; [Q434](docs/faq.md#q434-what-do-the-rtl-integration-profiles-check) describes them. Five are shaped like a testbench: active and passive agents under a virtual sequence, parameterized agents with a parameterized virtual interface, two unrelated clocks, the run-time phases with reset and a phase jump, and a built-in register sequence on RTL; [Q455](docs/faq.md#q455-what-do-the-testbench-shaped-tests-of-the-third-review-check) describes them. Three further cases check clean updates, re-enabled mirror checking and reversed RTL responses with a retry. [November 24 regression tests](docs/history.md#2026-11-24-state-changes-and-outstanding-requests)
+Eight four-state tests (`:fourstate: yes`) check X and Z values in typed events, configuration, resources, TLM FIFOs, pools, queues, recording and field-macro copies. They are spec-only because the two-state oracle cannot represent X or Z, and [the four-state section](docs/testing.md#four-state-paths) lists the paths that the standard leaves unspecified. With Ghost and the pinned library, seven matched at both seeds. The queue fixture reproduced its documented pinned-library difference.
 Five randomization tests judge macro-driven randomization by properties: constraint_mode and rand_mode after creation, inline constraints and their name scope, call order and randc cycles; [Q438](docs/faq.md#q438-what-do-the-randomization-property-profiles-check) describes them.
 Five user-package tests place an agent, a sequence, an environment and extension classes in four packages compiled from separate files, and check static factory registration, creation by name, type_id::create and overrides across package boundaries; [Q442](docs/faq.md#q442-what-do-the-user-package-profiles-check) describes them.
 One stage-0 test imports uvm_pkg and names one enumeration value without creating a UVM object or calling run_test; it starts [the kirimasim bring-up stages](docs/kirimasim-stages.md), which give every test a stage from 0 (uvm_pkg only) to 6 (register layer).
@@ -86,7 +86,7 @@ The fetcher downloads and checks the pinned Accellera UVM 2020.3.1 library; inst
 To see what that case checks, [follow the worked example](docs/reading-guide.md#follow-one-test-through-the-files) from its source to its expected output and requirement.
 The saved JSON lists each case's judgment; [an example for opening it](docs/reading-guide.md#open-the-result-json) shows how to read it. If it reports a difference, [Trace a difference](docs/reading-guide.md#trace-a-difference) shows how to locate the checked expectation and execution conditions.
 
-To run all 2312 tagged checks (2218 runtime, 94 compile rejection):
+To run all 2327 tagged checks (2232 runtime, 95 compile rejection):
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
@@ -116,27 +116,28 @@ by Git; results are not automatically published.
 
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
-The 2771 two-state cases have Verilator results based on the full local 5.054 measurement of 2026-11-21 (seeds 1/73). The tags moved to `verilator@5.054` follow its matches and differences, and the hosted Regression ([run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)) ran all 2312 tagged cases with Verilator 5.054 and succeeded in all 24 jobs, recorded in the [history](docs/history.md). The three DPI-condition subsets (HDL, command-line, regex) were also measured on 5.054, and their states match the 5.052 records. The seven four-state cases are spec-only and have no Verilator record.
+The original 2771 two-state cases were included in the full local 5.054 measurement of 2026-11-21 (seeds 1/73). The tags moved to `verilator@5.054` follow its matches and differences, and the hosted Regression ([run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)) ran all 2312 tagged cases with Verilator 5.054 and succeeded in all 24 jobs, recorded in the [history](docs/history.md). The three DPI-condition subsets (HDL, command-line, regex) were also measured on 5.054, and their states match the 5.052 records. The eight four-state cases are spec-only and have no Verilator record.
 On 2026-11-23, Verilator matched the four revised runtime tests at both seeds and rejected the three revised illegal designs as expected. Three earlier Ghost records cover superseded inputs. [Evidence assembly](docs/results.md#evidence-assembly)
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.054, pinned UVM, ordinary runner | 2218 runtime matches at seeds 1/73; 94 expected compile rejections; 459 known differences |
+| Verilator 5.054, pinned UVM, ordinary runner | 2232 runtime matches at seeds 1/73; 95 expected compile rejections; 459 known differences |
 | Verilator 5.054, original VPI HDL backend | Separate 38-case subset: 37 match both seeds; 1 differs |
 | Verilator 5.054, VPI command-line bridge and pinned regex DPI | Separate 23-case subset: 20 match both seeds; 3 known differences |
 | Verilator 5.054, listed ordinary fixtures with regex and command-line DPI | Separate 26-case subset: 26 match both seeds |
-| kirimasim 0.1.3, pinned UVM | Full run of the 2778 current inputs on 2026-11-23. 98 `pass`, all of them illegal designs rejected as expected; 2604 `unsupported`; 76 `fail` |
-| Ghost, bundled UVM | 205 match and 873 fail at each seed in 1078 cases; 1700 unmeasured |
+| kirimasim 0.2.1, pinned UVM | All 2794 inputs measured. 99 expected compiler rejections, 2619 unsupported and 76 failures |
+| Ghost, bundled UVM | 205 match and 873 fail at each seed in 1078 cases; 1716 unmeasured |
+| Ghost, pinned UVM | All 16 additions matched in both seed runs. Six of seven earlier four-state inputs matched per seed, with one known queue difference |
 
 The ordinary runner records 313 runtime differences at seed 1, 141 simulation build failures
 and five accepted illegal designs without runtime; [the detailed breakdown](docs/results.md#interpretation) explains API/declaration, macro and DPI categories and qualified premises.
 The VPI rows measure cases already included in the ordinary row under different conditions, so do not add them to the suite total; see [the measurement scope](docs/results.md#current-snapshot).
 
-Each known difference has one entry in [the cause record](coverage/known_causes.json), checked by `tools/known_causes.py`: 320 library, 61 interpretation, 21 simulator and 57 DPI-condition causes are assigned, and no entry is unclassified. Each interpretation names the basis of its readings: 10 follow a declaration or a name as printed where another part of the standard indicates a misprint, one has the library following the printed text, and 50 are ambiguities of the text. One four-state test has an entry because the pinned library cannot satisfy it. For kirimasim, 2396 inputs measure a simulator against the standard and 382 are kept from their expectation by the pinned library on any simulator; see [the causes of the known differences](docs/known-differences.md#causes-of-the-known-differences).
+Each known difference has one entry in [the cause record](coverage/known_causes.json), checked by `tools/known_causes.py`: 320 library, 61 interpretation, 21 simulator and 57 DPI-condition causes are assigned, and no entry is unclassified. Each interpretation names the basis of its readings: 10 follow a declaration or a name as printed where another part of the standard indicates a misprint, one has the library following the printed text, and 50 are ambiguities of the text. One four-state test has an entry because the pinned library cannot satisfy it. For kirimasim, 2412 inputs measure a simulator against the standard and 382 are kept from their expectation by the pinned library on any simulator; see [the causes of the known differences](docs/known-differences.md#causes-of-the-known-differences).
 
-Every test also has a [kirimasim bring-up stage](docs/kirimasim-stages.md), recorded in `coverage/kirimasim_stages.json`: 1 test at stage 0, 1034 at stage 1 (minimal run_test), 100 at stage 2 (factory), 111 at stage 3 (config_db), 326 at stage 4 (sequence), 251 at stage 5 (TLM) and 955 at stage 6 (register layer). kirimasim 0.1.3 stops at the same unsupported `uvm_object_wrapper` construct in every stage, the stage-0 test included; no simulation test runs yet.
+Every test also has a [kirimasim bring-up stage](docs/kirimasim-stages.md), recorded in `coverage/kirimasim_stages.json`: 1 test at stage 0, 1035 at stage 1 (minimal run_test), 101 at stage 2 (factory), 114 at stage 3 (config_db), 330 at stage 4 (sequence), 252 at stage 5 (TLM) and 961 at stage 6 (register layer). kirimasim 0.2.1 stops at the same unsupported `uvm_object_wrapper` construct in every stage, the stage-0 test included; no simulation test runs yet.
 
-Check also elaborates every test with slang, the front end that kirimasim uses unmodified: a legal test must have no error and an illegal design must be rejected at its pattern, except the 91 entries of [`coverage/slang_frontend.json`](coverage/slang_frontend.json) ([slang elaboration](docs/testing.md#slang-elaboration)). An [API census](docs/requirements.md#api-census) lists the declarations that the pinned library marks with a clause and that no test uses: 2 unused and 29 named only.
+Check also elaborates every test with slang, the front end that kirimasim uses unmodified: a legal test must have no error and an illegal design must be rejected at its pattern, except the 91 entries of [`coverage/slang_frontend.json`](coverage/slang_frontend.json) ([slang elaboration](docs/testing.md#slang-elaboration)). An [API census](docs/requirements.md#api-census) lists the declarations that the pinned library marks with a clause and that no test uses: 1 unused and 29 named only.
 
 Every test begins with a comment that says what it checks and how its expected output follows from the cited clauses, and helpers hold one statement on each line, except `tests/uB/helpers81/report_macros81.svh`, which uses `` `__LINE__ `` and keeps its line layout. [Readability edits](docs/testing.md#readability-edits) explains how such an edit is shown to keep the code.
 
@@ -148,7 +149,7 @@ and evidence scope. [Known differences](docs/known-differences.md) lists the
 library limitations and spec-only tests. [Check](.github/workflows/check.yml)
 runs tool, metadata, library, ledger, cause-record, report-declaration and bring-up-stage checks, the slang elaboration and the API census, and, for each push or pull request,
 the tagged ordinary Verilator checks whose inputs changed plus one canary.
-[Regression](.github/workflows/regression.yml) runs all 2312 tagged ordinary
+[Regression](.github/workflows/regression.yml) runs all 2327 tagged ordinary
 checks in 20 shards, the twenty explicit command-line checks and the twenty-six
 regex-DPI variants, manually and weekly; a manual run can be narrowed to directories under `tests/`. The ordinary Verilator jobs in both workflows select tagged tests. Check also elaborates spec-only fixtures with slang. kirimasim, Ghost and the HDL runner are measured locally.
 
@@ -176,10 +177,10 @@ its counterpart; commands and API identifiers retain their original spelling.
 | Stage | Scope | Current state / target |
 | --- | --- | --- |
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
-| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 1200 tests; reviewed two-tests-per-clause target open |
-| M2 | Sequences, sequencers, TLM and callbacks | 634 tests; target open |
-| M3 | Register layer (17–19, D.3, annex E) and shared API rules | 944 tests, including model API profiles under 1.4.2/1.4.3; target open |
-| M4 | Requirement ledger and coverage | In progress: 4182 AI drafts; 4182 requirements link to 2722 tests; denominator unapproved |
+| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 1205 tests; reviewed two-tests-per-clause target open |
+| M2 | Sequences, sequencers, TLM and callbacks | 639 tests; target open |
+| M3 | Register layer (17–19, D.3, annex E) and shared API rules | 950 tests, including model API profiles under 1.4.2/1.4.3; target open |
+| M4 | Requirement ledger and coverage | In progress: 4187 AI drafts; 4187 requirements link to 2738 tests; denominator unapproved |
 
 M1–M3 group the UVM test areas and M4 maps their requirements, as explained in [the stage definitions](docs/glossary.md#scope-and-coverage). The primary-citation census tracks the two-tests-per-clause target; [the counting explanation](docs/requirements.md#citations-requirements-and-execution-evidence) describes the additional review needed to establish independent checks of required behavior.
 

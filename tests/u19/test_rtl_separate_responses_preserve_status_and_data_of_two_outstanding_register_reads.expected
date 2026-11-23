@@ -1,0 +1,4 @@
+UT: replies 20 10 rtl 2 2
+UT: first ok 1 data 31 second failed 1 mirrors 31 0
+UT: retry ok 1 data a5 mirrors 31 a5
+UT: final reply 20 rtl 3 3 pending 0

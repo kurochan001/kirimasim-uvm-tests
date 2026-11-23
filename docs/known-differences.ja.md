@@ -6,7 +6,7 @@
 
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
-現在の2778件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の2794件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。原因は[原因の記録](#既知差分の原因)で別に割り当てており、照合はAIによるものです。
 
 差分の件数は[実測の内訳](results.ja.md#結果の解釈)で確認し、個別の入力を調べるときは[ライブラリの注記](known-differences.ja.md#固定版ライブラリの制約)、[ソースの分類一覧](known-differences.ja.md#specのみのテスト)、[シミュレータとライブラリの条件](known-differences.ja.md#シミュレータとライブラリの組み合わせ)を使ってください。
@@ -495,11 +495,11 @@ event deltaの6入力は最終tag付きで両seedに一致しますが、既知4
 
 interpretationの記録は、2つの読み方の根拠（`basis`）も持ちます。`printed`は、テストが宣言、名前、書式の指定を印刷されたとおりに読み、規格の別の箇所がその印刷を誤植と示すもので、10件です（`get_schedule`の戻り型、専用poolの`get_global`の2件、functionとして印刷された`all_dropped`、`is_auto_enabled_recording_enabled`、戻り型のないmapのmethod、`uvm_report_db`、`NO_MEM_SHARED_ACCESS_TEST`、`%u`の2件）。`printed-by-library`は、libraryが印刷に従いテストが別の箇所に従うもので、`get_streams`の1件です。`ambiguity`は、文言そのものが二通りに読めるもので、50件です。概要や説明文と宣言の食い違いは`ambiguity`に数えます。この区別は誤植に依存する読み方を分けるだけで、誤植かどうかの判断は人の照合に任せます。原因がlibraryの記録に、規格の印刷に従うものはありません。
 
-`static`の記録は2値の記録と同じ根拠を持ち、原因はlibraryかinterpretationに限ります。現在は1件です。[queueのテスト](../tests/u11/test_fourstate_queue_missing_entries_117.sv)は、空のqueueの`pop_front`と`pop_back`にwarningを期待します（11.3.2.8、11.3.2.9）が、固定版のmethodは組込みのpopの結果を返すだけで、reportを出しません。4値のほかの6件は、同じ読み方で、libraryが妨げる箇所を見つけていません。これは実行による確認ではありません。
+`static`の記録は2値の記録と同じ根拠を持ち、原因はlibraryかinterpretationに限ります。現在は1件です。[queueのテスト](../tests/u11/test_fourstate_queue_missing_entries_117.sv)は、空のqueueの`pop_front`と`pop_back`にwarningを期待します（11.3.2.8、11.3.2.9）が、固定版のmethodは組込みのpopの結果を返すだけで、reportを出しません。ほかの4値テスト7件は、11月24日にGhostのライブラリ方式でシード1・73とも期待値に一致しました。
 
 `python3 tools/known_causes.py check`は、記録とテストが一致することを確かめます。`:oracle:`にverilator@5.054がない2値テストそれぞれにちょうど1件の記録があること、入力の指紋が現在のものであること、libraryの文字列が固定版のファイルにあること、条項が1800.2-2020のものであること、対照がtag付きのテストであることです。commentだけの編集では、codeが変わらないことを先に示す`tools/code_identity.py refresh`で指紋を持ち越します。`--results`を付けると、合算したrunner JSONのknownの記録が記録と一致することも確かめます。`reproduce`は再現例をbuildし直し、Verilatorが記録どおりに受理または拒否することを確かめます。Checkは両方を実行します。
 
-kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2396入力と、固定版libraryのためにどのsimulatorでも期待値に届かない382入力（原因がlibraryとinterpretationのもの。`static`の1件を含みます）を分けて数えます。未分類の入力はありません。測れる入力は、tag付きの2312件、原因がsimulatorとconditionのもの、記録のない4値の6件です。`candidates`は、人による照合の候補403件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。分類は終わりましたが、そうした値を加えると記録の形式が変わるため、先に案を示してユーザーの確認を得ます。
+kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2412入力と、固定版libraryのためにどのsimulatorでも期待値に届かない382入力（原因がlibraryとinterpretationのもの。`static`の1件を含みます）を分けて数えます。未分類の入力はありません。測れる入力は、tag付きの2327件、原因がsimulatorとconditionのもの、記録のない4値の7件です。`candidates`は、人による照合の候補403件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。分類は終わりましたが、そうした値を加えると記録の形式が変わるため、先に案を示してユーザーの確認を得ます。
 
 ## 固定版ライブラリの制約
 
@@ -908,14 +908,14 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.054`を付けたテストは2312件、specのみのテストは466件で、うち7件は4値です。
+スイート全体では、`verilator@5.054`を付けたテストは2327件、specのみのテストは467件で、うち8件は4値です。
 9.6の子タスク停止の検査系は、5.052の固定組合せではpre-resetフェーズ終了後も子タスクが遅延書き込みを実行する既知差分でしたが、146回目の5.054の測定ではseed 1／73で一致し、tag付きになりました。
 
 wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1つ確立してから`reset(1)`を呼びます。
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。原因台帳ではsimulator差分に分類しています。再現例 `class-event-trigger-then-reassign` は、クラスのメンバーeventを発火させ、同じ関数内でそのevent変数に再代入します。
 
-specのみの466件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の7件は[4値の一覧](#4値のspecのみのテスト)にあります。通常runnerの既定選択と全件のRegressionはタグ付き2312件（runtime 2218・compile拒否94）を選びます。
+specのみの467件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の8件は[4値の一覧](#4値のspecのみのテスト)にあります。通常runnerの既定選択と全件のRegressionはタグ付き2327件（runtime 2232・compile拒否95）を選びます。
 パスを指定せずに `--all` を付けると2値でspecのみの459件も選び、不一致やビルド不可を`known`として記録します。
 通常の実行時313件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 simulation build 141件には通常runtimeがなく、DPI未linkの61入力（HDL 38／command-line 23）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
@@ -1424,10 +1424,11 @@ command-line条件の2検査系は、固定版libraryが満たさない規格由
 
 ## 4値のspecのみのテスト
 
-次の7検査系は`:fourstate: yes`を宣言します。2値のVerilator oracleはXやZのbitを表せないためspecのみで、Verilatorの記録はなく、既知差分でもありません。規定の結果と規定のない経路は[4値の節](testing.ja.md#4値の経路)にあります。queueの検査系は、固定版libraryではどのsimulatorでも期待値に届かないため、[原因の記録](#既知差分の原因)に種別`static`の記録があります。
+次の8検査系は`:fourstate: yes`を宣言します。2値のVerilator oracleはXやZのbitを表せないためspecのみで、Verilatorの記録はなく、既知差分でもありません。規定の結果と規定のない経路は[4値の節](testing.ja.md#4値の経路)にあります。queueの検査系は、固定版libraryではどのsimulatorでも期待値に届かないため、[原因の記録](#既知差分の原因)に種別`static`の記録があります。
 
 - configuration databaseとuvm_config_int：[test_fourstate_config_db_values_117](../tests/uC/test_fourstate_config_db_values_117.sv)。
 - 型付きresource：[test_fourstate_resource_read_write_117](../tests/uC/test_fourstate_resource_read_write_117.sv)。
+- 型付きイベントのX/Z保持 [test_fourstate_event_releases_typed_waiter_and_retains_distinct_x_and_z_bits](../tests/u10/test_fourstate_event_releases_typed_waiter_and_retains_distinct_x_and_z_bits.sv).
 - TLM FIFOとanalysis FIFO：[test_fourstate_tlm_fifo_values_117](../tests/u12/test_fourstate_tlm_fifo_values_117.sv)。
 - poolの存在しないkey：[test_fourstate_pool_missing_key_117](../tests/u11/test_fourstate_pool_missing_key_117.sv)。
 - queueの存在しない要素：[test_fourstate_queue_missing_entries_117](../tests/u11/test_fourstate_queue_missing_entries_117.sv)。
@@ -1440,10 +1441,10 @@ command-line条件の2検査系は、固定版libraryが満たさない規格由
 
 同梱ライブラリと固定ライブラリは異なる実行条件なので、記録の比較には[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-以前のfield-configuration filterは互換1083記録を1082へ絞りました。その後のreraise主引用のfilterで1082件から1081件へ減りました。今回は新たなfilterやguest再実行をせず、その記録を保持します。[入力同一性の説明](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で両段階を区別します。
+以前のfield-configuration filterは互換1083記録を1082へ絞りました。その後のreraise主引用のfilterで1082件から1081件へ減りました。同梱方式の集計はその記録を引き継ぎます。[入力同一性の説明](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で両段階を区別します。
 
-Ghostの互換記録は1078入力で、1700入力は未測定です。同梱UVMではseed 1・73とも205件一致・873件不一致で、不一致になるテストも同じです。
-現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
+Ghost同梱方式の互換記録は1078入力で、1716入力は未測定です。同梱UVMではseed 1・73とも205件一致・873件不一致で、不一致になるテストも同じです。
+11月24日には固定版UVMで新規16件と既存の4値テスト7件を測定し、両シードとも22件が一致しました。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 

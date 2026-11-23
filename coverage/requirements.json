@@ -391,6 +391,13 @@
           "expected_observations": [
             "UT: build found 1 value 84"
           ]
+        },
+        {
+          "test": "uC/test_config_runtime_exact_and_wildcard_writes_replace_build_precedence_in_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build left 84 right 84 labels green green"
+          ]
         }
       ]
     },
@@ -3475,6 +3482,16 @@
             "UT: before 1 value 84",
             "UT: after 1 value 12"
           ]
+        },
+        {
+          "test": "uC/test_config_runtime_exact_and_wildcard_writes_replace_build_precedence_in_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build left 84 right 84 labels green green",
+            "UT: left write left 17 right 84 labels green green",
+            "UT: wildcard left 29 right 29 labels green green",
+            "UT: right write left 29 right 43 labels green green"
+          ]
         }
       ]
     },
@@ -3590,6 +3607,24 @@
             "UT: unrelated still waiting 1",
             "UT: modified found 1 value 58",
             "UT: completed 1"
+          ]
+        },
+        {
+          "test": "uC/test_config_waiters_with_same_path_and_field_are_isolated_by_value_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrong scope 0 0",
+            "UT: string only 0 1 value blue",
+            "UT: both 1 1 values 73 blue"
+          ]
+        },
+        {
+          "test": "uC/test_config_wildcard_wakes_two_scopes_and_exact_update_only_releases_one_rearmed_waiter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first counts 1 1 values 17 17",
+            "UT: right counts 1 2 values 17 29",
+            "UT: final counts 2 2 values 43 29"
           ]
         }
       ]
@@ -4015,8 +4050,8 @@
         "ja": "create_itemはfactoryを使って要求されたsequenceまたはitemを生成し初期化する。"
       },
       "conditions": {
-        "en": "Install an item or child-sequence type override before invoking the creation macro.",
-        "ja": "生成macroの前に、itemまたはchild sequenceのtype overrideを設定する。"
+        "en": "Install an item or child-sequence type override before invoking the creation macro. The direct-call fixture requests two named items on separate sequencers.",
+        "ja": "生成macroの前に、itemまたはchild sequenceのtype overrideを設定する。 直接呼出しのケースでは異なるシーケンサに名前付き項目を1個ずつ要求する。"
       },
       "expected": {
         "en": "The created handle has the replacement type and retains the requested name/context.",
@@ -4044,6 +4079,13 @@
           "role": "direct",
           "expected_observations": [
             "UT: replacement 1 name item parent_same 1 sequencer_same 1"
+          ]
+        },
+        {
+          "test": "u14/test_create_item_keeps_explicit_sequencers_and_factory_products_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: types 1 1 names first second"
           ]
         }
       ]
@@ -17523,6 +17565,16 @@
             "UT: second 1 7",
             "UT: third 1 9 empty 1"
           ]
+        },
+        {
+          "test": "u12/test_analysis_broadcast_consumers_drain_and_flush_their_own_backlogs_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before consumed 1 value 17 pending 1 2",
+            "UT: flushed pending 1 0",
+            "UT: left 1 1 1 values 34 51 68",
+            "UT: right 1 1 values 51 68 empty 0 0"
+          ]
         }
       ]
     },
@@ -18550,6 +18602,14 @@
           "expected_observations": [
             "UT: ok 1 errors 1 mirror a6 requests 1"
           ]
+        },
+        {
+          "test": "u18/test_rtl_mirror_rechecks_after_field_comparison_is_reenabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enabled before 39 mismatch 1 mirror a7",
+            "UT: matched errors 0 mirror a7 traffic 5"
+          ]
         }
       ]
     },
@@ -18583,6 +18643,13 @@
           "role": "direct",
           "expected_observations": [
             "UT: ok 1 errors 0 mirror a6 requests 1"
+          ]
+        },
+        {
+          "test": "u18/test_rtl_mirror_rechecks_after_field_comparison_is_reenabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: masked before 0 errors 0 mirror 39"
           ]
         }
       ]
@@ -19748,6 +19815,15 @@
           "expected_observations": [
             "UT: mirror 55 calls 0"
           ]
+        },
+        {
+          "test": "u19/test_predictor_resolves_each_bus_observation_after_locked_register_relocation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial element 1 kind 1 data 12 mirrors 12 0",
+            "UT: stale publications 0 mirrors 12 0",
+            "UT: final pending 0 mirrors 56 34"
+          ]
         }
       ]
     },
@@ -19788,6 +19864,16 @@
           "role": "direct",
           "expected_observations": [
             "UT: mirror ab calls 1 value ab element 1 map 1 write 1"
+          ]
+        },
+        {
+          "test": "u19/test_predictor_resolves_each_bus_observation_after_locked_register_relocation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial element 1 kind 1 data 12 mirrors 12 0",
+            "UT: peer element 1 kind 1 data 34",
+            "UT: moved element 1 kind 1 data 56",
+            "UT: final pending 0 mirrors 56 34"
           ]
         }
       ]
@@ -22193,6 +22279,15 @@
           "expected_observations": [
             "UT: read 1 write 1 missing 1"
           ]
+        },
+        {
+          "test": "u18/test_relocating_a_read_alias_preserves_write_partners_in_both_locked_slots",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial address 10 reader 1 writes 1 1 peer 1",
+            "UT: moved address 20 reader 1 writes 1 1 peer 1",
+            "UT: restored address 10 reader 1 writes 1 1 peer 1"
+          ]
         }
       ]
     },
@@ -22261,6 +22356,15 @@
           "expected_observations": [
             "UT: before 10 lookup 1",
             "UT: offset 30 address 30 old_missing 1 new_lookup 1"
+          ]
+        },
+        {
+          "test": "u18/test_relocating_a_read_alias_preserves_write_partners_in_both_locked_slots",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial address 10 reader 1 writes 1 1 peer 1",
+            "UT: moved address 20 reader 1 writes 1 1 peer 1",
+            "UT: restored address 10 reader 1 writes 1 1 peer 1"
           ]
         }
       ]
@@ -30324,6 +30428,15 @@
           "expected_observations": [
             "UT: handles_same 1 1 payloads 17 17"
           ]
+        },
+        {
+          "test": "u12/test_analysis_broadcast_consumers_drain_and_flush_their_own_backlogs_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before consumed 1 value 17 pending 1 2",
+            "UT: left 1 1 1 values 34 51 68",
+            "UT: right 1 1 values 51 68 empty 0 0"
+          ]
         }
       ]
     },
@@ -34487,6 +34600,16 @@
             "UT: soft accepted 1 desired 7 mirror 7",
             "UT: hard accepted 1 desired 44 mirror 44"
           ]
+        },
+        {
+          "test": "u18/test_register_byte_enables_consume_each_fields_write_once_permission_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high desired 4411 mirror 4411",
+            "UT: soft desired aa55 mirror aa55",
+            "UT: high first desired 9c34 mirror 9c34",
+            "UT: low last desired 9cef mirror 9cef"
+          ]
         }
       ]
     },
@@ -34766,6 +34889,15 @@
           "expected_observations": [
             "UT: clean 1 requests 0 mirror 11"
           ]
+        },
+        {
+          "test": "u18/test_rtl_frontdoor_update_writes_only_dirty_registers_and_preserves_other_pending_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctrl traffic 1 dirty 0 1 mirrors 51 0",
+            "UT: repeated traffic 1 peer desired c3",
+            "UT: readback 51 c3 count 2 total 5"
+          ]
         }
       ]
     },
@@ -34800,6 +34932,17 @@
           "expected_observations": [
             "UT: first ok 1 stored a6 mirror a6 clean 1",
             "UT: requests 1"
+          ]
+        },
+        {
+          "test": "u18/test_rtl_frontdoor_update_writes_only_dirty_registers_and_preserves_other_pending_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: staged traffic 0 dirty 1 1 mirror 0 0",
+            "UT: ctrl traffic 1 dirty 0 1 mirrors 51 0",
+            "UT: repeated traffic 1 peer desired c3",
+            "UT: updated traffic 2 dirty 0 0 mirrors 51 c3",
+            "UT: readback 51 c3 count 2 total 5"
           ]
         }
       ]
@@ -42561,6 +42704,13 @@
           "expected_observations": [
             "UT: handler_enabled 1 calls 2 values 11 22 same 1 1"
           ]
+        },
+        {
+          "test": "u14/test_response_handler_bypasses_a_full_queue_without_discarding_its_pending_reply",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handled 1 identity 1 value 22"
+          ]
         }
       ]
     },
@@ -42594,6 +42744,15 @@
           "role": "direct",
           "expected_observations": [
             "UT: final_mode 0 handled 11 queued 22"
+          ]
+        },
+        {
+          "test": "u14/test_response_handler_bypasses_a_full_queue_without_discarding_its_pending_reply",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handled 1 identity 1 value 22",
+            "UT: first identity 1 value 11",
+            "UT: third identity 1 value 33 depth 1"
           ]
         }
       ]
@@ -58826,12 +58985,12 @@
         "ja": "provides_responsesを選ぶと、register層はdriverの別responseを使用する。"
       },
       "conditions": {
-        "en": "Two reads receive fresh responses with 0x42 then 0x73; request data is 0xee.",
-        "ja": "2回のreadで新規responseに0x42、次に0x73を持たせ、requestのdataは0xeeにする。"
+        "en": "Two reads receive fresh responses with 0x42 then 0x73; request data is 0xee. The RTL fixture accepts two concurrent register reads, returns an error for the second before completing the first, then accepts a retry.",
+        "ja": "2回のreadで新規responseに0x42、次に0x73を持たせ、requestのdataは0xeeにする。 RTLのケースでは2件のレジスタ読出しを同時に保留し、後の要求にエラーを返してから先の要求を完了し、その後の再試行を受け付ける。"
       },
       "expected": {
-        "en": "Each returned value follows its corresponding separate response.",
-        "ja": "各戻り値は、それぞれの別responseに従う。"
+        "en": "Each returned value follows its corresponding separate response. The callers receive data 0x31 and an error respectively. Retrying the failed read returns 0xa5.",
+        "ja": "各戻り値は、それぞれの別responseに従う。 先の呼出しは0x31、後の呼出しはエラーを受け取る。失敗した読出しを再試行すると0xa5を得る。"
       },
       "limitations": {
         "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
@@ -58850,6 +59009,16 @@
             "UT: first ok 1 value 42 mirror 42",
             "UT: second ok 1 value 73 mirror 73 fresh 1",
             "UT: converted 2 exact_responses 1"
+          ]
+        },
+        {
+          "test": "u19/test_rtl_separate_responses_preserve_status_and_data_of_two_outstanding_register_reads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replies 20 10 rtl 2 2",
+            "UT: first ok 1 data 31 second failed 1 mirrors 31 0",
+            "UT: retry ok 1 data a5 mirrors 31 a5",
+            "UT: final reply 20 rtl 3 3 pending 0"
           ]
         }
       ]
@@ -94064,6 +94233,15 @@
           "expected_observations": [
             "UT: order 22 11",
             "UT: finished 1 1"
+          ]
+        },
+        {
+          "test": "u15/test_queued_requests_use_the_arbitration_mode_in_effect_at_each_driver_pull",
+          "role": "direct",
+          "expected_observations": [
+            "UT: strict highest 1 value 33",
+            "UT: fifo oldest 1 value 11",
+            "UT: remaining 1 value 22 completed 1 1 1"
           ]
         }
       ]
@@ -162325,6 +162503,193 @@
           "role": "direct",
           "expected_observations": [
             "UT: drain clocks 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-OVERRIDE-PARAMETER-SPECIALIZATION",
+      "clause": "8.3.1.4.2",
+      "statement": {
+        "en": "A type override applies to the selected factory proxy of a parameterized object class.",
+        "ja": "パラメーター付きのオブジェクトクラスに対する型オーバーライドは、指定した型のプロキシに適用される。"
+      },
+      "conditions": {
+        "en": "Register a replacement for an 8-bit packet in another package. Create 8-, 16- and 8-bit objects through the registries.",
+        "ja": "別パッケージで8ビットのパケットに置換型を登録し、8・16・8ビットの順にレジストリから生成する。"
+      },
+      "expected": {
+        "en": "The two proxies are distinct. Both narrow instances have the replacement wrapper, the wide instance has its original wrapper, and their payloads are independent.",
+        "ja": "2つのプロキシは異なる。8ビットの2個は置換型、16ビットの1個は元の型のラッパーを持ち、データは各個体に独立する。"
+      },
+      "limitations": {
+        "en": "Two integral width specializations and by-type creation.",
+        "ja": "整数の幅による2つの特殊化と、型による生成を対象とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_override_of_package_parameter_class_leaves_other_width_untouched",
+          "role": "direct",
+          "expected_observations": [
+            "UT: distinct proxies 1",
+            "UT: first 1 wide 1 second 1",
+            "UT: separate 1 payloads a5 b6c1 0 names a b c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-CREATE-ITEM-EXPLICIT-SEQUENCER",
+      "clause": "14.2.6.1",
+      "statement": {
+        "en": "Each create_item call associates the created item with the explicit sequencer argument.",
+        "ja": "create_itemは、呼出しごとに明示したシーケンサを生成物に設定する。"
+      },
+      "conditions": {
+        "en": "From a derived sequence, create two factory-overridden items with different names on different sequencers.",
+        "ja": "派生シーケンスから、異なる名前とシーケンサを渡して型を置換した項目を2個生成する。"
+      },
+      "expected": {
+        "en": "Each item keeps its own name, sequencer and payload after both calls.",
+        "ja": "両方の呼出し後も各項目は自身の名前、シーケンサ、データを保持する。"
+      },
+      "limitations": {
+        "en": "Creation of items only. These requests are never started.",
+        "ja": "項目の生成を対象とし、要求の実行は行わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_create_item_keeps_explicit_sequencers_and_factory_products_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: types 1 1 names first second",
+            "UT: independent 1 contexts 1 1 payloads 37 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-CREATE-ITEM-PROTECTED-ACCESS",
+      "clause": "14.2.6.1",
+      "statement": {
+        "en": "The protected create_item method is accessible to a derived sequence and inaccessible to module scope.",
+        "ja": "protectedのcreate_itemは派生シーケンスから呼べるが、モジュールから直接は呼べない。"
+      },
+      "conditions": {
+        "en": "A concrete sequence inherits the method. One fixture calls it externally and another calls it from a derived method.",
+        "ja": "具象シーケンスがメソッドを継承する。一方はモジュールから、もう一方は派生メソッドから呼ぶ。"
+      },
+      "expected": {
+        "en": "The external call is rejected with a diagnostic naming the protected method. The derived call produces both requested items.",
+        "ja": "外部呼出しはメソッド名とアクセス違反を示す診断で拒否される。派生側では要求した2個が生成される。"
+      },
+      "limitations": {
+        "en": "One visibility rule. Diagnostic wording can vary.",
+        "ja": "このメソッドの可視性を対象とし、診断の表現には幅を持たせる。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_create_item_rejects_calls_from_external_module_scope",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_create_item_rejects_calls_from_external_module_scope\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:protected|private|inaccessible)\\b)(?=.*\\bcreate_item\\b).*error"
+          }
+        },
+        {
+          "test": "u14/test_create_item_keeps_explicit_sequencers_and_factory_products_independent",
+          "role": "control",
+          "expected_observations": [
+            "UT: types 1 1 names first second"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-FOURSTATE-TRIGGER-DATA",
+      "clause": "10.1.2.2.2",
+      "statement": {
+        "en": "A waiter on a four-state typed event receives the value passed to the trigger that releases it.",
+        "ja": "4値型のイベントを待つタスクは、待機を解除したtriggerに渡された値を受け取る。"
+      },
+      "conditions": {
+        "en": "Wait before the first trigger. Trigger a vector with X and Z in different positions, then exchange those positions in a second trigger.",
+        "ja": "最初のtriggerより先に待機し、XとZを異なる位置に含む値を渡す。2回目はその位置を交換する。"
+      },
+      "expected": {
+        "en": "The saved result retains the first pattern, while get_trigger_data returns the second. Both carry unknown bits.",
+        "ja": "待機結果は最初のビット列を保持し、get_trigger_dataは2番目を返す。両方に未知のビットが残る。"
+      },
+      "limitations": {
+        "en": "Requires four-state simulation. Uses explicit trigger data and one waiter.",
+        "ja": "4値シミュレーションが必要。明示したtriggerのデータと1つの待機タスクを使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_fourstate_event_releases_typed_waiter_and_retains_distinct_x_and_z_bits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first waiter 1 retained 1 unknown 1",
+            "UT: next retained 1 saved 1 distinct 1 unknown 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PREDICT-MASKED-WRITE-ONCE-FIELDS",
+      "clause": "18.4.4.15",
+      "statement": {
+        "en": "A write prediction with byte enables consumes the first permitted write only for enabled byte-aligned W1 fields.",
+        "ja": "バイトイネーブル付きの書込み予測では、有効なバイトにあるW1フィールドだけが初回書込みを消費する。"
+      },
+      "conditions": {
+        "en": "Predict masked writes to two one-byte W1 fields. Apply SOFT and HARD resets, then reverse the order in which the lanes are enabled.",
+        "ja": "1バイトのW1フィールド2個にマスク付き書込みを予測する。SOFT・HARDリセット後に先に有効にするレーンを入れ替える。"
+      },
+      "expected": {
+        "en": "Both desired and mirrored values track the first enabled write per lane. Only HARD reset rearms the used fields.",
+        "ja": "desired値とミラー値は各レーンで最初に有効だった書込みを反映する。使用済みのフィールドはHARDリセットで再び書込み可能になる。"
+      },
+      "limitations": {
+        "en": "Two full-byte fields on a single map. Partial-byte fields and wider buses have different conditions.",
+        "ja": "単一マップ上で完全な1バイトを占める2フィールドを対象にする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_byte_enables_consume_each_fields_write_once_permission_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low desired 1211 mirror 1211",
+            "UT: both desired 4411 mirror 4411",
+            "UT: high desired 4411 mirror 4411",
+            "UT: soft desired aa55 mirror aa55",
+            "UT: high first desired 9c34 mirror 9c34",
+            "UT: low last desired 9cef mirror 9cef"
           ]
         }
       ]

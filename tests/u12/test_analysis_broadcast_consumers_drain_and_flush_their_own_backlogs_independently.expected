@@ -1,0 +1,4 @@
+UT: before consumed 1 value 17 pending 1 2
+UT: flushed pending 1 0
+UT: left 1 1 1 values 34 51 68
+UT: right 1 1 values 51 68 empty 0 0

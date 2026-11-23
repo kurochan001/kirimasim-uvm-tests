@@ -1,0 +1,3 @@
+UT: initial address 10 reader 1 writes 1 1 peer 1
+UT: moved address 20 reader 1 writes 1 1 peer 1
+UT: restored address 10 reader 1 writes 1 1 peer 1

@@ -16,12 +16,6 @@
   },
   "unused": [
     {
-      "kind": "function",
-      "name": "uvm_sequence_base::create_item",
-      "clause": "14.2.6.1",
-      "file": "src/seq/uvm_sequence_base.svh"
-    },
-    {
       "kind": "macro",
       "name": "UVM_PACKER_MAX_BYTES",
       "clause": "B.6.2",

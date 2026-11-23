@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4182 AI-drafted requirements, all with direct links to 2722 tests.
-Fifty-six tests have only control links. All 2778 tests have a requirement link.
+contains 4187 AI-drafted requirements, all with direct links to 2738 tests.
+Fifty-six tests have only control links. All 2794 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4182 draft entries span several areas,
+a heading is not an obligation. The 4187 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -75,14 +75,14 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1327
-have a primary-focus test and 2,096 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 1328
+have a primary-focus test and 2,102 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,160 with zero primary-focus tests, 768 with one,
-and 554 with at least two. It measures test placement only. It does not
+census currently shows 1,159 with zero primary-focus tests, 765 with one,
+and 558 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2778-test
+known difference. It is not a pass or a conformance claim. The current 2794-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2778 reviewed requirement mappings.
+  index is an inventory, not 2794 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -298,7 +298,7 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4182 reviews are `ai` and
+Scope is proposed, all 4187 reviews are `ai` and
 the denominator remains unapproved.
 
 The 124th expansion implements the external review's seventh item, the
@@ -317,16 +317,16 @@ objects and 445 assessments unchanged; 2707 tests have direct links, 158 have
 controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
-The suite has 2778 tests (2679 simulation/99 elaboration). Ordinary results
-are 2312 matches: 2218 runtime inputs at both seeds and 94 compiler rejections.
+The suite has 2794 tests (2694 simulation/100 elaboration). Ordinary results
+are 2327 matches: 2232 runtime inputs at both seeds and 95 compiler rejections.
 Known inputs total 459: 313 runtime seed 1 differences, 141 simulation builds
-and five accepted illegal designs without runtime; spec-only cases total 466
-with the seven four-state inputs. The command-line condition keeps 23 fixtures
+and five accepted illegal designs without runtime; spec-only cases total 467
+with the eight four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
 is added to the ordinary totals. Current Ghost coverage and the excluded inputs are listed in [Evidence assembly](results.md#evidence-assembly).
 
-Primary-focused identifiers are 1327; candidates are 1160 zero/768 below
-target/554 at least two. All 2062 partial identifiers, actual remaining
+Primary-focused identifiers are 1328; candidates are 1159 zero/765 below
+target/558 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
 explains why matching conditions do not supply completion.
@@ -667,7 +667,7 @@ No mapping adds a measured pass, human approval or an approved denominator.
 
 ## API census
 
-"Zero requirements without a direct test" does not show that an API of a clause is ever called: a clause can have duties whose tests reach the API only through another method. [`tools/api_census.py`](../tools/api_census.py) counts this separately. The pinned library marks 1764 declarations with a clause (`@uvm-ieee 1800.2-2020 auto` or `manual`): 185 classes, 1225 functions, 185 tasks, 139 macros, 22 typedefs and 8 marks before something else. For each function and task, the tool asks slang which calls and overrides in the tests' own sources resolve to it; a macro, class or typedef counts by its name in the code. A call in the body of a library macro that a test expands is not a call in the test's sources: the test uses the macro, so `uvm_sequence_base::create_item`, which the tests reach only through the sequence macros, is listed as unused. A slang process that fails gives no census: the command stops with an error instead of counting that test as using nothing.
+"Zero requirements without a direct test" does not show that an API of a clause is ever called: a clause can have duties whose tests reach the API only through another method. [`tools/api_census.py`](../tools/api_census.py) counts this separately. The pinned library marks 1764 declarations with a clause (`@uvm-ieee 1800.2-2020 auto` or `manual`): 185 classes, 1225 functions, 185 tasks, 139 macros, 22 typedefs and 8 marks before something else. For each function and task, the tool asks slang which calls and overrides in the tests' own sources resolve to it; a macro, class or typedef counts by its name in the code. A call in the body of a library macro that a test expands is not a call in the test's sources: the test uses the macro. A derived sequence now calls `uvm_sequence_base::create_item` directly, which the census can resolve. A slang process that fails gives no census: the command stops with an error instead of counting that test as using nothing.
 
 [`coverage/api_census.json`](../coverage/api_census.json) holds the two lists that Check compares with the tests: `unused`, the functions, tasks and macros whose name occurs in no test, and `name_only`, the functions and tasks that are named but to which no call or override resolves (a call through a derived class or a port, a use in a test that slang cannot elaborate, or another method of the same name). A mark is the library's claim: a clause is confirmed against the standard before a declaration is treated as a gap. A new test that uses a listed declaration makes Check fail until the record is rewritten:
 
@@ -762,4 +762,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4182 AI drafts and their direct links do not satisfy that gate.
+The current 4187 AI drafts and their direct links do not satisfy that gate.

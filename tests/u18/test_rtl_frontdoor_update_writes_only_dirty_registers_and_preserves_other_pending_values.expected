@@ -1,0 +1,6 @@
+UT: staged traffic 0 dirty 1 1 mirror 0 0
+UT: ctrl traffic 1 dirty 0 1 mirrors 51 0
+UT: repeated traffic 1 peer desired c3
+UT: updated traffic 2 dirty 0 0 mirrors 51 c3
+UT: readback 51 c3 count 2 total 5
+UT: scoreboard reads 3 matches 3 mismatches 0

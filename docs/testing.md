@@ -436,7 +436,7 @@ package boundaries; [Q442](faq.md#q442-what-do-the-user-package-profiles-check) 
 
 ### Four-state paths
 
-A four-state value can carry X or Z bits. Seven spec-only fixtures declare
+A four-state value can carry X or Z bits. Eight spec-only fixtures declare
 `:fourstate: yes` and check paths where the standard defines the result. The
 ordinary Verilator runner automatically selects two-state fixtures. Explicit paths bypass that filter. A two-state diagnostic build cannot verify these X/Z expectations.
 
@@ -444,6 +444,7 @@ ordinary Verilator runner automatically selects two-state fixtures. Explicit pat
 | --- | --- | --- |
 | Configuration database and `uvm_config_int` | C.4.2.2.2, C.4.2.3.1 | Lookups return the set bits |
 | Typed resource | C.2.5.4.1, C.2.5.4.2 | Reads return the written bits |
+| Typed event | 10.1.2.2.2, 10.1.2.2.5 | The waiter retains the first X/Z pattern while the next trigger changes the stored value |
 | TLM FIFO and analysis FIFO | 12.2.4.2.2, 12.2.8.3 | Gets return the put bits in order |
 | `uvm_pool` missing key | 11.2.2.4 | All X for a four-state element type (1800-2023 Table 7-1) |
 | `uvm_queue` out-of-range get and empty pops | 11.3.2.4, 11.3.2.8, 11.3.2.9 | A warning and all X |

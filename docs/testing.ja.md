@@ -300,12 +300,13 @@ driverとmonitorはclocking blockだけでdesignに触れ、期待値はhelper�
 
 ### 4値の経路
 
-4値の値はXやZのbitを持てます。specのみの7検査系は`:fourstate: yes`を宣言し、規格が結果を定める経路を検査します。通常のVerilator runnerは2値のテストを自動選択します。パスを明示するとこの絞り込みを通らずにビルドを試せますが、2値での診断用ビルドではX/Zの期待値を検証できません。
+4値の値はXやZのbitを持てます。specのみの8検査系は`:fourstate: yes`を宣言し、規格が結果を定める経路を検査します。通常のVerilator runnerは2値のテストを自動選択します。パスを明示するとこの絞り込みを通らずにビルドを試せますが、2値での診断用ビルドではX/Zの期待値を検証できません。
 
 | 経路 | 条項 | 検査する規定の結果 |
 | --- | --- | --- |
 | configuration databaseと`uvm_config_int` | C.4.2.2.2、C.4.2.3.1 | 検索は設定したbitを返す |
 | 型付きresource | C.2.5.4.1、C.2.5.4.2 | readは書いたbitを返す |
+| 型付きイベント | 10.1.2.2.2、10.1.2.2.5 | 待機結果は最初のX/Zの位置を保持し、次のtriggerでイベントの保持値が変わる |
 | TLM FIFOとanalysis FIFO | 12.2.4.2.2、12.2.8.3 | getはputしたbitを順に返す |
 | `uvm_pool`の存在しないkey | 11.2.2.4 | 4値の要素型では全X（1800-2023のTable 7-1） |
 | `uvm_queue`の範囲外getと空のpop | 11.3.2.4、11.3.2.8、11.3.2.9 | warningと全X |

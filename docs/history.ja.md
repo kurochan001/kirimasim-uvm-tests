@@ -4503,3 +4503,19 @@ localの5.054測定（seed 1／73）の結果で決めた。tag付きだった23
 ### hostedの実行
 
 この公開では、runner・正規化・library lock・fetcher・準備用actionが変わったため、Check（[run 44904779678](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44904779678)）はcanaryだけの実行になり、3 jobすべて成功した。準備用actionはhostedで5.054をbuildし直し、`Verilator 5.054 2026-11-01 rev v5.054`を報告し、再現例9個もbuildし直した。canaryのu09は5.054で一致した。tag付き2312件のRegression（[run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)：20 shardと別jobのcommand-line 20件・regex-DPI変種26件）を2ae19a1bで手動実行し、2026-11-22にshard・command-line・regex-DPI・gateの24 jobすべてが成功した。shardの2312件、command-line 20件、regex-DPI変種26件はすべてseed 1／73で一致し、テストの失敗はなかった。shardは89〜151分で、run全体は約11時間半だった。
+
+
+## 2026-11-24 状態変更と未完了要求
+
+新規16件では、直前の設定や未処理の要求が次の操作に与える影響を調べました。ファクトリでは型パラメーターの幅、設定DBでは型・ワイルドカード・完全一致のスコープを変えています。シーケンスでは `create_item` の合法な直接呼出しとモジュールからの不正な呼出し、満杯のキューを保持した応答ハンドラの切替、要求が残った状態での調停方式の切替を検査します。TLMでは一方の購読側だけをflushし、4値イベントではXとZの位置を交換する前後の値を検査します。
+
+3件はRTLに接続します。1件はレジスタ更新を実際の書込み回数と照合し、1件はモデルを介さない書込みの後にミラー比較を再有効化します。もう1件ではRTLが2件の読出しを受理し、後の要求に先にエラーを返します。先の要求が正しいデータを受け取ることと、失敗した側だけ再試行できることを確認します。レジスタ層には読出し専用エイリアスの移動、予測器接続中のアドレス変更、バイトイネーブルと一度だけ書込み可能なフィールドの組合せも追加しました。[逆順応答のテスト](../tests/u19/test_rtl_separate_responses_preserve_status_and_data_of_two_outstanding_register_reads.sv)
+
+Verilator 5.054は新規シミュレーション14件でシード1・73の期待値に一致し、不正なアクセスをコンパイル時に拒否しました。Ghostのライブラリ方式では両シードで16件すべてが一致しました。UVMを別ディレクトリに複製してシーケンサの指定を落とす、ハンドラ切替時に保留中の応答を消す、調停方式の変更を無視する、不要なレジスタ書込みを送る、という4種類の誤りを個別に入れたところ、それぞれで新しいテストが失敗しました。[実測結果](results.ja.md#現在のスナップショット)
+
+固定版のVerilatorとUVMがある環境では、リポジトリのルートから逆順応答のケースを再実行できます。
+
+```sh
+python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
+  tests/u19/test_rtl_separate_responses_preserve_status_and_data_of_two_outstanding_register_reads.sv
+```

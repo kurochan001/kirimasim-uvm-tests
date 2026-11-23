@@ -7217,3 +7217,19 @@ The `:uvm_cmdline_oracle:` tags followed the 5.054 command-line measurement: the
 ### Hosted runs
 
 Because the runner, its normalization, the library lock, the fetcher and the setup action changed, the Check for this publication ([run 44904779678](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44904779678)) ran the canary only, and all three jobs succeeded. The setup action rebuilt 5.054 on the hosted runner, reported `Verilator 5.054 2026-11-01 rev v5.054`, and rebuilt the nine reproducers. The canary u09 matched on 5.054. A manual Regression over the 2312 tagged checks ([run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705): 20 shards plus the separate 20 command-line and 26 regex-DPI jobs) ran on 2ae19a1b and succeeded in all 24 jobs on 2026-11-22. Every one of the 2312 checks in the shards, the 20 command-line checks and the 26 regex-DPI variants matched at seeds 1/73, with no test failures; the shards took 89 to 151 minutes and the run took about 11.5 hours.
+
+
+## 2026-11-24 State changes and outstanding requests
+
+Sixteen tests exercise cases in which earlier traffic can affect a later observation. The factory and configuration cases interleave parameter specializations, typed waiters, wildcard writes and exact writes. The sequence tests check a direct protected call to `create_item`, rejection from module scope, a handler switch with a full response queue, and arbitration changes between grants. The TLM analysis case flushes just one subscriber. A typed event carries X and Z in exchanged positions across two triggers.
+
+Three fixtures drive RTL. One compares frontdoor updates with a hardware write counter. Another disables and re-enables field comparison after raw writes. A tagged slave accepts two register reads, returns the later request's error first, and serves a successful retry. Additional RAL cases move a read-only alias between write partners, relocate a register while its predictor is connected, and exercise write-once fields with independent byte enables. [Reordered bus test](../tests/u19/test_rtl_separate_responses_preserve_status_and_data_of_two_outstanding_register_reads.sv)
+
+Verilator 5.054 matched 14 new simulations at seeds 1 and 73 and rejected the illegal external access. Ghost with the pinned library matched all 16 in both seed runs. Four experiments on separate local copies of UVM tested whether the regressions detect a lost sequencer association, clearing a queued reply during a handler switch, ignoring an arbitration-mode change, and sending a redundant register write. Each fault changed a required observation. [Measurements](results.md#current-snapshot)
+
+Run the paired-response case from the repository root with the pinned Verilator and UVM installation available.
+
+```sh
+python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
+  tests/u19/test_rtl_separate_responses_preserve_status_and_data_of_two_outstanding_register_reads.sv
+```
