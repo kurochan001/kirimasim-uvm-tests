@@ -111,11 +111,10 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The two slang commands need the pinned `pyslang` of [the slang elaboration check](testing.md#slang-elaboration). The snapshot passed 219 tool unit tests, metadata for all 2778 tests (2679 simulation, 99 elaboration),
-ledger/index validation, the cause-record, report-declaration and stage checks, the slang elaboration, the API census, library integrity and current-input evidence checks.
+The two slang commands need the pinned `pyslang` of [the slang elaboration check](testing.md#slang-elaboration). The checks cover the Python tool tests, metadata for all 2778 tests (2679 simulation, 99 elaboration),
+ledger/index validation, the cause-record, report-declaration and stage checks, the slang elaboration, the API census, library integrity and current input fingerprints.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
-Current full-suite evidence is available for Verilator only; guest records
-cover 1081 unchanged inputs, with 1697 inputs unmeasured.
+Current Ghost coverage and the excluded inputs are listed in [Evidence assembly](results.md#evidence-assembly).
 For a simulator smoke check:
 
 ```sh
@@ -129,8 +128,7 @@ result; newer commits may supersede that run. Local checks are not proof
 of a successful full CI run. Check runs tool,
 metadata, ledger, library, cause-record, report-declaration and stage checks, the slang elaboration and the API census, and the tagged ordinary Verilator checks
 whose inputs changed, plus a canary; Regression runs all tagged ordinary checks
-and twenty command-line checks and twenty-six regex-DPI variants, manually and weekly. Neither runs Ghost,
-kirimasim, spec-only cases or the HDL runner. There is no automatic result publication.
+and twenty command-line checks and twenty-six regex-DPI variants, manually and weekly. Their ordinary Verilator jobs select tagged tests. Check also elaborates spec-only fixtures with slang. Ghost, kirimasim and the HDL runner are measured locally. There is no automatic result publication.
 
 ## Evidence and latest differences
 
@@ -146,16 +144,11 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 | Verilator 5.054 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
 | Verilator 5.054 / command-line VPI and pinned regex DPI | Separate 23-case condition: 20 pass both seeds; 3 known at seed 1 |
 | Verilator 5.054 / listed ordinary fixtures with regex and command-line DPI | Separate 26-case condition: 26 pass both seeds |
-| kirimasim 0.1.3 / pinned UVM | All 2778 current inputs on 2026-11-21: 98 pass (illegal designs rejected), 2604 unsupported, 76 fail |
-| Ghost / bundled UVM | 1081 unchanged cases: 206 pass and 875 fail at each seed; 1697 inputs unmeasured |
+| kirimasim 0.1.3 / pinned UVM | Full run of the 2778 current inputs on 2026-11-23. 98 pass (illegal designs rejected), 2604 unsupported, 76 fail |
+| Ghost / bundled UVM | 1078 unchanged cases: 205 pass and 873 fail at each seed; 1700 inputs unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
-The ordinary condition retains 459 known cases: 313 runtime first differences,
-140 simulation builds and five illegal compiler acceptances. One legal printed-concrete callback-facade construction is rejected as abstract. Builds are 43 missing
-API/type names, one time-decrement argument default, two type-default declarations, three dependent visitor-default builds, two printed signature conflicts,
-two inherited type_id registry specializations, one protected-access build, two unlisted-pure-hook builds and 61 unlinked DPI cases. Two qualified virtual-abstraction overview-base builds and two printed dedicated-pool return-type builds also remain. Three additional legal builds retain the enum-collection T interpretation. Seven more builds retain strict attribute/enum-unpack arities. Separate HDL/command-line evidence is reported independently.
-
-The remaining six simulation build failures are four unregistered-packet predictor type-name builds and two size/flag declaration builds; [the result breakdown](results.md#interpretation) records their conditions without adding a registration prerequisite to the standard.
+The 459 ordinary known differences comprise 313 runtime mismatches at seed 1, 141 simulation build failures and five accepted illegal designs. The build failures include four predictor cases using unregistered packet types and one missing `UVM_PACKER_MIN_BITS` definition. The field-flag enum extension matches on 5.054. [Breakdown by execution condition](results.md#interpretation)
 
 The 129th to 137th expansions implement the third review, made at 0da235a and supplied on 2026-11-20. The kirimasim runner passes `--timescale=1ns/1ps`, requires the stated exit code and reports the 61 `:uvm_dpi: yes` tests as unsupported, and every simulation test states `:expected_exit:` (129th). Check elaborates every test with slang against [`coverage/slang_frontend.json`](../coverage/slang_frontend.json), 91 entries (130th), and compares [`coverage/api_census.json`](../coverage/api_census.json) with the tests (131st). Ten tests use the declarations that no test used (132nd), small references were corrected (133rd), and five testbench-shaped tests run on RTL (134th to 137th); one of them, the reset sequence, is a new library difference. Thirty-one duties link to the fifteen new tests. Not done: the stale README references in the docstrings of `run_verilator.py`, `suite_results.py` and `uvm_common.py`, which wait for the next fingerprint change; tests in kirimasim-tests for the constructs that it lacks, which wait for the user. [`tools/full_output.py`](../tools/full_output.py) saves and compares whole outputs apart from the verdicts (140th). [History](history.md#129th-expansion-the-kirimasim-runner-and-the-exit-code-third-external-review-item-1) has each expansion.
 
@@ -232,11 +225,7 @@ bring-up stages of kirimasim. [`coverage/kirimasim_stages.json`](../coverage/kir
 gives every test a stage from 0 (uvm_pkg only) to 6 (register layer), decided
 by markers of each part of UVM in the test's own sources, and a short set of
 representatives for each stage; `tools/kirimasim_stages.py` checks it in Check
-and prints the short sets for the kirimasim runner. The stages hold 1, 1030,
-95, 111, 326, 250 and 950 tests, and every current kirimasim record stops at
-the same unsupported `uvm_object_wrapper` construct in every stage;
-[the stage guide](kirimasim-stages.md) explains the rules, the short sets and
-the SystemVerilog features that each stage needs, with tests of kirimasim-tests.
+and prints the short sets for the kirimasim runner. At expansion 124 the stages held 1, 1030, 95, 111, 326, 250 and 950 tests. For current counts and outcomes see [the stage guide](kirimasim-stages.md), which also lists representative tests and the SystemVerilog features exercised at each stage.
 No test header changes, so no input fingerprint changes.
 
 One new stage-0 input in u01 imports uvm_pkg and names UVM_LOW through the
@@ -253,9 +242,7 @@ Known inputs total 459: 313 runtime seed 1 differences, 141 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 471
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
-is added to the ordinary totals. No guest run/filter is added: 1081
-compatible records remain byte-identical and 1697 inputs are unmeasured (1693
-additions/four revised originals; 1598 simulation/99 elaboration).
+is added to the ordinary totals. Current Ghost coverage and the excluded inputs are listed in [Evidence assembly](results.md#evidence-assembly).
 
 Primary-focused identifiers are 1327; candidates are 1160 zero/768 below
 target/554 at least two. All 2062 partial identifiers, actual remaining
@@ -265,8 +252,7 @@ explains why matching conditions do not supply completion.
 
 Totals are 2778 (2679 simulation/99 elaboration): M1 1200 (1119/81), M2 634
 (627/7), M3 944 (933/11). Ordinary pass is 2312 (2218 runtime/94 rejections),
-with 459 known (313 runtime/141 builds/5 illegal acceptances). Guests retain
-1081 compatible records; 1697 unmeasured inputs are 1693 additions and four revised originals.
+with 459 known (313 runtime/141 builds/5 illegal acceptances). Ghost retains 1078 compatible records across the two seeds.
 
 The former single Check never finished its whole selection after 2026-10-31:
 its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)

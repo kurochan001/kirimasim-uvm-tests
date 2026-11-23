@@ -13,7 +13,7 @@ The bring-up stages order the parts of UVM that a simulator meets while it learn
 
 ## Why stages
 
-kirimasim 0.1.3 reports the type `uvm_object_wrapper` as unsupported on 2543 of the 2778 inputs ([current results](results.md#current-snapshot)). Every simulation test that reaches the simulator stops at the same place, so the records do not show how far the simulator has come. With a stage for each test and a short set for each stage, a run of the short sets shows the first stage that does not pass, and the features table below points to the language tests to look at next.
+kirimasim 0.1.3 reports the type `uvm_object_wrapper` as unsupported on 2543 of the 2778 inputs ([current results](results.md#current-snapshot)). Another 76 simulation tests failed to compile with the pinned library, and the runner skipped the 61 DPI inputs. No simulation reached its runtime checks. With a stage for each test and a short set for each stage, a run of the short sets shows the first stage that does not pass, and the features table below points to the language tests to look at next.
 
 The stages are not the M1 to M4 milestones, which group tests by the functional subject that development covers ([milestone grouping](glossary.md#scope-and-coverage)). A stage changes no expectation and adds no metadata field: the record is a separate file, so no input fingerprint changes.
 
@@ -66,7 +66,7 @@ Measuring kirimasim needs its executable, which is not part of this repository; 
 
 ## Current kirimasim records by stage
 
-kirimasim 0.1.3 (commit 21ee5a43, release build) ran all 2778 inputs once on 2026-11-21 with the current runner, and `tools/kirimasim_stages.py summary --results` counted the records by stage. The runner passes `--timescale=1ns/1ps`, passes macros with `-D`, requires the stated exit code, checks the report declarations and reports the 61 tests with `:uvm_dpi: yes` as unsupported without running them. The record is in the ignored `out/thin-one-hundred-thirty-ninth/kirimasim-all.json`:
+The kirimasim 0.1.3 runner (simulator commit 21ee5a43, release build) recorded all 2778 current inputs on 2026-11-23. The table groups the results from `out/kirimasim-20261123-doc-review.json` by stage. The runner passes `--timescale=1ns/1ps` and macros with `-D`, checks exit codes and report declarations, and records fixtures requiring DPI as `unsupported` without invoking the simulator.
 
 | Stage | Tests | `pass` | `unsupported` | `fail` |
 | --- | --- | --- | --- | --- |
@@ -79,7 +79,7 @@ kirimasim 0.1.3 (commit 21ee5a43, release build) ran all 2778 inputs once on 202
 | 6 | 955 | 10 | 923 | 22 |
 | Total | 2778 | 98 | 2604 | 76 |
 
-The reason is the same in every stage: the type `uvm_object_wrapper` is not implemented yet (2543 cases). The stage-0 test, which only imports uvm_pkg, stops there too. All 98 `pass` records are illegal designs rejected at their pattern; no simulation test runs. The 76 `fail` records are the tests that do not compile with the pinned library, the library entries of [the slang record](testing.md#slang-elaboration). All 31 short-set tests are `unsupported`. This measurement found a mistake in the kirimasim runner, which passed macros with `+define+`: a value that holds a plus sign was cut there, so the runner now uses `-D`.
+The unsupported type `uvm_object_wrapper` occurs in every stage (2543 cases in total). The stage-0 test, which only imports uvm_pkg, stops there too. All 98 `pass` records are illegal designs rejected at their pattern; no simulation test runs. The 76 `fail` records are the tests that do not compile with the pinned library, the library entries of [the slang record](testing.md#slang-elaboration). All 31 short-set tests are `unsupported`. An earlier measurement showed that the runner's original `+define+` syntax truncated macro values containing a plus sign. The runner now uses `-D`.
 
 ## SystemVerilog features by stage
 

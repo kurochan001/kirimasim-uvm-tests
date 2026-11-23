@@ -13,7 +13,7 @@
 
 ## 段階を設ける理由
 
-kirimasim 0.1.3は、2778入力のうち2543件で型`uvm_object_wrapper`をunsupportedと報告します（[現在の結果](results.ja.md#現在のスナップショット)）。simulatorに届いたsimulationテストがすべて同じ所で止まるため、記録からはsimulatorがどこまで進んだかが分かりません。テストごとの段階と段階ごとの短いセットがあれば、短いセットを実行して最初に通らない段階が分かり、下の機能の表から次に見るべき言語のテストをたどれます。
+kirimasim 0.1.3は、2778入力のうち2543件で型`uvm_object_wrapper`をunsupportedと報告します（[現在の結果](results.ja.md#現在のスナップショット)）。ほかにsimulationテスト76件は固定版ライブラリでコンパイルに失敗し、DPIを要求する61件はrunnerが実行を見送りました。実行時の観測に到達したsimulationテストは0件です。テストごとの段階と段階ごとの短いセットがあれば、短いセットを実行して最初に通らない段階が分かり、下の機能の表から次に見るべき言語のテストをたどれます。
 
 段階は、開発が扱う機能の主題でテストをまとめるmilestone M1〜M4（[milestoneのまとめ方](glossary.ja.md#範囲とカバレッジ)）とは別のものです。段階は期待値を変えず、metadataの項目も足しません。記録は別のfileなので、入力の指紋は変わりません。
 
@@ -66,7 +66,7 @@ kirimasimの測定には、このrepositoryに含まれない実行fileが必要
 
 ## kirimasimの現在の記録の段階別の内訳
 
-kirimasim 0.1.3（commit 21ee5a43、release build）で、2026-11-21に、現在のrunnerで全2778入力を1回実行し、`tools/kirimasim_stages.py summary --results`で段階ごとに数えたものです。runnerは`--timescale=1ns/1ps`を渡し、macroを`-D`で渡し、書かれた終了codeを求め、reportの宣言を検査し、`:uvm_dpi: yes`の61件を実行せずにunsupportedと報告します。記録はGit対象外の`out/thin-one-hundred-thirty-ninth/kirimasim-all.json`にあります：
+kirimasim 0.1.3（simulatorのcommit 21ee5a43、release build）のrunnerで2026-11-23に現行の全2778入力を測定しました。以下の表は `out/kirimasim-20261123-doc-review.json` を段階別に集計したものです。runnerは `--timescale=1ns/1ps` で時間単位を指定し、`-D` でmacroを渡し、終了コードとreportの宣言を検査します。DPIを要求するテストはsimulatorを起動せずに `unsupported` と記録します。
 
 | 段階 | テスト | `pass` | `unsupported` | `fail` |
 | --- | --- | --- | --- | --- |
@@ -79,7 +79,7 @@ kirimasim 0.1.3（commit 21ee5a43、release build）で、2026-11-21に、現在
 | 6 | 955 | 10 | 923 | 22 |
 | 計 | 2778 | 98 | 2604 | 76 |
 
-どの段階でも理由は同じで、型`uvm_object_wrapper`がまだ実装されていないことです（2543件）。uvm_pkgをimportするだけの段階0のテストも、ここで止まります。`pass`の98件はすべて、patternどおりに拒否された不正designで、実行できたsimulationテストはありません。`fail`の76件は、固定版libraryではcompileできないテストで、[slangの記録](testing.ja.md#slangでのelaboration)のlibraryの記録と一致します。短いセットの31件は、すべてunsupportedです。この測定で、kirimasimのrunnerがmacroを`+define+`で渡していた誤りが見つかりました。値に`+`を含むmacroが途中で切れていたので、`-D`に直しています。
+型 `uvm_object_wrapper` の未対応はすべての段階で観測され、計2543件です。uvm_pkgをimportするだけの段階0のテストも、ここで止まります。`pass`の98件はすべて、patternどおりに拒否された不正designで、実行できたsimulationテストはありません。`fail`の76件は、固定版libraryではcompileできないテストで、[slangの記録](testing.ja.md#slangでのelaboration)のlibraryの記録と一致します。短いセットの31件は、すべてunsupportedです。以前の測定で、kirimasimのrunnerがmacroを`+define+`で渡していた誤りが見つかりました。値に`+`を含むmacroが途中で切れていたので、`-D`に直しています。
 
 ## 段階ごとのSystemVerilogの機能
 

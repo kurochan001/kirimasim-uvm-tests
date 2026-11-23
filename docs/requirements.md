@@ -306,11 +306,7 @@ bring-up stages of kirimasim. [`coverage/kirimasim_stages.json`](../coverage/kir
 gives every test a stage from 0 (uvm_pkg only) to 6 (register layer), decided
 by markers of each part of UVM in the test's own sources, and a short set of
 representatives for each stage; `tools/kirimasim_stages.py` checks it in Check
-and prints the short sets for the kirimasim runner. The stages hold 1, 1030,
-95, 111, 326, 250 and 950 tests, and every current kirimasim record stops at
-the same unsupported `uvm_object_wrapper` construct in every stage;
-[the stage guide](kirimasim-stages.md) explains the rules, the short sets and
-the SystemVerilog features that each stage needs, with tests of kirimasim-tests.
+and prints the short sets for the kirimasim runner. At expansion 124 the stages held 1, 1030, 95, 111, 326, 250 and 950 tests. For current counts and outcomes see [the stage guide](kirimasim-stages.md), which also lists representative tests and the SystemVerilog features exercised at each stage.
 No test header changes, so no input fingerprint changes.
 
 One new stage-0 input in u01 imports uvm_pkg and names UVM_LOW through the
@@ -327,9 +323,7 @@ Known inputs total 459: 313 runtime seed 1 differences, 141 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 466
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
-is added to the ordinary totals. No guest run/filter is added: 1081
-compatible records remain byte-identical and 1697 inputs are unmeasured (1693
-additions/four revised originals; 1598 simulation/99 elaboration).
+is added to the ordinary totals. Current Ghost coverage and the excluded inputs are listed in [Evidence assembly](results.md#evidence-assembly).
 
 Primary-focused identifiers are 1327; candidates are 1160 zero/768 below
 target/554 at least two. All 2062 partial identifiers, actual remaining

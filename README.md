@@ -48,7 +48,7 @@ Factory controls object creation and phases organize execution, while TLM carrie
   coverage, allocation and built-in test sequences; D.3 fixtures in uD and model API profiles in u01 count as M3 under [the functional grouping](docs/faq.md#q381-why-do-profiles-under-the-same-u01-directory-use-three-milestones).
 
 Ten RTL integration tests, counted in M1–M3 by their primary clause, run UVM components on small original RTL designs. Five connect a register-file design through clocking blocks, a configuration-database virtual interface, a register model with adapter and predictor, and an analysis-FIFO scoreboard; [Q434](docs/faq.md#q434-what-do-the-rtl-integration-profiles-check) describes them. Five are shaped like a testbench: active and passive agents under a virtual sequence, parameterized agents with a parameterized virtual interface, two unrelated clocks, the run-time phases with reset and a phase jump, and a built-in register sequence on RTL; [Q455](docs/faq.md#q455-what-do-the-testbench-shaped-tests-of-the-third-review-check) describes them.
-Seven four-state tests (`:fourstate: yes`) check X and Z values in configuration, resources, TLM FIFOs, pools, queues, recording and field-macro copies. They are spec-only because the two-state oracle cannot represent X or Z, and [the four-state section](docs/testing.md#four-state-paths) lists the paths that the standard leaves unspecified. No simulator has run them: Verilator is two-state, and the guest records do not include them. They stay unmeasured until a four-state simulator can run UVM; one of them has a cause entry because the pinned library cannot satisfy it, found by reading the source, not by a run.
+Seven four-state tests (`:fourstate: yes`) check X and Z values in configuration, resources, TLM FIFOs, pools, queues, recording and field-macro copies. They are spec-only because the two-state oracle cannot represent X or Z, and [the four-state section](docs/testing.md#four-state-paths) lists the paths that the standard leaves unspecified. kirimasim 0.1.3 reported `unsupported` on all seven before simulation, and Ghost has no record for them. Their X/Z behavior remains unmeasured. Source inspection identified a separate pinned-library limitation in the queue test.
 Five randomization tests judge macro-driven randomization by properties: constraint_mode and rand_mode after creation, inline constraints and their name scope, call order and randc cycles; [Q438](docs/faq.md#q438-what-do-the-randomization-property-profiles-check) describes them.
 Five user-package tests place an agent, a sequence, an environment and extension classes in four packages compiled from separate files, and check static factory registration, creation by name, type_id::create and overrides across package boundaries; [Q442](docs/faq.md#q442-what-do-the-user-package-profiles-check) describes them.
 One stage-0 test imports uvm_pkg and names one enumeration value without creating a UVM object or calling run_test; it starts [the kirimasim bring-up stages](docs/kirimasim-stages.md), which give every test a stage from 0 (uvm_pkg only) to 6 (register layer).
@@ -117,7 +117,7 @@ by Git; results are not automatically published.
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
 The 2771 two-state cases have Verilator results based on the full local 5.054 measurement of 2026-11-21 (seeds 1/73). The tags moved to `verilator@5.054` follow its matches and differences, and the hosted Regression ([run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)) ran all 2312 tagged cases with Verilator 5.054 and succeeded in all 24 jobs, recorded in the [history](docs/history.md). The three DPI-condition subsets (HDL, command-line, regex) were also measured on 5.054, and their states match the 5.052 records. The seven four-state cases are spec-only and have no Verilator record.
-The Ghost records retain 1081 compatible inputs; 1697 inputs are unmeasured by Ghost, meaning no compatible current record is available under [the evidence-reuse rules](docs/results.md#evidence-assembly). kirimasim was measured again on all current inputs with the current runner.
+On 2026-11-23, Verilator matched the four revised runtime tests at both seeds and rejected the three revised illegal designs as expected. Three earlier Ghost records cover superseded inputs. [Evidence assembly](docs/results.md#evidence-assembly)
 
 | Simulator and library | Observed result |
 | --- | --- |
@@ -125,8 +125,8 @@ The Ghost records retain 1081 compatible inputs; 1697 inputs are unmeasured by G
 | Verilator 5.054, original VPI HDL backend | Separate 38-case subset: 37 match both seeds; 1 differs |
 | Verilator 5.054, VPI command-line bridge and pinned regex DPI | Separate 23-case subset: 20 match both seeds; 3 known differences |
 | Verilator 5.054, listed ordinary fixtures with regex and command-line DPI | Separate 26-case subset: 26 match both seeds |
-| kirimasim 0.1.3, pinned UVM | All 2778 cases, measured on 2026-11-21: 98 `pass`, all of them illegal designs rejected as expected; 2604 `unsupported`; 76 `fail` |
-| Ghost, bundled UVM | 206 match and 875 fail at each seed in 1081 cases; 1697 unmeasured |
+| kirimasim 0.1.3, pinned UVM | Full run of the 2778 current inputs on 2026-11-23. 98 `pass`, all of them illegal designs rejected as expected; 2604 `unsupported`; 76 `fail` |
+| Ghost, bundled UVM | 205 match and 873 fail at each seed in 1078 cases; 1700 unmeasured |
 
 The ordinary runner records 313 runtime differences at seed 1, 141 simulation build failures
 and five accepted illegal designs without runtime; [the detailed breakdown](docs/results.md#interpretation) explains API/declaration, macro and DPI categories and qualified premises.
@@ -150,7 +150,7 @@ runs tool, metadata, library, ledger, cause-record, report-declaration and bring
 the tagged ordinary Verilator checks whose inputs changed plus one canary.
 [Regression](.github/workflows/regression.yml) runs all 2312 tagged ordinary
 checks in 20 shards, the twenty explicit command-line checks and the twenty-six
-regex-DPI variants, manually and weekly; a manual run can be narrowed to directories under `tests/`. Neither runs kirimasim, Ghost, spec-only tests or the HDL runner, and there is no automatic result publication.
+regex-DPI variants, manually and weekly; a manual run can be narrowed to directories under `tests/`. The ordinary Verilator jobs in both workflows select tagged tests. Check also elaborates spec-only fixtures with slang. kirimasim, Ghost and the HDL runner are measured locally.
 
 ## Documentation
 

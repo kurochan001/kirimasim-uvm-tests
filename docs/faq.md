@@ -102,10 +102,10 @@ For an illegal-design case, a match means rejection with the required diagnostic
 
 | Status | Meaning | Recorded by |
 | --- | --- | --- |
-| `pass` | Expected output and required exit/diagnostic conditions match | All three runners |
-| `fail` | Output or another condition differs, or building/running failed | kirimasim, Ghost; Verilator for tagged oracles |
-| `known` | An untagged Verilator case differs or fails to build/run; not a pass | Verilator only |
-| `unsupported` | The recognized unsupported-feature diagnostic and exit code are returned | kirimasim only |
+| `pass` | Expected output and required exit/diagnostic conditions match | All runners |
+| `fail` | Output or another condition differs, or building/running failed | kirimasim, Ghost and the Verilator HDL runner. The ordinary, command-line and regex Verilator runners use it for tagged cases. |
+| `known` | A case without a tag for this execution condition differs or fails to build or run | Ordinary, command-line and regex Verilator runners |
+| `unsupported` | The first compiler error reports an unsupported feature (exit 2, no UT output), or the fixture requests DPI and the runner skips it | kirimasim only |
 
 Ghost records mismatches as `fail`, including bundled-library differences.
 Other kirimasim compilation failures can still be `fail`.
@@ -115,7 +115,7 @@ Do not interpret the number of failed tests as the number of distinct bugs.
 
 The command's exit code summarizes the run, while each JSON entry records a case's judgment; [Open the result JSON](reading-guide.md#open-the-result-json) shows how to list those entries before interpreting the summary.
 
-Its exit status tracks regressions in tagged fixed-release oracles. An untagged
+The ordinary Verilator runner's exit status tracks regressions in tagged fixed-release oracles. An untagged
 mismatch is recorded as `known` in JSON and does not make the command fail.
 An untagged match is recorded as `pass`, but remains outside the terminal's
 tagged-oracle denominator and does not automatically receive an oracle tag.
@@ -131,16 +131,14 @@ lines, including report counts. They may also specify exit/diagnostic checks.
 See [what is observed](testing.md#what-is-observed).
 
 Some tests intentionally request an operation that must report a UVM error,
-then check the resulting count. That error alone does not make a test fail;
-its required outcome and termination conditions decide the result.
+then check the resulting count. For the Verilator and kirimasim runners, a default-server `UVM_ERROR` or `UVM_FATAL` must also be declared for that fixture and severity in `coverage/uvm_reports.json`. An undeclared report fails the check even when the UT lines and exit code match.
 
 ### Q8. Why keep spec-only tests instead of copying the library's output?
 
 The standard determines the expectation. A library or simulator discrepancy
 does not redefine it. The current spec-only cases include initial transaction
 state, invalid field-operation access, report reset, objector membership,
-response controls and USER arbitration. The phase-task termination difference
-has not been assigned to either the simulator or library. See
+response controls and USER arbitration. The child-task termination test from clause 9.6 now matches Verilator 5.054 at both seeds. See
 [known differences](known-differences.md) for scope and linked tests.
 
 ### Q9. Why does a green Check not mean kirimasim passes UVM?
@@ -149,10 +147,7 @@ has not been assigned to either the simulator or library. See
 library and the tagged Verilator oracles whose inputs changed;
 [Regression](../.github/workflows/regression.yml) runs every tagged oracle.
 Neither runs kirimasim or Ghost, and Check
-does not require spec-only cases to match. Most cases in the current kirimasim
-run stop at `uvm_object_wrapper` as unsupported; the remaining cases fail
-earlier on missing library APIs. Neither result establishes behavior beyond
-those compilation blockers.
+does not require spec-only cases to match. Of the 2778 kirimasim records, 98 are expected compiler rejections. The simulator reported the unsupported wrapper type in 2543 cases, and 76 failed to compile with the pinned library. The runner skipped the 61 DPI cases. No simulation reached its runtime checks. [Current results](results.md#current-snapshot)
 
 ### Q10. Where is Nightly or the public results dashboard?
 
@@ -188,7 +183,7 @@ See [Ghost setup](testing.md#ghost).
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
 sources. There are 2717 `UVM_NO_DPI` cases and thirty-eight explicit HDL-DPI cases.
-Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
+Twenty-three more fixtures enable command-line/regex DPI with HDL disabled. The separate runner selects 20 by default and all 23 with `--all`.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
@@ -3089,7 +3084,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 ### Q193. Why did the compatible guest subset decrease to 1081?
 
 Four original inputs have revised fingerprints: the command-enum citation, Boolean rerandomization observation, virtual-field configure citation and the reraise primary citation. All four were remeasured when changed; the reraise revision was measured at both seeds in the previous expansion. Their stale guest rows are excluded while the historical 1085-record source files remain intact.
-Current reuse covers 1081 inputs, with 1697 unmeasured: 1693 additions and four revised originals. The current expansion performs no new filtering or guest run; see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
+The earlier snapshot retained 1081 inputs and left 1697 unmeasured (1693 additions and four revised originals). For the historical filter and the current per-simulator counts, see [the prior repair](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
 
@@ -3295,8 +3290,7 @@ The [rerandomization fixture](../tests/u14/test_sequence_send_request_rerandomiz
 now accepts any positive callback count rather than requiring exactly one.
 Its input fingerprint changed, so its old failing/unsupported guest record is
 excluded alongside the citation-revised command and virtual-field configuration inputs. The original
-1085-record files remain intact. Current reuse covers 1081 inputs; this is
-filtering, not a new pass, failure or simulator improvement.
+1085-record files remain intact. After the four exclusions, that snapshot retained 1081 inputs. The latest compatible subset is recorded in [Evidence assembly](results.md#evidence-assembly).
 
 ### Q216. Do the new sequencer cases close its remaining contracts?
 
@@ -3994,7 +3988,7 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 
 At that earlier citation repair, the changed fingerprint excluded an old row despite an unchanged body/oracle: 1083 compatible records became 1082. At that checkpoint Ghost retained 206 matches/876 failures per seed and kirimasim retained 1073 unsupported/nine failures, without a guest rerun.
 
-Current reuse additionally filters the later reraise revision, leaving 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1697 unmeasured inputs are 1693 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
+The historical snapshot also excluded the later reraise revision and retained 1081 compatible rows: Ghost 206 matches/875 failures and kirimasim 1072 unsupported/nine failures. The 1697 unmeasured inputs are 1693 additions and four revised originals; [the current filter](#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish these changes from a guest improvement or rerun.
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
 
@@ -5862,13 +5856,9 @@ rather than tested.
 
 ### Q437. Why are the four-state profiles unmeasured?
 
-The ordinary Verilator runner, like Check and Regression, selects only
-`:fourstate: no` fixtures: a two-state simulator cannot represent X or Z. A
-two-state build was attempted only as a diagnostic; Verilator rejected most of
-the tristate constructs, and the only built input could not hold X. These
-inputs therefore have no result and are not known differences.
+The ordinary Verilator runner automatically selects only two-state fixtures. In an explicit diagnostic build, Verilator rejected most of the tristate constructs and the one model that built could not hold X. kirimasim 0.1.3 reported the unsupported `uvm_object_wrapper` type for all seven before simulation. Ghost has no record for them. Their X/Z behavior has yet to be observed at runtime. [Current results](results.md#current-snapshot)
 
-Nine new duties bring the ledger to 4127 AI duties with all 4118 old objects
+At the time of this expansion, nine new duties brought the ledger to 4127 AI duties with all 4118 old objects
 and 445 assessments unchanged. Totals are 2747 tests (2648 simulation/99
 elaboration), 2691 direct-linked tests and 2282 ordinary matches. Spec-only
 cases total 465, including these seven. Guests remain 1081 compatible/1666
@@ -6089,12 +6079,7 @@ a Regression narrowed to the edited directory confirms the tagged checks.
 
 ### Q451. Why does every test receive `--timescale 1ns/1ps`?
 
-1800-2023 3.14.2.3 makes a design with mixed time-unit declarations an error.
-Declaring a time unit in each test would mix declarations within one suite and
-between the library and a test. The runner gives every model the same
-`--timescale 1ns/1ps` and adds no metadata field. The `UT:` comparison does not
-change; a stage-0 diagnosis collects every output first to see whether a tagged
-test changes state.
+IEEE 1800-2023 §3.14.2.3 allows design elements to use different time scales. If some have a specified time unit and precision, the others in that design must have them too. Each fixture is compiled together with the UVM library. The runner supplies a default of `1ns/1ps` for scopes that lack a time scale. A module with its own time scale keeps it.
 
 ### Q452. What does `coverage/uvm_reports.json` declare, and what does it not detect?
 

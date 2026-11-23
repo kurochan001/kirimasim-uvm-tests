@@ -83,7 +83,7 @@ overrideはテスト用の派生クラスがcallbackや観測メソッドを提�
 ```systemverilog
 /*
 :name: test_common_phases_run_in_order
-:description: the common phases run in their order, ... (IEEE 1800.2-2020 Section 9.8.1)
+:description: the common phases run in their order, each bottom-up function phase calls the child before its parent, and the run phase lasts while an objection is raised (IEEE 1800.2-2020 Section 9.8.1)
 :tags: u09 uvm
 :type: simulation
 :lrm: 1800.2-2020 9.8.1 9.5 9.6 9.7 10.5.1
@@ -93,6 +93,7 @@ overrideはテスト用の派生クラスがcallbackや観測メソッドを提�
 :fourstate: no
 :nondeterministic: no
 :args: +UVM_TESTNAME=t
+:expected_exit: 0
 :expected_stdout: @test_common_phases_run_in_order.expected
 */
 ```
@@ -299,7 +300,7 @@ driverとmonitorはclocking blockだけでdesignに触れ、期待値はhelper�
 
 ### 4値の経路
 
-4値の値はXやZのbitを持てます。specのみの7検査系は`:fourstate: yes`を宣言し、規格が結果を定める経路を検査します。通常のVerilator runnerは2値の検査系だけを選ぶため、これらにVerilatorの記録はなく、2値でのbuildは診断に留めます。
+4値の値はXやZのbitを持てます。specのみの7検査系は`:fourstate: yes`を宣言し、規格が結果を定める経路を検査します。通常のVerilator runnerは2値のテストを自動選択します。パスを明示するとこの絞り込みを通らずにビルドを試せますが、2値での診断用ビルドではX/Zの期待値を検証できません。
 
 | 経路 | 条項 | 検査する規定の結果 |
 | --- | --- | --- |
@@ -499,7 +500,7 @@ check／read／depositは64 bit以下の対応packed handleへ到達します。
 別の合法宣言probeで公開readのaccess差分を保持し、wrapperの成功でその契約をpassにはしません。
 
 force／releaseは公開forceable packed信号を必要とします。backendは文書化された公開capability markerを確認し、実handleへ標準VPI flagを使います。
-公開markerそのものへの書込みやpath／valueの模擬は行いません。[公開extensionの文書](https://verilator.org/guide/latest/extensions.html)は統合interfaceの参照先で、5.054での動作は独自probeと現在の測定で確認します。
+公開markerそのものへの書込みやpath／valueの模擬は行いません。[公開extensionの文書](https://verilator.org/guide/latest/extensions.html)は統合interfaceの参照先で、当初の20件の測定にはVerilator 5.052を使い、拡充後のHDL 38件を5.054で再測定しました。
 8／40-bit reg／wireの8入力は、反対値への更新中のforce保持、通常release、即時release/read、後続更新を扱い、別の1入力は存在しない／未instrument pathと有効controlを区別します。
 regは次の手続き代入までforce値を保持し、駆動wireは即時に解決値を返す違いを[HDLのFAQ](faq.ja.md#hdlのforceとreleaseの条件)で説明しています。
 
@@ -601,11 +602,11 @@ seedの一覧は複数の値を受け取るため、[1件を実行する例](faq
 
 ### 時間単位とreportの宣言
 
-Verilatorの4つのrunnerは、すべてのモデルを`--timescale 1ns/1ps`でbuildします。時間単位はテストのmetadataに書きません。1800-2023 3.14.2.3が時間単位の混在をerrorとするため、runnerが一律に渡します。
+Verilatorの4つのrunnerは、すべてのモデルを`--timescale 1ns/1ps`でbuildします。このオプションは時間単位と精度が決まっていない設計要素に既定値を与えます。IEEE 1800-2023の3.14.2.3では、モジュールごとに異なる単位・精度を指定できます。同じ設計内で単位・精度が指定された要素と、指定されていない要素が混在するとエラーになります。
 
 `coverage/uvm_reports.json`は、既定のreport serverが`UVM_ERROR `または`UVM_FATAL `の行を出してよいテストを、severityごとの有無だけで宣言します。既定はどちらも不可です。宣言は引用した条項を`basis`に持ち、`tools/uvm_reports.py check`が、その条項がテストの`:lrm:`にあることを検査します。件数とreport IDは宣言しません。
 
-検出は行頭の`UVM_ERROR `／`UVM_FATAL `（集計行の`UVM_ERROR :`を除く）だけを見ます。report serverを差し替えたテストや、catcherが抑止した行は拾いません。宣言のない行が出たtaggedテストは失敗し、specのみのテストは`known`のままです。結果JSONの`configuration`には宣言fileのSHA-256を記録します。
+Verilatorの4つのrunnerとkirimasimのrunnerは、標準出力の行頭にある `UVM_ERROR ` と `UVM_FATAL ` を検出し、`UVM_ERROR :` などの集計行を除外します。catcherや独自のreport serverが出力を抑止した行は検出できません。検出したseverityが未宣言なら検査は失敗し、各runnerの規則に従って分類します。結果JSONの `configuration` には宣言ファイルのSHA-256を記録します。Ghostはテストに指定された出力・終了・診断の条件で判定します。
 
 runtimeの不一致は、選択したテストのヘッダーにある`:expected_stdout:`のパスを辿り、[結果の読み方](reading-guide.ja.md#結果を読む)に沿って`UT: `行を比較すると調べられます。
 
@@ -664,7 +665,7 @@ python3 tools/slang_elaborate.py check
 python3 tools/api_census.py check
 ```
 
-最後の2つには、固定版の`pyslang`が要ります（[slangでのelaboration](#slangでのelaboration)）。現在のツールの単体テストは210件、メタデータの対象はテスト2778件（simulation 2679件・elaboration 99件）です。
+最後の2つには、固定版の`pyslang`が要ります（[slangでのelaboration](#slangでのelaboration)）。ツールの単体テスト件数は上のunittestコマンドで確認できます。メタデータの対象はテスト2778件（simulation 2679件・elaboration 99件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator jobは[Regression](../.github/workflows/regression.yml)のshardと同じく5.054・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

@@ -99,10 +99,10 @@ kirimasimとGhostは既定で全件を選びます。`--all`はVerilatorラン�
 
 | ステータス | 意味 | 記録するランナー |
 | --- | --- | --- |
-| `pass` | 期待出力と、必須の終了・診断の条件が一致 | 3つのランナーすべて |
-| `fail` | 出力などの条件が合わない、またはビルド・実行に失敗 | kirimasim・Ghost、oracleタグ付きのVerilator |
-| `known` | oracleタグのないVerilatorケースの不一致やビルド・実行失敗。成功には数えない | Verilatorのみ |
-| `unsupported` | 所定の未対応診断と終了コードを返した | kirimasimのみ |
+| `pass` | 期待出力と、必須の終了・診断の条件が一致 | すべてのrunner |
+| `fail` | 出力などの条件が合わない、またはビルド・実行に失敗 | kirimasim、Ghost、VerilatorのHDL runner。Verilatorの通常・command-line・regex runnerではその条件のタグ付きテスト |
+| `known` | その実行条件のタグがないテストでの不一致、またはビルド・実行失敗 | Verilatorの通常・command-line・regex runner |
+| `unsupported` | 最初のコンパイルエラーが未対応機能を示した（終了コード2、UT出力なし）、またはDPI指定のためrunnerが実行を見送った | kirimasimのみ |
 
 Ghostの不一致は、同梱ライブラリの差も含めて`fail`として記録します。
 kirimasimでも、それ以外のコンパイル失敗は`fail`になる場合があります。
@@ -112,7 +112,7 @@ kirimasimでも、それ以外のコンパイル失敗は`fail`になる場合�
 
 コマンドの終了コードは実行全体の要約、JSONの各項目はケースごとの判定であり、要約を解釈する前に各項目を一覧する方法は[結果JSONを開く](reading-guide.ja.md#結果jsonを開く)で確認できます。
 
-終了コードは、固定版oracleタグ付きのテストの回帰を検出するためのものです。
+通常Verilator runnerの終了コードは、固定版oracleタグ付きのテストの回帰を検出するためのものです。
 タグのないテストの不一致はJSONに`known`として記録し、コマンドを失敗させません。
 タグがなくても一致すればJSONでは`pass`ですが、端末のoracle付きテストの分母には含めず、
 タグも自動では追加しません。kirimasimは`fail`・`unsupported`、Ghostは`fail`があれば失敗終了します。
@@ -126,22 +126,21 @@ UVMの既定の表示形式・パス・行番号・時刻の形式は変わり�
 [何を観測するか](testing.ja.md#何を観測するか)を参照してください。
 
 必須のUVMエラーを起こす操作を意図的に行い、その件数を確認するテストもあります。
-そのエラーだけで失敗にはならず、要求する観測結果と終了条件で判定します。
+Verilatorとkirimasimのrunnerでは、既定のreport serverが出す `UVM_ERROR` や `UVM_FATAL` は、テストごとにそのseverityを `coverage/uvm_reports.json` に宣言する必要があります。未宣言のreportは、UT行と終了コードが一致していても検査失敗になります。
 
 ### Q8. specのみの期待値をライブラリの出力に合わせないのはなぜですか
 
 期待値の根拠は規格で、ライブラリやシミュレータの差によって変更しません。
 現在はtransactionの初期状態、無効なfield_opのアクセス、report reset、objector一覧、
 応答の制御、USER arbitrationなどをspecのみで保持しています。
-phaseの子タスク終了の差分は、シミュレータとライブラリのどちらが原因か未確定です。
+9.6のphase終了時に子タスクが停止するテストは、Verilator 5.054で両seedが一致しました。
 対象範囲とテストへのリンクは[既知差分](known-differences.ja.md)にあります。
 
 ### Q9. Checkが緑ならkirimasimでもUVMが成功したということですか
 
 [Check](../.github/workflows/check.yml)はメタデータ・ツール・固定版ライブラリと、入力が変わったVerilatorのoracleを検査し、[Regression](../.github/workflows/regression.yml)は全タグ付きoracleを実行します。
 どちらもkirimasim・Ghostは実行せず、Checkはspecのみの一致も成功条件にはしていません。
-現在のkirimasimの記録では、大半が`uvm_object_wrapper`未実装で停止し、残りはそれより前に
-ライブラリAPIの欠落で失敗します。いずれも、そのコンパイル上の障害より後の動作を検査できた結果ではありません。
+kirimasimの2778件のうち、98件は不正設計が期待どおりにコンパイル時に拒否されました。2543件はwrapper型が未対応で停止し、76件は固定版ライブラリでコンパイルに失敗しました。DPIを要する61件はrunnerが実行を見送りました。実行時の観測に到達したsimulationテストは0件です。[現在の結果](results.ja.md#現在のスナップショット)
 
 ### Q10. Nightlyや公開の結果ダッシュボードはどこにありますか
 
@@ -171,8 +170,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
 通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2717件、HDL DPIの明示選択が38件です。
-別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
-[command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
+ほかの23件はHDLを無効にし、command-line／regex DPIを有効にします。[command-line runner](testing.ja.md#verilatorのcommand-line部分集合)はそのbackendをリンクし、既定で20件、`--all`で23件を選びます。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -2419,7 +2417,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1081件へ減った理由は？
 
 command enum引用、Boolean rerandomization観測、virtual-field configure引用に加え、reraiseの主引用を直した元入力1件で指紋が変わり、古いguest行を除外しました。4入力はそれぞれの変更時点で再測定し、reraiseの改訂は前回の拡充で両seedを測定しました。歴史的な1085記録の出典fileは保持します。
-現在は互換1081入力を再利用し、未測定1697入力は追加1693件と修正した元入力4件です。今回の新しいfilterやguest再実行はなく、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
+当時の集計では1081入力が再利用でき、未測定1697入力の内訳は追加1693件と修正した元入力4件でした。当時の除外と現在のsimulator別の結果は、[以前の修正](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
 
@@ -2567,8 +2565,7 @@ sequenceテストを修正するとguestを再実行しなくても以前の記�
 ### Q215. guest実行なしで互換部分集合が減った理由は何ですか？
 
 [rerandomization fixture](../tests/u14/test_sequence_send_request_rerandomize_uses_request_constraint_once.sv)を正確なcallback 1回ではなく、正の回数全てを許容するよう訂正しました。
-入力指紋が変わるため、古いfail／unsupported guest記録を、引用を変更したcommand入力とvirtual fieldのconfigure入力とともに除外します。元の1085記録fileは保持し、現在の再利用は1081入力です。
-これはfilterで、新しいpass／failやsimulator改善ではありません。
+入力指紋が変わるため、古いfail／unsupported guest記録を、引用を変更したcommand入力とvirtual fieldのconfigure入力とともに除外します。元の1085記録fileは保持し、当時は4件の除外後に1081入力が再利用できました。最新の互換記録は[記録の合算](results.ja.md#記録の合算)に示します。
 
 ### Q216. 新しいsequencer検査で残りの契約は完了しますか？
 
@@ -3064,7 +3061,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 その以前の引用修正では、本体とoracleが同じでも指紋が変わり、互換1083記録を1082へ絞りました。その時点ではGhostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
 
-現在は後のreraise修正でさらに古い1行を除いて互換1081件となり、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1697入力は追加1693件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
+当時の集計では後のreraise修正でさらに古い1行を除き、互換1081件の内訳として、Ghostは一致206／不一致875、kirimasimはunsupported 1072／fail 9を保持します。未測定1697入力は追加1693件と修正した元入力4件であり、[今回のfilter](#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で、guest改善や再実行と区別します。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -4400,10 +4397,9 @@ XとZのbitの比較、表示、packのように結果が定められていな�
 
 ### Q437. 4値のprofileが未測定なのはなぜですか？
 
-通常のVerilator runnerは、CheckやRegressionと同じく`:fourstate: no`の検査系だけを選びます。2値のsimulatorはXやZを表せないためです。
-2値でのbuildは診断として試しただけで、Verilatorは多くのtristate構文を拒否し、buildできた1入力もXを保てませんでした。このためこれらの入力には結果がなく、既知差分でもありません。
+通常のVerilator runnerが自動選択するのは2値のテストです。明示指定した診断用ビルドでは、多くのtristate構文が拒否され、ビルドできた1件もXを保持できませんでした。kirimasim 0.1.3では7件すべてが型 `uvm_object_wrapper` の未対応でsimulation開始前に停止し、Ghostには記録がありません。X/Zの実行時の振る舞いは未測定です。[現在の結果](results.ja.md#現在のスナップショット)
 
-新しい義務9件で台帳はAI義務4127件となり、旧要求4118件と分類445件はすべて同一です。全体は2747テスト（simulation 2648／elaboration 99）、直接対応2691テスト、通常一致2282件です。
+この拡充時点では、新しい義務9件で台帳はAI義務4127件となり、旧要求4118件と分類445件はすべて同一です。全体は2747テスト（simulation 2648／elaboration 99）、直接対応2691テスト、通常一致2282件です。
 specのみはこの7件を含めて465件です。guestは互換1081／未測定1666入力で、測定にはkirimasimのような4値のsimulatorが必要です。部分2062番号、元の目標、人の照合、範囲／分母承認は未完です。
 
 ## 乱数化の性質profile
@@ -4512,7 +4508,7 @@ commentや改行はテストの入力の指紋を変えるため、保存した�
 
 ### Q451. なぜ全テストに`--timescale 1ns/1ps`を渡すのですか？
 
-1800-2023 3.14.2.3は、時間単位の宣言が混在するdesignをerrorとします。テストごとに時間単位を宣言すると、同じsuiteでも宣言の有無が混ざり、libraryとtestの間でもerrorになります。runnerは全モデルに同じ`--timescale 1ns/1ps`を渡し、テストのmetadataには時間単位を足しません。`UT:`行の比較は変えず、tag付きのテストで状態が変わるかは、全件の出力を集める診断で先に確かめます。
+IEEE 1800-2023の3.14.2.3では、設計要素ごとに異なる時間単位・精度を使えます。同じ設計で一部の要素に単位・精度が指定されていれば、残りの要素にも指定が必要です。各テストはUVMライブラリと一緒にコンパイルするので、runnerが時間単位・精度のないスコープに既定値 `1ns/1ps` を与えます。モジュール自身に指定があれば、その値が使われます。
 
 ### Q452. `coverage/uvm_reports.json`は何を宣言し、何を検出しませんか？
 

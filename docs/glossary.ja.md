@@ -391,7 +391,7 @@ frontdoorでのwriteとbackdoorでのreadを比較し、次に経路を逆にし
 条件に合わない、またはビルド・実行できなかった結果です。不一致1件がシミュレータの不具合1個とは限りません。
 
 **`known`／`unsupported`** — このVerilatorランナーでoracleタグのないテストが判定に合わない結果（ビルド失敗も含む）／
-kirimasimが未対応と明示した構文などの結果です。どちらも成功には数えません。
+kirimasimが未対応機能を報告した場合、またはDPIを要求するテストをrunnerが実行せずに記録した場合です。どちらも成功には数えません。
 Ghostは`pass`・`fail`で記録し、同梱ライブラリの差を`known`へ変更しません。
 Verilatorがknown差分だけでは失敗終了しない理由は[FAQ Q6](faq.ja.md#q6-knownがあるのにverilatorコマンドが成功するのはなぜですか)で説明しています。
 
@@ -1090,8 +1090,7 @@ premiseはテストが前提とする準備条件であり、明示的に初期�
 **caller単位のcanonical time** — 呼出しscopeの時間単位で解釈するreal時間量です。
 明示scaled／secs引数がcanonical表現との換算を指定し、nanosecond基準の例をpicosecond scopeで未変更のまま再利用できません。
 
-**一律のモデル時間単位** — Verilatorのrunnerが全モデルに渡す`1ns/1ps`です。
-テストのmetadataではなく実行条件で、1800-2023 3.14.2.3が時間単位の混在をerrorとするため、宣言の有無をテスト間で混ぜません。
+**モデルの既定の時間単位と精度** — Verilatorのrunnerは各ビルドで既定値 `1ns/1ps` を渡します。スコープごとに独自の単位・精度を指定できます。[時間単位とreportの宣言](testing.ja.md#時間単位とreportの宣言)
 
 **virtual overrideのformal名** — SystemVerilog 8.20で基底virtual methodと一致が必要な引数名です。
 引数型の一致やcompile受理だけでは、override宣言の妥当性を証明しません。

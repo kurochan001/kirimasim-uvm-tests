@@ -262,9 +262,9 @@ childと子孫は、明示選択された最寄り祖先kindでなくlocalのRTL
 field順とlock後controlは選択観測で、fixture全体のpassではありません。[字面のclone返却probe](../tests/u18/test_map_clone_printed_implicit_return_type_supports_a_scalar_override_and_base_dispatch.sv)は、印刷暗黙scalar返却と利用できるmap返却が衝突してbuildできません。
 限定した合法simulation宣言差分でruntimeはなく、不正designの期待拒否ではありません。公開clone call／source保持は一致し、新map内容／rightsは部分義務に残します。
 
-phase simulation 4件はseed 1の差分を保持し、seed 73は実行しません。
+5.052ではphaseのsimulationテスト4件がseed 1で異なりました。5.054では実行時の差分が2件、ビルド失敗が1件、両seedでの一致が1件です。
 domain registryの最初の照会には常在が必要なcommon／uvm entryがなく、新custom domainの登録と以前のentry保持は別観測です。
-domain数を2だけに制限しません。早期終了はjump targetなしで後続へ到達しますが、元のtaskは動き続けます。
+domain数を2だけに制限しません。5.054では早期終了時にjump targetなしで後続へ到達し、元のtaskも停止します。
 
 他2件は本文の矛盾に関する限定probeです。get_impのnon-IMP-null文はnode解決文と矛盾し、厳密なNODE-null probeは異なる一方、共有implementation解決は一致します。
 get_scheduleはstring返却を印字しながら親nodeの返却を説明します。5.052ではstring receiverが呼出しを受理しましたが`$typename`観測はstringではなく、5.054ではこの呼出しのbuild自体が拒否され、runtime観測はありません。
@@ -293,8 +293,7 @@ WARNINGの不在や根本原因は認定せず、[観測の限界](faq.ja.md#q31
 
 - [Unregistered-instance empty delete](../tests/uB/test_callback_macro_unregistered_delete_instance_82.sv).
 
-size入力2件はruntimeなしのsimulation build差分です。reserved＋129のflag拡張は64 bitを超えるenum methodの未対応を報告し、UVM_PACKER_MIN_BITSは未定義です。
-reserved＋17と別の32768-bit保持は一致してもこれらの入力を成功扱いにせず、[サイズのFAQ](faq.ja.md#サイズ定義とversion識別)で条件を分けます。
+Verilator 5.052では64 bitを超えるenumのメソッドを呼べず、reserved＋129のflag拡張をコンパイルできませんでした。5.054ではseed 1・73ともに一致しました。もう1件は、現在も `UVM_PACKER_MIN_BITS` が未定義のためコンパイルできません。[サイズのFAQ](faq.ja.md#サイズ定義とversion識別)
 
 - [field_flag_user_extension_129](../tests/uB/test_size_version_field_flag_user_extension_129_83.sv).
 - [packer_minimum_define](../tests/uB/test_size_version_packer_minimum_define_83.sv).
@@ -586,7 +585,7 @@ M1・M2・M3で、追加の制約と観測を確認しました。
 
 - raw eventの早い／遅い待機検査では、trigger前に公開count 1で早い呼出しを確立します。
   10.1.1.2.4はそのtriggerでの戻りを要求しますが、次のtime sliceでも早いcallerは戻らず、2回目のtriggerで両callerが戻ります。
-  同じsliceで遅く呼ぶcallerの新trigger待ちは、一致する比較対象です。simulator／libraryを組み合わせた原因は未確定で、simulator実装sourceは調べません。
+  同じsliceで遅く呼ぶcallerの新trigger待ちは一致します。UVMを使わない再現例 `class-event-trigger-then-wait` で、Verilatorが待機中のprocessを起こさないことを確認しています。
 - 既定event resetはraw／persistent／on-stateの3 callerを待機させたまま、waiter 0を報告し、10.1.1.2.10の実process照会と異なります。
   後の新triggerでは3つとも期待dataで解放します。これは件数の差分で、取り残しの観測ではありません。
   barrierのsilent-reset比較対象は、規定の0 count／再待機で別に一致します。
@@ -613,10 +612,7 @@ M1・M2・M3で、追加の制約と観測を確認しました。
 
 - heartbeatの動作中にeventを省略してstartすると、固定実装は置換eventのerrorを組み立てる際にnull引数を参照します。
   10.6.2.6は以前に設定したeventの選択を要求します。stop後の既定event再利用と明示same-eventのstartは、動作中の既定呼出しが失敗する前に一致します。
-- Verilator／固定UVM条件のFIFO inline randomizeは、容量ちょうどの要求に成功を返しますが、queueが空のままです。
-  別の過大inline要求は、期待どおり拒否します。
-- 別のFIFO subtype制約の検査では、容量ちょうどのsubtypeは一致しますが、容量3に対して4 entryを要求するsubtypeも、拒否せずrandomize成功を返します。
-  2つのFIFO観測は18.8.2の期待を保持し、simulator／libraryのどちらが原因かは決めません。abstract queueはDUT FIFOの転送を示しません。
+- 5.052では、FIFOのinline制約で容量ちょうどの要求が成功してもqueueが空のままで、subtypeの制約では容量3に対する4 entryの要求が受理されました。5.054では両テストとも18.8.2に基づく期待値にseed 1・73で一致しました。
 
 - register fileのget_default_hdl_pathは、fileで明示的な既定を設定していなくても、包含blockをGATE、後でCPUにした後も初期値RTLを保持します。
   18.3.4.6は、この条件で最も近い祖先の既定値を要求します。同じ検査系の明示file override TLM／RTLは一致します。
@@ -917,10 +913,10 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 
 wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1つ確立してから`reset(1)`を呼びます。
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
-watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
+watchdogが期限切れになります。原因台帳ではsimulator差分に分類しています。再現例 `class-event-trigger-then-reassign` は、クラスのメンバーeventを発火させ、同じ関数内でそのevent変数に再代入します。
 
-specのみの466件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の7件は[4値の一覧](#4値のspecのみのテスト)にあります。通常のVerilator実行とCIはoracle付き2312件（runtime 2218・compile拒否94）を選びます。
-`--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
+specのみの466件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の7件は[4値の一覧](#4値のspecのみのテスト)にあります。通常runnerの既定選択と全件のRegressionはタグ付き2312件（runtime 2218・compile拒否94）を選びます。
+パスを指定せずに `--all` を付けると2値でspecのみの459件も選び、不一致やビルド不可を`known`として記録します。
 通常の実行時313件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 simulation build 141件には通常runtimeがなく、DPI未linkの61入力（HDL 38／command-line 23）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
 不正compiler受理5件は別のruntimeなし条件です。120回目のユーザーpackageのprofile 5件は両seedで一致し、既知差分を増やしません。124回目の段階0の入力も同じです。
@@ -953,7 +949,7 @@ callbackの呼出しと、その中で開始したthreadの完了は別の観測
 
 lifetime probe 2つは、common／runtime phase終了後に子孫がwriteとtickを止めることを検査します。5.052の固定組合せでは子孫が動き続けて既知差分でしたが、146回目の5.054の測定ではseed 1／73で一致し、tag付きになりました。callback probeは3 callbackのdispatchを観測しますが、start／end threadが完了してもready-to-end threadは完了しません。
 印刷どおりのall_dropped function callerは利用可能なtaskに対してbuildできず、限定したsignature解釈としてruntime seedを持ちません。
-型／名前による便宜replace 0条件では、その後の名前生成で後からの型が選ばれます。runtime 5件の期待をseed 1で保持し、seed 73やsimulator／libraryの確定原因を主張しません。
+型／名前による便宜replace 0条件では、その後の名前生成で後からの型が選ばれます。5.054では、callbackと2つのreplace 0条件がseed 1で異なります。原因台帳ではcallbackをlibrary差分、replace 0の2件をinterpretationに分類しています。
 
 WARNING verbosityは6.3.3.3で明示的に無視するため、階層report fixtureはINFO 3件とWARNING 6件の配送を期待します。pair設定照会の境界は別です。
 object名省略fixtureは任意user既定値を制約せず、独自constructorの既定を空にします。印刷create_object等価callの余分なthis引数は部分対応に保持します。
@@ -966,6 +962,8 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [名前による便宜replace 0](../tests/uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace.sv)
 
 ## specのみのテスト
+
+2値でspecのみの全テストは[原因台帳](../coverage/known_causes.json)に収録しています。以下のリンクは個別の例です。
 
 リンク先の`.expected`は要求する出力であって失敗時の実測ログではなく、測定した判定・理由と比較する手順は[差分を調べる](reading-guide.ja.md#差分を調べる)で確認できます。
 
@@ -1079,7 +1077,6 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [none_negative_id_limit_literal](../tests/uF/test_enum_state_none_negative_id_limit_literal_84.sv).
 - [sequence_kill_post_hooks_literal](../tests/uF/test_enum_state_sequence_kill_post_hooks_literal_84.sv).
 
-- [field_flag_user_extension_129](../tests/uB/test_size_version_field_flag_user_extension_129_83.sv).
 - [packer_minimum_define](../tests/uB/test_size_version_packer_minimum_define_83.sv).
 
 - [Unregistered-instance empty delete](../tests/uB/test_callback_macro_unregistered_delete_instance_82.sv).
@@ -1093,7 +1090,6 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [未知object型名に必要なERROR](../tests/u08/test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control.sv).
 - [未知component型名に必要なERROR](../tests/u08/test_factory_unknown_component_name_reports_an_error_and_returns_null_with_a_registered_control.sv).
 
-- [phase早期終了と元taskの寿命](../tests/u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads.sv).
 - [限定した字義get_imp non-IMP-null規則](../tests/u09/test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose.sv).
 - [限定した印字get_schedule string返却型](../tests/u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver.sv).
 - [明示初期化前にも常在するbuilt-in domain entry](../tests/u09/test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances.sv).
@@ -1152,7 +1148,6 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 
 - [無効event callbackのdispatch](../tests/u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers.sv)。
 - [両event待機方式のwakeup reset](../tests/u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch.sv)。
-  simulator／libraryの原因は未確定です。
 - [model lock前後でのblockのregister単純名検索](../tests/u18/test_block_register_name_lookup_prefers_local_scope_and_finds_descendants.sv)。
 
 - 必須のHDL concat API：
@@ -1325,11 +1320,9 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [最も近い祖先の既定値](../tests/u18/test_regfile_default_hdl_abstraction_follows_nearest_ancestor_and_local_override.sv)
 - [継承kindによるflatten full path](../tests/u18/test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction.sv)
 
-追加のheartbeat／FIFO検査系：
+追加のheartbeat検査系：
 
 - [動作中の既定event再利用](../tests/u10/test_heartbeat_default_start_reuses_its_event_while_running_and_after_stop.sv)
-- [FIFO inline制約の観測](../tests/u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue.sv)
-- [subtypeで宣言したFIFOの境界](../tests/u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes.sv)
 
 追加のfield個別byte-enable検査系：
 
@@ -1369,7 +1362,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1081記録、未測定は修正2入力を含む1697件です。
+対応する歴史的guest記録を除外し、5.054移行時点での互換範囲は1081記録、未測定は修正2入力を含む1697件でした。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -1449,11 +1442,7 @@ command-line条件の2検査系は、固定版libraryが満たさない規格由
 
 以前のfield-configuration filterは互換1083記録を1082へ絞りました。その後のreraise主引用のfilterで1082件から1081件へ減りました。今回は新たなfilterやguest再実行をせず、その記録を保持します。[入力同一性の説明](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で両段階を区別します。
 
-スイートは2778件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1081件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、1697入力は未測定です。
-新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
-
-Ghostの同梱UVMはseed 1・73とも206件一致・875件不一致で、不一致になるテストも同じです。
+Ghostの互換記録は1078入力で、1700入力は未測定です。同梱UVMではseed 1・73とも205件一致・873件不一致で、不一致になるテストも同じです。
 現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。

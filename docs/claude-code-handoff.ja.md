@@ -21,7 +21,7 @@
 - 通常のpass入力：2312件 = seed 1/73でruntime一致2218 + 期待したcompiler rejection 94。
 - 既知差分：459件 = runtime差分313 + simulation build失敗141 + 不正入力のcompile受理5。最初のseedの失敗から次のseedの結果を推測しません。specのみは4値の7入力を含めて466件です。[原因の記録](../coverage/known_causes.json)は既知差分を、すべて、library 320、interpretation 61、simulator 21、DPIの実行条件57に分類し、未分類はありません。
 - 別の条件：command-line 23検査系（20件がseed 1／73で一致、3件は既知）、regex-DPI変種26件（すべて一致）。
-- guest証拠：kirimasim 0.1.3（commit 21ee5a43）は、2026-11-21に現在のrunnerで全2778入力を実行しました。pass 98件（拒否された不正design）、unsupported 2604件、fail 76件で、記録はGit対象外の`out/thin-one-hundred-thirty-ninth/kirimasim-all.json`です。Ghostは互換1081記録を保持し、未測定は1697入力（追加1693 + 改訂した元入力4）です。112〜139回目にGhostの測定はありません。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
+- kirimasim 0.1.3（simulatorのcommit 21ee5a43）のrunnerで2026-11-23に現行の全2778入力を測定しました。期待どおりのコンパイル拒否98件、`unsupported` 2604件、`fail` 76件です。Ghostの互換記録と除外した入力は[記録の合算](results.ja.md#記録の合算)に示します。以前の一時的な非公開executable／profileのsnapshotは失われているため、guest測定前に許可されたlocal設定を確保します。
 - 候補の配置：primaryテスト0件が1160番号、1件が768番号、2件以上が554番号です。条項の網羅や独立した検査の成功を証明する件数ではありません。
 
 HDL backend、command-line、regex-DPI変種の追加検査には別の実行条件があり、[実行結果](results.ja.md)と[テストガイド](testing.ja.md)を確認してください。範囲を確認せず通常の総数へ加算しません。

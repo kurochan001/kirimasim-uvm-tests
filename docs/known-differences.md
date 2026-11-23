@@ -342,11 +342,10 @@ return. This qualified legal-simulation declaration difference has no runtime;
 it is not an expected illegal-design rejection. Public clone call/source
 preservation matches, while new-map contents/rights remain partial.
 
-Four phase simulations retain seed-1 differences without seed 73.
+Four phase simulations differed at seed 1 on 5.052. On 5.054, two still differ at runtime, one fails to build and one matches both seeds.
 The domain registry's first query lacks the always-required common/uvm entries;
 new custom-domain registration and retention of prior entries are separate
-observations. No exactly-two-domains restriction is imposed. Premature ending
-reaches the successor without a jump target but the original task keeps running.
+observations. No exactly-two-domains restriction is imposed. On 5.054, premature ending reaches the successor without a jump target and stops the original task.
 
 The other two are qualified textual conflicts. get_imp's non-IMP-null sentence
 contradicts its node-resolution sentence: the strict NODE-null probe differs,
@@ -396,10 +395,7 @@ diagnostic and exit 1 at seed 1 before its post-call UT observation, without see
 
 - [Unregistered-instance empty delete](../tests/uB/test_callback_macro_unregistered_delete_instance_82.sv).
 
-Two size inputs retain simulation build differences without runtime: reserved+129
-flag extension reports unsupported enum methods over 64 bits, and UVM_PACKER_MIN_BITS
-is undefined. Reserved+17 and separate 32768-bit retention match without passing
-those inputs; [the size FAQ](faq.md#size-defines-and-version-identification) separates their conditions.
+Verilator 5.052 rejected the reserved+129 flag extension because it could not call an enum method on a value wider than 64 bits. The fixture matches at seeds 1 and 73 on 5.054. The other fixture still fails to compile because `UVM_PACKER_MIN_BITS` is undefined. [Size FAQ](faq.md#size-defines-and-version-identification)
 
 - [field_flag_user_extension_129](../tests/uB/test_size_version_field_flag_user_extension_129_83.sv).
 - [packer_minimum_define](../tests/uB/test_size_version_packer_minimum_define_83.sv).
@@ -776,8 +772,7 @@ normative expectation is retained with `:oracle: spec`.
   count of one before triggering. At the next time slice that early caller
   has not resumed, although 10.1.1.2.4 requires it to return for that trigger.
   Both callers return on the second trigger; the same-slice late caller's
-  fresh-trigger wait is a matching control. The combined simulator/library
-  cause remains unassigned. No simulator implementation source is inspected.
+  fresh-trigger wait is a matching control. The simulator reproducer `class-event-trigger-then-wait` isolates the missed wakeup without UVM.
 - Default event reset leaves three raw/persistent/on-state callers blocked
   but reports zero waiters, contrary to the actual-process query in
   10.1.1.2.10. A later fresh trigger releases all three with the expected data.
@@ -827,14 +822,7 @@ normative expectation is retained with `:oracle: spec`.
   implementation. Clause 10.6.2.6 selects the previously configured event.
   Stopped default-event reuse and an explicit same-event start both match
   before the running default call fails.
-- In the Verilator/pinned condition, FIFO inline randomization reports success
-  for an exact-capacity request but leaves the queue empty. Its separate
-  oversized inline request is rejected as expected.
-- In a separate FIFO subtype-constraint case, the exact-capacity subtype
-  matches, while the subtype requesting four entries at capacity three
-  reports randomization success instead of rejection. These two FIFO
-  observations retain 18.8.2 expectations without assigning the cause to
-  simulator or library; abstract queues establish no DUT FIFO transfer.
+- On 5.052, the inline FIFO capacity test reported an empty queue after a successful exact-capacity request. The subtype test accepted four entries at capacity three. Both fixtures match the 18.8.2 expectations at seeds 1 and 73 on 5.054.
 
 - Register-file get_default_hdl_path retains its initial RTL value after the
   enclosing block selects GATE and later CPU, despite no explicit file default.
@@ -1282,12 +1270,10 @@ matches at seeds 1/73, so it is tagged now.
 A wakeup reset case establishes one trigger waiter and one persistent-trigger
 waiter before calling `reset(1)`. Clause 10.1.1.2.8 requires both to wake
 without callbacks. The pinned Verilator run reaches the blocked-state
-observation, then its watchdog expires. This combined simulator/library
-cause remains unassigned; the normative wakeup expectation is retained.
+observation, then its watchdog expires. The cause record classifies this as a simulator difference. Its reproducer `class-event-trigger-then-reassign` triggers a class-member event and reassigns it in the same function.
 
 The 466 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the seven four-state cases.
-Default Verilator runs and CI select 2312 tagged checks (2218 runtime, 94 compile rejection). `--all` includes
-spec-only cases and records mismatches or build failures as `known`.
+The ordinary runner and the full Regression select 2312 tagged checks (2218 runtime and 94 compile rejections). With no explicit paths, `--all` also selects the 459 two-state spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 313 cases establish their first difference
 at seed 1, without seed 73 results.
 The 141 simulation builds have no ordinary runtime, including 61 unlinked DPI
@@ -1350,8 +1336,7 @@ ready-to-end thread does not complete while start/end threads do. The exact
 printed all_dropped function caller cannot build against the available task;
 this is a qualified signature reading, with no runtime seed. Typed and named
 convenience replace-zero conditions select the later type in subsequent
-name-based creation. Preserve all five runtime expectations at seed 1 without
-claiming seed 73 or a confirmed simulator/library cause.
+name-based creation. On 5.054, the callback and the two replace-zero cases differ at seed 1. The cause record classifies the callback behavior as a library difference and both replace-zero cases as interpretations.
 
 WARNING verbosity is explicitly ignored by 6.3.3.3, so the hierarchical reporting
 fixture expects three INFO and six WARNING deliveries. Pair configuration-query
@@ -1367,6 +1352,8 @@ The printed create_object equivalent call's extra this argument remains partial.
 - [Named convenience replace zero](../tests/uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace.sv)
 
 ## Spec-only tests
+
+The [cause record](../coverage/known_causes.json) lists every two-state spec-only case. The links below illustrate individual cases.
 
 A linked `.expected` file contains the required output, not the observed failing transcript; [Trace a difference](reading-guide.md#trace-a-difference) explains how to compare that requirement with a measured result and its reason.
 
@@ -1482,7 +1469,6 @@ not a count of distinct bugs.
 - [none_negative_id_limit_literal](../tests/uF/test_enum_state_none_negative_id_limit_literal_84.sv).
 - [sequence_kill_post_hooks_literal](../tests/uF/test_enum_state_sequence_kill_post_hooks_literal_84.sv).
 
-- [field_flag_user_extension_129](../tests/uB/test_size_version_field_flag_user_extension_129_83.sv).
 - [packer_minimum_define](../tests/uB/test_size_version_packer_minimum_define_83.sv).
 
 - [Unregistered-instance empty delete](../tests/uB/test_callback_macro_unregistered_delete_instance_82.sv).
@@ -1496,7 +1482,6 @@ not a count of distinct bugs.
 - [Required ERROR for an unknown object type name](../tests/u08/test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control.sv).
 - [Required ERROR for an unknown component type name](../tests/u08/test_factory_unknown_component_name_reports_an_error_and_returns_null_with_a_registered_control.sv).
 
-- [Premature phase ending and original task lifetime](../tests/u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads.sv).
 - [Qualified literal get_imp non-IMP-null rule](../tests/u09/test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose.sv).
 - [Qualified printed get_schedule string return type](../tests/u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver.sv).
 - [Always-present built-in domain entries before explicit initialization](../tests/u09/test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances.sv).
@@ -1554,8 +1539,7 @@ not a count of distinct bugs.
 - [Uninitialized stream query warnings](../tests/u07/test_recording_uninitialized_stream_queries_each_report_a_warning.sv).
 
 - [Disabled event callback dispatch](../tests/u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers.sv).
-- [Wakeup reset with both event wait styles](../tests/u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch.sv),
-  whose simulator/library cause remains unassigned.
+- [Wakeup reset with both event wait styles](../tests/u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch.sv).
 - [Block register simple-name lookup before/after model locking](../tests/u18/test_block_register_name_lookup_prefers_local_scope_and_finds_descendants.sv).
 
 - Required HDL concat APIs:
@@ -1728,11 +1712,9 @@ Additional register-file abstraction cases:
 - [nearest ancestor default](../tests/u18/test_regfile_default_hdl_abstraction_follows_nearest_ancestor_and_local_override.sv)
 - [flattened full path with inherited kind](../tests/u18/test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction.sv)
 
-Additional heartbeat and FIFO cases:
+Additional heartbeat case:
 
 - [running default-event reuse](../tests/u10/test_heartbeat_default_start_reuses_its_event_while_running_and_after_stop.sv)
-- [inline FIFO constraint observations](../tests/u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue.sv)
-- [subtype-declared FIFO bounds](../tests/u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes.sv)
 
 Additional individual-field byte-enable cases:
 
@@ -1773,8 +1755,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1081 records and 1697 inputs
-are unmeasured, including both revised inputs. This filtering is evidence scope,
+records are excluded. The subset at the 5.054 migration had 1081 records and 1697 unmeasured inputs, including both revisions. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
 - [Copier default name](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -1857,13 +1838,7 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The earlier field-configuration filter reduced 1083 compatible records to 1082. The subsequent reraise primary-citation filter reduced 1082 to 1081; this increment retains those records without another filter or guest run, and [the input-identity explanation](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish the two stages.
 
-The suite has 2778 cases, but the kirimasim/Ghost records below cover only
-1081 unchanged current-input cases. The 1697 inputs are unmeasured
-because prior temporary executable/profile snapshots are unavailable. Do
-not treat this as a fresh full-suite guest result. See [results](results.md).
-
-Ghost's bundled-library evidence has 206 matches and 875 failures with each
-of seeds 1 and 73; the same tests fail at both seeds. The current executable
+Ghost has compatible records for 1078 inputs and 1700 inputs without a current measurement. Its bundled-library results contain 205 matches and 873 failures at each of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
 cover the supplied library. Their mismatches do not distinguish a simulator

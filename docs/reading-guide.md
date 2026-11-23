@@ -57,7 +57,7 @@ An intentional UVM error message can be part of a successful check, so use the d
 
 For a simulation case, the runner compares the ordered lines beginning with `UT: ` to its `.expected` file, together with the declared exit and diagnostic checks; the complete log is not the expected output. See [what is observed](testing.md#what-is-observed).
 
-`pass` means the declared checks matched; `fail` means a checked condition differed; `known` records a difference for an untagged Verilator case; `unsupported` records a kirimasim unsupported-feature diagnostic recognized by the runner. The last two are not passes. See [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean).
+`pass` means the declared checks matched; `fail` means a checked condition differed; `known` records a difference for an untagged Verilator case; `unsupported` means kirimasim reported an unsupported feature or its runner skipped a fixture requiring DPI. The last two are not passes. See [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean).
 
 The `elaboration` cases here expect the compiler to reject an illegal design and execute no runtime seed, while `simulation` cases run a model. Matches at both seeds do not establish four-state coverage including X/Z; see [the seed and compiler-count explanation](faq.md#q201-did-all-2778-tests-run-at-two-seeds).
 

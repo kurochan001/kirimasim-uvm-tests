@@ -241,16 +241,15 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 範囲は提案、4182件のレビューはすべて`ai`、分母は未承認です。
 
 124回目は、外部レビューの7番目の項目であるkirimasimの立ち上げ段階を扱います。[`coverage/kirimasim_stages.json`](../coverage/kirimasim_stages.json)は、テスト自身のsourceにあるUVMの各部分のmarkerから、各テストに0（uvm_pkgだけ）から6（register層）までの段階を割り当て、段階ごとに代表の短いセットを持ちます。
-`tools/kirimasim_stages.py`がCheckでこれを検査し、kirimasimのrunnerに渡す短いセットを出力します。段階ごとのテストは1、1030、95、111、326、250、950件で、kirimasimの現在の記録はどの段階でも同じ`uvm_object_wrapper`のunsupportedで止まっています。
-規則、短いセット、各段階で必要なSystemVerilogの機能とkirimasim-testsのテストとの対応は[段階のガイド](kirimasim-stages.ja.md)で説明しています。テストのheaderは変えないため、入力の指紋は変わりません。
+`tools/kirimasim_stages.py`がCheckでこれを検査し、kirimasimのrunnerに渡す短いセットを出力します。124回目の拡充時点での段階別件数は1、1030、95、111、326、250、950件でした。
+現在の段階別件数と結果、規則、短いセット、必要なSystemVerilogの機能とkirimasim-testsのテストとの対応は[段階のガイド](kirimasim-stages.ja.md)で説明しています。テストのheaderは変えないため、入力の指紋は変わりません。
 
 u01の新しい段階0の入力1件は、uvm_pkgをimportし、UVM_LOWをimportとpackage名の両方から名指しするだけで、UVM objectを作らず、run_testも呼びません。最初の凍結のまま、tag付けの前後でseed 1／73が一致し、新しい義務1件で扱います。
 AI義務は4151件で、旧要求4150件と分類445件はすべて同一です。直接対応は2707テスト、control対応は158テスト、controlのみは56テストです。元の通常2755記録と旧既知463入力は全て維持します。新しい入力はM1に数えます。
 
 全体は2778テスト（simulation 2679／elaboration 99）です。通常一致は2312件で、runtime両seed 2218入力とcompiler拒否94件です。
 既知は459入力で、runtime seed 1差分313件、simulation build 141件、runtimeのない不正design受理5件です。specのみは4値の7入力を含めて466件です。
-command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。guestの再実行／filterは追加せず、互換1081記録をbyte単位で保持し、未測定は1697入力です。
-追加1693件と修正した元入力4件で、simulation 1598／elaboration 99です。
+command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。Ghostの互換記録と除外した入力は[記録の合算](results.ja.md#記録の合算)に示します。
 
 主引用がある番号は1327で、candidateは0件1160／目標未満768／2件以上554です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。

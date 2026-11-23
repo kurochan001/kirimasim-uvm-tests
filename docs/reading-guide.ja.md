@@ -57,7 +57,7 @@ runnerはビルドと実行の環境を供給するため、検査系のbackend�
 
 シミュレーション用のケースでは、実行スクリプト（runner）が`UT: `で始まる行を順序どおり`.expected`ファイルと比較し、指定した終了コードや診断も確認します。ログ全体が期待出力ではありません。[観測する出力](testing.ja.md#何を観測するか)で説明しています。
 
-`pass`は指定した検査の一致、`fail`は検査条件の相違、`known`は固定版での確認タグがないVerilatorケースの差分を記録します。`unsupported`は、実行スクリプトがkirimasimの未対応機能の診断を認識した状態です。後ろ2つは成功を表しません。[判定の定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)を参照してください。
+`pass`は指定した検査の一致、`fail`は検査条件の相違、`known`は固定版での確認タグがないVerilatorケースの差分を記録します。`unsupported`は、kirimasimが未対応機能を報告した場合と、DPIを要求するテストをrunnerが実行せずに記録した場合があります。後ろ2つは成功を表しません。[判定の定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)を参照してください。
 
 このリポジトリの`elaboration`ケースは、不正な設計をコンパイラが拒否することを期待し、実行時のseedは使いません。`simulation`ケースはモデルを実行します。両seedの一致だけでは、X／Zを含む4-stateへの対応を示しません。[seedとコンパイル検査の件数](faq.ja.md#q201-全2778テストを2-seedで実行しましたか)を参照してください。
 

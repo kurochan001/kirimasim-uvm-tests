@@ -89,7 +89,7 @@ An override lets a test subtype supply a callback or observation method; [the co
 ```systemverilog
 /*
 :name: test_common_phases_run_in_order
-:description: the common phases run in their order, ... (IEEE 1800.2-2020 Section 9.8.1)
+:description: the common phases run in their order, each bottom-up function phase calls the child before its parent, and the run phase lasts while an objection is raised (IEEE 1800.2-2020 Section 9.8.1)
 :tags: u09 uvm
 :type: simulation
 :lrm: 1800.2-2020 9.8.1 9.5 9.6 9.7 10.5.1
@@ -99,6 +99,7 @@ An override lets a test subtype supply a callback or observation method; [the co
 :fourstate: no
 :nondeterministic: no
 :args: +UVM_TESTNAME=t
+:expected_exit: 0
 :expected_stdout: @test_common_phases_run_in_order.expected
 */
 ```
@@ -437,8 +438,7 @@ package boundaries; [Q442](faq.md#q442-what-do-the-user-package-profiles-check) 
 
 A four-state value can carry X or Z bits. Seven spec-only fixtures declare
 `:fourstate: yes` and check paths where the standard defines the result. The
-ordinary Verilator runner selects only two-state fixtures, so these have no
-Verilator record, and a two-state build of them is only a diagnostic.
+ordinary Verilator runner automatically selects two-state fixtures. Explicit paths bypass that filter. A two-state diagnostic build cannot verify these X/Z expectations.
 
 | Path | Clauses | Defined result checked |
 | --- | --- | --- |
@@ -677,8 +677,7 @@ Force/release require public forceable packed signals. The backend checks the
 documented public capability marker and applies standard VPI flags to the actual
 handle; it does not write that marker or mock path/value storage. Public
 [extension documentation](https://verilator.org/guide/latest/extensions.html)
-describes integration, while original probes and current measurements establish
-behavior on exactly 5.054. Eight 8/40-bit reg/wire inputs check force held across
+describes integration. The original 20-case measurement used Verilator 5.052. The full 38-case HDL subset was later measured on 5.054. Eight 8/40-bit reg/wire inputs check force held across
 opposing updates, plain release, immediate release/read and later updates. One
 additional input checks missing/uninstrumented targets and a valid control.
 Reg retains its forced value until a new procedural assignment; a driven wire
@@ -814,11 +813,11 @@ The seed list accepts several values, so keep an option such as `--build-jobs` b
 
 ### Time unit and report declarations
 
-All four Verilator runners build every model with `--timescale 1ns/1ps`. The time unit is not a test metadata field: 1800-2023 3.14.2.3 makes mixed declarations an error, so the runner supplies one value.
+All four Verilator runners build every model with `--timescale 1ns/1ps`. This supplies the default for design elements that would otherwise lack a time scale. IEEE 1800-2023 §3.14.2.3 allows modules to specify different time units and precisions. An error occurs when some design elements have a specified time unit and precision while others in the same design lack them.
 
 `coverage/uvm_reports.json` declares, per test, only whether the default report server may print a line beginning `UVM_ERROR ` or `UVM_FATAL `. Neither is allowed by default. Each declaration names the clauses that require the report in `basis`; `tools/uvm_reports.py check` requires them to be among the test's `:lrm:` clauses. Counts and report IDs are not declared.
 
-Detection sees only the default server's line prefix (excluding the summary line `UVM_ERROR :`). A replaced report server or a catcher that suppresses the line is not seen. A tagged test that prints an undeclared severity fails; a spec-only test remains `known`. The result JSON records the declarations file's SHA-256 in `configuration`.
+The four Verilator runners and the kirimasim runner check the `UVM_ERROR ` and `UVM_FATAL ` prefixes in stdout and skip summary rows such as `UVM_ERROR :`. A catcher or custom server can suppress the line before the runner sees it. A matching prefix with an undeclared severity fails the check. Each runner uses its own result labels and records the declarations digest in `configuration`. Ghost uses the fixture’s output, exit and diagnostic conditions.
 
 For a runtime mismatch, follow the selected test header's `:expected_stdout:` path and compare its `UT: ` lines using [the result-reading guide](reading-guide.md#read-a-result).
 
@@ -881,7 +880,7 @@ python3 tools/slang_elaborate.py check
 python3 tools/api_census.py check
 ```
 
-The last two need the pinned `pyslang` ([slang elaboration](#slang-elaboration)). The current tool suite has 219 unit tests; metadata validation checks all
+The last two need the pinned `pyslang` ([slang elaboration](#slang-elaboration)). The unittest command reports the current number of tool tests. Metadata validation checks all
 2778 tests (2679 simulation, 99 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator job, like the

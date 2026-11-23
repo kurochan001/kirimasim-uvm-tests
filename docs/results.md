@@ -12,13 +12,8 @@ whose tags moved to `verilator@5.054` are the ones that matched in that
 measurement, and the 459 known differences are the ones that did not, with
 their causes re-assigned in the cause record. The three DPI-condition subsets
 were remeasured on 5.054 too, and their states match the 5.052 records. The hosted Regression ([run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)) ran all 2312 tagged checks with Verilator 5.054 on 2ae19a1b and succeeded in all 24 jobs, as recorded in the history and here.
-The seven four-state tests have no Verilator record. The 1081 Ghost records
-were carried forward with `tools/code_identity.py carry`, because the only
-edit was the simulator tags, and remain valid; 1697 inputs are unmeasured by
-Ghost, including four revised
-old inputs. kirimasim 0.1.3 (commit 21ee5a43) was measured on all 2778 inputs
-with the current runner on 2026-11-21. Each record fingerprints its inputs
-and conditions.
+On 2026-11-23, four revised runtime tests matched both seeds and three revised illegal designs were rejected with the expected diagnostics. The eighth revision checks a four-state configuration value. All seven four-state tests still lack a Verilator record. The kirimasim 0.1.3 runner (simulator commit 21ee5a43) recorded all 2778 current inputs on 2026-11-23. Each input fingerprint and the runner fingerprint in `out/kirimasim-20261123-doc-review.json` match this checkout.
+
 The suite has 2778 fixtures in 22 directories: 2679 simulation and 99
 elaboration. Milestone totals are M1 1200 (1119/81), M2 634 (627/7) and M3 944
 (933/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
@@ -38,8 +33,8 @@ A runtime match at seeds 1/73 still counts as one fixture, while a seed requeste
 | Verilator 5.054, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.054, original command-line VPI bridge and pinned regex DPI | 20 `pass`; 3 `known` | Separate overlapping 23-case condition; matches at seeds 1/73, differences at seed 1 |
 | Verilator 5.054, listed ordinary fixtures with regex and command-line DPI | 26 `pass` | Separate overlapping 26-case condition from `coverage/regex_dpi_variants.txt`; matches at seeds 1/73 |
-| kirimasim 0.1.3 (commit 21ee5a43), pinned UVM | 98 `pass`; 2604 `unsupported`; 76 `fail` | All 2778 current inputs, one run on 2026-11-21 with the current runner. Every `pass` is an illegal design rejected at its pattern; no simulation test runs |
-| Ghost, bundled UVM | 206 `pass`; 875 `fail` | 1081 unchanged inputs at each seed; identical failing sets; 1697 inputs unmeasured |
+| kirimasim 0.1.3 (commit 21ee5a43), pinned UVM | 98 `pass`; 2604 `unsupported`; 76 `fail` | Full run on 2026-11-23. Every `pass` is an illegal design rejected at its pattern; no simulation test runs |
+| Ghost, bundled UVM | 205 `pass`; 873 `fail` | 1078 unchanged inputs at each seed; identical failing sets; 1700 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -159,8 +154,7 @@ A fingerprint identifies the exact inputs behind a reused record, so [Execution 
 
 Here an unmeasured input has no compatible current record, even if an older version was run; [Q15](faq.md#q15-how-do-i-know-whether-an-old-result-still-applies) explains the checks needed before reusing it.
 
-The snapshot starts from [9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/960138734ce23d521c36a645315044e070487cfa), retains all 2755 old two-state records,
-and adds one stage-0 input (M1) on 2026-11-09 JST; the seven four-state inputs still have no record.
+The snapshot for expansion 124 started from [9601387](https://github.com/kurochan001/kirimasim-uvm-tests/commit/960138734ce23d521c36a645315044e070487cfa), retained the 2755 earlier two-state Verilator records and added one stage-0 input (M1) on 2026-11-09 JST. The seven four-state inputs had no Verilator record.
 
 The profiles below check only their stated conditions, so a match under a different premise cannot pass an original difference; [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains the recorded direct/control roles.
 
@@ -169,11 +163,7 @@ bring-up stages of kirimasim. [`coverage/kirimasim_stages.json`](../coverage/kir
 gives every test a stage from 0 (uvm_pkg only) to 6 (register layer), decided
 by markers of each part of UVM in the test's own sources, and a short set of
 representatives for each stage; `tools/kirimasim_stages.py` checks it in Check
-and prints the short sets for the kirimasim runner. The stages hold 1, 1030,
-95, 111, 326, 250 and 950 tests, and every current kirimasim record stops at
-the same unsupported `uvm_object_wrapper` construct in every stage;
-[the stage guide](kirimasim-stages.md) explains the rules, the short sets and
-the SystemVerilog features that each stage needs, with tests of kirimasim-tests.
+and prints the short sets for the kirimasim runner. At expansion 124 the stages held 1, 1030, 95, 111, 326, 250 and 950 tests. For current counts and outcomes see [the stage guide](kirimasim-stages.md), which also lists representative tests and the SystemVerilog features exercised at each stage.
 No test header changes, so no input fingerprint changes.
 
 One new stage-0 input in u01 imports uvm_pkg and names UVM_LOW through the
@@ -190,10 +180,7 @@ Known inputs total 459: 313 runtime seed 1 differences, 141 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 466
 with the seven four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
-is added to the ordinary totals. No guest run/filter is added: the 1081
-compatible records survive the migration, whose tag-only edit moved their
-fingerprints with `tools/code_identity.py carry`, and 1697 inputs are unmeasured (1693
-additions/four revised originals; 1598 simulation/99 elaboration).
+is added to the ordinary totals. The Ghost subset now contains 1078 compatible records. There are 1700 unmeasured inputs (1601 simulation and 99 elaboration).
 
 Primary-focused identifiers are 1327; candidates are 1160 zero/768 below
 target/554 at least two. All 2062 partial identifiers, actual remaining
@@ -207,16 +194,9 @@ snapshots and Ghost's seed-specific private profiles.
 Commercial simulator results are excluded under the
 [reporting policy](faq.md#commercial-simulator-and-issue-reporting-policy).
 
-The earlier temporary kirimasim/Ghost executable/profile snapshots are no
-longer available, so no guest rerun is claimed. Historical source files retain
-1085 records. Earlier filters excluded four revisions: command-enum citation,
-Boolean rerandomization, virtual-field configuration and reraise primary citation.
-This increment performs no new filtering. All 1081 compatible records and
-filter metadata survive the migration: the tag-only edit moved their
-fingerprints with `tools/code_identity.py carry`. Later additions increase the
-unmeasured set to 1697: 1693 additions and four revised originals. Ghost remains
-206 pass/875 fail per seed. The retained kirimasim file of 1081 records, 1072 unsupported and nine API failures, is superseded by the measurement of 2026-11-21 in `out/thin-one-hundred-thirty-ninth/kirimasim-all.json`.
-The latest exclusions are recorded in `out/thin-one-hundred-sixth-guest-exclusions.json`;
+The original Ghost files retain 1085 records per seed. Four earlier revisions were already excluded. The 2026-11-23 review excluded the old result of the common-phase ordering test (pass), the BODY/FINISHED sequence-state waiter (fail), and the default-map selection and recursive lock test (fail) at each seed. The other five revised tests were already outside the Ghost subset. This leaves 205 matches and 873 failures per seed on the current inputs.
+
+Earlier exclusions are recorded in `out/thin-one-hundred-sixth-guest-exclusions.json`;
 the last evidence scope assembled in this workspace is `out/thin-one-hundred-twenty-sixth-a-evidence-scope.json`. The measurements of the 127th and 128th expansions were made in another session, and their files are not in this workspace; the tests added from the 129th expansion on have one batch file for each measurement under `out/`, and no combined record includes them yet.
 
 The fingerprints identify different inputs:
@@ -239,8 +219,7 @@ simulator, configuration and library identities before reusing execution records
 Before combining records, check that:
 
 - Verilator IDs cover every current two-state input exactly; the seven
-  four-state inputs have no Verilator record. Retained guest IDs match
-  their declared 1081-case subset; 1697 input IDs remain unmeasured.
+  four-state inputs have no Verilator record. The kirimasim record covers all 2778 inputs. Ghost has 1078 compatible IDs at each seed and 1700 unmeasured inputs.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -279,9 +258,7 @@ Readability (item 8) is finished in all 22 directories. Each directory's inputs,
 The [draft ledger](requirements.md) has 4182 AI duties and 0 unassessed
 identifiers: 2062 partial/445 assessed. Chapter 10 is 87/29/0; chapter 18 is
 393/63/0. Their partial contracts and original targets remain open. Direct
-links cover 2722 tests; 56 others have only controls. Guests retain 1081
-compatible inputs; 1697 (1598 simulation/99 elaboration), including four
-revised originals, are unmeasured. Scope and denominator remain unapproved.
+links cover 2722 tests; 56 others have only controls. Ghost retains 1078 compatible inputs. The 1700 unmeasured inputs include seven revised originals. Scope and denominator remain unapproved.
 
 ## Whole-output comparison
 
@@ -324,14 +301,14 @@ A commit identifies a repository revision, so check the revision on a linked wor
 A shard runs a disjoint subset of the selected tests, and the final gate requires every shard to succeed; [Q268](faq.md#q268-does-dividing-check-into-shards-reduce-the-required-test-scope) explains how that relates to the test scope.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. Its tools job checks pinned-library integrity, 219 tool unit tests,
+and manual dispatch. Its tools job checks pinned-library integrity, all Python tool tests discovered under `tools/`,
 2778 metadata records, the draft ledger/index, the cause record of the known
 differences, the [report declarations](testing.md#time-unit-and-report-declarations) and the [kirimasim bring-up stages](kirimasim-stages.md). Its slang job [elaborates every test with slang](testing.md#slang-elaboration) and compares [the API census](requirements.md#api-census) with the tests; it takes about eight minutes. Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,
 plus the canary `tests/u09/test_common_phases_run_in_order.sv`, with runtime
 seeds 1/73 ([the selection tool](../tools/ci_select.py)). For a push, the base is the head of the last Check on `main` that succeeded, so the checks of a run that a newer push cancelled, or that failed, are selected again; without such a run it is the previous push. When the base is
 unavailable, when the runner, its normalization, the library lock, the
-fetcher or the setup action changed, or when more than 30 checks are affected, only the canary runs
+fetcher, the report declarations or the setup action changed, or when more than 30 checks are affected, only the canary runs
 and a warning asks for Regression. Another warning names changed files that only a separate DPI condition exercises, which Check does not run. The setup action stops unless the Verilator it restored or built reports release 5.054. The Verilator job also rebuilds the cause
 record's nine reproducers. A green Check covers the selected checks only.
 
@@ -343,9 +320,7 @@ that Check and other repositories keep hosted job slots, each limited to 360 min
 separate job under their condition, and the twenty-six regex-DPI variants in another job. Its gate requires all three. A newer request
 waits for a run in progress instead of cancelling it; only one request can wait, so a further request replaces the waiting one. A manual run can be
 narrowed to directories under `tests/` (input `directories`); a plan job then
-selects the checks that collect a file from them, in one shard for every 115
-checks, and runs the command-line and regex-DPI jobs only for their fixtures
-there. The weekly run is never narrowed.
+selects the ordinary checks that use files from those directories and allocates one shard per 115 checks, rounded up, with a maximum of 20. The same input-file filter applies to the command-line and regex-DPI jobs, including tests elsewhere that use a shared helper. The weekly run is never narrowed.
 
 The former single Check ran the whole selection on every push. Its unsharded
 [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
@@ -377,7 +352,7 @@ Regression.
 
 Two later Regression runs covered every tagged check of their commits: [run 43216444797](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43216444797) on a3956ce, dispatched after the readability edits, and the weekly [run 43643757165](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43643757165) on 73a73ad; all 24 jobs of each succeeded. [Run 44729525874](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44729525874), dispatched on e37fb89 after the runner began to pass the time scale and check the report declarations, succeeded in all 24 jobs on 2026-11-21, so a Regression with Verilator 5.052 covers the current runner and every check tagged at that commit. Of the fifteen tests added after e37fb89, the fourteen tagged ones were run by Check with Verilator 5.052 in the push that published them. The six tests that the 143rd expansion changed were run by [Measure run 44848496017](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44848496017) with Verilator 5.052 at seeds 1/73: the five tagged ones match, and the spec-only one differs as its record says. These runs cover the 5.052-era suite only. In the 146th expansion's migration, [run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705) ran the 2312 tagged checks, the 20 command-line checks and the 26 regex-DPI variants with Verilator 5.054 and succeeded in all 24 jobs on 2026-11-22 (shards 89 to 151 minutes, about 11.5 hours in all); the results are recorded in the [history](history.md).
 
-Neither workflow runs kirimasim, Ghost, spec-only cases or the HDL runner; the HDL row of the results rests on local runs. [Measure](../.github/workflows/measure.yml), a manual workflow, runs named tests, tagged or not, with the pinned Verilator 5.054 and prints their statuses; it changes no record. The README's badge is
+Check and Regression select tagged tests for their ordinary Verilator jobs. Check also elaborates spec-only fixtures with slang. The kirimasim, Ghost and HDL measurements come from local runs. [Measure](../.github/workflows/measure.yml), a manual workflow, runs named tests, tagged or not, with the pinned Verilator 5.054 and prints their statuses; it changes no record. The README's badge is
 the live Check state, separate from these local measurements. A green Check or
 Regression does not establish complete UVM conformance or a passing result for
 every simulator. There is no automatic result publication.

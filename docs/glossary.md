@@ -508,8 +508,7 @@ matched / a check failed, or the test could not build or run. One failing test
 is not necessarily one distinct simulator bug.
 
 **`known` / `unsupported`** — In this Verilator runner, an untagged test fails
-validation, including a build failure / kirimasim explicitly reports a
-construct as unsupported.
+validation, including a build failure / kirimasim reports an unsupported feature or the runner skips a fixture requiring DPI.
 Neither is a pass. Ghost uses `pass`/`fail`; it does not relabel bundled-library
 differences as `known`. [FAQ Q6](faq.md#q6-why-can-verilator-exit-successfully-with-known-results) explains why Verilator may exit successfully with known differences.
 
@@ -1408,10 +1407,7 @@ scope's time units. Explicit scaled/secs arguments convert it to or from the
 canonical representation; a nanosecond-based example cannot be reused unchanged
 in a picosecond scope.
 
-**Uniform model time unit** — The `1ns/1ps` that the Verilator runner passes to
-every model. It is an execution condition, not test metadata: 1800-2023 3.14.2.3
-makes mixed time-unit declarations an error, so the suite does not mix declared
-and undeclared tests.
+**Default model time scale** — The Verilator runners supply `1ns/1ps` as the default time unit and precision for each build. An individual scope can specify its own values. [Time unit and report declarations](testing.md#time-unit-and-report-declarations)
 
 **Virtual override formal name** — An argument name that must match the base
 virtual method under SystemVerilog 8.20. Matching argument types and accepted

@@ -6929,7 +6929,7 @@ After the corrections slang reports errors other than the time unit in 14 tests 
 
 Two points of the review needed no change. The three tests that expect `kill` to run `post_body` and `post_start` follow 1800.2-2020 14.2.5.11, which says that both are executed. The other slang errors, in 119 tests without a Verilator oracle, are the recorded differences of the pinned library.
 
-Left for a proposal, because they change the runner, the metadata or a record's form: the time unit that only the tests declare (1800-2023 3.14.2.3 makes the mixture an error; 174 tests, 123 with a Verilator oracle), the detection of an undeclared UVM_ERROR or UVM_FATAL, the four-state queue test that the pinned library cannot satisfy (which makes the measurable kirimasim inputs 2383, not 2384), and the label for interpretations that follow a misprint.
+Left for a proposal, because they change the runner, the metadata or a record's form: the time unit that only the tests declare (1800-2023 §3.14.2.3 requires other elements in the same design to have a specified unit and precision too. The count then was 174 tests, 123 with a Verilator oracle), the detection of an undeclared UVM_ERROR or UVM_FATAL, the four-state queue test that the pinned library cannot satisfy (which makes the measurable kirimasim inputs 2383, not 2384), and the label for interpretations that follow a misprint.
 
 ## 127th expansion: schema 2 of the cause record (second external review, part B)
 
