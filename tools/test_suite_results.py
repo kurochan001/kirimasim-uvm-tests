@@ -115,6 +115,21 @@ class Judgment(SuiteResults):
         self.assertIn("no message matches", suite_results.judge_run(test, 1, "quiet"))
 
 
+class IllegalFixtureDiagnostics(unittest.TestCase):
+    def test_unrelated_errors_in_the_fixture_do_not_count_as_the_expected_rejection(self):
+        names = (
+            "u15/test_uvm_sequencer_base_abstract_declaration_rejects_direct_construction",
+            "u15/test_uvm_sqr_if_base_abstract_declaration_rejects_direct_construction",
+            "uC/test_resource_pool_bare_class_declaration_rejects_an_object_receiver",
+        )
+        for name in names:
+            test = suite_results.ROOT / "tests" / (name + ".sv")
+            for diagnostic in ("syntax error: expected endmodule", "error: unknown type 'other'"):
+                with self.subTest(test=name, diagnostic=diagnostic):
+                    ok, _ = suite_results.judge_illegal(test, False, f"{test}:30:22: {diagnostic}")
+                    self.assertFalse(ok)
+
+
 class FirstDifference(SuiteResults):
     def test_reports_the_first_line_that_differs(self):
         self.assertEqual(suite_results.first_difference("a\nx\n", "a\nb\n"),

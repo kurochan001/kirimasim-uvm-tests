@@ -10,18 +10,16 @@
 :fourstate: no
 :nondeterministic: no
 :should_fail_because: direct construction of the declared virtual class is illegal
-:expected_stderr_regex: (?i)(?=.*(?:virtual|abstract))(?=.*uvm_sqr_if_base).*
+:expected_stderr_regex: (?i)^(?=.*\buvm_sqr_if_base\b)(?=.*\b(?:virtual|abstract)\b)(?=.*\b(?:new|creat\w*|construct\w*|instantiat\w*)\b).*
 */
 // What it checks:
 // The declared virtual uvm_sqr_if_base rejects direct construction.
 //
 // How the expected output follows from the standard:
 // 1800.2-2020 15.2.1.1 (UVM-SQR-AUDIT-UVM-SQR-IF-BASE-ABSTRACT) gives the rule
-// above. Setup: Use the selected original fixture, declared type arguments,
-// public endpoint/base views and linked stage observations. Requests satisfy
-// the grant precondition before send_request and response IDs are copied from
-// the actual request. Expected: The declared virtual uvm_sqr_if_base rejects
-// direct construction.
+// above. Setup: Call new directly on the
+// declared virtual class. Expected: The compiler rejects its construction
+// and identifies the class in the diagnostic.
 // These expectations come from the cited clauses, not from the output of a
 // simulator.
 module test_uvm_sqr_if_base_abstract_declaration_rejects_direct_construction;

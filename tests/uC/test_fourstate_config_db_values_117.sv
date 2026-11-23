@@ -44,7 +44,7 @@ module test_fourstate_config_db_values_117;
     uvm_config_int::set(null, "*", "wide117", wide);
     wide_found = uvm_config_int::get(null, "probe117", "wide117", wide_got);
     $display("UT: narrow found %0d same %0d", narrow_found, narrow_got === 8'b1x0z_10xz);
-    $display("UT: wide found %0d same %0d", wide_found, wide_got === wide);
+    $display("UT: wide found %0d same %0d", wide_found, wide_got === 'b1x0z);
     $finish;
   end
 endmodule

@@ -23,7 +23,7 @@
 //    State is STOPPED, waiter and start return, and body exit remains zero.
 // 2. 1800.2-2020 14.2.2.5 (UVM-SEQUENCE-STATE-ALREADY-MATCHING-STOPPED) gives
 //    rule 2 above. Setup: Call a STOPPED wait after the kill has settled.
-//    Expected: The matching wait returns without another state transition.
+//    Expected: The matching wait returns at the same simulation time.
 // These expectations come from the cited clauses, not from the output of a
 // simulator.
 // Unbound virtual sequences with positive body delays; no driver or phases.
@@ -38,12 +38,10 @@ module test_sequence_state_stopped_mask_returns_on_kill_and_again_when_already_s
     virtual task body(); entries++; #4; exits++; endtask
   endclass
   delayed_sequence first;
-  delayed_sequence peer;
   bit first_wait_returned = 0;
-  bit peer_wait_returned = 0;
   bit start_returned = 0;
   initial begin
-    first = new("first"); peer = new("peer");
+    first = new("first");
 
     fork
       begin first.start(null); start_returned = 1; end
@@ -52,12 +50,14 @@ module test_sequence_state_stopped_mask_returns_on_kill_and_again_when_already_s
         first_wait_returned = 1;
       end
       begin
+        realtime before_wait;
         first.wait_for_sequence_state(UVM_BODY); #1; first.kill(); #1;
         $display("UT: killed stopped %0d waiter %0d start_returned %0d exits %0d",
         first.get_sequence_state() == UVM_STOPPED, first_wait_returned, start_returned,
         first.exits);
+        before_wait = $realtime;
         first.wait_for_sequence_state(UVM_STOPPED);
-        $display("UT: already_stopped returned 1");
+        $display("UT: already_stopped same_time %0d", $realtime == before_wait);
       end
     join
 

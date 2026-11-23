@@ -19,8 +19,8 @@
 // How the expected output follows from the standard:
 // 1800.2-2020 14.2.2.5 (UVM-SEQUENCE-STATE-WAIT) gives the rule above. Setup:
 // Make BODY observable with a delay, then wait for FINISHED and a matching OR
-// mask. Expected: The waiters observe BODY and FINISHED and execution reaches
-// the matching-mask return marker.
+// mask. Expected: The waiters observe BODY and FINISHED. The final call
+// returns at the same simulation time at which it was made.
 // These expectations come from the cited clauses, not from the output of a
 // simulator.
 // The sequence handle has module lifetime for forked access. A
@@ -37,6 +37,7 @@ module test_sequence_state_waiters_observe_body_and_completion;
   endclass
   delayed_sequence value;
   initial begin
+    realtime before_wait;
     value = new("value");
     fork
       value.start(null);
@@ -47,8 +48,9 @@ module test_sequence_state_waiters_observe_body_and_completion;
         $display("UT: observed_finished %0d", value.get_sequence_state() == UVM_FINISHED);
       end
     join
+    before_wait = $realtime;
     value.wait_for_sequence_state(UVM_STOPPED | UVM_FINISHED);
-    $display("UT: matching_mask_returned 1");
+    $display("UT: matching_mask_same_time %0d", $realtime == before_wait);
     $finish;
   end
   initial begin

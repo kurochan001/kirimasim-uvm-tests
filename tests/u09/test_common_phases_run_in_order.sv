@@ -46,7 +46,8 @@
 // This case prints final from t only, focusing on the bottom-up ordering.
 // Only t prints run, as the run_phase tasks of the components start in
 // parallel. t raises an objection in run_phase
-// and drops it one time unit later, so the run phase lasts until then
+// and prints a marker one time unit later, just before dropping it. The
+// marker must precede extract, so ending run early changes the observation
 // (§9.6, §10.5.1). Only the lines that begin with "UT: " are compared.
 
 module test_common_phases_run_in_order;
@@ -118,6 +119,7 @@ module test_common_phases_run_in_order;
       phase.raise_objection(this);
       $display("UT: run test");
       #1;
+      $display("UT: run delay elapsed");
       phase.drop_objection(this);
     endtask
 

@@ -52,6 +52,8 @@ module test_reg_block_default_map_selection_and_recursive_model_lock;
              !root.is_locked(), !child.is_locked());
     first_map = root.create_map("first", 0, 4, UVM_LITTLE_ENDIAN);
     second_map = root.create_map("second", 'h100, 4, UVM_LITTLE_ENDIAN);
+    $display("UT: distinct maps %0d",
+             first_map != null && second_map != null && first_map != second_map);
     $display("UT: first_default %0d", root.get_default_map() == first_map);
     root.set_default_map(second_map);
     root.lock_model();

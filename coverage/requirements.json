@@ -9937,6 +9937,7 @@
             "UT: start_of_simulation env",
             "UT: start_of_simulation test",
             "UT: run test",
+            "UT: run delay elapsed",
             "UT: extract env",
             "UT: extract test",
             "UT: check env",
@@ -24338,8 +24339,8 @@
         "ja": "遅延でBODYを観測可能にし、FINISHEDと、一致するOR maskを待つ。"
       },
       "expected": {
-        "en": "The waiters observe BODY and FINISHED and execution reaches the matching-mask return marker.",
-        "ja": "待機側はBODYとFINISHEDを観測し、一致maskの戻りmarkerへ到達する。"
+        "en": "The waiters observe BODY and FINISHED. The final wait for an already matching mask returns at the time of the call.",
+        "ja": "待機側はBODYとFINISHEDを観測する。最後に、既に状態が一致するmaskを渡すと、呼び出したシミュレーション時刻に戻る。"
       },
       "limitations": {
         "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
@@ -24357,7 +24358,7 @@
           "expected_observations": [
             "UT: observed_body 1",
             "UT: observed_finished 1",
-            "UT: matching_mask_returned 1"
+            "UT: matching_mask_same_time 1"
           ]
         }
       ]
@@ -42989,8 +42990,8 @@
         "ja": "killが落ち着いた後にSTOPPED待機を呼ぶ。"
       },
       "expected": {
-        "en": "The matching wait returns without another state transition.",
-        "ja": "一致待機は、追加の状態遷移なしにreturnする。"
+        "en": "The matching wait returns at the time of the call, while the sequence remains STOPPED.",
+        "ja": "シーケンスがSTOPPEDのまま、呼び出したシミュレーション時刻に待機から戻る。"
       },
       "limitations": {
         "en": "Unbound virtual sequences have positive body delays and are observed with public wait/state methods. No driver, task-phase execution, polling count, kill post-hook order or initial state before start is asserted. Instance isolation and reuse are finite; zero/invalid state masks are outside these fixtures.",
@@ -43006,7 +43007,7 @@
           "test": "u14/test_sequence_state_stopped_mask_returns_on_kill_and_again_when_already_stopped",
           "role": "direct",
           "expected_observations": [
-            "UT: already_stopped returned 1"
+            "UT: already_stopped same_time 1"
           ]
         }
       ]
@@ -45944,6 +45945,7 @@
           "role": "direct",
           "expected_observations": [
             "UT: no_default 1 unlocked 1 1",
+            "UT: distinct maps 1",
             "UT: first_default 1",
             "UT: selected 1 locked 1 1"
           ]
@@ -92687,8 +92689,8 @@
         "ja": "virtualと宣言されたuvm_sqr_if_baseは直接生成を拒否する。"
       },
       "conditions": {
-        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
-        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+        "en": "Call new directly on uvm_sqr_if_base#() in an isolated elaboration test.",
+        "ja": "独立したエラボレーションテストでuvm_sqr_if_base#()のnewを直接呼び出す。"
       },
       "expected": {
         "en": "The declared virtual uvm_sqr_if_base rejects direct construction.",
@@ -92709,7 +92711,7 @@
           "role": "direct",
           "expected_diagnostic": {
             "stage": "compile",
-            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*uvm_sqr_if_base).*"
+            "regex": "(?i)^(?=.*\\buvm_sqr_if_base\\b)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\b(?:new|creat\\w*|construct\\w*|instantiat\\w*)\\b).*"
           }
         },
         {
@@ -92729,8 +92731,8 @@
         "ja": "virtualと宣言されたuvm_sequencer_baseは直接生成を拒否する。"
       },
       "conditions": {
-        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
-        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+        "en": "Call new directly on uvm_sequencer_base in an isolated elaboration test.",
+        "ja": "独立したエラボレーションテストでuvm_sequencer_baseのnewを直接呼び出す。"
       },
       "expected": {
         "en": "The declared virtual uvm_sequencer_base rejects direct construction.",
@@ -92751,7 +92753,7 @@
           "role": "direct",
           "expected_diagnostic": {
             "stage": "compile",
-            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*uvm_sequencer_base).*"
+            "regex": "(?i)^(?=.*\\buvm_sequencer_base\\b)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\b(?:new|creat\\w*|construct\\w*|instantiat\\w*)\\b).*"
           }
         },
         {
@@ -122865,7 +122867,7 @@
           "role": "direct",
           "expected_diagnostic": {
             "stage": "compile",
-            "regex": "(?i)^(?=.*test_resource_pool_bare_class_declaration_rejects_an_object_receiver\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:assign|convert|class|type|uvm_resource_pool|uvm_object)).*error"
+            "regex": "(?i)^(?=.*test_resource_pool_bare_class_declaration_rejects_an_object_receiver\\.sv:[0-9]+:[0-9]+:)(?=.*\\buvm_resource_pool\\b)(?=.*\\buvm_object\\b)(?=.*\\b(?:assign\\w*|convert\\w*|incompatible)\\b).*"
           }
         },
         {
