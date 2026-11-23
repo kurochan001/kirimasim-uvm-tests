@@ -161,24 +161,23 @@ def macro_arguments(text):
     """The raw text of each macro use with arguments; a macro may turn an
     argument into a string, so its spacing and comments are kept exactly."""
     out = []
-    for m in re.finditer(r"`[A-Za-z_][A-Za-z0-9_$]*[ \t]*\(", text):
-        depth, i = 0, m.end() - 1
-        while i < len(text):
-            ch = text[i]
-            if ch == '"':
-                i = text.find('"', i + 1)
-                while i > 0 and text[i - 1] == "\\":
-                    i = text.find('"', i + 1)
-                if i < 0:
-                    break
-            elif ch == "(":
-                depth += 1
-            elif ch == ")":
-                depth -= 1
-                if depth == 0:
-                    break
-            i += 1
-        out.append(text[m.start():i + 1])
+    macro = None
+    depth = 0
+    for match in TOKEN.finditer(text):
+        tok = match.group()
+        if tok.startswith(("//", "/*")):
+            continue
+        if tok in ("(", "(*") and (depth or macro is not None):
+            if not depth:
+                start = macro
+            depth += 1
+        elif depth and tok in (")", "*)"):
+            depth -= 1
+            if not depth:
+                out.append(text[start:match.end()])
+        macro = match.start() if tok.startswith("`") else None
+    if depth:
+        out.append(text[start:])
     return out
 
 
@@ -294,8 +293,10 @@ class Mover:
         # must be byte-identical, or the record was made with something else.
         for path in suite_results.input_files(test):
             name = path.relative_to(ROOT).as_posix()
-            if not name.startswith("tests/") and path.is_file() and at(self.base, name) != path.read_bytes():
-                raise IdentityError(f"{name}: an input outside tests/ changed since {self.base[:7]}")
+            if not name.startswith("tests/"):
+                current = path.read_bytes() if path.is_file() else None
+                if at(self.base, name) != current:
+                    raise IdentityError(f"{name}: an input outside tests/ changed since {self.base[:7]}")
         return self.current[test_id]
 
 
@@ -314,7 +315,6 @@ def refresh(base, retag=False):
         if new:
             entry["inputs_sha256"] = new
             n += 1
-    write_json(index_path, index, 2)
     moved["coverage/test_index.json"] = n
     causes_path = ROOT / "coverage" / "known_causes.json"
     causes = json.loads(causes_path.read_text(encoding="utf-8"))
@@ -324,14 +324,17 @@ def refresh(base, retag=False):
         if new:
             entry["inputs_sha256"] = new
             n += 1
+    write_json(index_path, index, 2)
     write_json(causes_path, causes, 2)
     moved["coverage/known_causes.json"] = n
     return moved
 
 
 def carry(base, record_path, output_path, retag=False):
-    mover = Mover(base, retag)
     record = json.loads(record_path.read_text(encoding="utf-8"))
+    if retag and record.get("simulator") not in ("ghost", "kirimasim"):
+        raise IdentityError("--retag can carry only ghost or kirimasim records")
+    mover = Mover(base, retag)
     n = 0
     for test_id, entry in record["tests"].items():
         recorded = entry.get("inputs_sha256")

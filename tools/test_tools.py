@@ -99,10 +99,11 @@ class LibraryDigest(Sample):
         self.assertEqual((top / "src/x.sv").read_bytes(), b"one\n")
 
     def test_an_archive_without_exactly_one_top_directory_is_refused(self):
-        with self.assertRaisesRegex(ValueError, "one top directory"):
-            fetch_uvm.extract(self.archive({"a/x": b"1", "b/y": b"2"}), self.root)
-        with self.assertRaisesRegex(ValueError, "one top directory"):
-            fetch_uvm.extract(self.archive({"x.sv": b"bare"}), self.root)
+        for members in ({"a/x": b"1", "b/y": b"2"}, {"x.sv": b"bare"},
+                        {"a/x": b"1", "x.sv": b"bare"}):
+            with self.subTest(members=members), tempfile.TemporaryDirectory() as dest:
+                with self.assertRaisesRegex(ValueError, "one top directory"):
+                    fetch_uvm.extract(self.archive(members), Path(dest))
 
     def test_a_link_in_the_archive_is_refused(self):
         data = io.BytesIO()

@@ -52,20 +52,14 @@ def load(path: Path) -> dict:
 
 def lrm(fields: dict[str, str]) -> dict[str, set[str]]:
     """The clause tokens of each standard in a test's :lrm: field."""
-    text = fields.get("lrm", "")
     out = {}
-    for index, standard in enumerate(STANDARDS):
-        start = text.find(standard)
-        if start < 0:
-            continue
-        start += len(standard)
-        end = len(text)
-        for later in STANDARDS[index + 1:]:
-            found = text.find(later, start)
-            if found >= 0:
-                end = min(end, found)
-        out[standard] = {token for token in text[start:end].split()
-                         if re.fullmatch(r"(?:[A-Z]\.)?\d+(?:\.\d+)*", token)}
+    standard = None
+    for token in fields.get("lrm", "").split():
+        if token in STANDARDS:
+            standard = token
+            out.setdefault(standard, set())
+        elif standard and re.fullmatch(r"(?:[A-Z]\.)?\d+(?:\.\d+)*", token):
+            out[standard].add(token)
     return out
 
 
@@ -146,15 +140,12 @@ def main(argv=None) -> int:
     except (OSError, ValueError, json.JSONDecodeError) as error:
         print(f"{args.file}: {error}", file=sys.stderr)
         return 1
-    if args.command == "summary":
-        print(summary(data))
-        return 0
     found = problems(data)
     for problem in found:
         print(problem)
     if found:
         return 1
-    print(f"uvm_reports: {summary(data)}")
+    print(f"uvm_reports: {summary(data)}" if args.command == "check" else summary(data))
     return 0
 
 

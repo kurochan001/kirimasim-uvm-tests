@@ -18,6 +18,7 @@ class ChangedInputs(unittest.TestCase):
                       if ROOT / self.helper in suite_results.input_files(t)]
 
     def test_canary_is_a_tagged_check(self):
+        self.assertTrue(self.canary)
         for path in self.canary:
             self.assertIn(path, self.tests)
 
@@ -99,8 +100,8 @@ class Directories(unittest.TestCase):
         self.assertFalse(any(t.parent.name == "u05" for t in selected))
 
     def test_unknown_directories_are_rejected(self):
-        for name in ("u99", "../tools", "u05/helpers"):
-            with self.assertRaises(ValueError):
+        for name in ("", ".", "..", "u99", "../tools", "u05/helpers"):
+            with self.subTest(name=name), self.assertRaises(ValueError):
                 ci_select.in_directories(self.tests, [name])
 
     def test_shard_count_follows_the_narrowed_size(self):
@@ -120,7 +121,11 @@ class Directories(unittest.TestCase):
         self.assertEqual((narrow["cmdline"], narrow["regex"]), ("false", "false"))
         uc = ci_select.regression_plan(["uC"])
         self.assertEqual(uc["cmdline"], "true")
-        self.assertTrue(all(name.startswith("tests/") for name in uc["cmdline_tests"].split()))
+        cmdline_tests = uc["cmdline_tests"].split()
+        self.assertIn("tests/uC/test_regex_resource_db_scope_119.sv", cmdline_tests)
+        for name in cmdline_tests:
+            self.assertTrue(any(p.is_relative_to(ROOT / "tests/uC")
+                                for p in suite_results.input_files(ROOT / name)), name)
 
 
 if __name__ == "__main__":

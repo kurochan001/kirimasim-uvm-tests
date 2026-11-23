@@ -55,6 +55,8 @@ class FullOutput(unittest.TestCase):
         self.assertEqual(full_output.first_difference("a\nlong line\n", "a\n"),
                          {"line": 2, "base": "long line", "other": None})
         self.assertEqual(full_output.first_difference("x" * 300, "")["base"], "x" * 200)
+        self.assertEqual(full_output.first_difference("a\n", "a"),
+                         {"line": 1, "base": "a\n", "other": "a"})
 
     def test_the_index_lists_the_digest_and_the_status_of_each_output(self):
         out = self.root / "cap"
@@ -114,6 +116,20 @@ class FullOutput(unittest.TestCase):
         (self.root / "index.json").write_text(json.dumps({"kind": "other"}))
         with self.assertRaisesRegex(ValueError, "not a capture"):
             full_output.load_capture(self.root)
+
+    def test_compare_refuses_missing_or_changed_output_even_when_the_indexes_match(self):
+        base = self.capture("base", {"u05/test_a": "UT: 1\n"})
+        other = self.capture("other", {"u05/test_a": "UT: 1\n"})
+        output = other / "u05/test_a.txt"
+        for content in (None, b"UT: 2\n", b"UT: 1\r\n"):
+            with self.subTest(content=content):
+                if content is None:
+                    output.unlink()
+                else:
+                    output.write_bytes(content)
+                with contextlib.redirect_stderr(io.StringIO()) as err:
+                    self.assertEqual(full_output.main(["compare", str(base), str(other)]), 1)
+                self.assertIn("test_a.txt", err.getvalue())
 
     def test_the_recorder_keeps_only_simulation_output_and_restores_the_module(self):
         calls = []

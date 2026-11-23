@@ -128,7 +128,7 @@ def write_capture(out: Path, simulator: str, version: str, seed, runner_sha: str
     for name, text in sorted(outputs.items()):
         path = out / (name + ".txt")
         path.parent.mkdir(parents=True, exist_ok=True)
-        path.write_text(text, encoding="utf-8")
+        path.write_bytes(text.encode("utf-8"))
         files[name] = {"sha256": digest(text), "lines": text.count("\n"),
                        "status": statuses.get(name)}
     index = {"kind": "full-output-capture", "simulator": simulator, "version": version,
@@ -201,9 +201,21 @@ def load_capture(directory: Path) -> dict:
     if not index.is_file():
         raise ValueError(f"{directory}: not a capture (no index.json)")
     data = json.loads(index.read_text(encoding="utf-8"))
-    if data.get("kind") != "full-output-capture":
+    if (not isinstance(data, dict) or data.get("kind") != "full-output-capture"
+            or not isinstance(data.get("tests"), dict)
+            or not {"simulator", "version", "seed", "uvm"} <= data.keys()):
         raise ValueError(f"{directory}: not a capture")
     return data
+
+
+def read_output(directory: Path, name: str, entry: dict) -> str:
+    path = directory / (name + ".txt")
+    if not path.resolve().is_relative_to(directory.resolve()) or not path.is_file():
+        raise ValueError(f"{path}: missing or invalid capture file")
+    output = path.read_bytes()
+    if not isinstance(entry, dict) or hashlib.sha256(output).hexdigest() != entry.get("sha256"):
+        raise ValueError(f"{path}: output does not match the capture index")
+    return output.decode("utf-8")
 
 
 def observed(text: str) -> list[str]:
@@ -212,14 +224,16 @@ def observed(text: str) -> list[str]:
 
 def first_difference(a: str, b: str) -> dict:
     """The first line at which two outputs differ."""
-    la, lb = a.splitlines(), b.splitlines()
+    la, lb = a.splitlines(keepends=True), b.splitlines(keepends=True)
     for number, (x, y) in enumerate(zip(la, lb), 1):
         if x != y:
+            if x.rstrip("\r\n") != y.rstrip("\r\n"):
+                x, y = x.rstrip("\r\n"), y.rstrip("\r\n")
             return {"line": number, "base": x[:200], "other": y[:200]}
     number = min(len(la), len(lb)) + 1
-    longer = la if len(la) > len(lb) else lb
-    return {"line": number, "base": la[number - 1][:200] if longer is la else None,
-            "other": lb[number - 1][:200] if longer is lb else None}
+    return {"line": number,
+            "base": la[number - 1].rstrip("\r\n")[:200] if len(la) >= number else None,
+            "other": lb[number - 1].rstrip("\r\n")[:200] if len(lb) >= number else None}
 
 
 def compare(base_dir: Path, other_dir: Path) -> dict:
@@ -227,16 +241,15 @@ def compare(base_dir: Path, other_dir: Path) -> dict:
     names = sorted(set(base["tests"]) | set(other["tests"]))
     tests, counts = {}, Counter()
     for name in names:
-        in_base, in_other = name in base["tests"], name in other["tests"]
-        if not (in_base and in_other):
-            kind = "missing in other" if in_base else "missing in base"
+        a = read_output(base_dir, name, base["tests"][name]) if name in base["tests"] else None
+        b = read_output(other_dir, name, other["tests"][name]) if name in other["tests"] else None
+        if a is None or b is None:
+            kind = "missing in base" if a is None else "missing in other"
             tests[name] = {"result": kind}
-        elif base["tests"][name]["sha256"] == other["tests"][name]["sha256"]:
+        elif a == b:
             kind = "identical"
             tests[name] = {"result": kind}
         else:
-            a = (base_dir / (name + ".txt")).read_text(encoding="utf-8")
-            b = (other_dir / (name + ".txt")).read_text(encoding="utf-8")
             same_observed = observed(a) == observed(b)
             kind = "differs outside UT lines" if same_observed else "differs in UT lines"
             tests[name] = {"result": kind, "first": first_difference(a, b)}
@@ -270,7 +283,7 @@ def main(argv=None) -> int:
         return capture_verilator(args) if args.simulator == "verilator" else capture_kirimasim(args)
     try:
         result = compare(args.base, args.other)
-    except ValueError as error:
+    except (OSError, ValueError) as error:
         print(f"full_output: {error}", file=sys.stderr)
         return 1
     if args.json:

@@ -132,11 +132,26 @@ class CodeIdentity(unittest.TestCase):
             self.git("checkout", "--", ".")
         self.edit("tests/u05/test_a.sv", ":oracle: spec verilator@5.052", ":oracle: spec")
         record = self.root / "ghost.json"
-        record.write_text(json.dumps({"tests": {"u05/test_a": {"inputs_sha256": self.digest}}}))
+        record.write_text(json.dumps({"simulator": "ghost", "tests": {
+            "u05/test_a": {"inputs_sha256": self.digest}}}))
         self.assertEqual(code_identity.carry(self.base, record, record, retag=True), 1)
         carried = json.loads(record.read_text())
         self.assertEqual(carried["tests"]["u05/test_a"]["carried_from"], self.digest)
         self.assertIn("simulator tags", carried["carried_forward"][0]["rule"])
+
+    def test_retag_requires_a_guest_record_before_carrying_results(self):
+        self.edit("tests/u05/test_a.sv", "verilator@5.052", "verilator@5.054")
+        record = self.root / "results.json"
+        for simulator in ("verilator", "verilator_cmdline", "verilator_hdl", "verilator_regex",
+                          None):
+            with self.subTest(simulator=simulator):
+                data = {"tests": {"u05/test_a": {"status": "pass", "inputs_sha256": self.digest}}}
+                if simulator is not None:
+                    data["simulator"] = simulator
+                record.write_text(json.dumps(data))
+                with self.assertRaisesRegex(code_identity.IdentityError, "retag"):
+                    code_identity.carry(self.base, record, record, retag=True)
+                self.assertEqual(json.loads(record.read_text()), data)
 
     def test_retag_leaves_the_other_words_and_fields_pinned(self):
         # `verilator@` without a release is not a simulator tag word, and a
@@ -196,6 +211,14 @@ class CodeIdentity(unittest.TestCase):
         self.edit("tests/u05/helpers/h.svh", "class h;", "class\u3000h;")
         self.rejects("tokens differ")
 
+    def test_comments_and_quoted_parentheses_do_not_end_macro_arguments(self):
+        for body in ('x /* ) */ + y', '"a)" + y', r'"a\\" + y'):
+            old = f'module t; initial $display(`SHOW({body})); endmodule'
+            changed = old.replace(" + y", "  + y")
+            with self.subTest(body=body):
+                self.assertIn("the text of a macro's arguments differs",
+                              code_identity.source_problems(old.encode(), changed.encode()))
+
     def test_a_changed_input_outside_tests_stops_the_move(self):
         self.write("tests/u05/test_a.sv", TEST.replace(":files:", ":dpi_c: @../../tools/bridge.cpp\n:files:"))
         self.git("add", "-A")
@@ -216,6 +239,11 @@ class CodeIdentity(unittest.TestCase):
         self.edit("tests/u05/test_a.expected", "UT: 3", "UT: 4")
         self.rejects("not a source, but its bytes differ")
 
+    def test_a_removed_library_lock_stops_the_move(self):
+        (self.root / "third_party/uvm.lock").unlink()
+        with self.assertRaisesRegex(code_identity.IdentityError, "outside tests/ changed"):
+            code_identity.refresh(self.base)
+
     def test_refresh_moves_fingerprints_recorded_at_the_base(self):
         self.readable()
         moved = code_identity.refresh(self.base)
@@ -231,6 +259,15 @@ class CodeIdentity(unittest.TestCase):
         self.edit("tests/u05/helpers/h.svh", "n = 1;", "n = 2;")
         with self.assertRaises(code_identity.IdentityError):
             code_identity.refresh(self.base)
+
+    def test_refresh_validates_both_records_before_updating_the_index(self):
+        self.readable()
+        index = self.root / "coverage/test_index.json"
+        before = index.read_bytes()
+        self.write("coverage/known_causes.json", "{")
+        with self.assertRaises(json.JSONDecodeError):
+            code_identity.refresh(self.base)
+        self.assertEqual(index.read_bytes(), before)
 
     def test_carry_moves_only_records_made_at_the_base(self):
         self.readable()

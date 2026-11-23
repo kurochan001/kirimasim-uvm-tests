@@ -64,6 +64,10 @@ class ReportsTest(unittest.TestCase):
             "error": False, "fatal": True, "basis": ["1800.2-2020 F.7.2.1"]}}}
         self.assertEqual(uvm_reports.problems(data), [])
 
+    def test_switching_back_to_the_first_standard_keeps_the_citations_separate(self):
+        cited = uvm_reports.lrm({"lrm": "1800.2-2020 5.7.2.2 1800-2023 6.21 1800.2-2020 5.7.2.3"})
+        self.assertEqual(cited, {"1800.2-2020": {"5.7.2.2", "5.7.2.3"}, "1800-2023": {"6.21"}})
+
     def test_booleans_are_required(self):
         data = self.data({"error": 1, "fatal": False,
                           "basis": ["1800.2-2020 5.7.2.2"]})
@@ -139,6 +143,13 @@ class ReportsTest(unittest.TestCase):
         with contextlib.redirect_stdout(stream):
             self.assertEqual(uvm_reports.main(["check", "--file", str(bad)]), 1)
         self.assertIn("schema is 2", stream.getvalue())
+
+    def test_summary_refuses_an_invalid_declaration(self):
+        bad = self.root / "bad.json"
+        bad.write_text(json.dumps({"schema": 1, "tests": {TEST: None}}))
+        with contextlib.redirect_stdout(io.StringIO()) as out:
+            self.assertEqual(uvm_reports.main(["summary", "--file", str(bad)]), 1)
+        self.assertIn("entry is not an object", out.getvalue())
 
 
 if __name__ == "__main__":

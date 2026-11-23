@@ -42,15 +42,19 @@ def digest(tree: Path) -> tuple[str, int]:
 def extract(data: bytes, into: Path) -> Path:
     """Extract an archive with one top directory and return that directory."""
     with tarfile.open(fileobj=io.BytesIO(data), mode="r:gz") as archive:
+        tops = set()
         for member in archive.getmembers():
             name = Path(member.name)
-            if name.is_absolute() or ".." in name.parts or member.issym() or member.islnk():
+            if name.is_absolute() or ".." in name.parts or not (member.isfile() or member.isdir()):
                 raise ValueError(f"unsafe archive member: {member.name}")
+            if name.parts:
+                tops.add(name.parts[0])
+            if member.isfile() and len(name.parts) < 2:
+                raise ValueError("the archive does not hold exactly one top directory")
+        if len(tops) != 1:
+            raise ValueError("the archive does not hold exactly one top directory")
         archive.extractall(into)
-    tops = [p for p in into.iterdir() if p.is_dir()]
-    if len(tops) != 1:
-        raise ValueError("the archive does not hold exactly one top directory")
-    return tops[0]
+    return into / tops.pop()
 
 
 def check(target: Path, lock: dict) -> str:

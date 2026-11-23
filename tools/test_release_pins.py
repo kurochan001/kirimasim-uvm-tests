@@ -24,11 +24,13 @@ import lint_metadata
 
 ROOT = Path(__file__).resolve().parent.parent
 ACTION = ROOT / ".github" / "actions" / "setup-verilator" / "action.yml"
+OTHER_VERSION = "Verilator 0.000 test"
 
 
 def call_main(module, version, argv):
     """main() under a recorded `verilator --version` and argv; returns (code, stderr)."""
     with (mock.patch.object(module.suite_results, "tool_version", return_value=version),
+          mock.patch.object(module, "run", side_effect=AssertionError("unexpected simulator run")),
           mock.patch.object(sys, "argv", argv),
           mock.patch("sys.stderr", new_callable=io.StringIO) as err,
           mock.patch("sys.stdout", new_callable=io.StringIO)):
@@ -49,6 +51,7 @@ class ReleaseConstants(unittest.TestCase):
         text = ACTION.read_text(encoding="utf-8")
         spelled = re.findall(r"Verilator (\d+\.\d+)", text)
         keyed = re.findall(r"verilator-v(\d+\.\d+)", text)
+        self.assertEqual(re.findall(r"--branch\s+v(\S+)", text), [run_verilator.RELEASE])
         self.assertTrue(spelled and keyed)
         for found in spelled + keyed:
             self.assertEqual(found, run_verilator.RELEASE,
@@ -67,7 +70,7 @@ class ConditionVersionGates(unittest.TestCase):
     """Each condition runner refuses a release other than the pinned one."""
 
     def test_cmdline_refuses_another_release_and_passes_the_gate_otherwise(self):
-        code, err = call_main(cmdline, "Verilator 5.056 2027-01-01 rev v5.056",
+        code, err = call_main(cmdline, OTHER_VERSION,
                               ["run_verilator_cmdline.py"])
         self.assertEqual(code, 2)
         self.assertIn(f"Verilator {run_verilator.RELEASE}", err)
@@ -78,7 +81,7 @@ class ConditionVersionGates(unittest.TestCase):
         self.assertIn("no command-line fixtures selected", err)
 
     def test_hdl_refuses_another_release_and_passes_the_gate_otherwise(self):
-        code, err = call_main(hdl, "Verilator 5.053 2026-01-01 rev v5.053",
+        code, err = call_main(hdl, OTHER_VERSION,
                               ["run_verilator_hdl.py"])
         self.assertEqual(code, 2)
         self.assertIn(f"Verilator {run_verilator.RELEASE}", err)
@@ -89,7 +92,7 @@ class ConditionVersionGates(unittest.TestCase):
         self.assertIn("no VPI HDL fixtures selected", err)
 
     def test_regex_refuses_another_release_and_passes_the_gate_otherwise(self):
-        code, err = call_main(regex, "Verilator 5.056 2027-01-01 rev v5.056",
+        code, err = call_main(regex, OTHER_VERSION,
                               ["run_verilator_regex.py"])
         self.assertEqual(code, 2)
         self.assertIn(f"Verilator {run_verilator.RELEASE}", err)
@@ -104,14 +107,11 @@ class ConditionVersionGates(unittest.TestCase):
         # The conditions' tags say the evidence came from that condition's
         # release; a survey has no place in them, so only the ordinary runner
         # carries --any-release.
-        code, err = call_main(cmdline, "Verilator 5.056 2027-01-01 rev v5.056",
-                              ["run_verilator_cmdline.py", "--any-release"])
-        self.assertEqual(code, 2)
-        self.assertIn("unrecognized arguments: --any-release", err)
-        code, err = call_main(regex, "Verilator 5.056 2027-01-01 rev v5.056",
-                              ["run_verilator_regex.py", "--any-release"])
-        self.assertEqual(code, 2)
-        self.assertIn("unrecognized arguments: --any-release", err)
+        for module in (cmdline, hdl, regex):
+            with self.subTest(module=module.__name__):
+                code, err = call_main(module, OTHER_VERSION, [module.__name__, "--any-release"])
+                self.assertEqual(code, 2)
+                self.assertIn("unrecognized arguments: --any-release", err)
 
 
 if __name__ == "__main__":

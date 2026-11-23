@@ -153,9 +153,11 @@ class Frontend(unittest.TestCase):
         with mock.patch.object(slang_elaborate, "elaborate", side_effect=fake):
             problems, first = slang_elaborate.check(self.data, [], 1, self.root)
         self.assertEqual(problems, [])
-        self.assertEqual(first["u05/test_strict"], "out of range")
-        self.assertIn(("test_unit", ("--std=1800-2023", "--single-unit")), calls)
-        self.assertEqual(sum(name == "test_clean" for name, _ in calls), 1)
+        fixtures = list((self.root / "tests/u05").glob("test_*.sv"))
+        self.assertEqual(first, {f"u05/{t.stem}": outputs.get(t.stem) for t in fixtures})
+        expected = [(t.stem, ("--std=1800-2023",)) for t in fixtures]
+        expected.append(("test_unit", ("--std=1800-2023", "--single-unit")))
+        self.assertCountEqual(calls, expected)
 
 
 if __name__ == "__main__":

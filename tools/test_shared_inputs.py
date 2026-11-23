@@ -49,8 +49,9 @@ class LibraryLock(unittest.TestCase):
         self.assertEqual(lock["version"], "2020.3.1")
         target = uvm_common.ROOT / "third_party" / "uvm" / lock["version"]
         self.assertTrue(target.is_dir(), "fetch_uvm places the library where uvm_common reads it")
-        self.assertTrue((target / "src" / "uvm_pkg.sv").is_file()
-                        or list(target.rglob("uvm_pkg.sv")), "the library holds uvm_pkg.sv")
+        package = target / "src" / "uvm_pkg.sv"
+        self.assertEqual(uvm_common.sources(), [package])
+        self.assertTrue(package.is_file(), "the runner's UVM package is missing")
 
     def test_the_condition_records_name_the_locked_library(self):
         # The two runners that link the regex DPI write the library version

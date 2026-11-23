@@ -125,7 +125,7 @@ def in_directories(tests: list[Path], directories: list[str]) -> list[Path]:
     roots = []
     for name in directories:
         root = (ROOT / "tests" / name).resolve()
-        if "/" in name or not root.is_dir():
+        if name in ("", ".", "..") or "/" in name or not root.is_dir():
             raise ValueError(f"no test directory {name!r}")
         roots.append(root)
     return [t for t in tests
