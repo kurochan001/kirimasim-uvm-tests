@@ -7233,3 +7233,20 @@ Run the paired-response case from the repository root with the pinned Verilator 
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
   tests/u19/test_rtl_separate_responses_preserve_status_and_data_of_two_outstanding_register_reads.sv
 ```
+
+## 2026-11-25 Ghost library-mode retest
+
+The retest used Ghost with the locked Accellera UVM 2020.3.1 library and the 2,794 fixtures at suite commit `858f16f9`. Each round used fixed copies of its executable and DPI library. Seven rounds completed and a partial eighth ended at the time limit. The runners recorded 58,065 fixture and seed attempts, including repeated seeds and compile checks.
+
+The first full round matched 2,299 of 2,794 inputs at seed 1 and 2,300 at seed 73. The later snapshot ran six complete rounds with seeds 1 and 73 plus a different seed in each round (211 through 261 in steps of ten). Seed 1 matched 2,311 inputs in all six rounds. Seed 73 and the additional seeds each matched 2,310 or 2,311 inputs. Compared with the preceding full measurement at seed 1 on the same inputs, 34 fixtures recovered and one fixture changed from a match to a mismatch. [How to read the result counts](results.md#interpretation)
+
+Four reported simulator issues reproduced at seeds 1 and 73. All four checks passed after the respective fixes. The original standalone reproducers were also checked with Verilator 5.054 and the pinned library.
+
+- An integer property configured before sequence start should stay zero after both calls to `finish_item()`. [Reproducer](repro/2026-11-25/sequence_integer.sv)
+- String, real, array and struct properties configured before sequence start should retain the same values through both calls. [Reproducer](repro/2026-11-25/sequence_data.sv)
+- A class property explicitly set to null should stay null after both calls. Two non-null control properties retain their handle identity. [Reproducer](repro/2026-11-25/sequence_null_handle.sv)
+- The RTL phase traversal fixture should finish normally with the expected phase counts, data and drain time. The earlier snapshot stopped during traversal. A variant without the phase jump also reproduced the problem. [Integration fixture](../tests/u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137.sv)
+
+Among the fixtures that previously matched at seed 1, the silent barrier reset mismatch persisted across the later rounds. With the pinned library, `reset(0)` assigns a fresh event to the internal event variable. A trigger on the fresh event releases the three newly registered waiters. The two processes waiting on the old event remain blocked, as specified for event reassignment in IEEE 1800-2023 §15.5.5.1. The suite's expectation that all five finish remains a separate item for review. [Barrier fixture](../tests/u10/test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold.sv)
+
+The object-configuration fixture varied between repeats at seed 73. The memory-allocation fixture matched at seed 231 and differed at the other measured seeds in the later rounds. These observations leave the cause of both differences open. [Object configuration](../tests/u05/test_object_set_local_virtual_extension_selects_named_resource_properties.sv) · [Memory allocation](../tests/u18/test_mam_greedy_fresh_low_history_89.sv)
