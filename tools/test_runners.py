@@ -19,7 +19,7 @@ import uvm_common
 import fetch_uvm
 
 PROFILE = {"arguments": ["--quiet"], "environment": {"PRIVATE_SETTING": "1"},
-           "uvm_mode": "bundled", "uvm_embedded": True}
+           "uvm_mode": "pinned"}
 
 
 def result(stdout="UT: done\n", code=0, stderr=""):
@@ -222,25 +222,18 @@ class KirimasimConditions(RunnerTest):
 
 
 class GhostEvidence(RunnerTest):
-    def execute(self, completed, profile=None):
+    def execute(self, completed):
         with mock.patch.object(run_ghost.subprocess, "run", return_value=completed) as execute:
-            verdict = run_ghost.run(self.test, "/private/simulator", profile or PROFILE)
+            verdict = run_ghost.run(self.test, "/private/simulator", PROFILE)
         return verdict, execute.call_args
 
-    def test_bundled_library_does_not_compile_a_second_package(self):
-        verdict, call = self.execute(result())
-        self.assertEqual(verdict, ("pass", ""))
-        self.assertNotIn(str(uvm_common.sources()[0]), call.args[0])
-        self.assertEqual(call.kwargs["env"]["PRIVATE_SETTING"], "1")
-
     def test_pinned_library_precedes_the_test_sources(self):
-        profile = {k: v for k, v in PROFILE.items() if k != "uvm_embedded"}
-        with mock.patch.object(uvm_common, "version_problem", return_value=""):
-            verdict, call = self.execute(result(), {**profile, "uvm_mode": "pinned"})
+        verdict, call = self.execute(result())
         self.assertEqual(verdict, ("pass", ""))
         command = call.args[0]
         self.assertLess(command.index(str(uvm_common.sources()[0])), command.index(str(self.test)))
         self.assertIn("+define+UVM_NO_DPI", command)
+        self.assertEqual(call.kwargs["env"]["PRIVATE_SETTING"], "1")
 
     def test_private_output_is_not_in_failure_reasons(self):
         verdict, _ = self.execute(result("private-brand internal.cpp:42\n", 255,
@@ -281,21 +274,17 @@ class GhostEvidence(RunnerTest):
                         {**PROFILE, "arguments": "--quiet"},
                         {**PROFILE, "environment": {"KEY": 1}},
                         {**PROFILE, "uvm_library_dir": "/private/uvm"},
-                        {k: v for k, v in PROFILE.items() if k != "uvm_embedded"}):
+                        {**PROFILE, "uvm_embedded": True},
+                        {k: v for k, v in PROFILE.items() if k != "uvm_mode"}):
             with self.subTest(profile=profile), self.assertRaises(ValueError):
                 run_ghost.parse_profile(json.dumps(profile).encode())
 
-    def cli(self, mode, execute=None, library_dir=None):
+    def cli(self, execute=None):
         executable = self.root / "private-brand"
         executable.write_text(f"#!{sys.executable}\nprint('private-brand secret.cpp:42')\n")
         executable.chmod(0o700)
         profile = self.root / "private-profile.json"
-        settings = {**PROFILE, "uvm_mode": mode}
-        if mode == "pinned" or library_dir is not None:
-            settings.pop("uvm_embedded")
-        if library_dir is not None:
-            settings["uvm_library_dir"] = str(library_dir)
-        profile.write_text(json.dumps(settings))
+        profile.write_text(json.dumps(PROFILE))
         output = self.root / "result.json"
         log = io.StringIO()
         with (mock.patch.object(suite_results, "ROOT", self.root),
@@ -309,30 +298,20 @@ class GhostEvidence(RunnerTest):
             else:
                 with mock.patch.object(run_ghost, "run", side_effect=execute):
                     code = run_ghost.main()
-        return code, log.getvalue(), output, profile
+        return code, log.getvalue(), output
 
-    def test_public_results_keep_private_identity_out_and_mark_bundled_library(self):
-        code, log, output, _ = self.cli("bundled")
+    def test_public_results_keep_private_identity_out_and_record_pinned_library(self):
+        code, log, output = self.cli()
         self.assertEqual(code, 1)
         data = json.loads(output.read_text())
-        self.assertEqual(data["configuration"]["uvm_source"], "bundled")
-        self.assertFalse(data["configuration"]["uvm_pinned"])
-        self.assertNotIn("uvm_content_sha256", data["configuration"])
+        configuration = data["configuration"]
+        self.assertEqual(configuration["uvm_source"], "pinned")
+        self.assertTrue(configuration["uvm_pinned"])
+        self.assertEqual(configuration["uvm_content_sha256"], uvm_common.lock()["content_sha256"])
+        self.assertEqual(configuration["uvm_files"], uvm_common.lock()["files"])
         self.assertRegex(data["version"], r"^private build [0-9a-f]{12}$")
         for private in ("private-brand", "secret.cpp", str(self.root), "PRIVATE_SETTING"):
             self.assertNotIn(private, log + output.read_text())
-
-    def test_pinned_results_record_the_library_digest(self):
-        library = {"uvm_library": "pinned",
-                   "uvm_content_sha256": uvm_common.lock()["content_sha256"],
-                   "uvm_files": uvm_common.lock()["files"]}
-        with mock.patch.object(run_ghost, "library_state", return_value=library):
-            code, _, output, _ = self.cli("pinned", lambda *args: ("pass", ""))
-        self.assertEqual(code, 0)
-        configuration = json.loads(output.read_text())["configuration"]
-        self.assertTrue(configuration["uvm_pinned"])
-        self.assertEqual(configuration["uvm_content_sha256"],
-                         uvm_common.lock()["content_sha256"])
 
     def test_changed_profile_discards_results(self):
         def change_profile(*args):
@@ -340,7 +319,7 @@ class GhostEvidence(RunnerTest):
             return "pass", ""
 
         with contextlib.redirect_stderr(io.StringIO()):
-            code, _, output, _ = self.cli("bundled", change_profile)
+            code, _, output = self.cli(change_profile)
         self.assertEqual(code, 2)
         self.assertFalse(output.exists())
 
@@ -350,26 +329,19 @@ class GhostEvidence(RunnerTest):
         (directory / "uvm_pkg.sv").write_text("package uvm_pkg; endpackage\n")
         return directory
 
-    def test_bundled_library_digest_is_canonical_and_paths_stay_private(self):
-        directory = self.library()
-        value, count = fetch_uvm.digest(directory)
-        code, log, output, _ = self.cli("bundled", lambda *args: ("pass", ""), directory)
-        self.assertEqual(code, 0)
-        configuration = json.loads(output.read_text())["configuration"]
-        self.assertEqual(configuration["uvm_content_sha256"], value)
-        self.assertEqual(configuration["uvm_files"], count)
-        self.assertFalse(configuration["uvm_pinned"])
-        self.assertNotIn(str(directory), log + output.read_text())
-
     def test_library_change_discards_results_even_with_unchanged_executable(self):
         directory = self.library()
+        value, count = fetch_uvm.digest(directory)
+        lock = {**uvm_common.lock(), "content_sha256": value, "files": count}
 
         def change_library(*args):
             (directory / "uvm_pkg.sv").write_text("package uvm_pkg; int changed; endpackage\n")
             return "pass", ""
 
-        with contextlib.redirect_stderr(io.StringIO()):
-            code, _, output, _ = self.cli("bundled", change_library, directory)
+        with (mock.patch.object(uvm_common, "library_dir", return_value=directory),
+              mock.patch.object(uvm_common, "lock", return_value=lock),
+              contextlib.redirect_stderr(io.StringIO())):
+            code, _, output = self.cli(change_library)
         self.assertEqual(code, 2)
         self.assertFalse(output.exists())
 
