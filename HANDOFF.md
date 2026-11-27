@@ -2,6 +2,10 @@
 
 [English](#english)
 
+**最新の引き継ぎ**。11月27日のGhost両方式検証は全11,176試行が完了しました。測定結果、起票一覧、修正後の再検証手順はこちらです。 [Ghost両方式検証の引き継ぎ](docs/ghost-dual-handoff.ja.md)
+
+以下は11月26日のライブラリ方式の再測定記録です。
+
 2026-11-27 更新。Ghost のライブラリ方式と通常の SystemVerilog で見つかった不具合の調査を、ここから再開できます。UVM は固定版 Accellera UVM 2020.3.1 を使います。ほかの開発作業の再開手順もあります。 [日本語の開発ハンドオフ](docs/handoff.ja.md#再開と基本確認) · [English development handoff](docs/handoff.md#resume-and-verify)
 
 ## 最初に確認すること
@@ -34,6 +38,10 @@ tail -n 10 "$run/full.err"
 別のチェックアウトでは、版管理下の再現コードとGhostの実行ガイドから再開できます。 [再現コード](docs/repro/2026-11-25/) · [ライブラリ方式の実行手順](docs/testing.ja.md#ghost)
 
 ## English
+
+**Latest handoff.** The November 27 Ghost run completed all 11,176 trials across both modes. See the results, issue index and steps for retesting fixes. [Ghost dual-mode verification handoff](docs/ghost-dual-handoff.md)
+
+The notes below cover the November 26 library-mode retest.
 
 Updated November 27, 2026. Resume the Ghost investigation here for both ordinary SystemVerilog and library mode with pinned Accellera UVM 2020.3.1. For other work, see the [development handoff](docs/handoff.md#resume-and-verify).
 

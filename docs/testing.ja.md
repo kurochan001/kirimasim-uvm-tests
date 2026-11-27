@@ -622,6 +622,12 @@ JSONは`tests`内の各ケースに`status`、記録がある場合は`reason`�
 
 Ghostは利用が認められた非公開シミュレータの公開用の仮名であり、結果が前提にするライブラリのモードは[Q11](faq.ja.md#q11-ghostの結果は何を確認しなぜ仮名なのですか)で説明しています。
 
+Ghostの定期回帰には、非公開プロファイルで `uvm_mode: pinned` を指定します。
+Checkは固定版プロファイルと模擬実行ファイルでGhostランナーを検査します。
+同梱プロファイルは手動再現に使えます。
+
+![Ghostの定期回帰は固定版UVMを使うライブラリ方式、手動再現はGhostがUVMを供給する組み込み方式。比較には結果JSONのUVM供給元を使う。](images/ghost-modes.ja.svg)
+
 ```sh
 python3 tools/run_ghost.py --simulator /path/to/private/simulator \
   --profile /path/to/private-profile.json -j 2 --json out/ghost.json

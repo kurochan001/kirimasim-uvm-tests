@@ -1,6 +1,6 @@
 # kirimasim-uvm-tests
 
-[日本語](README.ja.md) · [OpenCode handoff](HANDOFF.md#english)
+[日本語](README.ja.md) · [Verification handoff](HANDOFF.md#english)
 
 [![Check](https://github.com/kurochan001/kirimasim-uvm-tests/actions/workflows/check.yml/badge.svg)](https://github.com/kurochan001/kirimasim-uvm-tests/actions/workflows/check.yml)
 [![License: Apache-2.0 WITH LLVM-exception](https://img.shields.io/badge/license-Apache--2.0%20WITH%20LLVM--exception-blue)](LICENSE)

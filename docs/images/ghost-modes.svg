@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception -->
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="382"
+     viewBox="0 0 820 382" role="img" aria-labelledby="title desc" xml:lang="en">
+  <title id="title">Ghost execution modes</title>
+  <desc id="desc">The private Ghost profile explicitly chooses a UVM source. The pinned mode compiles the locked Accellera UVM package and is used for routine regression runs. In bundled mode Ghost supplies UVM for manual reproduction. Check uvm_source and uvm_pinned in the resulting JSON before comparing runs.</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif; fill: #18293c; }
+    .label { font-size: 22px; font-weight: 700; }
+    .body { font-size: 18px; fill: #2d4157; }
+    .mode { font: 17px ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .purpose { font-size: 18px; font-weight: 700; }
+    .edge { fill: none; stroke: #52647a; stroke-width: 2; }
+    .arrowhead { fill: #52647a; }
+  </style>
+  <rect width="820" height="382" fill="#ffffff"/>
+  <rect x="25" y="18" width="770" height="75" rx="10" fill="#f4f6f8" stroke="#8797aa"/>
+  <text x="410" y="49" class="label" text-anchor="middle">Private Ghost profile</text>
+  <text x="410" y="75" class="body" text-anchor="middle">The uvm_mode field selects the UVM source</text>
+  <path class="edge" d="M 410 93 V 114 M 210 134 V 114 H 610 V 134"/>
+  <path class="arrowhead" d="M 205 131 H 215 L 210 139 Z M 605 131 H 615 L 610 139 Z"/>
+  <rect x="25" y="142" width="370" height="145" rx="10" fill="#e8f5f3" stroke="#388276"/>
+  <rect x="425" y="142" width="370" height="145" rx="10" fill="#eaf2ff" stroke="#4974ae"/>
+  <g text-anchor="middle">
+    <text x="210" y="174" class="label">Library mode</text>
+    <text x="210" y="201" class="mode">uvm_mode: pinned</text>
+    <text x="210" y="228" class="body">Compile the locked UVM package</text>
+    <text x="210" y="267" class="purpose" fill="#195e54">Routine regression</text>
+    <text x="610" y="174" class="label">Bundled mode</text>
+    <text x="610" y="201" class="mode">uvm_mode: bundled</text>
+    <text x="610" y="228" class="body">Ghost supplies UVM</text>
+    <text x="610" y="267" class="purpose" fill="#315a91">Manual reproduction</text>
+  </g>
+  <path class="edge" d="M 210 287 V 309 H 610 V 287 M 410 309 V 323"/>
+  <path class="arrowhead" d="M 405 321 H 415 L 410 329 Z"/>
+  <rect x="25" y="332" width="770" height="34" rx="8" fill="#f4f6f8" stroke="#8797aa"/>
+  <text x="410" y="356" class="body" text-anchor="middle">Compare runs using uvm_source and uvm_pinned</text>
+</svg>

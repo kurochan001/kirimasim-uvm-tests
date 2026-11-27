@@ -21,6 +21,8 @@ This repository supplies small UVM tests and scripts that run them. A simulator 
 
 The expected result comes from the cited standard. The Accellera library is pinned to the version and content identified by the repository lock file (uvm.lock) and is the implementation exercised, so a mismatch can involve the simulator, library or test. See [the sources of expectations](provenance.md#library-and-standards).
 
+![The cited clause defines the expectation. The runner compares it with simulation output or a compile diagnostic and records the judgment.](images/test-to-result.svg)
+
 A test directory such as `u09` follows its first UVM clause citation; [the layout guide](testing.md#layout) explains chapter and annex names when locating a source.
 
 A reference such as 9.8.1 is a location within the named standard, while a filename suffix such as `_109` identifies a development batch; [the metadata fields](testing.md#metadata) and [development history](history.md) distinguish the rule from the change that added its test.

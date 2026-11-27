@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception -->
+<svg xmlns="http://www.w3.org/2000/svg" width="862" height="344"
+     viewBox="0 0 862 344" role="img" aria-labelledby="title desc" xml:lang="ja">
+  <title id="title">GitHub Actionsの実行条件と検査範囲</title>
+  <desc id="desc">Checkはmainへのpush、プルリクエスト、手動で動き、ツール検証、slangによる全件elaboration、変更されたタグ付き検査とcanaryのVerilator実行を担当します。Regressionは週次または手動でタグ付き検査、コマンドライン検査、regex-DPI変種を実行します。Measureは手動で指定したテストをタグの有無にかかわらず実行します。</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif; fill: #18293c; }
+    .heading { font-size: 24px; font-weight: 700; }
+    .column { font-size: 16px; font-weight: 700; fill: #405269; }
+    .label { font-size: 21px; font-weight: 700; }
+    .body { font-size: 17px; fill: #2d4157; }
+    .divider { fill: none; stroke: #a0afbf; }
+  </style>
+  <rect width="862" height="344" fill="#ffffff"/>
+  <text x="25" y="37" class="heading">GitHub Actionsのワークフロー</text>
+  <text x="45" y="73" class="column">実行条件</text>
+  <text x="236" y="73" class="column">ワークフロー</text>
+  <text x="393" y="73" class="column">検査範囲</text>
+  <g>
+    <rect x="25" y="88" width="812" height="70" rx="9" fill="#eaf2ff" stroke="#8797aa"/>
+    <path class="divider" d="M 215 99 V 147 M 371 99 V 147"/>
+    <text x="45" y="118" class="body">mainへのpush・PR</text>
+    <text x="45" y="141" class="body">手動</text>
+    <text x="236" y="130" class="label">Check</text>
+    <text x="393" y="118" class="body">ツール検証・slangで全件elaboration</text>
+    <text x="393" y="141" class="body">Verilatorで変更分のタグ付き検査とcanary</text>
+  </g>
+  <g>
+    <rect x="25" y="169" width="812" height="70" rx="9" fill="#e8f5f3" stroke="#8797aa"/>
+    <path class="divider" d="M 215 180 V 228 M 371 180 V 228"/>
+    <text x="45" y="199" class="body">週次</text>
+    <text x="45" y="222" class="body">手動</text>
+    <text x="236" y="211" class="label">Regression</text>
+    <text x="393" y="199" class="body">Verilatorのタグ付き検査・コマンドライン検査</text>
+    <text x="393" y="222" class="body">regex-DPI変種</text>
+  </g>
+  <g>
+    <rect x="25" y="250" width="812" height="70" rx="9" fill="#f4f6f8" stroke="#8797aa"/>
+    <path class="divider" d="M 215 261 V 309 M 371 261 V 309"/>
+    <text x="45" y="292" class="body">手動</text>
+    <text x="236" y="292" class="label">Measure</text>
+    <text x="393" y="280" class="body">指定テストをVerilatorで実行（タグの有無を問わず）</text>
+    <text x="393" y="303" class="body">判定と理由を出力</text>
+  </g>
+</svg>

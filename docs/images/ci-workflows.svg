@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception -->
+<svg xmlns="http://www.w3.org/2000/svg" width="862" height="344"
+     viewBox="0 0 862 344" role="img" aria-labelledby="title desc" xml:lang="en">
+  <title id="title">Verilator workflows and CI scope</title>
+  <desc id="desc">Check runs on pushes to main, pull requests, or manually. It validates tools, elaborates all tests with slang, and runs changed tagged tests with Verilator plus a canary. Regression runs weekly or manually and runs the tagged Verilator selection plus command-line and regex-DPI jobs. Measure runs manually for named tests with or without an oracle tag.</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif; fill: #18293c; }
+    .heading { font-size: 24px; font-weight: 700; }
+    .column { font-size: 16px; font-weight: 700; fill: #405269; }
+    .label { font-size: 21px; font-weight: 700; }
+    .body { font-size: 17px; fill: #2d4157; }
+    .divider { fill: none; stroke: #a0afbf; }
+  </style>
+  <rect width="862" height="344" fill="#ffffff"/>
+  <text x="25" y="37" class="heading">GitHub Actions workflows</text>
+  <text x="45" y="73" class="column">Trigger</text>
+  <text x="236" y="73" class="column">Workflow</text>
+  <text x="393" y="73" class="column">Scope</text>
+  <g>
+    <rect x="25" y="88" width="812" height="70" rx="9" fill="#eaf2ff" stroke="#8797aa"/>
+    <path class="divider" d="M 215 99 V 147 M 371 99 V 147"/>
+    <text x="45" y="118" class="body">Push to main · PR</text>
+    <text x="45" y="141" class="body">Manual</text>
+    <text x="236" y="130" class="label">Check</text>
+    <text x="393" y="118" class="body">Tools · slang elaboration for all tests</text>
+    <text x="393" y="141" class="body">Verilator: changed tagged tests + canary</text>
+  </g>
+  <g>
+    <rect x="25" y="169" width="812" height="70" rx="9" fill="#e8f5f3" stroke="#8797aa"/>
+    <path class="divider" d="M 215 180 V 228 M 371 180 V 228"/>
+    <text x="45" y="199" class="body">Weekly</text>
+    <text x="45" y="222" class="body">Manual</text>
+    <text x="236" y="211" class="label">Regression</text>
+    <text x="393" y="199" class="body">Tagged Verilator tests · command-line checks</text>
+    <text x="393" y="222" class="body">Regex-DPI variants</text>
+  </g>
+  <g>
+    <rect x="25" y="250" width="812" height="70" rx="9" fill="#f4f6f8" stroke="#8797aa"/>
+    <path class="divider" d="M 215 261 V 309 M 371 261 V 309"/>
+    <text x="45" y="292" class="body">Manual</text>
+    <text x="236" y="292" class="label">Measure</text>
+    <text x="393" y="280" class="body">Verilator: named tests, with or without a tag</text>
+    <text x="393" y="303" class="body">Reports verdicts and reasons</text>
+  </g>
+</svg>

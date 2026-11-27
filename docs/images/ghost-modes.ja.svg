@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception -->
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="382"
+     viewBox="0 0 820 382" role="img" aria-labelledby="title desc" xml:lang="ja">
+  <title id="title">Ghostの実行方式</title>
+  <desc id="desc">非公開のGhostプロファイルでUVMの供給元を指定します。定期回帰はライブラリ方式で、固定版Accellera UVMをコンパイルします。手動再現に使う組み込み方式ではGhostがUVMを供給します。結果を比較する前にJSONのuvm_sourceとuvm_pinnedを確認します。</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif; fill: #18293c; }
+    .label { font-size: 22px; font-weight: 700; }
+    .body { font-size: 18px; fill: #2d4157; }
+    .mode { font: 17px ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .purpose { font-size: 18px; font-weight: 700; }
+    .edge { fill: none; stroke: #52647a; stroke-width: 2; }
+    .arrowhead { fill: #52647a; }
+  </style>
+  <rect width="820" height="382" fill="#ffffff"/>
+  <rect x="25" y="18" width="770" height="75" rx="10" fill="#f4f6f8" stroke="#8797aa"/>
+  <text x="410" y="49" class="label" text-anchor="middle">Ghostの非公開プロファイル</text>
+  <text x="410" y="75" class="body" text-anchor="middle">uvm_mode でUVMの供給元を指定</text>
+  <path class="edge" d="M 410 93 V 114 M 210 134 V 114 H 610 V 134"/>
+  <path class="arrowhead" d="M 205 131 H 215 L 210 139 Z M 605 131 H 615 L 610 139 Z"/>
+  <rect x="25" y="142" width="370" height="145" rx="10" fill="#e8f5f3" stroke="#388276"/>
+  <rect x="425" y="142" width="370" height="145" rx="10" fill="#eaf2ff" stroke="#4974ae"/>
+  <g text-anchor="middle">
+    <text x="210" y="174" class="label">ライブラリ方式</text>
+    <text x="210" y="201" class="mode">uvm_mode: pinned</text>
+    <text x="210" y="228" class="body">固定版のAccellera UVMをコンパイル</text>
+    <text x="210" y="267" class="purpose" fill="#195e54">定期回帰</text>
+    <text x="610" y="174" class="label">組み込み方式</text>
+    <text x="610" y="201" class="mode">uvm_mode: bundled</text>
+    <text x="610" y="228" class="body">GhostがUVMを供給</text>
+    <text x="610" y="267" class="purpose" fill="#315a91">手動再現</text>
+  </g>
+  <path class="edge" d="M 210 287 V 309 H 610 V 287 M 410 309 V 323"/>
+  <path class="arrowhead" d="M 405 321 H 415 L 410 329 Z"/>
+  <rect x="25" y="332" width="770" height="34" rx="8" fill="#f4f6f8" stroke="#8797aa"/>
+  <text x="410" y="356" class="body" text-anchor="middle">JSONの uvm_source と uvm_pinned を結果比較に使う</text>
+</svg>

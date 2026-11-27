@@ -834,6 +834,12 @@ statuses, exit codes and fingerprint interpretation.
 
 Ghost is the public alias for an authorized private simulator, and [Q11](faq.md#q11-what-does-the-ghost-result-cover-and-why-an-alias) explains the library modes used by its results.
 
+Use `uvm_mode: pinned` in the private profile for routine Ghost regression runs.
+Check exercises the Ghost runner with a pinned profile and a simulated executable.
+Use bundled profiles for manual reproduction.
+
+![Routine Ghost regression uses the pinned UVM package. For manual reproduction with simulator-supplied UVM, use bundled mode and compare results under the matching UVM source.](images/ghost-modes.svg)
+
 ```sh
 python3 tools/run_ghost.py --simulator /path/to/private/simulator \
   --profile /path/to/private-profile.json -j 2 --json out/ghost.json
