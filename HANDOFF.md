@@ -2,7 +2,7 @@
 
 [English](#english)
 
-**最新の引き継ぎ**。11月27日のGhost両方式検証は全11,176試行が完了しました。測定結果、起票一覧、修正後の再検証手順はこちらです。 [Ghost両方式検証の引き継ぎ](docs/ghost-dual-handoff.ja.md)
+**最新の引き継ぎ**。11月28日にGhostの43件の修正確認が完了しました。今後の定期回帰で照合するライブラリ方式の基準は、各シード2,311件通過、483件失敗です。 [修正後の確認と基準](docs/ghost-dual-handoff.ja.md#修正後の確認)
 
 以下は11月26日のライブラリ方式の再測定記録です。
 
@@ -39,7 +39,7 @@ tail -n 10 "$run/full.err"
 
 ## English
 
-**Latest handoff.** The November 27 Ghost run completed all 11,176 trials across both modes. See the results, issue index and steps for retesting fixes. [Ghost dual-mode verification handoff](docs/ghost-dual-handoff.md)
+**Latest handoff.** On November 28, the Ghost retest verified all 43 fixes. The library-mode baseline for future routine runs is 2,311 passes and 483 failures per seed. [Verification results and baseline](docs/ghost-dual-handoff.md#verification-after-the-fixes)
 
 The notes below cover the November 26 library-mode retest.
 

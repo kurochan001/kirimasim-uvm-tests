@@ -8,13 +8,19 @@ Routine Ghost regression runs use the pinned library profile. The bundled steps 
 
 ![Choose the pinned UVM profile for routine regression and the bundled profile to reproduce earlier bundled runs manually.](images/ghost-modes.svg)
 
-## Full-suite results
+## Verification after the fixes
+
+On November 28, all 92 reproducer trials verified the fixes for the 43 reported issues. Of the 45 original tests, 44 passed on both seeds 1 and 73. The remaining test emitted its intended UVM error. Its expected exit code was 0, and the simulator returned 2 to reflect the reported error. [Issue-by-issue verification (local)](../out/ghost-fix-verification-20261128-010942.LLeYu6/issue-repro-results.json) · [Original tests (local)](../out/ghost-fix-verification-20261128-010942.LLeYu6/issue-original-results.json)
+
+All 2,794 library-mode verdicts matched the earlier run. Each seed had 2,311 passes and 483 failures. For routine regression, compare cases with matching input fingerprints against the November 28 `pinned-1.json` and `pinned-73.json` for their respective seeds. [Comparison (local)](../out/ghost-fix-verification-20261128-010942.LLeYu6/comparison.json) · [Seed 1 (local)](../out/ghost-fix-verification-20261128-010942.LLeYu6/pinned-1.json) · [Seed 73 (local)](../out/ghost-fix-verification-20261128-010942.LLeYu6/pinned-73.json)
+
+## November 27 full-suite results
 
 - **Library mode with pinned Accellera UVM 2020.3.1** had 2,311 passes and 483 failures per seed. Of the failures, 480 matched the previous findings. The call traces and exit codes for three backdoor tests matched Verilator 5.054 after the fix. The tests still fail because the pinned UVM library does not write back the transformed values. [Evidence for the pinned-library behavior (local, Japanese)](../out/library-retest-20261126/STATUS.ja.md#既存台帳を使った差分確認)
 - **Bundled mode** had 618 passes and 2,176 failures per seed. The first difference and exit status are recorded for each failure. Individual causes remain unresolved for 1,915 tests. [Per-test triage (local)](../out/ghost-dual-20261127-073024.RQI6Dl/triage-index.json)
-- **43 issues were filed**, 42 for bundled mode and one for library mode. All 43 were closed when checked at 22:07 JST on November 27. Retest on a new fixed build to measure the effect of fixes that landed after the full run. [Issue and reproducer index (local)](../out/ghost-dual-20261127-073024.RQI6Dl/issued.json)
+- **43 issues were filed**, 42 for bundled mode and one for library mode. All 43 were closed when checked at 22:07 JST on November 27. [Issue and reproducer index (local)](../out/ghost-dual-20261127-073024.RQI6Dl/issued.json)
 
-## Retesting fixes
+## Reproducing the historical comparison
 
 1. Use the issue index to find the fixes and minimal reproducers. Freeze the executable, DPI library, UVM library, and per-seed profiles for the next run. Save the new measurements to a separate location. [Running Ghost](testing.md#ghost)
 2. Run the minimal reproducers in the affected mode with seeds 1 and 73. For library mode, fetch `19` into a local variable named `value` with `config_db#(int)::get()`. Verify that `value` stays `19` after a failed `config_db#(bit)::get()` that takes a separate variable. For bundled mode, start with the field macro comparison regression and the `typedef`-aliased callback specializations. Both also have passing controls on an older build. [Issue index (local)](../out/ghost-dual-20261127-073024.RQI6Dl/issued.json)
