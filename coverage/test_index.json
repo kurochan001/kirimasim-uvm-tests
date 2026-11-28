@@ -1322,9 +1322,9 @@
       "primary_clause": "10.3.2.7",
       "inputs_sha256": "a82b0c7912f1635a21638d3da0dd5280ab69323268c7b11e01120f5336e8f9c3"
     },
-    "u10/test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold": {
+    "u10/test_barrier_silent_reset_rearms_count_and_releases_a_fresh_group": {
       "primary_clause": "10.3.2.3",
-      "inputs_sha256": "3e8c27f321309e7d6efc2eb94e1734677cac6f650c8dc5d8e8e92ed496b6a001"
+      "inputs_sha256": "28a3ec82bdfeb196568cf3273d47a78db7427c31f1cd18e879df300259a15f66"
     },
     "u10/test_barrier_without_auto_reset_remains_open_until_explicit_reset": {
       "primary_clause": "10.3.2.4",

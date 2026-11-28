@@ -192,6 +192,8 @@ snapshots and Ghost's seed-specific private profiles.
 
 The revised TLM2 same-kind connection fixture retained its unsupported verdict on the same kirimasim 0.2.1 build and its recorded Verilator interpretation difference. [November 28 retest](history.md#2026-11-28-tlm2-terminator-fixture-correction)
 
+The revised silent barrier reset fixture matches on seeds 1 and 73 in Verilator 5.054 and Ghost with pinned UVM. The same kirimasim 0.2.1 build retains its unsupported verdict. [Barrier test review](history.md#2026-11-28-silent-barrier-reset)
+
 Commercial simulator results are excluded under the
 [reporting policy](faq.md#commercial-simulator-and-issue-reporting-policy).
 

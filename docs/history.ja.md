@@ -4533,7 +4533,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 - 明示的にnullを代入したクラスプロパティは、2回とも `finish_item()` 後にnullを保持します。対照の非nullプロパティ2つはハンドルの同一性を保ちます。 [再現コード](repro/2026-11-25/sequence_null_handle.sv)
 - RTL統合フェーズ走査のテストは、期待したフェーズ回数、データ、drain timeを出力して正常終了します。初回の採取ビルドは走査中に停止し、フェーズジャンプを取り除いた対照でも同じ停止が起きました。 [統合テスト](../tests/u09/test_rtl_reset_jump_reruns_the_runtime_phases_and_drain_time_counts_clocks_137.sv)
 
-以前のシード1で一致したテストのうち、バリアを待機者の起床なしでリセットするテストは修正後の各周回でも不一致でした。固定版ライブラリでは、`reset(0)` が内部のイベント変数に新しいイベントを割り当てます。そのイベントのトリガーで新たな待機者3つが起床します。古いイベントで待機する2プロセスは停止したままです。イベント変数の再割当ては IEEE 1800-2023 §15.5.5.1 に記載されています。5プロセスすべての完了を期待するテストは、期待値の見直し候補です。 [バリアのテスト](../tests/u10/test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold.sv)
+以前のシード1で一致したテストのうち、バリアを待機者の起床なしでリセットするテストは修正後の各周回でも不一致でした。固定版ライブラリでは、`reset(0)` が内部のイベント変数に新しいイベントを割り当てます。そのイベントのトリガーで新たな待機者3つが起床します。古いイベントで待機する2プロセスは停止したままです。イベント変数の再割当ては IEEE 1800-2023 §15.5.5.1 に記載されています。 [後続の期待値の見直し](#2026-11-28-バリアの起床なしリセット)
 
 オブジェクト設定のテストはシード73の反復で結果が変動しました。メモリ割当てのテストは修正後のシード231で一致し、ほかの測定シードで不一致でした。どちらも原因は未確定です。 [オブジェクト設定](../tests/u05/test_object_set_local_virtual_extension_selects_named_resource_properties.sv) · [メモリ割当て](../tests/u18/test_mam_greedy_fresh_low_history_89.sv)
 
@@ -4542,3 +4542,9 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 [同種の終端ソケットを接続するテスト](../tests/u12/test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings.sv)で、2つの非ブロッキングinitiatorの親を分けました。どちらのinitiatorも `bw_imp` という子を生成し、修正前は同じ親に同名の子が重複したため、Ghostは最初の接続検査に届きませんでした。
 
 固定版UVMを使い、Verilator 5.054とGhostでシード1・73ともに接続を検査できました。initiatorの2件では直接の接続先が残り、targetの2件では空でした。期待値には、接続先を残さないという従来の限定解釈を記録しています。同じkirimasim 0.2.1ビルドで再測定し、修正後も同じ構文がunsupportedとなりました。 [既知差分](known-differences.ja.md#specのみのテスト)
+
+## 2026-11-28 バリアの起床なしリセット
+
+[修正したバリアのテスト](../tests/u10/test_barrier_silent_reset_rearms_count_and_releases_a_fresh_group.sv)は、閾値3で2つの呼び出しを待機させます。`reset(0)` 後の観測で件数は0、閾値は3、2つの呼び出しは待機中です。続いて新しいグループの最初の2つが待機し、3番目の到着で新しい3つが完了し、自動リセットで件数が0になることを確認します。観測の根拠は IEEE 1800.2-2020 の10.3.2.2〜10.3.2.4です。
+
+旧テストでは、新しいグループの完了後もGhostでは旧待機者2つが止まり、Verilator 5.054では起床しました。両シードで再現しました。次の閾値到達時に旧待機者も解放するかは条文上に解釈の余地があるため、修正後はリセット直後の旧待機者と、新しいグループの完了を観測します。固定版 Accellera UVM 2020.3.1 を使った Ghost と Verilator 5.054 で、シード1・73とも修正後の期待値に一致しました。同じkirimasim 0.2.1ビルドでは同じ構文がunsupportedでした。 [ライブラリ方式の比較基準](ghost-dual-handoff.ja.md#修正後の確認)

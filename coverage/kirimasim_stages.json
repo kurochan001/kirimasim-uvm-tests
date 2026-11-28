@@ -574,7 +574,7 @@
     "u10/test_barrier_lowering_threshold_below_the_waiter_count_releases_existing_waits": 1,
     "u10/test_barrier_pool_creates_keyed_objects_with_local_state_and_a_shared_global_pool": 1,
     "u10/test_barrier_raised_threshold_keeps_waiters_and_peer_progress_independent": 1,
-    "u10/test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold": 1,
+    "u10/test_barrier_silent_reset_rearms_count_and_releases_a_fresh_group": 1,
     "u10/test_barrier_without_auto_reset_remains_open_until_explicit_reset": 1,
     "u10/test_callback_add_by_name_glob_respects_search_root": 1,
     "u10/test_callback_add_by_name_selects_exact_full_path": 1,

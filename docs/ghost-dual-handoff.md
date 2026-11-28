@@ -14,6 +14,8 @@ On November 28, all 92 reproducer trials verified the fixes for the 43 reported 
 
 All 2,794 library-mode verdicts matched the earlier run. Each seed had 2,311 passes and 483 failures. For routine regression, compare cases with matching input fingerprints against the November 28 `pinned-1.json` and `pinned-73.json` for their respective seeds. [Comparison (local)](../out/ghost-fix-verification-20261128-010942.LLeYu6/comparison.json) · [Seed 1 (local)](../out/ghost-fix-verification-20261128-010942.LLeYu6/pinned-1.json) · [Seed 73 (local)](../out/ghost-fix-verification-20261128-010942.LLeYu6/pinned-73.json)
 
+After that full run, the silent barrier reset fixture was revised and matched on both seeds. Use its targeted measurements for the revised input. [Barrier test review](history.md#2026-11-28-silent-barrier-reset)
+
 ## November 27 full-suite results
 
 - **Library mode with pinned Accellera UVM 2020.3.1** had 2,311 passes and 483 failures per seed. Of the failures, 480 matched the previous findings. The call traces and exit codes for three backdoor tests matched Verilator 5.054 after the fix. The tests still fail because the pinned UVM library does not write back the transformed values. [Evidence for the pinned-library behavior (local, Japanese)](../out/library-retest-20261126/STATUS.ja.md#既存台帳を使った差分確認)

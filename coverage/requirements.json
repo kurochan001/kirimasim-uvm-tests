@@ -74209,8 +74209,8 @@
         "ja": "threshold 3で待機する2 callerを、wakeup 0で明示resetする。"
       },
       "expected": {
-        "en": "Count becomes zero, threshold stays three and both old callers remain blocked.",
-        "ja": "件数は0、thresholdは3を保持し、両旧callerは待機したままである。"
+        "en": "The count changes from two to zero. At the reset checkpoint, the threshold is still three and both callers are blocked.",
+        "ja": "件数が2から0になる。リセット直後の観測では、閾値は3のままで、2つの呼び出しは待機している。"
       },
       "limitations": {
         "en": "Public thresholds and counts are observed after positive settling delays, using two independent barriers or a bounded silent-reset group. No negative/zero-threshold wait rule, release-order guarantee, private queue or physical scheduling implementation is inferred. Stranded-process cleanup is not counted as required barrier release.",
@@ -74223,9 +74223,10 @@
       },
       "test_links": [
         {
-          "test": "u10/test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold",
+          "test": "u10/test_barrier_silent_reset_rearms_count_and_releases_a_fresh_group",
           "role": "direct",
           "expected_observations": [
+            "UT: barrier_before_silent_reset waiters 2 threshold 3 old_blocked 1",
             "UT: barrier_silent_reset waiters 0 threshold 3 old_blocked 1"
           ]
         }
@@ -74235,20 +74236,20 @@
       "id": "UVM-SYNC-REVIEW-BARRIER-FRESH-RELEASE-AFTER-RESET",
       "clause": "10.3.2.2",
       "statement": {
-        "en": "When a reset barrier reaches its retained threshold again, all blocked callers are released.",
-        "ja": "resetしたbarrierが保持thresholdへ再び達すると、待機caller全員を解放する。"
+        "en": "After reset, a fresh group waits until the barrier's retained threshold is reached.",
+        "ja": "リセット後に到着する新しいグループは、バリアが保持した閾値に達するまで待機する。"
       },
       "conditions": {
-        "en": "After silent reset, admit a fresh threshold-sized group while old callers remain blocked.",
-        "ja": "silent reset後、旧callerを待機させたまま、新たにthreshold件数のgroupを到着させる。"
+        "en": "After reset with wakeup disabled and threshold three, admit three fresh callers, with a checkpoint before the third arrival.",
+        "ja": "閾値3で起床なしのリセットを行い、新たに3つの呼び出しを開始する。3番目の到着直前に観測する。"
       },
       "expected": {
-        "en": "Two fresh arrivals remain blocked; the third releases the fresh three and old two, leaving count zero.",
-        "ja": "新しい2到着は待機し、3番目が新3 callerと旧2 callerを解放し、件数は0となる。"
+        "en": "The first two fresh callers remain blocked. After the third arrives, the three fresh calls complete and the default automatic reset clears the count.",
+        "ja": "新しい最初の2つの呼び出しは待機する。3番目が到着すると新しい3つの呼び出しが完了し、既定の自動リセットで件数が0になる。"
       },
       "limitations": {
-        "en": "Public thresholds and counts are observed after positive settling delays, using two independent barriers or a bounded silent-reset group. No negative/zero-threshold wait rule, release-order guarantee, private queue or physical scheduling implementation is inferred. Stranded-process cleanup is not counted as required barrier release.",
-        "ja": "独立した2 barrier、または有限のsilent-reset groupで、正の安定待ち後に公開threshold／countを観測する。負／0 thresholdの待機規則、release順保証、非公開queue、物理schedule実装は推論しない。取り残されたprocessのcleanupを必要なbarrier解放に数えない。"
+        "en": "The release assertion covers the three fresh calls. Observations of callers waiting before reset end at the reset checkpoint. Cleanup follows the release observations.",
+        "ja": "解放の観測は新しい3つの呼び出しを対象にする。リセット前の待機者はリセット直後まで観測する。待機者の後処理は解放の観測を終えた後に行う。"
       },
       "review": {
         "status": "ai",
@@ -74257,11 +74258,11 @@
       },
       "test_links": [
         {
-          "test": "u10/test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold",
+          "test": "u10/test_barrier_silent_reset_rearms_count_and_releases_a_fresh_group",
           "role": "direct",
           "expected_observations": [
-            "UT: barrier_fresh_pending waiters 2 all_blocked 1",
-            "UT: barrier_fresh_release all 1 waiters 0 threshold 3"
+            "UT: barrier_fresh_pending waiters 2 fresh_blocked 1",
+            "UT: barrier_fresh_release fresh_done 1 waiters 0 threshold 3"
           ]
         }
       ]
