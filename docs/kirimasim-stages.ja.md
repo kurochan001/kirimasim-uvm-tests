@@ -13,7 +13,7 @@
 
 ## 段階を設ける理由
 
-kirimasim 0.2.1は、2797入力のうち2561件で型`uvm_object_wrapper`をunsupportedと報告します（[現在の結果](results.ja.md#現在のスナップショット)）。ほかにsimulationテスト76件は固定版ライブラリでコンパイルに失敗し、DPIを要求する61件はrunnerが実行を見送りました。実行時の観測に到達したsimulationテストは0件です。テストごとの段階と段階ごとの短いセットがあれば、短いセットを実行して最初に通らない段階が分かり、下の機能の表から次に見るべき言語のテストをたどれます。
+kirimasim 0.2.1は、2799入力のうち2563件で型`uvm_object_wrapper`をunsupportedと報告します（[現在の結果](results.ja.md#現在のスナップショット)）。ほかにsimulationテスト76件は固定版ライブラリでコンパイルに失敗し、DPIを要求する61件はrunnerが実行を見送りました。実行時の観測に到達したsimulationテストは0件です。テストごとの段階と段階ごとの短いセットがあれば、短いセットを実行して最初に通らない段階が分かり、下の機能の表から次に見るべき言語のテストをたどれます。
 
 段階は、開発が扱う機能の主題でテストをまとめるmilestone M1〜M4（[milestoneのまとめ方](glossary.ja.md#範囲とカバレッジ)）とは別のものです。段階は期待値を変えず、metadataの項目も足しません。記録は別のfileなので、入力の指紋は変わりません。
 
@@ -29,10 +29,10 @@ kirimasim 0.2.1は、2797入力のうち2561件で型`uvm_object_wrapper`をunsu
 | 1 | 最小のrun_test | なし。既定の段階 | 1035 | 879 | 5 |
 | 2 | factory | `::type_id`、`uvm_factory`、`uvm_object_wrapper`、override、`create_*_by_name`、`get_type()` | 101 | 92 | 5 |
 | 3 | config_db | `uvm_config_db`、`uvm_resource*`、`apply_config_settings` | 114 | 95 | 5 |
-| 4 | sequence | `uvm_sequence`、`uvm_sequencer`、`uvm_driver`、`start_item`、`` `uvm_do ``などのsequenceのmacro | 332 | 271 | 5 |
+| 4 | sequence | `uvm_sequence`、`uvm_sequencer`、`uvm_driver`、`start_item`、`` `uvm_do ``などのsequenceのmacro | 333 | 272 | 5 |
 | 5 | TLM | port・export・imp、`uvm_analysis_*`、`uvm_tlm_*`、`` `uvm_*_imp_decl ``、`uvm_subscriber` | 252 | 226 | 5 |
-| 6 | register層 | `uvm_reg*`、`uvm_mem*`、`uvm_vreg*`、`uvm_hdl_*`、register層のenum | 962 | 765 | 5 |
-| 計 | | | 2797 | 2329 | 31 |
+| 6 | register層 | `uvm_reg*`、`uvm_mem*`、`uvm_vreg*`、`uvm_hdl_*`、register層のenum | 963 | 766 | 5 |
+| 計 | | | 2799 | 2331 | 31 |
 
 紛らわしいものは意図して除いています。sequence item（`uvm_sequence_item`）だけではテストは段階4にならず、`uvm_reg_data_t`などのtypedefだけでは段階6にならず、`` `uvm_do_callbacks ``はcallbackのmacroでsequenceのmacroではありません。toolの単体テストが、短いcodeの断片でこれらを確かめます。
 
@@ -66,7 +66,7 @@ kirimasimの測定には、このrepositoryに含まれない実行fileが必要
 
 ## kirimasimの現在の記録の段階別の内訳
 
-以下はkirimasim 0.2.1（simulatorのcommit e93839fdcbea、release build）の現行記録です。11月24日の全件測定のうち入力指紋が一致する2,791件と、同じビルドで個別測定した6件を段階別に集計しました。runnerは `--timescale=1ns/1ps` で時間単位を指定し、`-D` でmacroを渡し、終了コードとreportの宣言を検査します。DPIを要求するテストはsimulatorを起動せずに `unsupported` と記録します。
+以下はkirimasim 0.2.1（simulatorのcommit e93839fdcbea、release build）の現行記録です。11月24日の全件測定のうち入力指紋が一致する2,791件と、同じビルドで個別測定した8件を段階別に集計しました。runnerは `--timescale=1ns/1ps` で時間単位を指定し、`-D` でmacroを渡し、終了コードとreportの宣言を検査します。DPIを要求するテストはsimulatorを起動せずに `unsupported` と記録します。
 
 | 段階 | テスト | `pass` | `unsupported` | `fail` |
 | --- | --- | --- | --- | --- |
@@ -74,12 +74,12 @@ kirimasimの測定には、このrepositoryに含まれない実行fileが必要
 | 1 | 1035 | 48 | 960 | 27 |
 | 2 | 101 | 3 | 97 | 1 |
 | 3 | 114 | 31 | 78 | 5 |
-| 4 | 332 | 4 | 310 | 18 |
+| 4 | 333 | 4 | 311 | 18 |
 | 5 | 252 | 3 | 246 | 3 |
-| 6 | 962 | 10 | 930 | 22 |
-| 計 | 2797 | 99 | 2622 | 76 |
+| 6 | 963 | 10 | 931 | 22 |
+| 計 | 2799 | 99 | 2624 | 76 |
 
-型 `uvm_object_wrapper` の未対応はすべての段階で観測され、計2561件です。uvm_pkgをimportするだけの段階0のテストも、ここで止まります。`pass`の99件はすべて、patternどおりに拒否された不正designで、実行できたsimulationテストはありません。`fail`の76件は、固定版libraryではcompileできないテストで、[slangの記録](testing.ja.md#slangでのelaboration)のlibraryの記録と一致します。短いセットの31件は、すべてunsupportedです。以前の測定で、kirimasimのrunnerがmacroを`+define+`で渡していた誤りが見つかりました。値に`+`を含むmacroが途中で切れていたので、`-D`に直しています。
+型 `uvm_object_wrapper` の未対応はすべての段階で観測され、計2563件です。uvm_pkgをimportするだけの段階0のテストも、ここで止まります。`pass`の99件はすべて、patternどおりに拒否された不正designで、実行できたsimulationテストはありません。`fail`の76件は、固定版libraryではcompileできないテストで、[slangの記録](testing.ja.md#slangでのelaboration)のlibraryの記録と一致します。短いセットの31件は、すべてunsupportedです。以前の測定で、kirimasimのrunnerがmacroを`+define+`で渡していた誤りが見つかりました。値に`+`を含むmacroが途中で切れていたので、`-D`に直しています。
 
 ## 段階ごとのSystemVerilogの機能
 

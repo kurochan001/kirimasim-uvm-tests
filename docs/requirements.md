@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 4190 AI-drafted requirements, all with direct links to 2741 tests.
-Fifty-six tests have only control links. All 2797 tests have a requirement link.
+contains 4192 AI-drafted requirements, all with direct links to 2743 tests.
+Fifty-six tests have only control links. All 2799 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -39,7 +39,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 4190 draft entries span several areas,
+a heading is not an obligation. The 4192 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -111,7 +111,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2797-test
+known difference. It is not a pass or a conformance claim. The current 2799-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -149,7 +149,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2797 reviewed requirement mappings.
+  index is an inventory, not 2799 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -280,12 +280,12 @@ The table retains every catalog root, including context and deferred roots; cont
 | 11 | 38 | 22 | 0 | 4 | 0 |
 | 12 | 331 | 207 | 0 | 45 | 0 |
 | 13 | 154 | 59 | 0 | 21 | 0 |
-| 14 | 231 | 147 | 0 | 17 | 0 |
+| 14 | 232 | 148 | 0 | 17 | 0 |
 | 15 | 136 | 127 | 0 | 18 | 0 |
 | 16 | 281 | 189 | 0 | 32 | 0 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 943 | 653 | 0 | 63 | 0 |
-| 19 | 204 | 168 | 0 | 24 | 0 |
+| 19 | 205 | 169 | 0 | 24 | 0 |
 | B | 280 | 245 | 0 | 9 | 0 |
 | C | 105 | 75 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
@@ -298,7 +298,7 @@ The table shows all 26 catalog roots, including those with no primary-focus test
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. All 2062 partial identifiers still need review of remaining obligations and applicability conditions under [the completion gate](#remaining-m4-work-and-approval).
-Scope is proposed, all 4190 reviews are `ai` and
+Scope is proposed, all 4192 reviews are `ai` and
 the denominator remains unapproved.
 
 The 124th expansion implements the external review's seventh item, the
@@ -317,8 +317,8 @@ objects and 445 assessments unchanged; 2707 tests have direct links, 158 have
 controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
-The suite has 2797 tests (2697 simulation/100 elaboration). Ordinary results
-are 2329 matches: 2234 runtime inputs at both seeds and 95 compiler rejections.
+The suite has 2799 tests (2699 simulation/100 elaboration). Ordinary results
+are 2331 matches: 2236 runtime inputs at both seeds and 95 compiler rejections.
 Known inputs total 460: 314 runtime differences, 141 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 468
 with the eight four-state inputs. The command-line condition keeps 23 fixtures
@@ -762,4 +762,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 4190 AI drafts and their direct links do not satisfy that gate.
+The current 4192 AI drafts and their direct links do not satisfy that gate.

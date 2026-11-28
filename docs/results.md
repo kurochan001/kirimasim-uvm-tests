@@ -14,10 +14,10 @@ their causes re-assigned in the cause record. The three DPI-condition subsets
 were remeasured on 5.054 too, and their states match the 5.052 records. The hosted Regression ([run 44905474705](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/44905474705)) ran all 2312 tagged checks with Verilator 5.054 on 2ae19a1b and succeeded in all 24 jobs, as recorded in the history and here.
 On November 23, four revised simulation cases matched both seeds and three revised illegal designs were rejected. The 0.1.3 kirimasim run covered the 2778 inputs present that day. On November 24, Verilator matched the fourteen new two-state simulations at both seeds and rejected the external protected-method call. Ghost ran all sixteen additions, including the four-state event. [Regression details](history.md#2026-11-24-state-changes-and-outstanding-requests)
 
-The suite has 2797 fixtures in 22 directories: 2697 simulation and 100
-elaboration. Milestone totals are M1 1205 (1124/81), M2 641 (633/8) and M3 951
-(940/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
-none records human review. Of 2736 no-DPI fixtures, 100 are illegal elaboration
+The suite has 2799 fixtures in 22 directories: 2699 simulation and 100
+elaboration. Milestone totals are M1 1205 (1124/81), M2 642 (634/8) and M3 952
+(941/11), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
+none records human review. Of 2738 no-DPI fixtures, 100 are illegal elaboration
 checks. The thirty-eight HDL-DPI and twenty-three command-line/regex-DPI runtime fixtures
 remain separate.
 
@@ -29,13 +29,13 @@ A runtime match at seeds 1/73 still counts as one fixture, while a seed requeste
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.054, pinned UVM | 2329 `pass`: 2234 runtime + 95 compile rejection; 460 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
+| Verilator 5.054, pinned UVM | 2331 `pass`: 2236 runtime + 95 compile rejection; 460 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
 | Verilator 5.054, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.054, original command-line VPI bridge and pinned regex DPI | 20 `pass`; 3 `known` | Separate overlapping 23-case condition; matches at seeds 1/73, differences at seed 1 |
 | Verilator 5.054, listed ordinary fixtures with regex and command-line DPI | 26 `pass` | Separate overlapping 26-case condition from `coverage/regex_dpi_variants.txt`; matches at seeds 1/73 |
-| kirimasim 0.2.1 (commit e93839fdcbea), pinned UVM | 99 expected compiler rejections, 2622 unsupported, 76 failures | November 24 baseline plus targeted measurements for changed and added inputs |
-| Ghost, bundled UVM | 205 `pass`; 873 `fail` | 1078 unchanged inputs at each seed; identical failing sets; 1719 inputs unmeasured |
-| Ghost, pinned UVM | 2315 `pass`; 482 `fail` at each seed | Full baseline plus targeted runs for changed and added inputs, matched by fingerprint at seeds 1 and 73. [Library-mode baseline](ghost-dual-handoff.md#verification-after-the-fixes) |
+| kirimasim 0.2.1 (commit e93839fdcbea), pinned UVM | 99 expected compiler rejections, 2624 unsupported, 76 failures | November 24 baseline plus targeted measurements for changed and added inputs |
+| Ghost, bundled UVM | 205 `pass`; 873 `fail` | 1078 unchanged inputs at each seed; identical failing sets; 1721 inputs unmeasured |
+| Ghost, pinned UVM | 2317 `pass`; 482 `fail` at each seed | Full baseline plus targeted runs for changed and added inputs, matched by fingerprint at seeds 1 and 73. [Library-mode baseline](ghost-dual-handoff.md#verification-after-the-fixes) |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
 326 files checked against [the lock](../third_party/uvm.lock). A Ghost bundled
@@ -132,7 +132,7 @@ failure/cancellation and four-state behavior remain open. Do not add overlapping
 matches to ordinary results; see [HDL setup](testing.md#verilator-vpi-hdl-subset)
 and [known differences](known-differences.md).
 
-kirimasim 0.2.1 reports the type `uvm_object_wrapper` as unsupported on 2561 cases, and the runner reports the 61 `:uvm_dpi: yes` cases as unsupported without running them, because it passes no DPI back end. The 76 `fail` cases are exactly the tests that [the slang record](testing.md#slang-elaboration) lists with the reason library: they do not compile with the pinned library. The 99 `pass` cases are 99 of the 100 illegal designs, rejected with a message that matches their pattern; the other, which the pinned library makes legal, reaches the unsupported type. [The bring-up stages](kirimasim-stages.md#current-kirimasim-records-by-stage)
+kirimasim 0.2.1 reports the type `uvm_object_wrapper` as unsupported on 2563 cases, and the runner reports the 61 `:uvm_dpi: yes` cases as unsupported without running them, because it passes no DPI back end. The 76 `fail` cases are exactly the tests that [the slang record](testing.md#slang-elaboration) lists with the reason library: they do not compile with the pinned library. The 99 `pass` cases are 99 of the 100 illegal designs, rejected with a message that matches their pattern; the other, which the pinned library makes legal, reaches the unsupported type. [The bring-up stages](kirimasim-stages.md#current-kirimasim-records-by-stage)
 count these records by stage: the same construct stops every stage. Neither category establishes
 execution of the UVM behavior beyond those blockers. Ghost's bundled
 mismatches do not identify whether the simulator or its library caused them,
@@ -176,13 +176,13 @@ objects and 445 assessments unchanged; 2707 tests have direct links, 158 have
 controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
-The suite has 2797 tests (2697 simulation/100 elaboration). Ordinary results
-are 2329 matches: 2234 runtime inputs at both seeds and 95 compiler rejections.
+The suite has 2799 tests (2699 simulation/100 elaboration). Ordinary results
+are 2331 matches: 2236 runtime inputs at both seeds and 95 compiler rejections.
 Known inputs total 460: 314 runtime differences, 141 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 468
 with the eight four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
-is added to the ordinary totals. The Ghost bundled subset has 1078 compatible records. Its 1719 unmeasured inputs include 1619 simulations and 100 elaboration cases. See the pinned-mode selection above for the separate library condition.
+is added to the ordinary totals. The Ghost bundled subset has 1078 compatible records. Its 1721 unmeasured inputs include 1621 simulations and 100 elaboration cases. See the pinned-mode selection above for the separate library condition.
 
 The primary-focus census has 1158 candidates with zero tests, 766 below the target and 558 with at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
@@ -224,7 +224,7 @@ simulator, configuration and library identities before reusing execution records
 Before combining records, check that:
 
 - Verilator IDs cover every current two-state input exactly; the eight
-  four-state inputs have no Verilator record. The kirimasim and pinned Ghost records each cover all 2797 inputs. Keep the 1078 Ghost bundled IDs under their separate configuration.
+  four-state inputs have no Verilator record. The kirimasim and pinned Ghost records each cover all 2799 inputs. Keep the 1078 Ghost bundled IDs under their separate configuration.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -260,10 +260,10 @@ Readability (item 8) is finished in all 22 directories. Each directory's inputs,
 | u16 (188) | [43099407618](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43099407618) | succeeded |
 | u12 (205), uF (214), uB (241), u18 (652) | [43119845864](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/43119845864) | succeeded |
 
-The [draft ledger](requirements.md) has 4190 AI duties and 0 unassessed
+The [draft ledger](requirements.md) has 4192 AI duties and 0 unassessed
 identifiers: 2062 partial/445 assessed. Chapter 10 is 87/29/0; chapter 18 is
 393/63/0. Their partial contracts and original targets remain open. Direct
-links cover 2741 tests; 56 others have only controls. The Ghost bundled selection retains 1078 compatible inputs. Its 1719 unmeasured inputs include seven revised originals. Scope and denominator remain unapproved.
+links cover 2743 tests; 56 others have only controls. The Ghost bundled selection retains 1078 compatible inputs. Its 1721 unmeasured inputs include seven revised originals. Scope and denominator remain unapproved.
 
 ## Whole-output comparison
 
@@ -309,7 +309,7 @@ A shard runs a disjoint subset of the selected tests, and the final gate require
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
 and manual dispatch. Its tools job checks pinned-library integrity, all Python tool tests discovered under `tools/`,
-2797 metadata records, the draft ledger/index, the cause record of the known
+2799 metadata records, the draft ledger/index, the cause record of the known
 differences, the [report declarations](testing.md#time-unit-and-report-declarations) and the [kirimasim bring-up stages](kirimasim-stages.md). Its slang job [elaborates every test with slang](testing.md#slang-elaboration) and compares [the API census](requirements.md#api-census) with the tests; it takes about eight minutes. Its Verilator job runs the
 tagged ordinary checks whose recorded inputs changed since the base revision,
 plus the canary `tests/u09/test_common_phases_run_in_order.sv`, with runtime
@@ -320,9 +320,9 @@ and a warning asks for Regression. Another warning names changed files that only
 record's nine reproducers. A green Check covers the selected checks only.
 
 [Regression](../.github/workflows/regression.yml) runs on manual dispatch and
-weekly (Saturdays 17:23 UTC). It runs all 2329 tagged ordinary checks (2234
+weekly (Saturdays 17:23 UTC). It runs all 2331 tagged ordinary checks (2236
 runtime cases at seeds 1/73 and 95 compiler rejections without runtime seeds)
-in 20 disjoint shards (nine of 117 and eleven of 116), at most 4 concurrent so
+in 20 disjoint shards (eleven of 117 and nine of 116), at most 4 concurrent so
 that Check and other repositories keep hosted job slots, each limited to 360 minutes, the twenty explicit command-line checks in a
 separate job under their condition, and the twenty-six regex-DPI variants in another job. Its gate requires all three. A newer request
 waits for a run in progress instead of cancelling it; only one request can wait, so a further request replaces the waiting one. A manual run can be

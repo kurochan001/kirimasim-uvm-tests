@@ -19586,6 +19586,41 @@
       ]
     },
     {
+      "id": "UVM-TLM-REG2BUS-ENABLED-DATA-PAIRS",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "A payload returned by reg2bus preserves the association between source enable bits and the bytes selected for a write.",
+        "ja": "reg2busが返すペイロードは、書き込み元のイネーブルビットと、選択されたバイトとの対応を保持する。"
+      },
+      "conditions": {
+        "en": "Convert two 32-bit write operations with distinct bytes, different addresses and masks 0100 and 1011. Inspect the returned payload using its public accessors.",
+        "ja": "バイト値の異なる32ビット書き込みを2件用意し、異なるアドレスとマスク0100、1011で変換する。戻ったペイロードを公開アクセサーで観測する。"
+      },
+      "expected": {
+        "en": "Each result is a WRITE at the supplied address with four data bytes including disabled lanes. The first payload selects only source lane 2. The second selects lanes 0, 1 and 3.",
+        "ja": "両方のペイロードの種別はWRITE、アドレスは各入力値で、無効レーンを含むデータ長は4バイトになる。1回目は入力レーン2だけ、2回目はレーン0、1、3に対応するバイトが有効になる。"
+      },
+      "limitations": {
+        "en": "This checks enabled source-byte membership in a 32-bit write. Absolute byte order, disabled-byte contents and partial-byte transfers are outside these conditions.",
+        "ja": "32ビット書き込みで有効になる入力バイトの集合を照合する。絶対バイト順、無効バイトの内容、1バイトに満たない部分を含む転送は別条件に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_reg2bus_preserves_enabled_data_pairs",
+          "role": "direct",
+          "expected_observations": [
+            "UT: trial 0 write 1 address 120 length 4 enabled 1 sources 0100",
+            "UT: trial 1 write 1 address 240 length 4 enabled 3 sources 1011"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-TLM-ADAPTER-BYTE-MASKS",
       "clause": "19.2.2.2.1",
       "statement": {
@@ -38837,6 +38872,41 @@
           "role": "direct",
           "expected_observations": [
             "UT: counter_final completed 10 started 10 finished 10 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-LIBRARY-DEFAULT-RAND-MEMBER-ITEMS",
+      "clause": "14.4",
+      "statement": {
+        "en": "A default RAND sequence library executes its registered child sequences and allows them to send items through the library's sequencer.",
+        "ja": "既定RANDモードのシーケンスライブラリは登録した子シーケンスを実行し、自身のシーケンサ経由で子がアイテムを送れるようにする。"
+      },
+      "conditions": {
+        "en": "Bind the library to a typed sequencer with a connected pull driver. Register one member type whose body sends an item with a distinct ordinal on each invocation. Hold each acknowledgement for one positive time step.",
+        "ja": "型付きシーケンサにライブラリを結び付け、pullドライバを接続する。起動ごとに別の通し番号を送る子の型を1つ登録する。ドライバは各完了通知を1時間単位遅らせる。"
+      },
+      "expected": {
+        "en": "Ten child bodies run and complete. Each sees the library as its parent and the expected sequencer. The driver receives all ten ordinals. Each child waits for acknowledgement before completing and the library returns after the final completion.",
+        "ja": "子のbodyが10回実行され完了する。各回でライブラリを親、指定したシーケンサを送信先として参照する。ドライバは10件の通し番号をすべて受け取る。各子は完了通知を待ち、ライブラリは最後の完了後に戻る。"
+      },
+      "limitations": {
+        "en": "This fixture uses one registered type and the default count. Other selection modes, random distributions and starting without a sequencer are outside these conditions.",
+        "ja": "登録型1つと既定の実行回数を対象とする。他の選択モード、乱数分布、シーケンサを指定しない起動は別条件として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_default_rand_delivers_items_from_members",
+          "role": "direct",
+          "expected_observations": [
+            "UT: members started 10 completed 10 context 1",
+            "UT: driver all_ordinals 1 waited_for_ack 1 library_returned 1"
           ]
         }
       ]

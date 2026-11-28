@@ -2,9 +2,9 @@
 
 [English](#english)
 
-**テストスイートの開発**。M3に、`bus2reg` が有効バイトと読み出しデータの対応を保つか検査するテストを追加しました。 [追加内容と検証結果](docs/history.ja.md#2026-11-28-アダプターの読み出しデータとバイトイネーブル) · [残作業と優先候補](docs/handoff.ja.md#残作業と優先候補)
+**テストスイートの開発**。M2に、既定RANDモードのライブラリで子からドライバへアイテムが届き、完了通知を待つことを検査するテストを追加しました。 [追加内容と検証結果](docs/history.ja.md#2026-11-28-シーケンスライブラリの子からのアイテム配送) · [残作業と優先候補](docs/handoff.ja.md#残作業と優先候補)
 
-**Ghostのライブラリ方式**。11月28日に43件の修正を確認しました。定期回帰の比較基準は、入力指紋を照合した合算で各シード2,315件通過、482件不一致です。 [修正後の確認と基準](docs/ghost-dual-handoff.ja.md#修正後の確認)
+**Ghostのライブラリ方式**。11月28日に43件の修正を確認しました。定期回帰の比較基準は、入力指紋を照合した合算で各シード2,317件通過、482件不一致です。 [修正後の確認と基準](docs/ghost-dual-handoff.ja.md#修正後の確認)
 
 以下は11月26日のライブラリ方式の再測定記録です。
 
@@ -41,9 +41,9 @@ tail -n 10 "$run/full.err"
 
 ## English
 
-**Test-suite development.** The latest M3 test checks that `bus2reg` preserves the association between enabled bytes and read data. [New test and verification](docs/history.md#2026-11-28-adapter-read-data-and-byte-enables) · [Remaining work](docs/handoff.md#remaining-work-and-suggested-order)
+**Test-suite development.** The latest M2 test checks item delivery and acknowledgement from members of a default RAND sequence library. [New test and verification](docs/history.md#2026-11-28-sequence-library-member-item-delivery) · [Remaining work](docs/handoff.md#remaining-work-and-suggested-order)
 
-**Ghost library mode.** On November 28, the Ghost retest verified all 43 fixes. The assembled library-mode baseline for routine runs is 2,315 passes and 482 failures per seed. [Verification results and baseline](docs/ghost-dual-handoff.md#verification-after-the-fixes)
+**Ghost library mode.** On November 28, the Ghost retest verified all 43 fixes. The assembled library-mode baseline for routine runs is 2,317 passes and 482 failures per seed. [Verification results and baseline](docs/ghost-dual-handoff.md#verification-after-the-fixes)
 
 The notes below cover the November 26 library-mode retest.
 

@@ -2966,6 +2966,10 @@
       "primary_clause": "14.4.3",
       "inputs_sha256": "4c060a4a9a52d1818111873de60c7eb6d6f979eee37a951e2051256e9590c2c8"
     },
+    "u14/test_sequence_library_default_rand_delivers_items_from_members": {
+      "primary_clause": "14.4",
+      "inputs_sha256": "c656e4f1ebbacc1054dd55cbbf81d54004c01b1f8557e0a4cae99203e75725d2"
+    },
     "u14/test_sequence_library_default_rand_executes_alpha_selection": {
       "primary_clause": "14.4",
       "inputs_sha256": "396dcc20af52de5b83e46ccc7782730e6105c258757d1c5b5b11ea0613076ce6"
@@ -6385,6 +6389,10 @@
     "u19/test_reg_tlm_adapter_read_response_updates_generic_operation_fields": {
       "primary_clause": "19.2.2.2.2",
       "inputs_sha256": "99ab1f5f884fdf2665660a9ac6e5d0d3d032467229ef5e80a319768636e6c254"
+    },
+    "u19/test_reg_tlm_adapter_reg2bus_preserves_enabled_data_pairs": {
+      "primary_clause": "19.2.2.2.1",
+      "inputs_sha256": "5126d1c59492cc2583876423a58cedb5fe700e3d3d7dd14e10b74265e86be282"
     },
     "u19/test_reg_tlm_adapter_reused_operation_preserve_conversion_contracts": {
       "primary_clause": "19.2.2.2.2",

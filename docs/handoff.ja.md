@@ -2,7 +2,7 @@
 
 [English](handoff.md) · [README](../README.ja.md) · [要求台帳](requirements.ja.md)
 
-レジスター層の `bus2reg` で、有効バイトと読み出しデータの対応を検査しました。 [アダプターのテスト](history.ja.md#2026-11-28-アダプターの読み出しデータとバイトイネーブル) · [実測結果](results.ja.md#現在のスナップショット)
+既定RANDモードのシーケンスライブラリで、子のアイテム送信からドライバの完了通知までを検査しました。 [アイテム配送のテスト](history.ja.md#2026-11-28-シーケンスライブラリの子からのアイテム配送) · [実測結果](results.ja.md#現在のスナップショット)
 
 このページは開発の再開を支える資料なので、最初のテストを動かしたり理解したりしたい場合は[読み方ガイド](reading-guide.ja.md)から始めてください。
 
@@ -20,10 +20,10 @@ M1〜M4の薄い領域を引き続き補強します。M4は進行中で、未�
 | 領域 | 現在の状態 |
 | --- | --- |
 | M1 | 1205件（runtime 1124・elaboration 81）：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
-| M2 | 641件（runtime 633・elaboration 8）：sequence、sequencer、callback、TLM |
-| M3 | 951件（runtime 940・elaboration 11）：register／memory layer、付録E |
-| 全体 | 章・付録22 directoryに2797件（simulation 2697・elaboration 100）。照合はすべてAIで、人による照合は未記録 |
-| M4 | AI要求案4190件。4190要求を2741テストへ直接対応。control専用56テスト。未対応テスト0件 |
+| M2 | 642件（runtime 634・elaboration 8）：sequence、sequencer、callback、TLM |
+| M3 | 952件（runtime 941・elaboration 11）：register／memory layer、付録E |
+| 全体 | 章・付録22 directoryに2799件（simulation 2699・elaboration 100）。照合はすべてAIで、人による照合は未記録 |
+| M4 | AI要求案4192件。4192要求を2743テストへ直接対応。control専用56テスト。未対応テスト0件 |
 | 規範的棚卸し | 2,507識別子のうち2062件を一部分解、445件を明示的に分類。0件は未評価。直接テストのない要求案0件 |
 
 `scope_status`は提案、`normative_inventory_complete`はfalse、
@@ -60,7 +60,7 @@ Ghostの設定が必要なのは非公開guestの測定を行う場合で、そ�
   [テスト索引](../coverage/test_index.json)：M4の正規の状態です。生成inventoryはレビューの補助資料で、
   版管理する入力の代わりではありません。
 - [library lock](../third_party/uvm.lock)：Accellera UVM 2020.3.1、`78c06547a2a0`、326ファイル。
-  版管理するtoolで取得し、library本体はコミットしません。2736検査系は`UVM_NO_DPI`を使い、38件は独自VPI HDL backendを明示要求します。
+  版管理するtoolで取得し、library本体はコミットしません。2738検査系は`UVM_NO_DPI`を使い、38件は独自VPI HDL backendを明示要求します。
 - ユーザーがrepository rootへ`IEEE_Std_1800.2-2020.pdf`と
   `IEEE_Std_1800-2023_SystemVerilog.pdf`を配置済みです。Git対象外のlocalファイルで、
   新規cloneにはなく、再配布しません。`out/`内の抽出済みtextはlocalでGit対象外です。`/tmp`は消える場合があります。
@@ -94,7 +94,7 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-slangの2つのcommandには、[slangでのelaborationの検査](testing.ja.md#slangでのelaboration)の固定版`pyslang`が要ります。これらのコマンドで、ツールのPython単体テスト、全2797件（simulation 2697件・elaboration 100件）のmetadata、台帳／索引、原因の記録、reportの宣言、段階、slangでのelaboration、APIの集計、library整合性、現在の入力の指紋を確認します。資料だけの変更では、全シミュレーションを再buildせず、[ドキュメントの更新手順](testing.ja.md#ドキュメントの更新)に従って日英の対応とリンクを確認します。
+slangの2つのcommandには、[slangでのelaborationの検査](testing.ja.md#slangでのelaboration)の固定版`pyslang`が要ります。これらのコマンドで、ツールのPython単体テスト、全2799件（simulation 2699件・elaboration 100件）のmetadata、台帳／索引、原因の記録、reportの宣言、段階、slangでのelaboration、APIの集計、library整合性、現在の入力の指紋を確認します。資料だけの変更では、全シミュレーションを再buildせず、[ドキュメントの更新手順](testing.ja.md#ドキュメントの更新)に従って日英の対応とリンクを確認します。
 Ghostの互換記録と除外した入力は[記録の合算](results.ja.md#記録の合算)に示します。実行のsmoke確認は次のとおりです。
 
 ```sh
@@ -118,13 +118,13 @@ Checkはtool、metadata、台帳、library、原因の記録、reportの宣言�
 
 | シミュレータ／library | 記録した結果 |
 | --- | --- |
-| Verilator 5.054／固定UVM | runtime pass 2234件（seed 1／73）・期待compile拒否95件・known 460件 |
+| Verilator 5.054／固定UVM | runtime pass 2236件（seed 1／73）・期待compile拒否95件・known 460件 |
 | Verilator 5.054／独自VPI HDL backend | 別条件の38件：37件が両seed pass、1件はseed 1でfail |
 | Verilator 5.054／command-line VPI・固定regex DPI | 別条件の23件で20件は両seed一致、3件はseed 1の既知差分 |
 | Verilator 5.054／regex DPIとcommand-line DPIで再実行する通常検査系 | 別条件の26件：すべて両seed pass |
-| kirimasim 0.2.1／固定UVM | 全2797件の合算記録で、期待したコンパイル拒否99件、unsupported 2622件、fail 76件 |
-| Ghost／同梱UVM | 未変更1078件で各seed pass 205件・fail 873件。1719入力は未測定 |
-| Ghost／固定版UVM | 入力指紋を照合した合算記録で、各シード2315件通過、482件不一致 |
+| kirimasim 0.2.1／固定UVM | 全2799件の合算記録で、期待したコンパイル拒否99件、unsupported 2624件、fail 76件 |
+| Ghost／同梱UVM | 未変更1078件で各seed pass 205件・fail 873件。1721入力は未測定 |
+| Ghost／固定版UVM | 入力指紋を照合した合算記録で、各シード2317件通過、482件不一致 |
 
 通常条件の既知差分460件の内訳は、実行時不一致314件（seed 1で313件、追加シードで1件）、simulationテストのビルド失敗141件、不正設計の受理5件です。ビルド失敗には、未登録のpacket型を使うpredictorの4件と `UVM_PACKER_MIN_BITS` の未定義1件が含まれます。field flagのenum拡張は5.054で一致しました。 [実行条件別の内訳](results.ja.md#結果の解釈) · [GREEDYの再測定](history.ja.md#2026-11-28-greedyの割り当て履歴)
 
@@ -167,19 +167,19 @@ Checkはtool、metadata、台帳、library、原因の記録、reportの宣言�
 u01の新しい段階0の入力1件は、uvm_pkgをimportし、UVM_LOWをimportとpackage名の両方から名指しするだけで、UVM objectを作らず、run_testも呼びません。最初の凍結のまま、tag付けの前後でseed 1／73が一致し、新しい義務1件で扱います。
 AI義務は4151件で、旧要求4150件と分類445件はすべて同一です。直接対応は2707テスト、control対応は158テスト、controlのみは56テストです。元の通常2755記録と旧既知463入力は全て維持します。新しい入力はM1に数えます。
 
-全体は2797テスト（simulation 2697／elaboration 100）です。通常一致は2329件で、runtime両seed 2234入力とcompiler拒否95件です。
+全体は2799テスト（simulation 2699／elaboration 100）です。通常一致は2331件で、runtime両seed 2236入力とcompiler拒否95件です。
 既知は460入力で、runtime差分314件、simulation build 141件、runtimeのない不正design受理5件です。specのみは4値の8入力を含めて468件です。
 command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。Ghostの互換記録と除外した入力は[記録の合算](results.ja.md#記録の合算)に示します。
 
 主引用がある番号は1329で、candidateは0件1158／目標未満766／2件以上558です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。
 
-全2797件（simulation 2697／elaboration 100）、M1 1205（1124／81）、M2 641（633／8）、M3 951（940／11）です。
-通常passは2329（runtime 2234／拒否95）、knownは460（runtime 314／build 141／不正受理5）です。
+全2799件（simulation 2699／elaboration 100）、M1 1205（1124／81）、M2 642（634／8）、M3 952（941／11）です。
+通常passは2331（runtime 2236／拒否95）、knownは460（runtime 314／build 141／不正受理5）です。
 Ghostは両seedで互換な1078入力の記録を保持しています。
 
 以前の単一Checkは、2026-10-31より後に全選択を完了していません。新しいpushで置き換えられなかった唯一の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)では、8 shardすべてが150分の上限に達しました。
-現在のCheckは入力が変わったタグ付き検査とcanaryを実行し、[Regression](../.github/workflows/regression.yml)は全タグ付き2329検査を重複しない20 shardで、command-line 20検査、regex-DPI変種26件と合わせて実行します。上限は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
+現在のCheckは入力が変わったタグ付き検査とcanaryを実行し、[Regression](../.github/workflows/regression.yml)は全タグ付き2331検査を重複しない20 shardで、command-line 20検査、regex-DPI変種26件と合わせて実行します。上限は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 seed 1／73とcompiler拒否の判定規則は未変更です。146回目の移行でrunner指紋は変わりました。runnerは`RELEASE`定数に固定版のリリースを持ち、`verilator --version`を確かめます。別リリースでの調査測定は`--any-release`で明示します。Checkがcanaryだけと報告した変更の後はRegressionを手動実行し、現在のcommitの結果を確認します。local検証でhosted workflowの成功は立証しません。
 最初の起動でhostedのimageに制約solverがないことが分かり、取り消したrunと修正は[CIの節](results.ja.md#継続的インテグレーション)に記録しています。修正後のdb06513でのRegression run 42372122368は、タグ付き検査とcommand-line検査がすべて一致しました。
 
@@ -332,9 +332,11 @@ policy差し替えの監査は選択A／B／A scalar入力の先へ続け、入�
 
 `lock` または `grab` 中に、関連性のない所有者と関連性のある別シーケンスの要求が同時に保留される条件を検査しました。さらに、親の `lock` の下で `grab` を持つ子が関連性待ちで取り消された場合を検査しました。アイテムの許可後の取消は残ります。 [所有権と関連性](history.ja.md#2026-11-28-シーケンサの所有権と関連性) · [子の取消](history.ja.md#2026-11-28-シーケンサの所有権を持つ子の取消)
 
-成功した読み出しの `bus2reg` は、直接構築したペイロードで有効バイトとデータの対応を検査できました。`reg2bus` 側の対応と絶対バイト順の適用条件は残ります。 [アダプターのテスト](history.ja.md#2026-11-28-アダプターの読み出しデータとバイトイネーブル)
+成功した読み出しの `bus2reg` と32ビット書き込みの `reg2bus` で、有効バイトとデータの対応を片方向ずつ検査しました。絶対バイト順と、1バイトに満たない部分を含む転送の適用条件は残ります。 [読み出しのテスト](history.ja.md#2026-11-28-アダプターの読み出しデータとバイトイネーブル) · [書き込みのテスト](history.ja.md#2026-11-28-アダプターの書き込みデータとバイトイネーブル)
 
-次の候補はreport resetとfilterの相互作用、sequence-library mode実行とunbound適用可否、parent-sequence条件です。catcher API欠落とpartial-byte有効bitの逆再構築も別のレビュー作業として残ります。
+既定RANDモードでは、シーケンサを指定したライブラリから10件の配送とドライバによる遅延した完了通知を検査しました。標準APIを通した他の選択モードと、シーケンサなしでの実行の適用条件は残ります。 [アイテム配送のテスト](history.ja.md#2026-11-28-シーケンスライブラリの子からのアイテム配送)
+
+次の候補はreport resetとfilterの相互作用、parent-sequence条件です。catcher API欠落とpartial-byte有効bitの逆再構築も別のレビュー作業として残ります。
 parent_sequence条項はdo_cloneを指定しているため、objectのclone APIと同じ意味と仮定する前に記述を確認します。
 未解決の義務はbacklogに残します。
 
