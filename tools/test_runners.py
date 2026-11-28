@@ -213,6 +213,36 @@ class KirimasimConditions(RunnerTest):
         self.assertEqual(verdict, ("unsupported", "this runner passes no DPI back end"))
         execute.assert_not_called()
 
+    def test_cli_selects_single_unit_per_test_and_records_input_evidence(self):
+        ordinary = self.test.with_name("test_ordinary.sv")
+        ordinary.write_text(self.test.read_text())
+        frontend = self.root / "slang_frontend.json"
+        frontend.write_text(json.dumps({"tests": {
+            "u05/test_sample": {"reason": "single-unit"},
+            "u05/test_ordinary": {"reason": "suspected-limit"},
+        }}))
+        output = self.root / "out/kirimasim.json"
+        with (mock.patch.object(suite_results, "ROOT", self.root),
+              mock.patch.object(suite_results, "runner_digest", return_value="kirimasim-runner"),
+              mock.patch.object(suite_results, "tool_version", return_value="kirimasim test build"),
+              mock.patch.object(run_kirimasim, "FRONTEND", frontend),
+              mock.patch.object(run_kirimasim.shutil, "which", return_value="/mock/kirimasim"),
+              mock.patch.object(run_kirimasim, "run", return_value=("pass", "")) as run,
+              mock.patch.object(sys, "argv", ["run_kirimasim.py", "--json", str(output),
+                                             str(self.test), str(ordinary)]),
+              contextlib.redirect_stdout(io.StringIO())):
+            expected_inputs = suite_results.fingerprints([self.test, ordinary])
+            self.assertEqual(run_kirimasim.main(), 0)
+        self.assertEqual([(call.args[0], call.args[3]) for call in run.call_args_list],
+                         [(self.test, True), (ordinary, False)])
+        data = json.loads(output.read_text())
+        self.assertEqual(data["runner_sha256"], "kirimasim-runner")
+        self.assertFalse(data["runner_changed"])
+        self.assertEqual(data["tests"], {
+            name: {"status": "pass", "inputs_sha256": digest}
+            for name, digest in expected_inputs.items()
+        })
+
     def test_an_undeclared_nonzero_exit_fails(self):
         verdict, _ = self.execute(result(code=1))
         self.assertEqual(verdict, ("fail", "unexpected nonzero exit code"))
@@ -310,6 +340,11 @@ class GhostEvidence(RunnerTest):
         self.assertEqual(configuration["uvm_content_sha256"], uvm_common.lock()["content_sha256"])
         self.assertEqual(configuration["uvm_files"], uvm_common.lock()["files"])
         self.assertRegex(data["version"], r"^private build [0-9a-f]{12}$")
+        self.assertEqual(data["runner_sha256"], "runner")
+        self.assertFalse(data["runner_changed"])
+        with mock.patch.object(suite_results, "ROOT", self.root):
+            self.assertEqual(data["tests"]["u05/test_sample"]["inputs_sha256"],
+                             suite_results.input_digest(self.test))
         for private in ("private-brand", "secret.cpp", str(self.root), "PRIVATE_SETTING"):
             self.assertNotIn(private, log + output.read_text())
 

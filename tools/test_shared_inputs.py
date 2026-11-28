@@ -39,6 +39,29 @@ class ReportDeclarations(unittest.TestCase):
         self.assertTrue(uvm_reports.DEFAULT.is_file())
 
 
+class SuiteInventory(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.paths = {suite_results.test_id(test): test for test in suite_results.find_tests()}
+        index = suite_results.ROOT / "coverage/test_index.json"
+        cls.index = json.loads(index.read_text(encoding="utf-8"))["tests"]
+
+    def test_the_test_index_covers_the_same_cases_as_runner_discovery(self):
+        self.assertEqual(set(self.index), set(self.paths))
+
+    def test_every_regex_variant_names_a_discovered_indexed_test(self):
+        variants = regex.variants()
+        self.assertFalse(variants.keys() - (self.paths.keys() & self.index.keys()))
+
+    def test_report_declarations_name_indexed_simulation_tests(self):
+        declarations = uvm_reports.load(uvm_reports.DEFAULT)["tests"]
+        for name in declarations:
+            with self.subTest(test=name):
+                self.assertIn(name, self.index)
+                self.assertIn(name, self.paths)
+                self.assertEqual(suite_results.header(self.paths[name]).get("type"), "simulation")
+
+
 class LibraryLock(unittest.TestCase):
     def test_the_fetcher_and_the_runners_lock_the_same_file(self):
         self.assertEqual(fetch_uvm.LOCK, uvm_common.LOCK)

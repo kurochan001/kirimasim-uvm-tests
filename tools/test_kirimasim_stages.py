@@ -179,6 +179,20 @@ class Stages(Fixture):
         data["extra"] = 1
         self.rejects(data, "expected fields")
 
+    def test_stage_sequence_rejects_duplicate_ids_and_out_of_order_stages(self):
+        for sequence in ((0, 1, 2, 3, 4, 5, 5), (0, 1, 2, 4, 3, 5, 6)):
+            with self.subTest(sequence=sequence):
+                data = copy.deepcopy(self.data)
+                data["stages"] = [data["stages"][stage] for stage in sequence]
+                self.rejects(data, "stages: expected stages 0 to 6 in order")
+
+    def test_marker_priority_uses_stage_number_and_defaults_to_one(self):
+        markers = kirimasim_stages.compiled_markers(self.data)
+        reordered = {stage: markers[stage] for stage in (5, 2, 6, 1, 4, 0, 3)}
+        code = "uvm_reg_block b; uvm_analysis_port#(int) p; item::type_id::create();"
+        self.assertEqual(kirimasim_stages.rule_stage(code, reordered), 6)
+        self.assertEqual(kirimasim_stages.rule_stage("module m; endmodule", reordered), 1)
+
     def test_update_rewrites_the_entries_and_reports_changes(self):
         data = copy.deepcopy(self.data)
         data["tests"] = {"u05/test_gone": 1, "u05/test_s1": 4}

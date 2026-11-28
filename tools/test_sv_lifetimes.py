@@ -110,6 +110,31 @@ initial begin
 end
 '''), ['aggregate', 'value'])
 
+    def test_fork_join_variants_keep_the_enclosing_scope(self):
+        for join in ('join', 'join_any', 'join_none'):
+            with self.subTest(join=join):
+                source = f'''
+initial begin : root
+  fork : workers
+    begin int worker = 3; end
+  {join} : workers
+  begin int after_workers = 4; end
+end : root
+'''
+                self.assertEqual(self.names(source), ['worker', 'after_workers'])
+
+    def test_loop_header_and_uninitialized_locals_do_not_report(self):
+        self.assertEqual(self.names('''
+always_latch begin
+  int uninitialized;
+  for (int index = 0; index < 2; ++index) begin
+    int per_iteration = index;
+  end
+end
+initial run_test();
+initial begin int later_process = 0; end
+'''), ['per_iteration', 'later_process'])
+
 
 if __name__ == '__main__':
     unittest.main()
