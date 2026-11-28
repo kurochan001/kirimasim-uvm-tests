@@ -698,6 +698,8 @@ python3 tools/slang_elaborate.py check
 python3 tools/slang_elaborate.py summary
 ```
 
+`check --json out/slang-errors.json` は選択したテストごとに最初のエラーを保存します。位置情報のないエラーも対象です。slangの実行がタイムアウトした場合は、対象テストを表示して終了し、結果ファイルは書き出しません。
+
 合法なテストはerrorなしでelaborateでき、不正designは`:expected_stderr_regex:`に一致するerror行で拒否される必要があります。記録は例外91件を、理由、最初のerror、日英の注記とともに持ちます。`library` 76件（固定版libraryが規格と違う箇所で規格に従うテスト。うち1件はVerilatorがbuildし、slangが拒否します）、`warning-as-error` 10件と`suspected-limit` 3件（1800-2023の引用条項が許すcode）、`single-unit` 1件（全fileを1つのcompilation unitにする必要があり、`tools/run_kirimasim.py`がこの1件に`--single-unit`を渡します）、`accepted-illegal` 1件です。記録にないテストにerrorが出たとき、記録にあるテストのerrorが消えるか変わったとき、記録が原因の記録と合わないときに、検査は失敗します。`suspected-limit`はユーザーの判断なしにupstreamへ報告しません。kirimasimが固定するslangのcommitで同じ結果になるかは未確認です。
 
 ## テストの追加・修正

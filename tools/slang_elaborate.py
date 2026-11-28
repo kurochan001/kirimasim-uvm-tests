@@ -189,12 +189,16 @@ def command(test, options):
 
 def elaborate(test, options):
     """The diagnostics that slang prints for a test."""
-    r = subprocess.run([sys.executable, "-c", ONE, *command(test, options)],
-                       capture_output=True, text=True, errors="replace", timeout=600)
-    require(r.returncode == 0 or (r.returncode == 2 and ": error: " in r.stdout + r.stderr),
-            f"{suite_results.test_id(test)}: slang did not run: "
-            f"{(r.stdout + r.stderr).strip()[-300:]}")
-    return r.stdout + r.stderr
+    try:
+        r = subprocess.run([sys.executable, "-c", ONE, *command(test, options)],
+                           capture_output=True, text=True, errors="replace", timeout=600)
+    except subprocess.TimeoutExpired as error:
+        raise FrontendError(f"{suite_results.test_id(test)}: slang timed out "
+                            f"after {error.timeout:g} seconds") from None
+    output = r.stdout + r.stderr
+    require(r.returncode == 0 or (r.returncode == 2 and ERROR.search(output)),
+            f"{suite_results.test_id(test)}: slang did not run: {output.strip()[-300:]}")
+    return output
 
 
 def errors(output):

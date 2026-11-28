@@ -927,6 +927,8 @@ python3 tools/slang_elaborate.py check
 python3 tools/slang_elaborate.py summary
 ```
 
+Use `check --json out/slang-errors.json` to save the first error for each selected test. An error may lack a source location. If a slang process times out, the command identifies the affected test and exits before writing a result file.
+
 A legal test must elaborate without an error, and an illegal design must be rejected with an error line that matches its `:expected_stderr_regex:`. The record lists the 91 exceptions, each with a reason, its first error and a note in both languages: 76 `library` (the test follows the standard where the pinned library differs; one of them Verilator builds and slang rejects), 10 `warning-as-error` and 3 `suspected-limit` (code that the cited clause of 1800-2023 allows), 1 `single-unit` (the test needs every file in one compilation unit, and `tools/run_kirimasim.py` passes `--single-unit` for it) and 1 `accepted-illegal`. The check fails when an unlisted test has an error, when a listed test loses or changes its first error, or when an entry does not fit the cause record. The `suspected-limit` entries are not reported upstream without the user's decision, and whether the slang commit that kirimasim pins behaves the same is not confirmed.
 
 ## Adding or correcting a test

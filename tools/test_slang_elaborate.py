@@ -1,9 +1,12 @@
 """Checks of tools/slang_elaborate.py that need no slang: the record's rules
 and the judgment of an elaboration's output."""
 
+import contextlib
 import copy
+import io
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest import mock
@@ -123,6 +126,46 @@ class Frontend(unittest.TestCase):
                   mock.patch.object(slang_elaborate, "command", return_value=[])):
                 with self.assertRaises(slang_elaborate.FrontendError):
                     slang_elaborate.elaborate(self.root / "tests/u05/test_clean.sv", [])
+
+    def test_exit_two_with_a_locationless_diagnostic_is_a_result(self):
+        test = self.root / "tests/u05/test_clean.sv"
+        diagnostic = "error: 'missing' is not a valid top-level module\n"
+        done = subprocess.CompletedProcess([], 2, "", diagnostic)
+        with (mock.patch.object(slang_elaborate.subprocess, "run", return_value=done),
+              mock.patch.object(slang_elaborate, "command", return_value=[])):
+            self.assertEqual(slang_elaborate.elaborate(test, []), diagnostic)
+
+    def test_check_does_not_write_evidence_after_a_timeout(self):
+        (self.root / slang_elaborate.RECORD).write_text(json.dumps(self.data))
+        output = self.root / "out/first-errors.json"
+        test = self.root / "tests/u05/test_clean.sv"
+        stderr = io.StringIO()
+        with (mock.patch.object(slang_elaborate, "installed_version",
+                                return_value=self.data["version"]),
+              mock.patch.object(slang_elaborate.subprocess, "run",
+                                side_effect=subprocess.TimeoutExpired(["slang"], 600)),
+              contextlib.redirect_stderr(stderr)):
+            self.assertEqual(slang_elaborate.main(["check", "--json", str(output), str(test)]), 1)
+        self.assertIn("u05/test_clean: slang timed out", stderr.getvalue())
+        self.assertFalse(output.exists())
+
+    def test_check_preserves_first_diagnostics_for_a_completed_subset(self):
+        (self.root / slang_elaborate.RECORD).write_text(json.dumps(self.data))
+        output = self.root / "out/first-errors.json"
+        selected = [self.root / f"tests/u05/test_{name}.sv" for name in ("strict", "clean")]
+        diagnostic = ERROR.format(name="test_strict", text="different first error")
+        stdout = io.StringIO()
+        with (mock.patch.object(slang_elaborate, "installed_version",
+                                return_value=self.data["version"]),
+              mock.patch.object(slang_elaborate, "elaborate",
+                                side_effect=lambda test, _: diagnostic if test == selected[0] else ""),
+              contextlib.redirect_stdout(stdout)):
+            self.assertEqual(slang_elaborate.main(
+                ["check", "--json", str(output), *map(str, selected)]), 1)
+        self.assertEqual(json.loads(output.read_text()), {
+            "u05/test_clean": None, "u05/test_strict": "different first error"})
+        self.assertIn("u05/test_strict: the first error is now: different first error",
+                      stdout.getvalue())
 
     def test_a_single_unit_test_must_be_clean_in_one_unit(self):
         first = ERROR.format(name="test_unit", text="unknown macro")
