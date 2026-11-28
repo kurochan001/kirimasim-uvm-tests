@@ -39,7 +39,7 @@
 module test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings;
   import uvm_pkg::*;
   class endpoint extends uvm_component;
-    function new(); super.new("owner",null); endfunction
+    function new(string name); super.new(name,null); endfunction
     task b_transport(uvm_tlm_generic_payload value,uvm_tlm_time delay); endtask
     function uvm_tlm_sync_e nb_transport_fw(uvm_tlm_generic_payload value,
         ref uvm_tlm_phase_e phase,input uvm_tlm_time delay); return UVM_TLM_COMPLETED; endfunction
@@ -47,13 +47,15 @@ module test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindi
         ref uvm_tlm_phase_e phase,input uvm_tlm_time delay); return UVM_TLM_COMPLETED; endfunction
   endclass
   initial begin
-    automatic endpoint owner = new();
+    automatic endpoint owner = new("owner");
+    // Each nonblocking initiator creates a child named bw_imp.
+    automatic endpoint peer_owner = new("peer_owner");
     automatic uvm_tlm_b_initiator_socket#() bi0 = new("bi0",owner);
     automatic uvm_tlm_b_initiator_socket#() bi1 = new("bi1",owner);
     automatic uvm_tlm_b_target_socket#(endpoint) bt0 = new("bt0",owner);
     automatic uvm_tlm_b_target_socket#(endpoint) bt1 = new("bt1",owner);
     automatic uvm_tlm_nb_initiator_socket#(endpoint) ni0 = new("ni0",owner);
-    automatic uvm_tlm_nb_initiator_socket#(endpoint) ni1 = new("ni1",owner);
+    automatic uvm_tlm_nb_initiator_socket#(endpoint) ni1 = new("ni1",peer_owner);
     automatic uvm_tlm_nb_target_socket#(endpoint) nt0 = new("nt0",owner);
     automatic uvm_tlm_nb_target_socket#(endpoint) nt1 = new("nt1",owner);
     uvm_port_base#(uvm_tlm_if#(uvm_tlm_generic_payload,uvm_tlm_phase_e)) connections[string];

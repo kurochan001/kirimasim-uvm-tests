@@ -124,6 +124,8 @@ command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条�
 
 kirimasim／Ghost記録は、固定した実行ファイルとseedごとの非公開profileで取得しました。
 
+TLM2の同種接続を検査するテストのセットアップを直し、同じkirimasim 0.2.1ビルドで引き続きunsupported、Verilatorでは記録済みの解釈差分になることを確認しました。 [11月28日の再確認](history.ja.md#2026-11-28-tlm2終端ソケットのテストの修正)
+
 商用シミュレータの結果は[投稿方針](faq.ja.md#商用シミュレータとissueの投稿方針)に従って除外します。
 
 Ghostの元ファイルは各seedの1085記録を保持しています。以前の修正で4件を除外しました。2026-11-23のレビューでは、共通phaseの順序（旧pass）、BODY／FINISHEDの状態待機（旧fail）、default mapの選択と再帰lock（旧fail）の3件を各seedの集計から除外しました。他の修正5件は元からGhostの測定対象外でした。現在の入力と互換な結果は各seedで一致205件・不一致873件です。

@@ -4536,3 +4536,9 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 以前のシード1で一致したテストのうち、バリアを待機者の起床なしでリセットするテストは修正後の各周回でも不一致でした。固定版ライブラリでは、`reset(0)` が内部のイベント変数に新しいイベントを割り当てます。そのイベントのトリガーで新たな待機者3つが起床します。古いイベントで待機する2プロセスは停止したままです。イベント変数の再割当ては IEEE 1800-2023 §15.5.5.1 に記載されています。5プロセスすべての完了を期待するテストは、期待値の見直し候補です。 [バリアのテスト](../tests/u10/test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold.sv)
 
 オブジェクト設定のテストはシード73の反復で結果が変動しました。メモリ割当てのテストは修正後のシード231で一致し、ほかの測定シードで不一致でした。どちらも原因は未確定です。 [オブジェクト設定](../tests/u05/test_object_set_local_virtual_extension_selects_named_resource_properties.sv) · [メモリ割当て](../tests/u18/test_mam_greedy_fresh_low_history_89.sv)
+
+## 2026-11-28 TLM2終端ソケットのテストの修正
+
+[同種の終端ソケットを接続するテスト](../tests/u12/test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings.sv)で、2つの非ブロッキングinitiatorの親を分けました。どちらのinitiatorも `bw_imp` という子を生成し、修正前は同じ親に同名の子が重複したため、Ghostは最初の接続検査に届きませんでした。
+
+固定版UVMを使い、Verilator 5.054とGhostでシード1・73ともに接続を検査できました。initiatorの2件では直接の接続先が残り、targetの2件では空でした。期待値には、接続先を残さないという従来の限定解釈を記録しています。同じkirimasim 0.2.1ビルドで再測定し、修正後も同じ構文がunsupportedとなりました。 [既知差分](known-differences.ja.md#specのみのテスト)

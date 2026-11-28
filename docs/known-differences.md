@@ -1488,7 +1488,7 @@ not a count of distinct bugs.
 
 - [Printed provider acceptance for blocking initiator relay](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
 - [Printed provider acceptance for blocking target relay](../tests/u12/test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families.sv).
-- [Qualified same-kind terminator direct-binding rejection](../tests/u12/test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings.sv).
+- [Qualified same-kind terminator direct-binding rejection](../tests/u12/test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings.sv). Separate owners for the nonblocking initiators let both sockets finish construction before the connection checks.
 
 - [Independent integer response default with REQ-only bidirectional ports](../tests/u12/test_tlm_bidirectional_request_only_parameter_keeps_declared_integer_response_default.sv).
 

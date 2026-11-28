@@ -1096,7 +1096,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 
 - [blocking initiator relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
 - [blocking target relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families.sv).
-- [同種terminatorの直接binding拒否の限定解釈](../tests/u12/test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings.sv).
+- [同種terminatorの直接binding拒否の限定解釈](../tests/u12/test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings.sv)。2つのnonblocking initiatorに別々の親を与え、両方の生成を完了してから接続を検査します。
 
 - [REQだけ指定するbidirectional portの独立integer応答既定型](../tests/u12/test_tlm_bidirectional_request_only_parameter_keeps_declared_integer_response_default.sv).
 
