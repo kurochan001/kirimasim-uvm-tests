@@ -289,7 +289,7 @@ def main(argv=None):
     parser.add_argument("--json", type=Path, help="write the first error of each test (check)")
     parser.add_argument("--lang", choices=("en", "ja"), default="en")
     parser.add_argument("tests", nargs="*", type=Path)
-    args = parser.parse_args(argv)
+    args = parser.parse_intermixed_args(argv)
     try:
         data = validate(load())
         if args.command == "summary":
