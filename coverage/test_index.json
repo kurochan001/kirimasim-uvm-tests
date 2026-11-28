@@ -6350,6 +6350,10 @@
       "primary_clause": "19.2.2.1",
       "inputs_sha256": "95bfae296696805b230b7406060150407c4c40100c1c2e82b93db3edf2b676b0"
     },
+    "u19/test_reg_tlm_adapter_bus2reg_preserves_enabled_data_pairs": {
+      "primary_clause": "19.2.2.2.2",
+      "inputs_sha256": "24745f01e06d537ab9342f28e9bb9e00eaefb46b106b85818f6071db1c460218"
+    },
     "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts": {
       "primary_clause": "19.2.2.2.2",
       "inputs_sha256": "d1ba5b03ba0163d49ef5c3a2de214b954f4317a238cf875f7c7281b9ed4961ab"

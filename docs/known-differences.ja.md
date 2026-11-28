@@ -6,7 +6,7 @@
 
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
-現在の2796件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の2797件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。原因は[原因の記録](#既知差分の原因)で別に割り当てており、照合はAIによるものです。
 
 差分の件数は[実測の内訳](results.ja.md#結果の解釈)で確認し、個別の入力を調べるときは[ライブラリの注記](known-differences.ja.md#固定版ライブラリの制約)、[ソースの分類一覧](known-differences.ja.md#specのみのテスト)、[シミュレータとライブラリの条件](known-differences.ja.md#シミュレータとライブラリの組み合わせ)を使ってください。
@@ -499,7 +499,7 @@ interpretationの記録は、2つの読み方の根拠（`basis`）も持ちま�
 
 `python3 tools/known_causes.py check`は、記録とテストが一致することを確かめます。`:oracle:`にverilator@5.054がない2値テストそれぞれにちょうど1件の記録があること、入力の指紋が現在のものであること、libraryの文字列が固定版のファイルにあること、条項が1800.2-2020のものであること、対照がtag付きのテストであることです。commentだけの編集では、codeが変わらないことを先に示す`tools/code_identity.py refresh`で指紋を持ち越します。`--results`を付けると、合算したrunner JSONのknownの記録が記録と一致することも確かめます。`reproduce`は再現例をbuildし直し、Verilatorが記録どおりに受理または拒否することを確かめます。Checkは両方を実行します。
 
-kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2413入力と、固定版libraryのためにどのsimulatorでも期待値に届かない383入力（原因がlibraryとinterpretationのもの。`static`の1件を含みます）を分けて数えます。未分類の入力はありません。測れる入力は、tag付きの2328件、原因がsimulatorとconditionのもの、記録のない4値の7件です。`candidates`は、人による照合の候補404件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。分類は終わりましたが、そうした値を加えると記録の形式が変わるため、先に案を示してユーザーの確認を得ます。
+kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2414入力と、固定版libraryのためにどのsimulatorでも期待値に届かない383入力（原因がlibraryとinterpretationのもの。`static`の1件を含みます）を分けて数えます。未分類の入力はありません。測れる入力は、tag付きの2329件、原因がsimulatorとconditionのもの、記録のない4値の7件です。`candidates`は、人による照合の候補404件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。分類は終わりましたが、そうした値を加えると記録の形式が変わるため、先に案を示してユーザーの確認を得ます。
 
 ## 固定版ライブラリの制約
 
@@ -908,14 +908,14 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.054`を付けたテストは2328件、specのみのテストは468件で、うち8件は4値です。
+スイート全体では、`verilator@5.054`を付けたテストは2329件、specのみのテストは468件で、うち8件は4値です。
 9.6の子タスク停止の検査系は、5.052の固定組合せではpre-resetフェーズ終了後も子タスクが遅延書き込みを実行する既知差分でしたが、146回目の5.054の測定ではseed 1／73で一致し、tag付きになりました。
 
 wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1つ確立してから`reset(1)`を呼びます。
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。原因台帳ではsimulator差分に分類しています。再現例 `class-event-trigger-then-reassign` は、クラスのメンバーeventを発火させ、同じ関数内でそのevent変数に再代入します。
 
-specのみの468件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の8件は[4値の一覧](#4値のspecのみのテスト)にあります。通常runnerの既定選択と全件のRegressionはタグ付き2328件（runtime 2233・compile拒否95）を選びます。
+specのみの468件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の8件は[4値の一覧](#4値のspecのみのテスト)にあります。通常runnerの既定選択と全件のRegressionはタグ付き2329件（runtime 2234・compile拒否95）を選びます。
 パスを指定せずに `--all` を付けると2値でspecのみの460件も選び、不一致やビルド不可を`known`として記録します。
 実行時差分314件のうち313件はseed 1が最初の差分で、seed 73の結果はありません。下位履歴のGREEDYテストは追加シードの測定で差分を確認しました。 [GREEDYの再測定](history.ja.md#2026-11-28-greedyの割り当て履歴)
 simulation build 141件には通常runtimeがなく、DPI未linkの61入力（HDL 38／command-line 23）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
@@ -1444,7 +1444,7 @@ command-line条件の2検査系は、固定版libraryが満たさない規格由
 
 以前のfield-configuration filterは互換1083記録を1082へ絞りました。その後のreraise主引用のfilterで1082件から1081件へ減りました。同梱方式の集計はその記録を引き継ぎます。[入力同一性の説明](faq.ja.md#q408-引用の修正でguestの結果が改善したり条項coverageを証明したりしますか)と[証拠の合算](results.ja.md#記録の合算)で両段階を区別します。
 
-Ghost同梱方式の互換記録は1078入力で、1718入力は未測定です。同梱UVMではseed 1・73とも205件一致・873件不一致で、不一致になるテストも同じです。
+Ghost同梱方式の互換記録は1078入力で、1719入力は未測定です。同梱UVMではseed 1・73とも205件一致・873件不一致で、不一致になるテストも同じです。
 11月24日には固定版UVMで新規16件と既存の4値テスト7件を測定し、両シードとも22件が一致しました。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。

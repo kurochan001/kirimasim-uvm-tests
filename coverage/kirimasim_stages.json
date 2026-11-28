@@ -2270,6 +2270,7 @@
     "u19/test_reg_tlm_adapter_allocates_distinct_payloads_for_successive_operations": 6,
     "u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields": 6,
     "u19/test_reg_tlm_adapter_base_view_dispatches_consistent_payload_conversion": 6,
+    "u19/test_reg_tlm_adapter_bus2reg_preserves_enabled_data_pairs": 6,
     "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts": 6,
     "u19/test_reg_tlm_adapter_fresh_objects_preserve_conversion_contracts": 6,
     "u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context": 6,

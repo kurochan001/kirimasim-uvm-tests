@@ -19690,6 +19690,41 @@
       ]
     },
     {
+      "id": "UVM-TLM-BUS2REG-ENABLED-DATA-PAIRS",
+      "clause": "19.2.2.2.2",
+      "statement": {
+        "en": "Converting a successful generic payload read with bus2reg preserves the association between enabled bytes and the returned data.",
+        "ja": "成功した汎用ペイロードの読み出しをbus2regで変換すると、有効バイトと読み出しデータの対応が保たれる。"
+      },
+      "conditions": {
+        "en": "Construct a four-byte read payload with distinct byte values. Convert it twice with complementary alternating masks using only bus2reg. Start each conversion with a generic WRITE record containing sentinel values.",
+        "ja": "互いに異なる4バイトで読み出しペイロードを構成する。交互に有効となる相補的なマスク2種類を用い、bus2regだけで変換する。変換前の汎用レコードにはWRITEと対照値を設定する。"
+      },
+      "expected": {
+        "en": "Both conversions report READ at address 0x320 with UVM_IS_OK. Exactly two lanes are enabled each time. Their data identifies source entries 0 and 2 on the first call, then entries 1 and 3 on the second.",
+        "ja": "両方ともREAD、アドレス0x320、UVM_IS_OKになる。有効レーンはそれぞれ2つで、1回目のデータは入力の添字0と2、2回目は添字1と3に対応する。"
+      },
+      "limitations": {
+        "en": "The fixture compares enabled source-byte membership. It leaves absolute byte order, disabled bytes, inverse n_bits reconstruction and other payload widths unasserted.",
+        "ja": "有効となった入力バイトの集合を照合する。絶対的なバイト順、無効バイト、n_bitsの逆再構築、他のペイロード幅は別条件として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_bus2reg_preserves_enabled_data_pairs",
+          "role": "direct",
+          "expected_observations": [
+            "UT: trial 0 read 1 address 320 ok 1 enabled 2 sources 0101",
+            "UT: trial 1 read 1 address 320 ok 1 enabled 2 sources 1010"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-TLM-ADAPTER-WRITE-RESPONSE",
       "clause": "19.2.2.2.2",
       "statement": {

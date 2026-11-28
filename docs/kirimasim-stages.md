@@ -13,7 +13,7 @@ The bring-up stages order the parts of UVM that a simulator meets while it learn
 
 ## Why stages
 
-kirimasim 0.2.1 reports the type `uvm_object_wrapper` as unsupported on 2560 of the 2796 inputs ([current results](results.md#current-snapshot)). Another 76 simulation tests failed to compile with the pinned library, and the runner skipped the 61 DPI inputs. No simulation reached its runtime checks. With a stage for each test and a short set for each stage, a run of the short sets shows the first stage that does not pass, and the features table below points to the language tests to look at next.
+kirimasim 0.2.1 reports the type `uvm_object_wrapper` as unsupported on 2561 of the 2797 inputs ([current results](results.md#current-snapshot)). Another 76 simulation tests failed to compile with the pinned library, and the runner skipped the 61 DPI inputs. No simulation reached its runtime checks. With a stage for each test and a short set for each stage, a run of the short sets shows the first stage that does not pass, and the features table below points to the language tests to look at next.
 
 The stages are not the M1 to M4 milestones, which group tests by the functional subject that development covers ([milestone grouping](glossary.md#scope-and-coverage)). A stage changes no expectation and adds no metadata field: the record is a separate file, so no input fingerprint changes.
 
@@ -31,8 +31,8 @@ Each of the stages 2 to 6 lists markers, regular expressions that find a use of 
 | 3 | config_db | `uvm_config_db`, `uvm_resource*`, `apply_config_settings` | 114 | 95 | 5 |
 | 4 | sequence | `uvm_sequence`, `uvm_sequencer`, `uvm_driver`, `start_item`, the sequence macros such as `` `uvm_do `` | 332 | 271 | 5 |
 | 5 | TLM | ports, exports and imps, `uvm_analysis_*`, `uvm_tlm_*`, `` `uvm_*_imp_decl ``, `uvm_subscriber` | 252 | 226 | 5 |
-| 6 | register layer | `uvm_reg*`, `uvm_mem*`, `uvm_vreg*`, `uvm_hdl_*`, the register-layer enumerations | 961 | 764 | 5 |
-| Total | | | 2796 | 2328 | 31 |
+| 6 | register layer | `uvm_reg*`, `uvm_mem*`, `uvm_vreg*`, `uvm_hdl_*`, the register-layer enumerations | 962 | 765 | 5 |
+| Total | | | 2797 | 2329 | 31 |
 
 A few lookalikes are left out on purpose: a sequence item alone (`uvm_sequence_item`) does not place a test at stage 4, typedefs such as `uvm_reg_data_t` do not place it at stage 6, and `` `uvm_do_callbacks `` is a callback macro, not a sequence macro. The unit tests of the tool check these cases on short snippets.
 
@@ -66,7 +66,7 @@ Measuring kirimasim needs its executable, which is not part of this repository; 
 
 ## Current kirimasim records by stage
 
-The table groups the current kirimasim 0.2.1 records by stage. It combines the November 24 baseline for 2,791 matching inputs with five targeted measurements on the same release build (simulator commit e93839fdcbea). The runner passes `--timescale=1ns/1ps` and macros with `-D`, checks exit codes and report declarations, and records fixtures requiring DPI as `unsupported` without invoking the simulator.
+The table groups the current kirimasim 0.2.1 records by stage. It combines the November 24 baseline for 2,791 matching inputs with six targeted measurements on the same release build (simulator commit e93839fdcbea). The runner passes `--timescale=1ns/1ps` and macros with `-D`, checks exit codes and report declarations, and records fixtures requiring DPI as `unsupported` without invoking the simulator.
 
 | Stage | Tests | `pass` | `unsupported` | `fail` |
 | --- | --- | --- | --- | --- |
@@ -76,10 +76,10 @@ The table groups the current kirimasim 0.2.1 records by stage. It combines the N
 | 3 | 114 | 31 | 78 | 5 |
 | 4 | 332 | 4 | 310 | 18 |
 | 5 | 252 | 3 | 246 | 3 |
-| 6 | 961 | 10 | 929 | 22 |
-| Total | 2796 | 99 | 2621 | 76 |
+| 6 | 962 | 10 | 930 | 22 |
+| Total | 2797 | 99 | 2622 | 76 |
 
-The unsupported type `uvm_object_wrapper` occurs in every stage (2560 cases in total). The stage-0 test, which only imports uvm_pkg, stops there too. All 99 `pass` records are illegal designs rejected at their pattern; no simulation test runs. The 76 `fail` records are the tests that do not compile with the pinned library, the library entries of [the slang record](testing.md#slang-elaboration). All 31 short-set tests are `unsupported`. An earlier measurement showed that the runner's original `+define+` syntax truncated macro values containing a plus sign. The runner now uses `-D`.
+The unsupported type `uvm_object_wrapper` occurs in every stage (2561 cases in total). The stage-0 test, which only imports uvm_pkg, stops there too. All 99 `pass` records are illegal designs rejected at their pattern; no simulation test runs. The 76 `fail` records are the tests that do not compile with the pinned library, the library entries of [the slang record](testing.md#slang-elaboration). All 31 short-set tests are `unsupported`. An earlier measurement showed that the runner's original `+define+` syntax truncated macro values containing a plus sign. The runner now uses `-D`.
 
 ## SystemVerilog features by stage
 
