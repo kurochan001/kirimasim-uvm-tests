@@ -55,7 +55,7 @@ Ghostの設定が必要なのは非公開guestの測定を行う場合で、そ�
 
 - [テストガイド](testing.ja.md)：metadata、コンパイル、runner option、変更時の方針。
   [実行結果](results.ja.md)：evidenceの解釈と集約方法。
-  [既知差分](known-differences.ja.md)：spec-only全467件。
+  [既知差分](known-differences.ja.md)：spec-only全468件。
 - [要求ガイド](requirements.ja.md)、[範囲](../coverage/scope.json)、[台帳](../coverage/requirements.json)、[分類](../coverage/assessments.json)、
   [テスト索引](../coverage/test_index.json)：M4の正規の状態です。生成inventoryはレビューの補助資料で、
   版管理する入力の代わりではありません。
@@ -118,7 +118,7 @@ Checkはtool、metadata、台帳、library、原因の記録、reportの宣言�
 
 | シミュレータ／library | 記録した結果 |
 | --- | --- |
-| Verilator 5.054／固定UVM | runtime pass 2232件（seed 1／73）・期待compile拒否95件・known 459件 |
+| Verilator 5.054／固定UVM | runtime pass 2231件（seed 1／73）・期待compile拒否95件・known 460件 |
 | Verilator 5.054／独自VPI HDL backend | 別条件の38件：37件が両seed pass、1件はseed 1でfail |
 | Verilator 5.054／command-line VPI・固定regex DPI | 別条件の23件で20件は両seed一致、3件はseed 1の既知差分 |
 | Verilator 5.054／regex DPIとcommand-line DPIで再実行する通常検査系 | 別条件の26件：すべて両seed pass |
@@ -126,7 +126,7 @@ Checkはtool、metadata、台帳、library、原因の記録、reportの宣言�
 | Ghost／同梱UVM | 未変更1078件で各seed pass 205件・fail 873件。1716入力は未測定 |
 | Ghost／固定版UVM | 新規16件は両シードとも全件一致。既存の4値7件を含めると両シードで23件中22件一致 |
 
-通常条件の既知差分459件の内訳は、seed 1での実行時不一致313件、simulationテストのビルド失敗141件、不正設計の受理5件です。ビルド失敗には、未登録のpacket型を使うpredictorの4件と `UVM_PACKER_MIN_BITS` の未定義1件が含まれます。field flagのenum拡張は5.054で一致しました。[実行条件別の内訳](results.ja.md#結果の解釈)
+通常条件の既知差分460件の内訳は、実行時不一致314件（seed 1で313件、追加シードで1件）、simulationテストのビルド失敗141件、不正設計の受理5件です。ビルド失敗には、未登録のpacket型を使うpredictorの4件と `UVM_PACKER_MIN_BITS` の未定義1件が含まれます。field flagのenum拡張は5.054で一致しました。 [実行条件別の内訳](results.ja.md#結果の解釈) · [GREEDYの再測定](history.ja.md#2026-11-28-greedyの割り当て履歴)
 
 129〜137回目は、0da235aを対象とし、2026-11-20に示された3回目のレビューを実装しました。kirimasimのrunnerは`--timescale=1ns/1ps`を渡し、書かれた終了codeを求め、`:uvm_dpi: yes`の61件をunsupportedと報告します。simulationテストはすべて`:expected_exit:`を書きます（129回目）。Checkは、全テストをslangでelaborateして[`coverage/slang_frontend.json`](../coverage/slang_frontend.json)（記録91件）と照合し（130回目）、[`coverage/api_census.json`](../coverage/api_census.json)をテストと照合します（131回目）。どのテストも使っていなかった宣言を10件のテストが使い（132回目）、小さな参照先を直し（133回目）、testbench形のテスト5件がRTLの上で動きます（134〜137回目）。そのうちreset sequenceの1件は、libraryの新しい差分です。新しい15件に、義務31件が対応します。未実施のものは次のとおりです。`run_verilator.py`、`suite_results.py`、`uvm_common.py`のdocstringに残る古いREADMEへの参照は、次に指紋を動かす変更まで待ちます。kirimasim-testsにない構文へのテストの追加は、ユーザーの判断を待っています。[`tools/full_output.py`](../tools/full_output.py)は、判定とは別に、出力の全体を保存して比べます（140回目）。各回の内容は[履歴](history.ja.md#129回目の拡充kirimasimのrunnerと終了code3回目の外部レビュー項目1)にあります。
 
@@ -167,19 +167,19 @@ Checkはtool、metadata、台帳、library、原因の記録、reportの宣言�
 u01の新しい段階0の入力1件は、uvm_pkgをimportし、UVM_LOWをimportとpackage名の両方から名指しするだけで、UVM objectを作らず、run_testも呼びません。最初の凍結のまま、tag付けの前後でseed 1／73が一致し、新しい義務1件で扱います。
 AI義務は4151件で、旧要求4150件と分類445件はすべて同一です。直接対応は2707テスト、control対応は158テスト、controlのみは56テストです。元の通常2755記録と旧既知463入力は全て維持します。新しい入力はM1に数えます。
 
-全体は2794テスト（simulation 2694／elaboration 100）です。通常一致は2327件で、runtime両seed 2232入力とcompiler拒否95件です。
-既知は459入力で、runtime seed 1差分313件、simulation build 141件、runtimeのない不正design受理5件です。specのみは4値の8入力を含めて467件です。
+全体は2794テスト（simulation 2694／elaboration 100）です。通常一致は2326件で、runtime両seed 2231入力とcompiler拒否95件です。
+既知は460入力で、runtime差分314件、simulation build 141件、runtimeのない不正design受理5件です。specのみは4値の8入力を含めて468件です。
 command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。Ghostの互換記録と除外した入力は[記録の合算](results.ja.md#記録の合算)に示します。
 
 主引用がある番号は1328で、candidateは0件1159／目標未満765／2件以上558です。
 部分2062番号、実際に残る条件、元の段階目標、人の照合、範囲／分母承認は未完で、条件の一致で完了にならない理由は[進捗のガイド](reading-guide.ja.md#対応状況と進捗を読む)で説明しています。
 
 全2794件（simulation 2694／elaboration 100）、M1 1205（1124／81）、M2 639（631／8）、M3 950（939／11）です。
-通常passは2327（runtime 2232／拒否95）、knownは459（runtime 313／build 141／不正受理5）です。
+通常passは2326（runtime 2231／拒否95）、knownは460（runtime 314／build 141／不正受理5）です。
 Ghostは両seedで互換な1078入力の記録を保持しています。
 
 以前の単一Checkは、2026-10-31より後に全選択を完了していません。新しいpushで置き換えられなかった唯一の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)では、8 shardすべてが150分の上限に達しました。
-現在のCheckは入力が変わったタグ付き検査とcanaryを実行し、[Regression](../.github/workflows/regression.yml)は全タグ付き2327検査を重複しない20 shardで、command-line 20検査、regex-DPI変種26件と合わせて実行します。上限は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
+現在のCheckは入力が変わったタグ付き検査とcanaryを実行し、[Regression](../.github/workflows/regression.yml)は全タグ付き2326検査を重複しない20 shardで、command-line 20検査、regex-DPI変種26件と合わせて実行します。上限は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 seed 1／73とcompiler拒否の判定規則は未変更です。146回目の移行でrunner指紋は変わりました。runnerは`RELEASE`定数に固定版のリリースを持ち、`verilator --version`を確かめます。別リリースでの調査測定は`--any-release`で明示します。Checkがcanaryだけと報告した変更の後はRegressionを手動実行し、現在のcommitの結果を確認します。local検証でhosted workflowの成功は立証しません。
 最初の起動でhostedのimageに制約solverがないことが分かり、取り消したrunと修正は[CIの節](results.ja.md#継続的インテグレーション)に記録しています。修正後のdb06513でのRegression run 42372122368は、タグ付き検査とcommand-line検査がすべて一致しました。
 

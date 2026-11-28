@@ -12,9 +12,9 @@
 
 11月28日、前回起票した43件は最小再現92試行すべてで修正を確認しました。起票元テスト45件のうち44件はシード1・73で通過しました。残る1件は意図したUVMエラーを出し、テストが期待する終了コード0に対して、シミュレータは報告エラーを終了状態に反映して2を返しました。 [Issue別の確認（ローカル）](../out/ghost-fix-verification-20261128-010942.LLeYu6/issue-repro-results.json) · [起票元テスト（ローカル）](../out/ghost-fix-verification-20261128-010942.LLeYu6/issue-original-results.json)
 
-ライブラリ方式は2,794件すべての判定が前回と一致し、各シードで2,311件通過、483件失敗でした。定期回帰を再開するときは、11月28日の `pinned-1.json` と `pinned-73.json` を使い、入力指紋が一致するケースをシードごとに照合します。 [差分集計（ローカル）](../out/ghost-fix-verification-20261128-010942.LLeYu6/comparison.json) · [シード1（ローカル）](../out/ghost-fix-verification-20261128-010942.LLeYu6/pinned-1.json) · [シード73（ローカル）](../out/ghost-fix-verification-20261128-010942.LLeYu6/pinned-73.json)
+ライブラリ方式は2,794件すべての判定が前回と一致し、各シードで2,311件通過、483件失敗でした。 [差分集計（ローカル）](../out/ghost-fix-verification-20261128-010942.LLeYu6/comparison.json) · [シード1（ローカル）](../out/ghost-fix-verification-20261128-010942.LLeYu6/pinned-1.json) · [シード73（ローカル）](../out/ghost-fix-verification-20261128-010942.LLeYu6/pinned-73.json)
 
-この全件実行の後にバリアの起床なしリセットのテストを修正し、両シードで通過を確認しました。修正後の入力には個別の再測定結果を使います。 [バリアの再確認](history.ja.md#2026-11-28-バリアの起床なしリセット)
+現在のライブラリ方式の比較基準は、全件実行から入力指紋が一致する2,791件と、同じ実行ファイルとシード別プロファイルで再測定した3件を合算したものです。両シードとも2,312件通過、482件失敗です。バリアのテストは通過し、TLM2の終端ソケットと下位履歴のGREEDYでは既知差分が再現しました。次回は合算記録を使い、入力指紋が一致するケースをシードごとに照合します。 [バリアの再確認](history.ja.md#2026-11-28-バリアの起床なしリセット) · [GREEDYの再測定](history.ja.md#2026-11-28-greedyの割り当て履歴) · [シード1の比較基準（ローカル）](../out/mam-review/pinned-current-1.json) · [シード73の比較基準（ローカル）](../out/mam-review/pinned-current-73.json)
 
 ## 11月27日の全件測定
 

@@ -17,7 +17,7 @@ oracleは期待値の根拠を記録し、`spec`は規格、`verilator@5.054`は
 specのみの意味は[用語集の「規格と期待値」](docs/glossary.ja.md#規格と期待値)で説明しています。
 
 > **状態：M4を進行中。** 22の章・付録directoryに全2794件（simulation 2694件・elaboration 100件）があります。
-> oracle付きが2327件、specのみが467件で、うち8件は4値です。
+> oracle付きが2326件、specのみが468件で、うち8件は4値です。
 > 全件が`:spec_check: ai`で、AIによる照合を記録する意味は[照合の用語](docs/glossary.ja.md#規格と期待値)で説明しています。人による照合は未記録で、M1〜M3の目標は未達です。
 > M4はAIが照合した[観測可能な義務の案](docs/requirements.ja.md#計数単位と対象範囲の案)4187件、直接対応テスト2738件と全2794件の索引があります。
 > 未対応テスト0件、直接テストのない要求案0件で、[memory-walkの歴史的解釈](docs/faq.ja.md#q134-memory-walk-algorithmをどう解釈していますか)は照合が必要です。
@@ -81,14 +81,14 @@ fetcherは固定したAccellera UVM 2020.3.1を取得して検査するもので
 その1件が何を確かめるかは、ソースから期待出力、要求へ辿る[具体例](docs/reading-guide.ja.md#1件のテストをファイルで辿る)で確認できます。
 保存したJSONにはケースごとの判定があり、読み方は[ファイルを開く具体例](docs/reading-guide.ja.md#結果jsonを開く)で確認できます。差分を報告した場合は、[差分を調べる](docs/reading-guide.ja.md#差分を調べる)の手順で、検査した期待値と実行条件を確認できます。
 
-oracle付き2327件（runtime 2232・compile拒否95）をすべて実行する場合は、次のコマンドを使います。
+oracle付き2326件（runtime 2231・compile拒否95）をすべて実行する場合は、次のコマンドを使います。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-`--all`を付けると、specのみの459件を含め、すべての2値テストを実行します。
+`--all`を付けると、specのみの460件を含め、すべての2値テストを実行します。
 `known`ではコマンドを失敗させず、oracleタグ付きの回帰では失敗させます。
 `-j`は並行するテスト数、`--build-jobs`は各ビルド内のC++ジョブ数で、ビルドに時間がかかる理由は[Q13](docs/faq.ja.md#q13-ビルドが重い理由と2種類の並列数の違いは何ですか)で説明しています。
 runtimeの各モデルは一度ビルドし、seedごとに新しいプロセスで実行します。
@@ -116,7 +116,7 @@ simulation一致とcompiler拒否は別の検査なので、以下のラベル�
 
 | シミュレータとライブラリ | 観測結果 |
 | --- | --- |
-| Verilator 5.054・固定版UVM・通常runner | runtime 2232件がseed 1／73一致、期待compile拒否95件、既知差分459件 |
+| Verilator 5.054・固定版UVM・通常runner | runtime 2231件がseed 1／73一致、期待compile拒否95件、既知差分460件 |
 | Verilator 5.054・独自VPI HDL backend | 別条件の部分集合38件で、37件が両seed一致、1件が差分 |
 | Verilator 5.054・VPI command-line bridge・固定regex DPI | 別条件の23件で20件が両seed一致、3件は既知差分 |
 | Verilator 5.054・regex DPIとcommand-line DPIで再実行する通常検査系 | 別条件の26件ですべて両seed一致 |
@@ -124,10 +124,10 @@ simulation一致とcompiler拒否は別の検査なので、以下のラベル�
 | Ghost・同梱UVM | 1078件で各seed一致205件・不一致873件、1716入力は未測定 |
 | Ghost・固定版UVM | 今回の16件はシード1・73で全件一致。既存の4値テスト7件は各シード6件一致、キュー1件に既知差分 |
 
-通常runnerはseed 1のruntime差分313件、simulation build 141件、runtimeのない不正designの受理5件を記録します。
+通常条件での測定では、実行時差分314件（seed 1で313件、追加シードで1件）、simulation build 141件、実行せずに不正な設計が受理されたケース5件を記録しています。
 API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](docs/results.ja.md#結果の解釈)で説明し、VPIの行は通常条件にも含まれるケースを別条件で測定したもので、スイート総数へ加算しない理由は[測定範囲](docs/results.ja.md#現在のスナップショット)で確認できます。
 
-既知差分にはそれぞれ1件ずつ[原因の記録](coverage/known_causes.json)があり、`tools/known_causes.py`で検査します。すべての記録に原因があり、library 320件、interpretation 61件、simulator 21件、DPIの実行条件57件です。interpretationの記録は読み方の根拠も持ちます。10件は、規格の別の箇所が誤植と示す宣言や名前を印刷どおりに読むもの、1件はlibraryが印刷に従うもの、50件は文言が二通りに読めるものです。4値のテスト1件にも、固定版libraryでは満たせないため記録があります。kirimasimについては、2412入力が規格の期待値でsimulatorを測る入力で、382入力は固定版libraryのためにどのsimulatorでも期待値に届きません。詳しくは[既知差分の原因](docs/known-differences.ja.md#既知差分の原因)を参照してください。
+既知差分にはそれぞれ1件ずつ[原因の記録](coverage/known_causes.json)があり、`tools/known_causes.py`で検査します。すべての記録に原因があり、library 321件、interpretation 61件、simulator 21件、DPIの実行条件57件です。interpretationの記録は読み方の根拠も持ちます。10件は、規格の別の箇所が誤植と示す宣言や名前を印刷どおりに読むもの、1件はlibraryが印刷に従うもの、50件は文言が二通りに読めるものです。4値のテスト1件にも、固定版libraryでは満たせないため記録があります。kirimasimについては、2411入力が規格の期待値でsimulatorを測る入力で、383入力は固定版libraryのためにどのsimulatorでも期待値に届きません。詳しくは[既知差分の原因](docs/known-differences.ja.md#既知差分の原因)を参照してください。
 
 各テストには`coverage/kirimasim_stages.json`に記録した[kirimasimの立ち上げ段階](docs/kirimasim-stages.ja.md)もあり、段階0が1件、段階1（最小のrun_test）が1035件、段階2（factory）が101件、段階3（config_db）が114件、段階4（sequence）が330件、段階5（TLM）が252件、段階6（register層）が961件です。kirimasim 0.2.1は、段階0のテストを含め、どの段階でも同じ`uvm_object_wrapper`のunsupportedで止まります。まだ、実行できるsimulationテストはありません。
 
@@ -140,7 +140,7 @@ Checkは、kirimasimが無改造で使うfront endであるslangでも全テス�
 詳しい実行条件と記録の範囲は[実行結果と測定方法](docs/results.ja.md)、ライブラリの制約とspecのみのケースは
 [既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・台帳・原因の記録・reportの宣言・立ち上げ段階の検査と、slangでのelaborationとAPIの集計を行い、
 pushとpull requestごとに入力が変わった通常oracle付きVerilator検査と固定canary 1件を実行します。
-[Regression](.github/workflows/regression.yml)は手動と毎週、タグ付き通常検査2327件を20 shardで、明示command-line 20件とregex-DPI変種26件を別jobで実行します。手動の実行は`tests/`の下のdirectoryに絞れます。
+[Regression](.github/workflows/regression.yml)は手動と毎週、タグ付き通常検査2326件を20 shardで、明示command-line 20件とregex-DPI変種26件を別jobで実行します。手動の実行は`tests/`の下のdirectoryに絞れます。
 両workflowの通常Verilator jobはタグ付きテストを選びます。Checkのslang jobはspecのみのテストもelaborateします。kirimasim、Ghost、HDLのrunnerはローカルで測定します。
 
 ## ドキュメント

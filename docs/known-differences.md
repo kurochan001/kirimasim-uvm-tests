@@ -179,8 +179,8 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 63 pure-interface/const-reference/forbidden-member/type-context/non-public-constructor violations.
 94 match. Subscriber/visitor/proxy/adapter omissions and direct construction
 of the printed virtual builtin dispatcher remain accepted and spec-only without
-runtime. These five compiler acceptances are separate from 459 known simulation
-differences. Legal derived controls do not replace a required rejection.
+runtime. The five compiler acceptances and 455 simulation differences account
+for all 460 known differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
 seed 73. Register write/read pre hooks observe FDRC instead of the preserved
@@ -458,13 +458,13 @@ prerequisite or independent defect count; see [the root/predictor FAQ](faq.md#ro
 - [predictor_check_pending_big_1_registers](../tests/u19/test_predictor_check_pending_big_1_registers_88.sv).
 - [predictor_check_pending_big_2_registers](../tests/u19/test_predictor_check_pending_big_2_registers_88.sv).
 
-Five new MAM inputs retain only-preference differences at seed 1 with exit 0
-and no seed 73; bounds, width, disjointness, held endpoints/membership and cleanup
-match. GREEDY high-history, THRIFTY low/high and NEARBY one/two-region cases remain
-separate. Lower-history GREEDY, explicit BROAD and configuration/rand-field matches
-do not pass those whole inputs; [the enum/allocation FAQ](faq.md#enum-effects-and-allocation-preferences)
-records the qualified history and distribution limits.
+Six MAM inputs differ only in placement preference. The GREEDY high-history,
+THRIFTY low/high-history and NEARBY one/two-region cases differed at seed 1. The
+GREEDY low-history case matched seeds 1 and 73 in Verilator 5.054 and differed
+at seed 2. In all six, bounds, width, disjointness, active-region state and
+cleanup match. [GREEDY retest](history.md#2026-11-28-greedy-allocation-history) · [Allocation FAQ](faq.md#enum-effects-and-allocation-preferences)
 
+- [mam_greedy_fresh_low_history](../tests/u18/test_mam_greedy_fresh_low_history_89.sv).
 - [mam_greedy_fresh_high_history](../tests/u18/test_mam_greedy_fresh_high_history_89.sv).
 - [mam_thrifty_reuse_low_history](../tests/u18/test_mam_thrifty_reuse_low_history_89.sv).
 - [mam_thrifty_reuse_high_history](../tests/u18/test_mam_thrifty_reuse_high_history_89.sv).
@@ -628,7 +628,7 @@ A cause explains why a known difference does not reach its expectation; it never
 
 | Cause | Meaning | Evidence | Entries |
 | --- | --- | --- | --- |
-| library | The pinned library differs from the cited clauses | Cited clauses; library files and the text in them | 320 |
+| library | The pinned library differs from the cited clauses | Cited clauses; library files and the text in them | 321 |
 | interpretation | The cited text admits another reading, which the library follows | Cited clauses; the test's reading and the other one; the basis of the readings | 61 |
 | simulator | Verilator differs from IEEE 1800-2023 | A reproducer without UVM, for kirimasim-tests | 21 |
 | condition | The test needs a DPI condition that the ordinary run does not link, and it matches under that condition | The condition and its runner | 57 |
@@ -644,7 +644,7 @@ A `static` entry carries the same evidence as a two-state entry, and its cause i
 
 `python3 tools/known_causes.py check` keeps the record equal to the tests: exactly one entry for each two-state test whose `:oracle:` lacks verilator@5.054, the current input fingerprint, library text that exists in the pinned files, clauses of 1800.2-2020 and controls that are tagged tests. A comment-only edit moves the fingerprint with `tools/code_identity.py refresh`, which first shows that the code is unchanged. With `--results`, the known records of a combined runner JSON must match the entries. `reproduce` rebuilds the reproducers and checks that Verilator still accepts or rejects them as recorded; Check runs both.
 
-For kirimasim, `summary` separates 2412 inputs that measure a simulator against the standard from 382 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes, including the one `static` entry); no input is unassigned. The measurable inputs are the 2327 tagged tests, the simulator and condition causes and the seven four-state tests without an entry. `candidates` lists the 403 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library. The classification is complete; adding such values would change the record's format, so it needs a proposal and the user's confirmation first.
+For kirimasim, `summary` separates 2411 inputs that measure a simulator against the standard from 383 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes, including the one `static` entry); no input is unassigned. The measurable inputs are the 2326 tagged tests, the simulator and condition causes and the seven four-state tests without an entry. `candidates` lists the 404 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library. The classification is complete; adding such values would change the record's format, so it needs a proposal and the user's confirmation first.
 
 ## Pinned-library limitations
 
@@ -1261,7 +1261,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2327 tests have the `verilator@5.054` oracle tag and 467
+Across the suite, 2326 tests have the `verilator@5.054` oracle tag and 468
 cases are spec-only, eight of them four-state. The 9.6 child-task kill fixture was a known
 difference on the pinned combination of Verilator 5.052, where the child performed its
 delayed write during a later phase; the 146th expansion's 5.054 measurement
@@ -1272,10 +1272,11 @@ waiter before calling `reset(1)`. Clause 10.1.1.2.8 requires both to wake
 without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. The cause record classifies this as a simulator difference. Its reproducer `class-event-trigger-then-reassign` triggers a class-member event and reassigns it in the same function.
 
-The 467 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the eight four-state cases.
-The ordinary runner and the full Regression select 2327 tagged checks (2232 runtime and 95 compile rejections). With no explicit paths, `--all` also selects the 459 two-state spec-only cases and records mismatches or build failures as `known`.
+The 468 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the eight four-state cases.
+The ordinary runner and the full Regression select 2326 tagged checks (2231 runtime and 95 compile rejections). With no explicit paths, `--all` also selects the 460 two-state spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 313 cases establish their first difference
-at seed 1, without seed 73 results.
+at seed 1, without seed 73 results. The GREEDY low-history difference was
+found in a separate seed sweep. [GREEDY retest](history.md#2026-11-28-greedy-allocation-history)
 The 141 simulation builds have no ordinary runtime, including 61 unlinked DPI
 inputs (38 HDL and 23 command-line); [the measured breakdown](results.md#interpretation)
 records the complete categories. Five illegal compiler acceptances remain a
@@ -1371,7 +1372,7 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 459 two-state spec-only cases are linked in the explanatory notes and the
+The 460 two-state spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
 
@@ -1433,6 +1434,7 @@ not a count of distinct bugs.
 - [mam_policy_contradiction_then_repair_0](../tests/u18/test_mam_policy_contradiction_then_repair_0_90.sv).
 - [mam_policy_contradiction_then_repair_1](../tests/u18/test_mam_policy_contradiction_then_repair_1_90.sv).
 
+- [mam_greedy_fresh_low_history](../tests/u18/test_mam_greedy_fresh_low_history_89.sv).
 - [mam_greedy_fresh_high_history](../tests/u18/test_mam_greedy_fresh_high_history_89.sv).
 - [mam_thrifty_reuse_low_history](../tests/u18/test_mam_thrifty_reuse_low_history_89.sv).
 - [mam_thrifty_reuse_high_history](../tests/u18/test_mam_thrifty_reuse_high_history_89.sv).

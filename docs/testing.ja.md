@@ -590,7 +590,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の2312件（runtime 2218・期待compiler拒否94）です。`--all`を付けるとspecのみの459件も含めます。
+Verilatorの既定の対象はoracle付き・2値の2326件（runtime 2231・期待compiler拒否95）です。`--all`を付けると2値でspecのみの460件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -684,7 +684,7 @@ UVMの全要求や全シミュレータの成功を示すものではありま�
 [段階の検査](kirimasim-stages.ja.md#段階を最新に保つ)は、各テストが`coverage/kirimasim_stages.json`のmarkerとoverrideの与えるkirimasimの立ち上げ段階を持つことを確かめます。そのため、テストの追加や変更、helperの変更の後は`python3 tools/kirimasim_stages.py update`を実行し、変更を見直す必要があります。各短いセットは、自分の段階のtag付きの実行テストを保つ必要があります。
 
 Checkは記録入力が変わったタグ付き検査とcanaryを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻ります。
-Regressionは手動と毎週、タグ付き2312件を重複しない20 shardで、command-line 20件、regex-DPI変種26件と合わせて実行します。
+Regressionは手動と毎週、タグ付き2326件を重複しない20 shardで、command-line 20件、regex-DPI変種26件と合わせて実行します。
 戻る条件と上限、以前の8 shard版Checkが完了しなかった理由は[CIの節](results.ja.md#継続的インテグレーション)で説明しています。
 runner、library lock、多数の入力を変えた後は、Checkに頼らずRegressionを手動実行します。手動のRegressionは`tests/`の下のdirectory（入力`directories`、たとえば`u17 uG`）に絞れます。そのときは、それらのdirectoryのfileを集める検査を、115件ごとに1 shardで実行します。
 

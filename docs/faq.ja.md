@@ -2942,7 +2942,7 @@ shardはworkflowが選んだテストを分割した1区画で、CheckとRegress
 いいえ。現在のCheckは入力が変わったタグ付き検査とcanaryだけを実行し、変更を網羅できない場合は警告を出してcanaryだけに戻るため、全選択の代わりにはなりません。
 Regressionは全タグ付き2312検査を重複しない20 shard（同時最大4）で、command-line 20検査とregex-DPI変種26件をそれぞれ別jobで実行します。以前の8 shard版Checkは完了せず、中断されなかった唯一の実行では全shardが150分の上限に達しました。
 runtime seed 1／73と期待compiler拒否94件は元の判定を保ちます。
-分割の検証でhosted CI成功や適合性は立証しません。現在の結果は各workflowのページで確認してください。既知差分459件は通常の既定CI選択に含めません。
+分割の検証でhosted CI成功や適合性は立証しません。現在の結果は各workflowのページで確認してください。既知差分460件は通常の既定CI選択に含めません。
 
 ## recordingとscalar macroの条件
 
@@ -3496,8 +3496,7 @@ manager configurationのreadbackは選択状態だけを示し、allocation選�
 ### Q339. GREEDYとTHRIFTYの履歴をどう解釈していますか？
 
 限定した解釈は、利用可能な場合のpreviously unallocatedを予約歴のない領域、THRIFTYを解放blockの再利用最大化と読みます。
-各新managerに有効region 1つと明示予約／解放したblockを用意します。GREEDYの下位履歴入力は両seed一致ですが、上位履歴と両THRIFTY入力は有効性・保持状態が一致してもseed 1の選好差分を保持します。
-時間的な解釈を未解決で残し、独立欠陥を認定しない扱いは[保持する差分](known-differences.ja.md#固定版ライブラリの制約)にあります。
+各managerに、予約を維持する領域1つと、明示的に予約してから解放した領域1つを用意します。固定版UVMを使うVerilator 5.054では、下位履歴のGREEDYがseed 2、上位履歴のGREEDYと両THRIFTYがseed 1で、割り当て先の条件に一致しませんでした。4件とも領域の有効性と予約を維持した領域の状態は一致しました。固定版UVMは現在の割り当てを既定ポリシーに渡し、割り当てモードや解放済み領域の履歴は参照しません。 [既知差分](known-differences.ja.md#固定版ライブラリの制約)
 
 ### Q340. BROADの明示policyの一致で乱数分布を証明できますか？
 

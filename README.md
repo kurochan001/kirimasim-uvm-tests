@@ -17,7 +17,7 @@ An oracle records the expectation's basis: `spec` cites the standard and `verila
 [Standards and expectations](docs/glossary.md#standards-and-expectations) explains spec-only cases.
 
 > **Status: M4 in progress.** 2794 tests: 2694 simulation and 100 elaboration,
-> in 22 chapter/annex directories; 2327 tagged oracles and 467 spec-only cases, eight of them four-state.
+> in 22 chapter/annex directories; 2326 tagged oracles and 468 spec-only cases, eight of them four-state.
 > All use `:spec_check: ai`, recording AI review as explained in [review terms](docs/glossary.md#standards-and-expectations); none records human review. M1–M3 targets remain open.
 > M4 has 4187 [observable-duty drafts](docs/requirements.md#counting-unit-and-scope-proposal) reviewed by AI, 2738 directly linked tests and an index of all 2794.
 > 0 tests lack requirement links and 0 drafts lack direct tests; the historical
@@ -86,14 +86,14 @@ The fetcher downloads and checks the pinned Accellera UVM 2020.3.1 library; inst
 To see what that case checks, [follow the worked example](docs/reading-guide.md#follow-one-test-through-the-files) from its source to its expected output and requirement.
 The saved JSON lists each case's judgment; [an example for opening it](docs/reading-guide.md#open-the-result-json) shows how to read it. If it reports a difference, [Trace a difference](docs/reading-guide.md#trace-a-difference) shows how to locate the checked expectation and execution conditions.
 
-To run all 2327 tagged checks (2232 runtime, 95 compile rejection):
+To run all 2326 tagged checks (2231 runtime, 95 compile rejection):
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-Add `--all` to include all two-state cases, including the 459 spec-only cases.
+Add `--all` to include all two-state cases, including the 460 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls concurrent tests and `--build-jobs` controls C++ jobs within each build; [Q13](docs/faq.md#q13-why-is-compilation-heavy-and-what-do-the-two-job-options-control) explains the build cost.
 Each runtime model is built once and run in a fresh process for each seed.
 All Verilator models use `--timescale 1ns/1ps`; [Time unit and report declarations](docs/testing.md#time-unit-and-report-declarations) explains the permitted default-server `UVM_ERROR`/`UVM_FATAL` lines and their clause basis.
@@ -121,7 +121,7 @@ On 2026-11-23, Verilator matched the four revised runtime tests at both seeds an
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.054, pinned UVM, ordinary runner | 2232 runtime matches at seeds 1/73; 95 expected compile rejections; 459 known differences |
+| Verilator 5.054, pinned UVM, ordinary runner | 2231 runtime matches at seeds 1/73; 95 expected compile rejections; 460 known differences |
 | Verilator 5.054, original VPI HDL backend | Separate 38-case subset: 37 match both seeds; 1 differs |
 | Verilator 5.054, VPI command-line bridge and pinned regex DPI | Separate 23-case subset: 20 match both seeds; 3 known differences |
 | Verilator 5.054, listed ordinary fixtures with regex and command-line DPI | Separate 26-case subset: 26 match both seeds |
@@ -129,11 +129,11 @@ On 2026-11-23, Verilator matched the four revised runtime tests at both seeds an
 | Ghost, bundled UVM | 205 match and 873 fail at each seed in 1078 cases; 1716 unmeasured |
 | Ghost, pinned UVM | All 16 additions matched in both seed runs. Six of seven earlier four-state inputs matched per seed, with one known queue difference |
 
-The ordinary runner records 313 runtime differences at seed 1, 141 simulation build failures
+The ordinary evidence includes 314 runtime differences (313 at seed 1 and one found in a wider seed sweep), 141 simulation build failures
 and five accepted illegal designs without runtime; [the detailed breakdown](docs/results.md#interpretation) explains API/declaration, macro and DPI categories and qualified premises.
 The VPI rows measure cases already included in the ordinary row under different conditions, so do not add them to the suite total; see [the measurement scope](docs/results.md#current-snapshot).
 
-Each known difference has one entry in [the cause record](coverage/known_causes.json), checked by `tools/known_causes.py`: 320 library, 61 interpretation, 21 simulator and 57 DPI-condition causes are assigned, and no entry is unclassified. Each interpretation names the basis of its readings: 10 follow a declaration or a name as printed where another part of the standard indicates a misprint, one has the library following the printed text, and 50 are ambiguities of the text. One four-state test has an entry because the pinned library cannot satisfy it. For kirimasim, 2412 inputs measure a simulator against the standard and 382 are kept from their expectation by the pinned library on any simulator; see [the causes of the known differences](docs/known-differences.md#causes-of-the-known-differences).
+Each known difference has one entry in [the cause record](coverage/known_causes.json), checked by `tools/known_causes.py`: 321 library, 61 interpretation, 21 simulator and 57 DPI-condition causes are assigned, and no entry is unclassified. Each interpretation names the basis of its readings: 10 follow a declaration or a name as printed where another part of the standard indicates a misprint, one has the library following the printed text, and 50 are ambiguities of the text. One four-state test has an entry because the pinned library cannot satisfy it. For kirimasim, 2411 inputs measure a simulator against the standard and 382 are kept from their expectation by the pinned library on any simulator; see [the causes of the known differences](docs/known-differences.md#causes-of-the-known-differences).
 
 Every test also has a [kirimasim bring-up stage](docs/kirimasim-stages.md), recorded in `coverage/kirimasim_stages.json`: 1 test at stage 0, 1035 at stage 1 (minimal run_test), 101 at stage 2 (factory), 114 at stage 3 (config_db), 330 at stage 4 (sequence), 252 at stage 5 (TLM) and 961 at stage 6 (register layer). kirimasim 0.2.1 stops at the same unsupported `uvm_object_wrapper` construct in every stage, the stage-0 test included; no simulation test runs yet.
 
@@ -149,7 +149,7 @@ and evidence scope. [Known differences](docs/known-differences.md) lists the
 library limitations and spec-only tests. [Check](.github/workflows/check.yml)
 runs tool, metadata, library, ledger, cause-record, report-declaration and bring-up-stage checks, the slang elaboration and the API census, and, for each push or pull request,
 the tagged ordinary Verilator checks whose inputs changed plus one canary.
-[Regression](.github/workflows/regression.yml) runs all 2327 tagged ordinary
+[Regression](.github/workflows/regression.yml) runs all 2326 tagged ordinary
 checks in 20 shards, the twenty explicit command-line checks and the twenty-six
 regex-DPI variants, manually and weekly; a manual run can be narrowed to directories under `tests/`. The ordinary Verilator jobs in both workflows select tagged tests. Check also elaborates spec-only fixtures with slang. kirimasim, Ghost and the HDL runner are measured locally.
 

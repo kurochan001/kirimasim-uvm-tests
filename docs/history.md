@@ -7249,7 +7249,7 @@ Four reported simulator issues reproduced at seeds 1 and 73. All four checks pas
 
 Among the fixtures that previously matched at seed 1, the silent barrier reset mismatch persisted across the later rounds. With the pinned library, `reset(0)` assigns a fresh event to the internal event variable. A trigger on the fresh event releases the three newly registered waiters. The two processes waiting on the old event remain blocked, as specified for event reassignment in IEEE 1800-2023 §15.5.5.1. [Later review of the five-process expectation](#2026-11-28-silent-barrier-reset)
 
-The object-configuration fixture varied between repeats at seed 73. The memory-allocation fixture matched at seed 231 and differed at the other measured seeds in the later rounds. These observations leave the cause of both differences open. [Object configuration](../tests/u05/test_object_set_local_virtual_extension_selects_named_resource_properties.sv) · [Memory allocation](../tests/u18/test_mam_greedy_fresh_low_history_89.sv)
+The object-configuration fixture varied between repeats at seed 73. The memory-allocation fixture matched at seed 231 and differed at the other measured seeds in the later rounds. [Object configuration](../tests/u05/test_object_set_local_virtual_extension_selects_named_resource_properties.sv) · [Later allocation diagnosis](#2026-11-28-greedy-allocation-history)
 
 ## 2026-11-28 TLM2 terminator fixture correction
 
@@ -7262,3 +7262,11 @@ With the pinned UVM library, Verilator 5.054 and Ghost both reached the connecti
 The [revised barrier fixture](../tests/u10/test_barrier_silent_reset_rearms_count_and_releases_a_fresh_group.sv) establishes two pending calls at threshold three. After `reset(0)`, the count is zero, the threshold is still three, and both calls remain blocked at that checkpoint. The test then verifies that the first two new arrivals wait and all three new calls finish at the retained threshold, with the count cleared by automatic reset. IEEE 1800.2-2020 §§10.3.2.2–10.3.2.4 provide the basis for those observations.
 
 For the earlier fixture, Ghost left the two original calls blocked after the new group finished, while Verilator 5.054 released them. Both observations reproduced on seeds 1 and 73. The barrier clauses leave room for interpretation about whether the original calls join that later release. The revised fixture observes their state at the reset checkpoint and observes completion of the new group. Ghost and Verilator 5.054 both match the revised expectations at both seeds with pinned Accellera UVM 2020.3.1. The retained kirimasim 0.2.1 build continues to report the same unsupported construct. [Library-mode comparison baseline](ghost-dual-handoff.md#verification-after-the-fixes)
+
+## 2026-11-28 GREEDY allocation history
+
+The [GREEDY low-history fixture](../tests/u18/test_mam_greedy_fresh_low_history_89.sv) reserves two regions, releases the lower one and checks that the next default-policy request uses fresh space under its reading of IEEE 1800.2-2020 §18.12.2.1. In pinned Accellera UVM 2020.3.1, `release_region` deletes the region from the active list. `request_region` passes the bounds and active list into the policy, which randomizes the start address. This implementation neither uses the configured allocation mode nor tracks released regions. [Library evidence](../coverage/known_causes.json)
+
+Both simulators ran seeds 1–26, 73 and 231 with the pinned library. At least one of the eight requests overlapped the released region at 16 of the 28 seeds in Verilator 5.054 and 25 in Ghost. Both exited normally and matched the reservation, validity, active-region and cleanup checks at every seed. Verilator matched at seeds 1, 73 and 231 and differed at seed 2. Ghost differed at seeds 1 and 73 and matched at seed 231 in this sweep.
+
+The fixture keeps its expected output and moves to `spec` with a library cause. The ordinary runner reproduced the difference with the revised metadata and returned `known` for `--seeds 1 73 2`. The same kirimasim 0.2.1 build still reports the earlier unsupported construct.

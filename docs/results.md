@@ -29,7 +29,7 @@ A runtime match at seeds 1/73 still counts as one fixture, while a seed requeste
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.054, pinned UVM | 2327 `pass`: 2232 runtime + 95 compile rejection; 459 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
+| Verilator 5.054, pinned UVM | 2326 `pass`: 2231 runtime + 95 compile rejection; 460 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
 | Verilator 5.054, original VPI HDL backend | 37 `pass`; 1 `fail` | Separate overlapping 38-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.054, original command-line VPI bridge and pinned regex DPI | 20 `pass`; 3 `known` | Separate overlapping 23-case condition; matches at seeds 1/73, differences at seed 1 |
 | Verilator 5.054, listed ordinary fixtures with regex and command-line DPI | 26 `pass` | Separate overlapping 26-case condition from `coverage/regex_dpi_variants.txt`; matches at seeds 1/73 |
@@ -56,7 +56,7 @@ For a runtime output mismatch, `reason` identifies the first differing selected 
 
 A build failure stops before simulation, while a runtime difference comes from an executed model; [Q14](faq.md#q14-do-two-seeds-prove-determinism-or-four-state-correctness) explains which seed results exist in each case.
 
-94 valid negative expectations match by compiler rejection with the
+95 valid negative expectations match by compiler rejection with the
 declared fixture/type/member diagnostic. Five illegal designs remain accepted:
 subscriber write, visitor visit, proxy get_immediate_children and adapter accept omissions, and direct construction of the
 printed virtual builtin dispatcher. They retain the rejection oracle as known
@@ -64,12 +64,14 @@ differences without runtime, even when accepted. The 141 unexpected simulation
 builds remain separate. A pass requires the declared expectation.
 
 [The cause record](known-differences.md#causes-of-the-known-differences) assigns causes to these
-differences separately from the symptom categories below: 320 library, 61 interpretation,
+differences separately from the symptom categories below: 321 library, 61 interpretation,
 21 simulator and 57 DPI-condition causes, with no entry unassigned.
 
-The 459 measured spec-only cases retain standard-derived output or compile-diagnostic
-expectations; the eight four-state spec-only cases have no Verilator record. Five are illegal compiler acceptances; 454 are simulation cases.
-Of these, 313 first differ at runtime seed 1 without seed 73. Forty-three cannot build
+The 460 measured spec-only cases retain standard-derived output or compile-diagnostic
+expectations; the eight four-state spec-only cases have no Verilator record. Five are illegal compiler acceptances; 455 are simulation cases.
+Of these, 313 first differ at runtime seed 1 without seed 73. The low-history GREEDY fixture matches at seeds 1 and 73 and differs at seed 2 under the same conditions. [GREEDY retest](history.md#2026-11-28-greedy-allocation-history)
+
+Forty-three cannot build
 because of missing APIs/type names: one time API, fourteen sequence-library APIs,
 twelve HDL slice-view cases, one named-concat constructor, five object active-policy API cases,
 three catcher message-handle cases, the printed base recording-state getter,
@@ -175,9 +177,9 @@ controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
 The suite has 2794 tests (2694 simulation/100 elaboration). Ordinary results
-are 2327 matches: 2232 runtime inputs at both seeds and 95 compiler rejections.
-Known inputs total 459: 313 runtime seed 1 differences, 141 simulation builds
-and five accepted illegal designs without runtime; spec-only cases total 467
+are 2326 matches: 2231 runtime inputs at both seeds and 95 compiler rejections.
+Known inputs total 460: 314 runtime differences, 141 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 468
 with the eight four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
 is added to the ordinary totals. The Ghost bundled subset has 1078 compatible records. Its 1716 unmeasured inputs include 1616 simulations and 100 elaboration cases. See the pinned-mode selection above for the separate library condition.
@@ -318,9 +320,9 @@ and a warning asks for Regression. Another warning names changed files that only
 record's nine reproducers. A green Check covers the selected checks only.
 
 [Regression](../.github/workflows/regression.yml) runs on manual dispatch and
-weekly (Saturdays 17:23 UTC). It runs all 2327 tagged ordinary checks (2232
+weekly (Saturdays 17:23 UTC). It runs all 2326 tagged ordinary checks (2231
 runtime cases at seeds 1/73 and 95 compiler rejections without runtime seeds)
-in 20 disjoint shards (seven of 117 and thirteen of 116), at most 4 concurrent so
+in 20 disjoint shards (six of 117 and fourteen of 116), at most 4 concurrent so
 that Check and other repositories keep hosted job slots, each limited to 360 minutes, the twenty explicit command-line checks in a
 separate job under their condition, and the twenty-six regex-DPI variants in another job. Its gate requires all three. A newer request
 waits for a run in progress instead of cancelling it; only one request can wait, so a further request replaces the waiting one. A manual run can be

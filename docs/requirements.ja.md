@@ -247,8 +247,8 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 u01の新しい段階0の入力1件は、uvm_pkgをimportし、UVM_LOWをimportとpackage名の両方から名指しするだけで、UVM objectを作らず、run_testも呼びません。最初の凍結のまま、tag付けの前後でseed 1／73が一致し、新しい義務1件で扱います。
 AI義務は4151件で、旧要求4150件と分類445件はすべて同一です。直接対応は2707テスト、control対応は158テスト、controlのみは56テストです。元の通常2755記録と旧既知463入力は全て維持します。新しい入力はM1に数えます。
 
-全体は2794テスト（simulation 2694／elaboration 100）です。通常一致は2327件で、runtime両seed 2232入力とcompiler拒否95件です。
-既知は459入力で、runtime seed 1差分313件、simulation build 141件、runtimeのない不正design受理5件です。specのみは4値の8入力を含めて467件です。
+全体は2794テスト（simulation 2694／elaboration 100）です。通常一致は2326件で、runtime両seed 2231入力とcompiler拒否95件です。
+既知は460入力で、runtime差分314件、simulation build 141件、runtimeのない不正design受理5件です。specのみは4値の8入力を含めて468件です。
 command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。Ghostの互換記録と除外した入力は[記録の合算](results.ja.md#記録の合算)に示します。
 
 主引用がある番号は1328で、candidateは0件1159／目標未満765／2件以上558です。

@@ -7,7 +7,7 @@
 :uvm: 2020.3.1
 :files: helpers89/mam_modes_fixture89.svh
 :incdirs: helpers89
-:oracle: spec verilator@5.054
+:oracle: spec
 :spec_check: ai
 :fourstate: no
 :nondeterministic: no

@@ -5766,6 +5766,46 @@
       }
     },
     {
+      "test": "u18/test_mam_greedy_fresh_low_history_89",
+      "inputs_sha256": "b9c1617c6731013564d21819beb2cd5b853422f32cb0aabd405f2555658d91a6",
+      "kind": "runtime",
+      "cause": "library",
+      "evidence": {
+        "clauses": [
+          "18.12.2.1",
+          "18.12.5.2",
+          "18.12.5.3"
+        ],
+        "library": [
+          {
+            "file": "src/reg/uvm_mem_mam.svh",
+            "text": "alloc.in_use     = this.in_use;"
+          },
+          {
+            "file": "src/reg/uvm_mem_mam.svh",
+            "text": "if (!alloc.randomize()) begin"
+          },
+          {
+            "file": "src/reg/uvm_mem_mam.svh",
+            "text": "return reserve_region(alloc.start_offset, n_bytes);"
+          },
+          {
+            "file": "src/reg/uvm_mem_mam.svh",
+            "text": "this.in_use.delete(i);"
+          }
+        ]
+      },
+      "note": {
+        "en": "Under the test's historical reading of 18.12.2.1, GREEDY uses an address range that has never been allocated while one is available. In the pinned UVM, release_region removes the allocation from in_use. request_region supplies the active list and bounds to the default policy and randomizes the start offset without consulting cfg.mode or keeping released-region history. A request can therefore overlap the released range, even when fresh space exists.",
+        "ja": "テストが採用する18.12.2.1の履歴に基づく読み方では、未割り当ての範囲が残っていればGREEDYはそこを使う。固定版UVMではrelease_regionが割り当てをin_useから削除する。request_regionは現在の割り当て一覧とアドレス範囲を既定ポリシーに渡し、cfg.modeや解放済み領域の履歴を参照せずに開始位置をランダム化する。このため、未割り当ての領域が残っていても要求が解放済みの範囲に重なる場合がある。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
       "test": "u18/test_mam_nearby_one_existing_89",
       "inputs_sha256": "9fb293203f3fc0cd6565255554689df705df142fa3c63044dcbdd9f274b8c08e",
       "kind": "runtime",

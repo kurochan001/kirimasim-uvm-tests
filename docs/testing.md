@@ -799,9 +799,9 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 2312 tagged two-state checks: 2218 runtime
-cases and 94 expected compiler rejections. To include
-the 459 spec-only cases as well, add `--all`. A mismatch in an untagged case
+By default, Verilator selects 2326 tagged two-state checks: 2231 runtime
+cases and 95 expected compiler rejections. To include
+the 460 two-state spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -908,7 +908,7 @@ and a review of the change. Each short set must keep tagged simulation tests of 
 
 Check runs the tagged checks whose recorded inputs changed, plus a canary, and
 falls back to the canary alone with a warning when it cannot cover a change.
-Regression runs all 2312 tagged checks in 20 disjoint shards, the 20
+Regression runs all 2326 tagged checks in 20 disjoint shards, the 20
 command-line checks and the 26 regex-DPI variants, manually and weekly. [The CI section](results.md#continuous-integration)
 gives the fallbacks and limits, and why the earlier 8-shard Check never finished.
 After a change to the runner, the library lock or many inputs, dispatch

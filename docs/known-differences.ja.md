@@ -154,7 +154,7 @@ enumのsignature／本文とTR_HANDLE／0引数accessorの境界は限定した�
 
 elaboration 99件は抽象class直接生成36件とpure interface／const参照／禁止member／型context／非公開constructor違反63件で拒否を期待し、94件が一致します。
 subscriber／visitor／proxy／adapterの未実装と印字virtual builtin dispatcherの直接生成は受理され、runtimeなしでspec-onlyを保持します。
-compiler受理5件は既知simulation差分459件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+既知差分460件の内訳は、simulation 455件とcompiler受理5件です。合法な派生controlを必要な拒否の代わりにはしません。
 
 field-access監査はseed 73結果のないseed 1 runtime差分5件を保持します。
 register write／readのpre hookは保持するRCFD期待に対してFDRCを観測し、別のcrdf post観測が一致しても入力全体をpassにしません。
@@ -343,9 +343,9 @@ rootの初期5入力はexit 0のseed 1観測と元の期待を保持し、seed 7
 - [predictor_check_pending_big_1_registers](../tests/u19/test_predictor_check_pending_big_1_registers_88.sv).
 - [predictor_check_pending_big_2_registers](../tests/u19/test_predictor_check_pending_big_2_registers_88.sv).
 
-新規MAMの5入力はseed 1で選好だけの差分を保持し、exit 0、seed 73なしです。境界、幅、非重複、保持端点／所属、cleanupは一致します。
-GREEDY上位履歴、THRIFTY下位／上位、NEARBY 1／2 regionを分け、下位GREEDY、明示BROAD、configuration／rand-fieldの一致で全入力をpassにしません。限定した履歴や分布の扱いは[enum／allocationのFAQ](faq.ja.md#列挙型の効果とallocationの選好)にあります。
+MAMの6入力では、割り当て先の条件だけが不一致です。GREEDYの上位履歴、THRIFTYの下位・上位履歴、NEARBYの1領域・2領域の5入力はseed 1で不一致でした。GREEDYの下位履歴はVerilator 5.054のseed 1・73で一致し、seed 2で不一致でした。6入力とも境界、幅、既存領域との非重複、予約を維持した領域の状態、解放後の状態は一致します。 [GREEDYの再測定](history.ja.md#2026-11-28-greedyの割り当て履歴) · [割り当てのFAQ](faq.ja.md#列挙型の効果とallocationの選好)
 
+- [mam_greedy_fresh_low_history](../tests/u18/test_mam_greedy_fresh_low_history_89.sv).
 - [mam_greedy_fresh_high_history](../tests/u18/test_mam_greedy_fresh_high_history_89.sv).
 - [mam_thrifty_reuse_low_history](../tests/u18/test_mam_thrifty_reuse_low_history_89.sv).
 - [mam_thrifty_reuse_high_history](../tests/u18/test_mam_thrifty_reuse_high_history_89.sv).
@@ -483,7 +483,7 @@ event deltaの6入力は最終tag付きで両seedに一致しますが、既知4
 
 | 原因 | 意味 | 根拠 | 件数 |
 | --- | --- | --- | --- |
-| library | 固定版libraryが、引用した条項と異なる | 引用した条項、libraryのファイルとその中の文字列 | 320 |
+| library | 固定版libraryが、引用した条項と異なる | 引用した条項、libraryのファイルとその中の文字列 | 321 |
 | interpretation | 引用した文言には別の読み方があり、libraryはそちらに従う | 引用した条項、テストの読み方と別の読み方、読み方の根拠 | 61 |
 | simulator | VerilatorがIEEE 1800-2023と異なる | kirimasim-testsへ移す、UVMを使わない再現例 | 21 |
 | condition | テストが通常の実行ではlinkしないDPIの実行条件を必要とし、その条件では一致する | 実行条件とそのrunner | 57 |
@@ -499,7 +499,7 @@ interpretationの記録は、2つの読み方の根拠（`basis`）も持ちま�
 
 `python3 tools/known_causes.py check`は、記録とテストが一致することを確かめます。`:oracle:`にverilator@5.054がない2値テストそれぞれにちょうど1件の記録があること、入力の指紋が現在のものであること、libraryの文字列が固定版のファイルにあること、条項が1800.2-2020のものであること、対照がtag付きのテストであることです。commentだけの編集では、codeが変わらないことを先に示す`tools/code_identity.py refresh`で指紋を持ち越します。`--results`を付けると、合算したrunner JSONのknownの記録が記録と一致することも確かめます。`reproduce`は再現例をbuildし直し、Verilatorが記録どおりに受理または拒否することを確かめます。Checkは両方を実行します。
 
-kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2412入力と、固定版libraryのためにどのsimulatorでも期待値に届かない382入力（原因がlibraryとinterpretationのもの。`static`の1件を含みます）を分けて数えます。未分類の入力はありません。測れる入力は、tag付きの2327件、原因がsimulatorとconditionのもの、記録のない4値の7件です。`candidates`は、人による照合の候補403件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。分類は終わりましたが、そうした値を加えると記録の形式が変わるため、先に案を示してユーザーの確認を得ます。
+kirimasimについて、`summary`は、規格の期待値でsimulatorを測れる2411入力と、固定版libraryのためにどのsimulatorでも期待値に届かない383入力（原因がlibraryとinterpretationのもの。`static`の1件を含みます）を分けて数えます。未分類の入力はありません。測れる入力は、tag付きの2326件、原因がsimulatorとconditionのもの、記録のない4値の7件です。`candidates`は、人による照合の候補404件を、interpretation、library、simulatorの順に一覧にします。記録には固定版libraryの出力値を持たせていません。分類は終わりましたが、そうした値を加えると記録の形式が変わるため、先に案を示してユーザーの確認を得ます。
 
 ## 固定版ライブラリの制約
 
@@ -908,16 +908,16 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.054`を付けたテストは2327件、specのみのテストは467件で、うち8件は4値です。
+スイート全体では、`verilator@5.054`を付けたテストは2326件、specのみのテストは468件で、うち8件は4値です。
 9.6の子タスク停止の検査系は、5.052の固定組合せではpre-resetフェーズ終了後も子タスクが遅延書き込みを実行する既知差分でしたが、146回目の5.054の測定ではseed 1／73で一致し、tag付きになりました。
 
 wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1つ確立してから`reset(1)`を呼びます。
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。原因台帳ではsimulator差分に分類しています。再現例 `class-event-trigger-then-reassign` は、クラスのメンバーeventを発火させ、同じ関数内でそのevent変数に再代入します。
 
-specのみの467件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の8件は[4値の一覧](#4値のspecのみのテスト)にあります。通常runnerの既定選択と全件のRegressionはタグ付き2327件（runtime 2232・compile拒否95）を選びます。
-パスを指定せずに `--all` を付けると2値でspecのみの459件も選び、不一致やビルド不可を`known`として記録します。
-通常の実行時313件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+specのみの468件も、規格から導いた出力またはcompiler診断の期待を保持し、4値の8件は[4値の一覧](#4値のspecのみのテスト)にあります。通常runnerの既定選択と全件のRegressionはタグ付き2326件（runtime 2231・compile拒否95）を選びます。
+パスを指定せずに `--all` を付けると2値でspecのみの460件も選び、不一致やビルド不可を`known`として記録します。
+実行時差分314件のうち313件はseed 1が最初の差分で、seed 73の結果はありません。下位履歴のGREEDYテストは追加シードの測定で差分を確認しました。 [GREEDYの再測定](history.ja.md#2026-11-28-greedyの割り当て履歴)
 simulation build 141件には通常runtimeがなく、DPI未linkの61入力（HDL 38／command-line 23）を含み、全分類は[実測の内訳](results.ja.md#結果の解釈)にあります。
 不正compiler受理5件は別のruntimeなし条件です。120回目のユーザーpackageのprofile 5件は両seedで一致し、既知差分を増やしません。124回目の段階0の入力も同じです。
 
@@ -981,7 +981,7 @@ specのみのケースも固定版oracle tagなしに規格から導いた期待
 
 controlは差分を解釈するために前提を変えて実行する補助検査であり、元のケースの結果との関係は[要求への対応付けの役割](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
-2値のspecのみの459件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+2値のspecのみの460件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 
 
@@ -1041,6 +1041,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [mam_policy_contradiction_then_repair_0](../tests/u18/test_mam_policy_contradiction_then_repair_0_90.sv).
 - [mam_policy_contradiction_then_repair_1](../tests/u18/test_mam_policy_contradiction_then_repair_1_90.sv).
 
+- [mam_greedy_fresh_low_history](../tests/u18/test_mam_greedy_fresh_low_history_89.sv).
 - [mam_greedy_fresh_high_history](../tests/u18/test_mam_greedy_fresh_high_history_89.sv).
 - [mam_thrifty_reuse_low_history](../tests/u18/test_mam_thrifty_reuse_low_history_89.sv).
 - [mam_thrifty_reuse_high_history](../tests/u18/test_mam_thrifty_reuse_high_history_89.sv).

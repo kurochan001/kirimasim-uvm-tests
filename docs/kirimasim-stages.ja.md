@@ -31,8 +31,8 @@ kirimasim 0.2.1は、2794入力のうち2558件で型`uvm_object_wrapper`をunsu
 | 3 | config_db | `uvm_config_db`、`uvm_resource*`、`apply_config_settings` | 114 | 95 | 5 |
 | 4 | sequence | `uvm_sequence`、`uvm_sequencer`、`uvm_driver`、`start_item`、`` `uvm_do ``などのsequenceのmacro | 330 | 269 | 5 |
 | 5 | TLM | port・export・imp、`uvm_analysis_*`、`uvm_tlm_*`、`` `uvm_*_imp_decl ``、`uvm_subscriber` | 252 | 226 | 5 |
-| 6 | register層 | `uvm_reg*`、`uvm_mem*`、`uvm_vreg*`、`uvm_hdl_*`、register層のenum | 961 | 765 | 5 |
-| 計 | | | 2794 | 2327 | 31 |
+| 6 | register層 | `uvm_reg*`、`uvm_mem*`、`uvm_vreg*`、`uvm_hdl_*`、register層のenum | 961 | 764 | 5 |
+| 計 | | | 2794 | 2326 | 31 |
 
 紛らわしいものは意図して除いています。sequence item（`uvm_sequence_item`）だけではテストは段階4にならず、`uvm_reg_data_t`などのtypedefだけでは段階6にならず、`` `uvm_do_callbacks ``はcallbackのmacroでsequenceのmacroではありません。toolの単体テストが、短いcodeの断片でこれらを確かめます。
 

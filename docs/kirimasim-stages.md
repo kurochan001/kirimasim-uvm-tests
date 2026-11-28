@@ -31,8 +31,8 @@ Each of the stages 2 to 6 lists markers, regular expressions that find a use of 
 | 3 | config_db | `uvm_config_db`, `uvm_resource*`, `apply_config_settings` | 114 | 95 | 5 |
 | 4 | sequence | `uvm_sequence`, `uvm_sequencer`, `uvm_driver`, `start_item`, the sequence macros such as `` `uvm_do `` | 330 | 269 | 5 |
 | 5 | TLM | ports, exports and imps, `uvm_analysis_*`, `uvm_tlm_*`, `` `uvm_*_imp_decl ``, `uvm_subscriber` | 252 | 226 | 5 |
-| 6 | register layer | `uvm_reg*`, `uvm_mem*`, `uvm_vreg*`, `uvm_hdl_*`, the register-layer enumerations | 961 | 765 | 5 |
-| Total | | | 2794 | 2327 | 31 |
+| 6 | register layer | `uvm_reg*`, `uvm_mem*`, `uvm_vreg*`, `uvm_hdl_*`, the register-layer enumerations | 961 | 764 | 5 |
+| Total | | | 2794 | 2326 | 31 |
 
 A few lookalikes are left out on purpose: a sequence item alone (`uvm_sequence_item`) does not place a test at stage 4, typedefs such as `uvm_reg_data_t` do not place it at stage 6, and `` `uvm_do_callbacks `` is a callback macro, not a sequence macro. The unit tests of the tool check these cases on short snippets.
 

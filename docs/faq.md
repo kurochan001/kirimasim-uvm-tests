@@ -3833,7 +3833,7 @@ separate jobs. The earlier 8-shard Check never finished: its one uninterrupted
 run reached the 150-minute limit on every shard. Runtime seeds 1/73 and
 94 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the workflow
-pages for the current results. The 459 known cases remain outside the ordinary default CI selection.
+pages for the current results. The 460 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -4582,10 +4582,11 @@ primary citation or certify all conditions; see [the requirement-link guide](req
 The qualified reading treats previously unallocated space as never reserved
 before, when such space is available, and THRIFTY as maximizing reuse of a released
 block. Each fresh manager has one live region and one explicitly reserved/released
-block. GREEDY's low-history inputs match both seeds; the high-history input and
-both THRIFTY inputs retain seed-1 preference differences while validity and held
-state match. That temporal interpretation remains open and does not establish
-independent defects; see [the retained differences](known-differences.md#pinned-library-limitations).
+block. With the pinned library, the low-history GREEDY case differs at seed 2
+in Verilator 5.054. The high-history GREEDY case and both THRIFTY cases differ
+at seed 1. Validity and active-region state match in all four cases. The
+library supplies the active allocations to the default policy and ignores
+the allocation mode and released-region history. [Known differences](known-differences.md#pinned-library-limitations)
 
 ### Q340. Does a BROAD explicit-policy match establish a random distribution?
 

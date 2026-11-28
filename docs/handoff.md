@@ -66,7 +66,7 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
 
 - [Testing guide](testing.md): metadata, compilation, runner options and
   contribution rules. [Results](results.md): evidence interpretation and
-  assembly. [Known differences](known-differences.md): all 467 spec-only cases.
+  assembly. [Known differences](known-differences.md): all 468 spec-only cases.
 - [Requirement guide](requirements.md), [scope](../coverage/scope.json),
   [ledger](../coverage/requirements.json), [assessments](../coverage/assessments.json) and [test index](../coverage/test_index.json):
   canonical M4 state. Generated inventories are review aids, not replacements
@@ -138,7 +138,7 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.054 / pinned UVM | 2232 runtime passes at seeds 1/73; 94 expected compile rejections; 459 known |
+| Verilator 5.054 / pinned UVM | 2231 runtime passes at seeds 1/73; 95 expected compile rejections; 460 known |
 | Verilator 5.054 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
 | Verilator 5.054 / command-line VPI and pinned regex DPI | Separate 23-case condition: 20 pass both seeds; 3 known at seed 1 |
 | Verilator 5.054 / listed ordinary fixtures with regex and command-line DPI | Separate 26-case condition: 26 pass both seeds |
@@ -146,7 +146,7 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 | Ghost / bundled UVM | 1078 unchanged cases: 205 pass and 873 fail at each seed; 1716 inputs unmeasured |
 | Ghost / pinned UVM | All 16 additions matched at both seeds. Including seven older four-state cases gives 22 of 23 matches per seed |
 
-The 459 ordinary known differences comprise 313 runtime mismatches at seed 1, 141 simulation build failures and five accepted illegal designs. The build failures include four predictor cases using unregistered packet types and one missing `UVM_PACKER_MIN_BITS` definition. The field-flag enum extension matches on 5.054. [Breakdown by execution condition](results.md#interpretation)
+The 460 ordinary known differences comprise 314 runtime mismatches (313 at seed 1 and one found in a wider seed sweep), 141 simulation build failures and five accepted illegal designs. The build failures include four predictor cases using unregistered packet types and one missing `UVM_PACKER_MIN_BITS` definition. The field-flag enum extension matches on 5.054. [Breakdown by execution condition](results.md#interpretation) · [GREEDY retest](history.md#2026-11-28-greedy-allocation-history)
 
 The 129th to 137th expansions implement the third review, made at 0da235a and supplied on 2026-11-20. The kirimasim runner passes `--timescale=1ns/1ps`, requires the stated exit code and reports the 61 `:uvm_dpi: yes` tests as unsupported, and every simulation test states `:expected_exit:` (129th). Check elaborates every test with slang against [`coverage/slang_frontend.json`](../coverage/slang_frontend.json), 91 entries (130th), and compares [`coverage/api_census.json`](../coverage/api_census.json) with the tests (131st). Ten tests use the declarations that no test used (132nd), small references were corrected (133rd), and five testbench-shaped tests run on RTL (134th to 137th); one of them, the reset sequence, is a new library difference. Thirty-one duties link to the fifteen new tests. Not done: the stale README references in the docstrings of `run_verilator.py`, `suite_results.py` and `uvm_common.py`, which wait for the next fingerprint change; tests in kirimasim-tests for the constructs that it lacks, which wait for the user. [`tools/full_output.py`](../tools/full_output.py) saves and compares whole outputs apart from the verdicts (140th). [History](history.md#129th-expansion-the-kirimasim-runner-and-the-exit-code-third-external-review-item-1) has each expansion.
 
@@ -235,9 +235,9 @@ controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
 The suite has 2794 tests (2694 simulation/100 elaboration). Ordinary results
-are 2327 matches: 2232 runtime inputs at both seeds and 95 compiler rejections.
-Known inputs total 459: 313 runtime seed 1 differences, 141 simulation builds
-and five accepted illegal designs without runtime; spec-only cases total 471
+are 2326 matches: 2231 runtime inputs at both seeds and 95 compiler rejections.
+Known inputs total 460: 314 runtime differences, 141 simulation builds
+and five accepted illegal designs without runtime; spec-only cases total 468
 with the eight four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
 is added to the ordinary totals. Current Ghost coverage and the excluded inputs are listed in [Evidence assembly](results.md#evidence-assembly).
@@ -249,14 +249,14 @@ approval remain open; [the progress guide](reading-guide.md#read-coverage-and-pr
 explains why matching conditions do not supply completion.
 
 Totals are 2794 (2694 simulation/100 elaboration): M1 1205 (1124/81), M2 639
-(631/8), M3 950 (939/11). Ordinary pass is 2327 (2232 runtime/95 rejections),
-with 459 known (313 runtime/141 builds/5 illegal acceptances). Ghost retains 1078 compatible records across the two seeds.
+(631/8), M3 950 (939/11). Ordinary pass is 2326 (2231 runtime/95 rejections),
+with 460 known (314 runtime/141 builds/5 illegal acceptances). Ghost retains 1078 compatible records across the two seeds.
 
 The former single Check never finished its whole selection after 2026-10-31:
 its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)
 not superseded by a newer push reached the 150-minute limit on all eight
 shards. Check now runs the changed tagged inputs and a canary, and
-[Regression](../.github/workflows/regression.yml) runs all 2327 tagged checks in
+[Regression](../.github/workflows/regression.yml) runs all 2326 tagged checks in
 20 disjoint shards with the 20 command-line checks and 26 regex-DPI variants; [the CI section](results.md#continuous-integration)
 gives the limits. Seeds 1/73, compiler-rejection judgment, pinned dependencies
 and runner fingerprints are unchanged. After a change that Check reports as

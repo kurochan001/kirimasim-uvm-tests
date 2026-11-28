@@ -19,7 +19,7 @@ seed 1／73で一致しても検査系は1件と数え、設定で指定したse
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.054・固定版UVM | `pass` 2327件：runtime 2232＋compile拒否95、`known` 459件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
+| Verilator 5.054・固定版UVM | `pass` 2326件：runtime 2231＋compile拒否95、`known` 460件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
 | Verilator 5.054・独自VPI HDL backend | `pass` 37件、`fail` 1件 | 重複する38件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.054・独自command-line VPI bridge・固定regex DPI | `pass` 20件、`known` 3件 | 重複する23件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.054・regex DPIとcommand-line DPIで再実行する通常検査系 | `pass` 26件 | `coverage/regex_dpi_variants.txt`による重複する26件の別条件。一致はseed 1／73 |
@@ -44,14 +44,16 @@ runtimeの出力差分では`reason`が最初に異なる選択行を示すた�
 
 ビルド失敗はシミュレーション開始前の停止、runtime差分はモデル実行中の不一致を表し、それぞれにどのseedの結果があるかは[Q14](faq.ja.md#q14-seedを2つ変えれば決定性や4値の動作も証明できますか)で説明しています。
 
-正当なnegative期待94件は宣言したfixture／type／memberの診断によるcompiler拒否で一致します。
+正当なnegative期待95件は宣言したfixture／type／memberの診断によるcompiler拒否で一致します。
 不正design 5件はsubscriberのwrite、visitorのvisit、proxyのget_immediate_children、adapterのacceptの欠落、印字virtual builtin dispatcherの直接生成を受理し、拒否oracleを既知差分として保持します。
 受理されてもruntimeは実行せず、simulationの予期しないbuild 141件は別です。passには宣言した期待との一致が必要です。
 
-これらの差分の原因は、下の症状の分類とは別に[原因の記録](known-differences.ja.md#既知差分の原因)で割り当てます。library 320件、interpretation 61件、simulator 21件、DPIの実行条件57件で、未分類の記録はありません。
+これらの差分の原因は、下の症状の分類とは別に[原因の記録](known-differences.ja.md#既知差分の原因)で割り当てます。library 321件、interpretation 61件、simulator 21件、DPIの実行条件57件で、未分類の記録はありません。
 
-測定したspecのみの459件は規格由来の出力またはcompile診断期待を保持し（4値のspecのみ8件にはVerilatorの記録がありません）、不正compiler受理5件とsimulation 454件です。
-simulationのうち313件はseed 1で最初に異なり、seed 73結果はありません。API／型名欠落build 43件はtime API 1、sequence-library API 14、HDL slice-view 12、named-concat constructor 1、object active-policy API 5、catcher message-handle 3、印刷されたbase記録状態getter 1、印刷report callback typedef 1、built-in type_id 2、typed resource-DB helper 3です。
+測定したspecのみの460件は規格由来の出力またはcompile診断期待を保持し（4値のspecのみ8件にはVerilatorの記録がありません）、不正compiler受理5件とsimulation 455件です。
+simulationのうち313件はseed 1で最初に異なり、seed 73結果はありません。下位履歴のGREEDYテストはseed 1・73で一致し、同じ条件のseed 2で不一致でした。 [GREEDYの再測定](history.ja.md#2026-11-28-greedyの割り当て履歴)
+
+API／型名欠落build 43件はtime API 1、sequence-library API 14、HDL slice-view 12、named-concat constructor 1、object active-policy API 5、catcher message-handle 3、印刷されたbase記録状態getter 1、印刷report callback typedef 1、built-in type_id 2、typed resource-DB helper 3です。
 
 time減算build 1件は省略可と印刷されたsecs引数を要求します。
 宣言build 2件は既定型の不一致で、別の2件は印刷all_dropped function／taskとclone暗黙scalar／map返却の食違いを保持します。
@@ -115,8 +117,8 @@ frontdoor／backdoorの転送動作の成功は示しません。
 u01の新しい段階0の入力1件は、uvm_pkgをimportし、UVM_LOWをimportとpackage名の両方から名指しするだけで、UVM objectを作らず、run_testも呼びません。最初の凍結のまま、tag付けの前後でseed 1／73が一致し、新しい義務1件で扱います。
 AI義務は4151件で、旧要求4150件と分類445件はすべて同一です。直接対応は2707テスト、control対応は158テスト、controlのみは56テストです。元の通常2755記録と旧既知463入力は全て維持します。新しい入力はM1に数えます。
 
-全体は2794テスト（simulation 2694／elaboration 100）です。通常一致は2327件で、runtime両seed 2232入力とcompiler拒否95件です。
-既知は459入力で、runtime seed 1差分313件、simulation build 141件、runtimeのない不正design受理5件です。specのみは4値の8入力を含めて467件です。
+全体は2794テスト（simulation 2694／elaboration 100）です。通常一致は2326件で、runtime両seed 2231入力とcompiler拒否95件です。
+既知は460入力で、runtime差分314件、simulation build 141件、runtimeのない不正design受理5件です。specのみは4値の8入力を含めて468件です。
 command-line条件は23検査系（pass 20、known 3）、regex-DPI変種の条件は26件（すべてpass）のままで、どちらも通常の総数へ加算しません。Ghost同梱方式の互換記録は1078件、未測定は1716入力（simulation 1616件、elaboration 100件）です。
 
 主引用がある番号は1328で、candidateは0件1159／目標未満765／2件以上558です。
@@ -230,7 +232,7 @@ Verilator jobは、基点の版から記録入力が変わった通常oracle付�
 pushのときの基点は、`main`で最後に成功したCheckのheadです。新しいpushで取り消されたrunや失敗したrunの検査が、次に選び直されるようにするためです。そのようなrunがなければ、直前のpushを基点にします。基点が得られない場合、runner・正規化・library lock・fetcher・reportの宣言・準備用actionが変わった場合、影響する検査が30件を超える場合はcanaryだけを実行し、Regressionを求める警告を出します。別のDPI条件でしか動かないfileが変わったときは、Checkが実行しないfileとして、別の警告で名前を挙げます。準備用actionは、復元またはbuildしたVerilatorが5.054と報告しなければ止まります。Verilator jobは、原因の記録にある再現例9個もbuildし直します。Checkの成功は選んだ検査だけの成功です。
 
 [Regression](../.github/workflows/regression.yml)は手動実行と毎週（土曜17:23 UTC）に動きます。
-タグ付き通常検査2327件（seed 1／73のruntime 2232・実行時seedなしのcompiler拒否95）を重複しない20 shard（117件が7、116件が13）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
+タグ付き通常検査2326件（seed 1／73のruntime 2231・実行時seedなしのcompiler拒否95）を重複しない20 shard（117件が6、116件が14）へ分け、Checkや他のrepositoryがhostedのjob枠を使えるよう同時実行は最大4、各job上限は360分です。
 別条件の明示command-line 20件とregex-DPI変種26件はそれぞれ別jobで実行し、gateは3つすべての成功を要求します。新しい要求は実行中のrunを取り消さずに待ちます。待てる要求は1つだけなので、さらに要求が来ると、待っていた要求が置き換わります。手動の実行は`tests/`の下のdirectoryに絞れます（入力`directories`）。そのときは計画のjobが、指定directoryのファイルを使う通常検査を選び、115件ごとに1 shard（端数切り上げ、上限20）を割り当てます。command-lineとregex-DPIのjobにも同じ条件を適用し、共有helperを使う他のdirectoryのテストも対象にします。毎週の実行は絞りません。
 
 以前の単一Checkはpushごとに全選択を実行していました。分割前の[実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は150分のjob上限を超え、その後の8 shard版も完了していません。
