@@ -7270,3 +7270,15 @@ The [GREEDY low-history fixture](../tests/u18/test_mam_greedy_fresh_low_history_
 Both simulators ran seeds 1–26, 73 and 231 with the pinned library. At least one of the eight requests overlapped the released region at 16 of the 28 seeds in Verilator 5.054 and 25 in Ghost. Both exited normally and matched the reservation, validity, active-region and cleanup checks at every seed. Verilator matched at seeds 1, 73 and 231 and differed at seed 2. Ghost differed at seeds 1 and 73 and matched at seed 231 in this sweep.
 
 The fixture keeps its expected output and moves to `spec` with a library cause. The ordinary runner reproduced the difference with the revised metadata and returned `known` for `--seeds 1 73 2`. The same kirimasim 0.2.1 build still reports the earlier unsupported construct.
+
+## 2026-11-28 Sequencer ownership and relevance
+
+The [new M2 sequencer test](../tests/u15/test_sequencer_owner_relevance_holds_peer_until_release.sv) queues an irrelevant owner and a relevant peer under an active lock, then repeats under an active grab. Neither request is available while the owner remains irrelevant. The owner becomes relevant, sends payload 11 and retains ownership after acknowledgement. The peer then sends payload 22 after explicit release. The fixture directly checks the two eligibility conditions of IEEE 1800.2-2020 §15.3.2.17 on the same pending request and checks both transfers through the pull port.
+
+Verilator 5.054 and Ghost with pinned Accellera UVM 2020.3.1 matched all observations at seeds 1 and 73. pyslang 12.1.0 elaborated the fixture. The existing kirimasim 0.2.1 build reports `uvm_object_wrapper` as unsupported while compiling the pinned library. The requirement ledger links the test directly and the bring-up index places it at stage 4. [Current measurements](results.md#current-snapshot)
+
+## 2026-11-28 Killing a child sequencer owner
+
+The [new M2 test](../tests/u15/test_sequencer_kill_of_gated_child_restores_parent_lock.sv) holds a parent lock and a nested child grab while the child waits for relevance. The parent and an unrelated peer have pending requests, and the driver is blocked on its first item. Killing only the child removes its grab and request and restores the parent as the current owner. The driver receives the parent's item 11, then receives the peer's item 22 once the parent unlocks. The fixture reopens the killed child's relevance gate before the second transfer so that a stale request can affect the observation. The expectations follow IEEE 1800.2-2020 §§15.3.2.16 and 14.2.5.11. This is the first primary citation of §15.3.2.16 in the suite.
+
+Verilator 5.054 and Ghost with pinned Accellera UVM 2020.3.1 matched at seeds 1 and 73. pyslang 12.1.0 elaborated the fixture. kirimasim 0.2.1 stopped on the existing unsupported `uvm_object_wrapper` type while compiling the library. The requirement ledger links all six expected observations and the test is registered at bring-up stage 4. [Current measurements](results.md#current-snapshot)

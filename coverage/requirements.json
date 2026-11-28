@@ -33190,6 +33190,92 @@
       ]
     },
     {
+      "id": "UVM-SEQUENCER-ACTIVE-OWNER-RELEVANCE",
+      "clause": "15.3.2.17",
+      "statement": {
+        "en": "One pending sequence must satisfy both relevance and lock or grab eligibility before the sequencer reports an available item.",
+        "ja": "シーケンサがアイテムありと報告するには、保留中の同一シーケンスが関連性とlockまたはgrabの許可をともに満たす必要がある。"
+      },
+      "conditions": {
+        "en": "An active owner with a pending item is irrelevant and an unrelated peer with a pending item is relevant. Enable the owner, acknowledge its item, then explicitly release ownership. Repeat with lock and grab.",
+        "ja": "保留アイテムを持つ所有者は関連性なし、保留アイテムを持つ別シーケンスは関連性ありとする。所有者を関連ありに切り替え、アイテムの完了を通知してから所有権を明示的に解放する。lockとgrabで繰り返す。"
+      },
+      "expected": {
+        "en": "No item is available until the owner becomes relevant. The owner sends 11 and retains ownership after completion. The peer remains blocked until release, then sends 22. The sequencer reports no further item after both complete.",
+        "ja": "所有者の関連性を有効にするまで利用可能なアイテムはない。所有者は11を送り、完了後も所有権を保持する。別シーケンスは解放までブロックされ、その後22を送る。両方の完了後に利用可能なアイテムはない。"
+      },
+      "limitations": {
+        "en": "Two unrelated running sequences and one explicit owner. Nested ownership, competing ownership requests and cancellation are outside these conditions.",
+        "ja": "実行中の独立した2シーケンスと明示的な所有者1つを対象とする。入れ子の所有権、所有権要求の競合、取消は別条件に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_owner_relevance_holds_peer_until_release",
+          "role": "direct",
+          "expected_observations": [
+            "UT: lock pending available 0 owner 1 owner_blocked 0 peer_blocked 1",
+            "UT: lock relevant available 1 peer_blocked 1",
+            "UT: lock first payload 11",
+            "UT: lock completed available 0 owner 1 peer_blocked 1",
+            "UT: lock released available 1 owner 0 peer_blocked 0",
+            "UT: lock second payload 22",
+            "UT: lock idle available 0 peer_completed 1",
+            "UT: grab pending available 0 owner 1 owner_blocked 0 peer_blocked 1",
+            "UT: grab relevant available 1 peer_blocked 1",
+            "UT: grab first payload 11",
+            "UT: grab completed available 0 owner 1 peer_blocked 1",
+            "UT: grab released available 1 owner 0 peer_blocked 0",
+            "UT: grab second payload 22",
+            "UT: grab idle available 0 peer_completed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-GATED-CHILD-KILL-RESTORES-PARENT",
+      "clause": "15.3.2.16",
+      "statement": {
+        "en": "When killing a child removes its nested grab, the parent that still holds a lock becomes the current owner.",
+        "ja": "子のkillで入れ子のgrabが取り除かれると、lockを保持する親が現在の所有者に戻る。"
+      },
+      "conditions": {
+        "en": "The parent holds a lock, its child holds a grab and waits for relevance, and an unrelated peer is also pending. Kill only the child while a driver is waiting.",
+        "ja": "親がlockを保持し、子はgrabを保持して関連性を待つ。無関係な別シーケンスの要求も保留する。ドライバが待機する間に子だけをkillする。"
+      },
+      "expected": {
+        "en": "The child stops and its grab and request are removed. The parent resumes with payload 11 and retains ownership after acknowledgement. The peer sends 22 after the parent unlocks, even after reopening the killed child's relevance gate.",
+        "ja": "子は停止し、grabと保留要求が取り除かれる。親は値11を送り、完了通知後も所有権を保持する。停止した子の関連性を有効にした後も、親のunlock後に届くのは別シーケンスの値22である。"
+      },
+      "limitations": {
+        "en": "One parent lock, one child grab, and one pending unrelated peer. This checks cancellation before any child item grant. Hook ordering and cancellation after a grant are outside these conditions.",
+        "ja": "親のlock、子のgrab、無関係な別シーケンスの保留要求を各1件扱う。子への許可前の取消を検査する。フックの順序と許可後の取消は別条件に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_kill_of_gated_child_restores_parent_lock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held child 1 lock 1 parent_blocked 1 peer_blocked 1 ready 0",
+            "UT: killed child_stopped 1 child_lock 0 child_completed 0",
+            "UT: parent payload 11 owner 1 peer_blocked 1 available 0",
+            "UT: released owner_null 1 peer_blocked 0 available 1",
+            "UT: peer payload 22",
+            "UT: idle available 0 peer_completed 1"
+          ]
+        }
+      ]
+    },
+    {
       "id": "UVM-PHASE-CONSTRUCTOR-DEFAULT-METADATA",
       "clause": "9.3.1.3.1",
       "statement": {

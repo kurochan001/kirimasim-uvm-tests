@@ -1,0 +1,6 @@
+UT: held child 1 lock 1 parent_blocked 1 peer_blocked 1 ready 0
+UT: killed child_stopped 1 child_lock 0 child_completed 0
+UT: parent payload 11 owner 1 peer_blocked 1 available 0
+UT: released owner_null 1 peer_blocked 0 available 1
+UT: peer payload 22
+UT: idle available 0 peer_completed 1

@@ -6,7 +6,7 @@ To locate a result's source, search this page for the filename portion of its te
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2794-test suite and the pinned Accellera UVM
+This describes the current 2796-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation; [the cause
 record](#causes-of-the-known-differences) assigns causes separately, with AI review.
@@ -644,7 +644,7 @@ A `static` entry carries the same evidence as a two-state entry, and its cause i
 
 `python3 tools/known_causes.py check` keeps the record equal to the tests: exactly one entry for each two-state test whose `:oracle:` lacks verilator@5.054, the current input fingerprint, library text that exists in the pinned files, clauses of 1800.2-2020 and controls that are tagged tests. A comment-only edit moves the fingerprint with `tools/code_identity.py refresh`, which first shows that the code is unchanged. With `--results`, the known records of a combined runner JSON must match the entries. `reproduce` rebuilds the reproducers and checks that Verilator still accepts or rejects them as recorded; Check runs both.
 
-For kirimasim, `summary` separates 2411 inputs that measure a simulator against the standard from 383 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes, including the one `static` entry); no input is unassigned. The measurable inputs are the 2326 tagged tests, the simulator and condition causes and the seven four-state tests without an entry. `candidates` lists the 404 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library. The classification is complete; adding such values would change the record's format, so it needs a proposal and the user's confirmation first.
+For kirimasim, `summary` separates 2413 inputs that measure a simulator against the standard from 383 inputs that the pinned library keeps from their expectation on any simulator (library and interpretation causes, including the one `static` entry); no input is unassigned. The measurable inputs are the 2328 tagged tests, the simulator and condition causes and the seven four-state tests without an entry. `candidates` lists the 404 entries for human review, interpretations first, then library and simulator causes. The record holds no output value of the pinned library. The classification is complete; adding such values would change the record's format, so it needs a proposal and the user's confirmation first.
 
 ## Pinned-library limitations
 
@@ -1261,7 +1261,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 2326 tests have the `verilator@5.054` oracle tag and 468
+Across the suite, 2328 tests have the `verilator@5.054` oracle tag and 468
 cases are spec-only, eight of them four-state. The 9.6 child-task kill fixture was a known
 difference on the pinned combination of Verilator 5.052, where the child performed its
 delayed write during a later phase; the 146th expansion's 5.054 measurement
@@ -1273,7 +1273,7 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. The cause record classifies this as a simulator difference. Its reproducer `class-event-trigger-then-reassign` triggers a class-member event and reassigns it in the same function.
 
 The 468 spec-only cases retain standard-derived expected output or compiler diagnostics; [the four-state list](#four-state-spec-only-tests) gives the eight four-state cases.
-The ordinary runner and the full Regression select 2326 tagged checks (2231 runtime and 95 compile rejections). With no explicit paths, `--all` also selects the 460 two-state spec-only cases and records mismatches or build failures as `known`.
+The ordinary runner and the full Regression select 2328 tagged checks (2233 runtime and 95 compile rejections). With no explicit paths, `--all` also selects the 460 two-state spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 313 cases establish their first difference
 at seed 1, without seed 73 results. The GREEDY low-history difference was
 found in a separate seed sweep. [GREEDY retest](history.md#2026-11-28-greedy-allocation-history)
@@ -1841,7 +1841,7 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The earlier field-configuration filter reduced 1083 compatible records to 1082. The subsequent reraise primary-citation filter reduced 1082 to 1081; this increment retains those records without another filter or guest run, and [the input-identity explanation](faq.md#q408-does-the-citation-repair-improve-guest-results-or-prove-clause-coverage) and [evidence assembly](results.md#evidence-assembly) distinguish the two stages.
 
-Ghost bundled mode has compatible records for 1078 inputs and 1716 inputs without a current measurement. Its bundled-library results contain 205 matches and 873 failures at each of seeds 1 and 73; the same tests fail at both seeds. The November 24 pinned-mode measurements cover the 16 additions and seven older four-state fixtures, with 22 matches at each seed. [Results and methodology](results.md)
+Ghost bundled mode has compatible records for 1078 inputs and 1718 inputs without a current measurement. Its bundled-library results contain 205 matches and 873 failures at each of seeds 1 and 73; the same tests fail at both seeds. The November 24 pinned-mode measurements cover the 16 additions and seven older four-state fixtures, with 22 matches at each seed. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
 cover the supplied library. Their mismatches do not distinguish a simulator
 problem from a library problem or establish results for the locked library.

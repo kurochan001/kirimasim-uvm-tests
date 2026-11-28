@@ -3586,6 +3586,10 @@
       "primary_clause": "15.5.2.3",
       "inputs_sha256": "f9bb7109f94533fc72b8bdebb87a06fa09bc6fc96d199d07ac18f4e581ed1975"
     },
+    "u15/test_sequencer_kill_of_gated_child_restores_parent_lock": {
+      "primary_clause": "15.3.2.16",
+      "inputs_sha256": "0bd2169871e973946d09bbea1d84219102294993c6c683dd8f5315deaaf1b140"
+    },
     "u15/test_sequencer_killing_one_sequence_preserves_other_response_route": {
       "primary_clause": "15.5.2.9",
       "inputs_sha256": "4e15a93a0c1a5db1ed1fa97d0d358a0dd06b4dd93a07d6a71bcffbe5ae57bc98"
@@ -3621,6 +3625,10 @@
     "u15/test_sequencer_nested_lock_selects_child_then_restores_parent": {
       "primary_clause": "15.3.2.8",
       "inputs_sha256": "b4f0a64b7c8490e4b7cee1811352ba4234db0f6a201e185bc34e757963b36a10"
+    },
+    "u15/test_sequencer_owner_relevance_holds_peer_until_release": {
+      "primary_clause": "15.3.2.17",
+      "inputs_sha256": "a1143e13899fa6577d338d984dd7f85640f38eaeae13f1a4a8263b055231a6a0"
     },
     "u15/test_sequencer_parent_lock_allows_child_items_before_unrelated_sequence": {
       "primary_clause": "15.3.2.8",

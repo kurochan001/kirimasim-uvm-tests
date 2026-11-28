@@ -2,7 +2,7 @@
 
 [日本語](handoff.ja.md) · [README](../README.md) · [Requirements](requirements.md)
 
-The November 24 addition covers configuration changes, pending requests, RTL register accesses and four-state events. [Regression details](history.md#2026-11-24-state-changes-and-outstanding-requests) and [current measurements](results.md#current-snapshot) describe the latest local results.
+The latest sequencer test kills a child during a relevance wait and checks that the parent's lock survives. [Child cancellation test](history.md#2026-11-28-killing-a-child-sequencer-owner) · [Current measurements](results.md#current-snapshot)
 
 This page supports resuming development; if you want to run or understand a first test, start with [the reading guide](reading-guide.md).
 
@@ -21,10 +21,10 @@ zero unlinked tests does not complete any milestone.
 | Area | Current snapshot |
 | --- | --- |
 | M1 | 1205 tests (1124 runtime, 81 elaboration): core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
-| M2 | 639 tests (631 runtime, 8 elaboration): sequences, sequencers, callbacks and TLM |
+| M2 | 641 tests (633 runtime, 8 elaboration): sequences, sequencers, callbacks and TLM |
 | M3 | 950 tests (939 runtime, 11 elaboration): register/memory layer and annex E |
-| Entire suite | 2794 tests (2694 simulation, 100 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 4187 AI requirement drafts; 4187 have direct links to 2738 tests; fifty-six control-only tests; zero tests without links |
+| Entire suite | 2796 tests (2696 simulation, 100 elaboration) in 22 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 4189 AI requirement drafts; 4189 have direct links to 2740 tests; fifty-six control-only tests; zero tests without links |
 | Normative inventory | 2062 of 2,507 identifiers partially decomposed; 445 explicitly assessed; 0 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
@@ -73,7 +73,7 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
   for these versioned inputs.
 - [Library lock](../third_party/uvm.lock): Accellera UVM 2020.3.1 at
   `78c06547a2a0`, 326 files. Fetch with the tracked tool; the library itself
-  is not committed. 2733 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
+  is not committed. 2735 fixtures use `UVM_NO_DPI`; thirty-eight explicitly request the original VPI HDL backend.
 - The user supplied `IEEE_Std_1800.2-2020.pdf` and
   `IEEE_Std_1800-2023_SystemVerilog.pdf` in the repository root. They are
   ignored local files, unavailable in a fresh clone, and must not be
@@ -109,7 +109,7 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The two slang commands need the pinned `pyslang` of [the slang elaboration check](testing.md#slang-elaboration). The checks cover the Python tool tests, metadata for all 2794 tests (2694 simulation, 100 elaboration),
+The two slang commands need the pinned `pyslang` of [the slang elaboration check](testing.md#slang-elaboration). The checks cover the Python tool tests, metadata for all 2796 tests (2696 simulation, 100 elaboration),
 ledger/index validation, the cause-record, report-declaration and stage checks, the slang elaboration, the API census, library integrity and current input fingerprints.
 A documentation-only change needs the paired-language and link checks described in [documentation maintenance](testing.md#documentation-maintenance), without rebuilding the entire suite.
 Current Ghost coverage and the excluded inputs are listed in [Evidence assembly](results.md#evidence-assembly).
@@ -138,13 +138,13 @@ A test can appear in both ordinary and backend measurements, so [the measurement
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.054 / pinned UVM | 2231 runtime passes at seeds 1/73; 95 expected compile rejections; 460 known |
+| Verilator 5.054 / pinned UVM | 2233 runtime passes at seeds 1/73; 95 expected compile rejections; 460 known |
 | Verilator 5.054 / original VPI HDL backend | Separate thirty-eight-case condition: thirty-seven pass at both seeds, one fails at seed 1 |
 | Verilator 5.054 / command-line VPI and pinned regex DPI | Separate 23-case condition: 20 pass both seeds; 3 known at seed 1 |
 | Verilator 5.054 / listed ordinary fixtures with regex and command-line DPI | Separate 26-case condition: 26 pass both seeds |
-| kirimasim 0.2.1 / pinned UVM | 99 expected compiler rejections, 2619 unsupported and 76 failures across all 2794 inputs |
-| Ghost / bundled UVM | 1078 unchanged cases: 205 pass and 873 fail at each seed; 1716 inputs unmeasured |
-| Ghost / pinned UVM | All 16 additions matched at both seeds. Including seven older four-state cases gives 22 of 23 matches per seed |
+| kirimasim 0.2.1 / pinned UVM | 99 expected compiler rejections, 2621 unsupported and 76 failures across 2796 inputs, assembled from local runs |
+| Ghost / bundled UVM | 1078 unchanged cases: 205 pass and 873 fail at each seed; 1718 inputs unmeasured |
+| Ghost / pinned UVM | 2314 pass and 482 fail at each seed, assembled from compatible local runs |
 
 The 460 ordinary known differences comprise 314 runtime mismatches (313 at seed 1 and one found in a wider seed sweep), 141 simulation build failures and five accepted illegal designs. The build failures include four predictor cases using unregistered packet types and one missing `UVM_PACKER_MIN_BITS` definition. The field-flag enum extension matches on 5.054. [Breakdown by execution condition](results.md#interpretation) · [GREEDY retest](history.md#2026-11-28-greedy-allocation-history)
 
@@ -234,29 +234,29 @@ objects and 445 assessments unchanged; 2707 tests have direct links, 158 have
 controls and 56 are control-only. All 2755 old ordinary records and 463 old
 known inputs remain unchanged. The new input counts as M1.
 
-The suite has 2794 tests (2694 simulation/100 elaboration). Ordinary results
-are 2326 matches: 2231 runtime inputs at both seeds and 95 compiler rejections.
+The suite has 2796 tests (2696 simulation/100 elaboration). Ordinary results
+are 2328 matches: 2233 runtime inputs at both seeds and 95 compiler rejections.
 Known inputs total 460: 314 runtime differences, 141 simulation builds
 and five accepted illegal designs without runtime; spec-only cases total 468
 with the eight four-state inputs. The command-line condition keeps 23 fixtures
 (20 pass, 3 known) and the regex-DPI variant condition 26 (all pass); neither
 is added to the ordinary totals. Current Ghost coverage and the excluded inputs are listed in [Evidence assembly](results.md#evidence-assembly).
 
-Primary-focused identifiers are 1328; candidates are 1159 zero/765 below
+Primary-focused identifiers are 1329; candidates are 1158 zero/766 below
 target/558 at least two. All 2062 partial identifiers, actual remaining
 conditions, original milestone targets, human review and scope/denominator
 approval remain open; [the progress guide](reading-guide.md#read-coverage-and-progress)
 explains why matching conditions do not supply completion.
 
-Totals are 2794 (2694 simulation/100 elaboration): M1 1205 (1124/81), M2 639
-(631/8), M3 950 (939/11). Ordinary pass is 2326 (2231 runtime/95 rejections),
+Totals are 2796 (2696 simulation/100 elaboration): M1 1205 (1124/81), M2 641
+(633/8), M3 950 (939/11). Ordinary pass is 2328 (2233 runtime/95 rejections),
 with 460 known (314 runtime/141 builds/5 illegal acceptances). Ghost retains 1078 compatible records across the two seeds.
 
 The former single Check never finished its whole selection after 2026-10-31:
 its one [run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/42121591333)
 not superseded by a newer push reached the 150-minute limit on all eight
 shards. Check now runs the changed tagged inputs and a canary, and
-[Regression](../.github/workflows/regression.yml) runs all 2326 tagged checks in
+[Regression](../.github/workflows/regression.yml) runs all 2328 tagged checks in
 20 disjoint shards with the 20 command-line checks and 26 regex-DPI variants; [the CI section](results.md#continuous-integration)
 gives the limits. Seeds 1/73, compiler-rejection judgment, pinned dependencies
 and runner fingerprints are unchanged. After a change that Check reports as
@@ -520,8 +520,11 @@ word-unit, sole-map null-default and pre-lock field-name differences.
 Continue register frontdoors/backdoors, coverage, field/memory declarations,
 adapter/predictor callbacks and lifecycle/concurrent access conditions.
 
-Useful next candidates include report reset/filter interactions, active
-lock/grab ownership with relevance, sequence-library mode execution and
+Direct checks now cover an irrelevant lock or grab owner with a relevant peer,
+and cancellation of a child waiting for relevance under its grab and its
+parent's lock. Cancellation after an item grant remains open. [Ownership and relevance](history.md#2026-11-28-sequencer-ownership-and-relevance) · [Child cancellation](history.md#2026-11-28-killing-a-child-sequencer-owner)
+
+Useful next candidates include report reset/filter interactions, sequence-library mode execution and
 unbound applicability, independent one-way adapter lane/byte-order obligations
 and adapter parent-sequence conditions. Missing catcher APIs and partial-byte
 valid-bit reconstruction remain separate review work.

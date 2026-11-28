@@ -2,7 +2,9 @@
 
 [English](#english)
 
-**最新の引き継ぎ**。11月28日にGhostの43件の修正確認が完了しました。今後の定期回帰で照合するライブラリ方式の基準は、各シード2,311件通過、483件失敗です。 [修正後の確認と基準](docs/ghost-dual-handoff.ja.md#修正後の確認)
+**テストスイートの開発**。関連性を待つ子を取り消しても親のロックが残ることを、M2の追加テストで確認しました。 [追加内容と検証結果](docs/history.ja.md#2026-11-28-シーケンサの所有権を持つ子の取消) · [残作業と優先候補](docs/handoff.ja.md#残作業と優先候補)
+
+**Ghostのライブラリ方式**。11月28日に43件の修正を確認しました。定期回帰の比較基準は、入力指紋を照合した合算で各シード2,314件通過、482件不一致です。 [修正後の確認と基準](docs/ghost-dual-handoff.ja.md#修正後の確認)
 
 以下は11月26日のライブラリ方式の再測定記録です。
 
@@ -39,7 +41,9 @@ tail -n 10 "$run/full.err"
 
 ## English
 
-**Latest handoff.** On November 28, the Ghost retest verified all 43 fixes. The library-mode baseline for future routine runs is 2,311 passes and 483 failures per seed. [Verification results and baseline](docs/ghost-dual-handoff.md#verification-after-the-fixes)
+**Test-suite development.** The latest M2 test checks that canceling a child during its relevance wait preserves the parent's lock. [New test and verification](docs/history.md#2026-11-28-killing-a-child-sequencer-owner) · [Remaining work](docs/handoff.md#remaining-work-and-suggested-order)
+
+**Ghost library mode.** On November 28, the Ghost retest verified all 43 fixes. The assembled library-mode baseline for routine runs is 2,314 passes and 482 failures per seed. [Verification results and baseline](docs/ghost-dual-handoff.md#verification-after-the-fixes)
 
 The notes below cover the November 26 library-mode retest.
 

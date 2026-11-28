@@ -1,0 +1,14 @@
+UT: lock pending available 0 owner 1 owner_blocked 0 peer_blocked 1
+UT: lock relevant available 1 peer_blocked 1
+UT: lock first payload 11
+UT: lock completed available 0 owner 1 peer_blocked 1
+UT: lock released available 1 owner 0 peer_blocked 0
+UT: lock second payload 22
+UT: lock idle available 0 peer_completed 1
+UT: grab pending available 0 owner 1 owner_blocked 0 peer_blocked 1
+UT: grab relevant available 1 peer_blocked 1
+UT: grab first payload 11
+UT: grab completed available 0 owner 1 peer_blocked 1
+UT: grab released available 1 owner 0 peer_blocked 0
+UT: grab second payload 22
+UT: grab idle available 0 peer_completed 1
